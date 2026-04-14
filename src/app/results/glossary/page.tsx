@@ -18,13 +18,22 @@ export const metadata: Metadata = {
 }
 
 /* ── Validation data shortcuts ── */
-const b = validationData.Barriers
-const r = validationData.Readiness
-const m = validationData.Maturity
-const htmt = validationData.htmt
-const fl = validationData.fornell_larcker
-const fa = validationData.factor_analysis
-const b4 = validationData.barriers_4f_cfa
+// Support both per-sample format (post-#1544) and legacy flat format
+const _vd = validationData as Record<string, unknown>
+const _sample =
+  'samples' in _vd && Array.isArray(_vd.samples)
+    ? ((_vd.samples as Record<string, unknown>[]).find(
+        (s) => s.key === (_vd.primary_sample as string)
+      ) ?? (_vd.samples as Record<string, unknown>[])[0])
+    : _vd
+const b = _sample.Barriers as (typeof validationData)['samples'][number]['Barriers']
+const r = _sample.Readiness as (typeof validationData)['samples'][number]['Readiness']
+const m = _sample.Maturity as (typeof validationData)['samples'][number]['Maturity']
+const htmt = _sample.htmt as (typeof validationData)['samples'][number]['htmt']
+const fl = _sample.fornell_larcker as (typeof validationData)['samples'][number]['fornell_larcker']
+const fa = _sample.factor_analysis as (typeof validationData)['samples'][number]['factor_analysis']
+const b4 = _sample.barriers_4f_cfa as (typeof validationData)['samples'][number]['barriers_4f_cfa']
+const _metadata = _sample.metadata as (typeof validationData)['samples'][number]['metadata']
 
 /** Format a number without leading zero, e.g. 0.873 → ".873". Returns "N/A" if null. */
 const f3 = (v: number | null | undefined) => (v != null ? v.toFixed(3).replace(/^0/, '') : 'N/A')
@@ -209,7 +218,7 @@ const ENTRIES: GlossaryEntry[] = [
       'AVE = Σλ²ᵢ / k, where λᵢ are the standardized factor loadings and k is the number of items. This is the mean of the squared loadings - the average communality.',
     thresholds:
       '≥ 0.50 indicates that the construct explains more variance in its items than error does. When AVE < 0.50 but CR > 0.70, convergent validity is "adequate" per Fornell & Larcker (1981). Below 0.50 is common in broad, multi-faceted constructs with many items.',
-    tabsContext: `Barriers AVE = ${f3(b.ave)}, Readiness AVE = ${f3(r.ave)}, Maturity AVE = ${f3(m.ave)}. All below the ideal .50, but all have CR > .80. The 18-item Barriers scale measures diverse barrier types, naturally reducing AVE. Maturity (${validationData.metadata.n_maturity} homogeneous items) is closest to the threshold.`,
+    tabsContext: `Barriers AVE = ${f3(b.ave)}, Readiness AVE = ${f3(r.ave)}, Maturity AVE = ${f3(m.ave)}. All below the ideal .50, but all have CR > .80. The 18-item Barriers scale measures diverse barrier types, naturally reducing AVE. Maturity (${_metadata.n_maturity} homogeneous items) is closest to the threshold.`,
   },
   {
     id: 'htmt',

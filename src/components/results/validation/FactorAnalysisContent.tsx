@@ -22,7 +22,8 @@ type LegacyValidationData = {
   [key: string]: unknown
 }
 
-type AnyValidationData = NormalizedData | LegacyValidationData
+/** Widened to accept JSON imports whose inferred types don't exactly match. */
+type AnyValidationData = Record<string, unknown>
 
 type SampleEntry = {
   key: string
@@ -34,7 +35,7 @@ type SampleEntry = {
   Barriers: Record<string, unknown>
   factor_analysis: {
     barrier_names: string[]
-    loadings_matrix: Array<{ id: string; f1: number; f2: number; assigned: string }>
+    loadings_matrix: Array<{ id: string; f1: number; f2?: number; assigned: string }>
     efa_factors: Array<{ name: string; items: number; eigenvalue: number; variance_pct: number }>
     three_groups: Array<{
       name: string
@@ -44,7 +45,7 @@ type SampleEntry = {
       cr: number
       ave: number
     }>
-    factor_correlation: number
+    factor_correlation: number | null
   }
   metadata: {
     n_total: number
@@ -64,9 +65,9 @@ type NormalizedData = {
 
 function normalizeData(data: AnyValidationData): NormalizedData {
   if ('samples' in data && Array.isArray(data.samples)) {
-    return data as NormalizedData
+    return data as unknown as NormalizedData
   }
-  const legacy = data as LegacyValidationData
+  const legacy = data as unknown as LegacyValidationData
   const isCrp = legacy.metadata?.crp200_mode ?? false
   return {
     samples: [
@@ -231,8 +232,8 @@ export function FactorAnalysisContent({ data, variant }: Props) {
     [fa]
   )
 
-  const getDominantFactor = (row: { f1: number; f2: number }) =>
-    Math.abs(row.f1) >= Math.abs(row.f2) ? 'F1' : 'F2'
+  const getDominantFactor = (row: { f1: number; f2?: number }) =>
+    row.f2 != null && Math.abs(row.f2) > Math.abs(row.f1) ? 'F2' : 'F1'
 
   const EFA_FACTORS = useMemo(
     () =>
@@ -375,10 +376,11 @@ export function FactorAnalysisContent({ data, variant }: Props) {
           <h2 className={H2_CLASSES}>Level 2: EFA-Derived Structure (2 Factors)</h2>
           <p className={PARAGRAPH_CLASSES}>
             Horn&rsquo;s Parallel Analysis compared actual eigenvalues against the 95th percentile
-            of random-data eigenvalues and retained exactly two factors. The two factors explain a
-            cumulative {(efa.total_variance * 100).toFixed(1)}% of variance. Factor correlations (r
-            = {fa.factor_correlation.toFixed(3).replace(/^(-?)0\./, '$1.')}) confirm the oblique
-            rotation was appropriate.
+            of random-data eigenvalues and retained{' '}
+            {fa.efa_factors.length === 1 ? 'one factor' : `${fa.efa_factors.length} factors`}.
+            {hasTwoFactors
+              ? ` The two factors explain a cumulative ${(efa.total_variance * 100).toFixed(1)}% of variance. Factor correlations (r = ${fa.factor_correlation!.toFixed(3).replace(/^(-?)0\./, '$1.')}) confirm the oblique rotation was appropriate.`
+              : ` The single factor explains ${(efa.total_variance * 100).toFixed(1)}% of variance.`}
           </p>
 
           <div className="overflow-x-auto mb-6">
@@ -560,9 +562,11 @@ export function FactorAnalysisContent({ data, variant }: Props) {
                   <th scope="col" className="text-right px-2 py-1.5 border">
                     F1 Loading
                   </th>
-                  <th scope="col" className="text-right px-2 py-1.5 border">
-                    F2 Loading
-                  </th>
+                  {hasTwoFactors && (
+                    <th scope="col" className="text-right px-2 py-1.5 border">
+                      F2 Loading
+                    </th>
+                  )}
                   <th scope="col" className="text-center px-2 py-1.5 border">
                     Assigned
                   </th>
@@ -574,8 +578,8 @@ export function FactorAnalysisContent({ data, variant }: Props) {
                     const aDom = getDominantFactor(a)
                     const bDom = getDominantFactor(b)
                     if (aDom !== bDom) return aDom === 'F1' ? -1 : 1
-                    const aMag = aDom === 'F1' ? Math.abs(a.f1) : Math.abs(a.f2)
-                    const bMag = bDom === 'F1' ? Math.abs(b.f1) : Math.abs(b.f2)
+                    const aMag = aDom === 'F1' ? Math.abs(a.f1) : Math.abs(a.f2 ?? 0)
+                    const bMag = bDom === 'F1' ? Math.abs(b.f1) : Math.abs(b.f2 ?? 0)
                     return bMag - aMag
                   })
                   .map((row, i) => {
@@ -592,11 +596,13 @@ export function FactorAnalysisContent({ data, variant }: Props) {
                         >
                           {row.f1.toFixed(3)}
                         </td>
-                        <td
-                          className={`text-right px-2 py-1 border ${dom === 'F2' ? 'font-bold text-pink-700' : 'text-gray-400'}`}
-                        >
-                          {row.f2.toFixed(3)}
-                        </td>
+                        {hasTwoFactors && (
+                          <td
+                            className={`text-right px-2 py-1 border ${dom === 'F2' ? 'font-bold text-pink-700' : 'text-gray-400'}`}
+                          >
+                            {(row.f2 ?? 0).toFixed(3)}
+                          </td>
+                        )}
                         <td className="text-center px-2 py-1 border">
                           <span
                             className={`px-2 py-0.5 rounded text-xs font-bold ${dom === 'F1' ? 'bg-indigo-100 text-indigo-700' : 'bg-pink-100 text-pink-700'}`}

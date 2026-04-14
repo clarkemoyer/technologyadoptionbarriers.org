@@ -76,7 +76,8 @@ type ValidationDataLegacy = {
   [key: string]: unknown
 }
 
-type AnyValidationData = ValidationDataNew | ValidationDataLegacy
+/** Widened to accept JSON imports whose inferred types don't exactly match. */
+type AnyValidationData = Record<string, unknown>
 
 /* ══════════════════════════════════════════════════════════════════
    DATA NORMALIZATION (handles old flat format + new per-sample format)
@@ -84,10 +85,10 @@ type AnyValidationData = ValidationDataNew | ValidationDataLegacy
 
 function normalizeValidationData(data: AnyValidationData): ValidationDataNew {
   if ('samples' in data && Array.isArray(data.samples)) {
-    return data as ValidationDataNew
+    return data as unknown as ValidationDataNew
   }
   // Legacy flat format: wrap in single-sample structure
-  const legacy = data as ValidationDataLegacy
+  const legacy = data as unknown as ValidationDataLegacy
   const isCrp = legacy.metadata?.crp200_mode ?? false
   const entry: SampleEntry = {
     ...(legacy as unknown as SampleEntry),
