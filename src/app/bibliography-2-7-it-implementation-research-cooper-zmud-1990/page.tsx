@@ -143,9 +143,9 @@ const CooperZmudPage = () => {
           <h2 className={H2_CLASSES}>Core Concepts and Definitions</h2>
           <p className={PARAGRAPH_CLASSES}>
             The Cooper-Zmud model rests on two foundational concepts. First, IT implementation is a
-            staged process-organizations do not move from no-adoption to full adoption in a single
+            staged process - organizations do not move from no-adoption to full adoption in a single
             step but progress through distinct phases with different challenges and success factors.
-            Second, task-technology compatibility is central to implementation success-the fit
+            Second, task-technology compatibility is central to implementation success - the fit
             between the capabilities of the technology and the characteristics of the work to be
             done determines whether adoption is likely and whether it succeeds.
           </p>

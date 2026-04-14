@@ -142,7 +142,7 @@ const CMMIPage = () => {
           <h2 className={H2_CLASSES}>Core Concepts and Definitions</h2>
           <p className={PARAGRAPH_CLASSES}>
             CMMI introduces a rich conceptual vocabulary for process improvement. At its core are
-            <strong> process areas (PAs)</strong>-clusters of related practices that, when
+            <strong> process areas (PAs)</strong> - clusters of related practices that, when
             implemented collectively, achieve a set of goals important to process improvement. Each
             process area has <strong>specific goals</strong> with associated specific practices, and{' '}
             <strong>generic goals</strong> that apply across all process areas to institutionalize
@@ -168,8 +168,8 @@ const CMMIPage = () => {
             <li>
               <strong>Level 3 - Defined:</strong> Standard processes are developed for the
               organization and tailored for use on individual projects. Organizational process
-              assets-standard processes, process libraries, training materials-are maintained and
-              leveraged across projects.
+              assets - standard processes, process libraries, training materials - are maintained
+              and leveraged across projects.
             </li>
             <li>
               <strong>Level 4 - Quantitatively Managed:</strong> Processes are measured and

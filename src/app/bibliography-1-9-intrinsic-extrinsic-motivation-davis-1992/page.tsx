@@ -581,8 +581,8 @@ const BibliographyArticlePage = () => {
                 technologies offer clear performance benefits (high extrinsic motivation) and
                 require manageable effort (favorable ease perception), users finding technology
                 inherently uninteresting experience reduced motivation for sustained adoption.
-                Technologies with poor user experiences -unattractive interfaces, unresponsive
-                interactions, or frustrating workflows-undermine intrinsic motivation. Tasks
+                Technologies with poor user experiences - unattractive interfaces, unresponsive
+                interactions, or frustrating workflows - undermine intrinsic motivation. Tasks
                 involving repetitive, routine computer work might offer no novelty or engagement
                 opportunity, creating intrinsic motivation barriers regardless of instrumental
                 benefits. Intrinsic motivation barriers additionally include lack of autonomy and

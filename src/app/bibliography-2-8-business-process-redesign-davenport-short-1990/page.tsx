@@ -264,16 +264,16 @@ const DavenportShortBPRPage = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>IT Technology Span:</strong> The case examples involved different IT
-            technologies-telecommunications systems, database systems, personal computers with
-            information access capabilities-demonstrating that redesign principles apply across
+            technologies - telecommunications systems, database systems, personal computers with
+            information access capabilities - demonstrating that redesign principles apply across
             technology platforms rather than being dependent on specific systems.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Theoretical Grounding:</strong> By grounding the model in established industrial
             engineering principles and extending them to IT-enabled contexts, the authors draw on a
             well-established theoretical tradition. The framework&rsquo;s acknowledgment of
-            contingencies-particular process characteristics, organizational capability, IT
-            infrastructure, and market conditions-adds nuance without undermining the general
+            contingencies - particular process characteristics, organizational capability, IT
+            infrastructure, and market conditions - adds nuance without undermining the general
             applicability of the core principles.
           </p>
 

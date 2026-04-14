@@ -96,7 +96,7 @@ const TOEFrameworkPage = () => {
             The TOE framework was created to provide organizational technology researchers and
             practitioners with a conceptually clear, empirically grounded model that captured the
             full complexity of organizational adoption contexts. By identifying three primary
-            domains-technological, organizational, and environmental-the framework offered
+            domains - technological, organizational, and environmental - the framework offered
             researchers a systematic way to organize their inquiries and identify relevant
             variables.
           </p>
