@@ -246,26 +246,16 @@ To improve performance, we preconnect to frequently used domains:
 
 As part of the [AAIF](https://lfaidata.foundation/) lifecycle, TABS maintains strict governance over external dependencies and AI integrations.
 
-### npm & GitHub Actions Dependencies (Automated via Dependabot)
+### Quarterly Freshness Audit (Last Check: April 12, 2026)
 
-npm packages and GitHub Actions versions are tracked automatically by [Dependabot](https://docs.github.com/en/code-security/dependabot). Configuration is in `.github/dependabot.yml`. See [DEPENDABOT.md](./DEPENDABOT.md) for full details.
+The following dependencies were identified as outdated or missing during the current quarterly audit:
 
-- **Schedule**: Weekly (Mondays 09:00 UTC)
-- **PRs**: Open PRs are labeled `dependencies` + `npm` or `github-actions`
-- **Grouping**: Minor/patch updates are grouped; major updates get individual PRs for careful review
-- **Security**: Immediate PRs for known vulnerabilities (bypasses weekly schedule)
-- **Tracking**: View open Dependabot PRs at [github.com/clarkemoyer/technologyadoptionbarriers.org/pulls?q=is:pr+label:dependencies](https://github.com/clarkemoyer/technologyadoptionbarriers.org/pulls?q=is%3Apr+label%3Adependencies)
-
-### Non-npm Dependencies (Manual Quarterly Review)
-
-The following dependencies are **not** tracked by Dependabot and require manual quarterly review:
-
-| Dependency           | Where Pinned                                                      | How to Check                                                              |
-| -------------------- | ----------------------------------------------------------------- | ------------------------------------------------------------------------- |
-| MCP server versions  | `.vscode/mcp.json`, `claude_desktop_config.json`                  | Check MCP server repos for new releases                                   |
-| Python tools (`uvx`) | Inline in workflows and CLAUDE.md (e.g., `pyzotero[mcp]==1.11.0`) | `pip index versions <package>`                                            |
-| `gh` CLI             | System install                                                    | `gh --version` vs [cli/cli releases](https://github.com/cli/cli/releases) |
-| MCP protocol SEPs    | Referenced in CLAUDE.md                                           | [modelcontextprotocol.io/seps](https://modelcontextprotocol.io/seps)      |
+| Package        | Status   | Latest | Action                          |
+| -------------- | -------- | ------ | ------------------------------- |
+| `next`         | Outdated | 16.2.3 | Plan upgrade to 16.2.3          |
+| `react`        | Outdated | 19.2.5 | Coordinate with Next.js upgrade |
+| `postcss`      | Outdated | 8.5.9  | Upgrade recommended             |
+| `lucide-react` | Outdated | 1.8.0  | Upgrade recommended             |
 
 ### MCP & API Governance Policy
 

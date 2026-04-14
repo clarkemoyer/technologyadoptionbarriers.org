@@ -1,77 +1,1333 @@
 'use client'
 
-import React from 'react'
+import React, { useState, useEffect, useMemo, useRef } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { FiMenu } from 'react-icons/fi'
+import { RxCross2 } from 'react-icons/rx'
 import SearchInput from '@/components/search/search-input'
+import { motion, AnimatePresence } from 'framer-motion'
+import { technologyAdoptionModelsSeries } from '@/data/technology-adoption-models-series'
+import {
+  technologyAdoptionTeachingSeries,
+  technologyAdoptionTeachingSeriesResources,
+} from '@/data/technology-adoption-teaching-series'
 import { TABS_WEBSITE_QUALTRICS_SURVEY_URL } from '@/lib/tabs-survey'
-import { useSidebar } from '@/components/sidebar/sidebar-context'
-
+import { personaNavigation } from '@/data/persona-navigation'
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const TAKE_TABS_URL = TABS_WEBSITE_QUALTRICS_SURVEY_URL
 
-/**
- * Slim header bar - Logo + Search + CTA.
- *
- * All page-level navigation has moved to the persistent Sidebar component.
- * Mobile: hamburger in the header opens sidebar overlay.
- * Desktop: sidebar is always visible; no hamburger needed.
- */
+interface MenuItem {
+  label: string
+  path: string
+  hasMegaMenu?: boolean
+  megaMenuId?: string
+  children?: Array<{
+    label: string
+    path: string
+    isGroupHeader?: boolean
+    isDivider?: boolean
+  }>
+}
+
+const SCROLL_OFFSET = 100
+
 const Header: React.FC = () => {
-  const { openMobile } = useSidebar()
+  const [isScrolled, setIsScrolled] = useState(false)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [activeMegaMenu, setActiveMegaMenu] = useState<string | null>(null)
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null)
+  const [isMobileBranch1Open, setIsMobileBranch1Open] = useState(false)
+  const [isMobileBranch2Open, setIsMobileBranch2Open] = useState(false)
+  const [mobileTeachingPartsOpen, setMobileTeachingPartsOpen] = useState<Record<string, boolean>>(
+    {}
+  )
+  const [isMobileTeachingBackupOpen, setIsMobileTeachingBackupOpen] = useState(false)
+  const [isMobileTeachingResourcesOpen, setIsMobileTeachingResourcesOpen] = useState(false)
+  const [isMobileIndividualsOpen, setIsMobileIndividualsOpen] = useState(false)
+  const [isMobileOrganizationsOpen, setIsMobileOrganizationsOpen] = useState(false)
+  const [mobileOpenDropdown, setMobileOpenDropdown] = useState<string | null>(null)
+  const [activeSection, setActiveSection] = useState<string>('')
+  const megaMenuRef = useRef<HTMLDivElement>(null)
+  const activeMegaMenuButtonRef = useRef<HTMLLIElement | null>(null)
+  const dropdownMenuRef = useRef<HTMLDivElement>(null)
+  const dropdownButtonRef = useRef<HTMLLIElement>(null)
+
+  useEffect(() => {
+    if (!activeMegaMenu) activeMegaMenuButtonRef.current = null
+  }, [activeMegaMenu])
+
+  const teachingSeriesParts = useMemo(() => technologyAdoptionTeachingSeries.parts, [])
+
+  const teachingSeriesCoreSlidesByPart = useMemo(
+    () =>
+      technologyAdoptionTeachingSeries.parts.map((part) =>
+        part.slides.filter((slide) => !slide.isOptional)
+      ),
+    []
+  )
+
+  const teachingSeriesBackupSlides = useMemo(
+    () =>
+      technologyAdoptionTeachingSeries.parts.flatMap((part) =>
+        part.slides.filter((slide) => slide.isOptional)
+      ),
+    []
+  )
+
+  const menuItems: MenuItem[] = useMemo(
+    () => [
+      { label: 'Home', path: '/' },
+      {
+        label: 'Tech Adoption Barriers',
+        path: '/barriers',
+        children: [{ label: 'All Barriers', path: '/barriers' }],
+      },
+      {
+        label: 'Results',
+        path: '/results',
+        children: [
+          { label: 'CRP 2026 Dataset', path: '/results/crp-2026', isGroupHeader: true },
+          { label: 'CRP Overview & Download', path: '/results/crp-2026' },
+          { label: 'CRP Sample & Demographics', path: '/results/crp-2026/sample' },
+          { label: 'CRP Descriptive Statistics', path: '/results/crp-2026/descriptive' },
+          { label: 'CRP Scale Reliability', path: '/results/crp-2026/reliability' },
+          { label: 'CRP Sensitivity Analysis', path: '/results/crp-2026/sensitivity' },
+          { label: 'CRP Key Findings', path: '/results/crp-2026/findings' },
+          { label: 'CRP Data Quality', path: '/results/crp-2026/data-quality' },
+          { label: '', path: '', isDivider: true },
+          { label: 'Live Results (Updated Daily)', path: '/results', isGroupHeader: true },
+          { label: 'Results Overview', path: '/results' },
+          { label: 'Sample & Demographics', path: '/results/sample' },
+          { label: 'Data Quality Pipeline', path: '/results/data-quality' },
+          { label: 'Descriptive Statistics', path: '/results/descriptive' },
+          { label: 'Scale Reliability', path: '/results/reliability' },
+          { label: 'Sensitivity Analysis', path: '/results/sensitivity' },
+          { label: 'Key Findings', path: '/results/findings' },
+          { label: 'Survey Statistics', path: '/results/survey-stats' },
+          { label: 'Prolific Dashboard', path: '/results/dashboard' },
+          { label: 'CMO Survey Comparison', path: '/results/cmo-survey' },
+          { label: 'Open Data & Reproducibility', path: '/results/reproducibility' },
+        ],
+      },
+      {
+        label: 'The Making of TABS',
+        path: '/making-of-tabs',
+        children: [
+          { label: 'Overview', path: '/making-of-tabs' },
+          { label: 'TABS Presentation', path: '/making-of-tabs/tabs-presentation' },
+          { label: 'Technical Integrations', path: '/making-of-tabs/integrations' },
+          { label: 'AI-Assisted Development', path: '/making-of-tabs/ai-assisted-development' },
+          { label: 'AI Validity Checks', path: '/making-of-tabs/ai-validity-checks' },
+          { label: 'Development Workflow', path: '/making-of-tabs/development-workflow' },
+          { label: 'Accessibility', path: '/making-of-tabs/accessibility' },
+          { label: 'Open Source & Community', path: '/making-of-tabs/open-source' },
+          { label: 'Content Architecture', path: '/making-of-tabs/content-architecture' },
+          { label: 'SEO Benchmarking', path: '/making-of-tabs/seo' },
+        ],
+      },
+      {
+        label: 'See Yourself',
+        path: '/start',
+        hasMegaMenu: true,
+        megaMenuId: 'personas',
+      },
+      {
+        label: 'Technology Adoption Models',
+        path: '/technology-adoption-models',
+        hasMegaMenu: true,
+        megaMenuId: 'models',
+      },
+      {
+        label: 'Technology Adoption Teaching Series',
+        path: '/technology-adoption-series',
+        hasMegaMenu: true,
+        megaMenuId: 'teaching-series',
+      },
+      { label: 'Media', path: '/media' },
+      { label: 'FAQ', path: '/faq' },
+      { label: 'Get Involved', path: '/get-involved' },
+    ],
+    []
+  )
+
+  const sections = useMemo(
+    () =>
+      menuItems.map((item) => item.path.replace('/#', '')).filter((section) => section !== 'hero'),
+    [menuItems]
+  )
+
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 50)
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  // Track active section based on scroll position
+  useEffect(() => {
+    const handleScrollSpy = () => {
+      const scrollPosition = window.scrollY + SCROLL_OFFSET
+
+      for (const sectionId of sections) {
+        const element = document.getElementById(sectionId)
+        if (element) {
+          const offsetTop = element.offsetTop
+          const offsetBottom = offsetTop + element.offsetHeight
+          if (scrollPosition >= offsetTop && scrollPosition < offsetBottom) {
+            setActiveSection(sectionId)
+            return
+          }
+        }
+      }
+      // If at the top, set home as active
+      if (window.scrollY < SCROLL_OFFSET) {
+        setActiveSection('')
+      }
+    }
+
+    window.addEventListener('scroll', handleScrollSpy)
+    return () => window.removeEventListener('scroll', handleScrollSpy)
+  }, [sections])
+
+  // Close mega menu on outside click
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        activeMegaMenu &&
+        megaMenuRef.current &&
+        !megaMenuRef.current.contains(event.target as Node) &&
+        activeMegaMenuButtonRef.current &&
+        !activeMegaMenuButtonRef.current.contains(event.target as Node)
+      ) {
+        setActiveMegaMenu(null)
+      }
+
+      if (
+        openDropdown &&
+        dropdownMenuRef.current &&
+        !dropdownMenuRef.current.contains(event.target as Node) &&
+        dropdownButtonRef.current &&
+        !dropdownButtonRef.current.contains(event.target as Node)
+      ) {
+        setOpenDropdown(null)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [activeMegaMenu, openDropdown])
+
+  // Handle keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && activeMegaMenu) {
+        setActiveMegaMenu(null)
+        // Return focus to the button
+        activeMegaMenuButtonRef.current?.querySelector('button')?.focus()
+      }
+
+      if (event.key === 'Escape' && openDropdown) {
+        setOpenDropdown(null)
+        dropdownButtonRef.current?.querySelector('button')?.focus()
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [activeMegaMenu, openDropdown])
+
+  const handleLinkClick = () => {
+    setIsMobileMenuOpen(false)
+    setActiveMegaMenu(null)
+    setOpenDropdown(null)
+    setIsMobileBranch1Open(false)
+    setIsMobileBranch2Open(false)
+    setMobileTeachingPartsOpen({})
+    setIsMobileTeachingBackupOpen(false)
+    setIsMobileTeachingResourcesOpen(false)
+    setIsMobileIndividualsOpen(false)
+    setIsMobileOrganizationsOpen(false)
+    setMobileOpenDropdown(null)
+  }
+
+  const toggleMobileTeachingPart = (partId: string) => {
+    setMobileTeachingPartsOpen((prev) => ({
+      ...prev,
+      [partId]: !prev[partId],
+    }))
+  }
+
+  const isActive = (path: string) => {
+    const sectionId = path.replace('/#', '')
+    if (sectionId === 'hero') return activeSection === ''
+    return activeSection === sectionId
+  }
+
+  const toggleMegaMenu = (id: string) => {
+    if (activeMegaMenu === id) {
+      setActiveMegaMenu(null)
+    } else {
+      setActiveMegaMenu(id)
+    }
+    setOpenDropdown(null)
+  }
+
+  const toggleDropdown = (path: string) => {
+    setOpenDropdown(openDropdown === path ? null : path)
+    setActiveMegaMenu(null)
+  }
 
   return (
     <header
       id="header"
-      className="sticky top-0 z-50 flex h-14 w-full items-center bg-white shadow-sm"
+      className={`w-full bg-white shadow-sm sticky top-0 z-50 flex items-center transition-all duration-300 ${
+        isScrolled ? 'h-[55px]' : 'h-[80px]'
+      }`}
     >
-      <div className="mx-auto flex w-full max-w-[4096px] items-center gap-4 px-3 sm:px-4 lg:px-6">
-        {/* Mobile hamburger - triggers sidebar overlay */}
-        <button
-          className="lg:hidden shrink-0 rounded p-1.5 text-slate-700 hover:bg-slate-100 transition-colors"
-          onClick={openMobile}
-          aria-label="Open navigation menu"
-          aria-haspopup="dialog"
-        >
-          <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M4 6h16M4 12h16M4 18h16"
-            />
-          </svg>
-        </button>
+      <div className="w-full">
+        <div className="mx-auto max-w-[4096px]">
+          <div className="flex items-center px-2 sm:px-4 lg:px-6 xl:px-8 transition-all duration-300">
+            {/* Logo */}
+            <div
+              className={`transition-all duration-300 ${isScrolled ? 'w-[110px]' : 'w-[150px]'}`}
+            >
+              <Link href="/" onClick={handleLinkClick} className="block">
+                <Image
+                  src={basePath + '/Images/TABS-Logo-Full.png'}
+                  alt="TABS Logo"
+                  width={150}
+                  height={64}
+                  priority
+                  className={`transition-all duration-300 object-contain ${
+                    isScrolled ? 'h-10 w-auto' : 'h-16 w-auto'
+                  }`}
+                />
+              </Link>
+            </div>
 
-        {/* Logo */}
-        <Link href="/" className="shrink-0">
-          <Image
-            src={basePath + '/Images/TABS-Logo-Full.png'}
-            alt="TABS Logo"
-            width={120}
-            height={48}
-            priority
-            className="h-9 w-auto object-contain"
-          />
-        </Link>
+            {/* Menu and Search */}
+            <div className="flex items-center justify-end sm:pl-[50px] md:pl-[70px] w-full">
+              {/* Primary CTA (always visible, incl. mobile) */}
+              <a
+                href={TAKE_TABS_URL}
+                onClick={handleLinkClick}
+                data-testid="header-take-tabs-cta"
+                className="order-3 inline-flex shrink-0 items-center whitespace-nowrap rounded-md bg-blue-600 px-3 py-2 text-[13px] font-semibold text-white shadow-sm transition-colors hover:bg-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 sm:px-4 sm:text-[14px]"
+              >
+                Take the TABS
+              </a>
 
-        {/* Search - hidden on small mobile, visible from sm+ */}
-        <div className="hidden sm:block sm:max-w-md">
-          <SearchInput />
+              {/* Desktop Menu */}
+              <nav className="order-1 hidden xl:block transition-all duration-300">
+                <ul className="flex items-center space-x-0 2xl:space-x-[1px] font-navbar font-[600]">
+                  {menuItems.map((item, index) => (
+                    <li
+                      key={index}
+                      className="relative py-6"
+                      ref={
+                        item.hasMegaMenu
+                          ? (node) => {
+                              if (activeMegaMenu === item.megaMenuId) {
+                                activeMegaMenuButtonRef.current = node
+                              }
+                            }
+                          : item.children?.length
+                            ? (node: HTMLLIElement | null) => {
+                                if (openDropdown === item.path) {
+                                  dropdownButtonRef.current = node
+                                }
+                              }
+                            : null
+                      }
+                      onMouseEnter={() => {
+                        if (item.children?.length) setOpenDropdown(item.path)
+                      }}
+                      onMouseLeave={() => {
+                        if (item.children?.length) setOpenDropdown(null)
+                      }}
+                    >
+                      {item.hasMegaMenu ? (
+                        <button
+                          onClick={() => toggleMegaMenu(item.megaMenuId || '')}
+                          onMouseEnter={() => item.megaMenuId && setActiveMegaMenu(item.megaMenuId)}
+                          onFocus={() => item.megaMenuId && setActiveMegaMenu(item.megaMenuId)}
+                          className={`flex items-center px-1.5 xl:px-2 2xl:px-3 py-2 text-[12px] xl:text-[13px] 2xl:text-[14px] transition-colors duration-200 ${
+                            isActive(item.path) || activeMegaMenu === item.megaMenuId
+                              ? 'text-blue-600'
+                              : 'text-gray-600 hover:text-gray-500'
+                          }`}
+                          aria-expanded={activeMegaMenu === item.megaMenuId}
+                          aria-controls="mega-menu"
+                        >
+                          {item.label}
+                          <svg
+                            className={`w-4 h-4 ml-1 transition-transform ${
+                              activeMegaMenu === item.megaMenuId ? 'rotate-180' : ''
+                            }`}
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                            aria-hidden="true"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M19 9l-7 7-7-7"
+                            />
+                          </svg>
+                        </button>
+                      ) : item.children?.length ? (
+                        <>
+                          <button
+                            onClick={() => toggleDropdown(item.path)}
+                            onFocus={() => setOpenDropdown(item.path)}
+                            className={`flex items-center px-1.5 xl:px-2 2xl:px-3 py-2 text-[12px] xl:text-[13px] 2xl:text-[14px] transition-colors duration-200 ${
+                              isActive(item.path)
+                                ? 'text-blue-600'
+                                : 'text-gray-600 hover:text-gray-500'
+                            }`}
+                            aria-expanded={openDropdown === item.path}
+                            aria-controls={`dropdown-${item.path.replace(/\//g, '-')}`}
+                          >
+                            {item.label}
+                            <svg
+                              className={`w-4 h-4 ml-1 transition-transform ${openDropdown === item.path ? 'rotate-180' : ''}`}
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                              aria-hidden="true"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M19 9l-7 7-7-7"
+                              />
+                            </svg>
+                          </button>
+
+                          {openDropdown === item.path && (
+                            <div
+                              id={`dropdown-${item.path.replace(/\//g, '-')}`}
+                              ref={dropdownMenuRef}
+                              className="absolute left-0 top-full w-72 overflow-hidden rounded-lg border border-gray-200 bg-white shadow-lg max-h-[80vh] overflow-y-auto"
+                            >
+                              <ul className="py-2">
+                                {item.children.map((child, ci) =>
+                                  child.isDivider ? (
+                                    <li
+                                      key={`divider-${ci}`}
+                                      aria-hidden="true"
+                                      className="my-1 border-t border-gray-200"
+                                    />
+                                  ) : child.isGroupHeader ? (
+                                    <li
+                                      key={`group-${child.label}`}
+                                      className="px-4 pt-3 pb-1 text-[11px] font-bold uppercase tracking-wider text-gray-400"
+                                    >
+                                      {child.label}
+                                    </li>
+                                  ) : (
+                                    <li key={child.path}>
+                                      <Link
+                                        href={child.path}
+                                        onClick={handleLinkClick}
+                                        className="block px-4 py-2 text-[13px] text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                                      >
+                                        {child.label}
+                                      </Link>
+                                    </li>
+                                  )
+                                )}
+                              </ul>
+                            </div>
+                          )}
+                        </>
+                      ) : (
+                        <Link
+                          href={item.path}
+                          onClick={handleLinkClick}
+                          className={`flex items-center px-1.5 xl:px-2 2xl:px-3 py-2 text-[12px] xl:text-[13px] 2xl:text-[14px] transition-colors duration-200 ${
+                            isActive(item.path)
+                              ? 'text-blue-600'
+                              : 'text-gray-600 hover:text-gray-500'
+                          }`}
+                        >
+                          {item.label}
+                        </Link>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+
+              {/* Search */}
+              <div className="order-2 hidden xl:flex items-center">
+                <SearchInput />
+              </div>
+
+              {/* Mobile Menu Button */}
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="order-2 xl:hidden p-2 text-gray-600 hover:text-blue-600"
+                aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
+              >
+                {isMobileMenuOpen ? (
+                  <RxCross2 className="h-6 w-6" />
+                ) : (
+                  <FiMenu className="h-6 w-6" />
+                )}
+              </button>
+            </div>
+          </div>
         </div>
-
-        {/* Spacer - pushes CTA to far right */}
-        <div className="flex-1" />
-
-        {/* Primary CTA */}
-        <a
-          href={TAKE_TABS_URL}
-          data-testid="header-take-tabs-cta"
-          className="inline-flex shrink-0 items-center whitespace-nowrap rounded-md bg-blue-600 px-3 py-2 text-[13px] font-semibold text-white shadow-sm transition-colors hover:bg-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 sm:px-4 sm:text-[14px]"
-        >
-          Take the TABS
-        </a>
       </div>
+
+      {/* Desktop Mega Menu */}
+      <AnimatePresence>
+        {activeMegaMenu && (
+          <motion.div
+            id="mega-menu"
+            ref={megaMenuRef}
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2 }}
+            className={`hidden xl:block absolute left-0 w-full bg-white border-t border-gray-100 shadow-lg z-40 overflow-y-auto overscroll-contain ${
+              isScrolled
+                ? 'top-[55px] max-h-[calc(100vh-55px)]'
+                : 'top-[80px] max-h-[calc(100vh-80px)]'
+            }`}
+          >
+            <div className="max-w-[4096px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 py-8">
+              {activeMegaMenu === 'models' && (
+                <div className="grid grid-cols-3 gap-8">
+                  {/* Column 1: Root */}
+                  <div>
+                    <Link
+                      href={technologyAdoptionModelsSeries.root.slug}
+                      onClick={handleLinkClick}
+                      className="block text-[16px] font-bold text-tabs-teal-deep hover:text-blue-600 mb-4"
+                    >
+                      {technologyAdoptionModelsSeries.root.title}
+                    </Link>
+                  </div>
+
+                  {/* Column 2: Branch 1 */}
+                  <div>
+                    <Link
+                      href={technologyAdoptionModelsSeries.branches[0].slug}
+                      onClick={handleLinkClick}
+                      className="block text-[14px] font-bold text-gray-900 hover:text-blue-600 mb-3"
+                    >
+                      {technologyAdoptionModelsSeries.branches[0].title}
+                    </Link>
+                    <ul className="space-y-2">
+                      {technologyAdoptionModelsSeries.branches[0].articles.map((article) => (
+                        <li key={article.id}>
+                          <Link
+                            href={article.slug}
+                            onClick={handleLinkClick}
+                            className="block text-[13px] text-gray-700 hover:text-blue-600 hover:bg-blue-50 px-2 py-1 rounded transition-colors"
+                          >
+                            {article.title}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Column 3: Branch 2 */}
+                  <div>
+                    <Link
+                      href={technologyAdoptionModelsSeries.branches[1].slug}
+                      onClick={handleLinkClick}
+                      className="block text-[14px] font-bold text-gray-900 hover:text-blue-600 mb-3"
+                    >
+                      {technologyAdoptionModelsSeries.branches[1].title}
+                    </Link>
+                    <ul className="space-y-2">
+                      {technologyAdoptionModelsSeries.branches[1].articles.map((article) => (
+                        <li key={article.id}>
+                          <Link
+                            href={article.slug}
+                            onClick={handleLinkClick}
+                            className="block text-[13px] text-gray-700 hover:text-blue-600 hover:bg-blue-50 px-2 py-1 rounded transition-colors"
+                          >
+                            {article.title}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              )}
+
+              {activeMegaMenu === 'teaching-series' && (
+                <div className="space-y-6">
+                  <Link
+                    href={technologyAdoptionTeachingSeries.root.slug}
+                    onClick={handleLinkClick}
+                    className="block text-[16px] font-bold text-tabs-teal-deep hover:text-blue-600"
+                  >
+                    {technologyAdoptionTeachingSeries.root.title}
+                  </Link>
+
+                  <div className="grid grid-cols-3 gap-8 xl:grid-cols-6">
+                    {teachingSeriesParts.map((part, partIdx) => (
+                      <div key={part.id}>
+                        <Link
+                          href={technologyAdoptionTeachingSeries.root.slug}
+                          onClick={handleLinkClick}
+                          className="block text-[14px] font-bold text-gray-900 hover:text-blue-600 mb-3"
+                        >
+                          {part.title}
+                        </Link>
+                        <ul className="space-y-2">
+                          {(teachingSeriesCoreSlidesByPart[partIdx] ?? []).map((slide) => (
+                            <li key={slide.id}>
+                              <Link
+                                href={`${technologyAdoptionTeachingSeries.root.slug}/${slide.segment}`}
+                                onClick={handleLinkClick}
+                                className="block text-[13px] text-gray-700 hover:text-blue-600 hover:bg-blue-50 px-2 py-1 rounded transition-colors"
+                              >
+                                Slide {slide.number}: {slide.title}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+
+                    <div>
+                      <Link
+                        href={technologyAdoptionTeachingSeries.root.slug}
+                        onClick={handleLinkClick}
+                        className="block text-[14px] font-bold text-gray-900 hover:text-blue-600 mb-3"
+                      >
+                        Backup slides
+                      </Link>
+                      <ul className="space-y-2">
+                        {teachingSeriesBackupSlides.map((slide) => (
+                          <li key={slide.id}>
+                            <Link
+                              href={`${technologyAdoptionTeachingSeries.root.slug}/${slide.segment}`}
+                              onClick={handleLinkClick}
+                              className="block text-[13px] text-gray-700 hover:text-blue-600 hover:bg-blue-50 px-2 py-1 rounded transition-colors"
+                            >
+                              Slide {slide.number}: {slide.title}
+                              <span className="text-gray-600"> (Optional)</span>
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <div>
+                      <div className="block text-[14px] font-bold text-gray-900 mb-3">
+                        Resources
+                      </div>
+                      <ul className="space-y-2">
+                        {technologyAdoptionTeachingSeriesResources.map((resource) => (
+                          <li key={resource.id}>
+                            <Link
+                              href={`${technologyAdoptionTeachingSeries.root.slug}/${resource.segment}`}
+                              onClick={handleLinkClick}
+                              className="block text-[13px] text-gray-700 hover:text-blue-600 hover:bg-blue-50 px-2 py-1 rounded transition-colors"
+                            >
+                              {resource.title}
+                            </Link>
+                          </li>
+                        ))}
+                        <li>
+                          <Link
+                            href="/technology-adoption-series/visual-gallery"
+                            onClick={handleLinkClick}
+                            className="block text-[13px] text-gray-700 hover:text-blue-600 hover:bg-blue-50 px-2 py-1 rounded transition-colors"
+                          >
+                            ✨ Visual Gallery
+                          </Link>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div>
+                      <div className="block text-[14px] font-bold text-gray-900 mb-3">
+                        Presentations
+                      </div>
+                      <ul className="space-y-2">
+                        <li>
+                          <Link
+                            href={`${technologyAdoptionTeachingSeries.root.slug}/presentation`}
+                            onClick={handleLinkClick}
+                            className="block text-[13px] text-gray-700 hover:text-blue-600 hover:bg-blue-50 px-2 py-1 rounded transition-colors"
+                          >
+                            Full Teaching Series
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            href={`${technologyAdoptionTeachingSeries.root.slug}/lifecycle-positioning`}
+                            onClick={handleLinkClick}
+                            className="block text-[13px] text-gray-700 hover:text-blue-600 hover:bg-blue-50 px-2 py-1 rounded transition-colors"
+                          >
+                            Lifecycle Positioning
+                          </Link>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {activeMegaMenu === 'personas' && (
+                <div className="grid grid-cols-3 gap-8">
+                  {/* Column 1: Root */}
+                  <div>
+                    <Link
+                      href={personaNavigation.root.path}
+                      onClick={handleLinkClick}
+                      className="block text-[16px] font-bold text-tabs-teal-deep hover:text-blue-600 mb-4"
+                    >
+                      {personaNavigation.root.title}
+                    </Link>
+                    <p className="text-sm text-gray-600 max-w-xs">
+                      See yourself in the survey. Explore how TABS relates to your specific role or
+                      organization type.
+                    </p>
+                  </div>
+
+                  {/* Column 2: Individuals */}
+                  <div>
+                    <Link
+                      href={personaNavigation.columns.individuals.path || '#'}
+                      onClick={handleLinkClick}
+                      className="block text-[14px] font-bold text-gray-900 hover:text-blue-600 mb-3"
+                    >
+                      {personaNavigation.columns.individuals.title}
+                    </Link>
+                    <ul className="space-y-2">
+                      {personaNavigation.columns.individuals.links.map((link) => (
+                        <li key={link.path}>
+                          {link.isExternal ? (
+                            <a
+                              href={link.path}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              onClick={handleLinkClick}
+                              className="block text-[13px] text-gray-700 hover:text-blue-600 hover:bg-blue-50 px-2 py-1 rounded transition-colors"
+                            >
+                              {link.label} ↗
+                            </a>
+                          ) : (
+                            <Link
+                              href={link.path}
+                              onClick={handleLinkClick}
+                              className="block text-[13px] text-gray-700 hover:text-blue-600 hover:bg-blue-50 px-2 py-1 rounded transition-colors"
+                            >
+                              {link.label}
+                            </Link>
+                          )}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Column 3: Organizations */}
+                  <div>
+                    <Link
+                      href={personaNavigation.columns.organizations.path || '#'}
+                      onClick={handleLinkClick}
+                      className="block text-[14px] font-bold text-gray-900 hover:text-blue-600 mb-3"
+                    >
+                      {personaNavigation.columns.organizations.title}
+                    </Link>
+                    <ul className="space-y-2">
+                      {personaNavigation.columns.organizations.links.map((link) => (
+                        <li key={link.path}>
+                          {link.isExternal ? (
+                            <a
+                              href={link.path}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              onClick={handleLinkClick}
+                              className="block text-[13px] text-gray-700 hover:text-blue-600 hover:bg-blue-50 px-2 py-1 rounded transition-colors"
+                            >
+                              {link.label} ↗
+                            </a>
+                          ) : (
+                            <Link
+                              href={link.path}
+                              onClick={handleLinkClick}
+                              className="block text-[13px] text-gray-700 hover:text-blue-600 hover:bg-blue-50 px-2 py-1 rounded transition-colors"
+                            >
+                              {link.label}
+                            </Link>
+                          )}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              )}
+
+              {/* Bibliography Link (Specific to Models) */}
+              {activeMegaMenu === 'models' && technologyAdoptionModelsSeries.bibliography && (
+                <div className="mt-6 pt-4 border-t border-gray-200">
+                  <Link
+                    href={technologyAdoptionModelsSeries.bibliography.slug}
+                    onClick={handleLinkClick}
+                    className="inline-block text-[14px] font-bold text-tabs-teal-deep hover:text-blue-600"
+                  >
+                    📚 {technologyAdoptionModelsSeries.bibliography.title}
+                  </Link>
+                </div>
+              )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3, ease: 'easeInOut' }}
+            className={`xl:hidden absolute left-0 w-full overflow-hidden z-40 ${
+              isScrolled ? 'top-[53px]' : 'top-[77px]'
+            }`}
+          >
+            <div
+              className={`max-w-[700px] mx-auto px-6 py-4 bg-white border-t-[3px] border-tabs-blue shadow-[0_2px_5px_rgba(0,0,0,0.1)] max-h-[80vh] overflow-auto`}
+            >
+              {/* Mobile Search */}
+              <div className="mb-4">
+                <SearchInput />
+              </div>
+              <ul className="space-y-2">
+                {menuItems.map((item, index) => (
+                  <li key={index}>
+                    {item.hasMegaMenu ? (
+                      <div>
+                        <Link
+                          href={item.path}
+                          onClick={handleLinkClick}
+                          className={`block px-4 py-2 rounded-lg text-sm font-[600] ${
+                            isActive(item.path)
+                              ? 'bg-blue-50 text-blue-600'
+                              : 'text-gray-700 hover:bg-gray-100'
+                          }`}
+                        >
+                          {item.label}
+                        </Link>
+
+                        {/* MODELS MEGA MENU MOBILE */}
+                        {item.megaMenuId === 'models' && (
+                          <>
+                            {/* Branch 1: User's Journey */}
+                            <div className="ml-4 mt-2">
+                              <button
+                                onClick={() => setIsMobileBranch1Open(!isMobileBranch1Open)}
+                                className="w-full flex items-center justify-between px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-gray-50 rounded"
+                                aria-expanded={isMobileBranch1Open}
+                              >
+                                <span className="text-[13px]">
+                                  {technologyAdoptionModelsSeries.branches[0].title}
+                                </span>
+                                <svg
+                                  className={`w-4 h-4 transition-transform ${
+                                    isMobileBranch1Open ? 'rotate-180' : ''
+                                  }`}
+                                  fill="none"
+                                  stroke="currentColor"
+                                  viewBox="0 0 24 24"
+                                  aria-hidden="true"
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M19 9l-7 7-7-7"
+                                  />
+                                </svg>
+                              </button>
+                              {isMobileBranch1Open && (
+                                <ul className="mt-1 space-y-1">
+                                  <li>
+                                    <Link
+                                      href={technologyAdoptionModelsSeries.branches[0].slug}
+                                      onClick={handleLinkClick}
+                                      className="block px-4 py-1 text-[12px] text-blue-700 hover:bg-blue-50 rounded"
+                                    >
+                                      Branch Introduction
+                                    </Link>
+                                  </li>
+                                  {technologyAdoptionModelsSeries.branches[0].articles.map(
+                                    (article) => (
+                                      <li key={article.id}>
+                                        <Link
+                                          href={article.slug}
+                                          onClick={handleLinkClick}
+                                          className="block px-4 py-1 text-[12px] text-gray-700 hover:bg-blue-50 rounded"
+                                        >
+                                          {article.title}
+                                        </Link>
+                                      </li>
+                                    )
+                                  )}
+                                </ul>
+                              )}
+                            </div>
+
+                            {/* Branch 2: Organization's Playbook */}
+                            <div className="ml-4 mt-2">
+                              <button
+                                onClick={() => setIsMobileBranch2Open(!isMobileBranch2Open)}
+                                className="w-full flex items-center justify-between px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-gray-50 rounded"
+                                aria-expanded={isMobileBranch2Open}
+                              >
+                                <span className="text-[13px]">
+                                  {technologyAdoptionModelsSeries.branches[1].title}
+                                </span>
+                                <svg
+                                  className={`w-4 h-4 transition-transform ${
+                                    isMobileBranch2Open ? 'rotate-180' : ''
+                                  }`}
+                                  fill="none"
+                                  stroke="currentColor"
+                                  viewBox="0 0 24 24"
+                                  aria-hidden="true"
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M19 9l-7 7-7-7"
+                                  />
+                                </svg>
+                              </button>
+                              {isMobileBranch2Open && (
+                                <ul className="mt-1 space-y-1">
+                                  <li>
+                                    <Link
+                                      href={technologyAdoptionModelsSeries.branches[1].slug}
+                                      onClick={handleLinkClick}
+                                      className="block px-4 py-1 text-[12px] text-blue-700 hover:bg-blue-50 rounded"
+                                    >
+                                      Branch Introduction
+                                    </Link>
+                                  </li>
+                                  {technologyAdoptionModelsSeries.branches[1].articles.map(
+                                    (article) => (
+                                      <li key={article.id}>
+                                        <Link
+                                          href={article.slug}
+                                          onClick={handleLinkClick}
+                                          className="block px-4 py-1 text-[12px] text-gray-700 hover:bg-blue-50 rounded"
+                                        >
+                                          {article.title}
+                                        </Link>
+                                      </li>
+                                    )
+                                  )}
+                                </ul>
+                              )}
+                            </div>
+
+                            {/* Bibliography Link in Mobile */}
+                            {technologyAdoptionModelsSeries.bibliography && (
+                              <div className="ml-4 mt-2">
+                                <Link
+                                  href={technologyAdoptionModelsSeries.bibliography.slug}
+                                  onClick={handleLinkClick}
+                                  className="block px-4 py-2 text-[12px] font-semibold text-tabs-teal-deep hover:bg-blue-50 rounded"
+                                >
+                                  📚 {technologyAdoptionModelsSeries.bibliography.title}
+                                </Link>
+                              </div>
+                            )}
+                          </>
+                        )}
+
+                        {/* TEACHING SERIES MEGA MENU MOBILE */}
+                        {item.megaMenuId === 'teaching-series' && (
+                          <>
+                            {teachingSeriesParts.map((part, partIdx) => {
+                              const isOpen = Boolean(mobileTeachingPartsOpen[part.id])
+
+                              return (
+                                <div key={part.id} className="ml-4 mt-2">
+                                  <button
+                                    onClick={() => toggleMobileTeachingPart(part.id)}
+                                    className="w-full flex items-center justify-between px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-gray-50 rounded"
+                                    aria-expanded={isOpen}
+                                  >
+                                    <span className="text-[13px]">{part.title}</span>
+                                    <svg
+                                      className={`w-4 h-4 transition-transform ${
+                                        isOpen ? 'rotate-180' : ''
+                                      }`}
+                                      fill="none"
+                                      stroke="currentColor"
+                                      viewBox="0 0 24 24"
+                                      aria-hidden="true"
+                                    >
+                                      <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M19 9l-7 7-7-7"
+                                      />
+                                    </svg>
+                                  </button>
+
+                                  {isOpen && (
+                                    <ul className="mt-1 space-y-1">
+                                      {(teachingSeriesCoreSlidesByPart[partIdx] ?? []).map(
+                                        (slide) => (
+                                          <li key={slide.id}>
+                                            <Link
+                                              href={`${technologyAdoptionTeachingSeries.root.slug}/${slide.segment}`}
+                                              onClick={handleLinkClick}
+                                              className="block px-4 py-1 text-[12px] text-gray-700 hover:bg-blue-50 rounded"
+                                            >
+                                              Slide {slide.number}: {slide.title}
+                                            </Link>
+                                          </li>
+                                        )
+                                      )}
+                                    </ul>
+                                  )}
+                                </div>
+                              )
+                            })}
+
+                            {/* Backup slides */}
+                            <div className="ml-4 mt-2">
+                              <button
+                                onClick={() =>
+                                  setIsMobileTeachingBackupOpen(!isMobileTeachingBackupOpen)
+                                }
+                                className="w-full flex items-center justify-between px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-gray-50 rounded"
+                                aria-expanded={isMobileTeachingBackupOpen}
+                              >
+                                <span className="text-[13px]">Backup slides</span>
+                                <svg
+                                  className={`w-4 h-4 transition-transform ${
+                                    isMobileTeachingBackupOpen ? 'rotate-180' : ''
+                                  }`}
+                                  fill="none"
+                                  stroke="currentColor"
+                                  viewBox="0 0 24 24"
+                                  aria-hidden="true"
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M19 9l-7 7-7-7"
+                                  />
+                                </svg>
+                              </button>
+                              {isMobileTeachingBackupOpen && (
+                                <ul className="mt-1 space-y-1">
+                                  {teachingSeriesBackupSlides.map((s) => (
+                                    <li key={s.id}>
+                                      <Link
+                                        href={`${technologyAdoptionTeachingSeries.root.slug}/${s.segment}`}
+                                        onClick={handleLinkClick}
+                                        className="block px-4 py-1 text-[12px] text-gray-700 hover:bg-blue-50 rounded"
+                                      >
+                                        Slide {s.number}: {s.title}
+                                        <span className="text-gray-600"> (Optional)</span>
+                                      </Link>
+                                    </li>
+                                  ))}
+                                </ul>
+                              )}
+                            </div>
+
+                            {/* Resources */}
+                            <div className="ml-4 mt-2">
+                              <button
+                                onClick={() =>
+                                  setIsMobileTeachingResourcesOpen(!isMobileTeachingResourcesOpen)
+                                }
+                                className="w-full flex items-center justify-between px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-gray-50 rounded"
+                                aria-expanded={isMobileTeachingResourcesOpen}
+                              >
+                                <span className="text-[13px]">Resources</span>
+                                <svg
+                                  className={`w-4 h-4 transition-transform ${
+                                    isMobileTeachingResourcesOpen ? 'rotate-180' : ''
+                                  }`}
+                                  fill="none"
+                                  stroke="currentColor"
+                                  viewBox="0 0 24 24"
+                                  aria-hidden="true"
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M19 9l-7 7-7-7"
+                                  />
+                                </svg>
+                              </button>
+                              {isMobileTeachingResourcesOpen && (
+                                <ul className="mt-1 space-y-1">
+                                  {technologyAdoptionTeachingSeriesResources.map((resource) => (
+                                    <li key={resource.id}>
+                                      <Link
+                                        href={`${technologyAdoptionTeachingSeries.root.slug}/${resource.segment}`}
+                                        onClick={handleLinkClick}
+                                        className="block px-4 py-1 text-[12px] text-gray-700 hover:bg-blue-50 rounded"
+                                      >
+                                        {resource.title}
+                                      </Link>
+                                    </li>
+                                  ))}
+                                </ul>
+                              )}
+                            </div>
+
+                            {/* Presentations */}
+                            <div className="ml-4 mt-2">
+                              <div className="px-4 py-2 text-[13px] font-semibold text-gray-800">
+                                Presentations
+                              </div>
+                              <ul className="mt-1 space-y-1">
+                                <li>
+                                  <Link
+                                    href={`${technologyAdoptionTeachingSeries.root.slug}/presentation`}
+                                    onClick={handleLinkClick}
+                                    className="block px-4 py-1 text-[12px] text-gray-700 hover:bg-blue-50 rounded"
+                                  >
+                                    Full Teaching Series
+                                  </Link>
+                                </li>
+                                <li>
+                                  <Link
+                                    href={`${technologyAdoptionTeachingSeries.root.slug}/lifecycle-positioning`}
+                                    onClick={handleLinkClick}
+                                    className="block px-4 py-1 text-[12px] text-gray-700 hover:bg-blue-50 rounded"
+                                  >
+                                    Lifecycle Positioning
+                                  </Link>
+                                </li>
+                              </ul>
+                            </div>
+                          </>
+                        )}
+
+                        {/* PERSONAS MEGA MENU MOBILE */}
+                        {item.megaMenuId === 'personas' && (
+                          <>
+                            {/* Individuals */}
+                            <div className="ml-4 mt-2">
+                              <button
+                                type="button"
+                                onClick={() => setIsMobileIndividualsOpen(!isMobileIndividualsOpen)}
+                                className="w-full flex items-center justify-between px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-gray-50 rounded"
+                                aria-expanded={isMobileIndividualsOpen}
+                              >
+                                <span className="text-[13px]">
+                                  {personaNavigation.columns.individuals.title}
+                                </span>
+                                <svg
+                                  className={`w-4 h-4 transition-transform ${
+                                    isMobileIndividualsOpen ? 'rotate-180' : ''
+                                  }`}
+                                  fill="none"
+                                  stroke="currentColor"
+                                  viewBox="0 0 24 24"
+                                  aria-hidden="true"
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M19 9l-7 7-7-7"
+                                  />
+                                </svg>
+                              </button>
+                              {isMobileIndividualsOpen && (
+                                <ul className="mt-1 space-y-1">
+                                  {personaNavigation.columns.individuals.links.map((link) => (
+                                    <li key={link.path}>
+                                      {link.isExternal ? (
+                                        <a
+                                          href={link.path}
+                                          target="_blank"
+                                          rel="noopener noreferrer"
+                                          onClick={() => setIsMobileMenuOpen(false)}
+                                          className="block px-4 py-1 text-[12px] text-gray-700 hover:bg-blue-50 rounded"
+                                        >
+                                          {link.label} ↗
+                                        </a>
+                                      ) : (
+                                        <Link
+                                          href={link.path}
+                                          onClick={handleLinkClick}
+                                          className="block px-4 py-1 text-[12px] text-gray-700 hover:bg-blue-50 rounded"
+                                        >
+                                          {link.label}
+                                        </Link>
+                                      )}
+                                    </li>
+                                  ))}
+                                </ul>
+                              )}
+                            </div>
+
+                            {/* Organizations */}
+                            <div className="ml-4 mt-2">
+                              <button
+                                onClick={() =>
+                                  setIsMobileOrganizationsOpen(!isMobileOrganizationsOpen)
+                                }
+                                className="w-full flex items-center justify-between px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-gray-50 rounded"
+                                aria-expanded={isMobileOrganizationsOpen}
+                              >
+                                <span className="text-[13px]">
+                                  {personaNavigation.columns.organizations.title}
+                                </span>
+                                <svg
+                                  className={`w-4 h-4 transition-transform ${
+                                    isMobileOrganizationsOpen ? 'rotate-180' : ''
+                                  }`}
+                                  fill="none"
+                                  stroke="currentColor"
+                                  viewBox="0 0 24 24"
+                                  aria-hidden="true"
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M19 9l-7 7-7-7"
+                                  />
+                                </svg>
+                              </button>
+                              {isMobileOrganizationsOpen && (
+                                <ul className="mt-1 space-y-1">
+                                  {personaNavigation.columns.organizations.links.map((link) => (
+                                    <li key={link.path}>
+                                      {link.isExternal ? (
+                                        <a
+                                          href={link.path}
+                                          target="_blank"
+                                          rel="noopener noreferrer"
+                                          onClick={() => setIsMobileMenuOpen(false)}
+                                          className="block px-4 py-1 text-[12px] text-gray-700 hover:bg-blue-50 rounded"
+                                        >
+                                          {link.label} ↗
+                                        </a>
+                                      ) : (
+                                        <Link
+                                          href={link.path}
+                                          onClick={handleLinkClick}
+                                          className="block px-4 py-1 text-[12px] text-gray-700 hover:bg-blue-50 rounded"
+                                        >
+                                          {link.label}
+                                        </Link>
+                                      )}
+                                    </li>
+                                  ))}
+                                </ul>
+                              )}
+                            </div>
+                          </>
+                        )}
+                      </div>
+                    ) : item.children?.length ? (
+                      <div>
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setMobileOpenDropdown(
+                              mobileOpenDropdown === item.path ? null : item.path
+                            )
+                          }
+                          className="w-full flex items-center justify-between px-4 py-2 rounded-lg text-sm font-[600] text-gray-700 hover:bg-gray-100"
+                          aria-expanded={mobileOpenDropdown === item.path}
+                          aria-controls={`mobile-dropdown-${item.path.replace(/\//g, '-')}`}
+                        >
+                          <span>{item.label}</span>
+                          <svg
+                            className={`w-4 h-4 transition-transform ${mobileOpenDropdown === item.path ? 'rotate-180' : ''}`}
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                            aria-hidden="true"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M19 9l-7 7-7-7"
+                            />
+                          </svg>
+                        </button>
+
+                        {mobileOpenDropdown === item.path && (
+                          <ul
+                            id={`mobile-dropdown-${item.path.replace(/\//g, '-')}`}
+                            className="ml-4 mt-1 space-y-1"
+                          >
+                            {item.children.map((child, ci) =>
+                              child.isDivider ? (
+                                <li
+                                  key={`divider-${ci}`}
+                                  aria-hidden="true"
+                                  className="my-1 border-t border-gray-200"
+                                />
+                              ) : child.isGroupHeader ? (
+                                <li
+                                  key={`group-${child.label}`}
+                                  className="px-4 pt-3 pb-1 text-[11px] font-bold uppercase tracking-wider text-gray-400"
+                                >
+                                  {child.label}
+                                </li>
+                              ) : (
+                                <li key={child.path}>
+                                  <Link
+                                    href={child.path}
+                                    onClick={handleLinkClick}
+                                    className="block px-4 py-1 text-[12px] text-gray-700 hover:bg-blue-50 rounded"
+                                  >
+                                    {child.label}
+                                  </Link>
+                                </li>
+                              )
+                            )}
+                          </ul>
+                        )}
+                      </div>
+                    ) : (
+                      <Link
+                        href={item.path}
+                        onClick={handleLinkClick}
+                        className={`block px-4 py-2 rounded-lg text-sm font-[600] ${
+                          isActive(item.path)
+                            ? 'bg-blue-50 text-blue-600'
+                            : 'text-gray-700 hover:bg-gray-100'
+                        }`}
+                      >
+                        {item.label}
+                      </Link>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   )
 }
