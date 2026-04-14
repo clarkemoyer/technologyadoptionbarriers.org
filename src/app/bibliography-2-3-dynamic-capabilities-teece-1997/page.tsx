@@ -462,12 +462,12 @@ const DynamicCapabilitiesPage = () => {
               Teece, D. J., Pisano, G., & Shuen, A. (1997). Dynamic capabilities and strategic
               management. Strategic Management Journal, 18(7), 509-533.{' '}
               <a
-                href="https://doi.org/10.1002/(SICI)1097-0266(199708)18:7<509::AID-SMJ882>3.0.CO;2-Z"
+                href="https://doi.org/10.1002/smj.882"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-600 hover:underline"
               >
-                https://doi.org/10.1002/(SICI)1097-0266(199708)18:7&lt;509::AID-SMJ882&gt;3.0.CO;2-Z
+                https://doi.org/10.1002/smj.882
               </a>
             </li>
             <li>
