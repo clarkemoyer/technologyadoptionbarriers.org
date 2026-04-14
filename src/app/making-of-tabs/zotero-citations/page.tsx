@@ -11,11 +11,11 @@ import LastUpdated from '@/components/last-updated'
 import citationMetricsRaw from '@/data/citation-metrics.json'
 
 export const metadata: Metadata = {
-  title: 'Research Foundation — TABS Results',
+  title: 'Website Citation Library — Making of TABS',
   description:
-    'Citation metrics and literature scope for the Technology Adoption Barriers Survey: total references, unique journals, date range, item types, and top collections from the Zotero library.',
+    'The references behind the TABS website: metrics from the "TABS Website Citations" Zotero collection including total items, unique journals, date range, item types, and top subcollections.',
   alternates: {
-    canonical: '/results/research-foundation',
+    canonical: '/making-of-tabs/zotero-citations',
   },
 }
 
@@ -45,39 +45,45 @@ const fmt = (n: number | null | undefined): string => {
   return n.toLocaleString()
 }
 
-const ResearchFoundationPage = () => {
+const ZoteroCitationsPage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
         <nav className="mb-8 text-sm text-gray-500" aria-label="Breadcrumb">
           <ol className="flex flex-wrap items-center gap-1">
             <li>
-              <Link href="/results" className="hover:text-blue-600 hover:underline">
-                Results
+              <Link href="/making-of-tabs" className="hover:text-blue-600 hover:underline">
+                Making of TABS
               </Link>
               <span className="mx-2" aria-hidden="true">
                 &rsaquo;
               </span>
             </li>
             <li className="text-gray-800" aria-current="page">
-              Research Foundation
+              Website Citation Library
             </li>
           </ol>
         </nav>
 
-        <h1 className={H1_CLASSES}>Research Foundation</h1>
+        <h1 className={H1_CLASSES}>Website Citation Library</h1>
         <LastUpdated utcTimestamp={data.updatedAt} />
 
         <section className={`${SECTION_CLASSES} mt-6`}>
           <p className={PARAGRAPH_CLASSES}>
-            The Technology Adoption Barriers Survey draws on a curated Zotero library of academic
-            references spanning decades of technology adoption research. The metrics below reflect
-            the breadth and depth of that literature base and are refreshed automatically whenever
-            the library is updated.
+            Every claim on the TABS website is grounded in peer-reviewed literature. We maintain a
+            curated Zotero collection called <strong>TABS Website Citations</strong> that holds the
+            references behind the site&rsquo;s pages, articles, and methodology descriptions. The
+            metrics below reflect the scope of that collection and are refreshed automatically each
+            week.
+          </p>
+          <p className={PARAGRAPH_CLASSES}>
+            This is distinct from the broader TABS research library. It covers only the literature
+            we actively cite on this website &mdash; the works that inform our framing, definitions,
+            and interpretive claims.
           </p>
         </section>
 
-        {/* ── Hero Stats ── */}
+        {/* ---- Hero Stats ---- */}
         <section className="mb-12">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             {[
@@ -105,12 +111,12 @@ const ResearchFoundationPage = () => {
           </div>
         </section>
 
-        {/* ── Item Types ── */}
+        {/* ---- Item Types ---- */}
         {data.itemTypes && data.itemTypes.length > 0 && (
           <section className={SECTION_CLASSES}>
             <h2 className={H2_CLASSES}>Reference Types</h2>
             <p className={PARAGRAPH_CLASSES}>
-              Breakdown of reference types across the Zotero library.
+              Breakdown of reference types in the TABS Website Citations collection.
             </p>
             <div className="overflow-x-auto">
               <table className="min-w-full border border-gray-200 text-sm font-sans rounded-lg overflow-hidden">
@@ -147,18 +153,20 @@ const ResearchFoundationPage = () => {
           </section>
         )}
 
-        {/* ── Top Collections ── */}
+        {/* ---- Top Subcollections ---- */}
         {data.topCollections && data.topCollections.length > 0 && (
           <section className={SECTION_CLASSES}>
-            <h2 className={H2_CLASSES}>Top Collections</h2>
+            <h2 className={H2_CLASSES}>Top Subcollections</h2>
             <p className={PARAGRAPH_CLASSES}>
-              The largest subcollections in the library by item count.
+              The largest subcollections within TABS Website Citations by item count.
             </p>
             <div className="overflow-x-auto">
               <table className="min-w-full border border-gray-200 text-sm font-sans rounded-lg overflow-hidden">
                 <thead className="bg-gray-100 text-left">
                   <tr>
-                    <th className="px-4 py-3 font-semibold text-gray-700 border-b">Collection</th>
+                    <th className="px-4 py-3 font-semibold text-gray-700 border-b">
+                      Subcollection
+                    </th>
                     <th className="px-4 py-3 font-semibold text-gray-700 border-b text-right">
                       Items
                     </th>
@@ -179,7 +187,7 @@ const ResearchFoundationPage = () => {
           </section>
         )}
 
-        {/* ── Empty state ── */}
+        {/* ---- Empty state ---- */}
         {data.totalReferences === 0 && (
           <section className={SECTION_CLASSES}>
             <div className="rounded-lg bg-amber-50 border border-amber-200 p-6 text-sm text-amber-900">
@@ -192,15 +200,15 @@ const ResearchFoundationPage = () => {
           </section>
         )}
 
-        {/* ── Methodology note ── */}
+        {/* ---- How This Works ---- */}
         <section className={SECTION_CLASSES}>
-          <h2 className={H2_CLASSES}>About This Data</h2>
+          <h2 className={H2_CLASSES}>How This Works</h2>
           <p className={PARAGRAPH_CLASSES}>
-            These metrics are generated automatically by the{' '}
+            A weekly GitHub Actions workflow runs{' '}
             <code className="text-sm bg-gray-100 px-1 py-0.5 rounded">
-              fetch-zotero-citations.py
-            </code>{' '}
-            script, which connects to the TABS Zotero group library via the{' '}
+              scripts/fetch-zotero-citations.py
+            </code>
+            , which connects to the TABS Zotero group library via{' '}
             <a
               href="https://pyzotero.readthedocs.io/"
               target="_blank"
@@ -208,21 +216,31 @@ const ResearchFoundationPage = () => {
               className="text-blue-600 hover:underline"
             >
               pyzotero
-            </a>{' '}
-            API client. The workflow runs on a weekly schedule and on every manual dispatch.
+            </a>
+            . The script scopes its query to the <strong>TABS Website Citations</strong>{' '}
+            subcollection and all items nested within it, then writes the aggregated metrics to{' '}
+            <code className="text-sm bg-gray-100 px-1 py-0.5 rounded">
+              src/data/citation-metrics.json
+            </code>
+            .
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            Counts reflect top-level reference items only — attachments, notes, and annotations are
-            excluded. The &ldquo;Unique Journals&rdquo; figure counts distinct{' '}
-            <em>Publication Title</em> values across all journal articles in the library.
+            The workflow runs on a weekly schedule (Mondays at 06:00 UTC) and can also be triggered
+            manually. Results are committed as an auto-merged pull request so the update is
+            version-controlled and reviewable.
+          </p>
+          <p className={PARAGRAPH_CLASSES}>
+            Counts reflect top-level reference items only &mdash; attachments, notes, and
+            annotations are excluded. The &ldquo;Unique Journals&rdquo; figure counts distinct{' '}
+            <em>Publication Title</em> values across all journal articles in the collection.
           </p>
         </section>
 
-        {/* ── Navigation ── */}
+        {/* ---- Navigation ---- */}
         <section className="pt-8 border-t border-gray-200">
           <p className="text-sm text-gray-600">
-            <Link href="/results" className="text-blue-600 hover:underline">
-              &larr; Back to Results Overview
+            <Link href="/making-of-tabs" className="text-blue-600 hover:underline">
+              &larr; Back to Making of TABS
             </Link>
           </p>
         </section>
@@ -231,4 +249,4 @@ const ResearchFoundationPage = () => {
   )
 }
 
-export default ResearchFoundationPage
+export default ZoteroCitationsPage

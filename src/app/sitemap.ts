@@ -427,12 +427,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.7,
     },
-    {
-      url: `${baseUrl}/results/research-foundation`,
-      lastModified: now,
-      changeFrequency: 'weekly',
-      priority: 0.7,
-    },
     // Start / persona pages
     {
       url: `${baseUrl}/start`,
@@ -599,6 +593,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}/making-of-tabs/automation-infrastructure`,
       lastModified: now,
       changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/making-of-tabs/zotero-citations`,
+      lastModified: now,
+      changeFrequency: 'weekly',
       priority: 0.7,
     },
     // /making-of-tabs/data-analysis → /results/data-quality (redirect)

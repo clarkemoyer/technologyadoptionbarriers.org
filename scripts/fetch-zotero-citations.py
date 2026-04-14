@@ -2,13 +2,18 @@
 """
 fetch-zotero-citations.py
 =========================
-Fetches citation metrics from a Zotero library via the pyzotero API client
-and writes a summary to src/data/citation-metrics.json.
+Fetches citation metrics from the "TABS Website Citations" Zotero collection
+(and all items nested within it) via the pyzotero API client, then writes a
+summary to src/data/citation-metrics.json.
 
 Required environment variables:
   ZOTERO_LIBRARY_ID   - Zotero numeric library/group ID
   ZOTERO_API_KEY      - Zotero API key with read access
   ZOTERO_LIBRARY_TYPE - "user" or "group" (default: "group")
+
+Optional environment variable:
+  ZOTERO_COLLECTION_NAME - Name of the root collection to scope to
+                           (default: "TABS Website Citations")
 
 Output JSON shape:
   {
@@ -39,16 +44,13 @@ except ImportError:
 # Config
 # ---------------------------------------------------------------------------
 
-LIBRARY_ID = os.environ.get("ZOTERO_LIBRARY_ID", "")
-API_KEY = os.environ.get("ZOTERO_API_KEY", "")
-LIBRARY_TYPE = os.environ.get("ZOTERO_LIBRARY_TYPE", "group")
 TOP_COLLECTIONS_LIMIT = 10
+TARGET_COLLECTION_NAME = os.environ.get("ZOTERO_COLLECTION_NAME", "TABS Website Citations")
 
 REPO_ROOT = Path(__file__).parent.parent
 OUTPUT_PATH = REPO_ROOT / "src" / "data" / "citation-metrics.json"
 
-# Zotero item types that are considered "regular" references (excludes
-# attachments, notes, and annotations which are child items).
+# Zotero item types that are not standalone references (child items).
 EXCLUDED_TYPES = {"attachment", "note", "annotation"}
 
 
@@ -70,7 +72,6 @@ def _parse_year(date_str: str | None) -> int | None:
     if not date_str:
         return None
     date_str = date_str.strip()
-    # Try the first four characters if they look like a year
     if len(date_str) >= 4 and date_str[:4].isdigit():
         year = int(date_str[:4])
         if 1000 <= year <= datetime.now(timezone.utc).year:
@@ -121,6 +122,22 @@ def _friendly_type(item_type: str) -> str:
     return mapping.get(item_type, item_type)
 
 
+def _collect_descendant_keys(
+    root_key: str,
+    children_by_parent: dict[str, list[str]],
+) -> set[str]:
+    """Return root_key and all transitively nested subcollection keys."""
+    visited: set[str] = set()
+    stack = [root_key]
+    while stack:
+        key = stack.pop()
+        if key in visited:
+            continue
+        visited.add(key)
+        stack.extend(children_by_parent.get(key, []))
+    return visited
+
+
 # ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
@@ -131,26 +148,81 @@ def main() -> None:
     api_key = _require_env("ZOTERO_API_KEY")
     library_type = os.environ.get("ZOTERO_LIBRARY_TYPE", "group").strip() or "group"
 
-    print(f"Connecting to Zotero {library_type} library {library_id} …")
+    print(f"Connecting to Zotero {library_type} library {library_id} ...")
     zot = zotero.Zotero(library_id, library_type, api_key)
 
     # ------------------------------------------------------------------
-    # Fetch all top-level items (excludes attachments/notes by default
-    # when using top=True, but we explicitly filter anyway).
+    # Fetch all collections and find the target root collection key
     # ------------------------------------------------------------------
-    print("Fetching all items …")
-    all_items = zot.everything(zot.items(itemType="-attachment || -note"))
+    print(f"Fetching collections to locate '{TARGET_COLLECTION_NAME}' ...")
+    all_collections = zot.everything(zot.collections())
 
-    # Filter to only top-level reference items
-    items = [
-        item
-        for item in all_items
-        if item.get("data", {}).get("itemType", "") not in EXCLUDED_TYPES
-        and item.get("data", {}).get("parentItem") is None
-    ]
+    # Build lookup structures
+    col_name: dict[str, str] = {}          # key -> name
+    children_by_parent: dict[str, list[str]] = {}  # parentKey -> [childKey, ...]
+    root_collection_key: str | None = None
+
+    for col in all_collections:
+        key = col.get("key", "")
+        data = col.get("data", {})
+        name = data.get("name", key)
+        col_name[key] = name
+
+        parent_key = data.get("parentCollection", None)
+        if parent_key:
+            children_by_parent.setdefault(parent_key, []).append(key)
+
+        if name == TARGET_COLLECTION_NAME:
+            root_collection_key = key
+
+    if root_collection_key is None:
+        print(
+            f"ERROR: Collection '{TARGET_COLLECTION_NAME}' not found in library {library_id}.",
+            file=sys.stderr,
+        )
+        print(
+            "  Available top-level collections: "
+            + ", ".join(
+                f"'{col_name[k]}'"
+                for k in col_name
+                if not any(k in v for v in children_by_parent.values())
+            ),
+            file=sys.stderr,
+        )
+        sys.exit(1)
+
+    print(f"  Found collection key: {root_collection_key}")
+
+    # Collect all collection keys that are within the target (including itself)
+    scoped_collection_keys = _collect_descendant_keys(root_collection_key, children_by_parent)
+    print(
+        f"  Scoping to {len(scoped_collection_keys)} collection(s) "
+        f"('{TARGET_COLLECTION_NAME}' + nested subcollections)."
+    )
+
+    # ------------------------------------------------------------------
+    # Fetch items from the root collection (pyzotero returns all items
+    # directly in a collection; we also include nested subcollections by
+    # fetching each scoped collection's items separately).
+    # ------------------------------------------------------------------
+    print("Fetching items in scoped collections ...")
+    seen_keys: set[str] = set()
+    items: list[dict] = []
+
+    for col_key in scoped_collection_keys:
+        col_items = zot.everything(zot.collection_items(col_key))
+        for item in col_items:
+            item_key = item.get("key", "")
+            item_type = item.get("data", {}).get("itemType", "")
+            parent = item.get("data", {}).get("parentItem")
+
+            # Only count each item once, skip non-reference child items
+            if item_key not in seen_keys and item_type not in EXCLUDED_TYPES and not parent:
+                seen_keys.add(item_key)
+                items.append(item)
 
     total_references = len(items)
-    print(f"  Found {total_references} top-level reference items.")
+    print(f"  Found {total_references} unique top-level reference items.")
 
     # ------------------------------------------------------------------
     # Item types breakdown
@@ -168,10 +240,9 @@ def main() -> None:
     # ------------------------------------------------------------------
     # Unique journals
     # ------------------------------------------------------------------
-    journals = set()
+    journals: set[str] = set()
     for item in items:
-        data = item.get("data", {})
-        pub = data.get("publicationTitle", "").strip()
+        pub = item.get("data", {}).get("publicationTitle", "").strip()
         if pub:
             journals.add(pub)
 
@@ -181,10 +252,9 @@ def main() -> None:
     # ------------------------------------------------------------------
     # Date range
     # ------------------------------------------------------------------
-    years = []
+    years: list[int] = []
     for item in items:
-        data = item.get("data", {})
-        year = _parse_year(data.get("date", ""))
+        year = _parse_year(item.get("data", {}).get("date", ""))
         if year is not None:
             years.append(year)
 
@@ -195,27 +265,20 @@ def main() -> None:
     print(f"  Date range: {date_range}")
 
     # ------------------------------------------------------------------
-    # Collections (top N by item count)
+    # Subcollections within the scoped set (exclude the root itself)
     # ------------------------------------------------------------------
-    print("Fetching collections …")
-    all_collections = zot.everything(zot.collections())
+    subcollection_keys = scoped_collection_keys - {root_collection_key}
 
-    # Build a map of collectionKey -> name
-    col_name: dict[str, str] = {}
-    for col in all_collections:
-        key = col.get("key", "")
-        name = col.get("data", {}).get("name", key)
-        col_name[key] = name
-
-    # Count items per collection by looking at each item's collections list
-    col_counter: Counter[str] = Counter()
+    # Count items per subcollection
+    subcol_counter: Counter[str] = Counter()
     for item in items:
         for col_key in item.get("data", {}).get("collections", []):
-            col_counter[col_key] += 1
+            if col_key in subcollection_keys:
+                subcol_counter[col_key] += 1
 
     top_collections = [
         {"name": col_name.get(k, k), "count": v}
-        for k, v in col_counter.most_common(TOP_COLLECTIONS_LIMIT)
+        for k, v in subcol_counter.most_common(TOP_COLLECTIONS_LIMIT)
     ]
 
     # ------------------------------------------------------------------
@@ -241,3 +304,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+

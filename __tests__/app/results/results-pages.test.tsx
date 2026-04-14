@@ -370,30 +370,30 @@ describe('Scale Reliability Page', () => {
   })
 })
 
-describe('Research Foundation Page', () => {
+describe('Zotero Citations Page (making-of-tabs)', () => {
   it('renders heading', async () => {
-    const { default: Page } = await import('@/app/results/research-foundation/page')
+    const { default: Page } = await import('@/app/making-of-tabs/zotero-citations/page')
     render(<Page />)
-    expect(screen.getByRole('heading', { name: /research foundation/i })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: /website citation library/i })).toBeInTheDocument()
   })
 
   it('renders total references stat', async () => {
-    const { default: Page } = await import('@/app/results/research-foundation/page')
+    const { default: Page } = await import('@/app/making-of-tabs/zotero-citations/page')
     render(<Page />)
     expect(screen.getByText('Total References')).toBeInTheDocument()
   })
 
   it('renders item types table', async () => {
-    const { default: Page } = await import('@/app/results/research-foundation/page')
+    const { default: Page } = await import('@/app/making-of-tabs/zotero-citations/page')
     render(<Page />)
     expect(screen.getByRole('heading', { name: /reference types/i })).toBeInTheDocument()
     expect(screen.getByText('Journal Articles')).toBeInTheDocument()
   })
 
-  it('renders top collections table', async () => {
-    const { default: Page } = await import('@/app/results/research-foundation/page')
+  it('renders top subcollections table', async () => {
+    const { default: Page } = await import('@/app/making-of-tabs/zotero-citations/page')
     render(<Page />)
-    expect(screen.getByRole('heading', { name: /top collections/i })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: /top subcollections/i })).toBeInTheDocument()
     expect(screen.getByText('TAM & Extensions')).toBeInTheDocument()
   })
 })

@@ -264,6 +264,15 @@ const MakingOfTabsPage = () => {
                 titleColor: 'text-indigo-900',
                 textColor: 'text-indigo-800',
               },
+              {
+                title: 'Website Citation Library',
+                href: '/making-of-tabs/zotero-citations',
+                desc: 'The academic references behind the TABS website: item counts, journals, date range, and subcollections from our Zotero library.',
+                border: 'border-violet-200',
+                bg: 'bg-violet-50',
+                titleColor: 'text-violet-900',
+                textColor: 'text-violet-800',
+              },
             ].map((card) => (
               <Link
                 key={card.href}
