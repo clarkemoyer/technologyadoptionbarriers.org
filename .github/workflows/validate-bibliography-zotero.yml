@@ -1,0 +1,107 @@
+name: Validate Bibliography References vs Zotero
+
+# Runs on PRs touching bibliography pages and on manual dispatch.
+# Non-blocking (warns but doesn't fail CI) until Zotero coverage reaches 90%.
+
+on:
+  pull_request:
+    paths:
+      - 'src/app/bibliography-*/page.tsx'
+  workflow_dispatch:
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    environment: zotero-prod
+    permissions:
+      pull-requests: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Install pyzotero
+        run: pip install pyzotero==1.11.0
+
+      - name: Run bibliography-Zotero validation
+        id: validate
+        env:
+          ZOTERO_API_KEY: ${{ secrets.ZOTERO_API_KEY }}
+          ZOTERO_USER_ID: ${{ vars.ZOTERO_USER_ID }}
+          VALIDATION_REPORT_PATH: bibliography-validation-report.json
+        run: |
+          python scripts/validate-bibliography-references.py || true
+          echo "report_path=bibliography-validation-report.json" >> "$GITHUB_OUTPUT"
+
+      - name: Upload validation report
+        uses: actions/upload-artifact@v4
+        with:
+          name: bibliography-validation-report
+          path: bibliography-validation-report.json
+          retention-days: 30
+
+      - name: Post PR comment with results
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const report = JSON.parse(fs.readFileSync('bibliography-validation-report.json', 'utf8'));
+
+            const pct = report.total_refs > 0
+              ? Math.round(report.matched * 100 / report.total_refs)
+              : 0;
+
+            let body = `## Zotero Bibliography Validation\n\n`;
+            body += `| Metric | Value |\n|---|---|\n`;
+            body += `| Pages with References | ${report.pages_with_refs} / ${report.total_pages} |\n`;
+            body += `| Total references | ${report.total_refs} |\n`;
+            body += `| Matched in Zotero | ${report.matched} (${pct}%) |\n`;
+            body += `| Unmatched | ${report.unmatched} |\n\n`;
+
+            if (report.unmatched > 0 && report.unmatched_details.length > 0) {
+              body += `<details><summary>${report.unmatched} references not found in Zotero (click to expand)</summary>\n\n`;
+              body += `| Page | Reference |\n|---|---|\n`;
+              for (const d of report.unmatched_details.slice(0, 50)) {
+                body += `| \`${d.page}\` | ${d.ref} |\n`;
+              }
+              if (report.unmatched_details.length > 50) {
+                body += `| ... | ${report.unmatched_details.length - 50} more |\n`;
+              }
+              body += `\n</details>\n\n`;
+            }
+
+            body += `> Per [#1553](https://github.com/${context.repo.owner}/${context.repo.repo}/issues/1553): all references must exist in Zotero and use APA 7th format.\n`;
+
+            // Find and update existing comment or create new
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+
+            const marker = '## Zotero Bibliography Validation';
+            const existing = comments.find(c => c.body.startsWith(marker));
+
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body,
+              });
+            }
