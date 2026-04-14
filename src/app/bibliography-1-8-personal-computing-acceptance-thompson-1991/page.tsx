@@ -542,7 +542,7 @@ const BibliographyArticlePage = () => {
                 coordinated attention to complexity reduction through training, clear communication
                 about job fit and task relevance, cultivation of organizational champions and peer
                 support, provision of technical resources and support, and management of long-term
-                expectations about benefits and career implications. 7
+                expectations about benefits and career implications.
               </li>
               <li>
                 <strong>Following Models or Theories:</strong> Following Models: Taylor and Todd
@@ -559,10 +559,10 @@ const BibliographyArticlePage = () => {
           {/* References */}
           <section className={SECTION_CLASSES}>
             <h2 className={H2_CLASSES}>References</h2>
-            <ol className="list-decimal list-inside space-y-3 text-sm text-gray-800">
+            <ol className="list-decimal list-inside space-y-3 text-sm">
               <li>
-                Thompson, R. L., Higgins, C. A., &amp; Howell, J. M. (1991). Toward a conceptual
-                model of personal computing utilization. <em>MIS Quarterly</em>, 15(1), 125-143.
+                Thompson, R. L., Higgins, C. A., and Howell, J. M. (1991). Toward a conceptual model
+                of personal computing utilization. <em>MIS Quarterly</em>, 15(1), 125-143.
               </li>
               <li>
                 Triandis, H. C. (1980). Values, attitudes, and interpersonal behavior.{' '}
@@ -574,22 +574,39 @@ const BibliographyArticlePage = () => {
                 information technology. <em>MIS Quarterly</em>, 13(3), 319-340.
               </li>
               <li>
-                Davis, F. D., Bagozzi, R. P., &amp; Warsaw, P. R. (1989). User acceptance of
-                computer technology: A comparison of two theoretical models.{' '}
-                <em>Management Science</em>, 35(8), 982-1003.
+                Davis, F. D., Bagozzi, R. P., and Warsaw, P. R. (1989). User acceptance of computer
+                technology: A comparison of two theoretical models. <em>Management Science</em>,
+                35(8), 982-1003.
               </li>
               {/* prettier-ignore */}
               <li>
-                Fishbein, M., &amp; Ajzen, I. (1975).{' '}
+                Fishbein, M., and Ajzen, I. (1975).{' '}
                 <em>
                   Belief, attitude, intention and behavior: An introduction to theory and research
                 </em>. Reading, MA: Addison-Wesley.
               </li>
               <li>
-                Porter, L. W., &amp; Lawler, E. E. (1968).{' '}
+                Porter, L. W., and Lawler, E. E. (1968).{' '}
                 <em>Managerial attitudes and performance</em>. Homewood, IL: Irwin-Dorsey
               </li>
+              {/* prettier-ignore */}
+              <li>
+                Robey, D. (1979). User attitudes and management information system use. <em>Academy of Management Review</em>, 4(4), 527-538.
+              </li>
+              {/* prettier-ignore */}
+              <li>
+                Tornatzky, L. G., and Klein, K. J. (1982). Innovation characteristics and innovation adoption-implementation: A meta-analysis of findings. <em>IEEE Transactions on Engineering Management</em>, EM-29(1), 28-45.
+              </li>
+              {/* prettier-ignore */}
+              <li>
+                Cheney, P. H., Mann, R. I., and Amoroso, D. L. (1986). Organizational factors affecting the success of end-user computing. <em>Journal of Management Information Systems</em>, 3(1), 65-80.
+              </li>
             </ol>
+            <p className="mt-4 text-sm italic text-gray-600">
+              This article was generated for a Technology Adoption Literature Review based on
+              detailed analysis of the original 1991 publication by Thompson, Higgins, and Howell in
+              MIS Quarterly.
+            </p>
           </section>
           <p className="mt-8 text-sm italic text-gray-600">
             Note: This article provides an overview based on the comprehensive literature review.

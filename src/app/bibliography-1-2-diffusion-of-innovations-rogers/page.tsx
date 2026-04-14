@@ -601,7 +601,7 @@ const BibliographyArticlePage = () => {
                 peer pressure supporting broader adoption. Recognizing that early adopters may
                 differ in values and approaches from the broader population, leaders should design
                 strategies enabling early majority and late majority adoption without demanding that
-                all populations adopt for identical reasons or in identical ways. 7
+                all populations adopt for identical reasons or in identical ways.
               </li>
               <li>
                 <strong>Following Models or Theories:</strong> Following Models: Technology
@@ -617,12 +617,12 @@ const BibliographyArticlePage = () => {
           {/* References */}
           <section className={SECTION_CLASSES}>
             <h2 className={H2_CLASSES}>References</h2>
-            <ol className="list-decimal list-inside space-y-2 text-sm text-gray-800">
+            <ol className="list-decimal list-inside space-y-3 text-sm">
               <li>
                 Rogers, E. M. (1962). <em>Diffusion of innovations</em> . The Free Press.
               </li>
               <li>
-                Rogers, E. M., &amp; Shoemaker, F. F. (1971).{' '}
+                Rogers, E. M., and Shoemaker, F. F. (1971).{' '}
                 <em>Communication of innovations: A cross-cultural approach</em> (2nd ed.). Free
                 Press.
               </li>

@@ -502,7 +502,7 @@ const BibliographyArticlePage = () => {
               addressing the diverse obstacles different household segments face. Rather than
               employing a single marketing message or approach, leaders should segment the market,
               identify which barriers are most salient to each segment, and tailor their
-              barrier-reduction strategies accordingly. 7.
+              barrier-reduction strategies accordingly.
             </p>
             <ul className={BODY_LIST_CLASSES}>
               <li>
@@ -521,7 +521,7 @@ const BibliographyArticlePage = () => {
           {/* References */}
           <section className={SECTION_CLASSES}>
             <h2 className={H2_CLASSES}>References</h2>
-            <ol className="list-decimal list-inside space-y-3 text-sm text-gray-800">
+            <ol className="list-decimal list-inside space-y-3 text-sm">
               <li>
                 Ajzen, I. &ldquo;The Theory of Planned Behavior.&rdquo;{' '}
                 <em>Organizational Behavior and Human Decision Processes</em> 50, no. 2 (1991):

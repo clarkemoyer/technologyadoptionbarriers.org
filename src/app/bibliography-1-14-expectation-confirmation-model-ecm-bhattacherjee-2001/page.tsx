@@ -538,7 +538,7 @@ const BibliographyArticlePage = () => {
               adoption. Rather, organizations must actively manage user experience, maintain
               realistic expectations, deliver satisfaction, and demonstrate ongoing value to sustain
               continued system use. Practitioners should recognize that post-adoption management is
-              as important as adoption management in determining system success. 7.
+              as important as adoption management in determining system success.
             </p>
             <ul className={BODY_LIST_CLASSES}>
               <li>
@@ -557,7 +557,7 @@ const BibliographyArticlePage = () => {
           {/* References */}
           <section className={SECTION_CLASSES}>
             <h2 className={H2_CLASSES}>References</h2>
-            <ol className="list-decimal list-inside space-y-3 text-sm text-gray-800">
+            <ol className="list-decimal list-inside space-y-3 text-sm">
               <li>
                 Ajzen, I. &ldquo;The Theory of Planned Behavior.&rdquo;{' '}
                 <em>Organizational Behavior and Human Decision Processes</em> 50, no. 2 (1991):
@@ -586,6 +586,22 @@ const BibliographyArticlePage = () => {
                 Mathieson, K. &ldquo;Predicting User Intentions: Comparing the Technology Acceptance
                 Model with the Theory of Planned Behavior.&rdquo;{' '}
                 <em>Information Systems Research</em> 2, no. 3 (1991): 173-191
+              </li>
+              {/* prettier-ignore */}
+              <li>
+                Spreng, R. A., MacKenzie, S. B., and Olshavsky, R. W. &ldquo;A Reexamination of the Determinants of Consumer Satisfaction.&rdquo; <em>Journal of Marketing</em> 60, no. 3 (1996): 15-32.
+              </li>
+              {/* prettier-ignore */}
+              <li>
+                Fishbein, M., and Ajzen, I. <em>Belief, Attitude, Intention and Behavior: An Introduction to Theory and Research</em>. Reading, MA: Addison-Wesley, 1975.
+              </li>
+              {/* prettier-ignore */}
+              <li>
+                Agarwal, R., and Prasad, J. &ldquo;The Antecedents and Consequents of User Perceptions in Information Technology Adoption.&rdquo; <em>Decision Support Systems</em> 22, no. 1 (1998): 15-29.
+              </li>
+              {/* prettier-ignore */}
+              <li>
+                Karahanna, E., Straub, D. W., and Chervany, N. L. &ldquo;Information Technology Adoption Across Time: A Cross-Sectional Comparison of Pre-Adoption and Post-Adoption Beliefs.&rdquo; <em>MIS Quarterly</em> 23, no. 2 (1999): 183-213.
               </li>
             </ol>
           </section>

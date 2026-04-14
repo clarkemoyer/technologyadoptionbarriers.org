@@ -632,7 +632,7 @@ const BibliographyArticlePage = () => {
                 advocate for adopted technologies, demonstrate learning and adaptation to new
                 systems, and acknowledge their own learning processes. Leader modeling of technology
                 adoption and learning creates powerful vicarious experiences and cultural signals
-                that adoption is valued and expected. 7
+                that adoption is valued and expected.
               </li>
               <li>
                 <strong>Following Models or Theories:</strong> Following Models: Technology
@@ -651,7 +651,7 @@ const BibliographyArticlePage = () => {
           {/* References */}
           <section className={SECTION_CLASSES}>
             <h2 className={H2_CLASSES}>References</h2>
-            <ol className="list-decimal list-inside space-y-3 text-sm text-gray-800">
+            <ol className="list-decimal list-inside space-y-3 text-sm">
               {/* prettier-ignore */}
               <li>
                 Bandura, A. (1986).{' '}

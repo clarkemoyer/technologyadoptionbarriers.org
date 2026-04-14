@@ -533,7 +533,7 @@ const BibliographyArticlePage = () => {
               consumers, recognizing that building consumer TR benefits all market participants.
               Media campaigns that address technology paradoxes and reassure consumers about
               technology safety, simplicity, and reliability can raise the overall TR level in the
-              market, expanding the addressable customer base for all organizations. 7.
+              market, expanding the addressable customer base for all organizations.
             </p>
             <p className={PARAGRAPH_CLASSES}>
               Following Models or Theories: Following Models: Technology Readiness and Acceptance
@@ -548,7 +548,7 @@ const BibliographyArticlePage = () => {
           {/* References */}
           <section className={SECTION_CLASSES}>
             <h2 className={H2_CLASSES}>References</h2>
-            <ol className="list-decimal list-inside space-y-3 text-sm text-gray-800">
+            <ol className="list-decimal list-inside space-y-3 text-sm">
               <li>
                 Berry, L. L. (1981). &ldquo;The Employee as Customer.&rdquo; Journal of Retail
                 Banking, vol.3, no. 1, pp. 33-40.

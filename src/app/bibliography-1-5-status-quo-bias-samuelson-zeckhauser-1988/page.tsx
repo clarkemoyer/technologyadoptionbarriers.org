@@ -582,7 +582,7 @@ const BibliographyArticlePage = () => {
                 technology will naturally be adopted if merely made available, leaders must actively
                 work to overcome the psychological and economic barriers that sustain status quo
                 positions. This requires understanding status quo bias as a systematic phenomenon
-                requiring deliberate countermeasures, not merely as individual quirks. 7
+                requiring deliberate countermeasures, not merely as individual quirks.
               </li>
               <li>
                 <strong>Following Models or Theories:</strong> Following Models: Prospect Theory
