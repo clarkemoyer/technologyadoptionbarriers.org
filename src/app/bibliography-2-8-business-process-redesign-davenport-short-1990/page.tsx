@@ -60,7 +60,7 @@ const DavenportShortBPRPage = () => {
             <em>Sloan Management Review</em>, introducing a framework that fundamentally reoriented
             how organizations think about leveraging information technology. Rather than treating IT
             as a tool for automating existing processes, Davenport and Short proposed that IT
-            enables the radical redesign of core business processes-a shift they framed as a new
+            enables the radical redesign of core business processes - a shift they framed as a new
             form of industrial engineering appropriate for the information age.
           </p>
           <p className={PARAGRAPH_CLASSES}>
@@ -86,14 +86,14 @@ const DavenportShortBPRPage = () => {
             in increasingly competitive environments where rivals had restructured their operations
             to achieve superior performance. Traditional industrial engineering had been applied
             relatively narrowly to manufacturing, yet competitive advantage increasingly derived
-            from comprehensive business process performance-how effectively organizations managed
+            from comprehensive business process performance - how effectively organizations managed
             customer acquisition, product design, order fulfillment, and customer service in
             addition to manufacturing efficiency.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Information Technology Capability Expansion:</strong> IT had evolved from
             supporting existing processes to enabling fundamentally different ways of working. Prior
-            IT adoption had primarily focused on automating existing processes-faster, cheaper
+            IT adoption had primarily focused on automating existing processes - faster, cheaper
             operations doing the same work. Davenport and Short recognized that emerging IT
             capabilities could support more radical redesign: information systems could capture
             customer data comprehensively, enable communication across organizational boundaries,

@@ -67,10 +67,10 @@ const ModelsPage = () => {
             strategy and operations, where the C-Suite makes high-stakes decisions. The central
             question here is: How does our organization decide to invest in, implement, and
             integrate a technology to achieve strategic goals? This perspective examines the
-            powerful forces at play-such as competitive and environmental pressures [2], the search
-            for a sustainable advantage through strategic resource allocation [3], and the immense
-            challenge of re-engineering established workflows [4]. It is the strategic umbrella
-            under which all other adoption activities occur.
+            powerful forces at play - such as competitive and environmental pressures [2], the
+            search for a sustainable advantage through strategic resource allocation [3], and the
+            immense challenge of re-engineering established workflows [4]. It is the strategic
+            umbrella under which all other adoption activities occur.
           </p>
 
           <h3 className={H3_CLASSES}>2. User Adoption: The Internal Challenge</h3>
@@ -94,9 +94,9 @@ const ModelsPage = () => {
             motivates an external customer to adopt and integrate our technology into their lives?
             This involves understanding market needs, pricing, user experience (UX), and the social
             dynamics of consumer choice [1]. Whether it’s a new mobile app, a smart home device, or
-            a SaaS platform for small businesses, the drivers here-such as hedonic motivation and
-            price value-are fundamentally different from those in a mandatory corporate environment
-            [9].
+            a SaaS platform for small businesses, the drivers here - such as hedonic motivation and
+            price value - are fundamentally different from those in a mandatory corporate
+            environment [9].
           </p>
         </section>
 
