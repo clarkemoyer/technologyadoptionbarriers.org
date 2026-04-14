@@ -203,11 +203,11 @@ const DoDAFPage = () => {
           <p className={PARAGRAPH_CLASSES}>
             These viewpoints are not independent silos. DoDAF establishes explicit{' '}
             <strong>logical interdependencies</strong> among them that form the architecture&rsquo;s
-            governing logic: <strong>Capabilities define what must be accomplished</strong> &rarr;{' '}
-            <strong>Operations define how capabilities are executed</strong> &rarr;{' '}
-            <strong>Systems implement operational processes</strong> &rarr;{' '}
-            <strong>Services support systems and operations</strong> &rarr;{' '}
-            <strong>Data enables all viewpoints</strong> &rarr;{' '}
+            governing logic: <strong>Capabilities define what must be accomplished</strong> →{' '}
+            <strong>Operations define how capabilities are executed</strong> →{' '}
+            <strong>Systems implement operational processes</strong> →{' '}
+            <strong>Services support systems and operations</strong> →{' '}
+            <strong>Data enables all viewpoints</strong> →{' '}
             <strong>Standards ensure compatibility across all viewpoints.</strong>
           </p>
           <p className={PARAGRAPH_CLASSES}>
@@ -256,13 +256,12 @@ const DoDAFPage = () => {
           <p className={PARAGRAPH_CLASSES}>
             <strong>Formal Validation Criteria.</strong> The framework specifies required viewpoints
             and architectural products for each program phase, explicit traceability requirements
-            (capability &rarr; operation &rarr; system &rarr; service), consistency checks across
-            viewpoints, and formal architecture reviews as program milestones. These validation
-            mechanisms reflect the military tradition of complete specification before
-            implementation, formal review and approval cycles, and explicit identification and
-            management of technical and operational risk. Together they give DoDAF a disciplined
-            rigor that is well suited to environments where architecture failures have operational
-            consequences.
+            (capability → operation → system → service), consistency checks across viewpoints, and
+            formal architecture reviews as program milestones. These validation mechanisms reflect
+            the military tradition of complete specification before implementation, formal review
+            and approval cycles, and explicit identification and management of technical and
+            operational risk. Together they give DoDAF a disciplined rigor that is well suited to
+            environments where architecture failures have operational consequences.
           </p>
         </section>
 
@@ -554,7 +553,7 @@ const DoDAFPage = () => {
             href="/article-bibliography-comprehensive-series-bibliography"
             className="text-blue-600 hover:text-blue-800 underline"
           >
-            &larr; Back to Complete Bibliography
+            ← Back to Complete Bibliography
           </Link>
         </section>
       </article>

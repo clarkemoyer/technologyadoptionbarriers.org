@@ -716,9 +716,118 @@ const BibliographyArticlePage = () => {
             </p>
             <p className={PARAGRAPH_CLASSES}>
               When technology adoption requires cultural shifts (toward greater flexibility,
-              data-driven decision-making, or continuous
+              data-driven decision-making, or continuous learning), leaders should articulate
+              cultural transitions and help organizational members adapt to new cultural
+              expectations while maintaining valued continuities. Leaders should create normative
+              clarity through explicit communication that adoption is expected, supported, and
+              valued. Ambiguous normative expectations undermine adoption; clear organizational
+              statements about technology adoption as required or strongly supported provide
+              normative pressure supporting adoption. For technologies requiring interdependent
+              adoption, leaders should plan coordinated organizational-wide implementation ensuring
+              that all necessary population members adopt together, creating complete adoption
+              networks with normative support from colleagues facing identical implementation
+              challenges.
+            </p>
+            <p className={PARAGRAPH_CLASSES}>
+              Perceived behavioral control interventions: Leaders instructed by the TPB should
+              address perceived control barriers through capability-building and environmental
+              enabling. For skill sufficiency barriers, leaders should provide comprehensive
+              training programs ensuring potential adopters develop necessary capabilities before
+              adoption demands. Rather than assuming adoption will encourage learning, leaders
+              should proactively build skills creating foundation for successful adoption. Training
+              should accommodate diverse learning styles and paces (some learning quickly, others
+              requiring extended practice) ensuring broad capability development. For individuals
+              with significant anxiety or confidence deficits, leaders should provide intensive
+              support including hands-on coaching, extended practice opportunities, peer support
+              systems, and confidence-building experiences. Leaders should provide graduated
+              adoption starting with simple functions and advancing to complex features as
+              confidence builds. For resource insufficiency barriers, leaders should ensure that
+              organizational systems provide necessary resources including access to training,
+              adequate technology, organizational support systems, and time for learning. When
+              individuals lack training time, leaders should provide dedicated learning time rather
+              than expecting learning to occur outside work. When individuals lack necessary
+              equipment or software licenses, leaders should ensure these are provided. When
+              individuals lack organizational support, leaders should identify technical experts
+              available to answer questions and solve problems. Leaders should create support
+              systems including help desks, peer support networks, designated technology champions,
+              and accessible technical expertise. Making support readily available - through email,
+              phone, or in-person consultation - increases perceived control by reducing beliefs
+              that individuals must troubleshoot problems alone. For environmental impediment
+              barriers, leaders should remove actual obstacles to adoption. This may require
+              organizational policy changes, system integration work enabling technology to function
+              within existing systems, or supervisor communication clarifying that adoption is
+              supported despite apparent organizational impediments. When individuals correctly
+              perceive that technology policies prohibit adoption or that system incompatibilities
+              prevent integration, leaders must address these obstacles directly rather than
+              expecting attitude change to overcome real barriers. For anxiety and loss-of-control
+              concerns, leaders should provide education addressing specific fears, demonstrating
+              that technology safeguards protect data, that training maintains user control, and
+              that organizations implement technology in ways preserving human judgment and
+              autonomy. Demonstrating that technology supports rather than replaces human
+              decision-making can alleviate concerns about loss of control.
+            </p>
+            <p className={PARAGRAPH_CLASSES}>
+              Multi-factor intervention design: The Theory of Planned Behavior instructs leaders
+              that effective adoption interventions require addressing all three psychosocial
+              barrier types simultaneously. If interventions address only attitudes while ignoring
+              normative or control barriers, adoption remains suboptimal. Leaders should assess
+              baseline attitudes, normative support, and perceived control across potential adopters
+              to identify which barrier types most strongly undermine adoption. This diagnostic
+              assessment guides intervention design ensuring that intervention components match
+              identified barriers. For technologies where negative attitudes constitute primary
+              barriers, intervention intensity should focus on attitude change through persuasive
+              communication, demonstrations, and testimonials. For technologies where normative
+              barriers dominate, intervention intensity should focus on building social support,
+              securing leadership advocacy, and shifting organizational culture. For technologies
+              where perceived control barriers dominate, intervention intensity should focus on
+              capability building and environmental enabling. Leaders should design comprehensive
+              interventions incorporating attitude change, normative influence, and control
+              enhancement elements appropriate to identified barriers.
+            </p>
+            <p className={PARAGRAPH_CLASSES}>
+              Monitoring barrier persistence: The TPB instructs leaders to measure attitudes,
+              subjective norms, and perceived control before intervention, during implementation,
+              and after adoption to assess whether specific barriers actually declined through
+              intervention. This ongoing measurement enables mid-course correction if particular
+              barriers prove resistant to intervention. If subjective norms measurements indicate
+              normative barriers persist despite leadership advocacy, leaders should intensify
+              normative interventions. If perceived control measurements indicate skill deficiencies
+              persist despite training, leaders should provide additional training. This
+              measurement-guided approach enables adaptive intervention improving effectiveness
+              through data-driven modifications.
             </p>
           </section>
+
+          {/* 7. Following Models or Theories */}
+          <section className={SECTION_CLASSES}>
+            <h2 className={H2_CLASSES}>7. Following Models or Theories</h2>
+            <p className={PARAGRAPH_CLASSES}>
+              <strong>Following Models:</strong> Technology Acceptance Model extensions using TPB;
+              Unified Theory of Acceptance and Use of Technology incorporating TPB constructs;
+              Task-Technology Fit models building on TPB; Social cognitive theory extensions of TPB
+            </p>
+            <p className={PARAGRAPH_CLASSES}>
+              <strong>Following Theories:</strong> Protection motivation theory applications;
+              Behavioral change theory extensions; Health behavior adoption models; Organizational
+              behavior change frameworks building on TPB
+            </p>
+          </section>
+
+          {/* Series Navigation */}
+          <section className={SECTION_CLASSES}>
+            <h2 className={H2_CLASSES}>Series Navigation</h2>
+            <p className={PARAGRAPH_CLASSES}>
+              Diffusion of Innovations (Rogers, 1962) - Foundational Framework
+            </p>
+            <p className={PARAGRAPH_CLASSES}>
+              The Theory of Planned Behavior (Ajzen, 1991) - Individual Behavior Prediction
+            </p>
+            <p className={PARAGRAPH_CLASSES}>
+              Perceived Usefulness, Perceived Ease of Use, and User Acceptance of Information
+              Technology (Davis, 1989) - Technology-Specific Acceptance
+            </p>
+          </section>
+
           <p className="mt-8 text-sm italic text-gray-600">
             Note: This article provides an overview based on the comprehensive literature review.
             Readers are encouraged to consult the original publication for complete details.
