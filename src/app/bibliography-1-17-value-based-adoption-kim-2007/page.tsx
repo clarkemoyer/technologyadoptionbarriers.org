@@ -731,66 +731,61 @@ const BibliographyArticlePage = () => {
             <h2 className={H2_CLASSES}>References</h2>
             <ol className="list-decimal list-inside space-y-3 text-sm">
               <li>
-                Ajzen, I. (1991). &ldquo;The Theory of Planned Behavior.&rdquo;{' '}
-                <em>Organizational Behavior and Human Decision Performance</em>, vol. 50, no. 2, pp.
-                179-211.
+                Ajzen, I. (1991). The theory of planned behavior.{' '}
+                <em>Organizational Behavior and Human Decision Processes</em>, 50(2), 179-211.
               </li>
               <li>
-                Bagozzi, R. P. (1992). &ldquo;The Self-Regulation of Attitudes, Intentions, and
-                Behavior: An Introduction.&rdquo; <em>Social Psychology Quarterly</em>, vol. 55, no.
-                2, pp. 178-204.
+                Bagozzi, R. P. (1992). The self-regulation of attitudes, intentions, and behavior:
+                An introduction. <em>Social Psychology Quarterly</em>, 55(2), 178-204.
               </li>
               <li>
-                Choi, Y., and Nevo, S. (2000). &ldquo;Information Systems as Enabling Factors in the
-                Effort to Improve Business Performance.&rdquo;{' '}
-                <em>Journal of the Association for Information Systems</em>, vol. 1, no. 4, pp.
-                1-32.
+                Choi, Y., &amp; Nevo, S. (2000). Information systems as enabling factors in the
+                effort to improve business performance.{' '}
+                <em>Journal of the Association for Information Systems</em>, 1(4), 1-32.
               </li>
               <li>
-                Davis, F. D. (1989). &ldquo;Perceived Usefulness, Perceived Ease of Use, and User
-                Acceptance of Information Technology.&rdquo; <em>MIS Quarterly</em>, vol. 13, no. 3,
-                pp. 319-340.
+                Davis, F. D. (1989). Perceived usefulness, perceived ease of use, and user
+                acceptance of information technology. <em>MIS Quarterly</em>, 13(3), 319-340.
               </li>
               <li>
-                DeCarlo, T. E. (2005). &ldquo;The Effects of Sales Message and Suspicion of Ulterior
-                Motives on Salesperson Evaluation.&rdquo; <em>Journal of Consumer Psychology</em>,
-                vol. 15, no. 3, pp. 238-249.
+                DeCarlo, T. E. (2005). The effects of sales message and suspicion of ulterior
+                motives on salesperson evaluation. <em>Journal of Consumer Psychology</em>, 15(3),
+                238-249.
               </li>
               <li>
-                Fishbein, M., and Ajzen, I. (1975).{' '}
+                Fishbein, M., &amp; Ajzen, I. (1975).{' '}
                 <em>
-                  Belief, Attitude, Intention and Behavior: An Introduction to Theory and Research
+                  Belief, attitude, intention and behavior: An introduction to theory and research
                 </em>
                 . Addison-Wesley.
               </li>
               <li>
-                Gutman, J. (1982). &ldquo;A Means-End Chain Model Based on Consumer Categorization
-                Processes.&rdquo; <em>Journal of Marketing</em>, vol. 46, no. 2, pp. 60-72.
+                Gutman, J. (1982). A means-end chain model based on consumer categorization
+                processes. <em>Journal of Marketing</em>, 46(2), 60-72.
               </li>
               <li>
-                Hogue, A., and Mills, M. (2010). &ldquo;The Impact of Traditional Gender Roles on
-                Alcohol Use Among College Women: Who Drinks and Who Abstains?&rdquo;{' '}
-                <em>Journal of American College Health</em>, vol. 58, no. 3, pp. 231-239.
+                Hogue, A., &amp; Mills, M. (2010). The impact of traditional gender roles on alcohol
+                use among college women: Who drinks and who abstains?{' '}
+                <em>Journal of American College Health</em>, 58(3), 231-239.
               </li>
               <li>
-                Parasuraman, A. (2000). &ldquo;Technology Readiness Index (TRI): A Multiple-Item
-                Scale to Measure Readiness to Embrace New Technologies.&rdquo;{' '}
-                <em>Journal of Service Research</em>, vol. 2, no. 4, pp. 307-320.
+                Parasuraman, A. (2000). Technology Readiness Index (TRI): A multiple-item scale to
+                measure readiness to embrace new technologies. <em>Journal of Service Research</em>,
+                2(4), 307-320.
               </li>
               <li>
-                Schwartz, S. H. (2003). &ldquo;A Proposal for Measuring Value Orientations Across
-                Nations.&rdquo; Chapter in the Questionnaire Development Report. European Social
-                Survey Project.
+                Schwartz, S. H. (2003). A proposal for measuring value orientations across nations.
+                Chapter in the Questionnaire Development Report. European Social Survey Project.
               </li>
               <li>
-                Venkatesh, V. (2000). &ldquo;Determinants of Perceived Ease of Use: Integrating
-                Control, Intrinsic Motivation, and Emotion into the Technology Acceptance
-                Model.&rdquo; <em>Information Systems Research</em>, vol. 11, no. 4, pp. 342-365.
+                Venkatesh, V. (2000). Determinants of perceived ease of use: Integrating control,
+                intrinsic motivation, and emotion into the Technology Acceptance Model.{' '}
+                <em>Information Systems Research</em>, 11(4), 342-365.
               </li>
               <li>
-                Venkatesh, V., and Davis, F. D. (2000). &ldquo;A Theoretical Extension of the
-                Technology Acceptance Model: Four Longitudinal Field Studies.&rdquo;{' '}
-                <em>Management Science</em>, vol. 46, no. 2, pp. 186-204.
+                Venkatesh, V., &amp; Davis, F. D. (2000). A theoretical extension of the Technology
+                Acceptance Model: Four longitudinal field studies. <em>Management Science</em>,
+                46(2), 186-204.
               </li>
             </ol>
           </section>

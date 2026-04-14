@@ -595,56 +595,55 @@ const BibliographyArticlePage = () => {
             <h2 className={H2_CLASSES}>References</h2>
             <ol className="list-decimal list-inside space-y-3 text-sm">
               <li>
-                Baron, R. M., and Kenny, D. A. (1986). &ldquo;The Moderator-Mediator Variable
-                Distinction in Social Psychological Research: Conceptual, Strategic, and Statistical
-                Considerations.&rdquo; <em>Journal of Personality and Social Psychology</em>, vol.
-                51, no. 6, pp. 1173-1182.
+                Baron, R. M., &amp; Kenny, D. A. (1986). The moderator-mediator variable distinction
+                in social psychological research: Conceptual, strategic, and statistical
+                considerations. <em>Journal of Personality and Social Psychology</em>, 51(6),
+                1173-1182.
               </li>
               <li>
-                Bentler, P. M., and Bonett, D. G. (1980). &ldquo;Significance Tests and Goodness of
-                Fit in the Analysis of Covariance Structures.&rdquo; <em>Psychological Bulletin</em>
-                , vol. 88, no. 3, pp. 588-606.
+                Bentler, P. M., &amp; Bonett, D. G. (1980). Significance tests and goodness of fit
+                in the analysis of covariance structures. <em>Psychological Bulletin</em>, 88(3),
+                588-606.
               </li>
               <li>
-                Chin, W. W., and Todd, P. A. (1995). &ldquo;On the Use, Usefulness, and Ease of Use
-                of Structural Equation Modeling in MIS Research.&rdquo; <em>MIS Quarterly</em>, vol.
-                19, no. 2, pp. 237-246.
+                Chin, W. W., &amp; Todd, P. A. (1995). On the use, usefulness, and ease of use of
+                structural equation modeling in MIS research. <em>MIS Quarterly</em>, 19(2),
+                237-246.
               </li>
               <li>
-                Davis, F. D. (1989). &ldquo;Perceived Usefulness, Perceived Ease of Use, and User
-                Acceptance of Information Technology.&rdquo; <em>MIS Quarterly</em>, vol. 13, no. 3,
-                pp. 319-340.
+                Davis, F. D. (1989). Perceived usefulness, perceived ease of use, and user
+                acceptance of information technology. <em>MIS Quarterly</em>, 13(3), 319-340.
               </li>
               <li>
-                Davis, F. D., Bagozzi, R. P., and Warshaw, P. R. (1992). &ldquo;Extrinsic and
-                Intrinsic Motivation to Use Computers in the Workplace.&rdquo;{' '}
-                <em>Journal of Applied Social Psychology</em>, vol. 22, no. 14, pp. 1111-1132.
+                Davis, F. D., Bagozzi, R. P., &amp; Warshaw, P. R. (1992). Extrinsic and intrinsic
+                motivation to use computers in the workplace.{' '}
+                <em>Journal of Applied Social Psychology</em>, 22(14), 1111-1132.
               </li>
               <li>
-                Fishbein, M., and Ajzen, I. (1975).{' '}
+                Fishbein, M., &amp; Ajzen, I. (1975).{' '}
                 <em>
-                  Belief, Attitude, Intention and Behavior: An Introduction to Theory and Research
+                  Belief, attitude, intention and behavior: An introduction to theory and research
                 </em>
                 . Addison-Wesley.
               </li>
               <li>
-                Hair, J. F., Anderson, R. E., Tatham, R. L., and Black, W. C. (1995).{' '}
-                <em>Multivariate Data Analysis</em> (4th ed.). Prentice-Hall.
+                Hair, J. F., Anderson, R. E., Tatham, R. L., &amp; Black, W. C. (1995).{' '}
+                <em>Multivariate data analysis</em> (4th ed.). Prentice-Hall.
               </li>
               <li>
-                Parasuraman, A. (2000). &ldquo;Technology Readiness Index (TRI): A Multiple-Item
-                Scale to Measure Readiness to Embrace New Technologies.&rdquo;{' '}
-                <em>Journal of Service Research</em>, vol. 2, no. 4, pp. 307-320.
+                Parasuraman, A. (2000). Technology Readiness Index (TRI): A multiple-item scale to
+                measure readiness to embrace new technologies. <em>Journal of Service Research</em>,
+                2(4), 307-320.
               </li>
               <li>
-                Venkatesh, V., and Davis, F. D. (2000). &ldquo;A Theoretical Extension of the
-                Technology Acceptance Model: Four Longitudinal Field Studies.&rdquo;{' '}
-                <em>Management Science</em>, vol. 46, no. 2, pp. 186-204.
+                Venkatesh, V., &amp; Davis, F. D. (2000). A theoretical extension of the Technology
+                Acceptance Model: Four longitudinal field studies. <em>Management Science</em>,
+                46(2), 186-204.
               </li>
               <li>
-                Venkatesh, V., Morris, M. G., Davis, G. B., and Davis, F. D. (2003). &ldquo;User
-                Acceptance of Information Technology: Toward a Unified View.&rdquo;{' '}
-                <em>MIS Quarterly</em>, vol. 27, no. 3, pp. 425-478.
+                Venkatesh, V., Morris, M. G., Davis, G. B., &amp; Davis, F. D. (2003). User
+                acceptance of information technology: Toward a unified view. <em>MIS Quarterly</em>,
+                27(3), 425-478.
               </li>
             </ol>
           </section>

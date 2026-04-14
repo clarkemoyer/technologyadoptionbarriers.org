@@ -602,46 +602,45 @@ const BibliographyArticlePage = () => {
             <h2 className={H2_CLASSES}>References</h2>
             <ol className="list-decimal list-inside space-y-3 text-sm">
               <li>
-                Ajzen, I. &ldquo;The Theory of Planned Behavior.&rdquo;{' '}
-                <em>Organizational Behavior and Human Decision Processes</em> 50, no. 2 (1991):
-                179-211.
+                Ajzen, I. (1991). The theory of planned behavior.{' '}
+                <em>Organizational Behavior and Human Decision Processes</em>, 50(2), 179-211.
               </li>
               <li>
-                Festinger, L. <em>A Theory of Cognitive Dissonance</em>. Stanford, CA: Stanford
-                University Press, 1957.
+                Festinger, L. (1957). <em>A theory of cognitive dissonance</em>. Stanford University
+                Press.
               </li>
               <li>
-                Kahneman, D., and Tversky, A. &ldquo;Prospect Theory: An Analysis of Decision Under
-                Risk.&rdquo; <em>Econometrica</em> 47, no. 2 (1979): 263-291.
+                Kahneman, D., &amp; Tversky, A. (1979). Prospect theory: An analysis of decision
+                under risk. <em>Econometrica</em>, 47(2), 263-291.
               </li>
               <li>
-                Kahneman, D., and Tversky, A. &ldquo;The Psychology of Preferences.&rdquo;{' '}
-                <em>Scientific American</em> 246, no. 1 (1982): 160-173.
+                Kahneman, D., &amp; Tversky, A. (1982). The psychology of preferences.{' '}
+                <em>Scientific American</em>, 246(1), 160-173.
               </li>
               <li>
-                Samuelson, W., and Zeckhauser, R. &ldquo;Status Quo Bias in Decision Making.&rdquo;{' '}
-                <em>Journal of Risk and Uncertainty</em> 1, no. 1 (1988): 7-59.
+                Samuelson, W., &amp; Zeckhauser, R. (1988). Status quo bias in decision making.{' '}
+                <em>Journal of Risk and Uncertainty</em>, 1(1), 7-59.
               </li>
               <li>
-                Thaler, R. H. &ldquo;Mental Accounting and Consumer Choice.&rdquo;{' '}
-                <em>Marketing Science</em> 4, no. 3 (1985): 199-214.
+                Thaler, R. H. (1985). Mental accounting and consumer choice.{' '}
+                <em>Marketing Science</em>, 4(3), 199-214.
               </li>
               <li>
-                Tversky, A., and Kahneman, D. &ldquo;Loss Aversion in Riskless Choice: A
-                Reference-Dependent Model.&rdquo; <em>Quarterly Journal of Economics</em> 106, no. 4
-                (1991): 1039-1061.
+                Tversky, A., &amp; Kahneman, D. (1991). Loss aversion in riskless choice: A
+                reference-dependent model. <em>Quarterly Journal of Economics</em>, 106(4),
+                1039-1061.
               </li>
               <li>
-                von Neumann, J., and Morgenstern, O. <em>Theory of Games and Economic Behavior</em>.
-                Princeton, NJ: Princeton University Press, 1944.
+                von Neumann, J., &amp; Morgenstern, O. (1944).{' '}
+                <em>Theory of games and economic behavior</em>. Princeton University Press.
               </li>
               <li>
-                Thaler, R. H. <em>Mental Accounting: Working Memory and Consumer Choice</em>. New
-                York: Russell Sage Foundation, 2000.
+                Thaler, R. H. (2000). <em>Mental accounting: Working memory and consumer choice</em>
+                . Russell Sage Foundation.
               </li>
               <li>
-                Langer, E. J. &ldquo;The Illusion of Control.&rdquo;{' '}
-                <em>Journal of Personality and Social Psychology</em> 32, no. 2 (1975): 311-328.
+                Langer, E. J. (1975). The illusion of control.{' '}
+                <em>Journal of Personality and Social Psychology</em>, 32(2), 311-328.
               </li>
             </ol>
           </section>
