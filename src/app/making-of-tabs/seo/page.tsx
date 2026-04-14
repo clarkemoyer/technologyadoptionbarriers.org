@@ -123,7 +123,7 @@ const SEOTransparencyPage = () => {
                   ? '↑'
                   : seoMetrics.overview.organicSessionsChange < 0
                     ? '↓'
-                    : '–'}{' '}
+                    : '0%'}{' '}
                 {seoMetrics.overview.organicSessionsChange !== 0 &&
                   `${Math.abs(seoMetrics.overview.organicSessionsChange)}%`}
               </span>
@@ -143,7 +143,7 @@ const SEOTransparencyPage = () => {
                   ? '↑'
                   : seoMetrics.overview.totalImpressionsChange < 0
                     ? '↓'
-                    : '–'}{' '}
+                    : '0%'}{' '}
                 {seoMetrics.overview.totalImpressionsChange !== 0 &&
                   `${Math.abs(seoMetrics.overview.totalImpressionsChange)}%`}
               </span>
@@ -163,7 +163,7 @@ const SEOTransparencyPage = () => {
                   ? '↑'
                   : seoMetrics.overview.averagePositionChange > 0
                     ? '↓'
-                    : '–'}{' '}
+                    : 'no change'}{' '}
                 {seoMetrics.overview.averagePositionChange !== 0 &&
                   `${Math.abs(seoMetrics.overview.averagePositionChange)} spots`}
               </span>
@@ -183,7 +183,7 @@ const SEOTransparencyPage = () => {
                   ? '↑'
                   : seoMetrics.overview.domainAuthorityChange < 0
                     ? '↓'
-                    : '–'}{' '}
+                    : '0'}{' '}
                 {seoMetrics.overview.domainAuthorityChange !== 0 &&
                   `${Math.abs(seoMetrics.overview.domainAuthorityChange)} points`}
               </span>

@@ -11,7 +11,7 @@ import {
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: Intrinsic & Extrinsic Motivation – Davis et al. (1992)',
+  title: 'Bibliography: Intrinsic & Extrinsic Motivation - Davis et al. (1992)',
   description:
     'Deep dive into Extrinsic and Intrinsic Motivation Framework for Technology by Fred D. Davis, Richard P. Bagozzi, and Paul R. Warshaw (1992), exploring its foundational contributions to technology adoption research.',
 }
@@ -20,7 +20,7 @@ const BibliographyArticlePage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
-        <h1 className={H1_CLASSES}>Intrinsic & Extrinsic Motivation – Davis et al. (1992)</h1>
+        <h1 className={H1_CLASSES}>Intrinsic & Extrinsic Motivation - Davis et al. (1992)</h1>
 
         {/* Model Identification */}
         <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
@@ -46,7 +46,7 @@ const BibliographyArticlePage = () => {
             <p className="text-sm font-mono">
               Davis, F. D., Bagozzi, R. P., & Warshaw, P. R. (1992). Extrinsic and intrinsic
               motivation to use computers in the workplace. Journal of Applied Social Psychology, 22
-              (14), 1111–1132.
+              (14), 1111-1132.
             </p>
           </div>
         </section>
@@ -63,7 +63,7 @@ const BibliographyArticlePage = () => {
               TAM, while successfully predicting technology acceptance, did not capture the full
               range of motivational factors driving technology use in organizational contexts. The
               authors recognized that the TAM treated technology adoption as instrumental
-              behavior—individuals adopt technology because it provides external benefits (improved
+              behavior-individuals adopt technology because it provides external benefits (improved
               performance, productivity) and requires manageable effort (ease of use). However, this
               extrinsic motivation perspective overlooked that some individuals adopt technology due
               to intrinsic motivation: they find the technology enjoyable, interesting, or
@@ -224,7 +224,7 @@ const BibliographyArticlePage = () => {
                 <strong>Motivation barrier diagnosis:</strong> The framework enables organizations
                 to diagnose which motivation types create adoption barriers. If technology
                 acceptance problems emerge despite adequate perceived usefulness, the barriers might
-                reflect low intrinsic motivation—potential users see utility but find technology
+                reflect low intrinsic motivation-potential users see utility but find technology
                 boring or unengaging
               </li>
               <li>
@@ -256,8 +256,8 @@ const BibliographyArticlePage = () => {
                 <strong>User experience optimization:</strong> Organizations can use the framework
                 to guide user experience improvements beyond functionality. While adequate
                 functionality ensures minimum usefulness, additional attention to user
-                experience—visual design, interactive responsiveness, engaging feedback, aesthetic
-                appeal—can enhance intrinsic motivation. Systems feeling polished and well-designed
+                experience-visual design, interactive responsiveness, engaging feedback, aesthetic
+                appeal-can enhance intrinsic motivation. Systems feeling polished and well-designed
                 create more engaging experiences than functionally equivalent systems with poor
                 visual design or frustrating interactions
               </li>
@@ -265,8 +265,8 @@ const BibliographyArticlePage = () => {
                 <strong>Motivation maintenance for long-term adoption:</strong> The framework
                 suggests that initial adoption may rely on extrinsic motivation (performance
                 benefits) but sustained adoption may depend increasingly on intrinsic motivation.
-                Once performance benefits plateau or become routine, intrinsic motivation—finding
-                usage enjoyable and stimulating—sustains continued adoption. Organizations should
+                Once performance benefits plateau or become routine, intrinsic motivation-finding
+                usage enjoyable and stimulating-sustains continued adoption. Organizations should
                 design systems and implementation approaches supporting intrinsic motivation
                 development, recognizing that long-term success depends on moving beyond purely
                 instrumental relationships with technology toward engaging technology experiences
@@ -361,8 +361,8 @@ const BibliographyArticlePage = () => {
               </li>
               <li>
                 <strong>Recognition of affect in adoption decisions:</strong> The framework
-                explicitly recognizes that emotional and affective dimensions—finding technology
-                enjoyable, engaging, or stimulating—influence adoption. Many adoption models focus
+                explicitly recognizes that emotional and affective dimensions-finding technology
+                enjoyable, engaging, or stimulating-influence adoption. Many adoption models focus
                 on cognition (beliefs about usefulness, ease) and behavior (intentions, usage) but
                 underemphasize emotion and affect. This framework explicitly measures enjoyment and
                 engagement, giving affect appropriate theoretical prominence in adoption
@@ -377,7 +377,7 @@ const BibliographyArticlePage = () => {
               <li>
                 <strong>This distinction provides diagnostic precision:</strong> a low-adoption
                 problem reflects either inadequate extrinsic motivation or inadequate intrinsic
-                motivation— each requiring distinct solutions
+                motivation - each requiring distinct solutions
               </li>
               <li>
                 <strong>Practical implementation guidance:</strong> The framework provides practical
@@ -430,7 +430,7 @@ const BibliographyArticlePage = () => {
             <ul className={BODY_LIST_CLASSES}>
               <li>
                 <strong>Insufficient attention to individual differences in motivation:</strong> The
-                framework treats intrinsic motivation as universal—assuming all potential adopters
+                framework treats intrinsic motivation as universal-assuming all potential adopters
                 could find technology enjoyable if designed appropriately. However, individual
                 differences in stimulation preferences, engagement styles, and enjoyment capacities
                 likely vary substantially. Some individuals inherently find technology engaging
@@ -530,7 +530,7 @@ const BibliographyArticlePage = () => {
                 <strong>Recognition of technology experience quality:</strong> Earlier models
                 focused on system functionality and user beliefs about that functionality. The
                 framework emphasized that technology adoption depends also on the quality of user
-                experience itself—how engaging, enjoyable, and satisfying the interaction proves.
+                experience itself-how engaging, enjoyable, and satisfying the interaction proves.
                 This shifted focus from functionality to user experience, recognizing these as
                 distinct dimensions affecting adoption
               </li>
@@ -581,8 +581,8 @@ const BibliographyArticlePage = () => {
                 technologies offer clear performance benefits (high extrinsic motivation) and
                 require manageable effort (favorable ease perception), users finding technology
                 inherently uninteresting experience reduced motivation for sustained adoption.
-                Technologies with poor user experiences —unattractive interfaces, unresponsive
-                interactions, or frustrating workflows—undermine intrinsic motivation. Tasks
+                Technologies with poor user experiences - unattractive interfaces, unresponsive
+                interactions, or frustrating workflows - undermine intrinsic motivation. Tasks
                 involving repetitive, routine computer work might offer no novelty or engagement
                 opportunity, creating intrinsic motivation barriers regardless of instrumental
                 benefits. Intrinsic motivation barriers additionally include lack of autonomy and
@@ -663,7 +663,7 @@ const BibliographyArticlePage = () => {
                 <strong>Design for intrinsic motivation through engaging user experiences:</strong>{' '}
                 Leaders should explicitly consider intrinsic motivation in technology selection,
                 system design, and implementation approaches. System design should emphasize user
-                experience quality—interface aesthetics, interactive responsiveness, engaging
+                experience quality-interface aesthetics, interactive responsiveness, engaging
                 interactions, and satisfying feedback. Leaders should select or adapt systems that
                 provide engagement opportunities where possible. For inherently routine systems
                 offering limited engagement (data entry, compliance monitoring), leaders might

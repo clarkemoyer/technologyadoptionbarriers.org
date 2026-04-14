@@ -13,7 +13,7 @@ import {
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: TOGAF – The Open Group Architecture Framework (1995)',
+  title: 'Bibliography: TOGAF - The Open Group Architecture Framework (1995)',
   description:
     'An in-depth review of TOGAF (The Open Group Architecture Framework), covering its Architecture Development Method, four domains, enterprise-wide technology adoption guidance, internal and external validity, and relevance to overcoming technology adoption barriers.',
 }
@@ -23,7 +23,7 @@ const TOGAFPage = () => {
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>
-          The Open Group Architecture Framework (TOGAF) &ndash; The Open Group (1995)
+          The Open Group Architecture Framework (TOGAF) - The Open Group (1995)
         </h1>
 
         {/* Framework Identification */}
@@ -82,9 +82,9 @@ const TOGAFPage = () => {
           <p className={PARAGRAPH_CLASSES}>
             TOGAF emerged in response to a set of persistent, interrelated problems that plagued
             large organizations during the early 1990s as information technology proliferated
-            rapidly across business functions. These challenges were not merely technical&mdash;they
-            were organizational, strategic, and communicative in nature, and they collectively
-            impeded the ability of enterprises to adopt and leverage technology effectively.
+            rapidly across business functions. These challenges were not merely technical-they were
+            organizational, strategic, and communicative in nature, and they collectively impeded
+            the ability of enterprises to adopt and leverage technology effectively.
           </p>
 
           <p className={PARAGRAPH_CLASSES}>
@@ -102,8 +102,8 @@ const TOGAFPage = () => {
             decisions and broader business strategy. Technology investments were often treated as
             purely operational concerns handled by IT departments, divorced from the strategic
             priorities of business leaders. This disconnect meant that many technology adoptions
-            failed to deliver anticipated business value&mdash;not because the technologies were
-            flawed, but because they were deployed without clear alignment to organizational goals,
+            failed to deliver anticipated business value-not because the technologies were flawed,
+            but because they were deployed without clear alignment to organizational goals,
             processes, or operating models.
           </p>
 
@@ -132,10 +132,10 @@ const TOGAFPage = () => {
 
           <p className={PARAGRAPH_CLASSES}>
             At the heart of TOGAF is the <strong>Architecture Development Method (ADM)</strong>
-            &mdash;an iterative, cyclical process that guides enterprise architects through the
-            complete lifecycle of architecture development, from establishing foundational
-            principles to managing ongoing architectural change. The ADM consists of nine distinct
-            phases, each with defined inputs, outputs, steps, and governance checkpoints.
+            -an iterative, cyclical process that guides enterprise architects through the complete
+            lifecycle of architecture development, from establishing foundational principles to
+            managing ongoing architectural change. The ADM consists of nine distinct phases, each
+            with defined inputs, outputs, steps, and governance checkpoints.
           </p>
 
           <p className={PARAGRAPH_CLASSES}>The ADM phases progress as follows:</p>
@@ -147,45 +147,44 @@ const TOGAFPage = () => {
               foundational architecture principles that will guide all subsequent decisions.
             </li>
             <li>
-              <strong>Phase A &ndash; Architecture Vision:</strong> Defines the scope of the
-              architecture engagement, identifies key stakeholders, and articulates a high-level
-              vision of the target architecture that addresses business requirements and strategic
-              goals.
+              <strong>Phase A - Architecture Vision:</strong> Defines the scope of the architecture
+              engagement, identifies key stakeholders, and articulates a high-level vision of the
+              target architecture that addresses business requirements and strategic goals.
             </li>
             <li>
-              <strong>Phase B &ndash; Business Architecture:</strong> Develops the baseline and
-              target business architectures, documenting organizational structures, business
-              functions, processes, information flows, and the business capabilities required to
-              achieve the architecture vision.
+              <strong>Phase B - Business Architecture:</strong> Develops the baseline and target
+              business architectures, documenting organizational structures, business functions,
+              processes, information flows, and the business capabilities required to achieve the
+              architecture vision.
             </li>
             <li>
-              <strong>Phase C &ndash; Information Systems Architecture:</strong> Develops the Data
+              <strong>Phase C - Information Systems Architecture:</strong> Develops the Data
               Architecture (structures and management of data assets) and Application Architecture
               (software systems and application portfolios) that support the business architecture.
             </li>
             <li>
-              <strong>Phase D &ndash; Technology Architecture:</strong> Defines the technology
-              infrastructure&mdash;hardware, software platforms, networks, and
-              middleware&mdash;needed to support the application and data architectures.
+              <strong>Phase D - Technology Architecture:</strong> Defines the technology
+              infrastructure-hardware, software platforms, networks, and middleware-needed to
+              support the application and data architectures.
             </li>
             <li>
-              <strong>Phase E &ndash; Opportunities and Solutions:</strong> Identifies
-              implementation projects, evaluates options, and develops a roadmap for transitioning
-              from the baseline to the target architecture.
+              <strong>Phase E - Opportunities and Solutions:</strong> Identifies implementation
+              projects, evaluates options, and develops a roadmap for transitioning from the
+              baseline to the target architecture.
             </li>
             <li>
-              <strong>Phase F &ndash; Migration Planning:</strong> Prioritizes and sequences
+              <strong>Phase F - Migration Planning:</strong> Prioritizes and sequences
               implementation projects into a detailed transition plan, including resource
               requirements, risk assessment, and dependency management.
             </li>
             <li>
-              <strong>Phase G &ndash; Implementation Governance:</strong> Provides architectural
-              oversight of the implementation process, ensuring that individual projects conform to
-              the architecture and achieve intended outcomes.
+              <strong>Phase G - Implementation Governance:</strong> Provides architectural oversight
+              of the implementation process, ensuring that individual projects conform to the
+              architecture and achieve intended outcomes.
             </li>
             <li>
-              <strong>Phase H &ndash; Architecture Change Management:</strong> Establishes processes
-              for monitoring technology and business changes and determining when the enterprise
+              <strong>Phase H - Architecture Change Management:</strong> Establishes processes for
+              monitoring technology and business changes and determining when the enterprise
               architecture requires updating or re-initiation.
             </li>
           </ol>
@@ -193,9 +192,9 @@ const TOGAFPage = () => {
           <p className={PARAGRAPH_CLASSES}>
             Running through all phases is a cross-cutting <strong>Requirements Management</strong>{' '}
             activity that ensures architecture decisions remain anchored to evolving business and
-            technical requirements throughout the lifecycle. The iterative nature of the
-            ADM&mdash;with feedback loops between phases&mdash;distinguishes TOGAF from purely
-            linear frameworks and enables continuous refinement as new information emerges.
+            technical requirements throughout the lifecycle. The iterative nature of the ADM-with
+            feedback loops between phases-distinguishes TOGAF from purely linear frameworks and
+            enables continuous refinement as new information emerges.
           </p>
 
           <p className={PARAGRAPH_CLASSES}>
@@ -222,8 +221,8 @@ const TOGAFPage = () => {
             </li>
             <li>
               <strong>Technology Architecture:</strong> Specifies the physical and logical
-              infrastructure components&mdash;servers, networks, platforms, middleware, and cloud
-              services&mdash;required to host and connect applications and data systems.
+              infrastructure components-servers, networks, platforms, middleware, and cloud
+              services-required to host and connect applications and data systems.
             </li>
           </ul>
 
@@ -243,9 +242,9 @@ const TOGAFPage = () => {
             TOGAF demonstrates strong internal validity through the structural rigor and logical
             coherence of its core methodology. The ADM&rsquo;s nine phases are not arbitrary
             sequences but rather reflect a principled decomposition of the architecture
-            problem&mdash;moving systematically from strategic vision through domain-specific
-            architecture development, to implementation planning and ongoing governance. Each phase
-            features clearly defined inputs (artifacts required before the phase can begin), outputs
+            problem-moving systematically from strategic vision through domain-specific architecture
+            development, to implementation planning and ongoing governance. Each phase features
+            clearly defined inputs (artifacts required before the phase can begin), outputs
             (deliverables produced during the phase), and steps (activities required to move from
             inputs to outputs). This explicit specification of dependencies and deliverables reduces
             the risk of gaps or logical inconsistencies in the architecture process.
@@ -254,7 +253,7 @@ const TOGAFPage = () => {
           <p className={PARAGRAPH_CLASSES}>
             The hierarchical relationship between TOGAF&rsquo;s four architecture domains further
             reinforces internal validity. The{' '}
-            <strong>Business Architecture informs all downstream decisions</strong>&mdash;Data,
+            <strong>Business Architecture informs all downstream decisions</strong>-Data,
             Application, and Technology Architectures are each derived from and constrained by
             business requirements. This dependency structure prevents a common failure mode in
             enterprise IT: technology decisions made independently of business context that fail to
@@ -269,24 +268,24 @@ const TOGAFPage = () => {
             quality assurance procedures, and risk management practices. The framework does not
             merely prescribe what architectural artifacts to produce; it specifies how architects
             should engage organizational stakeholders to elicit requirements, validate decisions,
-            and sustain buy-in&mdash;a recognition that architecture is fundamentally a
-            sociotechnical practice, not merely a technical documentation exercise.
+            and sustain buy-in-a recognition that architecture is fundamentally a sociotechnical
+            practice, not merely a technical documentation exercise.
           </p>
 
           <p className={PARAGRAPH_CLASSES}>
             Crucially, TOGAF&rsquo;s internal validity has been tested and refined through decades
             of real-world application. Each major version revision has incorporated lessons learned
             from thousands of enterprise architecture engagements, with the Open Group&rsquo;s
-            membership&mdash;comprising leading technology companies, consulting firms, and
-            government bodies&mdash;contributing to an ongoing process of empirical validation and
-            methodological refinement.
+            membership-comprising leading technology companies, consulting firms, and government
+            bodies-contributing to an ongoing process of empirical validation and methodological
+            refinement.
           </p>
 
           <h2 className={H2_CLASSES}>External Validity</h2>
 
           <p className={PARAGRAPH_CLASSES}>
-            The external validity of TOGAF&mdash;its applicability across diverse organizational and
-            sectoral contexts&mdash;is demonstrated by the breadth of its global adoption. In the{' '}
+            The external validity of TOGAF-its applicability across diverse organizational and
+            sectoral contexts-is demonstrated by the breadth of its global adoption. In the{' '}
             <strong>public sector</strong>, TOGAF has been formally recognized by the U.S. Federal
             Chief Information Officer (CIO) Council, and government agencies across the United
             States, European Union, United Kingdom, and Australia have adopted it as a standard
@@ -298,8 +297,8 @@ const TOGAFPage = () => {
           <p className={PARAGRAPH_CLASSES}>
             In the <strong>private sector</strong>, TOGAF has been adopted across financial
             institutions, healthcare systems, manufacturing firms, and telecommunications providers.
-            Major professional services firms&mdash;including Ernst &amp; Young, IBM, Accenture, and
-            Deloitte&mdash;have built entire enterprise architecture practices and service offerings
+            Major professional services firms-including Ernst &amp; Young, IBM, Accenture, and
+            Deloitte-have built entire enterprise architecture practices and service offerings
             around TOGAF, reflecting its commercial validity and the market demand for practitioners
             skilled in its methodology.
           </p>
@@ -319,8 +318,8 @@ const TOGAFPage = () => {
             originally developed with large enterprises in mind, successive versions have expanded
             guidance for mid-sized organizations, enabling flexible application of the methodology
             at different levels of organizational complexity. Its{' '}
-            <strong>industry-agnostic design</strong>&mdash;intentionally avoiding sector-specific
-            prescriptions in favor of adaptable principles and patterns&mdash;further extends its
+            <strong>industry-agnostic design</strong>-intentionally avoiding sector-specific
+            prescriptions in favor of adaptable principles and patterns-further extends its
             applicability across domains as varied as government defense, retail banking, healthcare
             delivery, and higher education.
           </p>
@@ -349,21 +348,20 @@ const TOGAFPage = () => {
 
           <p className={PARAGRAPH_CLASSES}>
             The framework&rsquo;s <strong>standardized language</strong> has had profound practical
-            impact. By establishing a common vocabulary for describing architectural
-            concepts&mdash;from architecture building blocks and capability increments to transition
-            architectures and architecture contracts&mdash;TOGAF has significantly reduced the
-            communication friction between business executives, enterprise architects, IT managers,
-            and technology vendors. This shared language enables more productive conversations about
-            technology adoption decisions and reduces the risk of misalignment arising from
-            terminological confusion.
+            impact. By establishing a common vocabulary for describing architectural concepts-from
+            architecture building blocks and capability increments to transition architectures and
+            architecture contracts-TOGAF has significantly reduced the communication friction
+            between business executives, enterprise architects, IT managers, and technology vendors.
+            This shared language enables more productive conversations about technology adoption
+            decisions and reduces the risk of misalignment arising from terminological confusion.
           </p>
 
           <p className={PARAGRAPH_CLASSES}>
             TOGAF&rsquo;s <strong>vendor and technology neutrality</strong> is a particularly
             significant strength in the context of enterprise technology adoption. Because the
             framework does not prescribe specific products or platforms, organizations can apply it
-            to evaluate and adopt any technology&mdash;from cloud platforms to enterprise resource
-            planning systems to emerging AI capabilities&mdash;without being constrained by vendor
+            to evaluate and adopt any technology-from cloud platforms to enterprise resource
+            planning systems to emerging AI capabilities-without being constrained by vendor
             relationships or proprietary methodology biases.
           </p>
 
@@ -371,8 +369,8 @@ const TOGAFPage = () => {
             The framework&rsquo;s <strong>scalability and adaptability</strong> allow organizations
             to engage with it comprehensively or to adopt only those components most relevant to
             their current architectural challenges. This modularity reduces adoption barriers for
-            the framework itself&mdash;organizations can begin with targeted application of the ADM
-            to a specific technology adoption challenge and progressively expand their use of the
+            the framework itself-organizations can begin with targeted application of the ADM to a
+            specific technology adoption challenge and progressively expand their use of the
             methodology as capability and organizational maturity develop.
           </p>
 
@@ -415,13 +413,13 @@ const TOGAFPage = () => {
           </p>
 
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Architecture governance</strong>&mdash;a central element of TOGAF&rsquo;s
-            design&mdash;directly addresses one of the most consequential technology adoption
-            barriers: the disconnection between technology investment decisions and business
-            strategy. By embedding governance checkpoints throughout the ADM and requiring explicit
-            architecture contracts between architects and implementing teams, TOGAF creates
-            structural mechanisms that keep technology adoption decisions anchored to organizational
-            objectives and approved architectural standards.
+            <strong>Architecture governance</strong>-a central element of TOGAF&rsquo;s
+            design-directly addresses one of the most consequential technology adoption barriers:
+            the disconnection between technology investment decisions and business strategy. By
+            embedding governance checkpoints throughout the ADM and requiring explicit architecture
+            contracts between architects and implementing teams, TOGAF creates structural mechanisms
+            that keep technology adoption decisions anchored to organizational objectives and
+            approved architectural standards.
           </p>
 
           <p className={PARAGRAPH_CLASSES}>
@@ -430,7 +428,7 @@ const TOGAFPage = () => {
             <strong>digital transformation initiatives</strong>, and{' '}
             <strong>legacy system modernization</strong>. Each of these scenarios involves the
             adoption of new technologies within the context of existing organizational capabilities,
-            processes, and system landscapes&mdash;precisely the conditions for which TOGAF&rsquo;s
+            processes, and system landscapes-precisely the conditions for which TOGAF&rsquo;s
             structured, multi-domain approach was designed. The framework&rsquo;s Phases E and F
             (Opportunities and Solutions, and Migration Planning) provide specific guidance for
             sequencing technology transitions in ways that manage risk and maintain business
@@ -443,8 +441,8 @@ const TOGAFPage = () => {
             stakeholder communication, and creates shared understanding of the current state, target
             state, and transition path. By making implicit architectural assumptions explicit and
             subjecting them to stakeholder review, the ADM process surfaces adoption barriers
-            earlier in the planning cycle&mdash;when they are less costly to address&mdash;rather
-            than discovering them during implementation.
+            earlier in the planning cycle-when they are less costly to address-rather than
+            discovering them during implementation.
           </p>
 
           <p className={PARAGRAPH_CLASSES}>
@@ -460,7 +458,7 @@ const TOGAFPage = () => {
           <p className={PARAGRAPH_CLASSES}>
             In multi-unit or federated organizations, TOGAF&rsquo;s emphasis on standards, reference
             architectures, and governance structures supports{' '}
-            <strong>technology standardization across organizational units</strong>&mdash;a critical
+            <strong>technology standardization across organizational units</strong>-a critical
             enabler of interoperability and scale economies in technology adoption. The
             framework&rsquo;s architecture maturity concepts further provide a roadmap for
             organizational progression from ad hoc and opportunistic technology adoption toward
@@ -485,8 +483,7 @@ const TOGAFPage = () => {
             </li>
             <li>
               The Open Group. (2018).{' '}
-              <em>TOGAF Version 9.2 &ndash; Enabling the Enterprise Architecture</em>. The Open
-              Group.
+              <em>TOGAF Version 9.2 - Enabling the Enterprise Architecture</em>. The Open Group.
             </li>
             <li>
               Sessions, R. (2007).{' '}
@@ -503,7 +500,7 @@ const TOGAFPage = () => {
             </li>
             <li>
               Zachman, J. A. (1987). A framework for information systems architecture.{' '}
-              <em>IBM Systems Journal</em>, <em>26</em>(3), 276&ndash;292.
+              <em>IBM Systems Journal</em>, <em>26</em>(3), 276-292.
             </li>
             <li>
               IEEE. (2000).{' '}

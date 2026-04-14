@@ -11,7 +11,7 @@ import {
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: Value-Based Adoption Model – Kim et al. (2007)',
+  title: 'Bibliography: Value-Based Adoption Model - Kim et al. (2007)',
   description:
     'Deep dive into the Value-Based Adoption of Mobile Internet (VAM) model by Kim et al. (2007), exploring its foundational contributions to technology adoption research.',
 }
@@ -20,7 +20,7 @@ const BibliographyArticlePage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
-        <h1 className={H1_CLASSES}>Value-Based Adoption Model – Kim et al. (2007)</h1>
+        <h1 className={H1_CLASSES}>Value-Based Adoption Model - Kim et al. (2007)</h1>
 
         {/* Model Identification */}
         <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
@@ -45,7 +45,7 @@ const BibliographyArticlePage = () => {
             <p className="text-sm font-mono">
               Kim, H.-W., Chan, H. C., &amp; Gupta, S. (2007). Value-based adoption of mobile
               internet: An empirical investigation. <em>Decision Support Systems</em>, 43(1),
-              111&ndash;126.
+              111-126.
             </p>
           </div>
         </section>
@@ -305,7 +305,7 @@ const BibliographyArticlePage = () => {
               in all customer communications. Rather than generic claims about the technology,
               organizations should highlight specifically how the technology serves the values their
               target customers hold. For value-oriented messaging to be effective, it must be
-              authentic—the technology genuinely must deliver the value-based benefits promised.
+              authentic-the technology genuinely must deliver the value-based benefits promised.
               Organizations should use VAM to inform corporate social responsibility and
               sustainability messaging.
             </p>

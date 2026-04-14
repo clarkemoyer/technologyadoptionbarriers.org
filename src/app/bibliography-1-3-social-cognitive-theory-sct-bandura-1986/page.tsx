@@ -11,7 +11,7 @@ import {
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: Social Cognitive Theory (SCT) – Bandura (1986)',
+  title: 'Bibliography: Social Cognitive Theory (SCT) - Bandura (1986)',
   description:
     'Deep dive into Social Cognitive Theory (SCT) by Albert Bandura (1986), exploring its foundational contributions to technology adoption research.',
 }
@@ -20,7 +20,7 @@ const BibliographyArticlePage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
-        <h1 className={H1_CLASSES}>Social Cognitive Theory (SCT) – Bandura (1986)</h1>
+        <h1 className={H1_CLASSES}>Social Cognitive Theory (SCT) - Bandura (1986)</h1>
 
         {/* Model Identification */}
         <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
@@ -61,7 +61,7 @@ const BibliographyArticlePage = () => {
               motivation could not be adequately explained by focusing exclusively on either
               external environmental determinants or internal cognitive processes. The development
               of SCT was driven by Bandura’s research observations that people’s behavior,
-              cognition, and environment exist in constant interaction—what he termed “triadic
+              cognition, and environment exist in constant interaction-what he termed “triadic
               reciprocal determinism.” This framework emerged from decades of social learning
               research that demonstrated individuals are neither passive products of their
               environment nor entirely autonomous agents acting independently of their surroundings.
@@ -75,7 +75,7 @@ const BibliographyArticlePage = () => {
               computers and new information systems began widespread organizational deployment in
               the 1980s, researchers and practitioners struggled to explain the variance in adoption
               rates among similar users. Bandura’s SCT provided a theoretical lens for understanding
-              these differences through the concept of self-efficacy—an individual’s belief in their
+              these differences through the concept of self-efficacy-an individual’s belief in their
               capability to execute the behaviors necessary to produce specific outcomes.
             </p>
           </section>
@@ -100,7 +100,7 @@ const BibliographyArticlePage = () => {
                 demonstrated that the relationships between perceived self-efficacy, outcome
                 expectations, and behavioral choices operated as the theory predicted, with
                 self-efficacy often serving as a more proximal predictor of behavior than outcome
-                expectations—a counterintuitive finding that strengthened internal validity claims
+                expectations-a counterintuitive finding that strengthened internal validity claims
               </li>
               <li>
                 <strong>Mechanism validation:</strong> Studies specifically tested the proposed
@@ -117,10 +117,10 @@ const BibliographyArticlePage = () => {
               <li>
                 <strong>Triangulation across domains:</strong> The theory’s validity was
                 strengthened by demonstrating consistent relationships between self-efficacy and
-                behavior across diverse domains—phobia treatment, academic performance, health
-                behaviors, organizational settings, and technology adoption—suggesting robust
+                behavior across diverse domains-phobia treatment, academic performance, health
+                behaviors, organizational settings, and technology adoption-suggesting robust
                 internal mechanisms rather than domain-specific artifacts. The internal validity of
-                SCT benefited from what might be called “theoretical coherence”—the theory’s core
+                SCT benefited from what might be called “theoretical coherence”-the theory’s core
                 mechanisms explained not only technology adoption but also numerous other behavioral
                 domains, suggesting the underlying mechanisms were capturing fundamental
                 psychological processes rather than superficial correlations
@@ -158,8 +158,8 @@ const BibliographyArticlePage = () => {
               <li>
                 <strong>Technology-specific validation:</strong> As digital technologies
                 proliferated, researchers specifically tested self-efficacy’s predictive power for
-                various technology adoption scenarios—computer adoption, internet usage, software
-                implementation, mobile technology adoption—consistently finding that computer
+                various technology adoption scenarios-computer adoption, internet usage, software
+                implementation, mobile technology adoption-consistently finding that computer
                 self-efficacy predicted adoption behaviors in these technology-specific contexts
               </li>
               <li>
@@ -223,14 +223,14 @@ const BibliographyArticlePage = () => {
               </li>
               <li>
                 <strong>Organizational policy:</strong> Organizations can structure technology
-                implementation policies to support self-efficacy development—providing adequate
+                implementation policies to support self-efficacy development-providing adequate
                 training time, allowing peer-to-peer learning, assigning mentors, starting with less
                 critical systems to build confidence, and recognizing that adoption timelines must
                 accommodate self-efficacy development rather than rushing implementation
               </li>
               <li>
                 <strong>Ongoing support infrastructure:</strong> SCT suggests that sustainable
-                technology adoption requires ongoing mechanisms for efficacy building— not just
+                technology adoption requires ongoing mechanisms for efficacy building- not just
                 initial training. This supports creating help desk systems, peer learning
                 communities, advanced training for capability development, and creating
                 opportunities for employees to experience mastery as they progress with technology
@@ -435,7 +435,7 @@ const BibliographyArticlePage = () => {
               <li>
                 <strong>Beyond pure cognitivism:</strong> Earlier cognitive theories sometimes
                 overemphasized internal thought processes, treating the environment as largely a
-                backdrop for cognitive processing. SCT recognized reciprocal causality—cognitions
+                backdrop for cognitive processing. SCT recognized reciprocal causality-cognitions
                 shape behavior and environments, but behavior and environments also shape
                 cognitions. This reciprocal perspective better captures technology adoption, where
                 initial experience using technology feeds back to modify self-efficacy beliefs,
@@ -461,7 +461,7 @@ const BibliographyArticlePage = () => {
               <li>
                 <strong>Integration of personal agency:</strong> Unlike deterministic models viewing
                 humans as products of circumstances, SCT emphasized “agentic
-                perspective”—individuals actively shape their circumstances, set goals, regulate
+                perspective”-individuals actively shape their circumstances, set goals, regulate
                 behavior, and create their own development pathways. For technology adoption, this
                 agentic perspective recognizes that individuals are not passive recipients of
                 technology but active agents who choose whether and how to engage with technology
@@ -476,7 +476,7 @@ const BibliographyArticlePage = () => {
               </li>
               <li>
                 <strong>Temporal dynamics:</strong> SCT provided greater attention to temporal
-                dynamics of behavior change—how initial self-efficacy enables initial attempts, how
+                dynamics of behavior change-how initial self-efficacy enables initial attempts, how
                 success experiences build efficacy for future challenges, and how this cycle of
                 effort-success-efficacy-greater-effort creates sustained behavior change. Earlier
                 models provided less guidance on these temporal processes
@@ -491,7 +491,7 @@ const BibliographyArticlePage = () => {
               SCT identifies barriers to technology adoption operating at several levels: Low
               self-efficacy: The primary barrier SCT identifies is insufficient confidence in one’s
               ability to accomplish technology-related tasks. This barrier operates independently
-              from actual ability—individuals with adequate skills may not adopt technology due to
+              from actual ability-individuals with adequate skills may not adopt technology due to
               doubts about their capabilities. Low self-efficacy produces adoption barriers through
               reduced willingness to attempt technology use, reduced effort when encountering
               difficulties, and heightened anxiety during technology learning.
@@ -500,9 +500,9 @@ const BibliographyArticlePage = () => {
               <li>
                 <strong>Negative outcome expectations:</strong> Even if individuals feel capable
                 (high self-efficacy), low outcome expectations create barriers. If individuals
-                believe that adopting a technology won’t produce valued outcomes— whether in terms
+                believe that adopting a technology won’t produce valued outcomes- whether in terms
                 of work efficiency, career advancement, social acceptance, or other valued
-                consequences—they may rationally choose non-adoption despite being capable of using
+                consequences-they may rationally choose non-adoption despite being capable of using
                 the technology
               </li>
               <li>
@@ -535,7 +535,7 @@ const BibliographyArticlePage = () => {
               <li>
                 <strong>Environmental barriers beyond individual control:</strong> SCT acknowledges
                 that adoption can be blocked by circumstances beyond individual
-                psychology—inadequate training resources, insufficient time allocated for learning,
+                psychology-inadequate training resources, insufficient time allocated for learning,
                 lack of access to technology, incompatibility with existing systems, or
                 organizational policies discouraging adoption. These environmental barriers operate
                 independently from self-efficacy
@@ -579,7 +579,7 @@ const BibliographyArticlePage = () => {
                 instructors, pairing struggling employees with mentors, providing constructive
                 feedback that emphasizes capability development, and ensuring leaders visibly
                 support and encourage technology adoption. The credibility of the persuader
-                matters—encouragement from respected leaders proves more efficacious than generic
+                matters-encouragement from respected leaders proves more efficacious than generic
                 exhortation
               </li>
               <li>
@@ -600,7 +600,7 @@ const BibliographyArticlePage = () => {
                 and technical support, and ensuring technology implementation is done at a
                 sustainable pace that permits proper learning and adaptation. Set clear, valued
                 outcome expectations: Leaders should transparently communicate why technology
-                adoption matters organizationally and personally—how it will improve work quality,
+                adoption matters organizationally and personally-how it will improve work quality,
                 efficiency, career prospects, or other valued outcomes. When outcome expectations
                 align with genuine organizational benefits and personal career development,
                 employees more readily invest in building self-efficacy
@@ -608,7 +608,7 @@ const BibliographyArticlePage = () => {
               <li>
                 <strong>Create sustained support infrastructure:</strong> Rather than treating
                 technology adoption as a time-limited training event, leaders should create
-                sustained support structures—ongoing access to training, help desk systems, peer
+                sustained support structures-ongoing access to training, help desk systems, peer
                 learning communities, champions for different technologies, and continued
                 opportunities for efficacy building as employees encounter new features or
                 applications. Efficacy development is ongoing rather than a one-time event

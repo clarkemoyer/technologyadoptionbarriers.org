@@ -13,7 +13,7 @@ import {
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: CMMI – Capability Maturity Model Integration (Chrissis et al., 2005)',
+  title: 'Bibliography: CMMI - Capability Maturity Model Integration (Chrissis et al., 2005)',
   description:
     'An in-depth overview of the Capability Maturity Model Integration (CMMI) framework developed by Chrissis, Konrad, and Shrum at Carnegie Mellon SEI, covering its five maturity levels, process areas, and relevance to technology adoption and organizational process improvement.',
 }
@@ -23,7 +23,7 @@ const CMMIPage = () => {
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>
-          Capability Maturity Model Integration (CMMI) &ndash; Chrissis, Konrad &amp; Shrum (2005)
+          Capability Maturity Model Integration (CMMI) - Chrissis, Konrad &amp; Shrum (2005)
         </h1>
 
         {/* Framework Identification */}
@@ -102,8 +102,8 @@ const CMMIPage = () => {
             encountered redundant appraisals, inconsistent terminology across frameworks, difficulty
             integrating improvement initiatives, and substantial management costs. Process
             improvement teams had to translate between frameworks, reconcile conflicting guidance,
-            and coordinate separate appraisal teams&mdash;resources that could otherwise be invested
-            in genuine process improvement activities.
+            and coordinate separate appraisal teams-resources that could otherwise be invested in
+            genuine process improvement activities.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Need for an Integrated Approach:</strong> Modern product development inherently
@@ -142,7 +142,7 @@ const CMMIPage = () => {
           <h2 className={H2_CLASSES}>Core Concepts and Definitions</h2>
           <p className={PARAGRAPH_CLASSES}>
             CMMI introduces a rich conceptual vocabulary for process improvement. At its core are
-            <strong> process areas (PAs)</strong>&mdash;clusters of related practices that, when
+            <strong> process areas (PAs)</strong> - clusters of related practices that, when
             implemented collectively, achieve a set of goals important to process improvement. Each
             process area has <strong>specific goals</strong> with associated specific practices, and{' '}
             <strong>generic goals</strong> that apply across all process areas to institutionalize
@@ -155,30 +155,30 @@ const CMMIPage = () => {
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Level 1 &ndash; Initial:</strong> Processes are unpredictable, poorly
-              controlled, and reactive. Success depends on individual heroics rather than repeatable
-              practices. Projects frequently exceed budgets and schedules.
+              <strong>Level 1 - Initial:</strong> Processes are unpredictable, poorly controlled,
+              and reactive. Success depends on individual heroics rather than repeatable practices.
+              Projects frequently exceed budgets and schedules.
             </li>
             <li>
-              <strong>Level 2 &ndash; Managed:</strong> Projects establish basic project management
+              <strong>Level 2 - Managed:</strong> Projects establish basic project management
               disciplines. Planning, requirements management, configuration management, measurement
               and analysis, and process and product quality assurance are consistently applied at
               the project level.
             </li>
             <li>
-              <strong>Level 3 &ndash; Defined:</strong> Standard processes are developed for the
+              <strong>Level 3 - Defined:</strong> Standard processes are developed for the
               organization and tailored for use on individual projects. Organizational process
-              assets&mdash;standard processes, process libraries, training materials&mdash;are
-              maintained and leveraged across projects.
+              assets - standard processes, process libraries, training materials - are maintained
+              and leveraged across projects.
             </li>
             <li>
-              <strong>Level 4 &ndash; Quantitatively Managed:</strong> Processes are measured and
+              <strong>Level 4 - Quantitatively Managed:</strong> Processes are measured and
               controlled using statistical and quantitative techniques. Quantitative objectives for
               quality and process performance are established, and statistical understanding of
               process variation enables more precise prediction and control of outcomes.
             </li>
             <li>
-              <strong>Level 5 &ndash; Optimizing:</strong> Continuous process improvement is enabled
+              <strong>Level 5 - Optimizing:</strong> Continuous process improvement is enabled
               through incremental and innovative improvements. Organizations systematically identify
               root causes of defects and process variation, deploy improvements organization-wide,
               and optimize processes for competitive advantage.
@@ -216,10 +216,10 @@ const CMMIPage = () => {
           <p className={PARAGRAPH_CLASSES}>
             <strong>Continuous Representation:</strong> In addition to the staged representation,
             CMMI offers a continuous representation that assigns individual{' '}
-            <strong>capability levels</strong> (0&ndash;5) to specific process areas. This
-            representation provides flexibility for organizations that wish to improve selected
-            process areas out of the prescribed staged sequence, enabling tailored improvement
-            strategies that align with specific business priorities.
+            <strong>capability levels</strong> (0-5) to specific process areas. This representation
+            provides flexibility for organizations that wish to improve selected process areas out
+            of the prescribed staged sequence, enabling tailored improvement strategies that align
+            with specific business priorities.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>SCAMPI (Standard CMMI Assessment Method for Process Improvement):</strong> The
@@ -233,11 +233,11 @@ const CMMIPage = () => {
           <p className={PARAGRAPH_CLASSES}>
             The internal validity of CMMI rests on a rigorous development process conducted by
             Carnegie Mellon&rsquo;s Software Engineering Institute. The framework emerged from
-            systematic analysis of four predecessor models&mdash;SW-CMM, SE-CMM, IPD-CMM, and
-            SA-CMM&mdash;examining commonalities, differences, and areas of conflict.
-            Multidisciplinary teams of process experts from software engineering, systems
-            engineering, product development, and quality management contributed to the
-            reconciliation and synthesis of these models into a coherent whole.
+            systematic analysis of four predecessor models-SW-CMM, SE-CMM, IPD-CMM, and
+            SA-CMM-examining commonalities, differences, and areas of conflict. Multidisciplinary
+            teams of process experts from software engineering, systems engineering, product
+            development, and quality management contributed to the reconciliation and synthesis of
+            these models into a coherent whole.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Unified Framework Development:</strong> The integration team systematically
@@ -368,9 +368,9 @@ const CMMIPage = () => {
           <p className={PARAGRAPH_CLASSES}>
             <strong>Dual Representation Flexibility:</strong> The availability of both staged and
             continuous representations accommodates diverse organizational improvement strategies.
-            Organizations can choose the representation that best aligns with their
-            goals&mdash;using the staged representation for clear benchmark communication or the
-            continuous representation for targeted process area improvements.
+            Organizations can choose the representation that best aligns with their goals-using the
+            staged representation for clear benchmark communication or the continuous representation
+            for targeted process area improvements.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Support for Risk Management and Quality Improvement:</strong> By providing
@@ -448,15 +448,15 @@ const CMMIPage = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Standardized Processes and Reduced Variability:</strong> CMMI Level 3 process
-            areas&mdash;particularly Organizational Process Definition and Organizational Process
-            Focus&mdash;help organizations establish standardized implementation processes that
-            reduce variability across projects and teams. When technology adoption is governed by
+            areas-particularly Organizational Process Definition and Organizational Process
+            Focus-help organizations establish standardized implementation processes that reduce
+            variability across projects and teams. When technology adoption is governed by
             well-defined, tailored organizational processes rather than ad hoc approaches, the
             likelihood of consistent, successful outcomes increases substantially.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Supplier Agreement Management:</strong> One of CMMI&rsquo;s Level 2 process
-            areas directly addresses technology vendor management&mdash;one of the most challenging
+            areas directly addresses technology vendor management-one of the most challenging
             aspects of technology adoption. Formal supplier agreements, defined monitoring
             practices, and structured acceptance criteria help organizations manage technology
             vendors effectively and reduce adoption risks associated with supplier performance.
@@ -465,8 +465,8 @@ const CMMIPage = () => {
             <strong>Risk Management:</strong> The Risk Management process area (Level 3) provides a
             systematic approach to identifying, analyzing, and mitigating technology adoption risks.
             Organizations that apply risk management disciplines to technology adoption programs are
-            better positioned to identify and address barriers&mdash;technical, organizational,
-            financial, and cultural&mdash;before they derail implementation.
+            better positioned to identify and address barriers-technical, organizational, financial,
+            and cultural-before they derail implementation.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Measurement and Analysis:</strong> The Measurement and Analysis process area

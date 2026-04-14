@@ -12,7 +12,7 @@ import {
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: Business Process Reengineering (BPR) – Hammer & Champy (1993)',
+  title: 'Bibliography: Business Process Reengineering (BPR) - Hammer & Champy (1993)',
   description:
     "An exploration of Hammer and Champy's Business Process Reengineering framework, the influential manifesto for radical organizational transformation through fundamental process redesign enabled by information technology.",
 }
@@ -22,7 +22,7 @@ const HammerChampyBPRPage = () => {
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>
-          Business Process Reengineering (BPR) &ndash; Hammer &amp; Champy (1993)
+          Business Process Reengineering (BPR) - Hammer &amp; Champy (1993)
         </h1>
 
         {/* Framework Identification */}
@@ -67,11 +67,10 @@ const HammerChampyBPRPage = () => {
           <p className={PARAGRAPH_CLASSES}>
             Where continuous improvement advocates like Deming counseled steady, incremental gains,
             Hammer and Champy argued that many organizations faced competitive conditions requiring
-            step-change improvements of 50&ndash;300%&mdash;improvements that incremental
-            optimization could never deliver within realistic timeframes. Rather than automating
-            existing processes, BPR advocates completely reimagining how work is done, using
-            information technology as the fundamental enabler of radically different organizational
-            designs.
+            step-change improvements of 50-300%-improvements that incremental optimization could
+            never deliver within realistic timeframes. Rather than automating existing processes,
+            BPR advocates completely reimagining how work is done, using information technology as
+            the fundamental enabler of radically different organizational designs.
           </p>
 
           <h2 className={H2_CLASSES}>Why Was the Model Created?</h2>
@@ -90,8 +89,8 @@ const HammerChampyBPRPage = () => {
             departments. Systems could process exceptions individually rather than only in batches.
             Yet despite these technology advances, many organizations continued operating with
             processes designed for obsolete constraints. They automated existing
-            processes&mdash;&ldquo;paving the cow paths&rdquo;&mdash;rather than reimagining how to
-            work. The result was inefficient organizations using expensive technology to perpetuate
+            processes-&ldquo;paving the cow paths&rdquo;-rather than reimagining how to work. The
+            result was inefficient organizations using expensive technology to perpetuate
             inefficient processes.
           </p>
           <p className={PARAGRAPH_CLASSES}>
@@ -156,9 +155,9 @@ const HammerChampyBPRPage = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Dramatic Performance Improvement:</strong> BPR aims for dramatic
-            improvements&mdash;50&ndash;300% gains in cycle time, cost, quality, or service rather
-            than incremental 10&ndash;20% improvements. This requires process innovation, not just
-            process optimization.
+            improvements-50-300% gains in cycle time, cost, quality, or service rather than
+            incremental 10-20% improvements. This requires process innovation, not just process
+            optimization.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Customer-Centric Process Design:</strong> Processes are designed around customer
@@ -237,11 +236,11 @@ const HammerChampyBPRPage = () => {
             </li>
           </ul>
           <p className={PARAGRAPH_CLASSES}>
-            These cases demonstrate that the core proposition&mdash;that fundamental process
-            redesign enabled by IT can achieve dramatically superior performance&mdash;holds across
-            different functional areas and industry contexts. The logical mechanism is clear:
-            sequential processes that exist because of historical constraints (slow communication,
-            limited information sharing, expensive coordination) can be radically compressed when IT
+            These cases demonstrate that the core proposition-that fundamental process redesign
+            enabled by IT can achieve dramatically superior performance-holds across different
+            functional areas and industry contexts. The logical mechanism is clear: sequential
+            processes that exist because of historical constraints (slow communication, limited
+            information sharing, expensive coordination) can be radically compressed when IT
             eliminates those constraints.
           </p>
 
@@ -254,10 +253,10 @@ const HammerChampyBPRPage = () => {
             <strong>Industries:</strong> BPR has been applied to manufacturing, financial services,
             healthcare, insurance, retail, telecommunications, government, and education. The
             principles of process-centric redesign apply across industries because the underlying
-            logic&mdash;that process structure determines performance&mdash;is industry-agnostic.
+            logic-that process structure determines performance-is industry-agnostic.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Process Types:</strong> BPR has addressed diverse business processes&mdash;order
+            <strong>Process Types:</strong> BPR has addressed diverse business processes-order
             fulfillment, customer service, accounts payable, human resources, product development,
             and others. The methodology works across process types because the core analytical
             approach (questioning why processes are structured as they are) is universally
@@ -268,21 +267,20 @@ const HammerChampyBPRPage = () => {
             Asia, and other regions, demonstrating cross-cultural applicability.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Temporal Persistence:</strong> BPR was particularly popular in the
-            1990s&ndash;early 2000s, though process redesign thinking continues in contemporary
-            organizations through concepts like Lean, digital transformation, and automation.
-            Federal Express, for example, redesigned customer service through technology, allowing
-            customers to track packages in real-time rather than waiting for phone updates. This
-            improved customer satisfaction while reducing service costs&mdash;a pattern consistent
-            with BPR predictions.
+            <strong>Temporal Persistence:</strong> BPR was particularly popular in the 1990s-early
+            2000s, though process redesign thinking continues in contemporary organizations through
+            concepts like Lean, digital transformation, and automation. Federal Express, for
+            example, redesigned customer service through technology, allowing customers to track
+            packages in real-time rather than waiting for phone updates. This improved customer
+            satisfaction while reducing service costs-a pattern consistent with BPR predictions.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            The framework&rsquo;s high failure rates (50&ndash;70% of BPR initiatives historically
-            fell short of goals) do not undermine its external validity so much as they clarify the
+            The framework&rsquo;s high failure rates (50-70% of BPR initiatives historically fell
+            short of goals) do not undermine its external validity so much as they clarify the
             conditions under which it succeeds. Failed implementations typically suffered from
             insufficient change management, technology dependence without process redesign, or
-            misalignment with organizational culture&mdash;all factors the framework itself
-            identifies as critical.
+            misalignment with organizational culture-all factors the framework itself identifies as
+            critical.
           </p>
 
           <h2 className={H2_CLASSES}>Key Contributions</h2>
@@ -309,8 +307,8 @@ const HammerChampyBPRPage = () => {
             </li>
             <li>
               <strong>Practical Implementation Methodology:</strong> The framework provides
-              practical steps&mdash;mapping, analysis, benchmarking, redesign, pilot,
-              implementation. Organizations understand what to do, not just what to think about.
+              practical steps-mapping, analysis, benchmarking, redesign, pilot, implementation.
+              Organizations understand what to do, not just what to think about.
             </li>
             <li>
               <strong>Addresses Organizational Urgency:</strong> When organizations face competitive
@@ -359,10 +357,10 @@ const HammerChampyBPRPage = () => {
           <p className={PARAGRAPH_CLASSES}>
             Business Process Reengineering directly addresses organizational technology adoption by
             insisting that technology implementation without process redesign delivers minimal
-            value. The framework&rsquo;s central insight&mdash;that organizations should not
-            automate existing processes but rather reimagine processes and then determine what
-            technology enables those reimagined processes&mdash;remains one of the most important
-            principles in technology adoption research.
+            value. The framework&rsquo;s central insight-that organizations should not automate
+            existing processes but rather reimagine processes and then determine what technology
+            enables those reimagined processes-remains one of the most important principles in
+            technology adoption research.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             BPR highlights a critical technology adoption barrier: organizations that view
@@ -372,9 +370,9 @@ const HammerChampyBPRPage = () => {
             willingness to question established process structures.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            The framework&rsquo;s emphasis on measuring dramatic performance improvement
-            (50&ndash;300% gains) rather than incremental improvement sets an ambitious standard for
-            technology adoption. This framing helps organizations distinguish between technology
+            The framework&rsquo;s emphasis on measuring dramatic performance improvement (50-300%
+            gains) rather than incremental improvement sets an ambitious standard for technology
+            adoption. This framing helps organizations distinguish between technology
             implementations that genuinely transform capabilities and those that merely automate the
             status quo.
           </p>
@@ -405,10 +403,10 @@ const HammerChampyBPRPage = () => {
             </li>
             <li>
               Hammer, M. (1990). Reengineering work: Don&rsquo;t automate, obliterate.{' '}
-              <em>Harvard Business Review</em>, 68(4), 104&ndash;112.
+              <em>Harvard Business Review</em>, 68(4), 104-112.
             </li>
             {/* prettier-ignore */}
-            <li>Davenport, T. H., &amp; Short, J. E. (1990). The new industrial engineering: Information technology and business process redesign. <em>Sloan Management Review</em>, 31(4), 11&ndash;27.</li>
+            <li>Davenport, T. H., &amp; Short, J. E. (1990). The new industrial engineering: Information technology and business process redesign. <em>Sloan Management Review</em>, 31(4), 11-27.</li>
             <li>
               Davenport, T. H. (1993).{' '}
               <em>Process innovation: Reengineering work through information technology</em>.
@@ -421,7 +419,7 @@ const HammerChampyBPRPage = () => {
             <li>
               Grover, V., Jeong, S. R., Kettinger, W. J., &amp; Teng, J. T. C. (1995). The
               implementation of business process reengineering.{' '}
-              <em>Journal of Management Information Systems</em>, 12(1), 109&ndash;144.{' '}
+              <em>Journal of Management Information Systems</em>, 12(1), 109-144.{' '}
               <a
                 href="https://doi.org/10.1080/07421222.1995.11518072"
                 target="_blank"
@@ -437,12 +435,12 @@ const HammerChampyBPRPage = () => {
             </li>
             <li>
               Venkatraman, N. (1994). IT-enabled business transformation: From automation to
-              business scope redefinition. <em>Sloan Management Review</em>, 35(2), 73&ndash;87.
+              business scope redefinition. <em>Sloan Management Review</em>, 35(2), 73-87.
             </li>
             <li>
               Al-Mashari, M., &amp; Zairi, M. (1999). BPR implementation process: An analysis of key
               success and failure factors. <em>Business Process Management Journal</em>, 5(1),
-              87&ndash;112.{' '}
+              87-112.{' '}
               <a
                 href="https://doi.org/10.1108/14637159910249108"
                 target="_blank"

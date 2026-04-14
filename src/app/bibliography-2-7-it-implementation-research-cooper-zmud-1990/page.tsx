@@ -13,7 +13,7 @@ import {
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: IT Implementation Research – Cooper & Zmud (1990)',
+  title: 'Bibliography: IT Implementation Research - Cooper & Zmud (1990)',
   description:
     "An exploration of Cooper and Zmud's IT Implementation Process Model, a foundational framework for understanding information technology implementation through six stages and the critical role of task-technology compatibility.",
 }
@@ -23,8 +23,7 @@ const CooperZmudPage = () => {
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>
-          IT Implementation Research: A Technological Diffusion Approach &ndash; Cooper &amp; Zmud
-          (1990)
+          IT Implementation Research: A Technological Diffusion Approach - Cooper &amp; Zmud (1990)
         </h1>
 
         {/* Framework Identification */}
@@ -51,7 +50,7 @@ const CooperZmudPage = () => {
             <p className="text-sm font-mono">
               Cooper, R. B., &amp; Zmud, R. W. (1990). Information technology implementation
               research: A technological diffusion approach. <em>Management Science</em>, 36(2),
-              123&ndash;139.
+              123-139.
             </p>
           </div>
         </section>
@@ -91,11 +90,10 @@ const CooperZmudPage = () => {
             The model emerged from recognition that IT implementation success depends on managing
             multiple complex factors operating across different stages of the implementation
             process. Prior IT implementation research had been fragmented across several
-            perspectives&mdash;factors research (examining individual, organizational, and
-            technological factors), process research (examining social change activities), and
-            political research (examining stakeholder interests and power dynamics). The Cooper-Zmud
-            model synthesized these perspectives into a unified framework organized around
-            implementation stages.
+            perspectives - factors research (examining individual, organizational, and technological
+            factors), process research (examining social change activities), and political research
+            (examining stakeholder interests and power dynamics). The Cooper-Zmud model synthesized
+            these perspectives into a unified framework organized around implementation stages.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             A key motivation was to examine Material Requirements Planning (MRP) implementation
@@ -145,11 +143,11 @@ const CooperZmudPage = () => {
           <h2 className={H2_CLASSES}>Core Concepts and Definitions</h2>
           <p className={PARAGRAPH_CLASSES}>
             The Cooper-Zmud model rests on two foundational concepts. First, IT implementation is a
-            staged process&mdash;organizations do not move from no-adoption to full adoption in a
-            single step but progress through distinct phases with different challenges and success
-            factors. Second, task-technology compatibility is central to implementation
-            success&mdash;the fit between the capabilities of the technology and the characteristics
-            of the work to be done determines whether adoption is likely and whether it succeeds.
+            staged process - organizations do not move from no-adoption to full adoption in a single
+            step but progress through distinct phases with different challenges and success factors.
+            Second, task-technology compatibility is central to implementation success - the fit
+            between the capabilities of the technology and the characteristics of the work to be
+            done determines whether adoption is likely and whether it succeeds.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             The model identifies six distinct stages of IT implementation, each characterized by
@@ -275,11 +273,11 @@ const CooperZmudPage = () => {
           <h2 className={H2_CLASSES}>Key Contributions</h2>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Comprehensive Integration of Research Streams:</strong> The model uniquely
-            integrates three previously fragmented research approaches&mdash;factors research,
-            process research, and political research&mdash;into a single coherent framework. Rather
-            than treating these as separate domains, the model shows how individual factors,
-            organizational processes, and political dynamics interact across implementation stages
-            to influence outcomes.
+            integrates three previously fragmented research approaches-factors research, process
+            research, and political research-into a single coherent framework. Rather than treating
+            these as separate domains, the model shows how individual factors, organizational
+            processes, and political dynamics interact across implementation stages to influence
+            outcomes.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Stage-Based Framework:</strong> The six-stage model provides clear structure and
@@ -335,18 +333,18 @@ const CooperZmudPage = () => {
             technically superior but whether it fits their specific work characteristics, process
             complexity, and organizational context. MRP adoption is most successful in environments
             with continuous manufacturing methods, make-to-stock strategies, high bill-of-material
-            levels, and product complexity&mdash;environments where MRP&rsquo;s underlying
-            assumptions are met. Organizations with different task characteristics should recognize
-            that higher complexity and more sophisticated solutions may be required, necessitating
-            greater management attention to user education, system customization, and organizational
-            change management.
+            levels, and product complexity-environments where MRP&rsquo;s underlying assumptions are
+            met. Organizations with different task characteristics should recognize that higher
+            complexity and more sophisticated solutions may be required, necessitating greater
+            management attention to user education, system customization, and organizational change
+            management.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             The infusion stage of the model has particular contemporary relevance. Many
             organizations successfully adopt technology (reach Acceptance and Routinization) but
-            fail to achieve Infusion&mdash;using IT to its fullest organizational potential. This
-            gap between routine use and strategic value creation is a critical adoption challenge
-            that the model specifically names and addresses.
+            fail to achieve Infusion-using IT to its fullest organizational potential. This gap
+            between routine use and strategic value creation is a critical adoption challenge that
+            the model specifically names and addresses.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             Organizations can use the model to anticipate implementation challenges based on
@@ -390,7 +388,7 @@ const CooperZmudPage = () => {
             <li>
               Cooper, R. B., &amp; Zmud, R. W. (1990). Information technology implementation
               research: A technological diffusion approach. <em>Management Science, 36</em>(2),
-              123&ndash;139.{' '}
+              123-139.{' '}
               <a
                 href="https://doi.org/10.1287/mnsc.36.2.123"
                 target="_blank"
@@ -406,20 +404,20 @@ const CooperZmudPage = () => {
             <li>
               Lewin, K. (1952). Group decision and social change. In G. E. Swanson, T. M. Newcomb,
               &amp; E. L. Hartley (Eds.), <em>Readings in social psychology</em> (rev. ed., pp.
-              459&ndash;473). Holt.
+              459-473). Holt.
             </li>
             <li>
               Kwon, T. H., &amp; Zmud, R. W. (1987). Unifying the fragmented models of information
               systems implementation. In R. J. Boland Jr. &amp; R. A. Hirschheim (Eds.),{' '}
-              <em>Critical issues in information systems research</em> (pp. 227&ndash;251). Wiley.
+              <em>Critical issues in information systems research</em> (pp. 227-251). Wiley.
             </li>
             <li>
               Laudon, K. C. (1985). Environmental and institutional models of systems development.
-              <em>Communications of the ACM, 28</em>(7), 728&ndash;738.
+              <em>Communications of the ACM, 28</em>(7), 728-738.
             </li>
             <li>
               Tait, P., &amp; Vessey, I. (1988). The effect of user involvement on system success: A
-              contingency approach. <em>MIS Quarterly, 12</em>(1), 91&ndash;108.
+              contingency approach. <em>MIS Quarterly, 12</em>(1), 91-108.
             </li>
           </ol>
         </section>

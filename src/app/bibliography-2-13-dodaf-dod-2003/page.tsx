@@ -13,7 +13,7 @@ import {
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: DoDAF – Department of Defense Architecture Framework (2003)',
+  title: 'Bibliography: DoDAF - Department of Defense Architecture Framework (2003)',
   description:
     'An in-depth overview of the Department of Defense Architecture Framework (DoDAF), a military enterprise architecture standard created in 2003 to resolve interoperability crises, enable multi-service coordination, and govern technology adoption across defense and government environments.',
 }
@@ -23,7 +23,7 @@ const DoDAFPage = () => {
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>
-          Department of Defense Architecture Framework (DoDAF) &ndash; U.S. DoD (2003)
+          Department of Defense Architecture Framework (DoDAF) - U.S. DoD (2003)
         </h1>
 
         {/* Framework Identification */}
@@ -70,10 +70,9 @@ const DoDAFPage = () => {
             Reconnaissance integration challenges. The lessons learned from C4ISR, combined with the
             operational lessons of conflicts in the 1990s, drove the DoD to create a more
             comprehensive, flexible, and formally structured framework. Since its initial release,
-            DoDAF has evolved through multiple versions&mdash;Version 1.0 (2003), Version 2.0
-            (2010), and the current Version 2.02 (2018)&mdash;while maintaining the core
-            architectural principles that distinguish it from civilian enterprise architecture
-            approaches.
+            DoDAF has evolved through multiple versions-Version 1.0 (2003), Version 2.0 (2010), and
+            the current Version 2.02 (2018)-while maintaining the core architectural principles that
+            distinguish it from civilian enterprise architecture approaches.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             The framework is designed specifically for the unique challenges of military, defense,
@@ -113,8 +112,8 @@ const DoDAFPage = () => {
             could cascade through dependent systems in ways that were not anticipated, creating
             failures that were difficult to diagnose and even harder to prevent proactively. The
             absence of a common architectural perspective meant that program managers were, in
-            effect, making technology decisions in partial darkness&mdash;unable to see the full map
-            of interdependencies their choices would affect.
+            effect, making technology decisions in partial darkness-unable to see the full map of
+            interdependencies their choices would affect.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>The Security and Reliability Imperative.</strong> Traditional commercial IT
@@ -122,8 +121,8 @@ const DoDAFPage = () => {
             system failures are costly but survivable. Military contexts demand a fundamentally
             different standard: systems that fail in combat environments can directly result in loss
             of life, mission failure, and strategic disadvantage. The security
-            requirements&mdash;protecting sensitive operational data, ensuring system integrity in
-            contested environments, maintaining operational security (OPSEC)&mdash;added layers of
+            requirements-protecting sensitive operational data, ensuring system integrity in
+            contested environments, maintaining operational security (OPSEC)-added layers of
             constraint that commercial frameworks were never designed to handle systematically.
           </p>
           <p className={PARAGRAPH_CLASSES}>
@@ -160,8 +159,8 @@ const DoDAFPage = () => {
             <li>
               <strong>Capability Viewpoint (CV):</strong> Addresses operational capabilities and
               their relationships. The CV defines what the organization must be able to
-              do&mdash;independent of how it does it&mdash;providing a stable foundation for
-              architecture development that persists even as specific systems and services evolve.
+              do-independent of how it does it-providing a stable foundation for architecture
+              development that persists even as specific systems and services evolve.
             </li>
             <li>
               <strong>Data and Information Viewpoint (DIV):</strong> Captures information
@@ -240,11 +239,11 @@ const DoDAFPage = () => {
           <p className={PARAGRAPH_CLASSES}>
             <strong>Cascading Logical Interdependencies.</strong> Because the viewpoints are
             formally interconnected, changes in one viewpoint cascade through dependent viewpoints
-            in predictable ways. This traceability is not merely a documentation
-            convenience&mdash;it is an active governance mechanism. When a capability requirement
-            changes, the DoDAF structure makes visible exactly which operational processes, systems,
-            services, and standards must be re-examined. This systematically prevents the
-            &ldquo;invisible dependency&rdquo; failures that plagued pre-DoDAF military systems.
+            in predictable ways. This traceability is not merely a documentation convenience-it is
+            an active governance mechanism. When a capability requirement changes, the DoDAF
+            structure makes visible exactly which operational processes, systems, services, and
+            standards must be re-examined. This systematically prevents the &ldquo;invisible
+            dependency&rdquo; failures that plagued pre-DoDAF military systems.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Systematic Completeness Through Hierarchical Documentation.</strong> DoDAF
@@ -289,9 +288,9 @@ const DoDAFPage = () => {
             adopted across the broader U.S. government, including the Intelligence Community (CIA,
             NSA, and DIA), the Department of Homeland Security, the Federal Aviation Administration
             (FAA), and emergency management agencies including FEMA. These civilian government
-            adoptions demonstrate that the framework&rsquo;s core value&mdash;structured
-            architectural governance of complex multi-agency technology environments&mdash;is not
-            exclusively military in applicability.
+            adoptions demonstrate that the framework&rsquo;s core value-structured architectural
+            governance of complex multi-agency technology environments-is not exclusively military
+            in applicability.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Defense Industry Standardization.</strong> Major defense contractors including{' '}
@@ -330,9 +329,9 @@ const DoDAFPage = () => {
           <p className={PARAGRAPH_CLASSES}>
             <strong>Framework Longevity and Evolution.</strong> The progression from Version 1.0
             (2003) to Version 2.0 (2010) to Version 2.02 (2018) demonstrates that DoDAF has adapted
-            to the evolution of military technology&mdash;incorporating service-oriented
-            architectures and cloud capabilities in the 2.0 revision&mdash;while maintaining the
-            core viewpoint structure and governance principles that define the framework.
+            to the evolution of military technology-incorporating service-oriented architectures and
+            cloud capabilities in the 2.0 revision-while maintaining the core viewpoint structure
+            and governance principles that define the framework.
           </p>
         </section>
 
@@ -370,17 +369,17 @@ const DoDAFPage = () => {
             architecture is defined, DoDAF integrates security considerations throughout all
             viewpoints. Security requirements influence capability definitions, operational process
             design, system interface specifications, service architectures, data structures, and
-            standards selection simultaneously&mdash;reflecting the operational reality that
-            security cannot be retrofitted into military systems.
+            standards selection simultaneously-reflecting the operational reality that security
+            cannot be retrofitted into military systems.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Governance at Scale.</strong> DoDAF provides governance mechanisms capable of
             coordinating technology adoption decisions across the entire U.S. Department of
-            Defense&mdash;an organization of millions of personnel, thousands of programs, and
-            technology investments measured in hundreds of billions of dollars annually. The
-            framework&rsquo;s mandatory compliance requirements for defense acquisition programs
-            create enforceable governance rather than advisory guidance, giving DoDAF a practical
-            authority that purely voluntary frameworks lack.
+            Defense-an organization of millions of personnel, thousands of programs, and technology
+            investments measured in hundreds of billions of dollars annually. The framework&rsquo;s
+            mandatory compliance requirements for defense acquisition programs create enforceable
+            governance rather than advisory guidance, giving DoDAF a practical authority that purely
+            voluntary frameworks lack.
           </p>
 
           <h2 className={H2_CLASSES}>Weaknesses and Limitations</h2>
@@ -399,8 +398,8 @@ const DoDAFPage = () => {
             <li>
               <strong>Limited Commercial Applicability:</strong> DoDAF was designed for the specific
               constraints of military and government environments. The level of rigor it
-              demands&mdash;complete specification before implementation, formal review and approval
-              cycles, mandatory compliance across procurement&mdash;is excessive for most commercial
+              demands-complete specification before implementation, formal review and approval
+              cycles, mandatory compliance across procurement-is excessive for most commercial
               organizations and incompatible with agile development methodologies.
             </li>
             <li>
@@ -446,7 +445,7 @@ const DoDAFPage = () => {
             technology adoption across organizational boundaries. The Gulf War experience
             demonstrated that organizations can individually adopt sophisticated technologies while
             collectively failing to achieve the integrated capability those technologies were
-            intended to provide&mdash;a pattern that appears across many complex technology adoption
+            intended to provide-a pattern that appears across many complex technology adoption
             contexts beyond the military. DoDAF&rsquo;s systematic methodology for identifying and
             resolving interoperability barriers before system deployment is directly applicable to
             any organization managing multi-vendor, multi-system technology environments.
@@ -455,8 +454,8 @@ const DoDAFPage = () => {
             <strong>Architecture Governance as an Adoption Coordination Mechanism.</strong> One of
             the most significant technology adoption barriers in large organizations is the tendency
             for independent units to make incompatible technology choices that collectively
-            undermine organizational capability. DoDAF&rsquo;s governance mechanisms&mdash;mandatory
-            compliance, formal review, explicit standards enforcement&mdash;provide a model for how
+            undermine organizational capability. DoDAF&rsquo;s governance mechanisms-mandatory
+            compliance, formal review, explicit standards enforcement-provide a model for how
             architecture authority can prevent incompatible technology adoption decisions before
             they are implemented and become expensive to reverse.
           </p>
@@ -476,9 +475,8 @@ const DoDAFPage = () => {
             adoption. By explicitly documenting applicable standards early in the architecture
             process, DoDAF prevents the adoption of incompatible technologies and creates the
             preconditions for interoperability that allow technology to be adopted across
-            organizational boundaries. This insight&mdash;that governance of standards is a
-            prerequisite for coordinated technology adoption&mdash;is broadly applicable beyond the
-            defense context.
+            organizational boundaries. This insight-that governance of standards is a prerequisite
+            for coordinated technology adoption-is broadly applicable beyond the defense context.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Influence on Civilian Enterprise Architecture.</strong> DoDAF&rsquo;s influence
@@ -493,7 +491,7 @@ const DoDAFPage = () => {
             <strong>Multi-Organizational Boundary Spanning.</strong> Perhaps the most general
             relevance of DoDAF to technology adoption research is its systematic approach to the
             problem of coordinating technology adoption decisions across organizational
-            boundaries&mdash;across services, agencies, allied nations, and contractors. This
+            boundaries-across services, agencies, allied nations, and contractors. This
             boundary-spanning coordination challenge is not unique to military contexts; it appears
             wherever technology adoption requires cooperation among organizations with different
             priorities, cultures, budget authorities, and institutional interests. DoDAF&rsquo;s

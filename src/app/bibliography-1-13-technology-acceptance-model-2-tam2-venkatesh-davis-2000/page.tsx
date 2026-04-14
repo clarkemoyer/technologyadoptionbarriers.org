@@ -9,7 +9,7 @@ import {
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: Technology Acceptance Model 2 (TAM2) – Venkatesh & Davis (2000)',
+  title: 'Bibliography: Technology Acceptance Model 2 (TAM2) - Venkatesh & Davis (2000)',
   description:
     'Deep dive into the Technology Acceptance Model 2 (TAM2) by Viswanath Venkatesh and Fred D. Davis (2000), exploring social influence and cognitive instrumental processes that determine perceived usefulness in technology adoption.',
 }
@@ -19,7 +19,7 @@ const BibliographyArticlePage = () => {
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>
-          Technology Acceptance Model 2 (TAM2) &ndash; Venkatesh &amp; Davis (2000)
+          Technology Acceptance Model 2 (TAM2) - Venkatesh &amp; Davis (2000)
         </h1>
 
         {/* Model Identification */}
@@ -45,7 +45,7 @@ const BibliographyArticlePage = () => {
             <p className="text-sm font-mono">
               Venkatesh, V., &amp; Davis, F. D. (2000). A theoretical extension of the technology
               acceptance model: Four longitudinal field studies. <em>Management Science</em>, 46(2),
-              186&ndash;204.{' '}
+              186-204.{' '}
               <a
                 href="https://doi.org/10.1287/mnsc.46.2.186.11926"
                 target="_blank"
@@ -73,13 +73,13 @@ const BibliographyArticlePage = () => {
           <p className={PARAGRAPH_CLASSES}>
             Perceived usefulness consistently emerged as the strongest predictor of behavioral
             intention to use technology, typically explaining more variance than perceived ease of
-            use. Yet TAM treated perceived usefulness essentially as an exogenous variable&mdash;a
-            belief that varied across individuals and technologies without theoretical explanation
-            for why it varied. This limitation severely constrained the practical utility of TAM for
-            system designers and organizational leaders. Knowing that perceived usefulness matters
-            does not help practitioners understand how to increase perceived usefulness. Without
-            identifying the specific antecedent factors that shape usefulness perceptions,
-            organizations could not design targeted interventions to improve technology acceptance.
+            use. Yet TAM treated perceived usefulness essentially as an exogenous variable-a belief
+            that varied across individuals and technologies without theoretical explanation for why
+            it varied. This limitation severely constrained the practical utility of TAM for system
+            designers and organizational leaders. Knowing that perceived usefulness matters does not
+            help practitioners understand how to increase perceived usefulness. Without identifying
+            the specific antecedent factors that shape usefulness perceptions, organizations could
+            not design targeted interventions to improve technology acceptance.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             Venkatesh and Davis recognized that understanding the determinants of perceived
@@ -159,8 +159,8 @@ const BibliographyArticlePage = () => {
             exerts a direct effect on behavioral intention beyond its influence through perceived
             usefulness. In voluntary contexts, this direct compliance effect disappears because
             individuals face no social consequences for not using the system. However, the
-            internalization effect&mdash;whereby subjective norm influences perceived usefulness
-            itself&mdash;operates in both voluntary and mandatory contexts.
+            internalization effect-whereby subjective norm influences perceived usefulness
+            itself-operates in both voluntary and mandatory contexts.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             Image reflects the degree to which an individual perceives that using a technology will
@@ -313,12 +313,12 @@ const BibliographyArticlePage = () => {
           <p className={PARAGRAPH_CLASSES}>
             TAM2 provides a structured framework for identifying and categorizing technology
             adoption barriers. Social influence barriers arise when an individual&rsquo;s important
-            referents&mdash;supervisors, peers, professional networks&mdash;do not endorse or
-            actively discourage the use of a technology. In organizations where technology adoption
-            lacks managerial support or visible endorsement from respected colleagues, subjective
-            norm effects work against adoption. Image barriers emerge when using a particular
-            technology carries negative social connotations or threatens an individual&rsquo;s
-            professional identity, making adoption socially costly rather than beneficial.
+            referents-supervisors, peers, professional networks-do not endorse or actively
+            discourage the use of a technology. In organizations where technology adoption lacks
+            managerial support or visible endorsement from respected colleagues, subjective norm
+            effects work against adoption. Image barriers emerge when using a particular technology
+            carries negative social connotations or threatens an individual&rsquo;s professional
+            identity, making adoption socially costly rather than beneficial.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             Cognitive instrumental barriers manifest when technologies fail to align with
@@ -337,10 +337,10 @@ const BibliographyArticlePage = () => {
             dynamics over time. Organizations may face the strongest social influence barriers
             during the critical early period of technology introduction, when users have not yet
             formed personal evaluations and rely heavily on social cues. Interventions targeting
-            social influence&mdash;such as management endorsement, champion programs, and visible
-            early-adopter success stories&mdash;may be most effective during this early window. As
-            users gain experience, interventions should shift toward addressing cognitive
-            instrumental barriers through training, system refinement, and benefit demonstration.
+            social influence-such as management endorsement, champion programs, and visible
+            early-adopter success stories-may be most effective during this early window. As users
+            gain experience, interventions should shift toward addressing cognitive instrumental
+            barriers through training, system refinement, and benefit demonstration.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             The voluntariness dimension highlights a critical barrier consideration: mandating
@@ -358,7 +358,7 @@ const BibliographyArticlePage = () => {
           <ol className="list-decimal list-inside space-y-3 text-sm">
             <li>
               Davis, F. D. (1989). Perceived usefulness, perceived ease of use, and user acceptance
-              of information technology. <em>MIS Quarterly</em>, 13(3), 319&ndash;340.{' '}
+              of information technology. <em>MIS Quarterly</em>, 13(3), 319-340.{' '}
               <a
                 href="https://doi.org/10.2307/249008"
                 target="_blank"
@@ -378,7 +378,7 @@ const BibliographyArticlePage = () => {
             <li>
               Moore, G. C., &amp; Benbasat, I. (1991). Development of an instrument to measure the
               perceptions of adopting an information technology innovation.{' '}
-              <em>Information Systems Research</em>, 2(3), 192&ndash;222.{' '}
+              <em>Information Systems Research</em>, 2(3), 192-222.{' '}
               <a
                 href="https://doi.org/10.1287/isre.2.3.192"
                 target="_blank"
@@ -391,7 +391,7 @@ const BibliographyArticlePage = () => {
             <li>
               Venkatesh, V. (2000). Determinants of perceived ease of use: Integrating control,
               intrinsic motivation, and emotion into the technology acceptance model.{' '}
-              <em>Information Systems Research</em>, 11(4), 342&ndash;365.{' '}
+              <em>Information Systems Research</em>, 11(4), 342-365.{' '}
               <a
                 href="https://doi.org/10.1287/isre.11.4.342.11872"
                 target="_blank"
@@ -403,7 +403,7 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               Venkatesh, V., &amp; Bala, H. (2008). Technology acceptance model 3 and a research
-              agenda on interventions. <em>Decision Sciences</em>, 39(2), 273&ndash;315.{' '}
+              agenda on interventions. <em>Decision Sciences</em>, 39(2), 273-315.{' '}
               <a
                 href="https://doi.org/10.1111/j.1540-5915.2008.00192.x"
                 target="_blank"
@@ -416,7 +416,7 @@ const BibliographyArticlePage = () => {
             <li>
               Venkatesh, V., &amp; Davis, F. D. (2000). A theoretical extension of the technology
               acceptance model: Four longitudinal field studies. <em>Management Science</em>, 46(2),
-              186&ndash;204.{' '}
+              186-204.{' '}
               <a
                 href="https://doi.org/10.1287/mnsc.46.2.186.11926"
                 target="_blank"
@@ -429,7 +429,7 @@ const BibliographyArticlePage = () => {
             <li>
               Venkatesh, V., Morris, M. G., Davis, G. B., &amp; Davis, F. D. (2003). User acceptance
               of information technology: Toward a unified view. <em>MIS Quarterly</em>, 27(3),
-              425&ndash;478.{' '}
+              425-478.{' '}
               <a
                 href="https://doi.org/10.2307/30036540"
                 target="_blank"

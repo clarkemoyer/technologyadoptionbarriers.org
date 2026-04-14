@@ -205,9 +205,9 @@ const ReproducibleAnalysisPage = () => {
               </h3>
               <p className={PARAGRAPH_CLASSES}>
                 Validates 84 statistical claims embedded in the CRP document against computed values
-                from the source CSV. This ensures that all reported statistics &mdash; construct
-                means, correlations, reliability coefficients, validity metrics, and demographic
-                tables &mdash; are traceable to the data and protects against transcription errors.
+                from the source CSV. This ensures that all reported statistics - construct means,
+                correlations, reliability coefficients, validity metrics, and demographic tables -
+                are traceable to the data and protects against transcription errors.
               </p>
               <p className="text-gray-600 font-sans text-sm">
                 <strong>Key outputs:</strong> Pass/fail summary with detailed mismatch reports.

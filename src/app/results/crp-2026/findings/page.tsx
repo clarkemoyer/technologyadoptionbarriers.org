@@ -140,8 +140,8 @@ const CrpFindingsPage = () => {
           <h2 className={H2_CLASSES}>Effect Sizes (Cohen&rsquo;s d)</h2>
           <p className={PARAGRAPH_CLASSES}>
             Cohen&rsquo;s d measures the standardized difference between group means. Values of |d|
-            &lt; 0.2 are negligible, 0.2&ndash;0.5 small, 0.5&ndash;0.8 medium, and &gt; 0.8 large.
-            Each comparison is computed separately for each result group.
+            &lt; 0.2 are negligible, 0.2-0.5 small, 0.5-0.8 medium, and &gt; 0.8 large. Each
+            comparison is computed separately for each result group.
           </p>
 
           {CRP_GROUPS.map((group) => {
@@ -686,25 +686,25 @@ const CrpFindingsPage = () => {
               <Link href="/results/crp-2026/descriptive" className="text-blue-600 hover:underline">
                 Descriptive Statistics
               </Link>{' '}
-              &mdash; means, SDs, and correlations per result group
+              - means, SDs, and correlations per result group
             </li>
             <li>
               <Link href="/results/crp-2026/sample" className="text-blue-600 hover:underline">
                 Sample &amp; Demographics
               </Link>{' '}
-              &mdash; demographic breakdowns per result group
+              - demographic breakdowns per result group
             </li>
             <li>
               <Link href="/results/crp-2026/sensitivity" className="text-blue-600 hover:underline">
                 Sensitivity Analysis
               </Link>{' '}
-              &mdash; all metrics and deltas across datasets
+              - all metrics and deltas across datasets
             </li>
             <li>
               <Link href="/results/crp-2026/data-quality" className="text-blue-600 hover:underline">
                 Data Quality Pipeline
               </Link>{' '}
-              &mdash; quality checks and disposition waterfall
+              - quality checks and disposition waterfall
             </li>
             <li>
               <Link href="/results/crp-2026" className="text-blue-600 hover:underline">

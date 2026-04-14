@@ -12,7 +12,7 @@ import {
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: AWS Cloud Adoption Framework for AI/ML (CAF-AI) – AWS (2024)',
+  title: 'Bibliography: AWS Cloud Adoption Framework for AI/ML (CAF-AI) - AWS (2024)',
   description:
     'An exploration of the AWS Cloud Adoption Framework for Artificial Intelligence, Machine Learning, and Generative AI (CAF-AI), a comprehensive organizational framework published by Amazon Web Services in 2024 for guiding enterprise AI adoption.',
 }
@@ -22,7 +22,7 @@ const AWSCAFAIPage = () => {
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>
-          AWS Cloud Adoption Framework for AI/ML (CAF-AI) &ndash; Amazon Web Services (2024)
+          AWS Cloud Adoption Framework for AI/ML (CAF-AI) - Amazon Web Services (2024)
         </h1>
 
         {/* Framework Identification */}
@@ -76,9 +76,9 @@ const AWSCAFAIPage = () => {
             barriers. Organizations conducting AI proof-of-concept initiatives at increasing rates
             consistently struggled to scale those initiatives into production systems that drove
             measurable business outcomes. CAF-AI was developed to address this gap by providing
-            structured guidance across six perspectives &ndash; Business, People, Governance,
-            Platform, Security, and Operations &ndash; ensuring that enterprises approach AI
-            adoption holistically rather than as a purely technical exercise.
+            structured guidance across six perspectives - Business, People, Governance, Platform,
+            Security, and Operations - ensuring that enterprises approach AI adoption holistically
+            rather than as a purely technical exercise.
           </p>
 
           <h2 className={H2_CLASSES}>Why Was the Model Created?</h2>
@@ -93,9 +93,9 @@ const AWSCAFAIPage = () => {
             AWS observed that enterprises were conducting AI proof-of-concept initiatives at
             increasing rates, yet few were successfully scaling these initiatives into production
             systems that drove measurable business outcomes. The organization estimated that cloud
-            computing would become a competitive requirement by 2028 &ndash; but that AI adoption
-            would be a critical differentiator for organizations seeking to gain competitive
-            advantage through cloud capabilities.
+            computing would become a competitive requirement by 2028 - but that AI adoption would be
+            a critical differentiator for organizations seeking to gain competitive advantage
+            through cloud capabilities.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             The fundamental problem CAF-AI addresses is that AI adoption requires more than
@@ -235,9 +235,8 @@ const AWSCAFAIPage = () => {
             </li>
             <li>
               <strong>Accommodation of Different AI Maturity Levels:</strong> The framework
-              explicitly accommodates organizations at different stages of AI maturity &ndash; from
-              those taking first steps with AI to organizations seeking to scale AI across the
-              enterprise.
+              explicitly accommodates organizations at different stages of AI maturity - from those
+              taking first steps with AI to organizations seeking to scale AI across the enterprise.
             </li>
             <li>
               <strong>Technology Neutrality:</strong> The framework does not mandate specific
@@ -297,8 +296,8 @@ const AWSCAFAIPage = () => {
           <p className={PARAGRAPH_CLASSES}>
             The AWS CAF-AI framework is highly relevant to technology adoption research and practice
             for several reasons. First, it directly addresses the organizational barriers that
-            prevent technology adoption from translating into business value &ndash; a core concern
-            in technology adoption literature. The framework recognizes that technology adoption is
+            prevent technology adoption from translating into business value - a core concern in
+            technology adoption literature. The framework recognizes that technology adoption is
             fundamentally an organizational and people challenge, not merely a technical one.
           </p>
           <p className={PARAGRAPH_CLASSES}>
@@ -340,7 +339,7 @@ const AWSCAFAIPage = () => {
             </li>
             <li>
               Amazon Web Services. (2022).{' '}
-              <em>AWS Cloud Adoption Framework (AWS CAF) &ndash; Version 3.0</em>. AWS Whitepaper.
+              <em>AWS Cloud Adoption Framework (AWS CAF) - Version 3.0</em>. AWS Whitepaper.
             </li>
             <li>
               Rogers, E. M. (2003). <em>Diffusion of innovations</em> (5th ed.). Free Press.

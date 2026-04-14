@@ -37,8 +37,7 @@ export default function SurveyCompletePage() {
         </p>
         <p className="mt-3 text-sm leading-6 text-slate-700">
           Also, consider sharing this year&apos;s TABS survey with the rest of the leadership team
-          in your organization (C-suite, VPs, Directors) &mdash; broader input makes the dataset
-          stronger.
+          in your organization (C-suite, VPs, Directors) - broader input makes the dataset stronger.
         </p>
 
         <div className="mt-6 flex flex-col sm:flex-row gap-4">

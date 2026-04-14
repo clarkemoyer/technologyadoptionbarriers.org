@@ -12,7 +12,7 @@ import {
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: Total Quality Management (TQM) – Deming (1982)',
+  title: 'Bibliography: Total Quality Management (TQM) - Deming (1982)',
   description:
     "An exploration of W. Edwards Deming's Total Quality Management philosophy, a foundational framework for understanding how management systems, continuous improvement, and organizational culture drive quality and technology adoption success.",
 }
@@ -21,9 +21,7 @@ const TQMDemingPage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
-        <h1 className={H1_CLASSES}>
-          Total Quality Management (TQM) &ndash; W. Edwards Deming (1982)
-        </h1>
+        <h1 className={H1_CLASSES}>Total Quality Management (TQM) - W. Edwards Deming (1982)</h1>
 
         {/* Framework Identification */}
         <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
@@ -64,16 +62,16 @@ const TQMDemingPage = () => {
             become essential to technology adoption success.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            Deming&rsquo;s ideas originated in Japan&rsquo;s post&ndash;World War II reconstruction,
-            where they revolutionized manufacturing and were subsequently embraced by American and
-            global organizations seeking competitive advantage through quality and efficiency. His
+            Deming&rsquo;s ideas originated in Japan&rsquo;s post-World War II reconstruction, where
+            they revolutionized manufacturing and were subsequently embraced by American and global
+            organizations seeking competitive advantage through quality and efficiency. His
             philosophy directly rejects the notion that workers are responsible for poor quality,
             placing instead the burden of systemic improvement squarely on management.
           </p>
 
           <h2 className={H2_CLASSES}>Why Was the Model Created?</h2>
           <p className={PARAGRAPH_CLASSES}>
-            Deming developed his quality philosophy during Japan&rsquo;s post&ndash;World War II
+            Deming developed his quality philosophy during Japan&rsquo;s post-World War II
             reconstruction. In 1950, he was invited to Japan to teach statistical methods to
             Japanese industrial leaders. Rather than simply explaining statistical techniques,
             Deming engaged in extended dialogue with Japanese executives about management
@@ -92,11 +90,11 @@ const TQMDemingPage = () => {
             Deming&rsquo;s <em>Quality, Productivity, and Competitive Position</em> (1982) was
             written to explain to American business leaders why Japan&rsquo;s quality revolution had
             occurred and what American companies needed to do to compete. Deming argued that
-            American quality problems were not caused by worker laziness or lack of skill&mdash;they
-            were caused by poor management systems. American management philosophy emphasized
-            individual accountability, end-of-line quality inspection, cost minimization, and
-            adversarial labor relations. These systems were guaranteed to produce poor quality.
-            Quality improvement required a fundamental change in management philosophy.
+            American quality problems were not caused by worker laziness or lack of skill-they were
+            caused by poor management systems. American management philosophy emphasized individual
+            accountability, end-of-line quality inspection, cost minimization, and adversarial labor
+            relations. These systems were guaranteed to produce poor quality. Quality improvement
+            required a fundamental change in management philosophy.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             The book synthesized decades of Deming&rsquo;s experience in Japan and America into a
@@ -111,17 +109,17 @@ const TQMDemingPage = () => {
             Deming&rsquo;s TQM philosophy emerged in contrast to several existing approaches. His
             predecessor Walter Shewhart had pioneered statistical quality control methods focused on
             detecting defects. While Deming respected Shewhart&rsquo;s innovations, he recognized
-            that end-of-line quality inspection was inherently a failure strategy&mdash;by the time
+            that end-of-line quality inspection was inherently a failure strategy-by the time
             defects were detected, products had already been manufactured poorly.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             Mass production manufacturing models emphasized standardization, efficiency, and
             throughput, treating quality as secondary to volume and cost. Adversarial
-            labor&ndash;management relations in American manufacturing of the 1970s&ndash;1980s
-            prevented the kind of continuous improvement Deming envisioned. Functional silos
-            isolated manufacturing, quality control, design, and procurement into separate
-            departments with conflicting objectives. Deming&rsquo;s TQM philosophy directly rejected
-            these approaches.
+            labor-management relations in American manufacturing of the 1970s-1980s prevented the
+            kind of continuous improvement Deming envisioned. Functional silos isolated
+            manufacturing, quality control, design, and procurement into separate departments with
+            conflicting objectives. Deming&rsquo;s TQM philosophy directly rejected these
+            approaches.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             At the heart of Deming&rsquo;s philosophy are several interconnected core concepts:
@@ -130,9 +128,8 @@ const TQMDemingPage = () => {
             <li>
               <strong>Management Responsibility for Quality:</strong> Management, not workers, is
               responsible for quality problems. When defects occur, the cause is almost always in
-              the system&mdash;poor design, inadequate training, unreliable machinery, or
-              conflicting incentives. Workers cannot produce quality products from poorly designed
-              systems.
+              the system-poor design, inadequate training, unreliable machinery, or conflicting
+              incentives. Workers cannot produce quality products from poorly designed systems.
             </li>
             <li>
               <strong>Statistical Thinking:</strong> Most managers make decisions based on
@@ -170,8 +167,8 @@ const TQMDemingPage = () => {
           <p className={PARAGRAPH_CLASSES}>
             Deming&rsquo;s philosophy is powerful because it is internally coherent and
             intellectually compelling. Once organizations understand Deming&rsquo;s core
-            insight&mdash;that management systems create quality outcomes&mdash;they naturally
-            understand why many traditional practices fail and why his recommendations make sense.
+            insight-that management systems create quality outcomes-they naturally understand why
+            many traditional practices fail and why his recommendations make sense.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             The PDCA Cycle (Plan-Do-Check-Act), often called the &ldquo;Deming Cycle,&rdquo;
@@ -190,9 +187,9 @@ const TQMDemingPage = () => {
           <p className={PARAGRAPH_CLASSES}>
             Deming severely criticized management by objectives (MBO) and individual numerical
             targets divorced from system understanding. Sales quotas, production targets that
-            incentivize hiding defects, or cost targets that pressure cutting quality
-            corners&mdash;all violate Deming principles. Instead, organizations should manage
-            systems, understand variation, and judge managers on whether they are improving systems.
+            incentivize hiding defects, or cost targets that pressure cutting quality corners-all
+            violate Deming principles. Instead, organizations should manage systems, understand
+            variation, and judge managers on whether they are improving systems.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             Top management commitment is non-negotiable. If executives view quality as a program
@@ -217,9 +214,9 @@ const TQMDemingPage = () => {
             <li>
               <strong>Industry Breadth:</strong> While originally focused on manufacturing,
               Deming&rsquo;s principles have been applied to healthcare, education, government,
-              financial services, and software development. The underlying
-              principles&mdash;management responsibility, statistical thinking, systems approach,
-              respect for people&mdash;are universal organizational principles.
+              financial services, and software development. The underlying principles-management
+              responsibility, statistical thinking, systems approach, respect for people-are
+              universal organizational principles.
             </li>
             <li>
               <strong>Organization Size:</strong> The philosophy applies to small enterprises,
@@ -256,8 +253,8 @@ const TQMDemingPage = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Philosophical Clarity and Power:</strong> The framework is internally coherent
-            and intellectually compelling. Once the core insight is understood&mdash;that management
-            systems create quality outcomes&mdash;practitioners naturally understand why traditional
+            and intellectually compelling. Once the core insight is understood-that management
+            systems create quality outcomes-practitioners naturally understand why traditional
             practices fail.
           </p>
           <p className={PARAGRAPH_CLASSES}>
@@ -292,16 +289,15 @@ const TQMDemingPage = () => {
             technologies. This is because they have systems for learning, adaptation, and managing
             change. Technology adoption succeeds in organizations that embrace the scientific
             method, experimentation, and systems improvement that Deming advocated. The PDCA cycle
-            directly maps to technology pilot programs&mdash;organizations plan a technology
-            adoption, implement on small scale, check results, and act to expand or revise.
+            directly maps to technology pilot programs-organizations plan a technology adoption,
+            implement on small scale, check results, and act to expand or revise.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             Deming&rsquo;s emphasis on management responsibility is particularly relevant to
             technology adoption. When technology implementations fail, the cause is almost always
-            management systems&mdash;insufficient change management, inadequate training programs,
-            unclear ownership, or conflicting organizational incentives. Deming&rsquo;s framework
-            directs attention to these systemic factors rather than blaming individual users for
-            resistance.
+            management systems-insufficient change management, inadequate training programs, unclear
+            ownership, or conflicting organizational incentives. Deming&rsquo;s framework directs
+            attention to these systemic factors rather than blaming individual users for resistance.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             Statistical thinking informs evidence-based technology adoption decisions. Rather than
@@ -321,7 +317,7 @@ const TQMDemingPage = () => {
             Deming&rsquo;s philosophy requires fundamental change in management thinking and
             organizational culture, and many organizations claim to embrace TQM while implementing
             only superficial changes. Critics also argue that Deming did not sufficiently address
-            breakthrough innovation&mdash;continuous improvement makes current processes better, but
+            breakthrough innovation-continuous improvement makes current processes better, but
             sometimes organizations need fundamentally new approaches. Measurement challenges arise
             when identifying appropriate metrics, particularly in service industries where outputs
             are less tangible. Organizational politics can also obstruct the collaboration and

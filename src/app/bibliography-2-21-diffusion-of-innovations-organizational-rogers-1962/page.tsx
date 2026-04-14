@@ -12,7 +12,7 @@ import {
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: Diffusion of Innovations – Organizational Perspective – Rogers (1962)',
+  title: 'Bibliography: Diffusion of Innovations - Organizational Perspective - Rogers (1962)',
   description:
     'An exploration of Diffusion of Innovations by Everett M. Rogers (1962) from an organizational adoption perspective, examining how the five adopter categories, innovation attributes, and diffusion channels apply to enterprise and institutional technology adoption decisions.',
 }
@@ -22,7 +22,7 @@ const DiffusionOrganizationalPage = () => {
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>
-          Diffusion of Innovations (Organizational Perspective) &ndash; Rogers (1962)
+          Diffusion of Innovations (Organizational Perspective) - Rogers (1962)
         </h1>
 
         {/* Framework Identification */}
@@ -57,10 +57,10 @@ const DiffusionOrganizationalPage = () => {
             works in the social sciences, synthesizing research across agriculture, public health,
             education, and technology to produce a general theory of how new ideas and practices
             spread through social systems. While Rogers&rsquo; framework has been extensively
-            applied to individual technology adoption decisions &mdash; giving rise to the
-            Technology Acceptance Model and related individual-level frameworks &mdash; the original
-            work also contains a rich organizational and institutional adoption perspective that is
-            distinct from its application to individual adopters.
+            applied to individual technology adoption decisions - giving rise to the Technology
+            Acceptance Model and related individual-level frameworks - the original work also
+            contains a rich organizational and institutional adoption perspective that is distinct
+            from its application to individual adopters.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             This page covers the organizational dimension of Rogers&rsquo; framework: how
@@ -79,10 +79,10 @@ const DiffusionOrganizationalPage = () => {
 
           <h2 className={H2_CLASSES}>Organizational Adopter Categories</h2>
           <p className={PARAGRAPH_CLASSES}>
-            Rogers applied his five-category adopter typology &mdash; Innovators, Early Adopters,
-            Early Majority, Late Majority, and Laggards &mdash; not only to individual decision-
-            makers but to organizations as collective adopter units. This organizational application
-            has distinct implications for enterprise technology adoption:
+            Rogers applied his five-category adopter typology - Innovators, Early Adopters, Early
+            Majority, Late Majority, and Laggards - not only to individual decision- makers but to
+            organizations as collective adopter units. This organizational application has distinct
+            implications for enterprise technology adoption:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>

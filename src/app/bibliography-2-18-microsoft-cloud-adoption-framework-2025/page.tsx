@@ -23,7 +23,7 @@ const MicrosoftCAFPage = () => {
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>
-          Microsoft Cloud Adoption Framework for Azure (CAF) &ndash; Microsoft (2025)
+          Microsoft Cloud Adoption Framework for Azure (CAF) - Microsoft (2025)
         </h1>
 
         {/* Framework Identification */}
@@ -249,10 +249,10 @@ const MicrosoftCAFPage = () => {
             </li>
             <li>
               <strong>Landing Zone Concept:</strong> The framework&rsquo;s introduction of the
-              &ldquo;landing zone&rdquo; concept &ndash; a pre-configured cloud environment with
-              governance guardrails &ndash; has become an industry standard for organizations
-              establishing cloud foundations, enabling governance from the start rather than
-              retrofitting it later.
+              &ldquo;landing zone&rdquo; concept - a pre-configured cloud environment with
+              governance guardrails - has become an industry standard for organizations establishing
+              cloud foundations, enabling governance from the start rather than retrofitting it
+              later.
             </li>
             <li>
               <strong>FinOps Integration:</strong> By explicitly incorporating cloud financial
@@ -262,9 +262,9 @@ const MicrosoftCAFPage = () => {
             </li>
             <li>
               <strong>Continuous Evolution:</strong> The framework&rsquo;s continuous evolution
-              through 2025 &ndash; adding cloud-native application development, AI and machine
-              learning adoption, edge computing, and generative AI guidance &ndash; ensures temporal
-              relevance as cloud technology itself evolves.
+              through 2025 - adding cloud-native application development, AI and machine learning
+              adoption, edge computing, and generative AI guidance - ensures temporal relevance as
+              cloud technology itself evolves.
             </li>
             <li>
               <strong>Extensive Supporting Tooling:</strong> Unlike many frameworks that provide
@@ -298,9 +298,9 @@ const MicrosoftCAFPage = () => {
           <p className={PARAGRAPH_CLASSES}>
             The skills and capability gap dimension aligns directly with research identifying
             organizational capability as a critical determinant of technology adoption success. The
-            framework&rsquo;s structured approach to capability development &ndash; including Cloud
-            Centers of Excellence, certification programs, and experiential learning &ndash;
-            provides a model for organizations addressing capability barriers to adoption.
+            framework&rsquo;s structured approach to capability development - including Cloud
+            Centers of Excellence, certification programs, and experiential learning - provides a
+            model for organizations addressing capability barriers to adoption.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             The framework&rsquo;s temporal evolution, incorporating AI adoption guidance in 2023 and
@@ -318,8 +318,7 @@ const MicrosoftCAFPage = () => {
           <ol className={REFERENCES_OL_CLASSES}>
             <li>
               Sumner, S., &amp; Microsoft. (2025).{' '}
-              <em>Microsoft Cloud Adoption Framework for Azure &mdash; Cloud Adoption Framework</em>
-              .{' '}
+              <em>Microsoft Cloud Adoption Framework for Azure - Cloud Adoption Framework</em>.{' '}
               <a
                 href="https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/"
                 target="_blank"
@@ -362,9 +361,9 @@ const MicrosoftCAFPage = () => {
               AXELOS. (2019). <em>ITIL Foundation: ITIL 4 Edition</em>. AXELOS.
             </li>
             <li>
-              ISO/IEC 27001:2013. Information technology &mdash; Security techniques &mdash;
-              Information security management systems &mdash; Requirements. International
-              Organization for Standardization.
+              ISO/IEC 27001:2013. Information technology - Security techniques - Information
+              security management systems - Requirements. International Organization for
+              Standardization.
             </li>
             <li>
               Rogers, E. M. (2003). <em>Diffusion of innovations</em> (5th ed.). Free Press.
