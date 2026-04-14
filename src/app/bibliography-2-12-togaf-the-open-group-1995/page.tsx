@@ -491,7 +491,15 @@ const TOGAFPage = () => {
             <li>
               Sessions, R. (2007).{' '}
               <em>Comparing the top four enterprise-architecture methodologies</em>. Microsoft
-              Developer Network.
+              Developer Network.{' '}
+              <a
+                href="https://rogersessions.com/images/PapersAndBooks/TopFourEAMethodologies.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:underline"
+              >
+                https://rogersessions.com/images/PapersAndBooks/TopFourEAMethodologies.pdf
+              </a>
             </li>
             <li>
               Zachman, J. A. (1987). A framework for information systems architecture.{' '}
