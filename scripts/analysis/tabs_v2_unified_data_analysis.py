@@ -2799,6 +2799,27 @@ Examples:
     sensitivity_data = sensitivity_to_json(cuts, idx_raw)
     print(f"  Sensitivity analysis computed across {len(cuts)} sample definitions")
 
+    # ── Align validation DataFrame with primary sample ──
+    # For live data, filter df to match the primary sensitivity sample so
+    # the validation N is consistent with the sensitivity page.  Without
+    # this, load_data_pandas returns an ad-hoc "clean" set (duration + IRI
+    # only) whose size can coincidentally equal the CRP frozen N, making
+    # the live validation page look identical to the CRP page.
+    if not args.crp200:
+        primary_rows = samples_raw[args.primary_sample]
+        rid_col = idx_raw.get('ResponseId')
+        if rid_col is not None:
+            primary_ids = set(r[rid_col] for r in primary_rows)
+            df_primary = df[df['ResponseId'].isin(primary_ids)].copy()
+            print(f"\n  Validation sample aligned to '{args.primary_sample}': "
+                  f"N={len(df_primary)} (from df_clean N={N})")
+            df_validation = df_primary
+        else:
+            print(f"\n  WARNING: ResponseId column not found; using df_clean for validation")
+            df_validation = df
+    else:
+        df_validation = df
+
     # ── Advanced analysis ──
     print(f"\n{'='*78}")
     print(f"  ADVANCED ANALYSIS (N={N})")
@@ -2821,12 +2842,12 @@ Examples:
             print(f"  {scale_name} missing: {info['missing_pct']}%")
 
     # ── Validation ──
-    validation_data = run_validation(df, skip=args.skip_validation, crp200=args.crp200)
+    validation_data = run_validation(df_validation, skip=args.skip_validation, crp200=args.crp200)
 
     # ── Assemble unified output ──
     unified = OrderedDict()
     unified["metadata"] = {
-        "n_total": N,
+        "n_total": len(df_validation),
         "dataset": "crp200" if args.crp200 else "live",
         "timestamp": datetime.now().isoformat(),
         "primary_sample": args.primary_sample if not args.crp200 else None,
