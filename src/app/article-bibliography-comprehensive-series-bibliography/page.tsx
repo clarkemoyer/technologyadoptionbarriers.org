@@ -25,8 +25,6 @@ const BibliographyPage = () => {
           Comprehensive Series Bibliography: Foundations of Technology Adoption
         </h1>
 
-        <SeriesNavigation className="mt-6" />
-
         {/* Executive Summary */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Executive Summary</h2>
