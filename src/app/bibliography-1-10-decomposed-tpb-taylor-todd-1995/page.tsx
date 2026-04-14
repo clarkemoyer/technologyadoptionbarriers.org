@@ -8,6 +8,8 @@ import {
   SECTION_CLASSES,
   PARAGRAPH_CLASSES,
   BODY_LIST_CLASSES,
+  BODY_OL_CLASSES,
+  REFERENCES_OL_CLASSES,
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
@@ -709,7 +711,7 @@ const BibliographyArticlePage = () => {
               .40-.42 to intention being the strongest direct effect) indicates that this is the
               primary lever for adoption. The authors recommend:
             </p>
-            <ol className={BODY_LIST_CLASSES}>
+            <ol className={BODY_OL_CLASSES}>
               <li>
                 <strong>Clear Communication of Value Proposition:</strong> Leaders should explicitly
                 articulate how systems improve job performance, increase efficiency, or reduce
@@ -755,7 +757,7 @@ const BibliographyArticlePage = () => {
               With path coefficients of .40-.45 to Attitude and substantial indirect effects through
               Perceived Usefulness, PEOU represents the second critical barrier reduction lever:
             </p>
-            <ol className={BODY_LIST_CLASSES}>
+            <ol className={BODY_OL_CLASSES}>
               <li>
                 <strong>Systematic User Interface Design:</strong> Leaders should allocate resources
                 to user-centered interface design. The model&rsquo;s strong negative relationship
@@ -808,7 +810,7 @@ const BibliographyArticlePage = () => {
               indicates that social factors, while smaller than usefulness factors, significantly
               influence adoption:
             </p>
-            <ol className={BODY_LIST_CLASSES}>
+            <ol className={BODY_OL_CLASSES}>
               <li>
                 <strong>Leadership Visibly Supports Adoption:</strong> Executives and department
                 heads should actively use systems and publicly acknowledge their own usage. The
@@ -856,7 +858,7 @@ const BibliographyArticlePage = () => {
               With path coefficients of .18-.21 from PBC to intention, resource and capability
               barriers represent a significant but secondary leverage point:
             </p>
-            <ol className={BODY_LIST_CLASSES}>
+            <ol className={BODY_OL_CLASSES}>
               <li>
                 <strong>Proactive Resource Provisioning:</strong> Organizations should ensure that
                 systems are accessible, equipment is available, and technical infrastructure is
@@ -905,7 +907,7 @@ const BibliographyArticlePage = () => {
               Attitude shows substantial effects on intention (path = .49-.53), making attitude
               improvement important:
             </p>
-            <ol className={BODY_LIST_CLASSES}>
+            <ol className={BODY_OL_CLASSES}>
               <li>
                 <strong>Emphasize Positive Aspects and Benefits:</strong> Marketing and
                 communication should emphasize positive elements - efficiency gains, reduced tedious
@@ -986,7 +988,7 @@ const BibliographyArticlePage = () => {
             <p className={PARAGRAPH_CLASSES}>
               This article is part of a Technology Adoption Models Literature Review series:
             </p>
-            <ol className={BODY_LIST_CLASSES}>
+            <ol className={BODY_OL_CLASSES}>
               <li>Ram (1987) - A Model of Innovation Resistance</li>
               <li>
                 Thompson et al. (1991) - Toward a Conceptual Model of Personal Computing Utilization
@@ -1002,7 +1004,7 @@ const BibliographyArticlePage = () => {
           {/* References */}
           <section className={SECTION_CLASSES}>
             <h2 className={H2_CLASSES}>References</h2>
-            <ol className={BODY_LIST_CLASSES}>
+            <ol className={REFERENCES_OL_CLASSES}>
               <li>
                 Taylor, S., and Todd, P. A. (1995). Understanding information technology usage: A
                 test of competing models. <em>Information Systems Research</em>, 6(2), 144-176.
