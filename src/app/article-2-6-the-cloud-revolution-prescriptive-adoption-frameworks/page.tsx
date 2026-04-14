@@ -14,7 +14,7 @@ import ArticleTOC from '@/components/article-toc'
 export const metadata: Metadata = {
   title: 'Article 2.6: The Cloud Revolution - Prescriptive Adoption Frameworks',
   description:
-    'How cloud vendors productized adoption theory into prescriptive frameworks-AWS CAF, AWS ETF, and Microsoft Azure CAF-transforming how organizations plan and execute technology adoption.',
+    'How cloud vendors productized adoption theory into prescriptive frameworks - AWS CAF, AWS ETF, and Microsoft Azure CAF - transforming how organizations plan and execute technology adoption.',
 }
 
 const Article26Page = () => {
@@ -31,7 +31,7 @@ const Article26Page = () => {
             changed. Earlier frameworks like TAFIM, TOGAF, and NIST&apos;s RMF emerged from
             government and academia, providing conceptual structures and methodological guidance
             that organizations had to interpret and implement. They said &quot;here are the
-            principles&quot;-and organizations had to figure out how to apply them. Contemporary
+            principles&quot; - and organizations had to figure out how to apply them. Contemporary
             frameworks from cloud vendors take a different approach. They say &quot;here is exactly
             what you should do, step by step, with specific checklists, tools, and proven
             approaches.&quot; This shift from conceptual guidance to prescriptive guidance
@@ -40,7 +40,7 @@ const Article26Page = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             The emergence of cloud computing as the dominant computing model accelerated this shift.
-            Cloud vendors-Amazon Web Services, Microsoft, Google Cloud-needed to help thousands of
+            Cloud vendors - Amazon Web Services, Microsoft, Google Cloud - needed to help thousands of
             organizations transition from on-premises infrastructure to cloud. They could not rely
             on each organization to interpret abstract principles and independently develop
             implementation approaches. Instead, they developed highly detailed, prescriptive
@@ -63,7 +63,7 @@ const Article26Page = () => {
             TOGAF, for instance, specified that organizations should follow the Architecture
             Development Method (ADM), but implementation details were the organization&apos;s
             responsibility. The framework provided structure, not prescription. This flexibility was
-            valuable-organizations could adapt frameworks to their contexts. But it also created
+            valuable - organizations could adapt frameworks to their contexts. But it also created
             burdens. Organizations had to translate abstract principles into concrete actions. They
             had to figure out sequencing, resource allocation, governance approaches, and success
             metrics.
@@ -137,7 +137,7 @@ const Article26Page = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             What makes AWS CAF prescriptive is the detailed guidance within each perspective. The
-            framework does not say &quot;your governance needs to improve&quot;-it specifies exactly
+            framework does not say &quot;your governance needs to improve&quot; - it specifies exactly
             what governance capabilities you need to develop, the typical sequence for developing
             them, how to assess your current state, how to prioritize improvement efforts, and how
             to measure progress. Organizations can follow AWS CAF similar to following a cookbook
@@ -229,11 +229,11 @@ const Article26Page = () => {
             be migrated first, what dependencies exist, and what resources are required.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Ready </strong>involves preparing the organization-establishing governance,
+            <strong>Ready </strong>involves preparing the organization - establishing governance,
             building technical readiness, ensuring organizational readiness.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Adopt </strong>involves the actual migration and implementation-moving
+            <strong>Adopt </strong>involves the actual migration and implementation - moving
             applications and data to cloud, establishing cloud operations.
           </p>
           <p className={PARAGRAPH_CLASSES}>
@@ -278,7 +278,7 @@ const Article26Page = () => {
           <p className={PARAGRAPH_CLASSES}>
             Third, adoption becomes more certain. Vendor frameworks reduce the likelihood of major
             adoption missteps. Organizations following frameworks systematically address all the
-            areas necessary for successful adoption-business strategy, skills development,
+            areas necessary for successful adoption - business strategy, skills development,
             governance, security, operations, financial management. Organizations that improvise
             adoption approaches often discover too late that they failed to address important areas.
           </p>
@@ -310,7 +310,7 @@ const Article26Page = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             The most effective adoption approaches combine vendor frameworks with customization.
-            Organizations use vendor frameworks as starting points-proven playbooks from which to
+            Organizations use vendor frameworks as starting points - proven playbooks from which to
             work. But they thoughtfully adapt frameworks to their specific contexts, adjusting
             emphasis based on organizational priorities, adjusting sequencing based on
             organizational constraints, and adjusting specific practices based on organizational
@@ -325,7 +325,7 @@ const Article26Page = () => {
             frameworks requiring organizational interpretation, organizations increasingly use
             highly detailed playbooks integrated with tools, services, and professional support
             ecosystems. This trend is extending beyond cloud adoption to other technology adoption
-            areas-AI adoption frameworks, data analytics adoption frameworks, and others follow the
+            areas - AI adoption frameworks, data analytics adoption frameworks, and others follow the
             cloud adoption framework model of detailed prescription integrated with ecosystem
             support.
           </p>
@@ -341,9 +341,9 @@ const Article26Page = () => {
             The most important insight from the cloud adoption framework evolution is that effective
             technology adoption requires deliberate, systematic approaches. Whether organizations
             follow vendor frameworks, develop custom frameworks, or adapt frameworks to their
-            contexts, organizations that adopt systematically-with clear governance, with attention
+            contexts, organizations that adopt systematically - with clear governance, with attention
             to all dimensions of adoption including organizational change, with adequate resourcing,
-            with accountability for outcomes-achieve far better results than organizations that
+            with accountability for outcomes - achieve far better results than organizations that
             adopt ad-hoc, reacting to emerging opportunities without systematic planning.
           </p>
         </section>
