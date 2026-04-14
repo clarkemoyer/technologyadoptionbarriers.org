@@ -125,7 +125,7 @@ const DavenportShortBPRPage = () => {
 
           <h2 className={H2_CLASSES}>Core Concepts and Definitions</h2>
           <p className={PARAGRAPH_CLASSES}>
-            At the heart of the BPR model is a focus on <strong>business processes</strong>-
+            At the heart of the BPR model is a focus on <strong>business processes</strong> -
             end-to-end sets of activities that together deliver value to customers or the
             organization. Davenport and Short distinguish between core business processes (customer
             acquisition, product design, order fulfillment, customer service) and supporting
@@ -243,8 +243,8 @@ const DavenportShortBPRPage = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Multi-Industry Case Illustrations:</strong> The model was tested across diverse
-            industries-insurance, airlines, telecommunications, and manufacturing-suggesting that
-            business process redesign principles apply broadly. Fundamentally similar redesign
+            industries - insurance, airlines, telecommunications, and manufacturing - suggesting
+            that business process redesign principles apply broadly. Fundamentally similar redesign
             patterns emerging across different industries lends credibility to the model&rsquo;s
             generalizability.
           </p>

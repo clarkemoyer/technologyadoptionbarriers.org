@@ -90,7 +90,7 @@ const CooperZmudPage = () => {
             The model emerged from recognition that IT implementation success depends on managing
             multiple complex factors operating across different stages of the implementation
             process. Prior IT implementation research had been fragmented across several
-            perspectives-factors research (examining individual, organizational, and technological
+            perspectives - factors research (examining individual, organizational, and technological
             factors), process research (examining social change activities), and political research
             (examining stakeholder interests and power dynamics). The Cooper-Zmud model synthesized
             these perspectives into a unified framework organized around implementation stages.

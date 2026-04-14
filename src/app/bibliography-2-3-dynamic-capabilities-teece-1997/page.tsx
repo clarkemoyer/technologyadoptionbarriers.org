@@ -99,8 +99,8 @@ const DynamicCapabilitiesPage = () => {
             technological turbulence, and rapidly changing markets (exemplified by the information
             technology, telecommunications, and biotechnology sectors), traditional competitive
             advantage grounded in stable, inimitable resource positions was insufficient. Firms
-            needed different capabilities-not just the ability to exploit existing resources but the
-            ability to sense market opportunities and threats, to seize opportunities through
+            needed different capabilities - not just the ability to exploit existing resources but
+            the ability to sense market opportunities and threats, to seize opportunities through
             organizational restructuring, and to continuously reconfigure organizational assets and
             resources in response to environmental change.
           </p>
@@ -108,8 +108,8 @@ const DynamicCapabilitiesPage = () => {
             Additionally, the framework was motivated by observation that many firms failed to adapt
             as environments changed because they were locked into existing capabilities and
             resources. What Teece and colleagues termed &ldquo;organizational rigidities&rdquo; or
-            &ldquo;core rigidities&rdquo;-deep organizational commitments to particular resource
-            configurations that had worked well in the past-prevented organizations from adapting
+            &ldquo;core rigidities&rdquo; - deep organizational commitments to particular resource
+            configurations that had worked well in the past - prevented organizations from adapting
             when environments changed. The framework provides guidance for overcoming these
             organizational rigidities and maintaining organizational flexibility and adaptive
             capacity.

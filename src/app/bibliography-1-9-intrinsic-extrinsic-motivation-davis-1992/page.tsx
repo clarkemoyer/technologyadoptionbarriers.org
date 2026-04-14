@@ -377,7 +377,7 @@ const BibliographyArticlePage = () => {
               <li>
                 <strong>This distinction provides diagnostic precision:</strong> a low-adoption
                 problem reflects either inadequate extrinsic motivation or inadequate intrinsic
-                motivation- each requiring distinct solutions
+                motivation - each requiring distinct solutions
               </li>
               <li>
                 <strong>Practical implementation guidance:</strong> The framework provides practical

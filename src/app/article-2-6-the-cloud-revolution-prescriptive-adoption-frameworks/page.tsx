@@ -14,7 +14,7 @@ import ArticleTOC from '@/components/article-toc'
 export const metadata: Metadata = {
   title: 'Article 2.6: The Cloud Revolution - Prescriptive Adoption Frameworks',
   description:
-    'How cloud vendors productized adoption theory into prescriptive frameworks-AWS CAF, AWS ETF, and Microsoft Azure CAF-transforming how organizations plan and execute technology adoption.',
+    'How cloud vendors productized adoption theory into prescriptive frameworks, including AWS CAF, AWS ETF, and Microsoft Azure CAF, transforming how organizations plan and execute technology adoption.',
 }
 
 const Article26Page = () => {
@@ -31,7 +31,7 @@ const Article26Page = () => {
             changed. Earlier frameworks like TAFIM, TOGAF, and NIST&apos;s RMF emerged from
             government and academia, providing conceptual structures and methodological guidance
             that organizations had to interpret and implement. They said &quot;here are the
-            principles&quot;-and organizations had to figure out how to apply them. Contemporary
+            principles&quot; - and organizations had to figure out how to apply them. Contemporary
             frameworks from cloud vendors take a different approach. They say &quot;here is exactly
             what you should do, step by step, with specific checklists, tools, and proven
             approaches.&quot; This shift from conceptual guidance to prescriptive guidance
@@ -40,9 +40,9 @@ const Article26Page = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             The emergence of cloud computing as the dominant computing model accelerated this shift.
-            Cloud vendors-Amazon Web Services, Microsoft, Google Cloud-needed to help thousands of
-            organizations transition from on-premises infrastructure to cloud. They could not rely
-            on each organization to interpret abstract principles and independently develop
+            Cloud vendors - Amazon Web Services, Microsoft, Google Cloud - needed to help thousands
+            of organizations transition from on-premises infrastructure to cloud. They could not
+            rely on each organization to interpret abstract principles and independently develop
             implementation approaches. Instead, they developed highly detailed, prescriptive
             frameworks specifying exactly which steps organizations should take, in which order,
             with which tools. These vendor frameworks have become the primary adoption guidance most

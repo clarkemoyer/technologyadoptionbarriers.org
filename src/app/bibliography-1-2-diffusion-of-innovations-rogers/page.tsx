@@ -57,7 +57,7 @@ const BibliographyArticlePage = () => {
               in understanding technology adoption across diverse contexts. The core problem
               motivating this model was simple yet profound: there is a wide gap between when
               innovations become available and when they are actually adopted. Many innovations
-              require lengthy periods- sometimes years-from their introduction until they achieve
+              require lengthy periods - sometimes years - from their introduction until they achieve
               widespread adoption. This gap creates practical challenges for individuals and
               organizations seeking to accelerate adoption rates. The framework emerged from
               Rogers’s recognition that understanding how innovations spread through populations
