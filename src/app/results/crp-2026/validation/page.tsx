@@ -718,12 +718,13 @@ const ValidationPage = () => {
           </div>
           <p className={PARAGRAPH_CLASSES}>
             The TABS instrument demonstrates strong reliability (all &alpha; &gt; .85, all CR &gt;
-            .87) and adequate factor structure at N=200. Readiness and Maturity show excellent CFA
-            fit as unidimensional scales. Barriers is inherently multi-dimensional (2-factor EFA),
-            so single-factor CFA fit is expected to be poor. All HTMT ratios pass the conservative
-            .85 threshold. Any item-level flags (CITC &lt; .30) are retained for substantive
-            reasons. AVE values below .50 are compensated by CR &gt; .80 per Fornell &amp; Larcker
-            (1981) and are typical for broad, multi-faceted organizational behavior constructs.
+            .87) and adequate factor structure at N={validationData.metadata.n_total}. Readiness and
+            Maturity show excellent CFA fit as unidimensional scales. Barriers is inherently
+            multi-dimensional (2-factor EFA), so single-factor CFA fit is expected to be poor. All
+            HTMT ratios pass the conservative .85 threshold. Any item-level flags (CITC &lt; .30)
+            are retained for substantive reasons. AVE values below .50 are compensated by CR &gt;
+            .80 per Fornell &amp; Larcker (1981) and are typical for broad, multi-faceted
+            organizational behavior constructs.
           </p>
         </section>
 

@@ -419,8 +419,9 @@ const FactorAnalysisPage = () => {
 
           <h3 className={H3_CLASSES}>Item-Level Factor Loadings</h3>
           <p className="text-sm text-gray-500 font-sans mb-4">
-            Full 18-item loading matrix from EFA with Promax rotation (ML estimation, N=192).
-            Primary loadings are bolded. Items are grouped by their dominant factor assignment.
+            Full 18-item loading matrix from EFA with Promax rotation (ML estimation, N=
+            {validationData.Barriers.n_listwise}). Primary loadings are bolded. Items are grouped by
+            their dominant factor assignment.
           </p>
           <div className="overflow-x-auto mb-6">
             <table className="w-full text-xs sm:text-sm font-mono border-collapse">
