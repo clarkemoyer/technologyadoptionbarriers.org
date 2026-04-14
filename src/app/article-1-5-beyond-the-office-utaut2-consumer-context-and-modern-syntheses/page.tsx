@@ -93,7 +93,7 @@ const Article15Page = () => {
             work to use this new tool?&rdquo;
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Consumer contexts</strong> involve voluntary, self-directed adoption. When a
+            <strong>Consumer contexts </strong>involve voluntary, self-directed adoption. When a
             potential customer considers adopting a new mobile app, social media platform, streaming
             service, or smart home device, they pose fundamentally different questions. There is no
             organizational mandate, no allocated training resources, no dedicated support
@@ -155,7 +155,7 @@ const Article15Page = () => {
             consumer contexts:
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Performance Expectancy</strong> remains fundamental but shifts meaning. In
+            <strong>Performance Expectancy </strong>remains fundamental but shifts meaning. In
             organizational contexts, performance expectancy focuses on job performance–will this
             system help me complete tasks more effectively, work more efficiently, or produce better
             outputs? In consumer contexts, performance expectancy encompasses broader life goals.
@@ -166,7 +166,7 @@ const Article15Page = () => {
             management, personal development, health optimization, and leisure enhancement.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Effort Expectancy</strong> similarly maintains its theoretical core while
+            <strong>Effort Expectancy </strong>similarly maintains its theoretical core while
             adapting to consumer realities. The question remains whether users believe they can
             learn and use technology with reasonable effort. But consumer contexts present unique
             effort considerations. Consumers lack access to organizational training programs,
@@ -179,7 +179,7 @@ const Article15Page = () => {
             benefits are modest.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Social Influence</strong> operates through fundamentally different mechanisms in
+            <strong>Social Influence </strong>operates through fundamentally different mechanisms in
             consumer versus organizational contexts. Organizational social influence derives
             primarily from hierarchical relationships–managers advocating adoption, organizational
             policies supporting use, departmental norms establishing expectations. Consumer social
@@ -193,7 +193,7 @@ const Article15Page = () => {
             adopt.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Facilitating Conditions</strong> encompasses infrastructure, resources, and
+            <strong>Facilitating Conditions </strong>encompasses infrastructure, resources, and
             knowledge enabling technology use. In consumer contexts, facilitating conditions include
             device compatibility (does the app work on my phone?), network availability (do I have
             adequate internet access?), financial resources (can I afford necessary equipment?), and
@@ -214,7 +214,7 @@ const Article15Page = () => {
 
           <h3 className={H3_CLASSES}>Hedonic Motivation</h3>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Hedonic Motivation</strong> represents the fun and enjoyment associated with
+            <strong>Hedonic Motivation </strong>represents the fun and enjoyment associated with
             technology use. This construct acknowledges that consumer technologies often provide
             primarily hedonic rather than utilitarian value. Gaming technologies, entertainment
             streaming services, social media platforms, and recreational applications generate
@@ -250,7 +250,7 @@ const Article15Page = () => {
 
           <h3 className={H3_CLASSES}>Price Value</h3>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Price Value</strong> represents consumers&apos; cognitive trade-off between
+            <strong>Price Value </strong>represents consumers&apos; cognitive trade-off between
             perceived benefits and monetary costs. This construct addresses a dimension virtually
             absent from organizational adoption research: direct financial burden on the individual
             user.
@@ -296,7 +296,7 @@ const Article15Page = () => {
 
           <h3 className={H3_CLASSES}>Habit</h3>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Habit</strong> represents the extent to which behaviors become automatic through
+            <strong>Habit </strong>represents the extent to which behaviors become automatic through
             learning. This construct addresses a critical consumer adoption reality: sustained use
             depends not merely on initial adoption intention but on whether technology use becomes
             habitual–performed automatically without conscious deliberation.
@@ -357,11 +357,11 @@ const Article15Page = () => {
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Behavioral intention</strong> is shaped by performance expectancy, effort
+              <strong>Behavioral intention </strong>is shaped by performance expectancy, effort
               expectancy, social influence, hedonic motivation, and price value.
             </li>
             <li>
-              <strong>Technology use behavior</strong> is determined by behavioral intention,
+              <strong>Technology use behavior </strong>is determined by behavioral intention,
               facilitating conditions, and habit.
             </li>
             <li>
@@ -395,7 +395,7 @@ const Article15Page = () => {
             contexts.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Mobile technology adoption</strong> represents a major application domain.
+            <strong>Mobile technology adoption </strong>represents a major application domain.
             Researchers have applied UTAUT2 to understand smartphone adoption, mobile application
             use, mobile payment adoption, and mobile health applications. These studies consistently
             find that hedonic motivation proves critical–mobile technologies succeed not merely
@@ -406,7 +406,7 @@ const Article15Page = () => {
             downloaded applications that users rarely open.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Social media adoption</strong> demonstrates UTAUT2&apos;s applicability to
+            <strong>Social media adoption </strong>demonstrates UTAUT2&apos;s applicability to
             network-based technologies. Social influence proves particularly powerful–platforms gain
             adoption as peer networks adopt, creating network effects. Hedonic motivation dominates
             performance expectancy–users adopt primarily for entertainment and social connection
@@ -415,7 +415,7 @@ const Article15Page = () => {
             rewards) to facilitate automatic checking behaviors.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>E-commerce adoption</strong> applies UTAUT2 to understanding online shopping
+            <strong>E-commerce adoption </strong>applies UTAUT2 to understanding online shopping
             behavior. Performance expectancy focuses on shopping efficiency and product selection.
             Effort expectancy addresses interface usability and transaction complexity. Price value
             becomes complex, incorporating not just product prices but also shipping costs,
@@ -424,7 +424,7 @@ const Article15Page = () => {
             financial transactions and personal data.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Healthcare technology adoption</strong> represents another significant
+            <strong>Healthcare technology adoption </strong>represents another significant
             application domain. Telemedicine platforms, health tracking applications, and electronic
             health record patient portals show adoption patterns consistent with UTAUT2 but with
             domain-specific nuances. Performance expectancy focuses on health outcomes rather than
@@ -441,7 +441,7 @@ const Article15Page = () => {
             adoption understanding.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Meta-analyses</strong> systematically aggregate findings across dozens or
+            <strong>Meta-analyses </strong>systematically aggregate findings across dozens or
             hundreds of UTAUT applications, identifying generalizable patterns and contextual
             variations. Multiple meta-analyses have examined UTAUT across different technology
             types, cultural contexts, and user populations. These syntheses generally confirm
@@ -453,7 +453,7 @@ const Article15Page = () => {
             magnitudes varying across contexts.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Technology-specific extensions</strong> adapt UTAUT for particular domains.
+            <strong>Technology-specific extensions </strong>adapt UTAUT for particular domains.
             Researchers have developed specialized versions for mobile banking, incorporating trust
             and perceived risk as critical additional constructs. Educational technology adaptations
             include instructor support and learner autonomy as facilitating conditions specific to
@@ -461,7 +461,7 @@ const Article15Page = () => {
             medical professional recommendations as domain-specific social influences.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Cultural adaptations</strong> examine how UTAUT operates across different
+            <strong>Cultural adaptations </strong>examine how UTAUT operates across different
             national and cultural contexts. These studies reveal that while core relationships
             generally hold cross-culturally, the relative importance of constructs varies.
             Collectivist cultures show stronger social influence effects. Uncertainty-avoiding
@@ -470,7 +470,7 @@ const Article15Page = () => {
             more heavily.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Integration with other frameworks</strong> continues, connecting UTAUT with
+            <strong>Integration with other frameworks </strong>continues, connecting UTAUT with
             theories addressing dimensions beyond its scope. Researchers have integrated
             privacy-calculus models to address data privacy concerns increasingly relevant for
             digital technologies. Trust models combine with UTAUT to explain adoption of
@@ -485,7 +485,7 @@ const Article15Page = () => {
             that ongoing research addresses.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Strengths</strong> include comprehensive scope, strong empirical validation, and
+            <strong>Strengths </strong>include comprehensive scope, strong empirical validation, and
             practical applicability. By incorporating both utilitarian and hedonic factors, economic
             considerations, and habitual processes, UTAUT2 provides a more complete adoption picture
             than frameworks focusing narrowly on beliefs and intentions. The framework&apos;s strong
@@ -495,7 +495,7 @@ const Article15Page = () => {
             value, experience designers can facilitate habit formation.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Limitations</strong> include complexity, measurement challenges, and theoretical
+            <strong>Limitations </strong>include complexity, measurement challenges, and theoretical
             parsimony trade-offs. UTAUT2&apos;s seven main constructs plus moderating variables
             create measurement demands that require substantial survey length. Researchers face
             trade-offs between comprehensive measurement and participant burden. The
@@ -520,7 +520,7 @@ const Article15Page = () => {
             foundation.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Context-specific adaptations</strong> continue as researchers recognize that
+            <strong>Context-specific adaptations </strong>continue as researchers recognize that
             general frameworks require domain-specific tailoring. Healthcare technology adoption
             involves considerations–health consciousness, medical professional influence, privacy
             concerns–that extend beyond UTAUT2&apos;s constructs. Financial technology adoption
@@ -529,7 +529,7 @@ const Article15Page = () => {
             institutional support structures needing domain-specific modeling.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Process and temporal dynamics</strong> receive increasing attention. UTAUT2
+            <strong>Process and temporal dynamics </strong>receive increasing attention. UTAUT2
             captures adoption at specific time points but reveals less about how adoption unfolds,
             how initial trials shape continued use, or how user perceptions evolve. Emerging
             research examines adoption as a process rather than an outcome–tracing how users move
@@ -537,7 +537,7 @@ const Article15Page = () => {
             transition points where interventions might prove particularly effective.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Emerging technology challenges</strong> push framework boundaries. Artificial
+            <strong>Emerging technology challenges </strong>push framework boundaries. Artificial
             intelligence, algorithmic decision-making, and autonomous systems raise adoption
             questions beyond traditional technology acceptance. Users must decide not merely whether
             to use technologies but how much authority to delegate to algorithmic systems, when to
@@ -546,7 +546,7 @@ const Article15Page = () => {
             automation transparency, and human-AI collaboration.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Integration across levels</strong> connects individual adoption with broader
+            <strong>Integration across levels </strong>connects individual adoption with broader
             diffusion patterns. UTAUT2 focuses on individual-level adoption, but technologies
             diffuse through populations following patterns Rogers&apos; diffusion framework
             describes. Connecting micro-level adoption psychology with macro-level diffusion
