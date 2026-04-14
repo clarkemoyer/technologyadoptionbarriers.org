@@ -267,6 +267,10 @@ function surveyToGroups(): SidebarGroup[] {
           title: l.label,
           href: l.path,
         })),
+        {
+          title: personas.columns.organizations.title,
+          href: personas.columns.organizations.path!,
+        },
         ...personas.columns.organizations.links.map((l) => ({
           title: l.label,
           href: l.path,

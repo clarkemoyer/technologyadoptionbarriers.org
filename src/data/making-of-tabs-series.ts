@@ -95,6 +95,7 @@ export const makingOfTabsSeries: MakingOfTabsItem[] = [
       { title: 'Microsoft Clarity', href: '/making-of-tabs/integrations/microsoft-clarity' },
       { title: 'Prolific', href: '/making-of-tabs/integrations/prolific' },
       { title: 'Qualtrics', href: '/making-of-tabs/integrations/qualtrics' },
+      { title: 'Zotero', href: '/making-of-tabs/integrations/zotero' },
     ],
   },
   {
