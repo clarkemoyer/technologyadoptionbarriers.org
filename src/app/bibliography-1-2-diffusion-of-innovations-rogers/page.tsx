@@ -601,43 +601,59 @@ const BibliographyArticlePage = () => {
                 peer pressure supporting broader adoption. Recognizing that early adopters may
                 differ in values and approaches from the broader population, leaders should design
                 strategies enabling early majority and late majority adoption without demanding that
-                all populations adopt for identical reasons or in identical ways. 7
+                all populations adopt for identical reasons or in identical ways.
               </li>
               <li>
-                <strong>Following Models or Theories Following Models:</strong> Technology
-                Acceptance Model (Davis, 1989); Theory of Planned Behavior extensions (Ajzen, 1991);
-                Extensions of DOI to organizational contexts; Unified Theory of Acceptance and Use
-                of Technology (UTAUT) Following Theories: Theory of Planned Behavior applications;
-                Social cognitive theory applications to innovation adoption; Models of
-                organizational innovation adoption; Implementation science frameworks Series
-                Navigation Diffusion of Innovations (Rogers, 1962) - Foundational Framework The
-                Theory of Planned Behavior (Ajzen, 1991) - Individual Behavior Prediction Perceived
-                Usefulness, Perceived Ease of Use, and User Acceptance of Information Technology
-                (Davis, 1989) - Technology-Specific Acceptance Extrinsic and Intrinsic Motivation to
-                Use Computers in the Workplace (Davis et al., 1992) - Motivation in Technology
-                Adoption References 1.Rogers, E. M. (1962). Diffusion of innovations . The Free
-                Press. 2.Rogers, E. M., & Shoemaker, F. F. (1971)
-              </li>
-              <li>
-                <strong>Communication of innovations:</strong> A cross-cultural approach (2nd ed.).
-                Free Press. 3.Rogers, E. M. (1983). Diffusion of innovations (3rd ed.). The Free
-                Press. 4.Tarde, G. (1890). The laws of imitation . Henry Holt. 5.Wellin, E. (1955).
-                Water boiling in a Peruvian village. In B. D. Paul (Ed.), Health, culture, and
-                community: Case studies of public reactions to health programs . Russell Sage
-                Foundation. This article synthesizes content exclusively from Rogers (1962)
-                Diffusion of Innovations to provide a comprehensive analysis of this foundational
-                model for understanding technology adoption processes across individuals,
-                organizations, and social systems
-              </li>
-              <li>
-                <strong>Source Note:</strong> This article was written without a singular PDF source
-                document. Content is synthesized from the work’s widely established contributions to
-                the technology adoption literature as referenced across multiple sources in this
-                series. Readers are encouraged to consult the original publication for primary
-                source verification. Social Cognitive Theory (SCT) - Bandura (1986): Understanding
-                Self-Efficacy and Technology Adoption 1
+                <strong>Following Models or Theories:</strong> Technology Acceptance Model (Davis,
+                1989); Theory of Planned Behavior extensions (Ajzen, 1991); Extensions of DOI to
+                organizational contexts; Unified Theory of Acceptance and Use of Technology (UTAUT).
+                Following Theories: Theory of Planned Behavior applications; Social cognitive theory
+                applications to innovation adoption; Models of organizational innovation adoption;
+                Implementation science frameworks.
               </li>
             </ul>
+          </section>
+
+          {/* References */}
+          <section className={SECTION_CLASSES}>
+            <h2 className={H2_CLASSES}>References</h2>
+            <ol className="list-decimal list-inside space-y-3 text-sm">
+              <li>
+                Rogers, E. M. (1962). <em>Diffusion of innovations</em> . The Free Press.
+              </li>
+              <li>
+                Rogers, E. M., and Shoemaker, F. F. (1971).{' '}
+                <em>Communication of innovations: A cross-cultural approach</em> (2nd ed.). Free
+                Press.
+              </li>
+              <li>
+                Rogers, E. M. (1983). <em>Diffusion of innovations</em> (3rd ed.). The Free Press.
+              </li>
+              <li>
+                Tarde, G. (1890). <em>The laws of imitation</em> . Henry Holt.
+              </li>
+              {/* prettier-ignore */}
+              <li>
+                Wellin, E. (1955). Water boiling in a Peruvian village. In B. D. Paul (Ed.),{' '}
+                <em>
+                  Health, culture, and community: Case studies of public reactions to health
+                  programs
+                </em> . Russell Sage Foundation.
+              </li>
+            </ol>
+            <p className={PARAGRAPH_CLASSES}>
+              This article synthesizes content exclusively from Rogers (1962) Diffusion of
+              Innovations to provide a comprehensive analysis of this foundational model for
+              understanding technology adoption processes across individuals, organizations, and
+              social systems
+            </p>
+            <p className={PARAGRAPH_CLASSES}>
+              <strong>Source Note:</strong> This article was written without a singular PDF source
+              document. Content is synthesized from the work&rsquo;s widely established
+              contributions to the technology adoption literature as referenced across multiple
+              sources in this series. Readers are encouraged to consult the original publication for
+              primary source verification.
+            </p>
           </section>
           <p className="mt-8 text-sm italic text-gray-600">
             Note: This article provides an overview based on the comprehensive literature review.

@@ -488,8 +488,8 @@ const BibliographyArticlePage = () => {
               access to information, and what security measures are in place can significantly
               reduce insecurity. Detailed privacy policies that are written in accessible language
               rather than legal jargon help customers understand and trust the system. The model
-              instructs companies to develop trust through demonstrated track record and reputation
-              . Established companies with long histories of reliable service and strong reputations
+              instructs companies to develop trust through demonstrated track record and reputation.
+              Established companies with long histories of reliable service and strong reputations
               can leverage this trust to overcome customer insecurity.
             </p>
             <p className={PARAGRAPH_CLASSES}>
@@ -533,50 +533,76 @@ const BibliographyArticlePage = () => {
               consumers, recognizing that building consumer TR benefits all market participants.
               Media campaigns that address technology paradoxes and reassure consumers about
               technology safety, simplicity, and reliability can raise the overall TR level in the
-              market, expanding the addressable customer base for all organizations. 7.
+              market, expanding the addressable customer base for all organizations.
             </p>
             <p className={PARAGRAPH_CLASSES}>
-              Following Models or Theories: * Following Models: Technology Readiness and Acceptance
-              Model (TRAM) by Lin, Shih, and Sher (2007); TRI 2.0 by Parasuraman and Colby (2015);
-              Various applications and extensions of TR in specific contexts * Following Theories:
-              Studies applying TR construct to e-services adoption; Research integrating TR with
-              Technology Acceptance Model variables; Cross-cultural applications of the TR framework
-              Series Navigation * Article: Technology Readiness Index (TRI) - Parasuraman 2000 *
-              Article: An Updated and Streamlined Technology Readiness Index (TRI 2.0) - Parasuraman
-              and Colby 2015 * Article: Integrating Technology Readiness into Technology Acceptance:
-              The TRAM Model - Lin, Shih, and Sher 2007 * Article: Value-based Adoption of Mobile
-              Internet: An empirical investigation - Kim, Chan, and Gupta 2007 References 1.Berry,
-              L.
+              Following Models or Theories: Technology Readiness and Acceptance Model (TRAM) by Lin,
+              Shih, and Sher (2007); TRI 2.0 by Parasuraman and Colby (2015); various applications
+              and extensions of TR in specific contexts. Following Theories: Studies applying TR
+              construct to e-services adoption; research integrating TR with Technology Acceptance
+              Model variables; cross-cultural applications of the TR framework.
             </p>
-            <p className={PARAGRAPH_CLASSES}>
-              L. (1981). “The Employee as Customer.” Journal of Retail Banking, vol.3, no. 1, pp.
-              33-40. 2.Bitner, M. J., et al. (2000). “Self-Service Technologies: Understanding
-              Customer Satisfaction with Technology-Based Service Encounters.” Journal of Marketing,
-              vol. 64, no. 3, pp.138-149. 3.Churchill Jr., G. A. (1979). “A Paradigm for Developing
-              Better Measures of Marketing Constructs.” Journal of Marketing Research, vol. 16, no.
-              1, pp.64-73. 4.Cowles, D., and Crosby, L. A. (1990). “Consumer Perceptions of
-              Interactive Media in Service Marketing Encounters.” Service Industries Journal,
-              vol.10, no. 4, pp.521-540. 5.Dabholkar, P. A. (1996). “Consumer Evaluations of New
-              Technology- Based Self-Service Options.” Journal of the Academy of Marketing Science,
-              vol.24, no. 3, pp.201-212. 6.Dabholkar, P. A., and Bagozzi, R.
-            </p>
-            <p className={PARAGRAPH_CLASSES}>
-              P. (2002). “An Attitudinal Model of Technology-Based Self-Service.” Journal of the
-              Academy of Marketing Science, vol.30, no. 3, pp.184-201. 7.Davis, F. D. (1989).
-              “Perceived Usefulness, Perceived Ease of Use, and User Acceptance of Information
-              Technology.” MIS Quarterly, vol. 13, no. 3, pp.319-340. 8.Eastlick, M. A. (1996).
-              “Consumer Intention to Adopt Interactive Teleshopping.” Marketing Science Institute
-              working paper, no. 96-113. 9.Mick, D. G., and Fournier, S. (1998). “Paradoxes of
-              Technology: Consumer Cognizance, Emotions, and Coping Strategies.” Journal of Consumer
-              Research, vol. 25, no. 2, pp.123-143. 10.Parasuraman, A., and Colby, C. L. (1997).
-              “Correlates and Consequences of Consumer Attitudes Toward Retail Technologies and
-              Shopping.” Journal of Retailing, vol. 73, no. 2, pp.161-180. 11.Rogers, E.
-            </p>
-            <p className={PARAGRAPH_CLASSES}>
-              M. (2003). Diffusion of Innovations (5th ed.). Free Press. 12.Zalthaml, V. A.,
-              Parasuraman, A., and Malhotra, A. (2002). “Service Quality Delivery Through Web
-              Sites.” Journal of the Academy of Marketing Science, vol. 30, no. 4, pp.362-375.
-            </p>
+          </section>
+
+          {/* References */}
+          <section className={SECTION_CLASSES}>
+            <h2 className={H2_CLASSES}>References</h2>
+            <ol className="list-decimal list-inside space-y-3 text-sm">
+              <li>
+                Berry, L. L. (1981). &ldquo;The Employee as Customer.&rdquo; Journal of Retail
+                Banking, vol.3, no. 1, pp. 33-40.
+              </li>
+              <li>
+                Bitner, M. J., et al. (2000). &ldquo;Self-Service Technologies: Understanding
+                Customer Satisfaction with Technology-Based Service Encounters.&rdquo; Journal of
+                Marketing, vol. 64, no. 3, pp.138-149.
+              </li>
+              <li>
+                Churchill Jr., G. A. (1979). &ldquo;A Paradigm for Developing Better Measures of
+                Marketing Constructs.&rdquo; Journal of Marketing Research, vol. 16, no. 1,
+                pp.64-73.
+              </li>
+              <li>
+                Cowles, D., and Crosby, L. A. (1990). &ldquo;Consumer Perceptions of Interactive
+                Media in Service Marketing Encounters.&rdquo; Service Industries Journal, vol.10,
+                no. 4, pp.521-540.
+              </li>
+              <li>
+                Dabholkar, P. A. (1996). &ldquo;Consumer Evaluations of New Technology-Based
+                Self-Service Options.&rdquo; Journal of the Academy of Marketing Science, vol.24,
+                no. 3, pp.201-212.
+              </li>
+              <li>
+                Dabholkar, P. A., and Bagozzi, R. P. (2002). &ldquo;An Attitudinal Model of
+                Technology-Based Self-Service.&rdquo; Journal of the Academy of Marketing Science,
+                vol.30, no. 3, pp.184-201.
+              </li>
+              <li>
+                Davis, F. D. (1989). &ldquo;Perceived Usefulness, Perceived Ease of Use, and User
+                Acceptance of Information Technology.&rdquo; MIS Quarterly, vol. 13, no. 3,
+                pp.319-340.
+              </li>
+              <li>
+                Eastlick, M. A. (1996). &ldquo;Consumer Intention to Adopt Interactive
+                Teleshopping.&rdquo; Marketing Science Institute working paper, no. 96-113.
+              </li>
+              <li>
+                Mick, D. G., and Fournier, S. (1998). &ldquo;Paradoxes of Technology: Consumer
+                Cognizance, Emotions, and Coping Strategies.&rdquo; Journal of Consumer Research,
+                vol. 25, no. 2, pp.123-143.
+              </li>
+              <li>
+                Parasuraman, A., and Colby, C. L. (1997). &ldquo;Correlates and Consequences of
+                Consumer Attitudes Toward Retail Technologies and Shopping.&rdquo; Journal of
+                Retailing, vol. 73, no. 2, pp.161-180.
+              </li>
+              <li>Rogers, E. M. (2003). Diffusion of Innovations (5th ed.). Free Press.</li>
+              <li>
+                Zalthaml, V. A., Parasuraman, A., and Malhotra, A. (2002). &ldquo;Service Quality
+                Delivery Through Web Sites.&rdquo; Journal of the Academy of Marketing Science, vol.
+                30, no. 4, pp.362-375.
+              </li>
+            </ol>
           </section>
           <p className="mt-8 text-sm italic text-gray-600">
             Note: This article provides an overview based on the comprehensive literature review.

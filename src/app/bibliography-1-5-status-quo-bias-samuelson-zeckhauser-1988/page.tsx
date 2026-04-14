@@ -582,31 +582,21 @@ const BibliographyArticlePage = () => {
                 technology will naturally be adopted if merely made available, leaders must actively
                 work to overcome the psychological and economic barriers that sustain status quo
                 positions. This requires understanding status quo bias as a systematic phenomenon
-                requiring deliberate countermeasures, not merely as individual quirks. 7
+                requiring deliberate countermeasures, not merely as individual quirks.
               </li>
               <li>
-                <strong>Following Models or Theories:</strong> Following Models: Prospect Theory
-                extensions examining reference-dependent preferences Behavioral economics models of
-                choice and decision-making Technology adoption models incorporating status quo
-                effects Innovation diffusion models accounting for adoption barriers Consumer
-                switching cost and loyalty models Following Theories: Behavioral decision research
-                examining individual decision-making Organizational change management theory
-                Economic models incorporating behavioral realism Loss aversion and reference
-                dependence research Psychological commitment and cognitive dissonance theory
-                extensions Series Navigation This article is part of a Technology Adoption
-                literature review series: 1
-              </li>
-              <li>
-                <strong>A Model of Adoption of Technology in Households:</strong> Brown and
-                Venkatesh, 2005 2
-              </li>
-              <li>
-                <strong>Understanding Information Systems Continuance:</strong> An Expectation-
-                Confirmation Model (Bhattacherjee, 2001) 3. Status Quo Bias in Decision Making
-                (Samuelson and Zeckhauser, 1988) References
+                <strong>Following Models or Theories:</strong> Prospect Theory extensions examining
+                reference-dependent preferences, behavioral economics models of choice and
+                decision-making, technology adoption models incorporating status quo effects,
+                innovation diffusion models accounting for adoption barriers, consumer switching
+                cost and loyalty models. Following Theories: Behavioral decision research examining
+                individual decision-making, organizational change management theory, economic models
+                incorporating behavioral realism, loss aversion and reference dependence research,
+                psychological commitment and cognitive dissonance theory extensions.
               </li>
             </ul>
           </section>
+
           <p className="mt-8 text-sm italic text-gray-600">
             Note: This article provides an overview based on the comprehensive literature review.
             Readers are encouraged to consult the original publication for complete details.

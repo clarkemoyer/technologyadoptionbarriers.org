@@ -538,42 +538,71 @@ const BibliographyArticlePage = () => {
               adoption. Rather, organizations must actively manage user experience, maintain
               realistic expectations, deliver satisfaction, and demonstrate ongoing value to sustain
               continued system use. Practitioners should recognize that post-adoption management is
-              as important as adoption management in determining system success. 7.
+              as important as adoption management in determining system success.
             </p>
             <ul className={BODY_LIST_CLASSES}>
               <li>
-                <strong>Following Models or Theories:</strong> Following Models: Extended ECM models
-                incorporating additional variables (such as switching costs, habit, social
-                influences) Models examining continuance across diverse information systems (social
-                media, productivity software, enterprise systems) Technology Abandonment models
-                Digital Engagement and Sustained Use models Following Theories: Research on
-                information systems habit and behavioral inertia Studies of customer loyalty in
-                digital contexts Discontinuance and switching behavior research Service continuance
-                models in electronic commerce Series Navigation This article is part of a Technology
-                Adoption literature review series: 1
-              </li>
-              <li>
-                <strong>A Model of Adoption of Technology in Households:</strong> Brown and
-                Venkatesh, 2005 2
-              </li>
-              <li>
-                <strong>Understanding Information Systems Continuance:</strong> An Expectation-
-                Confirmation Model (Bhattacherjee, 2001) 3. Status Quo Bias in Decision Making
-                (Samuelson and Zeckhauser, 1988) References 1.Ajzen, I. “The Theory of Planned
-                Behavior.” Organizational Behavior and Human Decision Processes 50, no. 2 (1991):
-                179-211. 2.Bhattacherjee, A. “Understanding Information Systems Continuance: An
-                Expectation-Confirmation Model.” MIS Quarterly 25, no. 3 (2001): 351- 370. 3.Davis,
-                F. D. “Perceived Usefulness, Perceived Ease of Use, and User Acceptance of
-                Information Technology.” MIS Quarterly 13, no. 3 (1989): 319-340. 4.Davis, F. D.,
-                Bagozzi, R. P., and Warshaw, P. R. “User Acceptance of Computer Technology: A
-                Comparison of Two Theoretical Models.” Management Science 35, no. 8 (1989):
-                982-1003. 5.Oliver, R. L. “A Cognitive Model of the Antecedents and Consequences of
-                Satisfaction Decisions.” Journal of Marketing Research 17, no. 4 (1980): 460-469.
-                6.Mathieson, K. “Predicting User Intentions: Comparing the Technology Acceptance
-                Model with the Theory of Planned Behavior.” Information Systems Research 2, no. 3
-                (1991): 173-191
+                <strong>Following Models or Theories:</strong> Extended ECM models incorporating
+                additional variables (such as switching costs, habit, social influences), models
+                examining continuance across diverse information systems (social media, productivity
+                software, enterprise systems), technology abandonment models, Digital Engagement and
+                Sustained Use models. Following Theories: Research on information systems habit and
+                behavioral inertia, studies of customer loyalty in digital contexts, discontinuance
+                and switching behavior research, service continuance models in electronic commerce.
               </li>
             </ul>
+          </section>
+
+          {/* References */}
+          <section className={SECTION_CLASSES}>
+            <h2 className={H2_CLASSES}>References</h2>
+            <ol className="list-decimal list-inside space-y-3 text-sm">
+              <li>
+                Ajzen, I. &ldquo;The Theory of Planned Behavior.&rdquo;{' '}
+                <em>Organizational Behavior and Human Decision Processes</em> 50, no. 2 (1991):
+                179-211.
+              </li>
+              <li>
+                Bhattacherjee, A. &ldquo;Understanding Information Systems Continuance: An
+                Expectation-Confirmation Model.&rdquo; <em>MIS Quarterly</em> 25, no. 3 (2001):
+                351-370.
+              </li>
+              <li>
+                Davis, F. D. &ldquo;Perceived Usefulness, Perceived Ease of Use, and User Acceptance
+                of Information Technology.&rdquo; <em>MIS Quarterly</em> 13, no. 3 (1989): 319-340.
+              </li>
+              <li>
+                Davis, F. D., Bagozzi, R. P., and Warshaw, P. R. &ldquo;User Acceptance of Computer
+                Technology: A Comparison of Two Theoretical Models.&rdquo;{' '}
+                <em>Management Science</em> 35, no. 8 (1989): 982-1003.
+              </li>
+              <li>
+                Oliver, R. L. &ldquo;A Cognitive Model of the Antecedents and Consequences of
+                Satisfaction Decisions.&rdquo; <em>Journal of Marketing Research</em> 17, no. 4
+                (1980): 460-469.
+              </li>
+              <li>
+                Mathieson, K. &ldquo;Predicting User Intentions: Comparing the Technology Acceptance
+                Model with the Theory of Planned Behavior.&rdquo;{' '}
+                <em>Information Systems Research</em> 2, no. 3 (1991): 173-191
+              </li>
+              {/* prettier-ignore */}
+              <li>
+                Spreng, R. A., MacKenzie, S. B., and Olshavsky, R. W. &ldquo;A Reexamination of the Determinants of Consumer Satisfaction.&rdquo; <em>Journal of Marketing</em> 60, no. 3 (1996): 15-32.
+              </li>
+              {/* prettier-ignore */}
+              <li>
+                Fishbein, M., and Ajzen, I. <em>Belief, Attitude, Intention and Behavior: An Introduction to Theory and Research</em>. Reading, MA: Addison-Wesley, 1975.
+              </li>
+              {/* prettier-ignore */}
+              <li>
+                Agarwal, R., and Prasad, J. &ldquo;The Antecedents and Consequents of User Perceptions in Information Technology Adoption.&rdquo; <em>Decision Support Systems</em> 22, no. 1 (1998): 15-29.
+              </li>
+              {/* prettier-ignore */}
+              <li>
+                Karahanna, E., Straub, D. W., and Chervany, N. L. &ldquo;Information Technology Adoption Across Time: A Cross-Sectional Comparison of Pre-Adoption and Post-Adoption Beliefs.&rdquo; <em>MIS Quarterly</em> 23, no. 2 (1999): 183-213.
+              </li>
+            </ol>
           </section>
           <p className="mt-8 text-sm italic text-gray-600">
             Note: This article provides an overview based on the comprehensive literature review.

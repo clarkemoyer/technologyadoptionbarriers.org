@@ -502,54 +502,72 @@ const BibliographyArticlePage = () => {
               addressing the diverse obstacles different household segments face. Rather than
               employing a single marketing message or approach, leaders should segment the market,
               identify which barriers are most salient to each segment, and tailor their
-              barrier-reduction strategies accordingly. 7.
+              barrier-reduction strategies accordingly.
             </p>
             <ul className={BODY_LIST_CLASSES}>
               <li>
-                <strong>Following Models or Theories:</strong> Following Models: Unified Theory of
-                Acceptance and Use of Technology (UTAUT) extensions to household contexts Models
-                examining smart home technology adoption Models of mobile device adoption in
-                household settings Extended TAM applications incorporating household decision-making
-                variables Following Theories: Subsequent household technology adoption research
-                Internet of Things adoption literature Smart home and home automation adoption
-                studies Digital divide research informed by household adoption perspectives Series
-                Navigation This article is part of a Technology Adoption literature review series: 1
-              </li>
-              <li>
-                <strong>A Model of Adoption of Technology in Households:</strong> Brown and
-                Venkatesh, 2005 2
-              </li>
-              <li>
-                <strong>Understanding Information Systems Continuance:</strong> An Expectation-
-                Confirmation Model (Bhattacherjee, 2001) 3. Status Quo Bias in Decision Making
-                (Samuelson and Zeckhauser, 1988) References 1.Ajzen, I. “The Theory of Planned
-                Behavior.” Organizational Behavior and Human Decision Processes 50, no. 2 (1991):
-                179-211. 2.Brown, S. A., and Venkatesh, V. “A Model of Adoption of Technology in
-                Households: A Baseline Model Test and Extension Incorporating Household Life Cycle.”
-                MIS Quarterly 29, no. 3 (2005): 399-426. 3.Davis, F. D. “Perceived Usefulness,
-                Perceived Ease of Use, and User Acceptance of Information Technology.” MIS Quarterly
-                13, no. 3 (1989): 319-340. 4.Fishbein, M., and Ajzen, I. Belief, Attitude, Intention
-                and Behavior: An Introduction to Theory and Research. Reading, MA: Addison-Wesley,
-                1975. 5.Rogers, E. M. Diffusion of Innovations. 4th ed. New York: Free Press, 1995.
-                6.Venkatesh, V. “Determinants of Perceived Ease of Use: Integrating Control,
-                Intrinsic Motivation, and Emotion into the Technology Acceptance Model.” Information
-                Systems Research 11, no. 4 (2000): 342-365. 7.Venkatesh, V., and Brown, S. A. “A
-                Longitudinal Investigation of Personal Computers in Homes: Adoption Determinants and
-                Emerging Challenges.” MIS Quarterly 25, no. 1 (2001): 71-102. 8.Venkatesh, V., and
-                Davis, F. D. “A Model of the Antecedents of Perceived Ease of Use: Development and
-                Test.” Decision Sciences 27, no. 3 (1996): 451-481. 9.Norman, D. A. The Design of
-                Everyday Things
-              </li>
-              <li>
-                <strong>New York:</strong> Doubleday, 1998. 10.Thompson, R. L., Higgins, C. A., and
-                Howell, J. M. “Personal Computing: Toward a Conceptual Model of Utilization.” MIS
-                Quarterly 15, no. 1 (1991): 124-143
-              </li>
-              <li>
-                <strong>Value-Based Adoption of Mobile Internet:</strong> An Empirical Investigation
-                - Kim, Chan, and Gupta 2007 1
+                <strong>Following Models or Theories:</strong> Unified Theory of Acceptance and Use
+                of Technology (UTAUT) extensions to household contexts, models examining smart home
+                technology adoption, models of mobile device adoption in household settings,
+                extended TAM applications incorporating household decision-making variables.
+                Following Theories: Subsequent household technology adoption research, Internet of
+                Things adoption literature, smart home and home automation adoption studies, digital
+                divide research informed by household adoption perspectives.
               </li>
             </ul>
+          </section>
+
+          {/* References */}
+          <section className={SECTION_CLASSES}>
+            <h2 className={H2_CLASSES}>References</h2>
+            <ol className="list-decimal list-inside space-y-3 text-sm">
+              <li>
+                Ajzen, I. &ldquo;The Theory of Planned Behavior.&rdquo;{' '}
+                <em>Organizational Behavior and Human Decision Processes</em> 50, no. 2 (1991):
+                179-211.
+              </li>
+              <li>
+                Brown, S. A., and Venkatesh, V. &ldquo;A Model of Adoption of Technology in
+                Households: A Baseline Model Test and Extension Incorporating Household Life
+                Cycle.&rdquo; <em>MIS Quarterly</em> 29, no. 3 (2005): 399-426.
+              </li>
+              <li>
+                Davis, F. D. &ldquo;Perceived Usefulness, Perceived Ease of Use, and User Acceptance
+                of Information Technology.&rdquo; <em>MIS Quarterly</em> 13, no. 3 (1989): 319-340.
+              </li>
+              {/* prettier-ignore */}
+              <li>
+                Fishbein, M., and Ajzen, I. <em>Belief, Attitude, Intention and Behavior: An Introduction to Theory and Research</em>. Reading, MA: Addison-Wesley, 1975.
+              </li>
+              {/* prettier-ignore */}
+              <li>
+                Rogers, E. M. <em>Diffusion of Innovations</em>. 4th ed. New York: Free Press, 1995.
+              </li>
+              <li>
+                Venkatesh, V. &ldquo;Determinants of Perceived Ease of Use: Integrating Control,
+                Intrinsic Motivation, and Emotion into the Technology Acceptance Model.&rdquo;{' '}
+                <em>Information Systems Research</em> 11, no. 4 (2000): 342-365.
+              </li>
+              <li>
+                Venkatesh, V., and Brown, S. A. &ldquo;A Longitudinal Investigation of Personal
+                Computers in Homes: Adoption Determinants and Emerging Challenges.&rdquo;{' '}
+                <em>MIS Quarterly</em> 25, no. 1 (2001): 71-102.
+              </li>
+              <li>
+                Venkatesh, V., and Davis, F. D. &ldquo;A Model of the Antecedents of Perceived Ease
+                of Use: Development and Test.&rdquo; <em>Decision Sciences</em> 27, no. 3 (1996):
+                451-481.
+              </li>
+              {/* prettier-ignore */}
+              <li>
+                Norman, D. A. <em>The Design of Everyday Things</em>. New York: Doubleday, 1998.
+              </li>
+              <li>
+                Thompson, R. L., Higgins, C. A., and Howell, J. M. &ldquo;Personal Computing: Toward
+                a Conceptual Model of Utilization.&rdquo; <em>MIS Quarterly</em> 15, no. 1 (1991):
+                124-143
+              </li>
+            </ol>
           </section>
           <p className="mt-8 text-sm italic text-gray-600">
             Note: This article provides an overview based on the comprehensive literature review.
