@@ -95,6 +95,7 @@ function makingOfTabsToGroups(items: MakingOfTabsItem[]): SidebarGroup[] {
         '/making-of-tabs/automation-infrastructure',
         '/making-of-tabs/accessibility',
         '/making-of-tabs/open-source',
+        '/making-of-tabs/cmo-survey',
       ].includes(item.href)
     ) {
       howWeBuiltIt.push(link)
