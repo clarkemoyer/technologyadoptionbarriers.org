@@ -9,6 +9,7 @@ import {
   PARAGRAPH_CLASSES,
   BODY_LIST_CLASSES,
 } from '@/lib/articleStyles'
+import ArticleTOC from '@/components/article-toc'
 
 export const metadata: Metadata = {
   title: 'Bibliography: Social Cognitive Theory (SCT) - Bandura (1986)',
@@ -734,6 +735,7 @@ const BibliographyArticlePage = () => {
           </Link>
         </section>
       </article>
+      <ArticleTOC />
     </main>
   )
 }

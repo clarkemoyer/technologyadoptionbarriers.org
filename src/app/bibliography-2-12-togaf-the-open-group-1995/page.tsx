@@ -11,6 +11,7 @@ import {
   REFERENCES_H2_CLASSES,
   REFERENCES_OL_CLASSES,
 } from '@/lib/articleStyles'
+import ArticleTOC from '@/components/article-toc'
 
 export const metadata: Metadata = {
   title: 'Bibliography: TOGAF - The Open Group Architecture Framework (1995)',
@@ -522,6 +523,7 @@ const TOGAFPage = () => {
           </Link>
         </section>
       </article>
+      <ArticleTOC />
     </main>
   )
 }

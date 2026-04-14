@@ -9,6 +9,7 @@ import {
   PARAGRAPH_CLASSES,
   BODY_LIST_CLASSES,
 } from '@/lib/articleStyles'
+import ArticleTOC from '@/components/article-toc'
 
 export const metadata: Metadata = {
   title: 'Bibliography: Status Quo Bias - Samuelson & Zeckhauser (1988)',
@@ -613,6 +614,7 @@ const BibliographyArticlePage = () => {
           </Link>
         </section>
       </article>
+      <ArticleTOC />
     </main>
   )
 }

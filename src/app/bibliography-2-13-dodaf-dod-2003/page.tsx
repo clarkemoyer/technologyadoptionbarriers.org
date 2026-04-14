@@ -11,6 +11,7 @@ import {
   REFERENCES_H2_CLASSES,
   REFERENCES_OL_CLASSES,
 } from '@/lib/articleStyles'
+import ArticleTOC from '@/components/article-toc'
 
 export const metadata: Metadata = {
   title: 'Bibliography: DoDAF - Department of Defense Architecture Framework (2003)',
@@ -555,6 +556,7 @@ const DoDAFPage = () => {
           </Link>
         </section>
       </article>
+      <ArticleTOC />
     </main>
   )
 }

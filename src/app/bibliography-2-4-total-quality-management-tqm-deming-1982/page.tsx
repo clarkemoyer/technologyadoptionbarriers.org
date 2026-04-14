@@ -10,6 +10,7 @@ import {
   REFERENCES_H2_CLASSES,
   REFERENCES_OL_CLASSES,
 } from '@/lib/articleStyles'
+import ArticleTOC from '@/components/article-toc'
 
 export const metadata: Metadata = {
   title: 'Bibliography: Total Quality Management (TQM) - Deming (1982)',
@@ -380,6 +381,7 @@ const TQMDemingPage = () => {
           </Link>
         </section>
       </article>
+      <ArticleTOC />
     </main>
   )
 }

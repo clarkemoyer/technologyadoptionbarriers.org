@@ -9,6 +9,7 @@ import {
   PARAGRAPH_CLASSES,
   BODY_LIST_CLASSES,
 } from '@/lib/articleStyles'
+import ArticleTOC from '@/components/article-toc'
 
 export const metadata: Metadata = {
   title: 'Bibliography: Task-Technology Fit (TTF) - Goodhue & Thompson (1995)',
@@ -481,6 +482,7 @@ const BibliographyArticlePage = () => {
           </Link>
         </section>
       </article>
+      <ArticleTOC />
     </main>
   )
 }

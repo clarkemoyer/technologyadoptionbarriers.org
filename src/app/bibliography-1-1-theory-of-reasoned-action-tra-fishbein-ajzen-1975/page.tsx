@@ -9,6 +9,7 @@ import {
   PARAGRAPH_CLASSES,
   BODY_LIST_CLASSES,
 } from '@/lib/articleStyles'
+import ArticleTOC from '@/components/article-toc'
 
 export const metadata: Metadata = {
   title: 'Bibliography: Theory of Reasoned Action (TRA) - Fishbein & Ajzen (1975)',
@@ -754,6 +755,7 @@ const BibliographyArticlePage = () => {
           </Link>
         </section>
       </article>
+      <ArticleTOC />
     </main>
   )
 }

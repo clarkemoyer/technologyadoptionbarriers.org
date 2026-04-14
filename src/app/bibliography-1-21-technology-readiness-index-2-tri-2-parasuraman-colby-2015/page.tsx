@@ -8,6 +8,7 @@ import {
   H2_CLASSES,
   H3_CLASSES,
 } from '@/lib/articleStyles'
+import ArticleTOC from '@/components/article-toc'
 
 export const metadata: Metadata = {
   title: 'Bibliography: Technology Readiness Index 2.0 (TRI 2.0) - Parasuraman & Colby (2015)',
@@ -632,6 +633,7 @@ const BibliographyArticlePage = () => {
           </Link>
         </section>
       </article>
+      <ArticleTOC />
     </main>
   )
 }

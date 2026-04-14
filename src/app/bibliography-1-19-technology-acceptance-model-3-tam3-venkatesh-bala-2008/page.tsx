@@ -7,6 +7,7 @@ import {
   SECTION_CLASSES,
   PARAGRAPH_CLASSES,
 } from '@/lib/articleStyles'
+import ArticleTOC from '@/components/article-toc'
 
 export const metadata: Metadata = {
   title: 'Bibliography: Technology Acceptance Model 3 (TAM3) - Venkatesh & Bala (2008)',
@@ -466,6 +467,7 @@ const BibliographyArticlePage = () => {
           </Link>
         </section>
       </article>
+      <ArticleTOC />
     </main>
   )
 }

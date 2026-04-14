@@ -10,6 +10,7 @@ import {
   REFERENCES_H2_CLASSES,
   REFERENCES_OL_CLASSES,
 } from '@/lib/articleStyles'
+import ArticleTOC from '@/components/article-toc'
 
 export const metadata: Metadata = {
   title: 'Bibliography: AWS Cloud Adoption Framework for AI/ML (CAF-AI) - AWS (2024)',
@@ -367,6 +368,7 @@ const AWSCAFAIPage = () => {
           </Link>
         </section>
       </article>
+      <ArticleTOC />
     </main>
   )
 }

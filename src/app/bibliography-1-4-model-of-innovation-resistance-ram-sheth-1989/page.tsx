@@ -8,6 +8,7 @@ import {
   H2_CLASSES,
   H3_CLASSES,
 } from '@/lib/articleStyles'
+import ArticleTOC from '@/components/article-toc'
 
 export const metadata: Metadata = {
   title: 'Bibliography: Model of Innovation Resistance - Ram & Sheth (1989)',
@@ -470,6 +471,7 @@ const BibliographyArticlePage = () => {
           </Link>
         </section>
       </article>
+      <ArticleTOC />
     </main>
   )
 }

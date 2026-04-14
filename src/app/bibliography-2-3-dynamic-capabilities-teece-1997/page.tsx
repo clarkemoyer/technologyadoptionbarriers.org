@@ -9,6 +9,7 @@ import {
   REFERENCES_H2_CLASSES,
   REFERENCES_OL_CLASSES,
 } from '@/lib/articleStyles'
+import ArticleTOC from '@/components/article-toc'
 
 export const metadata: Metadata = {
   title: 'Bibliography: Dynamic Capabilities Framework - Teece, Pisano, & Shuen (1997)',
@@ -542,6 +543,7 @@ const DynamicCapabilitiesPage = () => {
           </Link>
         </section>
       </article>
+      <ArticleTOC />
     </main>
   )
 }

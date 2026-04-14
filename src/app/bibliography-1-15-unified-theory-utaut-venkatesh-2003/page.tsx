@@ -7,6 +7,7 @@ import {
   SECTION_CLASSES,
   PARAGRAPH_CLASSES,
 } from '@/lib/articleStyles'
+import ArticleTOC from '@/components/article-toc'
 
 export const metadata: Metadata = {
   title:
@@ -493,6 +494,7 @@ const BibliographyArticlePage = () => {
           </Link>
         </section>
       </article>
+      <ArticleTOC />
     </main>
   )
 }
