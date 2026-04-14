@@ -40,8 +40,8 @@ const Article21Page = () => {
             understand not just whether to adopt technology, but why adoption matters and how
             technology investments connect to broader competitive strategy. We move beyond
             implementation mechanics to examine the strategic thinking that should precede
-            implementation - the intellectual foundations that distinguish technology investments that
-            create lasting competitive value from those that merely consume resources.
+            implementation - the intellectual foundations that distinguish technology investments
+            that create lasting competitive value from those that merely consume resources.
           </p>
 
           <h2 className={H2_CLASSES}>
@@ -136,8 +136,8 @@ const Article21Page = () => {
             This distinction proves critical in practice. Many organizations adopt &quot;best
             practice&quot; technologies simply because competitors do or because consultants
             recommend them. The RBV suggests this approach often creates merely competitive parity.
-            Technology adoption should be strategic - aimed at strengthening distinctive capabilities
-            that competitors cannot easily replicate.
+            Technology adoption should be strategic - aimed at strengthening distinctive
+            capabilities that competitors cannot easily replicate.
           </p>
 
           <h2 className={H2_CLASSES}>
@@ -145,8 +145,8 @@ const Article21Page = () => {
           </h2>
           <p className={PARAGRAPH_CLASSES}>
             But the RBV, while powerful, lacked operational clarity. Barney&apos;s 1991 VRIO
-            framework addressed this gap by specifying exactly what characteristics make
-            resources - including technology-based resources - capable of creating sustained competitive
+            framework addressed this gap by specifying exactly what characteristics make resources -
+            including technology-based resources - capable of creating sustained competitive
             advantage [3].
           </p>
           <p className={PARAGRAPH_CLASSES}>
@@ -164,11 +164,11 @@ const Article21Page = () => {
           <p className={PARAGRAPH_CLASSES}>
             <strong>Rare (R): </strong>The technology or the capability to deploy it must not be
             possessed by most competitors. If all competitors can readily purchase and implement the
-            same technology, it provides no competitive advantage - only competitive parity. However,
-            implementing ERP systems in ways competitors have not imagined - perhaps integrating them
-            with distinctive customer insights or supply chain practices competitors lack - can create
-            value. Leaders should ask: If we implement this technology, will competitors be able to
-            quickly match our capability?
+            same technology, it provides no competitive advantage - only competitive parity.
+            However, implementing ERP systems in ways competitors have not imagined - perhaps
+            integrating them with distinctive customer insights or supply chain practices
+            competitors lack - can create value. Leaders should ask: If we implement this
+            technology, will competitors be able to quickly match our capability?
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Inimitable (I): </strong>Competitors should find it difficult or impossible to
@@ -269,18 +269,18 @@ const Article21Page = () => {
 
           <h2 className={H2_CLASSES}>Integrating Strategic and Operational Perspectives</h2>
           <p className={PARAGRAPH_CLASSES}>
-            These foundational frameworks - TOE, RBV, VRIO, dynamic capabilities, and BPR - represent
-            the intellectual foundations that should guide organizational technology adoption
-            decisions. They move beyond &quot;Should we buy this system?&quot; to deeper strategic
-            questions: What competitive position are we trying to create? What distinctive resources
-            do we possess or want to develop? Can this technology create advantage that persists
-            beyond short-term competitive parity?
+            These foundational frameworks - TOE, RBV, VRIO, dynamic capabilities, and BPR -
+            represent the intellectual foundations that should guide organizational technology
+            adoption decisions. They move beyond &quot;Should we buy this system?&quot; to deeper
+            strategic questions: What competitive position are we trying to create? What distinctive
+            resources do we possess or want to develop? Can this technology create advantage that
+            persists beyond short-term competitive parity?
           </p>
           <p className={PARAGRAPH_CLASSES}>
             Organizations that ground technology adoption in these strategic frameworks typically
-            make better investments than those that adopt technology reactively - responding to vendor
-            pitches, following competitor moves, or pursuing &quot;best practices&quot; without
-            strategic thinking.
+            make better investments than those that adopt technology reactively - responding to
+            vendor pitches, following competitor moves, or pursuing &quot;best practices&quot;
+            without strategic thinking.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             Taken together, these frameworks provide a strategic lens through which organizations

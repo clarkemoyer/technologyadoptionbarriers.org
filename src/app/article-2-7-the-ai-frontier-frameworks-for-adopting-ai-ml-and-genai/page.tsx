@@ -41,13 +41,13 @@ const Article27Page = () => {
             ChatGPT&apos;s success forced a reckoning. Organizations realized they faced a new
             technology adoption challenge. Generative AI was not simply a new service to be deployed
             alongside existing services, like cloud migration. Generative AI had potential to
-            fundamentally disrupt how work is performed - to automate knowledge work in ways previous
-            technologies could not, to supplement human expertise with machine-generated insights,
-            to augment human decision-making with algorithmic recommendations. This disruption
-            created unique adoption challenges. Knowledge workers feared job displacement.
-            Regulatory concerns emerged about AI bias, transparency, and accountability.
-            Organizations struggled to understand when AI was ready for production versus when it
-            remained experimental.
+            fundamentally disrupt how work is performed - to automate knowledge work in ways
+            previous technologies could not, to supplement human expertise with machine-generated
+            insights, to augment human decision-making with algorithmic recommendations. This
+            disruption created unique adoption challenges. Knowledge workers feared job
+            displacement. Regulatory concerns emerged about AI bias, transparency, and
+            accountability. Organizations struggled to understand when AI was ready for production
+            versus when it remained experimental.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             By 2024, technology vendors and organizations recognized that existing adoption
@@ -123,8 +123,8 @@ const Article27Page = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>People Perspective </strong>in CAF-AI addresses the unique workforce challenges
-            AI adoption creates. This includes developing ML Fluency - shared understanding across the
-            organization about what AI can and cannot do, how AI systems learn from data, what
+            AI adoption creates. This includes developing ML Fluency - shared understanding across
+            the organization about what AI can and cannot do, how AI systems learn from data, what
             ethical considerations AI raises. It includes Workforce Transformation - identifying how
             organizational roles will change, developing training programs for new skills needed,
             managing workforce transitions as roles evolve, and addressing workforce anxiety about
@@ -158,19 +158,19 @@ const Article27Page = () => {
           <p className={PARAGRAPH_CLASSES}>
             <strong>Security Perspective </strong>in CAF-AI addresses security concerns specific to
             AI. Beyond traditional information security concerns, AI security includes addressing
-            potential attacks on AI systems - attackers deliberately providing data designed to cause
-            AI models to malfunction or to manipulate model outputs. Security includes managing data
-            used to train AI models, ensuring sensitive data is protected, and ensuring AI systems
-            cannot inadvertently expose sensitive information in their outputs.
+            potential attacks on AI systems - attackers deliberately providing data designed to
+            cause AI models to malfunction or to manipulate model outputs. Security includes
+            managing data used to train AI models, ensuring sensitive data is protected, and
+            ensuring AI systems cannot inadvertently expose sensitive information in their outputs.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Operations Perspective </strong>in CAF-AI addresses how organizations should
             operate AI systems differently from traditional software systems. AI systems require
-            continuous monitoring to ensure model accuracy and fairness. AI systems may
-            drift - performance degrading over time as underlying data distributions change.
-            Organizations need monitoring and governance processes detecting and addressing model
-            drift. Organizations need mechanisms for human oversight of AI system outputs.
-            Organizations need protocols for when AI systems should defer to human judgment [1].
+            continuous monitoring to ensure model accuracy and fairness. AI systems may drift -
+            performance degrading over time as underlying data distributions change. Organizations
+            need monitoring and governance processes detecting and addressing model drift.
+            Organizations need mechanisms for human oversight of AI system outputs. Organizations
+            need protocols for when AI systems should defer to human judgment [1].
           </p>
 
           <h2 className={H2_CLASSES}>Microsoft AI Adoption Framework: Responsible AI Emphasis</h2>
@@ -285,8 +285,8 @@ const Article27Page = () => {
             from producing certain categories of content. Organizations must monitor generative AI
             usage for policy violations. Organizations must establish clear policies about which
             generative AI applications are approved for production use versus which remain
-            experimental. Organizations must address data governance - what organizational data can be
-            used to train or fine-tune generative AI models, recognizing that data provided to
+            experimental. Organizations must address data governance - what organizational data can
+            be used to train or fine-tune generative AI models, recognizing that data provided to
             generative AI services may be retained and used for model improvement.
           </p>
           <p className={PARAGRAPH_CLASSES}>
@@ -337,10 +337,10 @@ const Article27Page = () => {
           <p className={PARAGRAPH_CLASSES}>
             Looking back across the series of articles - from Rogers&apos; Diffusion of Innovations
             through Technology Acceptance Models, from individual adoption through organizational
-            frameworks, from architecture and security through cloud transformation to AI
-            adoption - we have traced how organizations systematically adopt technology at scale. Each
-            article built on previous understanding, yet each revealed new challenges as technology
-            and organizational contexts evolved.
+            frameworks, from architecture and security through cloud transformation to AI adoption -
+            we have traced how organizations systematically adopt technology at scale. Each article
+            built on previous understanding, yet each revealed new challenges as technology and
+            organizational contexts evolved.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             The journey began with understanding how individuals decide to adopt technologies.
@@ -389,11 +389,11 @@ const Article27Page = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             Organizations that understand these principles and systematically apply them - whether
-            through established frameworks or custom approaches tailored to unique
-            contexts - consistently achieve far better adoption outcomes than organizations that
-            approach adoption ad-hoc, reacting to opportunities without systematic planning. The
-            frameworks surveyed throughout this series represent accumulated wisdom from decades of
-            technology adoption experience. They are not perfect; they must be adapted to specific
+            through established frameworks or custom approaches tailored to unique contexts -
+            consistently achieve far better adoption outcomes than organizations that approach
+            adoption ad-hoc, reacting to opportunities without systematic planning. The frameworks
+            surveyed throughout this series represent accumulated wisdom from decades of technology
+            adoption experience. They are not perfect; they must be adapted to specific
             organizational contexts. But they provide invaluable guidance on how to navigate the
             complex journey of organizational technology adoption.
           </p>

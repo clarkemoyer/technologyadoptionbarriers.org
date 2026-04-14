@@ -118,11 +118,12 @@ const Article23Page = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Pragmatic Followers: </strong>Organizations in moderately competitive
-            environments may strategically invest in the Slope of Enlightenment phase - after initial
-            hype has subsided, successful applications have emerged, and implementation knowledge is
-            more available, but before the technology is completely mature and commoditized. This
-            timing allows organizations to adopt proven approaches, benefit from available
-            expertise, and achieve competitive advantage before the technology becomes universal.
+            environments may strategically invest in the Slope of Enlightenment phase - after
+            initial hype has subsided, successful applications have emerged, and implementation
+            knowledge is more available, but before the technology is completely mature and
+            commoditized. This timing allows organizations to adopt proven approaches, benefit from
+            available expertise, and achieve competitive advantage before the technology becomes
+            universal.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Follower Organizations: </strong>Organizations in stable or slowly changing

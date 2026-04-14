@@ -34,9 +34,9 @@ const Article24Page = () => {
             ensuring alignment between business and technology. Still others understand it as the
             organizational capability to manage complexity, avoid redundancy, and enable systems to
             work together seamlessly. In truth, enterprise architecture encompasses all these
-            perspectives - but it begins with a fundamental insight: without intentional architectural
-            guidance, large organizations fragment into isolated islands of technology, unable to
-            share information or capabilities.
+            perspectives - but it begins with a fundamental insight: without intentional
+            architectural guidance, large organizations fragment into isolated islands of
+            technology, unable to share information or capabilities.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             This article surveys the major frameworks that have shaped how organizations design,
@@ -65,8 +65,8 @@ const Article24Page = () => {
             questions: What services and capabilities should be standardized across the
             organization? What variations should be tolerated for specific business unit needs? How
             should systems communicate with each other? What technologies and standards should be
-            mandated? Without architectural guidance, organizations become reactive - making decisions
-            when crises force them. With architectural guidance, organizations become
+            mandated? Without architectural guidance, organizations become reactive - making
+            decisions when crises force them. With architectural guidance, organizations become
             proactive - making decisions from a coherent understanding of desired future state.
           </p>
           <p className={PARAGRAPH_CLASSES}>
@@ -161,8 +161,9 @@ const Article24Page = () => {
             applications are needed, what each application does, and how applications interact.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Technology Architecture </strong>defines the infrastructure - computing platforms,
-            networks, storage, security capabilities - required to support applications and data [2].
+            <strong>Technology Architecture </strong>defines the infrastructure - computing
+            platforms, networks, storage, security capabilities - required to support applications
+            and data [2].
           </p>
           <p className={PARAGRAPH_CLASSES}>
             This four-domain structure has become standard across the enterprise architecture field.
@@ -203,8 +204,8 @@ const Article24Page = () => {
             synthesize lessons from military architecture frameworks and provide a more unified,
             standardized approach to representing complex systems-of-systems architectures [4]. UAF
             incorporates views-based thinking from DoDAF but with greater emphasis on standardized
-            data modeling and metamodels - the underlying structure defining what kinds of information
-            architecture should capture.
+            data modeling and metamodels - the underlying structure defining what kinds of
+            information architecture should capture.
           </p>
 
           <h2 className={H2_CLASSES}>The Modern Evolution: From Frameworks to Philosophies</h2>
@@ -222,10 +223,10 @@ const Article24Page = () => {
             computing, microservices, and agile development methods have challenged traditional
             enterprise architecture approaches that assumed stable requirements and relatively long
             technology lifecycles. New architectural philosophies emphasize principles and patterns
-            rather than detailed specifications [5]. They emphasize evolutionary
-            architecture - architecture that can evolve over time while maintaining coherence. They
-            emphasize modular architecture - breaking large systems into relatively independent
-            modules that can be developed, deployed, and evolved somewhat independently.
+            rather than detailed specifications [5]. They emphasize evolutionary architecture -
+            architecture that can evolve over time while maintaining coherence. They emphasize
+            modular architecture - breaking large systems into relatively independent modules that
+            can be developed, deployed, and evolved somewhat independently.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             Yet the fundamental insight underlying all these frameworks remains unchanged: large

@@ -167,29 +167,29 @@ const Article22Page = () => {
             The IT-CMF organizes IT capability around seven Building Blocks:
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Governance Building Block: </strong>How IT organizations are
-            governed - decision-making structures, board-level oversight, IT strategy alignment, risk
+            <strong>Governance Building Block: </strong>How IT organizations are governed -
+            decision-making structures, board-level oversight, IT strategy alignment, risk
             management. Organizations at higher maturity levels have clear governance structures,
             executive accountability for IT, and IT strategy integrated with business strategy.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Supply Chain Building Block: </strong>How IT organizations source and manage IT
-            services - vendor selection, service delivery partnerships, contract management, supplier
-            performance management. Organizations at higher maturity levels have structured
+            services - vendor selection, service delivery partnerships, contract management,
+            supplier performance management. Organizations at higher maturity levels have structured
             approaches to supplier selection and management rather than ad hoc vendor relationships.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Engagement Building Block: </strong>How IT organizations engage with business
-            stakeholders - understanding requirements, communicating IT capabilities and limitations,
-            managing relationships. Organizations at higher maturity improve from reactive IT
-            responding to demands to proactive IT understanding business strategy and proposing
-            IT-enabled opportunities.
+            stakeholders - understanding requirements, communicating IT capabilities and
+            limitations, managing relationships. Organizations at higher maturity improve from
+            reactive IT responding to demands to proactive IT understanding business strategy and
+            proposing IT-enabled opportunities.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Operations Building Block: </strong>How IT organizations manage IT
-            services - service delivery, infrastructure management, incident and problem management,
-            service level management. Organizations at higher maturity achieve consistent service
-            delivery and proactive problem management rather than reactive crisis management.
+            <strong>Operations Building Block: </strong>How IT organizations manage IT services -
+            service delivery, infrastructure management, incident and problem management, service
+            level management. Organizations at higher maturity achieve consistent service delivery
+            and proactive problem management rather than reactive crisis management.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Development Building Block: </strong>How IT organizations develop new
@@ -204,17 +204,18 @@ const Article22Page = () => {
             business objectives rather than focusing merely on technical metrics.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Organization Building Block: </strong>How IT organizations structure
-            themselves - roles and responsibilities, skills and competencies, culture and values.
-            Organizations at higher maturity align structure with strategy, develop needed skills
-            systematically, and build cultures supporting continuous improvement.
+            <strong>Organization Building Block: </strong>How IT organizations structure themselves
+            - roles and responsibilities, skills and competencies, culture and values. Organizations
+            at higher maturity align structure with strategy, develop needed skills systematically,
+            and build cultures supporting continuous improvement.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             The IT-CMF explicitly recognizes that IT capability depends not just on processes and
-            systems but on organizational factors - structure, skills, culture - and business alignment.
-            An organization might have sophisticated technical processes but fail to demonstrate
-            business value because it lacks governance and engagement maturity. The IT-CMF directs
-            organizations toward holistic capability development across all Building Blocks.
+            systems but on organizational factors - structure, skills, culture - and business
+            alignment. An organization might have sophisticated technical processes but fail to
+            demonstrate business value because it lacks governance and engagement maturity. The
+            IT-CMF directs organizations toward holistic capability development across all Building
+            Blocks.
           </p>
 
           <h2 className={H2_CLASSES}>
@@ -378,13 +379,14 @@ const Article22Page = () => {
             performance.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            The maturity models discussed in this article - CMM, CMMI, IT-CMF, and Cooper-Zmud&apos;s
-            implementation stages - provide frameworks for understanding this progression. They offer
-            both diagnosis (where are we now?) and prescription (how do we advance toward higher
-            capability?). Organizations that take maturity frameworks seriously, invest in sustained
-            capability development, and accept the discipline required for systematic improvement
-            position themselves to navigate technological change more successfully than those
-            attempting to advance through individual talent and episodic initiatives alone.
+            The maturity models discussed in this article - CMM, CMMI, IT-CMF, and
+            Cooper-Zmud&apos;s implementation stages - provide frameworks for understanding this
+            progression. They offer both diagnosis (where are we now?) and prescription (how do we
+            advance toward higher capability?). Organizations that take maturity frameworks
+            seriously, invest in sustained capability development, and accept the discipline
+            required for systematic improvement position themselves to navigate technological change
+            more successfully than those attempting to advance through individual talent and
+            episodic initiatives alone.
           </p>
         </section>
 

@@ -40,9 +40,9 @@ const Article26Page = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             The emergence of cloud computing as the dominant computing model accelerated this shift.
-            Cloud vendors - Amazon Web Services, Microsoft, Google Cloud - needed to help thousands of
-            organizations transition from on-premises infrastructure to cloud. They could not rely
-            on each organization to interpret abstract principles and independently develop
+            Cloud vendors - Amazon Web Services, Microsoft, Google Cloud - needed to help thousands
+            of organizations transition from on-premises infrastructure to cloud. They could not
+            rely on each organization to interpret abstract principles and independently develop
             implementation approaches. Instead, they developed highly detailed, prescriptive
             frameworks specifying exactly which steps organizations should take, in which order,
             with which tools. These vendor frameworks have become the primary adoption guidance most
@@ -137,11 +137,12 @@ const Article26Page = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             What makes AWS CAF prescriptive is the detailed guidance within each perspective. The
-            framework does not say &quot;your governance needs to improve&quot; - it specifies exactly
-            what governance capabilities you need to develop, the typical sequence for developing
-            them, how to assess your current state, how to prioritize improvement efforts, and how
-            to measure progress. Organizations can follow AWS CAF similar to following a cookbook
-            recipe: it provides detailed steps and ingredients, not just general principles.
+            framework does not say &quot;your governance needs to improve&quot; - it specifies
+            exactly what governance capabilities you need to develop, the typical sequence for
+            developing them, how to assess your current state, how to prioritize improvement
+            efforts, and how to measure progress. Organizations can follow AWS CAF similar to
+            following a cookbook recipe: it provides detailed steps and ingredients, not just
+            general principles.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             AWS CAF also integrates with AWS&apos;s suite of tools and services. The framework is
@@ -325,8 +326,8 @@ const Article26Page = () => {
             frameworks requiring organizational interpretation, organizations increasingly use
             highly detailed playbooks integrated with tools, services, and professional support
             ecosystems. This trend is extending beyond cloud adoption to other technology adoption
-            areas - AI adoption frameworks, data analytics adoption frameworks, and others follow the
-            cloud adoption framework model of detailed prescription integrated with ecosystem
+            areas - AI adoption frameworks, data analytics adoption frameworks, and others follow
+            the cloud adoption framework model of detailed prescription integrated with ecosystem
             support.
           </p>
           <p className={PARAGRAPH_CLASSES}>
@@ -341,10 +342,11 @@ const Article26Page = () => {
             The most important insight from the cloud adoption framework evolution is that effective
             technology adoption requires deliberate, systematic approaches. Whether organizations
             follow vendor frameworks, develop custom frameworks, or adapt frameworks to their
-            contexts, organizations that adopt systematically - with clear governance, with attention
-            to all dimensions of adoption including organizational change, with adequate resourcing,
-            with accountability for outcomes - achieve far better results than organizations that
-            adopt ad-hoc, reacting to emerging opportunities without systematic planning.
+            contexts, organizations that adopt systematically - with clear governance, with
+            attention to all dimensions of adoption including organizational change, with adequate
+            resourcing, with accountability for outcomes - achieve far better results than
+            organizations that adopt ad-hoc, reacting to emerging opportunities without systematic
+            planning.
           </p>
         </section>
 
