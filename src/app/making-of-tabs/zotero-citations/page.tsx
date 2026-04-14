@@ -217,8 +217,8 @@ const ZoteroCitationsPage = () => {
             >
               pyzotero
             </a>
-            . The script scopes its query to the <strong>TABS Website Citations</strong>{' '}
-            subcollection and all items nested within it, then writes the aggregated metrics to{' '}
+            . The script scopes its query to the <strong>TABS Website Citations</strong> collection
+            and all items nested within it, then writes the aggregated metrics to{' '}
             <code className="text-sm bg-gray-100 px-1 py-0.5 rounded">
               src/data/citation-metrics.json
             </code>

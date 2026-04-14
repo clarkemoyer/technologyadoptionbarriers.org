@@ -126,7 +126,17 @@ def _collect_descendant_keys(
     root_key: str,
     children_by_parent: dict[str, list[str]],
 ) -> set[str]:
-    """Return root_key and all transitively nested subcollection keys."""
+    """Return root_key and all transitively nested subcollection keys.
+
+    Args:
+        root_key: The starting collection key to begin traversal from.
+        children_by_parent: Mapping of parent collection key to list of
+            direct child collection keys.
+
+    Returns:
+        A set containing root_key and all recursively nested descendant
+        collection keys.
+    """
     visited: set[str] = set()
     stack = [root_key]
     while stack:
@@ -158,7 +168,7 @@ def main() -> None:
     all_collections = zot.everything(zot.collections())
 
     # Build lookup structures
-    col_name: dict[str, str] = {}          # key -> name
+    col_name_by_key: dict[str, str] = {}          # key -> name
     children_by_parent: dict[str, list[str]] = {}  # parentKey -> [childKey, ...]
     root_collection_key: str | None = None
 
@@ -166,7 +176,7 @@ def main() -> None:
         key = col.get("key", "")
         data = col.get("data", {})
         name = data.get("name", key)
-        col_name[key] = name
+        col_name_by_key[key] = name
 
         parent_key = data.get("parentCollection", None)
         if parent_key:
@@ -180,12 +190,14 @@ def main() -> None:
             f"ERROR: Collection '{TARGET_COLLECTION_NAME}' not found in library {library_id}.",
             file=sys.stderr,
         )
+        # Build a set of all child keys for O(1) lookup when filtering top-level collections
+        all_child_keys: set[str] = set().union(*children_by_parent.values()) if children_by_parent else set()
         print(
             "  Available top-level collections: "
             + ", ".join(
-                f"'{col_name[k]}'"
-                for k in col_name
-                if not any(k in v for v in children_by_parent.values())
+                f"'{col_name_by_key[k]}'"
+                for k in col_name_by_key
+                if k not in all_child_keys
             ),
             file=sys.stderr,
         )
@@ -277,7 +289,7 @@ def main() -> None:
                 subcol_counter[col_key] += 1
 
     top_collections = [
-        {"name": col_name.get(k, k), "count": v}
+        {"name": col_name_by_key.get(k, k), "count": v}
         for k, v in subcol_counter.most_common(TOP_COLLECTIONS_LIMIT)
     ]
 
