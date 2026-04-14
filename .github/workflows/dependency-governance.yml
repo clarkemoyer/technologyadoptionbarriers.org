@@ -1,0 +1,317 @@
+name: Dependency Governance
+
+# Checks freshness of MCP server dependencies and pinned PyPI packages.
+#
+# What this does:
+#   1. Reads .copilot/mcp-dependencies.json for the list of tracked dependencies.
+#   2. For each GitHub repo: fetches the latest release tag from the GitHub API.
+#      - Reports the latest available release in the step summary.
+#      - If acknowledged_release is set and the latest is more than 1 minor version
+#        ahead, opens a GitHub issue requesting an update review.
+#   3. For each PyPI package: fetches the latest version from PyPI.
+#      - Compares against the pinned_version in the manifest.
+#      - If the latest is more than 1 minor version ahead, opens a GitHub issue.
+#   4. Posts a consolidated step summary with all findings.
+#
+# Update .copilot/mcp-dependencies.json when you:
+#   - Review a new GitHub MCP release and confirm compatibility (set acknowledged_release).
+#   - Update a pinned PyPI package in a workflow or requirements file (update pinned_version).
+
+on:
+  schedule:
+    - cron: '0 10 * * 1' # Weekly on Monday at 10:00 UTC (after broken-link-checker at 08:00)
+  workflow_dispatch:
+
+concurrency:
+  group: dependency-governance
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  issues: write
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  check-dependencies:
+    name: Check MCP and PyPI dependency freshness
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Check GitHub MCP repo releases
+        id: github_check
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          MANIFEST=".copilot/mcp-dependencies.json"
+          STALE_COUNT=0
+
+          # Version comparison: returns 0 (true) if $1 is more than 1 minor version ahead of $2
+          is_significantly_ahead() {
+            local latest="${1#v}" pinned="${2#v}"
+            latest="${latest%%-*}"; latest="${latest%%+*}"
+            pinned="${pinned%%-*}"; pinned="${pinned%%+*}"
+            local l_major l_minor p_major p_minor
+            l_major=$(echo "$latest" | cut -d. -f1)
+            l_minor=$(echo "$latest" | cut -d. -f2)
+            p_major=$(echo "$pinned" | cut -d. -f1)
+            p_minor=$(echo "$pinned" | cut -d. -f2)
+            [[ "$l_major" =~ ^[0-9]+$ ]] || return 1
+            [[ "$l_minor" =~ ^[0-9]+$ ]] || return 1
+            [[ "$p_major" =~ ^[0-9]+$ ]] || return 1
+            [[ "$p_minor" =~ ^[0-9]+$ ]] || return 1
+            if [ "$l_major" -gt "$p_major" ]; then return 0; fi
+            if [ "$l_major" -eq "$p_major" ] && [ "$((l_minor - p_minor))" -gt 1 ]; then return 0; fi
+            return 1
+          }
+
+          printf '| Repo | Latest Release | Acknowledged | Status |\n' > /tmp/github-report.md
+          printf '|------|---------------|--------------|--------|\n' >> /tmp/github-report.md
+          > /tmp/stale-repos.txt
+
+          NUM_REPOS=$(jq '.github_repos | length' "$MANIFEST")
+          for i in $(seq 0 $((NUM_REPOS - 1))); do
+            REPO=$(jq -r ".github_repos[$i].repo" "$MANIFEST")
+            DESC=$(jq -r ".github_repos[$i].description" "$MANIFEST")
+            ACK=$(jq -r ".github_repos[$i].acknowledged_release // \"null\"" "$MANIFEST")
+
+            echo "Checking $REPO ..."
+
+            LATEST=$(gh api "repos/${REPO}/releases/latest" --jq '.tag_name' 2>/dev/null || true)
+            if [ -z "$LATEST" ]; then
+              LATEST=$(gh api "repos/${REPO}/tags" --jq '.[0].name' 2>/dev/null || echo "unknown")
+            fi
+
+            if [ "$ACK" = "null" ] || [ -z "$ACK" ]; then
+              STATUS="unacknowledged - set acknowledged_release in .copilot/mcp-dependencies.json"
+              ICON=":warning:"
+            elif is_significantly_ahead "${LATEST}" "${ACK}"; then
+              STATUS="stale (latest $LATEST > acknowledged $ACK by >1 minor)"
+              ICON=":red_circle:"
+              STALE_COUNT=$((STALE_COUNT + 1))
+              echo "$DESC ($REPO): latest=$LATEST acknowledged=$ACK" >> /tmp/stale-repos.txt
+            else
+              STATUS="ok"
+              ICON=":white_check_mark:"
+            fi
+
+            printf '| [%s](https://github.com/%s) | `%s` | `%s` | %s %s |\n' \
+              "$REPO" "$REPO" "$LATEST" "$ACK" "$ICON" "$STATUS" >> /tmp/github-report.md
+          done
+
+          echo "STALE_REPOS_COUNT=$STALE_COUNT" >> "$GITHUB_ENV"
+
+      - name: Check PyPI package versions
+        id: pypi_check
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          MANIFEST=".copilot/mcp-dependencies.json"
+          STALE_COUNT=0
+
+          is_significantly_ahead() {
+            local latest="${1%%-*}"; latest="${latest%%+*}"
+            local pinned="${2%%-*}"; pinned="${pinned%%+*}"
+            local l_major l_minor p_major p_minor
+            l_major=$(echo "$latest" | cut -d. -f1)
+            l_minor=$(echo "$latest" | cut -d. -f2)
+            p_major=$(echo "$pinned" | cut -d. -f1)
+            p_minor=$(echo "$pinned" | cut -d. -f2)
+            [[ "$l_major" =~ ^[0-9]+$ ]] || return 1
+            [[ "$l_minor" =~ ^[0-9]+$ ]] || return 1
+            [[ "$p_major" =~ ^[0-9]+$ ]] || return 1
+            [[ "$p_minor" =~ ^[0-9]+$ ]] || return 1
+            if [ "$l_major" -gt "$p_major" ]; then return 0; fi
+            if [ "$l_major" -eq "$p_major" ] && [ "$((l_minor - p_minor))" -gt 1 ]; then return 0; fi
+            return 1
+          }
+
+          printf '| Package | Pinned | Latest | Status |\n' > /tmp/pypi-report.md
+          printf '|---------|--------|--------|--------|\n' >> /tmp/pypi-report.md
+          > /tmp/stale-pypi.txt
+
+          NUM_PKGS=$(jq '.pypi_packages | length' "$MANIFEST")
+          for i in $(seq 0 $((NUM_PKGS - 1))); do
+            PKG=$(jq -r ".pypi_packages[$i].package" "$MANIFEST")
+            PINNED=$(jq -r ".pypi_packages[$i].pinned_version" "$MANIFEST")
+            SRC=$(jq -r ".pypi_packages[$i].source_file" "$MANIFEST")
+            DESC=$(jq -r ".pypi_packages[$i].description" "$MANIFEST")
+
+            echo "Checking PyPI: $PKG (pinned $PINNED in $SRC) ..."
+
+            LATEST=$(curl -fsSL "https://pypi.org/pypi/${PKG}/json" 2>/dev/null | jq -r '.info.version' 2>/dev/null || echo "unknown")
+
+            if [ "$LATEST" = "unknown" ]; then
+              STATUS="PyPI query failed"; ICON=":warning:"
+            elif is_significantly_ahead "$LATEST" "$PINNED"; then
+              STATUS="stale (latest $LATEST > pinned $PINNED by >1 minor) - update $SRC"
+              ICON=":red_circle:"
+              STALE_COUNT=$((STALE_COUNT + 1))
+              echo "$DESC ($PKG): pinned=$PINNED latest=$LATEST (update $SRC)" >> /tmp/stale-pypi.txt
+            elif [ "$LATEST" != "$PINNED" ]; then
+              STATUS="minor drift ($LATEST available) - within tolerance"
+              ICON=":large_yellow_circle:"
+            else
+              STATUS="up to date"
+              ICON=":white_check_mark:"
+            fi
+
+            printf '| [%s](https://pypi.org/project/%s/) | `%s` | `%s` | %s %s |\n' \
+              "$PKG" "$PKG" "$PINNED" "$LATEST" "$ICON" "$STATUS" >> /tmp/pypi-report.md
+          done
+
+          echo "STALE_PYPI_COUNT=$STALE_COUNT" >> "$GITHUB_ENV"
+
+      - name: Write step summary
+        if: always()
+        shell: bash
+        run: |
+          {
+            echo "# Dependency Governance Report"
+            echo ""
+            echo "Run: [${{ github.run_id }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})"
+            echo ""
+            echo "## GitHub MCP Repos"
+            echo ""
+            cat /tmp/github-report.md 2>/dev/null || echo "*(no data)*"
+            echo ""
+            echo "## PyPI Packages"
+            echo ""
+            cat /tmp/pypi-report.md 2>/dev/null || echo "*(no data)*"
+            echo ""
+            REPOS_STALE="${STALE_REPOS_COUNT:-0}"
+            PYPI_STALE="${STALE_PYPI_COUNT:-0}"
+            if [ "$REPOS_STALE" -gt 0 ] || [ "$PYPI_STALE" -gt 0 ]; then
+              echo "---"
+              echo "### Action Required"
+              echo ""
+              if [ -s /tmp/stale-repos.txt ]; then
+                echo "**GitHub MCP repos needing review:**"
+                sed 's/^/- /' /tmp/stale-repos.txt
+                echo ""
+              fi
+              if [ -s /tmp/stale-pypi.txt ]; then
+                echo "**PyPI packages to update:**"
+                sed 's/^/- /' /tmp/stale-pypi.txt
+                echo ""
+              fi
+            else
+              echo "All tracked dependencies are within acceptable version tolerance."
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Open issue for stale PyPI packages
+        if: env.STALE_PYPI_COUNT != '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          TITLE="Dependency governance: pinned PyPI packages are more than 1 minor version behind"
+
+          EXISTING=$(gh issue list \
+            --state open \
+            --search "Dependency governance: pinned PyPI packages are more than 1 minor version behind" \
+            --json number \
+            --jq '.[0].number' 2>/dev/null || echo "")
+
+          if [ -n "$EXISTING" ]; then
+            echo "Issue #$EXISTING already open - skipping creation"
+            exit 0
+          fi
+
+          {
+            echo "## Dependency Governance Alert"
+            echo ""
+            echo "The automated dependency governance check found pinned PyPI packages"
+            echo "that are more than 1 minor version behind the latest available release."
+            echo ""
+            echo "### Stale packages"
+            echo ""
+            sed 's/^/- /' /tmp/stale-pypi.txt
+            echo ""
+            echo "### Action required"
+            echo ""
+            echo "For each stale package:"
+            echo "1. Review the changelog for breaking changes."
+            echo "2. Update the pinned version in the relevant source file (listed above)."
+            echo "3. Run the analysis pipeline locally to verify compatibility."
+            echo "4. Update \`.copilot/mcp-dependencies.json\` \`pinned_version\` to match."
+            echo "5. Close this issue once all packages are updated."
+            echo ""
+            echo "### References"
+            echo ""
+            echo "- Manifest: \`.copilot/mcp-dependencies.json\`"
+            echo "- Governance workflow: \`.github/workflows/dependency-governance.yml\`"
+            echo "- Workflow run: $RUN_URL"
+          } > /tmp/issue-pypi.md
+
+          gh issue create \
+            --title "$TITLE" \
+            --body-file /tmp/issue-pypi.md \
+            --label "dependencies"
+
+      - name: Open issue for stale GitHub MCP repos
+        if: env.STALE_REPOS_COUNT != '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          TITLE="Dependency governance: GitHub MCP repos are more than 1 minor version ahead of acknowledged release"
+
+          EXISTING=$(gh issue list \
+            --state open \
+            --search "Dependency governance: GitHub MCP repos are more than 1 minor version ahead" \
+            --json number \
+            --jq '.[0].number' 2>/dev/null || echo "")
+
+          if [ -n "$EXISTING" ]; then
+            echo "Issue #$EXISTING already open - skipping creation"
+            exit 0
+          fi
+
+          {
+            echo "## Dependency Governance Alert"
+            echo ""
+            echo "The automated dependency governance check found GitHub-hosted MCP server"
+            echo "repositories that have released new versions significantly ahead of our"
+            echo "last acknowledged release."
+            echo ""
+            echo "### Stale repositories"
+            echo ""
+            sed 's/^/- /' /tmp/stale-repos.txt
+            echo ""
+            echo "### Action required"
+            echo ""
+            echo "For each stale repository:"
+            echo "1. Review the release notes on GitHub."
+            echo "2. Check whether the new version introduces breaking API changes that affect our usage."
+            echo "3. Update \`acknowledged_release\` in \`.copilot/mcp-dependencies.json\` to the new version."
+            echo "4. Update any local MCP configuration (\`.vscode/mcp.json\`, \`.copilot/mcp-config.json\`) if required."
+            echo "5. Close this issue once all repos are acknowledged."
+            echo ""
+            echo "### References"
+            echo ""
+            echo "- Manifest: \`.copilot/mcp-dependencies.json\`"
+            echo "- MCP configuration: \`.copilot/mcp-config.json\`"
+            echo "- Governance workflow: \`.github/workflows/dependency-governance.yml\`"
+            echo "- Workflow run: $RUN_URL"
+          } > /tmp/issue-repos.md
+
+          gh issue create \
+            --title "$TITLE" \
+            --body-file /tmp/issue-repos.md \
+            --label "dependencies"

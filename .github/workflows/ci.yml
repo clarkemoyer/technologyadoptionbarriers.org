@@ -43,6 +43,24 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Check gh CLI version (>= 2.89 required for agent-task create)
+        shell: bash
+        run: |
+          GH_VER=$(gh --version 2>/dev/null | head -1 | grep -oP '\d+\.\d+\.\d+' || echo "")
+          if [[ -z "$GH_VER" ]]; then
+            echo "::error::Could not determine gh CLI version. Ensure gh is installed on the runner."
+            exit 1
+          fi
+          MAJOR=$(echo "$GH_VER" | cut -d. -f1)
+          MINOR=$(echo "$GH_VER" | cut -d. -f2)
+          MIN_MAJOR=2
+          MIN_MINOR=89
+          if [ "$MAJOR" -lt "$MIN_MAJOR" ] || { [ "$MAJOR" -eq "$MIN_MAJOR" ] && [ "$MINOR" -lt "$MIN_MINOR" ]; }; then
+            echo "::error::gh CLI version $GH_VER does not meet minimum requirement v${MIN_MAJOR}.${MIN_MINOR}+ (required for 'gh agent-task create')."
+            exit 1
+          fi
+          echo "gh CLI version check passed: $GH_VER >= ${MIN_MAJOR}.${MIN_MINOR}"
+
       - name: Check formatting
         run: npm run format:check
 

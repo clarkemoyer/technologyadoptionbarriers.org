@@ -1,0 +1,43 @@
+{
+  "description": "Tracked MCP server dependencies and pinned API tooling. Maintained by dependency-governance.yml. Update acknowledged_release when you have reviewed a new release and confirmed compatibility.",
+  "last_reviewed": "2026-04-14",
+  "github_repos": [
+    {
+      "repo": "github/github-mcp-server",
+      "description": "GitHub MCP Server (hosted remote)",
+      "acknowledged_release": null,
+      "notes": "Accessed as remote HTTP server at api.githubcopilot.com/mcp/ - no local version pin. Set acknowledged_release after first governance run."
+    },
+    {
+      "repo": "cloudflare/mcp-server-cloudflare",
+      "description": "Cloudflare MCP Server (hosted remote)",
+      "acknowledged_release": null,
+      "notes": "Accessed as remote HTTP server - no local version pin. Set acknowledged_release after first governance run."
+    },
+    {
+      "repo": "googleanalytics/google-analytics-mcp",
+      "description": "Google Analytics MCP (hosted remote)",
+      "acknowledged_release": null,
+      "notes": "Monitor for availability and major version changes. Set acknowledged_release after first governance run."
+    },
+    {
+      "repo": "MicrosoftDocs/mcp",
+      "description": "Microsoft Learn MCP (hosted remote)",
+      "acknowledged_release": null,
+      "notes": "Accessed as remote HTTP server at learn.microsoft.com/api/mcp - no local version pin. Set acknowledged_release after first governance run."
+    }
+  ],
+  "pypi_packages": [
+    {
+      "package": "pyzotero",
+      "pinned_version": "1.11.0",
+      "source_file": ".github/workflows/zotero-create-collections.yml",
+      "description": "Zotero API client / MCP server",
+      "notes": "Pinned explicitly in zotero-create-collections.yml. Used as pyzotero[mcp] MCP server locally (uvx)."
+    }
+  ],
+  "gh_cli": {
+    "min_version": "2.89",
+    "notes": "Minimum version required for 'gh agent-task create'. Enforced in CI by ci.yml."
+  }
+}
