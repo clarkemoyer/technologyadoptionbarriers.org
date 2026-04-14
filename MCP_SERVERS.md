@@ -205,10 +205,10 @@ curl -i https://learn.microsoft.com/api/mcp
 
 ## Monitoring for Official Releases
 
-We maintain a policy of adopting only official or well-audited community MCP servers. We actively monitor the following platforms for official releases:
+We maintain a policy of adopting only official or well-audited community MCP servers. We actively monitor official channels for the following platforms:
 
-- **Prolific**: No official MCP server currently exists. We continue to use custom Python scripts in `scripts/analysis/` for operational tasks.
-- **Qualtrics/SAP**: We monitor for official MCP releases through SAP's membership in the [AI Alliance](https://theaialliance.ai/). We currently utilize the first-party platform MCP endpoint and custom Python scripts.
+- **Prolific**: No official MCP server currently exists. We continue to use custom Python scripts in `scripts/analysis/` and the TypeScript API client for operational tasks.
+- **Qualtrics/SAP**: We monitor official SAP/Qualtrics channels for expanded GA support and stable versioning. SAP is a member of the [AI Alliance](https://theaialliance.ai/), which serves as a key channel for monitoring their Model Context Protocol roadmap. We currently utilize the first-party platform MCP endpoint (`/API/mcp/survey-crud`).
 
 ## Validating MCP Configuration
 

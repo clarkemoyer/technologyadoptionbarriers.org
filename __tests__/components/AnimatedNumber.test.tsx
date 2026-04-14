@@ -7,7 +7,9 @@ expect.extend(toHaveNoViolations)
 
 // Mock framer-motion completely
 jest.mock('framer-motion', () => {
-  const MockSpan = React.forwardRef(
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  const ReactModule = require('react')
+  const MockSpan = ReactModule.forwardRef(
     (
       { children, ...props }: { children?: React.ReactNode; [key: string]: unknown },
       ref: React.Ref<HTMLSpanElement>

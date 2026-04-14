@@ -144,9 +144,9 @@ For the GitHub remote MCP server endpoint (hosted by GitHub):
 
 ## Monitoring for Official Releases
 
-The TABS project adopts MCP servers only from official sources or well-audited community projects. We currently use the first-party Qualtrics platform MCP endpoint.
+The TABS project adopts MCP servers only from official sources or well-audited community projects. We currently use the first-party Qualtrics platform MCP endpoint (`/API/mcp/survey-crud`).
 
-We actively monitor Qualtrics/SAP for new official MCP server releases via SAP's membership in the [AI Alliance](https://theaialliance.ai/).
+We actively monitor official SAP/Qualtrics channels for expanded GA support, stable versioning, and comprehensive documentation. SAP is a member of the [AI Alliance](https://theaialliance.ai/), which serves as a key channel for monitoring their Model Context Protocol roadmap.
 
 ## Safety warning: manage:all scope
 

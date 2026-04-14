@@ -1,10 +1,12 @@
 import type { Metadata } from 'next'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES, H3_CLASSES } from '@/lib/articleStyles'
 import Link from 'next/link'
+import { MakingOfTabsNav } from '@/components/making-of-tabs-nav'
+
 export const metadata: Metadata = {
-  title: 'Automation Infrastructure - Making of TABS',
+  title: 'Automation Infrastructure — Making of TABS',
   description:
-    'How the TABS project automates the full lifecycle from issue assignment to human review - daily data pipelines, privacy-safe boundaries, AI agent coordination, and dependency provenance.',
+    'How the TABS project automates the full lifecycle from issue assignment to human review — daily data pipelines, privacy-safe boundaries, AI agent coordination, and dependency provenance.',
   alternates: {
     canonical: '/making-of-tabs/automation-infrastructure',
   },
@@ -12,15 +14,15 @@ export const metadata: Metadata = {
 
 const AutomationInfrastructurePage = () => {
   return (
-    <div className="pt-20 sm:pt-[120px] bg-white">
-      <article className={ARTICLE_CLASSES}>
+    <main className={ARTICLE_CLASSES}>
+      <MakingOfTabsNav>
         <h1 className={H1_CLASSES}>Automation Infrastructure</h1>
 
         <p className="text-gray-600 mb-8">
           TABS is operated almost entirely through automated pipelines. This page documents the two
           main chains: the hands-off coding workflow that takes a GitHub Issue to a merged PR
           without any human writing code, and the daily data pipeline that processes Prolific
-          submissions, runs analysis, and commits results - all without a human pressing a button.
+          submissions, runs analysis, and commits results — all without a human pressing a button.
         </p>
 
         {/* Section 1: The hands-off chain */}
@@ -110,7 +112,7 @@ const AutomationInfrastructurePage = () => {
           <p className="mb-4">
             A GitHub Actions workflow (<code>daily-pipeline.yml</code>) runs every morning. The
             workflow runs a seven-phase chain that processes Prolific submissions, exports and
-            analyzes Qualtrics responses, and commits updated JSON artifacts - all without manual
+            analyzes Qualtrics responses, and commits updated JSON artifacts — all without manual
             intervention.
           </p>
 
@@ -135,7 +137,7 @@ const AutomationInfrastructurePage = () => {
                   [
                     '2',
                     'Analyze',
-                    'Exports Qualtrics survey responses, enriches with Prolific status, runs disposition waterfall, descriptive stats, advanced analysis, psychometrics, and quality audit - 7 sub-steps in sequence',
+                    'Exports Qualtrics survey responses, enriches with Prolific status, runs disposition waterfall, descriptive stats, advanced analysis, psychometrics, and quality audit — 7 sub-steps in sequence',
                     'qualtrics-prod',
                   ],
                   [
@@ -147,7 +149,7 @@ const AutomationInfrastructurePage = () => {
                   [
                     '3b',
                     'Message',
-                    'Sends disposition-specific messages to FLAG participants via the Prolific messaging API - 9 message variants, run sequentially',
+                    'Sends disposition-specific messages to FLAG participants via the Prolific messaging API — 9 message variants, run sequentially',
                     'prolific-prod',
                   ],
                   [
@@ -165,7 +167,7 @@ const AutomationInfrastructurePage = () => {
                   [
                     '5',
                     'Report',
-                    'Creates a daily GitHub Issue summarizing pipeline results, counts, and any anomalies - always runs, even if earlier phases fail',
+                    'Creates a daily GitHub Issue summarizing pipeline results, counts, and any anomalies — always runs, even if earlier phases fail',
                     'github-pages',
                   ],
                 ].map(([phase, name, desc, env]) => (
@@ -289,7 +291,7 @@ const AutomationInfrastructurePage = () => {
                   'Writes and pushes code to a branch',
                   'Opens a pull request',
                   'Fixes review comments',
-                  'Never merges - human approves',
+                  'Never merges — human approves',
                 ],
               },
               {
@@ -301,7 +303,7 @@ const AutomationInfrastructurePage = () => {
                   'Same write access as Copilot agent',
                   'Used for complex multi-file refactors',
                   'Can call MCP servers (Qualtrics, GitHub)',
-                  'Submits work via PR - same review chain',
+                  'Submits work via PR — same review chain',
                 ],
               },
               {
@@ -313,7 +315,7 @@ const AutomationInfrastructurePage = () => {
                   'Reviews diffs for bugs and style',
                   'Posts inline comments',
                   'Re-reviews after fixes',
-                  'Cannot merge - advisory only',
+                  'Cannot merge — advisory only',
                 ],
               },
             ].map(({ name, role, color, points }) => (
@@ -360,7 +362,7 @@ const AutomationInfrastructurePage = () => {
             <li>Agent pushes a branch and opens a PR, which triggers CI.</li>
             <li>CI (format, lint, tests, build, E2E) runs automatically and posts status.</li>
             <li>
-              Human marks the PR as “Ready for review” - Copilot PR Review reads the diff and posts
+              Human marks the PR as “Ready for review” — Copilot PR Review reads the diff and posts
               comments.
             </li>
             <li>Copilot coding agent (or Claude) reads the review comments and pushes fixes.</li>
@@ -423,16 +425,16 @@ const AutomationInfrastructurePage = () => {
             <div className="rounded-xl border border-gray-200 p-5">
               <h3 className="font-semibold text-gray-900 mb-2">GitHub MCP Server</h3>
               <p className="text-sm text-gray-700 mb-2">
-                AI agents access GitHub - creating issues, pushing files, managing PRs - through the
-                official{' '}
+                AI agents access GitHub through the official platform endpoint. The standard{' '}
                 <code className="text-xs bg-gray-100 px-1 rounded">
                   @modelcontextprotocol/server-github
                 </code>{' '}
-                MCP server, not via third-party wrappers. Qualtrics MCP uses the first-party MCP
-                endpoint built into the Qualtrics platform.
+                package is maintained as a local-dev fallback. Qualtrics MCP uses the first-party
+                platform MCP endpoint built into the Qualtrics platform.
               </p>
               <p className="text-xs text-gray-600 italic">
-                Note: We actively monitor Prolific and Qualtrics (SAP, a member of the{' '}
+                Note: We actively monitor official channels for Prolific and Qualtrics (SAP, a
+                member of the{' '}
                 <a
                   href="https://theaialliance.ai/"
                   target="_blank"
@@ -446,8 +448,8 @@ const AutomationInfrastructurePage = () => {
             </div>
           </div>
         </section>
-      </article>
-    </div>
+      </MakingOfTabsNav>
+    </main>
   )
 }
 

@@ -101,7 +101,7 @@ describe('UnifiedNavigation', () => {
   })
 })
 
-describe('UnifiedNavigation - footer-aware bottom offset', () => {
+describe('UnifiedNavigation — footer-aware bottom offset', () => {
   beforeEach(() => {
     const header = document.createElement('div')
     header.id = 'header'
@@ -137,7 +137,7 @@ describe('UnifiedNavigation - footer-aware bottom offset', () => {
   }
 
   it('applies MIN_BOTTOM_GAP (20px) as bottom style when footer is fully off-screen', () => {
-    // footer top is below viewport - not visible
+    // footer top is below viewport — not visible
     Object.defineProperty(window, 'innerHeight', { value: 800, configurable: true })
     stubFooterRect({ top: 900, height: 200 })
 
@@ -162,7 +162,7 @@ describe('UnifiedNavigation - footer-aware bottom offset', () => {
   })
 
   it('clamps footerOffset to rect.height + MIN_BOTTOM_GAP when scrolled past footer top', () => {
-    // rect.top is negative - user scrolled well past the start of the footer
+    // rect.top is negative — user scrolled well past the start of the footer
     Object.defineProperty(window, 'innerHeight', { value: 800, configurable: true })
     stubFooterRect({ top: -50, height: 200 })
 

@@ -3,7 +3,7 @@
  *
  * These tests verify that each results page renders without errors
  * when given the current (possibly placeholder) JSON data. They do
- * NOT test interactive behavior - only that the component tree mounts.
+ * NOT test interactive behavior — only that the component tree mounts.
  */
 
 import React from 'react'
@@ -420,7 +420,7 @@ describe('Sample & Demographics Page', () => {
 
   it('renders empty-state row when role_categories is absent from JSON', async () => {
     // roleCategories is derived inside the component, so temporarily removing it
-    // from the shared mock object is sufficient - no module re-load required.
+    // from the shared mock object is sufficient — no module re-load required.
     const saved = MOCK_SENSITIVITY_DATA.role_categories
     ;(MOCK_SENSITIVITY_DATA as Record<string, unknown>).role_categories = undefined
     try {

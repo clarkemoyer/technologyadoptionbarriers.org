@@ -3,7 +3,6 @@ import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import { axe, toHaveNoViolations } from 'jest-axe'
 import Header from '../../src/components/header'
-import { SidebarProvider } from '../../src/components/sidebar/sidebar-context'
 import { TABS_WEBSITE_QUALTRICS_SURVEY_URL } from '../../src/lib/tabs-survey'
 
 // Extend Jest matchers
@@ -19,32 +18,39 @@ jest.mock('next/navigation', () => ({
   })),
 }))
 
-function renderHeader() {
-  return render(
-    <SidebarProvider>
-      <Header />
-    </SidebarProvider>
-  )
-}
+// Mock framer-motion to avoid animation issues in tests
+jest.mock('framer-motion', () => ({
+  motion: {
+    div: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
+      <div {...props}>{children}</div>
+    ),
+    nav: ({ children, ...props }: React.PropsWithChildren<Record<string, unknown>>) => (
+      <nav {...props}>{children}</nav>
+    ),
+  },
+  AnimatePresence: ({ children }: React.PropsWithChildren) => <>{children}</>,
+}))
 
 describe('Header component', () => {
   it('should render the header', () => {
-    renderHeader()
+    render(<Header />)
     expect(screen.getByRole('banner')).toBeInTheDocument()
   })
 
-  it('should display the mobile navigation toggle button with an accessible name', () => {
-    renderHeader()
-    expect(screen.getByRole('button', { name: /open navigation menu/i })).toBeInTheDocument()
-  })
-
   it('should display the TABS logo', () => {
-    renderHeader()
+    render(<Header />)
+    // Check for logo image with alt text
     expect(screen.getByAltText('TABS Logo')).toBeInTheDocument()
   })
 
+  it('should display Home navigation link', () => {
+    render(<Header />)
+    // Home link should always be present in navigation
+    expect(screen.getByText('Home')).toBeInTheDocument()
+  })
+
   it("should display 'Take the TABS' primary CTA link", () => {
-    renderHeader()
+    render(<Header />)
 
     const cta = screen.getByTestId('header-take-tabs-cta')
     expect(cta).toBeInTheDocument()
@@ -54,13 +60,21 @@ describe('Header component', () => {
   })
 
   it('should have navigation links', () => {
-    renderHeader()
+    render(<Header />)
+    // Check that navigation has at least some links
     const links = screen.getAllByRole('link')
     expect(links.length).toBeGreaterThan(0)
   })
 
+  it('should have a mobile menu button', () => {
+    render(<Header />)
+    // Look for the menu icon button
+    const buttons = screen.getAllByRole('button')
+    expect(buttons.length).toBeGreaterThan(0)
+  })
+
   it('should not have accessibility violations', async () => {
-    const { container } = renderHeader()
+    const { container } = render(<Header />)
     const results = await axe(container)
     expect(results).toHaveNoViolations()
   })

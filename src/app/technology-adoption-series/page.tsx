@@ -17,7 +17,7 @@ import {
 import { getTechnologyAdoptionSeriesSlides } from '@/lib/technology-adoption-series'
 
 export const metadata: Metadata = {
-  title: 'Technology Adoption Teaching Series - Overview',
+  title: 'Technology Adoption Teaching Series — Overview',
   description:
     'A practical, slide-by-slide teaching series on technology adoption: definitions, frameworks, lifecycle planning, and adoption success patterns.',
 }
