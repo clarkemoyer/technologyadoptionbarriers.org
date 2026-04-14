@@ -9,7 +9,7 @@ import {
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: Technology Acceptance Model 3 (TAM3) – Venkatesh & Bala (2008)',
+  title: 'Bibliography: Technology Acceptance Model 3 (TAM3) - Venkatesh & Bala (2008)',
   description:
     'Deep dive into the Technology Acceptance Model 3 (TAM3) by Viswanath Venkatesh and Hillol Bala (2008), providing a complete nomological network of TAM with determinants of perceived usefulness and perceived ease of use plus a research agenda on interventions.',
 }
@@ -19,7 +19,7 @@ const BibliographyArticlePage = () => {
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>
-          Technology Acceptance Model 3 (TAM3) &ndash; Venkatesh &amp; Bala (2008)
+          Technology Acceptance Model 3 (TAM3) - Venkatesh &amp; Bala (2008)
         </h1>
 
         {/* Model Identification */}
@@ -44,7 +44,7 @@ const BibliographyArticlePage = () => {
           <div className="bg-blue-50 p-4 rounded border-l-4 border-blue-500">
             <p className="text-sm font-mono">
               Venkatesh, V., &amp; Bala, H. (2008). Technology acceptance model 3 and a research
-              agenda on interventions. <em>Decision Sciences</em>, 39(2), 273&ndash;315.{' '}
+              agenda on interventions. <em>Decision Sciences</em>, 39(2), 273-315.{' '}
               <a
                 href="https://doi.org/10.1111/j.1540-5915.2008.00192.x"
                 target="_blank"
@@ -68,16 +68,15 @@ const BibliographyArticlePage = () => {
             identified anchor and adjustment determinants of perceived ease of use, explaining the
             factors that shape how easy or difficult users believe a system is to use. However, no
             single model had integrated both sets of determinants into a comprehensive theoretical
-            framework. The Technology Acceptance Model lacked a complete nomological network&mdash;a
-            full specification of all the constructs, their antecedents, and their
-            interrelationships.
+            framework. The Technology Acceptance Model lacked a complete nomological network-a full
+            specification of all the constructs, their antecedents, and their interrelationships.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             Venkatesh and Bala sought to address this gap by developing TAM3, which combined the
             determinants of perceived usefulness from TAM2 with the determinants of perceived ease
             of use from Venkatesh (2000) into a single integrated model. This integration was not
             merely a mechanical combination of two prior models. TAM3 also examined whether
-            cross-over effects existed between the determinants&mdash;specifically, whether the
+            cross-over effects existed between the determinants-specifically, whether the
             determinants of perceived usefulness also influenced perceived ease of use, or vice
             versa. The researchers hypothesized and tested that no such cross-over effects exist,
             meaning that the antecedents of perceived usefulness and the antecedents of perceived
@@ -363,7 +362,7 @@ const BibliographyArticlePage = () => {
           <ol className="list-decimal list-inside space-y-3 text-sm">
             <li>
               Compeau, D. R., &amp; Higgins, C. A. (1995). Computer self-efficacy: Development of a
-              measure and initial test. <em>MIS Quarterly</em>, 19(2), 189&ndash;211.{' '}
+              measure and initial test. <em>MIS Quarterly</em>, 19(2), 189-211.{' '}
               <a
                 href="https://doi.org/10.2307/249688"
                 target="_blank"
@@ -375,7 +374,7 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               Davis, F. D. (1989). Perceived usefulness, perceived ease of use, and user acceptance
-              of information technology. <em>MIS Quarterly</em>, 13(3), 319&ndash;340.{' '}
+              of information technology. <em>MIS Quarterly</em>, 13(3), 319-340.{' '}
               <a
                 href="https://doi.org/10.2307/249008"
                 target="_blank"
@@ -388,7 +387,7 @@ const BibliographyArticlePage = () => {
             <li>
               Venkatesh, V. (2000). Determinants of perceived ease of use: Integrating control,
               intrinsic motivation, and emotion into the technology acceptance model.{' '}
-              <em>Information Systems Research</em>, 11(4), 342&ndash;365.{' '}
+              <em>Information Systems Research</em>, 11(4), 342-365.{' '}
               <a
                 href="https://doi.org/10.1287/isre.11.4.342.11872"
                 target="_blank"
@@ -400,7 +399,7 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               Venkatesh, V., &amp; Bala, H. (2008). Technology acceptance model 3 and a research
-              agenda on interventions. <em>Decision Sciences</em>, 39(2), 273&ndash;315.{' '}
+              agenda on interventions. <em>Decision Sciences</em>, 39(2), 273-315.{' '}
               <a
                 href="https://doi.org/10.1111/j.1540-5915.2008.00192.x"
                 target="_blank"
@@ -413,7 +412,7 @@ const BibliographyArticlePage = () => {
             <li>
               Venkatesh, V., &amp; Davis, F. D. (2000). A theoretical extension of the technology
               acceptance model: Four longitudinal field studies. <em>Management Science</em>, 46(2),
-              186&ndash;204.{' '}
+              186-204.{' '}
               <a
                 href="https://doi.org/10.1287/mnsc.46.2.186.11926"
                 target="_blank"
@@ -426,7 +425,7 @@ const BibliographyArticlePage = () => {
             <li>
               Venkatesh, V., Morris, M. G., Davis, G. B., &amp; Davis, F. D. (2003). User acceptance
               of information technology: Toward a unified view. <em>MIS Quarterly</em>, 27(3),
-              425&ndash;478.{' '}
+              425-478.{' '}
               <a
                 href="https://doi.org/10.2307/30036540"
                 target="_blank"
@@ -439,7 +438,7 @@ const BibliographyArticlePage = () => {
             <li>
               Venkatesh, V., Thong, J. Y. L., &amp; Xu, X. (2012). Consumer acceptance and use of
               information technology: Extending the unified theory of acceptance and use of
-              technology. <em>MIS Quarterly</em>, 36(1), 157&ndash;178.{' '}
+              technology. <em>MIS Quarterly</em>, 36(1), 157-178.{' '}
               <a
                 href="https://doi.org/10.2307/41410412"
                 target="_blank"

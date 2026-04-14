@@ -10,7 +10,7 @@ import {
 
 export const metadata: Metadata = {
   title:
-    'Bibliography: Unified Theory of Acceptance and Use of Technology 2 (UTAUT2) – Venkatesh et al. (2012)',
+    'Bibliography: Unified Theory of Acceptance and Use of Technology 2 (UTAUT2) - Venkatesh et al. (2012)',
   description:
     'Deep dive into the Unified Theory of Acceptance and Use of Technology 2 (UTAUT2) by Venkatesh, Thong, and Xu (2012), extending the UTAUT framework to consumer technology adoption with hedonic motivation, price value, and habit.',
 }
@@ -20,8 +20,7 @@ const BibliographyArticlePage = () => {
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>
-          Unified Theory of Acceptance and Use of Technology 2 (UTAUT2) &ndash; Venkatesh et al.
-          (2012)
+          Unified Theory of Acceptance and Use of Technology 2 (UTAUT2) - Venkatesh et al. (2012)
         </h1>
 
         {/* Model Identification */}
@@ -48,7 +47,7 @@ const BibliographyArticlePage = () => {
             <p className="text-sm font-mono">
               Venkatesh, V., Thong, J. Y. L., &amp; Xu, X. (2012). Consumer acceptance and use of
               information technology: Extending the unified theory of acceptance and use of
-              technology. <em>MIS Quarterly</em>, 36(1), 157&ndash;178.{' '}
+              technology. <em>MIS Quarterly</em>, 36(1), 157-178.{' '}
               <a
                 href="https://doi.org/10.2307/41410412"
                 target="_blank"
@@ -69,13 +68,13 @@ const BibliographyArticlePage = () => {
             validated entirely within organizational workplace contexts where technology adoption
             decisions are shaped by employer directives, productivity requirements, and
             organizational infrastructure. By the early 2010s, the technology landscape had shifted
-            dramatically. Consumer technologies&mdash;smartphones, tablets, mobile applications,
-            social media platforms, and cloud-based personal services&mdash;had become central to
-            daily life. These consumer technologies differ fundamentally from workplace systems in
-            several important ways: users adopt them voluntarily rather than under organizational
-            mandate, users bear the financial cost rather than employers, and the motivation for
-            adoption frequently includes pleasure and entertainment rather than purely instrumental
-            work performance gains.
+            dramatically. Consumer technologies-smartphones, tablets, mobile applications, social
+            media platforms, and cloud-based personal services-had become central to daily life.
+            These consumer technologies differ fundamentally from workplace systems in several
+            important ways: users adopt them voluntarily rather than under organizational mandate,
+            users bear the financial cost rather than employers, and the motivation for adoption
+            frequently includes pleasure and entertainment rather than purely instrumental work
+            performance gains.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             UTAUT&rsquo;s original constructs, while powerful in organizational settings, did not
@@ -131,7 +130,7 @@ const BibliographyArticlePage = () => {
           <p className={PARAGRAPH_CLASSES}>
             <strong>Hedonic Motivation</strong> is defined as the fun or pleasure derived from using
             a technology. In organizational settings, technology adoption is primarily driven by
-            extrinsic motivation&mdash;the expectation of performance gains. In consumer settings,
+            extrinsic motivation-the expectation of performance gains. In consumer settings,
             however, intrinsic motivation frequently plays an equal or dominant role. Users adopt
             entertainment applications, social media platforms, and gaming technologies primarily
             because they enjoy using them, not because they produce measurable performance outputs.
@@ -174,9 +173,9 @@ const BibliographyArticlePage = () => {
           <p className={PARAGRAPH_CLASSES}>
             UTAUT2 revised the moderating structure of the original UTAUT to reflect consumer
             adoption dynamics. The voluntariness moderator was removed entirely because consumer
-            technology use is inherently voluntary&mdash;no organizational authority compels
-            individuals to adopt personal technologies. This simplification was both theoretically
-            justified and empirically appropriate for the consumer context.
+            technology use is inherently voluntary-no organizational authority compels individuals
+            to adopt personal technologies. This simplification was both theoretically justified and
+            empirically appropriate for the consumer context.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             Gender and age continued to moderate the relationships between the original UTAUT
@@ -186,9 +185,9 @@ const BibliographyArticlePage = () => {
             important finding was the interaction between experience and habit: as users accumulated
             more experience with a technology, the direct effect of habit on use behavior grew
             substantially stronger. This finding explains a well-documented phenomenon in consumer
-            technology research&mdash;that initial adoption and continued use are driven by
-            different factors, with deliberative decision processes dominating initial adoption and
-            automatic habit processes dominating continued use.
+            technology research-that initial adoption and continued use are driven by different
+            factors, with deliberative decision processes dominating initial adoption and automatic
+            habit processes dominating continued use.
           </p>
         </section>
 
@@ -206,11 +205,11 @@ const BibliographyArticlePage = () => {
           <p className={PARAGRAPH_CLASSES}>
             The results demonstrated substantial improvement over the original UTAUT in the consumer
             context. UTAUT2 explained approximately 74 percent of the variance in behavioral
-            intention, compared to 56 percent for the original UTAUT&mdash;an increase of 18
-            percentage points. For actual use behavior, UTAUT2 explained approximately 52 percent of
-            the variance, compared to 40 percent for the original UTAUT&mdash;an increase of 12
-            percentage points. These improvements confirmed that the three new constructs capture
-            meaningful additional explanatory power in consumer settings.
+            intention, compared to 56 percent for the original UTAUT-an increase of 18 percentage
+            points. For actual use behavior, UTAUT2 explained approximately 52 percent of the
+            variance, compared to 40 percent for the original UTAUT-an increase of 12 percentage
+            points. These improvements confirmed that the three new constructs capture meaningful
+            additional explanatory power in consumer settings.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             All three new constructs demonstrated statistically significant effects. Hedonic
@@ -284,8 +283,8 @@ const BibliographyArticlePage = () => {
           <p className={PARAGRAPH_CLASSES}>
             Price value barriers constitute one of the most significant adoption obstacles in
             consumer contexts and are closely linked to digital equity concerns. When the cost of a
-            technology&mdash;including device cost, subscription fees, data charges, and accessory
-            expenses&mdash;exceeds the perceived benefits, consumers will not adopt. These barriers
+            technology-including device cost, subscription fees, data charges, and accessory
+            expenses-exceeds the perceived benefits, consumers will not adopt. These barriers
             disproportionately affect lower-income populations, creating and reinforcing digital
             divides. Understanding price value barriers requires recognizing that &ldquo;cost&rdquo;
             encompasses not only the direct monetary price but also opportunity costs: money spent
@@ -325,7 +324,7 @@ const BibliographyArticlePage = () => {
             <li>
               Davis, F. D., Bagozzi, R. P., &amp; Warshaw, P. R. (1992). Extrinsic and intrinsic
               motivation to use computers in the workplace.{' '}
-              <em>Journal of Applied Social Psychology</em>, 22(14), 1111&ndash;1132.{' '}
+              <em>Journal of Applied Social Psychology</em>, 22(14), 1111-1132.{' '}
               <a
                 href="https://doi.org/10.1111/j.1559-1816.1992.tb00945.x"
                 target="_blank"
@@ -338,7 +337,7 @@ const BibliographyArticlePage = () => {
             <li>
               Kim, S. S., &amp; Malhotra, N. K. (2005). A longitudinal model of continued IS use: An
               integrative view of four mechanisms underlying postadoption phenomena.{' '}
-              <em>Management Science</em>, 51(5), 741&ndash;755.{' '}
+              <em>Management Science</em>, 51(5), 741-755.{' '}
               <a
                 href="https://doi.org/10.1287/mnsc.1040.0326"
                 target="_blank"
@@ -351,7 +350,7 @@ const BibliographyArticlePage = () => {
             <li>
               Limayem, M., Hirt, S. G., &amp; Cheung, C. M. K. (2007). How habit limits the
               predictive power of intention: The case of information systems continuance.{' '}
-              <em>MIS Quarterly</em>, 31(4), 705&ndash;737.{' '}
+              <em>MIS Quarterly</em>, 31(4), 705-737.{' '}
               <a
                 href="https://doi.org/10.2307/25148817"
                 target="_blank"
@@ -363,7 +362,7 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               Samuelson, W., &amp; Zeckhauser, R. (1988). Status quo bias in decision making.{' '}
-              <em>Journal of Risk and Uncertainty</em>, 1(1), 7&ndash;59.{' '}
+              <em>Journal of Risk and Uncertainty</em>, 1(1), 7-59.{' '}
               <a
                 href="https://doi.org/10.1007/BF00055564"
                 target="_blank"
@@ -376,7 +375,7 @@ const BibliographyArticlePage = () => {
             <li>
               Venkatesh, V., Morris, M. G., Davis, G. B., &amp; Davis, F. D. (2003). User acceptance
               of information technology: Toward a unified view. <em>MIS Quarterly</em>, 27(3),
-              425&ndash;478.{' '}
+              425-478.{' '}
               <a
                 href="https://doi.org/10.2307/30036540"
                 target="_blank"
@@ -389,7 +388,7 @@ const BibliographyArticlePage = () => {
             <li>
               Venkatesh, V., Thong, J. Y. L., &amp; Xu, X. (2012). Consumer acceptance and use of
               information technology: Extending the unified theory of acceptance and use of
-              technology. <em>MIS Quarterly</em>, 36(1), 157&ndash;178.{' '}
+              technology. <em>MIS Quarterly</em>, 36(1), 157-178.{' '}
               <a
                 href="https://doi.org/10.2307/41410412"
                 target="_blank"

@@ -11,7 +11,7 @@ import {
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: Personal Computing Acceptance – Thompson et al. (1991)',
+  title: 'Bibliography: Personal Computing Acceptance - Thompson et al. (1991)',
   description:
     'Deep dive into Toward a Conceptual Model of Personal Computing by Ronald L. Thompson, Christopher A. Higgins, Jane M. Howell (1991), exploring its foundational contributions to technology adoption research.',
 }
@@ -20,7 +20,7 @@ const BibliographyArticlePage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
-        <h1 className={H1_CLASSES}>Personal Computing Acceptance – Thompson et al. (1991)</h1>
+        <h1 className={H1_CLASSES}>Personal Computing Acceptance - Thompson et al. (1991)</h1>
 
         {/* Model Identification */}
         <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
@@ -108,7 +108,7 @@ const BibliographyArticlePage = () => {
               measures. The researchers examined discriminant validity by conducting a principal
               components analysis of measurement scales. They confirmed that each construct loaded
               more highly on its hypothesized factor than on other factors, with only one
-              exception—facilitating conditions items loaded slightly higher on social factors for
+              exception-facilitating conditions items loaded slightly higher on social factors for
               some items. This finding indicated appropriate construct separation. Cross-construct
               correlations were computed and reported in Table 6 of the study. These
               intercorrelations between constructs revealed moderate relationships, suggesting that
@@ -178,7 +178,7 @@ const BibliographyArticlePage = () => {
               be primary focus areas. Long-term consequences also significantly influenced
               utilization (.10), but affect and facilitating conditions did not show significant
               direct effects. This suggests that while technical support is important, it is
-              insufficient alone—managers must also address the social environment and perceptions
+              insufficient alone-managers must also address the social environment and perceptions
               of task-technology fit. Third, the model suggests specific managerial actions. For
               social factors, managers can leverage early adopters and organizational champions to
               promote PC usage. The authors note that “visible organizational members to use PCs may
@@ -211,7 +211,7 @@ const BibliographyArticlePage = () => {
               technology matched job tasks. 3.Long-Term Consequences: Measures perceived future
               payoffs from PC use, including career advancement and productivity gains. Six items
               (LT1-LT6) with alpha of .76 assessed beliefs about future benefits and career impacts.
-              4.Affect: Measures emotional attitudes toward PCs—whether individuals like or dislike
+              4.Affect: Measures emotional attitudes toward PCs-whether individuals like or dislike
               them. Three items (AF1-AF3) with alpha of .61 measured affective responses and liking
               for PCs. 5.Social Factors: Measures the perceived importance of others’ opinions
               regarding PC use and social norms about technology.
@@ -238,7 +238,7 @@ const BibliographyArticlePage = () => {
               justification rather than representing purely empirical discovery. This theoretical
               foundation gives the model explanatory power beyond mere statistical association.
               2.Comprehensive construct coverage: Rather than focusing on single factors, the model
-              integrates multiple dimensions—affective, social, cognitive, and contextual—providing
+              integrates multiple dimensions-affective, social, cognitive, and contextual-providing
               a more holistic view of PC utilization determinants. This comprehensiveness
               acknowledged that technology adoption is multifaceted. 3.Actual behavior measurement:
               Unlike many technology acceptance models that measure intentions or beliefs,
@@ -340,7 +340,7 @@ const BibliographyArticlePage = () => {
               made the model more directly applicable to workplace technology adoption. 6.Affect as
               distinct construct: By including affect as a distinct construct from perceived
               usefulness or perceived ease of use, Thompson’s model acknowledged emotional
-              dimensions of technology adoption—whether people like the technology independent of
+              dimensions of technology adoption-whether people like the technology independent of
               rational assessments of usefulness. 7.Path model structure: The model specified
               complex relationships where some factors (job fit, complexity) operate through effects
               on longer-term consequences, while others (social factors) have direct effects. This
@@ -358,16 +358,16 @@ const BibliographyArticlePage = () => {
             <p className={PARAGRAPH_CLASSES}>
               The Thompson model identifies multiple barriers to personal computing adoption and
               utilization that operate across cognitive, affective, social, and contextual
-              dimensions: 1.Perceived Complexity: The model identifies complexity—the perceived
-              difficulty of learning and using personal computers—as a significant barrier to
+              dimensions: 1.Perceived Complexity: The model identifies complexity-the perceived
+              difficulty of learning and using personal computers-as a significant barrier to
               adoption. The study found that higher complexity perceptions were associated with
               lower utilization (path = -.14, p &lt; .01). This barrier manifests when users view
               PCs as difficult to learn or operate, regardless of the system’s objective complexity.
               The negative relationship between complexity and long-term consequences suggests that
               perceptions of difficulty undermine beliefs about future benefits. 2.Poor
               Task-Technology Fit: Job fit emerged as perhaps the most important barrier, with a
-              strong positive path to utilization (.26, p &lt; .01). The inverse—poor job
-              fit—represents a significant barrier.
+              strong positive path to utilization (.26, p &lt; .01). The inverse-poor job
+              fit-represents a significant barrier.
             </p>
             <p className={PARAGRAPH_CLASSES}>
               When users perceive that PCs do not align with their actual job tasks or requirements,
@@ -390,7 +390,7 @@ const BibliographyArticlePage = () => {
               or adoption by colleagues, (b) organizational norms not supporting PC usage, (c)
               absence of respected champions or role models using PCs, and (d) lack of technical
               leadership in the organization promoting adoption. The barrier operates through social
-              pressure and normative influence—if respected others do not use PCs, individuals
+              pressure and normative influence-if respected others do not use PCs, individuals
               question whether adoption is appropriate. 5.Insufficient Facilitating Conditions:
               Although facilitating conditions did not show a significant direct effect on
               utilization (path = -.04), the authors recognize this as a measurement issue rather
@@ -405,8 +405,8 @@ const BibliographyArticlePage = () => {
               computers are an advantage in the job package.” 6.Negative Perceptions of
               Consequences: Long-term consequences showed a significant effect on utilization (.10,
               p &lt; .01). When employees perceive that PC use will not lead to tangible
-              benefits—improved job performance, career advancement, productivity gains, or
-              professional development—they have little incentive to invest effort in learning and
+              benefits-improved job performance, career advancement, productivity gains, or
+              professional development-they have little incentive to invest effort in learning and
               using systems. The barrier manifests as skepticism about ROI, doubts about
               productivity improvements, and uncertainty about career relevance. 7.Organizational
               and Job Context Misalignment: Beyond job fit, broader organizational factors create

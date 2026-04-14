@@ -24,7 +24,7 @@ const ITCMFPage = () => {
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>
-          IT Capability Maturity Framework (IT-CMF&trade;) &ndash; Innovation Value Institute (2016)
+          IT Capability Maturity Framework (IT-CMF&trade;) - Innovation Value Institute (2016)
         </h1>
 
         {/* Framework Identification */}
@@ -49,9 +49,7 @@ const ITCMFPage = () => {
           <div className="bg-blue-50 p-4 rounded border-l-4 border-blue-500">
             <p className="text-sm font-mono">
               Innovation Value Institute. (2016).{' '}
-              <em>
-                IT Capability Maturity Framework™ (IT-CMF™) &ndash; The building block framework.
-              </em>{' '}
+              <em>IT Capability Maturity Framework™ (IT-CMF™) - The building block framework.</em>{' '}
               University of Ireland, Maynooth.
             </p>
           </div>
@@ -71,23 +69,22 @@ const ITCMFPage = () => {
             to proactive, innovation-driven IT management.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            IT-CMF is organized around <strong>seven Building Blocks</strong>&mdash;Governance,
-            Supply Chain, Engagement, IT Operations, IT Development, Performance, and
-            Organization&mdash;each representing a critical domain of IT capability. Across all
-            seven Building Blocks, the framework applies a consistent{' '}
-            <strong>five-level maturity progression</strong> that enables organizations to assess
-            current capabilities, identify improvement priorities, and chart a coherent path toward
-            higher performance. This dual structure of comprehensive scope and measurable
-            progression distinguishes IT-CMF from prior frameworks and positions it as a unifying
-            model for IT management practice.
+            IT-CMF is organized around <strong>seven Building Blocks</strong>-Governance, Supply
+            Chain, Engagement, IT Operations, IT Development, Performance, and Organization-each
+            representing a critical domain of IT capability. Across all seven Building Blocks, the
+            framework applies a consistent <strong>five-level maturity progression</strong> that
+            enables organizations to assess current capabilities, identify improvement priorities,
+            and chart a coherent path toward higher performance. This dual structure of
+            comprehensive scope and measurable progression distinguishes IT-CMF from prior
+            frameworks and positions it as a unifying model for IT management practice.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             A defining characteristic of IT-CMF is its explicit focus on{' '}
-            <strong>IT value realization</strong> and <strong>business&ndash;IT alignment</strong>{' '}
-            as core outcomes. Rather than treating process compliance or technical excellence as
-            ends in themselves, the framework consistently orients capability development toward
-            delivering measurable business value. This orientation synthesizes insights from
-            established frameworks including <strong>ITIL</strong>, <strong>COBIT</strong>,{' '}
+            <strong>IT value realization</strong> and <strong>business-IT alignment</strong> as core
+            outcomes. Rather than treating process compliance or technical excellence as ends in
+            themselves, the framework consistently orients capability development toward delivering
+            measurable business value. This orientation synthesizes insights from established
+            frameworks including <strong>ITIL</strong>, <strong>COBIT</strong>,{' '}
             <strong>CMMI</strong>, and <strong>PMI standards</strong> into a unified, academically
             rigorous approach grounded in ongoing university research and multi-industry
             practitioner collaboration.
@@ -109,15 +106,14 @@ const ITCMFPage = () => {
             perceived IT value stagnated. Executives and boards increasingly questioned why
             significant technology expenditure did not consistently translate into competitive
             advantage, operational improvement, or revenue growth. This gap highlighted that
-            technical capability alone was insufficient&mdash;organizations needed structured
-            approaches to capability development that were explicitly oriented toward value
-            delivery.
+            technical capability alone was insufficient-organizations needed structured approaches
+            to capability development that were explicitly oriented toward value delivery.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             A second major driver was the <strong>fragmentation of IT management frameworks</strong>
-            . By the mid-2000s, multiple frameworks existed&mdash;ITIL for service management, COBIT
-            for governance, CMMI for development capability, PMI for project management&mdash;but
-            each addressed only a portion of the IT management challenge. Organizations struggled to
+            . By the mid-2000s, multiple frameworks existed-ITIL for service management, COBIT for
+            governance, CMMI for development capability, PMI for project management-but each
+            addressed only a portion of the IT management challenge. Organizations struggled to
             select appropriate frameworks, integrate guidance from multiple sources, and understand
             how different frameworks related to each other. The resulting complexity consumed
             management attention and created inconsistency across IT functions without providing a
@@ -126,9 +122,9 @@ const ITCMFPage = () => {
           <p className={PARAGRAPH_CLASSES}>
             A third driver was the fundamental{' '}
             <strong>disconnect between IT operations and business value</strong>. IT organizations
-            frequently focused on operational excellence&mdash;uptime, incident resolution, project
-            delivery&mdash;while business stakeholders evaluated IT based on its contribution to
-            business outcomes: competitive advantage, revenue growth, cost reduction, and innovation
+            frequently focused on operational excellence-uptime, incident resolution, project
+            delivery-while business stakeholders evaluated IT based on its contribution to business
+            outcomes: competitive advantage, revenue growth, cost reduction, and innovation
             capacity. This misalignment meant that IT organizations could achieve high operational
             performance while still being perceived as failing to deliver business value. IT-CMF was
             designed to bridge this divide by embedding business value orientation throughout the
@@ -136,16 +132,15 @@ const ITCMFPage = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             Additional motivations included{' '}
-            <strong>risk management and governance inadequacy</strong>&mdash;organizations faced
+            <strong>risk management and governance inadequacy</strong>-organizations faced
             increasing IT risks from cybersecurity threats, regulatory requirements, and technology
             complexity, but many operated with governance structures that were insufficient to
             manage these risks effectively. The growing{' '}
-            <strong>complexity of modern IT environments</strong>&mdash;encompassing cloud
-            computing, virtualization, mobile technologies, big data, and cross-system
-            integration&mdash;further underscored the need for a comprehensive, integrated model
-            that could address IT capability holistically across structure, governance, processes,
-            performance measurement, risk management, business alignment, and value creation
-            simultaneously.
+            <strong>complexity of modern IT environments</strong>-encompassing cloud computing,
+            virtualization, mobile technologies, big data, and cross-system integration-further
+            underscored the need for a comprehensive, integrated model that could address IT
+            capability holistically across structure, governance, processes, performance
+            measurement, risk management, business alignment, and value creation simultaneously.
           </p>
         </section>
 
@@ -175,14 +170,14 @@ const ITCMFPage = () => {
             </li>
             <li>
               <strong>Engagement Building Block:</strong> Focuses on business stakeholder
-              engagement&mdash;understanding business requirements, communicating IT value, managing
+              engagement-understanding business requirements, communicating IT value, managing
               business relationships, and ensuring that IT investments are aligned with business
               unit needs. Represents the interface between IT organizations and the broader
               enterprise they serve.
             </li>
             <li>
               <strong>IT Operations Building Block:</strong> Encompasses IT service
-              management&mdash;service delivery, system management, incident and problem management,
+              management-service delivery, system management, incident and problem management,
               capacity planning, and performance monitoring. Addresses the ongoing operational
               responsibilities of IT organizations and their capability to deliver consistent,
               reliable technology services.
@@ -215,32 +210,31 @@ const ITCMFPage = () => {
           </p>
           <ol className={BODY_OL_CLASSES}>
             <li>
-              <strong>Level 1 &ndash; Initial:</strong> Processes are ad hoc and reactive. IT
-              operations are characterized by firefighting and crisis management. Little systematic
-              focus on value delivery, governance, or performance measurement. Outcomes depend
-              heavily on individual heroics rather than repeatable processes.
+              <strong>Level 1 - Initial:</strong> Processes are ad hoc and reactive. IT operations
+              are characterized by firefighting and crisis management. Little systematic focus on
+              value delivery, governance, or performance measurement. Outcomes depend heavily on
+              individual heroics rather than repeatable processes.
             </li>
             <li>
-              <strong>Level 2 &ndash; Repeatable:</strong> Processes are structured at an
-              operational level. IT services are delivered with increasing consistency. Basic
-              metrics and monitoring are established. Key processes can be repeated with similar
-              outcomes, though they may not yet be formally documented or standardized.
+              <strong>Level 2 - Repeatable:</strong> Processes are structured at an operational
+              level. IT services are delivered with increasing consistency. Basic metrics and
+              monitoring are established. Key processes can be repeated with similar outcomes,
+              though they may not yet be formally documented or standardized.
             </li>
             <li>
-              <strong>Level 3 &ndash; Defined:</strong> Processes are standardized and documented
-              across the IT organization. Clear governance structures are established.
-              Business&ndash;IT alignment is developing as IT organizations systematically engage
-              with business stakeholders. Performance measurement provides visibility into IT
-              contribution.
+              <strong>Level 3 - Defined:</strong> Processes are standardized and documented across
+              the IT organization. Clear governance structures are established. Business-IT
+              alignment is developing as IT organizations systematically engage with business
+              stakeholders. Performance measurement provides visibility into IT contribution.
             </li>
             <li>
-              <strong>Level 4 &ndash; Optimized:</strong> Processes are continuously improved based
-              on performance data. IT organizations can clearly demonstrate business value
+              <strong>Level 4 - Optimized:</strong> Processes are continuously improved based on
+              performance data. IT organizations can clearly demonstrate business value
               contribution. Risk management is integrated into all major IT decisions. IT investment
               decisions are based on quantitative business value analysis.
             </li>
             <li>
-              <strong>Level 5 &ndash; Innovative:</strong> IT organizations drive organizational
+              <strong>Level 5 - Innovative:</strong> IT organizations drive organizational
               innovation. Value creation is anticipated and realized proactively. IT is recognized
               as a strategic business asset that creates competitive differentiation. The IT
               organization actively shapes business strategy rather than merely supporting it.
@@ -256,10 +250,10 @@ const ITCMFPage = () => {
             <strong>research-based framework development</strong>. The Innovation Value Institute
             conducted a comprehensive review of existing IT management frameworks including ITIL,
             COBIT, CMMI, and PMI standards, combined with analysis of the academic literature on IT
-            value realization, IT governance, and business&ndash;IT alignment. This synthesis
-            ensured that IT-CMF incorporated established knowledge while addressing gaps that prior
-            frameworks had not resolved, particularly the integration of multiple capability domains
-            into a coherent whole and the explicit orientation toward business value outcomes.
+            value realization, IT governance, and business-IT alignment. This synthesis ensured that
+            IT-CMF incorporated established knowledge while addressing gaps that prior frameworks
+            had not resolved, particularly the integration of multiple capability domains into a
+            coherent whole and the explicit orientation toward business value outcomes.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             The <strong>Building Block Framework Architecture</strong> contributes to internal
@@ -277,7 +271,7 @@ const ITCMFPage = () => {
             <strong>empirical testing via case studies</strong> across diverse industries including
             financial services, telecommunications, manufacturing, and government. These case
             studies confirmed that organizations could progress through maturity levels using the
-            framework&rsquo;s guidance, that business&ndash;IT alignment improved as organizations
+            framework&rsquo;s guidance, that business-IT alignment improved as organizations
             advanced through maturity levels, and that organizations implementing IT-CMF as an
             integrated approach achieved better results than those addressing individual elements in
             isolation. Consistent patterns of Level 1 through Level 5 characteristics were observed
@@ -287,12 +281,12 @@ const ITCMFPage = () => {
           <p className={PARAGRAPH_CLASSES}>
             The framework&rsquo;s <strong>integrated approach validation</strong> is a particularly
             important dimension of internal validity. IT-CMF was designed with the hypothesis that
-            IT capability must be addressed holistically&mdash;that improvements in one Building
-            Block without corresponding development in related Building Blocks would yield
-            suboptimal results. Case study evidence supported this hypothesis: organizations that
-            advanced capability coherently across multiple Building Blocks demonstrated sustained
-            performance improvements, while those that focused narrowly on a single domain often
-            experienced capability bottlenecks that limited overall IT effectiveness.
+            IT capability must be addressed holistically-that improvements in one Building Block
+            without corresponding development in related Building Blocks would yield suboptimal
+            results. Case study evidence supported this hypothesis: organizations that advanced
+            capability coherently across multiple Building Blocks demonstrated sustained performance
+            improvements, while those that focused narrowly on a single domain often experienced
+            capability bottlenecks that limited overall IT effectiveness.
           </p>
         </section>
 
@@ -314,9 +308,8 @@ const ITCMFPage = () => {
             has been applied in North America, Europe, Asia-Pacific, and emerging markets,
             demonstrating that the framework&rsquo;s concepts translate across different
             organizational cultures, regulatory regimes, and technology infrastructure environments.
-            The framework&rsquo;s university research foundation&mdash;grounded in ongoing IVI
-            research at University of Ireland Maynooth&mdash;supports academic rigor and
-            cross-cultural applicability.
+            The framework&rsquo;s university research foundation-grounded in ongoing IVI research at
+            University of Ireland Maynooth-supports academic rigor and cross-cultural applicability.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             The framework demonstrates external validity across{' '}
@@ -342,11 +335,11 @@ const ITCMFPage = () => {
             <strong>business value correlation</strong> observed across implementing organizations.
             Organizations advancing in IT-CMF maturity demonstrated measurable correlations with
             cost reduction, faster technology delivery, improved service quality, enhanced
-            innovation capability, and better business&ndash;IT alignment. The{' '}
-            <strong>sustainability of capability improvements</strong>&mdash;with organizations
+            innovation capability, and better business-IT alignment. The{' '}
+            <strong>sustainability of capability improvements</strong>-with organizations
             maintaining advances over extended periods rather than regressing after initial
-            assessment efforts&mdash;further validates the framework&rsquo;s practical applicability
-            to long-term IT capability development.
+            assessment efforts-further validates the framework&rsquo;s practical applicability to
+            long-term IT capability development.
           </p>
         </section>
 
@@ -355,7 +348,7 @@ const ITCMFPage = () => {
           <h2 className={H2_CLASSES}>Key Contributions and Strengths</h2>
           <p className={PARAGRAPH_CLASSES}>
             IT-CMF&rsquo;s most significant contribution is its{' '}
-            <strong>integrated approach to IT capability</strong>&mdash;it is the first framework to
+            <strong>integrated approach to IT capability</strong>-it is the first framework to
             systematically address governance, operations, development, supply chain, engagement,
             performance, and organization together within a single, coherent model. Prior frameworks
             addressed important but isolated dimensions of IT management; IT-CMF provides the
@@ -366,12 +359,12 @@ const ITCMFPage = () => {
           <p className={PARAGRAPH_CLASSES}>
             The framework&rsquo;s <strong>strong business value orientation</strong> represents a
             conceptual advance over purely process-focused predecessors. By making IT value
-            realization an explicit core outcome of capability development&mdash;rather than an
-            implicit byproduct of process compliance&mdash;IT-CMF directly addresses the most
-            persistent criticism of IT management frameworks: that they generate process overhead
-            without demonstrably improving business outcomes. This orientation also facilitates more
-            productive dialogue between IT leadership and business executives by providing a shared
-            vocabulary for discussing IT contribution in business terms.
+            realization an explicit core outcome of capability development-rather than an implicit
+            byproduct of process compliance-IT-CMF directly addresses the most persistent criticism
+            of IT management frameworks: that they generate process overhead without demonstrably
+            improving business outcomes. This orientation also facilitates more productive dialogue
+            between IT leadership and business executives by providing a shared vocabulary for
+            discussing IT contribution in business terms.
           </p>
           <p className={PARAGRAPH_CLASSES}>Additional key strengths include:</p>
           <ul className={BODY_LIST_CLASSES}>
@@ -407,12 +400,12 @@ const ITCMFPage = () => {
             community and fewer readily available implementation resources. Implementation requires
             significant investment in assessment and capability development across all seven
             Building Blocks, which can be daunting for resource-constrained organizations. The
-            framework is less prescriptive than ITIL or CMMI&mdash;providing strategic guidance
-            rather than detailed procedures&mdash;which may challenge organizations seeking highly
-            specific implementation direction. Building Block integration in practice requires
-            substantial organizational change management, and the limited certification ecosystem
-            compared to more established frameworks reduces the availability of credentialed
-            practitioners who can support implementation.
+            framework is less prescriptive than ITIL or CMMI-providing strategic guidance rather
+            than detailed procedures-which may challenge organizations seeking highly specific
+            implementation direction. Building Block integration in practice requires substantial
+            organizational change management, and the limited certification ecosystem compared to
+            more established frameworks reduces the availability of credentialed practitioners who
+            can support implementation.
           </p>
         </section>
 
@@ -423,31 +416,30 @@ const ITCMFPage = () => {
             IT-CMF is directly relevant to technology adoption because it addresses the
             <strong> IT organizational capability</strong> required for organizations to
             successfully identify, evaluate, implement, and sustain new technologies. Technology
-            adoption does not occur in isolation&mdash;it depends on the maturity of the
-            organizational systems that govern technology decisions, manage vendor relationships,
-            engage business stakeholders, implement and operate technologies, measure outcomes, and
-            develop the human capital needed to leverage new tools effectively. IT-CMF provides a
-            comprehensive map of these organizational prerequisites for adoption success.
+            adoption does not occur in isolation-it depends on the maturity of the organizational
+            systems that govern technology decisions, manage vendor relationships, engage business
+            stakeholders, implement and operate technologies, measure outcomes, and develop the
+            human capital needed to leverage new tools effectively. IT-CMF provides a comprehensive
+            map of these organizational prerequisites for adoption success.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            The <strong>Engagement Building Block</strong> addresses the business&ndash;IT
-            relationship that is critical to identifying and adopting technologies that create
-            genuine business value. Organizations with immature engagement capabilities adopt
-            technologies that fail to meet business needs&mdash;not because the technologies are
-            unsuitable but because business requirements were not adequately understood or
-            communicated. Higher Engagement maturity enables organizations to identify technology
-            opportunities collaboratively with business stakeholders, increasing the probability
-            that adopted technologies will generate the expected returns.
+            The <strong>Engagement Building Block</strong> addresses the business-IT relationship
+            that is critical to identifying and adopting technologies that create genuine business
+            value. Organizations with immature engagement capabilities adopt technologies that fail
+            to meet business needs-not because the technologies are unsuitable but because business
+            requirements were not adequately understood or communicated. Higher Engagement maturity
+            enables organizations to identify technology opportunities collaboratively with business
+            stakeholders, increasing the probability that adopted technologies will generate the
+            expected returns.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             The <strong>Governance Building Block</strong> ensures that technology adoption
             decisions receive appropriate executive oversight and strategic alignment. Without
-            mature governance, technology adoption can become fragmented&mdash;driven by
-            departmental preferences rather than organizational strategy&mdash;resulting in
-            incompatible systems, duplicated investments, and missed opportunities for
-            enterprise-scale value realization. Governance maturity ensures that technology adoption
-            decisions are made with full awareness of strategic context, risk tolerance, and
-            organizational capacity for change.
+            mature governance, technology adoption can become fragmented-driven by departmental
+            preferences rather than organizational strategy-resulting in incompatible systems,
+            duplicated investments, and missed opportunities for enterprise-scale value realization.
+            Governance maturity ensures that technology adoption decisions are made with full
+            awareness of strategic context, risk tolerance, and organizational capacity for change.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             The <strong>Supply Chain Building Block</strong> guides technology vendor selection and
@@ -483,7 +475,7 @@ const ITCMFPage = () => {
             <li>
               Innovation Value Institute. (2016).{' '}
               <em>
-                IT Capability Maturity Framework&trade; (IT-CMF&trade;) &ndash; The building block
+                IT Capability Maturity Framework&trade; (IT-CMF&trade;) - The building block
                 framework.
               </em>{' '}
               University of Ireland, Maynooth.

@@ -11,7 +11,7 @@ import {
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: Dynamic Capabilities Framework – Teece, Pisano, & Shuen (1997)',
+  title: 'Bibliography: Dynamic Capabilities Framework - Teece, Pisano, & Shuen (1997)',
   description:
     'An exploration of the Dynamic Capabilities Framework and how it extends the Resource-Based View to address sustained competitive advantage in rapidly changing, turbulent environments through organizational sensing, seizing, and transformation.',
 }
@@ -21,7 +21,7 @@ const DynamicCapabilitiesPage = () => {
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>
-          Bibliography: Dynamic Capabilities Framework &ndash; Teece, Pisano, &amp; Shuen (1997)
+          Bibliography: Dynamic Capabilities Framework - Teece, Pisano, &amp; Shuen (1997)
         </h1>
 
         {/* Framework Identification */}
@@ -46,7 +46,7 @@ const DynamicCapabilitiesPage = () => {
           <div className="bg-blue-50 p-4 rounded border-l-4 border-blue-500">
             <p className="text-sm font-mono">
               Teece, D. J., Pisano, G., &amp; Shuen, A. (1997). Dynamic capabilities and strategic
-              management. <em>Strategic Management Journal</em>, 18(7), 509&ndash;533.
+              management. <em>Strategic Management Journal</em>, 18(7), 509-533.
             </p>
           </div>
         </section>
@@ -99,7 +99,7 @@ const DynamicCapabilitiesPage = () => {
             technological turbulence, and rapidly changing markets (exemplified by the information
             technology, telecommunications, and biotechnology sectors), traditional competitive
             advantage grounded in stable, inimitable resource positions was insufficient. Firms
-            needed different capabilities—not just the ability to exploit existing resources but the
+            needed different capabilities-not just the ability to exploit existing resources but the
             ability to sense market opportunities and threats, to seize opportunities through
             organizational restructuring, and to continuously reconfigure organizational assets and
             resources in response to environmental change.
@@ -108,10 +108,10 @@ const DynamicCapabilitiesPage = () => {
             Additionally, the framework was motivated by observation that many firms failed to adapt
             as environments changed because they were locked into existing capabilities and
             resources. What Teece and colleagues termed &ldquo;organizational rigidities&rdquo; or
-            &ldquo;core rigidities&rdquo;&mdash;deep organizational commitments to particular
-            resource configurations that had worked well in the past&mdash;prevented organizations
-            from adapting when environments changed. The framework provides guidance for overcoming
-            these organizational rigidities and maintaining organizational flexibility and adaptive
+            &ldquo;core rigidities&rdquo;-deep organizational commitments to particular resource
+            configurations that had worked well in the past-prevented organizations from adapting
+            when environments changed. The framework provides guidance for overcoming these
+            organizational rigidities and maintaining organizational flexibility and adaptive
             capacity.
           </p>
 
@@ -207,7 +207,7 @@ const DynamicCapabilitiesPage = () => {
             management thinking, shifting focus from what resources the organization currently
             possesses to how organizations develop new resources and transform existing resources as
             environments change. This shift from static to dynamic represents a fundamental
-            reorientation—from what the organization has to what the organization can do and become.
+            reorientation-from what the organization has to what the organization can do and become.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             While earlier frameworks focused on resource stocks (what the organization possesses),
@@ -221,9 +221,9 @@ const DynamicCapabilitiesPage = () => {
             adaptation. While Barney&rsquo;s VRIO framework focused on creating sustained
             competitive advantage by developing resources that competitors cannot imitate, the
             Dynamic Capabilities Framework acknowledges that in turbulent environments, sustained
-            advantage is often impossible&mdash;the best organizations can do is continuously adapt
-            faster than competitors. This shift from pursuing sustainable advantage to pursuing
-            dynamic adaptation represents a fundamental change in strategic thinking.
+            advantage is often impossible-the best organizations can do is continuously adapt faster
+            than competitors. This shift from pursuing sustainable advantage to pursuing dynamic
+            adaptation represents a fundamental change in strategic thinking.
           </p>
 
           <h2 className={H2_CLASSES}>Application to Technology Adoption</h2>
@@ -288,7 +288,7 @@ const DynamicCapabilitiesPage = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             However, the framework also acknowledges the constraints imposed by path
-            dependence—organizational capabilities and competitive positions are shaped by
+            dependence-organizational capabilities and competitive positions are shaped by
             historical development paths and previous resource commitments. Some capabilities can be
             readily changed while others are constrained by historical choices, investments, and
             organizational commitments. Understanding these path dependencies helps organizations
@@ -386,7 +386,7 @@ const DynamicCapabilitiesPage = () => {
           <p className={PARAGRAPH_CLASSES}>
             The Dynamic Capabilities Framework has important connections to organizational learning
             theory and innovation research. The framework suggests that organizations develop
-            dynamic capabilities through organizational learning processes—by systematically
+            dynamic capabilities through organizational learning processes-by systematically
             learning from experience, capturing learning in organizational routines, and
             continuously improving capabilities. This connection to learning theory enriches
             understanding of how dynamic capabilities develop over time.

@@ -59,30 +59,30 @@ const DataQualityPage = () => {
           </p>
           <ol className={BODY_OL_CLASSES}>
             <li>
-              <strong>Qualtrics Export</strong> &mdash; Raw survey responses exported via API
+              <strong>Qualtrics Export</strong> - Raw survey responses exported via API
               (3-header-row CSV format with question text and import IDs)
             </li>
             <li>
-              <strong>Prolific Enrichment</strong> &mdash; Each response is cross-referenced with
-              Prolific submission data (approval status, auth check scores) using the participant ID
-              as join key
+              <strong>Prolific Enrichment</strong> - Each response is cross-referenced with Prolific
+              submission data (approval status, auth check scores) using the participant ID as join
+              key
             </li>
             <li>
-              <strong>Deduplication</strong> &mdash; When a participant retakes the survey, only one
+              <strong>Deduplication</strong> - When a participant retakes the survey, only one
               response is kept. Completed responses are preferred over incomplete retakes (see Edge
               Cases below)
             </li>
             <li>
-              <strong>Disposition Waterfall</strong> &mdash; An 11-step quality classification
-              assigns each response to exactly one disposition category
+              <strong>Disposition Waterfall</strong> - An 11-step quality classification assigns
+              each response to exactly one disposition category
             </li>
             <li>
-              <strong>Sample Definition</strong> &mdash; Three nested samples are computed, from
-              most restrictive (Conservative Clean) to least restrictive (Prolific Accepted)
+              <strong>Sample Definition</strong> - Three nested samples are computed, from most
+              restrictive (Conservative Clean) to least restrictive (Prolific Accepted)
             </li>
             <li>
-              <strong>Statistical Analysis</strong> &mdash; Every metric is computed independently
-              across all three samples
+              <strong>Statistical Analysis</strong> - Every metric is computed independently across
+              all three samples
             </li>
           </ol>
         </section>
@@ -111,7 +111,7 @@ const DataQualityPage = () => {
                 <tr>
                   <td className="border border-gray-300 px-4 py-2 font-semibold">Source</td>
                   <td className="border border-gray-300 px-4 py-2">
-                    Self-reported in the TABS survey instrument (questions Q1&ndash;Q9)
+                    Self-reported in the TABS survey instrument (questions Q1-Q9)
                   </td>
                   <td className="border border-gray-300 px-4 py-2">
                     Prolific participant profile database (archived at submission completion)
@@ -130,7 +130,7 @@ const DataQualityPage = () => {
                   <td className="border border-gray-300 px-4 py-2 font-semibold">Base Fields</td>
                   <td className="border border-gray-300 px-4 py-2">
                     Executive Role (Q1), Decision Authority (Q2), Industry (Q3), Org Size (Q4),
-                    Profit Model (Q5), Revenue/Budget (Q6&ndash;Q7), Geography (Q8&ndash;Q9)
+                    Profit Model (Q5), Revenue/Budget (Q6-Q7), Geography (Q8-Q9)
                   </td>
                   <td className="border border-gray-300 px-4 py-2">
                     Age, Sex, Ethnicity, Language, Country of Residence, Nationality, Country of
@@ -142,7 +142,7 @@ const DataQualityPage = () => {
                     Prescreener Fields
                   </td>
                   <td className="border border-gray-300 px-4 py-2 text-gray-400 italic">
-                    N/A &mdash; all fields are part of the survey instrument
+                    N/A - all fields are part of the survey instrument
                   </td>
                   <td className="border border-gray-300 px-4 py-2">
                     Employment Sector, Industry, Company Size, Occupation, Education Level,
@@ -244,14 +244,14 @@ const DataQualityPage = () => {
               <li>
                 Demographics are fetched to{' '}
                 <code className="bg-red-100 px-1 rounded">runner.temp</code> during pipeline
-                execution &mdash; never committed to the repository
+                execution - never committed to the repository
               </li>
               <li>
                 Cross-validation checks run in-memory; only aggregate pass/fail flags are emitted
               </li>
               <li>
                 Published results pages display only category-level aggregates from Qualtrics survey
-                data (Q1&ndash;Q9), never individual Prolific profile data
+                data (Q1-Q9), never individual Prolific profile data
               </li>
               <li>
                 The <code className="bg-red-100 px-1 rounded">PROLIFIC_STUDY_SCREENERS</code>{' '}
@@ -331,11 +331,11 @@ const DataQualityPage = () => {
           </div>
         </section>
         <section className="mb-12 text-gray-800">
-          <h2 className={H2_CLASSES}>Disposition Waterfall (Steps 0&ndash;10)</h2>
+          <h2 className={H2_CLASSES}>Disposition Waterfall (Steps 0-10)</h2>
           <p className={PARAGRAPH_CLASSES}>
-            Each response is evaluated through this 11-step waterfall (steps 0&ndash;10). The{' '}
-            <strong>first matching step</strong> determines the disposition &mdash; a response is
-            never counted in multiple categories.
+            Each response is evaluated through this 11-step waterfall (steps 0-10). The{' '}
+            <strong>first matching step</strong> determines the disposition - a response is never
+            counted in multiple categories.
           </p>
           <div className="overflow-x-auto my-6">
             <table className="w-full border-collapse font-sans text-sm">
@@ -398,9 +398,8 @@ const DataQualityPage = () => {
           <h2 className={H2_CLASSES}>Instructed Response Items (IRIs)</h2>
           <p className={PARAGRAPH_CLASSES}>
             Three attention check items are embedded within the survey, one per construct. Each
-            instructs the respondent to select a specific answer. Exact string match is required
-            &mdash; any other value (including &ldquo;Don&rsquo;t Know&rdquo;) is scored as a
-            failure.
+            instructs the respondent to select a specific answer. Exact string match is required -
+            any other value (including &ldquo;Don&rsquo;t Know&rdquo;) is scored as a failure.
           </p>
           <div className="overflow-x-auto my-6">
             <table className="w-full border-collapse font-sans text-sm">
@@ -788,25 +787,25 @@ const DataQualityPage = () => {
               <Link href="/results/crp-2026/descriptive" className="text-blue-600 hover:underline">
                 Descriptive Statistics
               </Link>{' '}
-              &mdash; grand means, standard deviations, correlations
+              - grand means, standard deviations, correlations
             </li>
             <li>
               <Link href="/results/crp-2026/reliability" className="text-blue-600 hover:underline">
                 Scale Reliability
               </Link>{' '}
-              &mdash; Cronbach&rsquo;s alpha across all three samples
+              - Cronbach&rsquo;s alpha across all three samples
             </li>
             <li>
               <Link href="/results/crp-2026/sensitivity" className="text-blue-600 hover:underline">
                 Sensitivity Analysis
               </Link>{' '}
-              &mdash; every metric across all sample definitions
+              - every metric across all sample definitions
             </li>
             <li>
               <Link href="/results/crp-2026/sample" className="text-blue-600 hover:underline">
                 Sample &amp; Demographics
               </Link>{' '}
-              &mdash; who participated in the survey
+              - who participated in the survey
             </li>
             <li>
               <Link href="/results/crp-2026" className="text-blue-600 hover:underline">

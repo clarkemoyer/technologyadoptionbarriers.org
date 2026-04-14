@@ -14,7 +14,7 @@ import {
 
 export const metadata: Metadata = {
   title:
-    'Bibliography: AWS Prescriptive Guidance – Enterprise Transformation Framework (ETF) (2024)',
+    'Bibliography: AWS Prescriptive Guidance - Enterprise Transformation Framework (ETF) (2024)',
   description:
     'An exploration of the AWS Prescriptive Guidance on Strategic Transformation and Change Methodology (Enterprise Transformation Framework), a comprehensive framework published by Amazon Web Services in 2024 for accelerating return on cloud investment through systematic organizational transformation.',
 }
@@ -24,8 +24,8 @@ const AWSETFPage = () => {
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>
-          AWS Prescriptive Guidance: Enterprise Transformation Framework (ETF) &ndash; Amazon Web
-          Services (2024)
+          AWS Prescriptive Guidance: Enterprise Transformation Framework (ETF) - Amazon Web Services
+          (2024)
         </h1>
 
         {/* Framework Identification */}
@@ -70,7 +70,7 @@ const AWSETFPage = () => {
             (commonly referred to as the AWS Enterprise Transformation Framework, or AWS ETF) in
             2024, addressing a critical gap in organizational cloud adoption practice. The framework
             recognizes that many organizations successfully deploy cloud technologies but fail to
-            capture the full business value potential of those investments &ndash; not because of
+            capture the full business value potential of those investments - not because of
             technical shortcomings, but because they neglect the organizational transformation and
             change management required to realize cloud&rsquo;s strategic potential.
           </p>
@@ -98,10 +98,10 @@ const AWSETFPage = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             The framework emerged from AWS observation that many organizations approach cloud
-            adoption primarily as an IT transformation &ndash; moving from on-premises
-            infrastructure to cloud infrastructure. While this technical transformation is
-            necessary, it is insufficient to capture the full economic value available from cloud
-            investment. Organizations must simultaneously address business process transformation,
+            adoption primarily as an IT transformation - moving from on-premises infrastructure to
+            cloud infrastructure. While this technical transformation is necessary, it is
+            insufficient to capture the full economic value available from cloud investment.
+            Organizations must simultaneously address business process transformation,
             organizational design changes, financial management transformation, and operational
             model evolution.
           </p>
@@ -227,8 +227,8 @@ const AWSETFPage = () => {
           <ul className={BODY_LIST_CLASSES}>
             <li>
               <strong>Applicability Across Industry Sectors:</strong> The framework provides
-              specific guidance applicable across different industry sectors &ndash; from technology
-              to banking, insurance, healthcare, oil and gas, and retail organizations.
+              specific guidance applicable across different industry sectors - from technology to
+              banking, insurance, healthcare, oil and gas, and retail organizations.
             </li>
             <li>
               <strong>Applicability Across Different Organizational Maturity Levels:</strong> The
@@ -341,7 +341,7 @@ const AWSETFPage = () => {
             </li>
             <li>
               Amazon Web Services. (2022).{' '}
-              <em>AWS Cloud Adoption Framework (AWS CAF) &ndash; Version 3.0</em>. AWS Whitepaper.
+              <em>AWS Cloud Adoption Framework (AWS CAF) - Version 3.0</em>. AWS Whitepaper.
             </li>
             <li>
               Prosci. (2021).{' '}

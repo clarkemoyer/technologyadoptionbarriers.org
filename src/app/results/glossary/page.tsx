@@ -50,12 +50,12 @@ const ENTRIES: GlossaryEntry[] = [
     term: "Cronbach's Alpha (α)",
     category: 'Reliability',
     whatItMeasures:
-      'Internal consistency reliability – the degree to which all items in a scale measure the same underlying construct. Higher alpha means items are more closely related.',
+      'Internal consistency reliability - the degree to which all items in a scale measure the same underlying construct. Higher alpha means items are more closely related.',
     howCalculated:
       'α = (k / (k − 1)) × (1 − Σs²ᵢ / s²ₜ), where k = number of items, s²ᵢ = variance of each item, s²ₜ = variance of the total score. TABS also reports the Feldt (1965) 95% confidence interval.',
     thresholds:
       '≥ 0.70 acceptable, ≥ 0.80 good, ≥ 0.90 excellent. Values above 0.95 may indicate item redundancy.',
-    tabsContext: `Barriers α = ${f3(b.cronbach_alpha)}, Readiness α = ${f3(r.cronbach_alpha)}, Maturity α = ${f3(m.cronbach_alpha)} – all in the "good to excellent" range.`,
+    tabsContext: `Barriers α = ${f3(b.cronbach_alpha)}, Readiness α = ${f3(r.cronbach_alpha)}, Maturity α = ${f3(m.cronbach_alpha)} - all in the "good to excellent" range.`,
   },
   {
     id: 'mcdonalds-omega',
@@ -67,7 +67,7 @@ const ENTRIES: GlossaryEntry[] = [
       'ω = (Σλᵢ)² / ((Σλᵢ)² + Σ(1 − λ²ᵢ)), where λᵢ are the standardized factor loadings from a single-factor model. This is equivalent to total reliability omega.',
     thresholds:
       'Same thresholds as alpha (≥ 0.70 acceptable). Omega is generally preferred over alpha by modern psychometricians because it relaxes the tau-equivalent assumption.',
-    tabsContext: `Barriers ω = ${f3(b.mcdonalds_omega)}, Readiness ω = ${f3(r.mcdonalds_omega)}, Maturity ω = ${f3(m.mcdonalds_omega)} – very close to alpha values, suggesting reasonably tau-equivalent item loadings.`,
+    tabsContext: `Barriers ω = ${f3(b.mcdonalds_omega)}, Readiness ω = ${f3(r.mcdonalds_omega)}, Maturity ω = ${f3(m.mcdonalds_omega)} - very close to alpha values, suggesting reasonably tau-equivalent item loadings.`,
   },
   {
     id: 'composite-reliability',
@@ -79,7 +79,7 @@ const ENTRIES: GlossaryEntry[] = [
       'CR = (Σλᵢ)² / ((Σλᵢ)² + Σε²ᵢ), where λᵢ are standardized factor loadings and ε²ᵢ = 1 − λ²ᵢ are the error variances. Numerically equivalent to omega when computed from the same loadings.',
     thresholds:
       '≥ 0.70 acceptable, ≥ 0.80 good. When CR exceeds 0.70 but AVE falls below 0.50, convergent validity is "adequate" per Fornell & Larcker (1981).',
-    tabsContext: `Barriers CR = ${f3(b.composite_reliability)}, Readiness CR = ${f3(r.composite_reliability)}, Maturity CR = ${f3(m.composite_reliability)} – all above 0.80, compensating for below-threshold AVE values.`,
+    tabsContext: `Barriers CR = ${f3(b.composite_reliability)}, Readiness CR = ${f3(r.composite_reliability)}, Maturity CR = ${f3(m.composite_reliability)} - all above 0.80, compensating for below-threshold AVE values.`,
   },
   {
     id: 'split-half',
@@ -90,8 +90,8 @@ const ENTRIES: GlossaryEntry[] = [
     howCalculated:
       'rₛₕ = 2r / (1 + r), where r is the Pearson correlation between the two half-scores. This is the Spearman-Brown prophecy formula, which estimates what the reliability would be if both halves were combined.',
     thresholds:
-      'Same as alpha: ≥ 0.70 acceptable. Split-half reliability provides a useful cross-check against alpha – large discrepancies suggest item ordering effects.',
-    tabsContext: `Barriers = ${f3(b.split_half)}, Readiness = ${f3(r.split_half)}, Maturity = ${f3(m.split_half)} – all consistent with alpha/omega values.`,
+      'Same as alpha: ≥ 0.70 acceptable. Split-half reliability provides a useful cross-check against alpha - large discrepancies suggest item ordering effects.',
+    tabsContext: `Barriers = ${f3(b.split_half)}, Readiness = ${f3(r.split_half)}, Maturity = ${f3(m.split_half)} - all consistent with alpha/omega values.`,
   },
   {
     id: 'alpha-if-deleted',
@@ -158,7 +158,7 @@ const ENTRIES: GlossaryEntry[] = [
     thresholds:
       'p < .05 required. In practice, large samples almost always produce significant results, so this is a necessary but not sufficient condition.',
     tabsContext:
-      'All three constructs: p < .001 – highly significant, confirming factor analysis is appropriate.',
+      'All three constructs: p < .001 - highly significant, confirming factor analysis is appropriate.',
   },
   {
     id: 'efa',
@@ -180,7 +180,7 @@ const ENTRIES: GlossaryEntry[] = [
     whatItMeasures:
       'The number of factors to retain in EFA. It compares actual eigenvalues from the data against eigenvalues generated from random data of the same dimensionality. Factors are retained only when actual eigenvalues exceed the random expectation.',
     howCalculated:
-      'Generate many (typically 100–1,000) random datasets with the same N and k. Compute eigenvalues for each. Retain factors whose actual eigenvalues exceed the 95th percentile of the random eigenvalues.',
+      'Generate many (typically 100-1,000) random datasets with the same N and k. Compute eigenvalues for each. Retain factors whose actual eigenvalues exceed the 95th percentile of the random eigenvalues.',
     thresholds:
       'Retain factors where actual eigenvalue > 95th percentile random eigenvalue. This is more accurate than the Kaiser criterion (eigenvalue > 1.0), which tends to over-extract factors.',
     tabsContext: `Barriers: ${b.parallel_analysis.n_factors} factors retained (eigenvalues ${b.parallel_analysis.eigenvalues_real[0].toFixed(2)}, ${b.parallel_analysis.eigenvalues_real[1].toFixed(2)} > random thresholds). Readiness: ${r.parallel_analysis.n_factors} factor (only first eigenvalue ${r.parallel_analysis.eigenvalues_real[0].toFixed(2)} exceeds threshold). Maturity: ${m.parallel_analysis.n_factors} factor (eigenvalue ${m.parallel_analysis.eigenvalues_real[0].toFixed(2)} exceeds threshold).`,
@@ -204,9 +204,9 @@ const ENTRIES: GlossaryEntry[] = [
     term: 'Average Variance Extracted (AVE)',
     category: 'Validity',
     whatItMeasures:
-      'The proportion of variance in the items that is captured by the latent construct (as opposed to measurement error). AVE is the core measure of convergent validity – whether items converge on their intended construct.',
+      'The proportion of variance in the items that is captured by the latent construct (as opposed to measurement error). AVE is the core measure of convergent validity - whether items converge on their intended construct.',
     howCalculated:
-      'AVE = Σλ²ᵢ / k, where λᵢ are the standardized factor loadings and k is the number of items. This is the mean of the squared loadings – the average communality.',
+      'AVE = Σλ²ᵢ / k, where λᵢ are the standardized factor loadings and k is the number of items. This is the mean of the squared loadings - the average communality.',
     thresholds:
       '≥ 0.50 indicates that the construct explains more variance in its items than error does. When AVE < 0.50 but CR > 0.70, convergent validity is "adequate" per Fornell & Larcker (1981). Below 0.50 is common in broad, multi-faceted constructs with many items.',
     tabsContext: `Barriers AVE = ${f3(b.ave)}, Readiness AVE = ${f3(r.ave)}, Maturity AVE = ${f3(m.ave)}. All below the ideal .50, but all have CR > .80. The 18-item Barriers scale measures diverse barrier types, naturally reducing AVE. Maturity (${validationData.metadata.n_maturity} homogeneous items) is closest to the threshold.`,
@@ -216,7 +216,7 @@ const ENTRIES: GlossaryEntry[] = [
     term: 'Heterotrait-Monotrait Ratio (HTMT)',
     category: 'Validity',
     whatItMeasures:
-      'Discriminant validity – whether two constructs are empirically distinct. HTMT estimates the correlation between constructs as if they were measured perfectly (correcting for measurement error). Lower values indicate better discrimination.',
+      'Discriminant validity - whether two constructs are empirically distinct. HTMT estimates the correlation between constructs as if they were measured perfectly (correcting for measurement error). Lower values indicate better discrimination.',
     howCalculated:
       'HTMT = mean(heterotrait-heteromethod correlations) / geometric mean of (mean(monotrait-heteromethod correlations) for each construct). Bootstrap confidence intervals (2,000 iterations) are reported for inferential testing.',
     thresholds:
@@ -282,7 +282,7 @@ const ENTRIES: GlossaryEntry[] = [
     term: 'Communality',
     category: 'Factor Analysis',
     whatItMeasures:
-      'The proportion of an item\'s variance that is explained by the extracted factors. It is the item-level analogue of R² – "how much of this item is captured by the factors?"',
+      'The proportion of an item\'s variance that is explained by the extracted factors. It is the item-level analogue of R² - "how much of this item is captured by the factors?"',
     howCalculated:
       'h²ᵢ = Σλ²ᵢⱼ across all retained factors, where λᵢⱼ is the loading of item i on factor j. Equivalently, 1 minus the uniqueness.',
     thresholds:
@@ -350,7 +350,7 @@ const ENTRIES: GlossaryEntry[] = [
     term: 'Standardized Root Mean Square Residual (SRMR)',
     category: 'CFA Fit Indices',
     whatItMeasures:
-      'The average discrepancy between the observed and model-implied correlation matrices, standardized to a 0–1 scale. Lower values indicate the model reproduces the correlations more faithfully.',
+      'The average discrepancy between the observed and model-implied correlation matrices, standardized to a 0-1 scale. Lower values indicate the model reproduces the correlations more faithfully.',
     howCalculated:
       'SRMR = √(ΣΣ(sᵢⱼ − σ̂ᵢⱼ)² / (k(k+1)/2)), where s and σ̂ are observed and predicted correlations.',
     thresholds:

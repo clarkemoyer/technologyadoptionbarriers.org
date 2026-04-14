@@ -11,7 +11,7 @@ import {
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: Technology Readiness and Acceptance Model (TRAM) – Lin et al. (2007)',
+  title: 'Bibliography: Technology Readiness and Acceptance Model (TRAM) - Lin et al. (2007)',
   description:
     'Deep dive into the Technology Readiness and Acceptance Model (TRAM) by Lin et al. (2007), exploring its foundational contributions to technology adoption research.',
 }
@@ -21,7 +21,7 @@ const BibliographyArticlePage = () => {
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>
-          Technology Readiness and Acceptance Model (TRAM) – Lin et al. (2007)
+          Technology Readiness and Acceptance Model (TRAM) - Lin et al. (2007)
         </h1>
 
         {/* Model Identification */}
@@ -47,7 +47,7 @@ const BibliographyArticlePage = () => {
             <p className="text-sm font-mono">
               Lin, C.-H., Shih, H.-Y., &amp; Sher, P. J. (2007). Integrating technology readiness
               into technology acceptance: The TRAM model. <em>Psychology &amp; Marketing</em>,
-              24(7), 641&ndash;657.
+              24(7), 641-657.
             </p>
           </div>
         </section>
@@ -66,7 +66,7 @@ const BibliographyArticlePage = () => {
               motivation stemmed from the observation that the two models captured different aspects
               of technology adoption that needed to be integrated. The Technology Acceptance Model
               focuses on perceived usefulness and ease of use of specific information technology
-              systems—what might be termed “system-specific” perceptions.
+              systems-what might be termed “system-specific” perceptions.
             </p>
             <ul className={BODY_LIST_CLASSES}>
               <li>
@@ -395,7 +395,7 @@ const BibliographyArticlePage = () => {
               alone. Second, the integrated model significantly improves explanatory power. By
               capturing variance attributable to both general technology readiness and
               system-specific perceptions, TRAM explains approximately 55% of variance in adoption
-              intention—substantially more than typical TAM-only models. This improved explanatory
+              intention-substantially more than typical TAM-only models. This improved explanatory
               power indicates that the integration captures meaningful theoretical ground. Third,
               TRAM preserves the strengths of both component models while addressing their
               limitations. The TAM remains valuable for understanding system-specific perceptions,

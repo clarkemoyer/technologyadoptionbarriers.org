@@ -10,7 +10,7 @@ import {
 
 export const metadata: Metadata = {
   title:
-    'Bibliography: Unified Theory of Acceptance and Use of Technology (UTAUT) – Venkatesh et al. (2003)',
+    'Bibliography: Unified Theory of Acceptance and Use of Technology (UTAUT) - Venkatesh et al. (2003)',
   description:
     'Deep dive into the Unified Theory of Acceptance and Use of Technology (UTAUT) by Venkatesh, Morris, Davis, and Davis (2003), a landmark synthesis of eight competing technology adoption models into a single unified framework.',
 }
@@ -20,7 +20,7 @@ const BibliographyArticlePage = () => {
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>
-          Unified Theory of Acceptance and Use of Technology (UTAUT) &ndash; Venkatesh et al. (2003)
+          Unified Theory of Acceptance and Use of Technology (UTAUT) - Venkatesh et al. (2003)
         </h1>
 
         {/* Model Identification */}
@@ -48,7 +48,7 @@ const BibliographyArticlePage = () => {
             <p className="text-sm font-mono">
               Venkatesh, V., Morris, M. G., Davis, G. B., &amp; Davis, F. D. (2003). User acceptance
               of information technology: Toward a unified view. <em>MIS Quarterly</em>, 27(3),
-              425&ndash;478.{' '}
+              425-478.{' '}
               <a
                 href="https://doi.org/10.2307/30036540"
                 target="_blank"
@@ -66,14 +66,14 @@ const BibliographyArticlePage = () => {
           <h2 className={H2_CLASSES}>Why UTAUT Was Created</h2>
           <p className={PARAGRAPH_CLASSES}>
             By the early 2000s, technology adoption research had produced a proliferation of
-            competing theoretical models. At least eight distinct frameworks&mdash;each with its own
-            constructs, relationships, and empirical support&mdash;vied to explain why individuals
-            accept or reject information technologies. This theoretical fragmentation created
-            significant challenges for both researchers and practitioners. Researchers faced
-            difficult choices about which model to employ, often selecting models based on
-            familiarity rather than empirical superiority. Practitioners seeking evidence-based
-            guidance for technology implementation found conflicting recommendations depending on
-            which theoretical perspective they consulted.
+            competing theoretical models. At least eight distinct frameworks-each with its own
+            constructs, relationships, and empirical support-vied to explain why individuals accept
+            or reject information technologies. This theoretical fragmentation created significant
+            challenges for both researchers and practitioners. Researchers faced difficult choices
+            about which model to employ, often selecting models based on familiarity rather than
+            empirical superiority. Practitioners seeking evidence-based guidance for technology
+            implementation found conflicting recommendations depending on which theoretical
+            perspective they consulted.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             The fragmentation also impeded cumulative knowledge building. Because different research
@@ -238,11 +238,11 @@ const BibliographyArticlePage = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             The results were striking. UTAUT explained approximately 70 percent of the variance in
-            behavioral intention to use technology&mdash;a substantial improvement over every
-            individual source model. The best-performing individual model (TAM2) explained
-            approximately 53 percent of the variance, while other models ranged between 17 and 42
-            percent. UTAUT&rsquo;s 70 percent explained variance represented a significant advance
-            in predictive capability and demonstrated that the unified approach captured explanatory
+            behavioral intention to use technology-a substantial improvement over every individual
+            source model. The best-performing individual model (TAM2) explained approximately 53
+            percent of the variance, while other models ranged between 17 and 42 percent.
+            UTAUT&rsquo;s 70 percent explained variance represented a significant advance in
+            predictive capability and demonstrated that the unified approach captured explanatory
             power that no single model could achieve alone.
           </p>
           <p className={PARAGRAPH_CLASSES}>
@@ -305,9 +305,9 @@ const BibliographyArticlePage = () => {
           <p className={PARAGRAPH_CLASSES}>
             UTAUT provides a comprehensive taxonomy of technology adoption barriers organized around
             its four core constructs. Performance expectancy barriers arise when users do not
-            believe the technology will improve their work performance&mdash;either because the
-            system genuinely fails to deliver meaningful productivity gains or because the benefits
-            are unclear, poorly communicated, or not aligned with the user&rsquo;s specific job
+            believe the technology will improve their work performance-either because the system
+            genuinely fails to deliver meaningful productivity gains or because the benefits are
+            unclear, poorly communicated, or not aligned with the user&rsquo;s specific job
             responsibilities. Effort expectancy barriers emerge when the technology is perceived as
             too difficult to learn and use, requiring excessive cognitive effort, training time, or
             technical skill that exceeds the user&rsquo;s capacity or willingness.
@@ -350,7 +350,7 @@ const BibliographyArticlePage = () => {
           <ol className="list-decimal list-inside space-y-3 text-sm">
             <li>
               Ajzen, I. (1991). The theory of planned behavior.{' '}
-              <em>Organizational Behavior and Human Decision Processes</em>, 50(2), 179&ndash;211.{' '}
+              <em>Organizational Behavior and Human Decision Processes</em>, 50(2), 179-211.{' '}
               <a
                 href="https://doi.org/10.1016/0749-5978(91)90020-T"
                 target="_blank"
@@ -367,7 +367,7 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               Compeau, D. R., &amp; Higgins, C. A. (1995). Computer self-efficacy: Development of a
-              measure and initial test. <em>MIS Quarterly</em>, 19(2), 189&ndash;211.{' '}
+              measure and initial test. <em>MIS Quarterly</em>, 19(2), 189-211.{' '}
               <a
                 href="https://doi.org/10.2307/249688"
                 target="_blank"
@@ -379,7 +379,7 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               Davis, F. D. (1989). Perceived usefulness, perceived ease of use, and user acceptance
-              of information technology. <em>MIS Quarterly</em>, 13(3), 319&ndash;340.{' '}
+              of information technology. <em>MIS Quarterly</em>, 13(3), 319-340.{' '}
               <a
                 href="https://doi.org/10.2307/249008"
                 target="_blank"
@@ -392,7 +392,7 @@ const BibliographyArticlePage = () => {
             <li>
               Davis, F. D., Bagozzi, R. P., &amp; Warshaw, P. R. (1992). Extrinsic and intrinsic
               motivation to use computers in the workplace.{' '}
-              <em>Journal of Applied Social Psychology</em>, 22(14), 1111&ndash;1132.{' '}
+              <em>Journal of Applied Social Psychology</em>, 22(14), 1111-1132.{' '}
               <a
                 href="https://doi.org/10.1111/j.1559-1816.1992.tb00945.x"
                 target="_blank"
@@ -412,7 +412,7 @@ const BibliographyArticlePage = () => {
             <li>
               Moore, G. C., &amp; Benbasat, I. (1991). Development of an instrument to measure the
               perceptions of adopting an information technology innovation.{' '}
-              <em>Information Systems Research</em>, 2(3), 192&ndash;222.{' '}
+              <em>Information Systems Research</em>, 2(3), 192-222.{' '}
               <a
                 href="https://doi.org/10.1287/isre.2.3.192"
                 target="_blank"
@@ -427,7 +427,7 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               Taylor, S., &amp; Todd, P. A. (1995). Understanding information technology usage: A
-              test of competing models. <em>Information Systems Research</em>, 6(2), 144&ndash;176.{' '}
+              test of competing models. <em>Information Systems Research</em>, 6(2), 144-176.{' '}
               <a
                 href="https://doi.org/10.1287/isre.6.2.144"
                 target="_blank"
@@ -439,8 +439,7 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               Thompson, R. L., Higgins, C. A., &amp; Howell, J. M. (1991). Personal computing:
-              Toward a conceptual model of utilization. <em>MIS Quarterly</em>, 15(1),
-              125&ndash;143.{' '}
+              Toward a conceptual model of utilization. <em>MIS Quarterly</em>, 15(1), 125-143.{' '}
               <a
                 href="https://doi.org/10.2307/249443"
                 target="_blank"
@@ -453,7 +452,7 @@ const BibliographyArticlePage = () => {
             <li>
               Venkatesh, V., Morris, M. G., Davis, G. B., &amp; Davis, F. D. (2003). User acceptance
               of information technology: Toward a unified view. <em>MIS Quarterly</em>, 27(3),
-              425&ndash;478.{' '}
+              425-478.{' '}
               <a
                 href="https://doi.org/10.2307/30036540"
                 target="_blank"
@@ -466,7 +465,7 @@ const BibliographyArticlePage = () => {
             <li>
               Venkatesh, V., Thong, J. Y. L., &amp; Xu, X. (2012). Consumer acceptance and use of
               information technology: Extending the unified theory of acceptance and use of
-              technology. <em>MIS Quarterly</em>, 36(1), 157&ndash;178.{' '}
+              technology. <em>MIS Quarterly</em>, 36(1), 157-178.{' '}
               <a
                 href="https://doi.org/10.2307/41410412"
                 target="_blank"

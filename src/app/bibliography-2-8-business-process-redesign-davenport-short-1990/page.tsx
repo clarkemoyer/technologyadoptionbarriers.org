@@ -12,7 +12,7 @@ import {
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: Business Process Redesign (BPR) – Davenport & Short (1990)',
+  title: 'Bibliography: Business Process Redesign (BPR) - Davenport & Short (1990)',
   description:
     'An exploration of the Business Process Redesign framework by Davenport and Short, which established how information technology enables radical redesign of core business processes for competitive advantage.',
 }
@@ -22,7 +22,7 @@ const DavenportShortBPRPage = () => {
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>
-          Business Process Redesign (BPR) &ndash; Davenport &amp; Short (1990)
+          Business Process Redesign (BPR) - Davenport &amp; Short (1990)
         </h1>
 
         {/* Framework Identification */}
@@ -48,7 +48,7 @@ const DavenportShortBPRPage = () => {
             <p className="text-sm font-mono">
               Davenport, T. H., &amp; Short, J. E. (1990). The new industrial engineering:
               Information technology and business process redesign. <em>Sloan Management Review</em>
-              , 31(4), 11&ndash;27.
+              , 31(4), 11-27.
             </p>
           </div>
         </section>
@@ -60,8 +60,8 @@ const DavenportShortBPRPage = () => {
             <em>Sloan Management Review</em>, introducing a framework that fundamentally reoriented
             how organizations think about leveraging information technology. Rather than treating IT
             as a tool for automating existing processes, Davenport and Short proposed that IT
-            enables the radical redesign of core business processes&mdash;a shift they framed as a
-            new form of industrial engineering appropriate for the information age.
+            enables the radical redesign of core business processes-a shift they framed as a new
+            form of industrial engineering appropriate for the information age.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             The Business Process Redesign (BPR) model emerged at a moment when competitive pressures
@@ -86,14 +86,14 @@ const DavenportShortBPRPage = () => {
             in increasingly competitive environments where rivals had restructured their operations
             to achieve superior performance. Traditional industrial engineering had been applied
             relatively narrowly to manufacturing, yet competitive advantage increasingly derived
-            from comprehensive business process performance&mdash;how effectively organizations
-            managed customer acquisition, product design, order fulfillment, and customer service in
+            from comprehensive business process performance-how effectively organizations managed
+            customer acquisition, product design, order fulfillment, and customer service in
             addition to manufacturing efficiency.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Information Technology Capability Expansion:</strong> IT had evolved from
             supporting existing processes to enabling fundamentally different ways of working. Prior
-            IT adoption had primarily focused on automating existing processes&mdash;faster, cheaper
+            IT adoption had primarily focused on automating existing processes-faster, cheaper
             operations doing the same work. Davenport and Short recognized that emerging IT
             capabilities could support more radical redesign: information systems could capture
             customer data comprehensively, enable communication across organizational boundaries,
@@ -125,7 +125,7 @@ const DavenportShortBPRPage = () => {
 
           <h2 className={H2_CLASSES}>Core Concepts and Definitions</h2>
           <p className={PARAGRAPH_CLASSES}>
-            At the heart of the BPR model is a focus on <strong>business processes</strong>&mdash;
+            At the heart of the BPR model is a focus on <strong>business processes</strong>-
             end-to-end sets of activities that together deliver value to customers or the
             organization. Davenport and Short distinguish between core business processes (customer
             acquisition, product design, order fulfillment, customer service) and supporting
@@ -243,10 +243,10 @@ const DavenportShortBPRPage = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Multi-Industry Case Illustrations:</strong> The model was tested across diverse
-            industries&mdash;insurance, airlines, telecommunications, and
-            manufacturing&mdash;suggesting that business process redesign principles apply broadly.
-            Fundamentally similar redesign patterns emerging across different industries lends
-            credibility to the model&rsquo;s generalizability.
+            industries-insurance, airlines, telecommunications, and manufacturing-suggesting that
+            business process redesign principles apply broadly. Fundamentally similar redesign
+            patterns emerging across different industries lends credibility to the model&rsquo;s
+            generalizability.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Cross-Functional Process Coverage:</strong> The case examples span diverse
@@ -264,16 +264,16 @@ const DavenportShortBPRPage = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>IT Technology Span:</strong> The case examples involved different IT
-            technologies&mdash;telecommunications systems, database systems, personal computers with
-            information access capabilities&mdash;demonstrating that redesign principles apply
-            across technology platforms rather than being dependent on specific systems.
+            technologies-telecommunications systems, database systems, personal computers with
+            information access capabilities-demonstrating that redesign principles apply across
+            technology platforms rather than being dependent on specific systems.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Theoretical Grounding:</strong> By grounding the model in established industrial
             engineering principles and extending them to IT-enabled contexts, the authors draw on a
             well-established theoretical tradition. The framework&rsquo;s acknowledgment of
-            contingencies&mdash;particular process characteristics, organizational capability, IT
-            infrastructure, and market conditions&mdash;adds nuance without undermining the general
+            contingencies-particular process characteristics, organizational capability, IT
+            infrastructure, and market conditions-adds nuance without undermining the general
             applicability of the core principles.
           </p>
 
@@ -336,11 +336,11 @@ const DavenportShortBPRPage = () => {
             prerequisite for technology value realization.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            The BPR model&rsquo;s emphasis on change management&mdash;establishing transition
+            The BPR model&rsquo;s emphasis on change management-establishing transition
             infrastructure, communicating honestly, and preparing people for new ways of
-            working&mdash;anticipates findings from subsequent technology adoption research showing
-            that human and organizational factors consistently explain more variance in adoption
-            outcomes than technical factors.
+            working-anticipates findings from subsequent technology adoption research showing that
+            human and organizational factors consistently explain more variance in adoption outcomes
+            than technical factors.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <em>
@@ -354,7 +354,7 @@ const DavenportShortBPRPage = () => {
           <h2 className={REFERENCES_H2_CLASSES}>References</h2>
           <ol className={REFERENCES_OL_CLASSES}>
             {/* prettier-ignore */}
-            <li>Davenport, T. H., &amp; Short, J. E. (1990). The new industrial engineering: Information technology and business process redesign. <em>Sloan Management Review</em>, 31(4), 11&ndash;27.</li>
+            <li>Davenport, T. H., &amp; Short, J. E. (1990). The new industrial engineering: Information technology and business process redesign. <em>Sloan Management Review</em>, 31(4), 11-27.</li>
             <li>
               Porter, M. E. (1985).{' '}
               <em>Competitive advantage: Creating and sustaining superior performance</em>. Free
@@ -362,7 +362,7 @@ const DavenportShortBPRPage = () => {
             </li>
             <li>
               Hammer, M. (1990). Reengineering work: Don&rsquo;t automate, obliterate.{' '}
-              <em>Harvard Business Review</em>, 68(4), 104&ndash;112.
+              <em>Harvard Business Review</em>, 68(4), 104-112.
             </li>
             <li>
               Hammer, M., &amp; Champy, J. (1993).{' '}
@@ -371,7 +371,7 @@ const DavenportShortBPRPage = () => {
             </li>
             <li>
               Venkatraman, N. (1994). IT-enabled business transformation: From automation to
-              business scope redefinition. <em>Sloan Management Review</em>, 35(2), 73&ndash;87.
+              business scope redefinition. <em>Sloan Management Review</em>, 35(2), 73-87.
             </li>
             <li>
               Davenport, T. H. (1993).{' '}
@@ -380,8 +380,7 @@ const DavenportShortBPRPage = () => {
             </li>
             <li>
               Kettinger, W. J., Teng, J. T. C., &amp; Guha, S. (1997). Business process change: A
-              study of methodologies, techniques, and tools. <em>MIS Quarterly</em>, 21(1),
-              55&ndash;80.{' '}
+              study of methodologies, techniques, and tools. <em>MIS Quarterly</em>, 21(1), 55-80.{' '}
               <a
                 href="https://doi.org/10.2307/249742"
                 target="_blank"

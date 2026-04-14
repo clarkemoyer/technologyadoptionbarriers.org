@@ -32,7 +32,7 @@ export const metadata: Metadata = {
 }
 
 /* ══════════════════════════════════════════════════════════════════
-   FULL DATASET VALIDATION DATA — imported from live-validation.json
+   FULL DATASET VALIDATION DATA - imported from live-validation.json
    All values come from src/data/live-validation.json, which the
    daily pipeline generates by extracting the `validation` section
    from tabs_v2_unified_data_analysis.py for the full live dataset.
@@ -46,7 +46,7 @@ const ITEM_COUNTS: Record<string, number> = {
   Maturity: validationData.metadata.n_maturity,
 }
 
-// Derived from validationData.metadata.constructs — typed as literal union
+// Derived from validationData.metadata.constructs - typed as literal union
 // for safe indexing into validationData's top-level keys.
 const CONSTRUCT_NAMES = validationData.metadata.constructs as (
   | 'Barriers'

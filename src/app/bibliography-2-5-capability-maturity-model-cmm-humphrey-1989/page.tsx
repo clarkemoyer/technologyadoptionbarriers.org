@@ -12,7 +12,7 @@ import {
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: Capability Maturity Model (CMM) – Humphrey (1989)',
+  title: 'Bibliography: Capability Maturity Model (CMM) - Humphrey (1989)',
   description:
     "An exploration of Watts S. Humphrey's Capability Maturity Model, a foundational framework for assessing and improving software development capability through five distinct maturity levels.",
 }
@@ -21,9 +21,7 @@ const CMMHumphreyPage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
-        <h1 className={H1_CLASSES}>
-          Capability Maturity Model (CMM) &ndash; Watts S. Humphrey (1989)
-        </h1>
+        <h1 className={H1_CLASSES}>Capability Maturity Model (CMM) - Watts S. Humphrey (1989)</h1>
 
         {/* Framework Identification */}
         <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
@@ -74,15 +72,15 @@ const CMMHumphreyPage = () => {
           <p className={PARAGRAPH_CLASSES}>
             Humphrey and SEI developed the CMM because the U.S. Department of Defense faced a
             critical problem: software development was unpredictable and unreliable. DoD software
-            projects frequently exceeded budgets by 50&ndash;300%, took years longer than planned,
-            and delivered unreliable software. Meanwhile, DoD personnel noticed that some
-            contractors consistently delivered quality software on schedule and budget. What
-            distinguished successful contractors from unsuccessful ones?
+            projects frequently exceeded budgets by 50-300%, took years longer than planned, and
+            delivered unreliable software. Meanwhile, DoD personnel noticed that some contractors
+            consistently delivered quality software on schedule and budget. What distinguished
+            successful contractors from unsuccessful ones?
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            Initial theories suggested it was about talent&mdash;successful contractors employed
-            better programmers. But investigations revealed that talent alone was insufficient.
-            Contractors with excellent individual programmers sometimes failed catastrophically if
+            Initial theories suggested it was about talent-successful contractors employed better
+            programmers. But investigations revealed that talent alone was insufficient. Contractors
+            with excellent individual programmers sometimes failed catastrophically if
             organizational processes were chaotic. Conversely, contractors with well-established
             processes could manage projects reliably even with more typical programmer talent.
           </p>
@@ -98,24 +96,23 @@ const CMMHumphreyPage = () => {
             The CMM was created to provide a measurement framework that would allow the DoD to
             assess contractor capability and that would help software organizations understand how
             to improve. Humphrey and SEI believed that software problems were primarily
-            organizational and management problems&mdash;not technical problems that could be solved
-            with better programming languages or tools. Better processes would solve the real
-            problems.
+            organizational and management problems-not technical problems that could be solved with
+            better programming languages or tools. Better processes would solve the real problems.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             The CMM emerged from and built upon several intellectual traditions:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Software Engineering as a Discipline (1960s&ndash;1980s):</strong> The
-              software crisis of the 1960s&ndash;1970s generated calls for software engineering as a
-              discipline. Barry Boehm&rsquo;s Spiral Model (1986) and others demonstrated that large
-              software systems required process discipline, management, and systematic approaches
-              beyond programming skill.
+              <strong>Software Engineering as a Discipline (1960s-1980s):</strong> The software
+              crisis of the 1960s-1970s generated calls for software engineering as a discipline.
+              Barry Boehm&rsquo;s Spiral Model (1986) and others demonstrated that large software
+              systems required process discipline, management, and systematic approaches beyond
+              programming skill.
             </li>
             <li>
               <strong>Deming&rsquo;s Quality Management Principles:</strong> Humphrey explicitly
-              applied Deming-like thinking to software development&mdash;quality is not a matter of
+              applied Deming-like thinking to software development-quality is not a matter of
               individual programmer excellence but of organizational processes and systems.
             </li>
             <li>
@@ -203,10 +200,10 @@ const CMMHumphreyPage = () => {
           <p className={PARAGRAPH_CLASSES}>
             <strong>Level 4: Managed.</strong> Level 4 organizations manage software development
             through detailed measurements and controls. Processes are not only defined but also
-            measured. Organizations track process performance data and understand
-            variation&mdash;both common cause variation inherent in the process and special cause
-            variation from unusual circumstances. Estimates are based on measurement data; quality
-            is managed through understanding process capability.
+            measured. Organizations track process performance data and understand variation-both
+            common cause variation inherent in the process and special cause variation from unusual
+            circumstances. Estimates are based on measurement data; quality is managed through
+            understanding process capability.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Level 5: Optimizing.</strong> Level 5 organizations are continuously improving
@@ -282,8 +279,8 @@ const CMMHumphreyPage = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Connects Process to Business Outcomes:</strong> The CMM explicitly connects
-            process maturity to business outcomes&mdash;project predictability, cost control,
-            quality. Organizations understand the business case for process improvement.
+            process maturity to business outcomes-project predictability, cost control, quality.
+            Organizations understand the business case for process improvement.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Organizational Learning:</strong> The CMM embeds organizational learning and
@@ -317,11 +314,10 @@ const CMMHumphreyPage = () => {
           <p className={PARAGRAPH_CLASSES}>
             The CMM also highlights critical barriers to technology adoption. Organizations that
             lack documented processes cannot effectively train new users, maintain consistency, or
-            improve systematically&mdash;each of these is a barrier to successful technology
-            rollout. The model&rsquo;s emphasis on measurement at higher levels directly supports
-            evidence-based technology management: organizations that measure technology performance
-            can distinguish genuine improvement from variation and make adoption decisions based on
-            data.
+            improve systematically-each of these is a barrier to successful technology rollout. The
+            model&rsquo;s emphasis on measurement at higher levels directly supports evidence-based
+            technology management: organizations that measure technology performance can distinguish
+            genuine improvement from variation and make adoption decisions based on data.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             Several limitations should be acknowledged. Critics argue that CMM-based improvements
@@ -335,11 +331,11 @@ const CMMHumphreyPage = () => {
             reflect practice.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            Despite these limitations, the CMM&rsquo;s foundational insight&mdash;that
-            organizational process maturity is the primary driver of software quality and technology
-            adoption success&mdash;has been validated across decades of research and practice. Its
-            evolution into CMMI and related frameworks demonstrates the enduring relevance of
-            maturity-based thinking for organizational capability development.
+            Despite these limitations, the CMM&rsquo;s foundational insight-that organizational
+            process maturity is the primary driver of software quality and technology adoption
+            success-has been validated across decades of research and practice. Its evolution into
+            CMMI and related frameworks demonstrates the enduring relevance of maturity-based
+            thinking for organizational capability development.
           </p>
         </section>
 
@@ -356,7 +352,7 @@ const CMMHumphreyPage = () => {
             </li>
             <li>
               Boehm, B. W. (1986). A spiral model of software development and enhancement.{' '}
-              <em>ACM SIGSOFT Software Engineering Notes, 11</em>(4), 14&ndash;24.
+              <em>ACM SIGSOFT Software Engineering Notes, 11</em>(4), 14-24.
             </li>
             <li>
               Paulk, M. C., Weber, C. V., Curtis, B., &amp; Chrissis, M. B. (1995).{' '}
@@ -374,7 +370,7 @@ const CMMHumphreyPage = () => {
             <li>
               Krishnan, M. S., &amp; Kellner, M. I. (1999). Measuring process consistency:
               Implications for reducing software defects.{' '}
-              <em>IEEE Transactions on Software Engineering, 25</em>(6), 800&ndash;815.
+              <em>IEEE Transactions on Software Engineering, 25</em>(6), 800-815.
             </li>
           </ol>
         </section>

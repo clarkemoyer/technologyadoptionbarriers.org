@@ -4,7 +4,7 @@ import Link from 'next/link'
 export const metadata: Metadata = {
   title: 'Prolific Integration - Making of TABS',
   description:
-    'How TABS uses Prolific for participant recruitment, the Qualtrics–Prolific bridge architecture, and automated data collection workflows.',
+    'How TABS uses Prolific for participant recruitment, the Qualtrics-Prolific bridge architecture, and automated data collection workflows.',
   alternates: {
     canonical: '/making-of-tabs/integrations/prolific',
   },
@@ -63,7 +63,7 @@ const ProlificIntegrationPage = () => {
 
         {/* ── How It Connects ── */}
         <section className="mb-12 text-gray-800">
-          <h2 className={H2_CLASSES}>The Qualtrics–Prolific Bridge</h2>
+          <h2 className={H2_CLASSES}>The Qualtrics-Prolific Bridge</h2>
 
           <div className="mb-8">
             <h3 className={H3_CLASSES}>Participant Flow</h3>

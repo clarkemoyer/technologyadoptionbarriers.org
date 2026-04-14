@@ -22,7 +22,7 @@ const MicrosoftAIAdoptionPage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
-        <h1 className={H1_CLASSES}>Microsoft AI Adoption Framework &ndash; Microsoft (2025)</h1>
+        <h1 className={H1_CLASSES}>Microsoft AI Adoption Framework - Microsoft (2025)</h1>
 
         {/* Framework Identification */}
         <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
@@ -45,7 +45,7 @@ const MicrosoftAIAdoptionPage = () => {
           <h2 className={H2_CLASSES}>Citation Information</h2>
           <div className="bg-blue-50 p-4 rounded border-l-4 border-blue-500">
             <p className="text-sm font-mono">
-              Sumner, S. (2025). <em>Microsoft AI adoption &ndash; Cloud Adoption Framework.</em>{' '}
+              Sumner, S. (2025). <em>Microsoft AI adoption - Cloud Adoption Framework.</em>{' '}
               Microsoft Learn.
             </p>
           </div>
@@ -58,8 +58,8 @@ const MicrosoftAIAdoptionPage = () => {
             adopting artificial intelligence, machine learning, and generative AI within
             organizational contexts. Developed through collaboration among Microsoft AI researchers,
             enterprise architects, enterprise customers, and industry partners, the framework
-            provides systematic guidance for organizations at all stages of AI maturity &ndash; from
-            those exploring their first AI opportunities to enterprises seeking to scale AI across
+            provides systematic guidance for organizations at all stages of AI maturity - from those
+            exploring their first AI opportunities to enterprises seeking to scale AI across
             business operations.
           </p>
           <p className={PARAGRAPH_CLASSES}>
@@ -137,7 +137,7 @@ const MicrosoftAIAdoptionPage = () => {
               governance structures, and accountability for responsible AI. Microsoft&rsquo;s
               Responsible AI framework encompasses six core principles: Fairness, Reliability and
               Safety, Privacy and Security, Inclusiveness, Transparency, and Accountability. This
-              pillar is treated as non-negotiable &ndash; responsible AI governance is integrated
+              pillar is treated as non-negotiable - responsible AI governance is integrated
               throughout the framework rather than treated as an optional compliance exercise.
             </li>
             <li>
@@ -284,9 +284,9 @@ const MicrosoftAIAdoptionPage = () => {
             </li>
             <li>
               <strong>Data Readiness Emphasis:</strong> By explicitly positioning data readiness
-              assessment as a foundational prerequisite to AI adoption &ndash; rather than
-              discovering data problems after AI projects have already failed &ndash; the framework
-              helps organizations address one of the most common causes of AI project failure.
+              assessment as a foundational prerequisite to AI adoption - rather than discovering
+              data problems after AI projects have already failed - the framework helps
+              organizations address one of the most common causes of AI project failure.
             </li>
             <li>
               <strong>Global Technology Provider Support:</strong> Microsoft&rsquo;s backing ensures
@@ -326,11 +326,10 @@ const MicrosoftAIAdoptionPage = () => {
           <p className={PARAGRAPH_CLASSES}>
             The framework&rsquo;s data readiness pillar addresses a distinctive prerequisite for AI
             adoption that does not exist for most prior technologies: AI systems require not just
-            organizational capability and infrastructure but also data &ndash; in sufficient
-            quantity, quality, and governance &ndash; to function effectively. This data dependency
-            creates adoption barriers that organizations must explicitly address before AI
-            deployment can succeed, a dimension that earlier technology adoption models were not
-            designed to capture.
+            organizational capability and infrastructure but also data - in sufficient quantity,
+            quality, and governance - to function effectively. This data dependency creates adoption
+            barriers that organizations must explicitly address before AI deployment can succeed, a
+            dimension that earlier technology adoption models were not designed to capture.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             The framework&rsquo;s active evolution in response to a rapidly changing AI landscape
@@ -349,8 +348,8 @@ const MicrosoftAIAdoptionPage = () => {
           <h2 className={REFERENCES_H2_CLASSES}>References</h2>
           <ol className={REFERENCES_OL_CLASSES}>
             <li>
-              Sumner, S. (2025, April).{' '}
-              <em>Microsoft AI adoption &mdash; Cloud Adoption Framework</em>. Microsoft.{' '}
+              Sumner, S. (2025, April). <em>Microsoft AI adoption - Cloud Adoption Framework</em>.
+              Microsoft.{' '}
               <a
                 href="https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/scenarios/ai/"
                 target="_blank"
@@ -399,8 +398,7 @@ const MicrosoftAIAdoptionPage = () => {
             </li>
             <li>
               Sumner, S., &amp; Microsoft. (2025).{' '}
-              <em>Microsoft Cloud Adoption Framework for Azure &mdash; Cloud Adoption Framework</em>
-              .{' '}
+              <em>Microsoft Cloud Adoption Framework for Azure - Cloud Adoption Framework</em>.{' '}
               <a
                 href="https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/"
                 target="_blank"

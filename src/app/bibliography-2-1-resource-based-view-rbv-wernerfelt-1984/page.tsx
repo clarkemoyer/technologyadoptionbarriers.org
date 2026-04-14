@@ -13,7 +13,7 @@ import {
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: A Resource-Based View (RBV) – Wernerfelt (1984)',
+  title: 'Bibliography: A Resource-Based View (RBV) - Wernerfelt (1984)',
   description:
     "An exploration of Wernerfelt's Resource-Based View of the firm, a foundational framework for understanding how organizational resources and capabilities drive competitive advantage and strategic technology adoption.",
 }
@@ -23,7 +23,7 @@ const ResourceBasedViewPage = () => {
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>
-          Bibliography: A Resource-Based View (RBV) &ndash; Wernerfelt (1984)
+          Bibliography: A Resource-Based View (RBV) - Wernerfelt (1984)
         </h1>
 
         {/* Framework Identification */}
@@ -48,7 +48,7 @@ const ResourceBasedViewPage = () => {
           <div className="bg-blue-50 p-4 rounded border-l-4 border-blue-500">
             <p className="text-sm font-mono">
               Wernerfelt, B. (1984). A resource-based view of the firm.{' '}
-              <em>Strategic Management Journal</em>, 5(2), 171&ndash;180.
+              <em>Strategic Management Journal</em>, 5(2), 171-180.
             </p>
           </div>
         </section>
@@ -133,19 +133,19 @@ const ResourceBasedViewPage = () => {
             A fundamental insight of the RBV is that most resources can support multiple products
             and markets. Rather than being tied to a single product line, resources such as
             technological expertise, manufacturing capabilities, or distribution networks can be
-            leveraged across diverse business applications. This characteristic&mdash;resource
-            fungibility&mdash;creates opportunities for strategic diversification based on existing
+            leveraged across diverse business applications. This characteristic-resource
+            fungibility-creates opportunities for strategic diversification based on existing
             organizational capabilities.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            The framework introduces the concept of <strong>resource position barriers</strong>
-            &mdash; analogous to entry barriers in traditional product markets. A resource position
-            barrier exists when possession of a resource affects the costs or revenues of later
-            acquirers, making it expensive or difficult for competitors to replicate the
-            firm&rsquo;s competitive position. These barriers are self-reinforcing: a firm that
-            achieves a strong position in a resource at a given time can maintain its relative
-            position because the act of possessing the resource creates advantages that make it
-            harder for competitors to catch up.
+            The framework introduces the concept of <strong>resource position barriers</strong>-
+            analogous to entry barriers in traditional product markets. A resource position barrier
+            exists when possession of a resource affects the costs or revenues of later acquirers,
+            making it expensive or difficult for competitors to replicate the firm&rsquo;s
+            competitive position. These barriers are self-reinforcing: a firm that achieves a strong
+            position in a resource at a given time can maintain its relative position because the
+            act of possessing the resource creates advantages that make it harder for competitors to
+            catch up.
           </p>
 
           <h2 className={H2_CLASSES}>The Resource-Product Matrix</h2>
@@ -262,7 +262,7 @@ const ResourceBasedViewPage = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Tautological Tendencies:</strong> Critics have noted that the framework can
-            become somewhat circular—resources that lead to superior performance are explained as
+            become somewhat circular-resources that lead to superior performance are explained as
             being rare and inimitable, but the only evidence that resources are rare and inimitable
             is that they lead to superior performance. This circularity makes the framework
             difficult to falsify empirically and can reduce its predictive power.
@@ -320,7 +320,7 @@ const ResourceBasedViewPage = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Complementary Resource Requirements:</strong> New technologies often require
-            complementary capabilities&mdash;personnel training, supporting systems, organizational
+            complementary capabilities-personnel training, supporting systems, organizational
             redesign. Firms lacking these complementary resources face barriers to realizing returns
             from technology adoption, even after acquiring the core technology itself.
           </p>
@@ -350,7 +350,7 @@ const ResourceBasedViewPage = () => {
             <strong>Develop Resources Through Sequential Adoption:</strong> Rather than attempting
             to adopt complex technologies all at once across the entire organization, use a
             sequential approach where firms build technological capability progressively. Identify
-            &ldquo;stepping stones&rdquo;&mdash;intermediate technological capabilities or market
+            &ldquo;stepping stones&rdquo;-intermediate technological capabilities or market
             applications where the organization can apply the new technology in limited contexts,
             build expertise and experience, and gradually expand deployment as organizational
             capabilities develop.

@@ -36,10 +36,10 @@ const SquashMergeIncidentPage = () => {
             main.
           </p>
           <p className="mb-4">
-            The squash merge silently reverted every change to every file the branch touched &mdash;
-            not just the 5 files that were part of the feature, but 62 additional files that had
-            been modified between the branch&apos;s fork point and the merge time. GitHub&apos;s
-            diff showed 67 changed files, but this red flag was missed.
+            The squash merge silently reverted every change to every file the branch touched - not
+            just the 5 files that were part of the feature, but 62 additional files that had been
+            modified between the branch&apos;s fork point and the merge time. GitHub&apos;s diff
+            showed 67 changed files, but this red flag was missed.
           </p>
           <p className="mb-4">
             A second squash merge (PR #803) was identified during the investigation. It had the same
@@ -108,17 +108,17 @@ const SquashMergeIncidentPage = () => {
               <h3 className="text-sm font-bold text-red-900 mb-1">Security (Critical)</h3>
               <ul className="list-disc pl-5 text-sm text-red-800 space-y-1">
                 <li>
-                  XSS sanitization for Google Tag Manager IDs (PR #1154) &mdash; re-exposed
-                  injection vulnerability
+                  XSS sanitization for Google Tag Manager IDs (PR #1154) - re-exposed injection
+                  vulnerability
                 </li>
-                <li>JSON-LD sanitization on media page (PR #1226) &mdash; re-exposed XSS vector</li>
+                <li>JSON-LD sanitization on media page (PR #1226) - re-exposed XSS vector</li>
               </ul>
             </div>
 
             <div className="rounded-xl border border-orange-200 bg-orange-50 p-4">
               <h3 className="text-sm font-bold text-orange-900 mb-1">Accessibility</h3>
               <ul className="list-disc pl-5 text-sm text-orange-800 space-y-1">
-                <li>Skip-to-content keyboard navigation (PR #1275) &mdash; removed from layout</li>
+                <li>Skip-to-content keyboard navigation (PR #1275) - removed from layout</li>
                 <li>E2E accessibility test deleted</li>
               </ul>
             </div>
@@ -127,7 +127,7 @@ const SquashMergeIncidentPage = () => {
               <h3 className="text-sm font-bold text-yellow-900 mb-1">Statistical Analysis</h3>
               <ul className="list-disc pl-5 text-sm text-yellow-800 space-y-1">
                 <li>
-                  95% confidence intervals via bootstrap (PR #1191) &mdash;{' '}
+                  95% confidence intervals via bootstrap (PR #1191) -{' '}
                   <code className="text-xs bg-yellow-100 px-1 rounded">cohens_d</code> reverted from
                   tuple to float return
                 </li>
@@ -147,7 +147,7 @@ const SquashMergeIncidentPage = () => {
               </h3>
               <ul className="list-disc pl-5 text-sm text-blue-800 space-y-1">
                 <li>
-                  JSON schema validation script and CI step (PR #1077) &mdash; removed from pipeline
+                  JSON schema validation script and CI step (PR #1077) - removed from pipeline
                 </li>
                 <li>
                   13 workflow files downgraded from{' '}
@@ -186,7 +186,7 @@ const SquashMergeIncidentPage = () => {
           <h2 className={H2_CLASSES}>How It Was Detected</h2>
           <p className="mb-4">
             The damage was not immediately obvious. The site continued to build and deploy because
-            the reverted code was still valid &mdash; it was simply an older version. Detection came
+            the reverted code was still valid - it was simply an older version. Detection came
             through a combination of:
           </p>
           <ul className="list-disc pl-6 space-y-2 mb-4">
@@ -194,8 +194,8 @@ const SquashMergeIncidentPage = () => {
               Post-deploy smoke test failures alerted us to content regressions on the live site
             </li>
             <li>
-              Manual inspection of PR #927&apos;s 67-file diff &mdash; a 5-file feature PR should
-              never touch 67 files
+              Manual inspection of PR #927&apos;s 67-file diff - a 5-file feature PR should never
+              touch 67 files
             </li>
             <li>
               Comparing <code className="text-xs bg-gray-200 px-1 rounded">git show</code> output
@@ -280,8 +280,8 @@ const SquashMergeIncidentPage = () => {
                 <p>
                   The &ldquo;Allow squash merging&rdquo; option was unchecked in the
                   repository&apos;s Pull Requests settings. Only merge commits and rebase merging
-                  are now permitted. This is a hard block &mdash; GitHub will reject any attempt to
-                  squash merge, regardless of who or what initiates it.
+                  are now permitted. This is a hard block - GitHub will reject any attempt to squash
+                  merge, regardless of who or what initiates it.
                 </p>
               </div>
             </div>
@@ -337,8 +337,8 @@ const SquashMergeIncidentPage = () => {
             <li>
               <strong>Git operations need guardrails too.</strong> We had extensive CI, testing, and
               code review guardrails. But the merge strategy itself was unconstrained. The agent
-              chose squash merge as a reasonable default &mdash; and it is reasonable in most cases.
-              The failure mode only appears with stale branches, which are common during batch merge
+              chose squash merge as a reasonable default - and it is reasonable in most cases. The
+              failure mode only appears with stale branches, which are common during batch merge
               sessions.
             </li>
             <li>
@@ -354,8 +354,7 @@ const SquashMergeIncidentPage = () => {
             <li>
               <strong>Persistent memory prevents repeat failures.</strong> The agent&apos;s memory
               system means this specific mistake will never recur in future sessions. This is the AI
-              equivalent of a runbook update &mdash; encoding operational lessons into the system
-              itself.
+              equivalent of a runbook update - encoding operational lessons into the system itself.
             </li>
           </ul>
         </section>
@@ -376,7 +375,7 @@ const SquashMergeIncidentPage = () => {
             </div>
             <div className="flex gap-4">
               <div className="flex-shrink-0 w-36 font-mono text-gray-500">Apr 7, 00:39</div>
-              <div>PR #927 squash-merged &mdash; 25+ PRs silently reverted across 67 files</div>
+              <div>PR #927 squash-merged - 25+ PRs silently reverted across 67 files</div>
             </div>
             <div className="flex gap-4">
               <div className="flex-shrink-0 w-36 font-mono text-gray-500">Apr 7, 01:15</div>

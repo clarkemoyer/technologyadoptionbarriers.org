@@ -13,7 +13,7 @@ import SeriesNavigation from '@/components/series-navigation'
 import ArticleTOC from '@/components/article-toc'
 
 export const metadata: Metadata = {
-  title: 'Article 2: Branch Introduction – The Organization’s Playbook',
+  title: 'Article 2: Branch Introduction - The Organization’s Playbook',
   description:
     'Branch introduction to organizational technology adoption frameworks, covering strategy, maturity models, hype cycles, enterprise architecture, security, cloud adoption, and AI adoption.',
 }
@@ -22,7 +22,7 @@ const OrganizationsPlaybookPage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
-        <h1 className={H1_CLASSES}>Article 2: Branch Introduction – The Organization’s Playbook</h1>
+        <h1 className={H1_CLASSES}>Article 2: Branch Introduction - The Organization’s Playbook</h1>
 
         <section className={SECTION_CLASSES}>
           <p className={PARAGRAPH_CLASSES}>
@@ -155,7 +155,7 @@ const OrganizationsPlaybookPage = () => {
             </li>
             <li>
               Barney, J. (1991). Firm resources and sustained competitive advantage. Journal of
-              Management, 17(1), 99–120.{' '}
+              Management, 17(1), 99-120.{' '}
               <a
                 href="https://doi.org/10.1177/014920639101700108"
                 target="_blank"

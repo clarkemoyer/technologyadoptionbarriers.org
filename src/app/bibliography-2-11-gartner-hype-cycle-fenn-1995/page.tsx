@@ -12,7 +12,7 @@ import {
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: Gartner Hype Cycle – Fenn (1995)',
+  title: 'Bibliography: Gartner Hype Cycle - Fenn (1995)',
   description:
     'An exploration of the Gartner Hype Cycle framework developed by Jackie Fenn, a widely used consulting model for understanding technology adoption timing, maturity, and the gap between inflated expectations and realized value.',
 }
@@ -21,7 +21,7 @@ const GartnerHypeCyclePage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
-        <h1 className={H1_CLASSES}>Gartner Hype Cycle &ndash; Jackie Fenn &amp; Gartner (1995)</h1>
+        <h1 className={H1_CLASSES}>Gartner Hype Cycle - Jackie Fenn &amp; Gartner (1995)</h1>
 
         {/* Framework Identification */}
         <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
@@ -94,12 +94,12 @@ const GartnerHypeCyclePage = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             Gartner noticed this pattern repeatedly: hype cycle, disappointment, eventual adoption.
-            The pattern appeared across different technologies&mdash;artificial intelligence,
-            virtual reality, e-commerce, cloud computing&mdash;suggesting it was a fundamental
-            feature of technology adoption rather than specific to individual technologies. Fenn
-            created the Hype Cycle model to help organizations understand where specific
-            technologies stood in this maturity journey, enabling better adoption timing decisions
-            grounded in realistic assessment of maturity rather than media sentiment.
+            The pattern appeared across different technologies-artificial intelligence, virtual
+            reality, e-commerce, cloud computing-suggesting it was a fundamental feature of
+            technology adoption rather than specific to individual technologies. Fenn created the
+            Hype Cycle model to help organizations understand where specific technologies stood in
+            this maturity journey, enabling better adoption timing decisions grounded in realistic
+            assessment of maturity rather than media sentiment.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             Several predecessor frameworks contributed to the Hype Cycle&rsquo;s conceptual
@@ -114,7 +114,7 @@ const GartnerHypeCyclePage = () => {
               expectation dynamics that accompany technology introduction.
             </li>
             <li>
-              <strong>Technology Lifecycle Models (1970s&ndash;1980s):</strong> Various technology
+              <strong>Technology Lifecycle Models (1970s-1980s):</strong> Various technology
               management scholars proposed lifecycle models suggesting that technologies move
               through introduction, growth, maturity, and decline phases. These models focus on
               market maturity and sales volume dynamics.
@@ -166,7 +166,7 @@ const GartnerHypeCyclePage = () => {
             from enthusiastic to critical. Failed implementations are publicized. Technology is
             declared a failure. Characteristics include: implementation challenges emerge;
             real-world performance falls short of promises; organizations reduce investment;
-            visibility and hype both decline sharply. During the dot-com crash (2000&ndash;2002),
+            visibility and hype both decline sharply. During the dot-com crash (2000-2002),
             thousands of internet companies failed and media proclaimed the internet bubble burst.
           </p>
           <p className={PARAGRAPH_CLASSES}>
@@ -176,8 +176,8 @@ const GartnerHypeCyclePage = () => {
             real benefits. They&rsquo;ve learned through experience what the technology can and
             cannot do, developed implementation expertise, and established best practices. Adoption
             accelerates among pragmatic organizations. By the early 2000s, survivors of the dot-com
-            crash&mdash;companies like Amazon&mdash;proved that internet retail could be profitable
-            and transformative within realistic bounds.
+            crash-companies like Amazon-proved that internet retail could be profitable and
+            transformative within realistic bounds.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Phase 5: Plateau of Productivity.</strong> The technology reaches mainstream
@@ -233,9 +233,9 @@ const GartnerHypeCyclePage = () => {
           <p className={PARAGRAPH_CLASSES}>
             <strong>Consistent Application Across Technology Types:</strong> Unlike models specific
             to particular technology types, the Hype Cycle applies across diverse
-            technologies&mdash;software, hardware, biotechnology, nanotechnology, energy
-            technologies. The pattern appears universal, suggesting it reflects fundamental aspects
-            of how technologies are introduced and adopted.
+            technologies-software, hardware, biotechnology, nanotechnology, energy technologies. The
+            pattern appears universal, suggesting it reflects fundamental aspects of how
+            technologies are introduced and adopted.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Predictive Capability:</strong> While individual technologies progress through
@@ -415,7 +415,7 @@ const GartnerHypeCyclePage = () => {
             </li>
             <li>
               Dedehayir, O., &amp; Steinert, M. (2016). The hype cycle model: A review and future
-              directions. <em>Technological Forecasting and Social Change</em>, 108, 28&ndash;41.{' '}
+              directions. <em>Technological Forecasting and Social Change</em>, 108, 28-41.{' '}
               <a
                 href="https://doi.org/10.1016/j.techfore.2016.04.005"
                 target="_blank"
@@ -438,7 +438,7 @@ const GartnerHypeCyclePage = () => {
             </li>
             <li>
               Davis, F. D. (1989). Perceived usefulness, perceived ease of use, and user acceptance
-              of information technology. <em>MIS Quarterly</em>, 13(3), 319&ndash;340.{' '}
+              of information technology. <em>MIS Quarterly</em>, 13(3), 319-340.{' '}
               <a
                 href="https://doi.org/10.2307/249008"
                 target="_blank"
@@ -451,7 +451,7 @@ const GartnerHypeCyclePage = () => {
             <li>
               Venkatesh, V., Morris, M. G., Davis, G. B., &amp; Davis, F. D. (2003). User acceptance
               of information technology: Toward a unified view. <em>MIS Quarterly</em>, 27(3),
-              425&ndash;478.{' '}
+              425-478.{' '}
               <a
                 href="https://doi.org/10.2307/30036540"
                 target="_blank"
@@ -464,7 +464,7 @@ const GartnerHypeCyclePage = () => {
             <li>
               O&rsquo;Leary, D. E. (2008). Gartner&rsquo;s hype cycle and information system
               research issues. <em>International Journal of Accounting Information Systems</em>,
-              9(4), 240&ndash;252.{' '}
+              9(4), 240-252.{' '}
               <a
                 href="https://doi.org/10.1016/j.accinf.2008.09.001"
                 target="_blank"

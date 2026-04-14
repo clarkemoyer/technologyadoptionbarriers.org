@@ -145,10 +145,10 @@ const CloudflareIntegrationPage = () => {
           <div className="rounded-lg bg-blue-50 border border-blue-200 p-4 text-sm font-sans mb-6">
             <p className="font-semibold text-blue-900 mb-1">Expected performance gains</p>
             <ul className="list-disc pl-5 space-y-1 text-blue-800">
-              <li>Cache hit ratio: 70–90% for static assets</li>
-              <li>TTFB improvement: 30–50% from CDN proximity</li>
-              <li>LCP improvement: 15–30%</li>
-              <li>Bandwidth savings: 40–60%</li>
+              <li>Cache hit ratio: 70-90% for static assets</li>
+              <li>TTFB improvement: 30-50% from CDN proximity</li>
+              <li>LCP improvement: 15-30%</li>
+              <li>Bandwidth savings: 40-60%</li>
             </ul>
           </div>
         </section>
@@ -216,7 +216,7 @@ const CloudflareIntegrationPage = () => {
               <tbody>
                 <tr>
                   <td className="px-4 py-2 border-b">Auto Minify (JS/CSS/HTML)</td>
-                  <td className="px-4 py-2 border-b">10–30% smaller file sizes</td>
+                  <td className="px-4 py-2 border-b">10-30% smaller file sizes</td>
                 </tr>
                 <tr className="bg-gray-50">
                   <td className="px-4 py-2 border-b">Brotli Compression</td>

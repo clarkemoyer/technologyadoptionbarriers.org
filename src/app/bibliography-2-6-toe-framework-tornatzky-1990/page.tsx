@@ -13,7 +13,7 @@ import {
 
 export const metadata: Metadata = {
   title:
-    'Bibliography: Technology-Organization-Environment (TOE) Framework – Tornatzky, Fleischer & Chakrabarti (1990)',
+    'Bibliography: Technology-Organization-Environment (TOE) Framework - Tornatzky, Fleischer & Chakrabarti (1990)',
   description:
     'An exploration of the Technology-Organization-Environment (TOE) Framework by Tornatzky, Fleischer, and Chakrabarti, a foundational model for understanding organizational technology adoption through three comprehensive contextual dimensions.',
 }
@@ -23,7 +23,7 @@ const TOEFrameworkPage = () => {
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>
-          Technology-Organization-Environment (TOE) Framework &ndash; Tornatzky, Fleischer &amp;
+          Technology-Organization-Environment (TOE) Framework - Tornatzky, Fleischer &amp;
           Chakrabarti (1990)
         </h1>
 
@@ -96,8 +96,8 @@ const TOEFrameworkPage = () => {
             The TOE framework was created to provide organizational technology researchers and
             practitioners with a conceptually clear, empirically grounded model that captured the
             full complexity of organizational adoption contexts. By identifying three primary
-            domains&mdash;technological, organizational, and environmental&mdash;the framework
-            offered researchers a systematic way to organize their inquiries and identify relevant
+            domains-technological, organizational, and environmental-the framework offered
+            researchers a systematic way to organize their inquiries and identify relevant
             variables.
           </p>
           <p className={PARAGRAPH_CLASSES}>
@@ -175,7 +175,7 @@ const TOEFrameworkPage = () => {
             The TOE framework demonstrates strong internal validity through its comprehensive
             coverage of adoption decision space. The three-context structure is both conceptually
             distinct and mutually reinforcing. Each context addresses a different level of
-            analysis&mdash;technological characteristics exist at the artifact level, organizational
+            analysis-technological characteristics exist at the artifact level, organizational
             characteristics exist at the firm level, and environmental characteristics exist at the
             industry and market level. This multi-level structure captures interactions that
             single-level models necessarily miss.
@@ -217,10 +217,10 @@ const TOEFrameworkPage = () => {
             </li>
             <li>
               <strong>Technology Types:</strong> The framework accommodates diverse
-              technologies&mdash;from enterprise systems (ERP, CRM) and telecommunications
-              infrastructure to e-commerce platforms, cloud computing, advanced manufacturing
-              systems, and emerging digital technologies. The framework&rsquo;s generality across
-              technology types is one of its primary strengths.
+              technologies-from enterprise systems (ERP, CRM) and telecommunications infrastructure
+              to e-commerce platforms, cloud computing, advanced manufacturing systems, and emerging
+              digital technologies. The framework&rsquo;s generality across technology types is one
+              of its primary strengths.
             </li>
             <li>
               <strong>Organization Sizes:</strong> The framework is valid across small businesses,
@@ -236,7 +236,7 @@ const TOEFrameworkPage = () => {
             <li>
               <strong>Time Periods:</strong> Since 1990, the framework has been applied to
               technology adoption across multiple decades, including the rapid digitalization of the
-              2000s&ndash;2010s and the recent AI and cloud computing transformation.
+              2000s-2010s and the recent AI and cloud computing transformation.
             </li>
           </ul>
           <p className={PARAGRAPH_CLASSES}>
@@ -314,10 +314,9 @@ const TOEFrameworkPage = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Risk Assessment:</strong> Organizations can use the framework to assess adoption
-            risks. Technologies that create organizational friction&mdash;poor fit with existing
-            systems, misalignment with organizational culture, insufficient
-            resources&mdash;typically face implementation delays, cost overruns, and user
-            resistance.
+            risks. Technologies that create organizational friction-poor fit with existing systems,
+            misalignment with organizational culture, insufficient resources-typically face
+            implementation delays, cost overruns, and user resistance.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             The framework also naturally suggests categories of adoption barriers. Technological
@@ -333,12 +332,12 @@ const TOEFrameworkPage = () => {
             Several limitations should be acknowledged. The framework provides limited guidance
             about which specific variables within each context are most important for particular
             technologies or industries. It also provides limited theoretical guidance about how the
-            three contexts interact&mdash;when organizational resources are abundant but
-            technological compatibility is poor, which factor dominates? The framework emphasizes
-            contextual factors but provides less guidance about implementation success and
-            technology outcomes after the adoption decision has been made. Strategic agency may be
-            underemphasized&mdash;adoption decisions reflect not just structural constraints but
-            also power dynamics and strategic choices by organizational leaders.
+            three contexts interact-when organizational resources are abundant but technological
+            compatibility is poor, which factor dominates? The framework emphasizes contextual
+            factors but provides less guidance about implementation success and technology outcomes
+            after the adoption decision has been made. Strategic agency may be
+            underemphasized-adoption decisions reflect not just structural constraints but also
+            power dynamics and strategic choices by organizational leaders.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             Despite these limitations, the TOE framework remains the dominant organizational-level
@@ -366,18 +365,17 @@ const TOEFrameworkPage = () => {
             <li>
               Zhu, K., Kraemer, K., &amp; Xu, S. (2003). Electronic business adoption by European
               firms: A cross-country assessment of the facilitators and inhibitors.{' '}
-              <em>European Journal of Information Systems, 12</em>(4), 251&ndash;268.
+              <em>European Journal of Information Systems, 12</em>(4), 251-268.
             </li>
             <li>
               Pan, M. J., &amp; Jang, W. Y. (2008). Determinants of the adoption of enterprise
               resource planning within the technology-organization-environment framework:
               Taiwan&rsquo;s communications industry.{' '}
-              <em>Journal of Computer Information Systems, 48</em>(3), 94&ndash;102.
+              <em>Journal of Computer Information Systems, 48</em>(3), 94-102.
             </li>
             <li>
-              Baker, J. (2012). The technology&ndash;organization&ndash;environment framework. In Y.
-              K. Dwivedi et al. (Eds.), <em>Information systems theory</em> (pp. 231&ndash;245).
-              Springer.{' '}
+              Baker, J. (2012). The technology-organization-environment framework. In Y. K. Dwivedi
+              et al. (Eds.), <em>Information systems theory</em> (pp. 231-245). Springer.{' '}
               <a
                 href="https://doi.org/10.1007/978-1-4419-6108-2_12"
                 target="_blank"

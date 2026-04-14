@@ -21,9 +21,7 @@ const GartnerHypeCycleMethodologyPage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
-        <h1 className={H1_CLASSES}>
-          Gartner Hype Cycle Research Methodology &ndash; Gartner (2025)
-        </h1>
+        <h1 className={H1_CLASSES}>Gartner Hype Cycle Research Methodology - Gartner (2025)</h1>
 
         {/* Framework Identification */}
         <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
@@ -114,9 +112,9 @@ const GartnerHypeCycleMethodologyPage = () => {
           <ul className={BODY_LIST_CLASSES}>
             <li>
               <strong>Five-Phase Model:</strong> Innovation Trigger, Peak of Inflated Expectations,
-              Trough of Disillusionment, Slope of Enlightenment, and Plateau of Productivity &mdash;
-              each phase representing a distinct organizational adoption context with different risk
-              and opportunity profiles.
+              Trough of Disillusionment, Slope of Enlightenment, and Plateau of Productivity - each
+              phase representing a distinct organizational adoption context with different risk and
+              opportunity profiles.
             </li>
             <li>
               <strong>Time-to-Plateau Estimates:</strong> For each technology positioned on the
