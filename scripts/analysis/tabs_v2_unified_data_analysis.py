@@ -2848,6 +2848,9 @@ Examples:
     CFA_MAX_PARAMS = 46
 
     rid_col = idx_raw.get('ResponseId')
+    # Strip whitespace from pandas ResponseId column to match raw-row .strip()
+    if 'ResponseId' in df_full_v2.columns:
+        df_full_v2['ResponseId'] = df_full_v2['ResponseId'].astype(str).str.strip()
     sample_dfs = {}
     for key, rows in samples_raw.items():
         if rid_col is not None:

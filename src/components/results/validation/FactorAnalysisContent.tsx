@@ -252,6 +252,8 @@ export function FactorAnalysisContent({ data, variant }: Props) {
     [fa]
   )
 
+  const hasTwoFactors = fa.efa_factors.length >= 2
+
   const THREE_GROUPS = useMemo(
     () =>
       fa.three_groups.map((g, idx) => ({
@@ -386,47 +388,47 @@ export function FactorAnalysisContent({ data, variant }: Props) {
                   <th scope="col" className="text-left px-3 py-2 border">
                     Statistic
                   </th>
-                  <th scope="col" className="text-right px-3 py-2 border">
-                    F1: Internal
-                  </th>
-                  <th scope="col" className="text-right px-3 py-2 border">
-                    F2: External
-                  </th>
+                  {fa.efa_factors.map((f, i) => (
+                    <th key={i} scope="col" className="text-right px-3 py-2 border">
+                      {f.name || `F${i + 1}`}
+                    </th>
+                  ))}
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td className="px-3 py-1.5 border">Eigenvalue</td>
-                  <td className="text-right px-3 py-1.5 border">
-                    {fa.efa_factors[0].eigenvalue.toFixed(3)}
-                  </td>
-                  <td className="text-right px-3 py-1.5 border">
-                    {fa.efa_factors[1].eigenvalue.toFixed(3)}
-                  </td>
+                  {fa.efa_factors.map((f, i) => (
+                    <td key={i} className="text-right px-3 py-1.5 border">
+                      {f.eigenvalue.toFixed(3)}
+                    </td>
+                  ))}
                 </tr>
                 <tr className="bg-gray-50">
                   <td className="px-3 py-1.5 border">Variance Explained</td>
-                  <td className="text-right px-3 py-1.5 border">
-                    {fa.efa_factors[0].variance_pct}%
-                  </td>
-                  <td className="text-right px-3 py-1.5 border">
-                    {fa.efa_factors[1].variance_pct}%
-                  </td>
+                  {fa.efa_factors.map((f, i) => (
+                    <td key={i} className="text-right px-3 py-1.5 border">
+                      {f.variance_pct}%
+                    </td>
+                  ))}
                 </tr>
                 <tr>
                   <td className="px-3 py-1.5 border">Items</td>
-                  <td className="text-right px-3 py-1.5 border">{fa.efa_factors[0].items}</td>
-                  <td className="text-right px-3 py-1.5 border">{fa.efa_factors[1].items}</td>
+                  {fa.efa_factors.map((f, i) => (
+                    <td key={i} className="text-right px-3 py-1.5 border">
+                      {f.items}
+                    </td>
+                  ))}
                 </tr>
                 <tr className="bg-gray-50">
                   <td className="px-3 py-1.5 border">KMO (overall)</td>
-                  <td className="text-right px-3 py-1.5 border" colSpan={2}>
+                  <td className="text-right px-3 py-1.5 border" colSpan={fa.efa_factors.length}>
                     {kmo.kmo_overall.toFixed(3)}
                   </td>
                 </tr>
                 <tr>
                   <td className="px-3 py-1.5 border">Bartlett&rsquo;s &chi;&sup2;</td>
-                  <td className="text-right px-3 py-1.5 border" colSpan={2}>
+                  <td className="text-right px-3 py-1.5 border" colSpan={fa.efa_factors.length}>
                     {kmo.bartlett_chi2.toLocaleString('en-US', {
                       minimumFractionDigits: 1,
                       maximumFractionDigits: 1,
@@ -444,15 +446,20 @@ export function FactorAnalysisContent({ data, variant }: Props) {
             ))}
           </div>
 
-          <h3 className={H3_CLASSES}>What Changed from Theory?</h3>
-          <p className={PARAGRAPH_CLASSES}>
-            The theory-based 4-group structure collapsed into 2 empirical factors. All items from
-            Organizational &amp; Cultural, Strategic &amp; Operational, and Resource &amp; Skill
-            loaded together onto F1 (Internal/Organizational). All {EFA_FACTORS[1]?.items.length}{' '}
-            Risk/Trust items loaded onto F2 (External/Compliance). This suggests that organizational
-            leaders perceive internal barriers as a unified challenge, while external compliance and
-            trust constraints form a distinct dimension.
-          </p>
+          {hasTwoFactors && (
+            <>
+              <h3 className={H3_CLASSES}>What Changed from Theory?</h3>
+              <p className={PARAGRAPH_CLASSES}>
+                The theory-based 4-group structure collapsed into 2 empirical factors. All items
+                from Organizational &amp; Cultural, Strategic &amp; Operational, and Resource &amp;
+                Skill loaded together onto F1 (Internal/Organizational). All{' '}
+                {EFA_FACTORS[1]?.items.length} Risk/Trust items loaded onto F2
+                (External/Compliance). This suggests that organizational leaders perceive internal
+                barriers as a unified challenge, while external compliance and trust constraints
+                form a distinct dimension.
+              </p>
+            </>
+          )}
         </section>
 
         <FlowArrow label="Forced 2-factor extraction within F1 (exploratory)" />
