@@ -227,12 +227,12 @@ const OrganizationsPlaybookPage = () => {
               Microsoft. (n.d.). Get started with the AI adoption framework for the Microsoft Cloud.
               Microsoft Learn. Retrieved from{' '}
               <a
-                href="https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/strategy/ai-strategy-and-planning"
+                href="https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/strategy/inform/ai"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-600 hover:underline"
               >
-                https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/strategy/ai-strategy-and-planning
+                https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/strategy/inform/ai
               </a>
             </li>
           </ol>

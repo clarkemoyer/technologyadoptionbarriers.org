@@ -802,7 +802,7 @@ const BibliographyPage = () => {
             <p className="pl-8 -indent-8">
               Teece, D. J., Pisano, G., &amp; Shuen, A. (1997). Dynamic capabilities and strategic
               management. <em>Strategic Management Journal, 18</em>(7), 509-533.
-              https://doi.org/10.1002/(SICI)1097-0266(199708)18:7&lt;509::AID-SMJ882&gt;3.0.CO;2-Z
+              https://doi.org/10.1002/smj.882
             </p>
             <p className="pl-8 -indent-8">
               The Open Group. (1995). <em>TOGAF</em>. The Open Group.

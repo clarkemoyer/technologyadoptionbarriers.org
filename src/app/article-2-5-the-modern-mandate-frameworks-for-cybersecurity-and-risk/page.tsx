@@ -14,7 +14,7 @@ import ArticleTOC from '@/components/article-toc'
 export const metadata: Metadata = {
   title: 'Article 2.5: The Modern Mandate - Frameworks for Cybersecurity and Risk',
   description:
-    'Frameworks for cybersecurity and risk management-NIST RMF, NIST CSF, CMMC, and ISO 27001-that shape organizational technology adoption decisions.',
+    'Frameworks for cybersecurity and risk management - NIST RMF, NIST CSF, CMMC, and ISO 27001 - that shape organizational technology adoption decisions.',
 }
 
 const Article25Page = () => {
@@ -29,12 +29,12 @@ const Article25Page = () => {
           <p className={PARAGRAPH_CLASSES}>
             In 2013, a major retailer suffered a breach that exposed customer credit card data from
             millions of transactions. The investigation revealed that the attacker had accessed the
-            system months earlier but remained undetected. The retailer had security
-            technology-firewalls, intrusion detection systems, antivirus software-yet the breach
-            still occurred. The problem was not lack of technology; it was lack of systematic
-            security practice. The organization had security tools but no coherent security
-            framework, no systematic monitoring approach, no clear understanding of critical assets
-            needing protection, no documented incident response procedures.
+            system months earlier but remained undetected. The retailer had security technology -
+            firewalls, intrusion detection systems, antivirus software - yet the breach still
+            occurred. The problem was not lack of technology; it was lack of systematic security
+            practice. The organization had security tools but no coherent security framework, no
+            systematic monitoring approach, no clear understanding of critical assets needing
+            protection, no documented incident response procedures.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             This breach exemplified a lesson that organizations learned repeatedly throughout the
@@ -155,7 +155,7 @@ const Article25Page = () => {
           <p className={PARAGRAPH_CLASSES}>
             <strong>Identify </strong>involves understanding organizational assets, systems, and
             data. Organizations cannot protect what they do not know they have. Many organizations
-            struggle with asset visibility-they do not have complete inventories of systems,
+            struggle with asset visibility - they do not have complete inventories of systems,
             applications, and data. The Identify function requires organizations to establish
             comprehensive understanding of what they are trying to protect.
           </p>
@@ -190,8 +190,8 @@ const Article25Page = () => {
           <p className={PARAGRAPH_CLASSES}>
             In 2019, the U.S. Department of Defense issued guidance establishing the Cybersecurity
             Maturity Model Certification (CMMC) as a requirement for organizations in the Defense
-            Industrial Base-companies that supply products and services to the Department of Defense
-            [3]. CMMC emerged from recognition that the previous approach of &quot;trust but
+            Industrial Base - companies that supply products and services to the Department of
+            Defense [3]. CMMC emerged from recognition that the previous approach of &quot;trust but
             verify&quot; was insufficient. The DoD had required contractors to claim they
             implemented certain security practices, but had limited ability to verify those claims.
           </p>
@@ -237,8 +237,8 @@ const Article25Page = () => {
             operations, organizations serving international markets, and organizations in
             jurisdictions that recognize ISO standards can use ISO 27001 as a common security
             framework. Many organizations implement both NIST and ISO frameworks, recognizing that
-            they are complementary rather than competitive-they address the same security challenges
-            from slightly different angles.
+            they are complementary rather than competitive - they address the same security
+            challenges from slightly different angles.
           </p>
 
           <h2 className={H2_CLASSES}>Synthesis: Layered Defense and Organizational Maturity</h2>
@@ -246,13 +246,13 @@ const Article25Page = () => {
             Contemporary security frameworks share several common characteristics. First, they treat
             security as an organizational concern requiring management from top leadership, not just
             technical implementation. Second, they recognize that security requires multiple
-            complementary approaches-technical controls, procedural controls, and organizational
+            complementary approaches - technical controls, procedural controls, and organizational
             practices all matter. Third, they recognize that security is not static; it requires
             continuous improvement and adaptation as threats evolve.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            These frameworks are not in competition. The NIST RMF and CSF are complementary-the RMF
-            provides detailed technical guidance while the CSF provides a high-level functional
+            These frameworks are not in competition. The NIST RMF and CSF are complementary - the
+            RMF provides detailed technical guidance while the CSF provides a high-level functional
             framework. CMMC builds on NIST standards by adding third-party certification. ISO 27001
             provides international applicability. Organizations often implement multiple frameworks
             simultaneously, recognizing that each provides value.
@@ -261,16 +261,16 @@ const Article25Page = () => {
             The most important insight from these frameworks is that compliance alone is
             insufficient. An organization can implement every control specified by a framework and
             still suffer significant security incidents. True security requires viewing frameworks
-            as baselines-minimum expectations-and going beyond compliance to build organizational
-            security cultures where protecting information assets is viewed as everyone&apos;s
-            responsibility [1][2][3][4].
+            as baselines - minimum expectations - and going beyond compliance to build
+            organizational security cultures where protecting information assets is viewed as
+            everyone&apos;s responsibility [1][2][3][4].
           </p>
 
           <h2 className={H2_CLASSES}>The Risk Management Imperative</h2>
           <p className={PARAGRAPH_CLASSES}>
             Underlying all these frameworks is a fundamental principle: all organizations face
             information security risks. Organizations cannot eliminate risk; they can only manage
-            it. The goal is not perfect security-an impossible and economically unjustifiable
+            it. The goal is not perfect security - an impossible and economically unjustifiable
             pursuit. The goal is to understand risks, make informed decisions about which risks to
             accept and which to mitigate, implement controls appropriate to organizational risk
             tolerance, monitor continuously for threats, and continuously improve security
@@ -293,7 +293,7 @@ const Article25Page = () => {
             responsibility requiring leadership attention, governance structures, and continuous
             improvement. In an era when information is among organizations&apos; most valuable
             assets and when security breaches can have severe financial and reputational
-            consequences, this framework-driven approach to security management is not optional-it
+            consequences, this framework-driven approach to security management is not optional - it
             is essential.
           </p>
         </section>

@@ -156,7 +156,7 @@ const ProlificIntegrationPage = () => {
             <p className="mb-4">
               The TypeScript client wraps the{' '}
               <a
-                href="https://docs.prolific.com/docs/api-docs/public/"
+                href="https://docs.prolific.com/api-reference/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-600 underline hover:text-blue-800"

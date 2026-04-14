@@ -413,12 +413,12 @@ const TAFIMPage = () => {
               Sessions, R. (2007). A comparison of the top four enterprise-architecture
               methodologies. <em>Microsoft Developer Network</em>.{' '}
               <a
-                href="https://docs.microsoft.com/en-us/previous-versions/bb896136(v=msdn.10)"
+                href="https://rogersessions.com/images/PapersAndBooks/TopFourEAMethodologies.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-600 hover:underline"
               >
-                https://docs.microsoft.com/en-us/previous-versions/bb896136(v=msdn.10)
+                https://rogersessions.com/images/PapersAndBooks/TopFourEAMethodologies.pdf
               </a>
             </li>
             <li>

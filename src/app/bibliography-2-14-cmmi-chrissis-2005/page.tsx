@@ -511,12 +511,12 @@ const CMMIPage = () => {
               <em>Capability maturity model for software, Version 1.1.</em> Carnegie Mellon
               University Software Engineering Institute.{' '}
               <a
-                href="https://resources.sei.cmu.edu/library/asset-view.cfm?assetid=11955"
+                href="https://www.sei.cmu.edu/library/asset-view.cfm?assetid=11955"
                 className="text-blue-600 hover:text-blue-800 underline break-words"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                https://resources.sei.cmu.edu/library/asset-view.cfm?assetid=11955
+                https://www.sei.cmu.edu/library/asset-view.cfm?assetid=11955
               </a>
             </li>
             <li>
