@@ -454,6 +454,58 @@ const BibliographyArticlePage = () => {
               understanding would strengthen predictive capacity.
             </p>
           </section>
+          {/* References */}
+          <section className={SECTION_CLASSES}>
+            <h2 className={H2_CLASSES}>References</h2>
+            <ol className="list-decimal list-inside space-y-3 text-sm">
+              <li>
+                Ram, S. (1987). A model of innovation resistance. In P. F. Schwepker &amp; J. F.
+                Hair (Eds.), <em>Research in Consumer Behavior</em>, 4, 213-239. JAI Press.
+              </li>
+              <li>
+                Rogers, E. M. (1983). <em>Diffusion of Innovations</em> (3rd ed.). New York: Free
+                Press.
+              </li>
+              <li>
+                Sheth, J. N. (1981). Psychology of innovation resistance: The less developed concept
+                (LDC) in diffusion research. <em>Research in Marketing</em>, 4, 273-282.
+              </li>
+              <li>
+                Bauer, R. A. (1960). Consumer behavior as risk-taking. In D. F. Cox (Ed.),{' '}
+                <em>Risk-taking and information handling in consumer behavior</em>. Boston: Harvard
+                University Press.
+              </li>
+              <li>
+                Festinger, L. (1957). <em>A Theory of Cognitive Dissonance</em>. Stanford: Stanford
+                University Press.
+              </li>
+              <li>
+                Petty, R. E., &amp; Cacioppo, J. T. (1986).{' '}
+                <em>
+                  Communication and persuasion: Central and peripheral routes to attitude change
+                </em>
+                . New York: Springer-Verlag.
+              </li>
+              <li>
+                Triandis, H. C. (1977). <em>Interpersonal behavior</em>. Monterey: Brooks/Cole.
+              </li>
+              <li>
+                Ajzen, I., &amp; Fishbein, M. (1980).{' '}
+                <em>Understanding attitudes and predicting social behavior</em>. Englewood Cliffs,
+                NJ: Prentice-Hall.
+              </li>
+              <li>
+                Bandura, A. (1977). <em>Social learning theory</em>. Englewood Cliffs, NJ:
+                Prentice-Hall.
+              </li>
+              <li>
+                Tornatsky, L. G., &amp; Klein, K. J. (1982). Innovation characteristics and
+                innovation adoption-implementation: A meta-analysis of findings.{' '}
+                <em>IEEE Transactions on Engineering Management</em>, EB-29(1), 28-45.
+              </li>
+            </ol>
+          </section>
+
           <p className="mt-8 text-sm italic text-gray-600">
             Note: This article provides an overview based on the comprehensive literature review.
             Readers are encouraged to consult the original publication for complete details.

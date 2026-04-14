@@ -738,6 +738,74 @@ const BibliographyArticlePage = () => {
               </li>
             </ul>
           </section>
+          {/* References */}
+          <section className={SECTION_CLASSES}>
+            <h2 className={H2_CLASSES}>References</h2>
+            <ol className="list-decimal list-inside space-y-3 text-sm">
+              <li>
+                Fishbein, M., &amp; Ajzen, I. (1975).{' '}
+                <em>
+                  Belief, attitude, intention, and behavior: An introduction to theory and research
+                </em>
+                . Addison-Wesley Publishing Company.
+              </li>
+              <li>
+                Ajzen, I. (1988). <em>Attitudes, personality, and behavior</em>. Dorsey Press.
+              </li>
+              <li>
+                Ajzen, I. (1991). The theory of planned behavior.{' '}
+                <em>Organizational Behavior and Human Decision Processes</em>, 50(2), 179-211.
+              </li>
+              <li>
+                Ajzen, I., &amp; Fishbein, M. (1980).{' '}
+                <em>Understanding attitudes and predicting social behavior</em>. Prentice-Hall.
+              </li>
+              <li>
+                Fishbein, M. (2008). A reasoned action approach to health behavior change. In R. J.
+                DiClemente, R. A. Crosby, &amp; M. C. Kegler (Eds.),{' '}
+                <em>Emerging theories in health promotion practice and research</em> (2nd ed., pp.
+                97-121). Jossey-Bass.
+              </li>
+              <li>
+                Davis, F. D. (1989). Perceived usefulness, perceived ease of use, and user
+                acceptance of information technology. <em>MIS Quarterly</em>, 13(3), 319-340.
+              </li>
+              <li>
+                Davis, F. D., Bagozzi, R. P., &amp; Warshaw, P. R. (1989). User acceptance of
+                computer technology: A comparison of two theoretical models.{' '}
+                <em>Management Science</em>, 35(8), 982-1003.
+              </li>
+              <li>
+                Venkatesh, V., Morris, M. G., Davis, G. B., &amp; Davis, F. D. (2003). User
+                acceptance of information technology: Toward a unified view. <em>MIS Quarterly</em>,
+                27(3), 425-478.
+              </li>
+              <li>
+                Armitage, C. J., &amp; Conner, M. (2001). Efficacy of the theory of planned
+                behaviour: A meta-analytic review. <em>British Journal of Social Psychology</em>,
+                40(4), 471-499.
+              </li>
+              <li>
+                Sheppard, B. H., Hartwick, J., &amp; Warshaw, P. R. (1988). The theory of reasoned
+                action: A meta-analysis of past research with recommendations for modifications and
+                future research. <em>Journal of Consumer Research</em>, 15(3), 325-343.
+              </li>
+              <li>
+                Bandura, A. (1986).{' '}
+                <em>Social foundations of thought and action: A social cognitive theory</em>.
+                Prentice-Hall.
+              </li>
+              <li>
+                Rogers, E. M. (2003). <em>Diffusion of innovations</em> (5th ed.). Free Press.
+              </li>
+              <li>
+                DeLone, W. H., &amp; McLean, E. R. (2003). The DeLone and McLean model of
+                information systems success: A ten-year update.{' '}
+                <em>Journal of Management Information Systems</em>, 19(4), 9-30.
+              </li>
+            </ol>
+          </section>
+
           <p className="mt-8 text-sm italic text-gray-600">
             Note: This article provides an overview based on the comprehensive literature review.
             Readers are encouraged to consult the original publication for complete details.

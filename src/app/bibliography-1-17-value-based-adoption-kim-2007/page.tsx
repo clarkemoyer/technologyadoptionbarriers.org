@@ -726,6 +726,75 @@ const BibliographyArticlePage = () => {
             </p>
           </section>
 
+          {/* References */}
+          <section className={SECTION_CLASSES}>
+            <h2 className={H2_CLASSES}>References</h2>
+            <ol className="list-decimal list-inside space-y-3 text-sm">
+              <li>
+                Ajzen, I. (1991). &ldquo;The Theory of Planned Behavior.&rdquo;{' '}
+                <em>Organizational Behavior and Human Decision Performance</em>, vol. 50, no. 2, pp.
+                179-211.
+              </li>
+              <li>
+                Bagozzi, R. P. (1992). &ldquo;The Self-Regulation of Attitudes, Intentions, and
+                Behavior: An Introduction.&rdquo; <em>Social Psychology Quarterly</em>, vol. 55, no.
+                2, pp. 178-204.
+              </li>
+              <li>
+                Choi, Y., and Nevo, S. (2000). &ldquo;Information Systems as Enabling Factors in the
+                Effort to Improve Business Performance.&rdquo;{' '}
+                <em>Journal of the Association for Information Systems</em>, vol. 1, no. 4, pp.
+                1-32.
+              </li>
+              <li>
+                Davis, F. D. (1989). &ldquo;Perceived Usefulness, Perceived Ease of Use, and User
+                Acceptance of Information Technology.&rdquo; <em>MIS Quarterly</em>, vol. 13, no. 3,
+                pp. 319-340.
+              </li>
+              <li>
+                DeCarlo, T. E. (2005). &ldquo;The Effects of Sales Message and Suspicion of Ulterior
+                Motives on Salesperson Evaluation.&rdquo; <em>Journal of Consumer Psychology</em>,
+                vol. 15, no. 3, pp. 238-249.
+              </li>
+              <li>
+                Fishbein, M., and Ajzen, I. (1975).{' '}
+                <em>
+                  Belief, Attitude, Intention and Behavior: An Introduction to Theory and Research
+                </em>
+                . Addison-Wesley.
+              </li>
+              <li>
+                Gutman, J. (1982). &ldquo;A Means-End Chain Model Based on Consumer Categorization
+                Processes.&rdquo; <em>Journal of Marketing</em>, vol. 46, no. 2, pp. 60-72.
+              </li>
+              <li>
+                Hogue, A., and Mills, M. (2010). &ldquo;The Impact of Traditional Gender Roles on
+                Alcohol Use Among College Women: Who Drinks and Who Abstains?&rdquo;{' '}
+                <em>Journal of American College Health</em>, vol. 58, no. 3, pp. 231-239.
+              </li>
+              <li>
+                Parasuraman, A. (2000). &ldquo;Technology Readiness Index (TRI): A Multiple-Item
+                Scale to Measure Readiness to Embrace New Technologies.&rdquo;{' '}
+                <em>Journal of Service Research</em>, vol. 2, no. 4, pp. 307-320.
+              </li>
+              <li>
+                Schwartz, S. H. (2003). &ldquo;A Proposal for Measuring Value Orientations Across
+                Nations.&rdquo; Chapter in the Questionnaire Development Report. European Social
+                Survey Project.
+              </li>
+              <li>
+                Venkatesh, V. (2000). &ldquo;Determinants of Perceived Ease of Use: Integrating
+                Control, Intrinsic Motivation, and Emotion into the Technology Acceptance
+                Model.&rdquo; <em>Information Systems Research</em>, vol. 11, no. 4, pp. 342-365.
+              </li>
+              <li>
+                Venkatesh, V., and Davis, F. D. (2000). &ldquo;A Theoretical Extension of the
+                Technology Acceptance Model: Four Longitudinal Field Studies.&rdquo;{' '}
+                <em>Management Science</em>, vol. 46, no. 2, pp. 186-204.
+              </li>
+            </ol>
+          </section>
+
           <p className="mt-8 text-sm italic text-gray-600">
             Note: This article provides an overview based on the comprehensive literature review.
             Readers are encouraged to consult the original publication for complete details.

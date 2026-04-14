@@ -590,6 +590,65 @@ const BibliographyArticlePage = () => {
               </li>
             </ul>
           </section>
+          {/* References */}
+          <section className={SECTION_CLASSES}>
+            <h2 className={H2_CLASSES}>References</h2>
+            <ol className="list-decimal list-inside space-y-3 text-sm">
+              <li>
+                Baron, R. M., and Kenny, D. A. (1986). &ldquo;The Moderator-Mediator Variable
+                Distinction in Social Psychological Research: Conceptual, Strategic, and Statistical
+                Considerations.&rdquo; <em>Journal of Personality and Social Psychology</em>, vol.
+                51, no. 6, pp. 1173-1182.
+              </li>
+              <li>
+                Bentler, P. M., and Bonett, D. G. (1980). &ldquo;Significance Tests and Goodness of
+                Fit in the Analysis of Covariance Structures.&rdquo; <em>Psychological Bulletin</em>
+                , vol. 88, no. 3, pp. 588-606.
+              </li>
+              <li>
+                Chin, W. W., and Todd, P. A. (1995). &ldquo;On the Use, Usefulness, and Ease of Use
+                of Structural Equation Modeling in MIS Research.&rdquo; <em>MIS Quarterly</em>, vol.
+                19, no. 2, pp. 237-246.
+              </li>
+              <li>
+                Davis, F. D. (1989). &ldquo;Perceived Usefulness, Perceived Ease of Use, and User
+                Acceptance of Information Technology.&rdquo; <em>MIS Quarterly</em>, vol. 13, no. 3,
+                pp. 319-340.
+              </li>
+              <li>
+                Davis, F. D., Bagozzi, R. P., and Warshaw, P. R. (1992). &ldquo;Extrinsic and
+                Intrinsic Motivation to Use Computers in the Workplace.&rdquo;{' '}
+                <em>Journal of Applied Social Psychology</em>, vol. 22, no. 14, pp. 1111-1132.
+              </li>
+              <li>
+                Fishbein, M., and Ajzen, I. (1975).{' '}
+                <em>
+                  Belief, Attitude, Intention and Behavior: An Introduction to Theory and Research
+                </em>
+                . Addison-Wesley.
+              </li>
+              <li>
+                Hair, J. F., Anderson, R. E., Tatham, R. L., and Black, W. C. (1995).{' '}
+                <em>Multivariate Data Analysis</em> (4th ed.). Prentice-Hall.
+              </li>
+              <li>
+                Parasuraman, A. (2000). &ldquo;Technology Readiness Index (TRI): A Multiple-Item
+                Scale to Measure Readiness to Embrace New Technologies.&rdquo;{' '}
+                <em>Journal of Service Research</em>, vol. 2, no. 4, pp. 307-320.
+              </li>
+              <li>
+                Venkatesh, V., and Davis, F. D. (2000). &ldquo;A Theoretical Extension of the
+                Technology Acceptance Model: Four Longitudinal Field Studies.&rdquo;{' '}
+                <em>Management Science</em>, vol. 46, no. 2, pp. 186-204.
+              </li>
+              <li>
+                Venkatesh, V., Morris, M. G., Davis, G. B., and Davis, F. D. (2003). &ldquo;User
+                Acceptance of Information Technology: Toward a Unified View.&rdquo;{' '}
+                <em>MIS Quarterly</em>, vol. 27, no. 3, pp. 425-478.
+              </li>
+            </ol>
+          </section>
+
           <p className="mt-8 text-sm italic text-gray-600">
             Note: This article provides an overview based on the comprehensive literature review.
             Readers are encouraged to consult the original publication for complete details.

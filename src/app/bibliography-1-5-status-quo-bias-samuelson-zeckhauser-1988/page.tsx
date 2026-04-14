@@ -597,6 +597,55 @@ const BibliographyArticlePage = () => {
             </ul>
           </section>
 
+          {/* References */}
+          <section className={SECTION_CLASSES}>
+            <h2 className={H2_CLASSES}>References</h2>
+            <ol className="list-decimal list-inside space-y-3 text-sm">
+              <li>
+                Ajzen, I. &ldquo;The Theory of Planned Behavior.&rdquo;{' '}
+                <em>Organizational Behavior and Human Decision Processes</em> 50, no. 2 (1991):
+                179-211.
+              </li>
+              <li>
+                Festinger, L. <em>A Theory of Cognitive Dissonance</em>. Stanford, CA: Stanford
+                University Press, 1957.
+              </li>
+              <li>
+                Kahneman, D., and Tversky, A. &ldquo;Prospect Theory: An Analysis of Decision Under
+                Risk.&rdquo; <em>Econometrica</em> 47, no. 2 (1979): 263-291.
+              </li>
+              <li>
+                Kahneman, D., and Tversky, A. &ldquo;The Psychology of Preferences.&rdquo;{' '}
+                <em>Scientific American</em> 246, no. 1 (1982): 160-173.
+              </li>
+              <li>
+                Samuelson, W., and Zeckhauser, R. &ldquo;Status Quo Bias in Decision Making.&rdquo;{' '}
+                <em>Journal of Risk and Uncertainty</em> 1, no. 1 (1988): 7-59.
+              </li>
+              <li>
+                Thaler, R. H. &ldquo;Mental Accounting and Consumer Choice.&rdquo;{' '}
+                <em>Marketing Science</em> 4, no. 3 (1985): 199-214.
+              </li>
+              <li>
+                Tversky, A., and Kahneman, D. &ldquo;Loss Aversion in Riskless Choice: A
+                Reference-Dependent Model.&rdquo; <em>Quarterly Journal of Economics</em> 106, no. 4
+                (1991): 1039-1061.
+              </li>
+              <li>
+                von Neumann, J., and Morgenstern, O. <em>Theory of Games and Economic Behavior</em>.
+                Princeton, NJ: Princeton University Press, 1944.
+              </li>
+              <li>
+                Thaler, R. H. <em>Mental Accounting: Working Memory and Consumer Choice</em>. New
+                York: Russell Sage Foundation, 2000.
+              </li>
+              <li>
+                Langer, E. J. &ldquo;The Illusion of Control.&rdquo;{' '}
+                <em>Journal of Personality and Social Psychology</em> 32, no. 2 (1975): 311-328.
+              </li>
+            </ol>
+          </section>
+
           <p className="mt-8 text-sm italic text-gray-600">
             Note: This article provides an overview based on the comprehensive literature review.
             Readers are encouraged to consult the original publication for complete details.

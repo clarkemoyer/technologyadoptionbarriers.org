@@ -685,6 +685,39 @@ const BibliographyArticlePage = () => {
               </li>
             </ul>
           </section>
+          {/* References */}
+          <section className={SECTION_CLASSES}>
+            <h2 className={H2_CLASSES}>References</h2>
+            <ol className="list-decimal list-inside space-y-3 text-sm">
+              <li>
+                Davis, F. D. (1989). Perceived usefulness, perceived ease of use, and user
+                acceptance of information technology. <em>MIS Quarterly</em>, 13(3), 319-340.
+              </li>
+              <li>
+                Fishbein, M., &amp; Ajzen, I. (1975).{' '}
+                <em>
+                  Belief, attitude, intention and behavior: An introduction to theory and research
+                </em>
+                . Addison-Wesley.
+              </li>
+              <li>
+                Venkatesh, V., &amp; Davis, F. D. (2000). A theoretical extension of the Technology
+                Acceptance Model: Four longitudinal field studies. <em>Management Science</em>,
+                46(2), 186-204.
+              </li>
+              <li>
+                Davis, F. D., Bagozzi, R. P., &amp; Warshaw, P. R. (1992). Extrinsic and intrinsic
+                motivation to use computers in the workplace.{' '}
+                <em>Journal of Applied Social Psychology</em>, 22(14), 1111-1132.
+              </li>
+              <li>
+                Venkatesh, V., Morris, M. G., Davis, G. B., &amp; Davis, F. D. (2003). User
+                acceptance of information technology: Toward a unified view. <em>MIS Quarterly</em>,
+                27(3), 425-478.
+              </li>
+            </ol>
+          </section>
+
           <p className="mt-8 text-sm italic text-gray-600">
             Note: This article provides an overview based on the comprehensive literature review.
             Readers are encouraged to consult the original publication for complete details.

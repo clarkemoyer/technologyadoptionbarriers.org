@@ -465,6 +465,55 @@ const BibliographyArticlePage = () => {
               relationship, creating measurement circularity.
             </p>
           </section>
+          {/* References */}
+          <section className={SECTION_CLASSES}>
+            <h2 className={H2_CLASSES}>References</h2>
+            <ol className="list-decimal list-inside space-y-3 text-sm">
+              <li>
+                Goodhue, D. L., &amp; Thompson, T. B. (1995). Task-technology fit and individual
+                performance. <em>MIS Quarterly</em>, 19(2), 213-236.
+              </li>
+              <li>
+                Davis, F. D. (1989). Perceived usefulness, ease of use, and user acceptance of
+                information technology. <em>MIS Quarterly</em>, 13(3), 319-340.
+              </li>
+              <li>
+                Thompson, R. L., Higgins, C. A., &amp; Howell, J. M. (1991). Toward a conceptual
+                model of personal computing utilization. <em>MIS Quarterly</em>, 15(1), 125-143.
+              </li>
+              <li>
+                Taylor, S., &amp; Todd, P. A. (1995). Understanding information technology usage: A
+                test of competing models. <em>Information Systems Research</em>, 6(2), 144-176.
+              </li>
+              <li>
+                Zigurs, I., &amp; Buckland, B. K. (1992). Examining gender differences in
+                organization domain and IS domain: An exploratory study. <em>MIS Quarterly</em>,
+                16(3), 407-430.
+              </li>
+              <li>
+                Daft, R. L. (1986). <em>Organization theory and design</em> (2nd ed.). St. Paul, MN:
+                West Publishing.
+              </li>
+              <li>
+                Venkatraman, N. (1989). The concept of fit in strategy research: Toward verbal and
+                statistical correspondence. <em>Academy of Management Review</em>, 14(3), 423-444.
+              </li>
+              <li>
+                DeLone, W. H., &amp; McLean, E. R. (1992). Information systems success: The quest
+                for the dependent variable. <em>Information Systems Research</em>, 3(1), 60-95.
+              </li>
+              <li>
+                Tornatzky, L. G., &amp; Klein, K. J. (1982). Innovation characteristics and
+                innovation adoption-implementation: A meta-analysis of findings.{' '}
+                <em>IEEE Transactions on Engineering Management</em>, EB-29(1), 28-45.
+              </li>
+              <li>
+                Goodhue, D. L., Kirsch, L. J., Quillard, J. A., &amp; Wybo, M. D. (1992). Strategic
+                data planning: Lessons from the field. <em>MIS Quarterly</em>, 16(1), 11-34.
+              </li>
+            </ol>
+          </section>
+
           <p className="mt-8 text-sm italic text-gray-600">
             Note: This article provides an overview based on the comprehensive literature review.
             Readers are encouraged to consult the original publication for complete details.

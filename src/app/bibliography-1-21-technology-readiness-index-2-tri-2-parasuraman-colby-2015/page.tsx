@@ -616,6 +616,60 @@ const BibliographyArticlePage = () => {
               protocols,
             </p>
           </section>
+          {/* References */}
+          <section className={SECTION_CLASSES}>
+            <h2 className={H2_CLASSES}>References</h2>
+            <ol className="list-decimal list-inside space-y-3 text-sm">
+              <li>
+                Bagozzi, R. P., and Yi, Y. (1988). &ldquo;On the Evaluation of Structural Equation
+                Models.&rdquo; <em>Journal of the Academy of Marketing Science</em>, vol. 16, no. 1,
+                pp. 74-94.
+              </li>
+              <li>
+                Bettman, J. R. (1979). <em>An Information Processing Theory of Consumer Choice</em>.
+                Addison-Wesley.
+              </li>
+              <li>
+                Churchill Jr., G. A. (1979). &ldquo;A Paradigm for Developing Better Measures of
+                Marketing Constructs.&rdquo; <em>Journal of Marketing Research</em>, vol. 16, no. 1,
+                pp. 64-73.
+              </li>
+              <li>
+                Davis, F. D. (1989). &ldquo;Perceived Usefulness, Perceived Ease of Use, and User
+                Acceptance of Information Technology.&rdquo; <em>MIS Quarterly</em>, vol. 13, no. 3,
+                pp. 319-340.
+              </li>
+              <li>
+                Mick, D. G., and Fournier, S. (1998). &ldquo;Paradoxes of Technology: Consumer
+                Cognizance, Emotions, and Coping Strategies.&rdquo;{' '}
+                <em>Journal of Consumer Research</em>, vol. 25, no. 2, pp. 123-143.
+              </li>
+              <li>
+                Magidson, J., and Vermunt, J. K. (2003). &ldquo;Latent Class Models.&rdquo; In{' '}
+                <em>Handbook of Quantitative Methodology for the Social Sciences</em>, edited by D.
+                Kaplan. Sage Publications.
+              </li>
+              <li>
+                Peter, J. P. (1981). &ldquo;Construct Validity: A Review of Basic Issues and
+                Marketing Practices.&rdquo; <em>Journal of Marketing Research</em>, vol. 18, no. 2,
+                pp. 133-145.
+              </li>
+              <li>
+                Rogers, E. M. (2003). <em>Diffusion of Innovations</em> (5th ed.). Free Press.
+              </li>
+              <li>
+                Williams, M. R., Hartman, L. A., and Cavazotte, F. (2010). &ldquo;Method Variance
+                and Market Variables: A Review and Comprehensive Framework.&rdquo;{' '}
+                <em>Organizational Research Methods</em>, vol. 13, no. 3, pp. 477-514.
+              </li>
+              <li>
+                Woodall, G., and Colby, C. L. (2011). &ldquo;The Results Are In: Social
+                Technology&apos;s Five Focus Groups for Qualitative Research.&rdquo;{' '}
+                <em>MRA Alert! Magazine</em>.
+              </li>
+            </ol>
+          </section>
+
           <p className="mt-8 text-sm italic text-gray-600">
             Note: This article provides an overview based on the comprehensive literature review.
             Readers are encouraged to consult the original publication for complete details.

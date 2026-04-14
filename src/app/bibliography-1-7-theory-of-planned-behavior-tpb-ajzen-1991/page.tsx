@@ -828,6 +828,35 @@ const BibliographyArticlePage = () => {
             </p>
           </section>
 
+          {/* References */}
+          <section className={SECTION_CLASSES}>
+            <h2 className={H2_CLASSES}>References</h2>
+            <ol className="list-decimal list-inside space-y-3 text-sm">
+              <li>
+                Ajzen, I. (1991). The theory of planned behavior.{' '}
+                <em>Organizational Behavior and Human Decision Processes</em>, 50(2), 179-211.
+              </li>
+              <li>
+                Ajzen, I., &amp; Fishbein, M. (1980).{' '}
+                <em>Understanding attitudes and predicting social behavior</em>. Prentice-Hall.
+              </li>
+              <li>
+                Fishbein, M., &amp; Ajzen, I. (1975).{' '}
+                <em>
+                  Belief, attitude, intention and behavior: An introduction to theory and research
+                </em>
+                . Addison-Wesley.
+              </li>
+              <li>
+                Bandura, A. (1977). Self-efficacy: Toward a unifying theory of behavioral change.{' '}
+                <em>Psychological Review</em>, 84(2), 191-215.
+              </li>
+              <li>
+                Triandis, H. C. (1977). <em>Interpersonal behavior</em>. Brooks/Cole Publishing.
+              </li>
+            </ol>
+          </section>
+
           <p className="mt-8 text-sm italic text-gray-600">
             Note: This article provides an overview based on the comprehensive literature review.
             Readers are encouraged to consult the original publication for complete details.
