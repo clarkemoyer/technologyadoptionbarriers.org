@@ -28,15 +28,23 @@ JSON output schema:
     "advanced":   { "pca", "regression", "anova", "interactions" },
     "quality":    { "disposition_funnel", "missing_data", "response_quality", "distributional",
                     "construct_diagnostics", "iri_filter_bias" },
-    "validation": { ... }        // exact schema of crp-validation.json
+    "validation": {               // per-sample validation results
+      "samples": [
+        { "key": "conservative_clean", "label": "...", "n": 87,
+          "adequacy": "inadequate", "adequacy_note": "...",
+          "Barriers": {...}, "Readiness": {...}, ... },
+        ...
+      ],
+      "primary_sample": "conservative_clean"
+    }
   }
 
 Backward compatibility:
   The "sensitivity" key produces the exact same schema as sensitivity-analysis.json.
-  The "validation" key produces the exact same schema as crp-validation.json.
+  The "validation" key contains per-sample validation results with adequacy metadata.
   The pipeline can extract them with one-liners:
     python -c "import json; d=json.load(open('unified.json')); json.dump(d['sensitivity'], open('sensitivity-analysis.json','w'), indent=2)"
-    python -c "import json; d=json.load(open('unified.json')); json.dump(d['validation'], open('crp-validation.json','w'), indent=2)"
+    python -c "import json; d=json.load(open('unified.json')); json.dump(d['validation'], open('live-validation.json','w'), indent=2)"
 
 Usage:
     python tabs_v2_unified_data_analysis.py <csv_path> \\
@@ -2770,10 +2778,10 @@ Examples:
     print("=" * 80)
 
     # ── Load data for pandas-based analyses ──
-    # df_clean: IRI+duration filtered (used for analysis, validation, advanced)
+    # df_clean: IRI+duration filtered (used for analysis, advanced)
     # df_full_v2: all V2 rows before quality filtering (used for quality audit)
     df_clean, df_full_v2 = load_data_pandas(args.csv_path, crp200=args.crp200)
-    df = df_clean  # primary analysis DataFrame
+    df = df_clean  # primary analysis DataFrame (used for advanced analysis)
     N = len(df)
 
     # ── Sensitivity section (raw CSV rows for 5-sample cuts) ──
@@ -2820,8 +2828,98 @@ Examples:
         if isinstance(info, dict) and "missing_pct" in info:
             print(f"  {scale_name} missing: {info['missing_pct']}%")
 
-    # ── Validation ──
-    validation_data = run_validation(df, skip=args.skip_validation, crp200=args.crp200)
+    # ── Validation (per-sample) ──
+    # Build pandas DataFrames for each named sample by matching ResponseIds
+    # from the raw-row samples to the scale-encoded pandas DataFrame.
+    # This avoids duplicating filter logic between raw-CSV and pandas paths.
+    SAMPLE_META = {
+        "conservative_clean": {"label": "Conservative Clean",
+                               "description": "Prolific APPROVED + all quality checks (IRI, duration >= 540s, reCAPTCHA, straightlining, auth)"},
+        "flexible_clean": {"label": "Flexible Clean",
+                           "description": "Prolific APPROVED + basic quality (all 3 IRIs + duration >= 480s)"},
+        "prolific_accepted": {"label": "Prolific Accepted",
+                              "description": "All deduplicated V2 rows with Prolific APPROVED status"},
+        "v2_finished": {"label": "All V2 Finished",
+                        "description": "Finished + duration >= 120s (extreme speeders excluded)"},
+        "v2_all": {"label": "All V2",
+                   "description": "All V2 responses including incomplete"},
+    }
+    # CFA parameter count for the most complex model (Barriers 4-factor: ~46 params)
+    CFA_MAX_PARAMS = 46
+
+    rid_col = idx_raw.get('ResponseId')
+    # Strip whitespace from pandas ResponseId column to match raw-row .strip()
+    if 'ResponseId' in df_full_v2.columns:
+        df_full_v2['ResponseId'] = df_full_v2['ResponseId'].astype(str).str.strip()
+    sample_dfs = {}
+    for key, rows in samples_raw.items():
+        if rid_col is not None:
+            rids = {r[rid_col].strip() for r in rows}
+            sample_dfs[key] = df_full_v2[df_full_v2['ResponseId'].isin(rids)].copy()
+        else:
+            sample_dfs[key] = df_full_v2.copy()
+
+    # Ordered sample keys (most restrictive first)
+    SAMPLE_ORDER = ["conservative_clean", "flexible_clean", "prolific_accepted",
+                    "v2_finished", "v2_all"]
+    if args.crp200:
+        # CRP mode: single sample (the full frozen dataset)
+        SAMPLE_ORDER = ["crp_200"]
+        sample_dfs["crp_200"] = df_full_v2.copy()
+        SAMPLE_META["crp_200"] = {"label": "CRP-200",
+                                  "description": "Frozen CRP dataset (N=200, tiered selection)"}
+
+    validation_samples = []
+    for sample_key in SAMPLE_ORDER:
+        sample_df = sample_dfs[sample_key]
+        meta = SAMPLE_META[sample_key]
+        n = len(sample_df)
+        ratio = round(n / CFA_MAX_PARAMS, 1) if CFA_MAX_PARAMS > 0 else 0.0
+
+        if ratio >= 10:
+            adequacy = "good"
+            adequacy_note = (f"N:parameter ratio {ratio}:1 meets the recommended 10:1 threshold "
+                             f"for stable CFA estimation.")
+        elif ratio >= 5:
+            adequacy = "adequate"
+            adequacy_note = (f"N:parameter ratio {ratio}:1 meets the 5:1 minimum but is below "
+                             f"the recommended 10:1 threshold. Results are interpretable but may "
+                             f"show instability in fit indices.")
+        elif ratio >= 3:
+            adequacy = "marginal"
+            adequacy_note = (f"N:parameter ratio {ratio}:1 is below the 5:1 minimum. CFA fit "
+                             f"indices should be interpreted with caution; convergence issues "
+                             f"and Heywood cases are possible.")
+        else:
+            adequacy = "inadequate"
+            adequacy_note = (f"N:parameter ratio {ratio}:1 is well below minimum thresholds. "
+                             f"CFA results are unreliable and provided for trend monitoring only "
+                             f"as sample size grows.")
+
+        print(f"\n{'='*70}")
+        print(f"  VALIDATION: {meta['label']} (N={n}, adequacy={adequacy})")
+        print(f"{'='*70}")
+
+        val_result = run_validation(sample_df, skip=args.skip_validation,
+                                    crp200=args.crp200)
+        # Inject sample identification and adequacy metadata
+        val_result = OrderedDict([
+            ("key", sample_key),
+            ("label", meta["label"]),
+            ("description", meta["description"]),
+            ("n", n),
+            ("n_to_param_ratio", ratio),
+            ("adequacy", adequacy),
+            ("adequacy_note", adequacy_note),
+        ] + list(val_result.items()))
+
+        validation_samples.append(val_result)
+
+    primary = args.primary_sample if not args.crp200 else "crp_200"
+    validation_data = OrderedDict([
+        ("samples", validation_samples),
+        ("primary_sample", primary),
+    ])
 
     # ── Assemble unified output ──
     unified = OrderedDict()
@@ -2829,7 +2927,7 @@ Examples:
         "n_total": N,
         "dataset": "crp200" if args.crp200 else "live",
         "timestamp": datetime.now().isoformat(),
-        "primary_sample": args.primary_sample if not args.crp200 else None,
+        "primary_sample": primary,
         "source": args.csv_path,
     }
     unified["sensitivity"] = sensitivity_data
