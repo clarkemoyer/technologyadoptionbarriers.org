@@ -542,14 +542,13 @@ const BibliographyArticlePage = () => {
             </p>
             <ul className={BODY_LIST_CLASSES}>
               <li>
-                <strong>Following Models or Theories:</strong> Following Models: Extended ECM models
-                incorporating additional variables (such as switching costs, habit, social
-                influences), models examining continuance across diverse information systems (social
-                media, productivity software, enterprise systems), technology abandonment models,
-                Digital Engagement and Sustained Use models. Following Theories: Research on
-                information systems habit and behavioral inertia, studies of customer loyalty in
-                digital contexts, discontinuance and switching behavior research, service
-                continuance models in electronic commerce.
+                <strong>Following Models or Theories:</strong> Extended ECM models incorporating
+                additional variables (such as switching costs, habit, social influences), models
+                examining continuance across diverse information systems (social media, productivity
+                software, enterprise systems), technology abandonment models, Digital Engagement and
+                Sustained Use models. Following Theories: Research on information systems habit and
+                behavioral inertia, studies of customer loyalty in digital contexts, discontinuance
+                and switching behavior research, service continuance models in electronic commerce.
               </li>
             </ul>
           </section>

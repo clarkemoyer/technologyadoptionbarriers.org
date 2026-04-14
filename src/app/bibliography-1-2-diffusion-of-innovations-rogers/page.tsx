@@ -604,12 +604,12 @@ const BibliographyArticlePage = () => {
                 all populations adopt for identical reasons or in identical ways.
               </li>
               <li>
-                <strong>Following Models or Theories:</strong> Following Models: Technology
-                Acceptance Model (Davis, 1989); Theory of Planned Behavior extensions (Ajzen, 1991);
-                Extensions of DOI to organizational contexts; Unified Theory of Acceptance and Use
-                of Technology (UTAUT). Following Theories: Theory of Planned Behavior applications;
-                Social cognitive theory applications to innovation adoption; Models of
-                organizational innovation adoption; Implementation science frameworks.
+                <strong>Following Models or Theories:</strong> Technology Acceptance Model (Davis,
+                1989); Theory of Planned Behavior extensions (Ajzen, 1991); Extensions of DOI to
+                organizational contexts; Unified Theory of Acceptance and Use of Technology (UTAUT).
+                Following Theories: Theory of Planned Behavior applications; Social cognitive theory
+                applications to innovation adoption; Models of organizational innovation adoption;
+                Implementation science frameworks.
               </li>
             </ul>
           </section>

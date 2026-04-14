@@ -488,8 +488,8 @@ const BibliographyArticlePage = () => {
               access to information, and what security measures are in place can significantly
               reduce insecurity. Detailed privacy policies that are written in accessible language
               rather than legal jargon help customers understand and trust the system. The model
-              instructs companies to develop trust through demonstrated track record and reputation
-              . Established companies with long histories of reliable service and strong reputations
+              instructs companies to develop trust through demonstrated track record and reputation.
+              Established companies with long histories of reliable service and strong reputations
               can leverage this trust to overcome customer insecurity.
             </p>
             <p className={PARAGRAPH_CLASSES}>
@@ -536,12 +536,11 @@ const BibliographyArticlePage = () => {
               market, expanding the addressable customer base for all organizations.
             </p>
             <p className={PARAGRAPH_CLASSES}>
-              Following Models or Theories: Following Models: Technology Readiness and Acceptance
-              Model (TRAM) by Lin, Shih, and Sher (2007); TRI 2.0 by Parasuraman and Colby (2015);
-              various applications and extensions of TR in specific contexts. Following Theories:
-              Studies applying TR construct to e-services adoption; research integrating TR with
-              Technology Acceptance Model variables; cross-cultural applications of the TR
-              framework.
+              Following Models or Theories: Technology Readiness and Acceptance Model (TRAM) by Lin,
+              Shih, and Sher (2007); TRI 2.0 by Parasuraman and Colby (2015); various applications
+              and extensions of TR in specific contexts. Following Theories: Studies applying TR
+              construct to e-services adoption; research integrating TR with Technology Acceptance
+              Model variables; cross-cultural applications of the TR framework.
             </p>
           </section>
 

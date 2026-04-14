@@ -545,11 +545,11 @@ const BibliographyArticlePage = () => {
                 expectations about benefits and career implications.
               </li>
               <li>
-                <strong>Following Models or Theories:</strong> Following Models: Taylor and Todd
-                (1995) - Understanding Information Technology Usage: A Test of Competing Models;
-                Goodhue and Thompson (1995) - Task-Technology Fit and Individual Performance;
-                numerous subsequent technology adoption models building on these foundations.
-                Following Theories: Subsequent refinements of the Technology Acceptance Model (TAM);
+                <strong>Following Models or Theories:</strong> Taylor and Todd (1995) -
+                Understanding Information Technology Usage: A Test of Competing Models; Goodhue and
+                Thompson (1995) - Task-Technology Fit and Individual Performance; numerous
+                subsequent technology adoption models building on these foundations. Following
+                Theories: Subsequent refinements of the Technology Acceptance Model (TAM);
                 extensions incorporating social influences and organizational factors; models
                 examining utilization patterns rather than mere adoption.
               </li>
@@ -574,7 +574,7 @@ const BibliographyArticlePage = () => {
                 information technology. <em>MIS Quarterly</em>, 13(3), 319-340.
               </li>
               <li>
-                Davis, F. D., Bagozzi, R. P., and Warsaw, P. R. (1989). User acceptance of computer
+                Davis, F. D., Bagozzi, R. P., and Warshaw, P. R. (1989). User acceptance of computer
                 technology: A comparison of two theoretical models. <em>Management Science</em>,
                 35(8), 982-1003.
               </li>

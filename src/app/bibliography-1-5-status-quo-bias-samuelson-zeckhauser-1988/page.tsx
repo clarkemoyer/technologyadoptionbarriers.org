@@ -585,15 +585,14 @@ const BibliographyArticlePage = () => {
                 requiring deliberate countermeasures, not merely as individual quirks.
               </li>
               <li>
-                <strong>Following Models or Theories:</strong> Following Models: Prospect Theory
-                extensions examining reference-dependent preferences, behavioral economics models of
-                choice and decision-making, technology adoption models incorporating status quo
-                effects, innovation diffusion models accounting for adoption barriers, consumer
-                switching cost and loyalty models. Following Theories: Behavioral decision research
-                examining individual decision-making, organizational change management theory,
-                economic models incorporating behavioral realism, loss aversion and reference
-                dependence research, psychological commitment and cognitive dissonance theory
-                extensions.
+                <strong>Following Models or Theories:</strong> Prospect Theory extensions examining
+                reference-dependent preferences, behavioral economics models of choice and
+                decision-making, technology adoption models incorporating status quo effects,
+                innovation diffusion models accounting for adoption barriers, consumer switching
+                cost and loyalty models. Following Theories: Behavioral decision research examining
+                individual decision-making, organizational change management theory, economic models
+                incorporating behavioral realism, loss aversion and reference dependence research,
+                psychological commitment and cognitive dissonance theory extensions.
               </li>
             </ul>
           </section>

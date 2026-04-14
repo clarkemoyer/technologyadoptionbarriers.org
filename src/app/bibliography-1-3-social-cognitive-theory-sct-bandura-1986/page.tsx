@@ -635,15 +635,14 @@ const BibliographyArticlePage = () => {
                 that adoption is valued and expected.
               </li>
               <li>
-                <strong>Following Models or Theories:</strong> Following Models: Technology
-                Acceptance Model (TAM) - Davis, 1989; Unified Theory of Acceptance and Use of
-                Technology (UTAUT) - Venkatesh et al., 2003; Technology Acceptance Model 3 (TAM3) -
-                Venkatesh &amp; Bala, 2008; Expectancy-Value Theory applications to technology;
-                Self-Determination Theory applications to technology adoption. Following Theories:
-                Extensions of SCT specifically addressing technology (computer self-efficacy),
-                motivational theories integrating self-efficacy, organizational behavior theories
-                incorporating efficacy beliefs, training and development literature using SCT
-                frameworks.
+                <strong>Following Models or Theories:</strong> Technology Acceptance Model (TAM) -
+                Davis, 1989; Unified Theory of Acceptance and Use of Technology (UTAUT) - Venkatesh
+                et al., 2003; Technology Acceptance Model 3 (TAM3) - Venkatesh &amp; Bala, 2008;
+                Expectancy-Value Theory applications to technology; Self-Determination Theory
+                applications to technology adoption. Following Theories: Extensions of SCT
+                specifically addressing technology (computer self-efficacy), motivational theories
+                integrating self-efficacy, organizational behavior theories incorporating efficacy
+                beliefs, training and development literature using SCT frameworks.
               </li>
             </ul>
           </section>

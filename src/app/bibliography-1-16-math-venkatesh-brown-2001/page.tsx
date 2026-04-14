@@ -506,14 +506,13 @@ const BibliographyArticlePage = () => {
             </p>
             <ul className={BODY_LIST_CLASSES}>
               <li>
-                <strong>Following Models or Theories:</strong> Following Models: Unified Theory of
-                Acceptance and Use of Technology (UTAUT) extensions to household contexts, models
-                examining smart home technology adoption, models of mobile device adoption in
-                household settings, extended TAM applications incorporating household
-                decision-making variables. Following Theories: Subsequent household technology
-                adoption research, Internet of Things adoption literature, smart home and home
-                automation adoption studies, digital divide research informed by household adoption
-                perspectives.
+                <strong>Following Models or Theories:</strong> Unified Theory of Acceptance and Use
+                of Technology (UTAUT) extensions to household contexts, models examining smart home
+                technology adoption, models of mobile device adoption in household settings,
+                extended TAM applications incorporating household decision-making variables.
+                Following Theories: Subsequent household technology adoption research, Internet of
+                Things adoption literature, smart home and home automation adoption studies, digital
+                divide research informed by household adoption perspectives.
               </li>
             </ul>
           </section>
