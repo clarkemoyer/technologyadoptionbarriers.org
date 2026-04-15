@@ -237,25 +237,6 @@ const BibliographyArticlePage = () => {
               Provided compatibility construct and concepts of relative advantage relevant to
               technology adoption.
             </li>
-            <li>
-              <strong>
-                Social influence theory (Kelman, 1961;{' '}
-                <a
-                  id="cite-ref-french-1959-1"
-                  href="#ref-french-1959"
-                  className="text-tabs-teal-deep hover:underline"
-                >
-                  French &amp; Raven, 1959
-                </a>
-                ):
-              </strong>{' '}
-              Grounded normative belief decomposition into subjective norm, social influence, and
-              organizational support.
-            </li>
-            <li>
-              <strong>Resource commitment theory:</strong> Provided foundations for understanding
-              facilitating conditions and organizational support as control belief components.
-            </li>
           </ul>
         </section>
 
@@ -624,10 +605,6 @@ const BibliographyArticlePage = () => {
                   ↩
                 </a>
               </span>
-            </li>
-            <li id="ref-french-1959">
-              French, J. R. P., &amp; Raven, B. (1959). The bases of social power. In D. Cartwright
-              (Ed.), <em>Studies in social power</em>. University of Michigan Press.
             </li>
           </ol>
         </section>
