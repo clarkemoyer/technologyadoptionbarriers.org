@@ -544,7 +544,7 @@ const BibliographyArticlePage = () => {
               devices, wearables) with different benefit-sacrifice profiles requires investigation.
             </li>
             <li>
-              <strong>Geographic and cultural context:</strong> Korean market sample limits
+              <strong>Geographic and cultural context:</strong> Singaporean market sample limits
               generalization to other geographic regions and cultures with different cost
               structures, technology attitudes, and consumer preferences.
             </li>
