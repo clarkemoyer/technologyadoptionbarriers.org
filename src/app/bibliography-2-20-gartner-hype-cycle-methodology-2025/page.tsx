@@ -121,12 +121,13 @@ const BibliographyArticlePage = () => {
             genuine innovation from temporary hype and timing investment appropriately.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            Gartner Hype Cycle Methodology was created to provide systematic framework for assessing
-            emerging technologies objectively, positioning them on standard maturity curve,
-            projecting timelines to productivity, and identifying optimal investment windows. The
-            methodology systematizes Gartner's research across hundreds of technology domains,
+            Gartner Hype Cycle Methodology was created to provide a systematic framework for
+            assessing emerging technologies objectively, positioning them on standard maturity
+            curve, projecting timelines to productivity, and identifying optimal investment windows.
+            The methodology systematizes Gartner's research across hundreds of technology domains,
             enabling organizations to make informed decisions about technology adoption timing.
-            Annual Gartner Hype Cycle reports across 100+ domains provide consistent framework for
+            Annual Gartner Hype Cycle reports across 100+ domains provide a consistent framework
+            for
             evaluating emerging technologies from artificial intelligence to quantum computing,
             helping executives avoid both hype-driven premature investment and late-mover
             obsolescence.
@@ -220,11 +221,11 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 7. Describe The Model */}
+        {/* 7. Describe the Model */}
         <section className={SECTION_CLASSES}>
-          <h2 className={H2_CLASSES}>Describe The Model</h2>
+          <h2 className={H2_CLASSES}>Describe the Model</h2>
           <p className={PARAGRAPH_CLASSES}>
-            Gartner Hype Cycle Methodology provides systematic framework for assessing emerging
+            Gartner Hype Cycle Methodology provides a systematic framework for assessing emerging
             technologies through positioning on standard maturity curve incorporating both
             visibility dimension and time-to-plateau projection. The methodology integrates five
             distinct phases of technology development with maturity level assessment and benefit
@@ -677,7 +678,7 @@ const BibliographyArticlePage = () => {
         </section>
 
         <section className={SECTION_CLASSES}>
-          <h2 className={H2_CLASSES}>Further Reading</h2>
+          {/* 14. Further Reading */}
           <ol className={REFERENCES_OL_CLASSES}>
             <li id="ref-gartner-2024a">
               Gartner. (2024). <em>Hype Cycle for Emerging Technologies 2024</em>. Gartner Research.
