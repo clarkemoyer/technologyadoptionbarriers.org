@@ -447,13 +447,13 @@ const BibliographyArticlePage = () => {
             At Mutual Benefit Life Insurance Company, the life insurance application process was
             redesigned. The original process involved sequential steps: application processing,
             underwriting assessment, medical review, financial review, and approval. The process
-            required 20-30 days and involved handoffs between multiple departments. Redesign
+            required 5-25 days and involved handoffs between multiple departments. Redesign
             identified information technology opportunity: enable case workers to access all
             required information systems and make end-to-end decisions. Instead of specialized
             underwriters, medical reviewers, and financial analysts making sequential decisions,
             trained case workers could access decision-support systems providing underwriting
             guidance, medical information access, and financial analysis. Single case worker could
-            complete entire application process in 4-5 days instead of 20-30 days.
+            complete entire application process in 4 hours instead of 5-25 days.
           </p>
 
           <h3 className={H3_CLASSES}>Main Strengths</h3>
