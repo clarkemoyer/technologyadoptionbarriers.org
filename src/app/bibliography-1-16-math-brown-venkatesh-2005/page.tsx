@@ -53,23 +53,23 @@ const BibliographyArticlePage = () => {
           <h2 className={H2_CLASSES}>Theory Publication Information</h2>
           <div className="space-y-2">
             <p>
-              <strong>Authors:</strong> Viswanath Venkatesh and Susan A. Brown
+              <strong>Authors:</strong> Susan A. Brown and Viswanath Venkatesh
             </p>
             <p>
               <strong>Formal Publication Date:</strong> 2005
             </p>
             <p>
-              <strong>Official Title:</strong> A longitudinal investigation of personal computers in
-              homes: Adoption determinants and emerging challenges
+              <strong>Official Title:</strong> Model of adoption of technology in households: A
+              baseline model test and extension incorporating household life cycle
             </p>
             <p>
               <strong>Journal:</strong> MIS Quarterly
             </p>
             <p>
-              <strong>Volume &amp; Issue:</strong> Vol. 25, No. 1
+              <strong>Volume &amp; Issue:</strong> Vol. 29, No. 3
             </p>
             <p>
-              <strong>Pages:</strong> 71-102
+              <strong>Pages:</strong> 399-426
             </p>
           </div>
         </section>
@@ -81,12 +81,13 @@ const BibliographyArticlePage = () => {
             <div>
               <p className="text-xs font-bold uppercase text-blue-900 mb-1">APA (7th ed.)</p>
               <p className="text-sm font-mono">
-                Venkatesh, V., &amp; Brown, S. A. (
-                <a href="#ref-venkatesh-2001" className="text-tabs-teal-deep hover:underline">
-                  2001
+                Brown, S. A., &amp; Venkatesh, V. (
+                <a href="#ref-brown-2005" className="text-tabs-teal-deep hover:underline">
+                  2005
                 </a>
-                ). A longitudinal investigation of personal computers in homes: Adoption
-                determinants and emerging challenges. <em>MIS Quarterly</em>, 25(1), 71-102.
+                ). Model of adoption of technology in households: A baseline model test and
+                extension incorporating household life cycle. <em>MIS Quarterly</em>, 29(3),
+                399-426.
               </p>
             </div>
             <div>
@@ -94,10 +95,10 @@ const BibliographyArticlePage = () => {
                 Chicago (Author-Date)
               </p>
               <p className="text-sm font-mono">
-                Venkatesh, Viswanath, and Susan A. Brown. 2001. &ldquo;A Longitudinal Investigation
-                of Personal Computers in Homes: Adoption Determinants and Emerging
-                Challenges.&rdquo;
-                <em>MIS Quarterly</em> 25, no. 1: 71-102.
+                Brown, Susan A., and Viswanath Venkatesh. 2005. &ldquo;Model of Adoption of
+                Technology in Households: A Baseline Model Test and Extension Incorporating
+                Household Life Cycle.&rdquo;
+                <em>MIS Quarterly</em> 29, no. 3: 399-426.
               </p>
             </div>
           </div>
@@ -809,7 +810,7 @@ const BibliographyArticlePage = () => {
           <ol className={REFERENCES_OL_CLASSES}>
             <li id="ref-venkatesh-2001">
               Venkatesh, V., &amp; Brown, S. A. (2001). A longitudinal investigation of personal
-              computers in homes: Adoption determinants and emerging challenges.{' '}
+              computers in baseline model test and extension incorporating household life cycle.{' '}
               <em>MIS Quarterly</em>, 25(1), 71-102. https://doi.org/10.2307/3250959
             </li>
             <li id="ref-brown-2005">
