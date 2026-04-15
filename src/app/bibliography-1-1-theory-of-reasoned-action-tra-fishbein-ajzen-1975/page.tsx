@@ -947,11 +947,6 @@ const BibliographyArticlePage = () => {
               <em>Social foundations of thought and action: A social cognitive theory</em>.
               Prentice-Hall. ISBN: 978-0-13-815614-5
             </li>
-            <li id="ref-delone-2003">
-              DeLone, W. H., &amp; McLean, E. R. (2003). The DeLone and McLean model of information
-              systems success: A ten-year update. <em>Journal of Management Information Systems</em>
-              , 19(4), 9-30. https://doi.org/10.1080/07421222.2003.11045748
-            </li>
             <li id="ref-rogers-2003">
               Rogers, E. M. (2003). <em>Diffusion of innovations</em> (5th ed.). Free Press.
             </li>
