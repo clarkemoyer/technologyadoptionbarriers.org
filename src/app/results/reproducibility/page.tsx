@@ -453,9 +453,8 @@ python tabs_v2_unified_data_analysis.py <path_to_csv> --json unified.json
 python tabs_v2_unified_data_analysis.py <path_to_crp_csv> --crp200 --json crp-unified.json
 
 # Extract individual JSON files from unified output
-python -c "import json; d=json.load(open('unified.json'))
-json.dump(d['sensitivity'], open('sensitivity-analysis.json','w'), indent=2)
-json.dump(d['validation'], open('live-validation.json','w'), indent=2)"
+python -c "import json; d=json.load(open('unified.json')); json.dump(d['sensitivity'], open('sensitivity-analysis.json','w'), indent=2)"
+python -c "import json; d=json.load(open('unified.json')); json.dump(d['validation'], open('live-validation.json','w'), indent=2)"
 
 # Choose a different primary sample for advanced analysis
 python tabs_v2_unified_data_analysis.py <csv> --json unified.json \\
