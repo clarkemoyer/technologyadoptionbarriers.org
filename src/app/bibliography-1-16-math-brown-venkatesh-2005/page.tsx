@@ -13,7 +13,7 @@ import {
 
 export const metadata: Metadata = {
   title:
-    'Bibliography: Model of Adoption of Technology in Households (MATH) - Venkatesh & Brown (2001)',
+    'Bibliography: Model of Adoption of Technology in Households (MATH) - Brown & Venkatesh (2005)',
   description:
     'In-depth exploration of the Model of Adoption of Technology in Households (MATH), identifying attitudinal, normative, and control beliefs as predictors of PC adoption in household contexts distinct from organizational technology adoption.',
 }
@@ -23,7 +23,7 @@ const BibliographyArticlePage = () => {
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>
-          Model of Adoption of Technology in Households (MATH) - Venkatesh &amp; Brown (2001)
+          Model of Adoption of Technology in Households (MATH) - Brown &amp; Venkatesh (2005)
         </h1>
 
         {/* 1. Model Identification */}
@@ -56,7 +56,7 @@ const BibliographyArticlePage = () => {
               <strong>Authors:</strong> Viswanath Venkatesh and Susan A. Brown
             </p>
             <p>
-              <strong>Formal Publication Date:</strong> 2001
+              <strong>Formal Publication Date:</strong> 2005
             </p>
             <p>
               <strong>Official Title:</strong> A longitudinal investigation of personal computers in
