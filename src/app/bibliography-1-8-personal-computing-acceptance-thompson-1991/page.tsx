@@ -8,620 +8,603 @@ import {
   SECTION_CLASSES,
   PARAGRAPH_CLASSES,
   BODY_LIST_CLASSES,
+  REFERENCES_OL_CLASSES,
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: Personal Computing Acceptance - Thompson et al. (1991)',
+  title: 'Bibliography: Personal Computing Utilization - Thompson et al. (1991)',
   description:
-    'Deep dive into Toward a Conceptual Model of Personal Computing by Ronald L. Thompson, Christopher A. Higgins, Jane M. Howell (1991), exploring its foundational contributions to technology adoption research.',
+    'Deep dive into the Personal Computing Utilization Model by Thompson, Higgins, and Howell (1991), exploring determinants of actual PC usage in organizational contexts.',
 }
 
 const BibliographyArticlePage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
-        <h1 className={H1_CLASSES}>Personal Computing Acceptance - Thompson et al. (1991)</h1>
+        <h1 className={H1_CLASSES}>
+          Personal Computing Utilization - Thompson, Higgins, &amp; Howell (1991)
+        </h1>
 
-        {/* Model Identification */}
+        {/* 1. Model Identification */}
         <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
           <h2 className={H2_CLASSES}>Model Identification</h2>
           <div className="space-y-2">
             <p>
               <strong>Model Name:</strong> Toward a Conceptual Model of Personal Computing
+              Utilization
             </p>
+            <p>
+              <strong>Model Abbreviation:</strong> PC Utilization Model
+            </p>
+            <p>
+              <strong>Target of Model:</strong> Individual Technology Usage in Organizational
+              Contexts
+            </p>
+            <p>
+              <strong>Disciplinary Origin:</strong> Information Systems, Organizational Behavior
+            </p>
+          </div>
+        </section>
+
+        {/* 2. Theory Publication Information */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Theory Publication Information</h2>
+          <div className="space-y-2">
             <p>
               <strong>Authors:</strong> Ronald L. Thompson, Christopher A. Higgins, Jane M. Howell
             </p>
             <p>
-              <strong>Publication Date:</strong> 1991
+              <strong>Formal Publication Date:</strong> 1991
+            </p>
+            <p>
+              <strong>Official Title:</strong> Toward a Conceptual Model of Personal Computing
+              Utilization
+            </p>
+            <p>
+              <strong>Journal:</strong> MIS Quarterly
+            </p>
+            <p>
+              <strong>Volume &amp; Issue:</strong> Vol. 15, No. 1
+            </p>
+            <p>
+              <strong>Pages:</strong> 125-143
             </p>
           </div>
         </section>
 
-        {/* Citation Information */}
+        {/* 3. Citation Information */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Citation Information</h2>
-          <div className="bg-blue-50 p-4 rounded border-l-4 border-blue-500">
-            <p className="text-sm font-mono">
-              Thompson, R. L., Higgins, C. A., & Howell, J. M. (1991). Toward a conceptual model of
-              personal computing utilization. MIS Quarterly, 15(1), 125-143.
-            </p>
+          <div className="bg-blue-50 p-4 rounded border-l-4 border-blue-500 space-y-3">
+            <div>
+              <p className="text-xs font-bold uppercase text-blue-900 mb-1">APA (7th ed.)</p>
+              <p className="text-sm font-mono">
+                Thompson, R. L., Higgins, C. A., &amp; Howell, J. M. (
+                <a href="#ref-thompson-1991" className="text-tabs-teal-deep hover:underline">
+                  1991
+                </a>
+                ). Toward a conceptual model of personal computing utilization.{' '}
+                <em>MIS Quarterly</em>, 15(1), 125-143.
+              </p>
+            </div>
+            <div>
+              <p className="text-xs font-bold uppercase text-blue-900 mb-1">
+                Chicago (Author-Date)
+              </p>
+              <p className="text-sm font-mono">
+                Thompson, Ronald L., Christopher A. Higgins, and Jane M. Howell. 1991. &ldquo;Toward
+                a Conceptual Model of Personal Computing Utilization.&rdquo;
+                <em>MIS Quarterly</em> 15, no. 1: 125-143.
+              </p>
+            </div>
           </div>
         </section>
 
-        {/* Main Content */}
+        {/* 4. Why Was the Model Created? */}
         <section className={SECTION_CLASSES}>
-          <section className="mb-6">
-            <h3 className={H3_CLASSES}>Why was the model made?</h3>
-            <p className={PARAGRAPH_CLASSES}>
-              Thompson et al. developed their PC utilization model to address a significant gap in
-              understanding personal computer adoption and usage within organizational settings.
-              While prior models existed to explain technology acceptance, there was insufficient
-              theoretical grounding specifically examining the factors influencing personal
-              computing utilization behavior among end-users. The authors built upon Triandis’
-              (1980) theory of expected consequences as a foundational framework, which posits that
-              an individual’s behavior is influenced by the relative influence of different
-              components of expected consequences of use. The motivation emerged from recognizing
-              that personal computing was becoming increasingly prevalent in organizational
-              environments, yet organizations struggled to understand why some employees readily
-              adopted PCs while others resisted or underutilized them. The model sought to identify
-              the key determinants driving actual PC usage patterns, moving beyond simple acceptance
-              measures to understand what drives sustained utilization behavior.
-            </p>
-            <p className={PARAGRAPH_CLASSES}>
-              Specifically, Thompson et al. hypothesized that six primary constructs would predict
-              PC utilization: social factors, affect (attitudes toward PCs), facilitating
-              conditions, complexity, job fit, and long-term consequences. They recognized that
-              these factors interact differently to influence how frequently and intensively
-              individuals use personal computers in their work. The research was grounded in the
-              organizational context, drawing 286 survey respondents from a single organization,
-              making it highly relevant to managers seeking to understand employee PC adoption
-              patterns. The model represented an important evolution in IS research by proposing
-              that technology adoption is not binary (use versus non-use) but rather exists on a
-              continuum of utilization intensity. Prior research had focused heavily on intention to
-              use or acceptance, but Thompson’s work directly examined actual usage behavior and the
-              factors predicting variation in usage levels among users.
-            </p>
-          </section>
-          <section className="mb-6">
-            <h3 className={H3_CLASSES}>How was the model’s internal validity tested?</h3>
-            <p className={PARAGRAPH_CLASSES}>
-              The researchers employed rigorous quantitative methodology to establish internal
-              validity. They conducted a survey-based study with 286 participants from a single
-              organization and employed Partial Least Squares (PLS) analysis as their primary
-              statistical technique. PLS was selected specifically because it is particularly suited
-              to testing structural models without requiring the stringent assumptions of normality
-              associated with regression models. To establish internal validity, the researchers
-              first developed comprehensive measurement scales for each construct. They conducted
-              exploratory factor analysis to identify underlying measurement dimensions, which
-              resulted in seven factors rather than the originally hypothesized six. This discovery
-              itself validated the multidimensional nature of the constructs being measured. The
-              exploratory factor analysis extracted eight factors initially using traditional
-              techniques, then refined these using PLS techniques to provide a more focused factor
-              analysis.
-            </p>
-            <p className={PARAGRAPH_CLASSES}>
-              Cronbach’s alpha reliability coefficients were calculated for all measurement scales.
-              The alphas ranged from .60 (for complexity) to .86 (for facilitating conditions), with
-              most scales demonstrating acceptable reliability above .70. The paper notes that lower
-              reliabilities for some scales indicated that future studies should develop stronger
-              measures. The researchers examined discriminant validity by conducting a principal
-              components analysis of measurement scales. They confirmed that each construct loaded
-              more highly on its hypothesized factor than on other factors, with only one
-              exception-facilitating conditions items loaded slightly higher on social factors for
-              some items. This finding indicated appropriate construct separation. Cross-construct
-              correlations were computed and reported in Table 6 of the study. These
-              intercorrelations between constructs revealed moderate relationships, suggesting that
-              while constructs were related, they measured distinct dimensions.
-            </p>
-            <p className={PARAGRAPH_CLASSES}>
-              For example, complexity showed correlations with job fit (.28), long-term consequences
-              (.17), affect (.48), social factors (.19), and facilitating conditions (.07),
-              indicating appropriate independence while showing expected relationships. The model’s
-              path coefficients were tested for statistical significance using jackknifing
-              procedures, which do not assume normality. Four of six hypothesized relationships were
-              statistically significant at p &lt; .01 level, providing strong evidence for the
-              model’s internal structure.
-            </p>
-          </section>
-          <section className="mb-6">
-            <h3 className={H3_CLASSES}>How was the model’s external validity tested?</h3>
-            <p className={PARAGRAPH_CLASSES}>
-              External validity testing was limited in this research, which the authors explicitly
-              acknowledged. The study was conducted with participants from a single organization,
-              which represents a significant limitation to generalizability. The researchers noted
-              that future tests of the theory across multiple organizations were needed to establish
-              whether results would generalize to other contexts. However, the authors did take
-              steps to address external validity within their single-organization context. They
-              selected participants across different job levels and positions, recognizing that PC
-              utilization might vary by role and responsibility. They distinguished between
-              job-related factors (how a PC fits one’s job tasks) and individual perceptions,
-              attempting to capture variance across different job contexts within the organization.
-              The study measured actual utilization behavior through self-reported usage patterns
-              rather than relying on intentions or beliefs alone, which strengthened external
-              validity relative to intention-based models.
-            </p>
-            <p className={PARAGRAPH_CLASSES}>
-              Usage was operationalized through multiple indicators: number of visits to the
-              computing facility, time spent using personal computers, and frequency of use in
-              job-related tasks. The researchers also collected data on respondents’ previous
-              experience with personal computers. They recognized that experience might influence
-              the relationships between antecedents and utilization behavior. By examining
-              experience as a potential moderating variable, they attempted to understand whether
-              the model’s predictive patterns held across users with different levels of familiarity
-              with technology. The relatively large sample size for a single organization (n=286)
-              provided adequate statistical power for detecting relationships. The researchers
-              explicitly stated that one limitation was that “the respondents were from one
-              organization… [hence] the generalizability of these results to other organizations
-              remains to be determined.” This acknowledgment demonstrates appropriate caution about
-              external validity claims.
-            </p>
-          </section>
-          <section className="mb-6">
-            <h3 className={H3_CLASSES}>How is the model intended to be used in practice?</h3>
-            <p className={PARAGRAPH_CLASSES}>
-              Thompson et al. provided extensive managerial implications for how organizations could
-              apply the model to enhance PC adoption and utilization. The model is intended to help
-              managers diagnose barriers to PC utilization within their organizations and identify
-              lever points for intervention. First, the model provides a diagnostic framework.
-              Managers can assess the strength of each construct within their organizational
-              context: Do employees perceive good fit between their jobs and PC functionality? Are
-              there sufficient facilitating conditions (technical support, training)? Is affect
-              toward PCs positive? Do social factors support usage? Are complexity perceptions high?
-              Do employees perceive positive long-term consequences? By evaluating performance on
-              each dimension, managers can identify which barriers are most problematic. Second, the
-              model prioritizes intervention areas.
-            </p>
-            <p className={PARAGRAPH_CLASSES}>
-              The findings showed that social factors and job fit had the strongest effects on
-              utilization (path coefficients of .22 and .26, respectively), suggesting these should
-              be primary focus areas. Long-term consequences also significantly influenced
-              utilization (.10), but affect and facilitating conditions did not show significant
-              direct effects. This suggests that while technical support is important, it is
-              insufficient alone-managers must also address the social environment and perceptions
-              of task-technology fit. Third, the model suggests specific managerial actions. For
-              social factors, managers can leverage early adopters and organizational champions to
-              promote PC usage. The authors note that “visible organizational members to use PCs may
-              be an effective way of championing use throughout the organization.” For job fit,
-              managers should assess whether PC applications align with actual job requirements and
-              communicate these connections clearly to employees.
-            </p>
-            <p className={PARAGRAPH_CLASSES}>
-              The model also highlights experience as a potentially important moderator. The authors
-              speculate that “experience influences expected consequences of behaviors. The
-              influence of experience on expected consequences could be tested by comparing the
-              paths in the model across samples of experienced and inexperienced PC users.” This
-              suggests longitudinal tracking of utilization patterns as users gain experience.
-              Fourth, the model provides insight into the insufficient nature of purely technical
-              interventions. The non-significant relationship between facilitating conditions and PC
-              utilization suggests that providing abundant technical support, while necessary, may
-              not drive increased usage if other factors are not addressed. This counters
-              conventional wisdom that better support automatically yields better adoption.
-            </p>
-          </section>
-          <section className="mb-6">
-            <h3 className={H3_CLASSES}>What does the model measure?</h3>
-            <p className={PARAGRAPH_CLASSES}>
-              The Thompson model measures seven primary constructs, each operationalized through
-              multiple items and scales: 1.Complexity: Measures perceived difficulty of using a PC.
-              Four items assessed complexity (CO1-CO4), with Cronbach’s alpha of .60. Items measured
-              perceived ease and difficulty in learning and using computers. 2.Job Fit: Measures the
-              perceived alignment between PC functionality and job requirements. Six items (JF1-JF6)
-              with alpha of .82 assessed whether PCs helped with job performance and whether the
-              technology matched job tasks. 3.Long-Term Consequences: Measures perceived future
-              payoffs from PC use, including career advancement and productivity gains. Six items
-              (LT1-LT6) with alpha of .76 assessed beliefs about future benefits and career impacts.
-              4.Affect: Measures emotional attitudes toward PCs-whether individuals like or dislike
-              them. Three items (AF1-AF3) with alpha of .61 measured affective responses and liking
-              for PCs. 5.Social Factors: Measures the perceived importance of others’ opinions
-              regarding PC use and social norms about technology.
-            </p>
-            <p className={PARAGRAPH_CLASSES}>
-              Four items (SF1- SF4) with alpha of .65 assessed social influence and normative
-              pressures. 6.Facilitating Conditions: Measures objective and perceived availability of
-              resources supporting PC use. Four items (FC1-FC4) with alpha of .86 measured training
-              availability, equipment access, and technical support. 7.Utilization: Measures actual
-              frequency and intensity of PC usage. Three items (UT1-UT3) with alpha of .64 assessed
-              direct usage behavior including frequency of use. The model conceptualizes these seven
-              constructs within a framework where complexity, job fit, and long-term consequences
-              are grouped as “expected consequences of use,” while social factors and facilitating
-              conditions are treated separately, and affect is positioned as influencing utilization
-              both directly and through its influence on other constructs.
-            </p>
-          </section>
-          <section className="mb-6">
-            <h3 className={H3_CLASSES}>What are the main strengths of the model?</h3>
-            <p className={PARAGRAPH_CLASSES}>
-              The Thompson model possesses several notable strengths that contributed to its
-              influential position in IS research: 1.Grounding in established theory: The model is
-              anchored in Triandis’ theory of expected consequences, providing strong theoretical
-              justification rather than representing purely empirical discovery. This theoretical
-              foundation gives the model explanatory power beyond mere statistical association.
-              2.Comprehensive construct coverage: Rather than focusing on single factors, the model
-              integrates multiple dimensions-affective, social, cognitive, and contextual-providing
-              a more holistic view of PC utilization determinants. This comprehensiveness
-              acknowledged that technology adoption is multifaceted. 3.Actual behavior measurement:
-              Unlike many technology acceptance models that measure intentions or beliefs,
-              Thompson’s model directly measures utilization behavior. This operationalization
-              bridges the intention-behavior gap, addressing a known limitation of intention- based
-              models. 4.Empirical validation with strong model fit: The model explained 24% of
-              variance in PC utilization (R² = .24), which was substantial for a behavioral outcome
-              and demonstrated that the identified factors capture meaningful drivers of usage.
-              5.Clear managerial implications: The model provides actionable insights.
-            </p>
-            <p className={PARAGRAPH_CLASSES}>
-              By identifying that social factors and job fit are the strongest predictors while
-              technical support alone is insufficient, the model guides managers toward
-              evidence-based intervention strategies. 6.Sophisticated statistical methodology: The
-              use of PLS analysis represented a methodological advance, allowing the researchers to
-              test the complete model simultaneously while accounting for measurement error, more
-              sophisticated than traditional regression approaches. 7.Recognition of complexity: The
-              model’s finding that complexity perception negatively influences utilization (path =
-              -.14) is intuitive and validates a widely held assumption while also quantifying its
-              magnitude. 8.Integration of personal and organizational factors: The model synthesizes
-              individual attitudes, social context, job characteristics, and organizational support
-              systems, recognizing that utilization is determined by factors at multiple levels.
-            </p>
-          </section>
-          <section className="mb-6">
-            <h3 className={H3_CLASSES}>What are the main weaknesses of the model?</h3>
-            <p className={PARAGRAPH_CLASSES}>
-              Despite its strengths, the Thompson model has notable limitations:
-              1.Single-organization design: The most significant limitation acknowledged by the
-              authors is that all data came from one organization. This severely constrains external
-              validity and generalizability. PC adoption patterns, social norms, job
-              characteristics, and organizational culture vary substantially across industries and
-              organizations, making it unclear whether findings would replicate elsewhere. 2.Limited
-              operationalization of facilitating conditions: The authors acknowledge that
-              facilitating conditions were operationalized narrowly as “technical support,” but the
-              theory should encompass broader resource factors. They note that “we only measured one
-              aspect of facilitating conditions” and that “other measures of facilitating conditions
-              should have been used, such as access to a PC or ease of purchasing software or
-              hardware upgrades.” This incomplete operationalization may explain the non-significant
-              effect of facilitating conditions. 3.Low reliability for complexity scale: The
-              complexity construct had the lowest Cronbach’s alpha (.60), below the conventional .70
-              threshold, indicating measurement issues.
-            </p>
-            <p className={PARAGRAPH_CLASSES}>
-              The authors note the “relatively poor reliabilities” and state that “future studies
-              should develop stronger measures” for complexity. 4.Non-significant relationships for
-              some major constructs: Two hypothesized relationships were not statistically
-              significant: the direct paths from affect to utilization (.02) and facilitating
-              conditions to utilization (-.04). This contrasts with prior technology acceptance
-              research and suggests either model misspecification or contextual differences. 5.Low
-              R² for affect and facilitating conditions: The indirect paths through job fit and
-              long-term consequences suggest these variables may be more important than direct
-              effects, but the theory did not adequately specify these indirect mechanisms.
-              6.Self-report measurement: All data were self-reported rather than based on objective
-              usage statistics. Respondents may have overestimated or underestimated their usage.
-              The authors note that “a better approach would have been to obtain precise usage
-              statistics through an electronic monitor to confirm or disconfirm the perceptions of
-              the respondents.
-            </p>
-            <p className={PARAGRAPH_CLASSES}>
-              This approach has been suggested by many IS researchers (e.g., Robey, 1979).”
-              7.Cross-sectional design: The study captured a single point in time snapshot.
-              Longitudinal data would better establish causal relationships and understand how
-              factors influence utilization trajectories over time as users gain experience.
-              8.Insufficient theoretical explanation of experience effects: While the authors
-              discuss experience as potentially important, they do not integrate it into the model.
-              Experience may change how all model constructs influence utilization, representing an
-              important unmodeled mechanism. 9.Discrimination validity issue with facilitating
-              conditions: One measurement validity problem emerged: facilitating conditions items
-              loaded slightly higher on the social factors factor for some items, suggesting these
-              constructs were not perfectly distinguished in measurement.
-            </p>
-          </section>
-          <section className="mb-6">
-            <h3 className={H3_CLASSES}>How does this model differ from older models?</h3>
-            <p className={PARAGRAPH_CLASSES}>
-              The Thompson model represents a significant evolution from prior technology adoption
-              frameworks in several ways: 1.Shift from intention to behavior: Earlier models like
-              the Technology Acceptance Model (Davis, 1989) primarily measured behavioral intention
-              as the outcome variable. Thompson’s model directly measured actual usage behavior,
-              recognizing that intention-behavior correspondence is imperfect and that actual
-              utilization is the managerially relevant outcome. 2.Integration of multiple
-              theoretical perspectives: While prior models drew from single theoretical traditions,
-              Thompson’s work integrated Triandis’ theory with concepts from expectancy theory,
-              attitude theory, and social influence theory. This eclecticism provided broader
-              theoretical coverage than single-perspective models. 3.Explicit modeling of social
-              factors: Prior IS models gave limited attention to social influence and social norms.
-              Thompson’s inclusion of social factors as a primary construct acknowledged that
-              technology adoption occurs within social contexts where peers, supervisors, and
-              organizational norms shape adoption decisions. 4.Comprehensive expected consequences
-              framework: Thompson operationalized “expected consequences” comprehensively across
-              near- term factors (job fit, complexity) and long-term outcomes (career advancement).
-            </p>
-            <p className={PARAGRAPH_CLASSES}>
-              This temporal framing was more sophisticated than models treating all consequences
-              equivalently. 5.Organizational context: While Davis’ TAM was developed in a general
-              consumption context, Thompson explicitly situated the model in organizational
-              environments where job fit and organizational factors shape technology adoption. This
-              made the model more directly applicable to workplace technology adoption. 6.Affect as
-              distinct construct: By including affect as a distinct construct from perceived
-              usefulness or perceived ease of use, Thompson’s model acknowledged emotional
-              dimensions of technology adoption-whether people like the technology independent of
-              rational assessments of usefulness. 7.Path model structure: The model specified
-              complex relationships where some factors (job fit, complexity) operate through effects
-              on longer-term consequences, while others (social factors) have direct effects. This
-              structural sophistication exceeded earlier models’ simpler linear structures.
-              8.Empirical evidence on theory of reasoned action adequacy: The model’s finding that
-              affect did not significantly predict utilization (contradicting some implications of
-              Fishbein and Ajzen’s theory) provided evidence that technology adoption contexts
-              diverge from traditional attitude-behavior theory, advancing nuance in IS theory.
-            </p>
-          </section>
-          <section className="mb-6">
-            <h3 className={H3_CLASSES}>
-              What Barriers to Technology Adoption does the model identify?
-            </h3>
-            <p className={PARAGRAPH_CLASSES}>
-              The Thompson model identifies multiple barriers to personal computing adoption and
-              utilization that operate across cognitive, affective, social, and contextual
-              dimensions: 1.Perceived Complexity: The model identifies complexity-the perceived
-              difficulty of learning and using personal computers-as a significant barrier to
-              adoption. The study found that higher complexity perceptions were associated with
-              lower utilization (path = -.14, p &lt; .01). This barrier manifests when users view
-              PCs as difficult to learn or operate, regardless of the system’s objective complexity.
-              The negative relationship between complexity and long-term consequences suggests that
-              perceptions of difficulty undermine beliefs about future benefits. 2.Poor
-              Task-Technology Fit: Job fit emerged as perhaps the most important barrier, with a
-              strong positive path to utilization (.26, p &lt; .01). The inverse-poor job
-              fit-represents a significant barrier.
-            </p>
-            <p className={PARAGRAPH_CLASSES}>
-              When users perceive that PCs do not align with their actual job tasks or requirements,
-              they have little motivation to use them. This barrier is particularly acute when
-              organizational mandates to use PCs do not match actual work processes. The authors
-              note that communication about PC applications’ relevance to job performance is
-              essential for overcoming this barrier. 3.Negative or Weak Affect: While affect did not
-              show a statistically significant direct effect in their model, the research
-              acknowledges that emotional attitudes toward computers represent potential barriers.
-              If users dislike computers or feel negative emotions toward them, they may avoid usage
-              regardless of utility. The authors note that “PCs do not evoke strong emotions, either
-              positive or negative, among managers or professionals.
-            </p>
-            <p className={PARAGRAPH_CLASSES}>
-              If PCs are seen simply as tools, and not as technology to be liked or disliked, then
-              affect would not have an impact.” This suggests that in some contexts, weak positive
-              affect represents a utilization barrier. 4.Unsupportive Social Context: Social factors
-              showed a significant positive effect on utilization (.22, p &lt; .01), meaning that
-              negative social context represents a barrier. This includes: (a) lack of peer support
-              or adoption by colleagues, (b) organizational norms not supporting PC usage, (c)
-              absence of respected champions or role models using PCs, and (d) lack of technical
-              leadership in the organization promoting adoption. The barrier operates through social
-              pressure and normative influence-if respected others do not use PCs, individuals
-              question whether adoption is appropriate. 5.Insufficient Facilitating Conditions:
-              Although facilitating conditions did not show a significant direct effect on
-              utilization (path = -.04), the authors recognize this as a measurement issue rather
-              than evidence that support is unimportant.
-            </p>
-            <p className={PARAGRAPH_CLASSES}>
-              The barrier here involves inadequate training opportunities, insufficient technical
-              support, poor accessibility to computing resources, and lack of assistance in adopting
-              systems. The authors emphasize that “technical support provided by the organization
-              appears to be only one type of facilitating condition; others include the ease with
-              which software or hardware upgrades can be purchased or the extent to which home
-              computers are an advantage in the job package.” 6.Negative Perceptions of
-              Consequences: Long-term consequences showed a significant effect on utilization (.10,
-              p &lt; .01). When employees perceive that PC use will not lead to tangible
-              benefits-improved job performance, career advancement, productivity gains, or
-              professional development-they have little incentive to invest effort in learning and
-              using systems. The barrier manifests as skepticism about ROI, doubts about
-              productivity improvements, and uncertainty about career relevance. 7.Organizational
-              and Job Context Misalignment: Beyond job fit, broader organizational factors create
-              barriers.
-            </p>
-            <p className={PARAGRAPH_CLASSES}>
-              The authors discuss how “certain factors that have a significant influence on EUC
-              success” relate to organizational context. If organizational structures, performance
-              evaluation systems, or job designs do not reward or recognize PC usage, adoption
-              remains low even when systems are technically sound. 8.Experience Gaps: While not
-              explicitly modeled, the authors identify that inexperience with personal computers
-              creates barriers. They hypothesize that “experience influences expected consequences
-              of behaviors. The influence of experience on expected consequences could be tested by
-              comparing the paths in the model across samples of experienced and inexperienced PC
-              users.” New PC users may perceive higher complexity, less favorable job fit, and fewer
-              positive consequences until experience accumulates. The model reveals that barriers
-              operate at multiple levels.
-            </p>
-            <p className={PARAGRAPH_CLASSES}>
-              Individual perceptions of complexity and affect represent cognitive-affective
-              barriers. Social norms and peer behavior create social barriers. Organizational
-              support systems and actual job requirements create contextual barriers. Addressing
-              adoption barriers therefore requires multi-level interventions targeting individual
-              cognitions, social influences, and organizational structures simultaneously.
-            </p>
-          </section>
-          <section className="mb-6">
-            <h3 className={H3_CLASSES}>
-              What does the model instruct leaders to do in order to reduce these barriers?
-            </h3>
-            <p className={PARAGRAPH_CLASSES}>
-              The Thompson et al. paper provides explicit managerial guidance for reducing the
-              identified barriers: For Complexity Barriers: The model suggests reducing perceived
-              complexity through improved training and communication about ease of use. The authors
-              note that “an important facilitating condition is the ease with which an individual
-              can access a PC.” Leaders should consider the context in which PCs must be learned.
-              Technical support should be readily available and responsive. The finding that
-              training aimed at “strengthening the perceived usefulness of PCs, such as greater
-              effectiveness and efficiency in performing job functions, could have a positive
-              influence on utilization” suggests that leaders should contextualize training within
-              job-relevant examples rather than generic computer skills instruction. The authors
-              recommend that “education aimed at strengthening the expected consequences of using
-              PCs, such as greater effectiveness and efficiency in performing job functions, could
-              have a positive influence on utilization.” This means helping users understand not
-              just how to use PCs, but why and how they apply to their specific work.
-            </p>
-            <ul className={BODY_LIST_CLASSES}>
-              <li>
-                <strong>For Job Fit Barriers:</strong> The strongest managerial intervention relates
-                to job fit, which emerged as the second-strongest predictor of utilization
-              </li>
-              <li>
-                <strong>The authors suggest:</strong> “One partially controllable factor may be the
-                degree of correspondence between job tasks and the PC environment (i.e., job fit).
-                Specifically, communication aimed at increasing the awareness of potential
-                applications of PC technology for current job positions may influence the perception
-                of job fit.” Leaders should: (1) conduct careful job analysis to identify tasks
-                where PC usage truly enhances performance; (2) communicate job fit explicitly to
-                employees; (3) customize training and applications to demonstrate job relevance; (4)
-                modify job descriptions to incorporate PC-dependent responsibilities when
-                appropriate. The authors emphasize that “communication aimed at increasing the
-                awareness of potential applications of PC technology for current job positions may
-                influence the perception of job fit.” This suggests leaders must be explicit and
-                proactive in helping employees understand application relevance
-              </li>
-              <li>
-                <strong>For Social Factor Barriers:</strong> Given that social factors showed the
-                strongest direct effect on utilization (.22), the authors strongly recommend
-                leveraging organizational champions: “Visible organizational members to use PCs may
-                be an effective way of championing use throughout the organization.” More
-                specifically, leaders should: (1) identify and empower early adopters and opinion
-                leaders; (2) publicize the successes of enthusiastic PC users; (3) involve respected
-                managers and subject matter experts in promotion efforts; (4) create peer learning
-                communities where experienced users support newcomers; (5) establish organizational
-                norms supporting PC adoption through visible leadership endorsement. The model
-                suggests that “social factors may also be a partially controllable factor; for
-                example, it may be possible to influence norms by publicizing the successes of early
-                adopters of technology.” Leaders can shape social norms through deliberate
-                communication and visibility management
-              </li>
-              <li>
-                <strong>For Facilitating Conditions:</strong> Although facilitating conditions did
-                not show strong direct effects, the authors argue this reflects measurement
-                limitations rather than unimportance. They recommend that leaders should not rely
-                solely on technical support but should ensure comprehensive facilitation: “If the
-                organization has positive norms concerning PC use, it would be disposed to providing
-                technical support.” Facilitating conditions improvements include: (1) ensuring
-                convenient physical access to PCs and computing facilities; (2) providing responsive
-                help desk support; (3) offering flexible, accessible training programs; (4)
-                supplying documentation and reference materials; (5) considering the organizational
-                normalization of PC ownership (providing equipment as needed). Importantly, the
-                authors note that their operationalization was limited and that organizations should
-                address facilitating conditions more comprehensively than their study measured
-              </li>
-              <li>
-                <strong>For Affect Barriers:</strong> While affect showed no significant direct
-                effect in the Thompson model (unlike in some other contexts), the authors
-                acknowledge that emotional acceptance matters. They note that “PCs are seen simply
-                as tools, and not as technology to be liked or disliked,” suggesting that affect may
-                be context- dependent
-              </li>
-              <li>
-                <strong>Leaders addressing affect should:</strong> (1) destigmatize technology for
-                those with computer anxiety; (2) provide positive experiences through hands-on
-                learning in low-pressure environments; (3) highlight enjoyable aspects of computing;
-                (4) normalize emotion around technology adoption by acknowledging that comfort takes
-                time
-              </li>
-              <li>
-                <strong>For Experience-Based Barriers:</strong> The authors highlight that
-                “experience influences expected consequences of behaviors” and recommend tracking
-                how expectations and utilization patterns change over time
-              </li>
-              <li>
-                <strong>Leaders should:</strong> (1) implement longitudinal tracking of user
-                adoption curves; (2) provide ongoing support recognizing that barriers and
-                facilitators change as experience accumulates; (3) expect initial underutilization
-                while users gain competence; (4) design career development pathways that build
-                computing skills progressively. Integrated, Multi-Level Approach: Critically, the
-                authors argue that “future research on computer utilization within the IS context
-                can productively use Triandis’ work as a frame of reference.” They recommend that
-                managers understand multiple barrier types operate simultaneously. No single
-                intervention addresses all barriers. Instead, “organizations seeking to enhance PC
-                adoption should target multiple intervention points.” The authors specifically
-                emphasize that “technical support provided by the organization appears to be only
-                one type of facilitating condition” and that “if the organization has positive norms
-                concerning PC use, it would be disposed to providing technical support.” This
-                indicates that social support and organizational norms must be established alongside
-                technical infrastructure
-              </li>
-              <li>
-                <strong>The model suggests that successful PC adoption requires:</strong>{' '}
-                coordinated attention to complexity reduction through training, clear communication
-                about job fit and task relevance, cultivation of organizational champions and peer
-                support, provision of technical resources and support, and management of long-term
-                expectations about benefits and career implications.
-              </li>
-              <li>
-                <strong>Following Models or Theories:</strong> Taylor and Todd (1995) -
-                Understanding Information Technology Usage: A Test of Competing Models; Goodhue and
-                Thompson (1995) - Task-Technology Fit and Individual Performance; numerous
-                subsequent technology adoption models building on these foundations. Following
-                Theories: Subsequent refinements of the Technology Acceptance Model (TAM);
-                extensions incorporating social influences and organizational factors; models
-                examining utilization patterns rather than mere adoption.
-              </li>
-            </ul>
-          </section>
-
-          {/* References */}
-          <section className={SECTION_CLASSES}>
-            <h2 className={H2_CLASSES}>References</h2>
-            <ol className="list-decimal list-inside space-y-3 text-sm">
-              <li>
-                Thompson, R. L., Higgins, C. A., and Howell, J. M. (1991). Toward a conceptual model
-                of personal computing utilization. <em>MIS Quarterly</em>, 15(1), 125-143.
-              </li>
-              <li>
-                Triandis, H. C. (1980). Values, attitudes, and interpersonal behavior.{' '}
-                <em>Nebraska Symposium on Motivation, 1979</em>. Lincoln, NE: University of Nebraska
-                Press.
-              </li>
-              <li>
-                Davis, F. D. (1989). Perceived usefulness, ease of use, and user acceptance of
-                information technology. <em>MIS Quarterly</em>, 13(3), 319-340.
-              </li>
-              <li>
-                Davis, F. D., Bagozzi, R. P., and Warshaw, P. R. (1989). User acceptance of computer
-                technology: A comparison of two theoretical models. <em>Management Science</em>,
-                35(8), 982-1003.
-              </li>
-              {/* prettier-ignore */}
-              <li>
-                Fishbein, M., and Ajzen, I. (1975).{' '}
-                <em>
-                  Belief, attitude, intention and behavior: An introduction to theory and research
-                </em>. Reading, MA: Addison-Wesley.
-              </li>
-              <li>
-                Porter, L. W., and Lawler, E. E. (1968).{' '}
-                <em>Managerial attitudes and performance</em>. Homewood, IL: Irwin-Dorsey
-              </li>
-              {/* prettier-ignore */}
-              <li>
-                Robey, D. (1979). User attitudes and management information system use. <em>Academy of Management Review</em>, 4(4), 527-538.
-              </li>
-              {/* prettier-ignore */}
-              <li>
-                Tornatzky, L. G., and Klein, K. J. (1982). Innovation characteristics and innovation adoption-implementation: A meta-analysis of findings. <em>IEEE Transactions on Engineering Management</em>, EM-29(1), 28-45.
-              </li>
-              {/* prettier-ignore */}
-              <li>
-                Cheney, P. H., Mann, R. I., and Amoroso, D. L. (1986). Organizational factors affecting the success of end-user computing. <em>Journal of Management Information Systems</em>, 3(1), 65-80.
-              </li>
-            </ol>
-            <p className="mt-4 text-sm italic text-gray-600">
-              This article was generated for a Technology Adoption Literature Review based on
-              detailed analysis of the original 1991 publication by Thompson, Higgins, and Howell in
-              MIS Quarterly.
-            </p>
-          </section>
-          <p className="mt-8 text-sm italic text-gray-600">
-            Note: This article provides an overview based on the comprehensive literature review.
-            Readers are encouraged to consult the original publication for complete details.
+          <h2 className={H2_CLASSES}>Why Was the Model Created?</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            Thompson, Higgins, and Howell developed their PC utilization model to address a
+            significant gap in understanding personal computer adoption within organizational
+            settings. While prior technology acceptance models existed, there was insufficient
+            theoretical grounding specifically examining factors influencing actual PC usage
+            patterns among end-users. Personal computing was becoming increasingly prevalent in
+            organizational environments, yet organizations struggled to understand why some
+            employees readily adopted PCs while others resisted or underutilized them.
+          </p>
+          <p className={PARAGRAPH_CLASSES}>
+            Building on Triandis&rsquo; theory of expected consequences, the authors recognized that
+            technology adoption exists on a continuum of utilization intensity rather than as binary
+            use versus non-use. Prior research had focused heavily on intention to use or
+            acceptance, but Thompson&rsquo;s work directly examined actual usage behavior and
+            factors predicting variation in usage levels. The model proposed that six primary
+            constructs predict PC utilization: social factors, affect, facilitating conditions,
+            complexity, job fit, and long-term consequences.
+          </p>
+          <p className={PARAGRAPH_CLASSES}>
+            Research grounded in organizational contexts with 286 survey respondents from a single
+            organization made findings directly relevant to managers seeking to understand employee
+            PC adoption patterns. By examining actual utilization rather than intentions, the model
+            addressed the known intention-behavior gap that affected earlier theoretical frameworks.
+            The authors explicitly recognized that technology adoption is multifaceted, requiring
+            understanding of affective, social, cognitive, and contextual influences simultaneously.
           </p>
         </section>
 
-        {/* Navigation */}
-        <section className="mt-12 pt-6 border-t border-gray-200">
-          <Link
-            href="/article-bibliography-comprehensive-series-bibliography"
-            className="text-blue-600 hover:text-blue-800 underline"
-          >
-            ← Back to Complete Bibliography
-          </Link>
+        {/* 5. Core Concepts and Definitions */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Core Concepts and Definitions</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            The PC Utilization Model operationalizes seven primary constructs:
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Complexity:</strong> Perceived difficulty of using a PC. Measured through
+              items assessing ease versus difficulty in learning and using computers.
+            </li>
+            <li>
+              <strong>Job Fit:</strong> Perceived alignment between PC functionality and job
+              requirements. Measured through items assessing whether PCs help with job performance
+              and match job tasks.
+            </li>
+            <li>
+              <strong>Long-Term Consequences:</strong> Perceived future payoffs from PC use
+              including career advancement and productivity gains. Measured through items assessing
+              beliefs about future benefits and career impacts.
+            </li>
+            <li>
+              <strong>Affect:</strong> Emotional attitudes toward PCs. Measured through items
+              assessing whether individuals like or dislike PCs and emotional responses.
+            </li>
+            <li>
+              <strong>Social Factors:</strong> Perceived importance of others&rsquo; opinions
+              regarding PC use and social norms about technology. Measured through items assessing
+              social influence and normative pressures.
+            </li>
+            <li>
+              <strong>Facilitating Conditions:</strong> Objective and perceived availability of
+              resources supporting PC use. Measured through items assessing training availability,
+              equipment access, and technical support.
+            </li>
+            <li>
+              <strong>Utilization:</strong> Actual frequency and intensity of PC usage. Measured
+              through items assessing direct usage behavior including number of facility visits and
+              frequency of use.
+            </li>
+          </ul>
+        </section>
+
+        {/* 6. Preceding Models or Theories */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Preceding Models or Theories</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            The Thompson model built upon several prior intellectual traditions:
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Triandis&rsquo; Theory of Expected Consequences (1980):</strong> Foundational
+              framework positing that behavior is influenced by relative influence of different
+              components of expected consequences.
+            </li>
+            <li>
+              <strong>Technology Acceptance Model (Davis):</strong> Prior IS acceptance research
+              providing context for investigating behavior prediction.
+            </li>
+            <li>
+              <strong>Expectancy theory:</strong> Grounded the concept that expected consequences
+              influence behavior.
+            </li>
+            <li>
+              <strong>Porter and Lawler&rsquo;s theory of motivation:</strong> Provided foundations
+              for understanding effort-performance-reward relationships.
+            </li>
+            <li>
+              <strong>
+                Theory of Planned Behavior (
+                <Link
+                  href="/bibliography-1-7-theory-of-planned-behavior-tpb-ajzen-1991"
+                  className="text-tabs-teal-deep hover:underline"
+                >
+                  Ajzen, 1991
+                </Link>
+                ):
+              </strong>{' '}
+              Contemporary work on behavioral intention and perceived control.
+            </li>
+          </ul>
+        </section>
+
+        {/* 7. Describe The Model */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Describe The Model</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            The PC Utilization Model specifies complex relationships where multiple constructs
+            determine actual usage behavior. Expected consequences (complexity, job fit, long-term
+            consequences) operate alongside social factors, affect, and facilitating conditions to
+            predict utilization. The model explained 24% of variance in PC utilization through these
+            multi-level constructs. Path analysis revealed that job fit and social factors showed
+            strongest effects on utilization (.26 and .22 respectively).
+          </p>
+
+          <h3 className={H3_CLASSES}>What does the model measure?</h3>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Expected consequences constructs:</strong> Complexity perceptions, job fit
+              alignment, long-term consequence beliefs predicting utilization indirectly.
+            </li>
+            <li>
+              <strong>Affective and social dimensions:</strong> Emotional attitudes and social
+              normative pressures influencing utilization.
+            </li>
+            <li>
+              <strong>Organizational support:</strong> Facilitating conditions reflecting technical
+              support, training, and resource availability.
+            </li>
+            <li>
+              <strong>Actual usage behavior:</strong> Direct measurement of utilization frequency,
+              facility visit numbers, and time spent using systems.
+            </li>
+          </ul>
+
+          <h3 className={H3_CLASSES}>Main Strengths</h3>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Actual behavior measurement:</strong> Unlike many models measuring intentions,
+              this model directly measures utilization behavior.
+            </li>
+            <li>
+              <strong>Comprehensive construct coverage:</strong> Integrates affective, social,
+              cognitive, and contextual factors providing holistic view of usage determinants.
+            </li>
+            <li>
+              <strong>Grounding in established theory:</strong> Anchored in Triandis&rsquo; theory
+              providing theoretical justification beyond empirical discovery.
+            </li>
+            <li>
+              <strong>Empirical strength:</strong> Explained substantial variance in utilization (R²
+              = .24) demonstrating identified factors capture meaningful drivers.
+            </li>
+            <li>
+              <strong>Clear managerial implications:</strong> Identifying that social factors and
+              job fit are strongest predictors guides evidence-based intervention strategy.
+            </li>
+            <li>
+              <strong>Integration of multiple levels:</strong> Synthesizes individual attitudes,
+              social context, job characteristics, and organizational support systems.
+            </li>
+            <li>
+              <strong>Sophisticated methodology:</strong> Used PLS analysis allowing simultaneous
+              model testing with measurement error accounting.
+            </li>
+          </ul>
+
+          <h3 className={H3_CLASSES}>Main Weaknesses</h3>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Single-organization design:</strong> All data came from one organization,
+              severely constraining generalizability to other organizations and contexts.
+            </li>
+            <li>
+              <strong>Limited facilitating conditions operationalization:</strong> Measured narrowly
+              as technical support, missing other resource factors like equipment access and
+              software upgrade ease.
+            </li>
+            <li>
+              <strong>Low reliability for complexity scale:</strong> Complexity had lowest
+              Cronbach&rsquo;s alpha (.60), below conventional .70 threshold, indicating measurement
+              issues.
+            </li>
+            <li>
+              <strong>Non-significant relationships:</strong> Affect and facilitating conditions
+              showed non-significant direct effects, contrasting with prior technology acceptance
+              research.
+            </li>
+            <li>
+              <strong>Self-report measurement:</strong> All data were self-reported rather than
+              based on objective usage statistics, risking over- or underestimation of actual usage.
+            </li>
+            <li>
+              <strong>Cross-sectional design:</strong> Single-point-in-time snapshot prevents
+              establishment of temporal causality and understanding of usage trajectory changes.
+            </li>
+            <li>
+              <strong>Experience effects undertheorized:</strong> While identified as important,
+              experience was not formally modeled as factor modifying relationships.
+            </li>
+          </ul>
+        </section>
+
+        {/* 8. Key Contributions */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Key Contributions</h2>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Intention-behavior bridge:</strong> Shifted focus from measuring intentions to
+              directly measuring actual utilization behavior.
+            </li>
+            <li>
+              <strong>Social factor emphasis:</strong> Elevated social influence and organizational
+              norms to primary status in technology adoption frameworks.
+            </li>
+            <li>
+              <strong>Affective dimension inclusion:</strong> Included emotional attitudes as
+              distinct from perceived usefulness, acknowledging emotional aspects of adoption.
+            </li>
+            <li>
+              <strong>Organizational context integration:</strong> Situated model explicitly in
+              organizational environments where job fit and organizational factors shape adoption.
+            </li>
+            <li>
+              <strong>Multi-theoretical integration:</strong> Drew from Triandis, expectancy theory,
+              and behavioral attitude theory, demonstrating theoretical eclecticism.
+            </li>
+            <li>
+              <strong>Complex model structure:</strong> Specified indirect pathways and interaction
+              effects exceeding simpler linear structures.
+            </li>
+          </ul>
+        </section>
+
+        {/* 9. Internal Validity */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Internal Validity</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            The researchers established internal validity through rigorous quantitative methodology:
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Exploratory factor analysis:</strong> Identified underlying measurement
+              dimensions, discovering seven factors rather than originally hypothesized six.
+            </li>
+            <li>
+              <strong>Reliability assessment:</strong> Calculated Cronbach&rsquo;s alpha
+              coefficients ranging from .60 to .86, with most scales exceeding .70 threshold.
+            </li>
+            <li>
+              <strong>Discriminant validity:</strong> Confirmed that constructs loaded more highly
+              on hypothesized factors than others, with appropriate construct separation.
+            </li>
+            <li>
+              <strong>Path coefficient testing:</strong> Used jackknifing procedures not assuming
+              normality to test significance, finding four of six hypothesized relationships
+              significant at p &lt; .01.
+            </li>
+            <li>
+              <strong>Sophisticated statistical techniques:</strong> Employed PLS analysis allowing
+              simultaneous model testing with measurement error accounting.
+            </li>
+          </ul>
+        </section>
+
+        {/* 10. External Validity */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>External Validity</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            External validity testing was limited due to single-organization design, which the
+            authors explicitly acknowledged:
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Diverse sample composition:</strong> Selected participants across different
+              job levels and positions to capture variance in PC utilization across roles.
+            </li>
+            <li>
+              <strong>Actual behavior measurement:</strong> Measured self-reported usage patterns
+              rather than relying on intentions alone, strengthening external validity claims.
+            </li>
+            <li>
+              <strong>Experience consideration:</strong> Collected data on previous PC experience
+              and examined whether experience moderated model relationships.
+            </li>
+            <li>
+              <strong>Adequate statistical power:</strong> Large sample size for single organization
+              (n=286) provided sufficient power for detecting relationships.
+            </li>
+          </ul>
+        </section>
+
+        {/* 11. Relevance to Technology Adoption */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Relevance to Technology Adoption</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            The PC Utilization Model is directly relevant to technology adoption because it
+            identifies multiple barriers to usage and specifies organizational interventions
+            reducing those barriers. By examining actual utilization rather than intentions, the
+            model addresses practical organizational concerns.
+          </p>
+
+          <h3 className={H3_CLASSES}>Barriers to Technology Adoption Identified</h3>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Perceived complexity:</strong> Users perceiving PCs as difficult to learn or
+              operate show lower utilization regardless of system objective complexity.
+            </li>
+            <li>
+              <strong>Poor job fit:</strong> When users perceive PCs do not align with actual job
+              tasks or requirements, motivation to use them diminishes significantly.
+            </li>
+            <li>
+              <strong>Negative long-term consequence perceptions:</strong> When employees perceive
+              PC use will not lead to tangible benefits, career advancement, or productivity gains,
+              utilization remains low.
+            </li>
+            <li>
+              <strong>Unsupportive social context:</strong> Lack of peer support, organizational
+              norms not supporting usage, or absence of respected champions undermines adoption.
+            </li>
+            <li>
+              <strong>Insufficient facilitating conditions:</strong> Inadequate training
+              opportunities, insufficient technical support, and poor resource accessibility create
+              barriers.
+            </li>
+            <li>
+              <strong>Weak positive affect:</strong> While affect did not show direct effects,
+              emotional discomfort toward PCs may represent barriers in some contexts.
+            </li>
+            <li>
+              <strong>Experience gaps:</strong> Inexperience with personal computers creates
+              barriers through higher complexity perceptions and uncertain long-term consequences.
+            </li>
+          </ul>
+
+          <h3 className={H3_CLASSES}>Leadership Actions the Model Prescribes</h3>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Reduce complexity through training:</strong> Ensure accessible,
+              context-relevant training reducing perception that PCs are difficult to learn and use.
+            </li>
+            <li>
+              <strong>Establish clear job fit:</strong> Conduct job analysis identifying tasks where
+              PC usage enhances performance and communicate connections explicitly to employees.
+            </li>
+            <li>
+              <strong>Highlight long-term benefits:</strong> Educate on expected consequences
+              including productivity gains, career development, and effectiveness improvements.
+            </li>
+            <li>
+              <strong>Leverage organizational champions:</strong> Identify and empower early
+              adopters and opinion leaders whose visibility publicly demonstrates adoption success.
+            </li>
+            <li>
+              <strong>Provide comprehensive facilitating conditions:</strong> Ensure convenient
+              physical access, responsive help desk support, flexible training, and documentation.
+            </li>
+            <li>
+              <strong>Normalize technology affect:</strong> Destigmatize anxiety through positive
+              experiences, highlight enjoyable computing aspects, and acknowledge comfort develops
+              over time.
+            </li>
+            <li>
+              <strong>Implement multi-level approaches:</strong> Target multiple intervention points
+              simultaneously addressing complexity, job fit, consequences, social support, and
+              facilitating conditions.
+            </li>
+          </ul>
+        </section>
+
+        {/* 12. Following Models or Theories */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Following Models or Theories</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            The Thompson model directly influenced subsequent technology adoption research:
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>
+                Decomposed TPB (Taylor &amp;{' '}
+                <Link
+                  href="/bibliography-1-10-decomposed-tpb-taylor-todd-1995"
+                  className="text-tabs-teal-deep hover:underline"
+                >
+                  Todd, 1995
+                </Link>
+                ):
+              </strong>{' '}
+              Extended theory of planned behavior with technology-specific belief categories.
+            </li>
+            <li>
+              <strong>
+                Task-Technology Fit Model (Goodhue &amp;{' '}
+                <Link
+                  href="/bibliography-1-11-task-technology-fit-ttf-goodhue-thompson-1995"
+                  className="text-tabs-teal-deep hover:underline"
+                >
+                  Thompson, 1995
+                </Link>
+                ):
+              </strong>{' '}
+              Built on PC utilization model by formalizing how technology characteristics align with
+              task requirements.
+            </li>
+            <li>
+              <strong>Unified Theory of Acceptance and Use of Technology (UTAUT):</strong>{' '}
+              Incorporated multiple technology acceptance frameworks emphasizing actual usage.
+            </li>
+            <li>
+              <strong>Technology Acceptance Model extensions:</strong> Subsequent TAM variants
+              incorporated social influences and organizational factors similar to Thompson&rsquo;s
+              approach.
+            </li>
+            <li>
+              <strong>IS implementation research:</strong> Applied multi-factor frameworks similar
+              to Thompson&rsquo;s model examining actual technology implementation outcomes.
+            </li>
+          </ul>
+        </section>
+
+        {/* 13. References */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>References</h2>
+          <ol className={REFERENCES_OL_CLASSES}>
+            <li id="ref-thompson-1991">
+              Thompson, R. L., Higgins, C. A., &amp; Howell, J. M. (1991). Personal computing:
+              Toward a conceptual model of utilization. <em>MIS Quarterly</em>, 15(1), 125-143.
+            </li>
+          </ol>
+        </section>
+
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Further Reading</h2>
+          <ol className={REFERENCES_OL_CLASSES}>
+            <li id="ref-triandis-1980">
+              Triandis, H. C. (1980). Values, attitudes, and interpersonal behavior. In W. M. Alston
+              (Ed.), <em>Nebraska Symposium on Motivation</em> (Vol. 27). University of Nebraska
+              Press.
+            </li>
+            <li id="ref-davis-1989">
+              Davis, F. D. (1989). Perceived usefulness, perceived ease of use, and user acceptance
+              of information technology. <em>MIS Quarterly</em>, 13(3), 319-340.
+              https://doi.org/10.2307/249008
+            </li>
+            <li id="ref-fishbein-1975">
+              Fishbein, M., &amp; Ajzen, I. (1975). Belief, attitude, intention, and behavior: An
+              introduction to theory and research. Addison-Wesley.
+            </li>
+            <li id="ref-porter-1968">
+              Porter, L. W., &amp; Lawler, E. E. (1968). Managerial attitudes and performance.
+              Irwin-Dorsey.
+            </li>
+            <li id="ref-goodhue-1995">
+              Goodhue, D. L., &amp; Thompson, R. L. (1995). Task-technology fit and individual
+              performance. <em>MIS Quarterly</em>, 19(2), 213-236. https://doi.org/10.2307/249689
+            </li>
+            <li id="ref-taylor-1995">
+              Taylor, S., &amp; Todd, P. A. (1995). Understanding Information Technology Usage: A
+              Test of Competing Models. <em>Information Systems Research</em>, 6(2).
+              https://doi.org/10.1287/isre.6.2.144
+            </li>
+          </ol>
+        </section>
+
+        {/* 14. Series Navigation */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Series Navigation</h2>
+          <div className="space-y-4">
+            <p className={PARAGRAPH_CLASSES}>
+              <Link
+                href="/bibliography-1-7-theory-of-planned-behavior-tpb-ajzen-1991"
+                className="text-blue-600 hover:text-blue-800 underline"
+              >
+                &larr; Previous: Theory of Planned Behavior (Ajzen)
+              </Link>
+            </p>
+            <p className={PARAGRAPH_CLASSES}>
+              <Link
+                href="/bibliography-1-9-intrinsic-extrinsic-motivation-davis-1992"
+                className="text-blue-600 hover:text-blue-800 underline"
+              >
+                Next: Intrinsic &amp; Extrinsic Motivation (Davis et al.) &rarr;
+              </Link>
+            </p>
+            <p className={`${PARAGRAPH_CLASSES} mt-6`}>
+              <Link
+                href="/article-bibliography-comprehensive-series-bibliography"
+                className="text-blue-600 hover:text-blue-800 underline"
+              >
+                Back to Complete Bibliography
+              </Link>
+            </p>
+          </div>
         </section>
       </article>
     </main>
