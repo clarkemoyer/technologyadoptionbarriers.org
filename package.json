@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@google-analytics/data": "^5.2.1",
+    "@xyflow/react": "^12.10.2",
     "exceljs": "^4.4.0",
     "framer-motion": "^12.38.0",
     "googleapis": "^171.4.0",

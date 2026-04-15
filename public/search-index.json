@@ -504,6 +504,14 @@
     "category": "Bibliography"
   },
   {
+    "id": "concept-mapping",
+    "url": "/concept-mapping",
+    "title": "Concept Mapping - Technology Adoption Models",
+    "description": "Interactive landscape of technology adoption models and frameworks.",
+    "content": "Concept Mapping - Technology Adoption Models. Interactive landscape of technology adoption models and frameworks.",
+    "category": "Concept Mapping"
+  },
+  {
     "id": "concept-mapping-complex",
     "url": "/concept-mapping/complex",
     "title": "Concept Mapping (Complex View)",
