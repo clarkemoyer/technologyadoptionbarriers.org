@@ -28,7 +28,7 @@ const BibliographyArticlePage = () => {
           <h2 className={H2_CLASSES}>Framework Identification</h2>
           <div className="space-y-2">
             <p>
-              <strong>Framework Name:</strong> Gartner Hype Cycle for Emerging Technologies
+              <strong>Framework Name:</strong> Gartner Hype Cycle Methodology
             </p>
             <p>
               <strong>Framework Abbreviation:</strong> Gartner Hype Cycle
@@ -62,7 +62,7 @@ const BibliographyArticlePage = () => {
             </p>
             <p>
               <strong>Official Title:</strong>{' '}
-              <em>Understanding Gartner&rsquo;s Hype Cycle Methodology</em>
+              <em>Understanding Gartner's Hype Cycle Methodology</em>
             </p>
             <p>
               <strong>Publisher:</strong> Gartner Research
@@ -82,8 +82,8 @@ const BibliographyArticlePage = () => {
             <div>
               <p className="text-xs font-bold uppercase text-blue-900 mb-1">APA (7th ed.)</p>
               <p className="text-sm font-mono">
-                Gartner. (2025). <em>Understanding Gartner&rsquo;s Hype Cycle Methodology</em>.
-                Gartner Research.
+                Gartner. (2025). <em>Understanding Gartner's Hype Cycle Methodology</em>. Gartner
+                Research.
               </p>
             </div>
             <div>
@@ -91,8 +91,8 @@ const BibliographyArticlePage = () => {
                 Chicago (Author-Date)
               </p>
               <p className="text-sm font-mono">
-                Gartner. 2025. <em>Understanding Gartner&rsquo;s Hype Cycle Methodology</em>.
-                Gartner Research.
+                Gartner. 2025. <em>Understanding Gartner's Hype Cycle Methodology</em>. Gartner
+                Research.
               </p>
             </div>
           </div>
@@ -124,7 +124,7 @@ const BibliographyArticlePage = () => {
             Gartner Hype Cycle Methodology was created to provide systematic framework for assessing
             emerging technologies objectively, positioning them on standard maturity curve,
             projecting timelines to productivity, and identifying optimal investment windows. The
-            methodology systematizes Gartner&rsquo;s research across hundreds of technology domains,
+            methodology systematizes Gartner's research across hundreds of technology domains,
             enabling organizations to make informed decisions about technology adoption timing.
             Annual Gartner Hype Cycle reports across 100+ domains provide consistent framework for
             evaluating emerging technologies from artificial intelligence to quantum computing,
@@ -156,12 +156,12 @@ const BibliographyArticlePage = () => {
               achievement.
             </li>
             <li>
-              <strong>Maturity Levels:</strong> Technology maturity assessment across five
+              <strong>Maturity Levels:</strong> Technology maturity assessment across six
               progression levels from Embryonic (concept stage) through Legacy (mature mainstream).
             </li>
             <li>
-              <strong>Benefit Rating:</strong> Assessment of technology&rsquo;s potential business
-              benefit ranging from low impact to transformational impact.
+              <strong>Benefit Rating:</strong> Assessment of technology's potential business benefit
+              ranging from low impact to transformational impact.
             </li>
             <li>
               <strong>Technology Domain:</strong> Specific technology category (artificial
@@ -194,7 +194,7 @@ const BibliographyArticlePage = () => {
                 ):
               </strong>{' '}
               Foundational framework identifying technology adoption stages across early adopters,
-              majority, and laggards. Gartner cycle translates Rogers&rsquo; adoption framework into
+              majority, and laggards. Gartner cycle translates Rogers' adoption framework into
               timeline dimension.
             </li>
             <li>
@@ -300,7 +300,7 @@ const BibliographyArticlePage = () => {
 
           <h3 className={H3_CLASSES}>Technology Maturity Levels</h3>
           <p className={PARAGRAPH_CLASSES}>
-            Five maturity levels assess technology development progression:
+            Six maturity levels assess technology development progression:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
@@ -333,7 +333,7 @@ const BibliographyArticlePage = () => {
 
           <h3 className={H3_CLASSES}>Benefit Rating Assessment</h3>
           <p className={PARAGRAPH_CLASSES}>
-            Benefit rating evaluates technology&rsquo;s potential business impact:
+            Benefit rating evaluates technology's potential business impact:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
@@ -667,8 +667,11 @@ const BibliographyArticlePage = () => {
           <h2 className={H2_CLASSES}>References</h2>
           <ol className={REFERENCES_OL_CLASSES}>
             <li id="ref-gartner-2025">
-              Gartner. (2025). <em>Understanding Gartner&rsquo;s Hype Cycle Methodology</em>.
-              Gartner Research.
+              Gartner. (2025). <em>Understanding Gartner's Hype Cycle Methodology</em>. Gartner
+              Research.
+            </li>
+            <li id="ref-rogers-1962">
+              Rogers, E. M. (1962). <em>Diffusion of Innovations</em>. Free Press.
             </li>
           </ol>
         </section>
@@ -688,10 +691,8 @@ const BibliographyArticlePage = () => {
             </li>
             <li id="ref-christensen-1997">
               Christensen, C. M. (1997).{' '}
-              <em>
-                The Innovator&rsquo;s Dilemma: When new technologies cause great firms to fail
-              </em>
-              . Harvard Business School Press.
+              <em>The Innovator's Dilemma: When new technologies cause great firms to fail</em>.
+              Harvard Business School Press.
             </li>
             <li id="ref-national-2011">
               National Aeronautics and Space Administration. (2011).{' '}
