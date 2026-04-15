@@ -643,21 +643,6 @@ const BibliographyArticlePage = () => {
               discipline to Federal agencies.
             </li>
             <li>
-              <strong>
-                Zachman Framework (
-                <a
-                  id="cite-ref-zachman-1987-1"
-                  href="#ref-zachman-1987"
-                  className="text-tabs-teal-deep hover:underline"
-                >
-                  Zachman, 1987, evolved through 1990s
-                </a>
-                ):
-              </strong>{' '}
-              Complementary enterprise architecture framework emphasizing multiple stakeholder
-              perspectives. Zachman provided alternative architectural approach.
-            </li>
-            <li>
               <strong>DoDAF (Department of Defense Architecture Framework, 2003):</strong> Replaced
               TAFIM as DoD architecture framework. DoDAF refined TAFIM principles and addressed
               limitations.
@@ -687,20 +672,6 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>References</h2>
           <ol className={REFERENCES_OL_CLASSES}>
-            <li id="ref-zachman-1987">
-              Zachman, J. A. (1987). A framework for information systems architecture.{' '}
-              <em>IBM Systems Journal</em>, 26(3), 276-292.
-              <span className="text-xs ml-1">
-                <a
-                  href="#cite-ref-zachman-1987-1"
-                  className="text-tabs-teal-deep hover:underline"
-                  aria-label="Back to citation 1"
-                >
-                  ↩
-                </a>
-              </span>{' '}
-              https://doi.org/10.1147/sj.263.0276
-            </li>
             <li id="ref-u-s-1994">
               U.S. Department of Defense. (1994).{' '}
               <em>
