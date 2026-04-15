@@ -129,9 +129,9 @@ const BibliographyArticlePage = () => {
             balancing all benefits against all sacrifices.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            VAM was developed and tested through empirical research with 161 Korean mobile internet
-            users, explicitly measuring perceived usefulness, perceived enjoyment (hedonic benefit
-            dimension often overlooked in organizational models), perceived fee (monetary
+            VAM was developed and tested through empirical research with 211 Singaporean mobile
+            internet users, explicitly measuring perceived usefulness, perceived enjoyment (hedonic
+            benefit dimension often overlooked in organizational models), perceived fee (monetary
             sacrifice), and perceived technicality (effort and learning sacrifice). The model
             explained 67 percent of variance in adoption intention, demonstrating that consumer
             technology adoption can be effectively explained through value-based frameworks that
@@ -395,8 +395,8 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>Single technology and market context:</strong> Model tested exclusively on
-              Korean mobile internet users. Generalization to other consumer technologies, other
-              geographic markets, or other consumer segments requires verification.
+              Singaporean mobile internet users. Generalization to other consumer technologies,
+              other geographic markets, or other consumer segments requires verification.
             </li>
             <li>
               <strong>Small sample size:</strong> Empirical testing involved only 161 mobile
@@ -424,9 +424,9 @@ const BibliographyArticlePage = () => {
               initial acceptance.
             </li>
             <li>
-              <strong>Cultural context specificity:</strong> Korean mobile internet market in 2007
-              had unique characteristics (high mobile adoption rates, specific cultural attitudes
-              toward mobile technology) limiting generalization.
+              <strong>Cultural context specificity:</strong> Singaporean mobile internet market in
+              2007 had unique characteristics (high mobile adoption rates, specific cultural
+              attitudes toward mobile technology) limiting generalization.
             </li>
             <li>
               <strong>Reference point theory implications unexplored:</strong> Prospect theory
