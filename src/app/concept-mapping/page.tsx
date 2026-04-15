@@ -1,11 +1,11 @@
-import React from 'react';
-import type { Metadata } from 'next';
-import ConceptMapTab from '@/components/tabs/concept-mapping/ConceptMapTab';
+import React from 'react'
+import type { Metadata } from 'next'
+import ConceptMapTab from '@/components/tabs/concept-mapping/ConceptMapTab'
 
 export const metadata: Metadata = {
   title: 'Concept Mapping - Technology Adoption Models',
   description: 'Interactive landscape of technology adoption models and frameworks.',
-};
+}
 
 export default function ConceptMappingPage() {
   return (
@@ -13,11 +13,10 @@ export default function ConceptMappingPage() {
       {/* Header section to match other tabs/pages stylistically */}
       <div className="w-full pt-[80px] bg-tabs-navy py-[60px] text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl font-bold tracking-tight mb-4">
-            Concept Map
-          </h1>
+          <h1 className="text-4xl font-bold tracking-tight mb-4">Concept Map</h1>
           <p className="text-xl max-w-3xl mx-auto text-gray-300">
-            A visual overview of the key theories, models, and frameworks that shape technology adoption research.
+            A visual overview of the key theories, models, and frameworks that shape technology
+            adoption research.
           </p>
         </div>
       </div>
@@ -26,5 +25,5 @@ export default function ConceptMappingPage() {
         <ConceptMapTab />
       </div>
     </main>
-  );
+  )
 }
