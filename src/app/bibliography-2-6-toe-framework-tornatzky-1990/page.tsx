@@ -279,11 +279,11 @@ const BibliographyArticlePage = () => {
                 </a>
                 ;{' '}
                 <a
-                  id="cite-ref-pierce-1977-1"
-                  href="#ref-pierce-1977"
+                  id="cite-ref-kimberly-1981-1"
+                  href="#ref-kimberly-1981"
                   className="text-tabs-teal-deep hover:underline"
                 >
-                  Pierce &amp; Delbecq, 1977
+                  Kimberly &amp; Evanisko, 1981
                 </a>
                 ):
               </strong>{' '}
@@ -901,9 +901,11 @@ const BibliographyArticlePage = () => {
               acceptance model: Four longitudinal field studies. <em>Management Science</em>, 46(2),
               186-204.
             </li>
-            <li id="ref-pierce-1977">
-              Pierce, J. L., &amp; Delbecq, A. L. (1977). Organization structure, individual
-              attitudes and innovation. <em>Academy of Management Review</em>, 2(1), 27-37.
+            <li id="ref-kimberly-1981">
+              Kimberly, J. R., &amp; Evanisko, M. J. (1981). Organizational innovation: The
+              influence of individual, organizational, and contextual factors on hospital adoption
+              of technological and administrative innovations.{' '}
+              <em>Academy of Management Journal</em>, 24(4), 689-713.
             </li>
           </ol>
         </section>
