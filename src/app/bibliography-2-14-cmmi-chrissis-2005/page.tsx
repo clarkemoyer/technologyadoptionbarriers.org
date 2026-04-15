@@ -260,7 +260,8 @@ const BibliographyArticlePage = () => {
 
           <h3 className={H3_CLASSES}>CMMI Process Areas by Maturity Level</h3>
           <p className={PARAGRAPH_CLASSES}>
-            CMMI organized into four categories of process areas distributed across maturity levels:
+            CMMI-DEV v1.3 (2010) organized into four categories of process areas distributed across
+            maturity levels:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
