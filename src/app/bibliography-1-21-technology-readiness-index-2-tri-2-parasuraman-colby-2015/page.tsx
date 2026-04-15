@@ -724,6 +724,22 @@ const BibliographyArticlePage = () => {
               interventions successfully increase readiness dimensions, or whether stable trait
               characteristics require alternative approaches.
             </li>
+            <li>
+              <strong>Apply segment-specific strategies for the five TRI 2.0 profiles:</strong>{' '}
+              Explorers (high motivation, low inhibition) should be recruited as early adopters,
+              pilot participants, and peer champions who model successful adoption for others.
+              Pioneers (strong positive and negative views simultaneously) respond to balanced,
+              transparent communication that acknowledges both benefits and limitations rather than
+              dismissing concerns. Skeptics (detached and cautious) require emphasis on reliability,
+              proven track records, and tangible evidence of benefits rather than innovation
+              rhetoric. Avoiders (high resistance, low motivation) need human service alternatives,
+              assurance that technology adoption is optional, and intensive hands-on support for any
+              required technology use. Hesitators (low innovativeness) benefit from phased adoption
+              pathways with manageable learning curves, clear demonstrations of value, and gradual
+              transitions that allow skill development before full commitment. Matching intervention
+              type and intensity to each segment&rsquo;s readiness profile produces more effective
+              adoption outcomes than applying uniform strategies across all populations.
+            </li>
           </ul>
         </section>
 
