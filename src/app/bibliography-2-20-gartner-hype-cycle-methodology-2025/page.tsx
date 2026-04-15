@@ -126,8 +126,7 @@ const BibliographyArticlePage = () => {
             curve, projecting timelines to productivity, and identifying optimal investment windows.
             The methodology systematizes Gartner's research across hundreds of technology domains,
             enabling organizations to make informed decisions about technology adoption timing.
-            Annual Gartner Hype Cycle reports across 100+ domains provide a consistent framework
-            for
+            Annual Gartner Hype Cycle reports across 100+ domains provide a consistent framework for
             evaluating emerging technologies from artificial intelligence to quantum computing,
             helping executives avoid both hype-driven premature investment and late-mover
             obsolescence.
