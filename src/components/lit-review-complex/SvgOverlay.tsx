@@ -55,11 +55,30 @@ export default function SvgOverlay() {
     }
   }, [])
 
-  const getContainerOffset = () => {
-    if (!overlayRef.current) return { x: 0, y: 0 }
-    const rect = overlayRef.current.getBoundingClientRect()
-    return { x: rect.left, y: rect.top }
-  }
+  // Cache the container offset in state to avoid accessing refs during render
+  const [containerOffset, setContainerOffset] = useState<Point>({ x: 0, y: 0 })
+
+  useEffect(() => {
+    if (overlayRef.current) {
+      const rect = overlayRef.current.getBoundingClientRect()
+      setContainerOffset({ x: rect.left, y: rect.top })
+    }
+
+    const updateOffset = () => {
+      if (overlayRef.current) {
+        const rect = overlayRef.current.getBoundingClientRect()
+        setContainerOffset({ x: rect.left, y: rect.top })
+      }
+    }
+
+    window.addEventListener('resize', updateOffset)
+    document.body.addEventListener('scroll', updateOffset, true)
+
+    return () => {
+      window.removeEventListener('resize', updateOffset)
+      document.body.removeEventListener('scroll', updateOffset, true)
+    }
+  }, [])
 
   const createPath = (sourceRect: DOMRect, targetRect: DOMRect, containerOffset: Point) => {
     // Connect right side of source to left side of target
@@ -93,8 +112,7 @@ export default function SvgOverlay() {
 
         if (!sourceRect || !targetRect) return null
 
-        const offset = getContainerOffset()
-        const pathData = createPath(sourceRect, targetRect, offset)
+        const pathData = createPath(sourceRect, targetRect, containerOffset)
 
         return (
           <path

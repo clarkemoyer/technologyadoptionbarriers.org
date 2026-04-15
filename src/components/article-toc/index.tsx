@@ -63,7 +63,9 @@ export default function ArticleTOC() {
 
   /* ---------- reset mobile panel when switching to desktop ---------- */
   useEffect(() => {
-    if (canShowDesktop) setMobileOpen(false)
+    if (canShowDesktop) {
+      setTimeout(() => setMobileOpen(false), 0)
+    }
   }, [canShowDesktop])
 
   /* ---------- scan headings on mount ---------- */
