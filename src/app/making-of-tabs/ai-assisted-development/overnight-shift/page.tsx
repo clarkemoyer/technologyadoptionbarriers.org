@@ -34,6 +34,7 @@ const OvernightShiftPage = () => {
         <section className="mb-12 text-gray-800">
           <h2 className={H2_CLASSES}>The Moment</h2>
           <figure className="mb-6">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={assetPath('/Images/making-of-tabs/copilot-overnight-shift.png')}
               alt="Claude Code session handing 9 issues to Copilot for overnight processing and signing off, 'Go sleep - Copilot's got the overnight shift.'"
