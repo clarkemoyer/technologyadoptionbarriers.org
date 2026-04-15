@@ -241,15 +241,16 @@ const ReproducibleAnalysisPage = () => {
                 )
               </h3>
               <p className={PARAGRAPH_CLASSES}>
-                Validates 84 statistical claims embedded in the CRP document against computed values
-                from the source CSV. This ensures that all reported statistics - construct means,
-                correlations, reliability coefficients, validity metrics, and demographic tables -
-                are traceable to the data and protects against transcription errors.
+                Comprehensive instrument validation and data quality report covering content
+                validity, construct validity, reliability, IRI attention check effectiveness,
+                missing data patterns, response distributions, common method variance (CMV), and
+                response bias diagnostics.
               </p>
               <p className="text-gray-600 font-sans text-sm">
-                <strong>Key outputs:</strong> Pass/fail summary with detailed mismatch reports.
-                Coverage includes Cronbach&rsquo;s alpha, AVE, HTMT ratios, factor loadings, and
-                demographic breakdowns.
+                <strong>Key outputs:</strong> Cronbach&rsquo;s alpha, KMO/Bartlett&rsquo;s, PCA
+                factor extraction, IRI pass rates by construct, missing data percentages,
+                Shapiro-Wilk normality tests, skewness/kurtosis distributions, and Harman&rsquo;s
+                single-factor CMV test.
               </p>
             </div>
 
