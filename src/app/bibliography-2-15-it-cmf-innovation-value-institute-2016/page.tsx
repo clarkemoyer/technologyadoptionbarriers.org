@@ -137,9 +137,9 @@ const BibliographyArticlePage = () => {
             IT-CMF was created to establish comprehensive, business-value-focused maturity framework
             spanning the full range of IT management and capability domains. Unlike software-focused
             frameworks (CMMI) or service-focused frameworks (ITIL), IT-CMF explicitly connects IT
-            capability maturity to business value creation. The framework emerged from
-            collaborative research with over 100 consortium member organizations and IT leaders,
-            ensuring framework relevance to real-world IT management challenges.
+            capability maturity to business value creation. The framework emerged from collaborative
+            research with over 100 consortium member organizations and IT leaders, ensuring
+            framework relevance to real-world IT management challenges.
           </p>
         </section>
 
