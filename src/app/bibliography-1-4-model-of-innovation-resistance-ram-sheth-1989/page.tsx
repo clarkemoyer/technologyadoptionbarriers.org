@@ -14,7 +14,7 @@ import {
 export const metadata: Metadata = {
   title: 'Bibliography: Model of Innovation Resistance - Ram & Sheth (1989)',
   description:
-    'Deep dive into the Model of Innovation Resistance by Sundaresan Ram (1987) and Ram and Sheth (1989), exploring functional, economic, social, and psychological barriers to technology adoption.',
+    'Deep dive into the Model of Innovation Resistance by Sundaresan Ram (1987) and Ram and Sheth (1989), exploring usage, value, risk, tradition, and image barriers to innovation adoption.',
 }
 
 const BibliographyArticlePage = () => {
