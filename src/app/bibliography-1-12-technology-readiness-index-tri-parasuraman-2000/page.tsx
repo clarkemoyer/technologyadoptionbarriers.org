@@ -286,12 +286,12 @@ const BibliographyArticlePage = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             Parasuraman conducted extensive qualitative and quantitative research with national
-            telephone samples of 1,000 United States adults, exploring beliefs and attitudes
-            toward various technology categories. Through factor analysis, the author identified
-            four core dimensions underlying technology readiness, developed reliable measurement
-            scales, and validated the instrument across diverse technology contexts including online
-            banking, voice-activated systems, and e-commerce. The resulting 36-item TRI became
-            foundational for technology adoption research and marketing segmentation.
+            telephone samples of 1,000 United States adults, exploring beliefs and attitudes toward
+            various technology categories. Through factor analysis, the author identified four core
+            dimensions underlying technology readiness, developed reliable measurement scales, and
+            validated the instrument across diverse technology contexts including online banking,
+            voice-activated systems, and e-commerce. The resulting 36-item TRI became foundational
+            for technology adoption research and marketing segmentation.
           </p>
         </section>
 
@@ -467,8 +467,8 @@ const BibliographyArticlePage = () => {
               indicating acceptable to good internal consistency and measurement reliability.
             </li>
             <li>
-              <strong>Large representative sample:</strong> Developed and validated with 1,000
-              U.S. adults representing diverse demographics, providing strong generalizability
+              <strong>Large representative sample:</strong> Developed and validated with 1,000 U.S.
+              adults representing diverse demographics, providing strong generalizability
               foundation.
             </li>
             <li>
@@ -583,8 +583,7 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>Internal consistency:</strong> Reported Cronbach&rsquo;s alpha coefficients of
-              .74-.83 across dimensions, exceeding .70 threshold for acceptable scale
-              reliability.
+              .74-.83 across dimensions, exceeding .70 threshold for acceptable scale reliability.
             </li>
             <li>
               <strong>Item-total correlations:</strong> All items showed appropriate correlations
