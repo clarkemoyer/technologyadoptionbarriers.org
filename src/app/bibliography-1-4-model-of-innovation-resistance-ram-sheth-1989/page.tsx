@@ -12,7 +12,7 @@ import {
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: A Model of Innovation Resistance - Ram (1987)',
+  title: 'Bibliography: Model of Innovation Resistance - Ram & Sheth (1989)',
   description:
     'Deep dive into the Model of Innovation Resistance by Sundaresan Ram (1987) and Ram and Sheth (1989), exploring functional, economic, social, and psychological barriers to technology adoption.',
 }
@@ -21,7 +21,7 @@ const BibliographyArticlePage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
-        <h1 className={H1_CLASSES}>A Model of Innovation Resistance - Ram (1987)</h1>
+        <h1 className={H1_CLASSES}>Model of Innovation Resistance - Ram &amp; Sheth (1989)</h1>
 
         {/* 1. Model Identification */}
         <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
