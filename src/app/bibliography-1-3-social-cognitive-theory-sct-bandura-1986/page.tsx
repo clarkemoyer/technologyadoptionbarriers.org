@@ -119,11 +119,12 @@ const BibliographyArticlePage = () => {
             Although SCT was developed as a general theory of human behavior - covering domains from
             health to education to moral development - its emphasis on self-efficacy made it
             particularly valuable for understanding technology adoption. Compeau and Higgins (1995)
-            conducted the first systematic application of SCT to computing, demonstrating that
-            computer self-efficacy significantly predicted usage behavior, affect, and anxiety.
-            Their work established self-efficacy - an individual&rsquo;s belief in their capability
-            to execute the behaviors necessary to produce specific outcomes - as a central construct
-            in information systems research on technology adoption.
+            developed the first comprehensive measure of computer self-efficacy grounded in SCT,
+            surveying 1,020 Canadian business professionals and demonstrating that computer
+            self-efficacy significantly predicted usage behavior, affect, and anxiety. Their work
+            established self-efficacy - an individual&rsquo;s belief in their capability to execute
+            the behaviors necessary to produce specific outcomes - as a central construct in
+            information systems research on technology adoption.
           </p>
         </section>
 
@@ -594,7 +595,7 @@ const BibliographyArticlePage = () => {
               <strong>Computer Self-Efficacy research (Compeau &amp; Higgins, 1995):</strong>{' '}
               Developed and validated a measure of computer self-efficacy based directly on SCT,
               demonstrating that self-efficacy significantly predicted computer usage, affect, and
-              anxiety in a survey of 1,020 Canadian managers and professionals.
+              anxiety in a survey of 1,020 Canadian business professionals.
             </li>
             <li>
               <strong>Compeau, Higgins, &amp; Huff (1999):</strong> Extended the 1995
