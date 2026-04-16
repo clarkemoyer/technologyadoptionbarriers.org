@@ -932,9 +932,9 @@ const BibliographyArticlePage = () => {
               A meta-analytic review. <em>British Journal of Social Psychology</em>, 40(4), 471-499.
             </li>
             <li id="ref-davis-1989b">
-              Davis, F. D., Bagozzi, R. P., &amp; Warshaw, P. R. (1989). User acceptance of
-              computer technology: A comparison of two theoretical models.{' '}
-              <em>Management Science</em>, 35(8), 982-1003.
+              Davis, F. D., Bagozzi, R. P., &amp; Warshaw, P. R. (1989). User acceptance of computer
+              technology: A comparison of two theoretical models. <em>Management Science</em>,
+              35(8), 982-1003.
             </li>
             <li id="ref-fishbein-2008">
               Fishbein, M. (2008). A reasoned action approach to health behavior change. In R. J.
