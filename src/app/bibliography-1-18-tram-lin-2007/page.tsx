@@ -12,8 +12,7 @@ import {
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title:
-    'Bibliography: Technology Readiness and Acceptance Model (TRAM) - Lin, Shih, & Sher (2007)',
+  title: 'Bibliography: Technology Readiness and Acceptance Model (TRAM) - Lin et al. (2007)',
   description:
     'Comprehensive overview of the Technology Readiness and Acceptance Model (TRAM), integrating personality dimensions of technology readiness with technology acceptance constructs to predict technology adoption across demographic segments.',
 }
@@ -23,7 +22,7 @@ const BibliographyArticlePage = () => {
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>
-          Technology Readiness and Acceptance Model (TRAM) - Lin, Shih, &amp; Sher (2007)
+          Technology Readiness and Acceptance Model (TRAM) - Lin et al. (2007)
         </h1>
 
         {/* 1. Model Identification */}
