@@ -12,7 +12,7 @@ import {
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: Business Process Redesign - Davenport & Short (1990)',
+  title: 'Bibliography: Business Process Redesign (BPR) - Davenport & Short (1990)',
   description:
     'Comprehensive overview of Business Process Redesign (BPR) methodology. Explains how information technology enables fundamental redesign of business processes for competitive advantage.',
 }
@@ -21,7 +21,9 @@ const BibliographyArticlePage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
-        <h1 className={H1_CLASSES}>Business Process Redesign - Davenport &amp; Short (1990)</h1>
+        <h1 className={H1_CLASSES}>
+          Business Process Redesign (BPR) - Davenport &amp; Short (1990)
+        </h1>
 
         {/* 1. Framework Identification */}
         <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
