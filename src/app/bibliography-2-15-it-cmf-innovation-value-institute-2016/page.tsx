@@ -14,7 +14,7 @@ import {
 export const metadata: Metadata = {
   title: 'Bibliography: IT-CMF - Innovation Value Institute (2016)',
   description:
-    'Comprehensive overview of the IT Capability Maturity Framework (IT-CMF). Explains the 35 Critical Capabilities, 5-level maturity model, and IT-CMF role as comprehensive framework for IT capability assessment and business-IT alignment.',
+    'Comprehensive overview of the IT Capability Maturity Framework (IT-CMF). Explains the 36 Critical Capabilities, 5-level maturity model, and IT-CMF role as comprehensive framework for IT capability assessment and business-IT alignment.',
 }
 
 const navLinkClass = 'text-blue-600 hover:text-blue-800 underline'
@@ -102,7 +102,7 @@ const BibliographyArticlePage = () => {
                 Chicago (Author-Date)
               </p>
               <p className="text-sm font-mono">
-                Curley, Mark, John Kenneally, and Mena Carcary. 2016.{' '}
+                Curley, Martin, Jim Kenneally, and Marian Carcary. 2016.{' '}
                 <em>IT Capability Maturity Framework (IT-CMF): The Body of Knowledge Guide</em>. 2nd
                 ed. Van Haren Publishing.
               </p>
@@ -114,11 +114,12 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Why Was the Model Created?</h2>
           <p className={PARAGRAPH_CLASSES}>
-            During the early 2010s, IT leaders faced significant challenges in demonstrating
-            technology value to business stakeholders. While frameworks existed for assessing
-            software development maturity (CMM, CMMI) and IT service quality (ITIL), no
-            comprehensive framework directly addressed the broader IT capability maturity question:
-            how mature is our IT organization in creating business value?
+            Beginning in the early 2000s with the transformation of Intel Corporation&rsquo;s IT
+            function, IT leaders recognized significant challenges in demonstrating technology value
+            to business stakeholders. While frameworks existed for assessing software development
+            maturity (CMM, CMMI) and IT service quality (ITIL), no comprehensive framework directly
+            addressed the broader IT capability maturity question: how mature is our IT organization
+            in creating business value?
           </p>
           <p className={PARAGRAPH_CLASSES}>
             The Innovation Value Institute (IVI) at Maynooth University, in collaboration with Intel
@@ -149,7 +150,7 @@ const BibliographyArticlePage = () => {
               delivery, and value management.
             </li>
             <li>
-              <strong>Critical Capability:</strong> 35 specific IT capabilities identified as
+              <strong>Critical Capability:</strong> 36 specific IT capabilities identified as
               essential for IT organizations to deliver value. Critical Capabilities span four
               macro-capability categories.
             </li>
@@ -239,14 +240,14 @@ const BibliographyArticlePage = () => {
           <h2 className={H2_CLASSES}>Describe The Model</h2>
           <p className={PARAGRAPH_CLASSES}>
             IT-CMF provides comprehensive framework for assessing and improving IT capability
-            maturity through integrated evaluation of 35 Critical Capabilities organized into four
+            maturity through integrated evaluation of 36 Critical Capabilities organized into four
             macro-capability categories, each evaluated against five maturity levels ranging from
             Initial to Optimizing.
           </p>
 
           <h3 className={H3_CLASSES}>Four Macro-Capabilities</h3>
           <p className={PARAGRAPH_CLASSES}>
-            IT-CMF organizes 35 Critical Capabilities into four macro-capability domains:
+            IT-CMF organizes 36 Critical Capabilities into four macro-capability domains:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
@@ -372,7 +373,7 @@ const BibliographyArticlePage = () => {
               conversations about IT effectiveness.
             </li>
             <li>
-              <strong>Comprehensive framework:</strong> 35 Critical Capabilities comprehensively
+              <strong>Comprehensive framework:</strong> 36 Critical Capabilities comprehensively
               cover IT management domains. Framework addresses IT from strategy through delivery
               through value realization.
             </li>
@@ -406,7 +407,7 @@ const BibliographyArticlePage = () => {
               organizations may be limited.
             </li>
             <li>
-              <strong>Assessment complexity:</strong> Comprehensive assessment of 35 Critical
+              <strong>Assessment complexity:</strong> Comprehensive assessment of 36 Critical
               Capabilities is time-intensive. Assessment requires significant organizational
               commitment.
             </li>
@@ -442,7 +443,7 @@ const BibliographyArticlePage = () => {
               provided language for business-IT alignment conversations.
             </li>
             <li>
-              <strong>Comprehensive IT capability taxonomy:</strong> 35 Critical Capabilities
+              <strong>Comprehensive IT capability taxonomy:</strong> 36 Critical Capabilities
               created comprehensive taxonomy of IT capabilities required for IT organizations.
               Taxonomy enabled common understanding of IT management domains.
             </li>
@@ -623,7 +624,7 @@ const BibliographyArticlePage = () => {
           <ul className={BODY_LIST_CLASSES}>
             <li>
               <strong>Assess current IT capability maturity:</strong> Conduct comprehensive
-              assessment of current IT capability maturity across 35 Critical Capabilities.
+              assessment of current IT capability maturity across 36 Critical Capabilities.
               Assessment establishes baseline for improvement planning.
             </li>
             <li>
@@ -670,41 +671,27 @@ const BibliographyArticlePage = () => {
           <p className={PARAGRAPH_CLASSES}>
             IT-CMF influenced subsequent IT management frameworks and research:
           </p>
+          <p className={PARAGRAPH_CLASSES}>
+            As a 2016 framework with ongoing development by the Innovation Value Institute, IT-CMF
+            is relatively recent. Documented adoption includes over 200 consulting engagements by
+            Boston Consulting Group and deployment at organizations including BNY Mellon, Chevron,
+            BP, and EY. The framework continues to be developed through IVI&rsquo;s open innovation
+            consortium model.
+          </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>IT-CMF Evolution (2016-present):</strong> IT-CMF has been refined and updated
-              since initial publication. Evolution demonstrates framework viability and ongoing
-              relevance.
-            </li>
-            <li>
-              <strong>Industry-Specific IT-CMF Variants:</strong> Financial services, healthcare,
-              and government sectors developed IT-CMF variants tailored to sector-specific
-              capability requirements.
-            </li>
-            <li>
-              <strong>IT Business Value Research (2010s-present):</strong> IT-CMF established
-              framework for research on IT business value creation. Research continues to explore IT
-              capability maturity and business value relationship.
-            </li>
-            <li>
-              <strong>Digital Transformation Frameworks (2015-present):</strong> Digital
-              transformation frameworks increasingly emphasize IT capability maturity in digital
-              context. IT-CMF principles inform digital transformation approaches.
-            </li>
-            <li>
-              <strong>IT Governance Maturity Models (2015-present):</strong> IT governance-specific
-              frameworks drew on IT-CMF governance capability emphasis. Governance frameworks
-              incorporate IT-CMF governance maturity concepts.
-            </li>
-            <li>
-              <strong>Cloud Adoption Capability Frameworks (2018-present):</strong> Cloud adoption
-              frameworks increasingly assess IT capability maturity for cloud readiness. Cloud
-              frameworks reference IT-CMF capability maturity concepts.
-            </li>
-            <li>
-              <strong>AI and Emerging Technology Capability Frameworks (2020-present):</strong>{' '}
-              Emerging technology capability frameworks apply IT-CMF principles to AI and emerging
-              technology adoption contexts.
+              <strong>
+                <Link
+                  href="/bibliography-2-16-aws-caf-ai-2024"
+                  className="text-tabs-teal-deep hover:underline"
+                >
+                  AWS Cloud Adoption Framework for AI (2024)
+                </Link>
+                :
+              </strong>{' '}
+              Cloud adoption frameworks increasingly assess organizational capability maturity as
+              a prerequisite for technology adoption, reflecting IT-CMF&rsquo;s emphasis on
+              capability readiness.
             </li>
           </ul>
         </section>
@@ -732,11 +719,6 @@ const BibliographyArticlePage = () => {
               Carcary, M., Doherty, E., &amp; Heavin, C. (2014). The roadmap to value: Defining
               organisational value using the business value model.{' '}
               <em>Journal of Decision Systems</em>, 23(3), 345-365.
-            </li>
-            <li id="ref-gartner-2015">
-              Gartner Research. (2015).{' '}
-              <em>IT business value, governance and alignment: The business case for maturity</em>.
-              Gartner, Inc.
             </li>
             <li id="ref-sei-2010">
               SEI (Carnegie Mellon Software Engineering Institute). (2010).{' '}
