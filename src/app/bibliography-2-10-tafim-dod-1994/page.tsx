@@ -71,6 +71,17 @@ const BibliographyArticlePage = () => {
               <strong>Document Format:</strong> Four-volume technical reference framework and
               architecture standard
             </p>
+            <p>
+              <strong>URL:</strong>{' '}
+              <a
+                href="https://apps.dtic.mil/sti/tr/pdf/ADA321172.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:underline"
+              >
+                https://apps.dtic.mil/sti/tr/pdf/ADA321172.pdf
+              </a>
+            </p>
           </div>
         </section>
 
