@@ -122,22 +122,23 @@ const BibliographyArticlePage = () => {
             employees readily adopted PCs while others resisted or underutilized them.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            Building on Triandis&rsquo; (1971; 1980) theory of attitudes and behavior, the authors recognized that
-            technology adoption exists on a continuum of utilization intensity rather than as binary
-            use versus non-use. Prior research had focused heavily on intention to use or
-            acceptance, but Thompson&rsquo;s work directly examined actual usage behavior and
-            factors predicting variation in usage levels. The model proposed that six primary
-            constructs predict PC utilization: social factors, affect, facilitating conditions,
-            complexity, job fit, and long-term consequences.
+            Building on Triandis&rsquo; (1971; 1980) theory of attitudes and behavior, the authors
+            recognized that technology adoption exists on a continuum of utilization intensity
+            rather than as binary use versus non-use. Prior research had focused heavily on
+            intention to use or acceptance, but Thompson&rsquo;s work directly examined actual usage
+            behavior and factors predicting variation in usage levels. The model proposed that six
+            primary constructs predict PC utilization: social factors, affect, facilitating
+            conditions, complexity, job fit, and long-term consequences.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             The study surveyed knowledge workers across nine divisions of a large multinational
             manufacturing organization, yielding a final sample of 212 respondents (from 278
-            returned questionnaires). Findings were directly relevant to managers seeking to understand employee
-            PC adoption patterns. By examining actual utilization rather than intentions, the model
-            addressed the known intention-behavior gap that affected earlier theoretical frameworks.
-            The authors explicitly recognized that technology adoption is multifaceted, requiring
-            understanding of affective, social, cognitive, and contextual influences simultaneously.
+            returned questionnaires). Findings were directly relevant to managers seeking to
+            understand employee PC adoption patterns. By examining actual utilization rather than
+            intentions, the model addressed the known intention-behavior gap that affected earlier
+            theoretical frameworks. The authors explicitly recognized that technology adoption is
+            multifaceted, requiring understanding of affective, social, cognitive, and contextual
+            influences simultaneously.
           </p>
         </section>
 
@@ -193,8 +194,8 @@ const BibliographyArticlePage = () => {
           <ul className={BODY_LIST_CLASSES}>
             <li>
               <strong>Triandis&rsquo; theory of interpersonal behavior (1971; 1980):</strong>{' '}
-              Foundational framework positing that behavior is determined by intentions, habits,
-              and facilitating conditions, with intentions shaped by social factors, affect, and
+              Foundational framework positing that behavior is determined by intentions, habits, and
+              facilitating conditions, with intentions shaped by social factors, affect, and
               perceived consequences.
             </li>
             <li>
