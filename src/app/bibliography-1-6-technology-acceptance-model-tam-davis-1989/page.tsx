@@ -135,7 +135,7 @@ const BibliographyArticlePage = () => {
             operationalization. Rather than applying generic outcome beliefs, Davis proposed that
             two specific beliefs held particular importance for technology acceptance: perceived
             usefulness (beliefs that using the system enhances job performance) and perceived ease
-            of use (beliefs that using the system requires minimal effort). By identifying these
+            of use (beliefs that using the system would be free from effort). By identifying these
             technology-specific beliefs, TAM provided a focused model explaining technology
             acceptance while maintaining theoretical rigor.
           </p>
@@ -265,8 +265,8 @@ const BibliographyArticlePage = () => {
               the system.
             </li>
             <li>
-              <strong>Actual system usage:</strong> Longitudinal measurement showing whether
-              favorable beliefs and intentions translate into actual technology utilization.
+              <strong>Actual system usage:</strong> Self-reported current usage (Study 1) and
+              self-predicted future usage (Study 2) as behavioral outcome measures.
             </li>
           </ul>
 
@@ -428,8 +428,8 @@ const BibliographyArticlePage = () => {
               evidence.
             </li>
             <li>
-              <strong>Actual usage measurement:</strong> Demonstrated relationships between measured
-              intentions and actual system usage, proving behavioral prediction validity.
+              <strong>Self-reported usage measurement:</strong> Demonstrated significant correlations
+              between PU/PEOU beliefs and self-reported usage behavior across both studies.
             </li>
             <li>
               <strong>Extended applications:</strong> Subsequent research successfully extended TAM
@@ -591,7 +591,7 @@ const BibliographyArticlePage = () => {
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
                 >
-                  ↩
+                  
                 </a>
               </span>
             </li>
