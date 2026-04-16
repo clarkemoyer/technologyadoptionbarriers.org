@@ -70,6 +70,17 @@ const BibliographyArticlePage = () => {
               <strong>Document Format:</strong> Architecture framework specification, viewpoint
               guides, meta-model documentation, and implementation guidelines
             </p>
+            <p>
+              <strong>URL:</strong>{' '}
+              <a
+                href="https://dodcio.defense.gov/Library/DoD-Architecture-Framework/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:underline"
+              >
+                https://dodcio.defense.gov/Library/DoD-Architecture-Framework/
+              </a>
+            </p>
           </div>
         </section>
 
