@@ -77,6 +77,17 @@ const BibliographyArticlePage = () => {
               guides, responsible AI standards, governance frameworks, assessment tools, and
               implementation patterns
             </p>
+            <p>
+              <strong>URL:</strong>{' '}
+              <a
+                href="https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/scenarios/ai/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:underline"
+              >
+                https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/scenarios/ai/
+              </a>
+            </p>
           </div>
         </section>
 
