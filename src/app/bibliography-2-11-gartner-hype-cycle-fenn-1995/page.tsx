@@ -233,15 +233,7 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>
-                S-Curve Innovation Theory (
-                <a
-                  id="cite-ref-kuhn-1962-1"
-                  href="#ref-kuhn-1962"
-                  className="text-tabs-teal-deep hover:underline"
-                >
-                  Kuhn, 1962
-                </a>
-                ;{' '}
+                Performance S-Curve (
                 <a
                   id="cite-ref-foster-1986-1"
                   href="#ref-foster-1986"
@@ -251,9 +243,10 @@ const BibliographyArticlePage = () => {
                 </a>
                 ):
               </strong>{' '}
-              S-curve models show how technologies follow adoption pattern of slow initial growth,
-              rapid growth, then slower mature growth. Hype cycle adds visualization of expectations
-              alongside actual maturity.
+              S-curve models show how technology performance follows a pattern of slow initial
+              growth, rapid improvement, then diminishing returns. Linden and Fenn (2003) explicitly
+              position the Hype Cycle as adding a human expectations dimension to the S-curve and
+              adoption curve models.
             </li>
             <li>
               <strong>Technology Maturity Curves (1980s-1990s):</strong> Earlier research examined
@@ -304,7 +297,7 @@ const BibliographyArticlePage = () => {
               overruns, or unmet expectations. Organizations report project failures or
               unsatisfactory outcomes. Media coverage becomes skeptical and critical. Visibility
               declines sharply. Vendor and organizational enthusiasm dampens. Technology appears to
-              have failed despite earlier hype. This phase is often called the valley of death.
+              have failed despite earlier hype.
             </li>
             <li>
               <strong>Slope of Enlightenment:</strong> Phase 4 represents the learning and recovery
@@ -664,37 +657,42 @@ const BibliographyArticlePage = () => {
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Hype Cycle Expansion (Gartner, 1995-present):</strong> Gartner refined and
-              expanded hype cycle methodology over decades. Annual hype cycle reports became
-              industry standard for technology positioning.
+              <strong>
+                Hype Cycle Methodology Formalization (
+                <a
+                  id="cite-ref-linden-2003-1"
+                  href="#ref-linden-2003"
+                  className="text-tabs-teal-deep hover:underline"
+                >
+                  Linden &amp; Fenn, 2003
+                </a>
+                ):
+              </strong>{' '}
+              Published the definitive methodological explanation of Hype Cycles, documenting the
+              phase definitions, time-to-maturity assessment framework, and special circumstances
+              (fast-track, long-fuse, phoenix, and ghost technologies).
             </li>
             <li>
-              <strong>Hype Cycle Extensions (2000s-present):</strong> Researchers extended hype
-              cycle to specific technology domains: AI hype cycle, blockchain hype cycle, quantum
-              computing hype cycle, each adapted to specific technology context.
+              <strong>
+                Academic Critique (
+                <a
+                  id="cite-ref-steinert-2010-1"
+                  href="#ref-steinert-2010"
+                  className="text-tabs-teal-deep hover:underline"
+                >
+                  Steinert &amp; Leifer, 2010
+                </a>
+                ):
+              </strong>{' '}
+              Scrutinized the Hype Cycle&rsquo;s empirical basis, questioning whether the framework
+              represents a testable model or a descriptive metaphor, and examining its predictive
+              validity.
             </li>
             <li>
-              <strong>Critical Technology Hype Research:</strong> Academic researchers examined hype
-              cycle dynamics in emerging technology adoption including AI, blockchain, and
-              autonomous vehicles.
-            </li>
-            <li>
-              <strong>Technology Adoption Decision Models:</strong> Research on technology adoption
-              decision-making incorporated hype cycle insights into decision frameworks.
-            </li>
-            <li>
-              <strong>Innovation Management Applications:</strong> Hype cycle framework influenced
-              how organizations manage innovation portfolios and new technology initiatives.
-            </li>
-            <li>
-              <strong>Media and Investor Attention:</strong> Financial markets and media coverage
-              increasingly reference hype cycle positioning when evaluating technology companies and
-              sectors.
-            </li>
-            <li>
-              <strong>Quantified Hype Metrics Research:</strong> Researchers developed quantified
-              metrics attempting to measure hype through media mentions, social media volume, and
-              investor sentiment.
+              <strong>Annual Hype Cycle Reports (Gartner, 1995-present):</strong> Gartner expanded
+              the original single Hype Cycle into dozens of domain-specific annual reports (AI,
+              cloud, security, etc.), each positioning technologies within their respective
+              domains.
             </li>
           </ul>
         </section>
@@ -722,12 +720,24 @@ const BibliographyArticlePage = () => {
                 ></a>
               </span>
             </li>
-            <li id="ref-kuhn-1962">
-              Kuhn, T. S. (1962). <em>The structure of scientific revolutions</em>. University of
-              Chicago Press.
+            <li id="ref-linden-2003">
+              Linden, A., &amp; Fenn, J. (2003).{' '}
+              <em>Understanding Gartner&rsquo;s hype cycles</em> (Strategic Analysis Report
+              R-20-1971). Gartner.
               <span className="text-xs ml-1">
                 <a
-                  href="#cite-ref-kuhn-1962-1"
+                  href="#cite-ref-linden-2003-1"
+                  className="text-tabs-teal-deep hover:underline"
+                  aria-label="Back to citation 1"
+                ></a>
+              </span>
+            </li>
+            <li id="ref-steinert-2010">
+              Steinert, M., &amp; Leifer, L. (2010). Scrutinizing Gartner&rsquo;s hype cycle
+              approach. <em>Proceedings of PICMET 2010</em>.
+              <span className="text-xs ml-1">
+                <a
+                  href="#cite-ref-steinert-2010-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
                 ></a>
@@ -755,11 +765,6 @@ const BibliographyArticlePage = () => {
             <li id="ref-gartner-2023">
               Gartner. (2023). <em>Gartner hype cycle for emerging technologies</em>. Gartner
               Research.
-            </li>
-            <li id="ref-dedrick-2003">
-              Dedrick, J., Gurbaxani, V., &amp; Kraemer, K. L. (2003). Information technology and
-              economic performance: A critical review of the empirical evidence.{' '}
-              <em>ACM Computing Surveys</em>, 35(1), 1-28.
             </li>
             <li id="ref-fichman-1999">
               Fichman, R. G., &amp; Kemerer, C. F. (1999). The assimilation of software process
