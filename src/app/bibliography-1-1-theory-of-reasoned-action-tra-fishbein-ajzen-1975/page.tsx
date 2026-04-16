@@ -65,9 +65,6 @@ const BibliographyArticlePage = () => {
               <strong>Pages:</strong> 578
             </p>
             <p>
-              <strong>ISBN:</strong> 0-201-02089-0
-            </p>
-            <p>
               <strong>ISBN:</strong> 978-0-201-02089-2
             </p>
           </div>
@@ -136,19 +133,14 @@ const BibliographyArticlePage = () => {
             TRA suggested that behavior stems from these two primary determinants.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            The model also addressed a practical need in the early 1970s. As social psychologists
-            increasingly engaged with public health, organizational, and policy questions, they
-            needed theoretical frameworks that could reliably predict whether individuals would
-            adopt new behaviors, from contraceptive use to energy conservation to occupational
-            choices. TRA provided that framework, offering both theoretical sophistication and
-            practical predictive power. In the context of emerging information technologies in the
-            late 1970s and early 1980s, TRA&rsquo;s focus on behavioral intention proved prescient.
-            As organizations began deploying computer systems and personal computers, questions
-            arose about user adoption and acceptance. Unlike consumer products with established
-            markets, new technologies required understanding user intentions to adopt and use them.
-            TRA&rsquo;s framework provided exactly what technology adoption researchers needed: a
-            parsimonious model predicting behavioral intention that could be readily adapted to
-            technology contexts.
+            TRA was developed as a general social psychology theory, not specifically for
+            technology adoption. It addressed practical needs across public health, organizational,
+            and policy domains - predicting contraceptive use, energy conservation, occupational
+            choices, and other behaviors. The technology adoption application came later when Davis
+            (1989) adapted TRA&rsquo;s attitude-intention-behavior structure to create the
+            Technology Acceptance Model, substituting Perceived Usefulness and Perceived Ease of
+            Use as technology-specific belief constructs. TRA&rsquo;s parsimonious structure and
+            focus on behavioral intention made it readily adaptable to technology contexts.
           </p>
         </section>
 
@@ -274,8 +266,8 @@ const BibliographyArticlePage = () => {
               semantic-differential scales (good/bad, beneficial/harmful, wise/foolish).
             </li>
             <li>
-              <strong>Subjective norm:</strong> Perceived social pressure from referent others, both
-              descriptive and injunctive.
+              <strong>Subjective norm:</strong> Perceived social pressure from important referent
+              others regarding whether the individual should perform the behavior.
             </li>
             <li>
               <strong>Behavioral beliefs and outcome evaluations:</strong> Modal salient beliefs
@@ -289,26 +281,26 @@ const BibliographyArticlePage = () => {
               <strong>Actual behavior:</strong> Observable or self-reported performance of the
               technology-use behavior.
             </li>
-            <li>
-              <strong>Volitional control (TRA extensions):</strong> Perception that performance of
-              the behavior is within the individual&rsquo;s control, later formalized by{' '}
-              <a
-                id="cite-ref-ajzen-1991-1"
-                href="#ref-ajzen-1991"
-                className="text-tabs-teal-deep hover:underline"
-              >
-                Ajzen (1991)
-              </a>{' '}
-              as Perceived Behavioral Control in the{' '}
-              <Link
-                href="/bibliography-1-7-theory-of-planned-behavior-tpb-ajzen-1991"
-                className="text-tabs-teal-deep hover:underline"
-              >
-                Theory of Planned Behavior
-              </Link>
-              .
-            </li>
           </ul>
+          <p className={PARAGRAPH_CLASSES}>
+            <strong>Note:</strong> TRA assumes behavior is under volitional control. When
+            non-volitional barriers exist (resources, skills, opportunities),{' '}
+            <a
+              id="cite-ref-ajzen-1991-1"
+              href="#ref-ajzen-1991"
+              className="text-tabs-teal-deep hover:underline"
+            >
+              Ajzen (1991)
+            </a>
+            &rsquo;s{' '}
+            <Link
+              href="/bibliography-1-7-theory-of-planned-behavior-tpb-ajzen-1991"
+              className="text-tabs-teal-deep hover:underline"
+            >
+              Theory of Planned Behavior
+            </Link>{' '}
+            extends TRA by adding Perceived Behavioral Control as a third predictor.
+          </p>
 
           <h3 className={H3_CLASSES}>Main Strengths</h3>
           <ul className={BODY_LIST_CLASSES}>
