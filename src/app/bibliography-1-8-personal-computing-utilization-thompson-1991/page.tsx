@@ -62,7 +62,7 @@ const BibliographyArticlePage = () => {
               <strong>Journal:</strong> MIS Quarterly
             </p>
             <p>
-              <strong>Volume &amp; Issue:</strong> Vol. 15, No. 1
+              <strong>Volume & Issue:</strong> Vol. 15, No. 1
             </p>
             <p>
               <strong>Pages:</strong> 125-143
@@ -88,7 +88,7 @@ const BibliographyArticlePage = () => {
             <div>
               <p className="text-xs font-bold uppercase text-blue-900 mb-1">APA (7th ed.)</p>
               <p className="text-sm font-mono">
-                Thompson, R. L., Higgins, C. A., &amp; Howell, J. M. (
+                Thompson, R. L., Higgins, C. A., & Howell, J. M. (
                 <a href="#ref-thompson-1991" className="text-tabs-teal-deep hover:underline">
                   1991
                 </a>
@@ -101,8 +101,8 @@ const BibliographyArticlePage = () => {
                 Chicago (Author-Date)
               </p>
               <p className="text-sm font-mono">
-                Thompson, Ronald L., Christopher A. Higgins, and Jane M. Howell. 1991. &ldquo;Toward
-                a Conceptual Model of Personal Computing Utilization.&rdquo;
+                Thompson, Ronald L., Christopher A. Higgins, and Jane M. Howell. 1991. &#34;Toward a
+                Conceptual Model of Personal Computing Utilization.&#34;
                 <em>MIS Quarterly</em> 15, no. 1: 125-143.
               </p>
             </div>
@@ -122,10 +122,10 @@ const BibliographyArticlePage = () => {
             employees readily adopted PCs while others resisted or underutilized them.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            Building on Triandis&rsquo; (1971; 1980) theory of interpersonal behavior, the authors
+            Building on Triandis&#39; (1971; 1980) theory of interpersonal behavior, the authors
             recognized that technology adoption exists on a continuum of utilization intensity
             rather than as binary use versus non-use. Prior research had focused heavily on
-            intention to use or acceptance, but Thompson&rsquo;s work directly examined actual usage
+            intention to use or acceptance, but Thompson&#39;s work directly examined actual usage
             behavior and factors predicting variation in usage levels. The model proposed that six
             primary constructs predict PC utilization: social factors, affect, facilitating
             conditions, complexity, job fit, and long-term consequences.
@@ -168,7 +168,7 @@ const BibliographyArticlePage = () => {
               assessing whether individuals like or dislike PCs and emotional responses.
             </li>
             <li>
-              <strong>Social Factors:</strong> Perceived importance of others&rsquo; opinions
+              <strong>Social Factors:</strong> Perceived importance of others&#39; opinions
               regarding PC use and social norms about technology. Measured through items assessing
               social influence and normative pressures.
             </li>
@@ -193,7 +193,7 @@ const BibliographyArticlePage = () => {
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Triandis&rsquo; theory of interpersonal behavior (1971; 1980):</strong>{' '}
+              <strong>Triandis&#39; theory of interpersonal behavior (1971; 1980):</strong>{' '}
               Foundational framework positing that behavior is determined by intentions, habits, and
               facilitating conditions, with intentions shaped by social factors, affect, and
               perceived consequences.
@@ -207,7 +207,7 @@ const BibliographyArticlePage = () => {
               influence behavior.
             </li>
             <li>
-              <strong>Porter and Lawler&rsquo;s theory of motivation:</strong> Provided foundations
+              <strong>Porter and Lawler&#39;s theory of motivation:</strong> Provided foundations
               for understanding effort-performance-reward relationships.
             </li>
             <li>
@@ -217,7 +217,7 @@ const BibliographyArticlePage = () => {
                   href="/bibliography-1-1-theory-of-reasoned-action-tra-fishbein-ajzen-1975"
                   className="text-tabs-teal-deep hover:underline"
                 >
-                  Fishbein &amp; Ajzen, 1975
+                  Fishbein & Ajzen, 1975
                 </Link>
                 ):
               </strong>{' '}
@@ -270,7 +270,7 @@ const BibliographyArticlePage = () => {
               cognitive, and contextual factors providing holistic view of usage determinants.
             </li>
             <li>
-              <strong>Grounding in established theory:</strong> Anchored in Triandis&rsquo; theory
+              <strong>Grounding in established theory:</strong> Anchored in Triandis&#39; theory
               providing theoretical justification beyond empirical discovery.
             </li>
             <li>
@@ -304,7 +304,7 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>Low reliability for complexity scale:</strong> Complexity had lowest
-              Cronbach&rsquo;s alpha (.60), below conventional .70 threshold, indicating measurement
+              Cronbach&#39;s alpha (.60), below conventional .70 threshold, indicating measurement
               issues.
             </li>
             <li>
@@ -370,8 +370,8 @@ const BibliographyArticlePage = () => {
               dimensions, discovering seven factors rather than originally hypothesized six.
             </li>
             <li>
-              <strong>Reliability assessment:</strong> Calculated Cronbach&rsquo;s alpha
-              coefficients ranging from .60 to .86, with most scales exceeding .70 threshold.
+              <strong>Reliability assessment:</strong> Calculated Cronbach&#39;s alpha coefficients
+              ranging from .60 to .86, with most scales exceeding .70 threshold.
             </li>
             <li>
               <strong>Discriminant validity:</strong> Confirmed that constructs loaded more highly
@@ -380,7 +380,7 @@ const BibliographyArticlePage = () => {
             <li>
               <strong>Path coefficient testing:</strong> Used jackknifing procedures not assuming
               normality to test significance, finding four of six hypothesized relationships
-              significant at p &lt; .01.
+              significant at p less than .01.
             </li>
             <li>
               <strong>Sophisticated statistical techniques:</strong> Employed PLS analysis allowing
@@ -504,7 +504,7 @@ const BibliographyArticlePage = () => {
           <ul className={BODY_LIST_CLASSES}>
             <li>
               <strong>
-                Decomposed TPB (Taylor &amp;{' '}
+                Decomposed TPB (Taylor &{' '}
                 <Link
                   href="/bibliography-1-10-decomposed-tpb-taylor-todd-1995"
                   className="text-tabs-teal-deep hover:underline"
@@ -517,7 +517,7 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>
-                Task-Technology Fit Model (Goodhue &amp;{' '}
+                Task-Technology Fit Model (Goodhue &{' '}
                 <Link
                   href="/bibliography-1-11-task-technology-fit-ttf-goodhue-thompson-1995"
                   className="text-tabs-teal-deep hover:underline"
@@ -535,12 +535,12 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>Technology Acceptance Model extensions:</strong> Subsequent TAM variants
-              incorporated social influences and organizational factors similar to Thompson&rsquo;s
+              incorporated social influences and organizational factors similar to Thompson&#39;s
               approach.
             </li>
             <li>
               <strong>IS implementation research:</strong> Applied multi-factor frameworks similar
-              to Thompson&rsquo;s model examining actual technology implementation outcomes.
+              to Thompson&#39;s model examining actual technology implementation outcomes.
             </li>
           </ul>
         </section>
@@ -550,8 +550,8 @@ const BibliographyArticlePage = () => {
           <h2 className={H2_CLASSES}>References</h2>
           <ol className={REFERENCES_OL_CLASSES}>
             <li id="ref-thompson-1991">
-              Thompson, R. L., Higgins, C. A., &amp; Howell, J. M. (1991). Toward a conceptual model
-              of personal computing utilization. <em>MIS Quarterly</em>, 15(1), 125-143.
+              Thompson, R. L., Higgins, C. A., & Howell, J. M. (1991). Toward a conceptual model of
+              personal computing utilization. <em>MIS Quarterly</em>, 15(1), 125-143.
             </li>
           </ol>
         </section>
@@ -570,20 +570,20 @@ const BibliographyArticlePage = () => {
               https://doi.org/10.2307/249008
             </li>
             <li id="ref-fishbein-1975">
-              Fishbein, M., &amp; Ajzen, I. (1975). Belief, attitude, intention, and behavior: An
+              Fishbein, M., & Ajzen, I. (1975). Belief, attitude, intention, and behavior: An
               introduction to theory and research. Addison-Wesley.
             </li>
             <li id="ref-porter-1968">
-              Porter, L. W., &amp; Lawler, E. E. (1968). Managerial attitudes and performance.
+              Porter, L. W., & Lawler, E. E. (1968). Managerial attitudes and performance.
               Irwin-Dorsey.
             </li>
             <li id="ref-goodhue-1995">
-              Goodhue, D. L., &amp; Thompson, R. L. (1995). Task-technology fit and individual
+              Goodhue, D. L., & Thompson, R. L. (1995). Task-technology fit and individual
               performance. <em>MIS Quarterly</em>, 19(2), 213-236. https://doi.org/10.2307/249689
             </li>
             <li id="ref-taylor-1995">
-              Taylor, S., &amp; Todd, P. A. (1995). Understanding Information Technology Usage: A
-              Test of Competing Models. <em>Information Systems Research</em>, 6(2).
+              Taylor, S., & Todd, P. A. (1995). Understanding Information Technology Usage: A Test
+              of Competing Models. <em>Information Systems Research</em>, 6(2).
               https://doi.org/10.1287/isre.6.2.144
             </li>
           </ol>
@@ -598,7 +598,7 @@ const BibliographyArticlePage = () => {
                 href="/bibliography-1-7-theory-of-planned-behavior-tpb-ajzen-1991"
                 className="text-blue-600 hover:text-blue-800 underline"
               >
-                &larr; Previous: Theory of Planned Behavior (Ajzen)
+                ← Previous: Theory of Planned Behavior (Ajzen)
               </Link>
             </p>
             <p className={PARAGRAPH_CLASSES}>
@@ -606,7 +606,7 @@ const BibliographyArticlePage = () => {
                 href="/bibliography-1-9-intrinsic-extrinsic-motivation-davis-1992"
                 className="text-blue-600 hover:text-blue-800 underline"
               >
-                Next: Intrinsic &amp; Extrinsic Motivation (Davis et al.) &rarr;
+                Next: Intrinsic & Extrinsic Motivation (Davis et al.) →
               </Link>
             </p>
             <p className={`${PARAGRAPH_CLASSES} mt-6`}>
