@@ -12,7 +12,7 @@ import {
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: TOGAF - The Open Group (1995-2022)',
+  title: 'Bibliography: TOGAF - The Open Group Architecture Framework (1995)',
   description:
     'Comprehensive overview of The Open Group Architecture Framework (TOGAF). Explains the Architecture Development Method, Enterprise Continuum, and TOGAF role as the dominant enterprise architecture framework applied across industries.',
 }
@@ -21,7 +21,7 @@ const BibliographyArticlePage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
-        <h1 className={H1_CLASSES}>TOGAF - The Open Group (1995-2022)</h1>
+        <h1 className={H1_CLASSES}>TOGAF - The Open Group Architecture Framework (1995)</h1>
 
         {/* 1. Framework Identification */}
         <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
