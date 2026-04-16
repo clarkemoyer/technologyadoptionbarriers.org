@@ -12,7 +12,7 @@ import {
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: Microsoft Cloud Adoption Framework for Azure - Microsoft (2025)',
+  title: 'Bibliography: Microsoft Cloud Adoption Framework for Azure (CAF) (2025)',
   description:
     'Comprehensive overview of the Microsoft Cloud Adoption Framework for Azure. Explains the nine methodologies, organizational motivations, cloud adoption lifecycle, readiness and governance frameworks, and enterprise-scale cloud transformation strategy.',
 }
@@ -21,7 +21,7 @@ const BibliographyArticlePage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
-        <h1 className={H1_CLASSES}>Microsoft Cloud Adoption Framework for Azure (2025)</h1>
+        <h1 className={H1_CLASSES}>Microsoft Cloud Adoption Framework for Azure (CAF) (2025)</h1>
 
         {/* 1. Framework Identification */}
         <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
