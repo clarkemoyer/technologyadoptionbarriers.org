@@ -286,7 +286,7 @@ const BibliographyArticlePage = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             Parasuraman conducted extensive qualitative and quantitative research with national
-            telephone samples of over 1,000 United States adults, exploring beliefs and attitudes
+            telephone samples of 1,000 United States adults, exploring beliefs and attitudes
             toward various technology categories. Through factor analysis, the author identified
             four core dimensions underlying technology readiness, developed reliable measurement
             scales, and validated the instrument across diverse technology contexts including online
@@ -433,17 +433,17 @@ const BibliographyArticlePage = () => {
           <h3 className={H3_CLASSES}>What does the model measure?</h3>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Optimism (9 items):</strong> Belief that technology increases control and
+              <strong>Optimism (10 items):</strong> Belief that technology increases control and
               effectiveness, improves access to information, and enhances quality of life through
               greater flexibility and convenience.
             </li>
             <li>
-              <strong>Innovativeness (9 items):</strong> Willingness to try new technologies early,
+              <strong>Innovativeness (7 items):</strong> Willingness to try new technologies early,
               excitement about exploring innovations, and preference for being among first adopters
               rather than waiting for established maturity.
             </li>
             <li>
-              <strong>Discomfort (9 items):</strong> Perceived difficulty in understanding and
+              <strong>Discomfort (10 items):</strong> Perceived difficulty in understanding and
               learning technology, belief that systems are unreliable or prone to failure, and
               feeling overwhelmed by technical complexity.
             </li>
@@ -463,11 +463,11 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>Robust psychometric properties:</strong> 36-item scale demonstrates
-              Cronbach&rsquo;s alpha values of 0.74-0.84 across dimensions, indicating high internal
-              consistency and measurement reliability.
+              Cronbach&rsquo;s alpha values of .74-.83 across the four dimensions (Table 3),
+              indicating acceptable to good internal consistency and measurement reliability.
             </li>
             <li>
-              <strong>Large representative sample:</strong> Developed and validated with over 1,000
+              <strong>Large representative sample:</strong> Developed and validated with 1,000
               U.S. adults representing diverse demographics, providing strong generalizability
               foundation.
             </li>
@@ -583,7 +583,7 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>Internal consistency:</strong> Reported Cronbach&rsquo;s alpha coefficients of
-              0.74-0.84 across dimensions, exceeding 0.70 threshold for acceptable scale
+              .74-.83 across dimensions, exceeding .70 threshold for acceptable scale
               reliability.
             </li>
             <li>
@@ -615,7 +615,7 @@ const BibliographyArticlePage = () => {
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>U.S.-centric sample:</strong> Over 1,000 U.S. adults provides strong U.S.
+              <strong>U.S.-centric sample:</strong> 1,000 U.S. adults provides strong U.S.
               generalizability but limited evidence regarding applicability in other cultural
               contexts with different technology adoption norms, privacy concerns, and innovation
               orientations.
