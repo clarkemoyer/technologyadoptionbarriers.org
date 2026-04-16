@@ -14,7 +14,7 @@ import {
 export const metadata: Metadata = {
   title: 'Bibliography: Intrinsic & Extrinsic Motivation - Davis et al. (1992)',
   description:
-    'In-depth exploration of intrinsic and extrinsic motivation in technology adoption, examining how enjoyment and perceived usefulness jointly predict computer usage intentions.',
+    'Deep dive into intrinsic and extrinsic motivation in technology adoption, examining how enjoyment and perceived usefulness jointly predict computer usage intentions.',
 }
 
 const BibliographyArticlePage = () => {
@@ -596,11 +596,27 @@ const BibliographyArticlePage = () => {
             <li id="ref-venkatesh-2003">
               Venkatesh, V., Morris, M. G., Davis, G. B., &amp; Davis, F. D. (2003). User acceptance
               of information technology: Toward a unified view. <em>MIS Quarterly</em>, 27(3),
-              425-478. https://doi.org/10.2307/30036540
+              425-478.{' '}
+              <a
+                href="https://doi.org/10.2307/30036540"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-tabs-teal-deep hover:underline"
+              >
+                https://doi.org/10.2307/30036540
+              </a>
             </li>
             <li id="ref-goodhue-1995">
               Goodhue, D. L., &amp; Thompson, R. L. (1995). Task-technology fit and individual
-              performance. <em>MIS Quarterly</em>, 19(2), 213-236. https://doi.org/10.2307/249689
+              performance. <em>MIS Quarterly</em>, 19(2), 213-236.{' '}
+              <a
+                href="https://doi.org/10.2307/249689"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-tabs-teal-deep hover:underline"
+              >
+                https://doi.org/10.2307/249689
+              </a>
             </li>
             <li id="ref-ryan-2000">
               Ryan, R. M., &amp; Deci, E. L. (2000). Intrinsic and extrinsic motivations: Classic
