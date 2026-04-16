@@ -142,6 +142,8 @@ export default function UnifiedNavigation({
       el.style.scrollMarginTop = scrollMargin
       return { id: el.id, text: el.textContent || '' }
     })
+    // DOM scan result - intentional sync from external system
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setHeadings(items)
   }, [pathname, scrollMargin])
 
@@ -172,7 +174,11 @@ export default function UnifiedNavigation({
 
   // Reset mobile panel when switching to desktop sidebar
   useEffect(() => {
-    if (canShowDesktop) setMobileOpen(false)
+    if (canShowDesktop) {
+      // Layout state sync: reset panel when viewport crosses the desktop breakpoint
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setMobileOpen(false)
+    }
   }, [canShowDesktop])
 
   // Close mobile panel on outside click
