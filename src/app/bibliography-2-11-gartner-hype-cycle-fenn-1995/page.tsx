@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     'Comprehensive overview of the Gartner Hype Cycle model. Explains how emerging technologies follow five-phase adoption pattern from initial innovation trigger through disillusionment to productivity plateau.',
 }
 
-const BibliographyArticlePage = () => {
+const GartnerHypeCycleBibliographyPage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
@@ -719,7 +719,9 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-moore-1991-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                ></a>
+                >
+                  ↩
+                </a>
               </span>
             </li>
             <li id="ref-kuhn-1962">
@@ -730,17 +732,22 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-kuhn-1962-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                ></a>
+                >
+                  ↩
+                </a>
               </span>
             </li>
             <li id="ref-foster-1986">
-              Foster, R. N. (1986). <em>Innovation: The attacker's advantage</em>. Summit Books.
+              Foster, R. N. (1986). <em>Innovation: The attacker&apos;s advantage</em>. Summit
+              Books.
               <span className="text-xs ml-1">
                 <a
                   href="#cite-ref-foster-1986-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                ></a>
+                >
+                  ↩
+                </a>
               </span>
             </li>
           </ol>
@@ -814,4 +821,4 @@ const BibliographyArticlePage = () => {
   )
 }
 
-export default BibliographyArticlePage
+export default GartnerHypeCycleBibliographyPage
