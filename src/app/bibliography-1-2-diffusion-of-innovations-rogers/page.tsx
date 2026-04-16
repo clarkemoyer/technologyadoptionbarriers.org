@@ -628,8 +628,8 @@ const BibliographyArticlePage = () => {
                 ):
               </strong>{' '}
               While TPB extends TRA rather than DOI directly, it incorporated the role of perceived
-              behavioral control in innovation adoption decisions, complementing DOI&rsquo;s focus on
-              innovation characteristics with individual capability assessment.
+              behavioral control in innovation adoption decisions, complementing DOI&rsquo;s focus
+              on innovation characteristics with individual capability assessment.
             </li>
             <li>
               <strong>
