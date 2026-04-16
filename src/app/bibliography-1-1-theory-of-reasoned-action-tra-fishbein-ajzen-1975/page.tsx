@@ -67,6 +67,9 @@ const BibliographyArticlePage = () => {
             <p>
               <strong>ISBN:</strong> 0-201-02089-0
             </p>
+            <p>
+              <strong>ISBN:</strong> 978-0-201-02089-2
+            </p>
           </div>
         </section>
 
