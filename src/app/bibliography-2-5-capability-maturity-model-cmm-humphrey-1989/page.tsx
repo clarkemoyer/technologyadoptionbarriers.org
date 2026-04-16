@@ -65,6 +65,9 @@ const BibliographyArticlePage = () => {
             <p>
               <strong>Book Format:</strong> Authored book, not journal article
             </p>
+            <p>
+              <strong>ISBN:</strong> 978-0-201-18095-4
+            </p>
           </div>
         </section>
 
