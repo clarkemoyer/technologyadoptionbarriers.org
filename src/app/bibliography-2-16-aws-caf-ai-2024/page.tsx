@@ -682,35 +682,32 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Following Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
-            AWS CAF for AI influenced subsequent AI adoption and governance frameworks:
+            As a 2024 framework, AWS CAF for AI is too recent to have established documented
+            descendant models. Its influence on subsequent AI adoption frameworks remains to be
+            documented as the field matures. The following represent anticipated areas of influence
+            rather than confirmed descendant frameworks:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>AI Governance Frameworks (2024-present):</strong> Organizations developed
-              governance frameworks influenced by AWS CAF for AI responsible AI and governance
-              emphasis.
+              <strong>AI Governance Frameworks:</strong> AWS CAF for AI&rsquo;s integration of
+              responsible AI throughout the adoption journey may influence how organizations
+              structure AI governance, moving from compliance-focused approaches to embedded
+              governance practices.
             </li>
             <li>
-              <strong>Industry-Specific AI Adoption Frameworks (2024-present):</strong> Financial
-              services, healthcare, and manufacturing organizations adapted AWS CAF for AI for
-              industry-specific contexts.
+              <strong>Industry-Specific AI Adoption:</strong> The six-perspective structure may be
+              adapted by regulated industries (financial services, healthcare, manufacturing)
+              developing sector-specific AI adoption guidance.
             </li>
             <li>
-              <strong>Generative AI Governance Standards (2024-present):</strong> Emerging
-              generative AI governance standards reference AWS CAF for AI responsible AI and risk
-              management frameworks.
+              <strong>MLOps Standardization:</strong> AWS CAF for AI&rsquo;s elevation of MLOps as a
+              core capability may contribute to broader industry standardization of ML operations
+              practices and maturity models.
             </li>
             <li>
-              <strong>MLOps Best Practice Codification (2024-present):</strong> MLOps frameworks and
-              standards building on AWS CAF for AI emphasize operational excellence for ML systems.
-            </li>
-            <li>
-              <strong>AI Readiness Assessment Tools (2024-present):</strong> Assessment
-              methodologies building on AWS CAF for AI perspective-based evaluation approach.
-            </li>
-            <li>
-              <strong>Responsible AI Certification Programs (2024-present):</strong> Certification
-              programs incorporating AWS CAF for AI responsible AI and ethics principles.
+              <strong>Multi-Cloud AI Frameworks:</strong> Competing cloud providers (Microsoft,
+              Google) may develop analogous AI-specific adoption frameworks, creating a broader
+              ecosystem of vendor-specific AI guidance.
             </li>
           </ul>
         </section>
