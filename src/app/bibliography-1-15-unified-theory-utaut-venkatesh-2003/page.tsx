@@ -475,9 +475,10 @@ const BibliographyArticlePage = () => {
               experience.
             </li>
             <li>
-              <strong>Large sample sizes:</strong> Testing involved N=645 individual users pooled
-              across four organizations (with N=119 in voluntary settings and N=96 in mandatory
-              settings), providing adequate statistical power to detect moderating effects.
+              <strong>Large sample sizes:</strong> Testing involved 215 individual users across four
+              organizations (119 in voluntary settings, 96 in mandatory settings), measured at three
+              time points yielding 645 pooled observations, providing adequate statistical power to
+              detect moderating effects.
             </li>
             <li>
               <strong>Direct comparisons to predecessor models:</strong> UTAUT was tested against
@@ -610,9 +611,10 @@ const BibliographyArticlePage = () => {
               outcome measures.
             </li>
             <li>
-              <strong>Large sample with adequate power:</strong> N=645 individual users pooled
-              across four organizations provided statistical power to detect main effects and
-              moderating effects with adequate precision.
+              <strong>Large sample with adequate power:</strong> 215 individual users across four
+              organizations (119 voluntary, 96 mandatory), measured at three time points (645 pooled
+              observations), provided statistical power to detect main effects and moderating
+              effects with adequate precision.
             </li>
             <li>
               <strong>Real-world implementation contexts:</strong> Studies examined actual
