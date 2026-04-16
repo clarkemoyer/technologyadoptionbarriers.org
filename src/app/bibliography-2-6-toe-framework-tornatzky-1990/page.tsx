@@ -606,9 +606,9 @@ const BibliographyArticlePage = () => {
               logically create adoption barriers.
             </li>
             <li>
-              <strong>Consistency with organizational theory:</strong> The framework&apos;s emphasis
-              on contingency between organizational characteristics and environmental conditions
-              reflects established organizational contingency theory principle.
+              <strong>Consistency with organizational theory:</strong> The framework&rsquo;s
+              emphasis on contingency between organizational characteristics and environmental
+              conditions reflects established organizational contingency theory principle.
             </li>
             <li>
               <strong>Addresses documented adoption phenomena:</strong> The framework explains
@@ -856,16 +856,12 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-davis-1989-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                >
-                  ↩
-                </a>{' '}
+                ></a>{' '}
                 <a
                   href="#cite-ref-davis-1989-2"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 2"
-                >
-                  ↩
-                </a>
+                ></a>
               </span>{' '}
               https://doi.org/10.2307/249008
             </li>
@@ -876,9 +872,7 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-thompson-1967-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                >
-                  ↩
-                </a>
+                ></a>
               </span>
             </li>
             <li id="ref-lawrence-1967">
