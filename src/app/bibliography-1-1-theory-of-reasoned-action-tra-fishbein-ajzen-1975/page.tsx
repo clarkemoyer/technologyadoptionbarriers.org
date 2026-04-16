@@ -822,9 +822,6 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>References</h2>
           <ol className={REFERENCES_OL_CLASSES}>
-            <li id="ref-ajzen-1988">
-              Ajzen, I. (1988). <em>Attitudes, personality, and behavior</em>. Dorsey Press.
-            </li>
             <li id="ref-ajzen-1991">
               Ajzen, I. (1991). The theory of planned behavior.{' '}
               <em>Organizational Behavior and Human Decision Processes</em>, 50(2), 179-211.
@@ -853,10 +850,6 @@ const BibliographyArticlePage = () => {
                 </a>
               </span>
             </li>
-            <li id="ref-ajzen-1980">
-              Ajzen, I., &amp; Fishbein, M. (1980).{' '}
-              <em>Understanding attitudes and predicting social behavior</em>. Prentice-Hall.
-            </li>
             <li id="ref-davis-1989">
               Davis, F. D. (1989). Perceived usefulness, perceived ease of use, and user acceptance
               of information technology. <em>MIS Quarterly</em>, 13(3), 319-340.
@@ -877,17 +870,6 @@ const BibliographyArticlePage = () => {
                   &#8617;
                 </a>
               </span>
-            </li>
-            <li id="ref-davis-1989b">
-              Davis, F. D., Bagozzi, R. P., &amp; Warshaw, P. R. (1989). User acceptance of computer
-              technology: A comparison of two theoretical models. <em>Management Science</em>,
-              35(8), 982-1003.
-            </li>
-            <li id="ref-fishbein-2008">
-              Fishbein, M. (2008). A reasoned action approach to health behavior change. In R. J.
-              DiClemente, R. A. Crosby, &amp; M. C. Kegler (Eds.),{' '}
-              <em>Emerging theories in health promotion practice and research</em> (2nd ed., pp.
-              97-121). Jossey-Bass.
             </li>
             <li id="ref-fishbein-1975">
               Fishbein, M., &amp; Ajzen, I. (1975).{' '}
@@ -938,9 +920,27 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Further Reading</h2>
           <ol className={REFERENCES_OL_CLASSES}>
+            <li id="ref-ajzen-1988">
+              Ajzen, I. (1988). <em>Attitudes, personality, and behavior</em>. Dorsey Press.
+            </li>
+            <li id="ref-ajzen-1980">
+              Ajzen, I., &amp; Fishbein, M. (1980).{' '}
+              <em>Understanding attitudes and predicting social behavior</em>. Prentice-Hall.
+            </li>
             <li id="ref-armitage-2001">
               Armitage, C. J., &amp; Conner, M. (2001). Efficacy of the theory of planned behaviour:
               A meta-analytic review. <em>British Journal of Social Psychology</em>, 40(4), 471-499.
+            </li>
+            <li id="ref-davis-1989b">
+              Davis, F. D., Bagozzi, R. P., &amp; Warshaw, P. R. (1989). User acceptance of
+              computer technology: A comparison of two theoretical models.{' '}
+              <em>Management Science</em>, 35(8), 982-1003.
+            </li>
+            <li id="ref-fishbein-2008">
+              Fishbein, M. (2008). A reasoned action approach to health behavior change. In R. J.
+              DiClemente, R. A. Crosby, &amp; M. C. Kegler (Eds.),{' '}
+              <em>Emerging theories in health promotion practice and research</em> (2nd ed., pp.
+              97-121). Jossey-Bass.
             </li>
             <li id="ref-bandura-1986">
               Bandura, A. (1986).{' '}
