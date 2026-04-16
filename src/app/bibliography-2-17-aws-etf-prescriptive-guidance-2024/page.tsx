@@ -75,6 +75,17 @@ const BibliographyArticlePage = () => {
               <strong>Document Format:</strong> Prescriptive guidance framework, engagement models,
               delivery methodologies, playbooks, and implementation resources
             </p>
+            <p>
+              <strong>URL:</strong>{' '}
+              <a
+                href="https://docs.aws.amazon.com/prescriptive-guidance/latest/strategy-enterprise-transformation/introduction.html"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:underline"
+              >
+                https://docs.aws.amazon.com/prescriptive-guidance/latest/strategy-enterprise-transformation/introduction.html
+              </a>
+            </p>
           </div>
         </section>
 
