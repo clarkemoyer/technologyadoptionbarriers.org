@@ -200,13 +200,24 @@ const BibliographyArticlePage = () => {
               from beliefs about consequences weighted by evaluation of those consequences.
             </li>
             <li>
-              <strong>Information systems acceptance research:</strong> Prior empirical work
-              examining user attitudes toward information systems provided context for TAM&rsquo;s
-              development.
+              <strong>
+                Self-efficacy theory (
+                <Link
+                  href="/bibliography-1-3-social-cognitive-theory-sct-bandura-1986"
+                  className="text-tabs-teal-deep hover:underline"
+                >
+                  Bandura, 1986
+                </Link>
+                ):
+              </strong>{' '}
+              Davis explicitly cites self-efficacy as the theoretical basis for perceived ease of
+              use, noting that self-efficacy beliefs function as proximal determinants of behavior.
             </li>
             <li>
-              <strong>User attitudes toward technology:</strong> General research on how people
-              evaluate and respond to technological innovations.
+              <strong>Adoption of innovations (Rogers; Tornatzky &amp; Klein, 1982):</strong>{' '}
+              The meta-analytic finding that complexity (paralleling PEOU) and relative advantage
+              (paralleling PU) are the most consistent predictors of adoption provided empirical
+              grounding for TAM&rsquo;s two-construct focus.
             </li>
           </ul>
         </section>
@@ -223,6 +234,15 @@ const BibliographyArticlePage = () => {
           <p className={`${PARAGRAPH_CLASSES} font-mono text-sm bg-gray-50 p-3 rounded`}>
             Perceived Usefulness &amp; Perceived Ease of Use &rarr; Attitude &rarr; Behavioral
             Intention &rarr; Actual Usage
+          </p>
+
+          <p className={PARAGRAPH_CLASSES}>
+            A central finding was that perceived usefulness had a significantly greater correlation
+            with usage behavior than perceived ease of use in both studies (r=.63 vs .45 in Study
+            1; r=.85 vs .59 in Study 2). Regression analyses suggested that perceived ease of use
+            may operate as a causal antecedent to perceived usefulness rather than as a parallel
+            direct determinant of usage - users who find a system easy to use come to perceive it
+            as more useful.
           </p>
 
           <h3 className={H3_CLASSES}>What does the model measure?</h3>
@@ -362,12 +382,14 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>Multi-system validation:</strong> Demonstrated that perceived usefulness and
-              ease of use predicted user acceptance across different information systems (email and
-              file managers), suggesting robust relationships.
+              ease of use predicted user acceptance across four application programs in two studies:
+              Study 1 tested WriteOne (email) and XEDIT (file editor) with 112 users; Study 2
+              tested Chart-Master and Pendraw (graphics packages) with 40 participants.
             </li>
             <li>
-              <strong>Structural equation modeling:</strong> Used SEM to test whether hypothesized
-              causal structures fit data adequately, confirming theoretical relationships.
+              <strong>Correlation and regression analysis:</strong> Used correlation to establish
+              PU-usage and PEOU-usage relationships, and regression to test whether PEOU operates
+              as an antecedent to PU rather than a parallel direct predictor of usage.
             </li>
             <li>
               <strong>Measurement validity assessment:</strong> Conducted internal consistency,
@@ -390,8 +412,9 @@ const BibliographyArticlePage = () => {
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Multiple information systems:</strong> Validated across email systems and file
-              managers, demonstrating applicability across different technology types.
+              <strong>Multiple information systems:</strong> Validated across four systems spanning
+              email (WriteOne), file editing (XEDIT), and business graphics (Chart-Master,
+              Pendraw), demonstrating applicability across different technology types.
             </li>
             <li>
               <strong>Different user populations:</strong> Examined TAM with different
