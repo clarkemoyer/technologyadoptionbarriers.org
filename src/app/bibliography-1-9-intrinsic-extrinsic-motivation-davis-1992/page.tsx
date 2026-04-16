@@ -12,8 +12,7 @@ import {
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title:
-    'Bibliography: Extrinsic and Intrinsic Motivation to Use Computers - Davis, Bagozzi, & Warshaw (1992)',
+  title: 'Bibliography: Intrinsic & Extrinsic Motivation - Davis et al. (1992)',
   description:
     'In-depth exploration of intrinsic and extrinsic motivation in technology adoption, examining how enjoyment and perceived usefulness jointly predict computer usage intentions.',
 }
@@ -22,9 +21,7 @@ const BibliographyArticlePage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
-        <h1 className={H1_CLASSES}>
-          Extrinsic and Intrinsic Motivation to Use Computers - Davis, Bagozzi, &amp; Warshaw (1992)
-        </h1>
+        <h1 className={H1_CLASSES}>Intrinsic &amp; Extrinsic Motivation - Davis et al. (1992)</h1>
 
         {/* 1. Model Identification */}
         <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
