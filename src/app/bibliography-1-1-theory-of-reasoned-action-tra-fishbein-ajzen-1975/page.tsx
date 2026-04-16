@@ -80,8 +80,11 @@ const BibliographyArticlePage = () => {
             <div>
               <p className="text-xs font-bold uppercase text-blue-900 mb-1">APA (7th ed.)</p>
               <p className="text-sm font-mono">
-                Fishbein, M., &amp; Ajzen, I. (1975). Belief, attitude, intention, and behavior: An
-                introduction to theory and research. Addison-Wesley Publishing Company.
+                Fishbein, M., &amp; Ajzen, I. (1975).{' '}
+                <em>
+                  Belief, attitude, intention, and behavior: An introduction to theory and research
+                </em>
+                . Addison-Wesley Publishing Company.
               </p>
             </div>
             <div>
@@ -89,9 +92,11 @@ const BibliographyArticlePage = () => {
                 Chicago (Author-Date)
               </p>
               <p className="text-sm font-mono">
-                Fishbein, Martin, and Icek Ajzen. 1975. Belief, Attitude, Intention, and Behavior:
-                An Introduction to Theory and Research. Reading, MA: Addison-Wesley Publishing
-                Company.
+                Fishbein, Martin, and Icek Ajzen. 1975.{' '}
+                <em>
+                  Belief, Attitude, Intention, and Behavior: An Introduction to Theory and Research
+                </em>
+                . Reading, MA: Addison-Wesley Publishing Company.
               </p>
             </div>
           </div>
@@ -884,7 +889,7 @@ const BibliographyArticlePage = () => {
             <li id="ref-davis-1989b">
               Davis, F. D., Bagozzi, R. P., &amp; Warshaw, P. R. (1989). User acceptance of computer
               technology: A comparison of two theoretical models. <em>Management Science</em>,
-              35(8), 982-1003. https://doi.org/10.2307/249008
+              35(8), 982-1003.
             </li>
             <li id="ref-fishbein-2008">
               Fishbein, M. (2008). A reasoned action approach to health behavior change. In R. J.
