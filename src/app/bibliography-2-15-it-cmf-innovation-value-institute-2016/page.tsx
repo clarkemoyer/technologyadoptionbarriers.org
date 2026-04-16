@@ -276,8 +276,7 @@ const BibliographyArticlePage = () => {
               <strong>Managing IT for Business Value:</strong> Capabilities for ensuring IT
               investments create demonstrable business value through benefit realization,
               performance management, and continuous value creation. Includes 3 critical
-              capabilities for value measurement, benefit realization, and total cost of
-              ownership.
+              capabilities for value measurement, benefit realization, and total cost of ownership.
             </li>
           </ul>
 
