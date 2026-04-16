@@ -61,10 +61,7 @@ const BibliographyArticlePage = () => {
               <strong>Publisher:</strong> The Free Press
             </p>
             <p>
-              <strong>Pages:</strong> Limited publication information available in original
-            </p>
-            <p>
-              <strong>ISBN:</strong> 978-0-7432-2209-9
+              <strong>ISBN:</strong> 978-0-7432-2209-9 (5th edition, 2003)
             </p>
           </div>
         </section>
@@ -80,7 +77,7 @@ const BibliographyArticlePage = () => {
                 <a href="#ref-rogers-1962" className="text-tabs-teal-deep hover:underline">
                   1962
                 </a>
-                ). Diffusion of innovations. The Free Press.
+                ). <em>Diffusion of innovations</em>. The Free Press.
               </p>
             </div>
             <div>
@@ -88,7 +85,7 @@ const BibliographyArticlePage = () => {
                 Chicago (Author-Date)
               </p>
               <p className="text-sm font-mono">
-                Rogers, Everett M. 1962. Diffusion of Innovations. The Free Press.
+                Rogers, Everett M. 1962. <em>Diffusion of Innovations</em>. The Free Press.
               </p>
             </div>
           </div>
