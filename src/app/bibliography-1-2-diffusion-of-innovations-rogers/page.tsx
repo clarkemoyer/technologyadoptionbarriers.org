@@ -103,12 +103,12 @@ const BibliographyArticlePage = () => {
           <h2 className={H2_CLASSES}>Why Was the Model Created?</h2>
           <p className={PARAGRAPH_CLASSES}>
             Rogers developed the Diffusion of Innovations framework to address a fundamental gap in
-            understanding how innovations spread across diverse contexts. The core problem motivating
-            this model was simple yet profound: there is a wide gap between when innovations become
-            available and when they are actually adopted. Many innovations require lengthy periods,
-            sometimes years, from their introduction until they achieve widespread adoption. This
-            gap creates practical challenges for individuals and organizations seeking to accelerate
-            adoption rates.
+            understanding how innovations spread across diverse contexts. The core problem
+            motivating this model was simple yet profound: there is a wide gap between when
+            innovations become available and when they are actually adopted. Many innovations
+            require lengthy periods, sometimes years, from their introduction until they achieve
+            widespread adoption. This gap creates practical challenges for individuals and
+            organizations seeking to accelerate adoption rates.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             The framework emerged from Rogers&rsquo;s recognition that understanding how innovations
