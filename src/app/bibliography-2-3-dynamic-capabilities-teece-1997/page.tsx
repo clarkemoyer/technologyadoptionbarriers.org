@@ -12,7 +12,7 @@ import {
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: Dynamic Capabilities - Teece, Pisano, & Shuen (1997)',
+  title: 'Bibliography: Dynamic Capabilities Framework - Teece, Pisano, & Shuen (1997)',
   description:
     'Comprehensive overview of Dynamic Capabilities theory, extending the Resource-Based View to dynamic environments by emphasizing organizational capabilities to sense market changes, seize opportunities, and reconfigure resources rapidly as sources of sustained competitive advantage.',
 }
@@ -21,7 +21,9 @@ const BibliographyArticlePage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
-        <h1 className={H1_CLASSES}>Dynamic Capabilities - Teece, Pisano, &amp; Shuen (1997)</h1>
+        <h1 className={H1_CLASSES}>
+          Dynamic Capabilities Framework - Teece, Pisano, &amp; Shuen (1997)
+        </h1>
 
         {/* 1. Framework Identification */}
         <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
