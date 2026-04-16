@@ -197,8 +197,8 @@ export const technologyAdoptionModelsSeries: SeriesStructure = {
       },
       {
         id: 'bib-1-8',
-        title: 'Personal Computing Acceptance',
-        slug: '/bibliography-1-8-personal-computing-acceptance-thompson-1991',
+        title: 'Personal Computing Utilization',
+        slug: '/bibliography-1-8-personal-computing-utilization-thompson-1991',
       },
       {
         id: 'bib-1-9',
