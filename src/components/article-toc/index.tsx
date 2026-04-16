@@ -63,7 +63,11 @@ export default function ArticleTOC() {
 
   /* ---------- reset mobile panel when switching to desktop ---------- */
   useEffect(() => {
-    if (canShowDesktop) setMobileOpen(false) // eslint-disable-line react-hooks/set-state-in-effect
+    if (canShowDesktop) {
+      // Layout state sync: reset panel when viewport crosses the desktop breakpoint
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setMobileOpen(false)
+    }
   }, [canShowDesktop])
 
   /* ---------- scan headings on mount ---------- */
@@ -79,7 +83,8 @@ export default function ArticleTOC() {
       return { id: h.id, text: h.textContent ?? '' }
     })
 
-    requestAnimationFrame(() => setItems(tocItems)) // eslint-disable-line react-hooks/set-state-in-effect
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    requestAnimationFrame(() => setItems(tocItems))
 
     /* intersection observer for active heading */
     observerRef.current = new IntersectionObserver(
@@ -112,7 +117,8 @@ export default function ArticleTOC() {
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll, { passive: true })
-    requestAnimationFrame(handleScroll) // eslint-disable-line react-hooks/set-state-in-effect
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    requestAnimationFrame(handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [handleScroll])
 
