@@ -228,7 +228,7 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>
-                Innovation Adoption Model (
+                Technology Acceptance Model (
                 <a
                   id="cite-ref-davis-1989-1"
                   href="#ref-davis-1989"
@@ -695,8 +695,11 @@ const BibliographyArticlePage = () => {
               425-478. https://doi.org/10.2307/30036540
             </li>
             <li id="ref-fishbein-1975">
-              Fishbein, M., &amp; Ajzen, I. (1975). Belief, attitude, intention, and behavior: An
-              introduction to theory and research. Addison-Wesley.
+              Fishbein, M., &amp; Ajzen, I. (1975).{' '}
+              <em>
+                Belief, attitude, intention, and behavior: An introduction to theory and research
+              </em>
+              . Addison-Wesley.
             </li>
             <li id="ref-goodhue-1995">
               Goodhue, D. L., &amp; Thompson, R. L. (1995). Task-technology fit and individual
