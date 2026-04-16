@@ -12,7 +12,7 @@ import {
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: Social Cognitive Theory - Bandura (1986)',
+  title: 'Bibliography: Social Cognitive Theory (SCT) - Bandura (1986)',
   description:
     'Deep dive into Social Cognitive Theory by Albert Bandura (1986), exploring self-efficacy and its critical role in technology adoption decisions.',
 }
@@ -21,7 +21,7 @@ const BibliographyArticlePage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
-        <h1 className={H1_CLASSES}>Social Cognitive Theory - Bandura (1986)</h1>
+        <h1 className={H1_CLASSES}>Social Cognitive Theory (SCT) - Bandura (1986)</h1>
 
         {/* 1. Model Identification */}
         <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
@@ -625,7 +625,7 @@ const BibliographyArticlePage = () => {
             <li id="ref-compeau-1999">
               Compeau, D. R., Higgins, C. A., &amp; Huff, S. (1999). Social cognitive theory and
               individual reactions to computing technology: A longitudinal study.{' '}
-              <em>Journal of Applied Psychology</em>, 84(6), 811-821.
+              <em>MIS Quarterly</em>, 23(2), 145-158.
             </li>
             <li id="ref-gist-1992">
               Gist, M. E., &amp; Mitchell, T. R. (1992). Self-efficacy: A theoretical analysis of
