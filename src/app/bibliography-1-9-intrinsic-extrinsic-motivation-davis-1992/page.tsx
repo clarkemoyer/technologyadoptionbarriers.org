@@ -70,23 +70,12 @@ const BibliographyArticlePage = () => {
             <p>
               <strong>DOI:</strong>{' '}
               <a
-                href="https://doi.org/10.2307/249008"
+                href="https://doi.org/10.1111/j.1559-1816.1992.tb00945.x"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-600 hover:underline"
               >
-                10.2307/249008
-              </a>
-            </p>
-            <p>
-              <strong>DOI:</strong>{' '}
-              <a
-                href="https://doi.org/10.2307/249008"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-600 hover:underline"
-              >
-                10.2307/249008
+                10.1111/j.1559-1816.1992.tb00945.x
               </a>
             </p>
           </div>
@@ -163,9 +152,9 @@ const BibliographyArticlePage = () => {
               instrumental value - using technology to accomplish work tasks effectively.
             </li>
             <li>
-              <strong>Perceived Ease of Use (Extrinsic):</strong> The degree to which users perceive
-              the system is easy to learn and operate. This reflects effort-minimization motivation
-              - reducing cognitive and behavioral burden in system interaction.
+              <strong>Perceived Ease of Use:</strong> The degree to which users perceive the system
+              is easy to learn and operate. In this model, PEOU operates as an antecedent whose
+              effects on intentions are fully mediated by usefulness and enjoyment.
             </li>
             <li>
               <strong>Perceived Enjoyment (Intrinsic):</strong> The extent to which users find the
