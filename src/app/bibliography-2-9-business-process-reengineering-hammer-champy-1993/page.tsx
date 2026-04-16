@@ -12,7 +12,7 @@ import {
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: Business Process Reengineering - Hammer & Champy (1993)',
+  title: 'Bibliography: Business Process Reengineering (BPR) - Hammer & Champy (1993)',
   description:
     'Comprehensive overview of Business Process Reengineering (BPR). Explains fundamental rethinking and radical redesign of business processes to achieve dramatic improvements in performance, cost, quality, service, and speed.',
 }
@@ -21,7 +21,9 @@ const BibliographyArticlePage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
-        <h1 className={H1_CLASSES}>Business Process Reengineering - Hammer &amp; Champy (1993)</h1>
+        <h1 className={H1_CLASSES}>
+          Business Process Reengineering (BPR) - Hammer &amp; Champy (1993)
+        </h1>
 
         {/* 1. Framework Identification */}
         <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
