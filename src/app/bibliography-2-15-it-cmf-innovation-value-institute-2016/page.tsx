@@ -689,9 +689,9 @@ const BibliographyArticlePage = () => {
                 </Link>
                 :
               </strong>{' '}
-              Cloud adoption frameworks increasingly assess organizational capability maturity as
-              a prerequisite for technology adoption, reflecting IT-CMF&rsquo;s emphasis on
-              capability readiness.
+              Cloud adoption frameworks increasingly assess organizational capability maturity as a
+              prerequisite for technology adoption, reflecting IT-CMF&rsquo;s emphasis on capability
+              readiness.
             </li>
           </ul>
         </section>
