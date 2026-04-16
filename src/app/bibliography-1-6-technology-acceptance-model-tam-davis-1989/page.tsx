@@ -428,8 +428,9 @@ const BibliographyArticlePage = () => {
               evidence.
             </li>
             <li>
-              <strong>Self-reported usage measurement:</strong> Demonstrated significant correlations
-              between PU/PEOU beliefs and self-reported usage behavior across both studies.
+              <strong>Self-reported usage measurement:</strong> Demonstrated significant
+              correlations between PU/PEOU beliefs and self-reported usage behavior across both
+              studies.
             </li>
             <li>
               <strong>Extended applications:</strong> Subsequent research successfully extended TAM
@@ -590,9 +591,7 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-venkatesh-2003-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                >
-                  
-                </a>
+                ></a>
               </span>
             </li>
           </ol>
