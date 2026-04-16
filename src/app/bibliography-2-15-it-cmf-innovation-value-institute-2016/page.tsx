@@ -17,6 +17,8 @@ export const metadata: Metadata = {
     'Comprehensive overview of the IT Capability Maturity Framework (IT-CMF). Explains the 35 Critical Capabilities, 5-level maturity model, and IT-CMF role as comprehensive framework for IT capability assessment and business-IT alignment.',
 }
 
+const navLinkClass = 'text-blue-600 hover:text-blue-800 underline'
+
 const BibliographyArticlePage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
@@ -86,12 +88,13 @@ const BibliographyArticlePage = () => {
             <div>
               <p className="text-xs font-bold uppercase text-blue-900 mb-1">APA (7th ed.)</p>
               <p className="text-sm font-mono">
-                Curley, M., Kenneally, J., &amp; Carcary, M. (
+                {'Curley, M., Kenneally, J., & Carcary, M. ('}
                 <a href="#ref-curley-2016" className="text-tabs-teal-deep hover:underline">
                   2016
                 </a>
-                ). <em>IT capability maturity framework (IT-CMF): The body of knowledge guide</em>{' '}
-                (2nd ed.). Van Haren Publishing.
+                {').'}{' '}
+                <em>IT capability maturity framework (IT-CMF): The body of knowledge guide</em>
+                {' (2nd ed.). Van Haren Publishing.'}
               </p>
             </div>
             <div>
@@ -747,7 +750,7 @@ const BibliographyArticlePage = () => {
               <em>
                 COBIT 5: A business framework for the governance and management of enterprise IT
               </em>
-              . ISACA Publications.
+              {'. ISACA Publications.'}
             </li>
             <li id="ref-ross-2006">
               Ross, J. W., Weill, P., &amp; Robertson, D. C. (2006).{' '}
@@ -771,25 +774,19 @@ const BibliographyArticlePage = () => {
           <h2 className={H2_CLASSES}>Series Navigation</h2>
           <div className="space-y-4">
             <p className={PARAGRAPH_CLASSES}>
-              <Link
-                href="/bibliography-2-14-cmmi-chrissis-2005"
-                className="text-blue-600 hover:text-blue-800 underline"
-              >
+              <Link href="/bibliography-2-14-cmmi-chrissis-2005" className={navLinkClass}>
                 &larr; Previous: CMMI - Chrissis, Konrad, &amp; Shrum (2005)
               </Link>
             </p>
             <p className={PARAGRAPH_CLASSES}>
-              <Link
-                href="/bibliography-2-16-aws-caf-ai-2024"
-                className="text-blue-600 hover:text-blue-800 underline"
-              >
+              <Link href="/bibliography-2-16-aws-caf-ai-2024" className={navLinkClass}>
                 Next: AWS Cloud Adoption Framework for AI - AWS (2024) &rarr;
               </Link>
             </p>
             <p className={`${PARAGRAPH_CLASSES} mt-6`}>
               <Link
                 href="/article-bibliography-comprehensive-series-bibliography"
-                className="text-blue-600 hover:text-blue-800 underline"
+                className={navLinkClass}
               >
                 Back to Complete Bibliography
               </Link>
