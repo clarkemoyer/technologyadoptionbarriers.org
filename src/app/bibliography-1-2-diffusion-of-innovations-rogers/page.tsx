@@ -34,8 +34,15 @@ const BibliographyArticlePage = () => {
               <strong>Model Abbreviation:</strong> DOI
             </p>
             <p>
-              <strong>Target of Model:</strong> Both Individual and Organizational Technology
-              Adoption
+              <strong>Target of Model:</strong> Individual Innovation Adoption (organizational
+              adoption covered in{' '}
+              <Link
+                href="/bibliography-2-21-diffusion-of-innovations-organizational-rogers-1962"
+                className="text-tabs-teal-deep hover:underline"
+              >
+                Bibliography 2-21
+              </Link>
+              )
             </p>
             <p>
               <strong>Disciplinary Origin:</strong> Interdisciplinary (synthesizing agricultural
@@ -55,7 +62,7 @@ const BibliographyArticlePage = () => {
               <strong>Formal Publication Date:</strong> 1962
             </p>
             <p>
-              <strong>Official Title:</strong> Diffusion of Innovations (First Edition)
+              <strong>Official Title:</strong> Diffusion of Innovations
             </p>
             <p>
               <strong>Publisher:</strong> The Free Press
@@ -96,7 +103,7 @@ const BibliographyArticlePage = () => {
           <h2 className={H2_CLASSES}>Why Was the Model Created?</h2>
           <p className={PARAGRAPH_CLASSES}>
             Rogers developed the Diffusion of Innovations framework to address a fundamental gap in
-            understanding technology adoption across diverse contexts. The core problem motivating
+            understanding how innovations spread across diverse contexts. The core problem motivating
             this model was simple yet profound: there is a wide gap between when innovations become
             available and when they are actually adopted. Many innovations require lengthy periods,
             sometimes years, from their introduction until they achieve widespread adoption. This
@@ -171,7 +178,7 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>Compatibility:</strong> The degree to which an innovation is perceived as
-              consistent with existing values, beliefs, and past experiences.
+              consistent with existing values, past experiences, and needs of potential adopters.
             </li>
             <li>
               <strong>Complexity:</strong> The degree to which an innovation is perceived as
