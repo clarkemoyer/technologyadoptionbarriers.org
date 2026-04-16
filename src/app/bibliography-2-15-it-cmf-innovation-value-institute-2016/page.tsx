@@ -524,9 +524,9 @@ const BibliographyArticlePage = () => {
               Critical Capabilities organized into four macro-capabilities.
             </li>
             <li>
-              <strong>Iterative staged validation:</strong> Research is overseen by a Steering
-              Board including industry leaders and academic researchers. Research is conducted
-              in iterative stages with ongoing consortium validation.
+              <strong>Iterative staged validation:</strong> Research is overseen by a Steering Board
+              including industry leaders and academic researchers. Research is conducted in
+              iterative stages with ongoing consortium validation.
             </li>
           </ul>
         </section>
