@@ -21,7 +21,7 @@ const BibliographyArticlePage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
-        <h1 className={H1_CLASSES}>AWS Cloud Adoption Framework for AI (2024)</h1>
+        <h1 className={H1_CLASSES}>AWS Cloud Adoption Framework for AI/ML (CAF-AI) - AWS (2024)</h1>
 
         {/* 1. Framework Identification */}
         <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
@@ -78,8 +78,7 @@ const BibliographyArticlePage = () => {
               capability descriptions, implementation methodologies, and supporting resources
             </p>
             <p>
-              <strong>URL:</strong>
-              {chr(39) + ' ' + chr(39)}
+              <strong>URL:</strong>{' '}
               <a
                 href="https://docs.aws.amazon.com/whitepapers/latest/aws-caf-for-ai/"
                 target="_blank"
