@@ -70,6 +70,17 @@ const BibliographyArticlePage = () => {
             <p>
               <strong>Pages:</strong> 273-315
             </p>
+            <p>
+              <strong>DOI:</strong>{' '}
+              <a
+                href="https://doi.org/10.1111/j.1540-5915.2008.00192.x"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:underline"
+              >
+                10.1111/j.1540-5915.2008.00192.x
+              </a>
+            </p>
           </div>
         </section>
 
