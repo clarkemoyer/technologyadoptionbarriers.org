@@ -653,35 +653,26 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Following Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
-            Microsoft Cloud Adoption Framework influenced subsequent cloud adoption and digital
-            transformation frameworks:
+            Microsoft CAF has been continuously updated since its initial release and has influenced
+            cloud adoption practices broadly. However, specific documented descendant frameworks are
+            difficult to isolate from Microsoft&rsquo;s own iterative updates to CAF itself. The
+            following represent areas where CAF&rsquo;s influence is observable:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Industry-Specific Cloud Adoption Frameworks (2020-present):</strong>{' '}
-              Organizations developed industry-specific cloud frameworks building on Microsoft CAF
-              patterns for healthcare, financial services, and government contexts.
+              <strong>Microsoft AI Adoption Framework (2025):</strong> Microsoft extended CAF
+              principles specifically for AI adoption scenarios, applying the same
+              strategy-plan-ready-adopt methodology to AI workloads.
             </li>
             <li>
-              <strong>Hybrid Cloud Governance Frameworks (2021-present):</strong> Organizations
-              extended Microsoft CAF principles to hybrid cloud and edge computing scenarios.
+              <strong>Azure Landing Zone Architecture:</strong> CAF&rsquo;s Ready phase directly
+              shaped Azure Landing Zone patterns, codifying infrastructure-as-code approaches for
+              cloud-ready environments.
             </li>
             <li>
-              <strong>Cloud Security and Compliance Standards (2021-present):</strong> Security
-              frameworks incorporated Microsoft CAF governance and security alignment approaches.
-            </li>
-            <li>
-              <strong>Cloud Cost Optimization Frameworks (2022-present):</strong> Cost management
-              methodologies building on Microsoft CAF cost governance principles.
-            </li>
-            <li>
-              <strong>FinOps and Cloud Economics Frameworks (2022-present):</strong> Financial
-              operations frameworks adopted Microsoft CAF cost management and business outcome
-              focus.
-            </li>
-            <li>
-              <strong>Cloud Center of Excellence Patterns (2021-present):</strong> Cloud
-              organization models built on Microsoft CAF organizational and governance approaches.
+              <strong>FinOps Foundation Practices:</strong> CAF&rsquo;s cost management governance
+              disciplines contributed to the broader FinOps movement establishing cloud financial
+              management as a distinct organizational capability.
             </li>
           </ul>
         </section>
