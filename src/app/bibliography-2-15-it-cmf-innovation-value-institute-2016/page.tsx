@@ -89,7 +89,11 @@ const BibliographyArticlePage = () => {
               <p className="text-xs font-bold uppercase text-blue-900 mb-1">APA (7th ed.)</p>
               <p className="text-sm font-mono">
                 {'Curley, M., Kenneally, J., & Carcary, M. ('}
-                <a href="#ref-curley-2016" className="text-tabs-teal-deep hover:underline">
+                <a
+                  href="#ref-curley-2016"
+                  aria-label="Jump to reference: Curley, Kenneally, and Carcary 2016"
+                  className="text-tabs-teal-deep hover:underline"
+                >
                   2016
                 </a>
                 {').'}{' '}
@@ -529,7 +533,7 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>Mid-market applicability:</strong> Framework applicability to mid-market
-              organizations is moderate. Mid-market organizations with smaller IT teams may find 35
+              organizations is moderate. Mid-market organizations with smaller IT teams may find 36
               capabilities overwhelming.
             </li>
             <li>
@@ -728,7 +732,7 @@ const BibliographyArticlePage = () => {
               Axelos. (2011). <em>ITIL Foundation handbook</em>. The Stationery Office.
             </li>
             <li id="ref-cobit-2012">
-              Cobit. (2012).{' '}
+              ISACA. (2012).{' '}
               <em>
                 COBIT 5: A business framework for the governance and management of enterprise IT
               </em>
