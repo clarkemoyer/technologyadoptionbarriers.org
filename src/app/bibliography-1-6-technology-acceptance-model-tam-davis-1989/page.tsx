@@ -555,9 +555,7 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-venkatesh-2003-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                >
-                  ↩
-                </a>
+                ></a>
               </span>
             </li>
           </ol>
