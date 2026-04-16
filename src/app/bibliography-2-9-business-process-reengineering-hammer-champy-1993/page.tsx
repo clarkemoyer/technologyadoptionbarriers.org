@@ -69,6 +69,9 @@ const BibliographyArticlePage = () => {
               <strong>Book Format:</strong> Business manifesto and prescriptive framework
               synthesizing management consulting practice and organizational change theory
             </p>
+            <p>
+              <strong>ISBN:</strong> 978-0-88730-640-2
+            </p>
           </div>
         </section>
 
