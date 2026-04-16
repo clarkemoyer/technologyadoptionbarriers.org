@@ -36,15 +36,21 @@ const BibliographyArticlePage = () => {
               <strong>Model Abbreviation:</strong> DOI (Organizational)
             </p>
             <p>
-              <strong>Authors:</strong> Everett M. Rogers
+              <strong>Author:</strong> Everett M. Rogers
             </p>
             <p>
               <strong>Target of Model:</strong> The organizational adoption dimension of
               Rogers&rsquo; Diffusion of Innovations theory, addressing how organizations adopt
               innovations including technology, processes, practices, and products. This entry
               focuses specifically on organizational-level adoption (Chapters 10-11 of the 5th
-              edition) rather than individual-level adoption, which is covered separately in
-              /bibliography-1-2-diffusion-of-innovations-rogers.
+              edition) rather than individual-level adoption, which is covered separately in{' '}
+              <Link
+                href="/bibliography-1-2-diffusion-of-innovations-rogers"
+                className="text-tabs-teal-deep hover:underline"
+              >
+                Bibliography 1-2
+              </Link>
+              .
             </p>
             <p>
               <strong>Disciplinary Origin:</strong> Communication Studies, Organizational Behavior,
@@ -65,7 +71,7 @@ const BibliographyArticlePage = () => {
               <strong>Current Version:</strong> 2003 (Fifth Edition)
             </p>
             <p>
-              <strong>Authors:</strong> Everett M. Rogers
+              <strong>Author:</strong> Everett M. Rogers
             </p>
             <p>
               <strong>Official Title:</strong> <em>Diffusion of Innovations</em> (5th ed.)
@@ -448,7 +454,7 @@ const BibliographyArticlePage = () => {
           <h3 className={H3_CLASSES}>Organizational Adopter Categories</h3>
           <p className={PARAGRAPH_CLASSES}>
             Rogers applied his five-category adopter typology - Innovators, Early Adopters, Early
-            Majority, Late Majority, and Laggards - not only to individual decision- makers but to
+            Majority, Late Majority, and Laggards - not only to individual decision-makers but to
             organizations as collective adopter units. This organizational application has distinct
             implications for enterprise technology adoption:
           </p>
@@ -524,9 +530,9 @@ const BibliographyArticlePage = () => {
             <li>
               <strong>Observability (Organizational):</strong> Organizations observe adoption
               outcomes through industry reports, peer networking, analyst research, and vendor case
-              studies. The Gartner Hype Cycle is itself an institutional mechanism for making
-              organizational adoption outcomes observable across a technology&rsquo;s maturity
-              trajectory.
+              studies. Industry analyst frameworks (such as the Gartner Hype Cycle) serve as
+              institutional mechanisms that make organizational adoption outcomes observable across
+              a technology&rsquo;s maturity trajectory.
             </li>
           </ul>
 
