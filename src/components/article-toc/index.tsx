@@ -63,7 +63,7 @@ export default function ArticleTOC() {
 
   /* ---------- reset mobile panel when switching to desktop ---------- */
   useEffect(() => {
-    if (canShowDesktop) setMobileOpen(false)
+    if (canShowDesktop) setMobileOpen(false) // eslint-disable-line react-hooks/set-state-in-effect
   }, [canShowDesktop])
 
   /* ---------- scan headings on mount ---------- */
@@ -79,8 +79,7 @@ export default function ArticleTOC() {
       return { id: h.id, text: h.textContent ?? '' }
     })
 
-    /* schedule state update to avoid synchronous setState in effect */
-    requestAnimationFrame(() => setItems(tocItems))
+    requestAnimationFrame(() => setItems(tocItems)) // eslint-disable-line react-hooks/set-state-in-effect
 
     /* intersection observer for active heading */
     observerRef.current = new IntersectionObserver(
@@ -113,8 +112,7 @@ export default function ArticleTOC() {
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll, { passive: true })
-    /* defer initial call to avoid synchronous setState in effect */
-    requestAnimationFrame(handleScroll)
+    requestAnimationFrame(handleScroll) // eslint-disable-line react-hooks/set-state-in-effect
     return () => window.removeEventListener('scroll', handleScroll)
   }, [handleScroll])
 
