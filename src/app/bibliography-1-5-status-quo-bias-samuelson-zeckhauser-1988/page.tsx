@@ -651,8 +651,8 @@ const BibliographyArticlePage = () => {
           <ul className={BODY_LIST_CLASSES}>
             <li>
               <strong>Endowment Effect research (Kahneman, Knetsch, &amp; Thaler, 1990):</strong>{' '}
-              Extended the loss aversion mechanism underlying SQB to demonstrate that mere
-              ownership increases valuation of objects, providing experimental confirmation of
+              Extended the loss aversion mechanism underlying SQB to demonstrate that mere ownership
+              increases valuation of objects, providing experimental confirmation of
               reference-dependent preferences.
             </li>
             <li>
@@ -661,10 +661,10 @@ const BibliographyArticlePage = () => {
               foundation for status quo effects in decisions without explicit risk.
             </li>
             <li>
-              <strong>Nudge Theory (Thaler &amp; Sunstein, 2008):</strong>{' '}
-              Applied status quo bias insights to policy design, showing that default options
-              (which exploit SQB) dramatically affect outcomes in retirement savings,
-              organ donation, and other consequential decisions.
+              <strong>Nudge Theory (Thaler &amp; Sunstein, 2008):</strong> Applied status quo bias
+              insights to policy design, showing that default options (which exploit SQB)
+              dramatically affect outcomes in retirement savings, organ donation, and other
+              consequential decisions.
             </li>
             <li>
               <strong>
@@ -677,15 +677,14 @@ const BibliographyArticlePage = () => {
                 </Link>
                 ):
               </strong>{' '}
-              Identified usage barriers and tradition barriers as sources of technology
-              resistance that parallel the status quo inertia mechanisms described by
-              Samuelson and Zeckhauser.
+              Identified usage barriers and tradition barriers as sources of technology resistance
+              that parallel the status quo inertia mechanisms described by Samuelson and Zeckhauser.
             </li>
             <li>
-              <strong>Switching Cost literature:</strong>{' '}
-              Samuelson and Zeckhauser&rsquo;s distinction between rational transition costs
-              and psychological bias-driven persistence became foundational for research
-              on technology switching costs and lock-in effects in IS research.
+              <strong>Switching Cost literature:</strong> Samuelson and Zeckhauser&rsquo;s
+              distinction between rational transition costs and psychological bias-driven
+              persistence became foundational for research on technology switching costs and lock-in
+              effects in IS research.
             </li>
           </ul>
         </section>
