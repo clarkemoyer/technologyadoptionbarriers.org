@@ -142,7 +142,8 @@ export default function UnifiedNavigation({
       el.style.scrollMarginTop = scrollMargin
       return { id: el.id, text: el.textContent || '' }
     })
-    setHeadings(items)
+    // DOM scan result - intentional sync from external system
+    setHeadings(items) // eslint-disable-line react-hooks/set-state-in-effect
   }, [pathname, scrollMargin])
 
   // Scroll spy with IntersectionObserver - rootMargin tracks dynamic header height
@@ -172,7 +173,7 @@ export default function UnifiedNavigation({
 
   // Reset mobile panel when switching to desktop sidebar
   useEffect(() => {
-    if (canShowDesktop) setMobileOpen(false)
+    if (canShowDesktop) setMobileOpen(false) // eslint-disable-line react-hooks/set-state-in-effect
   }, [canShowDesktop])
 
   // Close mobile panel on outside click
