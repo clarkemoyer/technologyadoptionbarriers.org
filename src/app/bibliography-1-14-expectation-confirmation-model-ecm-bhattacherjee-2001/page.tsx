@@ -691,9 +691,7 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-oliver-1980-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                >
-                  ↩
-                </a>
+                ></a>
               </span>{' '}
               https://doi.org/10.1177/002224378001700405
             </li>
@@ -705,9 +703,7 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-davis-1989-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                >
-                  ↩
-                </a>
+                ></a>
               </span>{' '}
               https://doi.org/10.2307/249008
             </li>
@@ -720,9 +716,7 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-oliver-1977-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                >
-                  ↩
-                </a>
+                ></a>
               </span>
             </li>
             <li id="ref-cronin-1992">
