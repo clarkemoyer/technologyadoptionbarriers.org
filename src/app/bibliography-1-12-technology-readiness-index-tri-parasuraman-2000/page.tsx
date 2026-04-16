@@ -35,7 +35,19 @@ const RefEntry = ({ entry }: { entry: ReferenceEntry }) => (
         </a>
       </span>
     )}
-    {entry.doi && <> {entry.doi}</>}
+    {entry.doi && (
+      <>
+        {' '}
+        <a
+          href={entry.doi}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-tabs-teal-deep hover:underline"
+        >
+          {entry.doi}
+        </a>
+      </>
+    )}
   </li>
 )
 
@@ -85,6 +97,7 @@ const REFERENCES: ReferenceEntry[] = [
         <em>Information Systems Research</em>, 9(2), 204-215.
       </>
     ),
+    backLink: { href: '#cite-ref-agarwal-1998-1', label: 'Back to citation' },
   },
 ]
 
