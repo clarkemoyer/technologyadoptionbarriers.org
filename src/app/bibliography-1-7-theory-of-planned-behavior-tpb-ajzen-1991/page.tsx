@@ -541,7 +541,9 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-bandura-1977-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                ></a>
+                >
+                  Back to citation 1
+                </a>
               </span>
             </li>
           </ol>
@@ -559,7 +561,7 @@ const BibliographyArticlePage = () => {
               <em>
                 Belief, attitude, intention, and behavior: An introduction to theory and research
               </em>
-              . Addison-Wesley.
+              {'. Addison-Wesley.'}
             </li>
             <li id="ref-triandis-1977">
               Triandis, H. C. (1977). <em>Interpersonal behavior</em>. Brooks/Cole.
