@@ -727,9 +727,7 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-beck-2000-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                >
-                  ↩
-                </a>
+                ></a>
               </span>
             </li>
             <li id="ref-poppendieck-2003">
@@ -740,9 +738,7 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-poppendieck-2003-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                >
-                  ↩
-                </a>
+                ></a>
               </span>
             </li>
             <li id="ref-schwaber-2002">
