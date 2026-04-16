@@ -162,10 +162,11 @@ const BibliographyArticlePage = () => {
               weighted by motivation to comply with each referent.
             </li>
             <li>
-              <strong>Perceived Behavioral Control:</strong> Beliefs about one&rsquo;s ability to
-              successfully perform behavior given existing constraints and resources. Reflect both
-              internal factors (skills, self-efficacy) and external factors (environmental
-              opportunities, dependencies on others).
+              <strong>Perceived Behavioral Control:</strong> People&rsquo;s perception of the ease
+              or difficulty of performing the behavior of interest. Unlike generalized locus of
+              control, PBC is behavior-specific and varies across situations. Reflects both
+              internal factors (skills, knowledge) and external factors (opportunities, resources,
+              cooperation of others).
             </li>
             <li>
               <strong>Behavioral Intention:</strong> Readiness or plan to perform behavior.
