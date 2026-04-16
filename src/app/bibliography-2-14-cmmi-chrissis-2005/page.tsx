@@ -12,7 +12,7 @@ import {
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: CMMI - Chrissis, Konrad & Shrum (2005)',
+  title: 'Bibliography: CMMI - Capability Maturity Model Integration (Chrissis et al., 2005)',
   description:
     'Comprehensive overview of Capability Maturity Model Integration (CMMI). Explains maturity levels, process areas, and CMMI role as foundational framework for IT process capability assessment and organizational maturity measurement.',
 }
@@ -21,7 +21,9 @@ const BibliographyArticlePage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
-        <h1 className={H1_CLASSES}>CMMI - Chrissis, Konrad &amp; Shrum (2005)</h1>
+        <h1 className={H1_CLASSES}>
+          CMMI - Capability Maturity Model Integration (Chrissis et al., 2005)
+        </h1>
 
         {/* 1. Framework Identification */}
         <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
