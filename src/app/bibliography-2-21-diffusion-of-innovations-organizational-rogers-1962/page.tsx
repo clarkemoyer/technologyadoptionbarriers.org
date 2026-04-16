@@ -470,8 +470,8 @@ const BibliographyArticlePage = () => {
               <strong>Early Majority Organizations:</strong> Adopt innovations after seeing evidence
               from early adopters, but before the majority of peer organizations. Adoption decisions
               are heavily influenced by industry benchmarking, peer reference cases, and analyst
-              reports. The Early Majority represents the &ldquo;chasm&rdquo; that many technologies
-              must cross to achieve mainstream enterprise adoption.
+              reports. Rogers noted that adoption by this group marks the transition from
+              early to mainstream adoption within an organizational population.
             </li>
             <li>
               <strong>Late Majority Organizations:</strong> Adopt out of competitive necessity or
@@ -869,24 +869,26 @@ const BibliographyArticlePage = () => {
                 </a>
                 ):
               </strong>{' '}
-              Built on Rogers&rsquo; organizational adoption process and champion concepts,
-              developing change management methodologies for organizational technology
-              implementation.
+              Addressed overlapping concerns about organizational change and adoption resistance.
+              Kotter&rsquo;s eight-step model and Prosci&rsquo;s ADKAR methodology were developed
+              independently but address similar organizational adoption challenges to those Rogers
+              described.
             </li>
             <li>
-              <strong>IT Innovation Adoption Models (2000s-2010s):</strong> Organizational
-              information technology adoption research built directly on Rogers&rsquo; framework,
-              establishing organizational IT adoption as distinct research domain.
-            </li>
-            <li>
-              <strong>Cloud Computing Adoption Frameworks (2010s-2020s):</strong> Cloud adoption
-              frameworks synthesized Rogers&rsquo; organizational adoption concepts with
-              cloud-specific organizational considerations.
-            </li>
-            <li>
-              <strong>Digital Transformation Frameworks (2015-present):</strong> Digital
-              transformation research integrated Rogers&rsquo; organizational adoption concepts with
-              broader organizational transformation perspectives.
+              <strong>
+                Organizational Innovation Meta-Analysis (
+                <a
+                  id="cite-ref-damanpour-1991-1"
+                  href="#ref-damanpour-1991"
+                  className="text-tabs-teal-deep hover:underline"
+                >
+                  Damanpour, 1991
+                </a>
+                ):
+              </strong>{' '}
+              Conducted a meta-analysis of 23 organizational innovation studies, quantifying the
+              relationships between Rogers&rsquo; structural variables (centralization, formalization,
+              complexity, slack) and organizational innovativeness.
             </li>
           </ul>
         </section>
@@ -897,13 +899,6 @@ const BibliographyArticlePage = () => {
           <ol className={REFERENCES_OL_CLASSES}>
             <li id="ref-rogers-1962">
               Rogers, E. M. (1962). <em>Diffusion of innovations</em> (1st ed.). Free Press.
-              <span className="text-xs ml-1">
-                <a
-                  href="#cite-ref-rogers-1962-1"
-                  className="text-tabs-teal-deep hover:underline"
-                  aria-label="Back to citation 1"
-                ></a>
-              </span>
             </li>
             <li id="ref-venkatesh-2003">
               Venkatesh, V., Morris, M. G., Davis, G. B., &amp; Davis, F. D. (2003). User acceptance
@@ -937,8 +932,8 @@ const BibliographyArticlePage = () => {
               978-0-669-20348-6
             </li>
             <li id="ref-hiatt-2003">
-              Hiatt, J. M., &amp; Creasey, T. J. (2003). <em>The change management handbook</em>.
-              Prosci Learning Center.
+              Hiatt, J. M., &amp; Creasey, T. J. (2003).{' '}
+              <em>Change management: The people side of change</em>. Prosci Research.
             </li>
           </ol>
         </section>
@@ -974,10 +969,10 @@ const BibliographyArticlePage = () => {
           <div className="space-y-4">
             <p className={PARAGRAPH_CLASSES}>
               <Link
-                href="/bibliography-2-20-gartner-hype-cycle-methodology-2025"
+                href="/bibliography-2-20-cmmc-dod-2020"
                 className="text-blue-600 hover:text-blue-800 underline"
               >
-                &larr; Previous: Gartner Hype Cycle Methodology - Gartner (2025)
+                &larr; Previous: Cybersecurity Maturity Model Certification (CMMC) - DoD (2020)
               </Link>
             </p>
             <p className={PARAGRAPH_CLASSES}>
