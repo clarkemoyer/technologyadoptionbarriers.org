@@ -784,9 +784,7 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-shewhart-1931-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                >
-                  ↩
-                </a>
+                ></a>
               </span>
             </li>
             <li id="ref-bertalanffy-1968">
@@ -798,9 +796,7 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-bertalanffy-1968-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                >
-                  ↩
-                </a>
+                ></a>
               </span>
             </li>
             <li id="ref-taylor-1911">
@@ -811,9 +807,7 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-taylor-1911-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                >
-                  ↩
-                </a>
+                ></a>
               </span>
             </li>
             <li id="ref-deming-1986">
