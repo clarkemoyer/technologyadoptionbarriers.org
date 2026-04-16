@@ -515,7 +515,7 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>Technology determinism:</strong> Framework emphasizes technology-enabled
-              possibilities but may overstate technology&apos;s role relative to other change
+              possibilities but may overstate technology&rsquo;s role relative to other change
               factors including organizational culture, leadership, and employee capability.
             </li>
             <li>
@@ -882,9 +882,7 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-taylor-1911-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                >
-                  ↩
-                </a>
+                ></a>
               </span>
             </li>
             <li id="ref-deming-1982">
@@ -894,9 +892,7 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-deming-1982-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                >
-                  ↩
-                </a>
+                ></a>
               </span>
             </li>
             <li id="ref-mintzberg-1979">
@@ -906,9 +902,7 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-mintzberg-1979-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                >
-                  ↩
-                </a>
+                ></a>
               </span>
             </li>
             <li id="ref-lewin-1947">
@@ -919,9 +913,7 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-lewin-1947-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                >
-                  ↩
-                </a>
+                ></a>
               </span>
             </li>
             <li id="ref-kotter-1995">
@@ -932,9 +924,7 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-kotter-1995-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                >
-                  ↩
-                </a>
+                ></a>
               </span>
             </li>
             <li id="ref-paulk-1993">
@@ -945,9 +935,7 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-paulk-1993-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                >
-                  ↩
-                </a>
+                ></a>
               </span>{' '}
               https://doi.org/10.1109/52.219617
             </li>
@@ -960,9 +948,7 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-senge-1990-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                >
-                  ↩
-                </a>
+                ></a>
               </span>
             </li>
             <li id="ref-porter-1985">
