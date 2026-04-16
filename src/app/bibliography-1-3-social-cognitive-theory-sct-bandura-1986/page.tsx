@@ -76,7 +76,8 @@ const BibliographyArticlePage = () => {
                 <a href="#ref-bandura-1986" className="text-tabs-teal-deep hover:underline">
                   1986
                 </a>
-                ). Social foundations of thought and action: A social cognitive theory.
+                ).{' '}
+                <em>Social foundations of thought and action: A social cognitive theory</em>.
                 Prentice-Hall.
               </p>
             </div>
@@ -85,8 +86,9 @@ const BibliographyArticlePage = () => {
                 Chicago (Author-Date)
               </p>
               <p className="text-sm font-mono">
-                Bandura, Albert. 1986. Social Foundations of Thought and Action: A Social Cognitive
-                Theory. Prentice-Hall.
+                Bandura, Albert. 1986.{' '}
+                <em>Social Foundations of Thought and Action: A Social Cognitive Theory</em>.
+                Prentice-Hall.
               </p>
             </div>
           </div>
@@ -553,9 +555,9 @@ const BibliographyArticlePage = () => {
                 </Link>
                 ):
               </strong>{' '}
-              Perceived ease of use shares conceptual overlap with self-efficacy. Venkatesh (2000)
-              later demonstrated that computer self-efficacy serves as an anchor for perceived ease
-              of use judgments.
+              Perceived ease of use shares conceptual overlap with self-efficacy. Later work in
+              the TAM tradition treated computer self-efficacy as an anchor for perceived ease of
+              use judgments.
             </li>
             <li>
               <strong>
@@ -611,6 +613,7 @@ const BibliographyArticlePage = () => {
           </ol>
         </section>
 
+        {/* 14. Further Reading */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Further Reading</h2>
           <ol className={REFERENCES_OL_CLASSES}>
@@ -650,7 +653,7 @@ const BibliographyArticlePage = () => {
           </ol>
         </section>
 
-        {/* 14. Series Navigation */}
+        {/* 15. Series Navigation */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Series Navigation</h2>
           <p className={PARAGRAPH_CLASSES}>
