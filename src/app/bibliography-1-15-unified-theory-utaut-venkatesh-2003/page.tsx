@@ -73,8 +73,7 @@ const BibliographyArticlePage = () => {
               <strong>Pages:</strong> 425-478
             </p>
             <p>
-              <strong>DOI:</strong>
-              {chr(39) + ' ' + chr(39)}
+              <strong>DOI:</strong>{' '}
               <a
                 href="https://doi.org/10.2307/30036540"
                 target="_blank"
@@ -455,8 +454,9 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>Validated across multiple technologies:</strong> Testing occurred across four
-              different technologies (e-mail, spreadsheet software, web browsers, presentation
-              software), demonstrating generalizability beyond single-technology studies.
+              organizations with different technologies (an online meeting manager, a database
+              application, a portfolio analyzer, and an accounting system), demonstrating
+              generalizability beyond single-technology studies.
             </li>
             <li>
               <strong>Demographic moderator testing:</strong> Explicit empirical testing of gender,
@@ -469,13 +469,15 @@ const BibliographyArticlePage = () => {
               behaviors, improving validity of behavioral outcomes.
             </li>
             <li>
-              <strong>Multiple measurement occasions:</strong> Longitudinal data collection at
-              baseline and multiple subsequent time points allowed assessment of how adoption
-              determinants change over experience.
+              <strong>Multiple measurement occasions:</strong> Longitudinal data collection at four
+              time points (1 week post-training, 1 month, 3 months, and 6 months
+              post-implementation) allowed assessment of how adoption determinants change over
+              experience.
             </li>
             <li>
-              <strong>Large sample sizes:</strong> Testing involved N=215 individual users across
-              organizations, providing adequate statistical power to detect moderating effects.
+              <strong>Large sample sizes:</strong> Testing involved N=645 individual users pooled
+              across four organizations (with N=119 in voluntary settings and N=96 in mandatory
+              settings), providing adequate statistical power to detect moderating effects.
             </li>
             <li>
               <strong>Direct comparisons to predecessor models:</strong> UTAUT was tested against
@@ -608,9 +610,9 @@ const BibliographyArticlePage = () => {
               outcome measures.
             </li>
             <li>
-              <strong>Large sample with adequate power:</strong> N=215 individual users across four
-              organizations provided statistical power to detect main effects and moderating effects
-              with adequate precision.
+              <strong>Large sample with adequate power:</strong> N=645 individual users pooled
+              across four organizations provided statistical power to detect main effects and
+              moderating effects with adequate precision.
             </li>
             <li>
               <strong>Real-world implementation contexts:</strong> Studies examined actual
@@ -620,9 +622,8 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>Multiple technology types:</strong> Testing across four different technologies
-              (e-mail, spreadsheet software, web browsers, presentation software) within the same
-              organizations controlled for organizational and user factors while varying technology
-              characteristics.
+              in four distinct organizations (entertainment, telecommunications, banking, and public
+              administration) controlled for technology type while varying organizational context.
             </li>
             <li>
               <strong>Explicit moderator hypothesis testing:</strong> Tests of gender, age,
@@ -656,10 +657,10 @@ const BibliographyArticlePage = () => {
           <ul className={BODY_LIST_CLASSES}>
             <li>
               <strong>Technology-specific limitations:</strong> While tested across four
-              technologies, all were productivity software (e-mail, spreadsheets, web browsers,
-              presentations) used in office contexts. Generalization to consumer technologies,
-              mobile applications, or enterprise software like customer relationship management
-              systems requires investigation.
+              organizations with different technologies (meeting manager, database application,
+              portfolio analyzer, accounting system), all were workplace systems in formal
+              organizational contexts. Generalization to consumer technologies, mobile applications,
+              or informal adoption contexts requires investigation.
             </li>
             <li>
               <strong>Organizational context limitations:</strong> Four organizations studied were
@@ -1005,7 +1006,7 @@ const BibliographyArticlePage = () => {
             </p>
             <p className={PARAGRAPH_CLASSES}>
               <Link
-                href="/bibliography-1-16-math-venkatesh-brown-2001"
+                href="/bibliography-1-16-math-brown-venkatesh-2005"
                 className="text-blue-600 hover:text-blue-800 underline"
               >
                 Next: Model of Adoption of Technology in Households (Venkatesh &amp; Brown) &rarr;
