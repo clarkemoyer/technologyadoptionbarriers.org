@@ -154,8 +154,8 @@ const BibliographyArticlePage = () => {
               improves productivity, effectiveness, and work efficiency.
             </li>
             <li>
-              <strong>Perceived Ease of Use:</strong> Users&rsquo; beliefs that using a system
-              requires minimal cognitive and physical effort. Measured through items assessing
+              <strong>Perceived Ease of Use:</strong> The degree to which a person believes that
+              using a particular system would be free from effort. Measured through items assessing
               whether learning and interaction are easy and clear.
             </li>
             <li>
@@ -226,10 +226,11 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Describe The Model</h2>
           <p className={PARAGRAPH_CLASSES}>
-            The Technology Acceptance Model specifies that perceived usefulness and perceived ease
-            of use determine attitudes toward using a system, which in turn determines behavioral
-            intention to use, which directly predicts actual usage. This hierarchical causal
-            structure is:
+            The Davis (1989) MIS Quarterly paper develops and validates the PU and PEOU measurement
+            scales and tests their correlation with usage. The full TAM causal model - where PU and
+            PEOU determine attitude, which determines intention, which predicts usage - was tested
+            in the companion Davis, Bagozzi, and Warshaw (1989) Management Science paper. Together,
+            these papers establish the hierarchical causal structure:
           </p>
           <p className={`${PARAGRAPH_CLASSES} font-mono text-sm bg-gray-50 p-3 rounded`}>
             Perceived Usefulness &amp; Perceived Ease of Use &rarr; Attitude &rarr; Behavioral
@@ -397,9 +398,9 @@ const BibliographyArticlePage = () => {
               measures validly operationalized theoretical constructs.
             </li>
             <li>
-              <strong>Longitudinal behavioral prediction:</strong> Demonstrated that measured
-              attitudes predicted subsequent actual usage months later, establishing temporal
-              precedence and behavioral prediction validity.
+              <strong>Behavioral prediction:</strong> Study 1 demonstrated significant correlations
+              between PU/PEOU and self-reported current usage. Study 2 measured self-predicted
+              future usage, showing even stronger correlations (PU r=.85, PEOU r=.59).
             </li>
           </ul>
         </section>
