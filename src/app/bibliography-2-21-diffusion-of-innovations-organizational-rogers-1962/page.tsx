@@ -12,7 +12,7 @@ import {
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: Diffusion of Innovations (Organizational Adoption) - Rogers (1962/2003)',
+  title: 'Bibliography: Diffusion of Innovations - Organizational Perspective - Rogers (1962)',
   description:
     "Comprehensive overview of Rogers' Diffusion of Innovations theory focused on organizational adoption lens. Covers organizational innovativeness, innovation-development process, organizational adoption stages, champions and change agents, and foundational diffusion research across 5,000+ studies.",
 }
