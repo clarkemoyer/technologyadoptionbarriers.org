@@ -70,6 +70,17 @@ const BibliographyArticlePage = () => {
               <strong>Document Format:</strong> Comprehensive framework specification, certification
               exams, guidelines documents, and supplementary materials
             </p>
+            <p>
+              <strong>URL:</strong>{' '}
+              <a
+                href="https://www.opengroup.org/togaf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:underline"
+              >
+                https://www.opengroup.org/togaf
+              </a>
+            </p>
           </div>
         </section>
 
