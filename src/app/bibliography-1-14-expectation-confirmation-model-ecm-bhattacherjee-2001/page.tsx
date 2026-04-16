@@ -67,6 +67,17 @@ const BibliographyArticlePage = () => {
             <p>
               <strong>Pages:</strong> 351-370
             </p>
+            <p>
+              <strong>URL:</strong>{' '}
+              <a
+                href="https://www.proquest.com/docview/218136741"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:underline"
+              >
+                https://www.proquest.com/docview/218136741
+              </a>
+            </p>
           </div>
         </section>
 
