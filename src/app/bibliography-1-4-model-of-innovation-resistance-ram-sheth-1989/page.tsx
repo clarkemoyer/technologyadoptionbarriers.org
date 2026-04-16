@@ -58,7 +58,8 @@ const BibliographyArticlePage = () => {
               <strong>Official Title:</strong> A Model of Innovation Resistance
             </p>
             <p>
-              <strong>Publication Venue:</strong> Research in Consumer Behavior (edited volume)
+              <strong>Publication Venue:</strong> Advances in Consumer Research, Vol. 14 (1987);
+              expanded in Journal of Consumer Marketing, Vol. 6, No. 1 (1989)
             </p>
             <p>
               <strong>Pages:</strong> 213-239
@@ -83,8 +84,8 @@ const BibliographyArticlePage = () => {
                 <a href="#ref-ram-1987" className="text-tabs-teal-deep hover:underline">
                   1987
                 </a>
-                ). A model of innovation resistance. In P. F. Schwepker &amp; J. F. Hair (Eds.),{' '}
-                <em>Research in consumer behavior</em>, 4, 213-239. JAI Press.
+                ). A model of innovation resistance. <em>Advances in Consumer Research</em>, 14,
+                208-212.
               </p>
             </div>
             <div>
@@ -144,50 +145,73 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Core Concepts and Definitions</h2>
           <p className={PARAGRAPH_CLASSES}>
-            The Innovation Resistance Model formalizes four primary psychological constructs, each
-            representing a distinct risk dimension:
+            Ram (1987) proposed that innovation resistance arises from three interacting factor
+            categories. Ram and Sheth (1989) later reorganized resistance into five specific
+            barriers grouped under two categories. Together, these publications establish the core
+            concepts:
+          </p>
+
+          <h3 className={H3_CLASSES}>Ram (1987): Three-Factor Model</h3>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Innovation Characteristics:</strong> Properties of the innovation itself that
+              affect resistance. Consumer-dependent characteristics include relative advantage,
+              compatibility, perceived risk, and complexity. Consumer-independent characteristics
+              include trialability, divisibility, reversibility, realization, and communicability.
+              Ram proposed specific propositions linking each characteristic to resistance levels.
+            </li>
+            <li>
+              <strong>Consumer Characteristics:</strong> Individual differences that affect
+              resistance. Psychological variables include perception, motivation, personality, value
+              orientation, beliefs, attitudes, and previous innovative experience. Demographic
+              variables (age, education, income) affect the consumer&rsquo;s ability to innovate
+              even when willingness exists.
+            </li>
+            <li>
+              <strong>Propagation Mechanisms:</strong> The channels through which innovations are
+              communicated to consumers. Ineffective propagation mechanisms can create resistance
+              even for innovations that would otherwise be adopted.
+            </li>
+          </ul>
+
+          <h3 className={H3_CLASSES}>Ram and Sheth (1989): Five-Barrier Taxonomy</h3>
+          <p className={PARAGRAPH_CLASSES}>
+            The expanded 1989 framework reorganized resistance into five barriers under two
+            categories:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Functional Risk:</strong> The perceived probability that an innovation will
-              fail to deliver promised functionality or will not perform as advertised. Reflects
-              uncertainty about whether the innovation will actually work, meet performance
-              requirements, or deliver benefits in real-world use. High functional risk occurs when
-              innovations are novel, complex, or lack established track records.
+              <strong>I. Functional Barriers</strong> (arising from the innovation itself):
             </li>
             <li>
-              <strong>Economic Risk:</strong> Perceived costs (financial, time, and opportunity
-              costs) exceeding perceived benefits. Includes direct purchase costs, implementation
-              costs, training investment, switching costs away from current solutions, and ongoing
-              maintenance costs. Economic risk reflects concern that the total cost of adoption is
-              not justified by benefits.
+              <strong>Usage Barrier:</strong> Resistance due to changes the innovation imposes on
+              day-to-day routines and established practices. When an innovation is inconsistent with
+              existing workflows, habits, or practices, consumers resist because adoption requires
+              behavioral change.
             </li>
             <li>
-              <strong>Social Risk:</strong> Perceived consequences related to what others will think
-              of innovation adoption. Reflects concerns that adoption will be viewed as
-              inappropriate, unfashionable, deviant from social norms, or inconsistent with desired
-              social image. Social risk is highest when adoption is visible and when important
-              reference groups oppose adoption.
+              <strong>Value Barrier:</strong> Resistance arising when the innovation does not offer
+              strong performance-to-price value relative to alternatives. If consumers do not
+              perceive sufficient value improvement over existing solutions, resistance is high.
             </li>
             <li>
-              <strong>Psychological Risk:</strong> Conflict between innovation characteristics and
-              individual self-concept, identity, values, or preferences. Occurs when adoption would
-              require becoming someone different than who the adopter sees themselves or when
-              adoption conflicts with deeply held values. Psychological risk reflects identity
-              threat and preference violation.
+              <strong>Risk Barrier:</strong> Resistance due to inherent uncertainties in adopting
+              innovations, encompassing physical risk, economic risk, functional risk (will it
+              work?), and social risk (what will others think?).
             </li>
             <li>
-              <strong>Innovation Adoption:</strong> The behavioral outcome, measured as
-              adoption-versus-non-adoption, timing of adoption (early vs. late), usage intensity,
-              and continuation or discontinuation of use. The model predicts that adoption decisions
-              reflect the aggregate of functional, economic, social, and psychological risk
-              assessments.
+              <strong>II. Psychological Barriers</strong> (arising from consumer psychology):
             </li>
             <li>
-              <strong>Adoption Resistance:</strong> The net effect of multiple risk dimensions
-              inhibiting adoption. High resistance occurs when innovations create high levels of one
-              or more risk types; low resistance occurs when risk dimensions are minimal or can be
-              addressed through mitigation strategies.
+              <strong>Tradition Barrier:</strong> Resistance arising when an innovation conflicts
+              with cultural values, social norms, or established traditions. Change that threatens
+              cultural identity or requires departure from familiar practices generates
+              tradition-based resistance.
+            </li>
+            <li>
+              <strong>Image Barrier:</strong> Resistance arising from negative stereotypes or
+              unfavorable associations with the innovation, its origin, or its user community.
+              Negative image creates resistance regardless of functional merit.
             </li>
           </ul>
         </section>
@@ -245,41 +269,44 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Describe The Model</h2>
           <p className={PARAGRAPH_CLASSES}>
-            The Innovation Resistance Model proposes that adoption decisions reflect the aggregate
-            assessment of four risk dimensions. The causal logic is:
+            Ram (1987) proposed that innovation resistance is determined by the interaction of
+            innovation characteristics, consumer characteristics, and propagation mechanisms. The
+            model generates 21 specific propositions linking these factors to resistance levels. For
+            example: &ldquo;The lower the relative advantage of an innovation, the higher the
+            innovation resistance&rdquo; (P1); &ldquo;The lower the compatibility of an innovation,
+            the higher the innovation resistance&rdquo; (P2).
           </p>
-          <p className={`${PARAGRAPH_CLASSES} font-mono text-sm bg-gray-50 p-3 rounded`}>
-            Perceived Risk Dimensions &nbsp;&rarr;&nbsp; Adoption Resistance &nbsp;&rarr;&nbsp;
-            Adoption Decision &nbsp;&rarr;&nbsp; Adoption Behavior
+          <p className={PARAGRAPH_CLASSES}>
+            Ram and Sheth (1989) extended this into a practitioner-oriented five-barrier framework
+            with specific marketing strategies for each barrier type. Their key insight was that
+            &ldquo;the higher the discontinuity of an innovation, the higher the resistance is
+            likely to be.&rdquo; They provided a classification of marketing strategies to overcome
+            consumer resistance, mapping each barrier to product strategy, communication strategy,
+            pricing strategy, market strategy, and coping strategy.
           </p>
 
           <h3 className={H3_CLASSES}>What does the model measure?</h3>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Functional Risk:</strong> Perceived likelihood of performance failure,
-              uncertainty about whether innovations will deliver benefits, concerns about
-              reliability and learning requirements, doubts about meeting specific needs.
+              <strong>Usage Barriers:</strong> Degree of behavioral change required, disruption to
+              existing routines, incompatibility with established practices and workflows.
             </li>
             <li>
-              <strong>Economic Risk:</strong> Perceived direct costs, awareness of hidden costs
-              (implementation, training, switching costs, opportunity costs), ongoing maintenance
-              expenses, risk of sunk costs if innovation fails.
+              <strong>Value Barriers:</strong> Performance-to-price ratio relative to existing
+              alternatives, perceived improvement over current solutions.
             </li>
             <li>
-              <strong>Social Risk:</strong> Perceived others&rsquo; opinions of adoption, concern
-              about fashionability and status appropriateness, perception of social norms regarding
-              adoption, worry about social judgment or appearing deviant.
+              <strong>Risk Barriers:</strong> Physical risk, economic risk (financial loss),
+              functional risk (performance uncertainty), and social risk (social consequences of
+              adoption).
             </li>
             <li>
-              <strong>Psychological Risk:</strong> Perceived conflict between adoption and
-              self-concept, values alignment with innovation, preferences for current approaches,
-              autonomy concerns, comfort with complexity, trust concerns for innovations involving
-              privacy or data.
+              <strong>Tradition Barriers:</strong> Degree of conflict with cultural values, social
+              norms, family traditions, and established community practices.
             </li>
             <li>
-              <strong>Adoption Decisions and Behavior:</strong> Binary adoption/non-adoption,
-              adoption timing (early versus late adoption), usage intensity, and continuation versus
-              discontinuation.
+              <strong>Image Barriers:</strong> Negative stereotypes, unfavorable associations with
+              the innovation&rsquo;s origin, technology category, or user community.
             </li>
           </ul>
 
@@ -287,128 +314,79 @@ const BibliographyArticlePage = () => {
           <ul className={BODY_LIST_CLASSES}>
             <li>
               <strong>Legitimizes resistance as rational:</strong> Rather than treating resistance
-              as conservatism or irrationality, frames resistance as rational risk assessment. This
-              more sophisticated understanding acknowledges that non-adoption often reflects
-              legitimate concerns.
+              as conservatism or irrationality, frames resistance as a rational response to real
+              costs and risks that innovations impose on consumers.
             </li>
             <li>
-              <strong>Provides comprehensive framework:</strong> By incorporating four distinct risk
-              dimensions, recognizes that adoption decisions are multifaceted. Single-factor models
-              miss critical resistance sources.
+              <strong>Comprehensive barrier taxonomy:</strong> The five-barrier framework provides
+              distinct, actionable categories. Organizations can diagnose which barrier type
+              dominates and apply targeted strategies.
             </li>
             <li>
-              <strong>Actionable for organizations:</strong> For each resistance type, the model
-              suggests distinct mitigation strategies. Rather than generic &ldquo;overcome
-              resistance&rdquo; guidance, organizations can diagnose resistance types and apply
-              targeted approaches.
+              <strong>Prescriptive marketing strategies:</strong> Ram and Sheth (1989) mapped each
+              barrier to specific product, communication, pricing, market, and coping strategies,
+              providing directly actionable guidance.
             </li>
             <li>
-              <strong>Cross-domain applicability:</strong> Tested with consumer innovations,
-              organizational technologies, health innovations, and social innovations. The
-              generality across domains suggests fundamental principles.
+              <strong>Distinguishes functional from psychological:</strong> The two-category
+              structure recognizes that some resistance is about the innovation itself (functional)
+              while other resistance is about the adopter&rsquo;s psychology, requiring
+              fundamentally different interventions.
             </li>
             <li>
-              <strong>Recognizes heterogeneous resistance:</strong> Acknowledges that different
-              individuals have different resistance profiles. What creates strong resistance for one
-              person may create weak resistance for another. This prevents oversimplification.
-            </li>
-            <li>
-              <strong>Practical utility:</strong> Directly translates to marketing strategies,
-              implementation planning, and change management. Organizations can use the framework to
-              guide launch planning and identify intervention points.
-            </li>
-            <li>
-              <strong>Prevention-oriented perspective:</strong> By identifying resistance factors
-              early, organizations can design innovations or implementation approaches to minimize
-              resistance rather than attempting to overcome resistance post-hoc.
-            </li>
-            <li>
-              <strong>Theoretical grounding:</strong> Integration with established consumer behavior
-              concepts (perceived risk, cost-benefit analysis, identity theory) provides theoretical
-              rigor beyond empirical discovery.
+              <strong>Cross-domain applicability:</strong> Applied to consumer products, financial
+              services, food innovations, and technology adoption, suggesting fundamental principles
+              rather than domain-specific phenomena.
             </li>
           </ul>
 
           <h3 className={H3_CLASSES}>Main Weaknesses</h3>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Relative weights unspecified:</strong> The model does not specify how to
-              weight different risk dimensions. Do all four dimensions equally influence adoption,
-              or do some carry greater weight? Weighting schemes likely depend on context and
-              population, but theoretical specification would strengthen the framework.
+              <strong>Relative barrier weights unspecified:</strong> The model does not specify how
+              to weight different barriers or predict which barrier will dominate in a given
+              context.
             </li>
             <li>
-              <strong>Measurement operationalization varies:</strong> Different studies
-              operationalize the risk dimensions variably. Standardized measurement scales would
-              strengthen the research base and allow meta-analysis across studies.
+              <strong>Limited empirical validation:</strong> The 1987 paper is primarily conceptual
+              with propositions rather than empirical tests. The 1989 paper provides examples but
+              not systematic quantitative validation.
             </li>
             <li>
-              <strong>Dynamic processes underspecified:</strong> The model presents resistance as a
-              relatively static snapshot. How resistance evolves over time as individuals learn
-              about innovations or as social norms change is less developed.
+              <strong>Dynamic processes underspecified:</strong> How resistance evolves over time as
+              consumers learn about innovations or as social norms change is not addressed.
             </li>
             <li>
-              <strong>Moderation effects unexplored:</strong> The model does not comprehensively
-              address how individual differences moderate relationships between resistance and
-              adoption. The same resistance level might have different effects for different
-              individuals.
+              <strong>Organizational context limited:</strong> Both papers focus on consumer
+              innovation resistance. Application to mandatory organizational technology adoption
+              requires extension.
             </li>
             <li>
-              <strong>Implementation validation limited:</strong> While the model provides
-              prescriptive guidance, empirical evidence validating whether specific mitigation
-              strategies actually reduce identified resistance types is limited.
-            </li>
-            <li>
-              <strong>Initial adoption versus sustained use:</strong> The model emphasizes initial
-              adoption decisions. How resistance factors affect sustained use, discontinuation, and
-              long-term outcomes is less developed.
-            </li>
-            <li>
-              <strong>Organizational context factors:</strong> For organizational technology
-              adoption, organizational culture, management support, and structural factors that
-              influence resistance are not fully integrated into the theoretical framework.
-            </li>
-            <li>
-              <strong>Innovation characteristics not mechanistically linked:</strong> Beyond noting
-              that different innovations create different resistance profiles, the model does not
-              fully specify which innovation characteristics generate which resistance types.
+              <strong>Interaction effects unexplored:</strong> How the five barriers interact (e.g.,
+              high usage barrier combined with low value barrier) is not specified.
             </li>
           </ul>
 
           <h3 className={H3_CLASSES}>How does this model differ from older models?</h3>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Elevates resistance to central focus:</strong> Rogers&rsquo; Diffusion of
-              Innovations treats non-adoption as resulting from innovation characteristics. IRM
-              elevates resistance to central theoretical status, providing detailed framework for
-              understanding why individuals resist.
+              <strong>Resistance as central focus:</strong> Rogers&rsquo; Diffusion of Innovations
+              treats non-adoption as a byproduct of innovation characteristics. Ram elevates
+              resistance to central theoretical status with its own framework.
             </li>
             <li>
-              <strong>Individual psychological depth:</strong> Rogers&rsquo; theory is relatively
-              macro-level, examining how innovation characteristics affect aggregate diffusion
-              curves. IRM incorporates psychological dynamics (identity, values, risk perceptions),
-              providing deeper individual-level understanding.
+              <strong>Five distinct barrier pathways:</strong> While Rogers identifies five
+              innovation attributes, Ram and Sheth identify five distinct barriers operating through
+              different mechanisms, enabling targeted interventions.
             </li>
             <li>
-              <strong>Rational choice framing:</strong> Older diffusion research sometimes framed
-              non-adoption as irrational or conservative. IRM treats adoption decisions as rational
-              risk-benefit calculations, providing more sophisticated understanding.
+              <strong>Functional vs. psychological distinction:</strong> The two-category structure
+              provides a diagnostic framework absent from diffusion theory.
             </li>
             <li>
-              <strong>Four distinct risk pathways:</strong> While Rogers acknowledges multiple
-              factors, IRM explicitly theorizes four distinct psychological mechanisms. This
-              specificity enables targeted interventions for each resistance type.
-            </li>
-            <li>
-              <strong>Social and psychological dimensions:</strong> While Rogers acknowledges social
-              influences, IRM explicitly theorizes social risk (concern about others&rsquo;
-              opinions) distinct from social influence. Similarly, psychological risk distinct from
-              general attitudes.
-            </li>
-            <li>
-              <strong>Mitigation strategy prescription:</strong> Rogers&rsquo; theory explains
-              diffusion patterns but provides less prescriptive guidance for addressing resistance.
-              IRM directly maps each resistance type to specific mitigation strategies.
+              <strong>Marketing strategy integration:</strong> The 1989 paper directly maps barriers
+              to marketing strategies, providing prescriptive guidance that diffusion theory does
+              not offer.
             </li>
           </ul>
         </section>
@@ -424,9 +402,9 @@ const BibliographyArticlePage = () => {
               sophisticated understanding of adoption barriers.
             </li>
             <li>
-              <strong>Identified four primary risk mechanisms:</strong> Synthesized research across
-              consumer behavior, psychology, and innovation adoption into four distinct risk
-              dimensions, each with its own mitigation strategies and theoretical foundations.
+              <strong>Identified five distinct adoption barriers:</strong> Organized innovation
+              resistance into five barriers (usage, value, risk, tradition, image) under two
+              categories (functional and psychological), each with specific marketing strategies.
             </li>
             <li>
               <strong>Connected innovation adoption to consumer behavior theory:</strong> Grounded
@@ -474,14 +452,13 @@ const BibliographyArticlePage = () => {
             <li>
               <strong>Concept validation through diverse innovations:</strong> The model was tested
               across consumer packaged goods, consumer durables, financial services, health
-              services, and information technologies. Across this heterogeneity, the same four risk
-              dimensions consistently appeared as predictors of adoption.
+              services, and information technologies. Across this heterogeneity, the same barrier
+              categories consistently appeared as predictors of adoption resistance.
             </li>
             <li>
-              <strong>Construct independence validation:</strong> Studies confirmed that the four
-              risk dimensions were empirically distinct: innovations could be functionally risky
-              without being economically risky, socially risky without being functionally risky,
-              etc.
+              <strong>Construct independence validation:</strong> The five barrier types are
+              empirically distinct: innovations can face high usage barriers without value barriers,
+              tradition barriers without risk barriers, etc.
             </li>
             <li>
               <strong>Consistency with observed behavior:</strong> When consumers exhibited
@@ -566,75 +543,65 @@ const BibliographyArticlePage = () => {
             across multiple dimensions.
           </p>
 
-          <h3 className={H3_CLASSES}>Technology Adoption Barriers Identified by IRM</h3>
+          <h3 className={H3_CLASSES}>
+            Technology Adoption Barriers Identified by the Innovation Resistance Model
+          </h3>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Functional Risk Barriers:</strong> Uncertainty about whether technologies will
-              perform as promised, concerns about reliability, questions about capability to operate
-              systems correctly, unproven track records in specific organizational contexts, and
-              perceived technical feasibility challenges.
+              <strong>Usage Barriers:</strong> Technologies requiring significant changes to
+              established workflows, habits, or practices face resistance. Enterprise software that
+              disrupts familiar processes, collaboration tools that change communication patterns,
+              and automation that alters job roles all trigger usage barriers.
             </li>
             <li>
-              <strong>Economic Risk Barriers:</strong> High direct acquisition costs, hidden
-              implementation and training costs, switching costs from existing systems, opportunity
-              costs of learning time, ongoing maintenance and upgrade costs, risk of sunk
-              investments if technologies fail, and unequal cost distribution where some bear costs
-              while organization receives benefits.
+              <strong>Value Barriers:</strong> Technologies perceived as not offering sufficient
+              performance improvement over existing solutions relative to their cost.
             </li>
             <li>
-              <strong>Social Risk Barriers:</strong> Perception that organizational peers do not
-              support adoption, concern about appearing outdated or backward, worry that adoption is
-              not yet mainstream, perception that opinion leaders in professional communities
-              resist, and uncertainty about legitimacy of technology.
+              <strong>Risk Barriers:</strong> Uncertainties about whether technologies will perform
+              as promised, whether investments will be lost, and whether adoption will have negative
+              social consequences.
             </li>
             <li>
-              <strong>Psychological Risk Barriers:</strong> Conflict between technology adoption and
-              professional identity, preference for current approaches, autonomy concerns where
-              systems standardize processes, discomfort with complexity, distrust of vendors or
-              organizations implementing technology, and perceived loss of control to automated
-              systems.
+              <strong>Tradition Barriers:</strong> Technologies that conflict with established
+              organizational culture, professional norms, or industry practices.
+            </li>
+            <li>
+              <strong>Image Barriers:</strong> Technologies associated with negative stereotypes or
+              perceived as unproven, creating resistance regardless of actual capability.
             </li>
           </ul>
 
           <h3 className={H3_CLASSES}>Leadership Actions IRM Prescribes</h3>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Diagnose dominant resistance type:</strong> Determine whether technology
-              adoption barriers stem primarily from functional uncertainty, economic concerns,
-              social skepticism, or identity conflict. Different barriers require different
+              <strong>Diagnose dominant barrier type:</strong> Determine whether technology
+              resistance stems primarily from usage disruption, insufficient value, perceived risks,
+              tradition conflicts, or image problems. Different barriers require different
+              strategies.
+            </li>
+            <li>
+              <strong>For usage barriers:</strong> Integrate the innovation with existing practices.
+              Develop a systems perspective that packages the innovation within familiar workflows.
+            </li>
+            <li>
+              <strong>For value barriers:</strong> Improve product performance. Reduce price to
+              improve value ratio. Demonstrate clear return on investment relative to current
               solutions.
             </li>
             <li>
-              <strong>For functional barriers:</strong> Provide objective evidence through pilots,
-              demonstrations, case studies, and third-party validation. Offer guarantees and liberal
-              support to reduce risk that functionality will prove inadequate.
+              <strong>For risk barriers:</strong> Use endorsements and testimonials to reduce
+              perceived risk. Facilitate trial through demonstrations and pilot programs. Provide
+              guarantees and support.
             </li>
             <li>
-              <strong>For economic barriers:</strong> Communicate total cost of ownership including
-              training and support. Offer flexible implementation timelines, phased adoption, and
-              visible ROI calculation demonstrating benefits justify costs.
+              <strong>For tradition barriers:</strong> Educate customers. Use change agents who
+              understand and respect existing traditions. Develop coping strategies that work within
+              cultural constraints.
             </li>
             <li>
-              <strong>For social barriers:</strong> Secure visible leadership endorsement of
-              adoption. Create communities of practice around technologies. Use peer networks and
-              champions to normalize adoption. Publicize early adopter successes.
-            </li>
-            <li>
-              <strong>For psychological barriers:</strong> Align change management with employee
-              values and concerns. Emphasize that adoption is chosen rather than forced. Provide
-              support for identity and practice adjustment. Celebrate adoption as expressing valued
-              organizational commitment to innovation.
-            </li>
-            <li>
-              <strong>Segment-specific strategies:</strong> Recognize that different employee
-              segments have different resistance profiles. Younger employees may face lower social
-              risk; cost-sensitive functions face higher economic barriers. Target interventions to
-              specific segment concerns.
-            </li>
-            <li>
-              <strong>Sequential risk addressing:</strong> Address functional risk first. If
-              employees doubt functionality, other interventions are moot. Only after functional
-              viability is established do economic and social interventions become salient.
+              <strong>For image barriers:</strong> Borrow positive brand associations. Address
+              negative perceptions directly. Create a unique, positive image for the innovation.
             </li>
           </ul>
         </section>
