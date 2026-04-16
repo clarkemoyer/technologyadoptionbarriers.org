@@ -689,7 +689,7 @@ const BibliographyArticlePage = () => {
             </li>
             <li id="ref-ram-1987">
               Ram, S. (1987). A model of innovation resistance.{' '}
-              <em>Advances in Consumer Research</em>, 14(1), 208-212.
+              <em>Advances in Consumer Research</em>, 14, 208-212.
             </li>
             <li id="ref-ram-sheth-1989">
               Ram, S., &amp; Sheth, J. N. (1989). Consumer resistance to innovations: The marketing
@@ -725,7 +725,7 @@ const BibliographyArticlePage = () => {
               (LDC) in diffusion research. <em>Research in Marketing</em>, 4, 273-282.
             </li>
             <li id="ref-tornatsky-1982">
-              Tornatsky, L. G., &amp; Klein, K. J. (1982). Innovation characteristics and innovation
+              Tornatzky, L. G., &amp; Klein, K. J. (1982). Innovation characteristics and innovation
               adoption-implementation: A meta-analysis of findings.{' '}
               <em>IEEE Transactions on Engineering Management</em>, EB-29(1), 28-45.
             </li>
