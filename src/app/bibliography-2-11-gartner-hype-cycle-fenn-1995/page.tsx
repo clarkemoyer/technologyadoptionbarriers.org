@@ -716,9 +716,7 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-moore-1991-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                >
-                  
-                </a>
+                ></a>
               </span>
             </li>
             <li id="ref-linden-2003">
@@ -729,9 +727,7 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-linden-2003-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                >
-                  
-                </a>
+                ></a>
               </span>
             </li>
             <li id="ref-steinert-2010">
@@ -742,21 +738,18 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-steinert-2010-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                >
-                  
-                </a>
+                ></a>
               </span>
             </li>
             <li id="ref-foster-1986">
-              Foster, R. N. (1986). <em>Innovation: The attacker&rsquo;s advantage</em>. Summit Books.
+              Foster, R. N. (1986). <em>Innovation: The attacker&rsquo;s advantage</em>. Summit
+              Books.
               <span className="text-xs ml-1">
                 <a
                   href="#cite-ref-foster-1986-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                >
-                  
-                </a>
+                ></a>
               </span>
             </li>
           </ol>
