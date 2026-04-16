@@ -13,7 +13,7 @@ import {
 
 export const metadata: Metadata = {
   title:
-    'Bibliography: Unified Theory of Acceptance and Use of Technology 2 (UTAUT2) - Venkatesh, Thong, & Xu (2012)',
+    'Bibliography: Unified Theory of Acceptance and Use of Technology 2 (UTAUT2) - Venkatesh et al. (2012)',
   description:
     'Comprehensive overview of UTAUT2, extending the unified theory of technology acceptance to consumer contexts by adding hedonic motivation, price value, and habit as key adoption determinants.',
 }
@@ -23,8 +23,7 @@ const BibliographyArticlePage = () => {
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>
-          Unified Theory of Acceptance and Use of Technology 2 (UTAUT2) - Venkatesh, Thong, &amp; Xu
-          (2012)
+          Unified Theory of Acceptance and Use of Technology 2 (UTAUT2) - Venkatesh et al. (2012)
         </h1>
 
         {/* 1. Model Identification */}
