@@ -165,8 +165,8 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>Macro-Capability:</strong> Four broad IT management domains: Managing IT like
-              a Business, Managing the IT Budget, Managing IT Capability, Managing IT for Business
-              Value.
+              a Business, Managing the IT Budget, Managing the IT Capability, Managing IT for
+              Business Value.
             </li>
             <li>
               <strong>Business Value:</strong> Tangible and intangible benefits IT delivers to
@@ -508,8 +508,9 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>Clear maturity progression:</strong> Five-level maturity model provides
-              logical progression from ad-hoc (Initial) through optimizing (Optimizing). Progression
-              reflects realistic organizational maturity evolution.
+              logical progression from Initial (inadequate and unstable) through Optimizing
+              (world-class attributes). Progression reflects realistic organizational maturity
+              evolution.
             </li>
             <li>
               <strong>Business-value integration:</strong> Framework integration of business value
