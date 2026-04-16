@@ -716,6 +716,18 @@ const BibliographyArticlePage = () => {
               Ram, S. (1987). A model of innovation resistance.{' '}
               <em>Advances in Consumer Research</em>, 14(1), 208-212.
             </li>
+            <li id="ref-ram-sheth-1989">
+              Ram, S., &amp; Sheth, J. N. (1989). Consumer resistance to innovations: The marketing
+              problem and its solutions. <em>Journal of Consumer Marketing</em>, 6(1), 5-14.{' '}
+              <a
+                href="https://doi.org/10.1108/EUM0000000002542"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:underline"
+              >
+                https://doi.org/10.1108/EUM0000000002542
+              </a>
+            </li>
           </ol>
         </section>
 
