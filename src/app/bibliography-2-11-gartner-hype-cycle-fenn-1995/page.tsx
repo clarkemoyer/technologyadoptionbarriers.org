@@ -14,7 +14,7 @@ import {
 export const metadata: Metadata = {
   title: 'Bibliography: Gartner Hype Cycle - Fenn (1995)',
   description:
-    'Comprehensive overview of the Gartner Hype Cycle model. Explains how emerging technologies follow five-phase adoption pattern from initial innovation trigger through disillusionment to productivity plateau.',
+    'Comprehensive overview of the Gartner Hype Cycle model. Explains how emerging technologies follow a five-phase adoption pattern from initial innovation trigger through disillusionment to the productivity plateau.',
 }
 
 const BibliographyArticlePage = () => {
@@ -716,7 +716,7 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-moore-1991-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                ></a>
+                >↩</a>
               </span>
             </li>
             <li id="ref-linden-2003">
@@ -727,7 +727,7 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-linden-2003-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                ></a>
+                >↩</a>
               </span>
             </li>
             <li id="ref-steinert-2010">
@@ -738,7 +738,7 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-steinert-2010-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                ></a>
+                >↩</a>
               </span>
             </li>
             <li id="ref-foster-1986">
@@ -748,7 +748,7 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-foster-1986-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                ></a>
+                >↩</a>
               </span>
             </li>
           </ol>
