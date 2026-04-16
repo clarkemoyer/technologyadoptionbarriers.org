@@ -44,6 +44,36 @@ const constants = {
   _source: 'src/lib/tabs-survey-constants.ts',
 }
 
+// Validate MATURITY_SUBCONSTRUCT_GROUPINGS invariants before writing
+const EXPECTED_ITEM_CODES = new Set(['D1', 'D2', 'D3', 'D4', 'D5', 'D6', 'D7', 'D8'])
+const actualItemCodes = MATURITY_SUBCONSTRUCT_GROUPINGS.map((g) => g.itemCode)
+const missingCodes = [...EXPECTED_ITEM_CODES].filter((c) => !actualItemCodes.includes(c as never))
+const duplicateCodes = actualItemCodes.filter((c, i) => actualItemCodes.indexOf(c) !== i)
+const unknownItems = MATURITY_SUBCONSTRUCT_GROUPINGS.filter(
+  (g) => !(MATURITY_ITEM_NAMES as readonly string[]).includes(g.item)
+).map((g) => g.item)
+
+if (missingCodes.length > 0) {
+  throw new Error(
+    `MATURITY_SUBCONSTRUCT_GROUPINGS is missing itemCode(s): ${missingCodes.join(', ')}`
+  )
+}
+if (duplicateCodes.length > 0) {
+  throw new Error(
+    `MATURITY_SUBCONSTRUCT_GROUPINGS has duplicate itemCode(s): ${duplicateCodes.join(', ')}`
+  )
+}
+if (unknownItems.length > 0) {
+  throw new Error(
+    `MATURITY_SUBCONSTRUCT_GROUPINGS contains item(s) not found in MATURITY_ITEM_NAMES: ${unknownItems.join(', ')}`
+  )
+}
+if (MATURITY_SUBCONSTRUCT_GROUPINGS.length !== MATURITY_ITEM_NAMES.length) {
+  throw new Error(
+    `MATURITY_SUBCONSTRUCT_GROUPINGS length (${MATURITY_SUBCONSTRUCT_GROUPINGS.length}) does not match MATURITY_ITEM_NAMES length (${MATURITY_ITEM_NAMES.length})`
+  )
+}
+
 const outPath = path.join(__dirname, 'tabs_v2_constants.json')
 fs.writeFileSync(outPath, JSON.stringify(constants, null, 2) + '\n')
 console.log(`Written: ${outPath}`)
