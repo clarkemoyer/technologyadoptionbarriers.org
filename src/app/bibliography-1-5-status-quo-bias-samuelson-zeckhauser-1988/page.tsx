@@ -65,8 +65,7 @@ const BibliographyArticlePage = () => {
               <strong>Volume/Issue:</strong> 1(1), pp. 7-59
             </p>
             <p>
-              <strong>DOI:</strong>
-              {chr(39) + ' ' + chr(39)}
+              <strong>DOI:</strong>{' '}
               <a
                 href="https://doi.org/10.1007/BF00055551"
                 target="_blank"
