@@ -800,9 +800,7 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-wernerfelt-1984-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                >
-                  ↩
-                </a>
+                ></a>
               </span>
             </li>
             <li id="ref-penrose-1959">
@@ -812,9 +810,7 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-penrose-1959-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                >
-                  ↩
-                </a>
+                ></a>
               </span>
             </li>
             <li id="ref-teece-1997">
@@ -826,9 +822,7 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-teece-1997-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                >
-                  ↩
-                </a>
+                ></a>
               </span>
             </li>
             <li id="ref-porter-1980">
@@ -839,9 +833,7 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-porter-1980-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                >
-                  ↩
-                </a>
+                ></a>
               </span>
             </li>
             <li id="ref-coase-1937">
@@ -851,9 +843,7 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-coase-1937-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                >
-                  ↩
-                </a>
+                ></a>
               </span>
             </li>
             <li id="ref-williamson-1975">
@@ -864,9 +854,7 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-williamson-1975-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                >
-                  ↩
-                </a>
+                ></a>
               </span>
             </li>
             <li id="ref-nelson-1982">
