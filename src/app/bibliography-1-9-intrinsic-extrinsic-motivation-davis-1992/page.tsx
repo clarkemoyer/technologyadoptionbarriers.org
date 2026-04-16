@@ -544,20 +544,36 @@ const BibliographyArticlePage = () => {
             <li id="ref-davis-1989">
               Davis, F. D. (1989). Perceived usefulness, perceived ease of use, and user acceptance
               of information technology. <em>MIS Quarterly</em>, 13(3), 319-340.
-              <span className="text-xs ml-1">
+              <span className="ml-1 text-xs">
                 <a
                   href="#cite-ref-davis-1989-1"
-                  className="text-tabs-teal-deep hover:underline"
+                  className="inline-block text-tabs-teal-deep hover:underline focus-visible:underline"
                   aria-label="Back to citation 1"
-                ></a>
+                >
+                  ↩︎
+                </a>
               </span>{' '}
-              https://doi.org/10.2307/249008
+              <a
+                href="https://doi.org/10.2307/249008"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-tabs-teal-deep hover:underline"
+              >
+                https://doi.org/10.2307/249008
+              </a>
             </li>
             <li id="ref-davis-1992">
               Davis, F. D., Bagozzi, R. P., &amp; Warshaw, P. R. (1992). Extrinsic and intrinsic
               motivation to use computers in the workplace.{' '}
-              <em>Journal of Applied Social Psychology</em>, 22(14), 1111-1132.
-              https://doi.org/10.1111/j.1559-1816.1992.tb00945.x
+              <em>Journal of Applied Social Psychology</em>, 22(14), 1111-1132.{` `}
+              <a
+                href="https://doi.org/10.1111/j.1559-1816.1992.tb00945.x"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-tabs-teal-deep hover:underline"
+              >
+                https://doi.org/10.1111/j.1559-1816.1992.tb00945.x
+              </a>
             </li>
           </ol>
         </section>
