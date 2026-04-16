@@ -44,7 +44,10 @@ const constants = {
   _source: 'src/lib/tabs-survey-constants.ts',
 }
 
-// Validate MATURITY_SUBCONSTRUCT_GROUPINGS invariants before writing
+// Guardrail: validate MATURITY_SUBCONSTRUCT_GROUPINGS invariants before writing the JSON.
+// This is a behavioral change — if any invariant is violated (missing D1-D8 codes, duplicate
+// codes, or item strings that don't match MATURITY_ITEM_NAMES), the generator throws and the
+// constants file is NOT written, failing the generation step intentionally.
 const EXPECTED_ITEM_CODES = ['D1', 'D2', 'D3', 'D4', 'D5', 'D6', 'D7', 'D8'] as const
 const actualItemCodes = MATURITY_SUBCONSTRUCT_GROUPINGS.map((g) => g.itemCode)
 const missingCodes = EXPECTED_ITEM_CODES.filter((c) => !actualItemCodes.includes(c))
