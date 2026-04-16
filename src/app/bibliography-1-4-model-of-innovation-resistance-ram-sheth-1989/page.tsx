@@ -130,11 +130,12 @@ const BibliographyArticlePage = () => {
             technical superiority alone cannot overcome multiple, reinforcing resistance factors.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            Ram grounded his work in consumer behavior theory, proposing that individuals evaluate
-            innovations through multiple lenses: functional risk (will the innovation perform
-            promised functions?), economic risk (is the cost justified?), social risk (what will
-            others think of my adoption?), and psychological risk (does adoption conflict with my
-            self-image?). Rather than treating resistance as a barrier to overcome through
+            Ram grounded his work in consumer behavior theory, proposing that innovation
+            resistance arises from the interaction of innovation characteristics, consumer
+            characteristics, and the mechanisms through which innovations are communicated. Ram and
+            Sheth (1989) later reorganized these factors into five specific barriers - usage,
+            value, risk, tradition, and image - grouped under functional and psychological
+            categories. Rather than treating resistance as a barrier to overcome through
             persuasion, Ram posited that resistance reflects meaningful concerns that organizations
             should understand and address. This shift from viewing resistance as irrational to
             understanding it as rational risk assessment represented a fundamental reorientation in
@@ -453,7 +454,7 @@ const BibliographyArticlePage = () => {
               <strong>Comprehensive literature integration:</strong> Ram synthesized findings from
               innovation adoption research, consumer behavior, psychology, and economics,
               identifying consistent themes about why individuals resist. This theoretical
-              integration provided grounding for the four-factor framework.
+              integration provided grounding for the five-barrier framework.
             </li>
             <li>
               <strong>Concept validation through diverse innovations:</strong> The model was tested
@@ -527,7 +528,7 @@ const BibliographyArticlePage = () => {
             <li>
               <strong>Validation through case examples:</strong> Real-world examples like Betamax
               failure, adoption patterns of food innovations, financial service innovations, and
-              technology diffusion illustrated how the four-factor framework explained observed
+              technology diffusion illustrated how the five-barrier framework explained observed
               outcomes.
             </li>
             <li>
