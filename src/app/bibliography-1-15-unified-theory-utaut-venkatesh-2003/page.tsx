@@ -410,8 +410,8 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>Facilitating Conditions - Infrastructure and Support:</strong> Available
-              technical infrastructure, training, and support directly influence adoption intentions
-              by reducing adoption barriers and enhancing self-efficacy. Facilitating conditions
+              technical infrastructure, training, and support directly influence usage behavior by
+              reducing practical barriers and enhancing self-efficacy. Facilitating conditions
               effects are stronger for women and older users who may have lower technology
               confidence.
             </li>
