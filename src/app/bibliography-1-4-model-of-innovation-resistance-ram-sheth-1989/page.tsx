@@ -14,7 +14,7 @@ import {
 export const metadata: Metadata = {
   title: 'Bibliography: Model of Innovation Resistance - Ram & Sheth (1989)',
   description:
-    'Deep dive into the Model of Innovation Resistance by Sundaresan Ram (1987) and Ram and Sheth (1989), exploring usage, value, risk, tradition, and image barriers to innovation adoption.',
+    'The Innovation Resistance Model (IRM) by Ram (1987) and Ram & Sheth (1989) identifies usage, value, risk, tradition, and image barriers to technology adoption.',
 }
 
 const BibliographyArticlePage = () => {
@@ -62,10 +62,11 @@ const BibliographyArticlePage = () => {
               expanded in Journal of Consumer Marketing, Vol. 6, No. 1 (1989)
             </p>
             <p>
-              <strong>Pages:</strong> 213-239
+              <strong>Pages:</strong> 208-212 (Ram, 1987); 5-14 (Ram &amp; Sheth, 1989)
             </p>
             <p>
-              <strong>Publisher:</strong> JAI Press
+              <strong>Publisher:</strong> Association for Consumer Research (1987); Emerald Group
+              Publishing (1989)
             </p>
             <p>
               <strong>ISSN:</strong> 0098-9258
@@ -93,8 +94,8 @@ const BibliographyArticlePage = () => {
                 Chicago (Author-Date)
               </p>
               <p className="text-sm font-mono">
-                Ram, Sundaresan. 1987. "A Model of Innovation Resistance." In Research in Consumer
-                Behavior, 4:213-239. JAI Press.
+                Ram, Sundaresan. 1987. &ldquo;A Model of Innovation Resistance.&rdquo;{' '}
+                <em>Advances in Consumer Research</em> 14:208-212.
               </p>
             </div>
           </div>
@@ -182,36 +183,41 @@ const BibliographyArticlePage = () => {
           <ul className={BODY_LIST_CLASSES}>
             <li>
               <strong>I. Functional Barriers</strong> (arising from the innovation itself):
-            </li>
-            <li>
-              <strong>Usage Barrier:</strong> Resistance due to changes the innovation imposes on
-              day-to-day routines and established practices. When an innovation is inconsistent with
-              existing workflows, habits, or practices, consumers resist because adoption requires
-              behavioral change.
-            </li>
-            <li>
-              <strong>Value Barrier:</strong> Resistance arising when the innovation does not offer
-              strong performance-to-price value relative to alternatives. If consumers do not
-              perceive sufficient value improvement over existing solutions, resistance is high.
-            </li>
-            <li>
-              <strong>Risk Barrier:</strong> Resistance due to inherent uncertainties in adopting
-              innovations, encompassing physical risk, economic risk, functional risk (will it
-              work?), and social risk (what will others think?).
+              <ul className={BODY_LIST_CLASSES}>
+                <li>
+                  <strong>Usage Barrier:</strong> Resistance due to changes the innovation imposes
+                  on day-to-day routines and established practices. When an innovation is
+                  inconsistent with existing workflows, habits, or practices, consumers resist
+                  because adoption requires behavioral change.
+                </li>
+                <li>
+                  <strong>Value Barrier:</strong> Resistance arising when the innovation does not
+                  offer strong performance-to-price value relative to alternatives. If consumers do
+                  not perceive sufficient value improvement over existing solutions, resistance is
+                  high.
+                </li>
+                <li>
+                  <strong>Risk Barrier:</strong> Resistance due to inherent uncertainties in
+                  adopting innovations, encompassing physical risk, economic risk, functional risk
+                  (will it work?), and social risk (what will others think?).
+                </li>
+              </ul>
             </li>
             <li>
               <strong>II. Psychological Barriers</strong> (arising from consumer psychology):
-            </li>
-            <li>
-              <strong>Tradition Barrier:</strong> Resistance arising when an innovation conflicts
-              with cultural values, social norms, or established traditions. Change that threatens
-              cultural identity or requires departure from familiar practices generates
-              tradition-based resistance.
-            </li>
-            <li>
-              <strong>Image Barrier:</strong> Resistance arising from negative stereotypes or
-              unfavorable associations with the innovation, its origin, or its user community.
-              Negative image creates resistance regardless of functional merit.
+              <ul className={BODY_LIST_CLASSES}>
+                <li>
+                  <strong>Tradition Barrier:</strong> Resistance arising when an innovation
+                  conflicts with cultural values, social norms, or established traditions. Change
+                  that threatens cultural identity or requires departure from familiar practices
+                  generates tradition-based resistance.
+                </li>
+                <li>
+                  <strong>Image Barrier:</strong> Resistance arising from negative stereotypes or
+                  unfavorable associations with the innovation, its origin, or its user community.
+                  Negative image creates resistance regardless of functional merit.
+                </li>
+              </ul>
             </li>
           </ul>
         </section>
@@ -676,7 +682,9 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-festinger-1957-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                ></a>
+                >
+                  &#8617;
+                </a>
               </span>
             </li>
             <li id="ref-ram-1987">
