@@ -498,7 +498,15 @@ const BibliographyArticlePage = () => {
               technology-specific adoption contexts.
             </li>
             <li>
-              <strong>Unified Theory of Acceptance and Use of Technology (UTAUT):</strong>{' '}
+              <strong>
+                <Link
+                  href="/bibliography-1-15-unified-theory-utaut-venkatesh-2003"
+                  className="text-tabs-teal-deep hover:underline"
+                >
+                  Unified Theory of Acceptance and Use of Technology (UTAUT)
+                </Link>
+                :
+              </strong>{' '}
               Integrated TPB with other adoption models into comprehensive framework.
             </li>
             <li>
@@ -543,15 +551,18 @@ const BibliographyArticlePage = () => {
           <h2 className={H2_CLASSES}>Further Reading</h2>
           <ol className={REFERENCES_OL_CLASSES}>
             <li id="ref-ajzen-1980">
-              Ajzen, I., &amp; Fishbein, M. (1980). Understanding attitudes and predicting social
-              behavior. Prentice-Hall.
+              Ajzen, I., &amp; Fishbein, M. (1980).{' '}
+              <em>Understanding attitudes and predicting social behavior</em>. Prentice-Hall.
             </li>
             <li id="ref-fishbein-1975">
-              Fishbein, M., &amp; Ajzen, I. (1975). Belief, attitude, intention, and behavior: An
-              introduction to theory and research. Addison-Wesley.
+              Fishbein, M., &amp; Ajzen, I. (1975).{' '}
+              <em>
+                Belief, attitude, intention, and behavior: An introduction to theory and research
+              </em>
+              . Addison-Wesley.
             </li>
             <li id="ref-triandis-1977">
-              Triandis, H. C. (1977). Interpersonal behavior. Brooks/Cole.
+              Triandis, H. C. (1977). <em>Interpersonal behavior</em>. Brooks/Cole.
             </li>
             <li id="ref-armitage-2001">
               Armitage, C. J., &amp; Conner, M. (2001). Efficacy of the theory of planned behaviour:
