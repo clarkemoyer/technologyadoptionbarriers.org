@@ -111,16 +111,17 @@ const BibliographyArticlePage = () => {
             products of their environment nor entirely autonomous agents acting independently of
             their surroundings. Bandura sought to create a theory that could explain why individuals
             with similar skills, knowledge, and environmental opportunities demonstrated vastly
-            different adoption behaviors toward new technologies.
+            different behavioral outcomes.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            The specific timing of SCT&rsquo;s 1986 formulation coincided with emerging questions in
-            organizational psychology about technology adoption in workplace settings. As personal
-            computers and new information systems began widespread organizational deployment in the
-            1980s, researchers and practitioners struggled to explain the variance in adoption rates
-            among similar users. Bandura&rsquo;s SCT provided a theoretical lens for understanding
-            these differences through the concept of self-efficacy, an individual&rsquo;s belief in
-            their capability to execute the behaviors necessary to produce specific outcomes.
+            Although SCT was developed as a general theory of human behavior - covering domains
+            from health to education to moral development - its emphasis on self-efficacy made it
+            particularly valuable for understanding technology adoption. Compeau and Higgins (1995)
+            conducted the first systematic application of SCT to computing, demonstrating that
+            computer self-efficacy significantly predicted usage behavior, affect, and anxiety.
+            Their work established self-efficacy - an individual&rsquo;s belief in their capability
+            to execute the behaviors necessary to produce specific outcomes - as a central construct
+            in information systems research on technology adoption.
           </p>
         </section>
 
@@ -552,7 +553,9 @@ const BibliographyArticlePage = () => {
                 </Link>
                 ):
               </strong>{' '}
-              Incorporated concepts of perceived ease of use resembling self-efficacy.
+              Perceived ease of use shares conceptual overlap with self-efficacy.
+              Venkatesh (2000) later demonstrated that computer self-efficacy serves as an
+              anchor for perceived ease of use judgments.
             </li>
             <li>
               <strong>
@@ -565,7 +568,9 @@ const BibliographyArticlePage = () => {
                 </Link>
                 ):
               </strong>{' '}
-              Integrated self-efficacy concepts into comprehensive framework.
+              Tested self-efficacy as a predictor but found its effect was subsumed
+              under Effort Expectancy rather than operating as a direct determinant of
+              behavioral intention.
             </li>
             <li>
               <strong>
@@ -578,19 +583,19 @@ const BibliographyArticlePage = () => {
                 </Link>
                 ):
               </strong>{' '}
-              Further integrated efficacy-related constructs.
+              Explicitly modeled computer self-efficacy as an anchor determinant of
+              perceived ease of use.
             </li>
             <li>
-              <strong>Extensions addressing computer-specific self-efficacy:</strong> Numerous
-              studies developed domain-specific self-efficacy measures for technology contexts.
+              <strong>Computer Self-Efficacy research (Compeau &amp; Higgins, 1995):</strong>{' '}
+              Developed and validated a measure of computer self-efficacy based directly on
+              SCT, demonstrating that self-efficacy significantly predicted computer usage,
+              affect, and anxiety in a survey of 1,020 Canadian managers and professionals.
             </li>
             <li>
-              <strong>Self-Determination Theory applications:</strong> Subsequent theories
-              integrated SCT&rsquo;s efficacy mechanisms with motivation research.
-            </li>
-            <li>
-              <strong>Organizational training and development literature:</strong> SCT frameworks
-              became standard in training design and change management.
+              <strong>Compeau, Higgins, &amp; Huff (1999):</strong>{' '}
+              Extended the 1995 cross-sectional study into a longitudinal design, confirming
+              that SCT-based self-efficacy predicted computing behavior over time.
             </li>
           </ul>
         </section>
