@@ -70,6 +70,17 @@ const BibliographyArticlePage = () => {
               <strong>Document Format:</strong> Online documentation, methodology guides,
               scenario-based guidance, assessment tools, templates, and reference architectures
             </p>
+            <p>
+              <strong>URL:</strong>{' '}
+              <a
+                href="https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:underline"
+              >
+                https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/
+              </a>
+            </p>
           </div>
         </section>
 
