@@ -139,10 +139,10 @@ const BibliographyPage = () => {
               <div className="text-sm text-gray-600">Ajzen (1991)</div>
             </Link>
             <Link
-              href="/bibliography-1-8-personal-computing-acceptance-thompson-1991"
+              href="/bibliography-1-8-personal-computing-utilization-thompson-1991"
               className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
             >
-              <div className="font-semibold text-blue-600">8. Personal Computing Acceptance</div>
+              <div className="font-semibold text-blue-600">8. Personal Computing Utilization</div>
               <div className="text-sm text-gray-600">Thompson et al. (1991)</div>
             </Link>
             <Link
