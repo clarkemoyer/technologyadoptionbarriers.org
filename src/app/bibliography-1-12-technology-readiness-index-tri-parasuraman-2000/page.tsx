@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import type { ReactNode } from 'react'
 import Link from 'next/link'
 import {
   ARTICLE_CLASSES,
@@ -10,6 +11,144 @@ import {
   BODY_LIST_CLASSES,
   REFERENCES_OL_CLASSES,
 } from '@/lib/articleStyles'
+
+type BackLink = { href: string; label: string }
+
+type ReferenceEntry = {
+  id: string
+  text: ReactNode
+  backLink?: BackLink
+  doi?: string
+}
+
+const RefEntry = ({ entry }: { entry: ReferenceEntry }) => (
+  <li id={entry.id}>
+    {entry.text}
+    {entry.backLink && (
+      <span className="text-xs ml-1">
+        <a
+          href={entry.backLink.href}
+          className="text-tabs-teal-deep hover:underline"
+          aria-label={entry.backLink.label}
+        >
+          &#8617;
+        </a>
+      </span>
+    )}
+    {entry.doi && <> {entry.doi}</>}
+  </li>
+)
+
+const REFERENCES: ReferenceEntry[] = [
+  {
+    id: 'ref-parasuraman-2000',
+    text: (
+      <>
+        Parasuraman, A. (2000). Technology readiness index (TRI): A multiple-item scale to measure
+        readiness to embrace new technologies. <em>Journal of Service Research</em>, 2(4), 307-320.
+        https://doi.org/10.1177/109467050024001
+      </>
+    ),
+  },
+  {
+    id: 'ref-rogers-1995',
+    text: <>Rogers, E. M. (1995). Diffusion of innovations (4th ed.). Free Press.</>,
+    backLink: { href: '#cite-ref-rogers-1995-1', label: 'Back to citation' },
+  },
+  {
+    id: 'ref-davis-1989',
+    text: (
+      <>
+        Davis, F. D. (1989). Perceived usefulness, perceived ease of use, and user acceptance of
+        information technology. <em>MIS Quarterly</em>, 13(3), 319-340.
+      </>
+    ),
+    backLink: { href: '#cite-ref-davis-1989-1', label: 'Back to citation' },
+    doi: 'https://doi.org/10.2307/249008',
+  },
+  {
+    id: 'ref-rotter-1966',
+    text: (
+      <>
+        Rotter, J. B. (1966). Generalized expectancies for internal versus external control of
+        reinforcement. <em>Psychological Monographs: General and Applied</em>, 80(1), 1-28.
+      </>
+    ),
+    backLink: { href: '#cite-ref-rotter-1966-1', label: 'Back to citation' },
+  },
+  {
+    id: 'ref-agarwal-1998',
+    text: (
+      <>
+        Agarwal, R., &amp; Prasad, J. (1998). A conceptual and operational definition of personal
+        innovativeness in the domain of information technology.{' '}
+        <em>Information Systems Research</em>, 9(2), 204-215.
+      </>
+    ),
+  },
+]
+
+const FURTHER_READING: ReferenceEntry[] = [
+  {
+    id: 'ref-meuter-1998',
+    text: (
+      <>
+        Meuter, M. L., &amp; Bitner, M. J. (1998). Consumer attitudes toward self-service
+        technologies. <em>Journal of Retailing</em>, 74(2), 161-183.
+      </>
+    ),
+  },
+  {
+    id: 'ref-parasuraman-2015',
+    text: (
+      <>
+        Parasuraman, A., &amp; Colby, C. L. (2015). An updated and streamlined technology readiness
+        index: TRI 2.0. <em>Journal of Service Research</em>, 18(1), 59-74.
+      </>
+    ),
+    doi: 'https://doi.org/10.1177/1094670514539730',
+  },
+  {
+    id: 'ref-venkatesh-2003',
+    text: (
+      <>
+        Venkatesh, V., Morris, M. G., Davis, G. B., &amp; Davis, F. D. (2003). User acceptance of
+        information technology: Toward a unified view. <em>MIS Quarterly</em>, 27(3), 425-478.
+      </>
+    ),
+    doi: 'https://doi.org/10.2307/30036540',
+  },
+  {
+    id: 'ref-fishbein-1975',
+    text: (
+      <>
+        Fishbein, M., &amp; Ajzen, I. (1975). {/* prettier-ignore */}
+        <em>Belief, attitude, intention, and behavior: An introduction to theory and research</em>
+        {'. Addison-Wesley.'}
+      </>
+    ),
+  },
+  {
+    id: 'ref-goodhue-1995',
+    text: (
+      <>
+        Goodhue, D. L., &amp; Thompson, R. L. (1995). Task-technology fit and individual
+        performance. <em>MIS Quarterly</em>, 19(2), 213-236.
+      </>
+    ),
+    doi: 'https://doi.org/10.2307/249689',
+  },
+  {
+    id: 'ref-lin-2007',
+    text: (
+      <>
+        Lin, C.-H., Shih, H.-Y., &amp; Sher, P. J. (2007). Integrating technology readiness into
+        technology acceptance: The TRAM model. <em>Psychology &amp; Marketing</em>, 24(7).
+      </>
+    ),
+    doi: 'https://doi.org/10.1002/mar.20177',
+  },
+]
 
 export const metadata: Metadata = {
   title: 'Bibliography: Technology Readiness Index (TRI) - Parasuraman (2000)',
@@ -176,7 +315,7 @@ const BibliographyArticlePage = () => {
               unreliability of technology systems.
             </li>
           </ul>
-          <p className={PARAGRAPH_CLASSES + ' mt-4'}>
+          <p className={`${PARAGRAPH_CLASSES} mt-4`}>
             The four dimensions combine to form a net readiness score: Optimism and Innovativeness
             are positive enablers (contributors to readiness), while Discomfort and Insecurity are
             negative inhibitors (detractors from readiness). The index measures individual
@@ -631,85 +770,18 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>References</h2>
           <ol className={REFERENCES_OL_CLASSES}>
-            <li id="ref-parasuraman-2000">
-              Parasuraman, A. (2000). Technology readiness index (TRI): A multiple-item scale to
-              measure readiness to embrace new technologies. <em>Journal of Service Research</em>,
-              2(4), 307-320. https://doi.org/10.1177/109467050024001
-            </li>
-            <li id="ref-rogers-1995">
-              Rogers, E. M. (1995). Diffusion of innovations (4th ed.). Free Press.
-              <span className="text-xs ml-1">
-                <a
-                  href="#cite-ref-rogers-1995-1"
-                  className="text-tabs-teal-deep hover:underline"
-                  aria-label="Back to citation 1"
-                ></a>
-              </span>
-            </li>
-            <li id="ref-davis-1989">
-              Davis, F. D. (1989). Perceived usefulness, perceived ease of use, and user acceptance
-              of information technology. <em>MIS Quarterly</em>, 13(3), 319-340.
-              <span className="text-xs ml-1">
-                <a
-                  href="#cite-ref-davis-1989-1"
-                  className="text-tabs-teal-deep hover:underline"
-                  aria-label="Back to citation 1"
-                ></a>
-              </span>{' '}
-              https://doi.org/10.2307/249008
-            </li>
-            <li id="ref-rotter-1966">
-              Rotter, J. B. (1966). Generalized expectancies for internal versus external control of
-              reinforcement. <em>Psychological Monographs: General and Applied</em>, 80(1), 1-28.
-              <span className="text-xs ml-1">
-                <a
-                  href="#cite-ref-rotter-1966-1"
-                  className="text-tabs-teal-deep hover:underline"
-                  aria-label="Back to citation 1"
-                ></a>
-              </span>
-            </li>
-            <li id="ref-agarwal-1998">
-              Agarwal, R., &amp; Prasad, J. (1998). A conceptual and operational definition of
-              personal innovativeness in the domain of information technology.{' '}
-              <em>Information Systems Research</em>, 9(2), 204-215.
-            </li>
+            {REFERENCES.map((entry) => (
+              <RefEntry key={entry.id} entry={entry} />
+            ))}
           </ol>
         </section>
 
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Further Reading</h2>
           <ol className={REFERENCES_OL_CLASSES}>
-            <li id="ref-meuter-1998">
-              Meuter, M. L., &amp; Bitner, M. J. (1998). Consumer attitudes toward self-service
-              technologies. <em>Journal of Retailing</em>, 74(2), 161-183.
-            </li>
-            <li id="ref-parasuraman-2015">
-              Parasuraman, A., &amp; Colby, C. L. (2015). An updated and streamlined technology
-              readiness index: TRI 2.0. <em>Journal of Service Research</em>, 18(1), 59-74.
-              https://doi.org/10.1177/1094670514539730
-            </li>
-            <li id="ref-venkatesh-2003">
-              Venkatesh, V., Morris, M. G., Davis, G. B., &amp; Davis, F. D. (2003). User acceptance
-              of information technology: Toward a unified view. <em>MIS Quarterly</em>, 27(3),
-              425-478. https://doi.org/10.2307/30036540
-            </li>
-            <li id="ref-fishbein-1975">
-              Fishbein, M., &amp; Ajzen, I. (1975).{' '}
-              <em>
-                Belief, attitude, intention, and behavior: An introduction to theory and research
-              </em>
-              . Addison-Wesley.
-            </li>
-            <li id="ref-goodhue-1995">
-              Goodhue, D. L., &amp; Thompson, R. L. (1995). Task-technology fit and individual
-              performance. <em>MIS Quarterly</em>, 19(2), 213-236. https://doi.org/10.2307/249689
-            </li>
-            <li id="ref-lin-2007">
-              Lin, C.-H., Shih, H.-Y., &amp; Sher, P. J. (2007). Integrating technology readiness
-              into technology acceptance: The TRAM model. <em>Psychology &amp; Marketing</em>,
-              24(7). https://doi.org/10.1002/mar.20177
-            </li>
+            {FURTHER_READING.map((entry) => (
+              <RefEntry key={entry.id} entry={entry} />
+            ))}
           </ol>
         </section>
 
