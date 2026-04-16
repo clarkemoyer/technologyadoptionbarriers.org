@@ -752,9 +752,7 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-zachman-1987-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                >
-                  ↩
-                </a>
+                ></a>
               </span>{' '}
               https://doi.org/10.1147/sj.263.0276
             </li>
