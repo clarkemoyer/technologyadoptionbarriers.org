@@ -701,7 +701,9 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-festinger-1957-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                ></a>
+                >
+                  &#8617;
+                </a>
               </span>
             </li>
             <li id="ref-samuelson-1988">
@@ -719,6 +721,16 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Further Reading</h2>
           <ol className={REFERENCES_OL_CLASSES}>
+            <li id="ref-kahneman-1990">
+              Kahneman, D., Knetsch, J. L., &amp; Thaler, R. H. (1990). Experimental tests of the
+              endowment effect and the Coase theorem. <em>Journal of Political Economy</em>, 98(6),
+              1325&ndash;1348.
+            </li>
+            <li id="ref-thaler-sunstein-2008">
+              Thaler, R. H., &amp; Sunstein, C. R. (2008).{' '}
+              <em>Nudge: Improving Decisions About Health, Wealth, and Happiness</em>. Yale
+              University Press.
+            </li>
             <li id="ref-kahneman-1982">
               Kahneman, D., &amp; Tversky, A. (1982). The psychology of preferences.{' '}
               <em>Scientific American</em>, 246(1), 160-173.
@@ -759,9 +771,9 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>Early Technology Adoption Models:</strong> A Model of Innovation Resistance
-              (Ram, 1987); Status Quo Bias (Samuelson &amp; Zeckhauser, 1988) - Current Article;
-              Technology Acceptance Model (Davis, 1989); Theory of Planned Behavior (Ajzen, 1991);
-              Personal Computing Acceptance (Thompson et al., 1991).
+              (Ram &amp; Sheth, 1989); Status Quo Bias (Samuelson &amp; Zeckhauser, 1988) - Current
+              Article; Technology Acceptance Model (Davis, 1989); Theory of Planned Behavior (Ajzen,
+              1991); Personal Computing Acceptance (Thompson et al., 1991).
             </li>
             <li>
               <strong>Contemporary Integrated Models:</strong> Unified Theory of Acceptance and Use
@@ -787,7 +799,7 @@ const BibliographyArticlePage = () => {
               href="/bibliography-1-4-model-of-innovation-resistance-ram-sheth-1989"
               className="text-blue-600 hover:text-blue-800 underline text-sm"
             >
-              &larr; Previous: A Model of Innovation Resistance (Ram, 1987)
+              &larr; Previous: A Model of Innovation Resistance (Ram &amp; Sheth, 1989)
             </Link>
             <Link
               href="/bibliography-1-6-technology-acceptance-model-tam-davis-1989"
