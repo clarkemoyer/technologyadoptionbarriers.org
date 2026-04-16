@@ -12,7 +12,7 @@ import {
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: Decomposed Theory of Planned Behavior - Taylor & Todd (1995)',
+  title: 'Bibliography: Decomposed TPB - Taylor & Todd (1995)',
   description:
     'Comprehensive analysis of the Decomposed Theory of Planned Behavior (DTPB), which decomposes attitudinal, normative, and control beliefs into technology-specific multidimensional constructs for predicting IT adoption.',
 }
@@ -21,9 +21,7 @@ const BibliographyArticlePage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
-        <h1 className={H1_CLASSES}>
-          Decomposed Theory of Planned Behavior - Taylor &amp; Todd (1995)
-        </h1>
+        <h1 className={H1_CLASSES}>Decomposed TPB - Taylor &amp; Todd (1995)</h1>
 
         {/* 1. Model Identification */}
         <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
