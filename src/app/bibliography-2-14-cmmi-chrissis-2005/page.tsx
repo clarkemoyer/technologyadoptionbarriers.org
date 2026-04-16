@@ -71,6 +71,9 @@ const BibliographyArticlePage = () => {
               <strong>Document Format:</strong> Comprehensive textbook, official CMMI model
               documents, implementation guides, and assessment resources
             </p>
+            <p>
+              <strong>ISBN:</strong> 978-0-321-71150-2
+            </p>
           </div>
         </section>
 
