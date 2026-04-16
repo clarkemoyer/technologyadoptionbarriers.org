@@ -12,7 +12,8 @@ import {
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: TAFIM - US Department of Defense (1994)',
+  title:
+    'Bibliography: Technical Architecture Framework for Information Management (TAFIM) - U.S. DoD (1994)',
   description:
     'Comprehensive overview of the Technical Architecture Framework for Information Management (TAFIM). Explains how TAFIM established principles of layered IT architecture, reference models, and standards-based interoperability for enterprise systems.',
 }
@@ -21,7 +22,9 @@ const BibliographyArticlePage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
-        <h1 className={H1_CLASSES}>TAFIM - US Department of Defense (1994)</h1>
+        <h1 className={H1_CLASSES}>
+          Technical Architecture Framework for Information Management (TAFIM) - U.S. DoD (1994)
+        </h1>
 
         {/* 1. Framework Identification */}
         <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
