@@ -122,7 +122,7 @@ const BibliographyArticlePage = () => {
             employees readily adopted PCs while others resisted or underutilized them.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            Building on Triandis&rsquo; theory of expected consequences, the authors recognized that
+            Building on Triandis&rsquo; (1971; 1980) theory of attitudes and behavior, the authors recognized that
             technology adoption exists on a continuum of utilization intensity rather than as binary
             use versus non-use. Prior research had focused heavily on intention to use or
             acceptance, but Thompson&rsquo;s work directly examined actual usage behavior and
@@ -131,8 +131,9 @@ const BibliographyArticlePage = () => {
             complexity, job fit, and long-term consequences.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            Research grounded in organizational contexts with 286 survey respondents from a single
-            organization made findings directly relevant to managers seeking to understand employee
+            The study surveyed knowledge workers across nine divisions of a large multinational
+            manufacturing organization, yielding a final sample of 212 respondents (from 278
+            returned questionnaires). Findings were directly relevant to managers seeking to understand employee
             PC adoption patterns. By examining actual utilization rather than intentions, the model
             addressed the known intention-behavior gap that affected earlier theoretical frameworks.
             The authors explicitly recognized that technology adoption is multifaceted, requiring
@@ -191,9 +192,10 @@ const BibliographyArticlePage = () => {
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Triandis&rsquo; Theory of Expected Consequences (1980):</strong> Foundational
-              framework positing that behavior is influenced by relative influence of different
-              components of expected consequences.
+              <strong>Triandis&rsquo; theory of interpersonal behavior (1971; 1980):</strong>{' '}
+              Foundational framework positing that behavior is determined by intentions, habits,
+              and facilitating conditions, with intentions shaped by social factors, affect, and
+              perceived consequences.
             </li>
             <li>
               <strong>Technology Acceptance Model (Davis):</strong> Prior IS acceptance research
@@ -209,16 +211,17 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>
-                Theory of Planned Behavior (
+                Theory of Reasoned Action (
                 <Link
-                  href="/bibliography-1-7-theory-of-planned-behavior-tpb-ajzen-1991"
+                  href="/bibliography-1-1-theory-of-reasoned-action-tra-fishbein-ajzen-1975"
                   className="text-tabs-teal-deep hover:underline"
                 >
-                  Ajzen, 1991
+                  Fishbein &amp; Ajzen, 1975
                 </Link>
                 ):
               </strong>{' '}
-              Contemporary work on behavioral intention and perceived control.
+              The dominant IS adoption framework at the time. Thompson et al. positioned their
+              Triandis-based model as a competing alternative to TRA-based approaches.
             </li>
           </ul>
         </section>
@@ -406,8 +409,8 @@ const BibliographyArticlePage = () => {
               and examined whether experience moderated model relationships.
             </li>
             <li>
-              <strong>Adequate statistical power:</strong> Large sample size for single organization
-              (n=286) provided sufficient power for detecting relationships.
+              <strong>Adequate statistical power:</strong> Final sample of 212 knowledge workers
+              across nine divisions provided sufficient power for detecting relationships.
             </li>
           </ul>
         </section>
