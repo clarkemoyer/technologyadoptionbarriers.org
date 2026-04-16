@@ -255,26 +255,29 @@ const BibliographyArticlePage = () => {
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Managing IT like a Business (MITB):</strong> Capabilities for treating IT as
+              <strong>Managing IT like a Business:</strong> Capabilities for treating IT as
               strategic business function requiring business discipline, strategy alignment, and
-              governance. MITB includes governance, strategy, business relationship, and
-              organizational capabilities.
+              governance. Includes 14 critical capabilities spanning governance, strategy, business
+              relationship, and organizational design.
             </li>
             <li>
-              <strong>Managing the IT Budget (MTB):</strong> Capabilities for financial management,
+              <strong>Managing the IT Budget:</strong> Capabilities for financial management,
               investment justification, cost optimization, and IT spending alignment with business
-              value. MTB includes budget planning, cost management, and investment governance.
+              value. Includes 4 critical capabilities for budget planning, cost management, and
+              investment governance.
             </li>
             <li>
-              <strong>Managing IT Capability (MIC):</strong> Capabilities for IT delivery excellence
+              <strong>Managing the IT Capability:</strong> Capabilities for IT delivery excellence
               including service management, architecture, quality, security, and risk management.
-              MIC includes development, delivery, and operational excellence capabilities.
+              Includes 15 critical capabilities for development, delivery, and operational
+              excellence.
             </li>
             <li>
-              <strong>Managing IT for Business Value (MITBV):</strong> Capabilities for ensuring IT
+              <strong>Managing IT for Business Value:</strong> Capabilities for ensuring IT
               investments create demonstrable business value through benefit realization,
-              performance management, and continuous value creation. MITBV includes value
-              measurement, benefit realization, and value governance.
+              performance management, and continuous value creation. Includes 3 critical
+              capabilities for value measurement, benefit realization, and total cost of
+              ownership.
             </li>
           </ul>
 
@@ -284,32 +287,40 @@ const BibliographyArticlePage = () => {
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Level 1 - Initial:</strong> Capability exists but lacks formalization and
-              consistency. Processes are ad-hoc and unpredictable. Capability maturity depends on
-              individual heroics.
+              <strong>Level 1 - Initial:</strong> Approaches are inadequate and unstable. Scope is
+              fragmented and incoherent. Repeatable outcomes are rare.
             </li>
             <li>
-              <strong>Level 2 - Basic:</strong> Capability is repeatable with basic process
-              documentation. Some standardization exists but execution may vary. Capability maturity
-              improvements are documented and managed.
+              <strong>Level 2 - Basic:</strong> Approaches are defined but inconsistencies remain.
+              Scope is limited to a partial area of a business function or domain. Repeatable
+              outcomes are achieved occasionally.
             </li>
             <li>
-              <strong>Level 3 - Intermediate:</strong> Capability is standardized across
-              organization with defined processes and standards. Processes are documented and
-              communicated. Capability maturity is consistent and integrated with broader
-              organization.
+              <strong>Level 3 - Intermediate:</strong> Approaches are standardized and
+              inconsistencies are addressed. Scope expands to cover a business function (typically
+              IT) or domain area. Repeatable outcomes are often achieved.
             </li>
             <li>
-              <strong>Level 4 - Advanced:</strong> Capability is quantitatively managed with metrics
-              and continuous improvement. Processes include measurement, monitoring, and control
-              mechanisms. Capability performance is predictable.
+              <strong>Level 4 - Advanced:</strong> Approaches can systematically flex for innovative
+              adaptations. Scope covers the end-to-end organization and neighboring domain areas.
+              Repeatable outcomes are very often achieved.
             </li>
             <li>
-              <strong>Level 5 - Optimizing:</strong> Capability focuses on continuous improvement
-              and innovation. Organization proactively explores improvements and new approaches.
-              Capability is optimized for business value creation.
+              <strong>Level 5 - Optimizing:</strong> Approaches demonstrate world-class attributes.
+              Scope extends beyond the borders of the organization and neighboring domains.
+              Repeatable outcomes are virtually always achieved.
             </li>
           </ul>
+
+          <h3 className={H3_CLASSES}>Capability Architecture</h3>
+          <p className={PARAGRAPH_CLASSES}>
+            Each Critical Capability is composed of Capability Building Blocks (CBBs) - the
+            sub-components that define specific areas of practice within the capability. For each
+            CBB, IT-CMF provides Practices-Outcomes-Metrics (POMs): representative practices to
+            drive maturity, expected outcomes from implementing them, and metrics to monitor
+            progress. Maturity levels are additive - each lower level provides the foundation for
+            the next higher one.
+          </p>
 
           <h3 className={H3_CLASSES}>Assessment Methodology</h3>
           <p className={PARAGRAPH_CLASSES}>
