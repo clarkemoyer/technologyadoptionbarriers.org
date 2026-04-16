@@ -497,34 +497,36 @@ const BibliographyArticlePage = () => {
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Logical coherence:</strong> The argument that systematic IT capability
-              improvement increases business value is logically sound. Process discipline should
-              improve consistency and decision quality.
+              <strong>Design science research methodology:</strong> IT-CMF was developed using
+              design science research, which creates and evaluates IT artefacts intended to solve
+              organizational problems. IVI addresses utility by making pragmatic validation an
+              integral part of its research approach.
             </li>
             <li>
-              <strong>Comprehensive capability coverage:</strong> Framework comprehensively
-              addresses IT from strategy through delivery through value realization. Comprehensive
-              coverage addresses interconnected IT management concerns.
+              <strong>Open innovation development:</strong> The research process is based on open
+              innovation principles where IT professionals across multiple industries and academic
+              researchers jointly define the research agenda, perform research, and validate
+              results. This provides an essential feedback loop ensuring relevance and rigor.
+            </li>
+            <li>
+              <strong>Consortium validation:</strong> Framework development involved 100+ large
+              organizations collaborating to validate framework relevance, with over 200 consulting
+              engagements by Boston Consulting Group providing practical validation.
             </li>
             <li>
               <strong>Clear maturity progression:</strong> Five-level maturity model provides
               logical progression from Initial (inadequate and unstable) through Optimizing
-              (world-class attributes). Progression reflects realistic organizational maturity
-              evolution.
+              (world-class attributes), with maturity levels additive and evidence-based.
             </li>
             <li>
-              <strong>Business-value integration:</strong> Framework integration of business value
-              considerations throughout macro-capabilities reflects established business-IT
-              alignment best practices.
+              <strong>Comprehensive capability coverage:</strong> Framework comprehensively
+              addresses IT from strategy through delivery through value realization across 36
+              Critical Capabilities organized into four macro-capabilities.
             </li>
             <li>
-              <strong>Research foundation:</strong> Framework development involved 100+ large
-              organizations providing research grounding for framework comprehensiveness and
-              relevance.
-            </li>
-            <li>
-              <strong>Capability descriptions:</strong> Detailed capability descriptions and
-              maturity level definitions provide clear guidance for assessment and improvement.
+              <strong>Iterative staged validation:</strong> Research is overseen by a Steering
+              Board including industry leaders and academic researchers. Research is conducted
+              in iterative stages with ongoing consortium validation.
             </li>
           </ul>
         </section>
