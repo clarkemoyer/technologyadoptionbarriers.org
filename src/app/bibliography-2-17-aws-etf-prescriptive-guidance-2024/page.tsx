@@ -647,39 +647,27 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Following Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
-            AWS EBA influenced subsequent professional services and transformation delivery
-            approaches:
+            As a 2024 prescriptive guidance framework, the AWS EBA methodology is too recent to have
+            established documented descendant models. The following represent anticipated areas of
+            influence rather than confirmed descendant frameworks:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>EBA Adaptations by Other Cloud Providers (2020-present):</strong> Microsoft,
-              Google Cloud, and other cloud providers developed similar immersive acceleration
-              programs. Industry-wide adoption validates EBA effectiveness.
+              <strong>Cloud Provider Acceleration Programs:</strong> Other cloud providers may
+              develop similar immersive, time-boxed acceleration methodologies as the approach gains
+              wider industry recognition.
             </li>
             <li>
-              <strong>Enterprise Consulting Firm EBA Models (2020-present):</strong> Traditional
-              consulting firms (McKinsey, Deloitte, Accenture) developed similar rapid acceleration
-              models. Consulting industry adoption elevated EBA as standard best practice.
+              <strong>Outcome-Focused Professional Services:</strong> The professional services
+              industry&rsquo;s shift toward outcome-based engagement models may be reinforced by
+              EBA&rsquo;s emphasis on measurable transformation outcomes within compressed
+              timeframes.
             </li>
             <li>
-              <strong>Specialized Transformation Service Providers (2020-present):</strong>{' '}
-              Organizations specializing in rapid transformation delivery emerged incorporating EBA
-              principles and methodologies.
-            </li>
-            <li>
-              <strong>Organizational Agility Research (2020-present):</strong> Academic and industry
-              research explored rapid transformation delivery methodologies influenced by EBA.
-              Research validated EBA principles.
-            </li>
-            <li>
-              <strong>Outcome-Focused Professional Services (2020-present):</strong> Professional
-              services industry increasingly adopted outcome-focused models influenced by AWS EBA.
-              Outcome focus became industry trend.
-            </li>
-            <li>
-              <strong>Immersive Learning Expansion (2020-present):</strong> Educational institutions
-              and training providers increasingly adopted immersive, hands-on learning approaches
-              influenced by EBA methodology. Learning approach became educational best practice.
+              <strong>Rapid Transformation Delivery Standards:</strong> Industry best practices for
+              rapid, immersive transformation delivery may incorporate elements of EBA&rsquo;s
+              structured methodology as organizations seek alternatives to traditional multi-year
+              transformation programs.
             </li>
           </ul>
         </section>
