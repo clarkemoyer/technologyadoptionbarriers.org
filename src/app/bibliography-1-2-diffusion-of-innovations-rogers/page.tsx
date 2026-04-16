@@ -63,6 +63,9 @@ const BibliographyArticlePage = () => {
             <p>
               <strong>Pages:</strong> Limited publication information available in original
             </p>
+            <p>
+              <strong>ISBN:</strong> 978-0-7432-2209-9
+            </p>
           </div>
         </section>
 
