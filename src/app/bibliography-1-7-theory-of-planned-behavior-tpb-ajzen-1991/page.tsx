@@ -557,6 +557,7 @@ const BibliographyArticlePage = () => {
           </ol>
         </section>
 
+        {/* 14. Further Reading */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Further Reading</h2>
           <ol className={REFERENCES_OL_CLASSES}>
@@ -564,12 +565,10 @@ const BibliographyArticlePage = () => {
               Ajzen, I., &amp; Fishbein, M. (1980).{' '}
               <em>Understanding attitudes and predicting social behavior</em>. Prentice-Hall.
             </li>
+            {/* prettier-ignore */}
             <li id="ref-fishbein-1975">
               Fishbein, M., &amp; Ajzen, I. (1975).{' '}
-              <em>
-                Belief, attitude, intention, and behavior: An introduction to theory and research
-              </em>
-              . Addison-Wesley.
+              <em>Belief, attitude, intention, and behavior: An introduction to theory and research</em>. Addison-Wesley.
             </li>
             <li id="ref-triandis-1977">
               Triandis, H. C. (1977). <em>Interpersonal behavior</em>. Brooks/Cole.
@@ -581,7 +580,7 @@ const BibliographyArticlePage = () => {
           </ol>
         </section>
 
-        {/* 14. Series Navigation */}
+        {/* 15. Series Navigation */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Series Navigation</h2>
           <div className="space-y-4">
