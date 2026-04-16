@@ -12,7 +12,8 @@ import {
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: AWS Experience-Based Acceleration Framework - AWS (2024)',
+  title:
+    'Bibliography: AWS Prescriptive Guidance - Enterprise Transformation Framework (ETF) (2024)',
   description:
     'Comprehensive overview of the AWS Experience-Based Acceleration (EBA) Framework. Explains the three pillars (Education, Experience, Acceleration), time-boxed engagement model, and EBA role in rapid IT transformation, cloud migration, and modernization delivery.',
 }
@@ -21,7 +22,9 @@ const BibliographyArticlePage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
-        <h1 className={H1_CLASSES}>AWS Experience-Based Acceleration Framework (2024)</h1>
+        <h1 className={H1_CLASSES}>
+          AWS Prescriptive Guidance - Enterprise Transformation Framework (ETF) (2024)
+        </h1>
 
         {/* 1. Framework Identification */}
         <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
