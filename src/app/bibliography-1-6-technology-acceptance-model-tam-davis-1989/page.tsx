@@ -349,9 +349,9 @@ const BibliographyArticlePage = () => {
               measuring perceived usefulness and ease of use, enabling rigorous research.
             </li>
             <li>
-              <strong>Attitude-behavior gap resolution:</strong> Explained why attitudes often
-              weakly predict behavior by identifying technology-specific mediators (usefulness and
-              ease perceptions).
+              <strong>Technology-specific belief constructs:</strong> Demonstrated that two
+              technology-specific belief constructs (PU and PEOU) predicted acceptance more
+              effectively than generic attitude measures used in prior IS research.
             </li>
             <li>
               <strong>Template for extended models:</strong> Provided the structural foundation for
@@ -601,8 +601,11 @@ const BibliographyArticlePage = () => {
           <h2 className={H2_CLASSES}>Further Reading</h2>
           <ol className={REFERENCES_OL_CLASSES}>
             <li id="ref-fishbein-1975">
-              Fishbein, M., &amp; Ajzen, I. (1975). Belief, attitude, intention, and behavior: An
-              introduction to theory and research. Addison-Wesley.
+              Fishbein, M., &amp; Ajzen, I. (1975).{' '}
+              <em>
+                Belief, attitude, intention, and behavior: An introduction to theory and research
+              </em>
+              . Addison-Wesley.
             </li>
             <li id="ref-venkatesh-2000">
               Venkatesh, V., &amp; Davis, F. D. (2000). A theoretical extension of the Technology
