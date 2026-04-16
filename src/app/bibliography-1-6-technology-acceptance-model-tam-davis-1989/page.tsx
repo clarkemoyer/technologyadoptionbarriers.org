@@ -620,7 +620,7 @@ const BibliographyArticlePage = () => {
             <li id="ref-davis-1989b">
               Davis, F. D., Bagozzi, R. P., &amp; Warshaw, P. R. (1989). User acceptance of computer
               technology: A comparison of two theoretical models. <em>Management Science</em>,
-              35(8), 982-1003. https://doi.org/10.2307/249008
+              35(8), 982-1003. https://doi.org/10.1287/mnsc.35.8.982
             </li>
             <li id="ref-davis-1992">
               Davis, F. D., Bagozzi, R. P., &amp; Warshaw, P. R. (1992). Extrinsic and Intrinsic
