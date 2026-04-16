@@ -58,9 +58,9 @@ const REFERENCES: ReferenceEntry[] = [
       <>
         Parasuraman, A. (2000). Technology readiness index (TRI): A multiple-item scale to measure
         readiness to embrace new technologies. <em>Journal of Service Research</em>, 2(4), 307-320.
-        https://doi.org/10.1177/109467050024001
       </>
     ),
+    doi: 'https://doi.org/10.1177/109467050024001',
   },
   {
     id: 'ref-rogers-1995',
@@ -110,6 +110,7 @@ const FURTHER_READING: ReferenceEntry[] = [
         technologies. <em>Journal of Retailing</em>, 74(2), 161-183.
       </>
     ),
+    backLink: { href: '#cite-ref-meuter-1998-1', label: 'Back to citation' },
   },
   {
     id: 'ref-parasuraman-2015',
@@ -394,9 +395,19 @@ const BibliographyArticlePage = () => {
               did not fully explore underlying personality dispositions driving these perceptions.
             </li>
             <li>
-              <strong>Technology Anxiety research (Meuter &amp; Bitner):</strong> Highlighted that
-              consumer anxiety toward technology is multidimensional, encompassing both competence
-              concerns and security concerns.
+              <strong>
+                Technology Anxiety research (
+                <a
+                  id="cite-ref-meuter-1998-1"
+                  href="#ref-meuter-1998"
+                  className="text-tabs-teal-deep hover:underline"
+                >
+                  Meuter &amp; Bitner
+                </a>
+                ):
+              </strong>{' '}
+              Highlighted that consumer anxiety toward technology is multidimensional, encompassing
+              both competence concerns and security concerns.
             </li>
             <li>
               <strong>
