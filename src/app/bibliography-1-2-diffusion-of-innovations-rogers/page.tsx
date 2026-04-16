@@ -617,7 +617,7 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>
-                Theory of Planned Behavior extensions (
+                Theory of Planned Behavior (
                 <a
                   id="cite-ref-ajzen-1991-1"
                   href="#ref-ajzen-1991"
@@ -627,7 +627,9 @@ const BibliographyArticlePage = () => {
                 </a>
                 ):
               </strong>{' '}
-              Applied behavioral intention frameworks to diffusion contexts.
+              While TPB extends TRA rather than DOI directly, it incorporated the role of perceived
+              behavioral control in innovation adoption decisions, complementing DOI&rsquo;s focus on
+              innovation characteristics with individual capability assessment.
             </li>
             <li>
               <strong>
@@ -663,7 +665,7 @@ const BibliographyArticlePage = () => {
             </li>
             <li id="ref-davis-1989">
               Davis, F. D. (1989). Perceived Usefulness, Perceived Ease of Use, and User Acceptance
-              of Information Technology. <em>MIS Quarterly</em>, 13(3).
+              of Information Technology. <em>MIS Quarterly</em>, 13(3), 319-340.
               https://doi.org/10.2307/249008
               <span className="text-xs ml-1">
                 <a
@@ -675,7 +677,7 @@ const BibliographyArticlePage = () => {
             </li>
             <li id="ref-ajzen-1991">
               Ajzen, I. (1991). The theory of planned behavior.{' '}
-              <em>Organizational Behavior and Human Decision Processes</em>, 50(2).
+              <em>Organizational Behavior and Human Decision Processes</em>, 50(2), 179-211.
               https://doi.org/10.1016/0749-5978(91)90020-T
               <span className="text-xs ml-1">
                 <a
