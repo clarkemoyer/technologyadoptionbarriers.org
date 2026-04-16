@@ -691,8 +691,7 @@ const BibliographyArticlePage = () => {
             <li>
               <strong>Annual Hype Cycle Reports (Gartner, 1995-present):</strong> Gartner expanded
               the original single Hype Cycle into dozens of domain-specific annual reports (AI,
-              cloud, security, etc.), each positioning technologies within their respective
-              domains.
+              cloud, security, etc.), each positioning technologies within their respective domains.
             </li>
           </ul>
         </section>
@@ -721,9 +720,8 @@ const BibliographyArticlePage = () => {
               </span>
             </li>
             <li id="ref-linden-2003">
-              Linden, A., &amp; Fenn, J. (2003).{' '}
-              <em>Understanding Gartner&rsquo;s hype cycles</em> (Strategic Analysis Report
-              R-20-1971). Gartner.
+              Linden, A., &amp; Fenn, J. (2003). <em>Understanding Gartner&rsquo;s hype cycles</em>{' '}
+              (Strategic Analysis Report R-20-1971). Gartner.
               <span className="text-xs ml-1">
                 <a
                   href="#cite-ref-linden-2003-1"
