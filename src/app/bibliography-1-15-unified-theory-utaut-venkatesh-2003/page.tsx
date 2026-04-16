@@ -174,11 +174,11 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>Effort Expectancy:</strong> The degree of ease associated with the use of the
-              technology. Effort expectancy encompasses perceived ease of use, complexity, and ease
-              of use, recognizing that users adopt technologies requiring less learning effort and
-              mental exertion. Effort expectancy directly influences adoption intention and
-              indirectly influences intention through perceived usefulness as less effortful systems
-              are perceived as more useful.
+              technology. Effort expectancy encompasses perceived ease of use and complexity,
+              recognizing that users adopt technologies requiring less learning effort and mental
+              exertion. Effort expectancy directly influences adoption intention and indirectly
+              influences intention through perceived usefulness as less effortful systems are
+              perceived as more useful.
             </li>
             <li>
               <strong>Social Influence:</strong> The degree to which an individual perceives that
@@ -368,20 +368,21 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Describe The Model</h2>
           <p className={PARAGRAPH_CLASSES}>
-            UTAUT proposes that acceptance intention is directly determined by performance
-            expectancy, effort expectancy, social influence, and facilitating conditions.
+            UTAUT proposes that acceptance intention is directly determined by three constructs:
+            performance expectancy, effort expectancy, and social influence. A fourth construct,
+            facilitating conditions, directly predicts actual use behavior rather than intention.
             Performance expectancy is the strongest direct predictor of adoption intention. Effort
             expectancy influences intention both directly and indirectly through performance
             expectancy, as systems perceived as easy to use are more likely to be viewed as useful.
-            Social influence directly predicts adoption intention and indirectly influences the
-            effect of performance expectancy. Facilitating conditions influence adoption intention
-            directly and also influence perceived usefulness by removing performance barriers. Four
-            key demographic and contextual moderators strengthen or weaken these relationships:
-            gender moderates the effects of effort expectancy, social influence, and facilitating
-            conditions; age moderates effort expectancy, facilitating conditions, and social
-            influence; experience moderates all four construct relationships with intention; and
-            voluntariness moderates the social influence-to-intention relationship, with mandatory
-            contexts showing substantially stronger norm effects.
+            Social influence directly predicts adoption intention, with effects strongest in
+            mandatory contexts. Facilitating conditions directly influence usage behavior by
+            removing practical barriers to technology use. Four key demographic and contextual
+            moderators strengthen or weaken these relationships: gender moderates the effects of
+            effort expectancy, social influence, and facilitating conditions; age moderates effort
+            expectancy, facilitating conditions, and social influence; experience moderates all four
+            construct relationships with intention; and voluntariness moderates the social
+            influence-to-intention relationship, with mandatory contexts showing substantially
+            stronger norm effects.
           </p>
 
           <h3 className={H3_CLASSES}>UTAUT Determinant Mechanisms</h3>
