@@ -915,9 +915,7 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-lewin-1947-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                >
-                  ↩
-                </a>
+                ></a>
               </span>
             </li>
             <li id="ref-kotter-1995">
@@ -928,16 +926,12 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-kotter-1995-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                >
-                  ↩
-                </a>{' '}
+                ></a>{' '}
                 <a
                   href="#cite-ref-kotter-1995-2"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 2"
-                >
-                  ↩
-                </a>
+                ></a>
               </span>
             </li>
             <li id="ref-ginzberg-1981">
@@ -948,9 +942,7 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-ginzberg-1981-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                >
-                  ↩
-                </a>
+                ></a>
               </span>
             </li>
             <li id="ref-leonard-barton-1988">
@@ -961,9 +953,7 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-leonard-barton-1988-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                >
-                  ↩
-                </a>
+                ></a>
               </span>
             </li>
             <li id="ref-markus-2000">
