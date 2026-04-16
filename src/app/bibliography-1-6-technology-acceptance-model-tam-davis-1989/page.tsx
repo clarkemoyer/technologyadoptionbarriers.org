@@ -214,8 +214,8 @@ const BibliographyArticlePage = () => {
               use, noting that self-efficacy beliefs function as proximal determinants of behavior.
             </li>
             <li>
-              <strong>Adoption of innovations (Rogers; Tornatzky &amp; Klein, 1982):</strong>{' '}
-              The meta-analytic finding that complexity (paralleling PEOU) and relative advantage
+              <strong>Adoption of innovations (Rogers; Tornatzky &amp; Klein, 1982):</strong> The
+              meta-analytic finding that complexity (paralleling PEOU) and relative advantage
               (paralleling PU) are the most consistent predictors of adoption provided empirical
               grounding for TAM&rsquo;s two-construct focus.
             </li>
@@ -238,11 +238,11 @@ const BibliographyArticlePage = () => {
 
           <p className={PARAGRAPH_CLASSES}>
             A central finding was that perceived usefulness had a significantly greater correlation
-            with usage behavior than perceived ease of use in both studies (r=.63 vs .45 in Study
-            1; r=.85 vs .59 in Study 2). Regression analyses suggested that perceived ease of use
-            may operate as a causal antecedent to perceived usefulness rather than as a parallel
-            direct determinant of usage - users who find a system easy to use come to perceive it
-            as more useful.
+            with usage behavior than perceived ease of use in both studies (r=.63 vs .45 in Study 1;
+            r=.85 vs .59 in Study 2). Regression analyses suggested that perceived ease of use may
+            operate as a causal antecedent to perceived usefulness rather than as a parallel direct
+            determinant of usage - users who find a system easy to use come to perceive it as more
+            useful.
           </p>
 
           <h3 className={H3_CLASSES}>What does the model measure?</h3>
@@ -383,13 +383,13 @@ const BibliographyArticlePage = () => {
             <li>
               <strong>Multi-system validation:</strong> Demonstrated that perceived usefulness and
               ease of use predicted user acceptance across four application programs in two studies:
-              Study 1 tested WriteOne (email) and XEDIT (file editor) with 112 users; Study 2
-              tested Chart-Master and Pendraw (graphics packages) with 40 participants.
+              Study 1 tested WriteOne (email) and XEDIT (file editor) with 112 users; Study 2 tested
+              Chart-Master and Pendraw (graphics packages) with 40 participants.
             </li>
             <li>
               <strong>Correlation and regression analysis:</strong> Used correlation to establish
-              PU-usage and PEOU-usage relationships, and regression to test whether PEOU operates
-              as an antecedent to PU rather than a parallel direct predictor of usage.
+              PU-usage and PEOU-usage relationships, and regression to test whether PEOU operates as
+              an antecedent to PU rather than a parallel direct predictor of usage.
             </li>
             <li>
               <strong>Measurement validity assessment:</strong> Conducted internal consistency,
@@ -413,8 +413,8 @@ const BibliographyArticlePage = () => {
           <ul className={BODY_LIST_CLASSES}>
             <li>
               <strong>Multiple information systems:</strong> Validated across four systems spanning
-              email (WriteOne), file editing (XEDIT), and business graphics (Chart-Master,
-              Pendraw), demonstrating applicability across different technology types.
+              email (WriteOne), file editing (XEDIT), and business graphics (Chart-Master, Pendraw),
+              demonstrating applicability across different technology types.
             </li>
             <li>
               <strong>Different user populations:</strong> Examined TAM with different
