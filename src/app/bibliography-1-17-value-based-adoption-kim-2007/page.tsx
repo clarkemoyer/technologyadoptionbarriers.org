@@ -12,7 +12,7 @@ import {
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: Value-Based Adoption Model (VAM) - Kim, Chan, & Gupta (2007)',
+  title: 'Bibliography: Value-Based Adoption Model (VAM) - Kim et al. (2007)',
   description:
     'Comprehensive examination of the Value-Based Adoption Model (VAM), which posits that technology adoption is driven by perceived value as trade-off between perceived benefits and perceived sacrifices in consumer technology adoption.',
 }
@@ -21,9 +21,7 @@ const BibliographyArticlePage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
-        <h1 className={H1_CLASSES}>
-          Value-Based Adoption Model (VAM) - Kim, Chan, &amp; Gupta (2007)
-        </h1>
+        <h1 className={H1_CLASSES}>Value-Based Adoption Model (VAM) - Kim et al. (2007)</h1>
 
         {/* 1. Model Identification */}
         <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
