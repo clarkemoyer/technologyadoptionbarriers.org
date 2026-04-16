@@ -76,8 +76,7 @@ const BibliographyArticlePage = () => {
                 <a href="#ref-bandura-1986" className="text-tabs-teal-deep hover:underline">
                   1986
                 </a>
-                ).{' '}
-                <em>Social foundations of thought and action: A social cognitive theory</em>.
+                ). <em>Social foundations of thought and action: A social cognitive theory</em>.
                 Prentice-Hall.
               </p>
             </div>
@@ -555,9 +554,9 @@ const BibliographyArticlePage = () => {
                 </Link>
                 ):
               </strong>{' '}
-              Perceived ease of use shares conceptual overlap with self-efficacy. Later work in
-              the TAM tradition treated computer self-efficacy as an anchor for perceived ease of
-              use judgments.
+              Perceived ease of use shares conceptual overlap with self-efficacy. Later work in the
+              TAM tradition treated computer self-efficacy as an anchor for perceived ease of use
+              judgments.
             </li>
             <li>
               <strong>
