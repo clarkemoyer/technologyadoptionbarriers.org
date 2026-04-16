@@ -650,28 +650,42 @@ const BibliographyArticlePage = () => {
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Prospect Theory extensions:</strong> Research examining reference-dependent
-              preferences and loss aversion applications to technology adoption contexts.
+              <strong>Endowment Effect research (Kahneman, Knetsch, &amp; Thaler, 1990):</strong>{' '}
+              Extended the loss aversion mechanism underlying SQB to demonstrate that mere
+              ownership increases valuation of objects, providing experimental confirmation of
+              reference-dependent preferences.
             </li>
             <li>
-              <strong>Behavioral economics models:</strong> Subsequent models of choice and
-              decision-making incorporating behavioral realism.
+              <strong>Loss Aversion in Riskless Choice (Tversky &amp; Kahneman, 1991):</strong>{' '}
+              Formalized the reference-dependent preference model that provides the theoretical
+              foundation for status quo effects in decisions without explicit risk.
             </li>
             <li>
-              <strong>Technology adoption models:</strong> Frameworks explicitly incorporating
-              status quo effects and adoption barriers in technology diffusion research.
+              <strong>Nudge Theory (Thaler &amp; Sunstein, 2008):</strong>{' '}
+              Applied status quo bias insights to policy design, showing that default options
+              (which exploit SQB) dramatically affect outcomes in retirement savings,
+              organ donation, and other consequential decisions.
             </li>
             <li>
-              <strong>Consumer switching cost models:</strong> Research on brand loyalty and
-              switching costs building on status quo bias concepts.
+              <strong>
+                Innovation Resistance Model (
+                <Link
+                  href="/bibliography-1-4-model-of-innovation-resistance-ram-sheth-1989"
+                  className="text-tabs-teal-deep hover:underline"
+                >
+                  Ram &amp; Sheth, 1989
+                </Link>
+                ):
+              </strong>{' '}
+              Identified usage barriers and tradition barriers as sources of technology
+              resistance that parallel the status quo inertia mechanisms described by
+              Samuelson and Zeckhauser.
             </li>
             <li>
-              <strong>Organizational change management:</strong> Theories addressing how to overcome
-              psychological and organizational inertia in technology implementation.
-            </li>
-            <li>
-              <strong>Behavioral decision research:</strong> Subsequent studies examining individual
-              decision-making through psychological lenses rather than pure rational choice.
+              <strong>Switching Cost literature:</strong>{' '}
+              Samuelson and Zeckhauser&rsquo;s distinction between rational transition costs
+              and psychological bias-driven persistence became foundational for research
+              on technology switching costs and lock-in effects in IS research.
             </li>
           </ul>
         </section>
@@ -723,7 +737,7 @@ const BibliographyArticlePage = () => {
               Tversky, A., &amp; Kahneman, D. (1991). Loss aversion in riskless choice: A
               reference-dependent model. <em>Quarterly Journal of Economics</em>, 106(4), 1039-1061.
             </li>
-            <li id="ref-unknown-1944">
+            <li id="ref-vonneumann-1944">
               von Neumann, J., &amp; Morgenstern, O. (1944).{' '}
               <em>Theory of games and economic behavior</em>. Princeton University Press.
             </li>
