@@ -345,15 +345,15 @@ const BibliographyArticlePage = () => {
               high-value AI use cases aligned with business strategy.
             </li>
             <li>
-              <strong>Build:</strong> Develop required capabilities, establish governance
-              frameworks, and implement foundational use cases.
+              <strong>Align:</strong> Assess organizational readiness and gaps, develop
+              transformation roadmap, and establish cross-functional alignment.
             </li>
             <li>
-              <strong>Scale:</strong> Expand AI implementation across organization, operationalize
-              ML models, and build sustainable AI practices.
+              <strong>Launch:</strong> Deploy and iterate on initial use cases, validate outcomes,
+              and build operational capabilities.
             </li>
             <li>
-              <strong>Optimize:</strong> Continuously improve AI model performance, enhance
+              <strong>Scale:</strong> Expand successful use cases across the organization, optimize
               responsible AI practices, and maximize business value.
             </li>
           </ul>
@@ -513,8 +513,8 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>Clear capability progression:</strong> Framework provides logical progression
-              from discovery through optimization. Progression reflects realistic AI adoption
-              maturity evolution.
+              from envisioning through scaling. Progression reflects realistic AI adoption maturity
+              evolution.
             </li>
             <li>
               <strong>Perspective integration:</strong> Six perspectives address distinct
