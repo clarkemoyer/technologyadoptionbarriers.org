@@ -83,6 +83,7 @@ export default function ArticleTOC() {
       return { id: h.id, text: h.textContent ?? '' }
     })
 
+    // Schedule state update to avoid synchronous setState in effect.
     // eslint-disable-next-line react-hooks/set-state-in-effect
     requestAnimationFrame(() => setItems(tocItems))
 
@@ -117,6 +118,7 @@ export default function ArticleTOC() {
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll, { passive: true })
+    // Defer the initial sync to rAF so layout settles before handleScroll updates state.
     // eslint-disable-next-line react-hooks/set-state-in-effect
     requestAnimationFrame(handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
