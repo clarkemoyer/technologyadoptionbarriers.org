@@ -21,9 +21,7 @@ const BibliographyArticlePage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
-        <h1 className={H1_CLASSES}>
-          Personal Computing Utilization - Thompson, Higgins, &amp; Howell (1991)
-        </h1>
+        <h1 className={H1_CLASSES}>Personal Computing Utilization - Thompson et al. (1991)</h1>
 
         {/* 1. Model Identification */}
         <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
