@@ -31,6 +31,12 @@ const BibliographyArticlePage = () => {
               <strong>Model Name:</strong> Theory of Planned Behavior
             </p>
             <p>
+              <strong>Authors:</strong> Icek Ajzen
+            </p>
+            <p>
+              <strong>Publication Date:</strong> 1991
+            </p>
+            <p>
               <strong>Model Abbreviation:</strong> TPB
             </p>
             <p>
@@ -141,7 +147,8 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Core Concepts and Definitions</h2>
           <p className={PARAGRAPH_CLASSES}>
-            TPB operationalizes three primary determinants of behavioral intention:
+            TPB operationalizes five core constructs, including the three primary determinants of
+            behavioral intention:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
@@ -180,12 +187,12 @@ const BibliographyArticlePage = () => {
           <ul className={BODY_LIST_CLASSES}>
             <li>
               <strong>
-                Theory of Reasoned Action (Fishbein &amp;{' '}
+                Theory of Reasoned Action (
                 <Link
                   href="/bibliography-1-1-theory-of-reasoned-action-tra-fishbein-ajzen-1975"
                   className="text-tabs-teal-deep hover:underline"
                 >
-                  Ajzen, 1975
+                  Fishbein &amp; Ajzen, 1975
                 </Link>
                 ):
               </strong>{' '}
@@ -221,9 +228,9 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 7. Describe The Model */}
+        {/* 7. Describe the Model */}
         <section className={SECTION_CLASSES}>
-          <h2 className={H2_CLASSES}>Describe The Model</h2>
+          <h2 className={H2_CLASSES}>Describe the Model</h2>
           <p className={PARAGRAPH_CLASSES}>
             The Theory of Planned Behavior specifies that attitudes, subjective norms, and perceived
             behavioral control determine behavioral intention, which in turn predicts actual
@@ -561,7 +568,7 @@ const BibliographyArticlePage = () => {
               <em>
                 Belief, attitude, intention, and behavior: An introduction to theory and research
               </em>
-              {'. Addison-Wesley.'}
+              . Addison-Wesley.
             </li>
             <li id="ref-triandis-1977">
               Triandis, H. C. (1977). <em>Interpersonal behavior</em>. Brooks/Cole.
