@@ -714,6 +714,15 @@ const BibliographyArticlePage = () => {
             <li id="ref-kahneman-1979">
               Kahneman, D., &amp; Tversky, A. (1979). Prospect theory: An analysis of decision under
               risk. <em>Econometrica</em>, 47(2), 263-291.
+              <span className="text-xs ml-1">
+                <a
+                  href="#cite-ref-kahneman-1979-1"
+                  className="text-tabs-teal-deep hover:underline"
+                  aria-label="Back to citation 1"
+                >
+                  &#8617;
+                </a>
+              </span>
             </li>
           </ol>
         </section>
@@ -724,7 +733,7 @@ const BibliographyArticlePage = () => {
             <li id="ref-kahneman-1990">
               Kahneman, D., Knetsch, J. L., &amp; Thaler, R. H. (1990). Experimental tests of the
               endowment effect and the Coase theorem. <em>Journal of Political Economy</em>, 98(6),
-              1325&ndash;1348.
+              1325-1348.
             </li>
             <li id="ref-thaler-sunstein-2008">
               Thaler, R. H., &amp; Sunstein, C. R. (2008).{' '}
