@@ -195,7 +195,7 @@ const BibliographyPage = () => {
               <div className="text-sm text-gray-600">Venkatesh et al. (2003)</div>
             </Link>
             <Link
-              href="/bibliography-1-16-math-venkatesh-brown-2001"
+              href="/bibliography-1-16-math-brown-venkatesh-2005"
               className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
             >
               <div className="font-semibold text-blue-600">16. MATH</div>
@@ -402,7 +402,7 @@ const BibliographyPage = () => {
               <div className="text-sm text-gray-600">Microsoft (2025)</div>
             </Link>
             <Link
-              href="/bibliography-2-20-gartner-hype-cycle-methodology-2025"
+              href="/bibliography-2-20-cmmc-dod-2020"
               className="block p-3 bg-white rounded border border-gray-300 hover:border-green-500 hover:shadow-md transition-all"
             >
               <div className="font-semibold text-green-700">20. Gartner Hype Cycle Methodology</div>
