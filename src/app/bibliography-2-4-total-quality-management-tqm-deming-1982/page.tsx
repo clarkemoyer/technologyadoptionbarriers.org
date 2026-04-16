@@ -12,7 +12,7 @@ import {
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: Total Quality Management (TQM) - Deming (1982/1986)',
+  title: 'Bibliography: Total Quality Management (TQM) - Deming (1982)',
   description:
     'Comprehensive overview of Total Quality Management philosophy and W. Edwards Deming&rsquo;s 14 Points and System of Profound Knowledge, foundational management methodology emphasizing continuous improvement, statistical process control, and psychological transformation to achieve organizational excellence.',
 }
@@ -21,7 +21,7 @@ const BibliographyArticlePage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
-        <h1 className={H1_CLASSES}>Total Quality Management (TQM) - Deming (1982/1986)</h1>
+        <h1 className={H1_CLASSES}>Total Quality Management (TQM) - Deming (1982)</h1>
 
         {/* 1. Framework Identification */}
         <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
