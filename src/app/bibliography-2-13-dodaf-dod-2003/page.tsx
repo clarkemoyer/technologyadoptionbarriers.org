@@ -12,7 +12,7 @@ import {
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: DoDAF - US Department of Defense (2003)',
+  title: 'Bibliography: DoDAF - Department of Defense Architecture Framework (2003)',
   description:
     'Comprehensive overview of the Department of Defense Architecture Framework (DoDAF). Explains capability-based architecture, viewpoints-based description, and DoDAF role as mandatory architecture framework for US DoD acquisitions and joint capabilities.',
 }
@@ -21,7 +21,7 @@ const BibliographyArticlePage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
-        <h1 className={H1_CLASSES}>DoDAF - US Department of Defense (2003)</h1>
+        <h1 className={H1_CLASSES}>DoDAF - Department of Defense Architecture Framework (2003)</h1>
 
         {/* 1. Framework Identification */}
         <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
