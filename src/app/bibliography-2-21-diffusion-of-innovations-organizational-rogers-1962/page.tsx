@@ -12,9 +12,9 @@ import {
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: Diffusion of Innovations - Organizational Perspective - Rogers (1962)',
+  title: 'Bibliography: Diffusion of Innovations - Organizational Perspective - Rogers (1962/2003)',
   description:
-    "Comprehensive overview of Rogers' Diffusion of Innovations theory focused on organizational adoption lens. Covers organizational innovativeness, innovation-development process, organizational adoption stages, champions and change agents, and foundational diffusion research across 5,000+ studies.",
+    "Comprehensive overview of Rogers' Diffusion of Innovations theory (1st ed. 1962; 5th ed. 2003) focused on organizational adoption. Covers organizational innovativeness, innovation-development process, organizational adoption stages, champions and change agents, and foundational diffusion research across 5,000+ studies.",
 }
 
 const BibliographyArticlePage = () => {
@@ -915,7 +915,9 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-venkatesh-2003-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                ></a>
+                >
+                  &#8617;
+                </a>
               </span>{' '}
               https://doi.org/10.2307/30036540
             </li>
@@ -926,7 +928,9 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-kotter-1996-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                ></a>
+                >
+                  &#8617;
+                </a>
               </span>
             </li>
             <li id="ref-rogers-2003">
