@@ -111,7 +111,7 @@ const BibliographyArticlePage = () => {
           <p className={PARAGRAPH_CLASSES}>
             During the early 1990s, organizations faced increasing difficulty managing technology
             adoption decisions. New technologies emerged constantly: artificial intelligence,
-            virtual reality, the internet, mobile computing, cloud infrastructure concepts, and
+            virtual reality, the internet, mobile computing, client-server architectures, and
             numerous other innovations. Organizations struggled to distinguish between technologies
             representing genuine long-term opportunities versus temporary hype, fads, or premature
             technologies lacking practical implementation capability. Marketing and vendor claims
@@ -717,7 +717,7 @@ const BibliographyArticlePage = () => {
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
                 >
-                  ↩
+                  
                 </a>
               </span>
             </li>
@@ -730,7 +730,7 @@ const BibliographyArticlePage = () => {
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
                 >
-                  ↩
+                  
                 </a>
               </span>
             </li>
@@ -743,19 +743,19 @@ const BibliographyArticlePage = () => {
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
                 >
-                  ↩
+                  
                 </a>
               </span>
             </li>
             <li id="ref-foster-1986">
-              Foster, R. N. (1986). <em>Innovation: The attacker's advantage</em>. Summit Books.
+              Foster, R. N. (1986). <em>Innovation: The attacker&rsquo;s advantage</em>. Summit Books.
               <span className="text-xs ml-1">
                 <a
                   href="#cite-ref-foster-1986-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
                 >
-                  ↩
+                  
                 </a>
               </span>
             </li>
