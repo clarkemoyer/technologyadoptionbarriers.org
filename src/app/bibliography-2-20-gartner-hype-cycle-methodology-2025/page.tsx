@@ -21,7 +21,7 @@ const GartnerHypeCycleMethodologyPage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
-        <h1 className={H1_CLASSES}>Gartner Hype Cycle Research Methodology - Gartner (2025)</h1>
+        <h1 className={H1_CLASSES}>Gartner Hype Cycle Research Methodology (2025)</h1>
 
         {/* Framework Identification */}
         <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
