@@ -79,6 +79,17 @@ const BibliographyArticlePage = () => {
               documentation, assessment guides, practice guides, and DFARS contract clause
               requirements (48 CFR 252.204-7021)
             </p>
+            <p>
+              <strong>URL:</strong>{' '}
+              <a
+                href="https://www.acq.osd.mil/cmmc/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:underline"
+              >
+                https://www.acq.osd.mil/cmmc/
+              </a>
+            </p>
           </div>
         </section>
 
