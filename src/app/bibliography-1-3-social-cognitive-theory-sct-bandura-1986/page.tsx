@@ -114,8 +114,8 @@ const BibliographyArticlePage = () => {
             different behavioral outcomes.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            Although SCT was developed as a general theory of human behavior - covering domains
-            from health to education to moral development - its emphasis on self-efficacy made it
+            Although SCT was developed as a general theory of human behavior - covering domains from
+            health to education to moral development - its emphasis on self-efficacy made it
             particularly valuable for understanding technology adoption. Compeau and Higgins (1995)
             conducted the first systematic application of SCT to computing, demonstrating that
             computer self-efficacy significantly predicted usage behavior, affect, and anxiety.
@@ -553,9 +553,9 @@ const BibliographyArticlePage = () => {
                 </Link>
                 ):
               </strong>{' '}
-              Perceived ease of use shares conceptual overlap with self-efficacy.
-              Venkatesh (2000) later demonstrated that computer self-efficacy serves as an
-              anchor for perceived ease of use judgments.
+              Perceived ease of use shares conceptual overlap with self-efficacy. Venkatesh (2000)
+              later demonstrated that computer self-efficacy serves as an anchor for perceived ease
+              of use judgments.
             </li>
             <li>
               <strong>
@@ -568,9 +568,8 @@ const BibliographyArticlePage = () => {
                 </Link>
                 ):
               </strong>{' '}
-              Tested self-efficacy as a predictor but found its effect was subsumed
-              under Effort Expectancy rather than operating as a direct determinant of
-              behavioral intention.
+              Tested self-efficacy as a predictor but found its effect was subsumed under Effort
+              Expectancy rather than operating as a direct determinant of behavioral intention.
             </li>
             <li>
               <strong>
@@ -583,19 +582,19 @@ const BibliographyArticlePage = () => {
                 </Link>
                 ):
               </strong>{' '}
-              Explicitly modeled computer self-efficacy as an anchor determinant of
-              perceived ease of use.
+              Explicitly modeled computer self-efficacy as an anchor determinant of perceived ease
+              of use.
             </li>
             <li>
               <strong>Computer Self-Efficacy research (Compeau &amp; Higgins, 1995):</strong>{' '}
-              Developed and validated a measure of computer self-efficacy based directly on
-              SCT, demonstrating that self-efficacy significantly predicted computer usage,
-              affect, and anxiety in a survey of 1,020 Canadian managers and professionals.
+              Developed and validated a measure of computer self-efficacy based directly on SCT,
+              demonstrating that self-efficacy significantly predicted computer usage, affect, and
+              anxiety in a survey of 1,020 Canadian managers and professionals.
             </li>
             <li>
-              <strong>Compeau, Higgins, &amp; Huff (1999):</strong>{' '}
-              Extended the 1995 cross-sectional study into a longitudinal design, confirming
-              that SCT-based self-efficacy predicted computing behavior over time.
+              <strong>Compeau, Higgins, &amp; Huff (1999):</strong> Extended the 1995
+              cross-sectional study into a longitudinal design, confirming that SCT-based
+              self-efficacy predicted computing behavior over time.
             </li>
           </ul>
         </section>
