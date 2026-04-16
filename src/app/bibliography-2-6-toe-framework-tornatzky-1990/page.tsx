@@ -69,6 +69,9 @@ const BibliographyArticlePage = () => {
               <strong>Book Format:</strong> Scholarly monograph synthesizing prior research on
               technological innovation
             </p>
+            <p>
+              <strong>ISBN:</strong> 978-0-669-20348-6
+            </p>
           </div>
         </section>
 
