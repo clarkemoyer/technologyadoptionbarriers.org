@@ -34,7 +34,8 @@ const BibliographyArticlePage = () => {
               <strong>Model Abbreviation:</strong> SCT
             </p>
             <p>
-              <strong>Target of Model:</strong> Individual Technology Adoption
+              <strong>Target of Model:</strong> Human behavior and learning (later applied to
+              individual technology adoption)
             </p>
             <p>
               <strong>Disciplinary Origin:</strong> Psychological Theory
@@ -554,9 +555,12 @@ const BibliographyArticlePage = () => {
                 </Link>
                 ):
               </strong>{' '}
-              Perceived ease of use shares conceptual overlap with self-efficacy. Later work in the
-              TAM tradition treated computer self-efficacy as an anchor for perceived ease of use
-              judgments.
+              Perceived ease of use shares conceptual overlap with self-efficacy. Venkatesh (
+              <a href="#ref-venkatesh-2000" className="text-tabs-teal-deep hover:underline">
+                2000
+              </a>
+              ) demonstrated that computer self-efficacy serves as an anchor for perceived ease of
+              use judgments in the TAM tradition.
             </li>
             <li>
               <strong>
@@ -616,6 +620,12 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Further Reading</h2>
           <ol className={REFERENCES_OL_CLASSES}>
+            <li id="ref-venkatesh-2000">
+              Venkatesh, V. (2000). Determinants of perceived ease of use: Integrating control,
+              intrinsic motivation, and emotion into the technology acceptance model.{' '}
+              <em>Information Systems Research</em>, 11(4), 342-365.
+              https://doi.org/10.1287/isre.11.4.342.11872
+            </li>
             <li id="ref-bandura-1997">
               Bandura, A. (1997). <em>Self-efficacy: The exercise of control</em>. W.H. Freeman.
             </li>
