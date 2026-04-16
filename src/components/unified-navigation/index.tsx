@@ -143,7 +143,8 @@ export default function UnifiedNavigation({
       return { id: el.id, text: el.textContent || '' }
     })
     // DOM scan result - intentional sync from external system
-    setHeadings(items) // eslint-disable-line react-hooks/set-state-in-effect
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setHeadings(items)
   }, [pathname, scrollMargin])
 
   // Scroll spy with IntersectionObserver - rootMargin tracks dynamic header height
@@ -173,7 +174,11 @@ export default function UnifiedNavigation({
 
   // Reset mobile panel when switching to desktop sidebar
   useEffect(() => {
-    if (canShowDesktop) setMobileOpen(false) // eslint-disable-line react-hooks/set-state-in-effect
+    if (canShowDesktop) {
+      // Layout state sync: reset panel when viewport crosses the desktop breakpoint
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setMobileOpen(false)
+    }
   }, [canShowDesktop])
 
   // Close mobile panel on outside click
