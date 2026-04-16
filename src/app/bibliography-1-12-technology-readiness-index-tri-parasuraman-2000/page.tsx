@@ -31,7 +31,7 @@ const RefEntry = ({ entry }: { entry: ReferenceEntry }) => (
           className="text-tabs-teal-deep hover:underline"
           aria-label={entry.backLink.label}
         >
-          &#8617;
+          {'\u21A9'}
         </a>
       </span>
     )}
@@ -122,9 +122,9 @@ const FURTHER_READING: ReferenceEntry[] = [
     id: 'ref-fishbein-1975',
     text: (
       <>
-        Fishbein, M., &amp; Ajzen, I. (1975). {/* prettier-ignore */}
-        <em>Belief, attitude, intention, and behavior: An introduction to theory and research</em>
-        {'. Addison-Wesley.'}
+        Fishbein, M., &amp; Ajzen, I. (1975).{' '}
+        <em>Belief, attitude, intention, and behavior: An introduction to theory and research</em>.
+        Addison-Wesley.
       </>
     ),
   },
