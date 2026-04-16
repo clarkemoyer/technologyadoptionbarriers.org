@@ -522,9 +522,7 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-bandura-1977-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                >
-                  ↩
-                </a>
+                ></a>
               </span>
             </li>
           </ol>
