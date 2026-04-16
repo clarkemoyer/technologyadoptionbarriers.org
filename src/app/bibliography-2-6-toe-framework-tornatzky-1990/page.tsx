@@ -12,7 +12,8 @@ import {
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: TOE Framework - Tornatzky & Fleischer (1990)',
+  title:
+    'Bibliography: Technology-Organization-Environment (TOE) Framework - Tornatzky & Fleischer (1990)',
   description:
     'Comprehensive overview of the Technology-Organization-Environment (TOE) Framework. Explains how technological, organizational, and environmental contexts shape technology adoption decisions in organizations.',
 }
@@ -21,7 +22,9 @@ const BibliographyArticlePage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
-        <h1 className={H1_CLASSES}>TOE Framework - Tornatzky &amp; Fleischer (1990)</h1>
+        <h1 className={H1_CLASSES}>
+          Technology-Organization-Environment (TOE) Framework - Tornatzky &amp; Fleischer (1990)
+        </h1>
 
         {/* 1. Framework Identification */}
         <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
