@@ -68,6 +68,17 @@ const BibliographyArticlePage = () => {
             <p>
               <strong>Pages:</strong> 123-139
             </p>
+            <p>
+              <strong>URL:</strong>{' '}
+              <a
+                href="https://www.jstor.org/stable/2661451"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:underline"
+              >
+                https://www.jstor.org/stable/2661451
+              </a>
+            </p>
           </div>
         </section>
 
