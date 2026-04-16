@@ -133,14 +133,14 @@ const BibliographyArticlePage = () => {
             TRA suggested that behavior stems from these two primary determinants.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            TRA was developed as a general social psychology theory, not specifically for
-            technology adoption. It addressed practical needs across public health, organizational,
-            and policy domains - predicting contraceptive use, energy conservation, occupational
-            choices, and other behaviors. The technology adoption application came later when Davis
-            (1989) adapted TRA&rsquo;s attitude-intention-behavior structure to create the
-            Technology Acceptance Model, substituting Perceived Usefulness and Perceived Ease of
-            Use as technology-specific belief constructs. TRA&rsquo;s parsimonious structure and
-            focus on behavioral intention made it readily adaptable to technology contexts.
+            TRA was developed as a general social psychology theory, not specifically for technology
+            adoption. It addressed practical needs across public health, organizational, and policy
+            domains - predicting contraceptive use, energy conservation, occupational choices, and
+            other behaviors. The technology adoption application came later when Davis (1989)
+            adapted TRA&rsquo;s attitude-intention-behavior structure to create the Technology
+            Acceptance Model, substituting Perceived Usefulness and Perceived Ease of Use as
+            technology-specific belief constructs. TRA&rsquo;s parsimonious structure and focus on
+            behavioral intention made it readily adaptable to technology contexts.
           </p>
         </section>
 
