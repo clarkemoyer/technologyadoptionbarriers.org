@@ -871,16 +871,12 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-wernerfelt-1984-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                >
-                  ↩
-                </a>{' '}
+                ></a>{' '}
                 <a
                   href="#cite-ref-wernerfelt-1984-2"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 2"
-                >
-                  ↩
-                </a>
+                ></a>
               </span>
             </li>
             <li id="ref-barney-1991">
@@ -892,16 +888,12 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-barney-1991-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                >
-                  ↩
-                </a>{' '}
+                ></a>{' '}
                 <a
                   href="#cite-ref-barney-1991-2"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 2"
-                >
-                  ↩
-                </a>
+                ></a>
               </span>
             </li>
             <li id="ref-arthur-1989">
@@ -912,9 +904,7 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-arthur-1989-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                >
-                  ↩
-                </a>
+                ></a>
               </span>
             </li>
             <li id="ref-teece-2007">
@@ -926,9 +916,7 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-teece-2007-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                >
-                  ↩
-                </a>
+                ></a>
               </span>
             </li>
             <li id="ref-dosi-1982">
@@ -939,9 +927,7 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-dosi-1982-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                >
-                  ↩
-                </a>
+                ></a>
               </span>
             </li>
             <li id="ref-rosenberg-1982">
@@ -952,9 +938,7 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-rosenberg-1982-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                >
-                  ↩
-                </a>
+                ></a>
               </span>
             </li>
             <li id="ref-teece-1997">
