@@ -470,8 +470,8 @@ const BibliographyArticlePage = () => {
               <strong>Early Majority Organizations:</strong> Adopt innovations after seeing evidence
               from early adopters, but before the majority of peer organizations. Adoption decisions
               are heavily influenced by industry benchmarking, peer reference cases, and analyst
-              reports. Rogers noted that adoption by this group marks the transition from
-              early to mainstream adoption within an organizational population.
+              reports. Rogers noted that adoption by this group marks the transition from early to
+              mainstream adoption within an organizational population.
             </li>
             <li>
               <strong>Late Majority Organizations:</strong> Adopt out of competitive necessity or
@@ -887,8 +887,8 @@ const BibliographyArticlePage = () => {
                 ):
               </strong>{' '}
               Conducted a meta-analysis of 23 organizational innovation studies, quantifying the
-              relationships between Rogers&rsquo; structural variables (centralization, formalization,
-              complexity, slack) and organizational innovativeness.
+              relationships between Rogers&rsquo; structural variables (centralization,
+              formalization, complexity, slack) and organizational innovativeness.
             </li>
           </ul>
         </section>
