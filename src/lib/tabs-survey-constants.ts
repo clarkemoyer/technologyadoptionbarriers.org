@@ -194,7 +194,7 @@ type MaturitySubconstructGrouping = {
   grouping: string
 }
 
-export const MATURITY_SUBCONSTRUCT_GROUPINGS: MaturitySubconstructGrouping[] = [
+export const MATURITY_SUBCONSTRUCT_GROUPINGS = [
   { itemCode: 'D1', item: 'IT Investment & Value Mgmt', grouping: 'Investment & Value Management' },
   {
     itemCode: 'D2',
@@ -215,6 +215,6 @@ export const MATURITY_SUBCONSTRUCT_GROUPINGS: MaturitySubconstructGrouping[] = [
   { itemCode: 'D6', item: 'Strategic IT Planning', grouping: 'Strategy & Architecture' },
   { itemCode: 'D7', item: 'Workforce Capability', grouping: 'Workforce & Talent' },
   { itemCode: 'D8', item: 'Change Leadership', grouping: 'Change & Adoption Leadership' },
-]
+] satisfies readonly MaturitySubconstructGrouping[]
 
 export const MATURITY_ITEM_NAMES_NOTE = `MATURITY_ITEM_NAMES contains the canonical survey item names as they appear in the Qualtrics CSV column subheaders. MATURITY_SUBCONSTRUCT_GROUPINGS uses the same canonical names in its item field so entries can be joined deterministically to MATURITY_ITEM_NAMES, while itemCode stores the survey dimension identifier (D1-D8). The grouping labels synthesize related capability domains across CMMI v2.0, IT-CMF, COBIT 2019, and DREAMY into unified conceptual categories. For items D1-D5, the canonical names and grouping labels are closely aligned. For D6-D8, the grouping labels are broader (e.g., 'Strategy & Architecture' encompasses both strategic planning and enterprise architecture maturity).`
