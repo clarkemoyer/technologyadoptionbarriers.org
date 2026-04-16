@@ -685,39 +685,28 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Following Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
-            Microsoft AI Adoption Framework influenced subsequent AI governance and responsible AI
-            frameworks:
+            As a 2025 framework, Microsoft AI Adoption Framework is too recent to have established
+            documented descendant models. Its influence on subsequent AI governance and adoption
+            frameworks remains to be documented. The following represent anticipated areas of
+            influence rather than confirmed descendant frameworks:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Industry-Specific AI Governance Frameworks (2025-present):</strong>{' '}
-              Organizations developed industry-specific AI frameworks building on Microsoft
-              framework patterns for healthcare, financial services, and government.
+              <strong>Enterprise AI Governance Standards:</strong> Microsoft&rsquo;s six Responsible
+              AI principles (Fairness, Reliability and Safety, Privacy and Security, Inclusiveness,
+              Transparency, Accountability) may influence emerging enterprise AI governance
+              standards as organizations codify responsible AI practices.
             </li>
             <li>
-              <strong>Responsible AI Certification Programs (2024-present):</strong> Certification
-              programs incorporating Microsoft Responsible AI Standard principles and assessment
-              approaches.
+              <strong>Copilot Integration Patterns:</strong> As Microsoft Copilot adoption expands
+              across enterprises, the framework&rsquo;s Copilot-specific guidance may establish
+              patterns for how organizations integrate AI assistants into existing workflows and
+              governance structures.
             </li>
             <li>
-              <strong>Generative AI Governance Standards (2024-present):</strong> Emerging
-              generative AI governance standards reference Microsoft framework Copilot and
-              responsible AI approaches.
-            </li>
-            <li>
-              <strong>AI Readiness Assessment Methodologies (2024-present):</strong> Assessment
-              approaches building on Microsoft framework&rsquo;s comprehensive readiness assessment
-              model.
-            </li>
-            <li>
-              <strong>Responsible AI Operations Frameworks (2024-present):</strong> Operational
-              approaches incorporating Microsoft framework&rsquo;s responsible AI integration and
-              governance discipline.
-            </li>
-            <li>
-              <strong>AI Center of Excellence Patterns (2024-present):</strong> Organizational
-              models for AI leadership incorporating Microsoft framework structure and governance
-              approaches.
+              <strong>Regulated Industry AI Adoption:</strong> Financial services, healthcare, and
+              government organizations may adapt Microsoft&rsquo;s responsible AI and governance
+              approaches for sector-specific AI compliance requirements.
             </li>
           </ul>
         </section>
