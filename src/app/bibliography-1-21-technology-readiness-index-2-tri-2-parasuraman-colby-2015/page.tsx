@@ -818,9 +818,7 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-parasuraman-2000-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                >
-                  ↩
-                </a>
+                ></a>
               </span>{' '}
               https://doi.org/10.1177/109467050024001
             </li>
@@ -831,9 +829,7 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-rogers-1995-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                >
-                  ↩
-                </a>
+                ></a>
               </span>
             </li>
             <li id="ref-davis-1989">
@@ -844,9 +840,7 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-davis-1989-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                >
-                  ↩
-                </a>
+                ></a>
               </span>{' '}
               https://doi.org/10.2307/249008
             </li>
