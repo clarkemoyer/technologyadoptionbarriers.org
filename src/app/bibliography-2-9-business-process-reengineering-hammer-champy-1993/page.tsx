@@ -817,9 +817,7 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-deming-1986-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                >
-                  ↩
-                </a>
+                ></a>
               </span>
             </li>
             <li id="ref-rogers-1983">
@@ -829,9 +827,7 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-rogers-1983-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                >
-                  ↩
-                </a>
+                ></a>
               </span>
             </li>
             <li id="ref-porter-1985">
@@ -843,9 +839,7 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-porter-1985-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                >
-                  ↩
-                </a>
+                ></a>
               </span>
             </li>
             <li id="ref-mintzberg-1979">
@@ -855,9 +849,7 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-mintzberg-1979-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                >
-                  ↩
-                </a>
+                ></a>
               </span>
             </li>
             <li id="ref-george-2002">
@@ -868,9 +860,7 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-george-2002-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                >
-                  ↩
-                </a>
+                ></a>
               </span>
             </li>
             <li id="ref-womack-1996">
