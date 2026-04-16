@@ -12,7 +12,7 @@ import {
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: Resource-Based View (RBV) of the Firm - Wernerfelt (1984)',
+  title: 'Bibliography: A Resource-Based View (RBV) - Wernerfelt (1984)',
   description:
     'Comprehensive overview of the Resource-Based View of the Firm, foundational strategic management theory arguing that competitive advantage originates from internal firm resources rather than industry structure, establishing resources as sustainable sources of performance differentiation.',
 }
@@ -21,7 +21,7 @@ const BibliographyArticlePage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
-        <h1 className={H1_CLASSES}>Resource-Based View (RBV) of the Firm - Wernerfelt (1984)</h1>
+        <h1 className={H1_CLASSES}>A Resource-Based View (RBV) - Wernerfelt (1984)</h1>
 
         {/* 1. Framework Identification */}
         <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
