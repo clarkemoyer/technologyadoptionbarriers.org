@@ -45,10 +45,12 @@ const constants = {
 }
 
 // Validate MATURITY_SUBCONSTRUCT_GROUPINGS invariants before writing
-const EXPECTED_ITEM_CODES = new Set(['D1', 'D2', 'D3', 'D4', 'D5', 'D6', 'D7', 'D8'])
+const EXPECTED_ITEM_CODES = ['D1', 'D2', 'D3', 'D4', 'D5', 'D6', 'D7', 'D8'] as const
 const actualItemCodes = MATURITY_SUBCONSTRUCT_GROUPINGS.map((g) => g.itemCode)
-const missingCodes = [...EXPECTED_ITEM_CODES].filter((c) => !actualItemCodes.includes(c as never))
-const duplicateCodes = actualItemCodes.filter((c, i) => actualItemCodes.indexOf(c) !== i)
+const missingCodes = EXPECTED_ITEM_CODES.filter((c) => !actualItemCodes.includes(c))
+const duplicateCodes = [
+  ...new Set(actualItemCodes.filter((c, i) => actualItemCodes.indexOf(c) !== i)),
+]
 const unknownItems = MATURITY_SUBCONSTRUCT_GROUPINGS.filter(
   (g) => !(MATURITY_ITEM_NAMES as readonly string[]).includes(g.item)
 ).map((g) => g.item)
