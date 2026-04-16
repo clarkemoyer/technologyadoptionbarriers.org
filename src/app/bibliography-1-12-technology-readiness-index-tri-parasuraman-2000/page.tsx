@@ -12,7 +12,7 @@ import {
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: Technology Readiness Index - Parasuraman (2000)',
+  title: 'Bibliography: Technology Readiness Index (TRI) - Parasuraman (2000)',
   description:
     'In-depth exploration of the Technology Readiness Index (TRI), a foundational scale measuring individual predispositions to embrace or resist technology innovations across four dimensions.',
 }
