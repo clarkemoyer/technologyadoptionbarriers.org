@@ -565,7 +565,7 @@ const BibliographyArticlePage = () => {
             <li id="ref-davis-1992">
               Davis, F. D., Bagozzi, R. P., &amp; Warshaw, P. R. (1992). Extrinsic and intrinsic
               motivation to use computers in the workplace.{' '}
-              <em>Journal of Applied Social Psychology</em>, 22(14), 1111-1132.{` `}
+              <em>Journal of Applied Social Psychology</em>, 22(14), 1111-1132.{' '}
               <a
                 href="https://doi.org/10.1111/j.1559-1816.1992.tb00945.x"
                 target="_blank"
