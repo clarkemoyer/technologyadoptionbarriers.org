@@ -164,8 +164,8 @@ const BibliographyArticlePage = () => {
             <li>
               <strong>Perceived Behavioral Control:</strong> People&rsquo;s perception of the ease
               or difficulty of performing the behavior of interest. Unlike generalized locus of
-              control, PBC is behavior-specific and varies across situations. Reflects both
-              internal factors (skills, knowledge) and external factors (opportunities, resources,
+              control, PBC is behavior-specific and varies across situations. Reflects both internal
+              factors (skills, knowledge) and external factors (opportunities, resources,
               cooperation of others).
             </li>
             <li>
