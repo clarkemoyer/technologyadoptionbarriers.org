@@ -786,7 +786,7 @@ const BibliographyArticlePage = () => {
                   Venkatesh et al., 2003
                 </a>
                 ):
-              </strong>
+              </strong>{' '}
               Integrated eight prior models, including TRA, TPB, and TAM, into a unified predictive
               framework.
             </li>
