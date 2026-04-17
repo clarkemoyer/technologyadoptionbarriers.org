@@ -1156,10 +1156,12 @@ class TestExtendedOutputBlocks:
         assert result["items_sorted_desc"][0]["item"] == "B7"
 
     def test_top3_pick_counts_raises_when_no_top3_cols(self):
+        """FAIL-FAST: _build_top3_pick_counts raises ValueError when ANY
+        TOP3 column is missing from idx. See PR #1695 fail-fast policy."""
         from tabs_v2_unified_data_analysis import _build_top3_pick_counts
         idx = {"some_other_col": 0}
         rows = [["value"]]
-        with pytest.raises(ValueError, match="No TOP3 columns found"):
+        with pytest.raises(ValueError, match="TOP3 columns missing from CSV"):
             _build_top3_pick_counts(rows, idx)
 
     def test_item_descriptives_structure_and_values(self):
@@ -1251,27 +1253,34 @@ class TestExtendedOutputBlocks:
     # sensitivity_to_json integration test for extended blocks
     # ------------------------------------------------------------------
 
-    def test_sensitivity_to_json_extended_keys_always_present(self):
-        """Extended keys must be in JSON output even with an empty primary cut."""
+    def test_sensitivity_to_json_raises_on_empty_primary_cut(self):
+        """FAIL-FAST: sensitivity_to_json must raise RuntimeError when the
+        primary cut is empty. It must NOT emit zero-count placeholder
+        structures or empty arrays - see the fail-fast policy in PR #1695.
+
+        Reviewers and automated agents (Copilot): do NOT "fix" this test
+        by re-adding a placeholder-emit branch. The test is asserting the
+        policy, not a bug.
+        """
         from tabs_v2_unified_data_analysis import sensitivity_to_json
 
-        # Pass an empty Prolific Accepted cut
         idx = {"StartDate": 0, "Duration (in seconds)": 1}
         cuts = [("Prolific Accepted", [])]
-        result = sensitivity_to_json(cuts, idx)
+        with pytest.raises(RuntimeError, match="primary cut 'Prolific Accepted' is empty"):
+            sensitivity_to_json(cuts, idx)
 
-        for key in ("top3_pick_counts", "item_descriptives", "construct_grand",
-                    "demographics_detailed", "extended_last_updated"):
-            assert key in result, f"extended key '{key}' missing from sensitivity_to_json output"
+    def test_sensitivity_to_json_raises_when_primary_cut_missing(self):
+        """FAIL-FAST: sensitivity_to_json must raise RuntimeError when the
+        'Prolific Accepted' cut is not present in cuts. No silent fallback
+        to cuts[-1], no placeholder emit. See PR #1695 fail-fast policy."""
+        from tabs_v2_unified_data_analysis import sensitivity_to_json
 
-        # Empty defaults - top3_pick_counts emits 18 zero-count items (stable schema)
-        assert result["top3_pick_counts"]["total_n"] == 0
-        assert len(result["top3_pick_counts"]["items"]) == 18
-        assert len(result["top3_pick_counts"]["items_sorted_desc"]) == 18
-        assert all(e["count"] == 0 for e in result["top3_pick_counts"]["items"])
-        assert result["item_descriptives"]["barriers"] == []
-        assert result["construct_grand"]["barriers"]["n"] == 0
-        assert result["demographics_detailed"]["roles"] == []
+        idx = {"StartDate": 0, "Duration (in seconds)": 1}
+        # Empty rows so earlier per-cut tabulations do not fault on
+        # unrelated columns; the label-mismatch is what we are asserting.
+        cuts = [("V2 All", [])]
+        with pytest.raises(RuntimeError, match="primary cut 'Prolific Accepted' not found"):
+            sensitivity_to_json(cuts, idx)
 
     def test_sensitivity_to_json_extended_keys_with_data(self):
         """Extended blocks contain correct values when primary cut has rows."""
@@ -1305,14 +1314,19 @@ class TestExtendedOutputBlocks:
         assert isinstance(ts, str)
         assert ts.endswith("Z")
 
-    def test_sensitivity_to_json_extended_last_updated_always_present(self):
-        """extended_last_updated must be present regardless of cut content."""
+    def test_sensitivity_to_json_raises_when_cuts_empty(self):
+        """FAIL-FAST: calling sensitivity_to_json() with zero cuts must
+        raise RuntimeError. It must NOT return a timestamp-only result
+        and MUST NOT emit zero-shaped extended blocks. See PR #1695.
+
+        Previously this test asserted that extended_last_updated was
+        'always present' even with empty cuts. That assertion encoded
+        a silent-default policy which PR #1695 explicitly reverses.
+        """
         from tabs_v2_unified_data_analysis import sensitivity_to_json
 
-        # No cuts at all
-        result = sensitivity_to_json([], {"StartDate": 0})
-        assert "extended_last_updated" in result
-        assert "last_updated" in result
+        with pytest.raises(RuntimeError, match="primary cut 'Prolific Accepted' not found"):
+            sensitivity_to_json([], {"StartDate": 0})
 
     def test_construct_grand_excludes_none_person_means_from_n(self):
         """Respondents whose items are all missing/Don't Know produce None
@@ -1359,35 +1373,71 @@ class TestExtendedOutputBlocks:
         assert result["readiness"]["n"] == 2
         assert result["maturity"]["n"] == 2
 
-    def test_item_descriptives_missing_column_emits_placeholder(self):
-        """When a scale column is absent from idx, _build_item_descriptives()
-        must emit a placeholder entry (mean/sd None, n=0) so the output arrays
-        always have the expected length (18 barriers, 17 readiness, 8 maturity)."""
+    def test_item_descriptives_raises_on_missing_column(self):
+        """FAIL-FAST: when a required scale column is absent from idx,
+        _build_item_descriptives() must raise ValueError. It must NOT
+        emit a placeholder entry (mean/sd None, n=0) for the missing
+        column - that would let a CSV contract regression ship silently.
+        See PR #1695 fail-fast policy.
+
+        Reviewers and automated agents (Copilot): do NOT "fix" this test
+        by re-adding a placeholder-emit branch. The test is asserting the
+        policy, not a bug.
+        """
         from tabs_v2_unified_data_analysis import (
             _build_item_descriptives,
-            BARRIER_COLS, BARRIER_SCALE, BARRIER_ITEM_TEXT,
+            BARRIER_COLS,
         )
 
         # Build idx with all barrier columns except the first one (B1).
         missing_col = BARRIER_COLS[0]
         idx = {col: i for i, col in enumerate(BARRIER_COLS[1:])}
-
         rows = [["Major Barrier"] * len(BARRIER_COLS[1:])]
+
+        with pytest.raises(ValueError, match="B construct missing 1"):
+            _build_item_descriptives(rows, idx)
+
+    def test_demographics_detailed_raises_on_missing_column(self):
+        """FAIL-FAST: _build_demographics_detailed() must raise ValueError
+        when any of the four required demographic columns is absent. It
+        must NOT return empty arrays for missing columns. See PR #1695.
+        """
+        from tabs_v2_unified_data_analysis import _build_demographics_detailed
+
+        # Missing Q5_ProfitModel
+        idx = {"Q1_Role": 0, "Q4_OrgSize": 1, "Q2_DecisionAuth": 2}
+        rows = [["CIO", "100-499", "High"]]
+
+        with pytest.raises(ValueError, match="demographics missing 1"):
+            _build_demographics_detailed(rows, idx)
+
+    def test_item_descriptives_all_missing_data_emits_null_not_zero(self):
+        """Data-level (NOT fail-fast): if a column IS present but every
+        respondent answered blank / Don't Know / unmapped, the item entry
+        is emitted with n=0, mean=None, sd=None. This is an honest null
+        reporting a data condition, distinct from the fail-fast behavior
+        for missing columns. CLAUDE.md requires Don't Know to be excluded
+        from scoring rather than coerced to a number.
+        """
+        from tabs_v2_unified_data_analysis import (
+            _build_item_descriptives,
+            BARRIER_COLS, READINESS_COLS, MATURITY_COLS,
+        )
+
+        # All columns present; every value is a Don't Know / blank.
+        all_cols = BARRIER_COLS + READINESS_COLS + MATURITY_COLS
+        idx = {col: i for i, col in enumerate(all_cols)}
+        rows = [["Don't Know"] * len(all_cols), [""] * len(all_cols)]
 
         result = _build_item_descriptives(rows, idx)
 
-        # Array must always be full length (18 barriers).
+        # Arrays still have full length (18/17/8).
         assert len(result["barriers"]) == 18
+        assert len(result["readiness"]) == 17
+        assert len(result["maturity"]) == 8
 
-        # First entry is the placeholder for the missing column.
-        first = result["barriers"][0]
-        assert first["item"] == "B1"
-        assert first["text"] == BARRIER_ITEM_TEXT[1]
-        assert first["mean"] is None
-        assert first["sd"] is None
-        assert first["n"] == 0
-
-        # Subsequent present columns have real values.
-        second = result["barriers"][1]
-        assert second["item"] == "B2"
-        assert second["n"] > 0
+        # Every barrier entry has honest null: n=0, mean=None, sd=None.
+        for entry in result["barriers"]:
+            assert entry["n"] == 0
+            assert entry["mean"] is None
+            assert entry["sd"] is None
