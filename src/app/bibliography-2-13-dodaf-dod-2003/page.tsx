@@ -503,8 +503,8 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Internal Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
-            DoDAF is a prescriptive architecture framework and product specification rather than
-            an empirical theory, so construct-validity testing does not apply in the psychometric
+            DoDAF is a prescriptive architecture framework and product specification rather than an
+            empirical theory, so construct-validity testing does not apply in the psychometric
             sense. Considerations typically raised about its internal consistency include:
           </p>
           <ul className={BODY_LIST_CLASSES}>
