@@ -275,10 +275,10 @@ const BibliographyArticlePage = () => {
               terms.
             </li>
             <li>
-              <strong>Loss Aversion Theory (Kahneman &amp; Tversky):</strong> Demonstrated that
-              individuals weight losses more heavily than gains, creating asymmetries in
-              decision-making. SQB builds on loss aversion by showing how this asymmetry favors
-              status quo.
+              <strong>Loss Aversion Theory (Kahneman &amp; Tversky):</strong> Reported evidence
+              that individuals weight losses more heavily than gains, creating asymmetries in
+              decision-making. SQB builds on loss aversion by arguing that this asymmetry favors
+              the status quo.
             </li>
             <li>
               <strong>
@@ -351,10 +351,10 @@ const BibliographyArticlePage = () => {
           <h3 className={H3_CLASSES}>Main Strengths</h3>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Extraordinary breadth of empirical support:</strong> Demonstrated across
-              numerous decision contexts (health insurance, retirement investments, housing, job
-              selection, color preferences, technology choices). Subsequent research confirmed
-              effects across diverse domains.
+              <strong>Breadth of empirical support:</strong> Reported across numerous decision
+              contexts (health insurance, retirement investments, housing, job selection, color
+              preferences, technology choices). Subsequent research has reported status-quo
+              effects across diverse domains, with effect sizes varying by domain and design.
             </li>
             <li>
               <strong>Careful distinction of alternative explanations:</strong> Rather than
@@ -466,30 +466,31 @@ const BibliographyArticlePage = () => {
           <h2 className={H2_CLASSES}>Key Contributions</h2>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Demonstrated systematic violation of rational choice:</strong> Provided
-              empirical evidence that individuals systematically deviate from rational predictions
-              in predictable patterns toward status quo preference, challenging foundational
-              economic assumptions.
+              <strong>Reported systematic deviation from rational choice:</strong> Provided
+              empirical evidence that participants systematically deviate from rational-choice
+              predictions in the direction of status quo preference, challenging assumptions of
+              context-independent choice.
             </li>
             <li>
-              <strong>Identified multiple causal mechanisms:</strong> Distinguished between rational
-              explanations (transition costs, uncertainty) and psychological explanations (loss
-              aversion, cognitive dissonance, sunk cost fallacies) driving status quo persistence.
+              <strong>Identified multiple causal mechanisms:</strong> Distinguished between
+              rational explanations (transition costs, uncertainty) and psychological
+              explanations (loss aversion, cognitive dissonance, sunk cost fallacies) proposed to
+              drive status quo persistence.
             </li>
             <li>
-              <strong>Established behavioral economics foundation:</strong> Contributed to the
-              emerging field of behavioral economics by showing how psychological and contextual
-              factors systematically deviate from rational predictions.
+              <strong>Contributed to behavioral economics foundations:</strong> Is one of the
+              widely cited early empirical papers in the development of behavioral economics,
+              alongside Kahneman, Tversky, and Thaler&rsquo;s related work.
             </li>
             <li>
-              <strong>Demonstrated reference-point dependence:</strong> Showed that decision
-              outcomes depend on how alternatives are presented relative to current position,
-              violating rational choice axioms about context-independence.
+              <strong>Highlighted reference-point dependence:</strong> Reported that choice
+              distributions depend on how alternatives are labeled relative to the current
+              position, violating rational choice axioms about context-independence.
             </li>
             <li>
-              <strong>Provided cross-domain generalizability:</strong> Demonstrated that status quo
-              bias operates consistently across diverse decision contexts, suggesting fundamental
-              principles about human decision-making.
+              <strong>Cross-domain replication:</strong> Subsequent studies have reported
+              status-quo effects across diverse decision contexts. Effect sizes vary by design,
+              and the effect is not universal.
             </li>
             <li>
               <strong>Enabled practical understanding of real-world decisions:</strong> Explained
@@ -617,8 +618,8 @@ const BibliographyArticlePage = () => {
             <li>
               <strong>Uncertainty about new technology:</strong> Novel technologies involve
               uncertainty about actual performance, capabilities, and suitability. Decision-makers
-              may rationally choose proven technologies rather than gamble on uncertain
-              alternatives.
+              may rationally choose familiar, established technologies rather than gamble on
+              uncertain alternatives.
             </li>
             <li>
               <strong>Loss aversion and reference-dependent preferences:</strong> Individuals weigh
