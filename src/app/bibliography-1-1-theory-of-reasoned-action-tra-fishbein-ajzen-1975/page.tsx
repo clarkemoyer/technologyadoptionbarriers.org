@@ -225,8 +225,8 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>Behavioral Beliefs (bi) &times; Outcome Evaluations (ei):</strong> Belief
-              strength about each consequence multiplied by evaluation of that consequence;
-              summed across salient beliefs to form the cognitive basis of AB.
+              strength about each consequence multiplied by evaluation of that consequence; summed
+              across salient beliefs to form the cognitive basis of AB.
             </li>
             <li>
               <strong>Normative Beliefs (nj) &times; Motivation to Comply (mj):</strong> Belief
