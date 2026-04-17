@@ -243,9 +243,8 @@ const BibliographyArticlePage = () => {
                   relative to available alternatives.
                 </li>
                 <li>
-                  <strong>Risk Barrier:</strong> Perceived physical, economic, functional, or
-                  social risks of adoption (commonly measured as uncertainty/risk perception
-                  scales).
+                  <strong>Risk Barrier:</strong> Perceived physical, economic, functional, or social
+                  risks of adoption (commonly measured as uncertainty/risk perception scales).
                 </li>
               </ul>
             </li>
@@ -762,7 +761,9 @@ const BibliographyArticlePage = () => {
 
         {/* 15. Further Reading */}
         <section className={SECTION_CLASSES}>
-          <h2 className={H2_CLASSES} id="further-reading">Further Reading</h2>
+          <h2 className={H2_CLASSES} id="further-reading">
+            Further Reading
+          </h2>
           <ol className={REFERENCES_OL_CLASSES}>
             <li id="ref-ajzen-1980">
               Ajzen, I., &amp; Fishbein, M. (1980).{' '}
