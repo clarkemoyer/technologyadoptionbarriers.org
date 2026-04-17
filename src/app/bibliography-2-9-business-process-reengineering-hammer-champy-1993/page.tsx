@@ -506,9 +506,10 @@ const BibliographyArticlePage = () => {
           <h3 className={H3_CLASSES}>Main Strengths</h3>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Ambitious performance targets:</strong> BPR targets dramatic improvement
-              rather than marginal gains. This ambitious focus can generate breakthrough competitive
-              advantage rather than incremental benefits.
+              <strong>Ambitious performance targets:</strong> BPR, as framed by Hammer and Champy,
+              targets dramatic rather than marginal improvement. Proponents argue this ambition is
+              what distinguishes BPR from continuous-improvement programs; whether it yields
+              competitive advantage in any given case is contingent on execution and context.
             </li>
             <li>
               <strong>Technology-enabled approach:</strong> BPR recognizes that modern technology
@@ -529,18 +530,21 @@ const BibliographyArticlePage = () => {
               redesigning business processes rather than abstract theory.
             </li>
             <li>
-              <strong>High-impact potential:</strong> Successfully reengineered processes can
-              generate dramatic cost reduction, quality improvement, speed improvement, and
-              competitive differentiation.
+              <strong>High-impact potential (claimed):</strong> Hammer and Champy, and subsequent
+              practitioner literature, cite cases in which reengineered processes are reported to
+              have produced substantial cost, quality, speed, and service improvements. Independent
+              evaluation of these cases is limited.
             </li>
           </ul>
 
           <h3 className={H3_CLASSES}>Main Weaknesses</h3>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>High failure rate:</strong> BPR initiatives have high failure rates. Many
-              organizations struggle with organizational change, employee resistance, and
-              realization of projected benefits.
+              <strong>High reported failure rate:</strong> Secondary sources, and Hammer&rsquo;s
+              own later writing, commonly cite a high share of BPR initiatives (often reported at
+              roughly 70%) as failing to deliver expected results. Specific failure-rate figures
+              vary by source and methodology and should be treated as indicative rather than
+              precise.
             </li>
             <li>
               <strong>Underestimates change management complexity:</strong> BPR emphasizes process
@@ -606,9 +610,10 @@ const BibliographyArticlePage = () => {
               Methodology could be applied by consulting firms and organizations.
             </li>
             <li>
-              <strong>Generated massive consulting industry:</strong> BPR became foundation for
-              management consulting boom in 1990s. Consulting firms developed BPR methodologies and
-              implementations.
+              <strong>Fueled a significant consulting practice:</strong> Secondary sources
+              describe BPR as a major driver of management-consulting work in the mid-1990s, with
+              multiple large firms (notably including CSC Index, where Champy was an executive)
+              developing branded BPR methodologies.
             </li>
             <li>
               <strong>Popularized ambitious redesign:</strong> Widely cited BPR case studies
@@ -621,8 +626,10 @@ const BibliographyArticlePage = () => {
               often required significant process redesign.
             </li>
             <li>
-              <strong>Emphasized technology leadership role:</strong> Elevated information
-              technology from support function to driver of organizational transformation.
+              <strong>Reinforced IT as a strategic lever:</strong> BPR joined a broader 1990s
+              argument (alongside frameworks such as Davenport &amp; Short, 1990 and strategic-IT
+              literature) that information technology should be treated as an enabler of
+              organizational transformation rather than a back-office cost center.
             </li>
           </ul>
         </section>
@@ -678,24 +685,25 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>External Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
-            External validity considerations concern generalizability of BPR across diverse
-            organizational types, industries, and processes:
+            As a prescriptive framework rather than an empirical theory, BPR is not subject to
+            formal generalizability testing. Practitioner and secondary-source reports describe its
+            application across a wide range of contexts:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Applies across industries:</strong> BPR has been applied across manufacturing,
-              services, finance, healthcare, government, and other industries, suggesting broad
-              applicability.
+              <strong>Reported across industries:</strong> BPR has reportedly been applied in
+              manufacturing, services, finance, healthcare, and government, though reported
+              outcomes and methodologies vary widely.
             </li>
             <li>
-              <strong>Applies across organization sizes:</strong> Large enterprises and smaller
-              organizations have implemented BPR, though implementation complexity varies with
+              <strong>Reported across organization sizes:</strong> BPR implementations have been
+              described in large enterprises and, less commonly, smaller organizations;
+              implementation complexity and resource requirements appear to scale with
               organization size.
             </li>
             <li>
-              <strong>Applies across process types:</strong> BPR has been applied to manufacturing
-              processes, service delivery processes, administrative processes, and product
-              development processes.
+              <strong>Reported across process types:</strong> Case reports cover manufacturing,
+              service delivery, administrative, and product development processes.
             </li>
             <li>
               <strong>Geographic variation:</strong> While developed in Western context, BPR has
@@ -831,10 +839,11 @@ const BibliographyArticlePage = () => {
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Business Process Management (Zur Muehlen &amp; Recker, 2008):</strong> Evolved
-              from BPR by emphasizing continuous process improvement and monitoring rather than
-              one-time radical redesign. BPM provides more sustained approach to process
-              optimization.
+              <strong>Business Process Management (BPM):</strong> The broader BPM discipline
+              emerged through the 1990s and 2000s (see, e.g., Zur Muehlen &amp; Recker, 2008 on
+              process modeling languages) and differs from BPR by emphasizing ongoing process
+              monitoring, measurement, and iterative improvement rather than one-time radical
+              redesign.
             </li>
             <li>
               <strong>
@@ -877,9 +886,10 @@ const BibliographyArticlePage = () => {
               methodology for managing change in technology-intensive environments.
             </li>
             <li>
-              <strong>Extended BPR Research:</strong> Numerous studies examined BPR success and
-              failure factors, contributing to understanding of implementation challenges and
-              contingency factors.
+              <strong>BPR implementation research:</strong> Subsequent studies have examined BPR
+              success and failure factors, contributing to understanding of implementation
+              challenges and contingency factors such as leadership commitment, change management
+              capability, and the scope of process redesign.
             </li>
             <li>
               <strong>Enterprise Resource Planning (SAP, Oracle, others):</strong> ERP systems often
