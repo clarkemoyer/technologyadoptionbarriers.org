@@ -400,8 +400,9 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>Radical not incremental:</strong> Make dramatic changes rather than tweaks.
-              Continuous improvement refines existing processes; BPR reimagines them. This requires
-              greater management commitment but produces greater competitive advantage.
+              Continuous improvement refines existing processes; BPR, in Hammer and Champy&rsquo;s
+              framing, reimagines them. The authors argue this requires greater management
+              commitment and, when successful, yields correspondingly larger improvements.
             </li>
             <li>
               <strong>Measure results:</strong> Define clear performance metrics before redesign.
@@ -738,11 +739,11 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Relevance to Technology Adoption</h2>
           <p className={PARAGRAPH_CLASSES}>
-            Business Process Reengineering directly addresses technology adoption by establishing
-            that technology adoption should drive organizational redesign rather than merely
-            automating existing processes. BPR argues that organizations should not ask how to
-            automate current processes but rather what fundamentally different processes technology
-            enables. Technology should drive process innovation.
+            Business Process Reengineering addresses technology adoption by arguing that
+            technology adoption should drive organizational and process redesign rather than
+            simply automating existing processes. In Hammer and Champy&rsquo;s framing,
+            organizations should ask not how to automate current processes but what fundamentally
+            different processes the technology makes possible.
           </p>
 
           <h3 className={H3_CLASSES}>Barriers to Technology-Enabled Redesign Identified</h3>
@@ -773,8 +774,9 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>Insufficient management commitment:</strong> Radical redesign requires
-              sustained leadership commitment and resource allocation. Without commitment, redesign
-              initiatives fail.
+              sustained leadership commitment and resource allocation. Secondary-source accounts of
+              BPR failures commonly identify weak or inconsistent executive sponsorship as a
+              contributing factor.
             </li>
             <li>
               <strong>Technology implementation challenges:</strong> Implementing technology
