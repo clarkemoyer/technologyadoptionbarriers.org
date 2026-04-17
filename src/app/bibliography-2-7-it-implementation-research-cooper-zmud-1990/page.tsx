@@ -109,7 +109,7 @@ const BibliographyArticlePage = () => {
                 Chicago (Author-Date)
               </p>
               <p className="text-sm font-mono">
-                Cooper, Robert B., and Robert W. Zmud. 1990. &ldquo;Information Technology
+                Cooper, Randolph B., and Robert W. Zmud. 1990. &ldquo;Information Technology
                 Implementation Research: A Technological Diffusion Approach.&rdquo;
                 <em>Management Science</em> 36, no. 2: 123-139.
               </p>
@@ -607,18 +607,18 @@ const BibliographyArticlePage = () => {
           <h2 className={H2_CLASSES}>Key Contributions</h2>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Distinguished adoption from implementation:</strong> Established critical
-              insight that technology adoption (decision to use technology) and implementation
-              (integration into operations and achievement of benefits) are distinct processes
-              requiring different management approaches.
+              <strong>Distinguished adoption from implementation:</strong> Argued that technology
+              adoption (the decision to use a technology) and implementation (integration into
+              operations and realization of benefits) are distinct processes requiring different
+              management approaches.
             </li>
             <li>
-              <strong>Established stage-based implementation framework:</strong> Provided structured
-              framework for understanding implementation as progression through identifiable stages
-              rather than single event.
+              <strong>Articulated a stage-based implementation framework:</strong> Applied the
+              six-stage implementation model from Kwon &amp; Zmud (1987) (Initiation, Adoption,
+              Adaptation, Acceptance, Routinization, Infusion) to the IT implementation context.
             </li>
             <li>
-              <strong>Identified stage-specific challenges:</strong> Demonstrated that different
+              <strong>Identified stage-specific challenges:</strong> Proposed that different
               implementation stages present different organizational challenges and require
               different management responses.
             </li>
@@ -633,9 +633,9 @@ const BibliographyArticlePage = () => {
               others.
             </li>
             <li>
-              <strong>Provided practitioner-relevant framework:</strong> Established framework
-              enabling practitioners to assess implementation progress and apply stage-appropriate
-              interventions.
+              <strong>Provided a practitioner-relevant framework:</strong> Offered a structure
+              practitioners could use to assess implementation progress and apply
+              stage-appropriate interventions.
             </li>
             <li>
               <strong>Foundation for implementation research:</strong> Created structure enabling
@@ -649,10 +649,10 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Internal Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
-            As an empirical study of technology implementation process based on observation of
-            multiple technology implementations, the Six-Stage Implementation Model demonstrates
-            strong internal validity through logical coherence and consistency with observed
-            organizational practices:
+            Cooper &amp; Zmud (1990) report an empirical MRP-adoption study used to illustrate the
+            implementation process. As a conceptual paper anchored in one survey rather than a
+            broad validation study, considerations typically raised about its internal consistency
+            include:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
@@ -845,7 +845,8 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Following Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
-            The Six-Stage Implementation Model has spawned significant research on technology
+            The Six-Stage Implementation Model has been extended and adapted in subsequent
+            research on technology
             implementation and change management:
           </p>
           <ul className={BODY_LIST_CLASSES}>
