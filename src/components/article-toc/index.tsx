@@ -63,7 +63,11 @@ export default function ArticleTOC() {
 
   /* ---------- reset mobile panel when switching to desktop ---------- */
   useEffect(() => {
-    if (canShowDesktop) setMobileOpen(false)
+    if (canShowDesktop) {
+      // Layout state sync: reset panel when viewport crosses the desktop breakpoint
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setMobileOpen(false)
+    }
   }, [canShowDesktop])
 
   /* ---------- scan headings on mount ---------- */
@@ -79,7 +83,8 @@ export default function ArticleTOC() {
       return { id: h.id, text: h.textContent ?? '' }
     })
 
-    /* schedule state update to avoid synchronous setState in effect */
+    // Schedule state update to avoid synchronous setState in effect.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     requestAnimationFrame(() => setItems(tocItems))
 
     /* intersection observer for active heading */
@@ -113,7 +118,8 @@ export default function ArticleTOC() {
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll, { passive: true })
-    /* defer initial call to avoid synchronous setState in effect */
+    // Defer the initial sync to rAF so layout settles before handleScroll updates state.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     requestAnimationFrame(handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [handleScroll])
