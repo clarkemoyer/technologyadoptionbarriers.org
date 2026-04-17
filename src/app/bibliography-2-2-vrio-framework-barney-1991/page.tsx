@@ -608,46 +608,56 @@ const BibliographyArticlePage = () => {
         {/* 9. Key Contributions */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Key Contributions</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            Barney (1991) is a specific conceptual contribution within a larger RBV tradition. Its
+            contributions, as stated by the paper and subsequent literature, are:
+          </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>RBV operationalization:</strong> Successfully translated Wernerfelt&rsquo;s
-              abstract RBV concepts into practical, applicable analytical framework usable by
-              practitioners and researchers.
+              <strong>Four-attribute framework (VRIN):</strong> Introduced a parsimonious set of
+              empirical indicators - value, rareness, imperfect imitability, non-substitutability -
+              that collectively distinguish resources generating sustained competitive advantage
+              from those that do not (p.105-112). This was the first explicit and systematic list of
+              such criteria in the RBV literature.
             </li>
             <li>
-              <strong>Added organization dimension:</strong> Extended RBV by recognizing that
-              resource possession alone is insufficient; organizational structures and systems must
-              be aligned to exploit resources.
+              <strong>Equilibrium definition of sustained competitive advantage:</strong> Redefined
+              &ldquo;sustained&rdquo; not as calendar duration but as robustness to duplication
+              efforts (p.102-103), adapting the Lippman &amp; Rumelt (1982) and Hirshleifer (1982)
+              equilibrium framing. This avoids both the trivial reading (&ldquo;sustained means
+              lasts forever&rdquo;) and the imprecise reading (&ldquo;sustained means has lasted N
+              years&rdquo;).
             </li>
             <li>
-              <strong>Predictive framework:</strong> Provided decision-tree logic predicting
-              competitive implications of different resource combinations, moving beyond descriptive
-              framework to prescriptive guidance.
+              <strong>Resource heterogeneity and immobility as prerequisites:</strong> Made explicit
+              the two assumptions (p.101, 103-105) that must hold for any resource-based explanation
+              of sustained advantage to be coherent. This clarified what RBV commits to and what it
+              rules out.
             </li>
             <li>
-              <strong>Research validation foundation:</strong> Enabled empirical research testing
-              VRIO predictions by providing operationalizable criteria, advancing from theoretical
-              discussion to empirical science.
+              <strong>Typology of imperfect imitability sources:</strong> Organized the earlier
+              literature on why resources are hard to imitate into three named mechanisms - unique
+              historical conditions, causal ambiguity, social complexity (p.107-112) - attributing
+              the underlying concepts to Lippman &amp; Rumelt (1982) and Dierickx &amp; Cool (1989).
             </li>
             <li>
-              <strong>Strategic management pedagogy transformation:</strong> Made resource-based
-              strategy teaching practical and case-study compatible, enabling strategy education
-              based on framework application.
+              <strong>Three illustrative applications:</strong> Demonstrated the framework&rsquo;s
+              use on strategic planning, information processing systems, and positive reputations
+              (p.112-117), showing how to reason from resource description to
+              competitive-implication conclusion.
             </li>
             <li>
-              <strong>Comprehensive resource evaluation:</strong> Established systematic approach
-              evaluating all resource types (physical, financial, human, organizational,
-              intellectual) through unified analytical framework.
+              <strong>Positioning RBV as complement to industry analysis:</strong> Figure 1 (p.100)
+              explicitly locates the resource-based model and environmental models of competitive
+              impact as addressing different aspects of the same strengths-weaknesses-
+              opportunities-threats frame, rather than competing paradigms.
             </li>
             <li>
-              <strong>Advantage sustainability articulation:</strong> Clearly distinguished between
-              temporary and sustained competitive advantage, explaining what determines advantage
-              persistence.
-            </li>
-            <li>
-              <strong>Foundation for extended research:</strong> Provided foundation for subsequent
-              theory development including dynamic capabilities, organizational ambidexterity, and
-              capability development research.
+              <strong>Foundation for VRIO (Barney, 1995, 1997):</strong> The four-attribute
+              structure of Barney (1991) became the substrate for the later VRIO refinement, where
+              Non-substitutability is replaced with Organization (folding substitution into the
+              Imitability criterion). VRIO is the teaching-focused successor to Barney 1991, not a
+              distinct theoretical proposal.
             </li>
           </ul>
         </section>
@@ -656,41 +666,53 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Internal Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
-            As a framework paper extending Wernerfelt&rsquo;s RBV, VRIO&rsquo;s internal validity
-            derives from logical coherence and consistency with established organizational evidence:
+            Barney (1991) is a conceptual paper, not an empirical study. Internal validity is
+            therefore assessed as logical coherence of the argument and fidelity to cited sources:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Logical consistency:</strong> The framework&rsquo;s core logic is sound:
-              resources creating value become competitive advantages only if they are rare,
-              inimitable, and organized for exploitation. The decision-tree implications follow
-              logically from criteria combinations.
+              <strong>Deductive chain is clean:</strong> The paper begins with two assumptions
+              (resource heterogeneity and immobility), derives that competition with homogeneous and
+              perfectly mobile resources cannot sustain advantage (p.103-105), and then derives the
+              four attributes as necessary conditions for sustained advantage given heterogeneity
+              and immobility. The four-attribute framework is a conclusion of the argument, not an
+              assumed input.
             </li>
             <li>
-              <strong>Grounding in RBV foundation:</strong> VRIO directly operationalizes RBV,
-              maintaining theoretical consistency with Wernerfelt&rsquo;s foundational concepts
-              while extending them with the organization dimension.
+              <strong>Equilibrium definition is well-formed:</strong> The sustained-CA definition
+              (p.102) follows Lippman &amp; Rumelt (1982) and is consistent with standard
+              equilibrium reasoning (Hirshleifer, 1982). &ldquo;Sustained&rdquo; is defined in terms
+              of counterfactual duplication attempts, not calendar time.
             </li>
             <li>
-              <strong>Integration with organizational evidence:</strong> VRIO explains
-              well-documented organizational phenomena: why some firms sustain advantage while
-              others erode competitive positions, why organizational structure matters for advantage
-              realization.
+              <strong>Imitability mechanisms are explicitly attributed:</strong> Causal ambiguity is
+              attributed to Lippman &amp; Rumelt (1982) and Alchian (1950), unique historical
+              conditions to path-dependency economics (Arthur, 1983; David, 1985), social complexity
+              to Dierickx &amp; Cool (1989) and Barney (1986b). The paper does not claim these
+              mechanisms as original.
             </li>
             <li>
-              <strong>Theoretical completeness:</strong> By addressing value, rarity, inimitability,
-              and organization, the framework addresses multiple dimensions of resource advantage
-              rather than treating advantage unidimensionally.
+              <strong>Explicit scope of SCA:</strong> The paper explicitly states that SCA does not
+              mean &ldquo;lasts forever&rdquo; and can be disrupted by Schumpeterian shocks or
+              structural revolutions in an industry (p.103, citing Schumpeter 1934, 1950; Rumelt
+              &amp; Wensley 1981). The construct is defined carefully enough to survive trivial
+              counterexamples.
             </li>
             <li>
-              <strong>Clear definitional consistency:</strong> Definitions of each VRIO criterion
-              are clearly articulated and internally consistent, reducing ambiguity in framework
-              interpretation.
+              <strong>Three applied examples test the framework internally:</strong> The paper
+              itself applies the VRIN criteria to three candidate sources (strategic planning,
+              information processing systems, positive reputation) and shows the framework generates
+              non-trivial conclusions - some versions of each resource qualify for SCA, others do
+              not. This demonstrates the framework discriminates rather than rubber-stamping.
             </li>
             <li>
-              <strong>Comprehensive advantage prediction:</strong> The framework provides
-              predictions for all possible resource combinations, covering competitive parity,
-              temporary advantage, and sustained advantage.
+              <strong>Known internal-validity limitations:</strong> (i) The framework&rsquo;s four
+              attributes are yes/no questions without a formal metric, so operationalization is left
+              to subsequent work; (ii) the causal ambiguity criterion is self-referentially
+              problematic - if managers cannot understand their own resource-performance link, the
+              test requires external observers to judge what the firm itself does not know (Barney
+              acknowledges this tension on p.109); (iii) the paper is susceptible to the tautology
+              critique that attaches to RBV more broadly (Priem &amp; Butler, 2001, later response).
             </li>
           </ul>
         </section>
