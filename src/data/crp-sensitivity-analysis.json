@@ -210,17 +210,13 @@
         {
           "filter_id": "current_country_of_residence",
           "label": "Current Country of Residence",
-          "selected_values": [
-            "United States"
-          ],
+          "selected_values": ["United States"],
           "base_field": true
         },
         {
           "filter_id": "employment_status",
           "label": "Employment Status",
-          "selected_values": [
-            "Full-Time"
-          ],
+          "selected_values": ["Full-Time"],
           "base_field": true
         },
         {
@@ -241,11 +237,7 @@
         {
           "filter_id": "company_size",
           "label": "Company Size",
-          "selected_values": [
-            "50-249",
-            "250-999",
-            "1000+"
-          ],
+          "selected_values": ["50-249", "250-999", "1000+"],
           "base_field": false
         },
         {
@@ -518,14 +510,8 @@
           }
         },
         "anova_by_role": {
-          "groups": [
-            "Technical",
-            "Non-Technical"
-          ],
-          "group_ns": [
-            18,
-            61
-          ],
+          "groups": ["Technical", "Non-Technical"],
+          "group_ns": [18, 61],
           "constructs": {
             "barriers": {
               "f": 0.2849,
@@ -551,16 +537,8 @@
           }
         },
         "anova_by_org_size": {
-          "groups": [
-            "Small (<500)",
-            "Medium (500-4999)",
-            "Large (5000+)"
-          ],
-          "group_ns": [
-            37,
-            25,
-            17
-          ],
+          "groups": ["Small (<500)", "Medium (500-4999)", "Large (5000+)"],
+          "group_ns": [37, 25, 17],
           "constructs": {
             "barriers": {
               "f": 2.3884,
@@ -796,14 +774,8 @@
           }
         },
         "anova_by_role": {
-          "groups": [
-            "Technical",
-            "Non-Technical"
-          ],
-          "group_ns": [
-            32,
-            84
-          ],
+          "groups": ["Technical", "Non-Technical"],
+          "group_ns": [32, 84],
           "constructs": {
             "barriers": {
               "f": 1.523,
@@ -829,16 +801,8 @@
           }
         },
         "anova_by_org_size": {
-          "groups": [
-            "Small (<500)",
-            "Medium (500-4999)",
-            "Large (5000+)"
-          ],
-          "group_ns": [
-            52,
-            42,
-            22
-          ],
+          "groups": ["Small (<500)", "Medium (500-4999)", "Large (5000+)"],
+          "group_ns": [52, 42, 22],
           "constructs": {
             "barriers": {
               "f": 6.4834,
@@ -1075,14 +1039,8 @@
           }
         },
         "anova_by_role": {
-          "groups": [
-            "Technical",
-            "Non-Technical"
-          ],
-          "group_ns": [
-            53,
-            147
-          ],
+          "groups": ["Technical", "Non-Technical"],
+          "group_ns": [53, 147],
           "constructs": {
             "barriers": {
               "f": 0.0785,
@@ -1108,16 +1066,8 @@
           }
         },
         "anova_by_org_size": {
-          "groups": [
-            "Small (<500)",
-            "Medium (500-4999)",
-            "Large (5000+)"
-          ],
-          "group_ns": [
-            85,
-            70,
-            45
-          ],
+          "groups": ["Small (<500)", "Medium (500-4999)", "Large (5000+)"],
+          "group_ns": [85, 70, 45],
           "constructs": {
             "barriers": {
               "f": 2.5541,
@@ -1354,14 +1304,8 @@
           }
         },
         "anova_by_role": {
-          "groups": [
-            "Technical",
-            "Non-Technical"
-          ],
-          "group_ns": [
-            53,
-            147
-          ],
+          "groups": ["Technical", "Non-Technical"],
+          "group_ns": [53, 147],
           "constructs": {
             "barriers": {
               "f": 0.0785,
@@ -1387,16 +1331,8 @@
           }
         },
         "anova_by_org_size": {
-          "groups": [
-            "Small (<500)",
-            "Medium (500-4999)",
-            "Large (5000+)"
-          ],
-          "group_ns": [
-            85,
-            70,
-            45
-          ],
+          "groups": ["Small (<500)", "Medium (500-4999)", "Large (5000+)"],
+          "group_ns": [85, 70, 45],
           "constructs": {
             "barriers": {
               "f": 2.5541,
@@ -1633,14 +1569,8 @@
           }
         },
         "anova_by_role": {
-          "groups": [
-            "Technical",
-            "Non-Technical"
-          ],
-          "group_ns": [
-            53,
-            147
-          ],
+          "groups": ["Technical", "Non-Technical"],
+          "group_ns": [53, 147],
           "constructs": {
             "barriers": {
               "f": 0.0785,
@@ -1666,16 +1596,8 @@
           }
         },
         "anova_by_org_size": {
-          "groups": [
-            "Small (<500)",
-            "Medium (500-4999)",
-            "Large (5000+)"
-          ],
-          "group_ns": [
-            85,
-            70,
-            45
-          ],
+          "groups": ["Small (<500)", "Medium (500-4999)", "Large (5000+)"],
+          "group_ns": [85, 70, 45],
           "constructs": {
             "barriers": {
               "f": 2.5541,
@@ -1726,11 +1648,7 @@
       "error": null
     },
     "profit_model_distribution": {
-      "labels": [
-        "For-Profit",
-        "Non-Profit",
-        "Government/Public Sector"
-      ],
+      "labels": ["For-Profit", "Non-Profit", "Government/Public Sector"],
       "groups": {
         "Conservative Clean": {
           "For-Profit": 56,
