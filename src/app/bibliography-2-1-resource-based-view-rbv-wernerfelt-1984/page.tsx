@@ -354,9 +354,9 @@ const BibliographyArticlePage = () => {
                 ):
               </strong>{' '}
               BCG&rsquo;s experience-curve and growth-share matrix directly inspired the
-              resource-product matrix. Wernerfelt notes that the product portfolio theory
-              (Henderson, 1979) &ldquo;underscores the duality between the product and resource
-              perspectives on the firm&rdquo; (p.177).
+              resource-product matrix. Wernerfelt notes that the close analogy to the product
+              portfolio theory (Henderson, 1979) &ldquo;underscores the duality between the product
+              and resource perspectives on the firm&rdquo; (p.178).
             </li>
             <li>
               <strong>
@@ -913,10 +913,10 @@ const BibliographyArticlePage = () => {
                 ):
               </strong>{' '}
               Introduced <em>time-compression diseconomies</em>, <em>asset-mass efficiencies</em>,
-              <em>interconnectedness of asset stocks</em>, <em>asset erosion</em>, and{' '}
-              <em>causal ambiguity</em> as specific mechanisms that make resource positions
-              defensible. These are the mechanisms often (incorrectly) attributed to Wernerfelt
-              1984.
+              <em>interconnectedness of asset stocks</em>, and <em>asset erosion</em> as specific
+              mechanisms that make resource positions defensible, and also discussed causal
+              ambiguity as an imitability barrier (originally attributed to Lippman &amp; Rumelt,
+              1982). These are the mechanisms often (incorrectly) attributed to Wernerfelt 1984.
             </li>
             <li>
               <strong>
@@ -938,23 +938,6 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>
-                Cornerstones of competitive advantage (
-                <a
-                  id="cite-ref-peteraf-1993-1"
-                  href="#ref-peteraf-1993"
-                  className="text-tabs-teal-deep hover:underline"
-                >
-                  Peteraf, 1993
-                </a>
-                ):
-              </strong>{' '}
-              Integrated the Wernerfelt, Barney, and Dierickx &amp; Cool strands into four
-              conditions: <em>heterogeneity</em>, <em>ex post limits to competition</em>,
-              <em>imperfect mobility</em>, and <em>ex ante limits to competition</em>. Widely
-              adopted as the canonical statement of the RBV logic.
-            </li>
-            <li>
-              <strong>
                 Industry vs. firm effects (
                 <a
                   id="cite-ref-rumelt-1991-1"
@@ -972,20 +955,38 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>
-                Dynamic Capabilities (
+                Cornerstones of competitive advantage (
                 <a
-                  id="cite-ref-teece-1997-1"
-                  href="#ref-teece-1997"
+                  id="cite-ref-peteraf-1993-1"
+                  href="#ref-peteraf-1993"
                   className="text-tabs-teal-deep hover:underline"
                 >
-                  Teece, Pisano, &amp; Shuen, 1997
+                  Peteraf, 1993
                 </a>
                 ):
               </strong>{' '}
-              Extended RBV to dynamic environments by shifting the focus from static resources to
-              organizational capabilities for sensing market changes, seizing opportunities, and
-              reconfiguring resources. Addresses Wernerfelt&rsquo;s original concern that the
-              framework needed a dynamic treatment.
+              Integrated the Wernerfelt, Barney, and Dierickx &amp; Cool strands into four
+              conditions: <em>heterogeneity</em>, <em>ex post limits to competition</em>,
+              <em>imperfect mobility</em>, and <em>ex ante limits to competition</em>. Widely
+              adopted as the canonical statement of the RBV logic.
+            </li>
+            <li>
+              <strong>
+                Core competencies (
+                <a
+                  id="cite-ref-hamel-1994-1"
+                  href="#ref-hamel-1994"
+                  className="text-tabs-teal-deep hover:underline"
+                >
+                  Hamel &amp; Prahalad, 1994
+                </a>
+                ):
+              </strong>{' '}
+              Popularized the view of firms as bundles of core competencies - collective
+              organizational learning - that enable entry into multiple markets, extending the
+              resource-product matrix logic to a managerial audience. (Note: the seminal HBR article
+              is Prahalad &amp; Hamel, 1990, &ldquo;The Core Competence of the Corporation&rdquo;;
+              the 1994 book is the book-length restatement.)
             </li>
             <li>
               <strong>
@@ -1005,19 +1006,20 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>
-                Core competencies (
+                Dynamic Capabilities (
                 <a
-                  id="cite-ref-hamel-1994-1"
-                  href="#ref-hamel-1994"
+                  id="cite-ref-teece-1997-1"
+                  href="#ref-teece-1997"
                   className="text-tabs-teal-deep hover:underline"
                 >
-                  Hamel &amp; Prahalad, 1994
+                  Teece, Pisano, &amp; Shuen, 1997
                 </a>
                 ):
               </strong>{' '}
-              Popularized the view of firms as bundles of core competencies - collective
-              organizational learning - that enable entry into multiple markets, extending the
-              resource-product matrix logic to a managerial audience.
+              Extended RBV to dynamic environments by shifting the focus from static resources to
+              organizational capabilities for sensing market changes, seizing opportunities, and
+              reconfiguring resources. Addresses Wernerfelt&rsquo;s original concern that the
+              framework needed a dynamic treatment.
             </li>
           </ul>
         </section>
