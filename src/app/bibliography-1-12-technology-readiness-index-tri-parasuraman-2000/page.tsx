@@ -429,8 +429,9 @@ const BibliographyArticlePage = () => {
                 </a>
                 ):
               </strong>{' '}
-              Proposed perceived usefulness and perceived ease of use as adoption predictors; the model
-              did not fully explore underlying personality dispositions driving these perceptions.
+              Proposed perceived usefulness and perceived ease of use as adoption predictors; the
+              model did not fully explore underlying personality dispositions driving these
+              perceptions.
             </li>
             <li>
               <strong>
@@ -459,8 +460,8 @@ const BibliographyArticlePage = () => {
                 </a>
                 ):
               </strong>{' '}
-              Argued and reported evidence that individual innovativeness toward information technology can be a stable
-              personality trait predicting adoption across systems.
+              Argued and reported evidence that individual innovativeness toward information
+              technology can be a stable personality trait predicting adoption across systems.
             </li>
           </ul>
         </section>
