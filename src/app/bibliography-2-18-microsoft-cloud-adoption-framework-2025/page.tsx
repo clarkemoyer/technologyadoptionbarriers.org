@@ -14,7 +14,7 @@ import {
 export const metadata: Metadata = {
   title: 'Bibliography: Microsoft Cloud Adoption Framework for Azure (CAF) (2025)',
   description:
-    'Comprehensive overview of the Microsoft Cloud Adoption Framework for Azure. Explains the nine methodologies, organizational motivations, cloud adoption lifecycle, readiness and governance frameworks, and enterprise-scale cloud transformation strategy.',
+    'Comprehensive overview of the Microsoft Cloud Adoption Framework for Azure. Explains the seven core methodologies, organizational motivations, cloud adoption lifecycle, readiness and governance frameworks, and enterprise-scale cloud transformation strategy.',
 }
 
 const BibliographyArticlePage = () => {
@@ -147,14 +147,15 @@ const BibliographyArticlePage = () => {
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Cloud Adoption Lifecycle:</strong> Structured progression through nine
+              <strong>Cloud Adoption Lifecycle:</strong> Structured progression through seven core
               methodologies spanning strategy through management, ensuring comprehensive
               organizational transformation.
             </li>
             <li>
-              <strong>Methodologies:</strong> Nine distinct guidance frameworks addressing specific
-              cloud adoption aspects: Strategy, Plan, Ready, Migrate, Modernize, Cloud-native,
-              Govern, Secure, and Manage.
+              <strong>Methodologies:</strong> Seven core guidance frameworks addressing specific
+              cloud adoption aspects: Strategy, Plan, Ready, Adopt (encompassing Migrate, Modernize,
+              and Cloud-native), Govern, Secure, and Manage. Strategy, Plan, Ready, and Adopt are
+              described as foundational (sequential) and Govern, Secure, and Manage as operational.
             </li>
             <li>
               <strong>Business Outcomes:</strong> Specific, measurable organizational goals driving
@@ -162,9 +163,9 @@ const BibliographyArticlePage = () => {
               efficiency, and customer experience.
             </li>
             <li>
-              <strong>Rationalization:</strong> Systematic assessment process for determining how to
-              migrate each application and workload using the 5R framework: Rehost, Refactor,
-              Rearchitect, Rebuild, Replace.
+              <strong>Migration strategy selection (8 Rs):</strong> Systematic assessment process
+              for determining how to handle each workload using the &ldquo;8 Rs&rdquo; framework:
+              Retire, Retain, Rehost, Replatform, Refactor, Rearchitect, Rebuild, and Replace.
             </li>
             <li>
               <strong>Landing Zones:</strong> Pre-configured Azure environment topologies providing
@@ -190,7 +191,8 @@ const BibliographyArticlePage = () => {
             framework rather than a psychometric measurement model. It does not define latent
             constructs or validated scales. It structures how organizations plan, execute, and
             govern Azure-centric cloud adoption. Evaluation concepts associated with CAF typically
-            include:
+            include (Microsoft describes CAF as organized into seven core methodologies: Strategy,
+            Plan, Ready, Adopt, Govern, Secure, and Manage):
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
@@ -264,18 +266,19 @@ const BibliographyArticlePage = () => {
           <h2 className={H2_CLASSES}>Describe The Model</h2>
           <p className={PARAGRAPH_CLASSES}>
             Microsoft Cloud Adoption Framework provides comprehensive guidance for cloud adoption
-            organized around nine methodologies representing distinct phases of the cloud adoption
-            lifecycle, from initial strategy through ongoing operations and management. Note that
-            earlier versions of the CAF organized these as fewer phases (with &ldquo;Adopt&rdquo;
-            encompassing migrate and innovate, and security embedded within Govern); the current
-            structure reflects Microsoft&rsquo;s evolution toward more granular, purpose-specific
-            methodologies.
+            organized around seven core methodologies representing distinct phases of the cloud
+            adoption lifecycle, from initial strategy through ongoing operations and management. The
+            foundational methodologies (Strategy, Plan, Ready, and Adopt) are described by Microsoft
+            as sequential and help define business outcomes, prepare the organization and
+            environment, and deploy workloads to Azure. The operational methodologies (Govern,
+            Secure, and Manage) define aspects of cloud operations that help ensure the Azure
+            environment remains compliant, protected, and optimized over time.
           </p>
 
-          <h3 className={H3_CLASSES}>Nine Methodologies</h3>
+          <h3 className={H3_CLASSES}>Seven Core Methodologies</h3>
           <p className={PARAGRAPH_CLASSES}>
-            Microsoft CAF organizes guidance into nine methodologies addressing different cloud
-            adoption phases:
+            Microsoft CAF organizes guidance into seven core methodologies addressing different
+            cloud adoption phases:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
@@ -285,9 +288,9 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>Plan:</strong> Prepare people, processes, and technology for Azure adoption.
-              Inventory current IT assets, rationalize the digital estate using the 5R framework
-              (Rehost, Refactor, Rearchitect, Rebuild, Replace), and create a detailed cloud
-              adoption plan with prioritized migration waves and resource requirements.
+              Define the operating model, gain cloud skills, plan migration (including discovering
+              inventory, selecting migration strategies, and assessing workloads), estimate cloud
+              costs, and document the cloud adoption plan.
             </li>
             <li>
               <strong>Ready:</strong> Prepare the Azure environment and landing zone for workloads.
@@ -295,61 +298,72 @@ const BibliographyArticlePage = () => {
               initial cloud skills, and create operating model foundations.
             </li>
             <li>
-              <strong>Migrate:</strong> Migrate existing workloads to Azure from on-premises and
-              other cloud environments. Execute according to the migration strategy and prioritized
-              waves.
-            </li>
-            <li>
-              <strong>Modernize:</strong> Improve existing workloads to better meet business needs
-              through platform updates, architectural improvements, and service-level enhancements.
-            </li>
-            <li>
-              <strong>Cloud-native:</strong> Build new cloud-native workloads and features in Azure,
-              leveraging managed services, serverless computing, and modern application
-              architectures.
+              <strong>Adopt:</strong> Deliver workloads into Azure that meet business needs. Adopt
+              encompasses three complementary disciplines: <em>Migrate</em> (move existing workloads
+              to Azure), <em>Modernize</em> (improve existing workloads through replatform,
+              refactor, or rearchitect), and <em>Cloud-native</em> (plan, build, deploy, and
+              optimize new cloud-native solutions).
             </li>
             <li>
               <strong>Govern:</strong> Govern the entire Azure environment. Establish governance
-              disciplines preventing uncontrolled cloud expansion, define policies for cost
-              management, identity, resource consistency, and deployment acceleration.
+              disciplines, assess cloud risks, and mitigate them with Azure and Microsoft tools,
+              including policies for cost management, identity, resource consistency, and deployment
+              acceleration.
             </li>
             <li>
-              <strong>Secure:</strong> Secure the entire Azure environment. Establish comprehensive
-              security baselines, identity protection, threat detection, and compliance monitoring
-              across all cloud workloads.
+              <strong>Secure:</strong> Secure the entire Azure environment. Apply security controls
+              using Azure and Microsoft tools to establish baselines, identity protection, threat
+              detection, and compliance monitoring across cloud workloads.
             </li>
             <li>
-              <strong>Manage:</strong> Manage the entire Azure environment, including monitoring,
-              incident management, business continuity, disaster recovery, and continuous
-              optimization of cloud operations.
+              <strong>Manage:</strong> Manage and optimize the entire Azure environment, including
+              monitoring, incident management, business continuity, disaster recovery, and
+              continuous optimization of cloud operations.
             </li>
           </ul>
 
-          <h3 className={H3_CLASSES}>The 5R Rationalization Framework</h3>
+          <h3 className={H3_CLASSES}>Migration Strategy Selection (the &ldquo;8 Rs&rdquo;)</h3>
           <p className={PARAGRAPH_CLASSES}>
-            The 5R framework provides systematic approach for determining how to migrate each
-            application:
+            Within the Plan methodology, CAF describes selecting a migration strategy for each
+            workload using what Microsoft calls the &ldquo;8 Rs&rdquo; of cloud migration. Each
+            workload can be Retired, Retained, Rehosted, Replatformed, Refactored, Rearchitected,
+            Rebuilt, or Replaced:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Rehost:</strong> Lift-and-shift migration moving applications to cloud with
-              minimal modification, fastest migration approach for suitable workloads.
+              <strong>Retire:</strong> Decommission redundant or low-value workloads that have
+              limited current or future business value, or whose migration cost outweighs benefits.
             </li>
             <li>
-              <strong>Refactor:</strong> Minor code modifications enabling cloud-optimized
-              deployment, moderate effort and improvement approach.
+              <strong>Retain:</strong> Keep a stable, compliant workload as-is when there is no
+              near-term business driver to move and ROI from migration is low.
             </li>
             <li>
-              <strong>Rearchitect:</strong> Significant application redesign leveraging cloud-native
-              capabilities, moderate-to-high effort with substantial improvement opportunity.
+              <strong>Rehost:</strong> Like-for-like migration (for example, on-premises virtual
+              machines to Azure Virtual Machines) with minimal business disruption and no near-term
+              modernization.
             </li>
             <li>
-              <strong>Rebuild:</strong> Complete application rewrite using cloud-native architecture
-              and services, highest effort but fullest cloud capability exploitation.
+              <strong>Replatform:</strong> Move components to Azure PaaS services with minimal code
+              changes to offload maintenance and improve reliability.
             </li>
             <li>
-              <strong>Replace:</strong> Discontinue application and replace with cloud-based SaaS
-              solution, eliminates maintenance burden for suitable use cases.
+              <strong>Refactor:</strong> Make code changes to reduce technical debt, optimize code
+              for the cloud, apply cloud design patterns, and instrument code for monitoring.
+            </li>
+            <li>
+              <strong>Rearchitect:</strong> Make architectural changes (for example, modularization
+              or service decomposition) to unlock cloud-native capabilities and support future
+              innovation.
+            </li>
+            <li>
+              <strong>Rebuild:</strong> Build a new cloud-native solution when the legacy system is
+              too outdated or inflexible, using modern frameworks and tools.
+            </li>
+            <li>
+              <strong>Replace:</strong> Adopt a SaaS or AI solution in place of the current workload
+              when internal development resources are better used elsewhere and customization needs
+              are limited.
             </li>
           </ul>
 
@@ -364,7 +378,7 @@ const BibliographyArticlePage = () => {
               including virtual networks, subnets, routing, and connectivity patterns.
             </li>
             <li>
-              <strong>Identity and access:</strong> Configures Azure Active Directory integration,
+              <strong>Identity and access:</strong> Configures Microsoft Entra ID integration,
               role-based access control, and privilege management.
             </li>
             <li>
@@ -416,9 +430,9 @@ const BibliographyArticlePage = () => {
           <h3 className={H3_CLASSES}>Key Strengths</h3>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Comprehensive lifecycle coverage:</strong> Nine methodologies address complete
-              cloud adoption lifecycle from strategy through ongoing operations, eliminating
-              adoption phase gaps.
+              <strong>Comprehensive lifecycle coverage:</strong> Seven core methodologies address
+              the complete cloud adoption lifecycle from strategy through ongoing operations,
+              eliminating adoption phase gaps.
             </li>
             <li>
               <strong>Prescriptive guidance:</strong> Framework provides specific, actionable
@@ -435,8 +449,9 @@ const BibliographyArticlePage = () => {
               production-tested patterns.
             </li>
             <li>
-              <strong>Rationalization methodology:</strong> 5R framework provides systematic
-              approach for migration decisions addressing common source of migration challenges.
+              <strong>Migration strategy selection:</strong> The &ldquo;8 Rs&rdquo; framework
+              provides a systematic approach for migration decisions, addressing a common source of
+              migration challenges.
             </li>
             <li>
               <strong>Landing zone approach:</strong> Pre-configured landing zones accelerate cloud
@@ -485,9 +500,9 @@ const BibliographyArticlePage = () => {
               operational dimensions in addition to technology.
             </li>
             <li>
-              <strong>Rationalization methodology:</strong> 5R framework provided systematic
-              approach for migration decisions, eliminating ad-hoc migration planning and improving
-              migration outcomes.
+              <strong>Migration strategy selection:</strong> The &ldquo;8 Rs&rdquo; framework
+              provides a systematic approach for migration decisions, reducing ad-hoc migration
+              planning and improving migration outcomes.
             </li>
             <li>
               <strong>Governance integration:</strong> Framework integrated governance throughout
@@ -523,9 +538,9 @@ const BibliographyArticlePage = () => {
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Logical methodology progression:</strong> Nine methodologies follow logical
-              progression from strategy (why) through planning (what and how) to operations (ongoing
-              management), reflecting realistic adoption progression.
+              <strong>Logical methodology progression:</strong> The seven core methodologies follow
+              a logical progression from strategy (why) through planning (what and how) to
+              operations (ongoing management), reflecting realistic adoption progression.
             </li>
             <li>
               <strong>Comprehensive dimension coverage:</strong> Framework addresses business,
@@ -533,8 +548,9 @@ const BibliographyArticlePage = () => {
               adoption approach.
             </li>
             <li>
-              <strong>Rationalization coherence:</strong> 5R framework provides logically sound
-              approach for migration decisions balancing effort, risk, and benefit appropriately.
+              <strong>Migration strategy coherence:</strong> The &ldquo;8 Rs&rdquo; framework
+              provides a logically sound approach for migration decisions balancing effort, risk,
+              and benefit appropriately.
             </li>
             <li>
               <strong>Governance integration:</strong> Governance embedded throughout framework
@@ -661,7 +677,8 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>Plan workload rationalization:</strong> Systematically rationalize application
-              portfolio using 5R framework establishing migration priorities and approaches.
+              portfolio using the &ldquo;8 Rs&rdquo; framework, establishing migration priorities
+              and approaches.
             </li>
             <li>
               <strong>Prepare cloud readiness:</strong> Establish landing zones and foundational
