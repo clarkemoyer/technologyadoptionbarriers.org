@@ -138,7 +138,51 @@ const BibliographyArticlePage = () => {
           </p>
         </section>
 
-        {/* 5. Core Concepts and Definitions */}
+        {/* 5. What Does the Model Measure? */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>What Does the Model Measure?</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            <strong>Source note:</strong> The project&rsquo;s Zotero library does not contain a PDF
+            of Tornatzky &amp; Fleischer (1990) <em>The Processes of Technological Innovation</em>.
+            A PDF of Drazin&rsquo;s 1991 review of the book is available and confirms publisher
+            (D.C. Heath/Lexington Books), 298 pages, four-part structure, Rogers-diffusion-tradition
+            positioning, and that Everett Rogers wrote the prologue. Detailed page-level claims on
+            this page are not verified against the book itself.
+          </p>
+          <p className={PARAGRAPH_CLASSES}>
+            TOE is a conceptual framework, not a measurement instrument. It does not propose scales,
+            latent constructs, or statistical operationalizations. What it does propose is a
+            three-context taxonomy for organizing variables that research has found to shape
+            organization-level technology adoption:
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Technological context:</strong> characteristics of the technology (both
+              internal current technology base and external technologies in the market).
+            </li>
+            <li>
+              <strong>Organizational context:</strong> characteristics of the adopting firm (size,
+              structure, slack, communication, managerial attitudes).
+            </li>
+            <li>
+              <strong>Environmental context:</strong> industry structure, competitive pressure,
+              regulatory environment, trading-partner behavior.
+            </li>
+          </ul>
+          <p className={PARAGRAPH_CLASSES}>
+            The &ldquo;TOE&rdquo; acronym itself is a later-literature convention. Secondary sources
+            (e.g., Baker, 2011, <em>Information Systems Theory</em>; Oliveira &amp; Martins, 2011,{' '}
+            <em>EJISE</em>) popularized the three-context label; the book itself introduces the
+            three contexts without the acronym.
+          </p>
+          <p className={PARAGRAPH_CLASSES}>
+            Empirical TOE studies construct their own measurement instruments, typically
+            Likert-scale surveys, for each context dimension; the book does not supply standardized
+            scales.
+          </p>
+        </section>
+
+        {/* 6. Core Concepts and Definitions */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Core Concepts and Definitions</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -201,7 +245,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 6. Preceding Models or Theories */}
+        {/* 7. Preceding Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Preceding Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -259,19 +303,16 @@ const BibliographyArticlePage = () => {
                 >
                   Davis, 1989
                 </a>
-                ;{' '}
-                <a
-                  id="cite-ref-venkatesh-2000-1"
-                  href="#ref-venkatesh-2000"
-                  className="text-tabs-teal-deep hover:underline"
-                >
-                  Venkatesh &amp; Davis, 2000
-                </a>
                 ):
               </strong>{' '}
-              Examined how organizational factors influence information technology adoption and
-              implementation. TOE incorporated findings about organizational readiness, resources,
-              and decision structures.
+              Davis&rsquo; (1989) TAM predated the Tornatzky &amp; Fleischer book by one year and
+              addressed individual-level technology acceptance, complementary in focus to
+              TOE&rsquo;s organizational-level concern. Whether Tornatzky &amp; Fleischer directly
+              incorporated TAM findings into TOE is not established from the book PDF (which is not
+              available in the project&rsquo;s Zotero library); secondary treatments list TAM and
+              TOE as contemporary traditions rather than as strict predecessor-successor. (Note:
+              Venkatesh &amp; Davis 2000 TAM2 postdates TOE by a decade and cannot be a TOE
+              precursor.)
             </li>
             <li>
               <strong>
@@ -339,7 +380,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 7. Describe The Model */}
+        {/* 8. Describe The Model */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Describe The Model</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -545,7 +586,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 8. Key Contributions */}
+        {/* 9. Key Contributions */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Key Contributions</h2>
           <ul className={BODY_LIST_CLASSES}>
@@ -587,7 +628,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 9. Internal Validity */}
+        {/* 10. Internal Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Internal Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -632,7 +673,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 10. External Validity */}
+        {/* 11. External Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>External Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -686,7 +727,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 11. Relevance to Technology Adoption */}
+        {/* 12. Relevance to Technology Adoption */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Relevance to Technology Adoption</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -790,7 +831,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 12. Following Models or Theories */}
+        {/* 13. Following Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Following Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -842,7 +883,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 13. References */}
+        {/* 14. References */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>References</h2>
           <ol className={REFERENCES_OL_CLASSES}>
@@ -910,9 +951,28 @@ const BibliographyArticlePage = () => {
           </ol>
         </section>
 
+        {/* 15. Further Reading */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Further Reading</h2>
           <ol className={REFERENCES_OL_CLASSES}>
+            <li id="ref-baker-2011">
+              Baker, J. (2011). The Technology-Organization-Environment framework. In Y. K. Dwivedi
+              et al. (Eds.),{' '}
+              <em>Information Systems Theory: Explaining and Predicting Our Digital Society</em>{' '}
+              (Vol. 1, pp. 231-245). Springer. (Popularized the TOE acronym and three-context
+              labeling.)
+            </li>
+            <li id="ref-oliveira-2011">
+              Oliveira, T., &amp; Martins, M. F. (2011). Literature review of Information Technology
+              adoption models at firm level.{' '}
+              <em>Electronic Journal of Information Systems Evaluation</em>, 14(1), 110-121.
+            </li>
+            <li id="ref-drazin-1991">
+              Drazin, R. (1991). The processes of technological innovation [Book review].{' '}
+              <em>Journal of Technology Transfer</em>, Winter 1991, 45-46. (Review of Tornatzky
+              &amp; Fleischer, 1990; secondary source used on this page for structural
+              confirmation.)
+            </li>
             <li id="ref-rogers-1983">
               Rogers, E. M. (1983). <em>Diffusion of innovations</em> (3rd ed.). Free Press.
             </li>
@@ -929,7 +989,7 @@ const BibliographyArticlePage = () => {
           </ol>
         </section>
 
-        {/* 14. Series Navigation */}
+        {/* 16. Series Navigation */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Series Navigation</h2>
           <div className="space-y-4">
