@@ -562,8 +562,7 @@ const BibliographyArticlePage = () => {
               <strong>Multiple regression analysis:</strong> Used Pearson correlation followed by
               multiple regression (not SEM) to test hypothesized paths among constructs. Mediation
               was tested using Baron &amp; Kenny&rsquo;s method (Table 5, p.120). Multicollinearity
-              was
-              examined via VIF (1.20-1.60, below the 10 threshold).
+              was examined via VIF (1.20-1.60, below the 10 threshold).
             </li>
             <li>
               <strong>Psychometric validation:</strong> Reported reliability coefficients,
