@@ -28,15 +28,21 @@ const BibliographyArticlePage = () => {
           <h2 className={H2_CLASSES}>Model Identification</h2>
           <div className="space-y-2">
             <p>
-              <strong>Model Name:</strong> Six-Stage IT Implementation Model
+              <strong>Model Name:</strong> Six-Stage IT Implementation Model (as applied and tested
+              empirically by Cooper &amp; Zmud, 1990; the underlying six-stage framework is from
+              Kwon &amp; Zmud, 1987)
             </p>
             <p>
-              <strong>Model Abbreviation:</strong> SSIM
+              <strong>Model Abbreviation:</strong> Commonly referred to as the Kwon-Zmud six-stage
+              model or the Cooper-Zmud stage model. No single canonical acronym appears in Cooper
+              &amp; Zmud (1990).
             </p>
             <p>
               <strong>Target of Model:</strong> Explanation of how organizations progress through
-              distinct stages when implementing information technology innovations, from initial
-              adoption decisions through full organizational integration and optimization
+              six distinct stages when implementing an information technology innovation -
+              Initiation, Adoption, Adaptation, Acceptance, Routinization, Infusion - and empirical
+              study of adoption and infusion of Material Requirements Planning (MRP) in U.S.
+              manufacturing firms.
             </p>
             <p>
               <strong>Disciplinary Origin:</strong> Management Information Systems, Organizational
@@ -50,7 +56,8 @@ const BibliographyArticlePage = () => {
           <h2 className={H2_CLASSES}>Theory Publication Information</h2>
           <div className="space-y-2">
             <p>
-              <strong>Authors:</strong> Robert B. Cooper, Robert W. Zmud
+              <strong>Authors:</strong> Randolph B. Cooper (University of Michigan), Robert W. Zmud
+              (Florida State University)
             </p>
             <p>
               <strong>Formal Publication Date:</strong> 1990
@@ -148,62 +155,101 @@ const BibliographyArticlePage = () => {
           </p>
         </section>
 
-        {/* 5. Core Concepts and Definitions */}
+        {/* 5. What Does the Model Measure? */}
         <section className={SECTION_CLASSES}>
-          <h2 className={H2_CLASSES}>Core Concepts and Definitions</h2>
+          <h2 className={H2_CLASSES}>What Does the Model Measure?</h2>
           <p className={PARAGRAPH_CLASSES}>
-            The Six-Stage Implementation Model organizes information technology implementation into
-            distinct stages:
+            Cooper &amp; Zmud (1990) apply a six-stage IT implementation process model (from Kwon
+            &amp; Zmud, 1987) to an empirical study of Material Requirements Planning (MRP) adoption
+            and infusion in U.S. manufacturing firms. The paper contributes two operationalized
+            constructs:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Implementation:</strong> The process through which organizations integrate
-              information technology into operations, train employees, modify business processes,
-              and achieve organizational objectives associated with technology adoption.
-              Implementation includes both technical installation and organizational change required
-              for effective technology use.
+              <strong>MRP Adoption:</strong> A binary indicator of whether the firm had adopted MRP
+              (yes/no), modelled via logistic regression against user, organization, task,
+              technology, and environment factors (Cooper &amp; Zmud, 1990, Table 1, p. 124; and
+              regression results in the paper&rsquo;s results section).
             </li>
             <li>
-              <strong>Technology Diffusion:</strong> The process through which technologies spread
-              through organizations. Rather than viewing implementation as single binary event
-              (technology adopted/not adopted), diffusion perspective recognizes technology use
-              spreads gradually through organizations, with different employees adopting at
-              different times.
-            </li>
-            <li>
-              <strong>Implementation Stage:</strong> A distinct phase within overall implementation
-              process, characterized by particular organizational activities, challenges, and
-              outcomes. Progression through stages is not automatic but requires specific
-              organizational actions.
-            </li>
-            <li>
-              <strong>Technical Implementation:</strong> The stage at which technology is
-              successfully installed and operational. The system functions, data is loaded, and
-              technical infrastructure is in place. Technical implementation represents the end of
-              system development and start of operational use.
-            </li>
-            <li>
-              <strong>Organizational Implementation:</strong> The stage at which technology is
-              successfully integrated into organizational operations and employees are using the
-              technology effectively to accomplish organizational objectives. Organizational
-              implementation requires business process changes, employee training, and behavior
-              change beyond simple technical installation.
-            </li>
-            <li>
-              <strong>User Adoption:</strong> Individual employee decisions to use the technology in
-              their work. User adoption varies: some employees may embrace the technology while
-              others resist or underutilize it.
-            </li>
-            <li>
-              <strong>Implementation Success:</strong> Achievement of technology objectives,
-              including intended productivity improvements, cost savings, or capability
-              enhancements. Implementation success depends on both technology performance and
-              organizational ability to use technology effectively.
+              <strong>MRP Infusion:</strong> An index of the depth and integration of MRP use within
+              the adopting firm (beyond the binary adoption decision). Measured from survey
+              responses about the extent to which MRP was used in production planning, inventory
+              control, and related managerial tasks.
             </li>
           </ul>
+          <p className={PARAGRAPH_CLASSES}>
+            The empirical finding: the interaction of managerial task characteristics with IT does
+            affect MRP <em>adoption</em> but does not significantly affect MRP <em>infusion</em> -
+            suggesting that rational decision models may explain adoption but that political and
+            learning models may be more appropriate for infusion (Cooper &amp; Zmud, 1990,
+            abstract).
+          </p>
         </section>
 
-        {/* 6. Preceding Models or Theories */}
+        {/* 6. Core Concepts and Definitions */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Core Concepts and Definitions</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            The six-stage IT implementation model (Kwon &amp; Zmud, 1987, adapted in Cooper &amp;
+            Zmud, 1990) conceptualizes IT implementation as an organizational effort to diffuse
+            appropriate information technology within a user community. Each stage has a
+            characteristic <em>process</em> and <em>product</em> (Cooper &amp; Zmud, 1990, pp.
+            124-125):
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Initiation:</strong> Process - active and/or passive scanning of
+              organizational problems/opportunities and IT solutions; pressure to change evolves
+              from organizational need (pull), technological innovation (push), or both. Product - a
+              match is found between an IT solution and its application in the organization.
+            </li>
+            <li>
+              <strong>Adoption:</strong> Process - rational and political negotiations to get
+              organizational backing for implementation of the IT application. Product - a decision
+              is reached to invest resources necessary to accommodate the implementation effort.
+            </li>
+            <li>
+              <strong>Adaptation:</strong> Process - the IT application is developed, installed, and
+              maintained; organizational procedures are revised and developed; employees are trained
+              in both new procedures and the IT application. Product - the IT application is
+              available for use in the organization.
+            </li>
+            <li>
+              <strong>Acceptance:</strong> Process - organizational members are induced to commit to
+              IT application usage. Product - the IT application is employed in organizational work.
+            </li>
+            <li>
+              <strong>Routinization:</strong> Process - usage of the IT application is encouraged as
+              a normal activity. Product - the organization&rsquo;s governance systems are adjusted
+              to account for the IT application; the IT application is no longer perceived as
+              something out of the ordinary.
+            </li>
+            <li>
+              <strong>Infusion:</strong> Process - increased organizational effectiveness is
+              obtained by using the IT application in a more comprehensive and integrated manner to
+              support higher-level aspects of organizational work. Product - the IT application is
+              used to its fullest potential (citing Sullivan, 1985).
+            </li>
+          </ul>
+          <p className={PARAGRAPH_CLASSES}>
+            Cooper &amp; Zmud (1990, p. 124) map the stages onto Lewin&rsquo;s change model:
+            <em>Initiation</em> is associated with Lewin&rsquo;s unfreezing stage; <em>Adoption</em>{' '}
+            and <em>Adaptation</em> with the change stage; and <em>Acceptance</em>,{' '}
+            <em>Routinization</em>, and <em>Infusion</em> with the refreezing stage.
+          </p>
+          <p className={PARAGRAPH_CLASSES}>
+            Five contextual factor categories shape progress through each stage (Kwon &amp; Zmud,
+            1987, summarized in Cooper &amp; Zmud, 1990, Table 1): user characteristics (tenure,
+            education, resistance to change), organizational characteristics (specialization,
+            centralization, formalization), technology characteristics (complexity), task
+            characteristics (uncertainty, autonomy, variety), and environmental characteristics
+            (uncertainty, interorganizational dependence). The
+            <em>interaction</em> among these factors is also important.
+          </p>
+        </section>
+
+        {/* 7. Preceding Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Preceding Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -300,7 +346,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 7. Describe The Model */}
+        {/* 8. Describe The Model */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Describe The Model</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -556,7 +602,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 8. Key Contributions */}
+        {/* 9. Key Contributions */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Key Contributions</h2>
           <ul className={BODY_LIST_CLASSES}>
@@ -599,7 +645,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 9. Internal Validity */}
+        {/* 10. Internal Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Internal Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -643,7 +689,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 10. External Validity */}
+        {/* 11. External Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>External Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -695,7 +741,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 11. Relevance to Technology Adoption */}
+        {/* 12. Relevance to Technology Adoption */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Relevance to Technology Adoption</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -795,7 +841,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 12. Following Models or Theories */}
+        {/* 13. Following Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Following Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -909,7 +955,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 13. References */}
+        {/* 14. References */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>References</h2>
           <ol className={REFERENCES_OL_CLASSES}>
@@ -991,21 +1037,42 @@ const BibliographyArticlePage = () => {
           </ol>
         </section>
 
+        {/* 15. Further Reading */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Further Reading</h2>
           <ol className={REFERENCES_OL_CLASSES}>
+            <li id="ref-kwon-zmud-1987">
+              Kwon, T. H., &amp; Zmud, R. W. (1987). Unifying the fragmented models of information
+              systems implementation. In R. J. Boland &amp; R. A. Hirschheim (Eds.),{' '}
+              <em>Critical Issues in Information Systems Research</em> (pp. 227-251). John Wiley.{' '}
+              <strong>
+                Primary source for the six-stage model applied by Cooper &amp; Zmud (1990).
+              </strong>
+            </li>
+            <li id="ref-zmud-apple-1989">
+              Zmud, R. W., &amp; Apple, L. E. (1989). Measuring information technology infusion.
+              (Unpublished working paper, cited by Cooper &amp; Zmud 1990 for the post-adoption
+              behaviors portion of the six-stage model.)
+            </li>
+            <li id="ref-lewin-1952">
+              Lewin, K. (1952). Group decision and social change. In G. E. Swanson, T. M. Newcomb,
+              &amp; E. L. Hartley (Eds.), <em>Readings in Social Psychology</em>. Henry Holt.
+              (Source of the unfreezing-changing-refreezing model Cooper &amp; Zmud 1990 map the six
+              stages onto, p. 124.)
+            </li>
             <li id="ref-rogers-1983">
               Rogers, E. M. (1983). <em>Diffusion of innovations</em> (3rd ed.). Free Press.
             </li>
             <li id="ref-davis-1989">
               Davis, F. D. (1989). Perceived usefulness, perceived ease of use, and user acceptance
               of information technology. <em>MIS Quarterly</em>, 13(3), 319-340.
-              https://doi.org/10.2307/249008
+              https://doi.org/10.2307/249008. (Contemporary but independent individual-level
+              adoption framework; not cited by Cooper &amp; Zmud 1990 as a precursor.)
             </li>
           </ol>
         </section>
 
-        {/* 14. Series Navigation */}
+        {/* 16. Series Navigation */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Series Navigation</h2>
           <div className="space-y-4">
