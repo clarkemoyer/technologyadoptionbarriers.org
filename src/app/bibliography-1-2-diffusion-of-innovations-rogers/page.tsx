@@ -217,23 +217,21 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>Adopter Categories:</strong> Five categories based on time-of-adoption
-              relative to mean: Innovators (first 2.5%), Early Adopters (next 13.5%), Early
-              Majority (next 34%), Late Majority (next 34%), Laggards (final 16%).
+              relative to mean: Innovators (first 2.5%), Early Adopters (next 13.5%), Early Majority
+              (next 34%), Late Majority (next 34%), Laggards (final 16%).
             </li>
             <li>
-              <strong>Rate of Adoption:</strong> Cumulative percentage of members of a social
-              system adopting an innovation over time, typically producing the characteristic
-              S-curve.
+              <strong>Rate of Adoption:</strong> Cumulative percentage of members of a social system
+              adopting an innovation over time, typically producing the characteristic S-curve.
             </li>
             <li>
-              <strong>Innovation-Decision Process Stages:</strong> Knowledge, Persuasion,
-              Decision, Implementation, and Confirmation - assessed via self-report or
-              observational methods.
+              <strong>Innovation-Decision Process Stages:</strong> Knowledge, Persuasion, Decision,
+              Implementation, and Confirmation - assessed via self-report or observational methods.
             </li>
             <li>
-              <strong>Communication Channels and Social System Characteristics:</strong>{' '}
-              Mass-media vs interpersonal channels; norms, opinion leadership, and network
-              density, typically measured through sociometric or network-analysis methods.
+              <strong>Communication Channels and Social System Characteristics:</strong> Mass-media
+              vs interpersonal channels; norms, opinion leadership, and network density, typically
+              measured through sociometric or network-analysis methods.
             </li>
           </ul>
           <p className={PARAGRAPH_CLASSES}>
