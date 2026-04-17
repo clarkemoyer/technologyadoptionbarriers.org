@@ -100,13 +100,30 @@ type FlowPage = {
   crpPath: string
 }
 
+const getResultsPageKey = (href: string) => href.split('/').filter(Boolean).pop() ?? href
+
 const crpChildren = resultsSeries.find((s) => s.href === '/results/crp-2026')?.children ?? []
 const liveChildren =
   resultsSeries.find((s) => s.isGroup && s.href === '/results/full-dataset')?.children ?? []
 
-const FLOW_PAGES: FlowPage[] = crpChildren.map((crpPage, i) => {
-  const key = crpPage.href.split('/').filter(Boolean).pop() ?? crpPage.href
-  const livePage = liveChildren[i]
+const liveChildrenByKey = new Map(
+  liveChildren.map((livePage) => [getResultsPageKey(livePage.href), livePage] as const)
+)
+
+const crpKeys = crpChildren.map((crpPage) => getResultsPageKey(crpPage.href))
+const liveKeys = liveChildren.map((livePage) => getResultsPageKey(livePage.href))
+const missingLiveKeys = crpKeys.filter((key) => !liveChildrenByKey.has(key))
+const extraLiveKeys = liveKeys.filter((key) => !new Set(crpKeys).has(key))
+
+if (missingLiveKeys.length > 0 || extraLiveKeys.length > 0) {
+  throw new Error(
+    `Results page configuration mismatch between /results/crp-2026 and /results/full-dataset. Missing live pages for: ${missingLiveKeys.join(', ') || 'none'}. Extra live pages: ${extraLiveKeys.join(', ') || 'none'}.`
+  )
+}
+
+const FLOW_PAGES: FlowPage[] = crpChildren.map((crpPage) => {
+  const key = getResultsPageKey(crpPage.href)
+  const livePage = liveChildrenByKey.get(key)
   return {
     key,
     title: crpPage.title,
@@ -177,7 +194,7 @@ const minAlphaDisplay: string =
 const heroStats: Array<{ label: string; value: string }> = [
   { label: 'Total V2 Responses', value: totalN !== null ? String(totalN) : DATA_UNAVAILABLE },
   {
-    label: 'Prolific Approved',
+    label: 'Prolific Accepted',
     value: prolificN !== null ? String(prolificN) : DATA_UNAVAILABLE,
   },
   {
@@ -193,7 +210,10 @@ const ResultsPage = () => {
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>Results</h1>
         <LastUpdated
-          utcTimestamp={(sensitivityData as Record<string, unknown>).last_updated as string}
+          utcTimestamp={
+            ((sensitivityData as Record<string, unknown>).extended_last_updated ??
+              (sensitivityData as Record<string, unknown>).last_updated) as string
+          }
         />
 
         {/* ── Lede (headline finding) ── */}
@@ -282,8 +302,8 @@ const ResultsPage = () => {
               </div>
               <h3 className={`${H3_CLASSES} text-blue-900 mt-0`}>Live Results</h3>
               <p className="text-sm text-blue-900 mb-3">
-                The growing TABS V2 dataset, regenerated every time a new Prolific response is
-                approved. Best for watching the ranking stabilize as the sample fills toward N=500.
+                The growing TABS V2 dataset, regenerated daily from the latest approved Prolific
+                responses. Best for watching the ranking stabilize as the sample fills toward N=500.
               </p>
               <Link
                 href="/results/top-barriers"

@@ -264,7 +264,7 @@ const TopBarriersLivePage = () => {
                 {TOTAL_N} because participants can contribute more than one pick across their top 3
                 choices.
                 {allPicksUsed &&
-                  ` This equals the maximum possible total of 3 x ${TOTAL_N} = ${TOTAL_N * 3}.`}
+                  ` This equals the maximum possible total of 3 × ${TOTAL_N} = ${TOTAL_N * 3}.`}
               </p>
             </div>
           )}
