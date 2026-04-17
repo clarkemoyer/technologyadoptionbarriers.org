@@ -481,8 +481,8 @@ const BibliographyArticlePage = () => {
             <li>
               <strong>Comprehensive lifecycle framework:</strong> Microsoft CAF articulates a
               full-lifecycle view of cloud adoption, spanning strategy through operations, and
-              argues that successful adoption requires attention to organizational, governance,
-              and operational dimensions in addition to technology.
+              argues that successful adoption requires attention to organizational, governance, and
+              operational dimensions in addition to technology.
             </li>
             <li>
               <strong>Rationalization methodology:</strong> 5R framework provided systematic
