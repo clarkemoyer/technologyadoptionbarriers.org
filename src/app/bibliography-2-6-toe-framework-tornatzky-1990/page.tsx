@@ -632,6 +632,13 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Internal Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
+            <strong>Note:</strong> TOE is a conceptual organizing framework, not a testable causal
+            model. &ldquo;Internal validity&rdquo; below is assessed as logical coherence and
+            fidelity to the diffusion-of-innovation tradition the book synthesizes. Specific content
+            claims against Tornatzky &amp; Fleischer (1990) are unverified at page level because the
+            book PDF is not in the project&rsquo;s Zotero library.
+          </p>
+          <p className={PARAGRAPH_CLASSES}>
             As a comprehensive synthesis of existing research rather than a novel empirical study,
             the TOE Framework demonstrates strong internal validity through logical coherence and
             comprehensive integration of established research findings:
