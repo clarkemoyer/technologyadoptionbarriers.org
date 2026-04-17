@@ -6,10 +6,8 @@ import sensitivityData from '@/data/sensitivity-analysis.json'
  * Displays top 3 barriers from survey data with link to full results
  */
 const LiveResults = () => {
-  // Get top 3 barriers by count
-  const top3Barriers = sensitivityData.top3_pick_counts.items
-    .sort((a, b) => b.count - a.count)
-    .slice(0, 3)
+  // Get top 3 barriers by count without mutating imported JSON data
+  const top3Barriers = sensitivityData.top3_pick_counts.items_sorted_desc.slice(0, 3)
 
   const totalN = sensitivityData.top3_pick_counts.total_n
 
@@ -41,7 +39,9 @@ const LiveResults = () => {
                 </div>
                 <div className="text-right">
                   <div className="text-[28px] font-bold text-tabs-orange">{barrier.count}</div>
-                  <div className="text-[14px] text-gray-600">{barrier.pct.toFixed(1)}%</div>
+                  <div className="text-[14px] text-gray-600">
+                    {typeof barrier.pct === 'number' ? `${barrier.pct.toFixed(1)}%` : '—'}
+                  </div>
                 </div>
               </div>
 
@@ -58,7 +58,14 @@ const LiveResults = () => {
             className="inline-flex items-center gap-[12px] bg-tabs-blue text-white px-[40px] py-[16px] rounded-lg text-[18px] font-semibold hover:bg-tabs-navy transition-colors duration-300 shadow-md hover:shadow-lg"
           >
             View All Results & Analysis
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              focusable="false"
+            >
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
           </Link>

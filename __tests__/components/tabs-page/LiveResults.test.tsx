@@ -17,7 +17,8 @@ describe('LiveResults component', () => {
   it('should display the participant count', () => {
     render(<LiveResults />)
     const totalN = sensitivityData.top3_pick_counts.total_n
-    expect(screen.getByText(new RegExp(`${totalN}`))).toBeInTheDocument()
+    const formattedTotalN = totalN.toLocaleString()
+    expect(screen.getByText(new RegExp(formattedTotalN))).toBeInTheDocument()
   })
 
   it('should display exactly 3 barriers', () => {
@@ -31,10 +32,8 @@ describe('LiveResults component', () => {
   it('should display barriers sorted by count (descending)', () => {
     render(<LiveResults />)
 
-    // Get top 3 barriers sorted by count
-    const top3 = sensitivityData.top3_pick_counts.items
-      .sort((a, b) => b.count - a.count)
-      .slice(0, 3)
+    // Get top 3 barriers sorted by count (using pre-sorted list to avoid mutation)
+    const top3 = sensitivityData.top3_pick_counts.items_sorted_desc.slice(0, 3)
 
     // Check that each barrier text is displayed
     top3.forEach((barrier) => {
@@ -45,17 +44,15 @@ describe('LiveResults component', () => {
   it('should display count and percentage for each barrier', () => {
     render(<LiveResults />)
 
-    // Get top 3 barriers
-    const top3 = sensitivityData.top3_pick_counts.items
-      .sort((a, b) => b.count - a.count)
-      .slice(0, 3)
+    // Get top 3 barriers (using pre-sorted list to avoid mutation)
+    const top3 = sensitivityData.top3_pick_counts.items_sorted_desc.slice(0, 3)
 
     top3.forEach((barrier) => {
       // Count should be displayed
       expect(screen.getByText(barrier.count.toString())).toBeInTheDocument()
 
-      // Percentage should be displayed (with 1 decimal place)
-      const pctText = `${barrier.pct.toFixed(1)}%`
+      // Percentage should be displayed (with 1 decimal place, or em dash if null)
+      const pctText = typeof barrier.pct === 'number' ? `${barrier.pct.toFixed(1)}%` : '—'
       expect(screen.getByText(pctText)).toBeInTheDocument()
     })
   })
