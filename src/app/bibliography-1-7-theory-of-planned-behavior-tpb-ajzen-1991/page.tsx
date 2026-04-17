@@ -260,8 +260,8 @@ const BibliographyArticlePage = () => {
                 </a>
                 ):
               </strong>{' '}
-              Developed the self-efficacy construct - beliefs about personal capability to
-              perform actions - which TPB draws on via perceived behavioral control.
+              Developed the self-efficacy construct - beliefs about personal capability to perform
+              actions - which TPB draws on via perceived behavioral control.
             </li>
             <li>
               <strong>Locus of control research:</strong> Documented how individuals&rsquo; beliefs
@@ -402,8 +402,8 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>General behavior prediction template:</strong> Provides a general framework
-              that has been applied across health, education, environment, workplace, and
-              consumer domains.
+              that has been applied across health, education, environment, workplace, and consumer
+              domains.
             </li>
             <li>
               <strong>Practical intervention specification:</strong> Explicitly specified
@@ -456,8 +456,8 @@ const BibliographyArticlePage = () => {
           <ul className={BODY_LIST_CLASSES}>
             <li>
               <strong>Cross-domain applicability:</strong> Applied across health, occupational,
-              educational, environmental, and consumer behaviors, with reported effect sizes
-              varying by domain.
+              educational, environmental, and consumer behaviors, with reported effect sizes varying
+              by domain.
             </li>
             <li>
               <strong>Population diversity:</strong> Found consistent relationships across
