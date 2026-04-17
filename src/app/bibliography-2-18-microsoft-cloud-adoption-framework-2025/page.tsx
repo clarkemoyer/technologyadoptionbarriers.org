@@ -718,9 +718,10 @@ const BibliographyArticlePage = () => {
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Microsoft AI Adoption Framework (2025):</strong> Microsoft extended CAF
-              principles specifically for AI adoption scenarios, applying the same
-              strategy-plan-ready-adopt methodology to AI workloads.
+              <strong>CAF AI adoption scenario:</strong> Microsoft extended CAF with a dedicated AI
+              adoption scenario (and companion AI agents scenario) covering how and when to adopt AI
+              (generative and nongenerative) using the same Strategy-Plan-Ready-Adopt methodology
+              applied to AI workloads.
             </li>
             <li>
               <strong>Azure Landing Zone Architecture:</strong> CAF&rsquo;s Ready phase directly
@@ -728,9 +729,11 @@ const BibliographyArticlePage = () => {
               cloud-ready environments.
             </li>
             <li>
-              <strong>FinOps Foundation Practices:</strong> CAF&rsquo;s cost management governance
-              disciplines contributed to the broader FinOps movement establishing cloud financial
-              management as a distinct organizational capability.
+              <strong>FinOps Framework integration:</strong> CAF&rsquo;s Strategy methodology
+              explicitly recommends adopting FinOps to foster financial responsibility, accurate
+              forecasting, strategic budgeting, and real-time cost tracking. CAF points
+              practitioners to the FinOps Framework as its recommended best-practice source for
+              cloud financial management.
             </li>
           </ul>
         </section>
