@@ -154,7 +154,44 @@ const BibliographyArticlePage = () => {
           </p>
         </section>
 
-        {/* 5. Core Concepts and Definitions */}
+        {/* 5. What Does the Model Measure? */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>What Does the Model Measure?</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            <strong>Source note:</strong> Davenport &amp; Short (1990) is a Sloan Management Review
+            article on business-process redesign enabled by information technology; the PDF in the
+            project&rsquo;s Zotero library is scanned (image-only), so text-level quote verification
+            on this page is limited to what is visible in page renderings. Claims below match the
+            paper&rsquo;s structure and illustrative cases but are not all direct quotations.
+          </p>
+          <p className={PARAGRAPH_CLASSES}>
+            Davenport &amp; Short (1990) is a conceptual framework paper, not a measurement model.
+            It does not propose scales or psychometric instruments. Its analytical contribution is:
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>A definition of &ldquo;business process&rdquo;:</strong> &ldquo;A set of
+              logically related tasks performed to achieve a defined business outcome&rdquo;
+              (Davenport &amp; Short, 1990, p. 12), drawing on Pall (1987).
+            </li>
+            <li>
+              <strong>A recursive framing of IT and BPR:</strong> Figure 1 of the paper posits a
+              two-way relationship: IT capabilities can shape business-process redesign
+              possibilities, and business-process redesign can guide how IT is deployed.
+            </li>
+            <li>
+              <strong>A five-step methodology for IT-enabled process redesign</strong> (see Describe
+              the Model below).
+            </li>
+            <li>
+              <strong>Illustrative case studies:</strong> Ford accounts-payable invoice-less
+              matching; Mutual Benefit Life Insurance case worker redesign. These are worked
+              examples, not an empirical data set.
+            </li>
+          </ul>
+        </section>
+
+        {/* 6. Core Concepts and Definitions */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Core Concepts and Definitions</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -182,9 +219,13 @@ const BibliographyArticlePage = () => {
               to make complex decisions.
             </li>
             <li>
-              <strong>Radical Improvement:</strong> Not incremental improvement of 5-10% but rather
-              dramatic performance improvement of 50% or greater. BPR pursues breakthrough
-              improvements rather than incremental optimization.
+              <strong>Substantial (not incremental) improvement:</strong> Davenport &amp; Short
+              frame BPR as enabling substantial performance improvement (cost, quality, speed,
+              service) rather than incremental optimization. The often-cited &ldquo;50% or
+              greater&rdquo; rhetoric is more strongly associated with later BPR writers (notably
+              Hammer &amp; Champy, 1993) than with the 1990 Davenport &amp; Short article; the 1990
+              article uses more measured language while still emphasizing that the goal is redesign
+              rather than automation of existing processes.
             </li>
             <li>
               <strong>Cross-functional Process:</strong> Processes spanning multiple organizational
@@ -204,7 +245,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 6. Preceding Models or Theories */}
+        {/* 7. Preceding Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Preceding Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -318,7 +359,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 7. Describe The Model */}
+        {/* 8. Describe The Model */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Describe The Model</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -542,7 +583,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 8. Key Contributions */}
+        {/* 9. Key Contributions */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Key Contributions</h2>
           <ul className={BODY_LIST_CLASSES}>
@@ -583,7 +624,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 9. Internal Validity */}
+        {/* 10. Internal Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Internal Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -629,7 +670,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 10. External Validity */}
+        {/* 11. External Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>External Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -681,7 +722,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 11. Relevance to Technology Adoption */}
+        {/* 12. Relevance to Technology Adoption */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Relevance to Technology Adoption</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -785,7 +826,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 12. Following Models or Theories */}
+        {/* 13. Following Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Following Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -876,7 +917,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 13. References */}
+        {/* 14. References */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>References</h2>
           <ol className={REFERENCES_OL_CLASSES}>
@@ -988,7 +1029,7 @@ const BibliographyArticlePage = () => {
           </ol>
         </section>
 
-        {/* 14. Series Navigation */}
+        {/* 16. Series Navigation */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Series Navigation</h2>
           <div className="space-y-4">
