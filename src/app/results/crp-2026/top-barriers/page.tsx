@@ -160,8 +160,10 @@ const topPositive = positiveMovers.slice(0, 2)
 // An "omitted" barrier is one that appears in the pick list but has no continuous-rating mean,
 // so it receives no Mean Rank. In the frozen CRP N=200 dataset this never happens, but the guard
 // stays in place so the page renders correctly if a future pipeline run surfaces an item where
-// every response is missing. Only show the explanatory sentence when there is an actual omission.
-const hasOmittedMeanRank = pickSorted.some((r) => meanRankOf[r.item] === undefined)
+// every response is missing. Only show the explanatory sentence when mean-rank data exists and
+// there is an actual omission for at least one picked item.
+const hasOmittedMeanRank =
+  meanRankable.length > 0 && pickSorted.some((r) => meanRankOf[r.item] === undefined)
 
 const TopBarriersPage = () => {
   const topPick = pickSorted.slice(0, 10)
