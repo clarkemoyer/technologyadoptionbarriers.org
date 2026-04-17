@@ -602,10 +602,10 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>Four-construct adoption model reported:</strong> Reports that performance
-              expectancy, effort expectancy, social influence, and facilitating conditions
-              together explain a substantial share of technology-adoption-intention variance in
-              the original longitudinal study&rsquo;s four-organization sample; generalization to
-              other contexts relies on subsequent replication literature.
+              expectancy, effort expectancy, social influence, and facilitating conditions together
+              explain a substantial share of technology-adoption-intention variance in the original
+              longitudinal study&rsquo;s four-organization sample; generalization to other contexts
+              relies on subsequent replication literature.
             </li>
             <li>
               <strong>Predictive power benchmark:</strong> Achieved 70 percent variance explained in
