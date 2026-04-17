@@ -185,10 +185,10 @@ const BibliographyArticlePage = () => {
               Readiness, AI Solution Development, Responsible AI, AI Operations, and AI Skilling.
             </li>
             <li>
-              <strong>Copilot Approach:</strong> Microsoft&rsquo;s published patterns for
-              deploying large-language-model-based Copilots at organizational scale, incorporating
-              responsible AI governance. The patterns are vendor-authored and largely based on
-              Microsoft&rsquo;s own deployment experience.
+              <strong>Copilot Approach:</strong> Microsoft&rsquo;s published patterns for deploying
+              large-language-model-based Copilots at organizational scale, incorporating responsible
+              AI governance. The patterns are vendor-authored and largely based on Microsoft&rsquo;s
+              own deployment experience.
             </li>
             <li>
               <strong>AI Governance:</strong> Organizational policies, standards, and accountability
@@ -533,10 +533,10 @@ const BibliographyArticlePage = () => {
               adoption, establishing ethics as business requirement.
             </li>
             <li>
-              <strong>Copilot deployment patterns:</strong> Consolidated Microsoft&rsquo;s
-              published deployment patterns from early Copilot rollouts into vendor guidance for
-              large-language-model implementation at scale. Independent evaluation of these
-              patterns across non-Microsoft contexts is limited as of publication.
+              <strong>Copilot deployment patterns:</strong> Consolidated Microsoft&rsquo;s published
+              deployment patterns from early Copilot rollouts into vendor guidance for
+              large-language-model implementation at scale. Independent evaluation of these patterns
+              across non-Microsoft contexts is limited as of publication.
             </li>
             <li>
               <strong>Comprehensive readiness assessment:</strong> Established systematic readiness
