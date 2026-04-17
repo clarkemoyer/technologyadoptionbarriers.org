@@ -305,14 +305,15 @@ const BibliographyArticlePage = () => {
               negative confirmation produces dissatisfaction.
             </li>
             <li>
-              <strong>Satisfaction-to-Continuance Pathway:</strong> Satisfaction influences
-              post-adoption continuance intention both directly and indirectly through its effect on
-              post-adoption perceived usefulness.
+              <strong>Satisfaction-to-Continuance Pathway:</strong> Satisfaction directly influences
+              continuance intention (path coefficient .567 in Figure 3). Satisfaction is the
+              strongest predictor of continuance, reflecting that users who are satisfied with
+              prior use intend to continue.
             </li>
             <li>
-              <strong>Usefulness-to-Continuance Pathway:</strong> Post-adoption perceived
-              usefulness, shaped by confirmation and satisfaction, directly determines continuance
-              intention, reflecting cost-benefit calculations about continued use.
+              <strong>Usefulness-to-Continuance Pathway:</strong> Post-adoption perceived usefulness,
+              shaped by confirmation (.227), directly predicts both satisfaction (.451) and
+              continuance intention (.294). PU influences satisfaction, not the reverse.
             </li>
             <li>
               <strong>Temporal Dynamics:</strong> Model captures time progression from pre-adoption
