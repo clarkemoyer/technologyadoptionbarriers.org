@@ -228,6 +228,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     {
+      url: `${baseUrl}/results/crp-2026/top-barriers`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
       url: `${baseUrl}/results/factor-analysis`,
       lastModified: now,
       changeFrequency: 'weekly',

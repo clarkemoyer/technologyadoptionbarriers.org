@@ -41,7 +41,10 @@ export default function QualtricsSurveyStats() {
             <div className="mt-1 text-3xl font-bold text-blue-700">
               {placesTaken.toLocaleString()}
             </div>
-            <div className="mt-1 text-xs text-blue-600">Live count from Prolific</div>
+            <div className="mt-1 text-xs text-blue-600">
+              Cached snapshot from Prolific. Last updated{' '}
+              <span className="font-medium">{dispositionData.updatedAt}</span>.
+            </div>
           </div>
           <div className="rounded-lg border border-orange-200 bg-orange-50 p-4">
             <div className="text-sm font-medium text-orange-900">Question Count</div>

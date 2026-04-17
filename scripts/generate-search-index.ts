@@ -121,7 +121,7 @@ export function joinSegments(segments: string[]): string {
 
 /**
  * Extract the static `export const metadata` object from a page source file.
- * Returns { title, description } or nulls when not found.
+ * Returns { title, description, robotsIndexFalse } or nulls when not found.
  *
  * Uses a string-aware brace-counter to scope extraction to the `export const
  * metadata = { ... }` block so nested objects like `openGraph.title` are never
@@ -130,6 +130,7 @@ export function joinSegments(segments: string[]): string {
 function extractStaticMetadata(source: string): {
   title: string | null
   description: string | null
+  robotsIndexFalse: boolean
 } {
   let title: string | null = null
   let description: string | null = null
@@ -183,7 +184,7 @@ function extractStaticMetadata(source: string): {
     }
   }
 
-  if (blockEnd === -1) return { title, description }
+  if (blockEnd === -1) return { title, description, robotsIndexFalse: false }
 
   const metadataBlock = source.slice(blockStart, blockEnd + 1)
 
@@ -195,7 +196,10 @@ function extractStaticMetadata(source: string): {
   const descMatch = metadataBlock.match(/(?:^|[,{]\s*)description:\s*\n?\s*(['"`])([\s\S]*?)\1/)
   if (descMatch) description = descMatch[2].replace(/\s+/g, ' ').trim()
 
-  return { title, description }
+  // Detect robots: { index: false } to skip pages not meant to be searchable
+  const robotsIndexFalse = /robots\s*:\s*\{[^}]*index\s*:\s*false/.test(metadataBlock)
+
+  return { title, description, robotsIndexFalse }
 }
 
 /**
@@ -463,10 +467,13 @@ async function generateSearchIndex() {
     }
 
     const source = await fs.readFile(filePath, 'utf-8')
-    const { title, description } = extractStaticMetadata(source)
+    const { title, description, robotsIndexFalse } = extractStaticMetadata(source)
 
     // Skip pages without metadata (e.g. layout-only files)
     if (!title) continue
+
+    // Skip pages opted out of indexing (robots: { index: false })
+    if (robotsIndexFalse) continue
 
     const visibleText = extractVisibleText(source)
     const segments = [title, description, visibleText]
