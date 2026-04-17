@@ -375,7 +375,7 @@ const TopBarriersLivePage = () => {
             more salient under the forced-choice task than under continuous rating (it rises when
             participants must prioritize), and a positive Delta means the opposite (it falls under
             forced choice relative to continuous rating).
-            {hasOmittedMeanRank
+            {dataAvailable && hasOmittedMeanRank
               ? ' Barriers missing a Mean Rank value above are those with no valid continuous-rating mean in this dataset (all responses missing for that item).'
               : ''}
           </p>
