@@ -127,7 +127,7 @@ const BibliographyArticlePage = () => {
             technology-specific dimensions. Attitudinal beliefs decompose into perceived usefulness,
             perceived ease of use (complexity), and compatibility (from Rogers); normative beliefs
             decompose into peer influence and superior influence; control beliefs decompose into
-            self-efficacy and resource facilitating conditions.
+            self-efficacy, resource facilitating conditions, and technology facilitating conditions.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             The empirical research compared three models (TAM, TPB, DTPB) using 786 university
@@ -194,7 +194,7 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>Resource Facilitating Conditions:</strong> Availability of resources needed to
-              use the system (time, money, equipment), based on{' '}
+              use the system (time, money), based on{' '}
               <a
                 id="cite-ref-triandis-1979-1"
                 href="#ref-triandis-1979"
@@ -203,6 +203,12 @@ const BibliographyArticlePage = () => {
                 Triandis&rsquo; (1979)
               </a>{' '}
               facilitating conditions concept.
+            </li>
+            <li>
+              <strong>Technology Facilitating Conditions:</strong> Compatibility issues that may
+              constrain usage (such as a lack of appropriate hardware, software, or technology
+              support). Taylor and Todd separate these from resource conditions because technology
+              compatibility operates independently of resource availability in the empirical data.
             </li>
           </ul>
         </section>
@@ -271,11 +277,11 @@ const BibliographyArticlePage = () => {
             intention predictors is decomposed into multiple specific belief dimensions. Attitudes
             toward IT use are predicted by perceived usefulness, perceived ease of use (complexity),
             and compatibility beliefs. Normative beliefs are predicted by peer influence and
-            superior influence. Perceived behavioral control is predicted by self-efficacy and
-            resource facilitating conditions. Per Table 3, the model explained 60% of variance in
-            behavioral intention (R²=.60), compared to TAM (R²=.52) and original TPB (R²=.57). The
-            study also measured actual usage behavior by monitoring 3,780 visits to the computing
-            resource center over a 12-week period.
+            superior influence. Perceived behavioral control is predicted by self-efficacy, resource
+            facilitating conditions, and technology facilitating conditions. Per Table 3, the model
+            explained 60% of variance in behavioral intention (R²=.60), compared to TAM (R²=.52) and
+            original TPB (R²=.57). The study also measured actual usage behavior by monitoring
+            approximately 3,700 visits to the computing resource center over a 12-week period.
           </p>
 
           <h3 className={H3_CLASSES}>What does the model measure?</h3>
@@ -290,8 +296,9 @@ const BibliographyArticlePage = () => {
               horizontal and vertical social influence pathways.
             </li>
             <li>
-              <strong>Control beliefs:</strong> Self-efficacy and resource facilitating conditions
-              capturing individual capability confidence and resource availability.
+              <strong>Control beliefs:</strong> Self-efficacy, resource facilitating conditions, and
+              technology facilitating conditions capturing individual capability confidence,
+              resource availability, and technology compatibility constraints.
             </li>
             <li>
               <strong>Behavioral intentions:</strong> Likelihood of system adoption and usage
@@ -309,8 +316,8 @@ const BibliographyArticlePage = () => {
             <li>
               <strong>Technology-specific decomposition:</strong> Decomposes general TPB constructs
               into IT-relevant dimensions (usefulness, ease of use/complexity, compatibility,
-              peer/superior influence, self-efficacy, resource facilitating conditions) improving
-              precision.
+              peer/superior influence, self-efficacy, resource and technology facilitating
+              conditions) improving precision.
             </li>
             <li>
               <strong>Superior predictive power:</strong> Explains 60% of intention variance
@@ -346,9 +353,10 @@ const BibliographyArticlePage = () => {
               prevents understanding of actual adoption trajectories or sustained usage patterns.
             </li>
             <li>
-              <strong>Intention-behavior gap:</strong> While actual usage was monitored (3,780
-              visits over 12 weeks), the decomposed belief structure primarily predicts intentions.
-              The link from intention to actual behavior showed moderate strength.
+              <strong>Intention-behavior gap:</strong> While actual usage was monitored
+              (approximately 3,700 visits over 12 weeks), the decomposed belief structure primarily
+              predicts intentions. The link from intention to actual behavior showed moderate
+              strength.
             </li>
             <li>
               <strong>Model complexity:</strong> Nine-construct model with multiple paths is more
@@ -544,8 +552,8 @@ const BibliographyArticlePage = () => {
             <li>
               <strong>Implement multi-level strategies:</strong> Address attitudinal barriers
               (usefulness, compatibility, complexity, ease-of-use), normative barriers (peer and
-              superior influences), and control barriers (self-efficacy and resource facilitating
-              conditions) simultaneously.
+              superior influences), and control barriers (self-efficacy, resource facilitating
+              conditions, and technology facilitating conditions) simultaneously.
             </li>
           </ul>
         </section>
