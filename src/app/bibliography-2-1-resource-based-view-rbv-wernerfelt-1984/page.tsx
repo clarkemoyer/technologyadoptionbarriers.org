@@ -411,17 +411,32 @@ const BibliographyArticlePage = () => {
           <ul className={BODY_LIST_CLASSES}>
             <li>
               <strong>Machine capacity:</strong> Scale economies in the use of a productive resource
-              are a prime example of product-entry barriers (Spence, 1979). From the resource
-              perspective, the product-entry barrier translates into a resource-position barrier:
-              where excess capacity would lead to cut-throat competition and low returns, the
-              resource position barrier operates through lower expected revenues for prospective
-              acquirers.
+              are a prime example of product-entry barriers (
+              <a
+                id="cite-ref-spence-1979-1"
+                href="#ref-spence-1979"
+                className="text-tabs-teal-deep hover:underline"
+              >
+                Spence, 1979
+              </a>
+              ). From the resource perspective, the product-entry barrier translates into a
+              resource-position barrier: where excess capacity would lead to cut-throat competition
+              and low returns, the resource position barrier operates through lower expected
+              revenues for prospective acquirers.
             </li>
             <li>
               <strong>Customer loyalty:</strong> The market for customers generates a resource
               position barrier - it is much easier to pioneer a position than to replace someone
-              else who already has it (Ries and Trout, 1981). Related examples are first-mover
-              advantages in government contracts and access to raw materials.
+              else who already has it (
+              <a
+                id="cite-ref-ries-trout-1981-1"
+                href="#ref-ries-trout-1981"
+                className="text-tabs-teal-deep hover:underline"
+              >
+                Ries and Trout, 1981
+              </a>
+              ). Related examples are first-mover advantages in government contracts and access to
+              raw materials.
             </li>
             <li>
               <strong>Production experience:</strong> If the leader executes the experience curve
@@ -472,7 +487,15 @@ const BibliographyArticlePage = () => {
             limit search to targets satisfying simple criteria: what resources a target has, which
             the firm can take advantage of, the cost of doing so, and what the firm could pay for
             them. Related-supplementary and related-complementary acquisition strategies are
-            distinguished (Salter &amp; Weinhold, 1979).
+            distinguished (
+            <a
+              id="cite-ref-salter-weinhold-1979-1"
+              href="#ref-salter-weinhold-1979"
+              className="text-tabs-teal-deep hover:underline"
+            >
+              Salter &amp; Weinhold, 1979
+            </a>
+            ).
           </p>
 
           <h3 className={H3_CLASSES}>Main Strengths</h3>
