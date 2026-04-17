@@ -423,7 +423,7 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>Empirical rigor:</strong> Four longitudinal field studies across four
-              organizations (total N=156), three measurement points each, and real organizational
+              organizations (total N=156), multiple measurement occasions, and real organizational
               technology implementations provide strong empirical foundation.
             </li>
             <li>
@@ -539,7 +539,7 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>Multi-study design:</strong> Four longitudinal field studies across four
-              organizations (total N=156), each measured at three time points, providing sufficient
+              organizations (total N=156), each measured at four time points, providing sufficient
               data to detect hypothesized relationships and moderating effects.
             </li>
             <li>
