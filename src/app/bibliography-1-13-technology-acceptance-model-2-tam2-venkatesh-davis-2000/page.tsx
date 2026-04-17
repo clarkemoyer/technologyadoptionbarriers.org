@@ -138,8 +138,8 @@ const BibliographyArticlePage = () => {
             mandatory and voluntary usage contexts.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            To test TAM2, Venkatesh and Davis conducted four longitudinal field studies tracking
-            the same users across multiple measurement occasions spanning several months of actual
+            To test TAM2, Venkatesh and Davis conducted four longitudinal field studies tracking the
+            same users across multiple measurement occasions spanning several months of actual
             system use: two in mandatory adoption settings (employees required to use new
             organizational systems) and two in voluntary settings. The multi-study, longitudinal
             design is stronger than the cross-sectional intention measures typical of earlier TAM
