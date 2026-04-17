@@ -14,7 +14,7 @@ import {
 export const metadata: Metadata = {
   title: 'Bibliography: Diffusion of Innovations - Organizational Perspective - Rogers (1962/2003)',
   description:
-    "Comprehensive overview of Rogers' Diffusion of Innovations theory (1st ed. 1962; 5th ed. 2003) focused on organizational adoption. Covers organizational innovativeness, innovation-development process, organizational adoption stages, champions and change agents, and foundational diffusion research synthesizing more than 3,000 diffusion publications.",
+    "Comprehensive overview of Rogers' Diffusion of Innovations theory (1st ed. 1962; 5th ed. 2003) focused on organizational adoption. Covers organizational innovativeness, innovation-development process, organizational adoption stages, champions and change agents, and foundational diffusion research synthesizing the diffusion tradition.",
 }
 
 const BibliographyArticlePage = () => {
