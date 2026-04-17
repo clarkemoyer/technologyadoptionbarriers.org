@@ -130,8 +130,8 @@ const BibliographyArticlePage = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             Building on contingency theory and job fit literature, the authors conducted empirical
-            research with 600+ end-users across 26 departments in two companies, developing a
-            12-factor TTF measurement instrument. The research demonstrated that task-technology fit
+            research with 662 end-users across 26 departments in two companies, developing an
+            8-factor TTF measurement instrument. The research demonstrated that task-technology fit
             independently predicts performance above user attitudes or technology acceptance
             variables, highlighting fit as distinct from adoption. TTF provided managers with
             actionable framework for technology selection, implementation, and evaluation grounded
@@ -173,9 +173,10 @@ const BibliographyArticlePage = () => {
               productivity and effectiveness impacts of technology use.
             </li>
             <li>
-              <strong>12-Factor TTF Instrument:</strong> Comprehensive measurement of fit across
-              data quality, data locating ability, decision support, automation of tasks, ease of
-              system use, system reliability, and other dimensions.
+              <strong>8-Factor TTF Instrument (Table 1):</strong> Quality (data currency,
+              correctness, detail level), Locatability, Authorization, Compatibility, Ease of
+              Use/Training, Production Timeliness, Systems Reliability, and Relationship with Users
+              (IS understanding, dedication, responsiveness, planning assistance).
             </li>
           </ul>
         </section>
@@ -255,9 +256,9 @@ const BibliographyArticlePage = () => {
               performance characteristics, and user interface quality.
             </li>
             <li>
-              <strong>Fit assessment:</strong> Twelve dimensions capturing data quality, ease of
-              use, automation potential, decision support, task interdependence matching, and other
-              fit aspects.
+              <strong>Fit assessment:</strong> Eight factors capturing quality, locatability,
+              authorization, compatibility, ease of use/training, production timeliness, systems
+              reliability, and relationship with users.
             </li>
             <li>
               <strong>Utilization patterns:</strong> Frequency and breadth of system feature usage
@@ -276,7 +277,7 @@ const BibliographyArticlePage = () => {
               predicts performance outcomes rather than just adoption intentions.
             </li>
             <li>
-              <strong>Comprehensive fit measurement:</strong> Twelve-factor instrument captures fit
+              <strong>Comprehensive fit measurement:</strong> Eight-factor instrument captures fit
               across multiple dimensions beyond simple usefulness or ease-of-use judgments.
             </li>
             <li>
@@ -305,7 +306,7 @@ const BibliographyArticlePage = () => {
           <h3 className={H3_CLASSES}>Main Weaknesses</h3>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Complex measurement requirement:</strong> Twelve-factor TTF instrument is
+              <strong>Complex measurement requirement:</strong> Eight-factor TTF instrument is
               lengthy and demanding, requiring substantial user assessment and analysis time.
             </li>
             <li>
@@ -355,7 +356,7 @@ const BibliographyArticlePage = () => {
               establishing that technology effectiveness depends on task-technology alignment.
             </li>
             <li>
-              <strong>Multidimensional fit measurement:</strong> Developed comprehensive 12-factor
+              <strong>Multidimensional fit measurement:</strong> Developed comprehensive 8-factor
               instrument capturing fit across data quality, functionality, ease of use, and other
               dimensions.
             </li>
@@ -504,7 +505,7 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>Measure task-technology fit:</strong> Use comprehensive fit assessment
-              (similar to 12-factor TTF) to evaluate systems before and after implementation.
+              (similar to 8-factor TTF) to evaluate systems before and after implementation.
             </li>
             <li>
               <strong>Optimize data quality:</strong> Ensure systems provide accurate, complete,
