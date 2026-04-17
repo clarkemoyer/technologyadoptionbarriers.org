@@ -444,9 +444,9 @@ const BibliographyArticlePage = () => {
               at different decision stages.
             </li>
             <li>
-              <strong>Innovation characteristics framework:</strong> Established a parsimonious set
-              of five innovation attributes (relative advantage, compatibility, complexity,
-              trialability, observability) predicting adoption rates.
+              <strong>Innovation characteristics framework:</strong> Articulated a parsimonious
+              set of five innovation attributes (relative advantage, compatibility, complexity,
+              trialability, observability) associated with adoption rates.
             </li>
             <li>
               <strong>Adopter categorization system:</strong> Created a standardized classification
@@ -458,8 +458,9 @@ const BibliographyArticlePage = () => {
               just individual psychology but broader cultural, social, and structural contexts.
             </li>
             <li>
-              <strong>Methodological legacy:</strong> Established rigorous measurement practices and
-              research designs that remain standard in adoption and implementation science research.
+              <strong>Methodological legacy:</strong> Helped codify measurement practices and
+              research designs that are widely used in adoption and implementation science
+              research.
             </li>
           </ul>
         </section>
@@ -479,14 +480,14 @@ const BibliographyArticlePage = () => {
               providing convergent evidence for core concepts.
             </li>
             <li>
-              <strong>Clear conceptual definitions:</strong> Established precisely defined core
-              concepts (innovation, communication channels, time, social system) enabling consistent
-              measurement and comparison across studies.
+              <strong>Clear conceptual definitions:</strong> Provides precisely defined core
+              concepts (innovation, communication channels, time, social system) enabling
+              consistent measurement and comparison across studies.
             </li>
             <li>
-              <strong>Multi-disciplinary convergence:</strong> Demonstrated that research in
-              education, rural sociology, public health, communication, marketing, and geography all
-              produced findings supporting similar diffusion patterns.
+              <strong>Multi-disciplinary convergence:</strong> Compiles research from education,
+              rural sociology, public health, communication, marketing, and geography that Rogers
+              reads as producing broadly similar diffusion patterns.
             </li>
             <li>
               <strong>Consistent relationships across behaviors:</strong> Showed consistent adopter
@@ -525,9 +526,8 @@ const BibliographyArticlePage = () => {
               generalizability across analytical levels.
             </li>
             <li>
-              <strong>Temporal generalizability:</strong> Demonstrated consistent patterns across
-              both contemporary and historical cases spanning centuries, suggesting robust external
-              validity across time periods.
+              <strong>Temporal generalizability:</strong> Reports consistent patterns across both
+              contemporary and historical cases spanning centuries.
             </li>
             <li>
               <strong>Real-world behavior measurement:</strong> Studies measured actual adoption
