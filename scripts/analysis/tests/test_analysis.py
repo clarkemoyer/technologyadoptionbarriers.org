@@ -1025,11 +1025,14 @@ class TestExtendedOutputBlocks:
         all TOP3, barrier, readiness, maturity, and demographic columns.
 
         Pick layout (each row can pick up to 3 barriers):
-          row0: B1, B6, B7  → cols Top3Barriers_1, _6, _7 have "1"
-          row1: B1, B7       → cols Top3Barriers_1, _7 have "1"
-          row2: B6, B7       → cols Top3Barriers_6, _7 have "1"
-          row3: B2           → col  Top3Barriers_2 has "1"
+          row0: B1, B6, B7  → cols Top3Barriers_1, _6, _7 store the barrier text
+          row1: B1, B7       → cols Top3Barriers_1, _7 store the barrier text
+          row2: B6, B7       → cols Top3Barriers_6, _7 store the barrier text
+          row3: B2           → col  Top3Barriers_2 stores the barrier text
         Expected counts: B1=2, B2=1, B6=2, B7=3, others=0.
+
+        Non-selected TOP3 columns are empty string (""), matching the canonical
+        CRP public dataset format (text in selected col, blank elsewhere).
 
         Barrier items (all 18 substantive cols):
           rows 0-2: all "Major Barrier" (score 5)
@@ -1051,6 +1054,7 @@ class TestExtendedOutputBlocks:
         from tabs_v2_unified_data_analysis import (
             BARRIER_COLS, READINESS_COLS, MATURITY_COLS,
             BARRIER_IRI, READINESS_IRI, MATURITY_IRI,
+            BARRIER_ITEM_TEXT,
         )
 
         top3_cols = [f"Q29-46_Top3Barriers_{i}" for i in range(1, 19)]
@@ -1094,10 +1098,13 @@ class TestExtendedOutputBlocks:
             # Maturity items (8 substantive)
             for col in MATURITY_COLS:
                 row[idx[col]] = maturity_val
-            # TOP3 pick columns
+            # TOP3 pick columns: store the barrier text for selected items.
+            # Non-selected columns remain empty string ("") by default because
+            # the row is initialised to [""] * ncols above — matching the
+            # canonical CRP CSV format (text in selected col, blank elsewhere).
             for sel in top3_selections:
                 col = f"Q29-46_Top3Barriers_{sel}"
-                row[idx[col]] = "1"
+                row[idx[col]] = BARRIER_ITEM_TEXT[sel]
             return row
 
         rows = [
@@ -1303,3 +1310,81 @@ class TestExtendedOutputBlocks:
         result = sensitivity_to_json([], {"StartDate": 0})
         assert "extended_last_updated" in result
         assert "last_updated" in result
+
+    def test_construct_grand_excludes_none_person_means_from_n(self):
+        """Respondents whose items are all missing/Don't Know produce None
+        person means.  _build_construct_grand() must exclude them from n
+        so that n == count of respondents with at least one scoreable item,
+        not the total row count."""
+        from tabs_v2_unified_data_analysis import (
+            _build_construct_grand,
+            BARRIER_COLS, READINESS_COLS, MATURITY_COLS,
+        )
+
+        # idx must include all three construct column sets because
+        # _build_construct_grand() computes all three in one call.
+        all_cols = BARRIER_COLS + READINESS_COLS + MATURITY_COLS
+        idx = {col: i for i, col in enumerate(all_cols)}
+
+        def make_row(barrier_val, readiness_val, maturity_val):
+            row = [""] * len(all_cols)
+            for col in BARRIER_COLS:
+                row[idx[col]] = barrier_val
+            for col in READINESS_COLS:
+                row[idx[col]] = readiness_val
+            for col in MATURITY_COLS:
+                row[idx[col]] = maturity_val
+            return row
+
+        # row0: valid barriers → barrier person mean is non-None
+        # row1: all-blank barriers → barrier person mean is None (all-missing);
+        #       readiness & maturity are still valid so their n == 2
+        valid_row   = make_row("Major Barrier",
+                               "High Readiness/Capability",
+                               "Level 3: Defined/Standardized")
+        missing_row = make_row("",                             # all-blank barriers
+                               "High Readiness/Capability",
+                               "Level 3: Defined/Standardized")
+
+        result = _build_construct_grand([valid_row, missing_row], idx)
+
+        # Only 1 of 2 respondents has a valid barrier person mean.
+        assert result["barriers"]["n"] == 1
+        assert result["barriers"]["mean"] == pytest.approx(5.0)
+
+        # Both respondents have valid readiness and maturity person means.
+        assert result["readiness"]["n"] == 2
+        assert result["maturity"]["n"] == 2
+
+    def test_item_descriptives_missing_column_emits_placeholder(self):
+        """When a scale column is absent from idx, _build_item_descriptives()
+        must emit a placeholder entry (mean/sd None, n=0) so the output arrays
+        always have the expected length (18 barriers, 17 readiness, 8 maturity)."""
+        from tabs_v2_unified_data_analysis import (
+            _build_item_descriptives,
+            BARRIER_COLS, BARRIER_SCALE, BARRIER_ITEM_TEXT,
+        )
+
+        # Build idx with all barrier columns except the first one (B1).
+        missing_col = BARRIER_COLS[0]
+        idx = {col: i for i, col in enumerate(BARRIER_COLS[1:])}
+
+        rows = [["Major Barrier"] * len(BARRIER_COLS[1:])]
+
+        result = _build_item_descriptives(rows, idx)
+
+        # Array must always be full length (18 barriers).
+        assert len(result["barriers"]) == 18
+
+        # First entry is the placeholder for the missing column.
+        first = result["barriers"][0]
+        assert first["item"] == "B1"
+        assert first["text"] == BARRIER_ITEM_TEXT[1]
+        assert first["mean"] is None
+        assert first["sd"] is None
+        assert first["n"] == 0
+
+        # Subsequent present columns have real values.
+        second = result["barriers"][1]
+        assert second["item"] == "B2"
+        assert second["n"] > 0
