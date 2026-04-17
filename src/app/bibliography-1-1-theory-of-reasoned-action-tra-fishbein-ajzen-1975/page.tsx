@@ -468,7 +468,7 @@ const BibliographyArticlePage = () => {
               product as the cognitive basis of attitude and the cognitive basis of subjective norm.
             </li>
             <li>
-              <strong>Principle of Compatibility:</strong> Established the measurement requirement
+              <strong>Principle of Compatibility:</strong> Articulated the measurement requirement
               that attitude, intention, and behavior be specified at matching action, target,
               context, and time levels.
             </li>
@@ -527,13 +527,15 @@ const BibliographyArticlePage = () => {
               diagnostic assessment of adoption readiness.
             </li>
             <li>
-              <strong>Cross-domain generalizability:</strong> Demonstrated predictive power across
-              health, environmental, consumer, organizational, and technology-adoption behaviors.
+              <strong>Cross-domain application:</strong> Subsequent research has reported TRA
+              applications across health, environmental, consumer, organizational, and
+              technology-adoption behaviors; predictive performance varies by domain and
+              methodology.
             </li>
             <li>
-              <strong>Methodological legacy:</strong> Established rigorous measurement practices
+              <strong>Methodological legacy:</strong> Helped codify measurement practices
               (semantic-differential attitude scales, belief-elicitation procedures, intention
-              operationalization) that remain standard in adoption research.
+              operationalization) that are commonly used in adoption research.
             </li>
           </ul>
         </section>
