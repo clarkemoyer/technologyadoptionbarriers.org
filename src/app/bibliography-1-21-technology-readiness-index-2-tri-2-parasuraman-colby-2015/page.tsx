@@ -191,9 +191,10 @@ const BibliographyArticlePage = () => {
             <li>
               <strong>Convergent validity (AVE):</strong> Optimism 0.51, Innovativeness 0.56 both
               meet the 0.50 threshold; Discomfort 0.38 and Insecurity 0.40 fall below. The authors
-              (p.65) note this is acceptable because inhibitor items span different themes (safety
-              concerns, reliability, human-touch preference, etc.) rather than a single
-              tightly-defined construct.
+              (p.67) argue this is acceptable because inhibitor items intentionally span different
+              facets of each dimension (for insecurity: safety concerns, other negative consequences
+              of technology, and a need for assurance) rather than a single tightly-defined
+              construct, and the low AVE values reflect this breadth rather than ambiguous wording.
             </li>
             <li>
               <strong>Discriminant validity:</strong> Optimism and Innovativeness show high
@@ -436,7 +437,7 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>Five-Segment Classification (via Latent Class Analysis):</strong> Paper Table
-              9 (p.69) reports a five-segment solution from LCA on the 16 TRI 2.0 items:
+              9 (p.71) reports a five-segment solution from LCA on the 16 TRI 2.0 items:
               <ul className={BODY_LIST_CLASSES}>
                 <li>
                   <strong>Explorers (18%):</strong> high motivation, low resistance - similar to
@@ -640,7 +641,7 @@ const BibliographyArticlePage = () => {
               <strong>Convergent validity (AVE):</strong> AVE values of 0.51 (Optimism) and 0.56
               (Innovativeness) meet the 0.50 threshold; inhibitor AVEs of 0.38 and 0.40 are
               acknowledged as below threshold but defended on grounds that inhibitor items span
-              multiple distinct concerns (p.65).
+              multiple distinct facets of each dimension (p.67).
             </li>
             <li>
               <strong>Discriminant validity testing:</strong> Factor correlations and dimension
@@ -663,7 +664,7 @@ const BibliographyArticlePage = () => {
             <li>
               <strong>Common method bias assessment:</strong> A common latent factor (CLF) was added
               to the CFA; standardized regression weights did not change substantially between
-              models with and without the CLF, indicating CMB is not a major threat (p.65).
+              models with and without the CLF, indicating CMB is not a major threat (p.66).
             </li>
           </ul>
         </section>
