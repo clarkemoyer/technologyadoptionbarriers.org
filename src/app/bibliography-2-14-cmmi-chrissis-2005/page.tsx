@@ -190,8 +190,8 @@ const BibliographyArticlePage = () => {
           <ul className={BODY_LIST_CLASSES}>
             <li>
               <strong>Capability level (continuous representation):</strong> For each process area,
-              ratings ranging across levels (for example, Incomplete, Performed, Managed, Defined,
-              and, in some versions, Quantitatively Managed and Optimizing).
+              one of six levels: Incomplete (Level 0), Performed (Level 1), Managed (Level 2),
+              Defined (Level 3), Quantitatively Managed (Level 4), and Optimizing (Level 5).
             </li>
             <li>
               <strong>Maturity level (staged representation):</strong> An overall organizational
@@ -279,58 +279,65 @@ const BibliographyArticlePage = () => {
           <h3 className={H3_CLASSES}>CMMI Staged Representation - Five Maturity Levels</h3>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Level 1: Initial (Ad Hoc):</strong> Processes unpredictable, poorly
-              controlled, reactive. Success depends on individual efforts rather than established
-              processes. Organization lacks repeatable processes.
+              <strong>Level 1: Initial:</strong> Processes unpredictable, poorly controlled,
+              reactive. Success depends on individual efforts rather than established processes.
+              Organization lacks repeatable processes.
             </li>
             <li>
-              <strong>Level 2: Managed (Repeatable):</strong> Requirements managed, processes
-              planned and executed, work products monitored and controlled. Some processes
-              institutionalized but discipline variable across organization.
+              <strong>Level 2: Managed:</strong> Requirements managed, processes planned and
+              executed, work products monitored and controlled. Some processes institutionalized but
+              discipline variable across organization.
             </li>
             <li>
-              <strong>Level 3: Defined (Standardized):</strong> Standard processes documented and
-              communicated, processes tailored from organizational standards, integration across
-              functional groups. Processes are proactive with preventive mechanisms.
+              <strong>Level 3: Defined:</strong> Standard processes documented and communicated,
+              processes tailored from organizational standards, integration across functional
+              groups. Processes are proactive with preventive mechanisms.
             </li>
             <li>
-              <strong>Level 4: Managed (Quantitatively Managed):</strong> Processes measured and
-              controlled, quantitative objectives for quality and performance established.
-              Statistical techniques used to manage processes.
+              <strong>Level 4: Quantitatively Managed:</strong> Processes measured and controlled,
+              quantitative objectives for quality and performance established. Statistical
+              techniques used to manage processes.
             </li>
             <li>
-              <strong>Level 5: Optimizing (Innovating):</strong> Organization focuses on continuous
-              process improvement and innovation. Processes enable rapid adaption to changing
+              <strong>Level 5: Optimizing:</strong> Organization focuses on continuous process
+              improvement and innovation. Processes enable rapid adaptation to changing
               circumstances.
             </li>
           </ul>
 
-          <h3 className={H3_CLASSES}>CMMI Process Areas by Maturity Level</h3>
+          <h3 className={H3_CLASSES}>CMMI Process Areas</h3>
           <p className={PARAGRAPH_CLASSES}>
-            CMMI-DEV v1.3 (2010) organized into four categories of process areas distributed across
-            maturity levels:
+            The CMMI-SE/SW/IPPD/SS v1.1 edition documented by Chrissis, Konrad, and Shrum organizes
+            25 process areas into four categories. The book further groups process areas within each
+            category as &quot;Fundamental&quot; or &quot;Progressive&quot; to indicate prerequisite
+            relationships among them:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Process Management (6 areas):</strong> Organizational processes and standards:
-              Organizational Process Focus, Organizational Process Definition, Organizational
-              Training, Integrated Product and Process, Risk Management, Organizational Performance
-              Management.
+              <strong>Process Management:</strong> Organizational-level process areas addressing the
+              infrastructure needed to sustain process improvement across the enterprise.
             </li>
             <li>
-              <strong>Project Management (8 areas):</strong> Planning and executing projects:
-              Project Planning, Project Monitoring and Control, Supplier Agreement Management,
-              Integrated Teaming, Quantitative Project Management, Requirements Management.
+              <strong>Project Management:</strong> Process areas for planning, monitoring, and
+              controlling projects, including integrated product teams and supplier arrangements
+              where applicable.
             </li>
             <li>
-              <strong>Engineering (9 areas):</strong> Technical product development: Requirements
-              Development, Technical Solution, Product Integration, Verification, Validation.
+              <strong>Engineering:</strong> Process areas for the technical work of developing and
+              delivering products, spanning requirements, technical solution, product integration,
+              verification, and validation.
             </li>
             <li>
-              <strong>Support (3 areas):</strong> Cross-cutting support processes: Configuration
-              Management, Process and Product Quality Assurance, Measurement and Analysis.
+              <strong>Support:</strong> Cross-cutting process areas providing infrastructure and
+              analytical capabilities that support all other process areas.
             </li>
           </ul>
+          <p className={PARAGRAPH_CLASSES}>
+            The 25 process areas in this edition span software engineering, systems engineering,
+            integrated product and process development (IPPD), and supplier sourcing disciplines.
+            Selected process areas are active only when particular disciplines are in scope for an
+            appraisal.
+          </p>
 
           <h3 className={H3_CLASSES}>CMMI Continuous Representation - Capability Levels</h3>
           <p className={PARAGRAPH_CLASSES}>
@@ -360,7 +367,7 @@ const BibliographyArticlePage = () => {
               with statistical process control. Performance targets established and managed.
             </li>
             <li>
-              <strong>Level 5: Optimized:</strong> Process area optimized for continuous
+              <strong>Level 5: Optimizing:</strong> Process area optimized for continuous
               improvement. Innovation and process optimization institutionalized.
             </li>
           </ul>
