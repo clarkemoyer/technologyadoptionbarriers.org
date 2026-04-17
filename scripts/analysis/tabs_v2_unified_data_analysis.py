@@ -1806,7 +1806,7 @@ def sensitivity_to_json(cuts, idx):
         result["construct_grand"] = _build_construct_grand(primary_rows, idx)
         result["demographics_detailed"] = _build_demographics_detailed(primary_rows, idx)
     else:
-        result["top3_pick_counts"] = {"total_n": 0, "items": [], "items_sorted_desc": []}
+        result["top3_pick_counts"] = _top3_zero_items()
         result["item_descriptives"] = {"barriers": [], "readiness": [], "maturity": []}
         result["construct_grand"] = {
             "barriers": {"mean": None, "sd": None, "n": 0},
@@ -1835,24 +1835,28 @@ def sensitivity_to_json(cuts, idx):
 TOP3_COLS = [f"Q29-46_Top3Barriers_{i}" for i in range(1, 19)]
 
 BARRIER_ITEM_TEXT = {
-    1: "Resistance to change among employees or middle management",
-    2: "Lack of skilled personnel or in-house expertise to implement new technologies",
-    3: "Insufficient leadership commitment or unclear strategic direction",
-    4: "Inadequate training or support for new technology users",
-    5: "Cultural or organizational inertia favoring established practices",
-    6: "High cost associated with acquiring or implementing new technologies",
-    7: "Difficulty integrating new technologies with existing legacy systems",
-    8: "Limited access to reliable vendor support or third-party expertise",
-    9: "Poor communication about the purpose or benefits of new technology",
-    10: "Fear of failure or adverse impact on daily operations",
-    11: "Lack of alignment between technology and business strategy",
-    12: "Insufficient budget or financial resources",
-    13: "Cybersecurity concerns or regulatory compliance barriers",
-    14: "Legal, contractual, or privacy restrictions",
-    15: "Uncertainty about return on investment (ROI) or measurable benefits",
-    16: "Supplier or vendor lock-in or compatibility limitations",
-    17: "Difficulty scaling pilot projects to organization-wide adoption",
-    18: "Economic, geopolitical, or market-level disruptions",
+    # Exact pick-text values from Q29-46_Top3Barriers_* columns in the CRP
+    # public CSV (including trailing period). Derived from the non-empty cell
+    # values across the dataset — must match exactly so top3_pick_counts.text
+    # agrees with the source CSV label.
+    1: "Resistance to change among employees or middle management.",
+    2: "Lack of support or clear vision from top leadership (including the board, e.g., governing body, oversight committee).",
+    3: "Organizational culture that discourages risk-taking or experimentation with new technologies.",
+    4: "Insufficient skills or expertise within the workforce to utilize new technologies effectively.",
+    5: "Inadequate training programs for new technologies.",
+    6: "High cost associated with acquiring or implementing new technologies.",
+    7: "Difficulty integrating new technologies with existing legacy systems.",
+    8: "Inadequate IT infrastructure (e.g., network, storage, computing power) to support new technologies.",
+    9: "Difficulty demonstrating clear value (e.g., mission impact, public value, cost-effectiveness) for new technology investments.",
+    10: "Lack of a clear strategy or roadmap for technology adoption.",
+    11: "Insufficient governance processes for selecting and managing new technologies.",
+    12: "New technologies disrupting existing workflows or processes significantly.",
+    13: "Concerns about cybersecurity risks associated with new technologies.",
+    14: "Concerns about data privacy compliance related to new technologies.",
+    15: "Lack of trust in the reliability or performance of new technologies or vendors.",
+    16: "Uncertainty or complexity related to regulatory requirements.",
+    17: "Pressure to adopt technology due to external factors (e.g., mandates, public expectations, peer agency actions), without adequate internal readiness.",
+    18: "Difficulty finding reliable technology vendors or partners.",
 }
 
 READINESS_ITEM_TEXT = {
@@ -1885,6 +1889,19 @@ MATURITY_ITEM_TEXT = {
     7: "Workforce Capability",
     8: "Change Leadership",
 }
+
+
+def _top3_zero_items():
+    """Return a 18-item zero-count top3 structure for empty-cut defaults.
+
+    Uses the same shape as _build_top3_pick_counts() so consumers always
+    receive 18 entries regardless of whether a primary cut has rows.
+    """
+    items = [
+        {"item": f"B{i}", "text": BARRIER_ITEM_TEXT[i], "count": 0, "pct": 0.0}
+        for i in range(1, 19)
+    ]
+    return {"total_n": 0, "items": items, "items_sorted_desc": list(items)}
 
 
 def _build_top3_pick_counts(rows, idx):
