@@ -242,8 +242,8 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>Effort Expectancy (EE):</strong> Degree of ease associated with using the
-              system. Derived from perceived ease of use (TAM), complexity (DTPB), and ease of
-              use (DOI).
+              system. Derived from perceived ease of use (TAM), complexity (DTPB), and ease of use
+              (DOI).
             </li>
             <li>
               <strong>Social Influence (SI):</strong> Degree to which the user perceives that
@@ -252,9 +252,8 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>Facilitating Conditions (FC):</strong> Degree to which the user believes
-              organizational and technical infrastructure exists to support system use. Derived
-              from PBC (TPB/DTPB), facilitating conditions (PC utilization), and compatibility
-              (DOI).
+              organizational and technical infrastructure exists to support system use. Derived from
+              PBC (TPB/DTPB), facilitating conditions (PC utilization), and compatibility (DOI).
             </li>
             <li>
               <strong>Behavioral Intention (BI):</strong> Self-reported intent to use the system.
@@ -263,15 +262,15 @@ const BibliographyArticlePage = () => {
               <strong>Use Behavior (UB):</strong> Observed system use.
             </li>
             <li>
-              <strong>Moderators:</strong> Gender, Age, Experience, and Voluntariness of Use -
-              each proposed to moderate specific determinant-to-intent/use paths.
+              <strong>Moderators:</strong> Gender, Age, Experience, and Voluntariness of Use - each
+              proposed to moderate specific determinant-to-intent/use paths.
             </li>
           </ul>
           <p className={PARAGRAPH_CLASSES}>
-            Venkatesh et al. (2003) develop items for PE, EE, SI, FC, BI, and Use (Appendix A of
-            the paper) and report reliability and validity evidence from a longitudinal study in
-            four organizations and 215 participants; UTAUT explains substantially more variance
-            in intention than any of the eight predecessor models in that study.
+            Venkatesh et al. (2003) develop items for PE, EE, SI, FC, BI, and Use (Appendix A of the
+            paper) and report reliability and validity evidence from a longitudinal study in four
+            organizations and 215 participants; UTAUT explains substantially more variance in
+            intention than any of the eight predecessor models in that study.
           </p>
         </section>
 
