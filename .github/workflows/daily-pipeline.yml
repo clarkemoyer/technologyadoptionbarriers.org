@@ -230,10 +230,14 @@ jobs:
             --json "${{ runner.temp }}/live-unified.json"
           # Extract backward-compatible JSONs for page imports.
           # FAIL-FAST (PR #1695): hard dict lookups, not .get() defaults.
-          # If the unified JSON is missing 'sensitivity' or 'validation',
-          # KeyError crashes this step, set -euo pipefail fails the job,
-          # and the commit step is gated off by needs:[analyze]. No
-          # empty {} ever reaches src/data/sensitivity-analysis.json.
+          # If 'sensitivity' or 'validation' is missing from the unified
+          # JSON - or is None or {} - the explicit presence/emptiness
+          # guard below calls sys.exit(1) with a ::error:: annotation
+          # BEFORE any d[key] lookup runs, so the step fails with an
+          # actionable message rather than a raw KeyError. set -euo
+          # pipefail then fails the whole job, and the commit step is
+          # gated off by needs:[analyze], so no empty {} ever reaches
+          # src/data/sensitivity-analysis.json.
           # Do NOT change these to d.get(key, {}) - that re-introduces
           # the silent-default policy that PR #1695 explicitly removes.
           python3 << 'PYEOF'
