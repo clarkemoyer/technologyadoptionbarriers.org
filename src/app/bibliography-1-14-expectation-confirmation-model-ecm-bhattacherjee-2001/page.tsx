@@ -70,12 +70,12 @@ const BibliographyArticlePage = () => {
             <p>
               <strong>URL:</strong>{' '}
               <a
-                href="https://www.proquest.com/docview/218136741"
+                href="https://doi.org/10.2307/3250921"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-600 hover:underline"
               >
-                https://www.proquest.com/docview/218136741
+                https://doi.org/10.2307/3250921
               </a>
             </p>
           </div>
@@ -692,7 +692,15 @@ const BibliographyArticlePage = () => {
           <ol className={REFERENCES_OL_CLASSES}>
             <li id="ref-bhattacherjee-2001">
               Bhattacherjee, A. (2001). Understanding information systems continuance: An
-              expectation-confirmation model. <em>MIS Quarterly</em>, 25(3), 351-370.
+              expectation-confirmation model. <em>MIS Quarterly</em>, 25(3), 351-370.{' '}
+              <a
+                href="https://doi.org/10.2307/3250921"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-tabs-teal-deep hover:underline"
+              >
+                https://doi.org/10.2307/3250921
+              </a>
             </li>
             <li id="ref-oliver-1980">
               Oliver, R. L. (1980). A cognitive model of the antecedents and consequences of
