@@ -118,7 +118,8 @@ const BibliographyArticlePage = () => {
           <h2 className={H2_CLASSES}>Why Was the Model Created?</h2>
           <p className={PARAGRAPH_CLASSES}>
             Venkatesh, Thong, and Xu developed UTAUT2 to address a critical gap in technology
-            adoption research. UTAUT had proven highly successful in predicting technology adoption
+            adoption research. UTAUT had been widely adopted and cited as useful for predicting
+            technology adoption
             in organizational contexts where adoption was mandatory or organizationally directed.
             However, the vast majority of technology adoption in 2012 occurred in consumer contexts
             involving voluntary adoption decisions: consumer purchases of smartphones, tablets,
