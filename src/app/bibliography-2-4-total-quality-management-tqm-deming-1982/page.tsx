@@ -520,7 +520,8 @@ const BibliographyArticlePage = () => {
               Organizations continuously cycle through planning improvements, implementing changes,
               checking / studying results, and acting on learning. The cycle was introduced by
               Shewhart (1939) as PDCA and adopted by Deming in the 1982 and 1986 books under that
-              name; Deming renamed the "Check" step to "Study" starting in his 1993 book{' '}
+              name; Deming renamed the &ldquo;Check&rdquo; step to &ldquo;Study&rdquo; starting in
+              his 1993 book{' '}
               <em>The New Economics</em>. Both forms are widely used.
             </li>
             <li>
