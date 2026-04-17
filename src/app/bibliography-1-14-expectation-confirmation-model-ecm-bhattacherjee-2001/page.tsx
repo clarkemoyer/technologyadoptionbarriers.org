@@ -801,7 +801,7 @@ const BibliographyArticlePage = () => {
               </a>
             </li>
             {/* prettier-ignore */}
-            <li id="ref-delone-2003">DeLone, W. H., &amp; McLean, E. R. (2003). The DeLone and McLean model of information systems success: A ten-year update. <em>Journal of Management Information Systems</em>, 19(4), 9-30. <a href="https://doi.org/10.1080/07421222.2003.11045748" target="_blank" rel="noopener noreferrer">https://doi.org/10.1080/07421222.2003.11045748</a></li>
+            <li id="ref-delone-2003">DeLone, W. H., &amp; McLean, E. R. (2003). The DeLone and McLean model of information systems success: A ten-year update. <em>Journal of Management Information Systems</em>, 19(4), 9-30. <a href="https://doi.org/10.1080/07421222.2003.11045748" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 underline">https://doi.org/10.1080/07421222.2003.11045748</a></li>
             <li id="ref-limayem-2007">
               Limayem, M., Hirt, S. G., &amp; Cheung, C. M. (2007). How habit limits the prediction
               of usage: The case of MS Word.{' '}
