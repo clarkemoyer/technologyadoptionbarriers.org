@@ -596,10 +596,9 @@ const BibliographyArticlePage = () => {
               framework organizing diverse research findings.
             </li>
             <li>
-              <strong>Articulated a three-context model:</strong> Organized influences on
-              technology adoption into technological, organizational, and environmental contexts,
-              providing a conceptual structure subsequently widely adopted in the IS adoption
-              literature.
+              <strong>Articulated a three-context model:</strong> Organized influences on technology
+              adoption into technological, organizational, and environmental contexts, providing a
+              conceptual structure subsequently widely adopted in the IS adoption literature.
             </li>
             <li>
               <strong>Provided practical analytical framework:</strong> Created framework enabling
@@ -843,9 +842,9 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Following Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
-            The TOE Framework has served as a frequent frame for empirical research on
-            technology adoption, and has been adapted or extended in a number of subsequent
-            studies and frameworks:
+            The TOE Framework has served as a frequent frame for empirical research on technology
+            adoption, and has been adapted or extended in a number of subsequent studies and
+            frameworks:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>

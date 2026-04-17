@@ -594,9 +594,9 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>Helped launch the BPR movement:</strong> Davenport &amp; Short&rsquo;s 1990
-              article is commonly cited alongside Hammer&rsquo;s 1990 HBR article and Hammer
-              &amp; Champy (1993) as a founding text of the Business Process Reengineering
-              movement that was widely influential through the 1990s and 2000s.
+              article is commonly cited alongside Hammer&rsquo;s 1990 HBR article and Hammer &amp;
+              Champy (1993) as a founding text of the Business Process Reengineering movement that
+              was widely influential through the 1990s and 2000s.
             </li>
             <li>
               <strong>Provided a practical methodology:</strong> Offered a five-step process
@@ -630,10 +630,9 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Internal Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
-            As a conceptual framework paper illustrated through case study examples,
-            Davenport &amp; Short&rsquo;s BPR is not subject to construct-validity testing in the
-            psychometric sense. Considerations typically raised about its internal consistency
-            include:
+            As a conceptual framework paper illustrated through case study examples, Davenport &amp;
+            Short&rsquo;s BPR is not subject to construct-validity testing in the psychometric
+            sense. Considerations typically raised about its internal consistency include:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
