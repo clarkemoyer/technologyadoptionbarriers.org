@@ -281,8 +281,8 @@ const BibliographyArticlePage = () => {
             superior influence. Perceived behavioral control is predicted by self-efficacy, resource
             facilitating conditions, and technology facilitating conditions. Per Table 3, the model
             explained 60% of variance in behavioral intention (R²=.60), compared to TAM (R²=.52) and
-            original TPB (R²=.57). The study also measured actual usage behavior by monitoring
-            approximately 3,700 visits to the computing resource center over a 12-week period.
+            original TPB (R²=.57). The study also measured actual usage behavior by monitoring 3,780
+            visits to the computing resource center over a 12-week period (Methods, p.157).
           </p>
 
           <h3 className={H3_CLASSES}>What does the model measure?</h3>
@@ -356,10 +356,10 @@ const BibliographyArticlePage = () => {
               prevents understanding of actual adoption trajectories or sustained usage patterns.
             </li>
             <li>
-              <strong>Intention-behavior gap:</strong> While actual usage was monitored
-              (approximately 3,700 visits over 12 weeks), the decomposed belief structure primarily
-              predicts intentions. The link from intention to actual behavior showed moderate
-              strength.
+              <strong>Intention-behavior gap:</strong> While actual usage was monitored (3,780
+              visits over 12 weeks by 451 of 786 respondents), the decomposed belief structure
+              primarily predicts intentions. The link from intention to actual behavior showed
+              moderate strength.
             </li>
             <li>
               <strong>Model complexity:</strong> 13-variable decomposed model (per Taylor &amp;
@@ -433,15 +433,19 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>Reliability assessment:</strong> Reported Cronbach&rsquo;s alpha coefficients
-              for all scales demonstrating internal consistency of multi-item constructs.
+              for all 13 scales (Table 1). Ten scales were above the conventional 0.70 threshold,
+              but three scales fell below: PBC (α=0.68), Ease of Use (α=0.60), and Resource
+              Facilitating Conditions (α=0.52), limiting confidence in those constructs.
             </li>
             <li>
               <strong>Discriminant validity:</strong> Provided evidence that model constructs are
               empirically distinct through correlation analysis and variance extracted comparisons.
             </li>
             <li>
-              <strong>Structural equation modeling:</strong> Used SEM for simultaneous estimation of
-              measurement and structural models with appropriate goodness-of-fit assessment.
+              <strong>Structural equation modeling:</strong> Used LISREL 8 with weighted least
+              squares (WLS) estimation (Joreskog &amp; Sorbom, 1993) for simultaneous estimation of
+              measurement and structural models, with fit assessed by χ², AGFI, RNI, and RMSEA
+              (p.158).
             </li>
             <li>
               <strong>Model fit comparison:</strong> Systematically compared three competing models
