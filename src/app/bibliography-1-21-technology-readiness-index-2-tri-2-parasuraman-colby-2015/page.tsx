@@ -141,18 +141,73 @@ const BibliographyArticlePage = () => {
             contemporary technologies would strengthen the scale.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            The authors conducted extensive psychometric refinement and validation with U.S.
-            national samples and international comparison samples, systematically removing redundant
-            items while preserving the four-dimension structure. TRI 2.0 reduced the measurement
-            burden from 36 items to 16 items (4 items per dimension), dramatically improving
-            practical utility while maintaining strong psychometric properties and predictive
-            validity. The streamlined scale preserved the theoretical structure underlying the
-            original TRI while enabling easier application in organizational settings, academic
-            research, and practitioner assessments of individual technology readiness.
+            The authors conducted a two-phase research project: (a) a qualitative phase using the
+            OpinionPond virtual discussion forum with 61 U.S. adult participants generating 317
+            comments over a week-long discussion; and (b) a quantitative phase combining a mail
+            survey (354 usable questionnaires, 14% response rate from 2,500 mailings) and an online
+            survey (524 usable questionnaires from a Survey Sampling International panel), for a
+            combined sample of 878 U.S. adults (51% female, median age 51). Systematically removing
+            redundant items while preserving the four-dimension structure, TRI 2.0 reduced
+            measurement burden from 36 items to 16 items (4 items per dimension) while maintaining
+            psychometric soundness (Cronbach&rsquo;s alpha 0.70 to 0.83 across dimensions). Of the
+            16 items, 11 were retained from TRI 1.0 and 5 were new (2 in Optimism, 3 in Insecurity).
+            The streamlined scale preserves TRI 1.0&rsquo;s theoretical structure while enabling
+            easier application in organizational settings, academic research, and practitioner
+            assessments of individual technology readiness.
           </p>
         </section>
 
-        {/* 5. Core Concepts and Definitions */}
+        {/* 5. What Does the Model Measure? */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>What Does the Model Measure?</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            TRI 2.0 measures technology readiness via 16 items, 4 per dimension (Table 5, p.66),
+            using a fully anchored 5-point Likert scale (1=strongly disagree, 5=strongly agree).
+            Inhibitor items (discomfort, insecurity) are reverse-coded when computing an overall TR
+            score. Composition: 11 items retained from TRI 1.0 (Parasuraman, 2000) and 5 new items
+            (2 added to Optimism, 3 added to Insecurity).
+          </p>
+          <p className={PARAGRAPH_CLASSES}>
+            <strong>Psychometric properties (from paper Table 5, p.66):</strong>
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Cronbach&rsquo;s alpha reliabilities:</strong> Optimism 0.81, Innovativeness
+              0.83, Discomfort 0.70, Insecurity 0.77. All meet the 0.70 threshold.
+            </li>
+            <li>
+              <strong>Four-factor solution explains 61%</strong> of variance across the 16 items
+              (principal components with Varimax rotation).
+            </li>
+            <li>
+              <strong>Factor loadings:</strong> All loadings on primary dimensions are 0.59 or
+              higher; with one exception all cross-loadings are 0.30 or less.
+            </li>
+            <li>
+              <strong>CFA fit (via AMOS):</strong> GFI = 0.95, NNFI = 0.92, CFI = 0.94, RMR = 0.06.
+              Chi-square significant (p&lt;.01) but likely an artifact of the large sample (N=878)
+              per Bagozzi and Yi (1988).
+            </li>
+            <li>
+              <strong>Convergent validity (AVE):</strong> Optimism 0.51, Innovativeness 0.56 both
+              meet the 0.50 threshold; Discomfort 0.38 and Insecurity 0.40 fall below. The authors
+              (p.65) note this is acceptable because inhibitor items span different themes (safety
+              concerns, reliability, human-touch preference, etc.) rather than a single
+              tightly-defined construct.
+            </li>
+            <li>
+              <strong>Discriminant validity:</strong> Optimism and Innovativeness show high
+              discrimination; Discomfort and Insecurity meet the minimum acceptable threshold (Table
+              5).
+            </li>
+          </ul>
+          <p className={PARAGRAPH_CLASSES}>
+            Common method bias was assessed using a common latent factor (CLF); standardized
+            regression weights did not change substantially between models with and without the CLF.
+          </p>
+        </section>
+
+        {/* 6. Core Concepts and Definitions */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Core Concepts and Definitions</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -195,16 +250,17 @@ const BibliographyArticlePage = () => {
               psychological barriers to adoption despite acknowledging potential benefits.
             </li>
             <li>
-              <strong>Technology Readiness Index Score:</strong> Overall readiness calculated as
-              (Optimism + Innovativeness) minus (Discomfort + Insecurity), producing a single index
-              reflecting the net balance of positive motivations relative to inhibitory motivations.
-              Positive scores indicate higher readiness; negative scores indicate barriers
-              dominating motivations.
+              <strong>Technology Readiness Index Score:</strong> Overall readiness is scored on a
+              1-to-5 scale: each of the 16 items is rated on a 5-point Likert scale (strongly
+              disagree to strongly agree), with inhibitor items (discomfort, insecurity) reverse-
+              coded before combining across all items to produce a single TR score. In the
+              validation sample, overall TR scores ranged from 2.13 (lowest segment: avoiders) to
+              3.92 (highest segment: explorers).
             </li>
           </ul>
         </section>
 
-        {/* 6. Preceding Models or Theories */}
+        {/* 7. Preceding Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Preceding Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -311,7 +367,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 7. Describe The Model */}
+        {/* 8. Describe The Model */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Describe The Model</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -373,17 +429,35 @@ const BibliographyArticlePage = () => {
               discomfort, greater insecurity).
             </li>
             <li>
-              <strong>Overall Readiness Index:</strong> The overall TRI 2.0 score is calculated as
-              (Optimism + Innovativeness) minus (Discomfort + Insecurity), creating an index
-              reflecting net positive versus inhibitory orientations. The index ranges conceptually
-              from -8 to +8, with positive values indicating higher technology readiness.
+              <strong>Overall Readiness Index:</strong> Aggregate TR score produced by combining all
+              16 items on the 1-to-5 scale, with inhibitor items reverse-coded so that higher scores
+              consistently indicate greater technology readiness. Observed sample range: 2.13 to
+              3.92.
             </li>
             <li>
-              <strong>Segment Classification:</strong> Individuals can be classified into readiness
-              segments based on dimension patterns. For example, high optimism and innovativeness
-              with low discomfort/insecurity produces &quot;explorers&quot; with high adoption
-              propensity, while low optimism/innovativeness with high discomfort/insecurity produces
-              &quot;skeptics&quot; with low adoption propensity.
+              <strong>Five-Segment Classification (via Latent Class Analysis):</strong> Paper Table
+              9 (p.69) reports a five-segment solution from LCA on the 16 TRI 2.0 items:
+              <ul className={BODY_LIST_CLASSES}>
+                <li>
+                  <strong>Explorers (18%):</strong> high motivation, low resistance - similar to
+                  early adopters
+                </li>
+                <li>
+                  <strong>Pioneers (16%):</strong> both strong positive AND strong negative beliefs
+                </li>
+                <li>
+                  <strong>Skeptics (38%):</strong> detached view, less extreme positive and negative
+                  beliefs
+                </li>
+                <li>
+                  <strong>Hesitators (13%):</strong> stand out for low innovativeness
+                </li>
+                <li>
+                  <strong>Avoiders (16%):</strong> high resistance, low motivation - similar to
+                  laggards
+                </li>
+              </ul>
+              Segmentation explains 76% of variance in overall TR.
             </li>
           </ul>
 
@@ -480,7 +554,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 8. Key Contributions */}
+        {/* 9. Key Contributions */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Key Contributions</h2>
           <ul className={BODY_LIST_CLASSES}>
@@ -529,7 +603,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 9. Internal Validity */}
+        {/* 10. Internal Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Internal Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -584,7 +658,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 10. External Validity */}
+        {/* 11. External Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>External Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -641,7 +715,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 11. Relevance to Technology Adoption */}
+        {/* 12. Relevance to Technology Adoption */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Relevance to Technology Adoption</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -754,7 +828,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 12. Following Models or Theories */}
+        {/* 13. Following Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Following Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -811,7 +885,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 13. References */}
+        {/* 14. References */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>References</h2>
           <ol className={REFERENCES_OL_CLASSES}>
@@ -872,6 +946,7 @@ const BibliographyArticlePage = () => {
           </ol>
         </section>
 
+        {/* 15. Further Reading */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Further Reading</h2>
           <ol className={REFERENCES_OL_CLASSES}>
@@ -901,7 +976,7 @@ const BibliographyArticlePage = () => {
           </ol>
         </section>
 
-        {/* 14. Series Navigation */}
+        {/* 16. Series Navigation */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Series Navigation</h2>
           <div className="space-y-4">
