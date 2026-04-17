@@ -149,17 +149,90 @@ const BibliographyArticlePage = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             UTAUT2 was created by extending UTAUT with three additional constructs (hedonic
-            motivation, price value, habit) while removing voluntariness as moderator. Testing
-            occurred with 1,512 mobile internet consumers in Hong Kong across two measurement points
-            four months apart, examining consumer adoption and sustained use of mobile internet
-            services. The study demonstrated substantially improved explanatory power compared to
-            UTAUT, with UTAUT2 explaining 74 percent of variance in behavioral intention and 52
-            percent of variance in actual technology use, compared to UTAUT&rsquo;s 56 percent and
-            40 percent respectively in organizational contexts.
+            motivation, price value, habit), adding a new direct path from facilitating conditions
+            to behavioral intention, and removing voluntariness as moderator (since all consumer
+            adoption is voluntary). Age, gender, and experience are retained as moderators. Testing
+            occurred with 1,512 mobile Internet consumers in Hong Kong via a two-stage online survey
+            (Stage 1: 4,127 respondents capturing predictors and intention; Stage 2 four months
+            later: 2,220 responses capturing actual use; final N=1,512 after removing those with no
+            prior mobile Internet experience). Compared to baseline UTAUT estimated on this same
+            sample (56% of variance in BI and 40% in use), UTAUT2 explained substantially more
+            variance - 74% of BI and 52% of use. The original UTAUT paper on organizational employee
+            samples reported ~70% BI and ~50% use; the Hong Kong sample&rsquo;s baseline UTAUT
+            numbers are lower, so the comparison the paper draws is within-sample (UTAUT2 vs. UTAUT
+            on the same 1,512 consumers).
           </p>
         </section>
 
-        {/* 5. Core Concepts and Definitions */}
+        {/* 5. What Does the Model Measure? */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>What Does the Model Measure?</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            UTAUT2 measures seven predictor constructs, one intention construct, and technology use
+            (as a formative composite index), plus three moderators. All perceptual items used
+            7-point Likert scales anchored &ldquo;strongly disagree&rdquo; to &ldquo;strongly
+            agree&rdquo; (Appendix, p.177-178). Scales were translated English &rarr; Chinese &rarr;
+            English for Hong Kong administration (Brislin, 1970). A 200-person pilot tested
+            reliability and validity before the main survey. Internal Consistency Reliability (ICR)
+            &ge; 0.75 for all reflective scales (Table 1, p.168).
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Performance Expectancy (PE):</strong> 4 items, ICR = 0.88. Adapted from
+              Venkatesh et al. (2003).
+            </li>
+            <li>
+              <strong>Effort Expectancy (EE):</strong> 4 items, ICR = 0.91. Adapted from Venkatesh
+              et al. (2003).
+            </li>
+            <li>
+              <strong>Social Influence (SI):</strong> 3 items, ICR = 0.82. Adapted from Venkatesh et
+              al. (2003).
+            </li>
+            <li>
+              <strong>Facilitating Conditions (FC):</strong> 4 items, ICR = 0.75. Adapted from
+              Venkatesh et al. (2003).
+            </li>
+            <li>
+              <strong>Hedonic Motivation (HM):</strong> 3 items, ICR = 0.86. Adapted from Kim et al.
+              (2005).
+            </li>
+            <li>
+              <strong>Price Value (PV):</strong> 3 items. Adapted from Dodds et al. (1991).
+            </li>
+            <li>
+              <strong>Habit (HT):</strong> 3 items (one dropped due to low loading). Adapted from
+              Limayem and Hirt (2003).
+            </li>
+            <li>
+              <strong>Behavioral Intention (BI):</strong> 3 items. Adapted from Venkatesh et al.
+              (2003).
+            </li>
+            <li>
+              <strong>Use:</strong> Formative composite index of variety and frequency of mobile
+              Internet use across 6 popular applications in Hong Kong (7-point &ldquo;never&rdquo;
+              to &ldquo;many times per day&rdquo;). Measured 4 months after predictor survey for
+              temporal separation from key predictors.
+            </li>
+            <li>
+              <strong>Age:</strong> Measured in years.
+            </li>
+            <li>
+              <strong>Gender:</strong> Binary dummy (0 = women, 1 = men).
+            </li>
+            <li>
+              <strong>Experience:</strong> Measured in months since first use of mobile Internet.
+            </li>
+          </ul>
+          <p className={PARAGRAPH_CLASSES}>
+            Average variance extracted (AVE) exceeded 0.70 for every reflective construct and was
+            greater than the square of inter-construct correlations (Table 2, p.168), supporting
+            convergent and discriminant validity. One PE item and one HT item were dropped due to
+            low loadings.
+          </p>
+        </section>
+
+        {/* 6. Core Concepts and Definitions */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Core Concepts and Definitions</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -216,7 +289,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 6. Preceding Models or Theories */}
+        {/* 7. Preceding Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Preceding Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -321,30 +394,60 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 7. Describe The Model */}
+        {/* 8. Describe The Model */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Describe The Model</h2>
           <p className={PARAGRAPH_CLASSES}>
-            UTAUT2 proposes that consumer technology adoption intention is determined by performance
-            expectancy, effort expectancy, social influence, hedonic motivation, and price value,
-            while removing voluntariness as moderator. Performance expectancy remains strongest
-            predictor of adoption intention. Effort expectancy influences intention directly and
-            indirectly through performance expectancy. Social influence predicts adoption intention
-            particularly for status-oriented technologies or early-stage adoption. Hedonic
-            motivation significantly predicts adoption intention for consumer technologies where
-            enjoyment is valued alongside performance. Price value negatively influences adoption
-            intention when perceived costs exceed benefits. Facilitating conditions influence
-            technology use rather than adoption intention, reflecting that infrastructure support
-            matters more for continued use than initial adoption decisions. Critically, UTAUT2
-            distinguishes adoption intention from continued use: while adoption intention is shaped
-            by performance expectancy, effort expectancy, social influence, hedonic motivation, and
-            price value, continued technology use is additionally shaped by habit. Habit develops
-            through repeated use and captures automatic, routinized technology behaviors continuing
-            independent of deliberative intention. The model recognizes that consumer technology
-            adoption and continued use are distinct phenomena requiring different explanatory
-            frameworks: initial adoption driven by expectancy-value calculations and social
-            influence, but continued use driven substantially by habitual routines.
+            UTAUT2 (Figure 1, p.160) specifies that behavioral intention is determined by
+            performance expectancy, effort expectancy, social influence, facilitating conditions,
+            hedonic motivation, price value, and habit. Technology use is determined by behavioral
+            intention, facilitating conditions, and habit. Age, gender, and experience moderate most
+            of these relationships. Voluntariness is dropped from the original UTAUT because
+            consumer adoption is universally voluntary.
           </p>
+          <p className={PARAGRAPH_CLASSES}>Three changes distinguish UTAUT2 from UTAUT (p.158):</p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>New constructs:</strong> Hedonic motivation, price value, and habit are added
+              as determinants of behavioral intention (habit also determines use directly).
+            </li>
+            <li>
+              <strong>New path:</strong> Facilitating conditions now predicts behavioral intention
+              in addition to predicting use (moderated by age, gender, experience). In the original
+              UTAUT, FC only predicted use.
+            </li>
+            <li>
+              <strong>Moderator dropped:</strong> Voluntariness is removed because all consumer
+              adoption is voluntary; this eliminates the five-way interaction in the original UTAUT
+              involving social influence, reducing it to a four-way (SI x gender x age x experience)
+              consistent with the voluntary subsample in Morris et al. (2005).
+            </li>
+          </ul>
+          <p className={PARAGRAPH_CLASSES}>
+            Hypotheses H1-H5 test the three additions and their moderators:
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>H1a/b:</strong> Hedonic motivation &rarr; BI, moderated by age, gender,
+              experience (stronger for younger men with less experience).
+            </li>
+            <li>
+              <strong>H2a/b:</strong> Price value &rarr; BI, moderated by age and gender (stronger
+              for older women).
+            </li>
+            <li>
+              <strong>H3a/b/c:</strong> Habit &rarr; BI and habit &rarr; use directly; habit also
+              moderates BI &rarr; use (intention&rsquo;s effect weakens with strong habit).
+            </li>
+            <li>
+              <strong>H4a/b:</strong> Age, gender, experience moderate habit&rsquo;s effects
+              (stronger for older men with more experience).
+            </li>
+            <li>
+              <strong>H5:</strong> Experience moderates BI &rarr; use (weaker for consumers with
+              more experience).
+            </li>
+          </ul>
 
           <h3 className={H3_CLASSES}>UTAUT2 Determinant Mechanisms</h3>
           <ul className={BODY_LIST_CLASSES}>
@@ -384,21 +487,23 @@ const BibliographyArticlePage = () => {
               expectations.
             </li>
             <li>
-              <strong>Facilitating Conditions &rarr; Technology Use (Not Intention):</strong>{' '}
-              Available support infrastructure, compatible devices, and network availability
-              influence technology use but not adoption intention. Infrastructure support matters
-              more for actualizing intended use than for forming intentions.
+              <strong>Facilitating Conditions &rarr; Behavioral Intention AND &rarr; Use:</strong>{' '}
+              UTAUT2 adds a new direct path from FC to BI (not present in original UTAUT), in
+              addition to retaining FC &rarr; use. Available support infrastructure, compatible
+              devices, and network availability influence both intention formation and actual use
+              (moderated by age, gender, experience).
             </li>
             <li>
-              <strong>Habit &rarr; Technology Use (Direct Effect):</strong> Repeated technology use
-              creates automatic behaviors continuing with minimal conscious processing. Habit
-              directly predicts continued use independent of intention, reflecting routinized
-              behavior.
+              <strong>Habit &rarr; Behavioral Intention AND &rarr; Use:</strong> Habit is
+              hypothesized to have direct effects on both BI (H3a) and use (H3b), and to moderate
+              the BI &rarr; use relationship (H3c) such that intention&rsquo;s effect on use weakens
+              as habit strengthens. Effects moderated by age, gender, and experience (H4a/b);
+              strongest for older men with significant experience.
             </li>
             <li>
-              <strong>Behavioral Intention &rarr; Technology Use:</strong> Adoption intention
-              translates into technology use behavior. However, intention-use relationship is weaker
-              for continued use where habit becomes more influential.
+              <strong>Behavioral Intention &rarr; Technology Use (moderated by experience):</strong>{' '}
+              Adoption intention predicts use, but the effect weakens with increasing experience
+              (H5) as habit takes over.
             </li>
           </ul>
 
@@ -478,14 +583,17 @@ const BibliographyArticlePage = () => {
               entertainment systems, and utilities.
             </li>
             <li>
-              <strong>Age and demographic moderators not modeled:</strong> Consumer technology
-              adoption varies substantially by age, education, and technology experience, but UTAUT2
-              does not model demographic moderation.
+              <strong>Education and income moderators not modeled:</strong> Although UTAUT2 retains
+              age, gender, and experience as moderators from UTAUT, it does not model education,
+              income, or technology-skill moderation; consumer technology adoption may vary on these
+              demographic dimensions in ways UTAUT2 does not capture.
             </li>
             <li>
-              <strong>Experience moderators unmeasured:</strong> Unlike TAM3 and UTAUT in
-              organizational contexts, UTAUT2 does not examine whether determinant effects change
-              with consumer technology experience.
+              <strong>Limited experience operationalization:</strong> Experience is measured as
+              passage of time since initial mobile Internet use (in months). Alternative
+              operationalizations (frequency of use, diversity of applications used) might yield
+              different moderation patterns; this single operationalization may not capture all
+              facets of consumer experience.
             </li>
             <li>
               <strong>Network effects unmeasured:</strong> Consumer technology often exhibits strong
@@ -494,7 +602,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 8. Key Contributions */}
+        {/* 9. Key Contributions */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Key Contributions</h2>
           <ul className={BODY_LIST_CLASSES}>
@@ -542,7 +650,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 9. Internal Validity */}
+        {/* 10. Internal Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Internal Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -570,9 +678,12 @@ const BibliographyArticlePage = () => {
               research.
             </li>
             <li>
-              <strong>Structural equation modeling:</strong> SEM approach tested complete model
-              simultaneously with direct effects, indirect pathways, and distinction between
-              adoption intention and use behavior.
+              <strong>Partial Least Squares (PLS) estimation:</strong> Analysis used Smart-PLS
+              software (Chin et al., 2003), chosen for handling the large number of interaction
+              terms. Indicators were mean-centered before creating interaction terms to reduce
+              multicollinearity (VIFs &lt; 5). Common method variance was assessed via Liang et al.
+              (2007) method factor test and Richardson et al. (2009) CFA marker technique; neither
+              indicated substantive CMV.
             </li>
             <li>
               <strong>Model comparison:</strong> Study tested UTAUT2 against UTAUT and other model
@@ -591,7 +702,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 10. External Validity */}
+        {/* 11. External Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>External Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -639,14 +750,15 @@ const BibliographyArticlePage = () => {
               beyond initial adoption remain unexplored.
             </li>
             <li>
-              <strong>Experience effects not modeled:</strong> UTAUT2 does not examine whether
-              consumer experience with technology generally or with specific systems moderates
-              determinant effects.
+              <strong>Single mobile Internet context:</strong> Experience is measured specifically
+              with mobile Internet (months since initial use). The moderating effect of experience
+              may differ for technologies with different learning curves, interface conventions, or
+              update cadences.
             </li>
           </ul>
         </section>
 
-        {/* 11. Relevance to Technology Adoption */}
+        {/* 12. Relevance to Technology Adoption */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Relevance to Technology Adoption</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -759,7 +871,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 12. Following Models or Theories */}
+        {/* 13. Following Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Following Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -812,7 +924,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 13. References */}
+        {/* 14. References */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>References</h2>
           <ol className={REFERENCES_OL_CLASSES}>
@@ -889,6 +1001,7 @@ const BibliographyArticlePage = () => {
           </ol>
         </section>
 
+        {/* 15. Further Reading */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Further Reading</h2>
           <ol className={REFERENCES_OL_CLASSES}>
@@ -933,7 +1046,7 @@ const BibliographyArticlePage = () => {
           </ol>
         </section>
 
-        {/* 14. Series Navigation */}
+        {/* 16. Series Navigation */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Series Navigation</h2>
           <div className="space-y-4">
