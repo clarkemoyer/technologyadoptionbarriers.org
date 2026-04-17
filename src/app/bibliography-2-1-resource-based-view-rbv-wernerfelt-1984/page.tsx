@@ -175,9 +175,9 @@ const BibliographyArticlePage = () => {
             for dynamic strategy - <em>sequential entry</em> (Figure 2, p.176),
             <em>exploit-and-develop</em> (Figure 3, p.177), and <em>stepping stones</em> (Figure 4,
             p.178). The paper is presented by the author as &ldquo;a first cut at a huge can of
-            worms&rsquo;&rsquo; (p.180), explicitly calling for further research on
-            implementability. The later VRIN/VRIO apparatus commonly associated with RBV comes from
-            Barney (1991) and is NOT in Wernerfelt (1984).
+            worms&rdquo; (p.180), explicitly calling for further research on implementability. The
+            later VRIN/VRIO apparatus commonly associated with RBV comes from Barney (1991) and is
+            NOT in Wernerfelt (1984).
           </p>
         </section>
 
@@ -201,11 +201,10 @@ const BibliographyArticlePage = () => {
               <strong>Resource position barrier:</strong> A first-mover advantage tied to a specific
               resource that makes it more expensive or difficult for late-comers to acquire, build,
               or operate that resource. Wernerfelt positions resource position barriers as
-              &ldquo;partially analogous&rsquo;&rsquo; to entry barriers, but defined at the
-              resource level (p.173). A resource position barrier can exist without an entry barrier
-              (leaving the firm vulnerable to diversifying entrants), and an entry barrier can exist
-              without a resource position barrier (leaving the firm unable to exploit its position
-              further).
+              &ldquo;partially analogous&rdquo; to entry barriers, but defined at the resource level
+              (p.173). A resource position barrier can exist without an entry barrier (leaving the
+              firm vulnerable to diversifying entrants), and an entry barrier can exist without a
+              resource position barrier (leaving the firm unable to exploit its position further).
             </li>
             <li>
               <strong>Attractive resource:</strong> A resource around which a resource position
@@ -226,8 +225,8 @@ const BibliographyArticlePage = () => {
             <li>
               <strong>Mergers and acquisitions:</strong> Wernerfelt frames M&amp;A as an opportunity
               to trade otherwise non-marketable resources in bundles. Acquisitions allow firms to
-              buy or sell resources which have &ldquo;a high degree of transparency&rsquo;&rsquo;
-              only between specific pairs of firms, through an imperfect market with few buyers and
+              buy or sell resources which have &ldquo;a high degree of transparency&rdquo; only
+              between specific pairs of firms, through an imperfect market with few buyers and
               targets (pp.174-175).
             </li>
             <li>
@@ -1068,6 +1067,10 @@ const BibliographyArticlePage = () => {
                 ></a>
               </span>
             </li>
+            <li id="ref-ries-trout-1981">
+              Ries, A., &amp; Trout, J. (1981). <em>Positioning: The battle for your mind</em>.
+              McGraw-Hill.
+            </li>
             <li id="ref-rubin-1973">
               Rubin, P. H. (1973). The expansion of firms. <em>Journal of Political Economy</em>,
               81, 936-949.
@@ -1078,6 +1081,14 @@ const BibliographyArticlePage = () => {
                   aria-label="Back to citation 1"
                 ></a>
               </span>
+            </li>
+            <li id="ref-salter-weinhold-1979">
+              Salter, M. S., &amp; Weinhold, W. A. (1979). <em>Diversification by acquisition</em>.
+              Free Press.
+            </li>
+            <li id="ref-spence-1979">
+              Spence, A. M. (1979). Investment strategy and growth in a new market.{' '}
+              <em>Bell Journal of Economics</em>, 10, 1-19.
             </li>
           </ol>
         </section>
