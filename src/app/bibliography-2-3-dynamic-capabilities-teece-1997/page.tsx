@@ -116,138 +116,192 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Why Was the Model Created?</h2>
           <p className={PARAGRAPH_CLASSES}>
-            The Resource-Based View of the firm (
-            <a
-              id="cite-ref-wernerfelt-1984-1"
-              href="#ref-wernerfelt-1984"
-              className="text-tabs-teal-deep hover:underline"
-            >
-              Wernerfelt, 1984
-            </a>
-            ;{' '}
-            <a
-              id="cite-ref-barney-1991-1"
-              href="#ref-barney-1991"
-              className="text-tabs-teal-deep hover:underline"
-            >
-              Barney, 1991
-            </a>
-            ) provided powerful strategic insight into competitive advantage through control of
-            valuable, rare, inimitable resources. However, RBV had significant limitations in
-            explaining sustained competitive advantage in environments characterized by rapid
-            technological change, shifting customer preferences, and dynamic competitive conditions.
-            In stable environments where resources maintain value over extended periods, RBV
-            explained strategy effectively. But in fast-moving industries such as semiconductors,
-            pharmaceuticals, biotechnology, software, and telecommunications, today&rsquo;s
-            inimitable resources became obsolete quickly. Static resources and capabilities that
-            created yesterday&rsquo;s competitive advantages often became liabilities as markets
-            shifted. RBV provided limited guidance on how organizations adapt when resource bases
-            become outdated or market conditions fundamentally change.
+            Teece, Pisano &amp; Shuen (1997) open (p.509) with the question &ldquo;how firms achieve
+            and sustain competitive advantage&rdquo; in a Schumpeterian world of innovation-based
+            competition, price/performance rivalry, increasing returns, and the &ldquo;creative
+            destruction&rdquo; of existing competences. The paper argues that then-dominant
+            frameworks handled sustaining and safeguarding extant advantage well but had performed
+            less well on how firms build advantage under rapid change.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            Teece, Pisano, and Shuen recognized that explaining competitive advantage in dynamic
-            environments required a different theoretical focus. Rather than asking &ldquo;What
-            static resources provide competitive advantage?&rdquo; they asked &ldquo;What
-            capabilities enable organizations to continuously sense market changes, quickly seize
-            new opportunities, and rapidly reconfigure their resource bases to respond to shifting
-            competitive conditions?&rdquo; This shift from static resources to dynamic capabilities
-            represented a fundamental evolution in strategic management thinking. Organizations
-            operating in fast-moving environments compete not based on what they possess today, but
-            on their ability to identify emerging opportunities before competitors and execute
-            faster than rivals.
-          </p>
-          <p className={PARAGRAPH_CLASSES}>
-            The framework emerged from empirical investigation of high-technology firms operating in
-            turbulent competitive environments. Teece and colleagues examined how pharmaceutical
-            firms, semiconductor companies, and software organizations sustained competitive
-            advantage despite constant technological disruption. They identified patterns in how
-            successful organizations managed the innovation process: sensing technological and
-            market trends before competitors, recognizing which new opportunities aligned with
-            organizational capabilities and market needs, assembling resources and capabilities to
-            pursue opportunities quickly, and integrating new technologies and capabilities into
-            existing operational systems. These dynamic capabilities - the ability to sense, seize,
-            and reconfigure - distinguished organizations that thrived amid disruption from those
-            that faltered.
-          </p>
-        </section>
-
-        {/* 5. Core Concepts and Definitions */}
-        <section className={SECTION_CLASSES}>
-          <h2 className={H2_CLASSES}>Core Concepts and Definitions</h2>
-          <p className={PARAGRAPH_CLASSES}>
-            The Dynamic Capabilities framework is built on fundamental concepts about how
-            organizations survive and succeed in dynamic environments:
+            The paper positions itself against three precursor paradigms that it reviews and
+            critiques (Sections I-III, pp.509-516):
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Dynamic Capabilities:</strong> The organization&rsquo;s ability to sense
-              external change, make strategic decisions about which changes to respond to, mobilize
-              resources to address those changes, and reconfigure operational systems and resource
-              bases. Dynamic capabilities are not static resources but rather the organizational
-              processes, routines, and competencies enabling continuous adaptation and renewal.
+              <strong>Models of strategy emphasizing market power</strong> - the Competitive Forces
+              approach (Porter, 1980) and Strategic Conflict game-theoretic approach (Shapiro, 1989)
+              - emphasize industry structure and strategic interaction, but treat firms inside an
+              industry as relatively interchangeable.
             </li>
             <li>
-              <strong>Sensing Capability:</strong> The organizational capacity to scan the external
-              environment for technological change, emerging customer preferences, competitor
-              actions, and new market opportunities. Sensing involves boundary-spanning activities,
-              external relationship networks, scanning systems, and cognitive frameworks enabling
-              identification of relevant change signals and pattern recognition in market dynamics.
+              <strong>Models of strategy emphasizing efficiency</strong> - the Resource-Based
+              Perspectives (Penrose, 1959; Rumelt, 1984; Wernerfelt, 1984, 1989; Teece, 1984) -
+              emphasize firm-specific assets and idiosyncratic efficiency, but treat competences and
+              asset positions as relatively static.
             </li>
             <li>
-              <strong>Seizing Capability:</strong> The organizational capacity to evaluate
-              opportunities identified through sensing activities, make strategic decisions about
-              which opportunities deserve resource commitment, and assemble resources and
-              capabilities to pursue selected opportunities. Seizing translates opportunity
-              recognition into specific strategic actions and resource allocation decisions.
-            </li>
-            <li>
-              <strong>Reconfiguring Capability:</strong> The organizational capacity to realign
-              internal and external resource bases, recombine organizational capabilities,
-              reengineer business processes, and reorganize internal structures to execute selected
-              strategies. Reconfiguring transforms identified opportunities into operational
-              capabilities and market implementations.
-            </li>
-            <li>
-              <strong>Asset Orchestration:</strong> The strategic alignment and integration of
-              assets (physical, financial, human, organizational, and intellectual property) and
-              capabilities to create customer value and competitive advantage. Orchestration
-              involves decisions about which assets to acquire, develop, lease, or divest as markets
-              shift.
-            </li>
-            <li>
-              <strong>Technology Management:</strong> The organizational processes for monitoring
-              technological development, evaluating technological relevance to future strategy,
-              building technological competencies, and integrating new technologies into operational
-              systems. Technology management is a core dynamic capability as technological change is
-              the primary source of disruption in many industries.
-            </li>
-            <li>
-              <strong>Complementary Assets:</strong> Resources and capabilities that enhance the
-              value of core technological or competitive assets. A firm may develop superior
-              technology but fail if it lacks complementary assets such as manufacturing capability,
-              distribution networks, marketing competence, or customer relationships to
-              commercialize the technology.
+              <strong>Dynamic capabilities approach</strong> - proposed by this paper - adds the
+              ability to adapt, integrate, and reconfigure competences as external conditions
+              change.
             </li>
           </ul>
+          <p className={PARAGRAPH_CLASSES}>
+            Teece et al.&rsquo;s specific argument is that in regimes of rapid technological change,
+            private wealth creation depends &ldquo;in large measure on honing internal
+            technological, organizational, and managerial processes inside the firm&rdquo; rather
+            than on strategizing in the game-theoretic sense (abstract, p.509). The paper presents
+            the framework conceptually (pp.509-524) and then illustrates it via examples of
+            strategic capabilities in real firms (pp.524-533).
+          </p>
         </section>
 
-        {/* 6. Preceding Models or Theories */}
+        {/* 5. What Does the Model Measure? */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>What Does the Model Measure?</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            Teece, Pisano &amp; Shuen (1997) is a conceptual framework paper, not a measurement
+            model. It does not propose scales, latent constructs, or formal empirical
+            operationalizations. Instead, it proposes a vocabulary - the <em>three Ps</em>
+            (processes, positions, paths) - for analyzing the sources of competitive advantage in
+            regimes of rapid change, and a definition of <em>dynamic capabilities</em> that sits
+            above the resource-based view&rsquo;s inventory of static resources.
+          </p>
+          <p className={PARAGRAPH_CLASSES}>
+            The paper&rsquo;s canonical definition (p.516): dynamic capabilities are &ldquo;the
+            firm&rsquo;s ability to integrate, build, and reconfigure internal and external
+            competences to address rapidly changing environments&rdquo;. This is the verbatim 1997
+            definition. A popular later refinement by Teece (2007) reorganized the same logic into
+            three microfoundations - <em>sensing, seizing, and reconfiguring/transforming</em> -
+            which are widely attributed to this 1997 paper but are actually the 2007 paper&rsquo;s
+            framing (Teece, 2007, &ldquo;Explicating dynamic capabilities: the nature and
+            microfoundations of (sustainable) enterprise performance&rdquo;, SMJ 28:13,
+            pp.1319-1350).
+          </p>
+          <p className={PARAGRAPH_CLASSES}>
+            The 1997 paper&rsquo;s analytical method is: (i) define the hierarchy of firm-level
+            factors that might generate advantage; (ii) distinguish paradigms of strategy; (iii)
+            identify the three Ps that shape dynamic capabilities; (iv) show by case-example how
+            each of the three Ps generates or erodes competitive advantage in technology-intensive
+            industries (semiconductors, biotechnology, consumer electronics).
+          </p>
+        </section>
+
+        {/* 6. Core Concepts and Definitions */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Core Concepts and Definitions</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            Teece, Pisano &amp; Shuen (1997, pp.515-518) lay out an explicit vocabulary with six
+            levels, distinguishing dynamic capabilities from other firm-level factors:
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Factors of production:</strong> Undifferentiated inputs available in
+              disaggregate form in factor markets. Land, unskilled labor, capital. Lack a
+              firm-specific component. Non-strategic (p.516).
+            </li>
+            <li>
+              <strong>Resources:</strong> Firm-specific assets that are difficult or impossible to
+              imitate - trade secrets, specialized production facilities, engineering experience.
+              Difficult to transfer because of transactions costs, transfer costs, and tacit
+              knowledge (p.516). The authors note they dislike the term &ldquo;resource&rdquo; but
+              retain it to keep links to the RBV literature.
+            </li>
+            <li>
+              <strong>Organizational routines / competences:</strong> Integrated clusters of
+              firm-specific assets spanning individuals and groups that enable distinctive
+              activities. Examples include quality, miniaturization, and systems integration
+              (p.516). Typically viable across multiple product lines.
+            </li>
+            <li>
+              <strong>Core competences:</strong> Competences that define a firm&rsquo;s fundamental
+              business; must be derived by looking across the firm&rsquo;s and competitors&rsquo;
+              product ranges (p.516, Footnote 24 gives Kodak=imaging, IBM=integrated data
+              processing, Motorola=untethered communications as illustrative examples).
+            </li>
+            <li>
+              <strong>Dynamic capabilities:</strong> &ldquo;The firm&rsquo;s ability to integrate,
+              build, and reconfigure internal and external competences to address rapidly changing
+              environments&rdquo; (p.516). Reflect an organization&rsquo;s ability to achieve new
+              and innovative forms of competitive advantage given path dependencies and market
+              positions (Leonard-Barton, 1992).
+            </li>
+            <li>
+              <strong>Products:</strong> The final goods and services produced by the firm, drawing
+              on the competences that it possesses. The performance (price, quality) of products at
+              any point in time depends on competences, which in turn depend on capabilities
+              (p.516).
+            </li>
+          </ul>
+          <p className={PARAGRAPH_CLASSES}>
+            The paper&rsquo;s central analytical device is the <em>three Ps</em> - processes,
+            positions, paths - which together shape a firm&rsquo;s competences and dynamic
+            capabilities (p.518):
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Processes (managerial and organizational):</strong> The way things are done in
+              the firm - routines, patterns of current practice and learning. Processes have three
+              roles: <em>coordination/integration</em> (a static concept),
+              <em>learning</em> (dynamic), and <em>reconfiguration</em> (transformational)
+              (p.518-524).
+            </li>
+            <li>
+              <strong>Positions:</strong> The firm&rsquo;s current specific endowments of
+              technology, intellectual property, complementary assets, customer base, and external
+              relations with suppliers and complementors. The paper enumerates seven illustrative
+              asset classes: technological, complementary, financial, reputational, structural,
+              institutional, market-structure, and organizational-boundary assets (p.521-523).
+            </li>
+            <li>
+              <strong>Paths:</strong> The strategic alternatives available to the firm, and the
+              presence or absence of increasing returns and path dependencies. Where a firm can go
+              is a function of its current position and the paths ahead; current position is often
+              shaped by the path traveled (p.522-524).
+            </li>
+          </ul>
+          <p className={PARAGRAPH_CLASSES}>
+            Note on terminology: the 1997 paper does <em>not</em> use the &ldquo;sensing - seizing -
+            reconfiguring&rdquo; vocabulary that has since become the popular summary of dynamic
+            capabilities. That restatement is Teece (2007). The 1997 paper&rsquo;s equivalent
+            locution is &ldquo;integrate, build, and reconfigure&rdquo;, with the three Ps as the
+            organizing substructure.
+          </p>
+        </section>
+
+        {/* 7. Preceding Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Preceding Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
-            Dynamic Capabilities theory built on and extended previous strategic management
-            frameworks:
+            Teece, Pisano &amp; Shuen (1997) synthesize and cite a substantial body of prior work.
+            The most important precursors they credit:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
               <strong>
-                Resource-Based View of the Firm (
+                Resource-Based Perspective (
+                <a
+                  id="cite-ref-penrose-1959-1"
+                  href="#ref-penrose-1959"
+                  className="text-tabs-teal-deep hover:underline"
+                >
+                  Penrose, 1959
+                </a>
+                ;{' '}
                 <a
                   id="cite-ref-wernerfelt-1984-2"
                   href="#ref-wernerfelt-1984"
                   className="text-tabs-teal-deep hover:underline"
                 >
-                  Wernerfelt, 1984
+                  Wernerfelt, 1984, 1989
+                </a>
+                ;{' '}
+                <a
+                  id="cite-ref-rumelt-1984-1"
+                  href="#ref-rumelt-1984"
+                  className="text-tabs-teal-deep hover:underline"
+                >
+                  Rumelt, 1984
                 </a>
                 ;{' '}
                 <a
@@ -259,13 +313,38 @@ const BibliographyArticlePage = () => {
                 </a>
                 ):
               </strong>{' '}
-              Established the foundation for capabilities-based strategy by arguing that resources
-              create competitive advantage. Dynamic Capabilities extended RBV from static resources
-              to dynamic processes enabling resource renewal and adaptation.
+              The &ldquo;models of strategy emphasizing efficiency&rdquo; strand. Supplies the
+              firm-specific-asset foundation on which dynamic capabilities builds. Teece et al.
+              explicitly position dynamic capabilities as an <em>extension</em> of RBV, not a
+              replacement.
             </li>
             <li>
               <strong>
-                Organizational Capabilities and Routines (
+                Competitive forces / industry structure (
+                <a
+                  id="cite-ref-porter-1980-1"
+                  href="#ref-porter-1980"
+                  className="text-tabs-teal-deep hover:underline"
+                >
+                  Porter, 1980
+                </a>
+                , 1985):
+              </strong>{' '}
+              The first of the three paradigms reviewed in Section I. Supplies the language of
+              industry structure, entry deterrence, and positioning. Teece et al. retain the
+              environmental-analysis concerns but shift the analytical focus inside the firm.
+            </li>
+            <li>
+              <strong>
+                Strategic conflict / game-theoretic approach (Shapiro, 1989; Ghemawat, 1991):
+              </strong>{' '}
+              The second paradigm reviewed. Supplies the sequential-move and commitment framework.
+              Teece et al. argue it is most powerful when rivals have roughly equal competences and
+              least powerful when firms differ fundamentally in capabilities.
+            </li>
+            <li>
+              <strong>
+                Evolutionary economics / organizational routines (
                 <a
                   id="cite-ref-nelson-1982-1"
                   href="#ref-nelson-1982"
@@ -275,181 +354,223 @@ const BibliographyArticlePage = () => {
                 </a>
                 ):
               </strong>{' '}
-              Emphasized that firms develop distinctive capabilities and organizational routines
-              that enable specific performance and constrain behavior. Dynamic Capabilities built on
-              this insight by emphasizing capabilities for change rather than just execution of
-              existing routines.
+              Central reference. Supplies the concept of organizational routines as the unit of
+              analysis for competence and for evolutionary selection. Cited repeatedly throughout
+              the paper (pp.515, 519, 526, 529).
             </li>
             <li>
               <strong>
-                Technology and Innovation Management (
+                Organizational learning (
                 <a
-                  id="cite-ref-rosenberg-1982-1"
-                  href="#ref-rosenberg-1982"
+                  id="cite-ref-argyris-1978-1"
+                  href="#ref-argyris-1978"
                   className="text-tabs-teal-deep hover:underline"
                 >
-                  Rosenberg, 1982
+                  Argyris &amp; Sch&ouml;n, 1978
                 </a>
                 ;{' '}
                 <a
-                  id="cite-ref-dosi-1982-1"
-                  href="#ref-dosi-1982"
+                  id="cite-ref-levitt-1988-1"
+                  href="#ref-levitt-1988"
                   className="text-tabs-teal-deep hover:underline"
                 >
-                  Dosi, 1982
+                  Levitt &amp; March, 1988
+                </a>
+                ;{' '}
+                <a
+                  id="cite-ref-leonard-1992-1"
+                  href="#ref-leonard-1992"
+                  className="text-tabs-teal-deep hover:underline"
+                >
+                  Leonard-Barton, 1992
                 </a>
                 ):
               </strong>{' '}
-              Emphasized that technological trajectories constrain and enable firm development.
-              Dynamic Capabilities incorporated technological evolution and the organizational
-              challenge of continuously updating technological competencies.
+              Supplies the theoretical grounding for the &ldquo;learning&rdquo; role of
+              organizational processes. Leonard-Barton&rsquo;s core-capabilities treatment is
+              particularly important for the definition of dynamic capabilities (p.516).
             </li>
             <li>
               <strong>
-                Organizational Learning Theory (Argyris &amp; Schon, 1978; Levitt &amp; March,
-                1988):
-              </strong>{' '}
-              Examined how organizations learn from experience and develop increasingly
-              sophisticated capabilities. Dynamic Capabilities emphasized learning processes
-              enabling organizational adaptation and evolution.
-            </li>
-            <li>
-              <strong>
-                Strategic Intent and Core Competencies (
+                Increasing returns and path dependency (
                 <a
-                  id="cite-ref-hamel-1989-1"
-                  href="#ref-hamel-1989"
+                  id="cite-ref-arthur-1983-1"
+                  href="#ref-arthur-1983"
                   className="text-tabs-teal-deep hover:underline"
                 >
-                  Hamel &amp; Prahalad, 1989
+                  Arthur, 1983
                 </a>
-                , 1994):
+                ;{' '}
+                <a
+                  id="cite-ref-david-1985-1"
+                  href="#ref-david-1985"
+                  className="text-tabs-teal-deep hover:underline"
+                >
+                  David, 1985
+                </a>
+                ):
               </strong>{' '}
-              Emphasized that sustained competitive advantage comes from organizational competencies
-              that create customer value and are difficult for competitors to replicate. Dynamic
-              Capabilities extended this by emphasizing the capability to develop new competencies
-              continuously.
+              Cited on p.518 and p.522. Supplies the argument that path dependencies matter most
+              where conditions of increasing returns obtain. Essential to the &ldquo;paths&rdquo;
+              leg of the three-Ps framework.
             </li>
             <li>
               <strong>
-                Path Dependency and Lock-In (
+                Core competencies (
                 <a
-                  id="cite-ref-arthur-1989-1"
-                  href="#ref-arthur-1989"
+                  id="cite-ref-prahalad-1990-1"
+                  href="#ref-prahalad-1990"
                   className="text-tabs-teal-deep hover:underline"
                 >
-                  Arthur, 1989
+                  Prahalad &amp; Hamel, 1990
                 </a>
-                ; David, 1985):
+                ):
               </strong>{' '}
-              Examined how historical choices constrain future options and create path dependency in
-              organizational development. Dynamic Capabilities acknowledged path dependency while
-              emphasizing organizational capacity to break unfavorable paths and create new
-              trajectories.
+              Supplies the &ldquo;core competence&rdquo; vocabulary that the paper builds on and
+              refines (p.516 defines core competences by reference to this literature).
+            </li>
+            <li>
+              <strong>
+                Teece on complementary assets and appropriability (
+                <a
+                  id="cite-ref-teece-1986-1"
+                  href="#ref-teece-1986"
+                  className="text-tabs-teal-deep hover:underline"
+                >
+                  Teece, 1986
+                </a>
+                ):
+              </strong>{' '}
+              Teece&rsquo;s own earlier paper on profiting from technological innovation. Supplies
+              the argument that successful commercialization requires complementary assets, a
+              central theme in the Positions discussion.
             </li>
           </ul>
         </section>
 
-        {/* 7. Describe The Model */}
+        {/* 8. Describe The Model */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Describe The Model</h2>
           <p className={PARAGRAPH_CLASSES}>
-            The Dynamic Capabilities framework proposes that sustained competitive advantage in
-            dynamic environments derives from organizational capabilities to continuously sense
-            external change, seize new opportunities, and reconfigure internal and external
-            resources to capitalize on identified opportunities. Rather than viewing strategy as
-            selecting favorable positions within relatively stable industry structures, the Dynamic
-            Capabilities approach views strategy as building organizational capacity for continuous
-            adaptation and renewal. Competitive advantage is temporal and fragile in dynamic
-            environments; it persists only as long as organizations can identify emerging
-            opportunities before competitors and execute faster than rivals.
+            Teece, Pisano &amp; Shuen (1997) develop the framework in four steps: (1) review and
+            critique three precursor paradigms of strategy; (2) lay out a hierarchical vocabulary of
+            firm-level factors; (3) advance the three-Ps argument - competitive advantage is shaped
+            by processes, positions, and paths; (4) apply the framework to illustrative firm cases
+            (the paper discusses cases in semiconductors, consumer electronics, and biotechnology,
+            pp.524-533).
           </p>
 
-          <h3 className={H3_CLASSES}>The Sensing-Seizing-Reconfiguring Framework</h3>
+          <h3 className={H3_CLASSES}>Three precursor paradigms critiqued (pp.509-515)</h3>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Sensing:</strong> Scanning and interpreting the external environment to
-              identify technological trends, emerging market opportunities, customer preference
-              shifts, and competitor actions. Sensing requires organizational structures, processes,
-              and relationships enabling recognition of relevant change signals. Sensing
-              capabilities include environmental scanning, market research, technology monitoring,
-              customer engagement, and external partnerships providing access to emerging
-              information.
+              <strong>Competitive forces (Porter, 1980):</strong> Industry structure - the five
+              forces of rivalry, supplier power, buyer power, entry threat, and substitute threat -
+              determines firm performance. Strategy is industry selection and positioning. Critique:
+              treats firms as relatively interchangeable within an industry and is silent on
+              within-industry performance dispersion.
             </li>
             <li>
-              <strong>Seizing:</strong> Making strategic decisions about which identified
-              opportunities to pursue and mobilizing resources to address selected opportunities.
-              Seizing involves evaluating which opportunities align with organizational
-              capabilities, market potential, and strategic priorities. Seizing decisions determine
-              resource allocation, strategic investments, and pursuit directions. Organizations with
-              weak seizing capabilities may identify emerging opportunities but fail to commit
-              sufficient resources to capitalize on them.
+              <strong>
+                Strategic conflict / game-theoretic approach (Shapiro, 1989; Ghemawat, 1991):
+              </strong>{' '}
+              Strategy is understood through the lens of sequential-move and commitment games
+              between rivals. Critique: treats strategy as chess against adversaries; produces
+              elegant theorems but gives little guidance when firms differ in capabilities, not just
+              moves.
             </li>
             <li>
-              <strong>Reconfiguring:</strong> Realigning internal operations, reengineer business
-              processes, integrate new capabilities, and mobilize existing resources to execute
-              strategies targeting identified opportunities. Reconfiguring translates strategic
-              intent into operational execution. Successful reconfiguring requires change management
-              capability, organizational flexibility, and capacity to learn and adapt organizational
-              systems.
+              <strong>
+                Resource-based perspectives (Penrose, 1959; Rumelt, 1984; Wernerfelt, 1984, 1989;
+                Teece, 1984):
+              </strong>{' '}
+              Competitive advantage comes from firm-specific assets that are difficult to imitate.
+              Critique: useful but relatively static - explains persistence of advantage, not how
+              firms build new competences under rapid technological change.
             </li>
           </ul>
 
-          <h3 className={H3_CLASSES}>Positions, Processes, and Paths Framework</h3>
+          <h3 className={H3_CLASSES}>The three Ps: processes, positions, paths (pp.518-524)</h3>
+          <p className={PARAGRAPH_CLASSES}>
+            &ldquo;We thus advance the argument that the competitive advantage of firms lies with
+            its managerial and organizational processes, shaped by its (specific) asset position,
+            and the paths available to it&rdquo; (p.518).
+          </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Positions:</strong> The organization&rsquo;s current asset base including
-              physical assets, financial resources, human capital, intellectual property, and
-              relationships. Positions constrain and enable future strategic options. Organizations
-              with complementary asset positions can capitalize on technology innovations more
-              effectively than organizations lacking position-relevant assets. Position development
-              requires years of investment and cannot be quickly replicated.
+              <strong>Processes:</strong> The way things are done in the firm - routines and
+              patterns of current practice and learning. Three roles (p.518-520):
+              <ul className={BODY_LIST_CLASSES}>
+                <li>
+                  <em>Coordination / integration</em> (static): how efficiently the firm coordinates
+                  internal and external activity. Empirical support from Garvin (1988) on
+                  air-conditioner quality, Clark &amp; Fujimoto (1991) on auto development, and
+                  Fujimoto (1994) on lean production.
+                </li>
+                <li>
+                  <em>Learning</em> (dynamic): processes by which repetition and experimentation
+                  enable tasks to be performed better and faster, and new opportunities identified.
+                  Rooted in Nelson &amp; Winter (1982), Argyris &amp; Sch&ouml;n (1978), Levitt
+                  &amp; March (1988), Leonard-Barton (1995).
+                </li>
+                <li>
+                  <em>Reconfiguration and transformation</em>: ability to sense the need to
+                  reconfigure and accomplish the necessary internal and external transformation.
+                  Requires constant surveillance of markets and technologies, and willingness to
+                  adopt best practice (p.520).
+                </li>
+              </ul>
             </li>
             <li>
-              <strong>Processes:</strong> The organizational capabilities, routines, decision-making
-              procedures, and governance mechanisms enabling strategy execution. Processes determine
-              how efficiently organizations can mobilize resources, make decisions, execute
-              initiatives, and learn. Process capabilities are embedded in organizational culture
-              and routines; they are partially tacit and difficult for competitors to imitate.
+              <strong>Positions:</strong> Specific asset endowments that shape the firm&rsquo;s
+              strategic posture. Seven illustrative classes (p.521-523):{' '}
+              <em>technological assets</em>, <em>complementary assets</em>,{' '}
+              <em>financial assets</em>,<em>reputational assets</em>, <em>structural assets</em>{' '}
+              (formal/informal structure and governance), <em>institutional assets</em> (regulatory,
+              IP regimes, education systems), <em>market-structure assets</em>, and{' '}
+              <em>organizational boundaries</em>
+              (degree of integration).
             </li>
             <li>
-              <strong>Paths:</strong> The strategic options available to organizations given their
-              current positions and historical choices. Historical decisions create path dependency;
-              organizations cannot reverse history or arbitrarily shift strategic directions without
-              significant costs. However, within path constraints, organizations maintain strategic
-              agency and can influence which future paths become available through current
-              decisions.
+              <strong>Paths:</strong> Strategic alternatives given current position and the paths
+              ahead. Path dependencies matter when conditions of increasing returns exist (Arthur,
+              1983). Technological opportunities matter - they are often not exogenous to the firm
+              but shaped by the firm&rsquo;s R&amp;D activities and the state of applied science.
+              Replicability and imitatability (the ease with which competitors can copy) determine
+              how quickly advantage erodes.
             </li>
           </ul>
 
-          <h3 className={H3_CLASSES}>Key Mechanisms</h3>
+          <h3 className={H3_CLASSES}>Illustrative mechanisms the paper highlights</h3>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Asset Orchestration:</strong> Strategic decisions about acquiring, developing,
-              leasing, or divesting assets and capabilities as competitive conditions shift.
-              Successful asset orchestration aligns organizational asset base with market
-              opportunities, enabling value creation.
+              <strong>Replicability vs. imitatability:</strong> Replicability is the firm&rsquo;s
+              ability to expand internally by copying its own operations; imitatability is the
+              competitor&rsquo;s ability to copy the firm&rsquo;s operations. Both are harder when
+              routines are tacit and organizationally embedded (p.525-527).
             </li>
             <li>
-              <strong>Complementary Asset Integration:</strong> Ensuring that organizations possess
-              or can access complementary assets enhancing core capabilities. A superior technology
-              lacks competitive value without complementary manufacturing, distribution, and
-              marketing capabilities.
+              <strong>Complementary assets:</strong> Following Teece (1986), successful
+              commercialization often requires complementary assets (manufacturing, distribution,
+              reputation). A firm with a novel competence but without complementary assets may fail
+              to capture the rents.
             </li>
             <li>
-              <strong>Learning and Knowledge Development:</strong> Organizational processes for
-              learning from market feedback, assimilating new information, and developing updated
-              capabilities. Learning capabilities enable organizations to improve performance over
-              time and avoid repeating past mistakes.
-            </li>
-            <li>
-              <strong>Technology Management:</strong> Organizational capacity to evaluate emerging
-              technologies, build technological competencies, integrate new technologies into
-              operations, and make strategic technology choices. Technology management is
-              particularly critical in technology-intensive industries where technological
-              obsolescence is rapid.
+              <strong>Co-specialization of assets:</strong> Dynamic capabilities arise from the way
+              the firm&rsquo;s processes, positions, and paths are co-specialized to one another;
+              reconfiguration involves rebuilding these links when conditions change (p.527).
             </li>
           </ul>
+
+          <h3 className={H3_CLASSES}>On the &ldquo;sense, seize, reconfigure&rdquo; vocabulary</h3>
+          <p className={PARAGRAPH_CLASSES}>
+            Many textbook summaries of dynamic capabilities reduce the framework to &ldquo;sensing,
+            seizing, and reconfiguring / transforming&rdquo;. That reduction comes from Teece
+            (2007), which explicated the <em>microfoundations</em> of dynamic capabilities. It is a
+            valid later restatement, but it is <em>not</em> what the 1997 paper says - the 1997
+            paper uses the three Ps as its organizing substructure and &ldquo;integrate, build, and
+            reconfigure&rdquo; as its definitional verb triplet. Be careful not to retroject 2007
+            vocabulary onto the 1997 paper.
+          </p>
 
           <h3 className={H3_CLASSES}>Main Strengths</h3>
           <ul className={BODY_LIST_CLASSES}>
@@ -532,54 +653,70 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 8. Key Contributions */}
+        {/* 9. Key Contributions */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Key Contributions</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            The specific contributions of Teece, Pisano &amp; Shuen (1997) to the strategic
+            management literature:
+          </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Extended RBV to dynamic environments:</strong> Successfully extended the
-              Resource-Based View from static resources to dynamic processes enabling adaptation in
-              changing environments, addressing major RBV limitation.
+              <strong>Canonical definition of dynamic capabilities:</strong> &ldquo;The firm&rsquo;s
+              ability to integrate, build, and reconfigure internal and external competences to
+              address rapidly changing environments&rdquo; (p.516). This definition has become the
+              most-cited definition in the dynamic capabilities literature.
             </li>
             <li>
-              <strong>Explained sustained advantage in disruption:</strong> Provided theoretical
-              explanation for why some organizations sustain competitive advantage through
-              technological and market disruptions while others fail to adapt.
+              <strong>Three-Ps organizing framework:</strong> Established processes, positions, and
+              paths as the three interacting sources of competence and dynamic capabilities (p.518).
+              The three Ps remain the dominant organizing device of the 1997 paper, distinct from
+              the sensing-seizing-reconfiguring vocabulary popularized by Teece (2007).
             </li>
             <li>
-              <strong>Introduced sensing-seizing-reconfiguring framework:</strong> Established
-              conceptually distinct organizational capabilities for sensing external changes,
-              seizing opportunities, and reconfiguring resources to enable sustained advantage.
+              <strong>Hierarchy of firm-level factors:</strong> Distinguished factors of production,
+              resources, routines/competences, core competences, dynamic capabilities, and products
+              as six analytically distinct levels (p.515-517). This hierarchy is used to separate
+              dynamic capabilities from lower-order concepts.
             </li>
             <li>
-              <strong>Integrated positions-processes-paths perspective:</strong> Synthesized the
-              current asset position, organizational processes, and historical path dependency as
-              interconnected determinants of strategic options and competitive advantage.
+              <strong>Three-paradigm synthesis:</strong> Reviewed the competitive forces, strategic
+              conflict, and resource-based paradigms and located dynamic capabilities as a fourth
+              paradigm addressing rapid change - a synthesis widely adopted in strategy teaching.
             </li>
             <li>
-              <strong>Emphasized learning and adaptation:</strong> Elevated organizational learning,
-              adaptation, and continuous renewal as sources of competitive value rather than
-              treating them as operational necessities.
+              <strong>Three roles of organizational processes:</strong> Coordination/integration
+              (static), learning (dynamic), and reconfiguration (transformational) (p.518-520). Gave
+              empirical researchers named, distinct process functions to operationalize.
             </li>
             <li>
-              <strong>Recognized complementary assets:</strong> Highlighted importance of
-              complementary assets and capabilities in creating customer value, explaining why firms
-              with superior technology sometimes failed commercially without supporting asset bases.
+              <strong>Seven asset classes for &ldquo;positions&rdquo;:</strong> Technological,
+              complementary, financial, reputational, structural, institutional, market, and
+              organizational-boundary assets (p.521-523). A useful typology that has influenced
+              subsequent capabilities research.
             </li>
             <li>
-              <strong>Provided framework for analyzing high-technology industries:</strong>{' '}
-              Established theoretical framework specifically suited to analyzing competitive
-              dynamics in technology-intensive industries characterized by rapid change.
+              <strong>Replicability vs. imitatability distinction:</strong> Separated the
+              firm&rsquo;s internal-expansion challenge from the competitor&rsquo;s imitation
+              challenge (p.525-527). Both depend on how tacit and socially embedded the relevant
+              routines are.
             </li>
             <li>
-              <strong>Foundation for future strategic theory:</strong> Created foundation for
-              subsequent developments in organizational agility, resilience, innovation capability,
-              and ambidextrous organization theory.
+              <strong>Schumpeterian-rent framing:</strong> Reframed competitive advantage in regimes
+              of rapid technological change in terms of Schumpeterian innovation rents, pulling
+              strategic management closer to evolutionary economics.
+            </li>
+            <li>
+              <strong>Foundation for the dynamic capabilities tradition:</strong> Provided the
+              conceptual ground from which Eisenhardt &amp; Martin (2000), Zollo &amp; Winter
+              (2002), Helfat &amp; Peteraf (2003), and Teece (2007) subsequently built; also for the
+              sensing-seizing-reconfiguring microfoundations treatment (Teece, 2007), which is often
+              incorrectly attributed to the 1997 paper.
             </li>
           </ul>
         </section>
 
-        {/* 9. Internal Validity */}
+        {/* 10. Internal Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Internal Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -627,7 +764,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 10. External Validity */}
+        {/* 11. External Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>External Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -685,7 +822,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 11. Relevance to Technology Adoption */}
+        {/* 12. Relevance to Technology Adoption */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Relevance to Technology Adoption</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -788,7 +925,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 12. Following Models or Theories */}
+        {/* 13. Following Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Following Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -870,7 +1007,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 13. References */}
+        {/* 14. References */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>References</h2>
           <ol className={REFERENCES_OL_CLASSES}>
@@ -985,7 +1122,7 @@ const BibliographyArticlePage = () => {
           </ol>
         </section>
 
-        {/* 14. Series Navigation */}
+        {/* 16. Series Navigation */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Series Navigation</h2>
           <div className="space-y-4">
