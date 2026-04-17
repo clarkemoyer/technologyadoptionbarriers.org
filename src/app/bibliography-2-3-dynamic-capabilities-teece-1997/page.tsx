@@ -362,7 +362,7 @@ const BibliographyArticlePage = () => {
               </strong>{' '}
               Central reference. Supplies the concept of organizational routines as the unit of
               analysis for competence and for evolutionary selection. Cited repeatedly throughout
-              the paper (pp.515, 519, 526, 529).
+              the paper (pp.510, 515, 520, 525).
             </li>
             <li>
               <strong>
