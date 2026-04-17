@@ -596,9 +596,10 @@ const BibliographyArticlePage = () => {
               framework organizing diverse research findings.
             </li>
             <li>
-              <strong>Established three-context model:</strong> Identified technological,
-              organizational, and environmental contexts as three primary factors influencing
-              adoption, establishing conceptual structure for analyzing adoption decisions.
+              <strong>Articulated a three-context model:</strong> Organized influences on
+              technology adoption into technological, organizational, and environmental contexts,
+              providing a conceptual structure subsequently widely adopted in the IS adoption
+              literature.
             </li>
             <li>
               <strong>Provided practical analytical framework:</strong> Created framework enabling
@@ -606,8 +607,8 @@ const BibliographyArticlePage = () => {
               by examining relevant contextual factors.
             </li>
             <li>
-              <strong>Emphasized contextual contingency:</strong> Established that technology
-              adoption depends on alignment among technological characteristics, organizational
+              <strong>Emphasized contextual contingency:</strong> Argued that technology adoption
+              depends on interaction among technological characteristics, organizational
               characteristics, and environmental conditions rather than on any single factor.
             </li>
             <li>
@@ -616,9 +617,9 @@ const BibliographyArticlePage = () => {
               contexts.
             </li>
             <li>
-              <strong>Generalized across technologies and organizations:</strong> Demonstrated that
-              similar adoption factors influence decisions across diverse technologies and
-              organizational types, providing generalizable framework.
+              <strong>Generalized across technologies and organizations:</strong> Structured as a
+              framework applicable to diverse technologies and organizational types, enabling
+              comparison of adoption studies across contexts.
             </li>
             <li>
               <strong>Guided organizational decision-making:</strong> Provided practical guidance
@@ -639,9 +640,9 @@ const BibliographyArticlePage = () => {
             book PDF is not in the project&rsquo;s Zotero library.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            As a comprehensive synthesis of existing research rather than a novel empirical study,
-            the TOE Framework demonstrates strong internal validity through logical coherence and
-            comprehensive integration of established research findings:
+            As a comprehensive synthesis rather than a novel empirical study, the TOE Framework is
+            typically evaluated in terms of logical coherence and fidelity to the research it
+            integrates rather than construct-validity testing:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
@@ -842,7 +843,9 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Following Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
-            The TOE Framework has spawned extensive empirical research and theoretical extensions:
+            The TOE Framework has served as a frequent frame for empirical research on
+            technology adoption, and has been adapted or extended in a number of subsequent
+            studies and frameworks:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
