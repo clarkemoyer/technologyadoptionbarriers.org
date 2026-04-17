@@ -193,8 +193,8 @@ const BibliographyArticlePage = () => {
           <p className={PARAGRAPH_CLASSES}>
             TOGAF is a prescriptive enterprise architecture framework and method specification
             rather than a psychometric measurement model. It does not define latent constructs or
-            validated scales. Instead, it structures how organizations describe, develop, and
-            govern their architectures.
+            validated scales. Instead, it structures how organizations describe, develop, and govern
+            their architectures.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             Evaluation activities commonly organized through TOGAF include:
@@ -202,17 +202,16 @@ const BibliographyArticlePage = () => {
           <ul className={BODY_LIST_CLASSES}>
             <li>
               <strong>Architecture maturity:</strong> Maturity-model style assessments (often
-              TOGAF-aligned, using frameworks such as ACMM or the Architecture Capability
-              Framework) characterize how developed an organization&rsquo;s architecture practice
-              is.
+              TOGAF-aligned, using frameworks such as ACMM or the Architecture Capability Framework)
+              characterize how developed an organization&rsquo;s architecture practice is.
             </li>
             <li>
               <strong>ADM phase completeness:</strong> Whether each Architecture Development Method
               phase has produced its prescribed deliverables and artifacts.
             </li>
             <li>
-              <strong>Stakeholder concern coverage:</strong> Whether identified stakeholder
-              concerns are addressed by architecture viewpoints and views.
+              <strong>Stakeholder concern coverage:</strong> Whether identified stakeholder concerns
+              are addressed by architecture viewpoints and views.
             </li>
             <li>
               <strong>Architecture compliance:</strong> Whether proposed solutions conform to
@@ -511,9 +510,9 @@ const BibliographyArticlePage = () => {
           <ul className={BODY_LIST_CLASSES}>
             <li>
               <strong>Advanced enterprise architecture as discipline:</strong> TOGAF helped
-              legitimize enterprise architecture as a structured professional discipline and
-              created a large-scale certification program. Prior frameworks (notably Zachman 1987
-              and TAFIM) had established earlier groundwork.
+              legitimize enterprise architecture as a structured professional discipline and created
+              a large-scale certification program. Prior frameworks (notably Zachman 1987 and TAFIM)
+              had established earlier groundwork.
             </li>
             <li>
               <strong>Standardized architecture methods:</strong> TOGAF ADM provided repeatable
