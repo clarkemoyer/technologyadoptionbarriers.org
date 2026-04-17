@@ -113,7 +113,7 @@ const BibliographyArticlePage = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             Humphrey recognized that the software development field lacked fundamental practices and
-            processes that had proven essential in other engineering disciplines. Manufacturing and
+            processes that were well-established in other engineering disciplines. Manufacturing and
             hardware development had standardized processes, documented procedures, and measurement
             systems enabling prediction and control of outcomes. Software development, by contrast,
             was often ad hoc, driven by individual developer heroics, and lacking systematic
@@ -466,9 +466,9 @@ const BibliographyArticlePage = () => {
           <h2 className={H2_CLASSES}>Key Contributions</h2>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Brought process discipline to software development:</strong> Established that
+              <strong>Brought process discipline to software development:</strong> Argued that
               software development could benefit from process discipline, standardization, and
-              measurement similar to manufacturing and engineering disciplines.
+              measurement similar to that of manufacturing and engineering disciplines.
             </li>
             <li>
               <strong>Defined software maturity progression:</strong> Provided framework for
@@ -481,8 +481,9 @@ const BibliographyArticlePage = () => {
               software development processes.
             </li>
             <li>
-              <strong>Established process measurement in software:</strong> Emphasized measurement
-              and metrics as central to process management, improving software engineering rigor.
+              <strong>Advanced process measurement in software:</strong> Emphasized measurement
+              and metrics as central to process management, contributing to subsequent software
+              engineering practice.
             </li>
             <li>
               <strong>Addressed software scaling challenges:</strong> Provided framework for
@@ -698,7 +699,8 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Following Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
-            The Capability Maturity Model has spawned significant theoretical developments and
+            The Capability Maturity Model sits at the start of a significant stream of
+            theoretical and practical developments around process capability, with subsequent
             extensions building on and refining the original framework:
           </p>
           <ul className={BODY_LIST_CLASSES}>
