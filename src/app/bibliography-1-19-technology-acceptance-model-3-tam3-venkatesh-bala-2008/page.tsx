@@ -927,6 +927,57 @@ const BibliographyArticlePage = () => {
             </li>
           </ul>
 
+          <h3 className={H3_CLASSES}>TAM3 Intervention Framework (Table 9, p.293)</h3>
+          <p className={PARAGRAPH_CLASSES}>
+            Venkatesh and Bala&rsquo;s core managerial contribution is a typology of seven
+            interventions mapped to specific PU and PEOU determinants, drawing on Cooper &amp;
+            Zmud&rsquo;s (1990) IT implementation stage model (initiation, adoption, adaptation,
+            acceptance, routinization, infusion):
+          </p>
+          <p className={PARAGRAPH_CLASSES}>
+            <strong>Preimplementation interventions</strong> (during system development and
+            deployment):
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Design Characteristics:</strong> Information-related design improves PU
+              determinants (job relevance, output quality, result demonstrability); system-related
+              design improves PEOU determinants (anxiety, enjoyment, objective usability).
+            </li>
+            <li>
+              <strong>User Participation:</strong> Overall responsibility, user-IS relationship, and
+              hands-on activity during development (Barki &amp; Hartwick, 1994) influence most
+              determinants of both PU and PEOU.
+            </li>
+            <li>
+              <strong>Management Support:</strong> Visible championship influences subjective norm,
+              image, and perceptions of external control.
+            </li>
+            <li>
+              <strong>Incentive Alignment:</strong> Aligning rewards with system use influences job
+              relevance, output quality, and result demonstrability.
+            </li>
+          </ul>
+          <p className={PARAGRAPH_CLASSES}>
+            <strong>Postimplementation interventions</strong> (during and after deployment):
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Training:</strong> Improves all PEOU determinants (self-efficacy, external
+              control, anxiety, playfulness, enjoyment, objective usability) plus several PU
+              determinants.
+            </li>
+            <li>
+              <strong>Organizational Support:</strong> Help desks, user manuals, and hotline support
+              improve external control perceptions and anxiety; also influence subjective norm and
+              image.
+            </li>
+            <li>
+              <strong>Peer Support:</strong> Informal peer networks and support channels influence
+              subjective norm, image, external control, and enjoyment.
+            </li>
+          </ul>
+
           <h3 className={H3_CLASSES}>Leadership Actions the Model Prescribes</h3>
           <ul className={BODY_LIST_CLASSES}>
             <li>
