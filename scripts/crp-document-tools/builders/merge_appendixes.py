@@ -66,7 +66,12 @@ def find_workspace():
 
 
 def find_latest_docx(workspace):
-    """Find the latest CRP body .docx in 01 CRP Body/ of the workspace."""
+    """Find the latest CRP body .docx in 01 CRP Body/ of the workspace.
+
+    Uses date-aware sorting on the embedded timestamp, falling back to
+    file mtime so that e.g. '4-16-2026' beats '4-9-2026' (lexicographic
+    sorting would pick 4-9 because '9' > '1').
+    """
     body_dir = os.path.join(workspace, "01 CRP Body")
     if not os.path.isdir(body_dir):
         return None
@@ -78,7 +83,20 @@ def find_latest_docx(workspace):
         for f in os.listdir(body_dir):
             if f.endswith(".docx") and not f.startswith("~"):
                 candidates.append(os.path.join(body_dir, f))
-    return sorted(candidates)[-1] if candidates else None
+    if not candidates:
+        return None
+
+    def _sort_key(p):
+        parsed = _parse_filename_date(os.path.basename(p))
+        # If filename has no embedded timestamp (year=0), fall back to mtime
+        if parsed == (0, 0, 0, 0):
+            try:
+                return (0, 0, 0, int(os.path.getmtime(p)))
+            except OSError:
+                return (0, 0, 0, 0)
+        return parsed
+
+    return max(candidates, key=_sort_key)
 
 
 def _parse_filename_date(filename):
@@ -570,8 +588,6 @@ def process_markdown_content(doc, lines, landscape=False):
 
 
 # ── Main Execution ─────────────────────────────────────────────────────
-
-import docx.enum.text
 
 def main():
     parser = argparse.ArgumentParser(description="Merge CRP body + appendixes into final docx")

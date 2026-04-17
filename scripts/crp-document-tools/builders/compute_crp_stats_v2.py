@@ -5,7 +5,7 @@ Usage:
     python compute_crp_stats_v2.py
     python compute_crp_stats_v2.py --csv /path/to/survey.csv
 """
-import csv, math, json, argparse, glob, os, sys
+import csv, math, json, argparse, glob, os, sys, statistics
 from collections import defaultdict, Counter
 
 def find_csv():
@@ -39,9 +39,23 @@ with open(CSV_PATH, 'r', encoding='utf-8-sig') as f:
 
 col_idx = {h: i for i, h in enumerate(row1)}
 
+# Guard required columns (optional-column access rule)
+required_cols = ['StartDate', 'Duration (in seconds)', 'Q1_Role', 'Q4_OrgSize',
+                 'Q5_ProfitModel', 'Q3_Industry', 'Q2_DecisionAuth', 'Q8_GeoScope',
+                 'Q74_Feedback']
+missing = [c for c in required_cols if c not in col_idx]
+if missing:
+    print(f"ERROR: CSV is missing required columns: {missing}")
+    print(f"       CSV header has {len(row1)} columns; first 5: {row1[:5]}")
+    sys.exit(1)
+
 # V2 filter
 v2_rows = [r for r in data if r[col_idx['StartDate']] >= '2026-03-23 14:00:00']
 print(f"V2 total: {len(v2_rows)}")
+if not v2_rows:
+    print("ERROR: No V2 survey rows found (StartDate >= 2026-03-23 14:00:00).")
+    print("       Verify --csv points to a V2 or frozen CRP export.")
+    sys.exit(1)
 
 # CORRECTED scale maps (from actual CSV response values)
 barrier_scale = {
@@ -92,8 +106,10 @@ maturity_names = [
 ]
 
 def get_duration(row):
-    try: return int(row[col_idx['Duration (in seconds)']])
-    except: return None
+    try:
+        return int(row[col_idx['Duration (in seconds)']])
+    except (ValueError, TypeError, IndexError):
+        return None
 
 # Conservative clean
 def is_clean(row):
@@ -106,6 +122,11 @@ def is_clean(row):
 
 clean_rows = [r for r in v2_rows if is_clean(r)]
 print(f"Conservative clean N: {len(clean_rows)}")
+if not clean_rows:
+    print("ERROR: Zero rows passed the conservative clean filter")
+    print("       (Duration >= 480s AND all 3 IRIs correct).")
+    print("       Refusing to compute CRP statistics from an empty clean sample.")
+    sys.exit(1)
 
 def mean_sd(values):
     n = len(values)
@@ -133,7 +154,10 @@ def pearson_r(x, y):
 # Duration stats
 durations = sorted([get_duration(r) for r in clean_rows if get_duration(r)])
 if durations:
-    print(f"\nDuration: median={durations[len(durations)//2]/60:.1f}min, mean={sum(durations)/len(durations)/60:.1f}min, range={min(durations)/60:.1f}-{max(durations)/60:.1f}min")
+    # Use statistics.median for correct handling of odd and even length lists
+    med = statistics.median(durations)
+    mean = sum(durations) / len(durations)
+    print(f"\nDuration: median={med/60:.1f}min, mean={mean/60:.1f}min, range={min(durations)/60:.1f}-{max(durations)/60:.1f}min")
 else:
     print("\nDuration: no valid durations found in clean rows")
 
@@ -198,14 +222,20 @@ for r in clean_rows:
 mgm, mgsd = mean_sd(m_person)
 print(f"Maturity Grand Mean: M={mgm:.2f}, SD={mgsd:.2f}")
 
+def _fmt(x, spec=".2f"):
+    """None-safe numeric format (avoids TypeError when mean_sd/pearson_r return None)."""
+    if x is None:
+        return "N/A"
+    return format(x, spec)
+
 # ===== CORRELATIONS =====
 print("\n=== CORRELATIONS ===")
 br = pearson_r(b_person, r_person)
 bm = pearson_r(b_person, m_person)
 rm = pearson_r(r_person, m_person)
-print(f"B-R: r={br:.2f}")
-print(f"B-M: r={bm:.2f}")
-print(f"R-M: r={rm:.2f}")
+print(f"B-R: r={_fmt(br)}")
+print(f"B-M: r={_fmt(bm)}")
+print(f"R-M: r={_fmt(rm)}")
 
 # ===== DEMOGRAPHICS =====
 print("\n=== DEMOGRAPHICS ===")
@@ -255,7 +285,7 @@ for gname, grows in [("Technical", tech_rows), ("Non-Technical", nontech_rows), 
         mt = [score(r, c, maturity_scale) for c in maturity_cols]; mt = [x for x in mt if x]
         if mt: mv.append(sum(mt)/len(mt))
     bm_, _ = mean_sd(bv); rm_, _ = mean_sd(rv); mm_, _ = mean_sd(mv)
-    print(f"  {gname}: B={bm_:.2f}, R={rm_:.2f}, M={mm_:.2f}")
+    print(f"  {gname}: B={_fmt(bm_)}, R={_fmt(rm_)}, M={_fmt(mm_)}")
 
 # Org size
 print("\nOrg Size:")
@@ -303,7 +333,7 @@ for bname in ['Small (<500)', 'Medium (500-4999)', 'Large (5000+)']:
         mt = [score(r, c, maturity_scale) for c in maturity_cols]; mt = [x for x in mt if x]
         if mt: mv.append(sum(mt)/len(mt))
     bm_, _ = mean_sd(bv); rm_, _ = mean_sd(rv); mm_, _ = mean_sd(mv)
-    print(f"  {bname} (n={len(brows)}): B={bm_:.2f}, R={rm_:.2f}, M={mm_:.2f}")
+    print(f"  {bname} (n={len(brows)}): B={_fmt(bm_)}, R={_fmt(rm_)}, M={_fmt(mm_)}")
 
 print("\n=== CROSS-TABS: PROFIT MODEL ===")
 for pm_name in ['For-Profit', 'Non-Profit', 'Government/Public Sector']:
@@ -318,7 +348,7 @@ for pm_name in ['For-Profit', 'Non-Profit', 'Government/Public Sector']:
         mt = [score(r, c, maturity_scale) for c in maturity_cols]; mt = [x for x in mt if x]
         if mt: mv.append(sum(mt)/len(mt))
     bm_, _ = mean_sd(bv); rm_, _ = mean_sd(rv); mm_, _ = mean_sd(mv)
-    print(f"  {pm_name} (n={len(prows)}): B={bm_:.2f}, R={rm_:.2f}, M={mm_:.2f}")
+    print(f"  {pm_name} (n={len(prows)}): B={_fmt(bm_)}, R={_fmt(rm_)}, M={_fmt(mm_)}")
 
 # ===== TECH VS NON-TECH ITEM-LEVEL DIFFS =====
 print("\n=== TOP BARRIER GAPS: TECH vs NON-TECH ===")
@@ -327,6 +357,8 @@ for i, col in enumerate(barrier_cols):
     n_vals = [score(r, col, barrier_scale) for r in nontech_rows]; n_vals = [v for v in n_vals if v]
     if t_vals and n_vals:
         tm, _ = mean_sd(t_vals); nm, _ = mean_sd(n_vals)
+        if tm is None or nm is None:
+            continue
         diff = tm - nm
         print(f"  {barrier_names[i]}: Tech={tm:.2f}, NonTech={nm:.2f}, diff={diff:+.2f}")
 

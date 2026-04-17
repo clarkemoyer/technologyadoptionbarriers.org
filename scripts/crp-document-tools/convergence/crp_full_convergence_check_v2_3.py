@@ -401,17 +401,25 @@ def check_timeline_claims(crp_text, timeline_reg):
             # Also try human-readable formats
             try:
                 dt = datetime.strptime(date_str, '%Y-%m-%d')
+                # Build month/day-of-month strings without the non-portable
+                # '%-m'/'%-d' modifiers (which fail on Windows).
+                m_padded = dt.strftime('%m')
+                d_padded = dt.strftime('%d')
+                m_unpad = str(dt.month)
+                d_unpad = str(dt.day)
+                month_name = dt.strftime('%B')
+                year = dt.strftime('%Y')
                 alt_formats = [
-                    dt.strftime('%B %d, %Y'),    # July 28, 2025
-                    dt.strftime('%B %-d, %Y'),   # July 8, 2025
-                    dt.strftime('%m/%d/%Y'),      # 07/28/2025
-                    dt.strftime('%-m/%-d/%Y'),    # 7/28/2025
-                    dt.strftime('%B %-d'),        # May 7 (no year)
-                    dt.strftime('%B %d'),         # May 07
-                    f'{dt.strftime("%-m")}/{dt.strftime("%-d")}',  # 5/7
+                    f'{month_name} {d_padded}, {year}',  # July 28, 2025
+                    f'{month_name} {d_unpad}, {year}',   # July 8, 2025
+                    f'{m_padded}/{d_padded}/{year}',      # 07/28/2025
+                    f'{m_unpad}/{d_unpad}/{year}',        # 7/28/2025
+                    f'{month_name} {d_unpad}',            # May 7 (no year)
+                    f'{month_name} {d_padded}',           # May 07
+                    f'{m_unpad}/{d_unpad}',               # 5/7
                 ]
                 found = found or any(fmt in crp_text for fmt in alt_formats)
-            except:
+            except (ValueError, TypeError):
                 pass
 
         results.append({
@@ -718,7 +726,8 @@ def check_statistical_claims(crp_text, repo_path):
     if os.path.exists(val_path):
         with open(val_path) as f:
             val = json.load(f)
-        sample = val['samples'][0]
+        samples = val.get('samples', []) if isinstance(val, dict) else []
+        sample = samples[0] if samples else {}
         for construct in ['Barriers', 'Readiness', 'Maturity', 'barriers', 'readiness', 'maturity']:
             if construct in sample:
                 d = sample[construct]
@@ -726,7 +735,10 @@ def check_statistical_claims(crp_text, repo_path):
                     if d.get(metric) is not None:
                         stats[f'{metric}_{construct}'] = d[metric]
         for entry in sample.get('htmt', []):
-            stats[f'htmt_{entry["pair"]}'] = entry['htmt']
+            pair = entry.get('pair')
+            htmt_val = entry.get('htmt')
+            if pair is not None and htmt_val is not None:
+                stats[f'htmt_{pair}'] = htmt_val
         corr = sample.get('construct_correlations', {})
         if isinstance(corr, dict):
             for c1, inner in corr.items():

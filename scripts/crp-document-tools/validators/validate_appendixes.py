@@ -200,6 +200,28 @@ def count_pdf_hyperlinks(pdf_path):
 # Capture Validation
 # =============================================================================
 
+def _resolve_capture_file(folder_path, base_root, ts, ext):
+    """Resolve a capture file by exact timestamp, then fall back to glob.
+
+    The CAPTURE_CONFIGS table records EST timestamps, but the builders use
+    America/New_York which emits 'EDT' during daylight saving time. So an
+    exact-name lookup can miss perfectly valid newer captures. Fall back
+    to globbing '<base_root> (* EST|EDT).<ext>' and picking the newest by
+    embedded date/time.
+    """
+    exact = os.path.join(folder_path, f"{base_root} ({ts}).{ext}")
+    if os.path.exists(exact):
+        return exact, ts
+    pattern = os.path.join(folder_path, f"{base_root} (*).{ext}")
+    candidates = glob.glob(pattern)
+    if not candidates:
+        return exact, ts  # path doesn't exist; preserve original for error msg
+    chosen = max(candidates, key=lambda p: _parse_filename_date(os.path.basename(p)))
+    # Recover the timestamp string from the chosen filename
+    m = re.search(r'\(([^)]+\s+(?:EST|EDT))\)\.[a-z]+$', chosen)
+    return chosen, (m.group(1) if m else ts)
+
+
 def validate_captures():
     """Check each capture bundle: PDF exists, page count, formats present."""
     results = []
@@ -207,17 +229,17 @@ def validate_captures():
     for key, cfg in CAPTURE_CONFIGS.items():
         folder_path = os.path.join(APPENDIX_DIR, cfg["folder"])
         ts = cfg["timestamp"]
-        base_name = f"{cfg['folder'].replace(' - Moment in Time Capture', '')} - Moment in Time Capture ({ts})"
+        base_root = cfg['folder'].replace(' - Moment in Time Capture', '') + ' - Moment in Time Capture'
 
-        docx_path = os.path.join(folder_path, f"{base_name}.docx")
-        pdf_path = os.path.join(folder_path, f"{base_name}.pdf")
-        md_path = os.path.join(folder_path, f"{base_name}.md")
+        docx_path, _ = _resolve_capture_file(folder_path, base_root, ts, "docx")
+        pdf_path, pdf_ts = _resolve_capture_file(folder_path, base_root, ts, "pdf")
+        md_path, _ = _resolve_capture_file(folder_path, base_root, ts, "md")
 
         result = {
             "key": key,
             "short_name": cfg["short_name"],
             "appendix": cfg["appendix"],
-            "timestamp": ts,
+            "timestamp": pdf_ts,  # report the actual timestamp located on disk
             "docx_exists": os.path.exists(docx_path),
             "pdf_exists": os.path.exists(pdf_path),
             "md_exists": os.path.exists(md_path),
@@ -516,14 +538,17 @@ def main():
     print(f"  {'-'*35} {'-'*6} {'-'*6} {'-'*6} {'-'*10}")
 
     # Extract page claims from Project Plan
+    # Some captures appear in the plan table prefixed with "V2" (e.g.,
+    # "TABS V2 Comprehensive Analysis Report"), so allow optional modifier
+    # tokens between "TABS" and the short_name.
     plan_text = appendix_texts.get("Plan", "")
     plan_claims = {}
-    # Parse the table in the plan
     for line in plan_text.split('\n'):
         for key, cfg in CAPTURE_CONFIGS.items():
             short = cfg["short_name"]
             # Match table rows like "| TABS Survey Instrument | DOCX/PDF/MD | 64 |"
-            pattern = rf'TABS\s+{re.escape(short)}\s*\|\s*DOCX/PDF/MD\s*\|\s*(\d+)\s*\|'
+            # or "| TABS V2 Comprehensive Analysis Report | DOCX/PDF/MD | 11 |"
+            pattern = rf'TABS\s+(?:[\w]+\s+)?{re.escape(short)}\s*\|\s*DOCX/PDF/MD\s*\|\s*(\d+)\s*\|'
             m = re.search(pattern, line, re.IGNORECASE)
             if m:
                 plan_claims[key] = int(m.group(1))
@@ -535,7 +560,8 @@ def main():
         for key, cfg in CAPTURE_CONFIGS.items():
             short = cfg["short_name"]
             # Match table rows like "| TABS Survey Instrument | 139 |"
-            pattern = rf'TABS\s+{re.escape(short)}\s*\|\s*(\d+)\s*\|'
+            # or "| TABS V2 Comprehensive Analysis Report | 11 |"
+            pattern = rf'TABS\s+(?:[\w]+\s+)?{re.escape(short)}\s*\|\s*(\d+)\s*\|'
             m = re.search(pattern, line, re.IGNORECASE)
             if m:
                 b_claims[key] = int(m.group(1))
