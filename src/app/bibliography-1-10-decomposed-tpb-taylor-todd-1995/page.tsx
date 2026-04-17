@@ -292,8 +292,9 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>Technology-specific decomposition:</strong> Decomposes general TPB constructs
-              into IT-relevant dimensions (usefulness, compatibility, organizational support)
-              improving precision.
+              into IT-relevant dimensions (usefulness, ease of use/complexity, compatibility,
+              peer/superior influence, self-efficacy, resource facilitating conditions) improving
+              precision.
             </li>
             <li>
               <strong>Superior predictive power:</strong> Explains 71% of intention variance,
@@ -312,8 +313,8 @@ const BibliographyArticlePage = () => {
               and TPB) in same sample strengthens conclusions about relative model performance.
             </li>
             <li>
-              <strong>Organizational relevance:</strong> Includes organizational support and social
-              influence dimensions reflecting real organizational adoption contexts.
+              <strong>Organizational relevance:</strong> Includes peer/superior influence and
+              resource facilitating conditions reflecting real organizational adoption contexts.
             </li>
           </ul>
 
@@ -376,8 +377,9 @@ const BibliographyArticlePage = () => {
               normative pressures, and control beliefs operate as independent intention predictors.
             </li>
             <li>
-              <strong>Organizational constructs emphasis:</strong> Elevated organizational support
-              and social influence from peripheral to central in adoption models.
+              <strong>Decomposed social and control constructs:</strong> Clarified how normative
+              beliefs split into peer and superior influence, while control beliefs split into
+              self-efficacy and facilitating conditions in technology adoption models.
             </li>
             <li>
               <strong>IT adoption theory advancement:</strong> Created framework synthesizing
@@ -462,8 +464,8 @@ const BibliographyArticlePage = () => {
           <p className={PARAGRAPH_CLASSES}>
             DTPB is directly relevant to technology adoption because it identifies multiple specific
             barriers and levers operating through distinct belief pathways. The model suggests that
-            adoption strategies must address not only instrumental utility but also social
-            influences and organizational support simultaneously.
+            adoption strategies must address not only instrumental utility but also peer and
+            superior influences and resource facilitating conditions simultaneously.
           </p>
 
           <h3 className={H3_CLASSES}>Barriers to Technology Adoption Identified</h3>
@@ -481,16 +483,13 @@ const BibliographyArticlePage = () => {
               or opinion leader influence undermines normative adoption motivation.
             </li>
             <li>
-              <strong>Absent organizational support:</strong> Insufficient training, inadequate
-              technical help, and lack of management enforcement reduce adoption likelihood.
+              <strong>Insufficient resource facilitating conditions:</strong> Inadequate training,
+              technical help, equipment access, and management support reduce adoption likelihood by
+              undermining perceived behavioral control.
             </li>
             <li>
               <strong>Perceived high complexity:</strong> Systems requiring substantial learning
               effort create control barriers reducing adoption intentions.
-            </li>
-            <li>
-              <strong>Insufficient facilitating conditions:</strong> Lack of resources, equipment
-              access, and technical support undermine behavioral control perceptions.
             </li>
             <li>
               <strong>Negative social influence:</strong> Peer skepticism, visible non-adoption by
