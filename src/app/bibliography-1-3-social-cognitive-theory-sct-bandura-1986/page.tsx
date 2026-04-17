@@ -386,10 +386,9 @@ const BibliographyArticlePage = () => {
           <h2 className={H2_CLASSES}>Key Contributions</h2>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Articulated the efficacy-outcome distinction:</strong> Argued that
-              individuals might believe a technology will be valuable but doubt their personal
-              capability, offering an explanation for cases where positive attitudes fail to
-              produce adoption.
+              <strong>Articulated the efficacy-outcome distinction:</strong> Argued that individuals
+              might believe a technology will be valuable but doubt their personal capability,
+              offering an explanation for cases where positive attitudes fail to produce adoption.
             </li>
             <li>
               <strong>Mechanism-based intervention design:</strong> Specified four concrete,
