@@ -307,13 +307,13 @@ const BibliographyArticlePage = () => {
             <li>
               <strong>Satisfaction-to-Continuance Pathway:</strong> Satisfaction directly influences
               continuance intention (path coefficient .567 in Figure 3). Satisfaction is the
-              strongest predictor of continuance, reflecting that users who are satisfied with
-              prior use intend to continue.
+              strongest predictor of continuance, reflecting that users who are satisfied with prior
+              use intend to continue.
             </li>
             <li>
-              <strong>Usefulness-to-Continuance Pathway:</strong> Post-adoption perceived usefulness,
-              shaped by confirmation (.227), directly predicts both satisfaction (.451) and
-              continuance intention (.294). PU influences satisfaction, not the reverse.
+              <strong>Usefulness-to-Continuance Pathway:</strong> Post-adoption perceived
+              usefulness, shaped by confirmation (.227), directly predicts both satisfaction (.451)
+              and continuance intention (.294). PU influences satisfaction, not the reverse.
             </li>
             <li>
               <strong>Temporal Dynamics:</strong> Model captures time progression from pre-adoption
