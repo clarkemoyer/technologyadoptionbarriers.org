@@ -28,8 +28,7 @@ const BibliographyArticlePage = () => {
           <h2 className={H2_CLASSES}>Model Identification</h2>
           <div className="space-y-2">
             <p>
-              <strong>Model Name:</strong> Understanding Information Technology Usage: A Test of
-              Competing Models
+              <strong>Model Name:</strong> Decomposed Theory of Planned Behavior
             </p>
             <p>
               <strong>Model Abbreviation:</strong> Decomposed Theory of Planned Behavior (DTPB)
@@ -255,10 +254,10 @@ const BibliographyArticlePage = () => {
             DTPB specifies that behavioral intentions to use IT are determined by attitudes,
             subjective norms, and perceived behavioral control. Critically, each of these three
             intention predictors is decomposed into multiple specific belief dimensions. Attitudes
-            toward IT use are predicted by perceived usefulness and compatibility beliefs.
-            Subjective norms are predicted by subjective norm, social influence, and organizational
-            support beliefs. Perceived behavioral control is predicted by facilitating conditions
-            and technology complexity beliefs. The model explained 71% of variance in intention to
+            toward IT use are predicted by perceived usefulness, perceived ease of use (complexity),
+            and compatibility beliefs. Normative beliefs are predicted by peer influence and
+            superior influence. Perceived behavioral control is predicted by self-efficacy and
+            resource facilitating conditions. The model explained 71% of variance in intention to
             use IT systems, substantially outperforming both TAM and original TPB in predictive
             power.
           </p>
@@ -266,16 +265,17 @@ const BibliographyArticlePage = () => {
           <h3 className={H3_CLASSES}>What does the model measure?</h3>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Attitudinal beliefs:</strong> Usefulness and compatibility perceptions
-              capturing instrumental and value-alignment motivations for adoption.
+              <strong>Attitudinal beliefs:</strong> Perceived usefulness, ease of use (complexity),
+              and compatibility capturing instrumental, cognitive, and value-alignment motivations
+              for adoption.
             </li>
             <li>
-              <strong>Normative beliefs:</strong> Subjective norms, social influence, and
-              organizational support capturing multiple social influence pathways.
+              <strong>Normative beliefs:</strong> Peer influence and superior influence capturing
+              horizontal and vertical social influence pathways.
             </li>
             <li>
-              <strong>Control beliefs:</strong> Facilitating conditions and technology complexity
-              capturing resource availability and learning barriers.
+              <strong>Control beliefs:</strong> Self-efficacy and resource facilitating conditions
+              capturing individual capability confidence and resource availability.
             </li>
             <li>
               <strong>Behavioral intentions:</strong> Likelihood of system adoption and usage
@@ -527,8 +527,9 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>Implement multi-level strategies:</strong> Address attitudinal barriers
-              (usefulness, compatibility), normative barriers (social influence, organizational
-              support), and control barriers (complexity, facilitating conditions) simultaneously.
+              (usefulness, compatibility, complexity, ease-of-use), normative barriers (peer and
+              superior influences), and control barriers (self-efficacy and resource facilitating
+              conditions) simultaneously.
             </li>
           </ul>
         </section>
@@ -542,8 +543,14 @@ const BibliographyArticlePage = () => {
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>TAM 2 and TAM 3 (Venkatesh &amp; Bala):</strong> Extended TAM with moderators
-              and social influence variables mirroring DTPB&rsquo;s decomposition approach.
+              <strong>TAM 2 (Venkatesh &amp; Davis, 2000):</strong> Extended TAM with social
+              influence and cognitive instrumental processes, reflecting DTPB&rsquo;s more
+              differentiated treatment of adoption determinants.
+            </li>
+            <li>
+              <strong>TAM 3 (Venkatesh &amp; Bala, 2008):</strong> Further elaborated TAM by
+              decomposing determinants of perceived usefulness and perceived ease of use in ways
+              that parallel DTPB&rsquo;s decomposition approach.
             </li>
             <li>
               <strong>Unified Theory of Acceptance and Use of Technology (UTAUT):</strong>{' '}
@@ -582,7 +589,9 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-ajzen-1991-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                ></a>
+                >
+                  ↩︎
+                </a>
               </span>{' '}
               https://doi.org/10.1016/0749-5978(91)90020-T
             </li>
@@ -594,7 +603,9 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-davis-1989-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                ></a>
+                >
+                  ↩︎
+                </a>
               </span>{' '}
               https://doi.org/10.2307/249008
             </li>
@@ -605,7 +616,9 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-rogers-1983-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                ></a>
+                >
+                  ↩︎
+                </a>
               </span>
             </li>
           </ol>
@@ -633,6 +646,11 @@ const BibliographyArticlePage = () => {
               Venkatesh, V., &amp; Davis, F. D. (2000). A theoretical extension of the technology
               acceptance model: Four longitudinal field studies. <em>Management Science</em>, 46(2),
               186-204.
+            </li>
+            <li id="ref-venkatesh-2008">
+              Venkatesh, V., &amp; Bala, H. (2008). Technology acceptance model 3 and a research
+              agenda on interventions. <em>Decision Sciences</em>, 39(2), 273-315.
+              https://doi.org/10.1111/j.1540-5915.2008.00192.x
             </li>
           </ol>
         </section>
