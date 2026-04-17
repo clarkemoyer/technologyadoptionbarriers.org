@@ -479,87 +479,89 @@ const BibliographyArticlePage = () => {
           <h3 className={H3_CLASSES}>Main Strengths</h3>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Explains within-industry performance variation:</strong> RBV accounts for why
-              firms in identical competitive environments achieve different performance levels
-              through internal resource differences, addressing a key limitation of
-              industry-structure-based analysis.
+              <strong>Resource-side symmetry with product-market analysis:</strong> By applying
+              Porter&rsquo;s (1980) competitive-forces framework at the resource level, Wernerfelt
+              provides a clean analytical extension rather than a rival paradigm - a design choice
+              that makes the framework easy to integrate with existing strategy teaching and
+              analysis (p.173).
             </li>
             <li>
-              <strong>Shifts focus to sustainable advantage:</strong> Emphasizes sustainable
-              competitive advantage through difficult-to-imitate resources rather than temporary
-              advantages easily copied by competitors.
+              <strong>Explicit duality:</strong> The &ldquo;two sides of the same coin&rdquo;
+              framing (p.171) and the resource-product matrix (Figure 1, p.175) force the analyst to
+              see both resources and products simultaneously, surfacing diversification
+              opportunities that a product-only analysis would miss.
             </li>
             <li>
-              <strong>Integrates multiple strategic disciplines:</strong> Synthesizes insights from
-              organizational economics, behavioral theory, and economics of information into
-              coherent strategic framework.
+              <strong>Concrete first-mover mechanisms:</strong> The four worked examples (machine
+              capacity, customer loyalty, production experience, technological leads) on pp.173-174
+              give readers ready-made templates rather than purely abstract concepts.
             </li>
             <li>
-              <strong>Provides practical strategic guidance:</strong> Directs management attention
-              to identifying distinctive capabilities, protecting valuable resources, and developing
-              inimitable resource combinations rather than purely external positioning.
+              <strong>Dynamic-strategy vocabulary:</strong> Figures 2-4 (sequential entry,
+              exploit-and-develop, stepping stones) provide a small but coherent set of multi-period
+              diversification patterns - a rarity in 1984 strategy literature that was otherwise
+              dominated by static positioning.
             </li>
             <li>
-              <strong>Addresses firm heterogeneity:</strong> Acknowledges and explains why firms
-              differ in capabilities, history, and strategic effectiveness rather than treating
-              firms as interchangeable units within industries.
+              <strong>Complementary, not oppositional, to Porter:</strong> Wernerfelt neither
+              dismisses industrial-organization strategy nor tries to replace it; he builds on
+              Porter&rsquo;s (1980) five forces to open an additional dimension of analysis. This
+              made the framework easier to adopt.
             </li>
             <li>
-              <strong>Conceptually elegant framework:</strong> Relatively simple underlying logic
-              (value-rarity-inimitability) creates actionable framework that can be applied across
-              industries and competitive contexts.
-            </li>
-            <li>
-              <strong>Challenged orthodoxy productively:</strong> By directly opposing dominant IO
-              economics paradigm, RBV created productive dialogue and forced more nuanced
-              understanding of strategy including both industry and firm factors.
+              <strong>Short, accessible, and generative:</strong> At ten pages the paper is
+              unusually compact for a foundational contribution, which helped it spawn a very large
+              follow-on literature (Barney 1991, Dierickx &amp; Cool 1989, Peteraf 1993, Teece et
+              al. 1997 - see Following Models).
             </li>
           </ul>
 
           <h3 className={H3_CLASSES}>Main Weaknesses</h3>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Limited practical guidance on resource identification:</strong> While the
-              value-rarity-inimitability framework is elegant, it provides limited guidance on how
-              managers should systematically identify which internal resources represent sustainable
-              advantages.
+              <strong>First-cut nature, self-acknowledged:</strong> Wernerfelt himself calls the
+              paper &ldquo;a first cut at a huge can of worms&rdquo; (p.180). The framework names
+              concepts (resource position barrier, attractive resource) but does not formally
+              characterize when a resource qualifies - that work comes later with Barney (1991) and
+              Peteraf (1993).
             </li>
             <li>
-              <strong>Tautological concerns:</strong> Critics argue RBV risks tautology: if a firm
-              has a competitive advantage, we infer it possesses valuable, rare, inimitable
-              resources; but the causal direction is unclear. Testing often amounts to observing
-              advantage and inferring resource characteristics.
+              <strong>No inimitability mechanism:</strong> The paper describes first-mover
+              advantages through illustrative examples but does not provide a general theory of why
+              resources are hard to imitate. Causal ambiguity (Lippman &amp; Rumelt, 1982),
+              time-compression diseconomies (Dierickx &amp; Cool, 1989), and social complexity
+              (Barney, 1991) came later.
             </li>
             <li>
-              <strong>Causality remains ambiguous:</strong> RBV emphasizes causal ambiguity as
-              source of advantage, but this creates challenges for validating the theory itself. If
-              causality cannot be determined, research validation becomes difficult.
+              <strong>Limited implementability guidance:</strong> The closing paragraph explicitly
+              flags this: &ldquo;nothing is known, for example, about the practical difficulties
+              involved in identifying resources (products are easy to identify), nor about to what
+              extent one in practice can combine capabilities across operating divisions, or about
+              how one can set up a structure and systems which can help a firm execute these
+              strategies&rdquo; (p.180).
             </li>
             <li>
-              <strong>Underestimates imitation through acquisition:</strong> RBV assumes firms must
-              build resources internally, but significant imitation occurs through acquisitions,
-              hiring of key personnel, and licensing. Acquisition-based imitation may be more common
-              than RBV acknowledges.
+              <strong>No empirical test:</strong> The paper presents conceptual arguments and worked
+              examples but does not test its propositions empirically. Empirical support for the
+              resource perspective came through Rumelt (1991) and subsequent large-sample studies.
             </li>
             <li>
-              <strong>Insufficient guidance on change and adaptation:</strong> RBV provides strong
-              framework for understanding stable competitive advantage but less guidance for how
-              firms adapt when resource bases become obsolete or market conditions shift.
+              <strong>Mathematical appendix is minor:</strong> The paper includes a brief formal
+              model of sequential entry (pp.176-177) but it is illustrative rather than a general
+              formalization of resource position barriers.
             </li>
             <li>
-              <strong>Limited attention to resource combination:</strong> RBV focuses on individual
-              resources but gives less attention to how resources combine, complement, and reinforce
-              each other to create advantage.
+              <strong>Resource definition inherits Caves&rsquo;s looseness:</strong> Wernerfelt
+              adopts &ldquo;anything which could be thought of as a strength or weakness&rdquo;
+              (Caves, 1980; p.172), which is broad enough to invite the tautology critique that
+              later attached to RBV (&ldquo;if the firm is doing well, its resources must be
+              strong&rdquo;). Later work had to narrow the definition.
             </li>
             <li>
-              <strong>Difficulty measuring constructs:</strong> Operationalizing and measuring
-              valuable, rare, and inimitable resources is challenging in empirical research,
-              creating methodological implementation difficulties.
-            </li>
-            <li>
-              <strong>Incomplete treatment of external factors:</strong> While RBV critiques
-              exclusive focus on industry structure, it does not fully integrate how external
-              factors constrain, enable, or devalue internal resources.
+              <strong>Treatment of dynamics is schematic:</strong> The sequential-entry,
+              exploit-and-develop, and stepping-stone patterns are evocative diagrams rather than
+              predictive theories. Dynamic capabilities (Teece, Pisano &amp; Shuen, 1997) addresses
+              this gap with a more explicit mechanism.
             </li>
           </ul>
         </section>
@@ -629,38 +631,48 @@ const BibliographyArticlePage = () => {
             validity derives from logical coherence, theoretical reasoning, and consistency with
             existing organizational evidence:
           </p>
+          <p className={PARAGRAPH_CLASSES}>
+            Wernerfelt (1984) is a conceptual / theoretical paper, not an empirical study. Internal
+            validity here is assessed as logical coherence of the argument and fidelity to the cited
+            prior work:
+          </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Logical consistency:</strong> The core argument that valuable, rare, and
-              inimitable resources create sustainable competitive advantage is logically sound. If
-              resources were valuable but not rare, or rare but easily imitable, they would not
-              sustain advantage.
+              <strong>Consistent analytical mapping:</strong> The paper&rsquo;s central move -
+              applying Porter&rsquo;s (1980) five competitive forces at the resource level - is
+              carried through systematically: monopoly at the resource level, substitute resources,
+              buyer/supplier power over resources, and resource-level entry. The symmetry with
+              product-market analysis holds throughout (pp.172-173).
             </li>
             <li>
-              <strong>Grounding in established theory:</strong> RBV draws on well-established
-              economic theory (transaction costs, information economics) and organizational theory
-              (routines, capabilities), providing theoretical foundation for proposed mechanisms.
+              <strong>Fidelity to cited sources:</strong> The resource definition is drawn directly
+              from Caves (1980, p.172). The experience-curve first-mover argument is drawn from BCG
+              (1972). Customer-loyalty first-mover advantages reference Ries &amp; Trout (1981).
+              Scale-economy first-mover advantages reference Spence (1979). Each example cites a
+              recognized source.
             </li>
             <li>
-              <strong>Consistency with observable patterns:</strong> RBV explains well-documented
-              organizational phenomena: why some firms persistently outperform competitors, why
-              resource accumulation takes time, why firm acquisitions often disappoint when trying
-              to purchase capabilities.
+              <strong>Transparent scope:</strong> The paper explicitly labels itself a &ldquo;first
+              cut&rdquo; (p.180) and names gaps (implementability, resource identification, no
+              empirical test). It does not over-claim.
             </li>
             <li>
-              <strong>Theoretical integration:</strong> Successfully integrates previously separate
-              theoretical traditions (economics, organization theory, business policy) into coherent
-              framework without obvious logical contradictions.
+              <strong>Mathematical appendix for sequential entry:</strong> The sequential-entry
+              illustration (pp.176-177) is backed by a small formal model of two-period optimal
+              entry conditions, providing limited but explicit mathematical grounding for that
+              specific pattern.
             </li>
             <li>
-              <strong>Acknowledgment of foundational work:</strong> Explicit grounding in Penrose
-              and other precursor theorists establishes clear intellectual lineage rather than
-              claiming originality for integrated framework.
+              <strong>Intellectual lineage stated:</strong> Penrose (1959), Rubin (1973), Caves
+              (1980) are credited as precursors of the resource perspective. The paper does not
+              claim originality for the resource concept itself, only for the symmetric analytical
+              framework.
             </li>
             <li>
-              <strong>Balance of mechanism specificity:</strong> Framework is specific enough to
-              provide strategic direction yet flexible enough to apply across industries and
-              competitive contexts.
+              <strong>Known limitations of internal validity:</strong> Three of the four first-mover
+              examples (customer loyalty, production experience, technological leads) are supported
+              by citation rather than worked proofs. The resource-product matrix and its dynamic
+              strategies are illustrated by one firm-example each and generalized informally.
             </li>
           </ul>
         </section>
@@ -669,52 +681,55 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>External Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
-            External validity considerations concern generalizability of RBV across diverse
-            organizational and competitive contexts:
+            Wernerfelt (1984) presents no empirical tests, so external validity is evaluated in
+            terms of how well the framework generalizes when applied in later work:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Empirical validation unresolved:</strong> As a conceptual framework, RBV
-              lacked empirical validation at time of publication. Subsequent empirical research has
-              produced mixed results, with some studies supporting RBV predictions while others find
-              limited support.
+              <strong>No original empirical test:</strong> The paper closes (p.180) by noting that
+              the strategies suggested need research on implementability and that identifying
+              resources in practice is an open problem. External validity was established by
+              subsequent work - notably Rumelt (1991) on firm vs. industry effects - not by
+              Wernerfelt 1984 itself.
             </li>
             <li>
-              <strong>Industry variability:</strong> RBV applicability may vary by industry. In
-              industries where technology changes rapidly, today&rsquo;s inimitable resources become
-              obsolete quickly. In stable industries, resource-based advantages may persist longer.
+              <strong>Worked examples are drawn from 1970s-1980s US/Western firms:</strong> The
+              illustrative firms (BIC Pen, razor and lighter markets, General Electric, Texas
+              Instruments) and the worked examples of international contacts, production skills, and
+              domestic contacts reflect the industrial-economy context of the paper&rsquo;s writing.
+              The framework as stated does not address service economies, platform businesses, or
+              digital resource types.
             </li>
             <li>
-              <strong>Competitive context variation:</strong> RBV assumptions about resource
-              inimitability may not hold equally across competitive contexts. In international
-              competition where technology transfer is rapid, or where capital-rich competitors can
-              quickly purchase capabilities, resource advantages may erode faster.
+              <strong>Industry scope is mostly manufacturing and diversified conglomerates:</strong>
+              The resource-product matrix (Figure 1) and the diversification-by-acquisition analysis
+              are most naturally applied to multi-business firms with tradeable physical and human
+              resources. Single-business firms and early-stage ventures fit less cleanly.
             </li>
             <li>
-              <strong>Firm size and resource capabilities:</strong> RBV may better explain advantage
-              in large, established firms with mature resource bases. Applicability to startups,
-              small firms with limited resources, or newly formed organizations is less clear.
+              <strong>Dynamic resource management is illustrative, not predictive:</strong>{' '}
+              Sequential entry, exploit-and-develop, and stepping stones are shown as possibilities
+              on a matrix; the paper offers no predictions about when each pattern dominates. That
+              work is taken up by later dynamic-capabilities research (Teece et al., 1997).
             </li>
             <li>
-              <strong>Organizational context differences:</strong> RBV was developed for
-              profit-oriented firms in competitive markets. Applicability to non-profit
-              organizations, government agencies, or heavily regulated industries may differ.
+              <strong>No treatment of intangible or knowledge-specific resources:</strong>{' '}
+              Wernerfelt names brand names, trade contacts, and in-house technology but does not
+              develop a theory of knowledge as a resource. The Knowledge-Based View (Grant, 1996)
+              addresses this later.
             </li>
             <li>
-              <strong>Dynamic environment generalizability:</strong> RBV assumes relatively stable
-              competitive environments where resources maintain value over extended periods. In
-              rapidly changing markets where resources quickly become obsolete, RBV may provide
-              limited guidance.
+              <strong>No treatment of non-profit or public organizations:</strong> The analysis
+              assumes profit-seeking firms in competitive markets. Applicability to nonprofits,
+              regulated industries, and public-sector organizations is outside the paper&rsquo;s
+              scope.
             </li>
             <li>
-              <strong>Substitution risk underestimated:</strong> In practice, competitors may find
-              substitutes for firm resources more readily than RBV suggests, potentially limiting
-              the sustainability of resource-based advantages.
-            </li>
-            <li>
-              <strong>International and cultural context:</strong> RBV was developed in Western
-              capitalist context. Applicability to different economic systems, cultural contexts, or
-              governance models requires investigation.
+              <strong>Reception and adoption:</strong> Wernerfelt (1984) is widely cited as a
+              foundational paper of RBV alongside Barney (1991). Wide citation reflects theoretical
+              generalizability, but the empirical defensibility of specific claims (e.g. that
+              resource position barriers translate into sustained returns) depends on follow-on work
+              rather than on the 1984 paper itself.
             </li>
           </ul>
         </section>
