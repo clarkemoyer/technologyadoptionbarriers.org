@@ -149,16 +149,18 @@ const BibliographyArticlePage = () => {
           <ul className={BODY_LIST_CLASSES}>
             <li>
               <strong>Enterprise Architecture:</strong> A comprehensive view of organization&rsquo;s
-              structure comprising business, information, applications, and technology architecture.
-              Architecture provides strategic blueprint aligning business and technology decisions.
+              structure supported through four architecture domains: Business, Data, Application,
+              and Technology. Architecture provides strategic blueprint aligning business and
+              technology decisions.
             </li>
             <li>
               <strong>Architecture Development Method (ADM):</strong> Iterative, cyclic process for
-              developing enterprise architecture. ADM comprises eight phases (Preliminary, A -
-              Vision, B - Business Architecture, C - Information Systems Architecture, D -
-              Technology Architecture, E - Opportunities &amp; Solutions, F - Migration Planning, G
-              - Implementation Governance, H - Architecture Change Management) plus architecture
-              requirements management.
+              developing enterprise architecture. ADM comprises a Preliminary Phase plus eight
+              lettered phases (A - Architecture Vision, B - Business Architecture, C - Information
+              Systems Architectures, D - Technology Architecture, E - Opportunities &amp; Solutions,
+              F - Migration Planning, G - Implementation Governance, H - Architecture Change
+              Management), with Requirements Management operating as a cross-cutting activity
+              throughout the cycle.
             </li>
             <li>
               <strong>Architecture Content Framework (ACF):</strong> Structured model describing
@@ -301,8 +303,10 @@ const BibliographyArticlePage = () => {
 
           <h3 className={H3_CLASSES}>Architecture Development Method (ADM)</h3>
           <p className={PARAGRAPH_CLASSES}>
-            TOGAF&rsquo;s core method is the Architecture Development Method, comprising nine phases
-            organized as iterative cycle:
+            TOGAF&rsquo;s core method is the Architecture Development Method, organized as an
+            iterative cycle comprising a Preliminary Phase and eight lettered phases (A through H),
+            plus Requirements Management as a cross-cutting activity that operates throughout the
+            ADM:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
@@ -320,9 +324,9 @@ const BibliographyArticlePage = () => {
               and business requirements.
             </li>
             <li>
-              <strong>Phase C - Information Systems Architecture:</strong> Develop applications and
-              data architecture describing information systems, applications, and data standards
-              required to support business.
+              <strong>Phase C - Information Systems Architectures:</strong> Develop Information
+              Systems Architectures (comprising Data Architecture and Application Architecture) to
+              support the agreed Architecture Vision.
             </li>
             <li>
               <strong>Phase D - Technology Architecture:</strong> Develop technology architecture
@@ -350,8 +354,10 @@ const BibliographyArticlePage = () => {
               relevant and effective.
             </li>
             <li>
-              <strong>Requirements Management:</strong> Cross-cutting activity throughout ADM
-              managing architecture requirements, traceability, and alignment.
+              <strong>Requirements Management:</strong> Cross-cutting activity operating throughout
+              ADM that manages architecture requirements throughout the cycle. Per the TOGAF
+              Standard, Requirements Management is not a numbered phase but a continuous activity at
+              the center of the ADM cycle.
             </li>
           </ul>
 
@@ -414,28 +420,38 @@ const BibliographyArticlePage = () => {
           </ul>
 
           <h3 className={H3_CLASSES}>Key Architectural Domains</h3>
+          <p className={PARAGRAPH_CLASSES}>
+            The TOGAF Standard identifies four architecture domains that are commonly accepted as
+            subsets of an overall Enterprise Architecture:
+          </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Business Architecture:</strong> Organizational structure, business
-              capabilities, business processes, and business information requirements. Establishes
-              business context for technology architecture.
+              <strong>Business Architecture:</strong> Defines the business strategy, governance,
+              organization, and key business processes. Establishes business context for the other
+              architecture domains.
             </li>
             <li>
-              <strong>Information Systems Architecture:</strong> Applications and data architecture
-              describing information systems and data flows. Includes applications architecture and
-              data architecture domains.
+              <strong>Data Architecture:</strong> Describes the structure of an organization&rsquo;s
+              logical and physical data assets and data management resources.
             </li>
             <li>
-              <strong>Technology Architecture:</strong> Technology infrastructure, technology
-              standards, and technology platforms. Describes computing, networking, storage, and
-              infrastructure components.
+              <strong>Application Architecture:</strong> Provides a blueprint for the individual
+              applications to be deployed, their interactions, and their relationships to the core
+              business processes of the organization.
             </li>
             <li>
-              <strong>Architecture Governance:</strong> Processes, structures, and decision-making
-              frameworks guiding architecture implementation. Ensures architecture compliance and
-              drives organizational alignment.
+              <strong>Technology Architecture:</strong> Describes the logical software and hardware
+              infrastructure capabilities and standards required to support the deployment of
+              business, data, and application services, including IT infrastructure, middleware,
+              networks, communications, processing, and standards.
             </li>
           </ul>
+          <p className={PARAGRAPH_CLASSES}>
+            Within the ADM, Phase C (Information Systems Architectures) develops the Data
+            Architecture and Application Architecture domains together, while Architecture
+            Governance and stakeholder management are supporting capabilities exercised across all
+            domains rather than domains in their own right.
+          </p>
 
           <h3 className={H3_CLASSES}>Main Strengths</h3>
           <ul className={BODY_LIST_CLASSES}>
