@@ -207,7 +207,54 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 6. Preceding Models or Theories */}
+        {/* 6. What Does the Model Measure? */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>What Does the Model Measure?</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            TAM2 is a measurement model that extends the original Technology Acceptance Model by
+            adding social-influence and cognitive-instrumental determinants of perceived
+            usefulness. Venkatesh and Davis (2000) operationalize constructs through multi-item
+            Likert-scale items. The model measures:
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Perceived Usefulness (PU):</strong> The degree to which a person believes
+              using the system will enhance job performance.
+            </li>
+            <li>
+              <strong>Perceived Ease of Use (PEOU):</strong> The degree to which a person believes
+              using the system will be free of effort.
+            </li>
+            <li>
+              <strong>Intention to Use:</strong> Behavioral intention to use the system.
+            </li>
+            <li>
+              <strong>Social Influence Processes:</strong> Subjective Norm, Voluntariness, and Image.
+            </li>
+            <li>
+              <strong>Cognitive Instrumental Processes:</strong> Job Relevance, Output Quality,
+              Result Demonstrability, and Perceived Ease of Use.
+            </li>
+            <li>
+              <strong>Experience:</strong> Moderator of the effect of Subjective Norm on PU and
+              intention over time.
+            </li>
+          </ul>
+          <p className={PARAGRAPH_CLASSES}>
+            Venkatesh and Davis report four longitudinal field studies and provide construct
+            validity and reliability evidence for the TAM2 scales across voluntary and mandatory
+            usage settings.
+          </p>
+          <p className={PARAGRAPH_CLASSES}>
+            <strong>Source note:</strong> Claims below draw from Venkatesh &amp; Davis (2000),
+            &ldquo;A Theoretical Extension of the Technology Acceptance Model: Four Longitudinal
+            Field Studies,&rdquo; <em>Management Science</em>, 46(2), 186 - 204. Specific item
+            wording and factor loadings should be verified against the paper for any derivative
+            measurement work.
+          </p>
+        </section>
+
+        {/* 7. Preceding Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Preceding Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -286,7 +333,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 7. Describe The Model */}
+        {/* 8. Describe The Model */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Describe The Model</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -420,7 +467,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 8. Key Contributions */}
+        {/* 9. Key Contributions */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Key Contributions</h2>
           <ul className={BODY_LIST_CLASSES}>
@@ -465,7 +512,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 9. Internal Validity */}
+        {/* 10. Internal Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Internal Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -513,7 +560,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 10. External Validity */}
+        {/* 11. External Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>External Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -562,7 +609,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 11. Relevance to Technology Adoption */}
+        {/* 12. Relevance to Technology Adoption */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Relevance to Technology Adoption</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -659,7 +706,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 12. Following Models or Theories */}
+        {/* 13. Following Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Following Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -720,7 +767,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 13. References */}
+        {/* 14. References */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>References</h2>
           <ol className={REFERENCES_OL_CLASSES}>
@@ -767,6 +814,7 @@ const BibliographyArticlePage = () => {
           </ol>
         </section>
 
+        {/* 15. Further Reading */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Further Reading</h2>
           <ol className={REFERENCES_OL_CLASSES}>
@@ -797,7 +845,7 @@ const BibliographyArticlePage = () => {
           </ol>
         </section>
 
-        {/* 14. Series Navigation */}
+        {/* 16. Series Navigation */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Series Navigation</h2>
           <div className="space-y-4">
