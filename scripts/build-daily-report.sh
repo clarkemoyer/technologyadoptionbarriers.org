@@ -74,6 +74,7 @@ if { [ "$TRIAGE_TOTAL" = "unknown" ] || [ -z "$TRIAGE_BREAKDOWN" ]; } && [ -f "$
   COMPUTED_TOTAL=$(TODAY_FILE="$TODAY_FILE" python3 -c "import json,os; d=json.load(open(os.environ['TODAY_FILE'])); disps=d.get('dispositions') or {}; print(sum(disps.values()) if disps else '')" 2>/dev/null || echo "")
   if [ -n "$COMPUTED_TOTAL" ]; then
     [ "$TRIAGE_TOTAL" = "unknown" ] && TRIAGE_TOTAL="$COMPUTED_TOTAL"
+    [ -z "$TRIAGE_BREAKDOWN" ] && TRIAGE_TOTAL="$COMPUTED_TOTAL"
   fi
   if [ -z "$TRIAGE_BREAKDOWN" ]; then
     COMPUTED_BREAKDOWN=$(TODAY_FILE="$TODAY_FILE" python3 << 'TRIAGEEOF'
