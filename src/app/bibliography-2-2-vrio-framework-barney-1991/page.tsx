@@ -12,37 +12,42 @@ import {
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: VRIO Framework - Barney (1991)',
+  title: 'Bibliography: VRIN/VRIO Framework - Barney (1991)',
   description:
-    'Comprehensive overview of the VRIO (Valuable, Rare, Inimitable, Organized) framework, operationalizing the Resource-Based View of the firm with analytical criteria for identifying sustainable sources of competitive advantage.',
+    'Comprehensive overview of the Barney (1991) VRIN framework (Valuable, Rare, Inimitable, Non-substitutable) for sustained competitive advantage, together with its later VRIO refinement (Barney, 1995, 1997) which substitutes Organization for Non-substitutability.',
 }
 
 const BibliographyArticlePage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
-        <h1 className={H1_CLASSES}>VRIO Framework - Barney (1991)</h1>
+        <h1 className={H1_CLASSES}>VRIN/VRIO Framework - Barney (1991)</h1>
 
         {/* 1. Framework Identification */}
         <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
           <h2 className={H2_CLASSES}>Framework Identification</h2>
           <div className="space-y-2">
             <p>
-              <strong>Framework Name:</strong> VRIO Framework (Valuable, Rare, Inimitable,
-              Organized)
+              <strong>Framework Name:</strong> VRIN framework (Valuable, Rare, Imperfectly Imitable,
+              Non-substitutable), as introduced in Barney (1991). Later refined into the VRIO
+              framework (Valuable, Rare, Imperfectly Imitable, Organized) in Barney (1995) and
+              Barney (1997).
             </p>
             <p>
-              <strong>Framework Abbreviation:</strong> VRIO (also known as VRIN - Valuable, Rare,
-              Inimitable, Non-substitutable)
+              <strong>Framework Abbreviation:</strong> VRIN (1991) / VRIO (1995, 1997). The
+              abbreviation &ldquo;VRIN&rdquo; itself does not appear in Barney (1991); the paper
+              labels the four attributes as &ldquo;value, rareness, imitability, and
+              substitutability&rdquo; (p.105). &ldquo;VRIO&rdquo; was coined in Barney (1995) when
+              Organization replaced Non-substitutability as the fourth criterion.
             </p>
             <p>
-              <strong>Target of Framework:</strong> Systematic analysis of firm resources to
-              identify sources of sustained competitive advantage and predict competitive
-              implications of resource possession
+              <strong>Target of Framework:</strong> Identify which firm resources have the potential
+              to generate sustained competitive advantage, operationalizing the resource-based view
+              as a set of empirical indicators.
             </p>
             <p>
-              <strong>Disciplinary Origin:</strong> Strategic Management, Business Policy,
-              Organization Theory
+              <strong>Disciplinary Origin:</strong> Strategic Management, Organizational Economics,
+              Industrial Organization
             </p>
           </div>
         </section>
@@ -115,278 +120,399 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Why Was the Model Created?</h2>
           <p className={PARAGRAPH_CLASSES}>
-            Jay Barney developed the VRIO framework through a series of publications spanning the
-            1990s. His seminal 1991 paper in the Journal of Management introduced the VRIN criteria
-            (Valuable, Rare, Inimitable, Non-substitutable) for evaluating firm resources. In a 1995
-            Academy of Management Executive article, Barney reframed the criteria as the VRIO
-            framework, replacing Non-substitutable with Organized to emphasize that firms must be
-            organized to exploit their resources. He further elaborated the framework in his 1997
-            textbook, making it a centerpiece of strategic management education. This evolution
-            addressed a critical gap between Wernerfelt&rsquo;s Resource-Based View conceptual
-            insight and practical strategy application. Wernerfelt&rsquo;s 1984 RBV paper argued
-            compellingly that resources could provide sustained competitive advantage if they were
-            valuable, rare, and inimitable, but the paper remained largely theoretical without
-            providing specific guidance for practitioners or researchers on how to systematically
-            analyze firm resources using these criteria. Strategic managers could recognize
-            intuitively that some resources seemed important to competitive advantage, but they
-            lacked analytical frameworks for rigorous evaluation. Research lacking the
-            operationalization meant that testing and validating RBV remained difficult -scholars
-            could discuss resources abstractly but could not empirically measure whether specific
-            resources met value, rarity, and inimitability criteria.
+            Barney (1991) was written to give the resource-based view the same analytical
+            tractability that industrial-organization economics (Porter, 1980, 1985) had given to
+            external analysis. Wernerfelt (1984), Rumelt (1984), Penrose (1959), and others had
+            argued that internal resources could be a source of competitive advantage, but the
+            literature lacked a systematic set of empirical indicators to distinguish resources that
+            generate sustained advantage from those that do not. Barney&rsquo;s paper explicitly
+            positions itself as a complement to environmental models: the resource-based model and
+            industry-structure models &ldquo;focus on different aspects of the same
+            phenomenon&rdquo; (Figure 1, p.100).
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            Barney recognized that RBV needed operationalization to become actionable. He developed
-            the VRIO framework to provide specific analytical questions managers could ask about
-            firm resources to determine whether those resources could generate sustained competitive
-            advantage. Barney added a fourth dimension to Wernerfelt&rsquo;s three: organization.
-            Resources could be valuable, rare, and inimitable, but if the firm lacked organizational
-            structures, processes, and systems to exploit those resources, the resources would not
-            generate competitive advantage. This expanded framework made RBV testable and teachable.
-            Barney provided decision trees and analytical tools that researchers could use to
-            empirically test whether specific resources met VRIO criteria and what competitive
-            implications followed from different combinations of these attributes.
+            Barney identifies the key analytical move as relaxing two assumptions underlying most
+            strategy theorizing at the time (p.101): (i) that firms within an industry control
+            strategically identical resources (resource homogeneity), and (ii) that resource
+            differences are short-lived because resources can be acquired freely in factor markets
+            (resource mobility). The paper shows that if both assumptions hold, sustained
+            competitive advantage is impossible (p.103-105). Sustained competitive advantage is
+            therefore only possible when firm resources are heterogeneously distributed and
+            imperfectly mobile.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            The VRIO framework also addressed the challenge of translating resource-based thinking
-            into actionable strategy for business schools and organizational strategists. By
-            providing specific analytical criteria and decision frameworks, Barney made RBV
-            accessible to strategy practitioners and academics beyond the small circle of
-            resource-based theorists. The framework became foundational to how strategic management
-            was taught: rather than abstract discussion of resources and advantages, instructors
-            could walk students through VRIO analysis of specific firms, evaluating whether
-            particular resources (brand, technology, customer relationships) met criteria for
-            sustained advantage. This combination of theoretical rigor and practical applicability
-            made the VRIO framework one of the most influential strategic management tools of the
-            1990s and beyond.
+            Given those two assumptions, Barney (p.105-106) proposes four empirical indicators that
+            a resource has the potential to generate sustained competitive advantage: it must be (a){' '}
+            <em>valuable</em>, (b) <em>rare</em>, (c) <em>imperfectly imitable</em>, and (d) such
+            that the firm&rsquo;s resources have no <em>strategically equivalent substitutes</em>.
+            This four-attribute model is now widely called &ldquo;VRIN&rdquo;, though the acronym
+            itself is not in the paper. The paper applies the model to several candidate sources of
+            advantage (strategic planning, information processing systems, positive reputations) to
+            illustrate its use. Barney later (1995, Academy of Management Executive; 1997, book)
+            replaces the Non-substitutability criterion with an Organization criterion, producing
+            the VRIO framework used in most strategy textbooks today.
           </p>
         </section>
 
-        {/* 5. Core Concepts and Definitions */}
+        {/* 5. What Does the Model Measure? */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>What Does the Model Measure?</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            Barney (1991) is a conceptual paper that proposes the four attributes as
+            &ldquo;empirical indicators&rdquo; (p.106) of how heterogeneous and immobile a
+            firm&rsquo;s resources are. The paper does not provide scales, latent constructs, or
+            statistical operationalizations. Each attribute is a yes/no question about a specific
+            resource:
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Value:</strong> Does this resource let the firm implement strategies that
+              exploit opportunities or neutralize threats (p.106)?
+            </li>
+            <li>
+              <strong>Rareness:</strong> Is the resource held by fewer firms than the number
+              required to generate perfect competition dynamics (p.107)?
+            </li>
+            <li>
+              <strong>Imitability:</strong> Can firms without the resource obtain it at a cost
+              disadvantage, because of unique historical conditions, causal ambiguity, or social
+              complexity (p.107-112)?
+            </li>
+            <li>
+              <strong>Substitutability:</strong> Is the resource such that there are no
+              strategically equivalent substitutes that are themselves valuable but neither rare nor
+              imperfectly imitable (p.111-112)?
+            </li>
+          </ul>
+          <p className={PARAGRAPH_CLASSES}>
+            The paper applies these questions to three candidate sources of sustained competitive
+            advantage (p.112-117): <em>strategic planning processes</em>,{' '}
+            <em>information processing systems</em>, and <em>positive reputations</em>. In each case
+            Barney walks through the four attributes to argue which versions of the resource have
+            potential to generate sustained advantage and which do not.
+          </p>
+          <p className={PARAGRAPH_CLASSES}>
+            Later refinement: Barney (1995, Academy of Management Executive; 1997 book) replaces
+            Substitutability with <em>Organization</em>, producing VRIO. Organization asks whether
+            the firm&rsquo;s structures, policies, and processes are arranged such that the firm can
+            actually exploit the resource (not merely possess it). The substitute concern does not
+            disappear; it is folded into the Imitability criterion in the later operationalization.
+          </p>
+        </section>
+
+        {/* 6. Core Concepts and Definitions */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Core Concepts and Definitions</h2>
           <p className={PARAGRAPH_CLASSES}>
-            The VRIO framework is built on four evaluative criteria for analyzing firm resources:
+            Barney (1991) defines three central terms before introducing the four attributes
+            (p.101-103):
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Valuable (V):</strong> A resource is valuable to the extent that it enables a
-              firm to implement strategies that exploit opportunities or mitigate threats in the
-              environment. Resources enable value creation by improving competitive position,
-              enabling cost leadership, differentiation, or focus strategies, or creating barriers
-              preventing competitive threat. Resources without value do not contribute to
-              competitive advantage.
+              <strong>Firm resources:</strong> &ldquo;all assets, capabilities, organizational
+              processes, firm attributes, information, knowledge, etc. controlled by a firm that
+              enable the firm to conceive of and implement strategies that improve its efficiency
+              and effectiveness&rdquo; (p.101, drawing on Daft, 1983). Barney groups firm resources
+              into three categories following Tomer (1987) and related work: physical capital
+              resources (Williamson, 1975), human capital resources (Becker, 1964), and
+              organizational capital resources (Tomer, 1987).
             </li>
             <li>
-              <strong>Rare (R):</strong> A resource is rare if the number of competing firms
-              possessing it is less than the number of firms required for competitive equilibrium.
-              Rarity is relative; a resource may be held by a few firms (very rare), some firms
-              (moderately rare), or many firms (not rare). Only rare resources can provide
-              competitive advantage since all firms with common resources will achieve similar
-              competitive positions.
+              <strong>Competitive advantage:</strong> &ldquo;a firm is said to have a competitive
+              advantage when it is implementing a value creating strategy not simultaneously being
+              implemented by any current or potential competitors&rdquo; (p.102). Following Baumol,
+              Panzar, and Willig (1982), &ldquo;competitors&rdquo; includes both current and
+              potential competitors, not just same-industry rivals.
             </li>
             <li>
-              <strong>Inimitable (I):</strong> A resource is inimitable if competitors cannot easily
-              duplicate or imitate the resource, even after observing its existence and value.
-              Resources become inimitable through causal ambiguity (unclear how resource creates
-              value), social complexity (resources embedded in relationships and culture),
-              historical contingency (required unique past conditions), or proprietary nature.
-              Non-inimitable resources can provide only temporary advantage until imitation occurs.
-            </li>
-            <li>
-              <strong>Organized (O):</strong> A resource generates competitive advantage only if the
-              firm is organized to effectively exploit the resource. Organization requires
-              appropriate organizational structures, processes, systems, incentives, and management
-              controls that enable resource-based strategies. Resources without organizational
-              infrastructure to exploit them generate no competitive advantage.
-            </li>
-            <li>
-              <strong>Sustained Competitive Advantage:</strong> Performance superiority that a firm
-              maintains over extended time periods by possessing resources meeting all four VRIO
-              criteria (valuable, rare, inimitable, and organized). Sustained advantage is
-              distinguished from temporary advantage (resources meeting only some criteria) and
-              competitive parity (resources not meeting VRIO criteria).
+              <strong>Sustained competitive advantage:</strong> a competitive advantage that
+              persists after &ldquo;efforts to duplicate that advantage have ceased&rdquo; (p.102,
+              drawing on Lippman &amp; Rumelt, 1982 and Rumelt, 1984). This is an equilibrium-based,
+              not a calendar-based, definition: sustained advantage is not defined by &ldquo;lasts
+              forever&rdquo; (p.103) but by being robust against duplication attempts. Schumpeterian
+              shocks can still competitively displace a sustained advantage.
             </li>
           </ul>
+          <p className={PARAGRAPH_CLASSES}>
+            Two assumptions (p.101, 105) drive the whole framework:
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Resource heterogeneity:</strong> Different firms within an industry may
+              control different strategically relevant resources.
+            </li>
+            <li>
+              <strong>Resource immobility:</strong> These resource differences can be stable over
+              time - resources are not freely tradeable in factor markets at their full discounted
+              value.
+            </li>
+          </ul>
+          <p className={PARAGRAPH_CLASSES}>
+            Under perfect homogeneity and mobility, sustained competitive advantage is impossible
+            (the paper&rsquo;s core argument, p.103-105). Under heterogeneity and immobility, it
+            becomes possible - and the four attributes (value, rareness, imitability,
+            substitutability) identify <em>which</em> resources actually generate it.
+          </p>
         </section>
 
-        {/* 6. Preceding Models or Theories */}
+        {/* 7. Preceding Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Preceding Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
-            The VRIO framework directly builds on and operationalizes previous theories:
+            Barney (1991) explicitly cites the following as foundational to the resource-based
+            perspective the paper develops (pp.99-101):
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
               <strong>
-                Resource-Based View (
-                <a
-                  id="cite-ref-wernerfelt-1984-1"
-                  href="#ref-wernerfelt-1984"
-                  className="text-tabs-teal-deep hover:underline"
-                >
-                  Wernerfelt, 1984
-                </a>
-                ):
-              </strong>{' '}
-              VRIO operationalizes and formalizes Wernerfelt&rsquo;s foundational insight that
-              resources meeting value-rarity-inimitability criteria provide competitive advantage.
-              Barney extends RBV by adding the organization dimension.
-            </li>
-            <li>
-              <strong>
-                Penrose&rsquo;s Theory of Firm Growth (
+                Penrose (
                 <a
                   id="cite-ref-penrose-1959-1"
                   href="#ref-penrose-1959"
                   className="text-tabs-teal-deep hover:underline"
                 >
-                  Penrose, 1959
+                  1959
                 </a>
-                ):
+                ) - The Theory of the Growth of the Firm:
               </strong>{' '}
-              Barney builds on Penrose&rsquo;s insight that firms are fundamentally bundles of
-              resources and that firm growth depends on resource development and organizational
-              capacity to deploy resources.
+              Supplies the view of firms as bundles of productive resources and the link between
+              resource availability and firm growth. Cited on p.101 as one of the three foundational
+              works.
             </li>
             <li>
               <strong>
-                Industrial Organization Economics (
+                Wernerfelt (
+                <a
+                  id="cite-ref-wernerfelt-1984-1"
+                  href="#ref-wernerfelt-1984"
+                  className="text-tabs-teal-deep hover:underline"
+                >
+                  1984, 1989
+                </a>
+                ) - A resource-based view of the firm:
+              </strong>{' '}
+              Wernerfelt&rsquo;s paper (and its 1989 follow-up) provides the direct precursor,
+              introducing the concept of resource position barrier and the resource-product matrix.
+              Barney credits Wernerfelt alongside Rumelt and Penrose as the link between firm
+              resources and sustained competitive advantage. Barney (1991) does <em>not</em>
+              attribute the VRIN criteria to Wernerfelt; Wernerfelt&rsquo;s paper introduces
+              resource position barriers rather than the four-attribute framework.
+            </li>
+            <li>
+              <strong>
+                Rumelt (
+                <a
+                  id="cite-ref-rumelt-1984-1"
+                  href="#ref-rumelt-1984"
+                  className="text-tabs-teal-deep hover:underline"
+                >
+                  1984
+                </a>
+                ) - Towards a Strategic Theory of the Firm:
+              </strong>{' '}
+              Cited on p.101 as the third foundational work; provides the emphasis on firm-level
+              idiosyncratic resources as the primary driver of sustained advantage.
+            </li>
+            <li>
+              <strong>
+                Porter (
                 <a
                   id="cite-ref-porter-1980-1"
                   href="#ref-porter-1980"
                   className="text-tabs-teal-deep hover:underline"
                 >
-                  Porter, 1980
+                  1980, 1985
                 </a>
-                ):
+                ) - Competitive Strategy / Competitive Advantage:
               </strong>{' '}
-              While emphasizing resources over industry structure, VRIO acknowledges that resources
-              create value to extent they address environmental opportunities and threats,
-              incorporating Porter&rsquo;s insights about strategy-environment fit.
+              Barney positions the resource-based view as <em>complementary</em> to Porter&rsquo;s
+              environmental/industry-structure models (Figure 1, p.100). The paper uses
+              Porter&rsquo;s framework for environmental opportunities and threats; Porter is cited
+              throughout for specific arguments about industry barriers and positioning.
             </li>
             <li>
               <strong>
-                Organizational Economics and Transaction Costs (
+                Lippman &amp; Rumelt (
                 <a
-                  id="cite-ref-coase-1937-1"
-                  href="#ref-coase-1937"
+                  id="cite-ref-lippman-1982-1"
+                  href="#ref-lippman-1982"
                   className="text-tabs-teal-deep hover:underline"
                 >
-                  Coase, 1937
+                  1982
                 </a>
-                ;{' '}
-                <a
-                  id="cite-ref-williamson-1975-1"
-                  href="#ref-williamson-1975"
-                  className="text-tabs-teal-deep hover:underline"
-                >
-                  Williamson, 1975
-                </a>
-                ):
+                ) - Uncertain Imitability:
               </strong>{' '}
-              VRIO incorporates insights that firms organize activities to exploit distinctive
-              capabilities and that organizational structure determines competitive advantage.
+              Supplies the concept of causal ambiguity (p.108-110), one of Barney&rsquo;s three
+              named mechanisms of imperfect imitability. Also supplies the equilibrium definition of
+              sustained competitive advantage used on p.102.
             </li>
             <li>
               <strong>
-                Organizational Routines and Capabilities (
+                Dierickx &amp; Cool (
                 <a
-                  id="cite-ref-nelson-1982-1"
-                  href="#ref-nelson-1982"
+                  id="cite-ref-dierickx-1989-1"
+                  href="#ref-dierickx-1989"
                   className="text-tabs-teal-deep hover:underline"
                 >
-                  Nelson &amp; Winter, 1982
+                  1989
+                </a>
+                ) - Asset stock accumulation and sustainability of competitive advantage:
+              </strong>{' '}
+              Supplies the concept of social complexity as a driver of imperfect imitability (p.110)
+              and the asset-stock accumulation view. Cited by Barney as an independently developed
+              but complementary treatment of the imitability problem.
+            </li>
+            <li>
+              <strong>
+                Hirshleifer (
+                <a
+                  id="cite-ref-hirshleifer-1982-1"
+                  href="#ref-hirshleifer-1982"
+                  className="text-tabs-teal-deep hover:underline"
+                >
+                  1980
+                </a>
+                ) and Barney (
+                <a
+                  id="cite-ref-barney-1986-1"
+                  href="#ref-barney-1986"
+                  className="text-tabs-teal-deep hover:underline"
+                >
+                  1986a, 1986b
                 </a>
                 ):
               </strong>{' '}
-              VRIO treats organizational routines and capabilities as resources that become
-              inimitable through social complexity and causal ambiguity.
-            </li>
-            <li>
-              <strong>Human Capital Theory:</strong> VRIO extends resource-based thinking to human
-              capital by recognizing employee skills, knowledge, and relationships as valuable,
-              rare, and potentially inimitable resources.
+              Supply the equilibrium-analytic apparatus for reasoning about sustained advantage,
+              Schumpeterian shocks, and the role of factor-market imperfections. Cited on p.102-103
+              and throughout the imitability discussion.
             </li>
           </ul>
         </section>
 
-        {/* 7. Describe The Model */}
+        {/* 8. Describe The Model */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Describe The Model</h2>
           <p className={PARAGRAPH_CLASSES}>
-            The VRIO framework provides a systematic method for analyzing firm resources to predict
-            competitive implications. Managers evaluate each resource across four dimensions,
-            determining whether the resource is valuable, rare, inimitable, and organized. The
-            framework operates as a decision tree: resources meeting all four criteria create
-            sustained competitive advantage; resources meeting three criteria (valuable, rare,
-            inimitable but unorganized) create temporary advantage only until the firm reorganizes
-            to exploit the resource; resources meeting only two criteria (valuable and rare but
-            imitable) create temporary competitive advantage until competitors imitate; and
-            resources meeting only one criterion or none generate no competitive advantage.
+            Barney (1991) develops the framework in three steps (Figure 1, p.100, and text
+            pp.101-117): (1) define firm resources and competitive advantage, (2) show that
+            sustained competitive advantage requires resource heterogeneity and resource immobility,
+            and (3) specify the four attributes of firm resources (value, rareness, imperfect
+            imitability, non-substitutability) that together constitute empirical indicators of the
+            potential for sustained competitive advantage.
           </p>
 
-          <h3 className={H3_CLASSES}>The Four VRIO Criteria</h3>
+          <h3 className={H3_CLASSES}>The four attributes (Barney, 1991, pp.105-112)</h3>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Valuable (V):</strong> Does the resource enable the firm to implement
-              strategies that exploit opportunities or mitigate threats? Can the resource reduce
-              costs, increase revenues, or strengthen market position? If the resource does not
-              enable economically superior strategies, it provides no advantage.
+              <strong>Value (V):</strong> A resource is valuable when it enables a firm to conceive
+              of or implement strategies that improve its efficiency and effectiveness, or that
+              exploit opportunities or neutralize threats in the firm&rsquo;s environment (p.106).
+              Not all resources are valuable; some may prevent a firm from conceiving of valuable
+              strategies or may generate only competitive parity.
             </li>
             <li>
-              <strong>Rare (R):</strong> Is the resource possessed by few competitors? Is the
-              resource scarce in the competitive marketplace? Resources held by many competitors do
-              not create competitive advantage regardless of value. Rarity creates advantage
-              potential only when combined with value.
+              <strong>Rareness (R):</strong> A resource is rare when the number of competing firms
+              possessing it is less than the number needed to generate perfect-competition dynamics
+              (p.106-107). Barney notes that valuable-but-not-rare resources can still ensure
+              survival at competitive parity.
             </li>
             <li>
-              <strong>Inimitable (I):</strong> Is the resource difficult for competitors to imitate
-              or duplicate? Are there barriers preventing competitive imitation? Sources of
-              inimitability include causal ambiguity, social complexity, historical contingency, and
-              proprietary protections. Resources easily imitated by competitors provide only
-              temporary advantage.
+              <strong>Imperfect imitability (I):</strong> Firm resources can be imperfectly imitable
+              for one or a combination of three reasons (Barney, 1991, p.107, citing Lippman &amp;
+              Rumelt, 1982 and Dierickx &amp; Cool, 1989):
+              <ul className={BODY_LIST_CLASSES}>
+                <li>
+                  <em>Unique historical conditions</em> (p.107-108): a firm&rsquo;s ability to
+                  obtain a resource depends on path-dependent historical conditions (Ansoff, 1965;
+                  Learned et al., 1969; Stinchcombe, 1965; David, 1985).
+                </li>
+                <li>
+                  <em>Causal ambiguity</em> (p.108-110): the link between a firm&rsquo;s resources
+                  and its sustained competitive advantage is not understood or understood only
+                  imperfectly (Lippman &amp; Rumelt, 1982; Reed &amp; DeFillippi, 1990).
+                </li>
+                <li>
+                  <em>Social complexity</em> (p.110-112): the resource is a socially complex
+                  phenomenon (interpersonal relations, culture, reputation) beyond systematic
+                  managerial influence (Dierickx &amp; Cool, 1989; Hambrick, 1987; Porter, 1980;
+                  Klein, Crawford &amp; Alchian, 1978).
+                </li>
+              </ul>
             </li>
             <li>
-              <strong>Organized (O):</strong> Does the firm possess appropriate organizational
-              structures, processes, systems, and incentives to effectively exploit the resource?
-              Does the firm have the management infrastructure to leverage resource value? Resources
-              not organized for exploitation generate no advantage.
+              <strong>Substitutability (N - non-substitutable):</strong> Even if a resource is
+              valuable, rare, and imperfectly imitable, it may not be a source of sustained
+              advantage if there exist strategically equivalent substitutes that are themselves
+              valuable but neither rare nor imperfectly imitable (p.111-112). Two forms of
+              substitution discussed: (i) similar resources (the firm&rsquo;s resource can be
+              replaced by a comparable resource at a competitor); (ii) different resources that can
+              be used to implement the same strategy.
             </li>
           </ul>
 
-          <h3 className={H3_CLASSES}>Competitive Implications of VRIO Combinations</h3>
+          <h3 className={H3_CLASSES}>Applications in the paper (pp.112-117)</h3>
+          <p className={PARAGRAPH_CLASSES}>
+            Barney applies the four-attribute framework to three candidate sources of sustained
+            competitive advantage:
+          </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Not Valuable (Not-V, regardless of R, I, O):</strong> If a resource is not
-              valuable -if it does not enable strategies addressing market opportunities or threats
-              -the resource generates no competitive advantage. Firms with not-valuable resources
-              occupy positions of competitive parity or disadvantage regardless of how rare or
-              inimitable the resource.
+              <strong>Strategic planning and SCA (pp.112-114):</strong> Formal strategic planning
+              processes by themselves are generally not rare or imperfectly imitable and thus are
+              not sources of sustained advantage. Informal planning processes embedded in socially
+              complex managerial interactions can be sources of sustained advantage.
             </li>
             <li>
-              <strong>Valuable but Not Rare (V, Not-R, regardless of I, O):</strong> Resources
-              valuable but commonly held by many competitors position firms at competitive parity.
-              If all competitors possess the resource, all achieve similar competitive positions.
-              These are table-stakes resources required to compete but insufficient for advantage.
+              <strong>Information processing systems and SCA (pp.114-115):</strong> Computer
+              hardware and software purchasable on the open market are not rare or imperfectly
+              imitable. Information processing systems deeply embedded in the firm&rsquo;s informal
+              and formal management decision-making processes can be rare, imperfectly imitable, and
+              non-substitutable.
             </li>
             <li>
-              <strong>Valuable and Rare but Not Inimitable (V, R, Not-I):</strong> These resources
-              create temporary competitive advantage that persists until competitors imitate.
-              First-mover advantage, novel technologies not protected by patents, and unique
-              strategies easily copied by competitors generate temporary advantage.
+              <strong>Positive reputations and SCA (pp.115-117):</strong> Firm reputations can be
+              valuable, rare, imperfectly imitable (because of unique historical conditions and
+              social complexity), and non-substitutable, qualifying as a source of sustained
+              competitive advantage.
+            </li>
+          </ul>
+
+          <h3 className={H3_CLASSES}>From VRIN (1991) to VRIO (1995, 1997)</h3>
+          <p className={PARAGRAPH_CLASSES}>
+            Barney (1995) in the Academy of Management Executive, and Barney (1997) in the textbook{' '}
+            <em>Gaining and Sustaining Competitive Advantage</em>, replace the Non-substitutability
+            criterion with an <em>Organization</em> criterion. The question becomes: is the firm
+            organized - via its structure, formal reporting, management control systems, and
+            compensation policies - to exploit the resource? Substitutability concerns do not
+            disappear; they are subsumed into the Imitability criterion (a resource is imitable in
+            practice if an easily-available substitute can replace it). Most textbook presentations
+            today use the VRIO framework rather than the VRIN framework, though the underlying logic
+            is the same.
+          </p>
+
+          <h3 className={H3_CLASSES}>Competitive implications (VRIO decision logic)</h3>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Not valuable:</strong> Competitive disadvantage. The resource is a cost or
+              constraint, not an advantage source.
             </li>
             <li>
-              <strong>Valuable, Rare, and Inimitable but Not Organized (V, R, I, Not-O):</strong>{' '}
-              These resources create sustained advantage potential, but organizational failures
-              prevent advantage realization. Firms with valuable, rare, inimitable resources but
-              poor organizational structures fail to leverage resource potential. Reorganization can
-              unlock advantage.
+              <strong>Valuable, not rare:</strong> Competitive parity. The resource is a survival
+              condition but not an advantage source.
             </li>
             <li>
-              <strong>Valuable, Rare, Inimitable, and Organized (V, R, I, O):</strong> These
-              resources create sustained competitive advantage. Firms can maintain performance
-              superiority over extended periods because competitors cannot imitate resources that
-              are organized for effective exploitation.
+              <strong>Valuable, rare, but imitable:</strong> Temporary competitive advantage.
+              Advantage erodes as competitors acquire or develop the resource.
+            </li>
+            <li>
+              <strong>Valuable, rare, imperfectly imitable, but not organized to exploit:</strong>
+              Unrealized competitive advantage. The firm holds the resource but cannot capture its
+              rents. VRIO (1995) treatment.
+            </li>
+            <li>
+              <strong>Valuable, rare, imperfectly imitable, and organized:</strong> Sustained
+              competitive advantage. The resource meets all conditions of the equilibrium-based SCA
+              definition (p.102-103).
             </li>
           </ul>
 
@@ -479,7 +605,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 8. Key Contributions */}
+        {/* 9. Key Contributions */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Key Contributions</h2>
           <ul className={BODY_LIST_CLASSES}>
@@ -526,7 +652,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 9. Internal Validity */}
+        {/* 10. Internal Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Internal Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -569,7 +695,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 10. External Validity */}
+        {/* 11. External Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>External Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -625,7 +751,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 11. Relevance to Technology Adoption */}
+        {/* 12. Relevance to Technology Adoption */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Relevance to Technology Adoption</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -728,7 +854,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 12. Following Models or Theories */}
+        {/* 13. Following Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Following Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -794,7 +920,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 13. References */}
+        {/* 14. References */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>References</h2>
           <ol className={REFERENCES_OL_CLASSES}>
@@ -824,21 +950,8 @@ const BibliographyArticlePage = () => {
                 ></a>
               </span>
             </li>
-            <li id="ref-teece-1997">
-              Teece, D. J., Pisano, G., &amp; Shuen, A. (1997). Dynamic capabilities and strategic
-              management. <em>Strategic Management Journal</em>, 18(7), 509-533.
-              https://doi.org/10.1002/(SICI)1097-0266(199708)18:7%3C509::AID-SMJ882%3E3.0.CO;2-Z{' '}
-              <span className="text-xs ml-1">
-                <a
-                  href="#cite-ref-teece-1997-1"
-                  className="text-tabs-teal-deep hover:underline"
-                  aria-label="Back to citation 1"
-                ></a>
-              </span>
-            </li>
             <li id="ref-porter-1980">
-              Porter, M. E. (1980). Competitive strategy: Techniques for analyzing industries and
-              competitors. Free Press.
+              Porter, M. E. (1980). <em>Competitive strategy</em>. Free Press.
               <span className="text-xs ml-1">
                 <a
                   href="#cite-ref-porter-1980-1"
@@ -847,35 +960,68 @@ const BibliographyArticlePage = () => {
                 ></a>
               </span>
             </li>
-            <li id="ref-coase-1937">
-              Coase, R. H. (1937). The nature of the firm. <em>Economica</em>, 4(16), 386-405.
+            <li id="ref-rumelt-1984">
+              Rumelt, R. P. (1984). Towards a strategic theory of the firm. In R. B. Lamb (Ed.),{' '}
+              <em>Competitive strategic management</em> (pp. 556-570). Prentice-Hall.
               <span className="text-xs ml-1">
                 <a
-                  href="#cite-ref-coase-1937-1"
+                  href="#cite-ref-rumelt-1984-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
                 ></a>
               </span>
             </li>
-            <li id="ref-williamson-1975">
-              Williamson, O. E. (1975). Markets and hierarchies: Analysis and antitrust
-              implications. Free Press.
+            <li id="ref-lippman-1982">
+              Lippman, S. A., &amp; Rumelt, R. P. (1982). Uncertain imitability: An analysis of
+              interfirm differences in efficiency under competition.{' '}
+              <em>Bell Journal of Economics</em>, 13(2), 418-438.
               <span className="text-xs ml-1">
                 <a
-                  href="#cite-ref-williamson-1975-1"
+                  href="#cite-ref-lippman-1982-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
                 ></a>
               </span>
             </li>
-            <li id="ref-nelson-1982">
-              Nelson, R. R., &amp; Winter, S. G. (1982). An evolutionary theory of economic change.
-              Harvard University Press.
+            <li id="ref-dierickx-1989">
+              Dierickx, I., &amp; Cool, K. (1989). Asset stock accumulation and sustainability of
+              competitive advantage. <em>Management Science</em>, 35(12), 1504-1511.
+              <span className="text-xs ml-1">
+                <a
+                  href="#cite-ref-dierickx-1989-1"
+                  className="text-tabs-teal-deep hover:underline"
+                  aria-label="Back to citation 1"
+                ></a>
+              </span>
+            </li>
+            <li id="ref-hirshleifer-1982">
+              Hirshleifer, J. (1980). <em>Price theory and applications</em> (2nd ed.).
+              Prentice-Hall.
+              <span className="text-xs ml-1">
+                <a
+                  href="#cite-ref-hirshleifer-1982-1"
+                  className="text-tabs-teal-deep hover:underline"
+                  aria-label="Back to citation 1"
+                ></a>
+              </span>
+            </li>
+            <li id="ref-barney-1986">
+              Barney, J. B. (1986). Strategic factor markets: Expectations, luck, and business
+              strategy. <em>Management Science</em>, 32(10), 1231-1241.
+              <span className="text-xs ml-1">
+                <a
+                  href="#cite-ref-barney-1986-1"
+                  className="text-tabs-teal-deep hover:underline"
+                  aria-label="Back to citation 1"
+                ></a>
+              </span>
+            </li>
+            <li id="ref-daft-1983">
+              Daft, R. L. (1983). <em>Organization theory and design</em>. West.
             </li>
             <li id="ref-barney-1995">
               Barney, J. B. (1995). Looking inside for competitive advantage.{' '}
               <em>Academy of Management Executive</em>, 9(4), 49-61.
-              https://doi.org/10.5465/ame.1995.9512032192
             </li>
             <li id="ref-barney-1997">
               Barney, J. B. (1997). <em>Gaining and sustaining competitive advantage</em>.
@@ -884,6 +1030,7 @@ const BibliographyArticlePage = () => {
           </ol>
         </section>
 
+        {/* 15. Further Reading */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Further Reading</h2>
           <ol className={REFERENCES_OL_CLASSES}>
@@ -900,14 +1047,17 @@ const BibliographyArticlePage = () => {
               <em>Strategic Management Journal</em>, 12(S1), 167-185.
             </li>
             <li id="ref-prahalad-1990">
-              Prahalad, C. K., &amp; Hamel, G. (1990). The core competence of the corporation.
+              Prahalad, C. K., &amp; Hamel, G. (1990). The core competence of the corporation.{' '}
               <em>Harvard Business Review</em>, 68(3), 79-91.
-              https://doi.org/10.1007/3-540-30763-X_14
+            </li>
+            <li id="ref-teece-1997">
+              Teece, D. J., Pisano, G., &amp; Shuen, A. (1997). Dynamic capabilities and strategic
+              management. <em>Strategic Management Journal</em>, 18(7), 509-533.
             </li>
           </ol>
         </section>
 
-        {/* 14. Series Navigation */}
+        {/* 16. Series Navigation */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Series Navigation</h2>
           <div className="space-y-4">
