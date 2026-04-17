@@ -91,12 +91,8 @@ const BibliographyArticlePage = () => {
             <div>
               <p className="text-xs font-bold uppercase text-blue-900 mb-1">APA (7th ed.)</p>
               <p className="text-sm font-mono">
-                U.S. Department of Defense. (
-                <a href="#ref-u-s-2003" className="text-tabs-teal-deep hover:underline">
-                  2003
-                </a>
-                ). <em>DoD architecture framework version 1.0</em>. U.S. Department of Defense,
-                Office of the Chief Information Officer.
+                U.S. Department of Defense. (2003). <em>DoD architecture framework version 1.0</em>.
+                U.S. Department of Defense, Office of the Chief Information Officer.
               </p>
             </div>
             <div>
@@ -125,7 +121,7 @@ const BibliographyArticlePage = () => {
             architecture.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            DoD evolved from the earlier C4ISR (Command, Control, Communications, Computers,
+            DoDAF evolved from the earlier C4ISR (Command, Control, Communications, Computers,
             Intelligence, Surveillance, Reconnaissance) Architecture Framework (1996/1997) but
             needed more comprehensive architecture framework incorporating lessons learned. DoDAF
             Version 1.0 (2003) established mandatory architecture description framework for all DoD
@@ -146,7 +142,42 @@ const BibliographyArticlePage = () => {
           </p>
         </section>
 
-        {/* 5. Core Concepts and Definitions */}
+        {/* 5. What Does the Model Measure? */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>What Does the Model Measure?</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            DoDAF does not measure constructs in the psychometric sense. As an architecture
+            framework, it provides structured methods for describing and analyzing:
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Capability requirements:</strong> What military capabilities are needed and
+              how they relate to missions, operations, and organizational goals.
+            </li>
+            <li>
+              <strong>Operational activities and information flows:</strong> What tasks, activities,
+              and information exchanges are required to execute capabilities.
+            </li>
+            <li>
+              <strong>Systems and services architecture:</strong> What systems, services, and
+              interfaces are needed to support operational activities.
+            </li>
+            <li>
+              <strong>Standards compliance:</strong> Whether technology choices conform to mandated
+              technical standards and interoperability requirements.
+            </li>
+            <li>
+              <strong>Interoperability:</strong> The degree to which systems, services, and data can
+              be exchanged across organizational boundaries.
+            </li>
+            <li>
+              <strong>Capability gaps:</strong> Differences between required capabilities and
+              current capabilities, informing modernization and acquisition decisions.
+            </li>
+          </ul>
+        </section>
+
+        {/* 6. Core Concepts and Definitions */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Core Concepts and Definitions</h2>
           <p className={PARAGRAPH_CLASSES}>DoDAF centers on several core concepts:</p>
@@ -189,7 +220,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 6. Preceding Models or Theories */}
+        {/* 7. Preceding Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Preceding Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -241,7 +272,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 7. Describe The Model */}
+        {/* 8. Describe The Model */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Describe The Model</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -251,83 +282,66 @@ const BibliographyArticlePage = () => {
             standards domains.
           </p>
 
-          <h3 className={H3_CLASSES}>DoDAF 1.0 Viewpoint Structure</h3>
+          <h3 className={H3_CLASSES}>DoDAF 1.0 View Structure</h3>
           <p className={PARAGRAPH_CLASSES}>
-            DoDAF Version 1.0 organized architecture into eight viewpoints containing multiple
-            views:
+            DoDAF Version 1.0 (2003) organized architecture description into four view categories,
+            each containing multiple products:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>All Viewpoint (AV):</strong> Overarching views describing architecture
-              overview, integrated dictionary, and documentation standards. All views provide
-              comprehensive context for all other viewpoints.
+              <strong>All View (AV):</strong> Overarching products describing architecture overview,
+              integrated dictionary, and documentation standards. AV products provide comprehensive
+              context for all other views.
             </li>
             <li>
-              <strong>Operational Viewpoint (OV):</strong> Describes military tasks, activities,
+              <strong>Operational View (OV):</strong> Describes military tasks, activities,
               information flows, and organizational relationships needed to accomplish capability.
-              Operational views show operational concept and required capabilities.
+              OV products show operational concepts and required capabilities.
             </li>
             <li>
-              <strong>Systems Viewpoint (SV):</strong> Describes systems, systems interconnections,
-              system responsibilities, and system information exchanges. Systems views show systems
+              <strong>Systems View (SV):</strong> Describes systems, system interconnections, system
+              responsibilities, and system information exchanges. SV products show systems
               architecture and system integration.
             </li>
             <li>
-              <strong>Services Viewpoint (ServV):</strong> (Added in DoDAF 2.0) Describes
-              service-oriented architecture and service interactions supporting capability. Services
-              views enable service-oriented capability realization.
-            </li>
-            <li>
-              <strong>Standards Viewpoint (StdV):</strong> Describes technical standards, policies,
-              and compliance requirements governing architecture. Standards views ensure
-              interoperability and consistency.
-            </li>
-            <li>
-              <strong>Capability Viewpoint (CV):</strong> (Added in DoDAF 2.0) Describes military
-              capabilities, capability dependencies, and capability evolution. Capability views
-              enable capability-based planning and assessment.
-            </li>
-            <li>
-              <strong>Data and Information Viewpoint (DIV):</strong> Describes information entities,
-              information relationships, and information flows. Information views enable data
-              standardization and information sharing.
-            </li>
-            <li>
-              <strong>Project Viewpoint (PV):</strong> Describes program/project information,
-              dependencies, and schedules supporting architecture realization. Project views enable
-              implementation planning.
+              <strong>Technical Standards View (TV):</strong> Describes technical standards,
+              policies, and compliance requirements governing architecture. TV products ensure
+              interoperability and standards consistency.
             </li>
           </ul>
 
           <h3 className={H3_CLASSES}>DoDAF 2.0 Evolution</h3>
           <p className={PARAGRAPH_CLASSES}>
-            DoDAF 2.0 (2009) and 2.02 (2010) significantly evolved the framework:
+            DoDAF 2.0 (2009) and 2.02 (2010) significantly evolved the framework, expanding from
+            four view categories to eight viewpoints and shifting from a document-centric to a
+            data-centric approach:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Data-Centric Approach:</strong> Shift from document-centric to data-centric
-              architecture. Data-centric approach enables automated analysis and capability
-              assessment.
+              <strong>Expanded to Eight Viewpoints:</strong> Added four new viewpoints: Capability
+              Viewpoint (CV) for capability-based planning and assessment, Data and Information
+              Viewpoint (DIV) for data standardization and information sharing, Project Viewpoint
+              (PV) for implementation planning, and Services Viewpoint (SvcV) for service-oriented
+              capability realization. The original TV became the Standards Viewpoint (StdV).
             </li>
             <li>
-              <strong>Meta-Model Foundation:</strong> Defined formal meta-model describing all
-              architecture elements and relationships. Meta-model enables consistent architecture
+              <strong>Data-Centric Approach:</strong> Shift from document-centric to data-centric
+              architecture using the DoDAF Meta-model (DM2). Data-centric approach enables automated
+              analysis and capability assessment.
+            </li>
+            <li>
+              <strong>Meta-Model Foundation (DM2):</strong> Defined formal meta-model describing all
+              architecture elements and relationships. DM2 enables consistent architecture
               description and automated processing.
             </li>
             <li>
-              <strong>Expanded Viewpoints:</strong> Added Capability Viewpoint (CV) and enhanced
-              Services Viewpoint (SV). Expanded viewpoints better address capability focus and
-              service-oriented approaches.
-            </li>
-            <li>
-              <strong>Integrated Architecture Description:</strong> Viewpoints more tightly
-              integrated with shared meta-model. Integration enables consistent element
-              relationships across viewpoints.
+              <strong>Fit-for-Purpose Guidance:</strong> Introduced principle that architectures
+              should be developed only to the level of detail needed for the decision at hand,
+              rather than requiring exhaustive documentation across all viewpoints.
             </li>
             <li>
               <strong>Analytical Capability:</strong> Data-centric approach enables automated
-              capability gap analysis and trade-space analysis. Analytical capability supports
-              better decision-making.
+              capability gap analysis and trade-space analysis supporting better decision-making.
             </li>
           </ul>
 
@@ -436,7 +450,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 8. Key Contributions */}
+        {/* 9. Key Contributions */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Key Contributions</h2>
           <ul className={BODY_LIST_CLASSES}>
@@ -484,7 +498,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 9. Internal Validity */}
+        {/* 10. Internal Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Internal Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -524,7 +538,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 10. External Validity */}
+        {/* 11. External Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>External Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -567,7 +581,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 11. Relevance to Technology Adoption */}
+        {/* 12. Relevance to Technology Adoption */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Relevance to Technology Adoption</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -662,7 +676,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 12. Following Models or Theories */}
+        {/* 13. Following Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Following Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -681,8 +695,9 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>NATO Architecture Framework (NAF):</strong> NATO allies developed architecture
-              framework based on DoDAF principles. NAF enabled international military
-              interoperability.
+              framework based on DoDAF principles. NAF v3 (2007) aligned with DoDAF viewpoints; NAF
+              v4 (2018) adopted a model-based approach aligned with the NATO C3 Taxonomy. NAF
+              enabled international military interoperability across 28+ member nations.
             </li>
             <li>
               <strong>Capability-Based Planning (CBP, 2004 onwards):</strong> DoD adopted
@@ -708,7 +723,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 13. References */}
+        {/* 14. References */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>References</h2>
           <ol className={REFERENCES_OL_CLASSES}>
@@ -719,6 +734,7 @@ const BibliographyArticlePage = () => {
           </ol>
         </section>
 
+        {/* 15. Further Reading */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Further Reading</h2>
           <ol className={REFERENCES_OL_CLASSES}>
@@ -749,9 +765,9 @@ const BibliographyArticlePage = () => {
               U.S. Department of Defense. (2004). <em>Capability-based planning guidance</em>. U.S.
               Department of Defense.
             </li>
-            <li id="ref-nato-2007">
-              NATO. (2007). <em>NATO architecture framework version 3</em>. NATO Standardization
-              Agency.
+            <li id="ref-nato-2018">
+              NATO. (2018). <em>NATO architecture framework version 4</em>. NATO Consultation,
+              Command and Control Board, Architecture Capability Team.
             </li>
             <li id="ref-schekkerman-2003">
               Schekkerman, J. (2003).{' '}
@@ -765,7 +781,7 @@ const BibliographyArticlePage = () => {
           </ol>
         </section>
 
-        {/* 14. Series Navigation */}
+        {/* 16. Series Navigation */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Series Navigation</h2>
           <div className="space-y-4">
