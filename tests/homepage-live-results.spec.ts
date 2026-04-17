@@ -33,9 +33,9 @@ test.describe('Homepage Live Results Section', () => {
     await page.goto('/')
 
     // Get all section IDs in order
-    const sections = await page.locator('section[id]').evaluateAll((elements) =>
-      elements.map((el) => el.id)
-    )
+    const sections = await page
+      .locator('section[id]')
+      .evaluateAll((elements) => elements.map((el) => el.id))
 
     // Verify live-results comes after statistics
     const statisticsIndex = sections.indexOf('statistics')
