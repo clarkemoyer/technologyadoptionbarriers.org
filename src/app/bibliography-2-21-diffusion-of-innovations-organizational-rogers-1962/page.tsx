@@ -84,10 +84,9 @@ const BibliographyArticlePage = () => {
             </p>
             <p>
               <strong>Foundational Research Base:</strong> Synthesis of the diffusion research
-              tradition, including the more than 3,000 diffusion publications (2,297 empirical and
-              788 non-empirical) catalogued in the 5th edition bibliography, spanning rural
-              sociology, public health, marketing, communication, organizational behavior, and
-              technology adoption literatures
+              tradition, spanning rural sociology, public health, marketing, communication,
+              organizational behavior, and technology adoption literatures across thousands of
+              catalogued empirical and non-empirical publications
             </p>
             <p>
               <strong>ISBN:</strong> 978-0-7432-2209-9
@@ -390,9 +389,8 @@ const BibliographyArticlePage = () => {
           <ul className={BODY_LIST_CLASSES}>
             <li>
               <strong>Comprehensive diffusion synthesis:</strong> Rogers synthesized the diffusion
-              research literature (more than 3,000 catalogued publications as of the 5th edition)
-              across multiple disciplines into an integrated theoretical framework, establishing
-              diffusion of innovations as a central social science concept.
+              research literature across multiple disciplines into an integrated theoretical
+              framework, establishing diffusion of innovations as a central social science concept.
             </li>
             <li>
               <strong>Process perspective:</strong> Framework treats adoption as social process
@@ -459,7 +457,7 @@ const BibliographyArticlePage = () => {
             Rogers&rsquo; five-category adopter typology - Innovators, Early Adopters, Early
             Majority, Late Majority, and Laggards - was originally developed to classify individual
             adopters along the normal distribution of time-to-adoption (Chapter 7 of the 5th
-            edition). In Chapter 10, Rogers cautioned that the earliest organizational-
+            edition). In Chapter 10, Rogers cautioned that the earliest organizational
             innovativeness studies, which simply transferred individual-level models to
             organizations, were oversimplified and measured innovativeness as a continuous composite
             score rather than a categorical typology. With that caveat in mind, subsequent diffusion
@@ -666,9 +664,9 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>Empirical grounding:</strong> Framework grounded in synthesis of the diffusion
-              research tradition (over 2,297 empirical and 788 non-empirical publications catalogued
-              in the 5th edition bibliography) across multiple disciplines, providing strong
-              empirical foundation for core theoretical propositions.
+              research tradition across multiple disciplines, providing a broad empirical foundation
+              for core theoretical propositions drawn from agriculture, medical sociology, public
+              health, marketing, and organizational research.
             </li>
           </ul>
         </section>
