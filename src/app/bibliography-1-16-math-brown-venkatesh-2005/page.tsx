@@ -258,13 +258,15 @@ const BibliographyArticlePage = () => {
               </ul>
             </li>
             <li>
-              <strong>Attitude, Subjective Norm, Perceived Behavioral Control, and Behavioral
-              Intention:</strong> Standard TPB dependent constructs.
+              <strong>
+                Attitude, Subjective Norm, Perceived Behavioral Control, and Behavioral Intention:
+              </strong>{' '}
+              Standard TPB dependent constructs.
             </li>
             <li>
-              <strong>Moderators:</strong> Age, Income, Marital Status, Life-Stage, and Presence
-              of Children - proposed to moderate relationships between specific beliefs and the
-              TPB second-order constructs.
+              <strong>Moderators:</strong> Age, Income, Marital Status, Life-Stage, and Presence of
+              Children - proposed to moderate relationships between specific beliefs and the TPB
+              second-order constructs.
             </li>
           </ul>
           <p className={PARAGRAPH_CLASSES}>
