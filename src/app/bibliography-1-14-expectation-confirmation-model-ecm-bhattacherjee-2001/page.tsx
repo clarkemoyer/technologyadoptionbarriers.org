@@ -452,9 +452,8 @@ const BibliographyArticlePage = () => {
           <ul className={BODY_LIST_CLASSES}>
             <li>
               <strong>Continuance as distinct research domain:</strong> Argued that post-adoption
-              continuance requires different theoretical framing than initial adoption, and
-              provided an early canonical model that subsequent IS continuance research has built
-              on.
+              continuance requires different theoretical framing than initial adoption, and provided
+              an early canonical model that subsequent IS continuance research has built on.
             </li>
             <li>
               <strong>Expectation-confirmation application to IS:</strong> Successfully adapted
@@ -480,10 +479,10 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>Distinction from adoption factors:</strong> Reported evidence, within the
-              original online banking sample, that continuance drivers (satisfaction,
-              confirmation) differ from adoption drivers typically emphasized by TAM
-              (ease of use, usefulness), challenging the assumption that a single model spans the
-              adoption-continuance lifecycle.
+              original online banking sample, that continuance drivers (satisfaction, confirmation)
+              differ from adoption drivers typically emphasized by TAM (ease of use, usefulness),
+              challenging the assumption that a single model spans the adoption-continuance
+              lifecycle.
             </li>
             <li>
               <strong>Empirical validation of continuance model:</strong> Provided empirical
