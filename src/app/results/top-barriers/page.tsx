@@ -67,7 +67,7 @@ const pickRankOf: Record<string, number> = {}
 pickSorted.forEach((r, i) => {
   pickRankOf[r.item] = i + 1
 })
-const meanRankOf: Record<string, number> = {}
+const meanRankOf: Partial<Record<string, number>> = {}
 meanSorted.forEach((r, i) => {
   meanRankOf[r.item] = i + 1
 })
@@ -161,10 +161,16 @@ const positiveMovers = [...moversAll].filter((r) => r.delta > 0).sort((a, b) => 
 const topNegative = negativeMovers.slice(0, 2)
 const topPositive = positiveMovers.slice(0, 2)
 
-const hasOmittedMeanRank = pickSorted.some((r) => meanRankOf[r.item] === undefined)
+// The Pick-vs-Mean comparison table only renders the top 10 items from the pick ranking. Gate
+// the "omitted Mean Rank" explanatory sentence on whether any of those rendered rows is actually
+// missing a Mean Rank value, not on whether the full pick list has one, and require that mean-
+// rank data exists at all so the prose never fires when the entire mean-ranking block is empty.
+const displayedPick: PickItem[] = pickSorted.slice(0, 10)
+const hasOmittedMeanRank =
+  meanRankable.length > 0 && displayedPick.some((r) => meanRankOf[r.item] === undefined)
 
 const TopBarriersLivePage = () => {
-  const topPick = pickSorted.slice(0, 10)
+  const topPick = displayedPick
   const topMean = meanSorted.slice(0, 10)
   const maxPick = topPick.length > 0 ? Math.max(...topPick.map((r) => r.count)) : 0
 
@@ -326,13 +332,27 @@ const TopBarriersLivePage = () => {
             <table className="w-full text-sm border border-gray-200 rounded-lg">
               <thead className="bg-gray-100 text-gray-700">
                 <tr>
-                  <th className="px-3 py-2 text-left">Barrier</th>
-                  <th className="px-3 py-2 text-right">Pick N</th>
-                  <th className="px-3 py-2 text-right">Pick %</th>
-                  <th className="px-3 py-2 text-right">Pick Rank</th>
-                  <th className="px-3 py-2 text-right">Mean</th>
-                  <th className="px-3 py-2 text-right">Mean Rank</th>
-                  <th className="px-3 py-2 text-right">Delta</th>
+                  <th scope="col" className="px-3 py-2 text-left">
+                    Barrier
+                  </th>
+                  <th scope="col" className="px-3 py-2 text-right">
+                    Pick N
+                  </th>
+                  <th scope="col" className="px-3 py-2 text-right">
+                    Pick %
+                  </th>
+                  <th scope="col" className="px-3 py-2 text-right">
+                    Pick Rank
+                  </th>
+                  <th scope="col" className="px-3 py-2 text-right">
+                    Mean
+                  </th>
+                  <th scope="col" className="px-3 py-2 text-right">
+                    Mean Rank
+                  </th>
+                  <th scope="col" className="px-3 py-2 text-right">
+                    Delta
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -350,9 +370,9 @@ const TopBarriersLivePage = () => {
                     const delta = pr !== null && mr !== null ? pr - mr : null
                     return (
                       <tr key={r.item} className="border-t border-gray-200">
-                        <td className="px-3 py-2">
+                        <th scope="row" className="px-3 py-2 text-left font-normal">
                           <span className="font-semibold">{r.item}</span> {r.text}
-                        </td>
+                        </th>
                         <td className="px-3 py-2 text-right font-mono">{r.count}</td>
                         <td className="px-3 py-2 text-right font-mono">{fmt(r.pct ?? null, 1)}</td>
                         <td className="px-3 py-2 text-right font-mono">{pr ?? DATA_UNAVAILABLE}</td>
@@ -376,8 +396,8 @@ const TopBarriersLivePage = () => {
             participants must prioritize), and a positive Delta means the opposite (it falls under
             forced choice relative to continuous rating).
             {dataAvailable && hasOmittedMeanRank
-              ? ' Barriers missing a Mean Rank value above are those with no valid continuous-rating mean in this dataset (all responses missing for that item).'
-              : ''}
+              ? ' Barriers missing a Mean Rank value above are those with no valid continuous-rating responses for that item in this dataset.'
+              : null}
           </p>
         </section>
 
@@ -387,10 +407,18 @@ const TopBarriersLivePage = () => {
             <table className="w-full text-sm border border-gray-200 rounded-lg">
               <thead className="bg-gray-100 text-gray-700">
                 <tr>
-                  <th className="px-3 py-2 text-left">Barrier</th>
-                  <th className="px-3 py-2 text-right">Mean</th>
-                  <th className="px-3 py-2 text-right">SD</th>
-                  <th className="px-3 py-2 text-right">N</th>
+                  <th scope="col" className="px-3 py-2 text-left">
+                    Barrier
+                  </th>
+                  <th scope="col" className="px-3 py-2 text-right">
+                    Mean
+                  </th>
+                  <th scope="col" className="px-3 py-2 text-right">
+                    SD
+                  </th>
+                  <th scope="col" className="px-3 py-2 text-right">
+                    N
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -403,9 +431,9 @@ const TopBarriersLivePage = () => {
                 ) : (
                   topMean.map((r) => (
                     <tr key={r.item} className="border-t border-gray-200">
-                      <td className="px-3 py-2">
+                      <th scope="row" className="px-3 py-2 text-left font-normal">
                         <span className="font-semibold">{r.item}</span> {r.text}
-                      </td>
+                      </th>
                       <td className="px-3 py-2 text-right font-mono">{fmt(r.mean, 4)}</td>
                       <td className="px-3 py-2 text-right font-mono">{fmt(r.sd, 4)}</td>
                       <td className="px-3 py-2 text-right font-mono">{r.n}</td>
