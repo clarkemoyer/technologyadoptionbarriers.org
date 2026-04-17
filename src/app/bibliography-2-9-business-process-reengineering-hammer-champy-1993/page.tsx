@@ -630,21 +630,24 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Internal Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
-            Business Process Reengineering demonstrates reasonable internal validity as an
-            organizational change framework:
+            As a prescriptive management framework rather than an empirical theory, BPR is not
+            directly tested through construct validation procedures. Considerations typically
+            raised about its internal logic include:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Logical coherence:</strong> The argument that questioning fundamental process
-              assumptions and leveraging technology can generate dramatic performance improvements
-              is logically sound. Organizations should expect dramatic improvements if they
-              fundamentally rethink and redesign critical processes.
+              <strong>Internal coherence of argument:</strong> The argument that questioning
+              legacy process assumptions and leveraging information technology can enable
+              substantial performance improvement is internally coherent. Whether any given
+              organization should expect dramatic results from applying the framework depends on
+              many contingencies not specified in the framework itself.
             </li>
             <li>
-              <strong>Addresses documented competitive challenges:</strong> The framework explains
-              performance improvements documented in case studies of successful reengineering
-              initiatives. Organizations adopting BPR have reported dramatic cost reduction, speed
-              improvement, and competitive advantage.
+              <strong>Compatibility with practitioner case reports:</strong> The framework is
+              consistent with the narrative structure of case reports commonly cited by BPR
+              proponents. Published reports of dramatic cost, speed, and competitive improvements
+              are largely practitioner-authored or consultant-authored rather than peer-reviewed
+              empirical studies.
             </li>
             <li>
               <strong>Consistent with technology adoption research:</strong> The framework&rsquo;s
@@ -657,9 +660,10 @@ const BibliographyArticlePage = () => {
               recognizing contingency factors.
             </li>
             <li>
-              <strong>Practical examples provide evidence:</strong> Case studies of successful
-              reengineering initiatives (Federal Express, Hewlett-Packard, others) provide evidence
-              supporting framework principles.
+              <strong>Practitioner examples cited:</strong> Hammer and Champy draw on case studies
+              of reengineering initiatives (for example IBM Credit, Ford, and Kodak in the original
+              book) to illustrate framework principles. These are author-selected illustrations
+              rather than systematic empirical validation.
             </li>
             <li>
               <strong>Accounts for variation in outcomes:</strong> Framework acknowledges that
