@@ -6,15 +6,15 @@ Offline tools that construct the final CRP deliverable document from its constit
 
 ### Current
 
-| File | Purpose |
-|------|---------|
-| `merge_appendixes.py` | Merges the CRP body .docx with Appendixes A, B, C, D (markdown) into a single final docx with consistent formatting, page breaks, and table of contents. Produces output named `Clarke Moyer - DBA Culminating Research Project - Product Development (<EST-timestamp>).docx`. |
-| `compute_crp_stats_v2.py` | Computes descriptive statistics from the frozen CRP CSV using the canonical scale maps (barrier 1-5, readiness 1-5 with Don't Know excluded, maturity 1-5 with Don't Know excluded). Useful for spot-checking validator output or generating new numbers for CRP insertion. |
+| File                      | Purpose                                                                                                                                                                                                                                                                        |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `merge_appendixes.py`     | Merges the CRP body .docx with Appendixes A, B, C, D (markdown) into a single final docx with consistent formatting, page breaks, and table of contents. Produces output named `Clarke Moyer - DBA Culminating Research Project - Product Development (<EST-timestamp>).docx`. |
+| `compute_crp_stats_v2.py` | Computes descriptive statistics from the frozen CRP CSV using the canonical scale maps (barrier 1-5, readiness 1-5 with Don't Know excluded, maturity 1-5 with Don't Know excluded). Useful for spot-checking validator output or generating new numbers for CRP insertion.    |
 
 ### Archive
 
-| File | Date | Notes |
-|------|------|-------|
+| File                             | Date             | Notes                                                                                                                                                |
+| -------------------------------- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `archive/merge_appendixes_v2.py` | 2026-04-16 early | Earlier iteration of the merge script; predates the current `merge_appendixes.py` despite the 'v2' in its name (the workspace naming is historical). |
 
 ## Running

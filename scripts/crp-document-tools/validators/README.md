@@ -6,20 +6,20 @@ Static assertion checks that walk the CRP `.docx` text and verify every quantita
 
 ### Current
 
-| File | Purpose | Coverage |
-|------|---------|----------|
+| File                       | Purpose                                                                  | Coverage                        |
+| -------------------------- | ------------------------------------------------------------------------ | ------------------------------- |
 | `validate_crp_stats_v5.py` | Comprehensive statistics validator for the merged CRP body+appendix docx | 277 checks across 42 categories |
-| `validate_appendixes.py` | Structural checks against the 4 appendix markdown files (A, B, C, D) | Appendix internal consistency |
+| `validate_appendixes.py`   | Structural checks against the 4 appendix markdown files (A, B, C, D)     | Appendix internal consistency   |
 
 ### Archive
 
-| File | Date | Notes |
-|------|------|-------|
-| `archive/validate_crp_stats_v1.py` | 2026-04-02 | Initial release, 23 checks |
-| `archive/validate_crp_stats_v2.py` | 2026-04-11 | Expanded to ~150 checks |
-| `archive/validate_crp_stats_merged.py` | 2026-04-11 | One-off merge variant of v2 |
-| `archive/validate_crp_stats_v3.py` | 2026-04-16 AM | ~200 checks, 20 categories |
-| `archive/validate_crp_stats_v4.py` | 2026-04-16 PM | ~230 checks, 30 categories |
+| File                                   | Date          | Notes                       |
+| -------------------------------------- | ------------- | --------------------------- |
+| `archive/validate_crp_stats_v1.py`     | 2026-04-02    | Initial release, 23 checks  |
+| `archive/validate_crp_stats_v2.py`     | 2026-04-11    | Expanded to ~150 checks     |
+| `archive/validate_crp_stats_merged.py` | 2026-04-11    | One-off merge variant of v2 |
+| `archive/validate_crp_stats_v3.py`     | 2026-04-16 AM | ~200 checks, 20 categories  |
+| `archive/validate_crp_stats_v4.py`     | 2026-04-16 PM | ~230 checks, 30 categories  |
 
 ## v5 category coverage (42 total)
 

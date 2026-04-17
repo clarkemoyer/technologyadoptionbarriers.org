@@ -45,12 +45,12 @@ PII-containing CSVs (enriched with Prolific demographics, raw Qualtrics exports)
 
 ## When to update which subfolder
 
-| Change type | Subfolder |
-|-------------|-----------|
-| New statistical claim added to the CRP, needs validation | `validators/` |
-| Change to how appendixes merge into the body document | `builders/` |
-| CRP number drifted from pipeline number, need to identify gap | `convergence/` |
-| Live pipeline output shape changed, affects offline tools | Possibly all three |
+| Change type                                                   | Subfolder          |
+| ------------------------------------------------------------- | ------------------ |
+| New statistical claim added to the CRP, needs validation      | `validators/`      |
+| Change to how appendixes merge into the body document         | `builders/`        |
+| CRP number drifted from pipeline number, need to identify gap | `convergence/`     |
+| Live pipeline output shape changed, affects offline tools     | Possibly all three |
 
 ## Version history
 

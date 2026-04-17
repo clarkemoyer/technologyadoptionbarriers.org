@@ -6,19 +6,19 @@ Offline reconciliation tools that compare the CRP `.docx`, the pipeline-generate
 
 ### Current
 
-| File | Purpose |
-|------|---------|
+| File                                 | Purpose                                                                                                                                                                                                                                                                           |
+| ------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `crp_full_convergence_check_v2_3.py` | Full convergence check across CRP docx, pipeline JSON, and website TSX. Current version (v2.3). Produces a markdown report organized as Category A (website newer, CRP needs updating), Category B (CRP newer, website needs updating), Category C (both differ, needs decision). |
-| `crp_convergence_check.py` | Simpler baseline reconciler. Checks only the highest-priority numeric claims (sample sizes, construct means, alphas). Useful for a quick pre-commit sanity pass. |
+| `crp_convergence_check.py`           | Simpler baseline reconciler. Checks only the highest-priority numeric claims (sample sizes, construct means, alphas). Useful for a quick pre-commit sanity pass.                                                                                                                  |
 
 ### Archive
 
-| File | Date | Notes |
-|------|------|-------|
-| `archive/crp_full_convergence_check_v2_1656.py` | 2026-04-16 16:56 | Initial v2 cut |
-| `archive/crp_full_convergence_check_v2_1659.py` | 2026-04-16 16:59 | v2 with minor fix |
-| `archive/crp_full_convergence_check_v2_1.py` | 2026-04-16 17:27 | v2.1 (added HTMT and Fornell-Larcker checks) |
-| `archive/crp_full_convergence_check_v2_2.py` | 2026-04-16 17:39 | v2.2 (added demographic crosstab reconciliation) |
+| File                                            | Date             | Notes                                            |
+| ----------------------------------------------- | ---------------- | ------------------------------------------------ |
+| `archive/crp_full_convergence_check_v2_1656.py` | 2026-04-16 16:56 | Initial v2 cut                                   |
+| `archive/crp_full_convergence_check_v2_1659.py` | 2026-04-16 16:59 | v2 with minor fix                                |
+| `archive/crp_full_convergence_check_v2_1.py`    | 2026-04-16 17:27 | v2.1 (added HTMT and Fornell-Larcker checks)     |
+| `archive/crp_full_convergence_check_v2_2.py`    | 2026-04-16 17:39 | v2.2 (added demographic crosstab reconciliation) |
 
 ## Output format
 
