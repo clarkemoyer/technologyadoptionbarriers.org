@@ -501,16 +501,19 @@ const BibliographyArticlePage = () => {
             three-way matching verification reduced costs and accelerated payment processing.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            At Mutual Benefit Life Insurance Company, the life insurance application process was
-            redesigned. The original process involved sequential steps: application processing,
-            underwriting assessment, medical review, financial review, and approval. The process
-            required 5-25 days and involved handoffs between multiple departments. Redesign
-            identified information technology opportunity: enable case workers to access all
-            required information systems and make end-to-end decisions. Instead of specialized
-            underwriters, medical reviewers, and financial analysts making sequential decisions,
-            trained case workers could access decision-support systems providing underwriting
-            guidance, medical information access, and financial analysis. Single case worker could
-            complete entire application process in 4 hours instead of 5-25 days.
+            At Mutual Benefit Life Insurance (MBL), the individual life insurance underwriting
+            process was redesigned. As described by Davenport &amp; Short (1990, p. 17), MBL&rsquo;s
+            original underwriting process involved 40 steps with over 100 people across 12
+            functional areas and 80 separate jobs. To streamline this lengthy and complex process,
+            MBL undertook a pilot with the goal of improving productivity by 40 percent. To
+            integrate the process, MBL created a new role, the case manager, designed to perform and
+            coordinate all underwriting tasks centrally, utilizing a workstation-based computer
+            system capable of pulling data from throughout the company. After a brief start-up
+            period, the firm learned that two additional roles were necessary on some underwriting
+            tasks: specialists such as lawyers or medical directors in knowledge-intensive fields,
+            and clerical assistance. With the new role and redesigned process, senior managers at
+            MBL were confident of reaching the 40 percent goal in a few months (Davenport &amp;
+            Short, 1990, p. 17).
           </p>
 
           <h3 className={H3_CLASSES}>Main Strengths</h3>
