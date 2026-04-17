@@ -68,8 +68,10 @@ const BibliographyArticlePage = () => {
               <strong>Publisher:</strong> US Department of Defense
             </p>
             <p>
-              <strong>Document Format:</strong> Four-volume technical reference framework and
-              architecture standard
+              <strong>Document Format:</strong> Multi-volume technical reference framework and
+              architecture standard (Version 2.0, dated 30 June 1994, consists of seven volumes per
+              the 30 March 1995 ASD memorandum; Version 3.0, dated 30 April 1996, comprises eight
+              volumes)
             </p>
             <p>
               <strong>URL:</strong>{' '}
@@ -163,10 +165,10 @@ const BibliographyArticlePage = () => {
           <h2 className={H2_CLASSES}>Core Concepts and Definitions</h2>
           <p className={PARAGRAPH_CLASSES}>TAFIM centers on several core concepts:</p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Source note:</strong> Claims below are drawn from the published TAFIM Volume I
-            Overview and Summary Information and commonly cited secondary treatments of TAFIM.
-            Direct page-level verification against the four-volume primary document has not been
-            performed for every claim.
+            <strong>Source note:</strong> Structural claims about the Technical Reference Model on
+            this page have been verified against TAFIM Version 3.0 Volume 2 (Technical Reference
+            Model, 30 April 1996). Claims about other volumes are drawn from the published TAFIM
+            configuration management record and commonly cited secondary treatments.
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
@@ -176,10 +178,11 @@ const BibliographyArticlePage = () => {
               decisions across enterprise.
             </li>
             <li>
-              <strong>Layered Architecture:</strong> Organizing technology architecture into
-              distinct layers: application software, application platforms, external environment,
-              and information. Each layer has defined responsibilities and interfaces with adjacent
-              layers.
+              <strong>Layered Architecture:</strong> Organizing the technical reference model around
+              entities (application software, application platform, external environment) connected
+              by standardized interfaces (Application Program Interface and External Environment
+              Interface). Each entity has defined responsibilities and exchanges services across its
+              interfaces.
             </li>
             <li>
               <strong>Reference Model:</strong> A standardized description of typical systems within
@@ -275,7 +278,9 @@ const BibliographyArticlePage = () => {
               <strong>OSI Reference Model (ISO/IEC 7498, 1984):</strong> The Open Systems
               Interconnection seven-layer reference model established the concept of layered
               reference architectures and standardized interfaces between layers, predating
-              TAFIM&rsquo;s four-layer Technical Reference Model.
+              TAFIM&rsquo;s Technical Reference Model (which is structured around three entities
+              connected by the Application Program Interface and External Environment Interface,
+              adapted from the IEEE POSIX.0 Open System Environment reference model).
             </li>
             <li>
               <strong>Database Normalization and Data Modeling (Codd, 1970; Chen, 1976):</strong>{' '}
@@ -294,34 +299,46 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Describe The Model</h2>
           <p className={PARAGRAPH_CLASSES}>
-            TAFIM provides comprehensive enterprise architecture structure through four-volume
+            TAFIM provides comprehensive enterprise architecture structure through a multi-volume
             reference framework defining layered technology architecture, standardized reference
             models, and acquisition mandates ensuring DoD systems align with common architecture.
           </p>
 
-          <h3 className={H3_CLASSES}>Four-Layer Architecture Structure</h3>
+          <h3 className={H3_CLASSES}>Technical Reference Model Entities and Interfaces</h3>
+          <p className={PARAGRAPH_CLASSES}>
+            The TAFIM Technical Reference Model (Volume 2) adapts the IEEE POSIX.0 Open System
+            Environment reference model. It defines three classes of entities and two types of
+            interfaces rather than a four-layer stack:
+          </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Layer 1 - Application Software:</strong> Top layer consisting of business
-              applications delivering military functions and operations. Examples: command and
-              control systems, logistics systems, intelligence systems, personnel systems. Each
-              application serves specific military or business function.
+              <strong>Application Software Entity:</strong> Mission-area applications and support
+              applications delivering end-user functions. Mission-area applications implement
+              specific operational requirements (e.g., payroll, materiel management, control of
+              real-time systems). Support applications are common applications (e.g., e-mail, word
+              processing) standardized across mission areas.
             </li>
             <li>
-              <strong>Layer 2 - Application Platform:</strong> Middleware and platform services
-              supporting application software. Includes database management systems, transaction
-              monitors, messaging systems, and application servers. Application platform provides
-              common services that applications use.
+              <strong>Application Program Interface (API):</strong> The interface between the
+              application software and the application platform across which all services are
+              provided. Grouped into System Services, Communications Services, Information Services,
+              and Human/Computer Interaction Services.
             </li>
             <li>
-              <strong>Layer 3 - External Environment:</strong> External systems, standards, and
-              factors influencing DoD architecture. Includes external systems that DoD must
-              interoperate with, industry standards, and regulatory requirements.
+              <strong>Application Platform Entity:</strong> The set of resources (operating system
+              kernel, real-time monitors, hardware and peripheral drivers) that provide services at
+              the API. Implementation-specific characteristics are made transparent to the
+              application software.
             </li>
             <li>
-              <strong>Layer 4 - Information:</strong> Data, information models, and information
-              management standards. Defines what information is created, stored, and exchanged
-              across systems. Information layer specifies data standards and exchange formats.
+              <strong>External Environment Interface (EEI):</strong> The interface between the
+              application platform and the external environment. Divided into Human/Computer
+              Interaction Services EEI, Information Services EEI, and Communications Services EEI.
+            </li>
+            <li>
+              <strong>External Environment:</strong> Contains external entities with which the
+              application platform exchanges information, classified into human users, information
+              interchange entities, and communications entities.
             </li>
           </ul>
 
@@ -357,31 +374,41 @@ const BibliographyArticlePage = () => {
             </li>
           </ul>
 
-          <h3 className={H3_CLASSES}>TAFIM Content Volumes</h3>
+          <h3 className={H3_CLASSES}>TAFIM Content Volumes (Version 3.0, 30 April 1996)</h3>
+          <p className={PARAGRAPH_CLASSES}>
+            Per the Version 3.0 TAFIM Document Configuration Management Page (all dated 30 April
+            1996):
+          </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Volume I: Overview and Strategic Context:</strong> Describes TAFIM purpose,
-              context, and how it addresses DoD information management challenges. Explains why
-              common architecture is necessary.
+              <strong>Volume 1: Overview</strong>
             </li>
             <li>
-              <strong>Volume II: Application Software Architecture:</strong> Reference model for
-              application software layer. Describes application software categories, interfaces, and
-              standards.
+              <strong>Volume 2: Technical Reference Model</strong>
             </li>
             <li>
-              <strong>Volume III: Application Platform Architecture:</strong> Reference model for
-              middleware and platform services layer. Describes platform services, interfaces, and
-              standards.
+              <strong>Volume 3: Architecture Concepts and Design Guidance</strong>
             </li>
             <li>
-              <strong>
-                Volume IV: External Environment and Information Management Architecture:
-              </strong>{' '}
-              Describes external systems and information architecture including information
-              standards and data models.
+              <strong>Volume 4: DoD SBA (Standards-Based Architecture) Planning Guide</strong>
+            </li>
+            <li>
+              <strong>Volume 5: Program Manager&rsquo;s Guide for Open Systems</strong>
+            </li>
+            <li>
+              <strong>Volume 6: DoD Goal Security Architecture</strong>
+            </li>
+            <li>
+              <strong>Volume 7: Adopted Information Technology Standards</strong>
+            </li>
+            <li>
+              <strong>Volume 8: HCI Style Guide</strong>
             </li>
           </ul>
+          <p className={PARAGRAPH_CLASSES}>
+            The preceding Version 2.0 (30 June 1994) consisted of seven volumes, as recorded in the
+            30 March 1995 ASD memorandum reproduced in Appendix C of Volume 2.
+          </p>
 
           <h3 className={H3_CLASSES}>Main Strengths</h3>
           <ul className={BODY_LIST_CLASSES}>
@@ -420,9 +447,9 @@ const BibliographyArticlePage = () => {
           <h3 className={H3_CLASSES}>Main Weaknesses</h3>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Complexity and volume:</strong> TAFIM four-volume framework is complex and
-              voluminous. Architects and developers struggled to understand and apply TAFIM
-              principles.
+              <strong>Complexity and volume:</strong> The multi-volume TAFIM framework (seven
+              volumes in Version 2.0; eight volumes in Version 3.0) is complex and voluminous.
+              Architects and developers struggled to understand and apply TAFIM principles.
             </li>
             <li>
               <strong>Technology evolution outpaced framework:</strong> Technology changed faster
