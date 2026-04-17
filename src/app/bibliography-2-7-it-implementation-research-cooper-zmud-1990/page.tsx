@@ -169,23 +169,35 @@ const BibliographyArticlePage = () => {
           <ul className={BODY_LIST_CLASSES}>
             <li>
               <strong>MRP Adoption:</strong> A binary indicator of whether the firm had adopted MRP
-              (yes/no), modelled via logistic regression against user, organization, task,
-              technology, and environment factors (Cooper &amp; Zmud, 1990, Table 1, p. 124; and
-              regression results in the paper&rsquo;s results section).
+              (coded 0 for reorder point use, 1 for Class D through Class A MRP use), modelled via
+              logistic regression against task and technology characteristics derived from H1-H4:
+              manufacturing method (continuous vs. intermittent), marketing strategy (make-to-stock
+              vs. make-to-order), average number of bill-of-material levels, and average number of
+              parts per bill-of-material level (Cooper &amp; Zmud, 1990, pp. 131-133, Tables 4A-4B).
             </li>
             <li>
-              <strong>MRP Infusion:</strong> An index of the depth and integration of MRP use within
-              the adopting firm (beyond the binary adoption decision). Measured from survey
-              responses about the extent to which MRP was used in production planning, inventory
-              control, and related managerial tasks.
+              <strong>MRP Infusion:</strong> A binary indicator of the depth of MRP use within the
+              adopting firm, operationalized using the Wight (1977) / Anderson et al. (1981) A-D
+              classification scheme (coded 0 for Class C use, 1 for Class B or A use; Class D and
+              reorder point firms omitted). Class A reflects a closed-loop system used for both
+              priority and capacity planning with top management; Class C reflects an
+              order-launching system with priority planning only (Cooper &amp; Zmud, 1990, pp.
+              130-131).
             </li>
           </ul>
           <p className={PARAGRAPH_CLASSES}>
-            The empirical finding: the interaction of managerial task characteristics with IT does
-            affect MRP <em>adoption</em> but does not significantly affect MRP <em>infusion</em> -
-            suggesting that rational decision models may explain adoption but that political and
-            learning models may be more appropriate for infusion (Cooper &amp; Zmud, 1990,
-            abstract).
+            The study draws a random sample of 100 American Production and Inventory Control Society
+            members, of whom 62 provided usable responses; 10 additional firms were eliminated for
+            lacking a clearly dominant marketing strategy, leaving 52 firms for the adoption
+            analysis and 32 firms for the infusion analysis (Cooper &amp; Zmud, 1990, pp. 131-132).
+            Table 1 (p. 125) maps the five contextual factor categories (user, organization, task,
+            technology, environment) across the six implementation stages as a conceptual framework;
+            the empirical study targeted the task-by-technology interaction at two stages (adoption
+            and infusion). The empirical finding: the interaction of managerial task characteristics
+            with IT does affect MRP <em>adoption</em> but does not significantly affect MRP{' '}
+            <em>infusion</em> - suggesting that rational decision models may explain adoption but
+            that political and learning models may be more appropriate for infusion (Cooper &amp;
+            Zmud, 1990, abstract).
           </p>
         </section>
 
