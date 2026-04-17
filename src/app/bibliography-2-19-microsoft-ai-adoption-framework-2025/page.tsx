@@ -215,8 +215,8 @@ const BibliographyArticlePage = () => {
           <ul className={BODY_LIST_CLASSES}>
             <li>
               <strong>Readiness coverage:</strong> Whether prescribed readiness activities
-              (identity, licensing, data governance, change management) have been completed for
-              the target AI workload or scope.
+              (identity, licensing, data governance, change management) have been completed for the
+              target AI workload or scope.
             </li>
             <li>
               <strong>Responsible AI compliance:</strong> Whether the adoption aligns with
@@ -557,11 +557,10 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Internal Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
-            The Microsoft AI Adoption Framework is a vendor-published prescriptive framework
-            rather than an empirical theory, so it is not subject to construct-validity testing in
-            a psychometric sense. Considerations typically raised about its internal consistency
-            as a comprehensive
-            AI adoption framework:
+            The Microsoft AI Adoption Framework is a vendor-published prescriptive framework rather
+            than an empirical theory, so it is not subject to construct-validity testing in a
+            psychometric sense. Considerations typically raised about its internal consistency as a
+            comprehensive AI adoption framework:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
