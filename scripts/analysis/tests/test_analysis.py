@@ -1006,3 +1006,300 @@ class TestCrossModuleParity:
                 f"Mismatch for F={f_val}, df1={df1}, df2={df2}: "
                 f"analysis={p_analysis}, unified={p_unified}"
             )
+
+
+# ── Extended output blocks (tabs_v2_unified_data_analysis) ───
+
+class TestExtendedOutputBlocks:
+    """Tests for the four extended blocks added to sensitivity_to_json()
+    in tabs_v2_unified_data_analysis: top3_pick_counts, item_descriptives,
+    construct_grand, and demographics_detailed."""
+
+    # ------------------------------------------------------------------
+    # Helpers to build a small synthetic idx + rows dataset
+    # ------------------------------------------------------------------
+
+    @staticmethod
+    def _build_synthetic_data():
+        """Return (idx, rows) for a 4-row synthetic dataset that includes
+        all TOP3, barrier, readiness, maturity, and demographic columns.
+
+        Pick layout (each row can pick up to 3 barriers):
+          row0: B1, B6, B7  → cols Top3Barriers_1, _6, _7 have "1"
+          row1: B1, B7       → cols Top3Barriers_1, _7 have "1"
+          row2: B6, B7       → cols Top3Barriers_6, _7 have "1"
+          row3: B2           → col  Top3Barriers_2 has "1"
+        Expected counts: B1=2, B2=1, B6=2, B7=3, others=0.
+
+        Barrier items (all 18 substantive cols):
+          rows 0-2: all "Major Barrier" (score 5)
+          row  3  : all "Minor Barrier" (score 2)
+        Person-level barrier means: 5.0, 5.0, 5.0, 2.0 → grand mean 4.25, sd ≈ 1.5.
+
+        Readiness items (17 substantive cols):
+          rows 0-3: all "High Readiness/Capability" (score 4)
+        Person-level readiness means: 4.0 for all → grand mean 4.0, sd = 0.0.
+
+        Maturity items (8 substantive cols):
+          rows 0-3: all "Level 3: Defined/Standardized" (score 3)
+        Person-level maturity means: 3.0 for all → grand mean 3.0, sd = 0.0.
+
+        Demographics:
+          rows 0-1: role=CIO, org=10000+, profit=For-Profit, auth=High
+          rows 2-3: role=CEO, org=100-499, profit=Non-Profit, auth=Medium
+        """
+        from tabs_v2_unified_data_analysis import (
+            BARRIER_COLS, READINESS_COLS, MATURITY_COLS,
+            BARRIER_IRI, READINESS_IRI, MATURITY_IRI,
+        )
+
+        top3_cols = [f"Q29-46_Top3Barriers_{i}" for i in range(1, 19)]
+        demo_cols = ["Q1_Role", "Q2_DecisionAuth", "Q4_OrgSize", "Q5_ProfitModel"]
+        other_cols = [
+            "ResponseId", "StartDate", "Duration (in seconds)", "Finished",
+            "PROLIFIC_PID", "Q_RecaptchaScore", "Q_StraightliningCount",
+            BARRIER_IRI, READINESS_IRI, MATURITY_IRI,
+        ]
+        all_cols = other_cols + demo_cols + BARRIER_COLS + READINESS_COLS + MATURITY_COLS + top3_cols
+        idx = {col: i for i, col in enumerate(all_cols)}
+        ncols = len(all_cols)
+
+        def make_row(
+            pid, barrier_val, readiness_val, maturity_val,
+            role, auth, org_size, profit, top3_selections
+        ):
+            row = [""] * ncols
+            row[idx["ResponseId"]] = pid
+            row[idx["StartDate"]] = "2026-01-01 10:00:00"
+            row[idx["Duration (in seconds)"]] = "600"
+            row[idx["Finished"]] = "TRUE"
+            row[idx["PROLIFIC_PID"]] = pid
+            row[idx["Q_RecaptchaScore"]] = "0.9"
+            row[idx["Q_StraightliningCount"]] = "0"
+            # IRI columns with correct answers so rows aren't flagged as bad
+            row[idx[BARRIER_IRI]] = "Major Barrier"
+            row[idx[READINESS_IRI]] = "Low Readiness/Capability"
+            row[idx[MATURITY_IRI]] = "Level 2: Developing/Repeatable"
+            # Demographics
+            row[idx["Q1_Role"]] = role
+            row[idx["Q2_DecisionAuth"]] = auth
+            row[idx["Q4_OrgSize"]] = org_size
+            row[idx["Q5_ProfitModel"]] = profit
+            # Barrier items (18 substantive)
+            for col in BARRIER_COLS:
+                row[idx[col]] = barrier_val
+            # Readiness items (17 substantive)
+            for col in READINESS_COLS:
+                row[idx[col]] = readiness_val
+            # Maturity items (8 substantive)
+            for col in MATURITY_COLS:
+                row[idx[col]] = maturity_val
+            # TOP3 pick columns
+            for sel in top3_selections:
+                col = f"Q29-46_Top3Barriers_{sel}"
+                row[idx[col]] = "1"
+            return row
+
+        rows = [
+            make_row("P1", "Major Barrier", "High Readiness/Capability",
+                     "Level 3: Defined/Standardized",
+                     "CIO (e.g., Director of IT)", "High", "10000+", "For-Profit",
+                     [1, 6, 7]),
+            make_row("P2", "Major Barrier", "High Readiness/Capability",
+                     "Level 3: Defined/Standardized",
+                     "CIO (e.g., Director of IT)", "High", "10000+", "For-Profit",
+                     [1, 7]),
+            make_row("P3", "Major Barrier", "High Readiness/Capability",
+                     "Level 3: Defined/Standardized",
+                     "CEO (e.g., President, Executive Director)", "Medium", "100-499", "Non-Profit",
+                     [6, 7]),
+            make_row("P4", "Minor Barrier", "High Readiness/Capability",
+                     "Level 3: Defined/Standardized",
+                     "CEO (e.g., President, Executive Director)", "Medium", "100-499", "Non-Profit",
+                     [2]),
+        ]
+        return idx, rows
+
+    # ------------------------------------------------------------------
+    # Direct builder-function tests
+    # ------------------------------------------------------------------
+
+    def test_top3_pick_counts_structure_and_values(self):
+        from tabs_v2_unified_data_analysis import _build_top3_pick_counts
+        idx, rows = self._build_synthetic_data()
+        result = _build_top3_pick_counts(rows, idx)
+
+        assert result["total_n"] == 4
+        assert len(result["items"]) == 18
+        assert len(result["items_sorted_desc"]) == 18
+
+        by_item = {entry["item"]: entry for entry in result["items"]}
+        assert by_item["B1"]["count"] == 2
+        assert by_item["B2"]["count"] == 1
+        assert by_item["B6"]["count"] == 2
+        assert by_item["B7"]["count"] == 3
+        assert by_item["B3"]["count"] == 0
+
+        # pct = 100 * count / total_n
+        assert by_item["B7"]["pct"] == pytest.approx(75.0)
+        assert by_item["B1"]["pct"] == pytest.approx(50.0)
+        assert by_item["B3"]["pct"] == pytest.approx(0.0)
+
+        # items_sorted_desc: B7 (count=3) must be first
+        assert result["items_sorted_desc"][0]["item"] == "B7"
+
+    def test_top3_pick_counts_raises_when_no_top3_cols(self):
+        from tabs_v2_unified_data_analysis import _build_top3_pick_counts
+        idx = {"some_other_col": 0}
+        rows = [["value"]]
+        with pytest.raises(ValueError, match="No TOP3 columns found"):
+            _build_top3_pick_counts(rows, idx)
+
+    def test_item_descriptives_structure_and_values(self):
+        from tabs_v2_unified_data_analysis import _build_item_descriptives
+        idx, rows = self._build_synthetic_data()
+        result = _build_item_descriptives(rows, idx)
+
+        assert "barriers" in result
+        assert "readiness" in result
+        assert "maturity" in result
+
+        # 18 barrier items, 17 readiness items, 8 maturity items
+        assert len(result["barriers"]) == 18
+        assert len(result["readiness"]) == 17
+        assert len(result["maturity"]) == 8
+
+        # Barriers: rows 0-2 = 5 (Major), row3 = 2 (Minor) → mean = 4.25
+        b1 = result["barriers"][0]
+        assert b1["item"] == "B1"
+        assert b1["n"] == 4
+        assert b1["mean"] == pytest.approx(4.25, abs=0.001)
+
+        # Readiness: all rows = 4 (High) → mean = 4.0, sd = 0.0
+        r1 = result["readiness"][0]
+        assert r1["item"] == "R1"
+        assert r1["n"] == 4
+        assert r1["mean"] == pytest.approx(4.0)
+        assert r1["sd"] == pytest.approx(0.0)
+
+        # Maturity: all rows = 3 (Defined/Standardized) → mean = 3.0, sd = 0.0
+        m1 = result["maturity"][0]
+        assert m1["item"] == "M1"
+        assert m1["n"] == 4
+        assert m1["mean"] == pytest.approx(3.0)
+        assert m1["sd"] == pytest.approx(0.0)
+
+    def test_construct_grand_structure_and_values(self):
+        from tabs_v2_unified_data_analysis import _build_construct_grand
+        idx, rows = self._build_synthetic_data()
+        result = _build_construct_grand(rows, idx)
+
+        for key in ("barriers", "readiness", "maturity"):
+            assert key in result
+            assert "mean" in result[key]
+            assert "sd" in result[key]
+            assert "n" in result[key]
+
+        # Barrier person means: 5.0, 5.0, 5.0, 2.0 → grand mean = 4.25
+        assert result["barriers"]["n"] == 4
+        assert result["barriers"]["mean"] == pytest.approx(4.25, abs=0.001)
+
+        # Readiness person means: all 4.0 → grand mean = 4.0, sd = 0.0
+        assert result["readiness"]["n"] == 4
+        assert result["readiness"]["mean"] == pytest.approx(4.0)
+        assert result["readiness"]["sd"] == pytest.approx(0.0)
+
+        # Maturity person means: all 3.0 → grand mean = 3.0, sd = 0.0
+        assert result["maturity"]["n"] == 4
+        assert result["maturity"]["mean"] == pytest.approx(3.0)
+        assert result["maturity"]["sd"] == pytest.approx(0.0)
+
+    def test_demographics_detailed_structure_and_values(self):
+        from tabs_v2_unified_data_analysis import _build_demographics_detailed
+        idx, rows = self._build_synthetic_data()
+        result = _build_demographics_detailed(rows, idx)
+
+        for key in ("roles", "org_sizes", "profit_models", "decision_authority"):
+            assert key in result, f"missing key: {key}"
+            assert isinstance(result[key], list), f"expected list for {key}"
+
+        # CIO and CEO each appear twice
+        role_labels = {entry["label"] for entry in result["roles"]}
+        assert "CIO (e.g., Director of IT)" in role_labels
+        assert "CEO (e.g., President, Executive Director)" in role_labels
+        role_counts = {e["label"]: e["count"] for e in result["roles"]}
+        assert role_counts["CIO (e.g., Director of IT)"] == 2
+        assert role_counts["CEO (e.g., President, Executive Director)"] == 2
+
+        # Profit models: For-Profit=2, Non-Profit=2
+        pm_counts = {e["label"]: e["count"] for e in result["profit_models"]}
+        assert pm_counts["For-Profit"] == 2
+        assert pm_counts["Non-Profit"] == 2
+
+        # pct should sum to 100 (within rounding tolerance)
+        total_pct = sum(e["pct"] for e in result["roles"])
+        assert total_pct == pytest.approx(100.0, abs=0.1)
+
+    # ------------------------------------------------------------------
+    # sensitivity_to_json integration test for extended blocks
+    # ------------------------------------------------------------------
+
+    def test_sensitivity_to_json_extended_keys_always_present(self):
+        """Extended keys must be in JSON output even with an empty primary cut."""
+        from tabs_v2_unified_data_analysis import sensitivity_to_json
+
+        # Pass an empty Prolific Accepted cut
+        idx = {"StartDate": 0, "Duration (in seconds)": 1}
+        cuts = [("Prolific Accepted", [])]
+        result = sensitivity_to_json(cuts, idx)
+
+        for key in ("top3_pick_counts", "item_descriptives", "construct_grand",
+                    "demographics_detailed", "extended_last_updated"):
+            assert key in result, f"extended key '{key}' missing from sensitivity_to_json output"
+
+        # Empty defaults
+        assert result["top3_pick_counts"]["total_n"] == 0
+        assert result["item_descriptives"]["barriers"] == []
+        assert result["construct_grand"]["barriers"]["n"] == 0
+        assert result["demographics_detailed"]["roles"] == []
+
+    def test_sensitivity_to_json_extended_keys_with_data(self):
+        """Extended blocks contain correct values when primary cut has rows."""
+        from tabs_v2_unified_data_analysis import sensitivity_to_json
+
+        idx, rows = self._build_synthetic_data()
+        cuts = [("Prolific Accepted", rows)]
+        result = sensitivity_to_json(cuts, idx)
+
+        # All four extended keys present
+        for key in ("top3_pick_counts", "item_descriptives", "construct_grand",
+                    "demographics_detailed", "extended_last_updated"):
+            assert key in result, f"extended key '{key}' missing"
+
+        # top3_pick_counts: B7 picked by all 4 rows
+        assert result["top3_pick_counts"]["total_n"] == 4
+        b7_item = next(x for x in result["top3_pick_counts"]["items"] if x["item"] == "B7")
+        assert b7_item["count"] == 3
+
+        # item_descriptives: barriers list is non-empty
+        assert len(result["item_descriptives"]["barriers"]) > 0
+
+        # construct_grand: barriers mean matches known value
+        assert result["construct_grand"]["barriers"]["mean"] == pytest.approx(4.25, abs=0.001)
+
+        # demographics_detailed: roles non-empty
+        assert len(result["demographics_detailed"]["roles"]) > 0
+
+        # extended_last_updated is an ISO timestamp string
+        ts = result["extended_last_updated"]
+        assert isinstance(ts, str)
+        assert ts.endswith("Z")
+
+    def test_sensitivity_to_json_extended_last_updated_always_present(self):
+        """extended_last_updated must be present regardless of cut content."""
+        from tabs_v2_unified_data_analysis import sensitivity_to_json
+
+        # No cuts at all
+        result = sensitivity_to_json([], {"StartDate": 0})
+        assert "extended_last_updated" in result
+        assert "last_updated" in result
