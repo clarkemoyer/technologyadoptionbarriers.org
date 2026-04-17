@@ -634,8 +634,8 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>Provided a practitioner-relevant framework:</strong> Offered a structure
-              practitioners could use to assess implementation progress and apply
-              stage-appropriate interventions.
+              practitioners could use to assess implementation progress and apply stage-appropriate
+              interventions.
             </li>
             <li>
               <strong>Foundation for implementation research:</strong> Created structure enabling
@@ -650,8 +650,8 @@ const BibliographyArticlePage = () => {
           <h2 className={H2_CLASSES}>Internal Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
             Cooper &amp; Zmud (1990) report an empirical MRP-adoption study used to illustrate the
-            implementation process. As a conceptual paper anchored in one survey rather than a
-            broad validation study, considerations typically raised about its internal consistency
+            implementation process. As a conceptual paper anchored in one survey rather than a broad
+            validation study, considerations typically raised about its internal consistency
             include:
           </p>
           <ul className={BODY_LIST_CLASSES}>
@@ -845,9 +845,8 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Following Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
-            The Six-Stage Implementation Model has been extended and adapted in subsequent
-            research on technology
-            implementation and change management:
+            The Six-Stage Implementation Model has been extended and adapted in subsequent research
+            on technology implementation and change management:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
