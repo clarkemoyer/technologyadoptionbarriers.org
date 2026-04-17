@@ -553,9 +553,11 @@ const BibliographyArticlePage = () => {
               and reduce variation.
             </li>
             <li>
-              <strong>Integrates quality with cost reduction:</strong> Demonstrates that quality
-              improvement and cost reduction are compatible rather than tradeoffs. Superior quality
-              often reduces costs through waste elimination and defect reduction.
+              <strong>Integrates quality with cost reduction:</strong> Argues that quality
+              improvement and cost reduction can be compatible rather than purely traded off,
+              because variation reduction eliminates rework, scrap, and warranty cost. Secondary
+              sources describe this as a reframing of the quality-cost relationship; independent
+              empirical validation is mixed.
             </li>
             <li>
               <strong>Widely attributed practical success:</strong> Secondary sources commonly link
@@ -767,16 +769,20 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Relevance to Technology Adoption</h2>
           <p className={PARAGRAPH_CLASSES}>
-            TQM explains organizational success with technology adoption through process excellence
-            and continuous improvement. Technology adoption succeeds when organizations view
-            technology implementation as process requiring systematic improvement, statistical
-            monitoring, worker engagement, and ongoing refinement. Organizations treating technology
-            adoption as one-time project with fixed endpoints often achieve poor results, while
-            organizations treating technology adoption as continuous improvement process achieve
-            better outcomes. TQM emphasizes that technology success requires process redesign,
-            worker training, customer feedback integration, and ongoing monitoring and refinement -
-            exactly the sustained commitment and improvement orientation that technology adoption
-            requires.
+            Deming (1982) is a quality-management monograph, not a theory of technology adoption.
+            The material below is an <em>applied extrapolation</em> of the Deming philosophy to the
+            organizational challenge of adopting new technology, rather than a direct summary of the
+            book&rsquo;s content. The 14 Points, the common-cause vs. special-cause distinction, and
+            the emphasis on constancy of purpose and drive-out- fear leadership offer natural hooks
+            for thinking about adoption; but this section&rsquo;s specific claims are interpretive
+            rather than textual.
+          </p>
+          <p className={PARAGRAPH_CLASSES}>
+            On that reading, the Deming-style frame suggests that organizations treating technology
+            adoption as a one-time project often fare worse than those treating it as an ongoing
+            process requiring statistical monitoring, worker engagement, training, customer
+            feedback, and long-term leadership commitment. The barriers and leadership actions below
+            are organized along those lines.
           </p>
 
           <h3 className={H3_CLASSES}>Barriers to Technology Adoption Identified</h3>
@@ -864,18 +870,23 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Following Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
-            Total Quality Management has spawned significant theoretical developments and extensions
-            building on and refining the original framework:
+            The Deming tradition is one of several intellectual streams that shaped subsequent
+            quality and operations frameworks. The works listed below share concepts and practices
+            with Deming (1982) but have distinct independent origins; simple
+            &ldquo;Deming&rarr;X&rdquo; descent claims overstate the historical picture.
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Six Sigma (Motorola, 1986; General Electric, 1995):</strong> Extended TQM by
-              emphasizing statistical rigor and near-perfect quality targets. Six Sigma focuses on
-              reducing variation to levels where only 3.4 defects per million opportunities occur.
+              <strong>Six Sigma (Motorola, 1986):</strong> Bill Smith at Motorola developed Six
+              Sigma as a statistical methodology targeting defect rates of 3.4 per million
+              opportunities; subsequently deployed at Allied Signal and scaled by General Electric
+              from 1995. Inherits the common-cause/special-cause framing via the Shewhart/Deming
+              lineage but is its own methodology with distinct training certifications and project
+              structures.
             </li>
             <li>
               <strong>
-                Lean Manufacturing (Toyota Production System,{' '}
+                Toyota Production System (TPS) / Lean Manufacturing (
                 <a
                   id="cite-ref-womack-1996-1"
                   href="#ref-womack-1996"
@@ -885,35 +896,44 @@ const BibliographyArticlePage = () => {
                 </a>
                 ):
               </strong>{' '}
-              Applied TQM principles specifically to waste elimination and value creation. Lean
-              emphasizes eliminating non-value-added activities and streamlining operations.
+              Developed within Toyota by Taiichi Ohno, Eiji Toyoda, and others from the 1940s
+              onwards. Deming&rsquo;s 1950 lectures in Japan influenced the broader Japanese quality
+              context; TPS itself has distinct origins in just-in-time production,
+              <em>jidoka</em> (automation with human judgement), and waste reduction, and is not
+              simply a reapplication of Deming. Later branded as Lean by Womack, Jones &amp; Roos
+              (1990) and Womack &amp; Jones (1996).
             </li>
             <li>
-              <strong>Continuous Improvement Culture (Kaizen):</strong> Extended TQM emphasis on
-              continuous improvement into systematic organizational culture and philosophy.
+              <strong>Kaizen:</strong> A Japanese term and tradition of continuous improvement
+              popularized in Western management by Imai (1986). Distinct from Deming&rsquo;s
+              terminology (Deming did not himself use &ldquo;kaizen&rdquo;) but organically
+              compatible with Point 5 of the 14 Points.
             </li>
             <li>
-              <strong>Malcolm Baldrige National Quality Award:</strong> Created comprehensive
-              framework for organizational quality assessment and improvement based on TQM
-              principles.
+              <strong>Malcolm Baldrige National Quality Award (1987):</strong> U.S. national quality
+              award established by Congress in 1987; its criteria draw on multiple
+              quality-management traditions, including the Deming tradition, but are not solely
+              based on Deming&rsquo;s work.
             </li>
             <li>
-              <strong>ISO 9000 Quality Management Standards:</strong> Formalized TQM principles into
-              documented quality management systems and standards enabling standardization across
-              organizations.
+              <strong>ISO 9000 Quality Management Standards (1987, revised 2000, 2015):</strong>{' '}
+              International documented quality-management standards with origins in British BS 5750
+              and military procurement standards (MIL-Q-9858). ISO 9000 and the Deming tradition
+              developed along related but distinct lineages; the 2000 revision aligned more closely
+              with process-orientation views of the kind Deming advocated.
             </li>
             <li>
-              <strong>Lean Six Sigma:</strong> Integrated Lean Manufacturing and Six Sigma
-              methodologies for combined waste elimination and quality improvement.
+              <strong>Lean Six Sigma:</strong> Integration of Lean and Six Sigma methodologies,
+              typically for combined waste reduction and variation reduction. Popularized from the
+              early 2000s.
             </li>
             <li>
-              <strong>Business Process Management (BPM):</strong> Applied TQM principles to broad
-              business process design and optimization beyond manufacturing.
-            </li>
-            <li>
-              <strong>Toyota Production System and Lean Operations:</strong> Detailed implementation
-              of TQM principles in automotive manufacturing, demonstrating sustained competitive
-              advantage through quality and continuous improvement.
+              <strong>
+                Business Process Management (BPM) / Business Process Reengineering (BPR):
+              </strong>{' '}
+              BPR (Hammer &amp; Champy, 1993) is often contrasted with TQM - BPR emphasizes
+              discontinuous redesign where TQM emphasizes continuous improvement - but both
+              traditions have influenced modern process-management practice.
             </li>
           </ul>
         </section>
