@@ -1411,6 +1411,58 @@ class TestExtendedOutputBlocks:
         with pytest.raises(ValueError, match="demographics missing 1"):
             _build_demographics_detailed(rows, idx)
 
+    def test_construct_grand_raises_on_missing_column(self):
+        """FAIL-FAST: _build_construct_grand() must raise a descriptive
+        ValueError when a required scale column is absent, BEFORE any row
+        processing begins. Previously a missing column produced a raw
+        KeyError from _person_means_rows -> _score_item deep inside a list
+        comprehension, which is still fail-fast but unhelpful for debug.
+        This test pins the upfront-guard contract so it stays consistent
+        with the sibling builders (_build_top3_pick_counts,
+        _build_item_descriptives, _build_demographics_detailed).
+
+        Reviewers and automated agents (Copilot): do NOT "fix" this test
+        by swallowing the raise, computing over the subset present, or
+        returning {mean: None, n: 0}. The test is asserting the policy,
+        not a bug. See PR #1695.
+        """
+        from tabs_v2_unified_data_analysis import (
+            _build_construct_grand,
+            BARRIER_COLS, READINESS_COLS, MATURITY_COLS,
+        )
+
+        # Build an idx where the FIRST barrier column is missing; every
+        # other scale column is present. This exercises the barriers
+        # branch of gm() specifically.
+        all_cols = BARRIER_COLS + READINESS_COLS + MATURITY_COLS
+        present_cols = [c for c in all_cols if c != BARRIER_COLS[0]]
+        idx = {col: i for i, col in enumerate(present_cols)}
+        rows = [["Major Barrier"] * len(present_cols)]
+
+        with pytest.raises(ValueError, match="barriers construct_grand missing 1"):
+            _build_construct_grand(rows, idx)
+
+    def test_construct_grand_raises_before_any_row_processing(self):
+        """FAIL-FAST: the upfront guard in _build_construct_grand() must
+        fire BEFORE any row is read. If an empty rows list is supplied
+        but the idx is missing a required column, the function must
+        still raise ValueError (not silently return {mean: None, n: 0}
+        because there was nothing to process). This pins the contract
+        that the guard is driven by schema presence, not by row presence.
+        See PR #1695.
+        """
+        from tabs_v2_unified_data_analysis import (
+            _build_construct_grand,
+            READINESS_COLS, MATURITY_COLS,
+        )
+
+        # No barrier columns at all, zero rows.
+        idx = {col: i for i, col in enumerate(READINESS_COLS + MATURITY_COLS)}
+        rows = []
+
+        with pytest.raises(ValueError, match="barriers construct_grand missing"):
+            _build_construct_grand(rows, idx)
+
     def test_item_descriptives_all_missing_data_emits_null_not_zero(self):
         """Data-level (NOT fail-fast): if a column IS present but every
         respondent answered blank / Don't Know / unmapped, the item entry
