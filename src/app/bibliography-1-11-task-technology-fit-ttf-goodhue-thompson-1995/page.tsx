@@ -574,7 +574,7 @@ const BibliographyArticlePage = () => {
                 <a
                   href="#cite-ref-davis-1989-1"
                   className="text-tabs-teal-deep hover:underline"
-                  aria-label="Back to citation 1"
+                  aria-label="Back to citation 1 for Davis (1989)"
                 >
                   ↩
                 </a>
@@ -587,7 +587,7 @@ const BibliographyArticlePage = () => {
                 <a
                   href="#cite-ref-rogers-1983-1"
                   className="text-tabs-teal-deep hover:underline"
-                  aria-label="Back to citation 1"
+                  aria-label="Back to citation 1 for Rogers (1983)"
                 >
                   ↩
                 </a>
