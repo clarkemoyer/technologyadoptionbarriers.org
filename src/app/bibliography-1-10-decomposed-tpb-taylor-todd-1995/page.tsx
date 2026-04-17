@@ -258,9 +258,9 @@ const BibliographyArticlePage = () => {
             and compatibility beliefs. Normative beliefs are predicted by peer influence and
             superior influence. Perceived behavioral control is predicted by self-efficacy and
             resource facilitating conditions. Per Table 3, the model explained 60% of variance in
-            behavioral intention (R²=.60), compared to TAM (R²=.52) and original TPB (R²=.57).
-            The study also measured actual usage behavior by monitoring 3,780 visits to the
-            computing resource center over a 12-week period.
+            behavioral intention (R²=.60), compared to TAM (R²=.52) and original TPB (R²=.57). The
+            study also measured actual usage behavior by monitoring 3,780 visits to the computing
+            resource center over a 12-week period.
           </p>
 
           <h3 className={H3_CLASSES}>What does the model measure?</h3>
