@@ -1797,14 +1797,31 @@ def sensitivity_to_json(cuts, idx):
     if primary_rows is None and cuts:
         primary_rows = cuts[-1][1]
 
-    if primary_rows:
+    # Always emit the four extended blocks so consumers can rely on key
+    # presence regardless of whether a primary cut exists.  When there are
+    # no rows the helpers return empty/zero-default structures.
+    if primary_rows is not None and len(primary_rows) > 0:
         result["top3_pick_counts"] = _build_top3_pick_counts(primary_rows, idx)
         result["item_descriptives"] = _build_item_descriptives(primary_rows, idx)
         result["construct_grand"] = _build_construct_grand(primary_rows, idx)
         result["demographics_detailed"] = _build_demographics_detailed(primary_rows, idx)
+    else:
+        result["top3_pick_counts"] = {"total_n": 0, "items": [], "items_sorted_desc": []}
+        result["item_descriptives"] = {"barriers": [], "readiness": [], "maturity": []}
+        result["construct_grand"] = {
+            "barriers": {"mean": None, "sd": None, "n": 0},
+            "readiness": {"mean": None, "sd": None, "n": 0},
+            "maturity": {"mean": None, "sd": None, "n": 0},
+        }
+        result["demographics_detailed"] = {
+            "roles": [], "org_sizes": [], "profit_models": [], "decision_authority": []
+        }
 
-    # Timestamp - consumed by 10+ results pages via utcTimestamp component
-    result["last_updated"] = datetime.utcnow().isoformat() + "Z"
+    # Timestamps - consumed by 10+ results pages via utcTimestamp component.
+    # extended_last_updated marks when the extended blocks were last regenerated.
+    ts = datetime.utcnow().isoformat() + "Z"
+    result["last_updated"] = ts
+    result["extended_last_updated"] = ts
 
     return result
 
@@ -1872,6 +1889,15 @@ MATURITY_ITEM_TEXT = {
 
 def _build_top3_pick_counts(rows, idx):
     total = len(rows)
+    # Validate that at least one TOP3 column is present to catch CSV contract
+    # regressions early rather than emitting plausible-looking zero counts.
+    present = [col for col in TOP3_COLS if col in idx]
+    if not present:
+        raise ValueError(
+            f"No TOP3 columns found in idx. Expected {len(TOP3_COLS)} columns "
+            f"({TOP3_COLS[0]} through {TOP3_COLS[-1]}). "
+            f"Check that the CSV was exported with the forced-choice section."
+        )
     items = []
     for i, col in enumerate(TOP3_COLS, start=1):
         if col not in idx:
@@ -1906,13 +1932,14 @@ def _build_item_descriptives(rows, idx):
             if not vals:
                 out.append({"item": f"{prefix}{i}", "text": labels[i], "mean": None, "sd": None, "n": 0})
                 continue
-            m = sum(vals) / len(vals)
-            if len(vals) > 1:
-                var = sum((x - m) ** 2 for x in vals) / (len(vals) - 1)
-                sd = var ** 0.5
-            else:
-                sd = 0.0
-            out.append({"item": f"{prefix}{i}", "text": labels[i], "mean": round(m, 4), "sd": round(sd, 4), "n": len(vals)})
+            m, sd = mean_sd(vals)
+            out.append({
+                "item": f"{prefix}{i}",
+                "text": labels[i],
+                "mean": round(m, 4) if m is not None else None,
+                "sd": round(sd, 4) if sd is not None else None,
+                "n": len(vals),
+            })
         return out
 
     return {
