@@ -212,9 +212,9 @@ const BibliographyArticlePage = () => {
           <h2 className={H2_CLASSES}>What Does the Model Measure?</h2>
           <p className={PARAGRAPH_CLASSES}>
             TAM2 is a measurement model that extends the original Technology Acceptance Model by
-            adding social-influence and cognitive-instrumental determinants of perceived
-            usefulness. Venkatesh and Davis (2000) operationalize constructs through multi-item
-            Likert-scale items. The model measures:
+            adding social-influence and cognitive-instrumental determinants of perceived usefulness.
+            Venkatesh and Davis (2000) operationalize constructs through multi-item Likert-scale
+            items. The model measures:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
@@ -229,7 +229,8 @@ const BibliographyArticlePage = () => {
               <strong>Intention to Use:</strong> Behavioral intention to use the system.
             </li>
             <li>
-              <strong>Social Influence Processes:</strong> Subjective Norm, Voluntariness, and Image.
+              <strong>Social Influence Processes:</strong> Subjective Norm, Voluntariness, and
+              Image.
             </li>
             <li>
               <strong>Cognitive Instrumental Processes:</strong> Job Relevance, Output Quality,
