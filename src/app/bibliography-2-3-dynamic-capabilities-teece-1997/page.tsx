@@ -1037,7 +1037,155 @@ const BibliographyArticlePage = () => {
         {/* 14. References */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>References</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            Works cited by Teece, Pisano &amp; Shuen (1997) that are also referenced in-text on this
+            page:
+          </p>
           <ol className={REFERENCES_OL_CLASSES}>
+            <li id="ref-teece-1997">
+              Teece, D. J., Pisano, G., &amp; Shuen, A. (1997). Dynamic capabilities and strategic
+              management. <em>Strategic Management Journal</em>, 18(7), 509-533.
+              https://doi.org/10.1002/(SICI)1097-0266(199708)18:7%3C509::AID-SMJ882%3E3.0.CO;2-Z
+            </li>
+            <li id="ref-argyris-1978">
+              Argyris, C., &amp; Sch&ouml;n, D. A. (1978). <em>Organizational learning</em>.
+              Addison-Wesley.
+              <span className="text-xs ml-1">
+                <a
+                  href="#cite-ref-argyris-1978-1"
+                  className="text-tabs-teal-deep hover:underline"
+                  aria-label="Back to citation 1"
+                ></a>
+              </span>
+            </li>
+            <li id="ref-arthur-1983">
+              Arthur, W. B. (1983). <em>On competing technologies and historical small events</em>.
+              IIASA Working Paper (later published as Arthur, 1989, Economic Journal).
+              <span className="text-xs ml-1">
+                <a
+                  href="#cite-ref-arthur-1983-1"
+                  className="text-tabs-teal-deep hover:underline"
+                  aria-label="Back to citation 1"
+                ></a>
+              </span>
+            </li>
+            <li id="ref-barney-1991">
+              Barney, J. B. (1991). Firm resources and sustained competitive advantage.{' '}
+              <em>Journal of Management</em>, 17(1), 99-120.
+              https://doi.org/10.1177/014920639101700108{' '}
+              <span className="text-xs ml-1">
+                <a
+                  href="#cite-ref-barney-1991-1"
+                  className="text-tabs-teal-deep hover:underline"
+                  aria-label="Back to citation 1"
+                ></a>{' '}
+                <a
+                  href="#cite-ref-barney-1991-2"
+                  className="text-tabs-teal-deep hover:underline"
+                  aria-label="Back to citation 2"
+                ></a>
+              </span>
+            </li>
+            <li id="ref-david-1985">
+              David, P. A. (1985). Clio and the economics of QWERTY.{' '}
+              <em>American Economic Review</em>, 75(2), 332-337.
+              <span className="text-xs ml-1">
+                <a
+                  href="#cite-ref-david-1985-1"
+                  className="text-tabs-teal-deep hover:underline"
+                  aria-label="Back to citation 1"
+                ></a>
+              </span>
+            </li>
+            <li id="ref-leonard-1992">
+              Leonard-Barton, D. (1992). Core capabilities and core rigidities: A paradox in
+              managing new product development. <em>Strategic Management Journal</em>, 13(S1),
+              111-125.
+              <span className="text-xs ml-1">
+                <a
+                  href="#cite-ref-leonard-1992-1"
+                  className="text-tabs-teal-deep hover:underline"
+                  aria-label="Back to citation 1"
+                ></a>
+              </span>
+            </li>
+            <li id="ref-levitt-1988">
+              Levitt, B., &amp; March, J. G. (1988). Organizational learning.{' '}
+              <em>Annual Review of Sociology</em>, 14, 319-340.
+              <span className="text-xs ml-1">
+                <a
+                  href="#cite-ref-levitt-1988-1"
+                  className="text-tabs-teal-deep hover:underline"
+                  aria-label="Back to citation 1"
+                ></a>
+              </span>
+            </li>
+            <li id="ref-nelson-1982">
+              Nelson, R. R., &amp; Winter, S. G. (1982).{' '}
+              <em>An evolutionary theory of economic change</em>. Harvard University Press.
+              <span className="text-xs ml-1">
+                <a
+                  href="#cite-ref-nelson-1982-1"
+                  className="text-tabs-teal-deep hover:underline"
+                  aria-label="Back to citation 1"
+                ></a>
+              </span>
+            </li>
+            <li id="ref-penrose-1959">
+              Penrose, E. T. (1959). <em>The theory of the growth of the firm</em>. Oxford
+              University Press.
+              <span className="text-xs ml-1">
+                <a
+                  href="#cite-ref-penrose-1959-1"
+                  className="text-tabs-teal-deep hover:underline"
+                  aria-label="Back to citation 1"
+                ></a>
+              </span>
+            </li>
+            <li id="ref-porter-1980">
+              Porter, M. E. (1980). <em>Competitive strategy</em>. Free Press.
+              <span className="text-xs ml-1">
+                <a
+                  href="#cite-ref-porter-1980-1"
+                  className="text-tabs-teal-deep hover:underline"
+                  aria-label="Back to citation 1"
+                ></a>
+              </span>
+            </li>
+            <li id="ref-prahalad-1990">
+              Prahalad, C. K., &amp; Hamel, G. (1990). The core competence of the corporation.{' '}
+              <em>Harvard Business Review</em>, 68(3), 79-91.
+              <span className="text-xs ml-1">
+                <a
+                  href="#cite-ref-prahalad-1990-1"
+                  className="text-tabs-teal-deep hover:underline"
+                  aria-label="Back to citation 1"
+                ></a>
+              </span>
+            </li>
+            <li id="ref-rumelt-1984">
+              Rumelt, R. P. (1984). Towards a strategic theory of the firm. In R. B. Lamb (Ed.),{' '}
+              <em>Competitive strategic management</em> (pp. 556-570). Prentice-Hall.
+              <span className="text-xs ml-1">
+                <a
+                  href="#cite-ref-rumelt-1984-1"
+                  className="text-tabs-teal-deep hover:underline"
+                  aria-label="Back to citation 1"
+                ></a>
+              </span>
+            </li>
+            <li id="ref-teece-1986">
+              Teece, D. J. (1986). Profiting from technological innovation: Implications for
+              integration, collaboration, licensing and public policy. <em>Research Policy</em>,
+              15(6), 285-305.
+              <span className="text-xs ml-1">
+                <a
+                  href="#cite-ref-teece-1986-1"
+                  className="text-tabs-teal-deep hover:underline"
+                  aria-label="Back to citation 1"
+                ></a>
+              </span>
+            </li>
             <li id="ref-wernerfelt-1984">
               Wernerfelt, B. (1984). A resource-based view of the firm.{' '}
               <em>Strategic Management Journal</em>, 5(2), 171-180.
@@ -1054,97 +1202,46 @@ const BibliographyArticlePage = () => {
                 ></a>
               </span>
             </li>
-            <li id="ref-barney-1991">
-              Barney, J. B. (1991). Firm resources and sustained competitive advantage.
-              <em>Journal of Management</em>, 17(1), 99-120.
-              https://doi.org/10.1177/014920639101700108{' '}
-              <span className="text-xs ml-1">
-                <a
-                  href="#cite-ref-barney-1991-1"
-                  className="text-tabs-teal-deep hover:underline"
-                  aria-label="Back to citation 1"
-                ></a>{' '}
-                <a
-                  href="#cite-ref-barney-1991-2"
-                  className="text-tabs-teal-deep hover:underline"
-                  aria-label="Back to citation 2"
-                ></a>
-              </span>
-            </li>
-            <li id="ref-arthur-1989">
-              Arthur, W. B. (1989). Competing technologies, increasing returns, and lock-in by
-              historical events. <em>Economic Journal</em>, 99(394), 116-131.
-              <span className="text-xs ml-1">
-                <a
-                  href="#cite-ref-arthur-1989-1"
-                  className="text-tabs-teal-deep hover:underline"
-                  aria-label="Back to citation 1"
-                ></a>
-              </span>
-            </li>
+          </ol>
+        </section>
+
+        {/* 15. Further Reading */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Further Reading</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            The following works are <em>not</em> cited by Teece, Pisano &amp; Shuen (1997). They
+            represent the post-1997 dynamic-capabilities tradition and are listed here for readers
+            tracing the development of the framework:
+          </p>
+          <ol className={REFERENCES_OL_CLASSES}>
             <li id="ref-teece-2007">
               Teece, D. J. (2007). Explicating dynamic capabilities: The nature and microfoundations
               of (sustainable) enterprise performance. <em>Strategic Management Journal</em>,
-              28(13), 1319-1350. https://doi.org/10.1002/smj.640{' '}
-              <span className="text-xs ml-1">
-                <a
-                  href="#cite-ref-teece-2007-1"
-                  className="text-tabs-teal-deep hover:underline"
-                  aria-label="Back to citation 1"
-                ></a>
-              </span>
+              28(13), 1319-1350. https://doi.org/10.1002/smj.640
             </li>
-            <li id="ref-dosi-1982">
-              Dosi, G. (1982). Technological paradigms and technological trajectories.
-              <em>Research Policy</em>, 11(3), 147-162.
-              <span className="text-xs ml-1">
-                <a
-                  href="#cite-ref-dosi-1982-1"
-                  className="text-tabs-teal-deep hover:underline"
-                  aria-label="Back to citation 1"
-                ></a>
-              </span>
+            <li id="ref-eisenhardt-2000">
+              Eisenhardt, K. M., &amp; Martin, J. A. (2000). Dynamic capabilities: What are they?{' '}
+              <em>Strategic Management Journal</em>, 21(10-11), 1105-1121.
             </li>
-            <li id="ref-rosenberg-1982">
-              Rosenberg, N. (1982). Inside the black box: Technology and economics. Cambridge
-              University Press.
-              <span className="text-xs ml-1">
-                <a
-                  href="#cite-ref-rosenberg-1982-1"
-                  className="text-tabs-teal-deep hover:underline"
-                  aria-label="Back to citation 1"
-                ></a>
-              </span>
+            <li id="ref-zollo-2002">
+              Zollo, M., &amp; Winter, S. G. (2002). Deliberate learning and the evolution of
+              dynamic capabilities. <em>Organization Science</em>, 13(3), 339-351.
             </li>
-            <li id="ref-teece-1997">
-              Teece, D. J., Pisano, G., &amp; Shuen, A. (1997). Dynamic capabilities and strategic
-              management. <em>Strategic Management Journal</em>, 18(7), 509-533.
-              https://doi.org/10.1002/(SICI)1097-0266(199708)18:7%3C509::AID-SMJ882%3E3.0.CO;2-Z
-            </li>
-            <li id="ref-nelson-1982">
-              Nelson, R. R., &amp; Winter, S. G. (1982). An evolutionary theory of economic change.
-              Harvard University Press.
-            </li>
-            <li id="ref-hamel-1989">
-              Hamel, G., &amp; Prahalad, C. K. (1989). Strategic intent.{' '}
-              <em>Harvard Business Review</em>, 67(3), 63-76.
+            <li id="ref-helfat-2003">
+              Helfat, C. E., &amp; Peteraf, M. A. (2003). The dynamic resource-based view:
+              Capability lifecycles. <em>Strategic Management Journal</em>, 24(10), 997-1010.
             </li>
             <li id="ref-sambamurthy-2003">
               Sambamurthy, V., Bharadwaj, A., &amp; Grover, V. (2003). Shaping agility through
               digital options. <em>MIS Quarterly</em>, 27(2), 237-263.
             </li>
-          </ol>
-        </section>
-
-        <section className={SECTION_CLASSES}>
-          <h2 className={H2_CLASSES}>Further Reading</h2>
-          <ol className={REFERENCES_OL_CLASSES}>
-            <li id="ref-unknown-2004">
-              O&rsquo;Reilly, C. A., &amp; Tushman, M. L. (2004). The ambidextrous organization.
+            <li id="ref-oreilly-2004">
+              O&rsquo;Reilly, C. A., &amp; Tushman, M. L. (2004). The ambidextrous organization.{' '}
               <em>Harvard Business Review</em>, 82(4), 74-81.
             </li>
-            <li id="ref-penrose-1959">
-              Penrose, E. T. (1959). The theory of the growth of the firm. Oxford University Press.
+            <li id="ref-hamel-1989">
+              Hamel, G., &amp; Prahalad, C. K. (1989). Strategic intent.{' '}
+              <em>Harvard Business Review</em>, 67(3), 63-76.
             </li>
           </ol>
         </section>
