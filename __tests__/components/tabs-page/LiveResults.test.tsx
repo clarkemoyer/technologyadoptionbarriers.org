@@ -23,10 +23,10 @@ describe('LiveResults component', () => {
 
   it('should display exactly 3 barriers', () => {
     render(<LiveResults />)
-    // Each barrier has a rank badge numbered 1, 2, 3
-    expect(screen.getByText('1')).toBeInTheDocument()
-    expect(screen.getByText('2')).toBeInTheDocument()
-    expect(screen.getByText('3')).toBeInTheDocument()
+    // Each barrier has a rank badge numbered 1, 2, 3 (anchored to avoid matching counts like 101)
+    expect(screen.getByText(/^1$/)).toBeInTheDocument()
+    expect(screen.getByText(/^2$/)).toBeInTheDocument()
+    expect(screen.getByText(/^3$/)).toBeInTheDocument()
   })
 
   it('should display barriers sorted by count (descending)', () => {
