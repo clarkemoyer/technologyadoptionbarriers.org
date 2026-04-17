@@ -1,5 +1,6 @@
 import metricsData from '@/data/qualtrics-metrics.json'
 import dispositionData from '@/data/disposition-summary.json'
+import { formatUtcTimestamp } from '@/lib/formatUtcTimestamp'
 
 type QualtricsMetrics = typeof metricsData
 
@@ -13,15 +14,7 @@ export default function QualtricsSurveyStats() {
   const placesTaken: number | null = dispositionData.study?.placesTaken ?? null
   const questionCount: number | null = metricsData.questionCount ?? null
 
-  const dispositionUpdatedAt = dispositionData.updatedAt
-    ? `${new Date(
-        dispositionData.updatedAt.replace(/\.\d{4,}/, (m: string) => m.slice(0, 4))
-      ).toLocaleString('en-US', {
-        dateStyle: 'medium',
-        timeStyle: 'short',
-        timeZone: 'UTC',
-      })} UTC`
-    : null
+  const dispositionUpdatedAt = formatUtcTimestamp(dispositionData.updatedAt)
 
   return (
     <section className="mx-auto w-full max-w-5xl px-6 py-10">
