@@ -2011,7 +2011,33 @@ def _build_item_descriptives(rows, idx):
 
 
 def _build_construct_grand(rows, idx):
-    def gm(cols, scale):
+    """Build grand mean/SD/N per construct from person-level means.
+
+    FAIL-FAST on contract violations:
+      - If ANY required scale column is missing from idx, raises ValueError
+        BEFORE any row processing begins. This matches the upfront-guard
+        pattern used by _build_top3_pick_counts, _build_item_descriptives,
+        and _build_demographics_detailed, so a missing column produces a
+        single descriptive error rather than a raw KeyError bubbling up
+        from _person_means_rows -> _score_item during a list comprehension.
+        See the module-level fail-fast policy in sensitivity_to_json() and
+        the PR #1695 description.
+
+    Data-level behavior (NOT fail-fast, intentional):
+      - If all columns are present but every respondent's person-mean is
+        None (all items blank / "Don't Know"), returns {mean: None, sd:
+        None, n: 0}. This is the honest-null path, the same pattern used
+        by _build_item_descriptives for all-Don't-Know items.
+    """
+    def gm(cols, scale, prefix):
+        missing = [col for col in cols if col not in idx]
+        if missing:
+            raise ValueError(
+                f"Fail-fast: {prefix} construct_grand missing {len(missing)} of "
+                f"{len(cols)} required scale columns: {', '.join(missing)}. "
+                f"Refusing to emit partial construct_grand for '{prefix}'. "
+                f"Do NOT work around this by computing over the subset present."
+            )
         raw = _person_means_rows(rows, cols, scale, idx)
         # Filter out None entries (respondents whose items were all missing or
         # all "Don't Know").  Using len(raw) would overcount n and could expose
@@ -2025,9 +2051,9 @@ def _build_construct_grand(rows, idx):
                 "n": len(valid_means)}
 
     return {
-        "barriers":  gm(BARRIER_COLS,  BARRIER_SCALE),
-        "readiness": gm(READINESS_COLS, READINESS_SCALE),
-        "maturity":  gm(MATURITY_COLS, MATURITY_SCALE),
+        "barriers":  gm(BARRIER_COLS,  BARRIER_SCALE,  "barriers"),
+        "readiness": gm(READINESS_COLS, READINESS_SCALE, "readiness"),
+        "maturity":  gm(MATURITY_COLS, MATURITY_SCALE, "maturity"),
     }
 
 
