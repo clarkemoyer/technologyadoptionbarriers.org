@@ -214,8 +214,8 @@ const BibliographyArticlePage = () => {
             <li>
               <strong>Status Quo Bias Effect Size:</strong> The shift in preference when one
               alternative is labeled as the current state relative to a neutral baseline choice.
-              Measured through decision experiments comparing choice distributions with and
-              without a status-quo label.
+              Measured through decision experiments comparing choice distributions with and without
+              a status-quo label.
             </li>
             <li>
               <strong>Rational Sources of Bias:</strong>
@@ -239,10 +239,9 @@ const BibliographyArticlePage = () => {
           </ul>
           <p className={PARAGRAPH_CLASSES}>
             Samuelson &amp; Zeckhauser (1988) report effect sizes from both hypothetical-choice
-            experiments and real-world decisions. In the IS domain, Kim &amp; Kankanhalli (2009)
-            and subsequent authors operationalize switching-related SQB constructs via multi-item
-            Likert scales (transition costs, sunk costs, regret avoidance, inertia, uncertainty
-            costs).
+            experiments and real-world decisions. In the IS domain, Kim &amp; Kankanhalli (2009) and
+            subsequent authors operationalize switching-related SQB constructs via multi-item Likert
+            scales (transition costs, sunk costs, regret avoidance, inertia, uncertainty costs).
           </p>
         </section>
 
