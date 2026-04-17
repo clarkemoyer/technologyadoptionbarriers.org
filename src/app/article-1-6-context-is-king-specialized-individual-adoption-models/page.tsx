@@ -70,7 +70,7 @@ const Article16Page = () => {
             Task-Technology Fit: The Principle That Fit Beats Universal Usefulness
           </h2>
           <p className={PARAGRAPH_CLASSES}>
-            Dorothy Goodhue and Thomas Thompson&apos;s 1995 Task-Technology Fit (TTF) model emerges
+            Dale Goodhue and Ronald Thompson&apos;s 1995 Task-Technology Fit (TTF) model emerges
             from a deceptively simple observation: technologies receiving strong adoption often fail
             to improve performance, while technologies not perceived as particularly useful
             sometimes enhance performance dramatically. This paradox revealed a fundamental gap in
