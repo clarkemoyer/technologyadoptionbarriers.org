@@ -536,8 +536,8 @@ const BibliographyArticlePage = () => {
             <li>
               <strong>Broad operational deployment:</strong> DoDAF has been applied across major
               defense programs. Attribution of specific program outcomes to the framework itself
-              (versus other factors such as acquisition reform and program management) is
-              generally not established in published evaluations.
+              (versus other factors such as acquisition reform and program management) is generally
+              not established in published evaluations.
             </li>
           </ul>
         </section>
@@ -684,8 +684,8 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Following Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
-            DoDAF has evolved through multiple versions and is commonly discussed alongside
-            related architecture frameworks and capability-planning approaches:
+            DoDAF has evolved through multiple versions and is commonly discussed alongside related
+            architecture frameworks and capability-planning approaches:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
