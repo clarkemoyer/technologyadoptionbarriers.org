@@ -452,13 +452,13 @@ const BibliographyArticlePage = () => {
           <h2 className={H2_CLASSES}>Key Contributions</h2>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Theoretical integration model:</strong> Demonstrated how to combine
-              TPB&rsquo;s behavioral intention framework with TAM&rsquo;s IT-specific constructs
-              into unified model.
+              <strong>Theoretical integration model:</strong> Illustrated how to combine
+              TPB&rsquo;s behavioral-intention framework with TAM&rsquo;s IT-specific constructs
+              into a unified model.
             </li>
             <li>
-              <strong>Decomposition methodology:</strong> Established approach for making general
-              behavioral theories technology-specific through construct decomposition.
+              <strong>Decomposition methodology:</strong> Articulated an approach for making
+              general behavioral theories technology-specific through construct decomposition.
             </li>
             <li>
               <strong>Superior predictive framework:</strong> Provided empirical evidence that
