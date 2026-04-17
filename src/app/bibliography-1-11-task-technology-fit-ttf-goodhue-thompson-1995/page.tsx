@@ -131,11 +131,11 @@ const BibliographyArticlePage = () => {
           <p className={PARAGRAPH_CLASSES}>
             Building on contingency theory and job fit literature, the authors conducted a survey
             study with end-users across two companies and developed a multi-factor TTF measurement
-            instrument. They report evidence, within their sample, that task-technology fit
-            predicts self-reported performance impacts beyond attitudinal variables alone. TTF
-            thus positions fit as a construct distinct from (and complementary to) acceptance.
-            Specific factor counts and sample details should be verified against the published
-            paper for derivative measurement work.
+            instrument. They report evidence, within their sample, that task-technology fit predicts
+            self-reported performance impacts beyond attitudinal variables alone. TTF thus positions
+            fit as a construct distinct from (and complementary to) acceptance. Specific factor
+            counts and sample details should be verified against the published paper for derivative
+            measurement work.
           </p>
         </section>
 
