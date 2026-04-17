@@ -356,8 +356,8 @@ export const technologyAdoptionModelsSeries: SeriesStructure = {
       },
       {
         id: 'bib-2-20',
-        title: 'Gartner Hype Cycle Methodology',
-        slug: '/bibliography-2-20-gartner-hype-cycle-methodology-2025',
+        title: 'Cybersecurity Maturity Model Certification (CMMC)',
+        slug: '/bibliography-2-20-cmmc-dod-2020',
       },
       {
         id: 'bib-2-21',
