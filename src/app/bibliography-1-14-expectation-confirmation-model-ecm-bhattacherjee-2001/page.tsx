@@ -370,8 +370,8 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>Solid theoretical foundation:</strong> Grounded in well-established
-              expectation-confirmation theory from consumer behavior with proven applicability to
-              repurchase and loyalty decisions.
+              expectation-confirmation theory from consumer behavior, which has been widely applied
+              to repurchase and loyalty decisions.
             </li>
             <li>
               <strong>Explained continuance variance:</strong> Original study explained 41% of
