@@ -469,10 +469,10 @@ const BibliographyArticlePage = () => {
               that comparable scope historically required 12-24+ months is limited.
             </li>
             <li>
-              <strong>Articulated immersive collaboration model:</strong> AWS materials describe
-              an immersive, daily-collaboration delivery model for transformation engagements.
-              Whether this constitutes an &ldquo;industry-recognized best practice&rdquo; is a
-              marketing framing more than an independently verified claim.
+              <strong>Articulated immersive collaboration model:</strong> AWS materials describe an
+              immersive, daily-collaboration delivery model for transformation engagements. Whether
+              this constitutes an &ldquo;industry-recognized best practice&rdquo; is a marketing
+              framing more than an independently verified claim.
             </li>
             <li>
               <strong>Codified EBA Playbooks:</strong> AWS documented repeatable EBA Playbooks for
