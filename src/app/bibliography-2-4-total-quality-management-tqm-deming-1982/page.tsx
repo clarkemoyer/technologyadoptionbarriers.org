@@ -345,78 +345,107 @@ const BibliographyArticlePage = () => {
           </p>
 
           <h3 className={H3_CLASSES}>Deming&rsquo;s 14 Points for Management</h3>
-          <ul className={BODY_LIST_CLASSES}>
+          <p className={PARAGRAPH_CLASSES}>
+            The canonical form of the 14 Points is as curated by{' '}
+            <a
+              id="cite-ref-deming-institute-2018-1"
+              href="#ref-deming-institute-2018"
+              className="text-tabs-teal-deep hover:underline"
+            >
+              The W. Edwards Deming Institute (2018)
+            </a>
+            . The Institute attributes the list to &ldquo;Dr. Deming&rsquo;s seminal book,{' '}
+            <em>Out of the Crisis</em>&rdquo; - i.e., the 1986 edition - as the first presentation
+            of this canonical form. The points are reproduced verbatim below; each is annotated with
+            a short secondary-source explanation. Because a PDF of Deming (1982) or (1986) is not
+            attached to the project&rsquo;s Zotero library, this page treats the Deming Institute
+            one-pager as the ground truth for the list.
+          </p>
+          <ol className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Create constancy of purpose toward improvement:</strong> Organizations must
-              commit to long-term improvement rather than focusing on short-term profits or
-              quarterly results. Constancy of purpose enables sustained investment in improvement.
+              <strong>Create constancy of purpose for improving products and services.</strong>{' '}
+              Long-term commitment to improvement rather than quarterly results.
             </li>
             <li>
-              <strong>Adopt new management philosophy:</strong> Abandon command-and-control
-              management and worker blame. Adopt philosophy of management for improvement,
-              cooperation, and system optimization.
+              <strong>Adopt the new philosophy.</strong> Abandon tolerance for commonly accepted
+              levels of delays, mistakes, defective material, and workmanship.
             </li>
             <li>
-              <strong>Cease dependence on inspection for quality:</strong> Quality comes from
-              improved processes, not from inspecting finished products. Shift from final inspection
-              to process control.
+              <strong>Cease dependence on inspection to achieve quality.</strong> Build quality into
+              the process rather than inspect it in at the end.
             </li>
             <li>
-              <strong>End lowest-bid purchasing:</strong> Establish long-term supplier relationships
-              based on quality and reliability rather than price. Short-term cost focus creates
-              variation and poor quality.
+              <strong>
+                End the practice of awarding business on price alone; instead, minimize total cost
+                by working with a single supplier.
+              </strong>{' '}
+              Establish long-term supplier relationships based on a loyalty-and-trust relation
+              rather than on price.
             </li>
             <li>
-              <strong>Improve constantly and forever:</strong> All processes can be improved.
-              Continuous improvement should be organizational philosophy embedded in systems and
-              processes.
+              <strong>
+                Improve constantly and forever every process for planning, production, and service.
+              </strong>{' '}
+              Continuous improvement of every activity, not only production.
             </li>
             <li>
-              <strong>Institute training and education:</strong> Workers require education in
-              quality methods, statistical process control, and system thinking. Managers require
-              training in Deming philosophy and quality methods.
+              <strong>Institute training on the job.</strong> Train workers on the job to standard,
+              as part of the process of doing the work.
             </li>
             <li>
-              <strong>Institute leadership:</strong> Leadership means helping workers do good work
-              and removing barriers to quality. Replace supervision focused on finding faults with
-              leadership focused on system improvement.
+              <strong>Adopt and institute leadership.</strong> Supervision of management and workers
+              should be aimed at helping people and systems do a better job, not at finding fault.
             </li>
             <li>
-              <strong>Drive out fear:</strong> Workers must feel psychological safety to report
-              problems, suggest improvements, and challenge processes. Fear prevents quality
-              improvement and organizational learning.
+              <strong>Drive out fear.</strong> Create psychological safety so people can raise
+              problems, suggest improvements, and ask questions.
             </li>
             <li>
-              <strong>Break down barriers between departments:</strong> Cross-functional cooperation
-              and system thinking require breaking down organizational silos. Departments must
-              optimize system performance rather than internal competition.
+              <strong>Break down barriers between staff areas.</strong> Research, design, sales, and
+              production must work as a team to foresee production and service problems.
             </li>
             <li>
-              <strong>Eliminate slogans, exhortations, and targets:</strong> Worker exhortation and
-              numerical targets without process improvement create blame culture. Instead, improve
-              processes enabling workers to meet standards.
+              <strong>Eliminate slogans, exhortations, and targets for the workforce.</strong>{' '}
+              Exhortations without means to do better create adversarial relations and shift the
+              burden from the system to the worker.
             </li>
             <li>
-              <strong>Eliminate numerical quotas:</strong> Numerical quotas drive suboptimal
-              behavior and variation. Focus on process improvement rather than worker output
-              targets.
+              <strong>
+                Eliminate numerical quotas for the workforce and numerical goals for management.
+              </strong>{' '}
+              Both distort process behavior and become substitutes for leadership.
             </li>
             <li>
-              <strong>Remove barriers to pride of workmanship:</strong> Workers take pride in good
-              work when management provides systems enabling quality. Barriers to pride include poor
-              processes, inadequate tools, and blame cultures.
+              <strong>
+                Remove barriers that rob people of pride of workmanship, and eliminate the annual
+                rating or merit system.
+              </strong>{' '}
+              Barriers include bad supervision, defective tooling, and the merit rating itself,
+              which rewards performance apparent to the rater rather than to the system.
             </li>
             <li>
-              <strong>Institute a vigorous program of education and retraining:</strong> Continuous
-              learning enables workers to apply quality methods and contribute to improvement.
-              Education is investment in human capital.
+              <strong>
+                Institute a vigorous program of education and self-improvement for everyone.
+              </strong>{' '}
+              Continuous learning is an investment in the enterprise, not a cost.
             </li>
             <li>
-              <strong>Take action to accomplish transformation:</strong> Transformation requires
-              sustained action, commitment, and cultural change. Transformation is organizational
-              journey rather than discrete project.
+              <strong>
+                Put everybody in the company to work accomplishing the transformation.
+              </strong>{' '}
+              The transformation is everybody&rsquo;s job.
             </li>
-          </ul>
+          </ol>
+          <p className={PARAGRAPH_CLASSES}>
+            Deming explicitly framed the 14 Points as applied Profound Knowledge: &ldquo;My 14
+            Points for Management follow naturally as application of the System of Profound
+            Knowledge for transformation from the present style of management to one of
+            optimization&rdquo; (Deming, quoted on the Deming Institute one-pager). Note that this
+            framing is retrospective - Profound Knowledge was introduced in Deming (1993),
+            <em>The New Economics</em>, whereas the 14 Points appeared earlier in the 1986{' '}
+            <em>Out of the Crisis</em> (per the Deming Institute) and in earlier form in the 1982{' '}
+            <em>Quality, Productivity, and Competitive Position</em>.
+          </p>
 
           <h3 className={H3_CLASSES}>
             System of Profound Knowledge (added by Deming, 1993, not in the 1982/1986 books)
@@ -865,6 +894,37 @@ const BibliographyArticlePage = () => {
               Deming, W. E. (1993). <em>The New Economics for Industry, Government, Education</em>.
               MIT Center for Advanced Engineering Study. (Introduces the System of Profound
               Knowledge and renames Shewhart&rsquo;s PDCA cycle to PDSA.)
+            </li>
+            <li id="ref-deming-institute-2018">
+              The W. Edwards Deming Institute. (2018).{' '}
+              <em>Deming&rsquo;s 14 Points for the Transformation of Management</em> [One-page
+              canonical statement].{' '}
+              <a
+                href="https://deming.org/fourteen-points/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:underline"
+              >
+                https://deming.org/fourteen-points/
+              </a>
+              . PDF:{' '}
+              <a
+                href="https://deming.org/wp-content/uploads/2020/06/One-Pager-14Points.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:underline"
+              >
+                One-Pager-14Points.pdf
+              </a>
+              . Used as the ground-truth canonical text for the 14 Points on this page, since no PDF
+              of Deming (1982) or Deming (1986) is attached to the project&rsquo;s Zotero library.
+              <span className="text-xs ml-1">
+                <a
+                  href="#cite-ref-deming-institute-2018-1"
+                  className="text-tabs-teal-deep hover:underline"
+                  aria-label="Back to citation 1"
+                ></a>
+              </span>
             </li>
             <li id="ref-shewhart-1931">
               Shewhart, W. A. (1931). <em>Economic Control of Quality of Manufactured Product</em>.
