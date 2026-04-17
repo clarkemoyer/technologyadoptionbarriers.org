@@ -14,7 +14,7 @@ import {
 export const metadata: Metadata = {
   title: 'Bibliography: Total Quality Management (TQM) - Deming (1982)',
   description:
-    'Comprehensive overview of Total Quality Management philosophy and W. Edwards Deming&rsquo;s 14 Points and System of Profound Knowledge, foundational management methodology emphasizing continuous improvement, statistical process control, and psychological transformation to achieve organizational excellence.',
+    'Comprehensive overview of W. Edwards Deming\u2019s quality-management philosophy as introduced in Quality, Productivity, and Competitive Position (1982) and expanded in Out of the Crisis (1986): the 14 Points for Management, the PDCA cycle inherited from Shewhart, and statistical thinking about common-cause versus special-cause variation. The later System of Profound Knowledge (Deming, 1993) is discussed for context but is not in the 1982/1986 books.',
 }
 
 const BibliographyArticlePage = () => {
@@ -54,19 +54,28 @@ const BibliographyArticlePage = () => {
               <strong>Author:</strong> W. Edwards Deming
             </p>
             <p>
-              <strong>Formal Publication Date:</strong> 1982 (1st edition), 1986 (2nd edition)
+              <strong>Primary source for this entry:</strong> Deming, W. E. (1982).{' '}
+              <em>Quality, Productivity, and Competitive Position</em>. MIT Center for Advanced
+              Engineering Study. ISBN 0-911379-00-6.
             </p>
             <p>
-              <strong>Official Title:</strong> Out of the Crisis
+              <strong>Expanded / renamed edition:</strong> Deming, W. E. (1986).{' '}
+              <em>Out of the Crisis</em>. MIT Center for Advanced Engineering Study. Significantly
+              expanded reissue of the 1982 book under a new title.
             </p>
             <p>
-              <strong>Publisher:</strong> MIT Center for Advanced Engineering Study
+              <strong>Later MIT Press reprint:</strong> Deming, W. E. (2000).{' '}
+              <em>Out of the Crisis</em>. MIT Press. ISBN 978-0-262-54115-2. (Reprint of the 1986
+              edition; used by many contemporary readers.)
             </p>
             <p>
-              <strong>Book Format:</strong> Authored book, not journal article
+              <strong>Separate later work (not this entry):</strong> Deming, W. E. (1993).{' '}
+              <em>The New Economics for Industry, Government, Education</em>. MIT Center for
+              Advanced Engineering Study. This is the book in which Deming introduces the System of
+              Profound Knowledge; the 1982 and 1986 works do not use that framework.
             </p>
             <p>
-              <strong>ISBN:</strong> 978-0-262-54115-2
+              <strong>Book Format:</strong> Authored book, not journal article.
             </p>
           </div>
         </section>
@@ -79,10 +88,11 @@ const BibliographyArticlePage = () => {
               <p className="text-xs font-bold uppercase text-blue-900 mb-1">APA (7th ed.)</p>
               <p className="text-sm font-mono">
                 Deming, W. E. (
-                <a href="#ref-deming-1986" className="text-tabs-teal-deep hover:underline">
-                  1986
+                <a href="#ref-deming-1982" className="text-tabs-teal-deep hover:underline">
+                  1982
                 </a>
-                ). <em>Out of the crisis</em>. MIT Center for Advanced Engineering Study.
+                ). <em>Quality, productivity, and competitive position</em>. MIT Center for Advanced
+                Engineering Study.
               </p>
             </div>
             <div>
@@ -90,8 +100,8 @@ const BibliographyArticlePage = () => {
                 Chicago (Author-Date)
               </p>
               <p className="text-sm font-mono">
-                Deming, W. Edwards. 1986. <em>Out of the Crisis</em>. Cambridge, MA: MIT Center for
-                Advanced Engineering Study.
+                Deming, W. Edwards. 1982. <em>Quality, Productivity, and Competitive Position</em>.
+                Cambridge, MA: MIT Center for Advanced Engineering Study.
               </p>
             </div>
           </div>
@@ -138,7 +148,56 @@ const BibliographyArticlePage = () => {
           </p>
         </section>
 
-        {/* 5. Core Concepts and Definitions */}
+        {/* 5. What Does the Model Measure? */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>What Does the Model Measure?</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            Deming&rsquo;s 1982 book is a management-philosophy monograph, not a measurement model.
+            It does not propose scales, latent constructs, or statistical operationalizations of
+            &ldquo;quality&rdquo;, &ldquo;leadership&rdquo;, or &ldquo;culture&rdquo;. What it does
+            propose is an operational vocabulary and a small number of quantitative tools:
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Statistical Process Control (SPC) charts:</strong> Shewhart control charts
+              (X-bar and R charts) used to distinguish common-cause variation (inherent to the
+              process) from special-cause variation (signals requiring investigation). This is the
+              only formally quantitative piece of the framework.
+            </li>
+            <li>
+              <strong>14 Points for Management:</strong> A normative checklist for managerial
+              practice, not a scale. Each point is a qualitative principle; there is no score, no
+              weighting, no psychometric claim.
+            </li>
+            <li>
+              <strong>Seven Deadly Diseases and lesser obstacles:</strong> Deming&rsquo;s catalog of
+              managerial practices he considered destructive (lack of constancy of purpose, emphasis
+              on short-term profits, performance appraisal, mobility of management, running a
+              company on visible figures alone, excessive medical costs, excessive legal costs).
+              Again, a qualitative catalog.
+            </li>
+            <li>
+              <strong>Process and system diagrams:</strong> Flow diagrams, cause-and-effect
+              (&ldquo;Ishikawa&rdquo;) diagrams, and Pareto charts for localizing problems. Tools,
+              not measurement instruments.
+            </li>
+          </ul>
+          <p className={PARAGRAPH_CLASSES}>
+            Empirical work attempting to validate TQM has therefore had to construct its own
+            instruments (e.g. Saraph, Benson &amp; Schroeder, 1989; Flynn, Schroeder &amp;
+            Sakakibara, 1994; Powell, 1995) rather than use scales supplied by Deming himself. The
+            Malcolm Baldrige National Quality Award criteria (est. 1987) are often treated as a de
+            facto operationalization but post-date the 1982 book.
+          </p>
+          <p className={PARAGRAPH_CLASSES}>
+            <strong>Note on source availability:</strong> A PDF of Deming&rsquo;s 1982 book is not
+            attached to the project&rsquo;s Zotero library. The factual claims on this page are
+            drawn from widely documented secondary sources and the published book; detailed
+            page-level verification was not possible in this review.
+          </p>
+        </section>
+
+        {/* 6. Core Concepts and Definitions */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Core Concepts and Definitions</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -192,7 +251,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 6. Preceding Models or Theories */}
+        {/* 7. Preceding Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Preceding Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -226,11 +285,14 @@ const BibliographyArticlePage = () => {
                 >
                   Shewhart, 1931
                 </a>
-                ):
+                , 1939):
               </strong>{' '}
-              Deming formalized Walter Shewhart&rsquo;s Statistical Process Control methods as core
-              to TQM. Shewhart&rsquo;s Plan-Do-Study-Act cycle provided the iterative improvement
-              methodology central to Deming&rsquo;s philosophy.
+              Deming was a direct student and collaborator of Walter Shewhart at Bell Labs and the
+              Department of Agriculture. Shewhart&rsquo;s control-chart methods (Shewhart, 1931) and
+              his Plan-Do-Check-Act cycle (Shewhart, 1939) are central to Deming&rsquo;s philosophy.
+              Deming later renamed the cycle to Plan-Do-Study-Act (PDSA) in his 1993 book{' '}
+              <em>The New Economics</em>; the 1982 and 1986 books retain the Plan-Do-Check-Act
+              (PDCA) name used by Shewhart.
             </li>
             <li>
               <strong>Human Relations School (Mayo, 1933):</strong> Deming incorporated Human
@@ -268,7 +330,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 7. Describe The Model */}
+        {/* 8. Describe The Model */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Describe The Model</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -356,10 +418,16 @@ const BibliographyArticlePage = () => {
             </li>
           </ul>
 
-          <h3 className={H3_CLASSES}>System of Profound Knowledge</h3>
+          <h3 className={H3_CLASSES}>
+            System of Profound Knowledge (added by Deming, 1993, not in the 1982/1986 books)
+          </h3>
           <p className={PARAGRAPH_CLASSES}>
-            Deming argued that managers must understand and apply four interrelated bodies of
-            knowledge:
+            The System of Profound Knowledge is a later Deming formulation, introduced in{' '}
+            <em>The New Economics for Industry, Government, Education</em> (Deming, 1993), not in{' '}
+            <em>Quality, Productivity, and Competitive Position</em> (1982) or in{' '}
+            <em>Out of the Crisis</em> (1986). It is included on this page because it is frequently
+            taught alongside the 14 Points as part of Deming&rsquo;s mature philosophy, but readers
+            should note the attribution. Deming proposed four interrelated bodies of knowledge:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
@@ -372,12 +440,13 @@ const BibliographyArticlePage = () => {
               <strong>Knowledge of Variation:</strong> All processes produce variation.
               Understanding sources of variation (common cause versus special cause), statistical
               tools for analyzing variation, and methods for reducing variation is essential to
-              quality improvement.
+              quality improvement. (Drawn directly from Shewhart.)
             </li>
             <li>
               <strong>Theory of Knowledge:</strong> Organizational improvement requires scientific
               method and hypothesis testing rather than experience alone. Understanding prediction,
-              testing, and learning enables evidence-based improvement.
+              testing, and learning enables evidence-based improvement. (Drawn from C. I. Lewis,{' '}
+              <em>Mind and the World Order</em>, cited by Deming.)
             </li>
             <li>
               <strong>Psychology:</strong> Understanding human motivation, group dynamics,
@@ -389,9 +458,14 @@ const BibliographyArticlePage = () => {
           <h3 className={H3_CLASSES}>Key Mechanisms</h3>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Plan-Do-Study-Act Cycle:</strong> Organizations continuously cycle through
-              planning improvements, implementing changes, studying results, and acting on learning.
-              This iterative cycle drives continuous improvement.
+              <strong>
+                Plan-Do-Check-Act Cycle (PDCA) - later renamed Plan-Do-Study-Act (PDSA):
+              </strong>{' '}
+              Organizations continuously cycle through planning improvements, implementing changes,
+              checking / studying results, and acting on learning. The cycle was introduced by
+              Shewhart (1939) as PDCA and adopted by Deming in the 1982 and 1986 books under that
+              name; Deming renamed the "Check" step to "Study" starting in his 1993 book{' '}
+              <em>The New Economics</em>. Both forms are widely used.
             </li>
             <li>
               <strong>Statistical Process Control:</strong> Using statistical tools to monitor
@@ -482,7 +556,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 8. Key Contributions */}
+        {/* 9. Key Contributions */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Key Contributions</h2>
           <ul className={BODY_LIST_CLASSES}>
@@ -528,7 +602,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 9. Internal Validity */}
+        {/* 10. Internal Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Internal Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -568,7 +642,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 10. External Validity */}
+        {/* 11. External Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>External Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -620,7 +694,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 11. Relevance to Technology Adoption */}
+        {/* 12. Relevance to Technology Adoption */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Relevance to Technology Adoption</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -717,7 +791,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 12. Following Models or Theories */}
+        {/* 13. Following Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Following Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -775,12 +849,25 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 13. References */}
+        {/* 14. References */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>References</h2>
           <ol className={REFERENCES_OL_CLASSES}>
+            <li id="ref-deming-1982">
+              Deming, W. E. (1982). <em>Quality, Productivity, and Competitive Position</em>. MIT
+              Center for Advanced Engineering Study. ISBN 0-911379-00-6.
+            </li>
+            <li id="ref-deming-1986">
+              Deming, W. E. (1986). <em>Out of the Crisis</em>. MIT Center for Advanced Engineering
+              Study. (Expanded reissue of the 1982 book under a new title.)
+            </li>
+            <li id="ref-deming-1993">
+              Deming, W. E. (1993). <em>The New Economics for Industry, Government, Education</em>.
+              MIT Center for Advanced Engineering Study. (Introduces the System of Profound
+              Knowledge and renames Shewhart&rsquo;s PDCA cycle to PDSA.)
+            </li>
             <li id="ref-shewhart-1931">
-              Shewhart, W. A. (1931). <em>Economic control of quality of manufactured product</em>.
+              Shewhart, W. A. (1931). <em>Economic Control of Quality of Manufactured Product</em>.
               D. Van Nostrand Company.
               <span className="text-xs ml-1">
                 <a
@@ -790,20 +877,13 @@ const BibliographyArticlePage = () => {
                 ></a>
               </span>
             </li>
-            <li id="ref-bertalanffy-1968">
-              Bertalanffy, L. V. (1968).{' '}
-              <em>General system theory: Foundations, development, applications</em>. George
-              Braziller.
-              <span className="text-xs ml-1">
-                <a
-                  href="#cite-ref-bertalanffy-1968-1"
-                  className="text-tabs-teal-deep hover:underline"
-                  aria-label="Back to citation 1"
-                ></a>
-              </span>
+            <li id="ref-shewhart-1939">
+              Shewhart, W. A. (1939).{' '}
+              <em>Statistical Method from the Viewpoint of Quality Control</em>. Graduate School,
+              U.S. Department of Agriculture. (Source of the Plan-Do-Check-Act cycle.)
             </li>
             <li id="ref-taylor-1911">
-              Taylor, F. W. (1911). <em>The principles of scientific management</em>. Harper &amp;
+              Taylor, F. W. (1911). <em>The Principles of Scientific Management</em>. Harper &amp;
               Brothers.
               <span className="text-xs ml-1">
                 <a
@@ -813,53 +893,74 @@ const BibliographyArticlePage = () => {
                 ></a>
               </span>
             </li>
-            <li id="ref-deming-1986">
-              Deming, W. E. (1986). <em>Out of the crisis</em>. MIT Center for Advanced Engineering
-              Study.
+            <li id="ref-bertalanffy-1968">
+              Bertalanffy, L. V. (1968).{' '}
+              <em>General System Theory: Foundations, Development, Applications</em>. George
+              Braziller.
+              <span className="text-xs ml-1">
+                <a
+                  href="#cite-ref-bertalanffy-1968-1"
+                  className="text-tabs-teal-deep hover:underline"
+                  aria-label="Back to citation 1"
+                ></a>
+              </span>
             </li>
             <li id="ref-womack-1996">
               Womack, J. P., &amp; Jones, D. T. (1996).{' '}
-              <em>Lean thinking: Banish waste and create wealth in your corporation</em>. Simon
+              <em>Lean Thinking: Banish Waste and Create Wealth in Your Corporation</em>. Simon
               &amp; Schuster.
+              <span className="text-xs ml-1">
+                <a
+                  href="#cite-ref-womack-1996-1"
+                  className="text-tabs-teal-deep hover:underline"
+                  aria-label="Back to citation 1"
+                ></a>
+              </span>
             </li>
           </ol>
         </section>
 
+        {/* 15. Further Reading */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Further Reading</h2>
           <ol className={REFERENCES_OL_CLASSES}>
-            <li id="ref-deming-1982">
-              Deming, W. E. (1982). <em>Out of the crisis</em>. MIT Center for Advanced Engineering
-              Study.
-            </li>
             <li id="ref-juran-1999">
-              Juran, J. M., &amp; Godfrey, A. B. (1999). <em>Juran&rsquo;s quality handbook</em>
+              Juran, J. M., &amp; Godfrey, A. B. (1999). <em>Juran&rsquo;s Quality Handbook</em>{' '}
               (5th ed.). McGraw-Hill.
             </li>
             <li id="ref-crosby-1979">
-              Crosby, P. B. (1979). <em>Quality is free: The art of making quality certain</em>.
+              Crosby, P. B. (1979). <em>Quality is Free: The Art of Making Quality Certain</em>.
               McGraw-Hill.
             </li>
+            <li id="ref-imai-1986">
+              Imai, M. (1986). <em>Kaizen: The Key to Japan&rsquo;s Competitive Success</em>. Random
+              House.
+            </li>
+            <li id="ref-ishikawa-1985">
+              Ishikawa, K. (1985). <em>What Is Total Quality Control? The Japanese Way</em>.
+              Prentice-Hall.
+            </li>
+            <li id="ref-feigenbaum-1951">
+              Feigenbaum, A. V. (1951).{' '}
+              <em>Quality Control: Principles, Practice, and Administration</em>. McGraw-Hill.
+              (Origin of the term &ldquo;Total Quality Control&rdquo;.)
+            </li>
             <li id="ref-argyris-1978">
-              Argyris, C., &amp; Schon, D. A. (1978).{' '}
-              <em>Organizational learning: A theory of action perspective</em>. Addison-Wesley.
+              Argyris, C., &amp; Sch&ouml;n, D. A. (1978).{' '}
+              <em>Organizational Learning: A Theory of Action Perspective</em>. Addison-Wesley.
             </li>
             <li id="ref-national-2023">
               National Institute of Standards and Technology. (2023).{' '}
-              <em>Baldrige excellence framework</em>. U.S. Department of Commerce.
+              <em>Baldrige Excellence Framework</em>. U.S. Department of Commerce.
             </li>
             <li id="ref-international-2015">
               International Organization for Standardization. (2015).{' '}
-              <em>ISO 9001:2015 quality management systems</em>. ISO.
-            </li>
-            <li id="ref-imai-1986">
-              Imai, M. (1986). <em>Kaizen: The key to Japan&rsquo;s competitive success</em>. Random
-              House.
+              <em>ISO 9001:2015 Quality Management Systems</em>. ISO.
             </li>
           </ol>
         </section>
 
-        {/* 14. Series Navigation */}
+        {/* 16. Series Navigation */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Series Navigation</h2>
           <div className="space-y-4">
