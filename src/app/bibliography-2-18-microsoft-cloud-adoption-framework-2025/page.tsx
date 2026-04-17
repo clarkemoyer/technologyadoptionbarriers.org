@@ -293,9 +293,11 @@ const BibliographyArticlePage = () => {
               costs, and document the cloud adoption plan.
             </li>
             <li>
-              <strong>Ready:</strong> Prepare the Azure environment and landing zone for workloads.
-              Build organizational readiness across people, processes, and technology, develop
-              initial cloud skills, and create operating model foundations.
+              <strong>Ready:</strong> Prepare the Azure environment for workloads by implementing
+              Azure landing zones. Microsoft updated the Ready methodology to focus specifically on
+              Azure landing zones, covering Azure purchasing, tenant setup, platform landing zones
+              (shared services such as connectivity, identity, management, and security), and
+              application landing zones (workload hosting).
             </li>
             <li>
               <strong>Adopt:</strong> Deliver workloads into Azure that meet business needs. Adopt
