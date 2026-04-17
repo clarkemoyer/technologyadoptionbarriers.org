@@ -138,10 +138,12 @@ const BibliographyArticlePage = () => {
             operations, ensuring employees used the technology effectively, and realizing intended
             benefits. Many organizations adopted technologies they failed to implement effectively,
             resulting in unused systems and failed projects. The authors recognized that
-            implementation deserved distinct theoretical treatment from adoption. They synthesized
-            Lewin&rsquo;s change management theory with Rogers&rsquo; diffusion of innovations
-            theory to create framework describing implementation as systematic process progressing
-            through identifiable stages.
+            implementation deserved distinct theoretical treatment from adoption. They applied Kwon
+            and Zmud&rsquo;s (1987) IT implementation research model - itself based on the
+            organizational change, innovation, and technological diffusion literatures and with
+            stages founded on Lewin&rsquo;s (1952) change model - incorporating post-adoption
+            behaviors developed by Zmud and Apple (1989) to describe implementation as a systematic
+            process progressing through identifiable stages.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             The authors sought to answer critical questions: What stages do organizations progress
