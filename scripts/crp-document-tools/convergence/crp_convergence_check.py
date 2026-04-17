@@ -444,7 +444,9 @@ def main():
     print(f"  Results: {json.dumps(status_counts, indent=2)}")
 
     # Step 7: Save outputs
-    ts_file = timestamp.replace(' ', '_').replace(':', '')
+    # Create output subdirectories if they don't already exist
+    for subdir in ('Pipeline Snapshots', 'Claims Databases', 'Convergence Reports'):
+        os.makedirs(os.path.join(args.output_dir, subdir), exist_ok=True)
 
     # Pipeline snapshot
     pipeline_path = os.path.join(args.output_dir, 'Pipeline Snapshots',

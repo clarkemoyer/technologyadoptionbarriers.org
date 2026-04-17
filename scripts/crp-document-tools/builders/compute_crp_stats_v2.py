@@ -1,9 +1,34 @@
 #!/usr/bin/env python3
-"""Compute ALL statistics for CRP V2 Results — CORRECTED scale maps from actual CSV values."""
-import csv, math, json
+"""Compute ALL statistics for CRP V2 Results — CORRECTED scale maps from actual CSV values.
+
+Usage:
+    python compute_crp_stats_v2.py
+    python compute_crp_stats_v2.py --csv /path/to/survey.csv
+"""
+import csv, math, json, argparse, glob, os, sys
 from collections import defaultdict, Counter
 
-CSV_PATH = "/sessions/pensive-zen-darwin/mnt/uploads/Technology+Adoption+Barriers+Survey_March+23,+2026_21.53.csv"
+def find_csv():
+    """Auto-discover the CRP survey CSV via workspace glob patterns."""
+    for pattern in [
+        "/sessions/*/mnt/! Clarke Moyer Smeal CRP - TABS/05 TABS Survey Support/TABS Survey Data/*Enriched_CRP200*.csv",
+        "/sessions/*/mnt/! Clarke Moyer Smeal CRP - TABS/05 TABS Survey Support/TABS Survey Data/*V2_ONLY*.csv",
+        "/sessions/*/mnt/*Clarke*CRP*TABS*/05 TABS Survey Support/TABS Survey Data/*Enriched_CRP200*.csv",
+    ]:
+        matches = glob.glob(pattern)
+        if matches:
+            return sorted(matches)[-1]
+    return None
+
+parser = argparse.ArgumentParser(description="Compute CRP V2 descriptive statistics")
+parser.add_argument("--csv", help="Path to survey CSV (auto-discovered if omitted)")
+args = parser.parse_args()
+
+CSV_PATH = args.csv or find_csv()
+if not CSV_PATH:
+    print("ERROR: No survey CSV found. Provide --csv or set up the CRP workspace.")
+    sys.exit(1)
+print(f"Using CSV: {CSV_PATH}")
 
 with open(CSV_PATH, 'r', encoding='utf-8-sig') as f:
     reader = csv.reader(f)
@@ -107,7 +132,10 @@ def pearson_r(x, y):
 
 # Duration stats
 durations = sorted([get_duration(r) for r in clean_rows if get_duration(r)])
-print(f"\nDuration: median={durations[len(durations)//2]/60:.1f}min, mean={sum(durations)/len(durations)/60:.1f}min, range={min(durations)/60:.1f}-{max(durations)/60:.1f}min")
+if durations:
+    print(f"\nDuration: median={durations[len(durations)//2]/60:.1f}min, mean={sum(durations)/len(durations)/60:.1f}min, range={min(durations)/60:.1f}-{max(durations)/60:.1f}min")
+else:
+    print("\nDuration: no valid durations found in clean rows")
 
 # ===== BARRIER ITEMS =====
 print("\n=== BARRIER RANKINGS ===")

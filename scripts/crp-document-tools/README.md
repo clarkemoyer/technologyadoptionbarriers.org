@@ -35,13 +35,16 @@ They do **not** assume any cloud secrets, API keys, or GitHub authentication. Ev
 
 ## Privacy note
 
-None of these scripts contain or require PII. They operate on:
+These scripts do not hard-code any PII or credentials. They operate on:
 
 - The CRP `.docx` itself (no PII - contains only aggregated statistics)
-- The NIST de-identified public CRP dataset (`public/datasets/TABS_V2_CRP_2026_public_dataset.csv`)
 - Pipeline-generated JSON files in `src/data/`
 
-PII-containing CSVs (enriched with Prolific demographics, raw Qualtrics exports) are NEVER referenced by these scripts and MUST NEVER be committed to this repo per the project's data rules. See the root `CLAUDE.md` for the full privacy policy.
+Where a script may use an enriched CRP dataset (e.g., `validate_crp_stats_v5.py` tries
+`*Enriched_CRP200*.csv` before falling back to the public dataset), that enriched file lives
+only in the local CRP workspace and is **never committed to this repo**. The public dataset
+(`TABS_V2_CRP_2026_public_dataset.csv`) is the safe default and the only CSV form that may
+be committed. See the root `CLAUDE.md` for the full privacy policy.
 
 ## When to update which subfolder
 

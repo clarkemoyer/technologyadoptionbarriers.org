@@ -20,11 +20,21 @@ Offline tools that construct the final CRP deliverable document from its constit
 ## Running
 
 ```bash
-# Merge body + appendixes into the final CRP docx
+# Merge body + appendixes into the final CRP docx (auto-discovers workspace)
 python scripts/crp-document-tools/builders/merge_appendixes.py
 
-# Compute baseline statistics from the frozen CRP CSV
+# Or specify paths explicitly:
+python scripts/crp-document-tools/builders/merge_appendixes.py \
+    --workspace /path/to/CRP-workspace
+python scripts/crp-document-tools/builders/merge_appendixes.py \
+    --docx /path/to/body.docx --appendix-dir /path/to/appendixes
+
+# Compute baseline statistics from the frozen CRP CSV (auto-discovers workspace)
 python scripts/crp-document-tools/builders/compute_crp_stats_v2.py
+
+# Or specify the CSV explicitly:
+python scripts/crp-document-tools/builders/compute_crp_stats_v2.py \
+    --csv /path/to/survey.csv
 ```
 
 Both scripts auto-discover the CRP workspace folder via glob and output files with EST-timestamped names following the project's versioning rule (never overwrite, always new file with EST timestamp, move prior versions to `Old/`).
@@ -33,7 +43,7 @@ Both scripts auto-discover the CRP workspace folder via glob and output files wi
 
 - `python-docx` for docx manipulation
 - `lxml` for XML-level edits (for cases where python-docx's high-level API is insufficient)
-- `pandas` for CSV reading in `compute_crp_stats_v2.py`
+- `zoneinfo` (Python 3.9+ stdlib) for EST timestamp generation in `merge_appendixes.py`
 
 ## Adherence to project rules
 

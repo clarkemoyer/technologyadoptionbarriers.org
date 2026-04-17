@@ -7,6 +7,7 @@ between appendixes.
 
 Usage:
     python3 validate_appendixes.py
+    python3 validate_appendixes.py --workspace /path/to/CRP-workspace
 
 Outputs a structured convergence report showing:
 - Actual page counts from PDFs vs. claimed page counts in each appendix
@@ -22,6 +23,8 @@ import os
 import re
 import json
 import sys
+import glob
+import argparse
 from pathlib import Path
 from datetime import datetime
 
@@ -33,11 +36,28 @@ except ImportError:
     sys.exit(1)
 
 # =============================================================================
-# Configuration
+# Workspace discovery
 # =============================================================================
 
-CRP_ROOT = "/sessions/wonderful-focused-rubin/mnt/! Clarke Moyer Smeal CRP - TABS"
-APPENDIX_DIR = os.path.join(CRP_ROOT, "02 CRP Appendixes")
+def find_workspace():
+    """Find the CRP workspace root via glob-based discovery."""
+    candidates = [
+        glob.glob("/sessions/*/mnt/! Clarke Moyer Smeal CRP - TABS"),
+        glob.glob("/sessions/*/mnt/*Clarke*CRP*TABS*"),
+        glob.glob("/tmp/tabs-crp-workspace"),
+    ]
+    for clist in candidates:
+        if clist:
+            return sorted(clist)[-1]
+    return None
+
+# =============================================================================
+# Configuration (resolved at runtime in main)
+# =============================================================================
+
+# APPENDIX_DIR and CRP_ROOT are resolved from CLI args / workspace discovery in main().
+# Do not hard-code session-specific paths here.
+APPENDIX_DIR = None
 
 # The latest timestamp for each capture (the "current" version)
 # Updated manually when new captures are built
@@ -105,22 +125,43 @@ APPENDIX_FILES = {
 # Discovery
 # =============================================================================
 
+def _parse_filename_date(filename):
+    """
+    Parse an EST timestamp embedded in a filename of the form '(M-D-YYYY HHMM EST)'.
+    Returns a comparable tuple (year, month, day, hhmm) or (0, 0, 0, 0) on failure.
+    This avoids lexicographic ordering bugs with single-digit months/days
+    (e.g. '4-9-2026' vs '4-16-2026').
+    """
+    m = re.search(r'\((\d{1,2})-(\d{1,2})-(\d{4})\s+(\d{4})\s+EST\)', filename)
+    if m:
+        month, day, year, hhmm = int(m.group(1)), int(m.group(2)), int(m.group(3)), int(m.group(4))
+        return (year, month, day, hhmm)
+    return (0, 0, 0, 0)
+
+
 def discover_appendix_files():
-    """Find the latest version of each appendix markdown."""
-    for f in sorted(os.listdir(APPENDIX_DIR)):
+    """Find the latest version of each appendix markdown using date-aware selection."""
+    global APPENDIX_FILES
+    # Group candidates by appendix letter, then pick the one with the newest timestamp.
+    buckets = {"A": [], "B": [], "C": [], "D": [], "Plan": []}
+    for f in os.listdir(APPENDIX_DIR):
         if not f.endswith(".md"):
             continue
         path = os.path.join(APPENDIX_DIR, f)
         if f.startswith("Appendix A"):
-            APPENDIX_FILES["A"] = path
+            buckets["A"].append(path)
         elif f.startswith("Appendix B"):
-            APPENDIX_FILES["B"] = path
+            buckets["B"].append(path)
         elif f.startswith("Appendix C"):
-            APPENDIX_FILES["C"] = path
+            buckets["C"].append(path)
         elif f.startswith("Appendix D"):
-            APPENDIX_FILES["D"] = path
+            buckets["D"].append(path)
         elif f.startswith("Appendix Project Plan"):
-            APPENDIX_FILES["Plan"] = path
+            buckets["Plan"].append(path)
+
+    for key, paths in buckets.items():
+        if paths:
+            APPENDIX_FILES[key] = max(paths, key=lambda p: _parse_filename_date(os.path.basename(p)))
 
 
 # =============================================================================
@@ -427,9 +468,23 @@ def check_stale_content(appendix_texts):
 # =============================================================================
 
 def main():
+    global APPENDIX_DIR
+
+    parser = argparse.ArgumentParser(description="TABS CRP Appendix Validator")
+    parser.add_argument("--workspace", help="Path to CRP workspace root (auto-discovered if omitted)")
+    args = parser.parse_args()
+
+    workspace = args.workspace or find_workspace()
+    if workspace:
+        APPENDIX_DIR = os.path.join(workspace, "02 CRP Appendixes")
+    if not APPENDIX_DIR or not os.path.isdir(APPENDIX_DIR):
+        print("ERROR: Could not locate appendix directory. Provide --workspace or set up the CRP workspace.")
+        sys.exit(1)
+
     print("=" * 80)
     print("TABS CRP APPENDIX VALIDATION REPORT")
     print(f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    print(f"Appendix dir: {APPENDIX_DIR}")
     print("=" * 80)
 
     # Discover files
@@ -447,7 +502,7 @@ def main():
     appendix_word_counts = {}
     for app_id, path in APPENDIX_FILES.items():
         if path and os.path.exists(path):
-            with open(path) as f:
+            with open(path, encoding='utf-8') as f:
                 text = f.read()
             appendix_texts[app_id] = text
             appendix_word_counts[app_id] = count_words(text)

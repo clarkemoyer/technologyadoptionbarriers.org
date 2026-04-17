@@ -6,11 +6,24 @@ Appendix B: TABS Research Platform (GitHub, blog, bibliography, personas, AI dev
 Appendix C: Data Analysis and Validation (comprehensive report, scripts, validation registry)
 Appendix D: Institutional Governance (doctoral committee, IRB)
 Auto-discovers latest CRP body DOCX and appendix files. Handles landscape orientation.
+
+Usage:
+    python merge_appendixes.py
+    python merge_appendixes.py --workspace /path/to/CRP-workspace
+    python merge_appendixes.py --docx /path/to/body.docx --appendix-dir /path/to/appendixes
+    python merge_appendixes.py --docx /path/to/body.docx --appendix-dir /path/to/appendixes \\
+        --output /path/to/output.docx
 """
 
 import re
 import os
 import copy
+import sys
+import glob as globmod
+import argparse
+from datetime import datetime
+from zoneinfo import ZoneInfo
+
 from docx import Document
 from docx.shared import Pt, Inches, Twips, Cm, Emu
 from docx.enum.text import WD_ALIGN_PARAGRAPH
@@ -20,30 +33,7 @@ from docx.oxml.ns import qn, nsdecls
 from docx.oxml import parse_xml
 from lxml import etree
 
-# ── Configuration ──────────────────────────────────────────────────────
-
-import sys
-import glob as globmod
-
-# Auto-detect paths relative to this script's location
-SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-CRP_ROOT = os.path.dirname(SCRIPT_DIR)
-
-# Find the latest CRP body DOCX (exclude Old/ folder)
-_body_candidates = sorted(globmod.glob(os.path.join(SCRIPT_DIR, "Clarke Moyer - DBA Culminating Research Project*.docx")))
-if not _body_candidates:
-    _body_candidates = sorted(globmod.glob(os.path.join(SCRIPT_DIR, "Clarke Moyer - CRP body*.docx")))
-CRP_PATH = _body_candidates[-1] if _body_candidates else None
-
-APPENDIX_DIR = os.path.join(CRP_ROOT, "02 CRP Appendixes")
-
-# Generate timestamped output path
-from datetime import datetime
-import pytz
-_est = pytz.timezone('America/New_York')
-_now = datetime.now(_est)
-_ts = _now.strftime('%-m-%-d-%Y %H%M EST')
-OUTPUT_PATH = os.path.join(CRP_ROOT, f"Clarke Moyer - DBA Culminating Research Project - Product Development ({_ts}).docx")
+# ── Configuration constants ─────────────────────────────────────────────
 
 FONT_NAME = "Times New Roman"
 FONT_SIZE = Pt(12)
@@ -55,17 +45,63 @@ LINE_SPACING = Pt(24)  # double spacing for 12pt
 LANDSCAPE_APPENDIXES = {'A', 'B'}
 
 # Consolidated 4-appendix structure (A-D), each file auto-discovered by prefix
-def _find_appendix(prefix):
-    """Find the latest appendix file matching a prefix."""
-    candidates = sorted(globmod.glob(os.path.join(APPENDIX_DIR, f"{prefix}*.md")))
-    return candidates[-1] if candidates else None
-
 APPENDIX_FILES = [
     ("A", "TABS Survey Instrument"),
     ("B", "TABS Research Platform"),
     ("C", "Data Analysis and Validation"),
     ("D", "Institutional Governance"),
 ]
+
+# ── Workspace / path discovery ──────────────────────────────────────────
+
+def find_workspace():
+    """Find the CRP workspace root via glob-based discovery."""
+    candidates = [
+        globmod.glob("/sessions/*/mnt/! Clarke Moyer Smeal CRP - TABS"),
+        globmod.glob("/sessions/*/mnt/*Clarke*CRP*TABS*"),
+        globmod.glob("/tmp/tabs-crp-workspace"),
+    ]
+    for clist in candidates:
+        if clist:
+            return sorted(clist)[-1]
+    return None
+
+
+def find_latest_docx(workspace):
+    """Find the latest CRP body .docx in 01 CRP Body/ of the workspace."""
+    body_dir = os.path.join(workspace, "01 CRP Body")
+    if not os.path.isdir(body_dir):
+        return None
+    candidates = []
+    for f in os.listdir(body_dir):
+        if f.startswith("Clarke Moyer") and f.endswith(".docx") and not f.startswith("~"):
+            candidates.append(os.path.join(body_dir, f))
+    if not candidates:
+        for f in os.listdir(body_dir):
+            if f.endswith(".docx") and not f.startswith("~"):
+                candidates.append(os.path.join(body_dir, f))
+    return sorted(candidates)[-1] if candidates else None
+
+
+def _parse_filename_date(filename):
+    """
+    Parse an EST timestamp embedded in a filename of the form '(M-D-YYYY HHMM EST)'.
+    Returns a comparable tuple (year, month, day, hhmm) or (0, 0, 0, 0) on failure.
+    This avoids lexicographic ordering bugs with single-digit months/days.
+    """
+    m = re.search(r'\((\d{1,2})-(\d{1,2})-(\d{4})\s+(\d{4})\s+EST\)', filename)
+    if m:
+        month, day, year, hhmm = int(m.group(1)), int(m.group(2)), int(m.group(3)), int(m.group(4))
+        return (year, month, day, hhmm)
+    return (0, 0, 0, 0)
+
+
+def _find_appendix(prefix, appendix_dir):
+    """Find the latest appendix file matching a prefix, using date-aware sorting."""
+    candidates = globmod.glob(os.path.join(appendix_dir, f"{prefix}*.md"))
+    if not candidates:
+        return None
+    return max(candidates, key=lambda f: _parse_filename_date(os.path.basename(f)))
 
 
 # ── Helper Functions ───────────────────────────────────────────────────
@@ -540,19 +576,51 @@ def process_markdown_content(doc, lines, landscape=False):
 import docx.enum.text
 
 def main():
-    if CRP_PATH is None:
-        print("ERROR: No CRP body DOCX found in 01 CRP Body/!")
+    parser = argparse.ArgumentParser(description="Merge CRP body + appendixes into final docx")
+    parser.add_argument("--workspace", help="Path to CRP workspace root (auto-discovered if omitted)")
+    parser.add_argument("--docx", help="Path to CRP body .docx (overrides workspace discovery)")
+    parser.add_argument("--appendix-dir", help="Path to '02 CRP Appendixes' folder (overrides workspace discovery)")
+    parser.add_argument("--output", help="Output .docx path (default: timestamped file in workspace root)")
+    args = parser.parse_args()
+
+    # Resolve workspace
+    workspace = args.workspace or find_workspace()
+
+    # Resolve CRP body docx
+    crp_path = args.docx
+    if crp_path is None and workspace:
+        crp_path = find_latest_docx(workspace)
+    if crp_path is None:
+        print("ERROR: No CRP body DOCX found. Provide --workspace or --docx.")
         sys.exit(1)
 
-    print(f"Opening CRP body: {os.path.basename(CRP_PATH)}")
-    doc = Document(CRP_PATH)
+    # Resolve appendix directory
+    appendix_dir = args.appendix_dir
+    if appendix_dir is None and workspace:
+        appendix_dir = os.path.join(workspace, "02 CRP Appendixes")
+    if appendix_dir is None:
+        print("ERROR: No appendix directory found. Provide --workspace or --appendix-dir.")
+        sys.exit(1)
+
+    # Resolve output path
+    if args.output:
+        output_path = args.output
+    else:
+        _est = ZoneInfo('America/New_York')
+        _now = datetime.now(_est)
+        _ts = _now.strftime('%-m-%-d-%Y %H%M EST')
+        out_root = workspace if workspace else os.path.dirname(crp_path)
+        output_path = os.path.join(out_root, f"Clarke Moyer - DBA Culminating Research Project - Product Development ({_ts}).docx")
+
+    print(f"Opening CRP body: {os.path.basename(crp_path)}")
+    doc = Document(crp_path)
 
     # Discover appendix files
     appendix_files = []
     for letter, title in APPENDIX_FILES:
-        filepath = _find_appendix(f"Appendix {letter}")
+        filepath = _find_appendix(f"Appendix {letter}", appendix_dir)
         if filepath is None:
-            print(f"ERROR: No file found for Appendix {letter} in {APPENDIX_DIR}")
+            print(f"ERROR: No file found for Appendix {letter} in {appendix_dir}")
             sys.exit(1)
         appendix_files.append((letter, filepath, title))
         print(f"  Found Appendix {letter}: {os.path.basename(filepath)}")
@@ -662,10 +730,10 @@ def main():
                 del pgSz.attrib[qn('w:orient')]
 
     # Save
-    print(f"Saving to: {OUTPUT_PATH}")
-    doc.save(OUTPUT_PATH)
+    print(f"Saving to: {output_path}")
+    doc.save(output_path)
     print("Done!")
-    print(f"File size: {os.path.getsize(OUTPUT_PATH):,} bytes")
+    print(f"File size: {os.path.getsize(output_path):,} bytes")
 
 
 if __name__ == '__main__':
