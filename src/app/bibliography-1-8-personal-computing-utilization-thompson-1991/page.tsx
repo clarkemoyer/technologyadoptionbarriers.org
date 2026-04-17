@@ -189,21 +189,21 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>What Does the Model Measure?</h2>
           <p className={PARAGRAPH_CLASSES}>
-            Thompson, Higgins, and Howell (1991) adapt Triandis&rsquo; theoretical framework into
-            a measurement model of personal computing utilization. Core measured constructs:
+            Thompson, Higgins, and Howell (1991) adapt Triandis&rsquo; theoretical framework into a
+            measurement model of personal computing utilization. Core measured constructs:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Utilization:</strong> Frequency, duration, and diversity of personal
-              computer use; measured via self-report usage items.
+              <strong>Utilization:</strong> Frequency, duration, and diversity of personal computer
+              use; measured via self-report usage items.
             </li>
             <li>
               <strong>Perceived Near-Term Consequences (job fit):</strong> Beliefs about how
               computer use fits and improves specific job tasks.
             </li>
             <li>
-              <strong>Perceived Long-Term Consequences:</strong> Beliefs about how computer use
-              will affect career, knowledge, and future opportunities.
+              <strong>Perceived Long-Term Consequences:</strong> Beliefs about how computer use will
+              affect career, knowledge, and future opportunities.
             </li>
             <li>
               <strong>Complexity:</strong> Perceived difficulty of understanding and using the
@@ -223,14 +223,14 @@ const BibliographyArticlePage = () => {
               make computer use easier (support, infrastructure, availability).
             </li>
             <li>
-              <strong>Habit:</strong> Automaticity of behavior; operationalized through
-              self-report of habitual patterns.
+              <strong>Habit:</strong> Automaticity of behavior; operationalized through self-report
+              of habitual patterns.
             </li>
           </ul>
           <p className={PARAGRAPH_CLASSES}>
             Thompson et al. (1991) report survey-based scale development with participants in a
-            large organization and provide reliability estimates for each construct. Construct
-            sets from this model were later partly absorbed into UTAUT (Venkatesh et al., 2003).
+            large organization and provide reliability estimates for each construct. Construct sets
+            from this model were later partly absorbed into UTAUT (Venkatesh et al., 2003).
           </p>
         </section>
 
