@@ -62,7 +62,7 @@ const pickRankOf: Record<string, number> = {}
 pickSorted.forEach((r, i) => {
   pickRankOf[r.item] = i + 1
 })
-const meanRankOf: Record<string, number> = {}
+const meanRankOf: Partial<Record<string, number>> = {}
 meanSorted.forEach((r, i) => {
   meanRankOf[r.item] = i + 1
 })
@@ -372,8 +372,8 @@ const TopBarriersPage = () => {
             participants must prioritize), and a positive Delta means the opposite (it falls under
             forced choice relative to continuous rating).
             {hasOmittedMeanRank
-              ? ' Barriers missing a Mean Rank value above are those with no valid continuous-rating mean in this dataset (all responses missing for that item).'
-              : ''}
+              ? ' Barriers missing a Mean Rank value above are those with no valid continuous-rating responses for that item in this dataset.'
+              : null}
           </p>
         </section>
 
