@@ -313,8 +313,8 @@ const BibliographyArticlePage = () => {
           <h3 className={H3_CLASSES}>DoDAF 2.0 Evolution</h3>
           <p className={PARAGRAPH_CLASSES}>
             DoDAF 2.0 (2009) and 2.02 (2010) significantly evolved the framework, expanding from
-            four view categories to eight viewpoints and shifting from a document-centric to a
-            data-centric approach:
+            four view categories to eight viewpoints and formalizing the data-centric approach
+            already advocated in the v1.0 Deskbook through a defined meta-model:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
