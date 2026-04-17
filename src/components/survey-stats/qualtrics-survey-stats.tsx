@@ -10,13 +10,17 @@ function formatMetricName(metric: string): string {
 export default function QualtricsSurveyStats() {
   const metrics = metricsData.metrics
   const maxValue = Math.max(1, ...metrics.map((m) => m.value))
-  const placesTaken = dispositionData.study?.placesTaken ?? 0
+  const placesTaken: number | null = dispositionData.study?.placesTaken ?? null
   const questionCount: number | null = metricsData.questionCount ?? null
 
   const dispositionUpdatedAt = dispositionData.updatedAt
-    ? new Date(
+    ? `${new Date(
         dispositionData.updatedAt.replace(/\.\d{4,}/, (m: string) => m.slice(0, 4))
-      ).toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'short' })
+      ).toLocaleString('en-US', {
+        dateStyle: 'medium',
+        timeStyle: 'short',
+        timeZone: 'UTC',
+      })} UTC`
     : null
 
   return (
@@ -45,7 +49,7 @@ export default function QualtricsSurveyStats() {
           <div className="rounded-lg border border-blue-200 bg-blue-50 p-4">
             <div className="text-sm font-medium text-blue-900">Places Taken</div>
             <div className="mt-1 text-3xl font-bold text-blue-700">
-              {placesTaken.toLocaleString()}
+              {placesTaken !== null ? placesTaken.toLocaleString() : '—'}
             </div>
             <div className="mt-1 text-xs text-blue-600">
               Cached snapshot from Prolific. Last updated{' '}
