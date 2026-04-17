@@ -424,30 +424,59 @@ const BibliographyArticlePage = () => {
             </li>
           </ul>
           <p className={PARAGRAPH_CLASSES}>
-            Hypotheses H1-H5 test the three additions and their moderators:
+            Hypotheses H1-H5 test the new moderated relationships (p.162-165):
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>H1a/b:</strong> Hedonic motivation &rarr; BI, moderated by age, gender,
-              experience (stronger for younger men with less experience).
+              <strong>H1:</strong> Age, gender, and experience moderate the effect of FC on BI
+              (stronger for older women with less experience). Partially supported: gender and age
+              were significant moderators, experience was not (p.171).
             </li>
             <li>
-              <strong>H2a/b:</strong> Price value &rarr; BI, moderated by age and gender (stronger
-              for older women).
+              <strong>H2:</strong> Age, gender, and experience moderate HM &rarr; BI (stronger for
+              younger men with less experience). Supported.
             </li>
             <li>
-              <strong>H3a/b/c:</strong> Habit &rarr; BI and habit &rarr; use directly; habit also
-              moderates BI &rarr; use (intention&rsquo;s effect weakens with strong habit).
+              <strong>H3:</strong> Age and gender moderate PV &rarr; BI (stronger for older women).
+              Supported.
             </li>
             <li>
-              <strong>H4a/b:</strong> Age, gender, experience moderate habit&rsquo;s effects
-              (stronger for older men with more experience).
+              <strong>H4a, H4b:</strong> Age, gender, and experience moderate habit&rsquo;s effect
+              on BI (H4a) and on use (H4b), stronger for older men with more experience. Supported.
             </li>
             <li>
-              <strong>H5:</strong> Experience moderates BI &rarr; use (weaker for consumers with
-              more experience).
+              <strong>H5:</strong> Experience moderates BI &rarr; use such that the effect is weaker
+              for more experienced consumers. Supported.
             </li>
           </ul>
+          <p className={PARAGRAPH_CLASSES}>
+            Additionally, the paper models habit as having BOTH a direct effect on use AND an
+            indirect effect through behavioral intention (p.172). The study is the first to
+            hypothesize demographic moderation of habit-intention and habit-use relationships.
+          </p>
+
+          <h3 className={H3_CLASSES}>Explanatory Power (R², Table 3, p.169-170)</h3>
+          <p className={PARAGRAPH_CLASSES}>
+            Four models were estimated on the same N=1,512 sample. The paper reports the jump from
+            UTAUT to UTAUT2 both with and without moderating interactions:
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Behavioral Intention:</strong> UTAUT direct = 35%, UTAUT direct+interactions =
+              56%, UTAUT2 direct = 44%, UTAUT2 direct+interactions = 74%.
+            </li>
+            <li>
+              <strong>Technology Use:</strong> UTAUT direct = 26%, UTAUT direct+interactions = 40%,
+              UTAUT2 direct = 35%, UTAUT2 direct+interactions = 52%.
+            </li>
+          </ul>
+          <p className={PARAGRAPH_CLASSES}>
+            The paper (p.171-172) explicitly notes that UTAUT2 (74%/52%) is comparable to the
+            original UTAUT results on organizational employee samples (70%/48% per Venkatesh et al.,
+            2003). The paper&rsquo;s core claim is that UTAUT2&rsquo;s extensions are necessary to
+            bring UTAUT&rsquo;s consumer-context predictive validity up to par with its
+            organizational predictive validity.
+          </p>
 
           <h3 className={H3_CLASSES}>UTAUT2 Determinant Mechanisms</h3>
           <ul className={BODY_LIST_CLASSES}>
