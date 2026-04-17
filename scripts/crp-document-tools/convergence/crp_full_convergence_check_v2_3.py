@@ -1123,8 +1123,8 @@ def main():
     reg = {}
     for fname in os.listdir(args.registry_dir):
         if fname.endswith('.json'):
-            # Strip timestamp suffix like " (4-16-2026 1656 EST)" before extracting key
-            key = re.sub(r'\s*\(\d+-\d+-\d{4}\s+\d+\s+EST\)', '', fname.replace('.json', ''))
+            # Strip timestamp suffix like " (4-16-2026 1656 EST)" or "... EDT)" before extracting key
+            key = re.sub(r'\s*\(\d+-\d+-\d{4}\s+\d+\s+[A-Z]{3}\)', '', fname.replace('.json', ''))
             key = key.replace('crp-', '')
             reg[key] = load_json(os.path.join(args.registry_dir, fname))
             print(f"  Loaded: {fname} -> key: {key}")

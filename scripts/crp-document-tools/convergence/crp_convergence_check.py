@@ -471,14 +471,19 @@ def main():
         f.write(report)
     print(f"  Saved: {report_path}")
 
-    # Summary
+    # Summary - treat both MISMATCH and UNVERIFIED as non-convergence conditions.
+    # UNVERIFIED claims were never matched to a pipeline value, so silently exiting 0
+    # would give a false "all clear" even when coverage is incomplete.
     mismatches = status_counts.get('MISMATCH', 0)
+    unverified = status_counts.get('UNVERIFIED', 0)
     if mismatches > 0:
         print(f"\n  WARNING: {mismatches} MISMATCHES found - review convergence report!")
-    else:
-        print(f"\n  All claims converge with pipeline. No mismatches.")
+    if unverified > 0:
+        print(f"\n  WARNING: {unverified} UNVERIFIED claims - not matched to any pipeline value!")
+    if mismatches == 0 and unverified == 0:
+        print(f"\n  All claims converge with pipeline. No mismatches or unverified claims.")
 
-    return mismatches
+    return mismatches + unverified
 
 
 if __name__ == '__main__':

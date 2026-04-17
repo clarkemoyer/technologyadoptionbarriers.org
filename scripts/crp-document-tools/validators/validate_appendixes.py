@@ -130,7 +130,7 @@ def _parse_filename_date(filename):
     This avoids lexicographic ordering bugs with single-digit months/days
     (e.g. '4-9-2026' vs '4-16-2026').
     """
-    m = re.search(r'\((\d{1,2})-(\d{1,2})-(\d{4})\s+(\d{4})\s+EST\)', filename)
+    m = re.search(r'\((\d{1,2})-(\d{1,2})-(\d{4})\s+(\d{4})\s+[A-Z]{3}\)', filename)
     if m:
         month, day, year, hhmm = int(m.group(1)), int(m.group(2)), int(m.group(3)), int(m.group(4))
         return (year, month, day, hhmm)
@@ -301,36 +301,6 @@ def check_cross_references(appendix_texts):
         })
 
     return findings
-
-
-# =============================================================================
-# Page Count Claim Extraction Per Capture
-# =============================================================================
-
-def extract_capture_page_claims_from_appendix(text, capture_short_name):
-    """Find where an appendix claims a specific page count for a capture."""
-    claims = []
-
-    # Patterns to search for
-    patterns = [
-        # "109-page Moment in Time Capture"
-        rf'(\d+)-page\s+.*?{re.escape(capture_short_name)}',
-        # "DOCX/PDF/MD, 109 pages"
-        rf'{re.escape(capture_short_name)}.*?(\d+)\s+pages',
-        # "| Survey Instrument | 64 |"  (table format)
-        rf'{re.escape(capture_short_name)}\s*\|\s*(\d+)\s*\|',
-        # "64 pages" near capture name (within 200 chars)
-    ]
-
-    for pat in patterns:
-        for match in re.finditer(pat, text, re.IGNORECASE):
-            pages = int(match.group(1))
-            start = max(0, match.start() - 40)
-            end = min(len(text), match.end() + 40)
-            context = text[start:end].replace('\n', ' ').strip()
-            claims.append({"pages": pages, "context": context})
-
-    return claims
 
 
 # =============================================================================
