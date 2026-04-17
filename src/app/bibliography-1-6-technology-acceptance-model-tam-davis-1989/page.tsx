@@ -176,7 +176,49 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 6. Preceding Models or Theories */}
+        {/* 6. What Does the Model Measure? */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>What Does the Model Measure?</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            The Technology Acceptance Model is a measurement model. Davis (1989) provides
+            6-item scales for two belief constructs, and subsequent work operationalizes
+            additional TAM constructs:
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Perceived Usefulness (PU):</strong> The degree to which a person believes
+              that using a particular system would enhance job performance. Davis (1989) provides
+              a 6-item Likert scale with reported reliability (Cronbach&rsquo;s alpha typically
+              above 0.9 in subsequent studies).
+            </li>
+            <li>
+              <strong>Perceived Ease of Use (PEOU):</strong> The degree to which a person
+              believes that using a particular system would be free of effort. Davis (1989)
+              provides a 6-item Likert scale with similarly strong reported reliability.
+            </li>
+            <li>
+              <strong>Attitude Toward Use (AT):</strong> Present in Davis (1989) as a mediator
+              between belief constructs and intention, later dropped in TAM2 (Venkatesh &amp;
+              Davis, 2000) and subsequent versions.
+            </li>
+            <li>
+              <strong>Behavioral Intention (BI):</strong> Self-reported plan or willingness to
+              use the system. Typically 2-3 items.
+            </li>
+            <li>
+              <strong>Actual System Use (U):</strong> Self-reported or system-logged usage
+              frequency, duration, or breadth.
+            </li>
+          </ul>
+          <p className={PARAGRAPH_CLASSES}>
+            Davis (1989) reports the scale development process (two-wave field study with 120
+            users, followed by lab study with 40 MBA students) and provides convergent and
+            discriminant validity evidence. TAM&rsquo;s PU and PEOU scales are among the most
+            widely replicated measurement instruments in IS research.
+          </p>
+        </section>
+
+        {/* 7. Preceding Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Preceding Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>TAM built upon several prior intellectual traditions:</p>
@@ -222,7 +264,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 7. Describe The Model */}
+        {/* 8. Describe The Model */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Describe The Model</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -332,7 +374,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 8. Key Contributions */}
+        {/* 9. Key Contributions */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Key Contributions</h2>
           <ul className={BODY_LIST_CLASSES}>
@@ -365,7 +407,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 9. Internal Validity */}
+        {/* 10. Internal Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Internal Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -405,7 +447,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 10. External Validity */}
+        {/* 11. External Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>External Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -440,7 +482,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 11. Relevance to Technology Adoption */}
+        {/* 12. Relevance to Technology Adoption */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Relevance to Technology Adoption</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -511,7 +553,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 12. Following Models or Theories */}
+        {/* 13. Following Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Following Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -573,7 +615,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 13. References */}
+        {/* 14. References */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>References</h2>
           <ol className={REFERENCES_OL_CLASSES}>
@@ -597,6 +639,7 @@ const BibliographyArticlePage = () => {
           </ol>
         </section>
 
+        {/* 15. Further Reading */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Further Reading</h2>
           <ol className={REFERENCES_OL_CLASSES}>
@@ -631,7 +674,7 @@ const BibliographyArticlePage = () => {
           </ol>
         </section>
 
-        {/* 14. Series Navigation */}
+        {/* 16. Series Navigation */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Series Navigation</h2>
           <div className="space-y-4">
