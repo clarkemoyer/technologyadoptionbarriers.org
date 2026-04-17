@@ -192,7 +192,45 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 6. Preceding Models or Theories */}
+        {/* 6. What Does the Model Measure? */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>What Does the Model Measure?</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            AWS Experience-Based Acceleration (EBA) is a vendor-published prescriptive engagement
+            methodology rather than a psychometric measurement model. It does not define latent
+            constructs or validated scales. It organizes how transformation engagements are scoped,
+            executed, and declared complete. Evaluation concepts associated with EBA typically
+            include:
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Outcome completion:</strong> Whether the committed production outcomes (a
+              migration, a modernized workload, a capability built) were delivered within the
+              time-boxed engagement.
+            </li>
+            <li>
+              <strong>Time-box adherence:</strong> Engagement duration versus the committed 4 - 12
+              week window.
+            </li>
+            <li>
+              <strong>Customer capability transfer:</strong> Whether designated customer
+              practitioners have taken ownership of the delivered outcome post-engagement.
+            </li>
+            <li>
+              <strong>Pillar participation:</strong> Coverage across the Education, Experience, and
+              Acceleration pillars during the engagement.
+            </li>
+          </ul>
+          <p className={PARAGRAPH_CLASSES}>
+            <strong>Source note:</strong> AWS EBA is a first-party vendor methodology published by
+            AWS Professional Services. Descriptions here are drawn from the AWS Prescriptive
+            Guidance documentation and publicly available AWS materials. Independent empirical
+            evaluation of the methodology is limited, and most published results are AWS-authored
+            case studies.
+          </p>
+        </section>
+
+        {/* 7. Preceding Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Preceding Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -232,7 +270,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 7. Describe The Model */}
+        {/* 8. Describe The Model */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Describe The Model</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -420,7 +458,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 8. Key Contributions */}
+        {/* 9. Key Contributions */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Key Contributions</h2>
           <ul className={BODY_LIST_CLASSES}>
@@ -430,7 +468,7 @@ const BibliographyArticlePage = () => {
               Demonstration challenged assumption that major transformations require 12-24+ months.
             </li>
             <li>
-              <strong>Established immersive collaboration model:</strong> AWS EBA popularized
+              <strong>Articulated immersive collaboration model:</strong> AWS EBA popularized
               immersive, daily collaboration approach for transformation delivery. Immersion model
               became industry-recognized best practice.
             </li>
@@ -458,11 +496,13 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 9. Internal Validity */}
+        {/* 10. Internal Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Internal Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
-            AWS EBA demonstrates strong internal validity as transformation delivery framework:
+            AWS EBA is a vendor-published prescriptive engagement methodology rather than an
+            empirical theory, so it is not subject to construct-validity testing in a psychometric
+            sense. Considerations typically raised about its internal consistency include:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
@@ -497,7 +537,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 10. External Validity */}
+        {/* 11. External Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>External Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -547,7 +587,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 11. Relevance to Technology Adoption */}
+        {/* 12. Relevance to Technology Adoption */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Relevance to Technology Adoption</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -643,7 +683,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 12. Following Models or Theories */}
+        {/* 13. Following Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Following Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -672,7 +712,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 13. References */}
+        {/* 14. References */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>References</h2>
           <ol className={REFERENCES_OL_CLASSES}>
@@ -684,6 +724,7 @@ const BibliographyArticlePage = () => {
           </ol>
         </section>
 
+        {/* 15. Further Reading */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Further Reading</h2>
           <ol className={REFERENCES_OL_CLASSES}>
@@ -734,7 +775,7 @@ const BibliographyArticlePage = () => {
           </ol>
         </section>
 
-        {/* 14. Series Navigation */}
+        {/* 16. Series Navigation */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Series Navigation</h2>
           <div className="space-y-4">
