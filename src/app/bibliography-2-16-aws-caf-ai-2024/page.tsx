@@ -14,7 +14,7 @@ import {
 export const metadata: Metadata = {
   title: 'Bibliography: AWS Cloud Adoption Framework for AI/ML (CAF-AI) - AWS (2024)',
   description:
-    'Comprehensive overview of the AWS Cloud Adoption Framework specialization for Artificial Intelligence, Machine Learning, and Generative AI. Explains the six perspectives, capability building blocks, and AWS CAF AI role in guiding organizations through AI adoption journey.',
+    'Comprehensive overview of the AWS Cloud Adoption Framework specialization for Artificial Intelligence, Machine Learning, and Generative AI. Explains the six perspectives, foundational AI capabilities, and the role of CAF-AI in guiding organizations through the AI adoption journey.',
 }
 
 const BibliographyArticlePage = () => {
@@ -32,7 +32,8 @@ const BibliographyArticlePage = () => {
               Intelligence, Machine Learning, and Generative AI
             </p>
             <p>
-              <strong>Framework Abbreviation:</strong> AWS CAF-AI
+              <strong>Framework Abbreviation:</strong> CAF-AI (also referred to as AWS CAF-AI in the
+              whitepaper prose)
             </p>
             <p>
               <strong>Target of Framework:</strong> Guiding organizations through cloud-based
@@ -219,29 +220,28 @@ const BibliographyArticlePage = () => {
               challenges.
             </li>
             <li>
-              <strong>AWS Well-Architected Framework (2015):</strong> AWS framework emphasizing
-              operational excellence, security, reliability, performance efficiency, and cost
-              optimization. CAF for AI aligns with Well-Architected principles.
+              <strong>AWS Well-Architected Framework:</strong> AWS framework emphasizing operational
+              excellence, security, reliability, performance efficiency, and cost optimization.
+              CAF-AI references the Machine Learning Lens of the Well-Architected Framework for
+              deeper guidance on MLOps and AI system design.
             </li>
             <li>
-              <strong>AI/ML Maturity Models (2015-2020):</strong> Prior academic and industry
-              frameworks assessing AI/ML organizational maturity. AWS CAF for AI incorporates
-              maturity model concepts within capability building blocks.
+              <strong>MLOps Maturity Framework:</strong> AWS CAF-AI explicitly recommends reviewing
+              the MLOps Maturity Framework for deeper guidance on managing the AI lifecycle and
+              operations beyond what the CAF-AI Operations perspective covers.
             </li>
             <li>
-              <strong>MLOps Frameworks (2019-2023):</strong> Emerging MLOps frameworks addressing
-              machine learning operations challenges. AWS CAF for AI incorporates MLOps as core
-              capability building block.
+              <strong>Machine Learning Lens (AWS Well-Architected Framework):</strong> CAF-AI
+              directly references the Machine Learning Lens of the AWS Well-Architected Framework
+              for extensive documentation and best practices on ML incident management and
+              performance.
             </li>
             <li>
-              <strong>Responsible AI Frameworks (2018-2023):</strong> AI ethics and responsible AI
-              frameworks addressing fairness, transparency, and trustworthiness. AWS CAF for AI
-              incorporates responsible AI as core capability.
-            </li>
-            <li>
-              <strong>Digital Transformation Frameworks (2010-2020):</strong> General digital
-              transformation frameworks addressing organizational change. AWS CAF for AI applies
-              digital transformation principles to AI adoption.
+              <strong>AI governance and responsible AI guidance:</strong> CAF-AI introduces
+              Responsible use of AI as a new capability, positioned as a decisive element for future
+              competitive advantage and built on broader industry recognition of responsible AI
+              principles. The whitepaper notes an AWS Responsible Use of AI whitepaper as a
+              companion reference.
             </li>
           </ul>
         </section>
@@ -311,18 +311,18 @@ const BibliographyArticlePage = () => {
               Portfolio Management, Innovation Management, and the new Generative AI capability.
             </li>
             <li>
-              <strong>People:</strong> the new ML Fluency capability, Workforce Transformation,
-              Organizational Alignment, and Culture Evolution.
+              <strong>People:</strong> Workforce Transformation, Organizational Alignment, Culture
+              Evolution, and the new ML Fluency capability.
             </li>
             <li>
               <strong>Governance:</strong> Cloud Financial Management (CFM), Data Curation, Risk
               Management, and the new Responsible use of AI capability.
             </li>
             <li>
-              <strong>Platform:</strong> Platform Architecture, Modern Application Development, AI
-              Lifecycle Management and MLOps, Data Architecture, Platform Engineering, Data
-              Engineering, Provisioning and Orchestration, and Continuous Integration and Continuous
-              Delivery (CI/CD).
+              <strong>Platform:</strong> Platform Architecture, Modern Application Development, Data
+              Architecture, Platform Engineering, Data Engineering, Provisioning and Orchestration,
+              Continuous Integration and Continuous Delivery (CI/CD), and the new AI Lifecycle
+              Management and MLOps capability.
             </li>
             <li>
               <strong>Security:</strong> Vulnerability Management, Security Governance, Security
@@ -417,8 +417,8 @@ const BibliographyArticlePage = () => {
               simultaneously.
             </li>
             <li>
-              <strong>Clear capability focus:</strong> Seven capability building blocks provide
-              clear, achievable targets for AI implementation roadmaps.
+              <strong>Clear capability focus:</strong> Foundational AI capabilities organized under
+              six perspectives provide clear, achievable targets for AI implementation roadmaps.
             </li>
             <li>
               <strong>Outcome orientation:</strong> Framework emphasizes measurable business
@@ -519,9 +519,9 @@ const BibliographyArticlePage = () => {
               requires specialized capabilities distinct from cloud infrastructure.
             </li>
             <li>
-              <strong>Comprehensive capability coverage:</strong> Seven capability building blocks
-              comprehensively address AI implementation requirements from strategy through
-              operations.
+              <strong>Comprehensive capability coverage:</strong> Foundational AI capabilities under
+              the six perspectives comprehensively address AI implementation requirements from
+              strategy through operations.
             </li>
             <li>
               <strong>Clear capability progression:</strong> Framework provides logical progression
