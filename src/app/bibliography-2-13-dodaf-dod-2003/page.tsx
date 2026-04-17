@@ -455,9 +455,10 @@ const BibliographyArticlePage = () => {
           <h2 className={H2_CLASSES}>Key Contributions</h2>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Established capability-centric architecture approach:</strong> DoDAF pioneered
-              capability-centric architecture in defense domain. Capability focus shifted defense
-              thinking from platform-centric to warfighter-centric perspective.
+              <strong>Advanced capability-centric architecture approach:</strong> DoDAF 2.0 (2009)
+              formalized a capability-centric architecture approach in the defense domain,
+              complementing parallel capability-based planning initiatives already underway in DoD
+              policy during the 2000s.
             </li>
             <li>
               <strong>Mandated architecture discipline across defense:</strong> Mandatory DoDAF
@@ -476,9 +477,9 @@ const BibliographyArticlePage = () => {
               modernization strategy and resource allocation.
             </li>
             <li>
-              <strong>Advanced data-centric architecture (DoDAF 2.0):</strong> DoDAF 2.0 pioneered
-              data-centric approach enabling automated analysis and capability assessment.
-              Data-centric approach influenced enterprise architecture broadly.
+              <strong>Advanced data-centric architecture (DoDAF 2.0):</strong> DoDAF 2.0 emphasized
+              a data-centric architecture description approach (via the DoDAF Meta Model, or DM2)
+              intended to enable automated analysis and fit-for-purpose architecture data.
             </li>
             <li>
               <strong>Enabled integration and interoperability:</strong> DoDAF emphasized systems
@@ -502,7 +503,9 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Internal Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
-            DoDAF demonstrates strong internal validity as military architecture framework:
+            DoDAF is a prescriptive architecture framework and product specification rather than
+            an empirical theory, so construct-validity testing does not apply in the psychometric
+            sense. Considerations typically raised about its internal consistency include:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
