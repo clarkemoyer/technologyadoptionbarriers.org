@@ -187,7 +187,47 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 6. Preceding Models or Theories */}
+        {/* 6. What Does the Model Measure? */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>What Does the Model Measure?</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            TOGAF is a prescriptive enterprise architecture framework and method specification
+            rather than a psychometric measurement model. It does not define latent constructs or
+            validated scales. Instead, it structures how organizations describe, develop, and
+            govern their architectures.
+          </p>
+          <p className={PARAGRAPH_CLASSES}>
+            Evaluation activities commonly organized through TOGAF include:
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Architecture maturity:</strong> Maturity-model style assessments (often
+              TOGAF-aligned, using frameworks such as ACMM or the Architecture Capability
+              Framework) characterize how developed an organization&rsquo;s architecture practice
+              is.
+            </li>
+            <li>
+              <strong>ADM phase completeness:</strong> Whether each Architecture Development Method
+              phase has produced its prescribed deliverables and artifacts.
+            </li>
+            <li>
+              <strong>Stakeholder concern coverage:</strong> Whether identified stakeholder
+              concerns are addressed by architecture viewpoints and views.
+            </li>
+            <li>
+              <strong>Architecture compliance:</strong> Whether proposed solutions conform to
+              published architecture principles and standards.
+            </li>
+          </ul>
+          <p className={PARAGRAPH_CLASSES}>
+            <strong>Source note:</strong> Content in this article reflects widely documented
+            descriptions of TOGAF Standard Version 10.0 (2022) and prior versions as published by
+            The Open Group, together with commonly cited secondary treatments. Direct page-level
+            verification against the Standard document set has not been performed for every claim.
+          </p>
+        </section>
+
+        {/* 7. Preceding Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Preceding Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -249,7 +289,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 7. Describe The Model */}
+        {/* 8. Describe The Model */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Describe The Model</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -465,15 +505,15 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 8. Key Contributions */}
+        {/* 9. Key Contributions */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Key Contributions</h2>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Established enterprise architecture as discipline:</strong> TOGAF legitimized
-              enterprise architecture discipline and enabled professional development through
-              certification. Framework elevated architecture from ad-hoc practice to systematic
-              discipline.
+              <strong>Advanced enterprise architecture as discipline:</strong> TOGAF helped
+              legitimize enterprise architecture as a structured professional discipline and
+              created a large-scale certification program. Prior frameworks (notably Zachman 1987
+              and TAFIM) had established earlier groundwork.
             </li>
             <li>
               <strong>Standardized architecture methods:</strong> TOGAF ADM provided repeatable
@@ -513,11 +553,13 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 9. Internal Validity */}
+        {/* 10. Internal Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Internal Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
-            TOGAF demonstrates strong internal validity as enterprise architecture framework:
+            TOGAF is a prescriptive framework and method specification rather than an empirical
+            theory, so it is not subject to construct-validity testing in a psychometric sense.
+            Considerations typically raised about its internal consistency include:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
@@ -551,7 +593,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 10. External Validity */}
+        {/* 11. External Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>External Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -601,7 +643,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 11. Relevance to Technology Adoption */}
+        {/* 12. Relevance to Technology Adoption */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Relevance to Technology Adoption</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -698,7 +740,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 12. Following Models or Theories */}
+        {/* 13. Following Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Following Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -751,7 +793,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 13. References */}
+        {/* 14. References */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>References</h2>
           <ol className={REFERENCES_OL_CLASSES}>
@@ -774,6 +816,7 @@ const BibliographyArticlePage = () => {
           </ol>
         </section>
 
+        {/* 15. Further Reading */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Further Reading</h2>
           <ol className={REFERENCES_OL_CLASSES}>
@@ -827,7 +870,7 @@ const BibliographyArticlePage = () => {
           </ol>
         </section>
 
-        {/* 14. Series Navigation */}
+        {/* 16. Series Navigation */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Series Navigation</h2>
           <div className="space-y-4">
