@@ -122,14 +122,16 @@ const BibliographyArticlePage = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             DoDAF evolved from the earlier C4ISR (Command, Control, Communications, Computers,
-            Intelligence, Surveillance, Reconnaissance) Architecture Framework (1996/1997) but
-            needed more comprehensive architecture framework incorporating lessons learned. DoDAF
-            Version 1.0 (2003) established mandatory architecture description framework for all DoD
-            acquisitions and major capability development efforts. Version 1.5 followed in April
-            2007 with refinements to viewpoint definitions and improved guidance. DoDAF provided
-            structured approach to describing military capabilities, analyzing capability gaps, and
-            planning modernization. The framework shifted DoD acquisition focus from individual
-            systems to integrated capabilities.
+            Intelligence, Surveillance, Reconnaissance) Architecture Framework (v2.0, 18 December
+            1997) but needed more comprehensive architecture framework incorporating lessons
+            learned. DoDAF Version 1.0 (2003; Deskbook 9 February 2004) established a mandatory
+            architecture description framework for all DoD acquisitions and major capability
+            development efforts. Version 1.5 followed in April 2007 with refinements to the
+            view-product set and improved guidance (date reported in secondary sources; not
+            verifiable from the Version 1.0 Deskbook). DoDAF provided a structured approach to
+            describing military capabilities, analyzing capability gaps, and planning modernization.
+            The framework shifted DoD acquisition focus from individual systems to integrated
+            capabilities.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             DoDAF became foundational to US military doctrine. Major defense modernization programs
@@ -137,8 +139,10 @@ const BibliographyArticlePage = () => {
             enabled DoD to systematically assess joint capabilities, identify capability gaps, plan
             capability improvements, and manage complex interdependencies across platforms,
             networks, and systems. DoDAF 2.0 (2009, updated to 2.02 in 2010) further evolved the
-            framework with data-centric approach, improved meta-model, and enhanced capability
-            focus.
+            framework by formalizing the data-centric approach already advocated in the Version 1.0
+            Deskbook (see Figure 2.2-2) through the DoDAF Meta-model (DM2) and by restructuring the
+            four view categories into eight viewpoints. (Post-v1.0 evolution details are reported in
+            subsequent DoDAF releases; they are not verifiable from the Version 1.0 Deskbook.)
           </p>
         </section>
 
