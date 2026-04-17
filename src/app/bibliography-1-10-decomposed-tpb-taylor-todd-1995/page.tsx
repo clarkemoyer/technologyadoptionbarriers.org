@@ -31,7 +31,7 @@ const BibliographyArticlePage = () => {
               <strong>Model Name:</strong> Decomposed Theory of Planned Behavior
             </p>
             <p>
-              <strong>Model Abbreviation:</strong> Decomposed Theory of Planned Behavior (DTPB)
+              <strong>Model Abbreviation:</strong> DTPB
             </p>
             <p>
               <strong>Target of Model:</strong> IT Adoption and Usage Behavior Prediction
@@ -247,9 +247,9 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 7. Describe The Model */}
+        {/* 7. Describe the Model */}
         <section className={SECTION_CLASSES}>
-          <h2 className={H2_CLASSES}>Describe The Model</h2>
+          <h2 className={H2_CLASSES}>Describe the Model</h2>
           <p className={PARAGRAPH_CLASSES}>
             DTPB specifies that behavioral intentions to use IT are determined by attitudes,
             subjective norms, and perceived behavioral control. Critically, each of these three
@@ -345,8 +345,9 @@ const BibliographyArticlePage = () => {
               characteristics.
             </li>
             <li>
-              <strong>Self-report limitations:</strong> All measures relied on self-reported beliefs
-              rather than behavioral observation or system usage logs.
+              <strong>Self-report limitations:</strong> The belief and intention constructs relied
+              on self-reported perceptions, although actual usage was tracked separately through
+              system visit logs rather than direct behavioral observation.
             </li>
             <li>
               <strong>Sample homogeneity:</strong> Student sample may not represent diverse
