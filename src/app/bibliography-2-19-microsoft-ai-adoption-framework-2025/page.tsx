@@ -14,7 +14,7 @@ import {
 export const metadata: Metadata = {
   title: 'Bibliography: Microsoft AI Adoption Framework - Microsoft (2025)',
   description:
-    'Comprehensive overview of the Microsoft AI Adoption Framework for enterprise AI strategy, readiness, and responsible governance. Explains AI pillars, solution development approaches, responsible AI standard, and organizational readiness assessment.',
+    'Comprehensive overview of the Microsoft AI Adoption Framework for enterprise AI strategy, readiness, and responsible governance. Explains the six AI adoption steps, Microsoft AI decision tree, responsible AI principles, and organizational readiness assessment.',
 }
 
 const BibliographyArticlePage = () => {
@@ -296,10 +296,13 @@ const BibliographyArticlePage = () => {
           <h2 className={H2_CLASSES}>Describe The Model</h2>
           <p className={PARAGRAPH_CLASSES}>
             Microsoft AI Adoption Framework provides guidance for AI adoption organized around six
-            sequential adoption steps: AI Strategy, AI Plan, AI Ready, Govern AI, Secure AI, and
-            Manage AI. Responsible AI principles are applied across all six steps rather than
-            treated as a separate step. Microsoft publishes both a startup checklist and an
-            enterprise checklist that list the recommended activities within each step.
+            adoption steps: AI Strategy, AI Plan, AI Ready, Govern AI, Secure AI, and Manage AI. AI
+            Strategy, AI Plan, and AI Ready are sequential preparation steps; Govern AI, Secure AI,
+            and Manage AI are continuous processes that organizations iterate through as AI
+            workloads move into production. Responsible AI principles are applied across all six
+            steps rather than treated as a separate step. Microsoft publishes both a startup
+            checklist and an enterprise checklist that list the recommended activities within each
+            step.
           </p>
 
           <h3 className={H3_CLASSES}>Six AI Adoption Steps</h3>
@@ -389,6 +392,52 @@ const BibliographyArticlePage = () => {
             </li>
           </ul>
 
+          <h3 className={H3_CLASSES}>AI Plan, Govern AI, Secure AI, and Manage AI Steps</h3>
+          <p className={PARAGRAPH_CLASSES}>
+            The remaining steps extend preparation into governance and operations. The documentation
+            frames Govern AI, Secure AI, and Manage AI as continuous processes that organizations
+            iterate through rather than one-time activities:
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>AI Plan:</strong> Assess current AI skills and maturity, acquire AI skills
+              through structured learning, access AI resources, prioritize AI use cases, create an
+              AI proof of concept, and implement responsible AI controls. Microsoft defines four AI
+              maturity levels tied to required skills, data readiness, and feasible AI use cases.
+            </li>
+            <li>
+              <strong>Govern AI:</strong> Assess AI organizational risks using the Responsible AI
+              principles as a risk assessment framework, document AI governance policies, and
+              enforce AI policies across deployments. Guidance references the NIST AI Risk
+              Management Framework and NIST AI RMF Playbook and covers Govern AI platforms, models,
+              costs, security, operations, regulatory compliance, and data.
+            </li>
+            <li>
+              <strong>Secure AI:</strong> Discover AI security risks, protect AI resources and data,
+              and detect AI security threats. Prescribed practices include regular red team
+              assessments on generative AI systems, Microsoft Defender for Cloud threat protection,
+              and mitigations for AI-specific threats such as prompt injection, model manipulation,
+              data leakage, model inversion, and adversarial attacks.
+            </li>
+            <li>
+              <strong>Manage AI:</strong> Run AI workloads in production across model management,
+              cost management, operations, deployment, data management, and business continuity.
+              Includes continuous monitoring for performance, data drift, and alignment with
+              responsible AI principles, plus automated backup and multi-region deployment for high
+              availability.
+            </li>
+          </ul>
+
+          <h3 className={H3_CLASSES}>AI Center of Excellence</h3>
+          <p className={PARAGRAPH_CLASSES}>
+            The framework recommends establishing an AI Center of Excellence (AI CoE) as the
+            organizational vehicle for consistent AI adoption. The AI CoE defines AI strategy,
+            develops AI skills, leads pilot projects, defines and enforces AI standards, creates
+            intake and prioritization workflows, develops reusable assets, and measures outcomes.
+            Microsoft suggests starting with a centralized CoE model and transitioning to an
+            advisory model as AI governance becomes embedded in platform operations.
+          </p>
+
           <h3 className={H3_CLASSES}>Responsible AI Principles</h3>
           <p className={PARAGRAPH_CLASSES}>
             Microsoft&rsquo;s responsible AI principles are presented in the framework as six
@@ -471,8 +520,9 @@ const BibliographyArticlePage = () => {
               business requirement.
             </li>
             <li>
-              <strong>Comprehensive coverage:</strong> Six pillars address complete AI adoption
-              lifecycle from strategy through operations ensuring no critical dimension overlooked.
+              <strong>Comprehensive coverage:</strong> The six adoption steps address the complete
+              AI adoption lifecycle from strategy through operations ensuring no critical dimension
+              is overlooked.
             </li>
             <li>
               <strong>Regulatory alignment:</strong> Framework responsible AI principles are aligned
@@ -571,9 +621,9 @@ const BibliographyArticlePage = () => {
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Logical pillar structure:</strong> Six pillars address distinct AI adoption
-              dimensions while remaining interconnected, providing comprehensive yet logically
-              organized guidance.
+              <strong>Logical step structure:</strong> The six adoption steps address distinct AI
+              adoption dimensions while remaining interconnected, providing comprehensive yet
+              logically organized guidance.
             </li>
             <li>
               <strong>Responsible AI coherence:</strong> Responsible AI integrated throughout
