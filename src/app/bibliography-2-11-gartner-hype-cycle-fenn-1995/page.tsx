@@ -168,11 +168,10 @@ const BibliographyArticlePage = () => {
               by both hype and maturity dynamics.
             </li>
             <li>
-              <strong>Technology Trigger:</strong> Initial introduction of technology generating
-              excitement and media attention. Per Linden and Fenn (2003), the Technology Trigger is
+              <strong>Technology Trigger:</strong> The initial introduction of a technology through
               a technological breakthrough, public demonstration, press release, or other event that
-              generates significant publicity and industry interest in an emerging technology;
-              typically no usable products exist, only research and laboratory prototypes.
+              generates significant publicity and industry interest; typically no usable products
+              exist, only research and laboratory prototypes (Linden and Fenn, 2003).
             </li>
             <li>
               <strong>Peak of Inflated Expectations:</strong> Maximum hype and visibility when
@@ -270,12 +269,12 @@ const BibliographyArticlePage = () => {
           <h2 className={H2_CLASSES}>Describe The Model</h2>
           <p className={PARAGRAPH_CLASSES}>
             The Gartner Hype Cycle provides visualization of technology adoption trajectory through
-            five phases tracking changes in technology visibility and maturity. In Linden and
+            five phases tracking changes in technology Visibility and Maturity. In Linden and
             Fenn&rsquo;s (2003) canonical figure, the hype curve plots Visibility on the vertical
-            axis and Maturity on the horizontal axis, with progression through the five phases
-            representing the typical movement of an emerging technology from overenthusiasm, through
-            a period of disillusionment, to an eventual understanding of the technology&rsquo;s
-            relevance and role in a market or domain.
+            axis and Maturity on the horizontal axis. Progression through the five phases represents
+            the typical movement of an emerging technology from overenthusiasm, through a period of
+            disillusionment, to an eventual understanding of the technology&rsquo;s relevance and
+            role in a market or domain.
           </p>
 
           <h3 className={H3_CLASSES}>Five Phases of the Hype Cycle</h3>
