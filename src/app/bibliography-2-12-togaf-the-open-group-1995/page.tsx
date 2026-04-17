@@ -150,7 +150,7 @@ const BibliographyArticlePage = () => {
             <li>
               <strong>Enterprise Architecture:</strong> A comprehensive view of organization&rsquo;s
               structure supported through four architecture domains: Business, Data, Application,
-              and Technology. Architecture provides strategic blueprint aligning business and
+              and Technology. Architecture provides a strategic blueprint aligning business and
               technology decisions.
             </li>
             <li>
@@ -354,10 +354,10 @@ const BibliographyArticlePage = () => {
               relevant and effective.
             </li>
             <li>
-              <strong>Requirements Management:</strong> Cross-cutting activity operating throughout
-              ADM that manages architecture requirements throughout the cycle. Per the TOGAF
-              Standard, Requirements Management is not a numbered phase but a continuous activity at
-              the center of the ADM cycle.
+              <strong>Requirements Management:</strong> A cross-cutting activity operating
+              throughout the ADM that manages architecture requirements throughout the cycle. Per
+              the TOGAF Standard, Requirements Management is not a numbered phase but a continuous
+              activity at the center of the ADM cycle.
             </li>
           </ul>
 
