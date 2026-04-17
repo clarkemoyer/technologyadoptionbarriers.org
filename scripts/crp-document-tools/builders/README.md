@@ -8,7 +8,7 @@ Offline tools that construct the final CRP deliverable document from its constit
 
 | File                      | Purpose                                                                                                                                                                                                                                                                        |
 | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `merge_appendixes.py`     | Merges the CRP body .docx with Appendixes A, B, C, D (markdown) into a single final docx with consistent formatting, page breaks, and table of contents. Produces output named `Clarke Moyer - DBA Culminating Research Project - Product Development (<EST-timestamp>).docx`. |
+| `merge_appendixes.py`     | Merges the CRP body .docx with Appendixes A, B, C, D (markdown) into a single final docx with consistent formatting, page breaks, and table of contents. Produces output named `Clarke Moyer - DBA Culminating Research Project - Product Development (<ET-timestamp>).docx`. |
 | `compute_crp_stats_v2.py` | Computes descriptive statistics from the frozen CRP CSV using the canonical scale maps (barrier 1-5, readiness 1-5 with Don't Know excluded, maturity 1-5 with Don't Know excluded). Useful for spot-checking validator output or generating new numbers for CRP insertion.    |
 
 ### Archive
@@ -37,7 +37,7 @@ python scripts/crp-document-tools/builders/compute_crp_stats_v2.py \
     --csv /path/to/survey.csv
 ```
 
-Both scripts auto-discover the CRP workspace folder via glob and output files with EST-timestamped names following the project's versioning rule (never overwrite, always new file with EST timestamp, move prior versions to `Old/`).
+Both scripts auto-discover the CRP workspace folder via glob and output files with ET-timestamped names (EST in winter, EDT in summer) following the project's versioning rule (never overwrite, always new file with ET timestamp, move prior versions to `Old/`).
 
 ## Dependencies
 
@@ -48,7 +48,7 @@ Both scripts auto-discover the CRP workspace folder via glob and output files wi
 ## Adherence to project rules
 
 - **No em or en dashes:** output uses only ASCII hyphen-minus or U+2212 Unicode minus (for negative numbers in statistics tables)
-- **EST timestamps in filenames:** uses `TZ='America/New_York'` explicitly, not UTC
+- **EST timestamps in filenames:** uses `TZ='America/New_York'` explicitly, not UTC; yields EST in winter and EDT in summer
 - **Person-level means:** grand means computed as mean of person-level means, not item-level means
 - **Don't Know excluded:** maturity and readiness "Don't Know" responses are excluded from scoring, not mapped to a number
 - **IRI attention checks excluded:** barrier item 19, readiness item 18, maturity item 9 are dropped from substantive statistics

@@ -31,13 +31,24 @@ Outputs are written to the workspace `04 CRP Review Reports/CRP Convergence Syst
 
 ## Running
 
+Both scripts require the CRP `.docx` to be unpacked first (`unpack.py` extracts `word/document.xml`) and a local clone of the tabs-site repo.
+
 ```bash
-# Full check (slow, comprehensive)
-python scripts/crp-document-tools/convergence/crp_full_convergence_check_v2_3.py
+# Full check (slow, comprehensive) - auto-discovers workspace via glob
+python scripts/crp-document-tools/convergence/crp_full_convergence_check_v2_3.py \
+    --crp-xml /path/to/unpacked/word/document.xml \
+    --repo /tmp/tabs-site \
+    --registry-dir "/path/to/04 CRP Review Reports/CRP Convergence System/Claim Registries" \
+    --output-dir "/path/to/04 CRP Review Reports/CRP Convergence System"
 
 # Minimal check (fast, high-priority only)
-python scripts/crp-document-tools/convergence/crp_convergence_check.py
+python scripts/crp-document-tools/convergence/crp_convergence_check.py \
+    --crp-xml /path/to/unpacked/word/document.xml \
+    --repo /tmp/tabs-site \
+    --output-dir "/path/to/04 CRP Review Reports/CRP Convergence System"
 ```
+
+With a correctly configured workspace glob the actual paths are auto-discovered from `/sessions/*/mnt/! Clarke Moyer Smeal CRP - TABS`; the `--crp-xml`, `--repo`, and `--output-dir` flags must be supplied explicitly.
 
 ## How the categories work
 

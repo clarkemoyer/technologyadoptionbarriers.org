@@ -87,7 +87,7 @@ def _parse_filename_date(filename):
     Returns a comparable tuple (year, month, day, hhmm) or (0, 0, 0, 0) on failure.
     This avoids lexicographic ordering bugs with single-digit months/days.
     """
-    m = re.search(r'\((\d{1,2})-(\d{1,2})-(\d{4})\s+(\d{4})\s+EST\)', filename)
+    m = re.search(r'\((\d{1,2})-(\d{1,2})-(\d{4})\s+(\d{4})\s+[A-Z]{3}\)', filename)
     if m:
         month, day, year, hhmm = int(m.group(1)), int(m.group(2)), int(m.group(3)), int(m.group(4))
         return (year, month, day, hhmm)

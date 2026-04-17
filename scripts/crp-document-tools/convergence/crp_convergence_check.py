@@ -20,9 +20,9 @@ Requirements:
     - Python 3.9+ with json, re, os, sys, zoneinfo (stdlib only)
 
 The script produces:
-    - Pipeline Snapshots/pipeline_stats_<timestamp>.json
-    - Claims Databases/claims_database_<timestamp>.json
-    - Convergence Reports/convergence_report_<timestamp>.md
+    - Pipeline Snapshots/pipeline_stats (<timestamp>).json
+    - Claims Databases/claims_database (<timestamp>).json
+    - Convergence Reports/convergence_report (<timestamp>).md
 """
 
 import json
@@ -334,7 +334,7 @@ def generate_report(claims, stats, crp_version, timestamp):
         s = c['status']
         status_counts[s] = status_counts.get(s, 0) + 1
 
-    mismatches = [c for c in claims if c['status'] == 'MISMATCH']
+    mismatches = [c for c in claims if c['status'] in ('MISMATCH', 'UNVERIFIED')]
 
     lines = []
     lines.append(f"# CRP Factual Convergence Report")
@@ -356,7 +356,7 @@ def generate_report(claims, stats, crp_version, timestamp):
         'ITEM_LEVEL': 'Individual item mean, not construct grand mean',
         'SUBGROUP': 'Subgroup-specific value (IRI-pass/fail, role-based)',
         'V1_PILOT': 'V1 pilot value (n=25), not V2 pipeline',
-        'UNVERIFIED': 'Claim not in pipeline JSON (platform counts, demographics)',
+        'UNVERIFIED': 'Claim not matched to any pipeline value - needs review',
         'MISMATCH': 'Value does not match any pipeline statistic',
     }
     for status in ['EXACT_MATCH', 'ROUNDING_OK', 'TIER_MATCH', 'ITEM_LEVEL',
@@ -368,19 +368,21 @@ def generate_report(claims, stats, crp_version, timestamp):
     lines.append(f"")
 
     if mismatches:
-        lines.append(f"## MISMATCHES REQUIRING ATTENTION ({len(mismatches)})")
+        lines.append(f"## CLAIMS REQUIRING ATTENTION ({len(mismatches)})")
+        lines.append(f"")
+        lines.append(f"Includes claims with status `MISMATCH` (value contradicts pipeline) and `UNVERIFIED` (no pipeline value found to compare against).")
         lines.append(f"")
         for m in mismatches:
-            lines.append(f"### Claim ID {m['id']}: {m['category']}/{m['subcategory']}")
+            lines.append(f"### Claim ID {m['id']}: {m['category']}/{m['subcategory']} [{m['status']}]")
             lines.append(f"- **CRP value:** {m['crp_value']}")
             lines.append(f"- **CRP text:** `{m['crp_text']}`")
             lines.append(f"- **Context:** ...{m['context']}...")
             lines.append(f"- **Char offset:** {m['char_offset']}")
             lines.append(f"")
     else:
-        lines.append(f"## No Mismatches Found")
+        lines.append(f"## No Mismatches or Unverified Claims Found")
         lines.append(f"")
-        lines.append(f"All extracted claims either match the pipeline or are correctly classified as tier-specific, item-level, subgroup, V1 pilot, or unverified (non-pipeline) values.")
+        lines.append(f"All extracted claims either match the pipeline or are correctly classified as tier-specific, item-level, subgroup, or V1 pilot values.")
 
     lines.append(f"")
     lines.append(f"---")
