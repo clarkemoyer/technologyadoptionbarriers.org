@@ -185,8 +185,8 @@ const BibliographyArticlePage = () => {
           <h2 className={H2_CLASSES}>What Does the Model Measure?</h2>
           <p className={PARAGRAPH_CLASSES}>
             Task-Technology Fit (TTF) is, in part, a measurement model. Goodhue and Thompson (1995)
-            report a multi-factor TTF instrument that asks users to evaluate information systems
-            and data along a set of fit dimensions. The dimensions commonly listed from the paper
+            report a multi-factor TTF instrument that asks users to evaluate information systems and
+            data along a set of fit dimensions. The dimensions commonly listed from the paper
             include:
           </p>
           <ul className={BODY_LIST_CLASSES}>
