@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-04-17T08:38:08.259440+00:00",
-  "last_updated": "2026-04-17T08:38:08.259459+00:00",
+  "updatedAt": "2026-04-17T11:02:38.499096+00:00",
+  "last_updated": "2026-04-17T11:02:38.499111+00:00",
   "study": {
     "id": "69c17630acada6abeead2da5",
     "name": "Technology Adoption Barriers Survey (2026)",
@@ -14,20 +14,20 @@
   },
   "completionProgress": {
     "target": 500,
-    "completed": 293,
+    "completed": 294,
     "approved": 261,
-    "awaitingReview": 32,
-    "percentComplete": 58.6
+    "awaitingReview": 33,
+    "percentComplete": 58.8
   },
   "totalResponses": 501,
-  "uniqueParticipants": 484,
+  "uniqueParticipants": 485,
   "duplicatesRemoved": 0,
   "dispositions": {
     "INCOMPLETE": 75,
     "CLEAN": 90,
     "FLAG-SMEAL": 56,
     "FLAG-SPEED": 8,
-    "FLAG-PARTIAL-STRAIGHTLINING": 36,
+    "FLAG-PARTIAL-STRAIGHTLINING": 37,
     "FLAG-SINGLE-IRI": 85,
     "AUTO-EXCLUDE": 130,
     "FLAG-RECAPTCHA": 4
@@ -53,7 +53,7 @@
     },
     "FLAG-PARTIAL-STRAIGHTLINING": {
       "APPROVED": 34,
-      "AWAITING REVIEW": 2
+      "AWAITING REVIEW": 3
     },
     "FLAG-SINGLE-IRI": {
       "RETURNED": 7,
@@ -82,15 +82,15 @@
     "rejected": 35,
     "returned": 166,
     "timedOut": 6,
-    "awaitingReview": 32,
-    "active": 1,
+    "awaitingReview": 33,
+    "active": 0,
     "messaged": 0
   },
   "iriPassRates": {
-    "barrier": 57.7,
-    "readiness": 69.2,
-    "maturity": 81.4,
-    "denominator": 409
+    "barrier": 57.8,
+    "readiness": 69.3,
+    "maturity": 81.5,
+    "denominator": 410
   },
   "studyId": "69c17630acada6abeead2da5",
   "studyName": "Technology Adoption Barriers Survey (2026)"
