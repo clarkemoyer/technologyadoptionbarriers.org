@@ -509,9 +509,10 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Internal Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
-            As a process maturity framework grounded in empirical observation and software
-            engineering practice, CMM demonstrates strong internal validity through logical
-            coherence and consistency with observed software development patterns:
+            CMM is a practitioner-oriented process framework rather than a tested empirical theory.
+            &ldquo;Internal validity&rdquo; here is assessed as logical coherence, the ordinal
+            structure of the five-level scale, and fidelity to the quality-management lineage the
+            SEI explicitly cites:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
