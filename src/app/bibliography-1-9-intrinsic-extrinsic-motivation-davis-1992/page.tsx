@@ -231,8 +231,8 @@ const BibliographyArticlePage = () => {
                 ):
               </strong>{' '}
               Proposed that perceived usefulness and perceived ease of use predict attitudes and
-              intentions to use information systems, with supporting evidence in the original
-              TAM study.
+              intentions to use information systems, with supporting evidence in the original TAM
+              study.
             </li>
             <li>
               <strong>Intrinsic motivation theory (Deci &amp; Ryan):</strong> Provided psychological
