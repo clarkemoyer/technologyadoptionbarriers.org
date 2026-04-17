@@ -257,9 +257,10 @@ const BibliographyArticlePage = () => {
             toward IT use are predicted by perceived usefulness, perceived ease of use (complexity),
             and compatibility beliefs. Normative beliefs are predicted by peer influence and
             superior influence. Perceived behavioral control is predicted by self-efficacy and
-            resource facilitating conditions. The model explained 71% of variance in intention to
-            use IT systems, substantially outperforming both TAM and original TPB in predictive
-            power.
+            resource facilitating conditions. Per Table 3, the model explained 60% of variance in
+            behavioral intention (R²=.60), compared to TAM (R²=.52) and original TPB (R²=.57).
+            The study also measured actual usage behavior by monitoring 3,780 visits to the
+            computing resource center over a 12-week period.
           </p>
 
           <h3 className={H3_CLASSES}>What does the model measure?</h3>
@@ -297,8 +298,8 @@ const BibliographyArticlePage = () => {
               precision.
             </li>
             <li>
-              <strong>Superior predictive power:</strong> Explains 71% of intention variance,
-              substantially outperforming TAM (54%) and original TPB (58%) in this sample.
+              <strong>Superior predictive power:</strong> Explains 60% of intention variance
+              (R²=.60), outperforming TAM (R²=.52) and original TPB (R²=.57) in this sample.
             </li>
             <li>
               <strong>Multi-pathway modeling:</strong> Recognizes attitudes, norms, and control
@@ -330,9 +331,9 @@ const BibliographyArticlePage = () => {
               prevents understanding of actual adoption trajectories or sustained usage patterns.
             </li>
             <li>
-              <strong>Intention-behavior gap:</strong> Measures behavioral intentions rather than
-              actual system usage, which may diverge due to implementation factors and context
-              constraints.
+              <strong>Intention-behavior gap:</strong> While actual usage was monitored (3,780
+              visits over 12 weeks), the decomposed belief structure primarily predicts intentions.
+              The link from intention to actual behavior showed moderate strength.
             </li>
             <li>
               <strong>Model complexity:</strong> Nine-construct model with multiple paths is more
@@ -417,8 +418,8 @@ const BibliographyArticlePage = () => {
               (TAM, TPB, DTPB) using chi-square and fit indices enabling model selection.
             </li>
             <li>
-              <strong>Variance explained:</strong> Reported R-squared values showing 71% of
-              intention variance explained by DTPB model.
+              <strong>Variance explained:</strong> Reported R-squared values showing 60% of
+              intention variance explained by DTPB model (Table 3).
             </li>
           </ul>
         </section>
