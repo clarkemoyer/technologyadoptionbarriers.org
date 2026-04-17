@@ -472,16 +472,15 @@ const BibliographyArticlePage = () => {
               technology acquisition process.
             </li>
             <li>
-              <strong>Used acquisition-based enforcement at scale:</strong> TAFIM tied
-              architectural compliance to the DoD acquisition process, an example of
-              acquisition-based architecture governance that later programs (e.g., Federal
-              agencies) built on.
+              <strong>Used acquisition-based enforcement at scale:</strong> TAFIM tied architectural
+              compliance to the DoD acquisition process, an example of acquisition-based
+              architecture governance that later programs (e.g., Federal agencies) built on.
             </li>
             <li>
               <strong>Articulated detailed reference models per layer:</strong> TAFIM&rsquo;s
-              per-layer reference models are commonly cited as an influence on subsequent
-              enterprise architecture frameworks, though layered reference-model thinking itself
-              predates TAFIM (e.g., OSI, 1984).
+              per-layer reference models are commonly cited as an influence on subsequent enterprise
+              architecture frameworks, though layered reference-model thinking itself predates TAFIM
+              (e.g., OSI, 1984).
             </li>
             <li>
               <strong>Advanced standards-based architecture:</strong> Championed standards-based
