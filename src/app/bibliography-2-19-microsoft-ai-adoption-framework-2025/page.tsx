@@ -274,19 +274,16 @@ const BibliographyArticlePage = () => {
               AI principles are presented as aligned with NIST AI RMF.
             </li>
             <li>
-              <strong>Technology Adoption Lifecycle Models:</strong> Established frameworks for
-              managing organizational technology adoption including readiness assessment and change
-              management principles.
+              <strong>Azure landing zones and Azure Well-Architected Framework:</strong> Azure
+              enterprise-scale landing zone architecture patterns and the Well-Architected Framework
+              reliability, security, and cost optimization principles that the AI Ready step adapts
+              for AI workloads.
             </li>
             <li>
-              <strong>AI Ethics and Responsible AI Frameworks (2018-2023):</strong> Emerging
-              frameworks addressing AI fairness, transparency, and ethics. Microsoft framework
-              synthesizes responsible AI principles into operational governance.
-            </li>
-            <li>
-              <strong>MLOps and AI Operations Frameworks (2019-2024):</strong> Frameworks for
-              managing machine learning operations and model lifecycle. Microsoft framework
-              incorporates MLOps into broader AI operations strategy.
+              <strong>Microsoft responsible AI principles:</strong> Microsoft&rsquo;s published
+              responsible AI principles (fairness, reliability and safety, inclusiveness,
+              transparency, accountability, plus privacy and security) predate this framework and
+              are adopted as the ethical foundation applied across all six adoption steps.
             </li>
           </ul>
         </section>
