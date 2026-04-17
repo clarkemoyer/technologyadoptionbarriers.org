@@ -36,8 +36,11 @@ const BibliographyArticlePage = () => {
               <strong>Framework Abbreviation:</strong> BPR
             </p>
             <p>
-              <strong>Alternative Names:</strong> Business Process Reengineering, The New Industrial
-              Engineering
+              <strong>Alternative Names:</strong> The New Industrial Engineering (the
+              article&rsquo;s own title framing). Davenport &amp; Short (1990) use the term
+              &ldquo;business process redesign&rdquo; throughout; &ldquo;Business Process
+              Reengineering&rdquo; is the related term popularized by Hammer (1990) and Hammer &amp;
+              Champy (1993) and is not used by Davenport &amp; Short.
             </p>
             <p>
               <strong>Target of Framework:</strong> Explanation of how organizations use information
@@ -637,8 +640,9 @@ const BibliographyArticlePage = () => {
           <ul className={BODY_LIST_CLASSES}>
             <li>
               <strong>Synthesis of observed best practices:</strong> The framework synthesizes
-              successful process redesign examples (Ford, Mutual Benefit Life, Otis) into coherent
-              methodology.
+              successful process redesign examples (Ford accounts payable, Mutual Benefit Life
+              insurance underwriting, Westinghouse/PGE interorganizational EDI, Xerox/RXUK, and
+              others) into a coherent methodology.
             </li>
             <li>
               <strong>Logical coherence:</strong> The argument that information technology enables
