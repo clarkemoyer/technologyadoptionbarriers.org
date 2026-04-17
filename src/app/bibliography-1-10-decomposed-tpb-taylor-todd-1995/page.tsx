@@ -362,8 +362,10 @@ const BibliographyArticlePage = () => {
               strength.
             </li>
             <li>
-              <strong>Model complexity:</strong> Nine-construct model with multiple paths is more
-              complex than simpler alternatives (TAM), potentially overfitting the specific sample.
+              <strong>Model complexity:</strong> 13-variable decomposed model (per Taylor &amp;
+              Todd, 1995, p.169) with multiple paths is substantially more complex than simpler
+              alternatives like the 5-variable TAM, and only improves behavior variance explained by
+              2% over TAM (36% vs. 34%), raising a parsimony vs. understanding tradeoff.
             </li>
             <li>
               <strong>Limited moderator exploration:</strong> Does not examine whether
@@ -495,7 +497,8 @@ const BibliographyArticlePage = () => {
             DTPB is directly relevant to technology adoption because it identifies multiple specific
             barriers and levers operating through distinct belief pathways. The model suggests that
             adoption strategies must address not only instrumental utility but also peer and
-            superior influences and resource facilitating conditions simultaneously.
+            superior influences, self-efficacy, resource facilitating conditions, and technology
+            facilitating conditions simultaneously.
           </p>
 
           <h3 className={H3_CLASSES}>Barriers to Technology Adoption Identified</h3>
