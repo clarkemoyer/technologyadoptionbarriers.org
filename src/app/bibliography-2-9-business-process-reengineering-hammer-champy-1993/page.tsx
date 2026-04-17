@@ -169,9 +169,9 @@ const BibliographyArticlePage = () => {
               <strong>Dramatic Improvement:</strong> Achieving major performance gains rather than
               marginal improvements. Hammer and Champy define reengineering as seeking dramatic
               improvements in critical contemporary measures of performance such as cost, quality,
-              service, and speed. Secondary sources commonly describe BPR as targeting order-of-magnitude
-              rather than incremental improvement, distinguishing it from continuous improvement
-              approaches that target modest percentage gains.
+              service, and speed. Secondary sources commonly describe BPR as targeting
+              order-of-magnitude rather than incremental improvement, distinguishing it from
+              continuous improvement approaches that target modest percentage gains.
             </li>
             <li>
               <strong>Technology Enablement:</strong> Leveraging information technology to enable
@@ -221,9 +221,10 @@ const BibliographyArticlePage = () => {
             </li>
           </ul>
           <p className={PARAGRAPH_CLASSES}>
-            The framework does not prescribe specific measurement instruments, reliability coefficients,
-            or validation procedures characteristic of psychometric models. Applied BPR practice uses
-            organization-specific operational metrics tied to the processes being redesigned.
+            The framework does not prescribe specific measurement instruments, reliability
+            coefficients, or validation procedures characteristic of psychometric models. Applied
+            BPR practice uses organization-specific operational metrics tied to the processes being
+            redesigned.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Source availability note:</strong> A PDF of the primary source (Hammer &amp;
@@ -361,8 +362,8 @@ const BibliographyArticlePage = () => {
               improvements. Hammer and Champy position BPR as targeting dramatic (rather than
               incremental) improvement in critical performance measures. Secondary sources typically
               contrast this with continuous improvement frameworks such as TQM that target modest
-              percentage gains. Dramatic improvement is presented as requiring fundamental rethinking
-              enabled by technology.
+              percentage gains. Dramatic improvement is presented as requiring fundamental
+              rethinking enabled by technology.
             </li>
             <li>
               <strong>Processes:</strong> Organizing around value-delivery processes rather than
@@ -409,9 +410,7 @@ const BibliographyArticlePage = () => {
             </li>
           </ul>
 
-          <h3 className={H3_CLASSES}>
-            Hammer&rsquo;s 1990 Principles for Reengineering (HBR)
-          </h3>
+          <h3 className={H3_CLASSES}>Hammer&rsquo;s 1990 Principles for Reengineering (HBR)</h3>
           <p className={PARAGRAPH_CLASSES}>
             In his 1990 <em>Harvard Business Review</em> article &ldquo;Reengineering Work:
             Don&rsquo;t Automate, Obliterate,&rdquo; Hammer articulated a widely cited set of
@@ -428,10 +427,12 @@ const BibliographyArticlePage = () => {
               who consume its results, collapsing handoffs between groups.
             </li>
             <li>
-              <strong>Subsume information-processing work into the real work that produces the
-              information:</strong>{' '}
-              Treat information creation and processing as integrated with the operational work,
-              not as a separate downstream activity.
+              <strong>
+                Subsume information-processing work into the real work that produces the
+                information:
+              </strong>{' '}
+              Treat information creation and processing as integrated with the operational work, not
+              as a separate downstream activity.
             </li>
             <li>
               <strong>
@@ -631,16 +632,16 @@ const BibliographyArticlePage = () => {
           <h2 className={H2_CLASSES}>Internal Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
             As a prescriptive management framework rather than an empirical theory, BPR is not
-            directly tested through construct validation procedures. Considerations typically
-            raised about its internal logic include:
+            directly tested through construct validation procedures. Considerations typically raised
+            about its internal logic include:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Internal coherence of argument:</strong> The argument that questioning
-              legacy process assumptions and leveraging information technology can enable
-              substantial performance improvement is internally coherent. Whether any given
-              organization should expect dramatic results from applying the framework depends on
-              many contingencies not specified in the framework itself.
+              <strong>Internal coherence of argument:</strong> The argument that questioning legacy
+              process assumptions and leveraging information technology can enable substantial
+              performance improvement is internally coherent. Whether any given organization should
+              expect dramatic results from applying the framework depends on many contingencies not
+              specified in the framework itself.
             </li>
             <li>
               <strong>Compatibility with practitioner case reports:</strong> The framework is
