@@ -320,19 +320,21 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>
-                Consumer Innovation Research (
+                Diffusion of Innovations (
                 <a
-                  id="cite-ref-rogers-1995-1"
-                  href="#ref-rogers-1995"
+                  id="cite-ref-rogers-2003-1"
+                  href="#ref-rogers-2003"
                   className="text-tabs-teal-deep hover:underline"
                 >
-                  Rogers, 1995
+                  Rogers, 2003
                 </a>
                 ):
               </strong>{' '}
-              Established that consumer innovativeness predicted adoption of new products and
-              services. TRAM draws on this tradition by incorporating innovativeness as personality
-              dimension shaping technology adoption.
+              Established that consumer innovativeness and other diffusion attributes predict
+              adoption of new products and services. Lin, Shih, and Sher (2007, p.645) explicitly
+              cite Rogers (2003, 5th ed.) when grounding the role of prior experience and individual
+              differences in technology adoption. TRAM draws on this tradition by incorporating
+              innovativeness as a personality dimension shaping adoption.
             </li>
           </ul>
         </section>
@@ -817,11 +819,11 @@ const BibliographyArticlePage = () => {
               </span>{' '}
               https://doi.org/10.2307/249008
             </li>
-            <li id="ref-rogers-1995">
-              Rogers, E. M. (1995). Diffusion of innovations (4th ed.). Free Press.
+            <li id="ref-rogers-2003">
+              Rogers, E. M. (2003). <em>Diffusion of innovations</em> (5th ed.). Free Press.
               <span className="text-xs ml-1">
                 <a
-                  href="#cite-ref-rogers-1995-1"
+                  href="#cite-ref-rogers-2003-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
                 ></a>
