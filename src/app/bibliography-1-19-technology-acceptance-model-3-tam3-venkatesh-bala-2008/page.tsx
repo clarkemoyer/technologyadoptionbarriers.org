@@ -897,7 +897,7 @@ const BibliographyArticlePage = () => {
               marketing claims.
             </li>
             <li>
-              <strong>Result indemonstability:</strong> Technologies with opaque or
+              <strong>Lack of result demonstrability:</strong> Technologies with opaque or
               difficult-to-communicate benefits face skepticism and adoption resistance compared to
               systems with visible, concrete results.
             </li>
