@@ -157,6 +157,12 @@ const positiveMovers = [...moversAll].filter((r) => r.delta > 0).sort((a, b) => 
 const topNegative = negativeMovers.slice(0, 2)
 const topPositive = positiveMovers.slice(0, 2)
 
+// An "omitted" barrier is one that appears in the pick list but has no continuous-rating mean,
+// so it receives no Mean Rank. In the frozen CRP N=200 dataset this never happens, but the guard
+// stays in place so the page renders correctly if a future pipeline run surfaces an item where
+// every response is missing. Only show the explanatory sentence when there is an actual omission.
+const hasOmittedMeanRank = pickSorted.some((r) => meanRankOf[r.item] === undefined)
+
 const TopBarriersPage = () => {
   const topPick = pickSorted.slice(0, 10)
   const topMean = meanSorted.slice(0, 10)
@@ -362,8 +368,10 @@ const TopBarriersPage = () => {
             Interpretation: Delta = Pick Rank - Mean Rank. A negative Delta means the barrier is
             more salient under the forced-choice task than under continuous rating (it rises when
             participants must prioritize), and a positive Delta means the opposite (it falls under
-            forced choice relative to continuous rating). Barriers omitted from the Mean Rank column
-            are those with no valid continuous-rating mean in the frozen dataset.
+            forced choice relative to continuous rating).
+            {hasOmittedMeanRank
+              ? ' Barriers missing a Mean Rank value above are those with no valid continuous-rating mean in this dataset (all responses missing for that item).'
+              : ''}
           </p>
         </section>
 
