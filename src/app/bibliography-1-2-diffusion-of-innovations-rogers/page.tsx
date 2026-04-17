@@ -444,8 +444,8 @@ const BibliographyArticlePage = () => {
               at different decision stages.
             </li>
             <li>
-              <strong>Innovation characteristics framework:</strong> Articulated a parsimonious
-              set of five innovation attributes (relative advantage, compatibility, complexity,
+              <strong>Innovation characteristics framework:</strong> Articulated a parsimonious set
+              of five innovation attributes (relative advantage, compatibility, complexity,
               trialability, observability) associated with adoption rates.
             </li>
             <li>
@@ -459,8 +459,7 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>Methodological legacy:</strong> Helped codify measurement practices and
-              research designs that are widely used in adoption and implementation science
-              research.
+              research designs that are widely used in adoption and implementation science research.
             </li>
           </ul>
         </section>
@@ -481,8 +480,8 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>Clear conceptual definitions:</strong> Provides precisely defined core
-              concepts (innovation, communication channels, time, social system) enabling
-              consistent measurement and comparison across studies.
+              concepts (innovation, communication channels, time, social system) enabling consistent
+              measurement and comparison across studies.
             </li>
             <li>
               <strong>Multi-disciplinary convergence:</strong> Compiles research from education,
