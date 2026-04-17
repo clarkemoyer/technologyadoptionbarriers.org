@@ -481,9 +481,10 @@ const BibliographyArticlePage = () => {
               factor analysis.
             </li>
             <li>
-              <strong>Comprehensive national sample validation:</strong> Testing with U.S. national
-              samples (N=999+) and international comparison samples provides robust evidence of
-              reliability and validity across diverse populations.
+              <strong>U.S. national sample validation:</strong> Validation with a combined U.S.
+              sample of 878 adults (354 mail + 524 online, Survey Sampling International panel)
+              provides evidence of reliability and factor structure. Cross-cultural generalization
+              is left to future research.
             </li>
             <li>
               <strong>Contemporary technology validation:</strong> Validation against contemporary
@@ -491,9 +492,10 @@ const BibliographyArticlePage = () => {
               measurement for 21st-century technology contexts differing from 2000-era systems.
             </li>
             <li>
-              <strong>Trait-stability evidence:</strong> Demonstration that technology readiness is
-              relatively stable over time supports conceptualization as individual difference
-              variable predictive across technology domains.
+              <strong>Dimensional-structure stability across surveys:</strong> Comparison of 2012
+              data against the 1999 NTRS data (Parasuraman, 2000) shows consistent factor-loading
+              patterns for retained items, attesting to the temporal stability of the TR dimensional
+              structure over 13 years (paper Table 4, p.63).
             </li>
             <li>
               <strong>Practical applicability:</strong> Streamlined measurement enables practical
@@ -586,9 +588,10 @@ const BibliographyArticlePage = () => {
               continued relevance for 21st-century technology adoption.
             </li>
             <li>
-              <strong>Cross-national validation evidence:</strong> Demonstrated that technology
-              readiness dimensions function similarly across national samples, supporting
-              generalizability beyond U.S.-specific populations.
+              <strong>Five-segment Latent Class Analysis typology:</strong> Identified a
+              five-segment technology-user typology (Explorers, Pioneers, Skeptics, Hesitators,
+              Avoiders) that extends the earlier TRI 1.0 customer-segmentation work and explains 76%
+              of variance in overall TR scores.
             </li>
             <li>
               <strong>Practical organizational tool:</strong> Provided streamlined measurement
@@ -623,37 +626,44 @@ const BibliographyArticlePage = () => {
               validation samples, supporting the theoretical four-dimension structure.
             </li>
             <li>
-              <strong>Large national sample validation:</strong> U.S. national sample of N=999+
-              provided adequate statistical power to detect factor structures and estimate
-              reliability coefficients precisely.
+              <strong>Combined U.S. sample of N=878:</strong> Mail survey (354 usable questionnaires
+              from 2,500 mailings) plus online panel (524 usable questionnaires, Survey Sampling
+              International) provided adequate statistical power for factor analysis and reliability
+              estimation (paper pp.63-64).
             </li>
             <li>
-              <strong>Cronbach&rsquo;s alpha reliability:</strong> Reported alpha coefficients
-              exceeding 0.70 across dimensions demonstrate adequate internal consistency of
-              multi-item dimensions.
+              <strong>Cronbach&rsquo;s alpha reliability:</strong> Alpha coefficients meet the 0.70
+              threshold across all four dimensions: Optimism 0.81, Innovativeness 0.83, Discomfort
+              0.70, Insecurity 0.77 (Table 5, p.66).
             </li>
             <li>
-              <strong>Convergent validity assessment:</strong> Correlations between TRI 2.0
-              dimensions and conceptually similar constructs (personal innovativeness, technology
-              anxiety, technology optimism from related scales) supported convergent validity.
+              <strong>Convergent validity (AVE):</strong> AVE values of 0.51 (Optimism) and 0.56
+              (Innovativeness) meet the 0.50 threshold; inhibitor AVEs of 0.38 and 0.40 are
+              acknowledged as below threshold but defended on grounds that inhibitor items span
+              multiple distinct concerns (p.65).
             </li>
             <li>
               <strong>Discriminant validity testing:</strong> Factor correlations and dimension
-              separateness demonstrated that the four dimensions represent distinct constructs
-              rather than a single technology readiness factor.
+              separateness assessment in Table 5 (p.66) supports the four-factor model; Discomfort
+              and Insecurity meet minimum acceptable thresholds, Optimism and Innovativeness show
+              strong discrimination.
             </li>
             <li>
-              <strong>Test-retest reliability:</strong> Temporal stability of readiness measures
-              over time supported conceptualization as stable individual difference variable.
+              <strong>Dimensional-structure temporal stability:</strong> Factor-loading patterns for
+              retained items in the 2012 survey closely match the 1999 NTRS patterns reported in
+              Parasuraman (2000), attesting to the structural stability of the TR index over 13
+              years (paper Table 4, p.63). The paper does not report classical within-individual
+              test-retest reliability.
             </li>
             <li>
-              <strong>Multiple sample cross-validation:</strong> Dimensional structure was validated
-              across multiple independent samples, reducing risk of sample-specific findings.
+              <strong>Cross-validation across data-collection modes:</strong> Mail and online
+              subsamples were pooled after inspection showed comparable results, reducing the risk
+              of mode-specific measurement artifacts.
             </li>
             <li>
-              <strong>Item invariance testing:</strong> Assessment of whether item functioning was
-              consistent across demographic groups (age, gender, technology experience) supported
-              measurement invariance.
+              <strong>Common method bias assessment:</strong> A common latent factor (CLF) was added
+              to the CFA; standardized regression weights did not change substantially between
+              models with and without the CLF, indicating CMB is not a major threat (p.65).
             </li>
           </ul>
         </section>
