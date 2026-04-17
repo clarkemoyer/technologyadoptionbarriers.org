@@ -146,15 +146,16 @@ const BibliographyArticlePage = () => {
             amplifying bias, creating fairness concerns, or failing to achieve business value.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            Microsoft AI Adoption Framework was created to provide prescriptive, comprehensive
-            guidance for enterprise AI adoption grounded in Microsoft&rsquo;s extensive experience
-            with Copilot deployments at Fortune 500 organizations, Microsoft&rsquo;s own internal AI
-            transformations, and validated responsible AI principles. The framework addresses the
-            reality that AI adoption builds upon cloud infrastructure but requires distinct
-            strategy, governance, and operational approaches. The framework enables organizations to
-            develop AI strategy aligned with business goals, assess AI readiness across people and
-            technology dimensions, establish responsible AI governance aligned with NIST AI RMF and
-            EU AI Act requirements, and operationalize sustainable AI practices.
+            Microsoft AI Adoption Framework was created to provide prescriptive guidance for AI
+            adoption grounded in Microsoft Learn documentation, Microsoft&rsquo;s responsible AI
+            principles, and patterns drawn from Microsoft Copilot and Azure AI deployments. The
+            framework addresses the reality that AI adoption builds upon cloud infrastructure but
+            requires distinct strategy, planning, readiness, governance, security, and management
+            steps. The framework enables organizations of all sizes (including startups, small and
+            medium businesses, large enterprises, nonprofits, and public sector institutions) to
+            develop AI strategy aligned with business goals, assess AI readiness, establish AI
+            governance aligned with NIST AI Risk Management Framework, and operate AI workloads in
+            production.
           </p>
         </section>
 
@@ -181,14 +182,14 @@ const BibliographyArticlePage = () => {
               ethics.
             </li>
             <li>
-              <strong>AI Pillars:</strong> Six distinct dimensions of AI adoption: AI Strategy, AI
-              Readiness, AI Solution Development, Responsible AI, AI Operations, and AI Skilling.
+              <strong>AI Adoption Steps:</strong> Six steps that structure the AI adoption process:
+              AI Strategy, AI Plan, AI Ready, Govern AI, Secure AI, and Manage AI, with Responsible
+              AI principles applied across all steps.
             </li>
             <li>
-              <strong>Copilot Approach:</strong> Microsoft&rsquo;s published patterns for deploying
-              large-language-model-based Copilots at organizational scale, incorporating responsible
-              AI governance. The patterns are vendor-authored and largely based on Microsoft&rsquo;s
-              own deployment experience.
+              <strong>AI Checklists:</strong> Microsoft&rsquo;s published startup and enterprise
+              checklists that organize the activities within each adoption step for Copilot and
+              Azure AI workloads.
             </li>
             <li>
               <strong>AI Governance:</strong> Organizational policies, standards, and accountability
@@ -196,9 +197,9 @@ const BibliographyArticlePage = () => {
               values, and ethical principles.
             </li>
             <li>
-              <strong>Responsible AI Standard:</strong> Microsoft&rsquo;s comprehensive framework
-              ensuring AI systems demonstrate fairness, reliability, safety, privacy, inclusiveness,
-              transparency, and accountability.
+              <strong>Responsible AI Principles:</strong> Microsoft&rsquo;s six principles for
+              ethical AI that align with the NIST AI Risk Management Framework and are applied
+              across the adoption steps.
             </li>
           </ul>
         </section>
@@ -210,8 +211,9 @@ const BibliographyArticlePage = () => {
             The Microsoft AI Adoption Framework is a vendor-published prescriptive adoption and
             governance framework rather than a psychometric measurement model. It does not define
             latent constructs or validated scales. It structures how organizations plan, execute,
-            and govern enterprise adoption of Microsoft AI services (Microsoft 365 Copilot, Azure
-            AI, and Azure OpenAI). Evaluation concepts associated with it typically include:
+            and govern adoption of Microsoft AI services (Microsoft 365 Copilot, Microsoft Foundry,
+            Azure OpenAI, Azure Machine Learning, and related services). Evaluation concepts
+            associated with it typically include:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
@@ -221,8 +223,8 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>Responsible AI compliance:</strong> Whether the adoption aligns with
-              Microsoft&rsquo;s Responsible AI Standard and required transparency, fairness, and
-              accountability controls.
+              Microsoft&rsquo;s responsible AI principles (fairness, reliability and safety,
+              inclusiveness, transparency, accountability, plus privacy and security controls).
             </li>
             <li>
               <strong>Governance and security posture:</strong> Whether data classification, data
@@ -237,9 +239,10 @@ const BibliographyArticlePage = () => {
           </ul>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Source note:</strong> The Microsoft AI Adoption Framework is a first-party
-            vendor framework published by Microsoft. Descriptions here are drawn from Microsoft
-            Learn documentation, the Microsoft Responsible AI Standard, and publicly available
-            Microsoft materials. Independent empirical evaluation is limited.
+            vendor framework published by Microsoft. Descriptions here are drawn from the AI
+            scenario documentation on Microsoft Learn under the Cloud Adoption Framework,
+            Microsoft&rsquo;s responsible AI principles, and publicly available Microsoft materials.
+            Independent empirical evaluation is limited.
           </p>
         </section>
 
@@ -265,14 +268,10 @@ const BibliographyArticlePage = () => {
               governance and operations methodologies adapted for AI workloads.
             </li>
             <li>
-              <strong>NIST AI Risk Management Framework (2023):</strong> National Institute of
-              Standards and Technology framework for managing risks in AI systems. Microsoft AI
-              Adoption Framework aligns closely with NIST AI RMF structure and risk categories.
-            </li>
-            <li>
-              <strong>EU AI Act Compliance Framework (2024):</strong> Emerging European regulatory
-              approach to AI governance and risk management. Microsoft framework incorporates EU AI
-              Act requirements for responsible AI implementation.
+              <strong>NIST AI Risk Management Framework:</strong> National Institute of Standards
+              and Technology framework for managing risks in AI systems. The Microsoft Govern AI
+              step explicitly follows the NIST AI RMF and NIST AI RMF Playbook, and the responsible
+              AI principles are presented as aligned with NIST AI RMF.
             </li>
             <li>
               <strong>Technology Adoption Lifecycle Models:</strong> Established frameworks for
@@ -296,111 +295,105 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Describe The Model</h2>
           <p className={PARAGRAPH_CLASSES}>
-            Microsoft AI Adoption Framework provides comprehensive guidance for enterprise AI
-            adoption organized around six pillars representing critical dimensions of AI
-            transformation: AI Strategy, AI Readiness, AI Solution Development, Responsible AI, AI
-            Operations, and AI Skilling. The framework integrates responsible AI governance
-            throughout all dimensions rather than treating ethics as separate concern.
+            Microsoft AI Adoption Framework provides guidance for AI adoption organized around six
+            sequential adoption steps: AI Strategy, AI Plan, AI Ready, Govern AI, Secure AI, and
+            Manage AI. Responsible AI principles are applied across all six steps rather than
+            treated as a separate step. Microsoft publishes both a startup checklist and an
+            enterprise checklist that list the recommended activities within each step.
           </p>
 
-          <h3 className={H3_CLASSES}>Six AI Adoption Pillars</h3>
+          <h3 className={H3_CLASSES}>Six AI Adoption Steps</h3>
           <p className={PARAGRAPH_CLASSES}>
-            The six pillars organize AI adoption guidance across strategic, technical,
-            organizational, and governance dimensions:
-          </p>
-          <ul className={BODY_LIST_CLASSES}>
-            <li>
-              <strong>AI Strategy:</strong> Defines organizational AI vision, identifies high-value
-              AI opportunities aligned with business strategy, establishes governance frameworks for
-              AI investments, and creates accountability structures for AI initiatives.
-            </li>
-            <li>
-              <strong>AI Readiness:</strong> Assesses organizational maturity across data
-              foundation, technology infrastructure, talent capabilities, and governance readiness.
-              Readiness assessment identifies improvement areas and establishes roadmaps.
-            </li>
-            <li>
-              <strong>AI Solution Development:</strong> Guides implementation of AI solutions
-              including Copilots (large language model based assistants), custom machine learning
-              models, AI agents, and AI-integrated business applications.
-            </li>
-            <li>
-              <strong>Responsible AI:</strong> Establishes governance ensuring AI systems are fair,
-              transparent, accountable, and aligned with organizational values. Responsible AI
-              integrates throughout solution development lifecycle.
-            </li>
-            <li>
-              <strong>AI Operations:</strong> Establishes operational practices for AI lifecycle
-              management including model monitoring, performance tracking, retraining, and
-              governance compliance assurance.
-            </li>
-            <li>
-              <strong>AI Skilling:</strong> Develops organizational AI capabilities through talent
-              recruitment, training programs, and knowledge transfer ensuring availability of AI
-              practitioners across roles.
-            </li>
-          </ul>
-
-          <h3 className={H3_CLASSES}>AI Strategy Pillar</h3>
-          <p className={PARAGRAPH_CLASSES}>
-            The AI Strategy pillar establishes foundation for AI adoption by defining business
-            alignment, opportunity identification, and governance:
+            The six adoption steps organize AI adoption guidance across strategic, planning,
+            readiness, governance, security, and operational dimensions:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Business outcomes identification:</strong> Define specific, measurable
-              business outcomes AI adoption will achieve including revenue growth, cost
-              optimization, efficiency gains, or customer experience improvements.
+              <strong>AI Strategy:</strong> Identifies AI use cases, defines an AI technology
+              strategy, develops an AI data strategy, and develops a responsible AI strategy.
             </li>
             <li>
-              <strong>Use case identification:</strong> Systematically identify high-value AI
-              opportunities aligned with business strategy assessing feasibility, expected business
-              impact, and required resources.
+              <strong>AI Plan:</strong> Assesses and acquires AI skills, accesses AI resources,
+              prioritizes AI use cases, creates an AI proof of concept, and implements responsible
+              AI.
             </li>
             <li>
-              <strong>AI governance framework:</strong> Establish policies, standards,
-              accountability structures, and risk management approaches for AI initiatives ensuring
-              compliance and responsible implementation.
+              <strong>AI Ready:</strong> Builds an AI environment, chooses an architecture,
+              establishes an AI foundation, uses AI design areas, and establishes AI networking and
+              reliability for Azure AI workloads.
             </li>
             <li>
-              <strong>Responsible AI commitment:</strong> Establish organizational commitment to
-              responsible AI principles ensuring fairness, transparency, and ethical consideration
-              throughout AI adoption.
+              <strong>Govern AI:</strong> Assesses and monitors AI organizational risks, documents
+              AI governance policies, and enforces AI policies across deployments.
+            </li>
+            <li>
+              <strong>Secure AI:</strong> Discovers AI security risks, protects AI resources and
+              data, and detects AI security threats.
+            </li>
+            <li>
+              <strong>Manage AI:</strong> Manages AI models, costs, operations, deployment, data,
+              and business continuity for AI workloads in production.
             </li>
           </ul>
 
-          <h3 className={H3_CLASSES}>AI Readiness Pillar</h3>
+          <h3 className={H3_CLASSES}>AI Strategy Step</h3>
           <p className={PARAGRAPH_CLASSES}>
-            The AI Readiness pillar assesses organizational maturity for AI adoption across multiple
-            dimensions:
+            The AI Strategy step establishes the foundation for AI adoption through four core
+            planning activities:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Data foundation readiness:</strong> Assess data quality, governance, access
-              patterns, and infrastructure determining whether organization can effectively prepare
-              data for AI models.
+              <strong>Identify AI use cases:</strong> Identify automation opportunities, gather
+              customer feedback, conduct internal assessment, research industry use cases, and
+              define AI targets with quantified success metrics.
             </li>
             <li>
-              <strong>Technology infrastructure:</strong> Assess cloud infrastructure, AI platform
-              services, and tools determining whether organization has technical foundation for AI
-              deployment and operations.
+              <strong>Define an AI technology strategy:</strong> Select among Microsoft&rsquo;s
+              SaaS, PaaS, and IaaS AI consumption patterns, and match AI service models to team
+              skills, compliance posture, and customization needs.
             </li>
             <li>
-              <strong>Talent and skill assessment:</strong> Assess availability of data scientists,
-              AI engineers, and business stakeholders with AI literacy determining talent gaps and
-              training needs.
+              <strong>Develop an AI data strategy:</strong> Set up data governance for AI projects,
+              plan for data growth and performance, manage data through its lifecycle, and follow
+              responsible data practices.
             </li>
             <li>
-              <strong>Governance and compliance readiness:</strong> Assess existing governance
-              frameworks, compliance requirements, and regulatory constraints shaping AI governance
-              approach.
+              <strong>Develop a responsible AI strategy:</strong> Assign ownership for AI
+              governance, adopt responsible AI principles as business goals, choose responsible AI
+              tools, and stay compliant with AI regulations.
             </li>
           </ul>
 
-          <h3 className={H3_CLASSES}>Responsible AI Standard</h3>
+          <h3 className={H3_CLASSES}>AI Ready Step</h3>
           <p className={PARAGRAPH_CLASSES}>
-            The Responsible AI Standard ensures AI systems demonstrate seven critical qualities
-            throughout development and deployment:
+            The AI Ready step prepares Azure infrastructure and organizational foundations for AI
+            workloads. For enterprise deployments, activities include:
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Establish an AI foundation:</strong> Build AI landing zones within Azure
+              landing zone architecture to provide consistent infrastructure for AI workloads.
+            </li>
+            <li>
+              <strong>Choose an architecture:</strong> Select AI architecture patterns (for example,
+              Copilot, RAG, agents, or custom ML) that fit the intended use cases and service model.
+            </li>
+            <li>
+              <strong>Use AI design areas:</strong> Apply Microsoft&rsquo;s AI design areas covering
+              identity, network, security, governance, operations, and platform automation for AI
+              workloads.
+            </li>
+            <li>
+              <strong>Establish AI governance, networking, and reliability:</strong> Put governance,
+              networking, and reliability controls in place before workloads move into production.
+            </li>
+          </ul>
+
+          <h3 className={H3_CLASSES}>Responsible AI Principles</h3>
+          <p className={PARAGRAPH_CLASSES}>
+            Microsoft&rsquo;s responsible AI principles are presented in the framework as six
+            principles that align with the NIST AI Risk Management Framework and are applied across
+            all adoption steps:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
@@ -431,37 +424,46 @@ const BibliographyArticlePage = () => {
             </li>
           </ul>
 
-          <h3 className={H3_CLASSES}>Copilot Approach</h3>
+          <h3 className={H3_CLASSES}>Microsoft AI Solution Options</h3>
           <p className={PARAGRAPH_CLASSES}>
-            Microsoft&rsquo;s published Copilot approach describes patterns for deploying
-            large-language-model-based assistants at organizational scale (drawn from
-            Microsoft&rsquo;s own and early customer deployments):
+            The framework presents a Microsoft AI decision tree that maps organizational needs to
+            specific Microsoft AI services across SaaS, PaaS, and IaaS consumption patterns:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>User-centric design:</strong> Copilots designed as AI assistants augmenting
-              human capabilities, maintaining human decision-making authority and oversight.
+              <strong>Microsoft 365 Copilot and agents (SaaS, generative AI):</strong> Ready-to-use
+              AI assistance across Microsoft 365 apps, integrated with Microsoft Graph data, with
+              extensibility tools and Copilot Studio for customization.
             </li>
             <li>
-              <strong>Responsible AI integration:</strong> Copilots incorporate responsible AI
-              practices including bias mitigation, fairness assessment, and jailbreak resistance.
+              <strong>Role-aligned and in-product Copilots (SaaS, generative AI):</strong> Copilots
+              targeted at roles such as security, sales, service, and finance, and in-product
+              Copilots within GitHub, Power Platform, Dynamics 365, Fabric, and Azure.
             </li>
             <li>
-              <strong>Iterative improvement:</strong> Copilot deployments involve continuous
-              monitoring, feedback collection, and refinement based on real-world usage patterns.
+              <strong>
+                Microsoft Foundry and Azure OpenAI (PaaS, generative and nongenerative AI):
+              </strong>{' '}
+              Development platforms for building RAG applications, AI agents, and custom AI
+              solutions with access to model catalogs and Foundry Tools.
             </li>
             <li>
-              <strong>Enterprise security:</strong> Copilots deployed with enterprise security
-              architecture ensuring data protection, access controls, and compliance.
+              <strong>Azure Machine Learning and Microsoft Fabric (PaaS and SaaS, ML):</strong>
+              Platforms for training and deploying machine learning models on organizational data.
+            </li>
+            <li>
+              <strong>Azure Virtual Machines and Azure Container Apps (IaaS and PaaS):</strong>
+              Infrastructure options for bringing custom AI models to Azure and for lightweight AI
+              inferencing without managing GPUs directly.
             </li>
           </ul>
 
           <h3 className={H3_CLASSES}>Key Strengths</h3>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Production-tested patterns:</strong> Framework grounded in Microsoft&rsquo;s
-              extensive Copilot deployments at Fortune 500 customers providing tested, realistic
-              guidance.
+              <strong>Vendor-published patterns:</strong> Framework grounded in Microsoft Learn
+              documentation and Microsoft&rsquo;s Copilot and Azure AI deployment guidance,
+              providing vendor-authored implementation patterns.
             </li>
             <li>
               <strong>Responsible AI integration:</strong> Responsible AI embedded throughout
@@ -473,8 +475,9 @@ const BibliographyArticlePage = () => {
               lifecycle from strategy through operations ensuring no critical dimension overlooked.
             </li>
             <li>
-              <strong>Regulatory alignment:</strong> Framework aligned with NIST AI RMF and emerging
-              regulatory requirements including EU AI Act compliance.
+              <strong>Regulatory alignment:</strong> Framework responsible AI principles are aligned
+              with the NIST AI Risk Management Framework and NIST AI RMF Playbook, and the Govern AI
+              step references the NIST AI RMF structure.
             </li>
             <li>
               <strong>Business outcome focus:</strong> Framework emphasizes measurable business
@@ -512,8 +515,9 @@ const BibliographyArticlePage = () => {
               scale, potentially over-complex for small organizations with simpler AI needs.
             </li>
             <li>
-              <strong>Responsible AI measurement:</strong> While Responsible AI Standard
-              established, practical measurement and assurance mechanisms vary in maturity.
+              <strong>Responsible AI measurement:</strong> While the responsible AI principles are
+              established and aligned with NIST AI RMF, practical measurement and assurance
+              mechanisms vary in maturity.
             </li>
           </ul>
         </section>
@@ -533,9 +537,9 @@ const BibliographyArticlePage = () => {
               adoption, establishing ethics as business requirement.
             </li>
             <li>
-              <strong>Copilot deployment patterns:</strong> Consolidated Microsoft&rsquo;s published
-              deployment patterns from early Copilot rollouts into vendor guidance for
-              large-language-model implementation at scale. Independent evaluation of these patterns
+              <strong>Copilot and Azure AI deployment guidance:</strong> Consolidated Microsoft
+              Learn guidance for Copilot, Foundry, Azure OpenAI, and Azure Machine Learning
+              workloads into a single adoption process. Independent evaluation of these patterns
               across non-Microsoft contexts is limited as of publication.
             </li>
             <li>
@@ -544,9 +548,9 @@ const BibliographyArticlePage = () => {
               enabling organizations to identify improvement priorities.
             </li>
             <li>
-              <strong>Regulatory anticipation:</strong> Framework aligned with NIST AI RMF and EU AI
-              Act before regulations fully implemented, preparing organizations for emerging
-              requirements.
+              <strong>NIST alignment:</strong> Framework explicitly aligns its Govern AI step and
+              responsible AI principles with the NIST AI Risk Management Framework and NIST AI RMF
+              Playbook.
             </li>
             <li>
               <strong>Business outcome emphasis:</strong> Framework established AI outcomes
@@ -637,8 +641,10 @@ const BibliographyArticlePage = () => {
               organization&rsquo;s existing data maturity and quality.
             </li>
             <li>
-              <strong>Regulatory context dependence:</strong> Framework strongly applicable in EU
-              and regulated US sectors; applicability varies in less regulated contexts.
+              <strong>Regulatory context dependence:</strong> Framework is explicitly aligned with
+              NIST AI RMF, which is most directly applicable in United States regulatory contexts;
+              organizations in other jurisdictions must map framework guidance to local AI
+              regulations themselves.
             </li>
           </ul>
         </section>
@@ -834,10 +840,10 @@ const BibliographyArticlePage = () => {
             </p>
             <p className={PARAGRAPH_CLASSES}>
               <Link
-                href="/bibliography-2-20-cmmc-dod-2020"
+                href="/bibliography-2-20-gartner-hype-cycle-methodology-2025"
                 className="text-blue-600 hover:text-blue-800 underline"
               >
-                Next: Cybersecurity Maturity Model Certification (CMMC) - U.S. DoD (2020) &rarr;
+                Next: Gartner Hype Cycle Methodology - Gartner (2025) &rarr;
               </Link>
             </p>
             <p className={`${PARAGRAPH_CLASSES} mt-6`}>
