@@ -91,8 +91,8 @@ const Article16Page = () => {
             requirements and technology capabilities.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            Goodhue and Thompson conducted a large-scale empirical study across 25 organizations and
-            784 users of an integrated computer dispatch (ICD) system used in service organizations.
+            Goodhue and Thompson conducted a large-scale empirical study with 662 users across 26
+            departments in two companies using an integrated computer dispatch (ICD) system.
             The key finding was striking: task-technology fit predicted individual performance (r =
             .67) far more strongly than utilization alone (r = .24). In other words, how well the
             system matched the work people actually did mattered more than how much people used it.
