@@ -486,9 +486,11 @@ const BibliographyArticlePage = () => {
               independent capability verification.
             </li>
             <li>
-              <strong>Demonstrated process improvement business benefits:</strong> Organizations
-              using CMMI achieved documented quality and productivity improvements. Business
-              benefits demonstrated process improvement value.
+              <strong>Reported process-improvement benefits:</strong> Published CMMI
+              implementation reports, many authored by SEI-affiliated practitioners or client
+              organizations, describe quality and productivity improvements. Independent,
+              peer-reviewed evaluations are limited and results vary substantially across
+              studies.
             </li>
             <li>
               <strong>Influenced government procurement requirements:</strong> US government
@@ -533,9 +535,11 @@ const BibliographyArticlePage = () => {
               approaches improves validity.
             </li>
             <li>
-              <strong>Demonstrated organizational benefits:</strong> Organizations achieving higher
-              maturity levels report improved quality, productivity, and predictability. Observed
-              benefits support validity.
+              <strong>Self-reported organizational benefits:</strong> Organizations reaching
+              higher maturity levels commonly report improved quality, productivity, and
+              predictability. These reports are largely self-reported or SEI-adjacent; the causal
+              contribution of CMMI itself (versus other concurrent process changes) is difficult
+              to isolate.
             </li>
             <li>
               <strong>Integrated across domains:</strong> Unified framework integrating multiple
@@ -690,7 +694,8 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Following Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
-            CMMI spawned extensive evolution and complementary approaches:
+            CMMI has evolved through multiple versions and is commonly discussed alongside related
+            process-improvement frameworks:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
