@@ -565,7 +565,15 @@ const BibliographyArticlePage = () => {
           <ol className={REFERENCES_OL_CLASSES}>
             <li id="ref-goodhue-1995">
               Goodhue, D. L., &amp; Thompson, R. L. (1995). Task-technology fit and individual
-              performance. <em>MIS Quarterly</em>, 19(2), 213-236. https://doi.org/10.2307/249689
+              performance. <em>MIS Quarterly</em>, 19(2), 213-236.{' '}
+              <a
+                href="https://doi.org/10.2307/249689"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:underline"
+              >
+                https://doi.org/10.2307/249689
+              </a>
             </li>
             <li id="ref-davis-1989">
               Davis, F. D. (1989). Perceived usefulness, perceived ease of use, and user acceptance
@@ -579,7 +587,14 @@ const BibliographyArticlePage = () => {
                   ↩
                 </a>
               </span>{' '}
-              https://doi.org/10.2307/249008
+              <a
+                href="https://doi.org/10.2307/249008"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:underline"
+              >
+                https://doi.org/10.2307/249008
+              </a>
             </li>
             <li id="ref-rogers-1983">
               Rogers, E. M. (1983). Diffusion of innovations (3rd ed.). Free Press.
@@ -612,13 +627,28 @@ const BibliographyArticlePage = () => {
             </li>
             <li id="ref-taylor-1995">
               Taylor, S., &amp; Todd, P. A. (1995). Understanding information technology usage: A
-              test of competing models. <em>Information Systems Research</em>, 6(2), 144-176.
-              https://doi.org/10.1287/isre.6.2.144
+              test of competing models. <em>Information Systems Research</em>, 6(2), 144-176.{' '}
+              <a
+                href="https://doi.org/10.1287/isre.6.2.144"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:underline"
+              >
+                https://doi.org/10.1287/isre.6.2.144
+              </a>
             </li>
             <li id="ref-venkatesh-2003">
               Venkatesh, V., Morris, M. G., Davis, G. B., &amp; Davis, F. D. (2003). User acceptance
               of information technology: Toward a unified view. <em>MIS Quarterly</em>, 27(3),
-              425-478. https://doi.org/10.2307/30036540
+              425-478.{' '}
+              <a
+                href="https://doi.org/10.2307/30036540"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:underline"
+              >
+                https://doi.org/10.2307/30036540
+              </a>
             </li>
           </ol>
         </section>
