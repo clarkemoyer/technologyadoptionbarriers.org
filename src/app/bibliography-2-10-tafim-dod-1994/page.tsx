@@ -162,6 +162,12 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Core Concepts and Definitions</h2>
           <p className={PARAGRAPH_CLASSES}>TAFIM centers on several core concepts:</p>
+          <p className={PARAGRAPH_CLASSES}>
+            <strong>Source note:</strong> Claims below are drawn from the published TAFIM Volume I
+            Overview and Summary Information and commonly cited secondary treatments of TAFIM.
+            Direct page-level verification against the four-volume primary document has not been
+            performed for every claim.
+          </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
               <strong>Enterprise Architecture:</strong> A comprehensive structure defining how an
@@ -203,7 +209,46 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 6. Preceding Models or Theories */}
+        {/* 6. What Does the Model Measure? */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>What Does the Model Measure?</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            TAFIM is a prescriptive enterprise architecture framework and reference-model document
+            rather than a measurement or psychometric model. It does not define latent constructs,
+            scales, or validation instruments. Instead, it provides a structure against which DoD
+            information systems can be assessed and categorized.
+          </p>
+          <p className={PARAGRAPH_CLASSES}>
+            Evaluation concepts associated with TAFIM typically include:
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Architectural compliance:</strong> Whether a given system or acquisition
+              conforms to TAFIM&rsquo;s mandated standards, interfaces, and reference-model
+              categorization.
+            </li>
+            <li>
+              <strong>Interoperability:</strong> Whether systems can exchange data and coordinate
+              operations as specified by the Technical Reference Model and accompanying standards
+              profile.
+            </li>
+            <li>
+              <strong>Standards coverage:</strong> Which services and interfaces in a system are
+              covered by a TAFIM-referenced standard versus left unspecified or proprietary.
+            </li>
+            <li>
+              <strong>Reference-model mapping:</strong> Whether application, platform, external
+              environment, and information components can be mapped cleanly onto TAFIM layers.
+            </li>
+          </ul>
+          <p className={PARAGRAPH_CLASSES}>
+            TAFIM does not prescribe specific quantitative metrics; program offices apply the
+            framework through architectural reviews and acquisition documentation rather than
+            scored assessment instruments.
+          </p>
+        </section>
+
+        {/* 7. Preceding Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Preceding Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -221,14 +266,16 @@ const BibliographyArticlePage = () => {
               systems reducing vendor lock-in. TAFIM adopted open systems principles.
             </li>
             <li>
-              <strong>Software Architecture Research (Shaw &amp; Garlan, 1996):</strong> Academic
-              research examined architectural patterns and structure. TAFIM applied architectural
-              principles at enterprise scale.
+              <strong>Standardization Efforts (ISO/IEC, NIST, 1980s-1990s):</strong> Government and
+              international standards organizations developed technical standards during the 1980s
+              and early 1990s that predate TAFIM. TAFIM incorporated and referenced standards from
+              standards bodies.
             </li>
             <li>
-              <strong>Standardization Efforts (ISO/IEC, NIST, 1980s-1990s):</strong> Government and
-              international standards organizations developed technical standards. TAFIM
-              incorporated standards from standards bodies.
+              <strong>OSI Reference Model (ISO/IEC 7498, 1984):</strong> The Open Systems
+              Interconnection seven-layer reference model established the concept of layered
+              reference architectures and standardized interfaces between layers, predating
+              TAFIM&rsquo;s four-layer Technical Reference Model.
             </li>
             <li>
               <strong>Database Normalization and Data Modeling (Codd, 1970; Chen, 1976):</strong>{' '}
@@ -243,7 +290,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 7. Describe The Model */}
+        {/* 8. Describe The Model */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Describe The Model</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -407,19 +454,22 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 8. Key Contributions */}
+        {/* 9. Key Contributions */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Key Contributions</h2>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Pioneered enterprise architecture approach:</strong> TAFIM was among first
-              comprehensive enterprise architecture frameworks applied at large scale. Framework
-              pioneered enterprise architecture discipline.
+              <strong>Early large-scale enterprise architecture program:</strong> TAFIM is commonly
+              cited as an early large-scale enterprise architecture program alongside earlier work
+              such as the Zachman Framework (1987). It is not generally credited with originating
+              the discipline, but it operationalized EA concepts through a large federal
+              acquisition mandate.
             </li>
             <li>
-              <strong>Established layered architecture principles:</strong> Demonstrated value of
-              layered architecture separating concerns across architectural layers. Layered approach
-              became standard practice.
+              <strong>Applied layered architecture at enterprise scale:</strong> While layered
+              reference models predate TAFIM (notably the OSI model, 1984), TAFIM applied a
+              layered reference structure as a governance artifact across the full enterprise
+              information technology acquisition process.
             </li>
             <li>
               <strong>Demonstrated acquisition-based enforcement:</strong> Used acquisition mandate
@@ -452,11 +502,13 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 9. Internal Validity */}
+        {/* 10. Internal Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Internal Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
-            TAFIM demonstrates strong internal validity as an enterprise architecture framework:
+            As a prescriptive framework and reference-model document rather than an empirical
+            theory, TAFIM is not subject to construct-validity testing in the psychometric sense.
+            Considerations typically raised about its internal consistency include:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
@@ -489,7 +541,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 10. External Validity */}
+        {/* 11. External Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>External Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -539,7 +591,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 11. Relevance to Technology Adoption */}
+        {/* 12. Relevance to Technology Adoption */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Relevance to Technology Adoption</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -630,7 +682,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 12. Following Models or Theories */}
+        {/* 13. Following Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Following Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -682,7 +734,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 13. References */}
+        {/* 14. References */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>References</h2>
           <ol className={REFERENCES_OL_CLASSES}>
@@ -696,6 +748,7 @@ const BibliographyArticlePage = () => {
           </ol>
         </section>
 
+        {/* 15. Further Reading */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Further Reading</h2>
           <ol className={REFERENCES_OL_CLASSES}>
@@ -750,7 +803,7 @@ const BibliographyArticlePage = () => {
           </ol>
         </section>
 
-        {/* 14. Series Navigation */}
+        {/* 16. Series Navigation */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Series Navigation</h2>
           <div className="space-y-4">
