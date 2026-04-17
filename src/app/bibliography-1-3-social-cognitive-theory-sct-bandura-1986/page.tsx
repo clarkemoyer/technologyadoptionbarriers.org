@@ -191,8 +191,8 @@ const BibliographyArticlePage = () => {
           <h2 className={H2_CLASSES}>What Does the Model Measure?</h2>
           <p className={PARAGRAPH_CLASSES}>
             Social Cognitive Theory is a measurement-oriented framework. Bandura (1986) and
-            subsequent scale-development papers specify how each construct is operationalized.
-            Core measured constructs include:
+            subsequent scale-development papers specify how each construct is operationalized. Core
+            measured constructs include:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
@@ -212,9 +212,8 @@ const BibliographyArticlePage = () => {
               behavior, measured via self-report of intent, specificity, and challenge level.
             </li>
             <li>
-              <strong>Self-Regulation:</strong> Self-monitoring, self-evaluation, and
-              self-reaction - often measured via diary methods or multi-item self-regulation
-              scales.
+              <strong>Self-Regulation:</strong> Self-monitoring, self-evaluation, and self-reaction
+              - often measured via diary methods or multi-item self-regulation scales.
             </li>
             <li>
               <strong>Social Modeling Exposure:</strong> Degree of observational learning
@@ -223,16 +222,15 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>Reciprocal Determinism:</strong> The triadic interaction among personal,
-              behavioral, and environmental factors - not directly measured as a single
-              construct; operationalized by jointly modeling the three sets of variables and
-              their mutual influences.
+              behavioral, and environmental factors - not directly measured as a single construct;
+              operationalized by jointly modeling the three sets of variables and their mutual
+              influences.
             </li>
           </ul>
           <p className={PARAGRAPH_CLASSES}>
             Bandura and subsequent scale developers provide reliability and validity evidence for
-            SCT scales across diverse behavioral domains. In technology adoption contexts,
-            computer self-efficacy (Compeau &amp; Higgins, 1995) is the most widely adapted SCT
-            construct.
+            SCT scales across diverse behavioral domains. In technology adoption contexts, computer
+            self-efficacy (Compeau &amp; Higgins, 1995) is the most widely adapted SCT construct.
           </p>
         </section>
 
