@@ -11,6 +11,7 @@ import sensitivityData from '@/data/sensitivity-analysis.json'
 import crpSensitivityData from '@/data/crp-sensitivity-analysis.json'
 import LastUpdated from '@/components/last-updated'
 import { DATA_UNAVAILABLE } from '@/lib/sentinelMarker'
+import { resultsSeries } from '@/data/results-series'
 
 export const metadata: Metadata = {
   title: 'Results - TABS',
@@ -47,16 +48,50 @@ const joinItems = (xs: string[]): string => {
 }
 
 const barrierShort = (text: string): string => {
-  // Strip trailing period and keep the first clause for a compact lede.
+  // Strip trailing period, remove parentheticals, and keep the first sentence-like
+  // clause for a compact lede without leaving unmatched parentheses.
   const trimmed = text.replace(/\s*[.]\s*$/, '').trim()
-  const firstClause = trimmed.split(/[,.;:]/)[0].trim()
-  return firstClause.length >= 8 ? firstClause : trimmed
+  const withoutParentheticals = trimmed
+    .replace(/\s*\([^)]*\)/g, '')
+    .replace(/\s{2,}/g, ' ')
+    .trim()
+  const firstClause = withoutParentheticals.split(/[.;:]/)[0].trim()
+  return firstClause.length >= 8
+    ? firstClause
+    : withoutParentheticals.length > 0
+      ? withoutParentheticals
+      : trimmed
 }
 
 const liveLedeLabels = liveTopThree.map((r) => `${r.item} (${barrierShort(r.text)})`)
 
-// Insight-first page order (Option A, barriers first). Each entry below matches the reordered
-// nav in src/data/results-series.ts for both the CRP 2026 and TABS Full Dataset children.
+// Taglines for each page in the insight-first flow. These are the only metadata not encoded in
+// resultsSeries (which owns ordering, titles, and hrefs). Keyed by the last path segment so they
+// stay in sync with resultsSeries even if hrefs change.
+const PAGE_TAGLINES: Record<string, string> = {
+  'top-barriers':
+    'Forced-choice ranking: the three barriers leaders pick when they must prioritize, plus how that ranking compares to the continuous Likert mean.',
+  findings:
+    'Inferential statistics that answer the research questions: t-tests, ANOVA by decision authority, effect sizes, and cross-tabulations.',
+  descriptive:
+    'Grand means, standard deviations, and inter-construct correlations across barriers, readiness, and maturity.',
+  sample:
+    'Who participated: roles, organization sizes, and profit models, broken down per result group.',
+  'data-quality':
+    'Disposition waterfall, attention checks, edge cases, and sample definitions that lead from raw submissions to the clean analytic sample.',
+  reliability:
+    "Cronbach's alpha and composite reliability for each construct across all sample definitions.",
+  'factor-analysis':
+    'EFA loadings, eigenvalues, and explained variance that back the three-factor barrier structure and the one-factor readiness/maturity scales.',
+  validation:
+    'Convergent validity (AVE), discriminant validity (HTMT, Fornell-Larcker), and the IRI attention-check criterion.',
+  sensitivity:
+    'Every metric across every sample cut, plus deltas that show how conservative cleaning changes the headline numbers.',
+}
+
+// FLOW_PAGES is derived from resultsSeries so the landing-page order always matches the sidebar.
+// CRP 2026 children supply title + crpPath; TABS Full Dataset children supply livePath.
+// Taglines (not stored in the nav data) come from PAGE_TAGLINES above.
 type FlowPage = {
   key: string
   title: string
@@ -65,80 +100,21 @@ type FlowPage = {
   crpPath: string
 }
 
-const FLOW_PAGES: FlowPage[] = [
-  {
-    key: 'top-barriers',
-    title: 'Top 3 Barriers',
-    tagline:
-      'Forced-choice ranking: the three barriers leaders pick when they must prioritize, plus how that ranking compares to the continuous Likert mean.',
-    livePath: '/results/top-barriers',
-    crpPath: '/results/crp-2026/top-barriers',
-  },
-  {
-    key: 'findings',
-    title: 'Key Findings',
-    tagline:
-      'Inferential statistics that answer the research questions: t-tests, ANOVA by decision authority, effect sizes, and cross-tabulations.',
-    livePath: '/results/findings',
-    crpPath: '/results/crp-2026/findings',
-  },
-  {
-    key: 'descriptive',
-    title: 'Descriptive Statistics',
-    tagline:
-      'Grand means, standard deviations, and inter-construct correlations across barriers, readiness, and maturity.',
-    livePath: '/results/descriptive',
-    crpPath: '/results/crp-2026/descriptive',
-  },
-  {
-    key: 'sample',
-    title: 'Sample & Demographics',
-    tagline:
-      'Who participated: roles, organization sizes, and profit models, broken down per result group.',
-    livePath: '/results/sample',
-    crpPath: '/results/crp-2026/sample',
-  },
-  {
-    key: 'data-quality',
-    title: 'Data Quality',
-    tagline:
-      'Disposition waterfall, attention checks, edge cases, and sample definitions that lead from raw submissions to the clean analytic sample.',
-    livePath: '/results/data-quality',
-    crpPath: '/results/crp-2026/data-quality',
-  },
-  {
-    key: 'reliability',
-    title: 'Scale Reliability',
-    tagline:
-      "Cronbach's alpha and composite reliability for each construct across all sample definitions.",
-    livePath: '/results/reliability',
-    crpPath: '/results/crp-2026/reliability',
-  },
-  {
-    key: 'factor-analysis',
-    title: 'Factor Analysis',
-    tagline:
-      'EFA loadings, eigenvalues, and explained variance that back the three-factor barrier structure and the one-factor readiness/maturity scales.',
-    livePath: '/results/factor-analysis',
-    crpPath: '/results/crp-2026/factor-analysis',
-  },
-  {
-    key: 'validation',
-    title: 'Instrument Validation',
-    tagline:
-      'Convergent validity (AVE), discriminant validity (HTMT, Fornell-Larcker), and the IRI attention-check criterion.',
-    livePath: '/results/validation',
-    crpPath: '/results/crp-2026/validation',
-  },
-  {
-    key: 'sensitivity',
-    title: 'Sensitivity Analysis',
-    tagline:
-      'Every metric across every sample cut, plus deltas that show how conservative cleaning changes the headline numbers.',
-    livePath: '/results/sensitivity',
-    crpPath: '/results/crp-2026/sensitivity',
-  },
-]
+const crpChildren = resultsSeries.find((s) => s.href === '/results/crp-2026')?.children ?? []
+const liveChildren =
+  resultsSeries.find((s) => s.isGroup && s.href === '/results/full-dataset')?.children ?? []
+
+const FLOW_PAGES: FlowPage[] = crpChildren.map((crpPage, i) => {
+  const key = crpPage.href.split('/').filter(Boolean).pop() ?? crpPage.href
+  const livePage = liveChildren[i]
+  return {
+    key,
+    title: crpPage.title,
+    tagline: PAGE_TAGLINES[key] ?? '',
+    livePath: livePage?.href ?? `/results/${key}`,
+    crpPath: crpPage.href,
+  }
+})
 
 const SECONDARY_CARDS = [
   {

@@ -63,6 +63,15 @@ const meanSorted: ItemDescriptive[] = [...meanRankable].sort(
 
 const TOTAL_N: number | null = typeof top3.total_n === 'number' ? top3.total_n : null
 
+// Compute total recorded picks from the actual data so we never assume 3 × N.
+// (If any participant left a top-3 slot blank the sum will be < 3 × N.)
+const totalRecordedPicks: number = pickSorted.reduce(
+  (sum, row) => sum + (typeof row.count === 'number' ? row.count : 0),
+  0
+)
+const allPicksUsed: boolean =
+  TOTAL_N !== null && totalRecordedPicks > 0 && totalRecordedPicks === TOTAL_N * 3
+
 const pickRankOf: Record<string, number> = {}
 pickSorted.forEach((r, i) => {
   pickRankOf[r.item] = i + 1
@@ -192,7 +201,10 @@ const TopBarriersLivePage = () => {
             N={TOTAL_N !== null ? TOTAL_N : DATA_UNAVAILABLE}
           </span>
           <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-amber-50 text-amber-900 border border-amber-200">
-            Picks: {TOTAL_N !== null ? `${TOTAL_N * 3} (3 x ${TOTAL_N})` : DATA_UNAVAILABLE}
+            Picks:{' '}
+            {TOTAL_N !== null && pickSorted.length > 0
+              ? `${totalRecordedPicks}${allPicksUsed ? ` (= 3 × ${TOTAL_N})` : ''}`
+              : DATA_UNAVAILABLE}
           </span>
         </div>
 
@@ -244,12 +256,15 @@ const TopBarriersLivePage = () => {
             <div className="mb-4 border border-amber-200 bg-amber-50 text-amber-900 rounded-lg p-4 text-sm">
               <p className="font-semibold mb-1">How to read these counts</p>
               <p>
-                Each of the {TOTAL_N} participants picked three barriers, so the Pick N column sums
-                across all 18 items to 3 x {TOTAL_N} = {TOTAL_N * 3} total picks. Any single
-                barrier&apos;s Pick N is bounded by {TOTAL_N} (the maximum, if every participant put
-                it in their top 3), and Pick % is the share of participants who included that
-                barrier (max = 100%). The Pick N column below does not add up to {TOTAL_N} because
-                the total is 3 x {TOTAL_N} = {TOTAL_N * 3}.
+                Each of the {TOTAL_N} participants could pick up to three barriers, so the Pick N
+                column sums across all 18 items to {totalRecordedPicks} recorded picks in this
+                dataset. Any single barrier&apos;s Pick N is bounded by {TOTAL_N} (the maximum, if
+                every participant put it in their top 3), and Pick % is the share of participants
+                who included that barrier (max = 100%). The Pick N column below does not add up to{' '}
+                {TOTAL_N} because participants can contribute more than one pick across their top 3
+                choices.
+                {allPicksUsed &&
+                  ` This equals the maximum possible total of 3 x ${TOTAL_N} = ${TOTAL_N * 3}.`}
               </p>
             </div>
           )}
