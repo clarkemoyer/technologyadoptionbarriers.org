@@ -588,18 +588,19 @@ const BibliographyArticlePage = () => {
           <h2 className={H2_CLASSES}>Key Contributions</h2>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Challenged automation paradigm:</strong> Established critical insight that
-              organizations should not automate existing processes but should fundamentally redesign
-              processes using information technology capabilities.
+              <strong>Challenged automation paradigm:</strong> Articulated the argument that
+              organizations should not simply automate existing processes but should redesign them
+              in light of information technology capabilities.
             </li>
             <li>
-              <strong>Established BPR movement:</strong> Co-founded Business Process Reengineering
-              movement (with Hammer, 1993) that became major organizational transformation approach
-              through 1990s and 2000s.
+              <strong>Helped launch the BPR movement:</strong> Davenport &amp; Short&rsquo;s 1990
+              article is commonly cited alongside Hammer&rsquo;s 1990 HBR article and Hammer
+              &amp; Champy (1993) as a founding text of the Business Process Reengineering
+              movement that was widely influential through the 1990s and 2000s.
             </li>
             <li>
-              <strong>Provided practical methodology:</strong> Established five-step process
-              redesign methodology enabling practitioners to conduct systematic process
+              <strong>Provided a practical methodology:</strong> Offered a five-step process
+              redesign methodology that practitioners could apply to systematic process
               transformation.
             </li>
             <li>
@@ -608,9 +609,10 @@ const BibliographyArticlePage = () => {
               decision-support systems, process automation.
             </li>
             <li>
-              <strong>Emphasized radical improvement potential:</strong> Established that
-              information technology could enable dramatic performance improvements when used to
-              fundamentally redesign processes rather than merely automate existing work.
+              <strong>Emphasized radical improvement potential:</strong> Argued that information
+              technology could enable substantial performance improvement when used to redesign
+              processes rather than automate existing ones, framing the argument with
+              author-selected case examples.
             </li>
             <li>
               <strong>Integrated technology and organizational change:</strong> Recognized that
@@ -628,9 +630,10 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Internal Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
-            As a conceptual framework paper based on case study examples from organizational
-            practice, Business Process Redesign demonstrates strong internal validity through
-            logical coherence and consistency with organizational experience:
+            As a conceptual framework paper illustrated through case study examples,
+            Davenport &amp; Short&rsquo;s BPR is not subject to construct-validity testing in the
+            psychometric sense. Considerations typically raised about its internal consistency
+            include:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
@@ -830,8 +833,9 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Following Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
-            Business Process Redesign spawned significant research on process transformation and
-            organizational change:
+            Davenport &amp; Short&rsquo;s BPR sits at the start of a broader stream of process
+            transformation and organizational change work that developed through the 1990s and
+            beyond. Frameworks commonly discussed alongside or after it include:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
@@ -1019,6 +1023,7 @@ const BibliographyArticlePage = () => {
           </ol>
         </section>
 
+        {/* 15. Further Reading */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Further Reading</h2>
           <ol className={REFERENCES_OL_CLASSES}>
