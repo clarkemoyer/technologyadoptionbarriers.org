@@ -549,20 +549,21 @@ const BibliographyArticlePage = () => {
           <h2 className={H2_CLASSES}>Key Contributions</h2>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>First household-specific adoption model:</strong> Established that household
-              technology adoption required distinct theoretical framework from organizational
-              adoption, challenging assumptions that single models apply universally.
+              <strong>Early household-specific adoption model:</strong> Argued that household
+              technology adoption benefits from a distinct theoretical framework from
+              organizational adoption, challenging assumptions that single models apply
+              universally.
             </li>
             <li>
-              <strong>Multiple benefit dimensions in consumer adoption:</strong> Demonstrated that
-              household adoption decisions involve evaluating multiple benefit dimensions (work,
-              education, entertainment, family) rather than single performance criterion in
-              organizational adoption.
+              <strong>Multiple benefit dimensions in consumer adoption:</strong> Argued and
+              reported evidence that household adoption decisions involve evaluating multiple
+              benefit dimensions (work, education, entertainment, family) rather than a single
+              performance criterion as is typical in organizational-adoption research.
             </li>
             <li>
-              <strong>Collective household decision-making framework:</strong> Established household
-              adoption as collective family decision rather than individual choice, requiring
-              understanding of preference negotiation and family influence dynamics.
+              <strong>Collective household decision-making framework:</strong> Frames household
+              adoption as a collective family decision rather than an individual choice,
+              requiring attention to preference negotiation and family influence dynamics.
             </li>
             <li>
               <strong>Cost as primary household adoption barrier:</strong> Empirically demonstrated
