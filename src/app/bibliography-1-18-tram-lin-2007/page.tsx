@@ -828,7 +828,7 @@ const BibliographyArticlePage = () => {
               </span>
             </li>
             <li id="ref-lin-2007">
-              Lin, C.-H., Shih, H.-P., &amp; Sher, P. J. (2007). Integrating technology readiness
+              Lin, C.-H., Shih, H.-Y., &amp; Sher, P. J. (2007). Integrating technology readiness
               into technology acceptance: The TRAM model. <em>Psychology &amp; Marketing</em>,
               24(7), 641-657. https://doi.org/10.1002/mar.20177
             </li>
