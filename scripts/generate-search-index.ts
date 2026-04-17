@@ -138,7 +138,7 @@ function extractStaticMetadata(source: string): {
   // Locate `export const metadata = {` (with optional `: TypeAnnotation`)
   const exportMatch = source.match(/export\s+const\s+metadata\s*(?::\s*[\w.]+\s*)?\s*=\s*\{/)
   if (!exportMatch || exportMatch.index === undefined) {
-    return { title, description }
+    return { title, description, robotsIndexFalse: false }
   }
 
   // Walk the source from the opening `{`, respecting string boundaries,
