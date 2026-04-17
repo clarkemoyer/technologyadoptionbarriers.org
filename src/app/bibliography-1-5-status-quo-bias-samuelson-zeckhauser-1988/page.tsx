@@ -275,10 +275,10 @@ const BibliographyArticlePage = () => {
               terms.
             </li>
             <li>
-              <strong>Loss Aversion Theory (Kahneman &amp; Tversky):</strong> Reported evidence
-              that individuals weight losses more heavily than gains, creating asymmetries in
-              decision-making. SQB builds on loss aversion by arguing that this asymmetry favors
-              the status quo.
+              <strong>Loss Aversion Theory (Kahneman &amp; Tversky):</strong> Reported evidence that
+              individuals weight losses more heavily than gains, creating asymmetries in
+              decision-making. SQB builds on loss aversion by arguing that this asymmetry favors the
+              status quo.
             </li>
             <li>
               <strong>
@@ -353,8 +353,8 @@ const BibliographyArticlePage = () => {
             <li>
               <strong>Breadth of empirical support:</strong> Reported across numerous decision
               contexts (health insurance, retirement investments, housing, job selection, color
-              preferences, technology choices). Subsequent research has reported status-quo
-              effects across diverse domains, with effect sizes varying by domain and design.
+              preferences, technology choices). Subsequent research has reported status-quo effects
+              across diverse domains, with effect sizes varying by domain and design.
             </li>
             <li>
               <strong>Careful distinction of alternative explanations:</strong> Rather than
@@ -472,25 +472,25 @@ const BibliographyArticlePage = () => {
               context-independent choice.
             </li>
             <li>
-              <strong>Identified multiple causal mechanisms:</strong> Distinguished between
-              rational explanations (transition costs, uncertainty) and psychological
-              explanations (loss aversion, cognitive dissonance, sunk cost fallacies) proposed to
-              drive status quo persistence.
+              <strong>Identified multiple causal mechanisms:</strong> Distinguished between rational
+              explanations (transition costs, uncertainty) and psychological explanations (loss
+              aversion, cognitive dissonance, sunk cost fallacies) proposed to drive status quo
+              persistence.
             </li>
             <li>
-              <strong>Contributed to behavioral economics foundations:</strong> Is one of the
-              widely cited early empirical papers in the development of behavioral economics,
-              alongside Kahneman, Tversky, and Thaler&rsquo;s related work.
+              <strong>Contributed to behavioral economics foundations:</strong> Is one of the widely
+              cited early empirical papers in the development of behavioral economics, alongside
+              Kahneman, Tversky, and Thaler&rsquo;s related work.
             </li>
             <li>
               <strong>Highlighted reference-point dependence:</strong> Reported that choice
-              distributions depend on how alternatives are labeled relative to the current
-              position, violating rational choice axioms about context-independence.
+              distributions depend on how alternatives are labeled relative to the current position,
+              violating rational choice axioms about context-independence.
             </li>
             <li>
-              <strong>Cross-domain replication:</strong> Subsequent studies have reported
-              status-quo effects across diverse decision contexts. Effect sizes vary by design,
-              and the effect is not universal.
+              <strong>Cross-domain replication:</strong> Subsequent studies have reported status-quo
+              effects across diverse decision contexts. Effect sizes vary by design, and the effect
+              is not universal.
             </li>
             <li>
               <strong>Enabled practical understanding of real-world decisions:</strong> Explained
