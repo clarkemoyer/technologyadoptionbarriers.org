@@ -125,10 +125,10 @@ const BibliographyArticlePage = () => {
             The authors observed that prior IT adoption models like TAM offered narrower constructs
             (usefulness and ease of use) but lacked the behavioral intention framework of TPB. They
             conceptualized DTPB as decomposing the three TPB belief categories into multiple
-            technology-specific dimensions. Attitudinal beliefs decompose into perceived
-            usefulness, perceived ease of use (complexity), and compatibility (from Rogers);
-            normative beliefs decompose into peer influence and superior influence; control
-            beliefs decompose into self-efficacy and resource facilitating conditions.
+            technology-specific dimensions. Attitudinal beliefs decompose into perceived usefulness,
+            perceived ease of use (complexity), and compatibility (from Rogers); normative beliefs
+            decompose into peer influence and superior influence; control beliefs decompose into
+            self-efficacy and resource facilitating conditions.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             The empirical research compared three models (TAM, TPB, DTPB) using 786 university
@@ -151,19 +151,19 @@ const BibliographyArticlePage = () => {
           <h3 className={H3_CLASSES}>Attitudinal Belief Decomposition</h3>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Perceived Usefulness (Relative Advantage):</strong> The degree to which
-              using the system enhances job performance. Analogous to Rogers&rsquo; relative
-              advantage and Davis&rsquo; perceived usefulness.
+              <strong>Perceived Usefulness (Relative Advantage):</strong> The degree to which using
+              the system enhances job performance. Analogous to Rogers&rsquo; relative advantage and
+              Davis&rsquo; perceived usefulness.
             </li>
             <li>
-              <strong>Perceived Ease of Use (Complexity):</strong> The degree to which the
-              system is perceived as easy to understand and use. Analogous to Rogers&rsquo;
-              complexity (inverse direction) and Davis&rsquo; ease of use.
+              <strong>Perceived Ease of Use (Complexity):</strong> The degree to which the system is
+              perceived as easy to understand and use. Analogous to Rogers&rsquo; complexity
+              (inverse direction) and Davis&rsquo; ease of use.
             </li>
             <li>
-              <strong>Compatibility:</strong> The degree to which the system fits with the
-              potential adopter&rsquo;s existing values, previous experience, and current needs.
-              From Rogers&rsquo; (1983) innovation characteristics.
+              <strong>Compatibility:</strong> The degree to which the system fits with the potential
+              adopter&rsquo;s existing values, previous experience, and current needs. From
+              Rogers&rsquo; (1983) innovation characteristics.
             </li>
           </ul>
 
@@ -186,9 +186,9 @@ const BibliographyArticlePage = () => {
               use the system, based on Bandura&rsquo;s (1977) self-efficacy theory.
             </li>
             <li>
-              <strong>Resource Facilitating Conditions:</strong> Availability of resources needed
-              to use the system (time, money, equipment), based on Triandis&rsquo; (1979)
-              facilitating conditions concept.
+              <strong>Resource Facilitating Conditions:</strong> Availability of resources needed to
+              use the system (time, money, equipment), based on Triandis&rsquo; (1979) facilitating
+              conditions concept.
             </li>
           </ul>
         </section>
