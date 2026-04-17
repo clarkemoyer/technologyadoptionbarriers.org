@@ -14,7 +14,7 @@ import {
 export const metadata: Metadata = {
   title: 'Bibliography: Gartner Hype Cycle - Fenn (1995)',
   description:
-    'Comprehensive overview of the Gartner Hype Cycle model. Explains how emerging technologies follow five-phase adoption pattern from initial innovation trigger through disillusionment to productivity plateau.',
+    'Comprehensive overview of the Gartner Hype Cycle model. Explains how emerging technologies follow five-phase adoption pattern from initial technology trigger through disillusionment to productivity plateau.',
 }
 
 const GartnerHypeCycleBibliographyPage = () => {
@@ -166,8 +166,8 @@ const GartnerHypeCycleBibliographyPage = () => {
               by both hype and maturity dynamics.
             </li>
             <li>
-              <strong>Innovation Trigger:</strong> Initial introduction of technology generating
-              excitement and media attention. Innovation triggers often result from research
+              <strong>Technology Trigger:</strong> Initial introduction of technology generating
+              excitement and media attention. Technology Triggers often result from research
               breakthroughs, technology demonstrations, or vendor announcements.
             </li>
             <li>
@@ -282,7 +282,7 @@ const GartnerHypeCycleBibliographyPage = () => {
           <h3 className={H3_CLASSES}>Five Phases of the Hype Cycle</h3>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Innovation Trigger:</strong> Phase 1 marks initial introduction of technology
+              <strong>Technology Trigger:</strong> Phase 1 marks initial introduction of technology
               through research breakthrough, product announcement, or demonstration. Technology
               generates excitement and media attention. Vendors and technology proponents promote
               the technology. Media reports emphasize potential revolutionary impact. Organizations
