@@ -135,7 +135,57 @@ const BibliographyArticlePage = () => {
           </p>
         </section>
 
-        {/* 5. Core Concepts and Definitions */}
+        {/* 5. What Does the Model Measure? */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>What Does the Model Measure?</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            <strong>Source note:</strong> The project&rsquo;s Zotero library does not contain a PDF
+            of Humphrey (1989) <em>Managing the Software Process</em>. Claims on this page are
+            anchored to the SEI/CMU formalization of the CMM published as Paulk, Curtis, Chrissis,
+            &amp; Weber (1993) <em>Capability Maturity Model, Version 1.1</em> (IEEE Software, July
+            1993), for which a PDF is available in the project&rsquo;s Zotero library. Paulk et al.
+            (1993) explicitly extends the process-maturity framework first described in
+            Humphrey&rsquo;s 1989 book.
+          </p>
+          <p className={PARAGRAPH_CLASSES}>
+            CMM measures <em>process maturity</em> on an ordinal five-point scale (Paulk et al.,
+            1993, p. 21), not a continuous psychometric scale. The measurement apparatus consists
+            of:
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Five Maturity Levels (1-5):</strong> An ordinal scale for measuring process
+              maturity and evaluating process capability. Each level &ldquo;comprises a set of
+              process goals that, when satisfied, stabilize an important component of a software
+              process&rdquo; (Paulk et al., 1993, p. 21).
+            </li>
+            <li>
+              <strong>Key Process Areas (KPAs):</strong> Each maturity level (except Level 1) is
+              characterized by specific KPAs that must be institutionalized. Achievement of the
+              KPAs, assessed via a maturity questionnaire and on-site appraisal, is the operational
+              criterion for assigning a level.
+            </li>
+            <li>
+              <strong>Maturity Questionnaire:</strong> The SEI developed a maturity questionnaire
+              (Paulk et al., 1993, p. 18) as a preliminary assessment instrument. Formal appraisals
+              use Software Process Assessment (SPA) or Software Capability Evaluation (SCE).
+            </li>
+            <li>
+              <strong>Process measures at Level 4+:</strong> Organizations operating at Maturity
+              Level 4 (Managed) and above collect quantitative process and product measurements
+              (Paulk et al., 1993, pp. 22-23) against which process performance can be controlled
+              statistically.
+            </li>
+          </ul>
+          <p className={PARAGRAPH_CLASSES}>
+            CMM does <em>not</em> provide a validated instrument for measuring software quality
+            itself, developer skill, or project success. It measures process <em>maturity</em>
+            only. The relationship between maturity level and project outcomes is a claim CMM
+            proponents advanced; see the Internal Validity section for caveats.
+          </p>
+        </section>
+
+        {/* 6. Core Concepts and Definitions */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Core Concepts and Definitions</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -183,57 +233,68 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 6. Preceding Models or Theories */}
+        {/* 7. Preceding Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Preceding Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
-            The Capability Maturity Model drew on and synthesized previous process management and
-            quality theories:
+            Paulk et al. (1993, p. 21) explicitly credit the staged structure of the CMM to
+            &ldquo;principles of product quality espoused by Walter Shewhart, W. Edwards Deming,
+            Joseph Juran, and Philip Crosby.&rdquo; The CMM is a direct application of this
+            quality-management lineage to the domain of software engineering.
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
+              <strong>Statistical Process Control (Shewhart, 1931):</strong> The foundational
+              distinction between common-cause and special-cause variation, and the use of control
+              limits to know when to intervene, are inherited directly by CMM Level 4
+              (&ldquo;Managed&rdquo;), where project processes are controlled statistically (Paulk
+              et al., 1993, p. 22).
+            </li>
+            <li>
               <strong>
-                Total Quality Management and Deming (
+                TQM / Deming philosophy (
                 <Link
                   href="/bibliography-2-4-total-quality-management-tqm-deming-1982"
                   className="text-tabs-teal-deep hover:underline"
                 >
-                  Deming, 1986
+                  Deming, 1982/1986
                 </Link>
                 ):
               </strong>{' '}
-              CMM incorporated TQM principles emphasizing continuous improvement, measurement, and
-              statistical process control. Deming&rsquo;s focus on process improvement provided
-              philosophical foundation for CMM maturity progression.
+              Continuous improvement, the 14 Points, and the PDCA cycle inform CMM&rsquo;s
+              process-improvement orientation. The evolutionary-small-steps framing of CMM (Paulk et
+              al., 1993, p. 21) closely echoes Deming.
             </li>
             <li>
-              <strong>Software Engineering Principles (Boehm, Brooks):</strong> CMM built on
-              emerging software engineering discipline insights about software development
-              challenges, complexity, and need for disciplined processes.
+              <strong>Juran on quality management:</strong> Juran&rsquo;s quality trilogy (planning,
+              control, improvement) parallels the CMM&rsquo;s movement from disciplined planning
+              (Level 2) through process definition (Level 3), quantitative control (Level 4), and
+              optimization (Level 5).
             </li>
             <li>
-              <strong>Organizational Capabilities and Learning (Nelson &amp; Winter):</strong> CMM
-              incorporated insights about organizational routines and capabilities as sources of
-              performance differentiation.
+              <strong>Crosby on quality maturity:</strong> Crosby&rsquo;s own maturity grid (Crosby,
+              1979, <em>Quality Is Free</em>) is a closer organizational precursor: a five-stage
+              scale for quality-management maturity that parallels the CMM&rsquo;s five-level
+              staging.
             </li>
             <li>
-              <strong>Systems Engineering and Process Discipline (Crosby, Juran):</strong> CMM
-              adapted quality management frameworks from manufacturing and systems engineering to
-              software development context.
+              <strong>Humphrey&rsquo;s process-maturity framework (SEI, 1987):</strong> The
+              immediate precursor. Paulk et al. (1993, p. 18) describe how the SEI released a brief
+              description of the process-maturity framework in September 1987, expanded in
+              Humphrey&rsquo;s 1989 book <em>Managing the Software Process</em>, and subsequently
+              refined into CMM v1.0 (1991) and v1.1 (1993).
             </li>
             <li>
-              <strong>Project Management Practices (PMI, Kerzner):</strong> CMM incorporated project
-              management discipline emphasizing planning, monitoring, control, and organizational
-              processes.
-            </li>
-            <li>
-              <strong>Process Maturity Concepts:</strong> Influenced by manufacturing and quality
-              management concepts of process capability and progressive improvement.
+              <strong>Software engineering context (Boehm, Brooks):</strong> The CMM was developed
+              within the mature software-engineering literature of the 1980s, including Boehm (1988)
+              on the spiral model and Brooks (1975/1995) on the inherent difficulties of software
+              development. These form the domain context rather than direct inputs to the
+              CMM&rsquo;s staged structure.
             </li>
           </ul>
         </section>
 
-        {/* 7. Describe The Model */}
+        {/* 8. Describe The Model */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Describe The Model</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -247,50 +308,52 @@ const BibliographyArticlePage = () => {
             new practices.
           </p>
 
-          <h3 className={H3_CLASSES}>Five Maturity Levels</h3>
+          <h3 className={H3_CLASSES}>Five Maturity Levels (Paulk et al., 1993, pp. 21-23)</h3>
+          <p className={PARAGRAPH_CLASSES}>
+            Level names and characterizations below follow Paulk et al. (1993), the SEI/CMU
+            formalization that builds on Humphrey (1989). Note: later models including CMMI renamed
+            Levels 2 and 4 (&ldquo;Managed&rdquo; and &ldquo;Quantitatively Managed&rdquo;), but the
+            CMM v1.1 names are as given here.
+          </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Level 1 - Initial/Ad Hoc:</strong> Software development processes are
-              unpredictable, poorly controlled, and reactive. Success depends on individual heroics
-              rather than organizational processes. Organizations at this level lack defined
-              processes, documented procedures, or measurement systems. Project outcomes (schedule,
-              budget, quality) are difficult to predict. Software development is chaotic;
-              organizations may not sustain repeatable success.
+              <strong>Level 1 - Initial:</strong> The software process is ad hoc, occasionally
+              chaotic. Few processes are defined and success depends on individual heroics.
+              &ldquo;At level 1, capability is a characteristic of individuals, not
+              organizations&rdquo; (Paulk et al., 1993, p. 21). Organizations at Level 1 may still
+              deliver functioning products, but cannot reliably repeat success.
             </li>
             <li>
-              <strong>Level 2 - Repeatable/Managed:</strong> Basic project management processes are
-              established enabling some project predictability. Key Process Areas include
-              requirements management, software planning, project tracking, supplier agreement
-              management, and change management. Processes are documented and followed for
-              individual projects. Project planning and tracking occur systematically. Some
-              historical data becomes available enabling basic process predictions. Organizations
-              can repeat past successes in similar contexts.
+              <strong>Level 2 - Repeatable:</strong> Basic project management processes are
+              established to track cost, schedule, and functionality. The CMM v1.1 Key Process Areas
+              at Level 2 are (per Paulk et al., 1993): Requirements Management, Software Project
+              Planning, Software Project Tracking and Oversight, Software Subcontract Management,
+              Software Quality Assurance, and Software Configuration Management. Process capability
+              is summarized as &ldquo;disciplined&rdquo;; earlier successes can be repeated.
             </li>
             <li>
-              <strong>Level 3 - Defined/Standardized:</strong> Organizational standard processes are
-              defined, documented, and tailored for specific projects. Key Process Areas include
-              process definition, process focus, peer review, training, product engineering,
-              integration engineering, verification and validation. Software development processes
-              are standardized across the organization enabling consistency and knowledge sharing.
-              Processes are measured and analyzed; improvement recommendations emerge from process
-              data. Organizational culture emphasizes process discipline.
+              <strong>Level 3 - Defined:</strong> Both software-engineering and management processes
+              are documented, standardized, and integrated into an organization&rsquo;s standard
+              software process. The CMM v1.1 Key Process Areas at Level 3 are: Organization Process
+              Focus, Organization Process Definition, Training Program, Integrated Software
+              Management, Software Product Engineering, Intergroup Coordination, and Peer Reviews.
+              Process capability is summarized as &ldquo;standard and consistent&rdquo; (Paulk et
+              al., 1993, p. 22).
             </li>
             <li>
-              <strong>Level 4 - Managed/Quantitatively Managed:</strong> Processes are defined
-              quantitatively with statistical process control and quantitative performance targets.
-              Key Process Areas include quantitative process management and software quality
-              management. Process performance is monitored using statistical techniques and
-              controlled within quantitatively defined limits. Organizations set quantitative
-              quality goals and measure progress toward goals. Process variation is understood and
-              controlled.
+              <strong>Level 4 - Managed:</strong> Detailed measurements of the software process and
+              product quality are collected and analyzed. The CMM v1.1 Key Process Areas at Level 4
+              are: Quantitative Process Management and Software Quality Management. Projects control
+              products and processes by narrowing variation to fall within &ldquo;acceptable
+              quantitative boundaries&rdquo; (Paulk et al., 1993, p. 22). Process capability is
+              summarized as &ldquo;quantifiable and predictable.&rdquo;
             </li>
             <li>
-              <strong>Level 5 - Optimizing/Continuously Improving:</strong> Processes are
-              continuously improved through measurement-based feedback and experimentation. Key
-              Process Areas include process improvement focus and technology change management.
-              Organizations systematically optimize processes and experiment with innovations. New
-              technologies are evaluated and integrated. Organizations maintain processes at the
-              leading edge of software engineering practice.
+              <strong>Level 5 - Optimizing:</strong> The entire organization is focused on
+              continuous process improvement. The CMM v1.1 Key Process Areas at Level 5 are: Defect
+              Prevention, Technology Change Management, and Process Change Management. Teams analyze
+              defects to determine causes and propose changes to prevent recurrence (Paulk et al.,
+              1993, pp. 22-23).
             </li>
           </ul>
 
@@ -341,9 +404,12 @@ const BibliographyArticlePage = () => {
               required at each level.
             </li>
             <li>
-              <strong>Empirically validated:</strong> Organizations improving maturity levels have
-              demonstrated improved schedule predictability, cost control, and quality. Defensible
-              claim of business value.
+              <strong>Claimed business value:</strong> SEI and consulting studies through the
+              1990s-2000s (e.g., Herbsleb &amp; Goldenson, 1996; Galin &amp; Avrahami, 2006)
+              reported that organizations advancing maturity levels saw improvements in schedule
+              predictability, cost control, and defect density. Attribution of performance
+              improvements specifically to CMM (as opposed to selection bias, co-occurring process
+              investments, or broader management change) is contested in the empirical literature.
             </li>
             <li>
               <strong>Addresses scaling challenges:</strong> Enables organizations to scale beyond
@@ -395,7 +461,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 8. Key Contributions */}
+        {/* 9. Key Contributions */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Key Contributions</h2>
           <ul className={BODY_LIST_CLASSES}>
@@ -439,7 +505,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 9. Internal Validity */}
+        {/* 10. Internal Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Internal Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -483,7 +549,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 10. External Validity */}
+        {/* 11. External Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>External Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -534,7 +600,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 11. Relevance to Technology Adoption */}
+        {/* 12. Relevance to Technology Adoption */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Relevance to Technology Adoption</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -627,7 +693,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 12. Following Models or Theories */}
+        {/* 13. Following Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Following Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -715,12 +781,28 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 13. References */}
+        {/* 14. References */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>References</h2>
           <ol className={REFERENCES_OL_CLASSES}>
             <li id="ref-humphrey-1989">
-              Humphrey, W. S. (1989). <em>Managing the software process</em>. Addison-Wesley.
+              Humphrey, W. S. (1989). <em>Managing the Software Process</em>. Addison-Wesley. ISBN
+              978-0-201-18095-4. <strong>(PDF not available in project Zotero.)</strong>
+            </li>
+            <li id="ref-paulk-1993">
+              Paulk, M. C., Curtis, B., Chrissis, M. B., &amp; Weber, C. V. (1993). Capability
+              Maturity Model, Version 1.1. <em>IEEE Software</em>, 10(4), 18-27. SEI/CMU. (This is
+              the authoritative SEI paper formalizing the Humphrey 1989 framework; primary source
+              available in project Zotero library and used as ground truth for this page&rsquo;s
+              claims about level names, Key Process Areas, and lineage.)
+            </li>
+            <li id="ref-shewhart-1931">
+              Shewhart, W. A. (1931). <em>Economic Control of Quality of Manufactured Product</em>.
+              D. Van Nostrand Company.
+            </li>
+            <li id="ref-crosby-1979">
+              Crosby, P. B. (1979). <em>Quality is Free: The Art of Making Quality Certain</em>.
+              McGraw-Hill. (Source of an earlier five-stage quality-management maturity grid.)
             </li>
             <li id="ref-beck-2000">
               Beck, K. (2000). <em>Extreme programming explained: Embrace change</em>.
@@ -759,6 +841,7 @@ const BibliographyArticlePage = () => {
           </ol>
         </section>
 
+        {/* 15. Further Reading */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Further Reading</h2>
           <ol className={REFERENCES_OL_CLASSES}>
@@ -793,7 +876,7 @@ const BibliographyArticlePage = () => {
           </ol>
         </section>
 
-        {/* 14. Series Navigation */}
+        {/* 16. Series Navigation */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Series Navigation</h2>
           <div className="space-y-4">
