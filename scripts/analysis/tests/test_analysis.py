@@ -1100,7 +1100,7 @@ class TestExtendedOutputBlocks:
                 row[idx[col]] = maturity_val
             # TOP3 pick columns: store the barrier text for selected items.
             # Non-selected columns remain empty string ("") by default because
-            # the row is initialised to [""] * ncols above — matching the
+            # the row is initialised to [""] * ncols above - matching the
             # canonical CRP CSV format (text in selected col, blank elsewhere).
             for sel in top3_selections:
                 col = f"Q29-46_Top3Barriers_{sel}"
