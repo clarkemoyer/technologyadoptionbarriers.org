@@ -1784,10 +1784,182 @@ def sensitivity_to_json(cuts, idx):
         for cat, _ in OTHER_ROLE_CATEGORIES_PATTERNS
     ] + [{"label": "Uncategorized", "description": "Responses that did not match any keyword pattern", "examples": ""}]
 
+    # ------------------------------------------------------------------
+    # Extended blocks (added 2026-04-16): top-3 pick counts, item-level
+    # descriptives, construct grand means/SDs, demographic detail. These
+    # feed the /results/crp-2026/top-barriers page and validator v5.
+    # ------------------------------------------------------------------
+    primary_rows = None
+    for label, rows in cuts:
+        if label == "Prolific Accepted":
+            primary_rows = rows
+            break
+    if primary_rows is None and cuts:
+        primary_rows = cuts[-1][1]
+
+    if primary_rows:
+        result["top3_pick_counts"] = _build_top3_pick_counts(primary_rows, idx)
+        result["item_descriptives"] = _build_item_descriptives(primary_rows, idx)
+        result["construct_grand"] = _build_construct_grand(primary_rows, idx)
+        result["demographics_detailed"] = _build_demographics_detailed(primary_rows, idx)
+
     # Timestamp - consumed by 10+ results pages via utcTimestamp component
     result["last_updated"] = datetime.utcnow().isoformat() + "Z"
 
     return result
+
+
+# ============================================================================
+# SECTION 1B: Extended block builders (top-3, item descriptives, demographics)
+# ============================================================================
+
+# Item 19 in barriers, item 18 in readiness, item 9 in maturity are IRI attention
+# checks and are excluded from substantive analysis. CLAUDE.md documents this.
+TOP3_COLS = [f"Q29-46_Top3Barriers_{i}" for i in range(1, 19)]
+
+BARRIER_ITEM_TEXT = {
+    1: "Resistance to change among employees or middle management",
+    2: "Lack of skilled personnel or in-house expertise to implement new technologies",
+    3: "Insufficient leadership commitment or unclear strategic direction",
+    4: "Inadequate training or support for new technology users",
+    5: "Cultural or organizational inertia favoring established practices",
+    6: "High cost associated with acquiring or implementing new technologies",
+    7: "Difficulty integrating new technologies with existing legacy systems",
+    8: "Limited access to reliable vendor support or third-party expertise",
+    9: "Poor communication about the purpose or benefits of new technology",
+    10: "Fear of failure or adverse impact on daily operations",
+    11: "Lack of alignment between technology and business strategy",
+    12: "Insufficient budget or financial resources",
+    13: "Cybersecurity concerns or regulatory compliance barriers",
+    14: "Legal, contractual, or privacy restrictions",
+    15: "Uncertainty about return on investment (ROI) or measurable benefits",
+    16: "Supplier or vendor lock-in or compatibility limitations",
+    17: "Difficulty scaling pilot projects to organization-wide adoption",
+    18: "Economic, geopolitical, or market-level disruptions",
+}
+
+READINESS_ITEM_TEXT = {
+    1: "Formal digital or technology strategy",
+    2: "Dedicated IT leadership role",
+    3: "Skilled in-house technology staff",
+    4: "Adequate financial resources for technology",
+    5: "Willingness to invest in new technologies",
+    6: "Data and analytics capabilities",
+    7: "Cybersecurity and risk management capabilities",
+    8: "Change management capabilities",
+    9: "Vendor and partner management capabilities",
+    10: "Digital infrastructure (cloud, network, devices)",
+    11: "Alignment between IT and business strategy",
+    12: "Cross-functional collaboration on technology",
+    13: "Employee digital skills",
+    14: "Leadership digital literacy",
+    15: "Innovation culture",
+    16: "Willingness to experiment with new technologies",
+    17: "Customer or stakeholder demand for technology",
+}
+
+MATURITY_ITEM_TEXT = {
+    1: "IT Investment & Value Mgmt",
+    2: "IT-Enabled Innovation",
+    3: "Process Mgmt & Standardization",
+    4: "Data Governance & Analytics",
+    5: "Tech Risk & Resilience",
+    6: "Strategic IT Planning",
+    7: "Workforce Capability",
+    8: "Change Leadership",
+}
+
+
+def _build_top3_pick_counts(rows, idx):
+    total = len(rows)
+    items = []
+    for i, col in enumerate(TOP3_COLS, start=1):
+        if col not in idx:
+            items.append({"item": f"B{i}", "text": BARRIER_ITEM_TEXT[i], "count": 0, "pct": 0.0})
+            continue
+        col_idx = idx[col]
+        cnt = sum(1 for r in rows if col_idx < len(r) and str(r[col_idx]).strip() not in ("", "nan", "None"))
+        pct = round(100.0 * cnt / total, 2) if total else 0.0
+        items.append({"item": f"B{i}", "text": BARRIER_ITEM_TEXT[i], "count": cnt, "pct": pct})
+    items_sorted = sorted(items, key=lambda r: -r["count"])
+    return {"total_n": total, "items": items, "items_sorted_desc": items_sorted}
+
+
+def _build_item_descriptives(rows, idx):
+    def compute(cols, scale, labels, prefix):
+        out = []
+        for i, col in enumerate(cols, start=1):
+            if col not in idx:
+                continue
+            col_idx = idx[col]
+            vals = []
+            for r in rows:
+                if col_idx >= len(r):
+                    continue
+                v = str(r[col_idx]).strip()
+                if v in ("", "nan", "None"):
+                    continue
+                mapped = scale.get(v)
+                if mapped is None:
+                    continue
+                vals.append(mapped)
+            if not vals:
+                out.append({"item": f"{prefix}{i}", "text": labels[i], "mean": None, "sd": None, "n": 0})
+                continue
+            m = sum(vals) / len(vals)
+            if len(vals) > 1:
+                var = sum((x - m) ** 2 for x in vals) / (len(vals) - 1)
+                sd = var ** 0.5
+            else:
+                sd = 0.0
+            out.append({"item": f"{prefix}{i}", "text": labels[i], "mean": round(m, 4), "sd": round(sd, 4), "n": len(vals)})
+        return out
+
+    return {
+        "barriers":  compute(BARRIER_COLS,  BARRIER_SCALE,  BARRIER_ITEM_TEXT,  "B"),
+        "readiness": compute(READINESS_COLS, READINESS_SCALE, READINESS_ITEM_TEXT, "R"),
+        "maturity":  compute(MATURITY_COLS, MATURITY_SCALE, MATURITY_ITEM_TEXT, "M"),
+    }
+
+
+def _build_construct_grand(rows, idx):
+    def gm(cols, scale):
+        vals = _person_means_rows(rows, cols, scale, idx)
+        if not vals:
+            return {"mean": None, "sd": None, "n": 0}
+        m, sd = mean_sd(vals)
+        return {"mean": round(m, 4) if m is not None else None,
+                "sd": round(sd, 4) if sd is not None else None,
+                "n": len(vals)}
+
+    return {
+        "barriers":  gm(BARRIER_COLS,  BARRIER_SCALE),
+        "readiness": gm(READINESS_COLS, READINESS_SCALE),
+        "maturity":  gm(MATURITY_COLS, MATURITY_SCALE),
+    }
+
+
+def _build_demographics_detailed(rows, idx):
+    total = len(rows)
+    def tabulate(col_name):
+        if col_name not in idx:
+            return []
+        col_idx = idx[col_name]
+        counter = Counter()
+        for r in rows:
+            if col_idx < len(r):
+                v = str(r[col_idx]).strip()
+                if v not in ("", "nan", "None"):
+                    counter[v] += 1
+        return [{"label": k, "count": v, "pct": round(100.0 * v / total, 2) if total else 0.0}
+                for k, v in counter.most_common()]
+
+    return {
+        "roles": tabulate("Q1_Role"),
+        "org_sizes": tabulate("Q4_OrgSize"),
+        "profit_models": tabulate("Q5_ProfitModel"),
+        "decision_authority": tabulate("Q2_DecisionAuth"),
+    }
 
 
 # ============================================================================
