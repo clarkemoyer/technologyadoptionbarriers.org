@@ -479,10 +479,10 @@ const BibliographyArticlePage = () => {
           <h2 className={H2_CLASSES}>Key Contributions</h2>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Comprehensive lifecycle framework:</strong> Microsoft CAF established that
-              cloud adoption requires comprehensive guidance spanning strategy through operations.
-              Framework demonstrated that successful adoption requires addressing organizational,
-              governance, and operational dimensions simultaneously.
+              <strong>Comprehensive lifecycle framework:</strong> Microsoft CAF articulates a
+              full-lifecycle view of cloud adoption, spanning strategy through operations, and
+              argues that successful adoption requires attention to organizational, governance,
+              and operational dimensions in addition to technology.
             </li>
             <li>
               <strong>Rationalization methodology:</strong> 5R framework provided systematic
@@ -500,9 +500,9 @@ const BibliographyArticlePage = () => {
               readiness and ensuring foundational standards compliance.
             </li>
             <li>
-              <strong>Enterprise-scale validation:</strong> Framework synthesized Microsoft&rsquo;s
-              experience with thousands of enterprise customers, elevating cloud adoption guidance
-              from theoretical to empirically grounded approaches.
+              <strong>Vendor-experience synthesis:</strong> Microsoft describes CAF as a synthesis
+              of its enterprise-customer experience. This grounds the framework in practitioner
+              experience but is not equivalent to independent empirical validation.
             </li>
             <li>
               <strong>Security and compliance alignment:</strong> Framework aligned cloud adoption
