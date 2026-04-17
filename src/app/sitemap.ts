@@ -228,6 +228,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     {
+      url: `${baseUrl}/results/crp-2026/top-barriers`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
       url: `${baseUrl}/results/factor-analysis`,
       lastModified: now,
       changeFrequency: 'weekly',
@@ -235,6 +241,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${baseUrl}/results/validation`,
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/results/top-barriers`,
       lastModified: now,
       changeFrequency: 'weekly',
       priority: 0.7,
