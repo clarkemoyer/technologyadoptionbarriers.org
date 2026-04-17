@@ -137,7 +137,8 @@ const BibliographyArticlePage = () => {
             sector use. TOGAF has evolved through multiple versions since 1995, expanding to
             incorporate lessons learned, additional architectural domains, and industry best
             practices. TOGAF became the dominant enterprise architecture framework, with over
-            100,000 TOGAF professionals holding certifications globally as of 2022.
+            100,000 TOGAF professionals reported as holding certifications globally (figure
+            reported by The Open Group, as of roughly 2022).
           </p>
         </section>
 
@@ -461,8 +462,10 @@ const BibliographyArticlePage = () => {
               guides, and supplementary materials support TOGAF adoption and implementation.
             </li>
             <li>
-              <strong>Demonstrated effectiveness:</strong> TOGAF adopted by thousands of
-              organizations across industries. Success stories demonstrate framework effectiveness.
+              <strong>Broad reported adoption:</strong> TOGAF is reported as adopted by thousands
+              of organizations across industries. Published success stories are largely
+              practitioner- or vendor-authored; systematic independent evaluation of framework
+              effectiveness is limited.
             </li>
           </ul>
 
@@ -586,8 +589,11 @@ const BibliographyArticlePage = () => {
               traceability and accountability.
             </li>
             <li>
-              <strong>Demonstrated adoption:</strong> Extensive organizational adoption suggests
-              validity of framework principles. Market success indicates framework effectiveness.
+              <strong>Widespread adoption as circumstantial support:</strong> Widespread
+              organizational adoption and the size of the TOGAF certification community are
+              sometimes cited as circumstantial evidence of the framework&rsquo;s usefulness,
+              though adoption can also reflect vendor and certification dynamics rather than
+              demonstrated effectiveness.
             </li>
           </ul>
         </section>
@@ -743,7 +749,8 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Following Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
-            TOGAF spawned extensive evolution and complementary frameworks:
+            TOGAF has evolved through multiple versions and is commonly discussed alongside the
+            following related frameworks and research areas:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
@@ -780,9 +787,10 @@ const BibliographyArticlePage = () => {
               contexts. Frameworks apply architecture discipline to digital transformation.
             </li>
             <li>
-              <strong>Enterprise Architecture Research (1990s-present):</strong> TOGAF spawned
-              extensive enterprise architecture research on architecture methods, governance, and
-              organizational impacts.
+              <strong>Enterprise Architecture Research (1990s-present):</strong> Enterprise
+              architecture research has multiple intellectual roots (Zachman, TAFIM, TOGAF, and
+              commercial frameworks). TOGAF is commonly cited within this body of work rather
+              than being its sole source.
             </li>
             <li>
               <strong>Specialized EA Frameworks:</strong> Numerous specialized frameworks emerged
