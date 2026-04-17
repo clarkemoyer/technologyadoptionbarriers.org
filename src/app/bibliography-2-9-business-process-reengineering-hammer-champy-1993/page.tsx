@@ -107,22 +107,19 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Why Was the Model Created?</h2>
           <p className={PARAGRAPH_CLASSES}>
-            During the late 1980s and early 1990s, many organizations faced competitive crises.
-            Despite decades of information technology investment, many companies experienced
-            declining profitability, shrinking market share, and inability to compete against more
-            agile international competitors. Information technology adoption alone did not produce
-            competitive advantage; organizations automated existing processes but rarely
-            fundamentally reimagined work. The gap between technology capability and organizational
-            performance widened.
+            During the late 1980s and early 1990s, many US firms faced intensifying competitive
+            pressure. A recurring argument in the management literature of the period was that
+            large information-technology investments were not translating into proportional gains
+            in productivity or competitiveness (sometimes framed as the &ldquo;productivity
+            paradox&rdquo;). One common diagnosis, and the starting premise of BPR, was that
+            organizations had used IT to automate existing processes rather than to redesign them.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            Michael Hammer, an MIT computer scientist and management consultant, and James Champy, a
-            management consulting executive at CSC Index, observed that technological innovation
-            capability existed but organizational willingness to fundamentally rethink business
-            processes remained limited. Organizations invested in technology to improve existing
-            processes (incremental improvement) rather than reimagining processes entirely (radical
-            redesign). This perpetuated legacy processes, organizational structures, and workflows
-            that constrained competitive performance despite technological capability.
+            Michael Hammer, a former MIT computer science professor turned management consultant,
+            and James Champy, then chairman of CSC Index consulting, argued that technological
+            capability had outpaced organizations&rsquo; willingness to fundamentally rethink how
+            work gets done. On this view, treating IT as a way to improve legacy processes
+            incrementally left much of its potential value on the table.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             Hammer and Champy created the Business Process Reengineering framework to address this
@@ -239,7 +236,10 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Preceding Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
-            Business Process Reengineering built upon and extended several prior frameworks:
+            Hammer and Champy do not provide an extensive academic literature review in{' '}
+            <em>Reengineering the Corporation</em>. The frameworks below are ones that secondary
+            sources and subsequent scholars commonly identify as intellectual context for BPR or as
+            movements BPR positioned itself against:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
@@ -275,8 +275,10 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>Operations Management (Skinner, 1969; Hayes &amp; Wheelwright, 1984):</strong>{' '}
-              Operations management research examined how manufacturing and service delivery
-              processes could be optimized. BPR applied these insights more aggressively.
+              Operations management research had long examined how manufacturing and service
+              delivery processes could be optimized. BPR draws on a process orientation consistent
+              with this tradition, although the book itself is largely practitioner-directed and
+              does not engage this literature in detail.
             </li>
             <li>
               <strong>
@@ -296,7 +298,7 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>
-                Technology Adoption Theory (
+                Diffusion of Innovations (
                 <a
                   id="cite-ref-rogers-1983-1"
                   href="#ref-rogers-1983"
@@ -306,8 +308,9 @@ const BibliographyArticlePage = () => {
                 </a>
                 ):
               </strong>{' '}
-              Diffusion research examined technology adoption patterns. BPR assumed that radical
-              technology adoption required organizational redesign rather than merely technical
+              Rogers&rsquo; diffusion research examined how innovations spread through a social
+              system. BPR does not directly build on diffusion theory, but shares the premise that
+              successful technology adoption requires organizational change, not just technical
               implementation.
             </li>
             <li>
@@ -498,9 +501,11 @@ const BibliographyArticlePage = () => {
               reporting relationships. Leadership commitment and change management are critical.
             </li>
             <li>
-              <strong>Pilot and learn:</strong> Test redesigned processes on small scale before full
-              implementation. Pilots reveal implementation challenges and enable refinement before
-              enterprise rollout.
+              <strong>Pilot and learn (common modern practice):</strong> Subsequent BPR and BPM
+              practice typically emphasizes piloting redesigned processes at small scale before
+              enterprise rollout. This is more of a later, risk-adjusted refinement than a
+              principle of Hammer and Champy&rsquo;s 1993 framing, which more often advocated
+              larger-scale radical change.
             </li>
           </ul>
 
@@ -712,9 +717,10 @@ const BibliographyArticlePage = () => {
               organizational maturity.
             </li>
             <li>
-              <strong>Limited applicability to stable environments:</strong> BPR works best in
-              competitive environments requiring performance improvement. Organizations in stable,
-              profitable environments may lack urgency for radical redesign.
+              <strong>Limited applicability to stable environments:</strong> BPR is typically
+              motivated by competitive pressure or performance crisis; organizations in stable,
+              profitable environments may lack both the urgency and the political appetite for
+              radical redesign.
             </li>
             <li>
               <strong>Contingent on management commitment:</strong> Success depends heavily on
@@ -837,7 +843,10 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Following Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
-            Business Process Reengineering spawned extensive research and evolution:
+            BPR sits in a broader stream of process-improvement and transformation frameworks,
+            some of which precede it, run parallel to it, or build partly on its ideas. The
+            entries below identify frameworks commonly discussed alongside BPR rather than direct
+            descendants of it:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
@@ -858,8 +867,10 @@ const BibliographyArticlePage = () => {
                 </a>
                 ):
               </strong>{' '}
-              Applied lean manufacturing principles to process improvement. Lean complements BPR by
-              providing structured approach to eliminating waste.
+              Lean has deeper roots in the Toyota Production System (originating decades earlier)
+              and was popularized in the West through Womack and Jones&rsquo; work. It is
+              contemporaneous with BPR rather than a successor, and emphasizes waste elimination
+              and continuous flow rather than one-time radical redesign.
             </li>
             <li>
               <strong>
@@ -873,18 +884,21 @@ const BibliographyArticlePage = () => {
                 </a>
                 ):
               </strong>{' '}
-              Emphasized statistical approach to process improvement. Six Sigma provides rigorous
-              methodology for process optimization.
+              Six Sigma originated at Motorola in the mid-1980s, predating BPR, and emphasizes
+              statistical reduction of process variation. It is commonly discussed alongside BPR
+              as an alternative or complementary process-improvement tradition.
             </li>
             <li>
-              <strong>Digital Transformation (Westerman et al., 2014):</strong> Applied BPR
-              principles to comprehensive organizational digitization. Digital transformation
-              reimagines processes in context of digital technologies.
+              <strong>Digital Transformation (Westerman et al., 2014):</strong> Later digital
+              transformation literature shares BPR&rsquo;s premise that technology should reshape
+              how work is organized, not just automate it. Digital transformation is a broader
+              umbrella with multiple intellectual sources, not a direct extension of BPR.
             </li>
             <li>
-              <strong>Agile Methodology (Beck et al., 2001):</strong> Applied iterative, rapid-cycle
-              improvement approach to software development. Agile complements BPR by providing
-              methodology for managing change in technology-intensive environments.
+              <strong>Agile Methodology (Beck et al., 2001):</strong> Agile emerged from software
+              engineering practice and has its own distinct intellectual lineage. It is often
+              discussed in the same frame as BPR because both emphasize rethinking work, but the
+              two have largely independent origins.
             </li>
             <li>
               <strong>BPR implementation research:</strong> Subsequent studies have examined BPR
@@ -898,9 +912,10 @@ const BibliographyArticlePage = () => {
               on ERP implementation.
             </li>
             <li>
-              <strong>Change Management Literature:</strong> Recognition of implementation
-              challenges spawned extensive change management research examining how to manage
-              organizational resistance and sustain changes.
+              <strong>Change Management Literature:</strong> Change management as a field has its
+              own long-standing roots (Lewin, Kotter, and others) that predate BPR. BPR
+              implementation experience contributed to ongoing interest in managing organizational
+              resistance and sustaining redesigned processes, rather than founding the field.
             </li>
           </ul>
         </section>
