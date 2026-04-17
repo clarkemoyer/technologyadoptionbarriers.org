@@ -343,36 +343,36 @@ const BibliographyArticlePage = () => {
           <h2 className={H2_CLASSES}>What Does the Model Measure?</h2>
           <p className={PARAGRAPH_CLASSES}>
             The Technology Readiness Index (TRI) is a psychometric scale. Parasuraman (2000)
-            develops a 36-item Likert instrument measuring a general personality-trait construct
-            of technology readiness, composed of four dimensions:
+            develops a 36-item Likert instrument measuring a general personality-trait construct of
+            technology readiness, composed of four dimensions:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Optimism (contributor):</strong> A positive view of technology and a
-              belief that it offers people increased control, flexibility, and efficiency.
-              Measured via multi-item scale.
+              <strong>Optimism (contributor):</strong> A positive view of technology and a belief
+              that it offers people increased control, flexibility, and efficiency. Measured via
+              multi-item scale.
             </li>
             <li>
-              <strong>Innovativeness (contributor):</strong> A tendency to be a technology
-              pioneer and thought leader.
+              <strong>Innovativeness (contributor):</strong> A tendency to be a technology pioneer
+              and thought leader.
             </li>
             <li>
-              <strong>Discomfort (inhibitor):</strong> A perceived lack of control over
-              technology and a feeling of being overwhelmed by it.
+              <strong>Discomfort (inhibitor):</strong> A perceived lack of control over technology
+              and a feeling of being overwhelmed by it.
             </li>
             <li>
-              <strong>Insecurity (inhibitor):</strong> Distrust of technology and skepticism
-              about its ability to work properly, often tied to privacy and transaction-integrity
+              <strong>Insecurity (inhibitor):</strong> Distrust of technology and skepticism about
+              its ability to work properly, often tied to privacy and transaction-integrity
               concerns.
             </li>
           </ul>
           <p className={PARAGRAPH_CLASSES}>
-            TRI produces a composite technology-readiness score and four subscale scores. The
-            2000 instrument was developed and validated with a nationally representative
-            US sample (&gt;1,000 consumers); Parasuraman &amp; Colby subsequently produced TRI 2.0
-            (2015, bibliography 1-21) - a shorter 16-item instrument. The original 36-item scale
-            reports Cronbach&rsquo;s alpha values above conventional thresholds for each subscale
-            in the validation sample.
+            TRI produces a composite technology-readiness score and four subscale scores. The 2000
+            instrument was developed and validated with a nationally representative US sample
+            (&gt;1,000 consumers); Parasuraman &amp; Colby subsequently produced TRI 2.0 (2015,
+            bibliography 1-21) - a shorter 16-item instrument. The original 36-item scale reports
+            Cronbach&rsquo;s alpha values above conventional thresholds for each subscale in the
+            validation sample.
           </p>
         </section>
 
