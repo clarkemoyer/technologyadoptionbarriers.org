@@ -52,7 +52,7 @@ const BibliographyArticlePage = () => {
           <h2 className={H2_CLASSES}>Theory Publication Information</h2>
           <div className="space-y-2">
             <p>
-              <strong>Authors:</strong> Ching-Hung Lin, Hsi-Peng Shih, and Peter J. Sher
+              <strong>Authors:</strong> Chien-Hsin Lin, Hsin-Yu Shih, and Peter J. Sher
             </p>
             <p>
               <strong>Formal Publication Date:</strong> 2007
@@ -91,7 +91,7 @@ const BibliographyArticlePage = () => {
             <div>
               <p className="text-xs font-bold uppercase text-blue-900 mb-1">APA (7th ed.)</p>
               <p className="text-sm font-mono">
-                Lin, C.-H., Shih, H.-P., &amp; Sher, P. J. (
+                Lin, C.-H., Shih, H.-Y., &amp; Sher, P. J. (
                 <a href="#ref-lin-2007" className="text-tabs-teal-deep hover:underline">
                   2007
                 </a>
@@ -104,7 +104,7 @@ const BibliographyArticlePage = () => {
                 Chicago (Author-Date)
               </p>
               <p className="text-sm font-mono">
-                Lin, Ching-Hung, Hsi-Peng Shih, and Peter J. Sher. 2007. &ldquo;Integrating
+                Lin, Chien-Hsin, Hsin-Yu Shih, and Peter J. Sher. 2007. &ldquo;Integrating
                 Technology Readiness into Technology Acceptance: The TRAM Model.&rdquo;
                 <em>Psychology &amp; Marketing</em> 24, no. 7: 641-657.
               </p>
@@ -150,14 +150,64 @@ const BibliographyArticlePage = () => {
             in discomfort and insecurity would perceive greater complexity and difficulty. By
             integrating readiness and acceptance, TRAM would provide more complete explanation of
             technology adoption, capturing both personality-driven predispositions and
-            situation-specific technology evaluations. Testing occurred with 254 e-service users in
-            Taiwan, examining adoption of online shopping and e-banking services, contexts where
-            readiness personality dimensions might significantly shape perceptions of utility and
-            usability.
+            situation-specific technology evaluations. Testing occurred via Web-based surveys in
+            March-April 2004 with 406 members of online investment discussion forums in Taiwan,
+            examining adoption of online stock trading systems - a context where readiness
+            personality dimensions might significantly shape perceptions of utility and usability.
           </p>
         </section>
 
-        {/* 5. Core Concepts and Definitions */}
+        {/* 5. What Does the Model Measure? */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>What Does the Model Measure?</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            TRAM measures seven latent constructs using 7-point Likert scales (strongly disagree = 1
+            to strongly agree = 7). Measures originally in English were translated into Chinese and
+            back-translated (Brislin, 1980) for the Taiwan-based Web survey. Cronbach&rsquo;s alpha
+            reliabilities were strong across all constructs (all &ge;0.90):
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Optimism</strong> (10 items, α=0.95): From Parasuraman&rsquo;s (2000)
+              Technology Readiness Index (TRI); positive view of technology and its control,
+              flexibility, and efficiency benefits.
+            </li>
+            <li>
+              <strong>Innovativeness</strong> (7 items, α=0.95): From TRI; tendency to be a
+              technology pioneer and thought leader.
+            </li>
+            <li>
+              <strong>Discomfort</strong> (10 items, α=0.90): From TRI; perception of lack of
+              control over technology and feeling overwhelmed.
+            </li>
+            <li>
+              <strong>Insecurity</strong> (9 items, α=0.92): From TRI; distrust of technology and
+              skepticism about its ability to work properly.
+            </li>
+            <li>
+              <strong>Perceived Usefulness</strong> (6 items, α=0.95): Adapted from Davis (1989);
+              belief that the e-service enhances performance.
+            </li>
+            <li>
+              <strong>Perceived Ease of Use</strong> (6 items, α=0.96): Adapted from Davis (1989);
+              belief that using the e-service is free of effort.
+            </li>
+            <li>
+              <strong>Use Intention</strong> (2 items, α=0.92): Study-specific items regarding
+              intent to use an online stock trading system on the next trade and in the next few
+              months.
+            </li>
+          </ul>
+          <p className={PARAGRAPH_CLASSES}>
+            Confirmatory factor analysis in Amos 4 indicated adequate fit: GFI=0.90, CFI=0.96,
+            TLI=0.95, RMSEA=0.07, χ²(126)=404.81, p&lt;0.01. Average standardized factor loading was
+            0.80 with all loadings highly significant (p&lt;0.01); discriminant validity was
+            confirmed by confidence-interval tests that excluded 1.0 for each pairwise construct
+            correlation (Anderson &amp; Gerbing, 1988).
+          </p>
+        </section>
+
+        {/* 6. Core Concepts and Definitions */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Core Concepts and Definitions</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -212,7 +262,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 6. Preceding Models or Theories */}
+        {/* 7. Preceding Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Preceding Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>TRAM explicitly builds on two prior frameworks:</p>
@@ -287,71 +337,55 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 7. Describe The Model */}
+        {/* 8. Describe The Model */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Describe The Model</h2>
           <p className={PARAGRAPH_CLASSES}>
-            TRAM proposes that technology readiness personality dimensions directly influence how
-            individuals form technology-specific beliefs about usefulness and ease of use, which in
-            turn determine adoption intention. Optimism positively predicts both perceived
-            usefulness and perceived ease of use, reflecting that optimistic individuals view
-            technologies more favorably regarding both performance benefits and usability.
-            Innovativeness directly predicts perceived usefulness, as innovative individuals seek
-            technologies enabling new capabilities and performance improvements. Discomfort
-            negatively predicts perceived ease of use, with uncomfortable individuals perceiving
-            greater complexity and learning requirements. Insecurity negatively predicts perceived
-            usefulness, with insecure individuals skeptical about whether promised technology
-            benefits will materialize. Perceived usefulness and perceived ease of use then directly
-            predict adoption intention consistent with TAM mechanisms. The integrated model shows
-            that personality traits shape adoption through dual pathways: readiness dimensions
-            influence belief formation about particular technologies, and these situation-specific
-            beliefs determine final adoption decisions.
+            TRAM proposes that Technology Readiness (TR), treated as a higher-order construct with
+            four reflective sub-dimensions (optimism, innovativeness, discomfort, insecurity),
+            directly influences how individuals form technology-specific beliefs about usefulness
+            and ease of use, which in turn determine adoption intention. The paper (Figure 1, p.646)
+            hypothesizes paths from the aggregate TR construct to perceived usefulness (H5) and to
+            perceived ease of use (H6), rather than separate paths from each sub-dimension. The
+            sub-dimensions serve as indicators of TR: optimism and innovativeness are drivers (more
+            TR); discomfort and insecurity are inhibitors (less TR). Perceived usefulness and
+            perceived ease of use then predict use intention per the standard TAM mechanisms.
           </p>
 
-          <h3 className={H3_CLASSES}>TRAM Determinant Mechanisms</h3>
+          <h3 className={H3_CLASSES}>TRAM Hypotheses (as tested in Lin et al., 2007)</h3>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Optimism &rarr; Perceived Usefulness:</strong> Users high in optimism hold
-              positive general attitudes toward technology, viewing it as enhancing performance and
-              enabling control. They consequently perceive new technologies as likely to deliver
-              promised benefits and improve outcomes. Optimism functions as a dispositional
-              antecedent that shapes positive evaluation of technology usefulness.
+              <strong>H1: TR &rarr; Use Intention (direct):</strong> Consumers&rsquo; technology
+              readiness propensities are positively correlated with their intentions to use a
+              specific e-service. This direct path is replicated from prior TR research.
             </li>
             <li>
-              <strong>Optimism &rarr; Perceived Ease of Use:</strong> Optimistic users approach
-              technology interactions with confidence and positive expectations, reducing anxiety
-              about learning and operation difficulties. Optimism predicts perception of lower
-              complexity and reduced learning requirements.
+              <strong>H2: Perceived Usefulness &rarr; Use Intention:</strong> Standard TAM path; PU
+              positively correlates with intention to use the e-service.
             </li>
             <li>
-              <strong>Innovativeness &rarr; Perceived Usefulness:</strong> Users high in
-              innovativeness actively seek technologies enabling new capabilities and competitive
-              advantages. They perceive innovative technologies as particularly useful for achieving
-              novel outcomes and maintaining adoption leadership. Innovativeness directly drives
-              perception of performance benefits.
+              <strong>H3: Perceived Ease of Use &rarr; Use Intention:</strong> Standard TAM path;
+              PEOU positively correlates with intention to use the e-service.
             </li>
             <li>
-              <strong>Discomfort &rarr; Perceived Ease of Use (Negative):</strong> Users high in
-              discomfort experience psychological anxiety around technology interaction, worry about
-              losing control of systems, and fear inadequate understanding. Discomfort directly
-              increases perception of technology complexity and reduces confidence in ability to
-              learn and operate systems.
+              <strong>H4: Perceived Ease of Use &rarr; Perceived Usefulness:</strong> Standard TAM
+              path; PEOU positively influences PU.
             </li>
             <li>
-              <strong>Insecurity &rarr; Perceived Usefulness (Negative):</strong> Users high in
-              insecurity doubt that technology will perform as promised, worry about unacceptable
-              risks, and remain skeptical of vendor claims. Insecurity reduces perception that
-              technologies deliver promised benefits and creates doubt about investment returns.
+              <strong>H5: TR &rarr; Perceived Usefulness:</strong> The paper&rsquo;s focal
+              hypothesis. Technology readiness (aggregate construct) positively correlates with
+              perceptions of usefulness about a specific e-service.
             </li>
             <li>
-              <strong>Perceived Usefulness &rarr; Adoption Intention:</strong> Belief that
-              technology improves job performance remains strongest adoption driver. TAM mechanism
-              operates consistently regardless of underlying personality readiness.
+              <strong>H6: TR &rarr; Perceived Ease of Use:</strong> The paper&rsquo;s focal
+              hypothesis. Technology readiness (aggregate construct) positively correlates with
+              perceptions of ease of use about a specific e-service.
             </li>
             <li>
-              <strong>Perceived Ease of Use &rarr; Adoption Intention:</strong> Belief that
-              technology requires minimal learning effort and psychological effort to use predicts
-              adoption intention. Users perceiving less complexity show higher adoption willingness.
+              <strong>H7: Full mediation:</strong> PU and PEOU together completely mediate the
+              TR-to-intention relationship, such that the direct H1 path becomes non-significant
+              once H5 and H6 are estimated. Tested via Baron and Kenny (1986) mediation procedure
+              and Sobel tests.
             </li>
           </ul>
 
@@ -373,8 +407,8 @@ const BibliographyArticlePage = () => {
               relative simplicity while substantially expanding explanatory scope.
             </li>
             <li>
-              <strong>Empirical validation in consumer context:</strong> Testing with 254 e-service
-              users examining online shopping and e-banking adoption demonstrates applicability to
+              <strong>Empirical validation in consumer context:</strong> Testing with 406 Taiwanese
+              investors examining online stock trading system adoption demonstrates applicability to
               voluntary consumer adoption contexts, not just organizational mandatory settings.
             </li>
             <li>
@@ -398,9 +432,9 @@ const BibliographyArticlePage = () => {
           <h3 className={H3_CLASSES}>Main Weaknesses</h3>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Limited sample diversity:</strong> Single study with 254 respondents in Taiwan
-              e-service context limits generalization to organizational information systems, other
-              technologies, or non-Asian markets.
+              <strong>Limited sample diversity:</strong> Single study with 406 respondents in Taiwan
+              recruited from online investment forums; limits generalization to organizational
+              information systems, other technologies, or non-Asian markets.
             </li>
             <li>
               <strong>Cross-cultural replicability unclear:</strong> Technology readiness dimensions
@@ -441,7 +475,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 8. Key Contributions */}
+        {/* 9. Key Contributions */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Key Contributions</h2>
           <ul className={BODY_LIST_CLASSES}>
@@ -458,14 +492,14 @@ const BibliographyArticlePage = () => {
               frameworks.
             </li>
             <li>
-              <strong>Differential pathway prediction:</strong> Provided empirical evidence that
-              personality dimensions affect adoption through different mechanisms: optimism and
-              innovativeness drive perceived usefulness while discomfort and insecurity affect
-              perceived ease of use.
+              <strong>Full-mediation evidence:</strong> Provided empirical evidence (via Baron and
+              Kenny 1986 tests plus Sobel tests) that perceived usefulness and perceived ease of use
+              together fully mediate the TR-to-intention relationship, supporting H7. Direct
+              TR-to-intention effects become non-significant when TAM beliefs are controlled.
             </li>
             <li>
               <strong>Consumer e-service adoption explanation:</strong> Applied technology
-              acceptance to voluntary consumer adoption context of online shopping and banking,
+              acceptance to the voluntary consumer adoption context of online stock trading,
               extending adoption research beyond organizational mandatory settings.
             </li>
             <li>
@@ -486,7 +520,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 9. Internal Validity */}
+        {/* 10. Internal Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Internal Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -504,8 +538,10 @@ const BibliographyArticlePage = () => {
               consumer research.
             </li>
             <li>
-              <strong>Adequate sample size:</strong> N=254 e-service users provided sufficient power
-              to detect relationships and test structural equation model fit.
+              <strong>Adequate sample size:</strong> N=406 online investor respondents (64% male,
+              57% aged 21-30) provided sufficient power to detect relationships and test structural
+              equation model fit; 85% had prior stock trading experience and 80% had online stock
+              trading experience.
             </li>
             <li>
               <strong>Structural equation modeling:</strong> SEM approach tested full model
@@ -513,23 +549,24 @@ const BibliographyArticlePage = () => {
               effects, indirect pathways, and overall model fit.
             </li>
             <li>
-              <strong>Real e-service context:</strong> Study examined actual e-shopping and
-              e-banking services rather than hypothetical or artificial technologies, ensuring
-              adoption context realism.
+              <strong>Real e-service context:</strong> Study examined an actual online stock trading
+              system rather than hypothetical or artificial technologies, ensuring adoption context
+              realism.
             </li>
             <li>
               <strong>Model comparison:</strong> Study tested TRAM against reduced models to
               establish that all proposed relationships contributed to model fit.
             </li>
             <li>
-              <strong>Effect direction consistency:</strong> Results confirmed a priori hypothesized
-              directions for all paths, with optimism and innovativeness positively predicting
-              acceptance while discomfort and insecurity negatively predicted acceptance.
+              <strong>Effect direction consistency:</strong> Results confirmed the a priori
+              hypothesized positive path from aggregate TR to both perceived usefulness (H5) and
+              perceived ease of use (H6), with optimism and innovativeness as positive reflective
+              indicators and discomfort and insecurity as negative reflective indicators of TR.
             </li>
           </ul>
         </section>
 
-        {/* 10. External Validity */}
+        {/* 11. External Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>External Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -537,9 +574,9 @@ const BibliographyArticlePage = () => {
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Single technology domain limitation:</strong> Study examined e-shopping and
-              e-banking specifically. Readiness dimensions may affect different technology types
-              differently, with results requiring verification across diverse technologies.
+              <strong>Single technology domain limitation:</strong> Study examined online stock
+              trading systems specifically. Readiness dimensions may affect different technology
+              types differently, with results requiring verification across diverse technologies.
             </li>
             <li>
               <strong>Geographic and cultural context:</strong> Taiwan e-service users may show
@@ -557,14 +594,15 @@ const BibliographyArticlePage = () => {
               radically novel technologies differently than established services.
             </li>
             <li>
-              <strong>Internet experience levels:</strong> Sample characteristics regarding baseline
-              internet experience and technology familiarity not fully reported, limiting
-              understanding of how results generalize to low-technology-experience populations.
+              <strong>Internet experience skew:</strong> 80% of respondents had online stock trading
+              experience and 85% had prior stock trading experience, creating a sample skewed toward
+              technology-experienced users. Generalization to low-technology-experience populations
+              is uncertain.
             </li>
             <li>
-              <strong>Demographic representation:</strong> Age, gender, and education
-              characteristics of sample not fully described, limiting ability to assess whether
-              results generalize across demographic groups.
+              <strong>Demographic skew:</strong> 64% male, 57% aged 21-30, 18% aged 31-40, 17% under
+              21; drawn from online investment discussion forums. Results may not generalize to
+              older adults, women, or less technology-engaged demographic groups.
             </li>
             <li>
               <strong>Cross-sectional design limitations:</strong> Single-point measurement limits
@@ -579,7 +617,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 11. Relevance to Technology Adoption */}
+        {/* 12. Relevance to Technology Adoption */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Relevance to Technology Adoption</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -673,7 +711,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 12. Following Models or Theories */}
+        {/* 13. Following Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Following Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -725,7 +763,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 13. References */}
+        {/* 14. References */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>References</h2>
           <ol className={REFERENCES_OL_CLASSES}>
@@ -772,6 +810,7 @@ const BibliographyArticlePage = () => {
           </ol>
         </section>
 
+        {/* 15. Further Reading */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Further Reading</h2>
           <ol className={REFERENCES_OL_CLASSES}>
@@ -815,7 +854,7 @@ const BibliographyArticlePage = () => {
           </ol>
         </section>
 
-        {/* 14. Series Navigation */}
+        {/* 16. Series Navigation */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Series Navigation</h2>
           <div className="space-y-4">
