@@ -1788,34 +1788,55 @@ def sensitivity_to_json(cuts, idx):
     # Extended blocks (added 2026-04-16): top-3 pick counts, item-level
     # descriptives, construct grand means/SDs, demographic detail. These
     # feed the /results/crp-2026/top-barriers page and validator v5.
+    #
+    # FAIL-FAST POLICY (PR #1695)
+    # ----------------------------
+    # This pipeline does NOT emit zero-count placeholder structures, empty
+    # arrays, or silently-defaulted {mean: None, n: 0} objects when the
+    # primary cut is missing or empty. If the canonical primary sample is
+    # unavailable, the pipeline raises RuntimeError and the workflow fails,
+    # preventing any new JSON from reaching the repo. The website continues
+    # rendering the last known-good snapshot until a human fixes the broken
+    # step.
+    #
+    # Rationale:
+    #   - Zero-shaped placeholders have repeatedly misled reviewers and
+    #     automated agents into thinking the pipeline "succeeded" when the
+    #     real input was broken.
+    #   - The project rule is strict transactional integrity: either every
+    #     step succeeds and we commit one atomic update, or nothing commits
+    #     and everything stays stale.
+    #
+    # Do not replace the raises below with placeholder-emit logic. See the
+    # CLAUDE.md "Fail-fast discipline" note and the PR #1695 description.
     # ------------------------------------------------------------------
     primary_rows = None
     for label, rows in cuts:
         if label == "Prolific Accepted":
             primary_rows = rows
             break
-    if primary_rows is None and cuts:
-        primary_rows = cuts[-1][1]
+    if primary_rows is None:
+        available = ", ".join(label for label, _ in cuts) if cuts else "(no cuts)"
+        raise RuntimeError(
+            "Fail-fast: primary cut 'Prolific Accepted' not found in cuts. "
+            f"Available cuts: {available}. "
+            "Refusing to emit extended blocks without the canonical primary sample. "
+            "This indicates a CSV contract regression or a cut-building bug upstream. "
+            "Do NOT work around this by adding a fallback to cuts[-1] - fix the cut builder."
+        )
+    if len(primary_rows) == 0:
+        raise RuntimeError(
+            "Fail-fast: primary cut 'Prolific Accepted' is empty (0 rows). "
+            "Refusing to emit extended blocks from a zero-row sample. "
+            "This indicates the upstream quality filter rejected every response, or "
+            "the input CSV is empty. Fix the filter or the underlying data before "
+            "re-running. Do NOT work around this by emitting zero-count placeholders."
+        )
 
-    # Always emit the four extended blocks so consumers can rely on key
-    # presence regardless of whether a primary cut exists.  When there are
-    # no rows the helpers return empty/zero-default structures.
-    if primary_rows is not None and len(primary_rows) > 0:
-        result["top3_pick_counts"] = _build_top3_pick_counts(primary_rows, idx)
-        result["item_descriptives"] = _build_item_descriptives(primary_rows, idx)
-        result["construct_grand"] = _build_construct_grand(primary_rows, idx)
-        result["demographics_detailed"] = _build_demographics_detailed(primary_rows, idx)
-    else:
-        result["top3_pick_counts"] = _top3_zero_items()
-        result["item_descriptives"] = {"barriers": [], "readiness": [], "maturity": []}
-        result["construct_grand"] = {
-            "barriers": {"mean": None, "sd": None, "n": 0},
-            "readiness": {"mean": None, "sd": None, "n": 0},
-            "maturity": {"mean": None, "sd": None, "n": 0},
-        }
-        result["demographics_detailed"] = {
-            "roles": [], "org_sizes": [], "profit_models": [], "decision_authority": []
-        }
+    result["top3_pick_counts"] = _build_top3_pick_counts(primary_rows, idx)
+    result["item_descriptives"] = _build_item_descriptives(primary_rows, idx)
+    result["construct_grand"] = _build_construct_grand(primary_rows, idx)
+    result["demographics_detailed"] = _build_demographics_detailed(primary_rows, idx)
 
     # Timestamps - consumed by 10+ results pages via utcTimestamp component.
     # extended_last_updated marks when the extended blocks were last regenerated.
@@ -1891,35 +1912,26 @@ MATURITY_ITEM_TEXT = {
 }
 
 
-def _top3_zero_items():
-    """Return a 18-item zero-count top3 structure for empty-cut defaults.
-
-    Uses the same shape as _build_top3_pick_counts() so consumers always
-    receive 18 entries regardless of whether a primary cut has rows.
-    """
-    items = [
-        {"item": f"B{i}", "text": BARRIER_ITEM_TEXT[i], "count": 0, "pct": 0.0}
-        for i in range(1, 19)
-    ]
-    return {"total_n": 0, "items": items, "items_sorted_desc": list(items)}
-
-
 def _build_top3_pick_counts(rows, idx):
+    """Build per-barrier forced-choice pick counts from 18 TOP3 columns.
+
+    FAIL-FAST: if ANY of the 18 TOP3 columns is missing from idx, this
+    function raises ValueError. It does NOT emit zero-count entries for
+    missing columns. See the module-level fail-fast policy in
+    sensitivity_to_json() and the PR #1695 description.
+    """
     total = len(rows)
-    # Validate that at least one TOP3 column is present to catch CSV contract
-    # regressions early rather than emitting plausible-looking zero counts.
-    present = [col for col in TOP3_COLS if col in idx]
-    if not present:
+    missing = [col for col in TOP3_COLS if col not in idx]
+    if missing:
         raise ValueError(
-            f"No TOP3 columns found in idx. Expected {len(TOP3_COLS)} columns "
-            f"({TOP3_COLS[0]} through {TOP3_COLS[-1]}). "
-            f"Check that the CSV was exported with the forced-choice section."
+            f"Fail-fast: TOP3 columns missing from CSV - {len(missing)} of "
+            f"{len(TOP3_COLS)} expected columns not found: {', '.join(missing)}. "
+            f"Expected columns are {TOP3_COLS[0]} through {TOP3_COLS[-1]}. "
+            f"Check that the CSV was exported with the forced-choice section intact. "
+            f"Do NOT work around this by emitting zero-count placeholder items."
         )
     items = []
     for i, col in enumerate(TOP3_COLS, start=1):
-        if col not in idx:
-            items.append({"item": f"B{i}", "text": BARRIER_ITEM_TEXT[i], "count": 0, "pct": 0.0})
-            continue
         col_idx = idx[col]
         cnt = sum(1 for r in rows if col_idx < len(r) and str(r[col_idx]).strip() not in ("", "nan", "None"))
         pct = round(100.0 * cnt / total, 2) if total else 0.0
@@ -1929,16 +1941,33 @@ def _build_top3_pick_counts(rows, idx):
 
 
 def _build_item_descriptives(rows, idx):
+    """Build per-item mean/SD/N for barriers, readiness, maturity.
+
+    FAIL-FAST on contract violations:
+      - If ANY required scale column is missing from idx, raises ValueError.
+      - Does NOT emit {mean: None, n: 0} placeholder entries for missing
+        columns. See the module-level fail-fast policy in
+        sensitivity_to_json() and the PR #1695 description.
+
+    Data-level behavior (NOT fail-fast, intentional):
+      - If a column IS present but every respondent answered blank,
+        'Don't Know', or an unmapped value, the item entry is emitted with
+        n=0, mean=None, sd=None. This is an honest null reporting a data
+        condition, not a silent default for a broken pipeline - 'Don't Know'
+        is a valid survey response and CLAUDE.md requires it to be
+        excluded from scoring rather than coerced to a number.
+    """
     def compute(cols, scale, labels, prefix):
+        missing = [col for col in cols if col not in idx]
+        if missing:
+            raise ValueError(
+                f"Fail-fast: {prefix} construct missing {len(missing)} of "
+                f"{len(cols)} required scale columns: {', '.join(missing)}. "
+                f"Refusing to emit partial item_descriptives for construct '{prefix}'. "
+                f"Do NOT work around this by emitting n=0 placeholder entries."
+            )
         out = []
         for i, col in enumerate(cols, start=1):
-            if col not in idx:
-                # Emit a stable placeholder so the output array length is
-                # always 18/17/8 regardless of CSV schema, allowing consumers
-                # and validators to index by position without defensive checks.
-                out.append({"item": f"{prefix}{i}", "text": labels[i],
-                            "mean": None, "sd": None, "n": 0})
-                continue
             col_idx = idx[col]
             vals = []
             for r in rows:
@@ -1951,17 +1980,27 @@ def _build_item_descriptives(rows, idx):
                 if mapped is None:
                     continue
                 vals.append(mapped)
-            if not vals:
-                out.append({"item": f"{prefix}{i}", "text": labels[i], "mean": None, "sd": None, "n": 0})
-                continue
-            m, sd = mean_sd(vals)
-            out.append({
-                "item": f"{prefix}{i}",
-                "text": labels[i],
-                "mean": round(m, 4) if m is not None else None,
-                "sd": round(sd, 4) if sd is not None else None,
-                "n": len(vals),
-            })
+            if vals:
+                m, sd = mean_sd(vals)
+                out.append({
+                    "item": f"{prefix}{i}",
+                    "text": labels[i],
+                    "mean": round(m, 4) if m is not None else None,
+                    "sd": round(sd, 4) if sd is not None else None,
+                    "n": len(vals),
+                })
+            else:
+                # Data-level null: every respondent answered blank or
+                # 'Don't Know' on this item. Emit honest null, not a fake
+                # zero. This is NOT a pipeline failure - it is legitimate
+                # data the website must be able to display as such.
+                out.append({
+                    "item": f"{prefix}{i}",
+                    "text": labels[i],
+                    "mean": None,
+                    "sd": None,
+                    "n": 0,
+                })
         return out
 
     return {
@@ -1993,10 +2032,26 @@ def _build_construct_grand(rows, idx):
 
 
 def _build_demographics_detailed(rows, idx):
+    """Tabulate the four key demographic columns on the primary cut.
+
+    FAIL-FAST on contract violations:
+      - If ANY of the four required demographic columns is missing from
+        idx, raises ValueError. Does NOT return empty arrays for missing
+        columns. See the module-level fail-fast policy in
+        sensitivity_to_json() and the PR #1695 description.
+    """
     total = len(rows)
+    required_cols = ["Q1_Role", "Q4_OrgSize", "Q5_ProfitModel", "Q2_DecisionAuth"]
+    missing = [c for c in required_cols if c not in idx]
+    if missing:
+        raise ValueError(
+            f"Fail-fast: demographics missing {len(missing)} of "
+            f"{len(required_cols)} required columns: {', '.join(missing)}. "
+            f"Refusing to emit partial demographics_detailed. "
+            f"Do NOT work around this by returning empty arrays."
+        )
+
     def tabulate(col_name):
-        if col_name not in idx:
-            return []
         col_idx = idx[col_name]
         counter = Counter()
         for r in rows:
