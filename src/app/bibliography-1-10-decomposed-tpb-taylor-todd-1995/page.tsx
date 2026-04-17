@@ -125,10 +125,10 @@ const BibliographyArticlePage = () => {
             The authors observed that prior IT adoption models like TAM offered narrower constructs
             (usefulness and ease of use) but lacked the behavioral intention framework of TPB. They
             conceptualized DTPB as decomposing the three TPB belief categories into multiple
-            technology-specific dimensions. Attitudinal beliefs decompose into usefulness and
-            compatibility; normative beliefs decompose into subjective norm, social influence
-            factors, and organizational support; control beliefs decompose into facilitating
-            conditions and technology complexity.
+            technology-specific dimensions. Attitudinal beliefs decompose into perceived
+            usefulness, perceived ease of use (complexity), and compatibility (from Rogers);
+            normative beliefs decompose into peer influence and superior influence; control
+            beliefs decompose into self-efficacy and resource facilitating conditions.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             The empirical research compared three models (TAM, TPB, DTPB) using 786 university
@@ -144,52 +144,51 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Core Concepts and Definitions</h2>
           <p className={PARAGRAPH_CLASSES}>
-            The Decomposed Theory of Planned Behavior operationalizes nine primary constructs
-            organized within the three TPB belief categories:
+            The DTPB decomposes the three TPB belief structures into technology-specific
+            multi-dimensional constructs:
           </p>
+
+          <h3 className={H3_CLASSES}>Attitudinal Belief Decomposition</h3>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Perceived Usefulness (Attitude component):</strong> The degree to which users
-              believe the IT system enhances job performance and productivity. Captures instrumental
-              benefits and outcome value.
+              <strong>Perceived Usefulness (Relative Advantage):</strong> The degree to which
+              using the system enhances job performance. Analogous to Rogers&rsquo; relative
+              advantage and Davis&rsquo; perceived usefulness.
             </li>
             <li>
-              <strong>Perceived Compatibility (Attitude component):</strong> The extent to which
-              users perceive the system aligns with their existing work practices, values, and
-              needs. Reflects adoption of innovations theory compatibility construct.
+              <strong>Perceived Ease of Use (Complexity):</strong> The degree to which the
+              system is perceived as easy to understand and use. Analogous to Rogers&rsquo;
+              complexity (inverse direction) and Davis&rsquo; ease of use.
             </li>
             <li>
-              <strong>Subjective Norm (Normative belief component):</strong> Perceived social
-              pressure from important others regarding IT system adoption. Reflects primary
-              normative influence pathway.
+              <strong>Compatibility:</strong> The degree to which the system fits with the
+              potential adopter&rsquo;s existing values, previous experience, and current needs.
+              From Rogers&rsquo; (1983) innovation characteristics.
+            </li>
+          </ul>
+
+          <h3 className={H3_CLASSES}>Normative Belief Decomposition</h3>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Peer Influence:</strong> Influence of peers (colleagues, other students) on
+              the individual&rsquo;s adoption decision.
             </li>
             <li>
-              <strong>Social Influence (Normative belief component):</strong> Influence of peers,
-              managers, and organizational leadership on adoption decisions. Captures network
-              effects and referent power.
+              <strong>Superior Influence:</strong> Influence of superiors (managers, professors) on
+              the individual&rsquo;s adoption decision.
+            </li>
+          </ul>
+
+          <h3 className={H3_CLASSES}>Control Belief Decomposition</h3>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Self-Efficacy:</strong> The individual&rsquo;s confidence in their ability to
+              use the system, based on Bandura&rsquo;s (1977) self-efficacy theory.
             </li>
             <li>
-              <strong>Organizational Support (Normative belief component):</strong> Perceived
-              organizational encouragement, training, and resource allocation supporting system
-              adoption. Reflects institutional normative influences.
-            </li>
-            <li>
-              <strong>Facilitating Conditions (Control belief component):</strong> Objective
-              availability of resources supporting IT use including training, equipment, and
-              technical support. Reflects environmental control factors.
-            </li>
-            <li>
-              <strong>Technology Complexity (Control belief component):</strong> Perceived
-              difficulty and learning requirements of the IT system. Reflects effort and cognitive
-              burden in system use.
-            </li>
-            <li>
-              <strong>Attitude Toward Use:</strong> Overall favorable or unfavorable evaluation of
-              the system predicted by usefulness, compatibility, and other beliefs.
-            </li>
-            <li>
-              <strong>Behavioral Intention to Use:</strong> User likelihood of adopting and using
-              the system, predicted by attitudes, normative pressures, and control beliefs.
+              <strong>Resource Facilitating Conditions:</strong> Availability of resources needed
+              to use the system (time, money, equipment), based on Triandis&rsquo; (1979)
+              facilitating conditions concept.
             </li>
           </ul>
         </section>
