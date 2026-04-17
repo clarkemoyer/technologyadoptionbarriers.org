@@ -266,14 +266,13 @@ const BibliographyArticlePage = () => {
               </ul>
             </li>
             <li>
-              <strong>Behavioral Intention and Behavior:</strong> Standard TPB dependent
-              measures.
+              <strong>Behavioral Intention and Behavior:</strong> Standard TPB dependent measures.
             </li>
           </ul>
           <p className={PARAGRAPH_CLASSES}>
-            Taylor and Todd (1995) report a field study of information center users; they
-            provide reliability and validity evidence for the decomposed scales and compare the
-            decomposed TPB with TAM and pure TPB.
+            Taylor and Todd (1995) report a field study of information center users; they provide
+            reliability and validity evidence for the decomposed scales and compare the decomposed
+            TPB with TAM and pure TPB.
           </p>
         </section>
 
