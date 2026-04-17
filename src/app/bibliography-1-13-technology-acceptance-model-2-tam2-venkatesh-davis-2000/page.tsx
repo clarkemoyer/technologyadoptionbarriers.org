@@ -755,7 +755,7 @@ const BibliographyArticlePage = () => {
                 <a
                   href="#cite-ref-davis-1989-1"
                   className="text-tabs-teal-deep hover:underline"
-                  aria-label="Back to citation 1"
+                  aria-label="Back to in-text citation for Davis (1989)"
                 >
                   &#x21A9;
                 </a>
@@ -775,7 +775,7 @@ const BibliographyArticlePage = () => {
                 <a
                   href="#cite-ref-rogers-1995-1"
                   className="text-tabs-teal-deep hover:underline"
-                  aria-label="Back to citation 1"
+                  aria-label="Back to in-text citation for Rogers (1995)"
                 >
                   &#x21A9;
                 </a>
@@ -789,7 +789,7 @@ const BibliographyArticlePage = () => {
                 <a
                   href="#cite-ref-venkatesh-2003-1"
                   className="text-tabs-teal-deep hover:underline"
-                  aria-label="Back to citation 1"
+                  aria-label="Back to in-text citation for Venkatesh et al. (2003)"
                 >
                   &#x21A9;
                 </a>
