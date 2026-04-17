@@ -314,7 +314,7 @@ const BibliographyArticlePage = () => {
           <p className={PARAGRAPH_CLASSES}>
             DoDAF 2.0 (2009) and 2.02 (2010) significantly evolved the framework, expanding from
             four view categories to eight viewpoints and formalizing the data-centric approach
-            already advocated in the v1.0 Deskbook through a defined meta-model:
+            already advocated in the Version 1.0 Deskbook through a defined meta-model:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
@@ -325,9 +325,11 @@ const BibliographyArticlePage = () => {
               capability realization. The original TV became the Standards Viewpoint (StdV).
             </li>
             <li>
-              <strong>Data-Centric Approach:</strong> Shift from document-centric to data-centric
-              architecture using the DoDAF Meta-model (DM2). Data-centric approach enables automated
-              analysis and capability assessment.
+              <strong>Data-Centric Meta-Model Formalization:</strong> Formalized the data-centric
+              architecture approach already described in the Version 1.0 Deskbook (see Figure 2.2-2,
+              Data-Centric Build Sequence) by defining the DoDAF Meta-model (DM2) as a standardized
+              data model. DM2 enables automated analysis and capability assessment across
+              architectures.
             </li>
             <li>
               <strong>Meta-Model Foundation (DM2):</strong> Defined formal meta-model describing all
