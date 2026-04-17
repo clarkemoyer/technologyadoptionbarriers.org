@@ -167,8 +167,11 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>Dramatic Improvement:</strong> Achieving major performance gains rather than
-              marginal improvements. BPR targets 10x-50x improvement in key metrics, not 10-20%
-              improvement. This requires fundamental change, not continuous tweaks.
+              marginal improvements. Hammer and Champy define reengineering as seeking dramatic
+              improvements in critical contemporary measures of performance such as cost, quality,
+              service, and speed. Secondary sources commonly describe BPR as targeting order-of-magnitude
+              rather than incremental improvement, distinguishing it from continuous improvement
+              approaches that target modest percentage gains.
             </li>
             <li>
               <strong>Technology Enablement:</strong> Leveraging information technology to enable
@@ -190,7 +193,48 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 6. Preceding Models or Theories */}
+        {/* 6. What Does the Model Measure? */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>What Does the Model Measure?</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            Business Process Reengineering is a prescriptive management framework rather than a
+            quantitative measurement model, so it does not define a single construct or measurement
+            instrument. Instead, it is commonly framed around four outcome measures that Hammer and
+            Champy identify as critical contemporary performance measures:
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Cost:</strong> Unit cost, total process cost, resource utilization, and
+              overhead associated with delivering a process output.
+            </li>
+            <li>
+              <strong>Quality:</strong> Defect rates, error rates, first-pass yield, and conformance
+              to customer or specification requirements.
+            </li>
+            <li>
+              <strong>Service:</strong> Customer-perceived responsiveness, accuracy, convenience,
+              and reliability of process interactions.
+            </li>
+            <li>
+              <strong>Speed:</strong> Cycle time, throughput time, and time to deliver the process
+              output end-to-end.
+            </li>
+          </ul>
+          <p className={PARAGRAPH_CLASSES}>
+            The framework does not prescribe specific measurement instruments, reliability coefficients,
+            or validation procedures characteristic of psychometric models. Applied BPR practice uses
+            organization-specific operational metrics tied to the processes being redesigned.
+          </p>
+          <p className={PARAGRAPH_CLASSES}>
+            <strong>Source availability note:</strong> A PDF of the primary source (Hammer &amp;
+            Champy, 1993) is not available in the project reference library. Claims in this summary
+            are drawn from widely documented definitions, Hammer&rsquo;s 1990{' '}
+            <em>Harvard Business Review</em> article, and standard secondary treatments. Direct
+            quotation and page-level verification against the book have not been performed.
+          </p>
+        </section>
+
+        {/* 7. Preceding Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Preceding Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -284,7 +328,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 7. Describe The Model */}
+        {/* 8. Describe The Model */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Describe The Model</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -314,9 +358,11 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>Dramatic:</strong> Achieving major performance gains not marginal
-              improvements. BPR targets 10x-50x improvement in key metrics. This distinguishes BPR
-              from continuous improvement, which targets 10-20% annual improvement. Dramatic
-              improvement requires fundamental rethinking enabled by technology.
+              improvements. Hammer and Champy position BPR as targeting dramatic (rather than
+              incremental) improvement in critical performance measures. Secondary sources typically
+              contrast this with continuous improvement frameworks such as TQM that target modest
+              percentage gains. Dramatic improvement is presented as requiring fundamental rethinking
+              enabled by technology.
             </li>
             <li>
               <strong>Processes:</strong> Organizing around value-delivery processes rather than
@@ -360,6 +406,56 @@ const BibliographyArticlePage = () => {
               <strong>Measure results:</strong> Define clear performance metrics before redesign.
               Track cost, quality, service, speed. Ensure that redesign produces measurable
               improvement in critical metrics.
+            </li>
+          </ul>
+
+          <h3 className={H3_CLASSES}>
+            Hammer&rsquo;s 1990 Principles for Reengineering (HBR)
+          </h3>
+          <p className={PARAGRAPH_CLASSES}>
+            In his 1990 <em>Harvard Business Review</em> article &ldquo;Reengineering Work:
+            Don&rsquo;t Automate, Obliterate,&rdquo; Hammer articulated a widely cited set of
+            principles that secondary sources treat as canonical reengineering prescriptions. These
+            principles are paraphrased below from commonly reproduced summaries:
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Organize around outcomes, not tasks:</strong> Design jobs around complete
+              outcomes delivered to customers rather than narrow task specializations.
+            </li>
+            <li>
+              <strong>Have those who use the output perform the process:</strong> Push work to those
+              who consume its results, collapsing handoffs between groups.
+            </li>
+            <li>
+              <strong>Subsume information-processing work into the real work that produces the
+              information:</strong>{' '}
+              Treat information creation and processing as integrated with the operational work,
+              not as a separate downstream activity.
+            </li>
+            <li>
+              <strong>
+                Treat geographically dispersed resources as though they were centralized:
+              </strong>{' '}
+              Use information technology to coordinate distributed resources as if they were
+              co-located.
+            </li>
+            <li>
+              <strong>Link parallel activities instead of integrating their results:</strong>{' '}
+              Coordinate parallel work during execution rather than reconciling independent results
+              afterward.
+            </li>
+            <li>
+              <strong>
+                Put the decision point where the work is performed, and build control into the
+                process:
+              </strong>{' '}
+              Flatten decision-making by embedding authority and control mechanisms at the point of
+              work.
+            </li>
+            <li>
+              <strong>Capture information once and at the source:</strong> Record data a single
+              time, at its origin, and share rather than re-enter it across the organization.
             </li>
           </ul>
 
@@ -483,20 +579,20 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 8. Key Contributions */}
+        {/* 9. Key Contributions */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Key Contributions</h2>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Challenged continuous improvement paradigm:</strong> Established that
-              incremental improvement alone could not generate competitive differentiation; radical
-              redesign was necessary in competitive markets.
+              <strong>Challenged continuous improvement paradigm:</strong> Argued that incremental
+              improvement alone was insufficient for competitive differentiation in many contexts
+              and that radical redesign could be necessary in competitive markets.
             </li>
             <li>
-              <strong>Connected technology adoption to process redesign:</strong> Established that
-              technology enables not process automation but fundamental redesign. Technology
-              capability should drive process rethinking rather than being added to existing
-              processes.
+              <strong>Connected technology adoption to process redesign:</strong> Argued that
+              information technology should not be used primarily to automate existing processes,
+              but to enable fundamentally redesigned ones. Technology capability, in this framing,
+              drives process rethinking rather than being layered onto legacy processes.
             </li>
             <li>
               <strong>Articulated process-centered perspective:</strong> Championed organizing
@@ -514,9 +610,9 @@ const BibliographyArticlePage = () => {
               implementations.
             </li>
             <li>
-              <strong>Demonstrated power of ambitious redesign:</strong> Successful BPR
-              implementations demonstrated dramatic performance improvements possible through
-              radical redesign.
+              <strong>Popularized ambitious redesign:</strong> Widely cited BPR case studies
+              reported substantial performance improvements attributed to radical process redesign,
+              although rigorous independent evaluation of these cases has been limited.
             </li>
             <li>
               <strong>Influenced enterprise software implementations:</strong> BPR emphasis on
@@ -530,7 +626,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 9. Internal Validity */}
+        {/* 10. Internal Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Internal Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -573,7 +669,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 10. External Validity */}
+        {/* 11. External Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>External Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -625,7 +721,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 11. Relevance to Technology Adoption */}
+        {/* 12. Relevance to Technology Adoption */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Relevance to Technology Adoption</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -695,8 +791,9 @@ const BibliographyArticlePage = () => {
               but enable redesign.
             </li>
             <li>
-              <strong>Define ambitious targets:</strong> Set dramatic performance improvement
-              targets (10x-50x). Ambitious targets drive radical thinking.
+              <strong>Define ambitious targets:</strong> Set dramatic (not incremental) performance
+              improvement targets. Secondary sources suggest that order-of-magnitude targets drive
+              more radical thinking than modest percentage-improvement goals.
             </li>
             <li>
               <strong>Build cross-functional teams:</strong> Assemble teams including business
@@ -721,7 +818,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 12. Following Models or Theories */}
+        {/* 13. Following Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Following Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -792,7 +889,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 13. References */}
+        {/* 14. References */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>References</h2>
           <ol className={REFERENCES_OL_CLASSES}>
@@ -874,6 +971,7 @@ const BibliographyArticlePage = () => {
           </ol>
         </section>
 
+        {/* 15. Further Reading */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Further Reading</h2>
           <ol className={REFERENCES_OL_CLASSES}>
@@ -894,7 +992,7 @@ const BibliographyArticlePage = () => {
           </ol>
         </section>
 
-        {/* 14. Series Navigation */}
+        {/* 16. Series Navigation */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Series Navigation</h2>
           <div className="space-y-4">
