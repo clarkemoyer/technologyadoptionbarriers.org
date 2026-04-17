@@ -182,7 +182,44 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 6. Preceding Models or Theories */}
+        {/* 6. What Does the Model Measure? */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>What Does the Model Measure?</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            The Microsoft Cloud Adoption Framework (CAF) is a vendor-published prescriptive
+            adoption framework rather than a psychometric measurement model. It does not define
+            latent constructs or validated scales. It structures how organizations plan, execute,
+            and govern Azure-centric cloud adoption. Evaluation concepts associated with CAF
+            typically include:
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Methodology completeness:</strong> Whether activities and artifacts in each
+              CAF methodology (Strategy, Plan, Ready, Adopt, Govern, Manage, Secure) have been
+              completed for a given workload or scope.
+            </li>
+            <li>
+              <strong>Landing zone conformance:</strong> Whether deployed Azure environments
+              conform to Azure Landing Zone reference architectures and governance patterns.
+            </li>
+            <li>
+              <strong>Readiness and skilling coverage:</strong> Whether designated teams have
+              completed CAF-aligned readiness and skilling activities.
+            </li>
+            <li>
+              <strong>Governance and security posture:</strong> Whether prescribed governance
+              controls and Microsoft Defender for Cloud / Azure Policy baselines are in place.
+            </li>
+          </ul>
+          <p className={PARAGRAPH_CLASSES}>
+            <strong>Source note:</strong> Microsoft CAF is a first-party vendor framework published
+            by Microsoft. Descriptions here are drawn from Microsoft Learn documentation and
+            publicly available Microsoft materials. Independent empirical evaluation is limited;
+            published results are largely Microsoft-authored case studies and partner materials.
+          </p>
+        </section>
+
+        {/* 7. Preceding Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Preceding Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -222,7 +259,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 7. Describe The Model */}
+        {/* 8. Describe The Model */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Describe The Model</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -437,7 +474,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 8. Key Contributions */}
+        {/* 9. Key Contributions */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Key Contributions</h2>
           <ul className={BODY_LIST_CLASSES}>
@@ -475,11 +512,13 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 9. Internal Validity */}
+        {/* 10. Internal Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Internal Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
-            Microsoft Cloud Adoption Framework demonstrates strong internal validity as cloud
+            Microsoft CAF is a vendor-published prescriptive framework rather than an empirical
+            theory, so it is not subject to construct-validity testing in a psychometric sense.
+            Considerations typically raised about its internal consistency as a cloud
             adoption framework:
           </p>
           <ul className={BODY_LIST_CLASSES}>
@@ -513,7 +552,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 10. External Validity */}
+        {/* 11. External Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>External Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -561,7 +600,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 11. Relevance to Technology Adoption */}
+        {/* 12. Relevance to Technology Adoption */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Relevance to Technology Adoption</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -649,7 +688,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 12. Following Models or Theories */}
+        {/* 13. Following Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Following Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -677,7 +716,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 13. References */}
+        {/* 14. References */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>References</h2>
           <ol className={REFERENCES_OL_CLASSES}>
@@ -688,6 +727,7 @@ const BibliographyArticlePage = () => {
           </ol>
         </section>
 
+        {/* 15. Further Reading */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Further Reading</h2>
           <ol className={REFERENCES_OL_CLASSES}>
@@ -731,7 +771,7 @@ const BibliographyArticlePage = () => {
           </ol>
         </section>
 
-        {/* 14. Series Navigation */}
+        {/* 16. Series Navigation */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Series Navigation</h2>
           <div className="space-y-4">
