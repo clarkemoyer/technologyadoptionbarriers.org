@@ -111,9 +111,10 @@ const liveChildrenByKey = new Map(
 )
 
 const crpKeys = crpChildren.map((crpPage) => getResultsPageKey(crpPage.href))
+const crpKeySet = new Set(crpKeys)
 const liveKeys = liveChildren.map((livePage) => getResultsPageKey(livePage.href))
 const missingLiveKeys = crpKeys.filter((key) => !liveChildrenByKey.has(key))
-const extraLiveKeys = liveKeys.filter((key) => !new Set(crpKeys).has(key))
+const extraLiveKeys = liveKeys.filter((key) => !crpKeySet.has(key))
 
 if (missingLiveKeys.length > 0 || extraLiveKeys.length > 0) {
   throw new Error(
@@ -345,7 +346,7 @@ const ResultsPage = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <div className="text-xs font-semibold text-blue-900 mb-1">
-                    Live (N={liveTotalN})
+                    Live (N={liveTotalN == null ? DATA_UNAVAILABLE : liveTotalN})
                   </div>
                   <ol className="list-decimal list-inside space-y-0.5">
                     {liveTopThree.map((r) => (
@@ -357,7 +358,7 @@ const ResultsPage = () => {
                 </div>
                 <div>
                   <div className="text-xs font-semibold text-green-900 mb-1">
-                    CRP 2026 (N={crpTotalN})
+                    CRP 2026 (N={crpTotalN == null ? DATA_UNAVAILABLE : crpTotalN})
                   </div>
                   <ol className="list-decimal list-inside space-y-0.5">
                     {crpTopThree.map((r) => (
@@ -385,7 +386,10 @@ const ResultsPage = () => {
                 key={p.key}
                 className="rounded-xl border border-gray-200 bg-white p-5 flex flex-col sm:flex-row sm:items-start sm:gap-4"
               >
-                <div className="shrink-0 w-10 h-10 rounded-full bg-tabs-teal-deep text-white flex items-center justify-center font-bold font-mono mb-2 sm:mb-0">
+                <div
+                  aria-hidden="true"
+                  className="shrink-0 w-10 h-10 rounded-full bg-tabs-teal-deep text-white flex items-center justify-center font-bold font-mono mb-2 sm:mb-0"
+                >
                   {i + 1}
                 </div>
                 <div className="flex-1">
