@@ -214,10 +214,10 @@ const BibliographyArticlePage = () => {
             coefficients in the way measurement theories do.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Source note:</strong> Claims below are drawn from the 2005 Chrissis, Konrad,
-            and Shrum textbook, the CMMI v1.1 and subsequent model documents published by SEI/CMMI
-            Institute/ISACA, and commonly cited secondary treatments. Direct page-level
-            verification has not been performed for every claim.
+            <strong>Source note:</strong> Claims below are drawn from the 2005 Chrissis, Konrad, and
+            Shrum textbook, the CMMI v1.1 and subsequent model documents published by SEI/CMMI
+            Institute/ISACA, and commonly cited secondary treatments. Direct page-level verification
+            has not been performed for every claim.
           </p>
         </section>
 
