@@ -138,18 +138,60 @@ const BibliographyArticlePage = () => {
             balancing all benefits against all sacrifices.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            VAM was developed and tested through empirical research with 211 Singaporean mobile
-            internet users, explicitly measuring perceived usefulness, perceived enjoyment (hedonic
-            benefit dimension often overlooked in organizational models), perceived fee (monetary
-            sacrifice), and perceived technicality (effort and learning sacrifice). The model
-            explained 67 percent of variance in adoption intention, demonstrating that consumer
-            technology adoption can be effectively explained through value-based frameworks that
-            integrate both instrumental and hedonic benefits against monetary and technical
-            sacrifices.
+            VAM was developed and tested through empirical research with 161 Singaporean mobile
+            internet users (75.2% male, 88.2% aged 20-29; recruited via university email list and
+            public forums with a $5 incentive), explicitly measuring perceived usefulness, perceived
+            enjoyment (hedonic benefit dimension often overlooked in organizational models),
+            perceived fee (monetary sacrifice), and perceived technicality (a composite non-monetary
+            sacrifice covering ease of use, system reliability, connectivity, and efficiency). The
+            model explained 35.9% of the variance in adoption intention (Fig. 2, p.120),
+            outperforming TAM tested on the same sample (R²=0.131, Fig. 3, p.121) by nearly 3x,
+            demonstrating that consumer technology adoption can be effectively explained through
+            value-based frameworks that integrate both instrumental and hedonic benefits against
+            monetary and technical sacrifices.
           </p>
         </section>
 
-        {/* 5. Core Concepts and Definitions */}
+        {/* 5. What Does the Model Measure? */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>What Does the Model Measure?</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            VAM measures six latent constructs using multi-item 7-point Likert scales (Table 3,
+            p.119). Cronbach&rsquo;s alpha reliabilities were all above the 0.70 threshold:
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Adoption Intention</strong> (3 items, α=0.83): plan to use, intend to use, and
+              predict using M-Internet in the future.
+            </li>
+            <li>
+              <strong>Perceived Value</strong> (4 items, α=0.87): value for money vs. fee, benefit
+              vs. effort, worthwhile vs. time spent, and overall good value.
+            </li>
+            <li>
+              <strong>Usefulness</strong> (6 items, α=0.95): task speed, effectiveness, ease,
+              performance, time/effort savings, and overall usefulness.
+            </li>
+            <li>
+              <strong>Enjoyment</strong> (4 items, α=0.84): fun, enjoyment, pleasure, and
+              non-boredom (reverse-coded) interacting with M-Internet.
+            </li>
+            <li>
+              <strong>Technicality</strong> (3 items after TECH4 dropped for low factor loading,
+              α=0.76): connection instantaneity, response speed, and reliability of M-Internet.
+            </li>
+            <li>
+              <strong>Perceived Fee</strong> (3 items, α=0.89): perceptions of how high, reasonable,
+              and worthwhile the M-Internet usage fee is.
+            </li>
+          </ul>
+          <p className={PARAGRAPH_CLASSES}>
+            Principal component factor analysis with VARIMAX rotation extracted five factors with
+            eigenvalue &gt; 1.0 explaining 72.7% of total variance (Appendix B, p.119).
+          </p>
+        </section>
+
+        {/* 6. Core Concepts and Definitions */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Core Concepts and Definitions</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -201,7 +243,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 6. Preceding Models or Theories */}
+        {/* 7. Preceding Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Preceding Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -292,7 +334,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 7. Describe The Model */}
+        {/* 8. Describe The Model */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Describe The Model</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -369,9 +411,9 @@ const BibliographyArticlePage = () => {
               models overlook.
             </li>
             <li>
-              <strong>High explanatory power:</strong> Achieved 67 percent variance explained in
-              adoption intention, demonstrating strong predictive validity for consumer technology
-              adoption.
+              <strong>Moderate explanatory power:</strong> Achieved 35.9% variance explained in
+              adoption intention (R²=0.359, Fig. 2), substantially outperforming TAM tested on the
+              same sample (R²=0.131).
             </li>
             <li>
               <strong>Parsimonious four-construct model:</strong> Simple framework integrating key
@@ -445,7 +487,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 8. Key Contributions */}
+        {/* 9. Key Contributions */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Key Contributions</h2>
           <ul className={BODY_LIST_CLASSES}>
@@ -476,9 +518,9 @@ const BibliographyArticlePage = () => {
               technology adoption rather than adapting organizational frameworks.
             </li>
             <li>
-              <strong>Simplified yet comprehensive model:</strong> Achieved strong predictive
-              validity (67 percent variance) with parsimonious four-construct model, demonstrating
-              parsimony-accuracy trade-off optimization.
+              <strong>Simplified yet comprehensive model:</strong> Achieved moderate predictive
+              validity (R²=0.359 for adoption intention) with a parsimonious four-construct model,
+              nearly 3x the explanatory power of TAM (R²=0.131) on the same sample.
             </li>
             <li>
               <strong>Practical marketing guidance:</strong> Provided clear actionable insights for
@@ -494,7 +536,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 9. Internal Validity */}
+        {/* 10. Internal Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Internal Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -517,8 +559,10 @@ const BibliographyArticlePage = () => {
               motivation, and cost perception.
             </li>
             <li>
-              <strong>Structural equation modeling analysis:</strong> Used appropriate SEM
-              methodology to test hypothesized relationships among latent constructs.
+              <strong>Multiple regression analysis:</strong> Used Pearson correlation followed by
+              multiple regression (not SEM) to test hypothesized paths among constructs. Mediation
+              was tested using Baron &amp; Kenny's method (Table 5, p.120). Multicollinearity was
+              examined via VIF (1.20-1.60, below the 10 threshold).
             </li>
             <li>
               <strong>Psychometric validation:</strong> Reported reliability coefficients,
@@ -540,7 +584,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 10. External Validity */}
+        {/* 11. External Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>External Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -568,9 +612,9 @@ const BibliographyArticlePage = () => {
               might emerge in larger samples.
             </li>
             <li>
-              <strong>Consumer segment representation:</strong> Sample characteristics (education
-              level, income, age, technology experience) not explicitly described. Generalization to
-              diverse consumer segments uncertain.
+              <strong>Consumer segment skew:</strong> Sample was 75.2% male and 88.2% aged 20-29,
+              with 54% students and 38.5% professionals (Table 2, p.118). Generalization to older
+              adults, less technology-literate consumers, and non-student segments is uncertain.
             </li>
             <li>
               <strong>Market maturity considerations:</strong> Mobile internet adoption stage when
@@ -593,7 +637,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 11. Relevance to Technology Adoption */}
+        {/* 12. Relevance to Technology Adoption */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Relevance to Technology Adoption</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -702,7 +746,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 12. Following Models or Theories */}
+        {/* 13. Following Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Following Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -758,7 +802,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 13. References */}
+        {/* 14. References */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>References</h2>
           <ol className={REFERENCES_OL_CLASSES}>
@@ -808,6 +852,7 @@ const BibliographyArticlePage = () => {
           </ol>
         </section>
 
+        {/* 15. Further Reading */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Further Reading</h2>
           <ol className={REFERENCES_OL_CLASSES}>
@@ -845,7 +890,7 @@ const BibliographyArticlePage = () => {
           </ol>
         </section>
 
-        {/* 14. Series Navigation */}
+        {/* 16. Series Navigation */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Series Navigation</h2>
           <div className="space-y-4">
