@@ -196,7 +196,7 @@ const BibliographyArticlePage = () => {
             <li>
               <strong>Capability Maturity Model (CMM, Carnegie Mellon 1991):</strong> CMM
               established 5-level maturity model for software development processes. IT-CMF adapted
-              CMM's maturity level structure while extending to IT management beyond software
+              CMM&apos;s maturity level structure while extending to IT management beyond software
               development.
             </li>
             <li>
@@ -228,12 +228,12 @@ const BibliographyArticlePage = () => {
                 </a>
                 ):
               </strong>{' '}
-              Balanced Scorecard framework for business performance measurement influenced IT-CMF's
-              emphasis on IT business value measurement.
+              Balanced Scorecard framework for business performance measurement influenced
+              IT-CMF&apos;s emphasis on IT business value measurement.
             </li>
             <li>
               <strong>IT Portfolio Management Approaches (1990s-2000s):</strong> IT portfolio
-              management practices informed IT-CMF's emphasis on IT investment and business-IT
+              management practices informed IT-CMF&apos;s emphasis on IT investment and business-IT
               alignment.
             </li>
           </ul>
