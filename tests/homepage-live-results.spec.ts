@@ -30,9 +30,10 @@ test.describe('Homepage Live Results Section', () => {
     // Check CTA link to results page
     const ctaLink = page.getByRole('link', { name: /View All Results & Analysis/i })
     await expect(ctaLink).toBeVisible()
-    // Next.js adds trailing slash
+    // Use pathname-based check to be basePath-safe (GitHub Pages prepends a basePath)
     const href = await ctaLink.getAttribute('href')
-    expect(href).toMatch(/^\/results\/?$/)
+    const hrefPathname = new URL(href!, page.url()).pathname
+    expect(hrefPathname).toMatch(/\/results\/?$/)
   })
 
   test('should have proper section ordering on homepage', async ({ page }) => {
@@ -58,9 +59,11 @@ test.describe('Homepage Live Results Section', () => {
     const ctaLink = page.getByRole('link', { name: /View All Results & Analysis/i })
     await ctaLink.click()
 
-    // Wait for navigation and check URL (Next.js adds trailing slash)
-    await page.waitForURL(/\/results\/?/)
-    await expect(page).toHaveURL(/\/results\/?/)
+    // Wait for navigation and check pathname exactly (allow optional trailing slash and any basePath)
+    await page.waitForURL((url) => /\/results\/?$/.test(url.pathname))
+    await expect
+      .poll(() => new URL(page.url()).pathname)
+      .toMatch(/\/results\/?$/)
   })
 
   test('should display percentages for each barrier', async ({ page }) => {
