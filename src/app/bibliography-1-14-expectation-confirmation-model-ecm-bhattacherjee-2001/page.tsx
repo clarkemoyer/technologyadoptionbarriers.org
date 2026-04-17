@@ -451,10 +451,10 @@ const BibliographyArticlePage = () => {
           <h2 className={H2_CLASSES}>Key Contributions</h2>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Continuance as distinct research domain:</strong> Established that
-              post-adoption continuance requires different theoretical frameworks than initial
-              adoption, creating entire new research stream examining sustained technology usage
-              rather than adoption decisions.
+              <strong>Continuance as distinct research domain:</strong> Argued that post-adoption
+              continuance requires different theoretical framing than initial adoption, and
+              provided an early canonical model that subsequent IS continuance research has built
+              on.
             </li>
             <li>
               <strong>Expectation-confirmation application to IS:</strong> Successfully adapted
@@ -479,9 +479,10 @@ const BibliographyArticlePage = () => {
               concept.
             </li>
             <li>
-              <strong>Distinction from adoption factors:</strong> Demonstrated that continuance
-              drivers (satisfaction, confirmation) differ from adoption drivers (ease of use,
-              usefulness), challenging assumptions that single model applies across
+              <strong>Distinction from adoption factors:</strong> Reported evidence, within the
+              original online banking sample, that continuance drivers (satisfaction,
+              confirmation) differ from adoption drivers typically emphasized by TAM
+              (ease of use, usefulness), challenging the assumption that a single model spans the
               adoption-continuance lifecycle.
             </li>
             <li>
@@ -699,9 +700,9 @@ const BibliographyArticlePage = () => {
               switching costs, social influences, and system updates.
             </li>
             <li>
-              <strong>IS continuance research stream:</strong> ECM spawned entire research domain
-              examining post-adoption phenomena including extended ECM models, habit-based
-              continuance, and discontinuance drivers.
+              <strong>IS continuance research stream:</strong> ECM is widely credited as a
+              foundational reference for the IS continuance research stream, which has grown to
+              include extended ECM models, habit-based continuance, and discontinuance drivers.
             </li>
             <li>
               <strong>Mobile and consumer technology continuance:</strong> Researchers applied ECM
