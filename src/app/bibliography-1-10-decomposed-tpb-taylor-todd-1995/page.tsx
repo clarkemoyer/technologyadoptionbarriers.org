@@ -182,12 +182,27 @@ const BibliographyArticlePage = () => {
           <ul className={BODY_LIST_CLASSES}>
             <li>
               <strong>Self-Efficacy:</strong> The individual&rsquo;s confidence in their ability to
-              use the system, based on Bandura&rsquo;s (1977) self-efficacy theory.
+              use the system, based on{' '}
+              <a
+                id="cite-ref-bandura-1977-1"
+                href="#ref-bandura-1977"
+                className="text-tabs-teal-deep hover:underline"
+              >
+                Bandura&rsquo;s (1977)
+              </a>{' '}
+              self-efficacy theory.
             </li>
             <li>
               <strong>Resource Facilitating Conditions:</strong> Availability of resources needed to
-              use the system (time, money, equipment), based on Triandis&rsquo; (1979) facilitating
-              conditions concept.
+              use the system (time, money, equipment), based on{' '}
+              <a
+                id="cite-ref-triandis-1979-1"
+                href="#ref-triandis-1979"
+                className="text-tabs-teal-deep hover:underline"
+              >
+                Triandis&rsquo; (1979)
+              </a>{' '}
+              facilitating conditions concept.
             </li>
           </ul>
         </section>
@@ -615,6 +630,34 @@ const BibliographyArticlePage = () => {
               <span className="text-xs ml-1">
                 <a
                   href="#cite-ref-rogers-1983-1"
+                  className="text-tabs-teal-deep hover:underline"
+                  aria-label="Back to citation 1"
+                >
+                  ↩︎
+                </a>
+              </span>
+            </li>
+            <li id="ref-bandura-1977">
+              Bandura, A. (1977). Self-efficacy: Toward a unifying theory of behavioral change.{' '}
+              <em>Psychological Review</em>, 84(2), 191-215.
+              <span className="text-xs ml-1">
+                <a
+                  href="#cite-ref-bandura-1977-1"
+                  className="text-tabs-teal-deep hover:underline"
+                  aria-label="Back to citation 1"
+                >
+                  ↩︎
+                </a>
+              </span>{' '}
+              https://doi.org/10.1037/0033-295X.84.2.191
+            </li>
+            <li id="ref-triandis-1979">
+              Triandis, H. C. (1979). Values, attitudes, and interpersonal behavior. In H. E. Howe
+              &amp; M. M. Page (Eds.), <em>Nebraska Symposium on Motivation</em>, Vol. 27 (pp.
+              195-259). University of Nebraska Press.
+              <span className="text-xs ml-1">
+                <a
+                  href="#cite-ref-triandis-1979-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
                 >
