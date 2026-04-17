@@ -184,30 +184,30 @@ const BibliographyArticlePage = () => {
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Perceived Usefulness (PU) - extrinsic motivator:</strong> Degree to which
-              a person believes using the system will enhance job performance. Standard TAM
-              Davis (1989) 6-item Likert scale.
+              <strong>Perceived Usefulness (PU) - extrinsic motivator:</strong> Degree to which a
+              person believes using the system will enhance job performance. Standard TAM Davis
+              (1989) 6-item Likert scale.
             </li>
             <li>
-              <strong>Perceived Enjoyment (PE) - intrinsic motivator:</strong> Extent to which
-              using the system is perceived to be enjoyable in its own right, apart from
-              instrumental consequences. Typically measured via items assessing fun,
-              entertainment, or enjoyment of the activity itself.
+              <strong>Perceived Enjoyment (PE) - intrinsic motivator:</strong> Extent to which using
+              the system is perceived to be enjoyable in its own right, apart from instrumental
+              consequences. Typically measured via items assessing fun, entertainment, or enjoyment
+              of the activity itself.
             </li>
             <li>
               <strong>Perceived Ease of Use (PEOU):</strong> Standard TAM belief construct.
             </li>
             <li>
-              <strong>Behavioral Intention / Future Usage Intent:</strong> Self-reported intent
-              to use the system.
+              <strong>Behavioral Intention / Future Usage Intent:</strong> Self-reported intent to
+              use the system.
             </li>
           </ul>
           <p className={PARAGRAPH_CLASSES}>
             Davis, Bagozzi, and Warshaw (1992) report a workplace field study distinguishing
-            workplace task performance (driven by PU) from workplace enjoyment (driven by PE).
-            The Perceived Enjoyment scale has been adopted widely in subsequent research on
-            hedonic information systems (e.g., Van der Heijden, 2004) and in TAM3
-            (Venkatesh &amp; Bala, 2008) as a determinant of perceived ease of use.
+            workplace task performance (driven by PU) from workplace enjoyment (driven by PE). The
+            Perceived Enjoyment scale has been adopted widely in subsequent research on hedonic
+            information systems (e.g., Van der Heijden, 2004) and in TAM3 (Venkatesh &amp; Bala,
+            2008) as a determinant of perceived ease of use.
           </p>
         </section>
 
