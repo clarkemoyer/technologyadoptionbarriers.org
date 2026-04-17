@@ -143,7 +143,7 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Core Concepts and Definitions</h2>
           <p className={PARAGRAPH_CLASSES}>
-            The Task-Technology Fit model operationalizes multiple dimensions across three domains:
+            The Task-Technology Fit model operationalizes several related constructs and dimensions:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
@@ -286,7 +286,7 @@ const BibliographyArticlePage = () => {
               claims.
             </li>
             <li>
-              <strong>Large-scale empirical validation:</strong> Tested with 600+ users across 26
+              <strong>Large-scale empirical validation:</strong> Tested with 662 users across 26
               departments and 2 companies demonstrating robust findings across diverse contexts.
             </li>
             <li>
@@ -387,8 +387,9 @@ const BibliographyArticlePage = () => {
               with multiple survey items enabling measurement error assessment.
             </li>
             <li>
-              <strong>Exploratory factor analysis:</strong> Used EFA to identify factor structure of
-              the 12-item TTF instrument, validating hypothesized dimensions.
+              <strong>Exploratory factor analysis:</strong> Used EFA to identify the 8-factor
+              structure of the TTF measure derived from 16 original dimensions/items, validating
+              hypothesized dimensions.
             </li>
             <li>
               <strong>Reliability testing:</strong> Reported Cronbach&rsquo;s alpha coefficients for
@@ -425,7 +426,7 @@ const BibliographyArticlePage = () => {
               decision support systems suggesting fit applies across system types.
             </li>
             <li>
-              <strong>Large sample size:</strong> 600+ end-users provides substantial statistical
+              <strong>Large sample size:</strong> 662 end-users provides substantial statistical
               power and heterogeneous sample demographics.
             </li>
             <li>
@@ -574,7 +575,9 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-davis-1989-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                ></a>
+                >
+                  ↩
+                </a>
               </span>{' '}
               https://doi.org/10.2307/249008
             </li>
@@ -585,7 +588,9 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-rogers-1983-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                ></a>
+                >
+                  ↩
+                </a>
               </span>
             </li>
           </ol>
