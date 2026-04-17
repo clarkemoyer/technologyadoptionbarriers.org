@@ -344,7 +344,10 @@ describe('Results Overview', () => {
   it('renders heading', async () => {
     const { default: Page } = await import('@/app/results/page')
     render(<Page />)
-    expect(screen.getByRole('heading', { name: /results/i })).toBeInTheDocument()
+    // The redesigned landing contains multiple headings whose text matches
+    // /results/i (the h1 "Results" plus the h3 "Live Results" inside the
+    // Two-result-tracks split-path card). Narrow to the h1 to stay specific.
+    expect(screen.getByRole('heading', { level: 1, name: /^results$/i })).toBeInTheDocument()
   })
 })
 
