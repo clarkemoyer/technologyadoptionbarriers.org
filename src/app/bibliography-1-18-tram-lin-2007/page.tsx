@@ -389,6 +389,28 @@ const BibliographyArticlePage = () => {
             </li>
           </ul>
 
+          <h3 className={H3_CLASSES}>Key Results (Trimmed Model, Table 2 p.650)</h3>
+          <p className={PARAGRAPH_CLASSES}>
+            The trimmed integrated model (with the TR-to-UI path constrained to zero) was preferred
+            over the full model on parsimony grounds (Δχ²=1.97, df=1, p=0.16). Standardized path
+            coefficients were all significant at p&lt;0.01:
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>TR &rarr; PEOU: 0.74 (strongest effect - H6 supported)</li>
+            <li>PU &rarr; UI: 0.59 (standard TAM path - H2 supported)</li>
+            <li>TR &rarr; PU: 0.52 (H5 supported)</li>
+            <li>PEOU &rarr; PU: 0.30 (standard TAM path - H4 supported)</li>
+            <li>PEOU &rarr; UI: 0.23 (standard TAM path - H3 supported)</li>
+          </ul>
+          <p className={PARAGRAPH_CLASSES}>
+            <strong>Standardized total effects on Use Intention</strong> (p.651): TR = 0.60, PU =
+            0.59, PEOU = 0.40. The paper&rsquo;s key insight: TR&rsquo;s effect on intention
+            operates <em>primarily through PEOU</em>, not through PU, because TR&rsquo;s direct
+            impact on PEOU (0.74) is much stronger than its impact on PU (0.52). The overall
+            psychological process is consistent with a TR &rarr; PEOU &rarr; PU &rarr; UI chain of
+            causality.
+          </p>
+
           <h3 className={H3_CLASSES}>Main Strengths</h3>
           <ul className={BODY_LIST_CLASSES}>
             <li>
@@ -544,9 +566,11 @@ const BibliographyArticlePage = () => {
               trading experience.
             </li>
             <li>
-              <strong>Structural equation modeling:</strong> SEM approach tested full model
-              specification simultaneously rather than piecemeal regression, examining direct
-              effects, indirect pathways, and overall model fit.
+              <strong>Structural equation modeling in Amos 4:</strong> The integrated model was
+              estimated in Amos 4 (Arbuckle &amp; Wothke, 1999). Full and trimmed (nested) models
+              were estimated: the trimmed model constrained the TR-to-UI path to zero. The chi-
+              square difference was non-significant (Δχ²=1.97, df=1, p=0.16), so the trimmed model
+              was preferred.
             </li>
             <li>
               <strong>Real e-service context:</strong> Study examined an actual online stock trading
@@ -554,8 +578,9 @@ const BibliographyArticlePage = () => {
               realism.
             </li>
             <li>
-              <strong>Model comparison:</strong> Study tested TRAM against reduced models to
-              establish that all proposed relationships contributed to model fit.
+              <strong>Mediation testing:</strong> Baron and Kenny (1986) three-equation mediation
+              procedure plus Sobel (1982) tests (z=5.23 for TR→PU→UI; z=2.73 for TR→PEOU→UI; both
+              p&lt;0.01) supported H7 (full mediation via PU and PEOU).
             </li>
             <li>
               <strong>Effect direction consistency:</strong> Results confirmed the a priori
