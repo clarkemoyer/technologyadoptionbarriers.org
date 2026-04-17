@@ -472,14 +472,16 @@ const BibliographyArticlePage = () => {
               technology acquisition process.
             </li>
             <li>
-              <strong>Demonstrated acquisition-based enforcement:</strong> Used acquisition mandate
-              to enforce architectural compliance. Acquisition-based enforcement became influential
-              governance approach.
+              <strong>Used acquisition-based enforcement at scale:</strong> TAFIM tied
+              architectural compliance to the DoD acquisition process, an example of
+              acquisition-based architecture governance that later programs (e.g., Federal
+              agencies) built on.
             </li>
             <li>
-              <strong>Established reference model approach:</strong> Created detailed reference
-              models for each architectural layer. Reference model approach became standard practice
-              in enterprise architecture.
+              <strong>Articulated detailed reference models per layer:</strong> TAFIM&rsquo;s
+              per-layer reference models are commonly cited as an influence on subsequent
+              enterprise architecture frameworks, though layered reference-model thinking itself
+              predates TAFIM (e.g., OSI, 1984).
             </li>
             <li>
               <strong>Advanced standards-based architecture:</strong> Championed standards-based
@@ -686,7 +688,8 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Following Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
-            TAFIM spawned extensive enterprise architecture research and development:
+            TAFIM was succeeded by, and contributed to, a range of enterprise architecture
+            frameworks and policies:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
@@ -714,9 +717,10 @@ const BibliographyArticlePage = () => {
               limitations.
             </li>
             <li>
-              <strong>Enterprise Architecture Research (1990s-present):</strong> TAFIM spawned
-              extensive research on enterprise architecture, architecture governance, and
-              standards-based systems.
+              <strong>Enterprise Architecture Research (1990s-present):</strong> Enterprise
+              architecture as a research area has multiple roots (Zachman, TAFIM, and later
+              commercial frameworks among them); TAFIM is commonly cited within this body of work
+              rather than being its sole origin.
             </li>
             <li>
               <strong>
