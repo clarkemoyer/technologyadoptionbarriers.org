@@ -61,9 +61,7 @@ test.describe('Homepage Live Results Section', () => {
 
     // Wait for navigation and check pathname exactly (allow optional trailing slash and any basePath)
     await page.waitForURL((url) => /\/results\/?$/.test(url.pathname))
-    await expect
-      .poll(() => new URL(page.url()).pathname)
-      .toMatch(/\/results\/?$/)
+    await expect.poll(() => new URL(page.url()).pathname).toMatch(/\/results\/?$/)
   })
 
   test('should display percentages for each barrier', async ({ page }) => {
