@@ -129,13 +129,13 @@ const BibliographyArticlePage = () => {
             drives performance outcomes.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            Building on contingency theory and job fit literature, the authors conducted empirical
-            research with 600+ end-users across 26 departments in two companies, developing a
-            12-factor TTF measurement instrument. The research demonstrated that task-technology fit
-            independently predicts performance above user attitudes or technology acceptance
-            variables, highlighting fit as distinct from adoption. TTF provided managers with
-            actionable framework for technology selection, implementation, and evaluation grounded
-            in task and capability matching.
+            Building on contingency theory and job fit literature, the authors conducted a survey
+            study with end-users across two companies and developed a multi-factor TTF measurement
+            instrument. They report evidence, within their sample, that task-technology fit
+            predicts self-reported performance impacts beyond attitudinal variables alone. TTF
+            thus positions fit as a construct distinct from (and complementary to) acceptance.
+            Specific factor counts and sample details should be verified against the published
+            paper for derivative measurement work.
           </p>
         </section>
 
@@ -394,8 +394,9 @@ const BibliographyArticlePage = () => {
               dimensions.
             </li>
             <li>
-              <strong>Utilization as mediator:</strong> Demonstrated that fit drives performance
-              through increased utilization of relevant system capabilities.
+              <strong>Utilization as mediator:</strong> Proposed, and found support for in the
+              original study, a pathway where fit influences performance through increased
+              utilization of relevant system capabilities.
             </li>
             <li>
               <strong>Distinction from acceptance:</strong> Provided empirical evidence that fit
