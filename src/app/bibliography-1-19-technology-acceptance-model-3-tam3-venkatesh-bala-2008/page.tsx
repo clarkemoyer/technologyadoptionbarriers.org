@@ -492,6 +492,31 @@ const BibliographyArticlePage = () => {
             CANX and CPLAY fade.
           </p>
 
+          <h3 className={H3_CLASSES}>Explanatory Power (R², Tables 5-8)</h3>
+          <p className={PARAGRAPH_CLASSES}>
+            Across the four field studies and three PLS measurement models (T1, T2, T3), TAM3
+            explained:
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Perceived Usefulness: 52% to 67%</strong> of variance (Table 5, p.289).
+            </li>
+            <li>
+              <strong>Perceived Ease of Use: 43% to 52%</strong> of variance (Table 6, p.293).
+            </li>
+            <li>
+              <strong>Behavioral Intention: up to 53%</strong> of variance (Table 7, p.295).
+            </li>
+            <li>
+              <strong>Use: 31% to 36%</strong> of variance (Table 8, p.296).
+            </li>
+          </ul>
+          <p className={PARAGRAPH_CLASSES}>
+            The paper also confirmed the &ldquo;no crossover effects&rdquo; hypothesis: none of the
+            six PEOU determinants had a significant effect on PU at any measurement point, and none
+            of the five PU determinants had a significant effect on PEOU.
+          </p>
+
           <h3 className={H3_CLASSES}>TAM3 Determinant Mechanisms</h3>
           <ul className={BODY_LIST_CLASSES}>
             <li>
