@@ -59,10 +59,42 @@ fi
 dfmt() { if [ "$1" -gt 0 ]; then printf "+%d" "$1"; elif [ "$1" -eq 0 ]; then printf "0"; else printf "%d" "$1"; fi; }
 
 # --- Triage data ---
+# Prefer a dedicated triage-metrics artifact if some future step publishes one.
+# Today, the Phase 2 analyze job does not upload that path, so fall back to the
+# dashboard-data/disposition-summary.json that the Generate Dashboard step
+# already produces. This keeps the Disposition Triage section populated with
+# real counts instead of "unknown".
 TRIAGE_TOTAL="unknown"
 TRIAGE_BREAKDOWN=""
 [ -f "$ARTIFACTS_DIR/triage-metrics/triage-total.txt" ] && TRIAGE_TOTAL=$(cat "$ARTIFACTS_DIR/triage-metrics/triage-total.txt")
 [ -f "$ARTIFACTS_DIR/triage-metrics/triage-breakdown.txt" ] && TRIAGE_BREAKDOWN=$(cat "$ARTIFACTS_DIR/triage-metrics/triage-breakdown.txt")
+
+# Fallback: compute from the dashboard JSON we already downloaded.
+if { [ "$TRIAGE_TOTAL" = "unknown" ] || [ -z "$TRIAGE_BREAKDOWN" ]; } && [ -f "$TODAY_FILE" ]; then
+  COMPUTED_TOTAL=$(TODAY_FILE="$TODAY_FILE" python3 -c "import json,os; d=json.load(open(os.environ['TODAY_FILE'])); disps=d.get('dispositions') or {}; print(sum(disps.values()) if disps else '')" 2>/dev/null || echo "")
+  if [ -n "$COMPUTED_TOTAL" ]; then
+    [ "$TRIAGE_TOTAL" = "unknown" ] && TRIAGE_TOTAL="$COMPUTED_TOTAL"
+  fi
+  if [ -z "$TRIAGE_BREAKDOWN" ]; then
+    COMPUTED_BREAKDOWN=$(TODAY_FILE="$TODAY_FILE" python3 << 'TRIAGEEOF'
+import json, os, sys
+d = json.load(open(os.environ['TODAY_FILE']))
+disps = d.get('dispositions') or {}
+if not disps:
+    sys.exit(0)
+order = ['CLEAN', 'FLAG-SINGLE-IRI', 'FLAG-SMEAL', 'FLAG-PARTIAL-STRAIGHTLINING',
+         'FLAG-SPEED', 'FLAG-RECAPTCHA', 'AUTO-EXCLUDE', 'INCOMPLETE']
+keys = [k for k in order if k in disps] + [k for k in sorted(disps) if k not in order]
+total = sum(disps.values())
+for k in keys:
+    n = disps[k]
+    pct = (100.0 * n / total) if total else 0.0
+    print(f'| {k} | {n} | {pct:.1f}% |')
+TRIAGEEOF
+) || COMPUTED_BREAKDOWN=""
+    [ -n "$COMPUTED_BREAKDOWN" ] && TRIAGE_BREAKDOWN="$COMPUTED_BREAKDOWN"
+  fi
+fi
 
 # --- Approve data ---
 APPROVE_CLEAN_COUNT="0"
