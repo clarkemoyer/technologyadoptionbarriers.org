@@ -108,9 +108,9 @@ const BibliographyArticlePage = () => {
           <h2 className={H2_CLASSES}>Why Was the Model Created?</h2>
           <p className={PARAGRAPH_CLASSES}>
             During the late 1980s and early 1990s, many US firms faced intensifying competitive
-            pressure. A recurring argument in the management literature of the period was that
-            large information-technology investments were not translating into proportional gains
-            in productivity or competitiveness (sometimes framed as the &ldquo;productivity
+            pressure. A recurring argument in the management literature of the period was that large
+            information-technology investments were not translating into proportional gains in
+            productivity or competitiveness (sometimes framed as the &ldquo;productivity
             paradox&rdquo;). One common diagnosis, and the starting premise of BPR, was that
             organizations had used IT to automate existing processes rather than to redesign them.
           </p>
@@ -503,9 +503,9 @@ const BibliographyArticlePage = () => {
             <li>
               <strong>Pilot and learn (common modern practice):</strong> Subsequent BPR and BPM
               practice typically emphasizes piloting redesigned processes at small scale before
-              enterprise rollout. This is more of a later, risk-adjusted refinement than a
-              principle of Hammer and Champy&rsquo;s 1993 framing, which more often advocated
-              larger-scale radical change.
+              enterprise rollout. This is more of a later, risk-adjusted refinement than a principle
+              of Hammer and Champy&rsquo;s 1993 framing, which more often advocated larger-scale
+              radical change.
             </li>
           </ul>
 
@@ -843,10 +843,10 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Following Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
-            BPR sits in a broader stream of process-improvement and transformation frameworks,
-            some of which precede it, run parallel to it, or build partly on its ideas. The
-            entries below identify frameworks commonly discussed alongside BPR rather than direct
-            descendants of it:
+            BPR sits in a broader stream of process-improvement and transformation frameworks, some
+            of which precede it, run parallel to it, or build partly on its ideas. The entries below
+            identify frameworks commonly discussed alongside BPR rather than direct descendants of
+            it:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
@@ -869,8 +869,8 @@ const BibliographyArticlePage = () => {
               </strong>{' '}
               Lean has deeper roots in the Toyota Production System (originating decades earlier)
               and was popularized in the West through Womack and Jones&rsquo; work. It is
-              contemporaneous with BPR rather than a successor, and emphasizes waste elimination
-              and continuous flow rather than one-time radical redesign.
+              contemporaneous with BPR rather than a successor, and emphasizes waste elimination and
+              continuous flow rather than one-time radical redesign.
             </li>
             <li>
               <strong>
@@ -885,8 +885,8 @@ const BibliographyArticlePage = () => {
                 ):
               </strong>{' '}
               Six Sigma originated at Motorola in the mid-1980s, predating BPR, and emphasizes
-              statistical reduction of process variation. It is commonly discussed alongside BPR
-              as an alternative or complementary process-improvement tradition.
+              statistical reduction of process variation. It is commonly discussed alongside BPR as
+              an alternative or complementary process-improvement tradition.
             </li>
             <li>
               <strong>Digital Transformation (Westerman et al., 2014):</strong> Later digital
@@ -897,8 +897,8 @@ const BibliographyArticlePage = () => {
             <li>
               <strong>Agile Methodology (Beck et al., 2001):</strong> Agile emerged from software
               engineering practice and has its own distinct intellectual lineage. It is often
-              discussed in the same frame as BPR because both emphasize rethinking work, but the
-              two have largely independent origins.
+              discussed in the same frame as BPR because both emphasize rethinking work, but the two
+              have largely independent origins.
             </li>
             <li>
               <strong>BPR implementation research:</strong> Subsequent studies have examined BPR
