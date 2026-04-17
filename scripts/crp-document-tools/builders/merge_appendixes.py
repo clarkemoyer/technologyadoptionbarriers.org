@@ -25,7 +25,7 @@ from zoneinfo import ZoneInfo
 
 from docx import Document
 from docx.shared import Pt, Twips
-from docx.enum.text import WD_ALIGN_PARAGRAPH
+from docx.enum.text import WD_ALIGN_PARAGRAPH, WD_BREAK
 from docx.enum.section import WD_ORIENT
 from docx.enum.table import WD_TABLE_ALIGNMENT
 from docx.oxml.ns import qn, nsdecls
@@ -233,7 +233,7 @@ def add_appendix_title_page(doc, letter, subtitle):
     # Page break
     p = doc.add_paragraph()
     run = p.add_run()
-    run.add_break(docx.enum.text.WD_BREAK.PAGE)
+    run.add_break(WD_BREAK.PAGE)
 
     # Combined title - "APPENDIX X: Subtitle" as single Heading1 for TOC navigation
     title_p = doc.add_paragraph()
@@ -243,7 +243,7 @@ def add_appendix_title_page(doc, letter, subtitle):
     run = title_p.add_run(f"APPENDIX {letter}: {subtitle}")
     set_run_font(run, bold=True)
 
-    return title_p, None
+    return title_p
 
 
 def parse_markdown_table(lines):

@@ -3,8 +3,9 @@
 TABS CRP Comprehensive Statistics Validator v5
 ===============================================
 v5 extends v4 with full coverage of the frozen CRP N=200 pipeline outputs,
-bringing total check coverage from ~230 to ~400 individual assertions. It is
-a strict superset of v4: every v4 category is preserved unchanged.
+bringing total check coverage from ~230 to 277 individual assertions across
+42 categories. It is a strict superset of v4: every v4 category is preserved
+unchanged.
 
 Additions over v4 (new categories 31-42):
   31: Top-3 pick counts — every top-10 picked barrier's N and % must appear
@@ -60,7 +61,7 @@ New categories over v3:
        U+2212 is preserved when used for negative numbers).
 
 Usage:
-  python3 validate_crp_stats_v4.py [--docx PATH] [--csv PATH] [--repo PATH]
+  python3 validate_crp_stats_v5.py [--docx PATH] [--csv PATH] [--repo PATH]
 
 If paths are not provided, the script auto-discovers them in the workspace.
 """

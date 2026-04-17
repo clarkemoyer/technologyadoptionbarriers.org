@@ -17,7 +17,7 @@ Usage:
 Requirements:
     - CRP must be unpacked first (unpack.py)
     - Repo must be cloned (git clone --depth 1 ...)
-    - Python 3.8+ with json, re, os, sys (stdlib only)
+    - Python 3.9+ with json, re, os, sys, zoneinfo (stdlib only)
 
 The script produces:
     - Pipeline Snapshots/pipeline_stats_<timestamp>.json

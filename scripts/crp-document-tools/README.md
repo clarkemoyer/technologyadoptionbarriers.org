@@ -23,7 +23,7 @@ These scripts assume:
 
 - A local copy of the CRP workspace folder (`! Clarke Moyer Smeal CRP - TABS/`) on disk with the CRP `.docx`, appendix markdown files, and the frozen CRP CSV
 - A local clone of this repo in `/tmp/tabs-site/` (or one of the alternate paths each script tries)
-- Python 3.10+ with `python-docx`, `lxml`, `numpy`, `pandas`
+- Python 3.10+ with `python-docx`, `lxml`, `numpy`, `pandas`, `scipy` (validators), `pypdf` (validate_appendixes.py only)
 
 They do **not** assume any cloud secrets, API keys, or GitHub authentication. Everything runs locally against files on disk.
 

@@ -10,6 +10,12 @@ Uses the root CRP as the base document, strips old appendix content
 from the first APPENDIX heading onward, then appends new A-D content
 from markdown sources. Preserves the existing List of Appendices
 (already correct for A-D in the root CRP).
+
+ARCHIVE NOTE: This is an archived variant (v2) kept for reference only.
+It hard-codes session-specific absolute paths and timestamped filenames and
+is intentionally non-portable - it will not run outside the original author
+workspace. Use the current merge_appendixes.py (in the parent folder) for
+all new work; it uses glob-based workspace discovery and accepts CLI args.
 """
 
 import re

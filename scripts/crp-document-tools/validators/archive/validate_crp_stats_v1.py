@@ -211,7 +211,7 @@ def main():
     failed = 0
 
     def check(name, expected, text_to_search=None):
-        global checks, passed, failed
+        nonlocal checks, passed, failed
         checks += 1
         search = text_to_search or v2_text
         # Format expected to 2 decimal places
