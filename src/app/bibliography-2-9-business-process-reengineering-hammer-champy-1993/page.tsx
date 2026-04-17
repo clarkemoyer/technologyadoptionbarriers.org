@@ -541,8 +541,8 @@ const BibliographyArticlePage = () => {
           <h3 className={H3_CLASSES}>Main Weaknesses</h3>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>High reported failure rate:</strong> Secondary sources, and Hammer&rsquo;s
-              own later writing, commonly cite a high share of BPR initiatives (often reported at
+              <strong>High reported failure rate:</strong> Secondary sources, and Hammer&rsquo;s own
+              later writing, commonly cite a high share of BPR initiatives (often reported at
               roughly 70%) as failing to deliver expected results. Specific failure-rate figures
               vary by source and methodology and should be treated as indicative rather than
               precise.
@@ -611,10 +611,10 @@ const BibliographyArticlePage = () => {
               Methodology could be applied by consulting firms and organizations.
             </li>
             <li>
-              <strong>Fueled a significant consulting practice:</strong> Secondary sources
-              describe BPR as a major driver of management-consulting work in the mid-1990s, with
-              multiple large firms (notably including CSC Index, where Champy was an executive)
-              developing branded BPR methodologies.
+              <strong>Fueled a significant consulting practice:</strong> Secondary sources describe
+              BPR as a major driver of management-consulting work in the mid-1990s, with multiple
+              large firms (notably including CSC Index, where Champy was an executive) developing
+              branded BPR methodologies.
             </li>
             <li>
               <strong>Popularized ambitious redesign:</strong> Widely cited BPR case studies
@@ -693,14 +693,14 @@ const BibliographyArticlePage = () => {
           <ul className={BODY_LIST_CLASSES}>
             <li>
               <strong>Reported across industries:</strong> BPR has reportedly been applied in
-              manufacturing, services, finance, healthcare, and government, though reported
-              outcomes and methodologies vary widely.
+              manufacturing, services, finance, healthcare, and government, though reported outcomes
+              and methodologies vary widely.
             </li>
             <li>
               <strong>Reported across organization sizes:</strong> BPR implementations have been
               described in large enterprises and, less commonly, smaller organizations;
-              implementation complexity and resource requirements appear to scale with
-              organization size.
+              implementation complexity and resource requirements appear to scale with organization
+              size.
             </li>
             <li>
               <strong>Reported across process types:</strong> Case reports cover manufacturing,
@@ -739,11 +739,11 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Relevance to Technology Adoption</h2>
           <p className={PARAGRAPH_CLASSES}>
-            Business Process Reengineering addresses technology adoption by arguing that
-            technology adoption should drive organizational and process redesign rather than
-            simply automating existing processes. In Hammer and Champy&rsquo;s framing,
-            organizations should ask not how to automate current processes but what fundamentally
-            different processes the technology makes possible.
+            Business Process Reengineering addresses technology adoption by arguing that technology
+            adoption should drive organizational and process redesign rather than simply automating
+            existing processes. In Hammer and Champy&rsquo;s framing, organizations should ask not
+            how to automate current processes but what fundamentally different processes the
+            technology makes possible.
           </p>
 
           <h3 className={H3_CLASSES}>Barriers to Technology-Enabled Redesign Identified</h3>
@@ -841,11 +841,10 @@ const BibliographyArticlePage = () => {
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Business Process Management (BPM):</strong> The broader BPM discipline
-              emerged through the 1990s and 2000s (see, e.g., Zur Muehlen &amp; Recker, 2008 on
-              process modeling languages) and differs from BPR by emphasizing ongoing process
-              monitoring, measurement, and iterative improvement rather than one-time radical
-              redesign.
+              <strong>Business Process Management (BPM):</strong> The broader BPM discipline emerged
+              through the 1990s and 2000s (see, e.g., Zur Muehlen &amp; Recker, 2008 on process
+              modeling languages) and differs from BPR by emphasizing ongoing process monitoring,
+              measurement, and iterative improvement rather than one-time radical redesign.
             </li>
             <li>
               <strong>
