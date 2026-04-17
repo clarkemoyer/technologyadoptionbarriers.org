@@ -179,7 +179,55 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 6. Preceding Models or Theories */}
+        {/* 6. What Does the Model Measure? */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>What Does the Model Measure?</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            The Theory of Planned Behavior is a measurement model. Ajzen (1991) and Ajzen&rsquo;s
+            subsequent TPB measurement guidance specify how each construct is operationalized:
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Attitude Toward the Behavior (AB):</strong> Overall favorable/unfavorable
+              evaluation of performing the behavior; typically measured via semantic-differential
+              items (good-bad, pleasant-unpleasant, beneficial-harmful, wise-foolish).
+            </li>
+            <li>
+              <strong>Subjective Norm (SN):</strong> Perceived social pressure from important
+              referents; measured via direct perception items and underlying normative-belief
+              &times; motivation-to-comply products.
+            </li>
+            <li>
+              <strong>Perceived Behavioral Control (PBC):</strong> Perceived ease/difficulty of
+              performing the behavior, including both self-efficacy and controllability
+              facets. Measured via direct items (e.g., &ldquo;For me to perform X is easy/hard&rdquo;)
+              and underlying control-belief &times; power-of-factor products.
+            </li>
+            <li>
+              <strong>Behavioral Intention (BI):</strong> Self-reported plan or willingness to
+              perform the behavior.
+            </li>
+            <li>
+              <strong>Behavior (B):</strong> Observed action, ideally matched to intent on
+              action, target, context, and time (principle of compatibility inherited from TRA).
+            </li>
+            <li>
+              <strong>Underlying Beliefs:</strong> Behavioral beliefs (bi) &times; outcome
+              evaluations (ei), normative beliefs (nj) &times; motivation to comply (mj), and
+              control beliefs (ck) &times; power factors (pk) - typically elicited through
+              open-ended belief elicitation before scale construction.
+            </li>
+          </ul>
+          <p className={PARAGRAPH_CLASSES}>
+            Ajzen (1991) and the accompanying construction guidance (Ajzen, 2006) describe belief
+            elicitation, pilot testing, and scale construction procedures. TPB has an extensive
+            validation record across health, consumer, and technology adoption behaviors;
+            meta-analyses commonly report that TPB variables explain a substantial portion of
+            variance in intention and a smaller but meaningful portion of variance in behavior.
+          </p>
+        </section>
+
+        {/* 7. Preceding Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Preceding Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -229,7 +277,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 7. Describe the Model */}
+        {/* 8. Describe the Model */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Describe the Model</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -331,7 +379,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 8. Key Contributions */}
+        {/* 9. Key Contributions */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Key Contributions</h2>
           <ul className={BODY_LIST_CLASSES}>
@@ -363,7 +411,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 9. Internal Validity */}
+        {/* 10. Internal Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Internal Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -396,7 +444,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 10. External Validity */}
+        {/* 11. External Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>External Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -427,7 +475,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 11. Relevance to Technology Adoption */}
+        {/* 12. Relevance to Technology Adoption */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Relevance to Technology Adoption</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -494,7 +542,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 12. Following Models or Theories */}
+        {/* 13. Following Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Following Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -532,7 +580,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 13. References */}
+        {/* 14. References */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>References</h2>
           <ol className={REFERENCES_OL_CLASSES}>
@@ -557,7 +605,7 @@ const BibliographyArticlePage = () => {
           </ol>
         </section>
 
-        {/* 14. Further Reading */}
+        {/* 15. Further Reading */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Further Reading</h2>
           <ol className={REFERENCES_OL_CLASSES}>
@@ -580,7 +628,7 @@ const BibliographyArticlePage = () => {
           </ol>
         </section>
 
-        {/* 15. Series Navigation */}
+        {/* 16. Series Navigation */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Series Navigation</h2>
           <div className="space-y-4">
