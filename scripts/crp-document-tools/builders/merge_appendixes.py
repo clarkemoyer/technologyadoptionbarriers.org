@@ -606,7 +606,7 @@ def main():
     else:
         _est = ZoneInfo('America/New_York')
         _now = datetime.now(_est)
-        _ts = _now.strftime('%-m-%-d-%Y %H%M EST')
+        _ts = f"{_now.month}-{_now.day}-{_now.year} {_now.strftime('%H%M')} {_now.strftime('%Z')}"
         out_root = workspace if workspace else os.path.dirname(crp_path)
         output_path = os.path.join(out_root, f"Clarke Moyer - DBA Culminating Research Project - Product Development ({_ts}).docx")
 

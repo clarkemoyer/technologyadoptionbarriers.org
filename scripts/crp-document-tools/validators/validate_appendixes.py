@@ -188,7 +188,8 @@ def count_pdf_hyperlinks(pdf_path):
                     if o.get('/Subtype') == '/Link':
                         if '/A' in o and o['/A'].get('/URI'):
                             ext_links += 1
-                except:
+                except Exception:
+                    # Skip unparseable annotation objects (corrupt or non-standard)
                     pass
         return ext_links
     except Exception as e:
@@ -227,6 +228,10 @@ def validate_captures():
         if result["pdf_exists"]:
             result["pdf_pages"] = count_pdf_pages(pdf_path)
             result["pdf_links"] = count_pdf_hyperlinks(pdf_path)
+            # Normalize errors to strings for uniform downstream handling
+            if isinstance(result["pdf_links"], str) and result["pdf_links"].startswith("ERROR"):
+                result["pdf_links_error"] = result["pdf_links"]
+                result["pdf_links"] = None
 
         results.append(result)
 
@@ -257,40 +262,42 @@ def check_cross_references(appendix_texts):
     """Check that cross-references between appendixes are consistent."""
     findings = []
 
-    # Define expected cross-references
-    expected_refs = {
-        # (from_appendix, should_reference, description)
-        ("A", "C", "Appendix A should reference Appendix C for psychometric validation"),
-        ("A", "C.1", "Appendix A should reference C.1 for Comprehensive Analysis Report"),
-        ("B", "C", "Appendix B should reference Appendix C for data quality pipeline"),
-        ("B", "C.2", "Appendix B should reference C.2 for reproducible analysis scripts"),
-        ("B", "A", "Appendix B (B.7) should reference Appendix A for concept mapping"),
-        ("B", "D.2", "Appendix B should reference D.2 for IRB"),
-        ("C", "B", "Appendix C could cross-reference Appendix B for platform context"),
-        ("D", "B", "Appendix D could cross-reference Appendix B for data archive"),
-    }
+    # Define expected cross-references.
+    # Each tuple: (from_appendix, should_reference, description, required)
+    # required=True  -> status MISSING if not found (hard expectation)
+    # required=False -> status OPTIONAL if not found (soft/informational)
+    expected_refs = [
+        ("A", "C",   "Appendix A should reference Appendix C for psychometric validation",             True),
+        ("A", "C.1", "Appendix A should reference C.1 for Comprehensive Analysis Report",              True),
+        ("B", "C",   "Appendix B should reference Appendix C for data quality pipeline",               True),
+        ("B", "C.2", "Appendix B should reference C.2 for reproducible analysis scripts",              True),
+        ("B", "A",   "Appendix B (B.7) should reference Appendix A for concept mapping",               True),
+        ("B", "D.2", "Appendix B should reference D.2 for IRB",                                        True),
+        ("C", "B",   "Appendix C could cross-reference Appendix B for platform context",               False),
+        ("D", "B",   "Appendix D could cross-reference Appendix B for data archive",                   False),
+    ]
 
-    for from_app, ref_target, description in expected_refs:
+    for from_app, ref_target, description, required in expected_refs:
         if from_app not in appendix_texts:
             continue
-        text = appendix_texts[from_app]
+        text_lower = appendix_texts[from_app].lower()
 
-        # Check for reference to the target
+        # Case-insensitive search: check "appendix X" and bare sub-reference patterns
         patterns = [
-            f"Appendix {ref_target}",
-            f"appendix {ref_target}",
+            f"appendix {ref_target.lower()}",
         ]
-        # For sub-references like C.1, also check just the pattern
         if "." in ref_target:
-            patterns.append(ref_target)
+            patterns.append(ref_target.lower())
 
-        found = any(p in text for p in patterns)
+        found = any(p in text_lower for p in patterns)
+        status = "PASS" if found else ("MISSING" if required else "OPTIONAL")
         findings.append({
             "from": from_app,
             "to": ref_target,
             "description": description,
+            "required": required,
             "found": found,
-            "status": "PASS" if found else "MISSING",
+            "status": status,
         })
 
     return findings
@@ -633,12 +640,18 @@ def main():
     xref_findings = check_cross_references(appendix_texts)
     pass_count = sum(1 for f in xref_findings if f["status"] == "PASS")
     miss_count = sum(1 for f in xref_findings if f["status"] == "MISSING")
+    opt_count  = sum(1 for f in xref_findings if f["status"] == "OPTIONAL")
 
     for f in xref_findings:
-        icon = "PASS" if f["status"] == "PASS" else "MISS"
+        if f["status"] == "PASS":
+            icon = "PASS"
+        elif f["status"] == "MISSING":
+            icon = "MISS"
+        else:
+            icon = "OPT "
         print(f"  [{icon}] {f['from']} -> {f['to']}: {f['description']}")
 
-    print(f"\n  Cross-references: {pass_count} PASS, {miss_count} MISSING")
+    print(f"\n  Cross-references: {pass_count} PASS, {miss_count} MISSING, {opt_count} OPTIONAL")
 
     # =========================================================================
     # SECTION 5: Key Number Consistency
@@ -745,7 +758,7 @@ def main():
     print(f"  Total capture pages: {total_pages}")
     print(f"  Total hyperlinks:    {total_links}")
     print(f"  Appendix words:      {total_words}")
-    print(f"  Cross-references:    {pass_count} PASS / {miss_count} MISSING")
+    print(f"  Cross-references:    {pass_count} PASS / {miss_count} MISSING / {opt_count} OPTIONAL")
     print(f"  Page count issues:   {issues_found}")
     print(f"  Inline claim issues: {inline_issues}")
     print(f"  Stale content flags: {len(stale_findings)}")

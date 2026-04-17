@@ -15,7 +15,7 @@ Static assertion checks that walk the CRP `.docx` text and verify every quantita
 
 | File                                   | Date          | Notes                       |
 | -------------------------------------- | ------------- | --------------------------- |
-| `archive/validate_crp_stats_v1.py`     | 2026-04-02    | Initial release, 23 checks  |
+| `archive/validate_crp_stats_v1.py`     | 2026-04-02    | Initial release, ~93 checks across 14 categories |
 | `archive/validate_crp_stats_v2.py`     | 2026-04-11    | Expanded to ~150 checks     |
 | `archive/validate_crp_stats_merged.py` | 2026-04-11    | One-off merge variant of v2 |
 | `archive/validate_crp_stats_v3.py`     | 2026-04-16 AM | ~200 checks, 20 categories  |
