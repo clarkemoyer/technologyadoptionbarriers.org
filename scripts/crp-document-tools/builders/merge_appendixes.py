@@ -17,7 +17,6 @@ Usage:
 
 import re
 import os
-import copy
 import sys
 import glob as globmod
 import argparse
@@ -25,13 +24,12 @@ from datetime import datetime
 from zoneinfo import ZoneInfo
 
 from docx import Document
-from docx.shared import Pt, Inches, Twips, Cm, Emu
+from docx.shared import Pt, Twips
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.enum.section import WD_ORIENT
 from docx.enum.table import WD_TABLE_ALIGNMENT
 from docx.oxml.ns import qn, nsdecls
 from docx.oxml import parse_xml
-from lxml import etree
 
 # ── Configuration constants ─────────────────────────────────────────────
 

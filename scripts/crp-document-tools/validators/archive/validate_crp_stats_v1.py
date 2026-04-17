@@ -28,8 +28,10 @@ def get_dur(r):
     try: return int(r[col_idx['Duration (in seconds)']])
     except: return None
 
-v2 = [r for r in data if r[col_idx['StartDate']] >= '2026-03-23 14:00:00'
-      or r[col_idx.get('ResponseId', col_idx.get('Response ID', 0))].strip() == 'R_1QK12IJpHjC3wd6']
+v2 = [r for r in data if r[col_idx['StartDate']] >= '2026-03-23 14:00:00']
+# NOTE: A single-response exception by ResponseId was used in the original workspace version
+# to include a qualifying pilot response. That identifier has been removed from version control;
+# re-filter by StartDate only is correct for the final CRP-200 dataset.
 clean = [r for r in v2 if get_dur(r) and get_dur(r) >= 480
          and r[col_idx["Q10-28_Barriers_19"]].strip() == "Major Barrier"
          and r[col_idx["Q47-64_Readiness_18"]].strip() == "Low Readiness/Capability"

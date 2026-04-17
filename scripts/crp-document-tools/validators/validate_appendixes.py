@@ -21,18 +21,16 @@ Requires: pypdf (pip install pypdf)
 
 import os
 import re
-import json
 import sys
 import glob
 import argparse
-from pathlib import Path
 from datetime import datetime
 
 # Try importing pypdf
 try:
     from pypdf import PdfReader
 except ImportError:
-    print("ERROR: pypdf not installed. Run: pip install pypdf --break-system-packages")
+    print("ERROR: pypdf not installed. Run: pip install pypdf  (inside a virtualenv or with pipx)")
     sys.exit(1)
 
 # =============================================================================
@@ -239,22 +237,6 @@ def validate_captures():
 # Text Extraction from Markdown
 # =============================================================================
 
-def extract_page_claims(text, label_pattern):
-    """Extract page count claims from markdown text matching a pattern."""
-    claims = []
-    # Look for patterns like "N pages" or "N-page"
-    for match in re.finditer(r'(\d+)[\s-]page[s]?', text):
-        # Get context (50 chars before and after)
-        start = max(0, match.start() - 80)
-        end = min(len(text), match.end() + 80)
-        context = text[start:end].replace('\n', ' ').strip()
-        claims.append({
-            "pages": int(match.group(1)),
-            "context": context,
-        })
-    return claims
-
-
 def count_words(text):
     """Count words in markdown text, excluding table formatting."""
     # Remove markdown table separators
@@ -391,8 +373,8 @@ def check_number_consistency(appendix_texts):
         },
         {
             "name": "Validation check count (CRP)",
-            "expected": "84",
-            "pattern": r"84\s+(?:CRP\s+)?(?:body\s+)?checks",
+            "expected": "277",
+            "pattern": r"277\s+(?:CRP\s+)?(?:body\s+)?checks",
         },
         {
             "name": "Median completion time",

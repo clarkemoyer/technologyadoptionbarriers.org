@@ -42,13 +42,14 @@ Usage:
 """
 
 import json, re, os, sys, argparse
-from datetime import datetime, timezone, timedelta
+from datetime import datetime
+from zoneinfo import ZoneInfo
 
-EST = timezone(timedelta(hours=-5))
+NY = ZoneInfo('America/New_York')
 
 def get_timestamp():
-    now = datetime.now(EST)
-    return now.strftime("%-m-%-d-%Y %H%M EST")
+    now = datetime.now(NY)
+    return now.strftime(f"{now.month}-{now.day}-%Y %H%M %Z")
 
 def strip_xml(xml):
     text = re.sub(r'<[^>]+>', ' ', xml)

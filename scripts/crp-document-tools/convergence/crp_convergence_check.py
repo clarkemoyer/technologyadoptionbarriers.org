@@ -30,16 +30,17 @@ import re
 import os
 import sys
 import argparse
-from datetime import datetime, timezone, timedelta
+from datetime import datetime
+from zoneinfo import ZoneInfo
 
-# EST timezone offset
-EST = timezone(timedelta(hours=-5))
+# Use the real America/New_York timezone (handles EST vs EDT correctly)
+NY = ZoneInfo('America/New_York')
 
 
 def get_timestamp():
-    """Return EST timestamp string for filenames."""
-    now = datetime.now(EST)
-    return now.strftime("%-m-%-d-%Y %H%M EST")
+    """Return a local-time timestamp string for filenames."""
+    now = datetime.now(NY)
+    return now.strftime(f"{now.month}-{now.day}-%Y %H%M %Z")
 
 
 def strip_xml_tags(xml_text):
