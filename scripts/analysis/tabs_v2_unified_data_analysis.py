@@ -1916,6 +1916,11 @@ def _build_item_descriptives(rows, idx):
         out = []
         for i, col in enumerate(cols, start=1):
             if col not in idx:
+                # Emit a stable placeholder so the output array length is
+                # always 18/17/8 regardless of CSV schema, allowing consumers
+                # and validators to index by position without defensive checks.
+                out.append({"item": f"{prefix}{i}", "text": labels[i],
+                            "mean": None, "sd": None, "n": 0})
                 continue
             col_idx = idx[col]
             vals = []
@@ -1951,13 +1956,17 @@ def _build_item_descriptives(rows, idx):
 
 def _build_construct_grand(rows, idx):
     def gm(cols, scale):
-        vals = _person_means_rows(rows, cols, scale, idx)
-        if not vals:
+        raw = _person_means_rows(rows, cols, scale, idx)
+        # Filter out None entries (respondents whose items were all missing or
+        # all "Don't Know").  Using len(raw) would overcount n and could expose
+        # {mean: None, sd: None, n: >0} when every person mean is None.
+        valid_means = [v for v in raw if v is not None]
+        if not valid_means:
             return {"mean": None, "sd": None, "n": 0}
-        m, sd = mean_sd(vals)
+        m, sd = mean_sd(valid_means)
         return {"mean": round(m, 4) if m is not None else None,
                 "sd": round(sd, 4) if sd is not None else None,
-                "n": len(vals)}
+                "n": len(valid_means)}
 
     return {
         "barriers":  gm(BARRIER_COLS,  BARRIER_SCALE),
