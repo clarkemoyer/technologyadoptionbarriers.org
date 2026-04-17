@@ -121,8 +121,9 @@ const BibliographyArticlePage = () => {
             captured the unique facets influencing information systems decisions.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            The authors observed that prior IT adoption models like TAM offered narrower constructs
-            (usefulness and ease of use) but lacked the behavioral intention framework of TPB. They
+            The authors observed that prior IT adoption models like TAM offered narrower attitudinal
+            constructs (usefulness and ease of use) but lacked the social (subjective norm) and
+            control (perceived behavioral control) determinants of intention present in TPB. They
             conceptualized DTPB as decomposing the three TPB belief categories into multiple
             technology-specific dimensions. Attitudinal beliefs decompose into perceived usefulness,
             perceived ease of use (complexity), and compatibility (from Rogers); normative beliefs
@@ -328,8 +329,10 @@ const BibliographyArticlePage = () => {
               operate through separate pathways, none fully mediating others.
             </li>
             <li>
-              <strong>Large-scale validation:</strong> Tested with 786 university users across
-              multiple IT systems providing adequate statistical power for complex model estimation.
+              <strong>Large-scale validation:</strong> Tested with 786 university users (582
+              undergraduate, 204 MBA) at a single business school computing resource center,
+              providing adequate statistical power for complex model estimation and direct
+              comparison of three competing theoretical models in the same sample.
             </li>
             <li>
               <strong>Comparative design:</strong> Direct comparison with competing theories (TAM
@@ -404,7 +407,8 @@ const BibliographyArticlePage = () => {
             <li>
               <strong>Decomposed social and control constructs:</strong> Clarified how normative
               beliefs split into peer and superior influence, while control beliefs split into
-              self-efficacy and facilitating conditions in technology adoption models.
+              self-efficacy, resource facilitating conditions, and technology facilitating
+              conditions in technology adoption models.
             </li>
             <li>
               <strong>IT adoption theory advancement:</strong> Created framework synthesizing
@@ -464,8 +468,9 @@ const BibliographyArticlePage = () => {
               system use differs from mandatory workplace IT implementations.
             </li>
             <li>
-              <strong>Single-system limitation:</strong> While tested on multiple systems, all
-              systems remained relatively simple university-focused applications.
+              <strong>Single-system limitation:</strong> Tested on only one computing resource
+              center (document/presentation production facility) in a single university setting,
+              limiting generalization to other types of IT systems and organizational contexts.
             </li>
             <li>
               <strong>Structural generalization:</strong> Three-component belief structure of TPB is
