@@ -379,21 +379,25 @@ const BibliographyArticlePage = () => {
           <h2 className={H2_CLASSES}>Key Contributions</h2>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Technology-specific behavioral framework:</strong> Established that technology
-              acceptance requires technology-specific operationalization of behavioral constructs.
+              <strong>Technology-specific behavioral framework:</strong> Argued that technology
+              acceptance benefits from technology-specific operationalization of behavioral
+              constructs, rather than generic attitude items.
             </li>
             <li>
-              <strong>Parsimonious predictive model:</strong> Demonstrated that two primary beliefs
-              capture substantial variance in technology acceptance.
+              <strong>Parsimonious predictive model:</strong> Proposed that two primary beliefs
+              capture substantial variance in technology acceptance; subsequent studies report
+              supporting evidence across many contexts.
             </li>
             <li>
-              <strong>Quantitative measurement advancement:</strong> Developed reliable scales for
-              measuring perceived usefulness and ease of use, enabling rigorous research.
+              <strong>Quantitative measurement advancement:</strong> Provides validated scales
+              for perceived usefulness and perceived ease of use with reported reliability and
+              validity evidence, enabling replication.
             </li>
             <li>
-              <strong>Technology-specific belief constructs:</strong> Demonstrated that two
-              technology-specific belief constructs (PU and PEOU) predicted acceptance more
-              effectively than generic attitude measures used in prior IS research.
+              <strong>Technology-specific belief constructs:</strong> Reports that two
+              technology-specific belief constructs (PU and PEOU) predicted acceptance in the
+              original sample; the relative performance versus generic attitude measures depends
+              on the comparison and study design.
             </li>
             <li>
               <strong>Template for extended models:</strong> Provided the structural foundation for
@@ -424,10 +428,12 @@ const BibliographyArticlePage = () => {
               all constructs enabling consistent measurement and replication.
             </li>
             <li>
-              <strong>Multi-system validation:</strong> Demonstrated that perceived usefulness and
-              ease of use predicted user acceptance across four application programs in two studies:
-              Study 1 tested WriteOne (email) and XEDIT (file editor) with 112 users; Study 2 tested
-              Chart-Master and Pendraw (graphics packages) with 40 participants.
+              <strong>Multi-system evidence:</strong> Reports that perceived usefulness and
+              perceived ease of use predicted user acceptance across four application programs in
+              two studies: Study 1 tested WriteOne (email) and XEDIT (file editor) with 112 users;
+              Study 2 tested Chart-Master and Pendraw (graphics packages) with 40 participants.
+              Sample sizes are modest; broader generalization rests on the subsequent replication
+              literature.
             </li>
             <li>
               <strong>Correlation and regression analysis:</strong> Used correlation to establish
@@ -470,9 +476,9 @@ const BibliographyArticlePage = () => {
               evidence.
             </li>
             <li>
-              <strong>Self-reported usage measurement:</strong> Demonstrated significant
-              correlations between PU/PEOU beliefs and self-reported usage behavior across both
-              studies.
+              <strong>Self-reported usage measurement:</strong> Reports correlations between
+              PU/PEOU beliefs and self-reported usage behavior across both studies; self-reported
+              usage is a noisy proxy for actual usage and should be interpreted as such.
             </li>
             <li>
               <strong>Extended applications:</strong> Subsequent research successfully extended TAM
