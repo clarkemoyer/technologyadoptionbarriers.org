@@ -396,7 +396,7 @@ const BibliographyArticlePage = () => {
                 </a>
                 ):
               </strong>{' '}
-              Established categories of adopters (innovators, early adopters, early majority, late
+              Articulated categories of adopters (innovators, early adopters, early majority, late
               majority, laggards) based on individual characteristics and risk tolerance. TRI
               operationalizes these differences more precisely through multi-dimensional
               measurement.
@@ -429,7 +429,7 @@ const BibliographyArticlePage = () => {
                 </a>
                 ):
               </strong>{' '}
-              Established perceived usefulness and perceived ease of use as adoption predictors, but
+              Proposed perceived usefulness and perceived ease of use as adoption predictors; the model
               did not fully explore underlying personality dispositions driving these perceptions.
             </li>
             <li>
@@ -459,7 +459,7 @@ const BibliographyArticlePage = () => {
                 </a>
                 ):
               </strong>{' '}
-              Demonstrated that individual innovativeness toward information technology is a stable
+              Argued and reported evidence that individual innovativeness toward information technology can be a stable
               personality trait predicting adoption across systems.
             </li>
           </ul>
@@ -591,7 +591,7 @@ const BibliographyArticlePage = () => {
               dimensions with strong psychometric properties.
             </li>
             <li>
-              <strong>Multidimensional readiness concept:</strong> Demonstrated that technology
+              <strong>Multidimensional readiness concept:</strong> Proposed that technology
               readiness is not unidimensional (acceptance/resistance) but comprises distinct
               psychological components (optimism, innovativeness, discomfort, insecurity).
             </li>
