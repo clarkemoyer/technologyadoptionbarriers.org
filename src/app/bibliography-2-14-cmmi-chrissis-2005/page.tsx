@@ -486,11 +486,10 @@ const BibliographyArticlePage = () => {
               independent capability verification.
             </li>
             <li>
-              <strong>Reported process-improvement benefits:</strong> Published CMMI
-              implementation reports, many authored by SEI-affiliated practitioners or client
-              organizations, describe quality and productivity improvements. Independent,
-              peer-reviewed evaluations are limited and results vary substantially across
-              studies.
+              <strong>Reported process-improvement benefits:</strong> Published CMMI implementation
+              reports, many authored by SEI-affiliated practitioners or client organizations,
+              describe quality and productivity improvements. Independent, peer-reviewed evaluations
+              are limited and results vary substantially across studies.
             </li>
             <li>
               <strong>Influenced government procurement requirements:</strong> US government
@@ -535,11 +534,10 @@ const BibliographyArticlePage = () => {
               approaches improves validity.
             </li>
             <li>
-              <strong>Self-reported organizational benefits:</strong> Organizations reaching
-              higher maturity levels commonly report improved quality, productivity, and
-              predictability. These reports are largely self-reported or SEI-adjacent; the causal
-              contribution of CMMI itself (versus other concurrent process changes) is difficult
-              to isolate.
+              <strong>Self-reported organizational benefits:</strong> Organizations reaching higher
+              maturity levels commonly report improved quality, productivity, and predictability.
+              These reports are largely self-reported or SEI-adjacent; the causal contribution of
+              CMMI itself (versus other concurrent process changes) is difficult to isolate.
             </li>
             <li>
               <strong>Integrated across domains:</strong> Unified framework integrating multiple
