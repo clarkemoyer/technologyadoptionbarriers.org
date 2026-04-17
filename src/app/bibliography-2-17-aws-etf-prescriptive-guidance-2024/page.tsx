@@ -463,14 +463,16 @@ const BibliographyArticlePage = () => {
           <h2 className={H2_CLASSES}>Key Contributions</h2>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Demonstrated rapid transformation feasibility:</strong> AWS EBA proved that
-              significant technology transformations can be delivered within 4-12 week timeframes.
-              Demonstration challenged assumption that major transformations require 12-24+ months.
+              <strong>Claimed rapid transformation feasibility:</strong> AWS reports that
+              significant cloud workloads and transformation outcomes can be delivered within 4-12
+              week EBA engagements. Published outcomes are AWS-authored; independent verification
+              that comparable scope historically required 12-24+ months is limited.
             </li>
             <li>
-              <strong>Articulated immersive collaboration model:</strong> AWS EBA popularized
-              immersive, daily collaboration approach for transformation delivery. Immersion model
-              became industry-recognized best practice.
+              <strong>Articulated immersive collaboration model:</strong> AWS materials describe
+              an immersive, daily-collaboration delivery model for transformation engagements.
+              Whether this constitutes an &ldquo;industry-recognized best practice&rdquo; is a
+              marketing framing more than an independently verified claim.
             </li>
             <li>
               <strong>Codified EBA Playbooks:</strong> AWS documented repeatable EBA Playbooks for
