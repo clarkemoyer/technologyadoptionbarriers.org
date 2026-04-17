@@ -199,17 +199,17 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>Perceived Behavioral Control (PBC):</strong> Perceived ease/difficulty of
-              performing the behavior, including both self-efficacy and controllability
-              facets. Measured via direct items (e.g., &ldquo;For me to perform X is easy/hard&rdquo;)
-              and underlying control-belief &times; power-of-factor products.
+              performing the behavior, including both self-efficacy and controllability facets.
+              Measured via direct items (e.g., &ldquo;For me to perform X is easy/hard&rdquo;) and
+              underlying control-belief &times; power-of-factor products.
             </li>
             <li>
               <strong>Behavioral Intention (BI):</strong> Self-reported plan or willingness to
               perform the behavior.
             </li>
             <li>
-              <strong>Behavior (B):</strong> Observed action, ideally matched to intent on
-              action, target, context, and time (principle of compatibility inherited from TRA).
+              <strong>Behavior (B):</strong> Observed action, ideally matched to intent on action,
+              target, context, and time (principle of compatibility inherited from TRA).
             </li>
             <li>
               <strong>Underlying Beliefs:</strong> Behavioral beliefs (bi) &times; outcome
