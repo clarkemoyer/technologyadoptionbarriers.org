@@ -214,10 +214,14 @@ const BibliographyArticlePage = () => {
             coefficients in the way measurement theories do.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Source note:</strong> Claims below are drawn from the 2005 Chrissis, Konrad, and
-            Shrum textbook, the CMMI v1.1 and subsequent model documents published by SEI/CMMI
-            Institute/ISACA, and commonly cited secondary treatments. Direct page-level verification
-            has not been performed for every claim.
+            <strong>Source note:</strong> Claims below are drawn from the Chrissis, Konrad, and
+            Shrum textbook (CMMI-SE/SW/IPPD/SS v1.1 edition), the CMMI v1.1 and subsequent model
+            documents published by SEI/CMMI Institute/ISACA, and commonly cited secondary
+            treatments. The structural elements verified against the book&rsquo;s Table of Contents
+            include the four process area categories, the 25 process areas, capability levels 0-5,
+            maturity levels 1-5, and generic goals GG 1-5. Historical claims about precursor CMMs
+            and successor constellations, together with the year-to-year evolution narrative, are
+            drawn from secondary sources rather than direct body-text verification.
           </p>
         </section>
 
