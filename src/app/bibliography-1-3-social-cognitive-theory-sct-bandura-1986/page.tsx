@@ -186,7 +186,57 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 6. Preceding Models or Theories */}
+        {/* 6. What Does the Model Measure? */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>What Does the Model Measure?</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            Social Cognitive Theory is a measurement-oriented framework. Bandura (1986) and
+            subsequent scale-development papers specify how each construct is operationalized.
+            Core measured constructs include:
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Self-Efficacy:</strong> Belief in one&rsquo;s capability to execute the
+              courses of action required to produce given attainments. Measured via task-specific
+              self-efficacy scales using confidence ratings across increasingly demanding tasks.
+              Compeau &amp; Higgins (1995) provide a computer self-efficacy scale widely used in
+              technology adoption research.
+            </li>
+            <li>
+              <strong>Outcome Expectations:</strong> Beliefs about the likely consequences of
+              performing a behavior. Typically split into performance outcomes and personal
+              outcomes; measured via multi-item Likert scales.
+            </li>
+            <li>
+              <strong>Personal Goals:</strong> Goal intentions or goal commitment relative to the
+              behavior, measured via self-report of intent, specificity, and challenge level.
+            </li>
+            <li>
+              <strong>Self-Regulation:</strong> Self-monitoring, self-evaluation, and
+              self-reaction - often measured via diary methods or multi-item self-regulation
+              scales.
+            </li>
+            <li>
+              <strong>Social Modeling Exposure:</strong> Degree of observational learning
+              opportunity (observing others perform the behavior); measured via self-reported
+              exposure to role models and peer behavior.
+            </li>
+            <li>
+              <strong>Reciprocal Determinism:</strong> The triadic interaction among personal,
+              behavioral, and environmental factors - not directly measured as a single
+              construct; operationalized by jointly modeling the three sets of variables and
+              their mutual influences.
+            </li>
+          </ul>
+          <p className={PARAGRAPH_CLASSES}>
+            Bandura and subsequent scale developers provide reliability and validity evidence for
+            SCT scales across diverse behavioral domains. In technology adoption contexts,
+            computer self-efficacy (Compeau &amp; Higgins, 1995) is the most widely adapted SCT
+            construct.
+          </p>
+        </section>
+
+        {/* 7. Preceding Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Preceding Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -216,7 +266,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 7. Describe The Model */}
+        {/* 8. Describe The Model */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Describe The Model</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -333,7 +383,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 8. Key Contributions */}
+        {/* 9. Key Contributions */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Key Contributions</h2>
           <ul className={BODY_LIST_CLASSES}>
@@ -368,7 +418,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 9. Internal Validity */}
+        {/* 10. Internal Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Internal Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -409,7 +459,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 10. External Validity */}
+        {/* 11. External Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>External Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -447,7 +497,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 11. Relevance to Technology Adoption */}
+        {/* 12. Relevance to Technology Adoption */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Relevance to Technology Adoption</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -537,7 +587,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 12. Following Models or Theories */}
+        {/* 13. Following Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Following Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -605,7 +655,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 13. References */}
+        {/* 14. References */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>References</h2>
           <ol className={REFERENCES_OL_CLASSES}>
@@ -617,7 +667,7 @@ const BibliographyArticlePage = () => {
           </ol>
         </section>
 
-        {/* 14. Further Reading */}
+        {/* 15. Further Reading */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Further Reading</h2>
           <ol className={REFERENCES_OL_CLASSES}>
@@ -663,7 +713,7 @@ const BibliographyArticlePage = () => {
           </ol>
         </section>
 
-        {/* 15. Series Navigation */}
+        {/* 16. Series Navigation */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Series Navigation</h2>
           <p className={PARAGRAPH_CLASSES}>
