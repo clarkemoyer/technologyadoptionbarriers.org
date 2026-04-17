@@ -92,13 +92,13 @@ const Article16Page = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             Goodhue and Thompson conducted a large-scale empirical study with 662 users across 26
-            departments in two companies using an integrated computer dispatch (ICD) system.
-            The key finding was striking: task-technology fit predicted individual performance (r =
-            .67) far more strongly than utilization alone (r = .24). In other words, how well the
-            system matched the work people actually did mattered more than how much people used it.
-            Users could employ a poorly-fitting system intensively and still fail to improve
-            performance. Conversely, users of a well-fitting system improved performance even with
-            more modest utilization.
+            departments in two companies using an integrated computer dispatch (ICD) system. The key
+            finding was striking: task-technology fit predicted individual performance (r = .67) far
+            more strongly than utilization alone (r = .24). In other words, how well the system
+            matched the work people actually did mattered more than how much people used it. Users
+            could employ a poorly-fitting system intensively and still fail to improve performance.
+            Conversely, users of a well-fitting system improved performance even with more modest
+            utilization.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             This finding flipped conventional adoption wisdom on its head. Organizations typically

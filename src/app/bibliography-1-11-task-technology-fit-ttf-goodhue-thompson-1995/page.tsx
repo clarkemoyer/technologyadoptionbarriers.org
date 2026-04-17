@@ -87,13 +87,12 @@ const BibliographyArticlePage = () => {
             <div>
               <p className="text-xs font-bold uppercase text-blue-900 mb-1">APA (7th ed.)</p>
               <p className="text-sm font-mono">
-                Goodhue, D. L., &amp; Thompson, R. L. (<a
-                  href="#ref-goodhue-1995"
-                  className="text-tabs-teal-deep hover:underline"
-                >
+                Goodhue, D. L., &amp; Thompson, R. L. (
+                <a href="#ref-goodhue-1995" className="text-tabs-teal-deep hover:underline">
                   1995
-                </a>). Task-technology fit and individual performance.{' '}
-                <em>MIS Quarterly</em>, 19(2), 213-236.
+                </a>
+                ). Task-technology fit and individual performance. <em>MIS Quarterly</em>, 19(2),
+                213-236.
               </p>
             </div>
             <div>
