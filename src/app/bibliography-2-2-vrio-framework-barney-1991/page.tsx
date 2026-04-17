@@ -727,9 +727,9 @@ const BibliographyArticlePage = () => {
           <ul className={BODY_LIST_CLASSES}>
             <li>
               <strong>Empirical validation mixed:</strong> Subsequent research has produced mixed
-              support for VRIO predictions. Some studies confirm that VRIO-predicted advantages
-              persist while others find limited relationship between VRIO criteria and actual
-              performance.
+              support for the framework&rsquo;s predictions. Some studies confirm that
+              VRIO-predicted advantages persist while others find limited relationship between VRIO
+              criteria and actual performance.
             </li>
             <li>
               <strong>Industry differences in applicability:</strong> VRIO may better predict
@@ -849,9 +849,13 @@ const BibliographyArticlePage = () => {
               negates resource value.
             </li>
             <li>
-              <strong>Invest in causal ambiguity:</strong> Build adoption advantage through
-              organizational culture, subtle processes, and interconnected routines that competitors
-              will find difficult to understand and imitate.
+              <strong>
+                Emphasize resources with naturally high causal ambiguity or social complexity:
+              </strong>{' '}
+              The framework suggests that adoption advantages rooted in interconnected culture,
+              routines, and tacit know-how are structurally harder for competitors to imitate than
+              those rooted in purchased technology alone (Barney, 1991, p.110). This is a
+              descriptive implication, not a recommendation to obscure processes deliberately.
             </li>
             <li>
               <strong>Develop social capital and relationships:</strong> Build adoption advantages
@@ -1026,6 +1030,26 @@ const BibliographyArticlePage = () => {
                   aria-label="Back to citation 1"
                 ></a>
               </span>
+            </li>
+            <li id="ref-baumol-1982">
+              Baumol, W. J., Panzar, J. C., &amp; Willig, R. D. (1982).{' '}
+              <em>Contestable markets and the theory of industry structure</em>. Harcourt Brace
+              Jovanovich.
+            </li>
+            <li id="ref-becker-1964">
+              Becker, G. S. (1964). <em>Human capital</em>. Columbia University Press.
+            </li>
+            <li id="ref-nelson-1982">
+              Nelson, R. R., &amp; Winter, S. G. (1982).{' '}
+              <em>An evolutionary theory of economic change</em>. Harvard University Press.
+            </li>
+            <li id="ref-tomer-1987">
+              Tomer, J. F. (1987).{' '}
+              <em>Organizational capital: The path to higher productivity and well-being</em>.
+              Praeger.
+            </li>
+            <li id="ref-williamson-1975">
+              Williamson, O. E. (1975). <em>Markets and hierarchies</em>. Free Press.
             </li>
             <li id="ref-barney-1986">
               Barney, J. B. (1986). Strategic factor markets: Expectations, luck, and business
