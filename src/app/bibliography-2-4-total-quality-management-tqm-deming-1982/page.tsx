@@ -558,9 +558,13 @@ const BibliographyArticlePage = () => {
               often reduces costs through waste elimination and defect reduction.
             </li>
             <li>
-              <strong>Empirically validated:</strong> Japanese manufacturing demonstrated that TQM
-              principles enable superior quality and cost simultaneously. American manufacturers
-              subsequently adopted TQM with significant competitive improvement.
+              <strong>Widely attributed practical success:</strong> Secondary sources commonly link
+              post-war Japanese manufacturing performance to adoption of Deming-style quality
+              methods among other factors, and U.S. manufacturers&rsquo; later TQM programs to
+              Deming&rsquo;s influence. Rigorous attribution of firm-level performance improvements
+              specifically to TQM (as opposed to lean practices, the Toyota Production System,
+              broader operational-excellence programs, or market conditions) is contested in the
+              academic literature; see Powell (1995) for one empirical treatment.
             </li>
             <li>
               <strong>Holistic organizational framework:</strong> Addresses systems, processes,
@@ -615,45 +619,52 @@ const BibliographyArticlePage = () => {
         {/* 9. Key Contributions */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Key Contributions</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            Contributions widely attributed to Deming (1982) in the strategic-management and
+            operations-management literatures:
+          </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Paradigm shift in quality thinking:</strong> Changed quality from cost burden
-              to competitive advantage, fundamentally shifting organizational priorities and
-              management philosophy.
+              <strong>Reframing of quality as a management problem:</strong> Deming&rsquo;s argument
+              that poor quality is primarily a consequence of management practice rather than worker
+              effort was an influential reframing of the quality problem in Western management
+              thinking, widely credited in secondary sources.
             </li>
             <li>
-              <strong>Statistical process control legitimacy:</strong> Established statistical
-              methods as central to organizational quality improvement, elevating quantitative rigor
-              in quality management.
+              <strong>Popularization of statistical process control in management practice:</strong>{' '}
+              Deming helped move SPC from a specialist engineering technique into a management
+              vocabulary. The underlying statistical apparatus originates with Shewhart;
+              Deming&rsquo;s contribution was wider diffusion and managerial framing.
             </li>
             <li>
-              <strong>Worker psychology integration:</strong> Incorporated psychological and
-              behavioral insights into quality management, emphasizing worker engagement,
-              motivation, and dignity.
+              <strong>The 14 Points as an influential management checklist:</strong> The 14 Points
+              have become one of the most frequently cited normative lists in quality management and
+              operations research (canonical text: Deming Institute, 2018).
             </li>
             <li>
-              <strong>Systems thinking in management:</strong> Brought systems theory and systems
-              thinking into management practice, emphasizing organizational interdependencies and
-              system optimization.
+              <strong>Quality-cost relationship:</strong> Deming is commonly credited with
+              articulating the argument that quality and cost need not be traded off, through
+              reduction of rework, scrap, and variation. Whether his framework
+              <em>proved</em> this claim is contested; it provided a framing that shaped subsequent
+              operational-excellence work.
             </li>
             <li>
-              <strong>Quality-cost integration:</strong> Demonstrated that quality improvement and
-              cost reduction were simultaneous achievements, not tradeoffs, through process
-              excellence.
+              <strong>Supplier relationship reframing:</strong> Point 4 of the 14 Points (minimize
+              total cost by working with single suppliers on long-term, trust-based relationships)
+              is an influential alternative to the price-based multi-sourcing model prevalent in
+              U.S. manufacturing before the 1980s.
             </li>
             <li>
-              <strong>Supplier relationship transformation:</strong> Changed supplier relationships
-              from adversarial price-based competition to collaborative quality-based partnerships.
+              <strong>Long-term orientation:</strong> Point 1 (constancy of purpose) is commonly
+              credited as an early managerial articulation of what later literatures called
+              &ldquo;long-termism&rdquo; in response to short-term financial performance pressure.
             </li>
             <li>
-              <strong>Long-term competitive advantage framework:</strong> Established long-term
-              thinking and sustained commitment as sources of competitive advantage, countering
-              short-term profit maximization.
-            </li>
-            <li>
-              <strong>Foundation for future quality frameworks:</strong> Created foundation for
-              subsequent quality frameworks including Six Sigma, Lean Manufacturing, and continuous
-              improvement methodologies.
+              <strong>Influence on later frameworks:</strong> Secondary sources describe Six Sigma
+              (Motorola, mid-1980s), Lean Manufacturing (Womack, Jones &amp; Roos, 1990; Womack
+              &amp; Jones, 1996), the Malcolm Baldrige National Quality Award (1987), and ISO 9000
+              as building on, or being partly shaped by, the Deming tradition - though each has
+              distinct antecedents and is not solely derivative of Deming.
             </li>
           </ul>
         </section>
@@ -662,38 +673,40 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Internal Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
-            As a practical management philosophy and methodology, TQM demonstrates strong internal
-            validity through logical coherence and consistency with organizational experience:
+            Deming (1982) is a practitioner-oriented management monograph rather than an empirical
+            study, so &ldquo;internal validity&rdquo; here is assessed as logical coherence and
+            fidelity to the statistical and managerial traditions the book draws on:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Logical consistency:</strong> The core argument that well-designed processes
-              enable quality consistently, that variation reduction improves quality, and that
-              worker engagement improves process design are logically sound and mutually
-              reinforcing.
+              <strong>Logical consistency:</strong> The framework is internally consistent: improved
+              process design reduces variation, reduced variation improves both quality and cost,
+              and worker engagement supports process improvement. These propositions are widely
+              reported as logically coherent, though not independently tested within the book.
             </li>
             <li>
-              <strong>Empirical validation through Japanese manufacturing:</strong> Japanese
-              manufacturing demonstrated convincingly that TQM principles enabled simultaneous
-              achievement of quality and cost advantages, validating core theoretical claims.
+              <strong>Fidelity to Shewhart:</strong> The statistical-control content is a faithful
+              extension of Shewhart (1931, 1939). The common-cause/special-cause distinction, the
+              control-chart methodology, and the PDCA cycle are inherited rather than invented.
             </li>
             <li>
-              <strong>Grounding in psychological theory:</strong> TQM incorporates well-established
-              psychological and organizational behavior principles about motivation, group dynamics,
-              and learning.
+              <strong>Principle-level rather than theorem-level:</strong> The 14 Points are
+              normative principles. They are not derived from formal models or empirical studies
+              within the 1982/1986 books themselves. Secondary sources describe them as
+              distillations of Deming&rsquo;s decades of consulting experience.
             </li>
             <li>
-              <strong>Consistency with statistical theory:</strong> Statistical foundations of TQM
-              rest on established statistical science and control theory.
+              <strong>Consistent with observable organizational phenomena:</strong> The
+              prescriptions align with well-documented organizational phenomena (worker
+              disengagement under heavy monitoring, process-performance effects of variation,
+              coordination costs across silos). The alignment is argued, not formally tested.
             </li>
             <li>
-              <strong>Addresses documented management problems:</strong> TQM explains and provides
-              solutions to well-documented organizational problems: worker disengagement, process
-              variation, quality-cost tradeoffs, and organizational silos.
-            </li>
-            <li>
-              <strong>Systems thinking foundation:</strong> Incorporation of systems theory provides
-              coherent framework for understanding organizational complexity and interdependencies.
+              <strong>Known internal-validity limitations:</strong> The book does not present
+              hypothesis tests, no effect sizes, no control comparisons. Strong claims about
+              managerial practice rest on case illustrations and the author&rsquo;s authority, not
+              on statistical inference - a weakness acknowledged in later empirical TQM research
+              (Saraph et al., 1989; Flynn et al., 1994; Powell, 1995).
             </li>
           </ul>
         </section>
