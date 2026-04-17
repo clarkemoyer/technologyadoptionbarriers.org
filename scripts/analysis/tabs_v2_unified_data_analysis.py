@@ -1858,7 +1858,7 @@ TOP3_COLS = [f"Q29-46_Top3Barriers_{i}" for i in range(1, 19)]
 BARRIER_ITEM_TEXT = {
     # Exact pick-text values from Q29-46_Top3Barriers_* columns in the CRP
     # public CSV (including trailing period). Derived from the non-empty cell
-    # values across the dataset — must match exactly so top3_pick_counts.text
+    # values across the dataset - must match exactly so top3_pick_counts.text
     # agrees with the source CSV label.
     1: "Resistance to change among employees or middle management.",
     2: "Lack of support or clear vision from top leadership (including the board, e.g., governing body, oversight committee).",
