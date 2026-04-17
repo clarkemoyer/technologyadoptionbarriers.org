@@ -152,7 +152,7 @@ const BibliographyArticlePage = () => {
           <h2 className={H2_CLASSES}>Core Concepts and Definitions</h2>
           <p className={PARAGRAPH_CLASSES}>
             The Expectation-Confirmation Model operationalizes post-adoption continuance through
-            five primary constructs adapted from consumer behavior and expectation-confirmation
+            six primary constructs adapted from consumer behavior and expectation-confirmation
             theory:
           </p>
           <ul className={BODY_LIST_CLASSES}>
@@ -285,11 +285,11 @@ const BibliographyArticlePage = () => {
             expectations through actual use experience. The model incorporates a temporal dynamic:
             users form expectations before or during initial adoption, then accumulate actual usage
             experience that either confirms or disconfirms those expectations. The degree of
-            confirmation influences user satisfaction, which in turn influences both continued
-            perception of usefulness and direct continuance intention. Confirmed expectations result
-            in high satisfaction and sustained beliefs in usefulness, encouraging continued usage.
-            Disconfirmed expectations result in low satisfaction and erosion of usefulness beliefs,
-            increasing discontinuance likelihood.
+            confirmation shapes both perceived usefulness and user satisfaction, while perceived
+            usefulness and satisfaction together influence continuance intention. Confirmed
+            expectations result in high satisfaction and sustained beliefs in usefulness,
+            encouraging continued usage. Disconfirmed expectations result in low satisfaction and
+            erosion of usefulness beliefs, increasing discontinuance likelihood.
           </p>
 
           <h3 className={H3_CLASSES}>ECM Causal Mechanisms</h3>
@@ -703,7 +703,7 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-oliver-1980-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                ></a>
+                >↩</a>
               </span>{' '}
               https://doi.org/10.1177/002224378001700405
             </li>
@@ -715,7 +715,7 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-davis-1989-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                ></a>
+                >↩</a>
               </span>{' '}
               https://doi.org/10.2307/249008
             </li>
@@ -728,7 +728,7 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-oliver-1977-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                ></a>
+                >↩</a>
               </span>
             </li>
             <li id="ref-cronin-1992">
