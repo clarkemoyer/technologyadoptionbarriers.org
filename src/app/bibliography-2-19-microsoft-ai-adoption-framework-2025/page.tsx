@@ -834,10 +834,10 @@ const BibliographyArticlePage = () => {
             </p>
             <p className={PARAGRAPH_CLASSES}>
               <Link
-                href="/bibliography-2-20-gartner-hype-cycle-methodology-2025"
+                href="/bibliography-2-20-cmmc-dod-2020"
                 className="text-blue-600 hover:text-blue-800 underline"
               >
-                Next: Gartner Hype Cycle Methodology - Gartner (2025) &rarr;
+                Next: Cybersecurity Maturity Model Certification (CMMC) - U.S. DoD (2020) &rarr;
               </Link>
             </p>
             <p className={`${PARAGRAPH_CLASSES} mt-6`}>
