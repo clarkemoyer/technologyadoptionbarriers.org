@@ -714,7 +714,14 @@ const BibliographyArticlePage = () => {
                   ↩
                 </a>
               </span>{' '}
-              https://doi.org/10.1177/002224378001700405
+              <a
+                href="https://doi.org/10.1177/002224378001700405"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-tabs-teal-deep hover:underline"
+              >
+                https://doi.org/10.1177/002224378001700405
+              </a>
             </li>
             <li id="ref-davis-1989">
               Davis, F. D. (1989). Perceived usefulness, perceived ease of use, and user acceptance
@@ -728,7 +735,14 @@ const BibliographyArticlePage = () => {
                   ↩
                 </a>
               </span>{' '}
-              https://doi.org/10.2307/249008
+              <a
+                href="https://doi.org/10.2307/249008"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-tabs-teal-deep hover:underline"
+              >
+                https://doi.org/10.2307/249008
+              </a>
             </li>
             <li id="ref-oliver-1977">
               Oliver, R. L. (1977). Effect of expectation and disconfirmation on post-exposure
@@ -776,15 +790,31 @@ const BibliographyArticlePage = () => {
             <li id="ref-venkatesh-2003">
               Venkatesh, V., Morris, M. G., Davis, G. B., &amp; Davis, F. D. (2003). User acceptance
               of information technology: Toward a unified view. <em>MIS Quarterly</em>, 27(3),
-              425-478. https://doi.org/10.2307/30036540
+              425-478.{' '}
+              <a
+                href="https://doi.org/10.2307/30036540"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:text-blue-800 underline"
+              >
+                https://doi.org/10.2307/30036540
+              </a>
             </li>
             {/* prettier-ignore */}
-            <li id="ref-delone-2003">DeLone, W. H., &amp; McLean, E. R. (2003). The DeLone and McLean model of information systems success: A ten-year update. <em>Journal of Management Information Systems</em>, 19(4), 9-30. https://doi.org/10.1080/07421222.2003.11045748</li>
+            <li id="ref-delone-2003">DeLone, W. H., &amp; McLean, E. R. (2003). The DeLone and McLean model of information systems success: A ten-year update. <em>Journal of Management Information Systems</em>, 19(4), 9-30. <a href="https://doi.org/10.1080/07421222.2003.11045748" target="_blank" rel="noopener noreferrer">https://doi.org/10.1080/07421222.2003.11045748</a></li>
             <li id="ref-limayem-2007">
               Limayem, M., Hirt, S. G., &amp; Cheung, C. M. (2007). How habit limits the prediction
               of usage: The case of MS Word.{' '}
               <em>ACM SIGMIS Database: the DATABASE for Advances in Information Systems</em>, 38(4),
-              29-46. https://doi.org/10.2307/25148817
+              29-46.{' '}
+              <a
+                href="https://doi.org/10.2307/25148817"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:text-blue-800 underline"
+              >
+                https://doi.org/10.2307/25148817
+              </a>
             </li>
           </ol>
         </section>
