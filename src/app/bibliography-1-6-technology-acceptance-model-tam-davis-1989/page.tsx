@@ -389,15 +389,15 @@ const BibliographyArticlePage = () => {
               supporting evidence across many contexts.
             </li>
             <li>
-              <strong>Quantitative measurement advancement:</strong> Provides validated scales
-              for perceived usefulness and perceived ease of use with reported reliability and
-              validity evidence, enabling replication.
+              <strong>Quantitative measurement advancement:</strong> Provides validated scales for
+              perceived usefulness and perceived ease of use with reported reliability and validity
+              evidence, enabling replication.
             </li>
             <li>
               <strong>Technology-specific belief constructs:</strong> Reports that two
               technology-specific belief constructs (PU and PEOU) predicted acceptance in the
-              original sample; the relative performance versus generic attitude measures depends
-              on the comparison and study design.
+              original sample; the relative performance versus generic attitude measures depends on
+              the comparison and study design.
             </li>
             <li>
               <strong>Template for extended models:</strong> Provided the structural foundation for
@@ -476,9 +476,9 @@ const BibliographyArticlePage = () => {
               evidence.
             </li>
             <li>
-              <strong>Self-reported usage measurement:</strong> Reports correlations between
-              PU/PEOU beliefs and self-reported usage behavior across both studies; self-reported
-              usage is a noisy proxy for actual usage and should be interpreted as such.
+              <strong>Self-reported usage measurement:</strong> Reports correlations between PU/PEOU
+              beliefs and self-reported usage behavior across both studies; self-reported usage is a
+              noisy proxy for actual usage and should be interpreted as such.
             </li>
             <li>
               <strong>Extended applications:</strong> Subsequent research successfully extended TAM
