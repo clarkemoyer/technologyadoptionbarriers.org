@@ -1264,8 +1264,11 @@ class TestExtendedOutputBlocks:
                     "demographics_detailed", "extended_last_updated"):
             assert key in result, f"extended key '{key}' missing from sensitivity_to_json output"
 
-        # Empty defaults
+        # Empty defaults - top3_pick_counts emits 18 zero-count items (stable schema)
         assert result["top3_pick_counts"]["total_n"] == 0
+        assert len(result["top3_pick_counts"]["items"]) == 18
+        assert len(result["top3_pick_counts"]["items_sorted_desc"]) == 18
+        assert all(e["count"] == 0 for e in result["top3_pick_counts"]["items"])
         assert result["item_descriptives"]["barriers"] == []
         assert result["construct_grand"]["barriers"]["n"] == 0
         assert result["demographics_detailed"]["roles"] == []
