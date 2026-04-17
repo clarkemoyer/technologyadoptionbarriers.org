@@ -128,9 +128,13 @@ jobs:
       # to preserve the moment-in-time snapshot used for the CRP submission.
       # To regenerate, delete public/datasets/TABS_V2_CRP_2026_public_dataset.csv
       # from the repo and re-run the pipeline.
+      # FAIL-FAST (PR #1695): no continue-on-error. If the CRP dataset
+      # build is needed (no existing snapshot) and it fails, the whole
+      # workflow must fail so no new JSON reaches src/data/ from a
+      # partially-populated pipeline run. The step's own early-exits
+      # cover the expected skip cases (CSV already frozen).
       - name: Build CRP dataset (N=200)
         id: crp
-        continue-on-error: true
         run: |
           CRP_CSV="public/datasets/TABS_V2_CRP_2026_public_dataset.csv"
           PIPELINE_BRANCH="chore/daily-pipeline-data"
@@ -166,10 +170,12 @@ jobs:
             --skip-review
           echo "produced=true" >> "$GITHUB_OUTPUT"
 
+      # FAIL-FAST (PR #1695): no continue-on-error. If CRP filtering
+      # fails mid-run, the workflow must stop rather than proceed to
+      # commit on stale/mismatched row counts.
       - name: Build CRP-only enriched CSV for analysis
         id: crp_filter
         if: steps.crp.outputs.produced == 'true'
-        continue-on-error: true
         run: |
           python3 - <<'PY'
           import csv, pathlib, sys
@@ -222,15 +228,29 @@ jobs:
           python scripts/analysis/tabs_v2_unified_data_analysis.py \
             "${{ runner.temp }}/qualtrics-enriched.csv" \
             --json "${{ runner.temp }}/live-unified.json"
-          # Extract backward-compatible JSONs for page imports
+          # Extract backward-compatible JSONs for page imports.
+          # FAIL-FAST (PR #1695): hard dict lookups, not .get() defaults.
+          # If the unified JSON is missing 'sensitivity' or 'validation',
+          # KeyError crashes this step, set -euo pipefail fails the job,
+          # and the commit step is gated off by needs:[analyze]. No
+          # empty {} ever reaches src/data/sensitivity-analysis.json.
+          # Do NOT change these to d.get(key, {}) - that re-introduces
+          # the silent-default policy that PR #1695 explicitly removes.
           python3 << 'PYEOF'
-          import json
+          import json, sys
           with open('${{ runner.temp }}/live-unified.json') as f:
               d = json.load(f)
+          for required_key in ('sensitivity', 'validation'):
+              if required_key not in d:
+                  print(f'::error::live-unified.json missing required key: {required_key}', file=sys.stderr)
+                  sys.exit(1)
+              if d[required_key] is None or d[required_key] == {}:
+                  print(f'::error::live-unified.json has empty/null {required_key} block', file=sys.stderr)
+                  sys.exit(1)
           with open('${{ runner.temp }}/sensitivity-analysis.json', 'w') as f:
-              json.dump(d.get('sensitivity', {}), f, indent=2)
+              json.dump(d['sensitivity'], f, indent=2)
           with open('${{ runner.temp }}/live-validation.json', 'w') as f:
-              json.dump(d.get('validation') or {}, f, indent=2)
+              json.dump(d['validation'], f, indent=2)
           print('Extracted: sensitivity-analysis.json, live-validation.json')
           PYEOF
 
@@ -365,15 +385,26 @@ jobs:
             "$CRP_CSV" \
             --crp200 \
             --json "${{ runner.temp }}/crp-unified.json"
-          # Extract backward-compatible JSONs for page imports
+          # Extract backward-compatible JSONs for page imports.
+          # FAIL-FAST (PR #1695): hard dict lookups, not .get() defaults.
+          # Identical policy to the live-unified extractor above - see
+          # that block's header comment for rationale. Do NOT change
+          # these to d.get(key, {}).
           python3 << 'PYEOF'
-          import json
+          import json, sys
           with open('${{ runner.temp }}/crp-unified.json') as f:
               d = json.load(f)
+          for required_key in ('sensitivity', 'validation'):
+              if required_key not in d:
+                  print(f'::error::crp-unified.json missing required key: {required_key}', file=sys.stderr)
+                  sys.exit(1)
+              if d[required_key] is None or d[required_key] == {}:
+                  print(f'::error::crp-unified.json has empty/null {required_key} block', file=sys.stderr)
+                  sys.exit(1)
           with open('${{ runner.temp }}/crp-sensitivity-analysis.json', 'w') as f:
-              json.dump(d.get('sensitivity', {}), f, indent=2)
+              json.dump(d['sensitivity'], f, indent=2)
           with open('${{ runner.temp }}/crp-validation.json', 'w') as f:
-              json.dump(d.get('validation') or {}, f, indent=2)
+              json.dump(d['validation'], f, indent=2)
           print('Extracted: crp-sensitivity-analysis.json, crp-validation.json')
           PYEOF
 
