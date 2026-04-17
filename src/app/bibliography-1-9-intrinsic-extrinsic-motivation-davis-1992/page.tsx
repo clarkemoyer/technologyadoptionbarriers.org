@@ -230,8 +230,9 @@ const BibliographyArticlePage = () => {
                 </a>
                 ):
               </strong>{' '}
-              Established that perceived usefulness and perceived ease of use predict attitudes and
-              intentions to use information systems.
+              Proposed that perceived usefulness and perceived ease of use predict attitudes and
+              intentions to use information systems, with supporting evidence in the original
+              TAM study.
             </li>
             <li>
               <strong>Intrinsic motivation theory (Deci &amp; Ryan):</strong> Provided psychological
@@ -362,8 +363,9 @@ const BibliographyArticlePage = () => {
           <h2 className={H2_CLASSES}>Key Contributions</h2>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Hedonic motivation integration:</strong> Demonstrated that technology adoption
-              requires understanding both utility (extrinsic) and pleasure (intrinsic) motivations.
+              <strong>Hedonic motivation integration:</strong> Argued and reported evidence that
+              technology adoption involves both utility (extrinsic) and pleasure (intrinsic)
+              motivations rather than utility alone.
             </li>
             <li>
               <strong>Enjoyment as adoption driver:</strong> Provided empirical evidence that
