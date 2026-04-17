@@ -1,4 +1,5 @@
 import metricsData from '@/data/qualtrics-metrics.json'
+import dispositionData from '@/data/disposition-summary.json'
 
 type QualtricsMetrics = typeof metricsData
 
@@ -9,6 +10,8 @@ function formatMetricName(metric: string): string {
 export default function QualtricsSurveyStats() {
   const metrics = metricsData.metrics
   const maxValue = Math.max(1, ...metrics.map((m) => m.value))
+  const placesTaken = dispositionData.study?.placesTaken ?? 0
+  const questionCount = metricsData.questionCount ?? 0
 
   return (
     <section className="mx-auto w-full max-w-5xl px-6 py-10">
@@ -28,6 +31,24 @@ export default function QualtricsSurveyStats() {
             <div className="text-sm text-slate-700">
               <span className="font-medium">Org:</span> {metricsData.survey.organizationId}
             </div>
+          </div>
+        </div>
+
+        {/* Live counts from Prolific and Qualtrics */}
+        <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div className="rounded-lg border border-blue-200 bg-blue-50 p-4">
+            <div className="text-sm font-medium text-blue-900">Places Taken</div>
+            <div className="mt-1 text-3xl font-bold text-blue-700">
+              {placesTaken.toLocaleString()}
+            </div>
+            <div className="mt-1 text-xs text-blue-600">Live count from Prolific</div>
+          </div>
+          <div className="rounded-lg border border-orange-200 bg-orange-50 p-4">
+            <div className="text-sm font-medium text-orange-900">Question Count</div>
+            <div className="mt-1 text-3xl font-bold text-orange-700">
+              {questionCount.toLocaleString()}
+            </div>
+            <div className="mt-1 text-xs text-orange-600">Total survey questions</div>
           </div>
         </div>
       </header>
