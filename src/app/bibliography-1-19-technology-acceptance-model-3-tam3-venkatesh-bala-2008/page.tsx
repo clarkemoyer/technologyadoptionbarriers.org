@@ -132,32 +132,111 @@ const BibliographyArticlePage = () => {
             <a href="#ref-venkatesh-2000b" className="text-tabs-teal-deep hover:underline">
               2000
             </a>
-            ) had published research identifying four specific determinants of perceived ease of
-            use: computer anxiety, computer playfulness, perceived enjoyment, and objective
-            usability. However, this research existed separately from TAM2, creating fragmentation
-            where perceived usefulness had comprehensive theoretical coverage while perceived ease
-            of use remained incompletely integrated. Venkatesh and Bala recognized that technology
-            acceptance required comprehensive integration of both usefulness and ease of use
-            determinants, combined with recognition that experience moderates these relationships.
-            Users&rsquo; perceptions change dramatically as they gain experience with technology:
-            initial ease of use concerns diminish through learning, enjoyment may transition from
-            intrinsic to instrumental motivation, and usefulness assessments become more informed
-            through actual usage.
+            ) had published research identifying six determinants of perceived ease of use organized
+            as an anchoring-and-adjustment framework: four anchors (computer self-efficacy,
+            perceptions of external control, computer anxiety, and computer playfulness) that drive
+            initial judgments, and two adjustments (perceived enjoyment and objective usability)
+            that refine judgments once users gain hands-on experience. However, this research
+            existed separately from TAM2, creating fragmentation where perceived usefulness had
+            comprehensive theoretical coverage while perceived ease of use remained incompletely
+            integrated. Venkatesh and Bala recognized that technology acceptance required
+            comprehensive integration of both usefulness and ease of use determinants with explicit
+            modeling of how experience moderates specific relationships.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             TAM3 was created to provide a comprehensive model integrating TAM2&rsquo;s usefulness
-            determinants with Venkatesh&rsquo;s ease of use determinants, while explicitly modeling
-            how experience moderates these relationships. The authors also emphasized a research
-            agenda for interventions, arguing that understanding what predicts adoption was
-            insufficient without guidance on practical interventions to enhance acceptance.
-            Empirical testing occurred longitudinally at four organizations across three measurement
-            points with N=156 users, examining actual information system implementations where
-            different technologies showed varying adoption trajectories across pre-implementation,
-            implementation, and post-implementation phases.
+            determinants with Venkatesh&rsquo;s (2000) ease of use determinants, plus three new
+            experience-moderated relationships not previously tested: perceived ease of use to
+            perceived usefulness (stronger with experience), computer anxiety to perceived ease of
+            use (weaker with experience), and perceived ease of use to behavioral intention (weaker
+            with experience). TAM3 also posits no crossover effects (determinants of PU do not
+            influence PEOU and vice versa). The authors paired the model with a research agenda on
+            interventions, arguing that understanding what predicts adoption was insufficient
+            without guidance on practical interventions to enhance acceptance. Empirical testing
+            occurred via four longitudinal field studies at four organizations (N=156 total: 38+39
+            at two voluntary-use sites, 43+36 at two mandatory-use sites) over a 5-month period with
+            four measurement points (T1 post-training, T2 at 1 month, T3 at 3 months, T4 at 5 months
+            with only use measured).
           </p>
         </section>
 
-        {/* 5. Core Concepts and Definitions */}
+        {/* 5. What Does the Model Measure? */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>What Does the Model Measure?</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            TAM3 measures a nomological network of 14+ constructs (plus interaction terms)
+            operationalized with validated multi-item scales from prior research. Items use 7-point
+            agree-disagree scales adapted from Davis (1989), Venkatesh &amp; Davis (2000), Venkatesh
+            (2000), Moore &amp; Benbasat (1991), Compeau &amp; Higgins (1995), and Taylor &amp; Todd
+            (1995). Data was analyzed with Partial Least Squares (PLS-Graph v3) and bootstrapping
+            (500 resamples). Internal consistency reliability exceeded 0.70 for all constructs at
+            every measurement point; factor loadings exceeded 0.70 and no cross-loadings exceeded
+            0.30 (Tables 3-4, p.286-288).
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Perceived Usefulness (PU):</strong> 4 items adapted from Davis et al. (1989).
+            </li>
+            <li>
+              <strong>Perceived Ease of Use (PEOU):</strong> 4 items adapted from Davis et al.
+              (1989).
+            </li>
+            <li>
+              <strong>Behavioral Intention (BI):</strong> Items from Davis (1989).
+            </li>
+            <li>
+              <strong>Use (USE):</strong> Self-reported hours and minutes per day on the system;
+              measured separated from survey items by at least 1 month.
+            </li>
+            <li>
+              <strong>Subjective Norm (SN):</strong> 4 items adapted from Taylor &amp; Todd (1995).
+            </li>
+            <li>
+              <strong>Image (IMG):</strong> 3 items from Moore &amp; Benbasat (1991).
+            </li>
+            <li>
+              <strong>Result Demonstrability (RES):</strong> 4 items from Moore &amp; Benbasat
+              (1991).
+            </li>
+            <li>
+              <strong>Job Relevance (REL), Output Quality (OUT):</strong> 3 items each, adapted from
+              Davis et al. (1992).
+            </li>
+            <li>
+              <strong>Computer Self-Efficacy (CSE):</strong> 4 items from Compeau &amp; Higgins
+              (1995).
+            </li>
+            <li>
+              <strong>Perceptions of External Control (PEC):</strong> 4 items from Mathieson (1991)
+              and Taylor &amp; Todd (1995).
+            </li>
+            <li>
+              <strong>Computer Playfulness (CPLAY):</strong> 4 items from Webster &amp; Martocchio
+              (1992).
+            </li>
+            <li>
+              <strong>Computer Anxiety (CANX):</strong> 4 items from Venkatesh (2000).
+            </li>
+            <li>
+              <strong>Perceived Enjoyment (ENJ):</strong> 4 items from Davis, Bagozzi, &amp; Warshaw
+              (1992).
+            </li>
+            <li>
+              <strong>Objective Usability (OU):</strong> Novice-to-expert task completion time ratio
+              (not self-report); each participant performed training tasks that the system timed.
+            </li>
+            <li>
+              <strong>Voluntariness (VOL):</strong> 3 items from Moore &amp; Benbasat (1991);
+              measured as perceived voluntariness even though sites were selected to include both
+              voluntary and mandatory use.
+            </li>
+            <li>
+              <strong>Experience:</strong> Coded as ordinal across measurement periods (T1, T2, T3).
+            </li>
+          </ul>
+        </section>
+
+        {/* 6. Core Concepts and Definitions */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Core Concepts and Definitions</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -206,30 +285,53 @@ const BibliographyArticlePage = () => {
               that technology will deliver promised benefits.
             </li>
             <li>
-              <strong>Computer Anxiety:</strong> Individual feelings of apprehension and discomfort
-              when interacting with computers. Anxiety directly increases perceived ease of use
-              barriers by heightening concern about learning difficulty.
+              <strong>Computer Self-Efficacy (Anchor):</strong> Individual control beliefs about
+              personal ability to use a computer or system to accomplish a task/job (Compeau &amp;
+              Higgins, 1995). A PEOU anchor whose effect on PEOU persists even with increasing
+              experience (Venkatesh, 2000).
             </li>
             <li>
-              <strong>Computer Playfulness:</strong> Individual tendency to interact with computers
-              creatively and spontaneously, viewing technology engagement as intrinsically
-              enjoyable. Playfulness reduces perceived ease of use concerns by reframing technology
-              interaction as exploration.
+              <strong>Perceptions of External Control (Anchor):</strong> Individual beliefs about
+              whether organizational and technical resources exist to support use of the system
+              (facilitating conditions; Venkatesh et al., 2003). A PEOU anchor whose effect persists
+              with experience.
             </li>
             <li>
-              <strong>Perceived Enjoyment:</strong> Individual perception that technology
-              interaction provides inherent satisfaction beyond instrumental benefits. Enjoyment
-              reduces ease of use concerns and increases motivation for technology exploration.
+              <strong>Computer Anxiety (Anchor):</strong> Individual apprehension or fear when faced
+              with the possibility of using computers (Venkatesh, 2000). A PEOU anchor whose effect
+              is theorized to diminish with experience (one of the three new TAM3 moderation
+              relationships).
             </li>
             <li>
-              <strong>Objective Usability:</strong> Actual measured system characteristics
-              determining learning requirements and operational complexity. Objective usability
-              serves as anchor for users&rsquo; subjective ease of use perceptions.
+              <strong>Computer Playfulness (Anchor):</strong> The degree of cognitive spontaneity in
+              microcomputer interactions (Webster &amp; Martocchio, 1992). A PEOU anchor whose
+              effect diminishes with experience as users gain accurate perceptions of the specific
+              system.
             </li>
             <li>
-              <strong>Experience:</strong> User history with technology, reflecting cumulative
-              learning and familiarity. Experience moderates effects of all determinants on
-              perceived ease of use through reduced learning concerns and improved capability.
+              <strong>Perceived Enjoyment (Adjustment):</strong> The extent to which using a system
+              is perceived as enjoyable in its own right, apart from any performance consequences
+              (Venkatesh, 2000). A PEOU adjustment whose effect strengthens with experience once
+              users have hands-on interaction.
+            </li>
+            <li>
+              <strong>Objective Usability (Adjustment):</strong> A comparison of systems based on
+              the actual level of effort required to complete specific tasks, measured via a
+              novice-to-expert time ratio (Venkatesh, 2000). A PEOU adjustment whose effect
+              strengthens with experience.
+            </li>
+            <li>
+              <strong>Experience (Moderator):</strong> User&rsquo;s history with the specific
+              system. Moderates three new TAM3 relationships: PEOU to PU (stronger over time),
+              computer anxiety to PEOU (weaker), and PEOU to BI (weaker). Also moderates the
+              anchoring-adjustment dynamic: anchor effects diminish and adjustment effects
+              strengthen with experience.
+            </li>
+            <li>
+              <strong>Voluntariness (Moderator):</strong> The degree to which potential adopters
+              perceive the adoption decision to be non-mandatory. Carried forward from TAM2;
+              moderates the effect of subjective norm on behavioral intention (stronger when use is
+              mandatory).
             </li>
             <li>
               <strong>Adoption Intention:</strong> Degree to which user intends to adopt and use
@@ -239,7 +341,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 6. Preceding Models or Theories */}
+        {/* 7. Preceding Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Preceding Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -289,9 +391,11 @@ const BibliographyArticlePage = () => {
                 </a>
                 ):
               </strong>{' '}
-              Identified computer anxiety, computer playfulness, perceived enjoyment, and objective
-              usability as direct predictors of perceived ease of use. TAM3 integrates these ease of
-              use antecedents into comprehensive model framework.
+              Identified six determinants of perceived ease of use organized as an
+              anchoring-and-adjustment framework: four anchors (computer self-efficacy, perceptions
+              of external control, computer anxiety, computer playfulness) that drive initial PEOU
+              judgments, and two adjustments (perceived enjoyment, objective usability) that refine
+              judgments with experience. TAM3 integrates all six.
             </li>
             <li>
               <strong>
@@ -342,26 +446,50 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 7. Describe The Model */}
+        {/* 8. Describe The Model */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Describe The Model</h2>
           <p className={PARAGRAPH_CLASSES}>
-            TAM3 proposes comprehensive determinants of perceived usefulness and perceived ease of
-            use, with experience moderating ease of use relationships. Perceived usefulness is
-            directly determined by subjective norm, image, job relevance, output quality, and result
-            demonstrability, consistent with TAM2. Perceived ease of use is directly determined by
-            computer anxiety (negative), computer playfulness, perceived enjoyment, and objective
-            usability. Experience moderates how computer anxiety, computer playfulness, perceived
-            enjoyment, and objective usability influence perceived ease of use: as users gain
-            experience, anxiety effects diminish as learning progresses, playfulness effects
-            diminish as technology becomes routine, enjoyment effects diminish as intrinsic
-            motivation transitions to instrumental use, and objective usability effects diminish as
-            system knowledge reduces reliance on measurable characteristics. Perceived usefulness
-            and perceived ease of use remain direct predictors of adoption intention regardless of
-            experience, but ease of use effects are strongest for inexperienced users and diminish
-            with experience. TAM3 recognizes adoption as dynamic process where determinants vary
-            across pre-implementation, implementation, and post-implementation phases, requiring
-            interventions matched to current adoption phase and user experience level.
+            TAM3 specifies a complete nomological network of the determinants of individual IT
+            adoption and use (Figure 2, p.280). Perceived usefulness is determined by five
+            antecedents from TAM2: subjective norm, image (both social-influence processes), job
+            relevance, output quality, and result demonstrability (cognitive-instrumental
+            processes), plus perceived ease of use. Job relevance and output quality have an
+            interactive effect on PU such that higher output quality strengthens the job-relevance
+            to PU link. Perceived ease of use is determined by six antecedents from Venkatesh
+            (2000): four anchors (computer self-efficacy, perceptions of external control, computer
+            anxiety, computer playfulness) and two adjustments (perceived enjoyment, objective
+            usability). Both PU and PEOU predict behavioral intention, which predicts use behavior.
+          </p>
+          <p className={PARAGRAPH_CLASSES}>
+            TAM3 explicitly proposes <strong>no crossover effects</strong> (determinants of PU do
+            not influence PEOU and vice versa). Two moderators operate: <strong>Experience</strong>{' '}
+            and <strong>Voluntariness</strong> (carried over from TAM2). Voluntariness moderates
+            subjective norm&rsquo;s effect on BI.
+          </p>
+          <p className={PARAGRAPH_CLASSES}>
+            TAM3 proposes <strong>three new experience-moderated relationships</strong> not
+            empirically tested in Venkatesh (2000) or Venkatesh &amp; Davis (2000):
+          </p>
+          <ol className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>PEOU to PU</strong> becomes <em>stronger</em> with experience, as users gain
+              low-level action information that informs high-level performance judgments.
+            </li>
+            <li>
+              <strong>Computer anxiety to PEOU</strong> becomes <em>weaker</em> with experience, as
+              anchor-based general computer beliefs give way to system-specific experience.
+            </li>
+            <li>
+              <strong>PEOU to BI</strong> becomes <em>weaker</em> with experience, as initial
+              complexity concerns recede once procedural knowledge develops.
+            </li>
+          </ol>
+          <p className={PARAGRAPH_CLASSES}>
+            The broader anchoring-adjustment dynamic from Venkatesh (2000) also applies: anchor
+            effects (CSE, PEC, CANX, CPLAY) diminish with experience while adjustment effects (ENJ,
+            OU) strengthen. CSE and PEC remain strong predictors of PEOU even with experience, while
+            CANX and CPLAY fade.
           </p>
 
           <h3 className={H3_CLASSES}>TAM3 Determinant Mechanisms</h3>
@@ -416,21 +544,39 @@ const BibliographyArticlePage = () => {
               judgments.
             </li>
             <li>
-              <strong>Experience Moderates All Ease Determinants:</strong> As users gain experience,
-              initial concerns about anxiety diminish through mastery, playfulness effects diminish
-              as technology becomes routine, enjoyment transitions from intrinsic to instrumental,
-              and objective usability becomes less critical as tacit knowledge develops. Experience
-              weakens all four ease of use antecedents.
+              <strong>Experience moderation (anchoring-adjustment):</strong> Anchor effects
+              (computer self-efficacy, perceptions of external control, computer anxiety, computer
+              playfulness) diminish with experience, except CSE and PEC which remain strong.
+              Adjustment effects (perceived enjoyment, objective usability) strengthen with
+              experience as users gain system-specific information. The TAM3 new moderation of
+              computer anxiety to PEOU (weaker over time) is one specific consequence.
             </li>
             <li>
-              <strong>Perceived Usefulness &rarr; Adoption Intention:</strong> Strongest direct
-              effect on adoption intention remains constant across experience levels. Performance
-              benefits always motivate adoption regardless of learning history.
+              <strong>Perceived Usefulness &rarr; Behavioral Intention:</strong> Strongest direct
+              effect on intention. Performance benefits remain the primary adoption driver across
+              experience levels.
             </li>
             <li>
-              <strong>Perceived Ease of Use &rarr; Adoption Intention:</strong> Effect strongest for
-              inexperienced users and diminishes with experience. Initial users emphasize complexity
-              concerns more heavily than experienced users who focus on instrumental benefits.
+              <strong>
+                Perceived Ease of Use &rarr; Behavioral Intention (moderated by Experience):
+              </strong>{' '}
+              TAM3 new relationship: effect is strongest for inexperienced users and weakens with
+              experience as procedural knowledge reduces reliance on ease-of-use judgments in
+              forming intention.
+            </li>
+            <li>
+              <strong>
+                Perceived Ease of Use &rarr; Perceived Usefulness (moderated by Experience):
+              </strong>{' '}
+              TAM3 new relationship: effect strengthens with experience as low-level action
+              information (PEOU) informs high-level goal judgments (PU).
+            </li>
+            <li>
+              <strong>
+                Subjective Norm &rarr; BI (moderated by Voluntariness and Experience):
+              </strong>{' '}
+              Carried from TAM2: subjective norm has a direct effect on behavioral intention only in
+              mandatory-use settings, and this effect attenuates with experience.
             </li>
           </ul>
 
@@ -442,9 +588,10 @@ const BibliographyArticlePage = () => {
               substantially expanding explanatory breadth compared to prior TAM versions.
             </li>
             <li>
-              <strong>Longitudinal design with multiple measurement points:</strong> Data collection
-              at baseline, post-implementation, 3-month, and 6-month intervals allowed assessment of
-              how relationships change across adoption lifecycle phases.
+              <strong>Longitudinal design with four measurement points:</strong> Data collected at
+              T1 (immediately post-training), T2 (1 month after implementation), T3 (3 months after
+              implementation), and T4 (5 months, use only), spanning 5 months total. Allowed testing
+              of experience-moderated relationships across adoption phases.
             </li>
             <li>
               <strong>Experience-moderation hypothesis testing:</strong> Explicit empirical testing
@@ -462,11 +609,12 @@ const BibliographyArticlePage = () => {
               acceptance, shifting focus from prediction to practical change mechanisms.
             </li>
             <li>
-              <strong>
-                Pre-implementation, implementation, and post-implementation framework:
-              </strong>{' '}
-              Recognition that adoption is three-phase process requiring different interventions at
-              different stages provided actionable guidance for technology deployment.
+              <strong>Research agenda for pre- and post-implementation interventions:</strong>{' '}
+              Venkatesh and Bala pair the TAM3 model with a companion research agenda proposing
+              specific interventions (design characteristics, user participation, management
+              support, training, organizational support, peer support) for pre- and
+              post-implementation stages, providing a bridge from predictive modeling to actionable
+              managerial guidance.
             </li>
             <li>
               <strong>Real organizational contexts:</strong> Studies examined actual technology
@@ -483,9 +631,11 @@ const BibliographyArticlePage = () => {
           <h3 className={H3_CLASSES}>Main Weaknesses</h3>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Model complexity and practical measurement burden:</strong> Measuring 11
-              constructs plus experience moderation substantially exceeds practical capacity in many
-              organizational settings. Practitioners may find streamlined models more implementable.
+              <strong>Model complexity and practical measurement burden:</strong> TAM3 includes PU,
+              PEOU, BI, Use, five PU antecedents, six PEOU antecedents (four anchors plus two
+              adjustments), and two moderators (Experience, Voluntariness) - at least 14 constructs
+              plus interaction terms. This substantially exceeds practical capacity in many
+              organizational settings.
             </li>
             <li>
               <strong>Intervention research incomplete:</strong> While Venkatesh and Bala
@@ -532,7 +682,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 8. Key Contributions */}
+        {/* 9. Key Contributions */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Key Contributions</h2>
           <ul className={BODY_LIST_CLASSES}>
@@ -557,9 +707,11 @@ const BibliographyArticlePage = () => {
               acceptance research toward actionable guidance.
             </li>
             <li>
-              <strong>Lifecycle adoption framework:</strong> Recognition of pre-implementation,
-              implementation, and post-implementation phases provided foundation for understanding
-              how adoption determinants and required interventions vary across deployment stages.
+              <strong>Pre- and post-implementation intervention typology:</strong> Companion
+              research agenda (paper Section 6) maps specific interventions - design
+              characteristics, user participation, management support, incentive alignment,
+              training, organizational and peer support - to pre- and post-implementation stages,
+              providing a bridge from predictive modeling to managerial guidance.
             </li>
             <li>
               <strong>Explanatory power improvement:</strong> TAM3 substantially improved prediction
@@ -579,7 +731,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 9. Internal Validity */}
+        {/* 10. Internal Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Internal Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -587,10 +739,10 @@ const BibliographyArticlePage = () => {
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Longitudinal design with multiple measurement occasions:</strong> Data
-              collection at baseline, immediately post-implementation, 3 months, and 6 months
-              allowed assessment of how relationships change across adoption phases and experience
-              accumulation.
+              <strong>Longitudinal design with four measurement occasions:</strong> Data collected
+              at T1 (immediately post-training), T2 (1 month post-implementation), T3 (3 months
+              post-implementation), and T4 (5 months, use only), separating survey measurement from
+              use measurement by at least 1 month to mitigate common-method bias.
             </li>
             <li>
               <strong>Real system implementations:</strong> Study examined actual enterprise system
@@ -612,9 +764,11 @@ const BibliographyArticlePage = () => {
               previously validated scales established in prior technology acceptance research.
             </li>
             <li>
-              <strong>Structural equation modeling:</strong> SEM approach tested complete model
-              specification simultaneously with multiple direct effects, indirect pathways, and
-              moderating relationships.
+              <strong>Partial Least Squares (PLS) estimation:</strong> Analyzed with PLS-Graph
+              version 3 (Chin et al., 2003), a component-based SEM method suited to complex
+              moderated models and smaller samples. Mean-centered indicators were used prior to
+              creating interaction terms to limit multicollinearity (VIFs remained low).
+              Bootstrapping (500 resamples) produced path significance estimates.
             </li>
             <li>
               <strong>Experience moderation specification:</strong> Moderation effects tested using
@@ -629,7 +783,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 10. External Validity */}
+        {/* 11. External Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>External Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -672,9 +826,10 @@ const BibliographyArticlePage = () => {
               technology adoption contexts where choice mechanisms operate differently.
             </li>
             <li>
-              <strong>Measurement period constraints:</strong> Studies measured adoption over six
-              months. Long-term use patterns beyond initial adoption period, discontinuance
-              decisions, or technology replacement scenarios remain unexplored.
+              <strong>Measurement period constraints:</strong> Studies measured adoption over 5
+              months with four measurement points. Long-term use patterns beyond initial adoption
+              period, discontinuance decisions, or technology replacement scenarios remain
+              unexplored.
             </li>
             <li>
               <strong>System stability assumptions:</strong> Studies examined relatively stable
@@ -684,7 +839,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 11. Relevance to Technology Adoption */}
+        {/* 12. Relevance to Technology Adoption */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Relevance to Technology Adoption</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -694,14 +849,14 @@ const BibliographyArticlePage = () => {
             (performance expectancy barrier), worry about learning difficulty (complexity barrier),
             experience anxiety about technology interaction (emotional barrier), receive negative
             social messages about adoption (social barrier), or perceive inadequate output quality
-            (reliability barrier). Critically, TAM3 shows these barriers operate differently across
-            adoption lifecycle: early-stage users emphasize complexity and anxiety concerns while
-            experienced users focus predominantly on perceived usefulness. Organizations must
-            therefore tailor adoption strategies to deployment phase, providing extensive support
-            and addressing complexity barriers during initial implementation, then emphasizing
-            instrumental benefits and performance value as users gain experience. The model
+            (reliability barrier). Critically, TAM3 proposes specific experience-moderated dynamics:
+            early users emphasize ease-of-use concerns (which weaken over time), while the
+            PEOU-to-PU link strengthens over time as users translate low-level usability experience
+            into high-level performance judgments. Organizations can therefore target ease-of-use
+            and anxiety interventions during early adoption, then shift to usefulness-reinforcement
+            and performance-demonstration interventions once users have direct experience. The model
             prescribes different intervention strategies for different barriers rather than assuming
-            identical change strategies would address all adoption resistance.
+            identical change strategies address all adoption resistance.
           </p>
 
           <h3 className={H3_CLASSES}>Barriers to Technology Adoption Identified</h3>
@@ -802,7 +957,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 12. Following Models or Theories */}
+        {/* 13. Following Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Following Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -867,7 +1022,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 13. References */}
+        {/* 14. References */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>References</h2>
           <ol className={REFERENCES_OL_CLASSES}>
@@ -923,6 +1078,7 @@ const BibliographyArticlePage = () => {
           </ol>
         </section>
 
+        {/* 15. Further Reading */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Further Reading</h2>
           <ol className={REFERENCES_OL_CLASSES}>
@@ -956,7 +1112,7 @@ const BibliographyArticlePage = () => {
           </ol>
         </section>
 
-        {/* 14. Series Navigation */}
+        {/* 16. Series Navigation */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Series Navigation</h2>
           <div className="space-y-4">
