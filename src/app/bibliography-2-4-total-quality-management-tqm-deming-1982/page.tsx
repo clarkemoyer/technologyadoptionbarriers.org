@@ -111,40 +111,38 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Why Was the Model Created?</h2>
           <p className={PARAGRAPH_CLASSES}>
-            W. Edwards Deming developed his Total Quality Management philosophy in direct response
-            to the post-World War II crisis facing American manufacturing. Post-war, American
-            manufacturers dominated global markets through economies of scale and cost advantages.
-            However, by the 1970s and 1980s, Japanese manufacturers were outcompeting American firms
-            on both cost and quality. Japanese automobiles, electronics, and consumer goods achieved
-            superior reliability and durability while maintaining competitive pricing. American
-            manufacturers struggled to understand how Japanese firms were simultaneously achieving
-            lower costs and superior quality - an outcome that appeared impossible under prevailing
-            manufacturing assumptions.
+            <strong>Source note:</strong> The project&rsquo;s Zotero library does not contain a PDF
+            of Deming (1982) or Deming (1986). The narrative below is drawn from widely documented
+            secondary sources on Deming&rsquo;s career and from the Deming Institute (2018).
+            Specific textual claims about the books remain unverified at page level in this review.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            Deming recognized that Japanese success was not due to cultural factors or labor cost
-            advantages, but rather stemmed from fundamentally different approaches to manufacturing
-            and management. During the post-war American occupation of Japan, American management
-            consultants including Deming introduced Japanese managers to statistical process control
-            and quality improvement methodologies. Japanese managers embraced these approaches while
-            American manufacturers largely ignored them. Deming&rsquo;s work was largely forgotten
-            in America while transforming Japanese industrial practices. Only after Japanese
-            manufacturers demonstrated clear competitive superiority did American firms and
-            researchers return to Deming&rsquo;s methodology.
+            Secondary accounts of Deming&rsquo;s career (e.g. Walton, 1986; Neave, 1990) situate the
+            1982 book in the context of a perceived competitiveness crisis in U.S. manufacturing in
+            the 1970s and early 1980s: Japanese manufacturers in automobiles, consumer electronics,
+            and other categories were widely reported to be competing simultaneously on cost and on
+            product reliability, at a time when prevailing U.S. manufacturing practice treated
+            quality and cost as a tradeoff. The book was pitched at U.S. managers as a diagnosis of,
+            and prescription for, that gap.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            Deming argued that the crisis facing American manufacturing derived not from worker
-            laziness or incompetence, but from fundamentally flawed management philosophy. American
-            management operated under outdated assumptions: that workers would work harder for more
-            money, that quality resulted from final inspection rather than process control, that
-            competition between workers and departments created efficiency, and that optimal
-            outcomes came from optimizing individual performance metrics. These assumptions, Deming
-            argued, destroyed American competitiveness. The solution required wholesale
-            transformation of management philosophy, replacing command-and-control with systems
-            thinking, replacing worker blame with process improvement, replacing cost reduction with
-            quality emphasis, and replacing individual competition with organizational cooperation.
-            This philosophical transformation would require organizational courage, leadership
-            commitment, and willingness to abandon comfortable but destructive management practices.
+            Deming had worked on statistical quality methods at the U.S. Census Bureau and later
+            lectured in Japan beginning in 1950 under the auspices of the Japanese Union of
+            Scientists and Engineers (JUSE). He is commonly credited in secondary sources with being
+            one of several Western contributors - alongside Juran, Ishikawa, Shewhart&rsquo;s
+            legacy, and Japanese engineering organizations themselves - to the post-war quality
+            practices that Japanese manufacturers refined. The 1982 book gathered the lectures,
+            concepts, and examples that Deming had developed over decades into a single
+            consultancy-oriented monograph aimed at U.S. management.
+          </p>
+          <p className={PARAGRAPH_CLASSES}>
+            The book&rsquo;s central argument, as commonly summarized in secondary sources, is that
+            poor quality and high cost in U.S. industry were consequences of management practice
+            rather than of worker effort or national character: reliance on final inspection rather
+            than process control, short-term financial incentives, adversarial supplier
+            relationships, and performance-appraisal systems that discouraged improvement. The
+            remedy Deming offered was a set of management principles - later codified as the 14
+            Points (see below) - and statistical methods originating with Shewhart.
           </p>
         </section>
 
@@ -152,48 +150,61 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>What Does the Model Measure?</h2>
           <p className={PARAGRAPH_CLASSES}>
-            Deming&rsquo;s 1982 book is a management-philosophy monograph, not a measurement model.
-            It does not propose scales, latent constructs, or statistical operationalizations of
-            &ldquo;quality&rdquo;, &ldquo;leadership&rdquo;, or &ldquo;culture&rdquo;. What it does
-            propose is an operational vocabulary and a small number of quantitative tools:
+            Deming (1982) is a management-philosophy monograph, not a measurement model. It does
+            not, by any account in the secondary literature, propose scales, latent constructs, or
+            statistical operationalizations of &ldquo;quality&rdquo;, &ldquo;leadership&rdquo;, or
+            &ldquo;culture&rdquo;. Its quantitative content is the statistical quality-control
+            apparatus inherited from Shewhart; its normative content is a set of management
+            principles, most prominently the 14 Points.
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
               <strong>Statistical Process Control (SPC) charts:</strong> Shewhart control charts
-              (X-bar and R charts) used to distinguish common-cause variation (inherent to the
-              process) from special-cause variation (signals requiring investigation). This is the
-              only formally quantitative piece of the framework.
+              (including X-bar, R, and p-charts) used to distinguish common-cause variation
+              (inherent to the process) from special-cause variation (signals requiring
+              investigation). Secondary sources describe SPC as the only formally quantitative piece
+              of the framework.
             </li>
             <li>
               <strong>14 Points for Management:</strong> A normative checklist for managerial
               practice, not a scale. Each point is a qualitative principle; there is no score, no
-              weighting, no psychometric claim.
+              weighting, no psychometric claim. Canonical wording from The W. Edwards Deming
+              Institute (2018) is reproduced in Describe the Model below.
             </li>
             <li>
-              <strong>Seven Deadly Diseases and lesser obstacles:</strong> Deming&rsquo;s catalog of
-              managerial practices he considered destructive (lack of constancy of purpose, emphasis
-              on short-term profits, performance appraisal, mobility of management, running a
-              company on visible figures alone, excessive medical costs, excessive legal costs).
-              Again, a qualitative catalog.
+              <strong>Seven Deadly Diseases (secondary-source attribution):</strong> Deming is
+              widely reported in secondary sources to have catalogued a set of &ldquo;Seven Deadly
+              Diseases&rdquo; of Western management (e.g., Walton, 1986; Neave, 1990). The exact
+              list wording varies slightly across accounts and is not verified verbatim against the
+              1982/1986 books on this page. Typical items named in those accounts include: lack of
+              constancy of purpose, emphasis on short-term profits, evaluation of performance /
+              annual review, mobility of management, running the company on visible figures alone,
+              and (in U.S.-specific discussions) excessive medical and liability costs.
             </li>
             <li>
-              <strong>Process and system diagrams:</strong> Flow diagrams, cause-and-effect
-              (&ldquo;Ishikawa&rdquo;) diagrams, and Pareto charts for localizing problems. Tools,
-              not measurement instruments.
+              <strong>Process and system diagrams used in the tradition:</strong> Flow diagrams,
+              cause-and-effect (Ishikawa / fishbone) diagrams, and Pareto charts are commonly taught
+              alongside the Deming philosophy. Fishbone diagrams are Ishikawa&rsquo;s contribution
+              (Ishikawa, 1985); Pareto charts predate both Deming and Ishikawa. The 1982
+              book&rsquo;s specific use of these diagrams is not verified on this page.
             </li>
           </ul>
           <p className={PARAGRAPH_CLASSES}>
-            Empirical work attempting to validate TQM has therefore had to construct its own
-            instruments (e.g. Saraph, Benson &amp; Schroeder, 1989; Flynn, Schroeder &amp;
-            Sakakibara, 1994; Powell, 1995) rather than use scales supplied by Deming himself. The
-            Malcolm Baldrige National Quality Award criteria (est. 1987) are often treated as a de
-            facto operationalization but post-date the 1982 book.
+            Because the framework is not itself a measurement model, empirical work seeking to
+            validate TQM has had to construct its own instruments (e.g., Saraph, Benson &amp;
+            Schroeder, 1989; Flynn, Schroeder &amp; Sakakibara, 1994; Powell, 1995) rather than use
+            scales supplied by Deming. The Malcolm Baldrige National Quality Award criteria
+            (established 1987) are often treated as a de facto operationalization but post-date the
+            1982 book.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Note on source availability:</strong> A PDF of Deming&rsquo;s 1982 book is not
-            attached to the project&rsquo;s Zotero library. The factual claims on this page are
-            drawn from widely documented secondary sources and the published book; detailed
-            page-level verification was not possible in this review.
+            <strong>Note on source availability:</strong> A PDF of Deming (1982){' '}
+            <em>Quality, Productivity, and Competitive Position</em>, Deming (1986){' '}
+            <em>Out of the Crisis</em>, and Deming (1993) <em>The New Economics</em> is not attached
+            to the project&rsquo;s Zotero library. Claims on this page about the content of those
+            books are drawn from secondary sources and from the canonical Deming Institute (2018)
+            one-pager. The 14 Points are the one element of the framework for which a primary-source
+            statement (the Deming Institute one-pager) has been used as ground truth on this page.
           </p>
         </section>
 
@@ -201,52 +212,53 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Core Concepts and Definitions</h2>
           <p className={PARAGRAPH_CLASSES}>
-            The Total Quality Management philosophy is built on fundamental concepts about how
-            organizations achieve excellence:
+            The concepts below are commonly associated with Deming&rsquo;s writing in secondary
+            sources. Because the book itself is not available for page-level verification on this
+            page, definitions are phrased as widely-reported characterizations rather than as direct
+            quotations.
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Quality:</strong> Meeting and exceeding customer expectations and needs.
-              Quality extends beyond absence of defects to encompass reliability, durability,
-              functionality, fit, and overall customer satisfaction. Organizations must understand
-              customer needs and design systems to consistently deliver against those needs.
+              <strong>Quality (as Deming frames it in secondary accounts):</strong> Fitness for use
+              from the customer&rsquo;s perspective and predictable conformance with specification
+              through reduced variation, rather than absence of defects under final inspection
+              alone.
             </li>
             <li>
-              <strong>Continuous Improvement (Kaizen):</strong> Ongoing process of incremental
-              enhancement of products, processes, and systems. Organizations assume that improvement
-              is always possible, no matter current performance levels. Continuous improvement is
-              driven by workers closest to processes rather than external consultants.
+              <strong>Continuous improvement:</strong> Ongoing incremental improvement of products,
+              processes, and services. (The Japanese term <em>kaizen</em> is sometimes applied as a
+              synonym, but Deming did not use the term &ldquo;kaizen&rdquo; himself; the term was
+              popularized by Imai, 1986.)
             </li>
             <li>
-              <strong>Statistical Variation:</strong> All processes produce variation in output.
-              Some variation is inherent to processes (common cause variation) while other variation
-              results from special circumstances (special cause variation). Understanding and
-              reducing variation is central to quality improvement.
+              <strong>Common-cause vs. special-cause variation:</strong> A distinction inherited
+              directly from Shewhart (1931). Common-cause variation is inherent to a stable process;
+              special-cause variation is a signal of an assignable, non-random source. Treating
+              common-cause variation as if it were special-cause (or vice versa) is the classical
+              Shewhart/Deming error Deming termed &ldquo;tampering.&rdquo;
             </li>
             <li>
-              <strong>Process Focus:</strong> Quality outcomes result from process design and
-              control, not from individual effort or blame. If process is well-designed, quality
-              naturally results. If process is poorly designed, even hardworking employees cannot
-              consistently produce quality. Management responsibility centers on process
-              improvement, not worker motivation.
+              <strong>Process focus:</strong> Quality outcomes are a property of the process and the
+              system, not of individual worker effort. A widely-quoted Deming estimate - reproduced
+              in multiple secondary sources but not verified against the book on this page -
+              attributes most variation observed in output to the system rather than to workers.
             </li>
             <li>
-              <strong>Systems Thinking:</strong> Organizations are interdependent systems rather
-              than collections of independent departments. Optimizing individual departments may
-              suboptimize system performance. Management must optimize overall system performance
-              rather than individual parts.
+              <strong>Systems thinking:</strong> The firm is an interdependent system; optimizing
+              parts in isolation can sub-optimize the whole. This framing aligns with general
+              systems theory (Bertalanffy, 1968), though the page does not claim direct citation
+              from Deming (1982) to Bertalanffy.
             </li>
             <li>
-              <strong>Customer Focus:</strong> Understanding customer needs and designing systems to
-              meet those needs drives competitive advantage. Quality is defined by customer
-              requirements rather than internal standards. Organizations must maintain direct
-              relationship with customers to understand evolving needs.
+              <strong>Customer focus:</strong> Quality is defined in terms of use and customer
+              needs, not solely in terms of internal specifications. (Deming&rsquo;s emphasis on
+              customers is widely reported in secondary sources.)
             </li>
             <li>
-              <strong>Long-term Perspective:</strong> Competitive advantage comes from long-term
-              organizational commitment to quality and improvement rather than short-term profit
-              maximization. Myopic focus on quarterly profits undermines long-term competitiveness
-              and organizational viability.
+              <strong>Long-term orientation:</strong> Management attention to long-term improvement
+              and survival rather than to short-term financial results. Point 1 of the 14 Points
+              (&ldquo;create constancy of purpose&rdquo;) is the Deming Institute canonical
+              statement of this principle.
             </li>
           </ul>
         </section>
@@ -271,9 +283,10 @@ const BibliographyArticlePage = () => {
                 </a>
                 ):
               </strong>{' '}
-              Deming built on and critiqued Taylor&rsquo;s scientific management. While accepting
-              that work processes could be scientifically studied, Deming rejected Taylor&rsquo;s
-              assumptions about individual financial incentives and blamed-based worker motivation.
+              Taylor&rsquo;s scientific management is the background against which secondary
+              accounts (Walton, 1986; Neave, 1990) position Deming&rsquo;s critique of performance
+              appraisal, numerical quotas, and individual-incentive compensation. The page does not
+              assert verbatim text from Deming (1982) citing Taylor directly.
             </li>
             <li>
               <strong>
@@ -287,18 +300,24 @@ const BibliographyArticlePage = () => {
                 </a>
                 , 1939):
               </strong>{' '}
-              Deming was a direct student and collaborator of Walter Shewhart at Bell Labs and the
-              Department of Agriculture. Shewhart&rsquo;s control-chart methods (Shewhart, 1931) and
-              his Plan-Do-Check-Act cycle (Shewhart, 1939) are central to Deming&rsquo;s philosophy.
-              Deming later renamed the cycle to Plan-Do-Study-Act (PDSA) in his 1993 book{' '}
-              <em>The New Economics</em>; the 1982 and 1986 books retain the Plan-Do-Check-Act
-              (PDCA) name used by Shewhart.
+              The most direct and widely-documented influence on Deming. Shewhart&rsquo;s
+              control-chart methods (Shewhart, 1931) supply the common-cause/special-cause framework
+              Deming used throughout his career; Shewhart&rsquo;s later treatment of the cycle of
+              statistical methodology (Shewhart, 1939) is the ancestor of the Plan-Do-Check-Act
+              cycle. The exact formalization of PDCA as a four-step named cycle is variously
+              attributed in secondary sources (to Shewhart, to Deming&rsquo;s Japanese lectures, or
+              to joint attribution); Deming himself later renamed the third step &ldquo;Study&rdquo;
+              in <em>The New Economics</em> (1993). Deming worked with Shewhart at Western Electric
+              / Bell Labs in the 1920s-30s and consistently credited him; secondary accounts
+              describe the relationship as that of a younger collaborator and protege rather than
+              formal student.
             </li>
             <li>
-              <strong>Human Relations School (Mayo, 1933):</strong> Deming incorporated Human
-              Relations School insights emphasizing worker psychology and group dynamics. Deming
-              emphasized that workers wanted to do good work and that management systems either
-              enabled or prevented quality work.
+              <strong>Human Relations School (Mayo, 1933):</strong> Deming&rsquo;s emphasis on
+              worker psychology, fear reduction, and intrinsic motivation (Point 8, Point 12) is in
+              the same tradition as the human-relations school that emerged from the Hawthorne
+              studies. Whether Deming directly cited or built on Mayo is not established from
+              primary source on this page.
             </li>
             <li>
               <strong>
@@ -312,20 +331,28 @@ const BibliographyArticlePage = () => {
                 </a>
                 ):
               </strong>{' '}
-              Deming incorporated general systems theory concepts emphasizing that organizations are
-              interconnected systems with properties that emerge from interactions rather than from
-              individual parts.
+              Deming&rsquo;s &ldquo;Appreciation for a System&rdquo; (later one component of
+              Profound Knowledge in 1993) resonates with general-systems-theory framings. The page
+              does not claim Deming directly cited Bertalanffy from the 1982 book; this is listed as
+              a parallel intellectual context.
             </li>
             <li>
-              <strong>Quality Management Literature (Juran, Crosby):</strong> Deming drew on and
-              extended previous quality management frameworks developed by Joseph Juran and Philip
-              Crosby while emphasizing distinctive focus on statistical methods and psychological
-              transformation.
+              <strong>Quality Management Literature (Juran, Crosby, Feigenbaum, Ishikawa):</strong>
+              Deming operated as one of several post-war quality thinkers, not in isolation. Joseph
+              Juran published in parallel and lectured in Japan; Armand Feigenbaum coined the term
+              &ldquo;Total Quality Control&rdquo; (Feigenbaum, 1951); Philip Crosby argued that
+              &ldquo;quality is free&rdquo; (Crosby, 1979); Kaoru Ishikawa organized the Japanese
+              quality movement through JUSE and developed the cause-and-effect diagram. The
+              distinctive emphases of Deming within this group are widely reported to include
+              statistical reasoning about variation and an explicitly anti-blame, systems-view of
+              worker performance.
             </li>
             <li>
-              <strong>Organizational Behavior Theory:</strong> Incorporated psychological and
-              behavioral insights about motivation, group dynamics, organizational culture, and
-              organizational learning into quality improvement framework.
+              <strong>Taylorism as target of critique:</strong> Secondary accounts (e.g. Walton,
+              1986) describe Deming as explicitly repudiating certain Taylorist practices -
+              particularly numerical quotas and management-by-objective for the workforce (14 Points
+              #10 and #11). The page does not claim a specific direct textual reference from Deming
+              (1982) to Taylor (1911).
             </li>
           </ul>
         </section>
@@ -448,39 +475,39 @@ const BibliographyArticlePage = () => {
           </p>
 
           <h3 className={H3_CLASSES}>
-            System of Profound Knowledge (added by Deming, 1993, not in the 1982/1986 books)
+            System of Profound Knowledge (added by Deming, 1993 - not in the 1982/1986 books)
           </h3>
           <p className={PARAGRAPH_CLASSES}>
-            The System of Profound Knowledge is a later Deming formulation, introduced in{' '}
-            <em>The New Economics for Industry, Government, Education</em> (Deming, 1993), not in{' '}
+            Secondary sources and the Deming Institute (2018) describe the System of Profound
+            Knowledge as a later Deming formulation introduced in{' '}
+            <em>The New Economics for Industry, Government, Education</em> (1993), not in{' '}
             <em>Quality, Productivity, and Competitive Position</em> (1982) or in{' '}
             <em>Out of the Crisis</em> (1986). It is included on this page because it is frequently
-            taught alongside the 14 Points as part of Deming&rsquo;s mature philosophy, but readers
-            should note the attribution. Deming proposed four interrelated bodies of knowledge:
+            taught alongside the 14 Points as part of Deming&rsquo;s mature philosophy, and because
+            the Deming Institute one-pager quotes Deming connecting the two: &ldquo;My 14 Points for
+            Management follow naturally as application of the System of Profound Knowledge.&rdquo;
+            The four bodies of knowledge commonly listed in secondary treatments (and not verified
+            verbatim against the 1993 book on this page) are:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Appreciation for a System:</strong> Organizations function as interdependent
-              systems rather than collections of independent departments. Understanding system
-              interactions and optimizing overall system performance rather than individual parts is
-              essential to management.
+              <strong>Appreciation for a system:</strong> Commonly summarized as the idea that an
+              organization is an interacting system whose parts must be managed jointly rather than
+              independently optimized.
             </li>
             <li>
-              <strong>Knowledge of Variation:</strong> All processes produce variation.
-              Understanding sources of variation (common cause versus special cause), statistical
-              tools for analyzing variation, and methods for reducing variation is essential to
-              quality improvement. (Drawn directly from Shewhart.)
+              <strong>Knowledge about variation:</strong> Commonly summarized as the distinction
+              between common-cause and special-cause variation, inherited from Shewhart.
             </li>
             <li>
-              <strong>Theory of Knowledge:</strong> Organizational improvement requires scientific
-              method and hypothesis testing rather than experience alone. Understanding prediction,
-              testing, and learning enables evidence-based improvement. (Drawn from C. I. Lewis,{' '}
-              <em>Mind and the World Order</em>, cited by Deming.)
+              <strong>Theory of knowledge:</strong> Commonly summarized as the epistemological claim
+              that knowledge rests on prediction, testing, and learning. Secondary sources cite C.
+              I. Lewis&rsquo;s <em>Mind and the World Order</em> as one acknowledged influence; this
+              page does not independently verify that attribution from primary source.
             </li>
             <li>
-              <strong>Psychology:</strong> Understanding human motivation, group dynamics,
-              organizational behavior, and psychological needs enables effective management. Poor
-              management systems cause worker behavior problems.
+              <strong>Psychology:</strong> Commonly summarized as attention to intrinsic motivation,
+              dignity, and the role of management systems in shaping worker behaviour.
             </li>
           </ul>
 
