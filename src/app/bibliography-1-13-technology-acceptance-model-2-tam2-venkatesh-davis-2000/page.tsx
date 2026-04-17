@@ -411,9 +411,9 @@ const BibliographyArticlePage = () => {
               organizations can leverage to enhance adoption.
             </li>
             <li>
-              <strong>Empirical rigor:</strong> Adequate sample sizes across four studies (N=48, 50,
-              51, 51; total N=200), multiple measurement points, and real organizational technology
-              implementations provide strong empirical foundation.
+              <strong>Empirical rigor:</strong> Four longitudinal field studies across four
+              organizations (total N=156), three measurement points each, and real organizational
+              technology implementations provide strong empirical foundation.
             </li>
             <li>
               <strong>Moderator testing:</strong> Direct empirical tests of experience and
@@ -527,9 +527,9 @@ const BibliographyArticlePage = () => {
               temporal relationships and experience effects.
             </li>
             <li>
-              <strong>Large samples across studies:</strong> Each of the four studies included
-              approximately 50 participants (N=48, 50, 51, 51; total N=200), providing sufficient
-              statistical power to detect hypothesized relationships and moderating effects.
+              <strong>Multi-study design:</strong> Four longitudinal field studies across four
+              organizations (total N=156), each measured at three time points, providing sufficient
+              data to detect hypothesized relationships and moderating effects.
             </li>
             <li>
               <strong>Real organizational implementations:</strong> Studies used actual technology
