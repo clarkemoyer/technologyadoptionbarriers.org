@@ -481,8 +481,8 @@ const BibliographyArticlePage = () => {
               software development processes.
             </li>
             <li>
-              <strong>Advanced process measurement in software:</strong> Emphasized measurement
-              and metrics as central to process management, contributing to subsequent software
+              <strong>Advanced process measurement in software:</strong> Emphasized measurement and
+              metrics as central to process management, contributing to subsequent software
               engineering practice.
             </li>
             <li>
@@ -699,9 +699,9 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Following Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
-            The Capability Maturity Model sits at the start of a significant stream of
-            theoretical and practical developments around process capability, with subsequent
-            extensions building on and refining the original framework:
+            The Capability Maturity Model sits at the start of a significant stream of theoretical
+            and practical developments around process capability, with subsequent extensions
+            building on and refining the original framework:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
