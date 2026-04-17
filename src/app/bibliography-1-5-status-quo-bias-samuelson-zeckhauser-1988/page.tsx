@@ -201,7 +201,52 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 6. Preceding Models or Theories */}
+        {/* 6. What Does the Model Measure? */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>What Does the Model Measure?</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            Status Quo Bias is a behavioral-decision theory rather than a standard psychometric
+            scale. Samuelson and Zeckhauser (1988) demonstrate the bias through controlled
+            experiments and propose a typology of sources for the bias. Measured/operationalized
+            concepts include:
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Status Quo Bias Effect Size:</strong> The shift in preference when one
+              alternative is labeled as the current state relative to a neutral baseline choice.
+              Measured through decision experiments comparing choice distributions with and
+              without a status-quo label.
+            </li>
+            <li>
+              <strong>Rational Sources of Bias:</strong>
+              <ul className={BODY_LIST_CLASSES}>
+                <li>Transition costs (financial, cognitive, time)</li>
+                <li>Uncertainty about the new alternative</li>
+              </ul>
+            </li>
+            <li>
+              <strong>Cognitive/Psychological Sources of Bias:</strong>
+              <ul className={BODY_LIST_CLASSES}>
+                <li>Loss aversion / endowment effect (Kahneman &amp; Tversky)</li>
+                <li>Anchoring and adjustment heuristics</li>
+                <li>Regret avoidance</li>
+              </ul>
+            </li>
+            <li>
+              <strong>Psychological Commitment Sources:</strong> Drives to reduce cognitive
+              dissonance or maintain self-consistency with past choices.
+            </li>
+          </ul>
+          <p className={PARAGRAPH_CLASSES}>
+            Samuelson &amp; Zeckhauser (1988) report effect sizes from both hypothetical-choice
+            experiments and real-world decisions. In the IS domain, Kim &amp; Kankanhalli (2009)
+            and subsequent authors operationalize switching-related SQB constructs via multi-item
+            Likert scales (transition costs, sunk costs, regret avoidance, inertia, uncertainty
+            costs).
+          </p>
+        </section>
+
+        {/* 7. Preceding Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Preceding Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -259,7 +304,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 7. Describe The Model */}
+        {/* 8. Describe The Model */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Describe The Model</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -417,7 +462,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 8. Key Contributions */}
+        {/* 9. Key Contributions */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Key Contributions</h2>
           <ul className={BODY_LIST_CLASSES}>
@@ -460,7 +505,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 9. Internal Validity */}
+        {/* 10. Internal Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Internal Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -508,7 +553,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 10. External Validity */}
+        {/* 11. External Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>External Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -547,7 +592,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 11. Relevance to Technology Adoption */}
+        {/* 12. Relevance to Technology Adoption */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Relevance to Technology Adoption</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -642,7 +687,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 12. Following Models or Theories */}
+        {/* 13. Following Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Following Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -689,7 +734,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 13. References */}
+        {/* 14. References */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>References</h2>
           <ol className={REFERENCES_OL_CLASSES}>
@@ -727,6 +772,7 @@ const BibliographyArticlePage = () => {
           </ol>
         </section>
 
+        {/* 15. Further Reading */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Further Reading</h2>
           <ol className={REFERENCES_OL_CLASSES}>
@@ -764,7 +810,7 @@ const BibliographyArticlePage = () => {
           </ol>
         </section>
 
-        {/* 14. Series Navigation */}
+        {/* 16. Series Navigation */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Series Navigation</h2>
           <p className={PARAGRAPH_CLASSES}>
