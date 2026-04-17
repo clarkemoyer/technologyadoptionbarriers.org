@@ -170,11 +170,11 @@ const BibliographyArticlePage = () => {
             The paper&rsquo;s analytical tools are conceptual rather than statistical: (i) the
             notion of a <em>resource position barrier</em> (analogous to an entry barrier, for
             resources rather than product-markets); (ii) the <em>resource-product matrix</em>
-            (Figure 1, p.175) showing how a given resource can support multiple products and a given
+            (Figure 1, p.176) showing how a given resource can support multiple products and a given
             product can draw on multiple resources; and (iii) a small set of illustrative diagrams
-            for dynamic strategy - <em>sequential entry</em> (Figure 2, p.176),
-            <em>exploit-and-develop</em> (Figure 3, p.177), and <em>stepping stones</em> (Figure 4,
-            p.178). The paper is presented by the author as &ldquo;a first cut at a huge can of
+            for dynamic strategy - <em>sequential entry</em> (Figure 2, p.177),
+            <em>exploit-and-develop</em> (Figure 3, p.179), and <em>stepping stones</em> (Figure 4,
+            p.179). The paper is presented by the author as &ldquo;a first cut at a huge can of
             worms&rdquo; (p.180), explicitly calling for further research on implementability. The
             later VRIN/VRIO apparatus commonly associated with RBV comes from Barney (1991) and is
             NOT in Wernerfelt (1984).
@@ -216,7 +216,7 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>Resource-product matrix:</strong> The central analytical device of the paper
-              (Figure 1, p.175). Rows represent resources, columns represent product-markets; X
+              (Figure 1, p.176). Rows represent resources, columns represent product-markets; X
               entries mark a resource&rsquo;s role in a product-market. The matrix makes explicit
               that diversification can be analysed from the resource side (reading across a row) as
               well as from the product side (reading down a column), and that products share
@@ -232,7 +232,7 @@ const BibliographyArticlePage = () => {
             <li>
               <strong>Sequential entry, exploit-and-develop, stepping stones:</strong> Three
               dynamic-strategy patterns illustrated using the resource-product matrix (Figures 2-4,
-              pp.176-178). Sequential entry uses a single resource in successive markets;
+              pp.177-179). Sequential entry uses a single resource in successive markets;
               exploit-and-develop uses profits from an established resource to build a new one;
               stepping stones enter adjacent product-markets to build up resource positions for a
               longer-term target market.
@@ -453,7 +453,7 @@ const BibliographyArticlePage = () => {
             </li>
           </ul>
 
-          <h3 className={H3_CLASSES}>Resource-product matrix and dynamic strategy (pp.175-178)</h3>
+          <h3 className={H3_CLASSES}>Resource-product matrix and dynamic strategy (pp.176-179)</h3>
           <p className={PARAGRAPH_CLASSES}>
             The resource-product matrix (Figure 1) is a grid with resources as rows and
             product-markets as columns, with X entries marking a resource&rsquo;s use in a given
@@ -462,18 +462,20 @@ const BibliographyArticlePage = () => {
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Sequential entry (Figure 2, p.176):</strong> A single resource is used in
-              successive product-markets over time. Wernerfelt gives the example of a firm using
-              production skills to enter pen, lighters, and razors sequentially.
+              <strong>Sequential entry (Figure 2, p.177):</strong> A single resource is used in
+              successive product-markets over time. Wernerfelt gives the example of BIC, which used
+              its mass marketing skills to enter the markets for pens, lighters, and razors
+              sequentially (p.176). Figure 2 illustrates the same pattern abstractly, with a firm
+              developing production skills in a domestic market before going international.
             </li>
             <li>
-              <strong>Exploit-and-develop (Figure 3, p.177):</strong> Profits from an established
+              <strong>Exploit-and-develop (Figure 3, p.179):</strong> Profits from an established
               resource (e.g. &ldquo;domestic contacts&rdquo;) are used to build a new resource (e.g.
               &ldquo;international contacts&rdquo;) through joint cost effects. This balances
               exploitation of existing resources against development of new ones.
             </li>
             <li>
-              <strong>Stepping stones (Figure 4, p.178):</strong> A firm enters related
+              <strong>Stepping stones (Figure 4, p.179):</strong> A firm enters related
               product-markets not for their own sake but because each market short-term balance
               effects (joint positioning, shared learning) that build resource positions for a
               longer-term target product-market.
@@ -509,7 +511,7 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>Explicit duality:</strong> The &ldquo;two sides of the same coin&rdquo;
-              framing (p.171) and the resource-product matrix (Figure 1, p.175) force the analyst to
+              framing (p.171) and the resource-product matrix (Figure 1, p.176) force the analyst to
               see both resources and products simultaneously, surfacing diversification
               opportunities that a product-only analysis would miss.
             </li>
@@ -612,7 +614,7 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>Resource-product matrix:</strong> Introduced the resource-product matrix
-              (Figure 1, p.175) as a working analytical tool, explicitly connected to
+              (Figure 1, p.176) as a working analytical tool, explicitly connected to
               growth-share-style portfolio thinking (Henderson, 1979) and to the duality between
               product and resource perspectives.
             </li>
@@ -625,7 +627,7 @@ const BibliographyArticlePage = () => {
             <li>
               <strong>Dynamic strategy patterns:</strong> Provided three schematic dynamic-strategy
               patterns on the resource-product matrix - sequential entry, exploit-and-develop,
-              stepping stones (Figures 2-4, pp.176-178) - offering a vocabulary for multi-period
+              stepping stones (Figures 2-4, pp.177-179) - offering a vocabulary for multi-period
               resource development.
             </li>
             <li>
