@@ -70,7 +70,18 @@ const BibliographyArticlePage = () => {
               <strong>Pages:</strong> 186-204
             </p>
             <p>
-              <strong>URL:</strong>{' '}
+              <strong>DOI:</strong>{' '}
+              <a
+                href="https://doi.org/10.1287/mnsc.46.2.186.11926"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:underline"
+              >
+                https://doi.org/10.1287/mnsc.46.2.186.11926
+              </a>
+            </p>
+            <p>
+              <strong>JSTOR:</strong>{' '}
               <a
                 href="https://www.jstor.org/stable/2634758"
                 target="_blank"
@@ -775,7 +786,15 @@ const BibliographyArticlePage = () => {
             <li id="ref-venkatesh-2000">
               Venkatesh, V., &amp; Davis, F. D. (2000). A theoretical extension of the technology
               acceptance model: Four longitudinal field studies. <em>Management Science</em>, 46(2),
-              186-204.
+              186-204.{' '}
+              <a
+                href="https://doi.org/10.1287/mnsc.46.2.186.11926"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:underline"
+              >
+                https://doi.org/10.1287/mnsc.46.2.186.11926
+              </a>
             </li>
             <li id="ref-davis-1989">
               Davis, F. D. (1989). Perceived usefulness, perceived ease of use, and user acceptance
@@ -785,9 +804,18 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-davis-1989-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                ></a>
+                >
+                  &#x21A9;
+                </a>
               </span>{' '}
-              https://doi.org/10.2307/249008
+              <a
+                href="https://doi.org/10.2307/249008"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:underline"
+              >
+                https://doi.org/10.2307/249008
+              </a>
             </li>
             <li id="ref-rogers-1995">
               Rogers, E. M. (1995). Diffusion of innovations (4th ed.). Free Press.
@@ -796,7 +824,9 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-rogers-1995-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                ></a>
+                >
+                  &#x21A9;
+                </a>
               </span>
             </li>
             <li id="ref-venkatesh-2003">
@@ -808,9 +838,18 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-venkatesh-2003-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                ></a>
+                >
+                  &#x21A9;
+                </a>
               </span>{' '}
-              https://doi.org/10.2307/30036540
+              <a
+                href="https://doi.org/10.2307/30036540"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:underline"
+              >
+                https://doi.org/10.2307/30036540
+              </a>
             </li>
           </ol>
         </section>
@@ -825,17 +864,39 @@ const BibliographyArticlePage = () => {
             </li>
             <li id="ref-goodhue-1995">
               Goodhue, D. L., &amp; Thompson, R. L. (1995). Task-technology fit and individual
-              performance. <em>MIS Quarterly</em>, 19(2), 213-236. https://doi.org/10.2307/249689
+              performance. <em>MIS Quarterly</em>, 19(2), 213-236.{' '}
+              <a
+                href="https://doi.org/10.2307/249689"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:underline"
+              >
+                https://doi.org/10.2307/249689
+              </a>
             </li>
             <li id="ref-venkatesh-2008">
               Venkatesh, V., &amp; Bala, H. (2008). Technology acceptance model 3 and a research
-              agenda on interventions. <em>Decision Sciences</em>, 39(2), 273-315.
-              https://doi.org/10.1111/j.1540-5915.2008.00192.x
+              agenda on interventions. <em>Decision Sciences</em>, 39(2), 273-315.{' '}
+              <a
+                href="https://doi.org/10.1111/j.1540-5915.2008.00192.x"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:underline"
+              >
+                https://doi.org/10.1111/j.1540-5915.2008.00192.x
+              </a>
             </li>
             <li id="ref-compeau-1995">
               Compeau, D. R., &amp; Higgins, C. A. (1995). Computer self-efficacy: Development of a
-              measure and initial test. <em>MIS Quarterly</em>, 19(2), 189-211.
-              https://doi.org/10.2307/249688
+              measure and initial test. <em>MIS Quarterly</em>, 19(2), 189-211.{' '}
+              <a
+                href="https://doi.org/10.2307/249688"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:underline"
+              >
+                https://doi.org/10.2307/249688
+              </a>
             </li>
             <li id="ref-bandura-1997">
               Bandura, A. (1997). Self-efficacy: The exercise of control. W.H. Freeman.
