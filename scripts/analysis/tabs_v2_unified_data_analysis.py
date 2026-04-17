@@ -2004,8 +2004,11 @@ def _build_demographics_detailed(rows, idx):
                 v = str(r[col_idx]).strip()
                 if v not in ("", "nan", "None"):
                     counter[v] += 1
+        # Sort by count descending, then by label ascending for ties to
+        # produce a stable, deterministic ordering across pipeline runs.
+        items_sorted = sorted(counter.items(), key=lambda kv: (-kv[1], kv[0]))
         return [{"label": k, "count": v, "pct": round(100.0 * v / total, 2) if total else 0.0}
-                for k, v in counter.most_common()]
+                for k, v in items_sorted]
 
     return {
         "roles": tabulate("Q1_Role"),

@@ -1286,7 +1286,7 @@ class TestExtendedOutputBlocks:
                     "demographics_detailed", "extended_last_updated"):
             assert key in result, f"extended key '{key}' missing"
 
-        # top3_pick_counts: B7 picked by all 4 rows
+        # top3_pick_counts: B7 picked by rows 0-2 (3 of 4 rows; row 3 picks only B2)
         assert result["top3_pick_counts"]["total_n"] == 4
         b7_item = next(x for x in result["top3_pick_counts"]["items"] if x["item"] == "B7")
         assert b7_item["count"] == 3
