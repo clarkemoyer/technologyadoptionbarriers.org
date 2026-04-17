@@ -32,7 +32,7 @@ const BibliographyArticlePage = () => {
               Intelligence, Machine Learning, and Generative AI
             </p>
             <p>
-              <strong>Framework Abbreviation:</strong> AWS CAF for AI
+              <strong>Framework Abbreviation:</strong> AWS CAF-AI
             </p>
             <p>
               <strong>Target of Framework:</strong> Guiding organizations through cloud-based
@@ -57,7 +57,7 @@ const BibliographyArticlePage = () => {
               <strong>Author/Organization:</strong> Amazon Web Services (AWS)
             </p>
             <p>
-              <strong>Formal Publication Date:</strong> 2024
+              <strong>Formal Publication Date:</strong> February 13, 2024
             </p>
             <p>
               <strong>Current Version:</strong> AWS Cloud Adoption Framework for Artificial
@@ -174,30 +174,33 @@ const BibliographyArticlePage = () => {
               organizational roles and concerns during AI adoption.
             </li>
             <li>
-              <strong>Capability Building Blocks:</strong> Seven foundational capabilities required
-              for successful AI implementation: Strategic Alignment, Use Case Identification, Data
-              Foundation, ML Operations, Model Risk Management, Responsible AI, and Talent
-              Development.
+              <strong>Foundational AI Capabilities:</strong> Organizational capabilities grouped
+              under the six perspectives. Each perspective enriches or adds specific capabilities
+              for AI adoption while reusing unchanged capabilities from the original AWS CAF.
+              Examples of new AI-specific capabilities introduced by CAF-AI include Generative AI
+              (Business), ML Fluency (People), Responsible use of AI (Governance), and AI Lifecycle
+              Management and MLOps (Platform).
             </li>
             <li>
-              <strong>Use Case Identification:</strong> Systematic process for identifying
-              high-value AI opportunities aligned with business objectives. Use case identification
-              focuses on realistic, achievable AI implementations.
+              <strong>AI Flywheel:</strong> A virtuous cycle where high-quality data (timely,
+              relevant, valuable, and valid) is used to train or tune an AI system that delivers
+              predictions, which positively impact business outcomes, leading to deeper customer
+              relationships and the creation of more or higher-quality data.
             </li>
             <li>
-              <strong>Data Foundation:</strong> Organizational infrastructure and practices for
-              collecting, managing, and preparing data for AI. Data foundation quality directly
-              determines AI model effectiveness.
+              <strong>Data Strategy:</strong> Described in the whitepaper as the element that keeps
+              the AI flywheel in motion. Data strategy and foundational capabilities are identified
+              as the primary drivers of success or failure when adopting AI.
             </li>
             <li>
-              <strong>MLOps (Machine Learning Operations):</strong> Operational practices for
-              continuously training, validating, deploying, and monitoring ML models in production.
-              MLOps enables sustainable AI implementations.
+              <strong>AI Lifecycle Management and MLOps:</strong> A new Platform-perspective
+              capability covering the operational practices for managing the lifecycle of machine
+              learning workloads, including training, deployment, and monitoring.
             </li>
             <li>
-              <strong>Responsible AI:</strong> Practices for ensuring AI systems are trustworthy,
-              fair, transparent, and aligned with organizational values. Responsible AI governance
-              mitigates AI risks.
+              <strong>Responsible use of AI:</strong> A new Governance-perspective capability
+              introduced by CAF-AI to foster continual AI innovation through responsible use,
+              described as a decisive element for future competitive advantage.
             </li>
           </ul>
         </section>
@@ -247,113 +250,123 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Describe The Model</h2>
           <p className={PARAGRAPH_CLASSES}>
-            AWS CAF for AI provides outcome-driven framework for AI adoption through six
-            perspectives addressing different organizational stakeholder groups combined with seven
-            capability building blocks representing foundational requirements for successful AI
-            implementation.
+            AWS CAF-AI provides a mental model and prescriptive guidance for AI adoption through six
+            perspectives addressing different organizational stakeholder groups, each enriched with
+            a set of foundational capabilities tailored or newly introduced for AI, ML, and
+            generative AI adoption.
           </p>
 
           <h3 className={H3_CLASSES}>Six Perspectives</h3>
           <p className={PARAGRAPH_CLASSES}>
-            AWS CAF for AI organizes stakeholders and concerns into six perspectives, each
-            addressing distinct organizational viewpoint:
+            AWS CAF-AI organizes stakeholders and concerns into six perspectives inherited from the
+            original AWS CAF (Business, People, Governance, Platform, Security, Operations), each
+            enriched with AI-specific guidance:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Business Perspective:</strong> Addresses business executives, product
-              managers, and business stakeholders. Business perspective focuses on AI business case,
-              use case identification, outcome measurement, and business value realization.
+              <strong>Business Perspective:</strong> Helps ensure that AI investments accelerate
+              digital- and AI-transformation ambitions and business outcomes. Typical stakeholders
+              named in the whitepaper include CEO, CFO, COO, CIO, and CTO.
             </li>
             <li>
-              <strong>People Perspective:</strong> Addresses human resources, change management, and
-              organizational development. People perspective focuses on talent development, skill
-              building, change management, and organizational culture adaptation for AI.
+              <strong>People Perspective:</strong> Serves as a bridge between AI technology and
+              business and aims to evolve a culture of continual growth and learning. Typical
+              stakeholders include CHRO, CIO, COO, CTO, cloud director, and cross-functional
+              enterprise-wide leaders.
             </li>
             <li>
-              <strong>Governance Perspective:</strong> Addresses boards, compliance officers, and
-              enterprise governance. Governance perspective focuses on policies, standards, risk
-              management, compliance, and responsible AI governance.
+              <strong>Governance Perspective:</strong> Helps orchestrate AI initiatives while
+              maximizing organizational benefits and minimizing transformation-related risks, and
+              introduces Responsible use of AI as a new capability. Typical stakeholders include the
+              chief transformation officer, CIO, CTO, CFO, CDO, and CRO.
             </li>
             <li>
-              <strong>Platform Perspective:</strong> Addresses architects, infrastructure engineers,
-              and technology leaders. Platform perspective focuses on technology infrastructure,
-              data platforms, ML platforms, and AI services.
+              <strong>Platform Perspective:</strong> Helps build an enterprise-grade, scalable cloud
+              platform for operating AI-enabled services and developing custom AI solutions. Typical
+              stakeholders include CTO, technology leaders, ML operations engineers, and data
+              scientists.
             </li>
             <li>
-              <strong>Security Perspective:</strong> Addresses security officers and information
-              security professionals. Security perspective focuses on data security, model security,
-              AI-specific security risks, and compliance.
+              <strong>Security Perspective:</strong> Helps achieve the confidentiality, integrity,
+              and availability of data and cloud workloads and addresses attack vectors specific to
+              AI systems. Typical stakeholders include CISO, CCO, internal audit leaders, and
+              security architects and engineers.
             </li>
             <li>
-              <strong>Operations Perspective:</strong> Addresses operations teams, system
-              administrators, and IT operations. Operations perspective focuses on ML model
-              lifecycle management, MLOps, monitoring, and operational excellence.
+              <strong>Operations Perspective:</strong> Helps ensure cloud services, and in
+              particular AI workloads, are delivered at a level that meets the needs of the
+              business. Typical stakeholders include infrastructure and operations leaders.
             </li>
           </ul>
 
-          <h3 className={H3_CLASSES}>Seven Capability Building Blocks</h3>
+          <h3 className={H3_CLASSES}>Foundational AI Capabilities by Perspective</h3>
           <p className={PARAGRAPH_CLASSES}>
-            AWS CAF for AI identifies seven foundational capabilities required for successful AI
-            implementation:
+            AWS CAF-AI enriches existing AWS CAF capabilities and adds new ones under each
+            perspective. The capabilities that are enriched or newly introduced for AI in the 2024
+            whitepaper include:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Strategic Alignment:</strong> Alignment of AI initiatives with organizational
-              strategy and business objectives. Strategic alignment ensures AI investments support
-              business priorities.
+              <strong>Business:</strong> Strategy Management, Product Management, Business Insight,
+              Portfolio Management, Innovation Management, and the new Generative AI capability.
             </li>
             <li>
-              <strong>Use Case Identification:</strong> Systematic process for identifying
-              high-value AI opportunities within organization. Use case identification focuses on
-              realistic, achievable, measurable AI implementations.
+              <strong>People:</strong> the new ML Fluency capability, Workforce Transformation,
+              Organizational Alignment, and Culture Evolution.
             </li>
             <li>
-              <strong>Data Foundation:</strong> Organizational infrastructure for collecting,
-              managing, preparing, and governing data for AI. Data foundation quality determines AI
-              model quality and effectiveness.
+              <strong>Governance:</strong> Cloud Financial Management (CFM), Data Curation, Risk
+              Management, and the new Responsible use of AI capability.
             </li>
             <li>
-              <strong>ML Operations (MLOps):</strong> Operational practices for continuously
-              developing, training, validating, deploying, and monitoring ML models. MLOps enables
-              sustainable, scalable AI implementations.
+              <strong>Platform:</strong> Platform Architecture, Modern Application Development, AI
+              Lifecycle Management and MLOps, Data Architecture, Platform Engineering, Data
+              Engineering, Provisioning and Orchestration, and Continuous Integration and Continuous
+              Delivery (CI/CD).
             </li>
             <li>
-              <strong>Model Risk Management:</strong> Processes for identifying, assessing, and
-              mitigating AI model risks including model performance degradation, bias, security
-              vulnerabilities, and operational failures.
+              <strong>Security:</strong> Vulnerability Management, Security Governance, Security
+              Assurance, Threat Detection, Infrastructure Protection, Data Protection, and
+              Application Security.
             </li>
             <li>
-              <strong>Responsible AI:</strong> Practices for ensuring AI systems are trustworthy,
-              fair, transparent, explainable, and aligned with organizational values and societal
-              expectations.
-            </li>
-            <li>
-              <strong>Talent Development:</strong> Programs for developing AI expertise within
-              organization including data scientists, ML engineers, AI architects, and business
-              stakeholders with AI literacy.
+              <strong>Operations:</strong> Incident and Problem Management, and Performance and
+              Capacity.
             </li>
           </ul>
-
-          <h3 className={H3_CLASSES}>AI Adoption Journey</h3>
           <p className={PARAGRAPH_CLASSES}>
-            AWS CAF for AI frames AI adoption as structured journey progressing through stages:
+            Each perspective also lists several existing CAF capabilities that are not enriched for
+            AI and refer back to the original AWS CAF (for example, Identity and Access Management,
+            Incident Response, Data Governance, and Benefits Management).
+          </p>
+
+          <h3 className={H3_CLASSES}>AI Transformation Journey</h3>
+          <p className={PARAGRAPH_CLASSES}>
+            After an initial assessment, AWS CAF-AI frames AI adoption as an iterative cycle based
+            on four stages:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Envision:</strong> Assess current organizational AI readiness and identify
-              high-value AI use cases aligned with business strategy.
+              <strong>Envision:</strong> Envision how AI can accelerate business outcomes by
+              identifying and prioritizing transformation opportunities in line with business
+              objectives, associating them with key stakeholders and measurable outcomes, and
+              identifying the data assets and sources these opportunities rely upon.
             </li>
             <li>
-              <strong>Align:</strong> Assess organizational readiness and gaps, develop
-              transformation roadmap, and establish cross-functional alignment.
+              <strong>Align:</strong> Focus on the foundational capabilities, identify
+              cross-organizational dependencies, and surface stakeholder concerns and challenges.
+              Align internally on the goals set in the Envision phase to improve cloud and AI
+              readiness and facilitate change management.
             </li>
             <li>
-              <strong>Launch:</strong> Deploy and iterate on initial use cases, validate outcomes,
-              and build operational capabilities.
+              <strong>Launch:</strong> Deliver pilot initiatives from early proofs of concept to
+              production and demonstrate incremental business value, learning from each pilot
+              regardless of its success before scaling.
             </li>
             <li>
-              <strong>Scale:</strong> Expand successful use cases across the organization, optimize
-              responsible AI practices, and maximize business value.
+              <strong>Scale:</strong> Scale pilots in production to achieve broad, sustained value,
+              where scaling can refer to the technical capabilities of solutions as well as their
+              reach through the business and to customers.
             </li>
           </ul>
 
