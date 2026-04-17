@@ -11,7 +11,13 @@ export default function QualtricsSurveyStats() {
   const metrics = metricsData.metrics
   const maxValue = Math.max(1, ...metrics.map((m) => m.value))
   const placesTaken = dispositionData.study?.placesTaken ?? 0
-  const questionCount = metricsData.questionCount ?? 0
+  const questionCount: number | null = metricsData.questionCount ?? null
+
+  const dispositionUpdatedAt = dispositionData.updatedAt
+    ? new Date(
+        dispositionData.updatedAt.replace(/\.\d{4,}/, (m: string) => m.slice(0, 4))
+      ).toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'short' })
+    : null
 
   return (
     <section className="mx-auto w-full max-w-5xl px-6 py-10">
@@ -43,13 +49,13 @@ export default function QualtricsSurveyStats() {
             </div>
             <div className="mt-1 text-xs text-blue-600">
               Cached snapshot from Prolific. Last updated{' '}
-              <span className="font-medium">{dispositionData.updatedAt}</span>.
+              <span className="font-medium">{dispositionUpdatedAt ?? '—'}</span>.
             </div>
           </div>
           <div className="rounded-lg border border-orange-200 bg-orange-50 p-4">
             <div className="text-sm font-medium text-orange-900">Question Count</div>
             <div className="mt-1 text-3xl font-bold text-orange-700">
-              {questionCount.toLocaleString()}
+              {questionCount !== null ? questionCount.toLocaleString() : '—'}
             </div>
             <div className="mt-1 text-xs text-orange-600">Total survey questions</div>
           </div>
