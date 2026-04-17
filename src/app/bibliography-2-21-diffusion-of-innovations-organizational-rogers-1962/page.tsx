@@ -14,7 +14,7 @@ import {
 export const metadata: Metadata = {
   title: 'Bibliography: Diffusion of Innovations - Organizational Perspective - Rogers (1962/2003)',
   description:
-    "Comprehensive overview of Rogers' Diffusion of Innovations theory (1st ed. 1962; 5th ed. 2003) focused on organizational adoption. Covers organizational innovativeness, innovation-development process, organizational adoption stages, champions and change agents, and foundational diffusion research across 5,000+ studies.",
+    "Comprehensive overview of Rogers' Diffusion of Innovations theory (1st ed. 1962; 5th ed. 2003) focused on organizational adoption. Covers organizational innovativeness, innovation-development process, organizational adoption stages, champions and change agents, and foundational diffusion research synthesizing more than 3,000 diffusion publications.",
 }
 
 const BibliographyArticlePage = () => {
@@ -83,9 +83,11 @@ const BibliographyArticlePage = () => {
               <strong>Publication Location:</strong> New York
             </p>
             <p>
-              <strong>Foundational Research Base:</strong> Synthesis of over 5,000 diffusion studies
-              across rural sociology, public health, marketing, communication, organizational
-              behavior, and technology adoption literatures
+              <strong>Foundational Research Base:</strong> Synthesis of the diffusion research
+              tradition, including the more than 3,000 diffusion publications (2,297 empirical and
+              788 non-empirical) catalogued in the 5th edition bibliography, spanning rural
+              sociology, public health, marketing, communication, organizational behavior, and
+              technology adoption literatures
             </p>
             <p>
               <strong>ISBN:</strong> 978-0-7432-2209-9
@@ -387,9 +389,10 @@ const BibliographyArticlePage = () => {
           <h3 className={H3_CLASSES}>Key Strengths</h3>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Comprehensive diffusion synthesis:</strong> Rogers synthesized over 5,000
-              diffusion studies across multiple disciplines into integrated theoretical framework,
-              establishing diffusion of innovations as a central social science concept.
+              <strong>Comprehensive diffusion synthesis:</strong> Rogers synthesized the diffusion
+              research literature (more than 3,000 catalogued publications as of the 5th edition)
+              across multiple disciplines into an integrated theoretical framework, establishing
+              diffusion of innovations as a central social science concept.
             </li>
             <li>
               <strong>Process perspective:</strong> Framework treats adoption as social process
@@ -453,10 +456,16 @@ const BibliographyArticlePage = () => {
 
           <h3 className={H3_CLASSES}>Organizational Adopter Categories</h3>
           <p className={PARAGRAPH_CLASSES}>
-            Rogers applied his five-category adopter typology - Innovators, Early Adopters, Early
-            Majority, Late Majority, and Laggards - not only to individual decision-makers but to
-            organizations as collective adopter units. This organizational application has distinct
-            implications for enterprise technology adoption:
+            Rogers&rsquo; five-category adopter typology - Innovators, Early Adopters, Early
+            Majority, Late Majority, and Laggards - was originally developed to classify individual
+            adopters along the normal distribution of time-to-adoption (Chapter 7 of the 5th
+            edition). In Chapter 10, Rogers cautioned that the earliest organizational-
+            innovativeness studies, which simply transferred individual-level models to
+            organizations, were oversimplified and measured innovativeness as a continuous composite
+            score rather than a categorical typology. With that caveat in mind, subsequent diffusion
+            researchers and practitioners have extended the five-category typology to organizations
+            as collective adopter units. This extended application has distinct implications for
+            enterprise technology adoption:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
@@ -476,8 +485,8 @@ const BibliographyArticlePage = () => {
               <strong>Early Majority Organizations:</strong> Adopt innovations after seeing evidence
               from early adopters, but before the majority of peer organizations. Adoption decisions
               are heavily influenced by industry benchmarking, peer reference cases, and analyst
-              reports. Rogers noted that adoption by this group marks the transition from early to
-              mainstream adoption within an organizational population.
+              reports. Adoption by this group marks the transition from early to mainstream adoption
+              within an organizational population.
             </li>
             <li>
               <strong>Late Majority Organizations:</strong> Adopt out of competitive necessity or
@@ -656,9 +665,10 @@ const BibliographyArticlePage = () => {
               implementation.
             </li>
             <li>
-              <strong>Empirical grounding:</strong> Framework grounded in synthesis of over 5,000
-              empirical diffusion studies across multiple disciplines, providing strong empirical
-              foundation for core theoretical propositions.
+              <strong>Empirical grounding:</strong> Framework grounded in synthesis of the diffusion
+              research tradition (over 2,297 empirical and 788 non-empirical publications catalogued
+              in the 5th edition bibliography) across multiple disciplines, providing strong
+              empirical foundation for core theoretical propositions.
             </li>
           </ul>
         </section>
