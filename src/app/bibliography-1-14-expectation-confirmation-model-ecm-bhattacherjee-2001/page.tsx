@@ -739,6 +739,15 @@ const BibliographyArticlePage = () => {
             <li id="ref-cronin-1992">
               Cronin, J. J., &amp; Taylor, S. A. (1992). Measuring service quality: A reexamination
               and extension. <em>Journal of Marketing</em>, 56(3), 55-68.
+              <span className="text-xs ml-1">
+                <a
+                  href="#cite-ref-cronin-1992-1"
+                  className="text-tabs-teal-deep hover:underline"
+                  aria-label="Back to citation 1"
+                >
+                  ↩
+                </a>
+              </span>
             </li>
           </ol>
         </section>
@@ -761,11 +770,8 @@ const BibliographyArticlePage = () => {
               of information technology: Toward a unified view. <em>MIS Quarterly</em>, 27(3),
               425-478. https://doi.org/10.2307/30036540
             </li>
-            <li id="ref-delone-2003">
-              DeLone, W. H., &amp; McLean, E. R. (2003). The DeLone and McLean model of information
-              systems success: A ten-year update. <em>Journal of Management Information Systems</em>
-              , 19(4), 9-30. https://doi.org/10.1080/07421222.2003.11045748
-            </li>
+            {/* prettier-ignore */}
+            <li id="ref-delone-2003">DeLone, W. H., &amp; McLean, E. R. (2003). The DeLone and McLean model of information systems success: A ten-year update. <em>Journal of Management Information Systems</em>, 19(4), 9-30. https://doi.org/10.1080/07421222.2003.11045748</li>
             <li id="ref-limayem-2007">
               Limayem, M., Hirt, S. G., &amp; Cheung, C. M. (2007). How habit limits the prediction
               of usage: The case of MS Word.{' '}
