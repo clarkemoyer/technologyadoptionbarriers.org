@@ -119,20 +119,20 @@ const BibliographyArticlePage = () => {
           <p className={PARAGRAPH_CLASSES}>
             Venkatesh, Thong, and Xu developed UTAUT2 to address a critical gap in technology
             adoption research. UTAUT had been widely adopted and cited as useful for predicting
-            technology adoption
-            in organizational contexts where adoption was mandatory or organizationally directed.
-            However, the vast majority of technology adoption in 2012 occurred in consumer contexts
-            involving voluntary adoption decisions: consumer purchases of smartphones, tablets,
-            laptops, and cloud-based services. Technology adoption research had overwhelmingly
-            focused on organizational mandatory adoption, leaving consumer voluntary adoption
-            largely unexplained by existing models. Additionally, prior consumer technology research
-            had identified hedonic motivation (intrinsic enjoyment from technology use) as important
-            adoption driver in consumer contexts, but organizational-focused models like UTAUT and
-            TAM3 emphasized instrumental usefulness and treated enjoyment as incidental. Consumer
-            adoption decisions differed fundamentally from organizational adoption in that consumers
-            chose whether to purchase and use technology based on personal preferences alongside
-            usefulness, could abandon technology easily without organizational consequences, and
-            valued hedonic satisfaction alongside performance benefits.
+            technology adoption in organizational contexts where adoption was mandatory or
+            organizationally directed. However, the vast majority of technology adoption in 2012
+            occurred in consumer contexts involving voluntary adoption decisions: consumer purchases
+            of smartphones, tablets, laptops, and cloud-based services. Technology adoption research
+            had overwhelmingly focused on organizational mandatory adoption, leaving consumer
+            voluntary adoption largely unexplained by existing models. Additionally, prior consumer
+            technology research had identified hedonic motivation (intrinsic enjoyment from
+            technology use) as important adoption driver in consumer contexts, but
+            organizational-focused models like UTAUT and TAM3 emphasized instrumental usefulness and
+            treated enjoyment as incidental. Consumer adoption decisions differed fundamentally from
+            organizational adoption in that consumers chose whether to purchase and use technology
+            based on personal preferences alongside usefulness, could abandon technology easily
+            without organizational consequences, and valued hedonic satisfaction alongside
+            performance benefits.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             Furthermore, Venkatesh and colleagues recognized that consumer technology use patterns
