@@ -202,7 +202,47 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 6. Preceding Models or Theories */}
+        {/* 6. What Does the Model Measure? */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>What Does the Model Measure?</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            The Microsoft AI Adoption Framework is a vendor-published prescriptive adoption and
+            governance framework rather than a psychometric measurement model. It does not define
+            latent constructs or validated scales. It structures how organizations plan, execute,
+            and govern enterprise adoption of Microsoft AI services (Microsoft 365 Copilot, Azure
+            AI, and Azure OpenAI). Evaluation concepts associated with it typically include:
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Readiness coverage:</strong> Whether prescribed readiness activities
+              (identity, licensing, data governance, change management) have been completed for
+              the target AI workload or scope.
+            </li>
+            <li>
+              <strong>Responsible AI compliance:</strong> Whether the adoption aligns with
+              Microsoft&rsquo;s Responsible AI Standard and required transparency, fairness, and
+              accountability controls.
+            </li>
+            <li>
+              <strong>Governance and security posture:</strong> Whether data classification, data
+              loss prevention, access governance, and Azure AI-specific security controls are in
+              place.
+            </li>
+            <li>
+              <strong>Adoption and business value:</strong> Usage, productivity, and outcome-linked
+              metrics the framework invites customers to track; specific metric sets are
+              organization-defined rather than prescribed.
+            </li>
+          </ul>
+          <p className={PARAGRAPH_CLASSES}>
+            <strong>Source note:</strong> The Microsoft AI Adoption Framework is a first-party
+            vendor framework published by Microsoft. Descriptions here are drawn from Microsoft
+            Learn documentation, the Microsoft Responsible AI Standard, and publicly available
+            Microsoft materials. Independent empirical evaluation is limited.
+          </p>
+        </section>
+
+        {/* 7. Preceding Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Preceding Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -251,7 +291,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 7. Describe The Model */}
+        {/* 8. Describe The Model */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Describe The Model</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -476,7 +516,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 8. Key Contributions */}
+        {/* 9. Key Contributions */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Key Contributions</h2>
           <ul className={BODY_LIST_CLASSES}>
@@ -513,11 +553,14 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 9. Internal Validity */}
+        {/* 10. Internal Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Internal Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
-            Microsoft AI Adoption Framework demonstrates strong internal validity as comprehensive
+            The Microsoft AI Adoption Framework is a vendor-published prescriptive framework
+            rather than an empirical theory, so it is not subject to construct-validity testing in
+            a psychometric sense. Considerations typically raised about its internal consistency
+            as a comprehensive
             AI adoption framework:
           </p>
           <ul className={BODY_LIST_CLASSES}>
@@ -552,7 +595,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 10. External Validity */}
+        {/* 11. External Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>External Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -598,7 +641,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 11. Relevance to Technology Adoption */}
+        {/* 12. Relevance to Technology Adoption */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Relevance to Technology Adoption</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -681,7 +724,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 12. Following Models or Theories */}
+        {/* 13. Following Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Following Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -711,7 +754,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 13. References */}
+        {/* 14. References */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>References</h2>
           <ol className={REFERENCES_OL_CLASSES}>
@@ -726,6 +769,7 @@ const BibliographyArticlePage = () => {
           </ol>
         </section>
 
+        {/* 15. Further Reading */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Further Reading</h2>
           <ol className={REFERENCES_OL_CLASSES}>
@@ -774,7 +818,7 @@ const BibliographyArticlePage = () => {
           </ol>
         </section>
 
-        {/* 14. Series Navigation */}
+        {/* 16. Series Navigation */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Series Navigation</h2>
           <div className="space-y-4">
