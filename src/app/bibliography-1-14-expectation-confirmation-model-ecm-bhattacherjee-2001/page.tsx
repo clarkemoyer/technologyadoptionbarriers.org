@@ -214,8 +214,7 @@ const BibliographyArticlePage = () => {
               expected benefits of continued IS use.
             </li>
             <li>
-              <strong>Satisfaction:</strong> Users&rsquo; affect with (feelings about) prior IS
-              use.
+              <strong>Satisfaction:</strong> Users&rsquo; affect with (feelings about) prior IS use.
             </li>
             <li>
               <strong>IS Continuance Intention:</strong> Users&rsquo; intention to continue using
@@ -225,15 +224,14 @@ const BibliographyArticlePage = () => {
           <p className={PARAGRAPH_CLASSES}>
             Bhattacherjee (2001) reports construct reliability and discriminant validity evidence
             based on a field study of online banking users. Continuance intention is modeled as a
-            function of satisfaction and post-adoption perceived usefulness; satisfaction is
-            modeled as a function of confirmation and post-adoption perceived usefulness.
+            function of satisfaction and post-adoption perceived usefulness; satisfaction is modeled
+            as a function of confirmation and post-adoption perceived usefulness.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Source note:</strong> Claims below draw from Bhattacherjee (2001),
             &ldquo;Understanding Information Systems Continuance: An Expectation-Confirmation
-            Model,&rdquo; <em>MIS Quarterly</em>, 25(3), 351 - 370. Specific item wording and
-            factor loadings should be verified against the paper for any derivative measurement
-            work.
+            Model,&rdquo; <em>MIS Quarterly</em>, 25(3), 351 - 370. Specific item wording and factor
+            loadings should be verified against the paper for any derivative measurement work.
           </p>
         </section>
 
