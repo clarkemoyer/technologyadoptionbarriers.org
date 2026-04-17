@@ -126,7 +126,9 @@ const BibliographyArticlePage = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             The paper positions itself against three precursor paradigms that it reviews and
-            critiques (Sections I-III, pp.509-516):
+            critiques under the named headings &ldquo;Models of Strategy Emphasizing the
+            Exploitation of Market Power&rdquo; (p.511) and &ldquo;Models of Strategy Emphasizing
+            Efficiency&rdquo; (p.513), before introducing the dynamic capabilities approach (p.515):
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
@@ -457,7 +459,9 @@ const BibliographyArticlePage = () => {
           <h2 className={H2_CLASSES}>Describe The Model</h2>
           <p className={PARAGRAPH_CLASSES}>
             Teece, Pisano &amp; Shuen (1997) develop the framework in four steps: (1) review and
-            critique three precursor paradigms of strategy (pp.509-515); (2) lay out a hierarchical
+            critique three precursor paradigms of strategy under the named headings &ldquo;Models of
+            Strategy Emphasizing the Exploitation of Market Power&rdquo; and &ldquo;Models of
+            Strategy Emphasizing Efficiency&rdquo; (pp.509-515); (2) lay out a hierarchical
             vocabulary of firm-level factors (pp.515-517); (3) advance the three-Ps argument -
             competitive advantage is shaped by processes, positions, and paths (pp.518-524); (4)
             discuss replicability and imitatability and close with normative implications for
