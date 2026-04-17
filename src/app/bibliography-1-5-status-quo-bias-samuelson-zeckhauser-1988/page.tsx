@@ -98,8 +98,8 @@ const BibliographyArticlePage = () => {
                 Chicago (Author-Date)
               </p>
               <p className="text-sm font-mono">
-                Samuelson, William, and Richard Zeckhauser. "Status Quo Bias in Decision Making."
-                <em>Journal of Risk and Uncertainty</em> 1, no. 1 (1988): 7-59.
+                Samuelson, William, and Richard Zeckhauser. &ldquo;Status Quo Bias in Decision
+                Making.&rdquo; <em>Journal of Risk and Uncertainty</em> 1, no. 1 (1988): 7-59.
               </p>
             </div>
           </div>
