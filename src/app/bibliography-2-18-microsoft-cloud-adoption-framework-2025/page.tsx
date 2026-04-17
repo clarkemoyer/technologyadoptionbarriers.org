@@ -186,11 +186,11 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>What Does the Model Measure?</h2>
           <p className={PARAGRAPH_CLASSES}>
-            The Microsoft Cloud Adoption Framework (CAF) is a vendor-published prescriptive
-            adoption framework rather than a psychometric measurement model. It does not define
-            latent constructs or validated scales. It structures how organizations plan, execute,
-            and govern Azure-centric cloud adoption. Evaluation concepts associated with CAF
-            typically include:
+            The Microsoft Cloud Adoption Framework (CAF) is a vendor-published prescriptive adoption
+            framework rather than a psychometric measurement model. It does not define latent
+            constructs or validated scales. It structures how organizations plan, execute, and
+            govern Azure-centric cloud adoption. Evaluation concepts associated with CAF typically
+            include:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
@@ -199,8 +199,8 @@ const BibliographyArticlePage = () => {
               completed for a given workload or scope.
             </li>
             <li>
-              <strong>Landing zone conformance:</strong> Whether deployed Azure environments
-              conform to Azure Landing Zone reference architectures and governance patterns.
+              <strong>Landing zone conformance:</strong> Whether deployed Azure environments conform
+              to Azure Landing Zone reference architectures and governance patterns.
             </li>
             <li>
               <strong>Readiness and skilling coverage:</strong> Whether designated teams have
@@ -518,8 +518,8 @@ const BibliographyArticlePage = () => {
           <p className={PARAGRAPH_CLASSES}>
             Microsoft CAF is a vendor-published prescriptive framework rather than an empirical
             theory, so it is not subject to construct-validity testing in a psychometric sense.
-            Considerations typically raised about its internal consistency as a cloud
-            adoption framework:
+            Considerations typically raised about its internal consistency as a cloud adoption
+            framework:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
