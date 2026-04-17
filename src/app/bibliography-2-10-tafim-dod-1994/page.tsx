@@ -243,8 +243,8 @@ const BibliographyArticlePage = () => {
           </ul>
           <p className={PARAGRAPH_CLASSES}>
             TAFIM does not prescribe specific quantitative metrics; program offices apply the
-            framework through architectural reviews and acquisition documentation rather than
-            scored assessment instruments.
+            framework through architectural reviews and acquisition documentation rather than scored
+            assessment instruments.
           </p>
         </section>
 
@@ -462,14 +462,14 @@ const BibliographyArticlePage = () => {
               <strong>Early large-scale enterprise architecture program:</strong> TAFIM is commonly
               cited as an early large-scale enterprise architecture program alongside earlier work
               such as the Zachman Framework (1987). It is not generally credited with originating
-              the discipline, but it operationalized EA concepts through a large federal
-              acquisition mandate.
+              the discipline, but it operationalized EA concepts through a large federal acquisition
+              mandate.
             </li>
             <li>
               <strong>Applied layered architecture at enterprise scale:</strong> While layered
-              reference models predate TAFIM (notably the OSI model, 1984), TAFIM applied a
-              layered reference structure as a governance artifact across the full enterprise
-              information technology acquisition process.
+              reference models predate TAFIM (notably the OSI model, 1984), TAFIM applied a layered
+              reference structure as a governance artifact across the full enterprise information
+              technology acquisition process.
             </li>
             <li>
               <strong>Demonstrated acquisition-based enforcement:</strong> Used acquisition mandate
