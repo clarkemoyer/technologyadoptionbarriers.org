@@ -21,7 +21,13 @@ export const metadata: Metadata = {
 }
 
 type PickItem = { item: string; text: string; count: number; pct: number }
-type ItemDescriptive = { item: string; text: string; mean: number | null; sd: number | null; n: number }
+type ItemDescriptive = {
+  item: string
+  text: string
+  mean: number | null
+  sd: number | null
+  n: number
+}
 
 type Top3Block = {
   total_n?: number
@@ -33,15 +39,11 @@ type ItemBlock = {
   barriers?: ItemDescriptive[]
 }
 
-const top3: Top3Block =
-  (crpData as { top3_pick_counts?: Top3Block }).top3_pick_counts ?? {}
+const top3: Top3Block = (crpData as { top3_pick_counts?: Top3Block }).top3_pick_counts ?? {}
 
-const items: ItemBlock =
-  (crpData as { item_descriptives?: ItemBlock }).item_descriptives ?? {}
+const items: ItemBlock = (crpData as { item_descriptives?: ItemBlock }).item_descriptives ?? {}
 
-const pickSorted: PickItem[] = Array.isArray(top3.items_sorted_desc)
-  ? top3.items_sorted_desc
-  : []
+const pickSorted: PickItem[] = Array.isArray(top3.items_sorted_desc) ? top3.items_sorted_desc : []
 const meanSorted: ItemDescriptive[] = Array.isArray(items.barriers)
   ? [...items.barriers].sort((a, b) => (b.mean ?? -Infinity) - (a.mean ?? -Infinity))
   : []
@@ -87,7 +89,10 @@ const TopBarriersPage = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             The forced-choice ranking complements the continuous Likert-based ranking shown on the{' '}
-            <Link href="/results/crp-2026/descriptive" className="text-blue-600 hover:underline font-medium">
+            <Link
+              href="/results/crp-2026/descriptive"
+              className="text-blue-600 hover:underline font-medium"
+            >
               Descriptive Statistics
             </Link>{' '}
             page. When a participant is forced to pick only the 3 most salient barriers, cultural
@@ -159,10 +164,16 @@ const TopBarriersPage = () => {
                       <td className="px-3 py-2 text-right font-mono">{r.count}</td>
                       <td className="px-3 py-2 text-right font-mono">{fmt(r.pct, 1)}</td>
                       <td className="px-3 py-2 text-right font-mono">{pr ?? DATA_UNAVAILABLE}</td>
-                      <td className="px-3 py-2 text-right font-mono">{fmt(meanEntry?.mean ?? null, 4)}</td>
+                      <td className="px-3 py-2 text-right font-mono">
+                        {fmt(meanEntry?.mean ?? null, 4)}
+                      </td>
                       <td className="px-3 py-2 text-right font-mono">{mr ?? DATA_UNAVAILABLE}</td>
                       <td className="px-3 py-2 text-right font-mono">
-                        {delta !== null ? (delta > 0 ? `+${delta}` : String(delta)) : DATA_UNAVAILABLE}
+                        {delta !== null
+                          ? delta > 0
+                            ? `+${delta}`
+                            : String(delta)
+                          : DATA_UNAVAILABLE}
                       </td>
                     </tr>
                   )
@@ -172,9 +183,9 @@ const TopBarriersPage = () => {
           </div>
           <p className={PARAGRAPH_CLASSES}>
             Interpretation: a negative Delta means the barrier is more salient under the
-            forced-choice task than under continuous rating; a positive Delta means the opposite.
-            B1 has Delta = -2 (forced choice pushes it up from rank 5 to rank 3), while B13 has
-            Delta = +2 (mean rating pushes it up from pick-rank 5 to mean-rank 3).
+            forced-choice task than under continuous rating; a positive Delta means the opposite. B1
+            has Delta = -2 (forced choice pushes it up from rank 5 to rank 3), while B13 has Delta =
+            +2 (mean rating pushes it up from pick-rank 5 to mean-rank 3).
           </p>
         </section>
 
@@ -212,9 +223,9 @@ const TopBarriersPage = () => {
           <p className={PARAGRAPH_CLASSES}>
             Participants were shown all 18 substantive barriers (IRI attention check excluded) and
             asked to select the three most salient barriers in their organizational context. The
-            counts above reflect the number of participants who selected each barrier, so the
-            column sums to at most 3N (here 3 x{' '}
-            {TOTAL_N !== null ? TOTAL_N : DATA_UNAVAILABLE} = {TOTAL_N !== null ? TOTAL_N * 3 : DATA_UNAVAILABLE}).
+            counts above reflect the number of participants who selected each barrier, so the column
+            sums to at most 3N (here 3 x {TOTAL_N !== null ? TOTAL_N : DATA_UNAVAILABLE} ={' '}
+            {TOTAL_N !== null ? TOTAL_N * 3 : DATA_UNAVAILABLE}).
           </p>
           <h3 className={H3_CLASSES}>Continuous-Rating Mean</h3>
           <p className={PARAGRAPH_CLASSES}>
@@ -229,8 +240,8 @@ const TopBarriersPage = () => {
             <code className="text-sm bg-gray-100 px-1 py-0.5 rounded">
               src/data/crp-sensitivity-analysis.json
             </code>
-            , which is regenerated daily by the TABS analysis pipeline from the frozen
-            CRP N=200 CSV. The pipeline script is{' '}
+            , which is regenerated daily by the TABS analysis pipeline from the frozen CRP N=200
+            CSV. The pipeline script is{' '}
             <code className="text-sm bg-gray-100 px-1 py-0.5 rounded">
               scripts/analysis/tabs_v2_unified_data_analysis.py
             </code>
