@@ -225,7 +225,10 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Preceding Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
-            CMMI built upon and integrated several prior approaches:
+            CMMI built upon and integrated several prior approaches. The specific preceding models
+            listed below (CMM, SECM, CMM-SW, SE-CMM, IPD-CMM, P-CMM, TQM, ISO 9000) are drawn from
+            secondary sources rather than the Chrissis et al. TOC itself; TOC-limited, full book
+            unavailable:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
@@ -308,9 +311,11 @@ const BibliographyArticlePage = () => {
           <h3 className={H3_CLASSES}>CMMI Process Areas</h3>
           <p className={PARAGRAPH_CLASSES}>
             The CMMI-SE/SW/IPPD/SS v1.1 edition documented by Chrissis, Konrad, and Shrum organizes
-            25 process areas into four categories. The book further groups process areas within each
-            category as &quot;Fundamental&quot; or &quot;Progressive&quot; to indicate prerequisite
-            relationships among them:
+            25 process areas into four categories. For Process Management, Project Management, and
+            Support, the book further groups process areas as &quot;Fundamental&quot; or
+            &quot;Progressive&quot; to indicate prerequisite relationships among them. For
+            Engineering, the book discusses process areas under &quot;Engineering Process Areas and
+            Recursion&quot; rather than a Fundamental/Progressive split.
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
@@ -700,7 +705,10 @@ const BibliographyArticlePage = () => {
           <h2 className={H2_CLASSES}>Following Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
             CMMI has evolved through multiple versions and is commonly discussed alongside related
-            process-improvement frameworks:
+            process-improvement frameworks. The specific successor constellations (CMMI-DEV,
+            CMMI-ACQ, CMMI-SVC) and adjacent frameworks (COBIT, ITIL, ISO/IEC 15504, Lean, Agile,
+            DevOps) listed below are drawn from secondary sources rather than the Chrissis et al.
+            TOC itself; TOC-limited, full book unavailable:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
