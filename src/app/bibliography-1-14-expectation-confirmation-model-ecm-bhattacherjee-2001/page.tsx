@@ -151,8 +151,12 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Core Concepts and Definitions</h2>
           <p className={PARAGRAPH_CLASSES}>
-            The Expectation-Confirmation Model operationalizes post-adoption continuance through six
-            primary constructs adapted from consumer behavior and expectation-confirmation theory:
+            The Expectation-Confirmation Model draws on six conceptual constructs from consumer
+            behavior and expectation-confirmation theory. Bhattacherjee&rsquo;s research model
+            (Figure 2, p. 356) measures four of these directly (Perceived Usefulness, Confirmation,
+            Satisfaction, Continuance Intention); the other two (Expectations and Perceived
+            Performance) are subsumed into the Confirmation construct, which captures users&rsquo;
+            cognitive comparison between the two:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
