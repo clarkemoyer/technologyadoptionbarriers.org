@@ -332,7 +332,7 @@ const BibliographyArticlePage = () => {
             <li>
               <strong>H5. Confirmation -&gt; Perceived Usefulness:</strong> Confirmation shapes
               post-adoption perceived usefulness (standardized path coefficient 0.525, p &lt; .001
-              per Figure 3; reported as beta = 0.48 in the prose on p. 364), accounting for 20
+              per Figure 3; reported as beta = 0.45 in the prose on p. 364), accounting for 20
               percent of perceived usefulness variance.
             </li>
             <li>
