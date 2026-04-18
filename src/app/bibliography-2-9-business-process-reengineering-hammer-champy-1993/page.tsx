@@ -427,8 +427,8 @@ const BibliographyArticlePage = () => {
               outcomes delivered to customers rather than narrow task specializations.
             </li>
             <li>
-              <strong>Have those who use the output perform the process:</strong> Push work to those
-              who consume its results, collapsing handoffs between groups.
+              <strong>Have those who use the output of the process perform the process:</strong>{' '}
+              Push work to those who consume its results, collapsing handoffs between groups.
             </li>
             <li>
               <strong>
