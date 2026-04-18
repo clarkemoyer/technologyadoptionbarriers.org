@@ -93,7 +93,7 @@ const Article16Page = () => {
           <p className={PARAGRAPH_CLASSES}>
             Goodhue and Thompson conducted a large-scale empirical study of 662 respondents using 25
             information technologies across a transportation company (Company A, n=400) and an
-            insurance company (Company B, n=262). Across 8 regression models (Table 3, p.227), the
+            insurance company (Company B, n=262). Across 8 regression models (Table 3, p.224), the
             fit-as-matching conception of task-technology fit predicted self-reported individual
             performance impacts more consistently than utilization alone, with adjusted R-squared
             values ranging from 0.04 to 0.25 across the regressions. In other words, how well the
