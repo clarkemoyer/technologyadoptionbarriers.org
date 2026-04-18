@@ -70,12 +70,12 @@ const BibliographyArticlePage = () => {
             <p>
               <strong>URL:</strong>{' '}
               <a
-                href="https://www.proquest.com/docview/218136741"
+                href="https://doi.org/10.2307/3250921"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-600 hover:underline"
               >
-                https://www.proquest.com/docview/218136741
+                https://doi.org/10.2307/3250921
               </a>
             </p>
           </div>
@@ -151,9 +151,12 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Core Concepts and Definitions</h2>
           <p className={PARAGRAPH_CLASSES}>
-            The Expectation-Confirmation Model operationalizes post-adoption continuance through
-            five primary constructs adapted from consumer behavior and expectation-confirmation
-            theory:
+            The Expectation-Confirmation Model draws on six conceptual constructs from consumer
+            behavior and expectation-confirmation theory. Bhattacherjee&rsquo;s research model
+            (Figure 2, p. 356) measures four of these directly (Perceived Usefulness, Confirmation,
+            Satisfaction, Continuance Intention); the other two (Expectations and Perceived
+            Performance) are subsumed into the Confirmation construct, which captures users&rsquo;
+            cognitive comparison between the two:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
@@ -195,47 +198,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 6. What Does the Model Measure? */}
-        <section className={SECTION_CLASSES}>
-          <h2 className={H2_CLASSES}>What Does the Model Measure?</h2>
-          <p className={PARAGRAPH_CLASSES}>
-            The Expectation-Confirmation Model for IS Continuance (ECM, Bhattacherjee, 2001) is a
-            measurement model that predicts continued (post-adoption) use of an information system.
-            Constructs are measured with multi-item Likert-scale instruments. Core measured
-            constructs are:
-          </p>
-          <ul className={BODY_LIST_CLASSES}>
-            <li>
-              <strong>Confirmation:</strong> Users&rsquo; perception of the congruence between
-              pre-use expectations and actual performance of the IS.
-            </li>
-            <li>
-              <strong>Perceived Usefulness (post-adoption):</strong> Users&rsquo; perception of the
-              expected benefits of continued IS use.
-            </li>
-            <li>
-              <strong>Satisfaction:</strong> Users&rsquo; affect with (feelings about) prior IS use.
-            </li>
-            <li>
-              <strong>IS Continuance Intention:</strong> Users&rsquo; intention to continue using
-              the IS.
-            </li>
-          </ul>
-          <p className={PARAGRAPH_CLASSES}>
-            Bhattacherjee (2001) reports construct reliability and discriminant validity evidence
-            based on a field study of online banking users. Continuance intention is modeled as a
-            function of satisfaction and post-adoption perceived usefulness; satisfaction is modeled
-            as a function of confirmation and post-adoption perceived usefulness.
-          </p>
-          <p className={PARAGRAPH_CLASSES}>
-            <strong>Source note:</strong> Claims below draw from Bhattacherjee (2001),
-            &ldquo;Understanding Information Systems Continuance: An Expectation-Confirmation
-            Model,&rdquo; <em>MIS Quarterly</em>, 25(3), 351 - 370. Specific item wording and factor
-            loadings should be verified against the paper for any derivative measurement work.
-          </p>
-        </section>
-
-        {/* 7. Preceding Models or Theories */}
+        {/* 6. Preceding Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Preceding Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -315,7 +278,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 8. Describe The Model */}
+        {/* 7. Describe The Model */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Describe The Model</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -325,34 +288,52 @@ const BibliographyArticlePage = () => {
             expectations through actual use experience. The model incorporates a temporal dynamic:
             users form expectations before or during initial adoption, then accumulate actual usage
             experience that either confirms or disconfirms those expectations. The degree of
-            confirmation influences user satisfaction, which in turn influences both continued
-            perception of usefulness and direct continuance intention. Confirmed expectations result
-            in high satisfaction and sustained beliefs in usefulness, encouraging continued usage.
-            Disconfirmed expectations result in low satisfaction and erosion of usefulness beliefs,
-            increasing discontinuance likelihood.
+            confirmation shapes both perceived usefulness and user satisfaction, while perceived
+            usefulness and satisfaction together influence continuance intention. Confirmed
+            expectations result in high satisfaction and sustained beliefs in usefulness,
+            encouraging continued usage. Disconfirmed expectations result in low satisfaction and
+            erosion of usefulness beliefs, increasing discontinuance likelihood.
           </p>
 
           <h3 className={H3_CLASSES}>ECM Causal Mechanisms</h3>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Expectations-to-Confirmation Pathway:</strong> Pre-use expectations, combined
-              with post-use perceived performance, determine confirmation. Larger gaps between
-              expectations and performance produce stronger disconfirmation effects.
+              <strong>Expectations-to-Confirmation (theoretical):</strong> At the ECT theoretical
+              level, confirmation is the cognitive result of comparing pre-use expectations to
+              perceived performance. In the ECM research model (Figure 2, p. 356), confirmation is
+              measured directly as a single construct rather than decomposed into separate
+              expectations and performance measures.
             </li>
             <li>
-              <strong>Confirmation-to-Satisfaction Pathway:</strong> Degree of confirmation is
-              primary driver of user satisfaction. Positive confirmation produces satisfaction;
-              negative confirmation produces dissatisfaction.
+              <strong>H1. Satisfaction -&gt; Continuance Intention:</strong> Satisfaction is the
+              strongest predictor of continuance intention (standardized path coefficient 0.567, p
+              &lt; .001 per Figure 3, p. 363). Reported as beta = 0.57 in prose (p. 364), accounting
+              for 32 percent of continuance intention variance.
             </li>
             <li>
-              <strong>Satisfaction-to-Continuance Pathway:</strong> Satisfaction influences
-              post-adoption continuance intention both directly and indirectly through its effect on
-              post-adoption perceived usefulness.
+              <strong>H2. Confirmation -&gt; Satisfaction:</strong> Confirmation is the dominant
+              antecedent of satisfaction (standardized path coefficient 0.451, p &lt; .001 per
+              Figure 3; beta = 0.53 in prose, p. 364), accounting for 28 percent of satisfaction
+              variance.
             </li>
             <li>
-              <strong>Usefulness-to-Continuance Pathway:</strong> Post-adoption perceived
-              usefulness, shaped by confirmation and satisfaction, directly determines continuance
-              intention, reflecting cost-benefit calculations about continued use.
+              <strong>H3. Perceived Usefulness -&gt; Satisfaction:</strong> Post-adoption perceived
+              usefulness positively influences satisfaction (standardized path coefficient 0.227, p
+              &lt; .01 per Figure 3; beta = 0.23 in prose, p. 364), accounting for 5 percent of
+              satisfaction variance. In ECM, perceived usefulness influences satisfaction, not the
+              reverse.
+            </li>
+            <li>
+              <strong>H4. Perceived Usefulness -&gt; Continuance Intention:</strong> Post-adoption
+              perceived usefulness directly predicts continuance intention (standardized path
+              coefficient 0.294, p &lt; .001 per Figure 3; beta = 0.29 in prose, p. 364), accounting
+              for 9 percent of continuance intention variance.
+            </li>
+            <li>
+              <strong>H5. Confirmation -&gt; Perceived Usefulness:</strong> Confirmation shapes
+              post-adoption perceived usefulness (standardized path coefficient 0.525, p &lt; .001
+              per Figure 3; reported as beta = 0.45 in the prose on p. 364), accounting for 20
+              percent of perceived usefulness variance.
             </li>
             <li>
               <strong>Temporal Dynamics:</strong> Model captures time progression from pre-adoption
@@ -374,9 +355,10 @@ const BibliographyArticlePage = () => {
               to repurchase and loyalty decisions.
             </li>
             <li>
-              <strong>Explained continuance variance:</strong> Original study explained 41% of
-              continuance intention variance, demonstrating substantial predictive power for
-              post-adoption behaviors.
+              <strong>Explained continuance variance:</strong> Original study explained 41 percent
+              of continuance intention variance (R&sup2; = 0.41), 33 percent of satisfaction
+              variance (R&sup2; = 0.33), and 20 percent of perceived usefulness variance (R&sup2; =
+              0.20), demonstrating substantial predictive power for post-adoption behaviors.
             </li>
             <li>
               <strong>Temporal validity:</strong> Model captures dynamic user experience progression
@@ -446,14 +428,15 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 9. Key Contributions */}
+        {/* 8. Key Contributions */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Key Contributions</h2>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Continuance as distinct research domain:</strong> Argued that post-adoption
-              continuance requires different theoretical framing than initial adoption, and provided
-              an early canonical model that subsequent IS continuance research has built on.
+              <strong>Continuance as distinct research domain:</strong> Established that
+              post-adoption continuance requires different theoretical frameworks than initial
+              adoption, creating entire new research stream examining sustained technology usage
+              rather than adoption decisions.
             </li>
             <li>
               <strong>Expectation-confirmation application to IS:</strong> Successfully adapted
@@ -478,11 +461,18 @@ const BibliographyArticlePage = () => {
               concept.
             </li>
             <li>
-              <strong>Distinction from adoption factors:</strong> Reported evidence, within the
-              original online banking sample, that continuance drivers (satisfaction, confirmation)
-              differ from adoption drivers typically emphasized by TAM (ease of use, usefulness),
-              challenging the assumption that a single model spans the adoption-continuance
-              lifecycle.
+              <strong>Distinction from adoption factors:</strong> Demonstrated that continuance
+              drivers (satisfaction, confirmation) differ from adoption drivers (ease of use,
+              usefulness), challenging assumptions that single model applies across
+              adoption-continuance lifecycle.
+            </li>
+            <li>
+              <strong>Acceptance-discontinuance anomaly:</strong> Bhattacherjee frames ECM as an
+              explanation for the &ldquo;acceptance-discontinuance anomaly&rdquo; (abstract and p.
+              354), the empirical pattern in which users accept a system at adoption but later
+              discontinue. TAM cannot explain this, because the same pre-acceptance variables should
+              predict both behaviors; ECM explains it through disconfirmation and dissatisfaction
+              occurring after use.
             </li>
             <li>
               <strong>Empirical validation of continuance model:</strong> Provided empirical
@@ -492,7 +482,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 10. Internal Validity */}
+        {/* 9. Internal Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Internal Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -511,34 +501,40 @@ const BibliographyArticlePage = () => {
               ensuring ecological validity.
             </li>
             <li>
-              <strong>Adequate sample size:</strong> Study included N=122 participants, providing
-              reasonable statistical power for parameter estimation and relationship testing in path
-              analysis framework.
+              <strong>Sample size and sampling frame:</strong> 1,000 online banking customers were
+              sampled from a mid-sized U.S. bank customer base; 122 usable responses (approximately
+              12 percent response rate) were analyzed, providing reasonable statistical power for
+              the four-construct covariance-based structural equation model.
             </li>
             <li>
-              <strong>Measurement validation:</strong> Reported reliability coefficients
-              (Cronbach&rsquo;s alpha ranging from 0.85 to 0.92 across constructs) indicating strong
-              internal consistency of measurement scales.
+              <strong>Measurement validation:</strong> Reported composite reliabilities (Table 3, p.
+              362) of 0.83 (Continuance Intention), 0.87 (Satisfaction), 0.88 (Perceived
+              Usefulness), and 0.82 (Confirmation), all above the 0.70 threshold.
             </li>
             <li>
-              <strong>Convergent and discriminant validity:</strong> Demonstrated through average
-              variance explained (AVE) and inter-construct correlations that measured scales validly
-              represent distinct constructs.
+              <strong>Convergent and discriminant validity:</strong> Average variance extracted
+              (AVE) values ranged from 0.60 to 0.65 (Table 3, p. 362), all above the 0.50 threshold.
+              Chi-square difference tests (Table 4, p. 363) between constrained and unconstrained
+              measurement models were significant (p &lt; .001) for all construct pairs, supporting
+              discriminant validity.
             </li>
             <li>
-              <strong>Structural model testing:</strong> Used path analysis to test hypothesized
-              relationships, providing direct evidence of proposed causal mechanisms and their
-              relative strength.
+              <strong>Structural equation modeling with EQS:</strong> Confirmatory factor analysis
+              and structural model estimated with the EQS program (Bentler, 1989) using maximum
+              likelihood estimation on the covariance matrix, testing the hypothesized causal
+              relationships directly.
             </li>
             <li>
-              <strong>Model fit assessment:</strong> Reported fit statistics demonstrating adequate
-              model fit to observed data, suggesting theoretical relationships represent actual data
-              patterns.
+              <strong>Model fit assessment:</strong> Structural model fit (Figure 3, p. 363):
+              chi-square = 116.76, df = 68, p &lt; .001; chi-square/df = 1.717; NFI = 0.883, NNFI =
+              0.928, CFI = 0.946. All five hypothesized paths were significant (p &lt; .01). The
+              model explained 41 percent of continuance intention variance, 33 percent of
+              satisfaction variance, and 20 percent of perceived usefulness variance.
             </li>
           </ul>
         </section>
 
-        {/* 11. External Validity */}
+        {/* 10. External Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>External Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -586,7 +582,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 12. Relevance to Technology Adoption */}
+        {/* 11. Relevance to Technology Adoption */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Relevance to Technology Adoption</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -685,7 +681,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 13. Following Models or Theories */}
+        {/* 12. Following Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Following Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -699,9 +695,9 @@ const BibliographyArticlePage = () => {
               switching costs, social influences, and system updates.
             </li>
             <li>
-              <strong>IS continuance research stream:</strong> ECM is widely credited as a
-              foundational reference for the IS continuance research stream, which has grown to
-              include extended ECM models, habit-based continuance, and discontinuance drivers.
+              <strong>IS continuance research stream:</strong> ECM spawned entire research domain
+              examining post-adoption phenomena including extended ECM models, habit-based
+              continuance, and discontinuance drivers.
             </li>
             <li>
               <strong>Mobile and consumer technology continuance:</strong> Researchers applied ECM
@@ -726,13 +722,21 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 14. References */}
+        {/* 13. References */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>References</h2>
           <ol className={REFERENCES_OL_CLASSES}>
             <li id="ref-bhattacherjee-2001">
               Bhattacherjee, A. (2001). Understanding information systems continuance: An
-              expectation-confirmation model. <em>MIS Quarterly</em>, 25(3), 351-370.
+              expectation-confirmation model. <em>MIS Quarterly</em>, 25(3), 351-370.{' '}
+              <a
+                href="https://doi.org/10.2307/3250921"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-tabs-teal-deep hover:underline"
+              >
+                https://doi.org/10.2307/3250921
+              </a>
             </li>
             <li id="ref-oliver-1980">
               Oliver, R. L. (1980). A cognitive model of the antecedents and consequences of
@@ -742,9 +746,18 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-oliver-1980-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                ></a>
+                >
+                  ↩
+                </a>
               </span>{' '}
-              https://doi.org/10.1177/002224378001700405
+              <a
+                href="https://doi.org/10.1177/002224378001700405"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-tabs-teal-deep hover:underline"
+              >
+                https://doi.org/10.1177/002224378001700405
+              </a>
             </li>
             <li id="ref-davis-1989">
               Davis, F. D. (1989). Perceived usefulness, perceived ease of use, and user acceptance
@@ -754,9 +767,18 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-davis-1989-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                ></a>
+                >
+                  ↩
+                </a>
               </span>{' '}
-              https://doi.org/10.2307/249008
+              <a
+                href="https://doi.org/10.2307/249008"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-tabs-teal-deep hover:underline"
+              >
+                https://doi.org/10.2307/249008
+              </a>
             </li>
             <li id="ref-oliver-1977">
               Oliver, R. L. (1977). Effect of expectation and disconfirmation on post-exposure
@@ -767,17 +789,27 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-oliver-1977-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                ></a>
+                >
+                  ↩
+                </a>
               </span>
             </li>
             <li id="ref-cronin-1992">
               Cronin, J. J., &amp; Taylor, S. A. (1992). Measuring service quality: A reexamination
               and extension. <em>Journal of Marketing</em>, 56(3), 55-68.
+              <span className="text-xs ml-1">
+                <a
+                  href="#cite-ref-cronin-1992-1"
+                  className="text-tabs-teal-deep hover:underline"
+                  aria-label="Back to citation 1"
+                >
+                  ↩
+                </a>
+              </span>
             </li>
           </ol>
         </section>
 
-        {/* 15. Further Reading */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Further Reading</h2>
           <ol className={REFERENCES_OL_CLASSES}>
@@ -794,23 +826,36 @@ const BibliographyArticlePage = () => {
             <li id="ref-venkatesh-2003">
               Venkatesh, V., Morris, M. G., Davis, G. B., &amp; Davis, F. D. (2003). User acceptance
               of information technology: Toward a unified view. <em>MIS Quarterly</em>, 27(3),
-              425-478. https://doi.org/10.2307/30036540
+              425-478.{' '}
+              <a
+                href="https://doi.org/10.2307/30036540"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:text-blue-800 underline"
+              >
+                https://doi.org/10.2307/30036540
+              </a>
             </li>
-            <li id="ref-delone-2003">
-              DeLone, W. H., &amp; McLean, E. R. (2003). The DeLone and McLean model of information
-              systems success: A ten-year update. <em>Journal of Management Information Systems</em>
-              , 19(4), 9-30. https://doi.org/10.1080/07421222.2003.11045748
-            </li>
+            {/* prettier-ignore */}
+            <li id="ref-delone-2003">DeLone, W. H., &amp; McLean, E. R. (2003). The DeLone and McLean model of information systems success: A ten-year update. <em>Journal of Management Information Systems</em>, 19(4), 9-30. <a href="https://doi.org/10.1080/07421222.2003.11045748" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 underline">https://doi.org/10.1080/07421222.2003.11045748</a></li>
             <li id="ref-limayem-2007">
               Limayem, M., Hirt, S. G., &amp; Cheung, C. M. (2007). How habit limits the prediction
               of usage: The case of MS Word.{' '}
               <em>ACM SIGMIS Database: the DATABASE for Advances in Information Systems</em>, 38(4),
-              29-46. https://doi.org/10.2307/25148817
+              29-46.{' '}
+              <a
+                href="https://doi.org/10.2307/25148817"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:text-blue-800 underline"
+              >
+                https://doi.org/10.2307/25148817
+              </a>
             </li>
           </ol>
         </section>
 
-        {/* 16. Series Navigation */}
+        {/* Series Navigation */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Series Navigation</h2>
           <div className="space-y-4">
