@@ -1,49 +1,49 @@
 {
-  "updatedAt": "2026-04-17T11:02:38.499096+00:00",
-  "last_updated": "2026-04-17T11:02:38.499111+00:00",
+  "updatedAt": "2026-04-18T10:57:25.474693+00:00",
+  "last_updated": "2026-04-18T10:57:25.474709+00:00",
   "study": {
     "id": "69c17630acada6abeead2da5",
     "name": "Technology Adoption Barriers Survey (2026)",
     "status": "ACTIVE",
     "totalAvailablePlaces": 500,
-    "placesTaken": 294,
-    "averageRewardPerHour": 3955.5,
+    "placesTaken": 301,
+    "averageRewardPerHour": 3986.55,
     "averageTimeTaken": 10,
     "reward": 700,
     "publishedAt": "2026-03-23T18:00:28.650000Z"
   },
   "completionProgress": {
     "target": 500,
-    "completed": 294,
-    "approved": 261,
-    "awaitingReview": 33,
-    "percentComplete": 58.8
+    "completed": 301,
+    "approved": 265,
+    "awaitingReview": 36,
+    "percentComplete": 60.2
   },
-  "totalResponses": 501,
-  "uniqueParticipants": 485,
+  "totalResponses": 511,
+  "uniqueParticipants": 495,
   "duplicatesRemoved": 0,
   "dispositions": {
-    "INCOMPLETE": 75,
-    "CLEAN": 90,
-    "FLAG-SMEAL": 56,
+    "INCOMPLETE": 77,
+    "CLEAN": 94,
+    "FLAG-SMEAL": 57,
     "FLAG-SPEED": 8,
-    "FLAG-PARTIAL-STRAIGHTLINING": 37,
-    "FLAG-SINGLE-IRI": 85,
-    "AUTO-EXCLUDE": 130,
+    "FLAG-PARTIAL-STRAIGHTLINING": 38,
+    "FLAG-SINGLE-IRI": 86,
+    "AUTO-EXCLUDE": 131,
     "FLAG-RECAPTCHA": 4
   },
   "dispositionByStatus": {
     "INCOMPLETE": {
-      "RETURNED": 69,
+      "RETURNED": 71,
       "TIMED-OUT": 6
     },
     "CLEAN": {
-      "APPROVED": 89,
+      "APPROVED": 93,
       "RETURNED": 1
     },
     "FLAG-SMEAL": {
       "APPROVED": 45,
-      "AWAITING REVIEW": 9,
+      "AWAITING REVIEW": 10,
       "RETURNED": 2
     },
     "FLAG-SPEED": {
@@ -53,17 +53,17 @@
     },
     "FLAG-PARTIAL-STRAIGHTLINING": {
       "APPROVED": 34,
-      "AWAITING REVIEW": 3
+      "AWAITING REVIEW": 4
     },
     "FLAG-SINGLE-IRI": {
       "RETURNED": 7,
       "APPROVED": 72,
-      "AWAITING REVIEW": 6
+      "AWAITING REVIEW": 7
     },
     "AUTO-EXCLUDE": {
       "REJECTED": 35,
       "AWAITING REVIEW": 13,
-      "RETURNED": 71,
+      "RETURNED": 72,
       "APPROVED": 11
     },
     "FLAG-RECAPTCHA": {
@@ -74,23 +74,23 @@
     "IRI3_SPEED": 13,
     "IRI3": 32,
     "IRI2_SPEED": 11,
-    "IRI2": 59,
+    "IRI2": 60,
     "SPEED_IRI": 15
   },
   "actions": {
-    "approved": 261,
+    "approved": 265,
     "rejected": 35,
-    "returned": 166,
+    "returned": 169,
     "timedOut": 6,
-    "awaitingReview": 33,
+    "awaitingReview": 36,
     "active": 0,
     "messaged": 0
   },
   "iriPassRates": {
-    "barrier": 57.8,
-    "readiness": 69.3,
-    "maturity": 81.5,
-    "denominator": 410
+    "barrier": 58.1,
+    "readiness": 69.6,
+    "maturity": 81.8,
+    "denominator": 418
   },
   "studyId": "69c17630acada6abeead2da5",
   "studyName": "Technology Adoption Barriers Survey (2026)"
