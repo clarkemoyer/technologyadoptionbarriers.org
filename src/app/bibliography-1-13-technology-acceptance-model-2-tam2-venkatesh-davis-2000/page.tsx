@@ -514,18 +514,21 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>Hypothesized moderation tests:</strong> Explicitly tested proposed moderation
-              effects (experience, voluntariness) through appropriate statistical methods,
-              demonstrating that relationships vary as predicted by theory.
+              of the subjective norm&ndash;intention relationship by voluntariness and experience,
+              and of the subjective norm&ndash;usefulness relationship by experience, via regression
+              analyses at each time period and pooled across studies (n=468 pooled).
             </li>
             <li>
-              <strong>Psychometric validation:</strong> Reported reliability coefficients
-              (Cronbach&rsquo;s alpha), convergent validity, and discriminant validity evidence for
-              survey-measured constructs.
+              <strong>Psychometric validation:</strong> All measurement scales exhibited Cronbach
+              alpha coefficients above 0.80 across all four studies and three time periods (Appendix
+              1). Construct validity was supported by principal components analysis with direct
+              oblimin rotation (all cross-loadings below 0.30, Appendix 2) and by
+              multitrait-multimethod matrix analysis (p.194).
             </li>
             <li>
-              <strong>Alternative explanation controls:</strong> Measured and controlled for
-              potential confounds including prior experience, user demographics, and system
-              characteristics that might explain adoption outcomes.
+              <strong>Pooled summary model:</strong> Pooling across four studies and three time
+              periods yielded n=468, with Adjusted R&sup2; of 0.51 for perceived usefulness and 0.49
+              for behavioral intention (Figure 2 notes, p.197).
             </li>
           </ul>
         </section>
@@ -545,10 +548,11 @@ const BibliographyArticlePage = () => {
               sizes per study were modest (n=36 to n=43 usable at all measurement points).
             </li>
             <li>
-              <strong>Technology type limitations:</strong> Studies focused on enterprise systems
-              and mandatory software implementations. Generalization to consumer technology,
-              voluntary adoption contexts without organizational enforcement, or radically new
-              technology categories (AI, VR) requires investigation.
+              <strong>Technology type limitations:</strong> Studies examined workplace business
+              systems (floor scheduling, Windows mainframe migration, customer account management,
+              and investment portfolio analysis), two mandatory and two voluntary within
+              organizational settings. Generalization to consumer technology, non-work contexts, or
+              radically new technology categories (AI, VR) requires investigation.
             </li>
             <li>
               <strong>Cultural generalizability:</strong> U.S.-based samples limit generalization to
