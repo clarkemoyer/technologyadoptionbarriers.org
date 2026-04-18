@@ -409,9 +409,11 @@ const BibliographyArticlePage = () => {
               cloud, and AI technologies where adoption mechanisms may operate differently.
             </li>
             <li>
-              <strong>Actual behavior-to-intention discrepancy:</strong> While longitudinal, the
-              studies measured actual system usage through systems logs, but usage may not reflect
-              true acceptance or voluntary choice, especially in mandatory contexts.
+              <strong>Self-reported usage measure:</strong> The studies used self-reported usage
+              (&ldquo;On average, how much time do you spend on the system every day?&rdquo;) rather
+              than objectively measured usage, which the authors note as a limitation (p.199).
+              Common-method variance was mitigated by separating intention and usage measurements by
+              at least one month, but self-reported usage may not fully reflect actual behavior.
             </li>
             <li>
               <strong>Missing organizational and contextual factors:</strong> Model does not
@@ -469,8 +471,8 @@ const BibliographyArticlePage = () => {
               applies universally.
             </li>
             <li>
-              <strong>Large-scale organizational validation:</strong> Conducted research in real
-              organizational settings with system-logged usage data rather than laboratory
+              <strong>Field-based organizational validation:</strong> Conducted research in real
+              organizational settings during actual system implementations rather than laboratory
               conditions, establishing practical relevance to organizational technology management.
             </li>
           </ul>
@@ -485,26 +487,30 @@ const BibliographyArticlePage = () => {
           <ul className={BODY_LIST_CLASSES}>
             <li>
               <strong>Longitudinal design with multiple measurement occasions:</strong> Rather than
-              cross-sectional snapshots, all four field studies measured constructs at multiple time
-              points (typically baseline, month 1, month 2, month 3), allowing assessment of
-              temporal relationships and experience effects.
+              cross-sectional snapshots, all four field studies measured model constructs at three
+              points in time (T1: post-training/preimplementation; T2: one month postimplementation;
+              T3: three months postimplementation), with self-reported usage additionally measured
+              at T4 (five months postimplementation), allowing assessment of temporal relationships
+              and experience effects.
             </li>
             <li>
               <strong>Multi-study design:</strong> Four longitudinal field studies across four
-              organizations (total N=156), each measured at four time points, providing sufficient
-              data to detect hypothesized relationships and moderating effects.
+              organizations with usable responses of n=38, 39, 43, and 36 at all points of
+              measurement (total N=156), providing sufficient data to detect hypothesized
+              relationships and moderating effects.
             </li>
             <li>
-              <strong>Real organizational implementations:</strong> Studies used actual technology
-              implementations (e.g., new enterprise systems, mandatory software deployments) rather
+              <strong>Real organizational implementations:</strong> Studies used actual system
+              introductions in naturalistic workplace settings (a manufacturing firm, a financial
+              services firm, an accounting services firm, and an investment banking firm) rather
               than artificial laboratory contexts, ensuring adoption pressures and outcomes reflect
               reality.
             </li>
             <li>
-              <strong>System-logged usage as dependent variable:</strong> Rather than relying on
-              self-reported usage intentions or perceived usage, studies measured actual system
-              usage through system logs, reducing common method variance and establishing behavioral
-              outcomes.
+              <strong>Separation of intention and usage measurement:</strong> To mitigate
+              common-method variance, intention was measured at one time period and self-reported
+              usage was measured in the subsequent wave (T1&rarr;T2, T2&rarr;T3, T3&rarr;T4),
+              separating the two measures by at least one month.
             </li>
             <li>
               <strong>Hypothesized moderation tests:</strong> Explicitly tested proposed moderation
@@ -533,9 +539,10 @@ const BibliographyArticlePage = () => {
           <ul className={BODY_LIST_CLASSES}>
             <li>
               <strong>Organizational setting generalization:</strong> Four studies conducted in
-              different organizations (two U.S. financial institutions, one manufacturing
-              organization, one U.S. government agency) provide some diversity, but all are large,
-              established organizations with formal IT infrastructures.
+              different organizations (a medium-sized manufacturing firm, a large financial services
+              firm, a small accounting services firm, and a small international investment banking
+              firm) provide some industry diversity, but all are commercial organizations and sample
+              sizes per study were modest (n=36 to n=43 usable at all measurement points).
             </li>
             <li>
               <strong>Technology type limitations:</strong> Studies focused on enterprise systems
