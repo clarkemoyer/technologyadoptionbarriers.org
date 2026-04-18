@@ -14,7 +14,7 @@ import {
 export const metadata: Metadata = {
   title: 'Bibliography: Total Quality Management (TQM) - Deming (1982)',
   description:
-    'Comprehensive overview of W. Edwards Deming\u2019s quality-management philosophy as introduced in Quality, Productivity, and Competitive Position (1982) and expanded in Out of the Crisis (1986): the 14 Points for Management, the PDCA cycle inherited from Shewhart, and statistical thinking about common-cause versus special-cause variation. The later System of Profound Knowledge (Deming, 1993) is discussed for context but is not in the 1982/1986 books.',
+    'Comprehensive overview of W. Edwards Deming\u2019s quality-management philosophy as introduced in Quality, Productivity, and Competitive Position (1982) and expanded in Out of the Crisis (1986): the 14 Points for Management, the Plan-Do-Check-Act / Plan-Do-Study-Act cycle attributed to Shewhart, and statistical thinking about common-cause versus special-cause variation. The later System of Profound Knowledge (Deming, 1993) is discussed for context but is not in the 1982/1986 books.',
 }
 
 const BibliographyArticlePage = () => {
@@ -302,15 +302,18 @@ const BibliographyArticlePage = () => {
               </strong>{' '}
               The most direct and widely-documented influence on Deming. Shewhart&rsquo;s
               control-chart methods (Shewhart, 1931) supply the common-cause/special-cause framework
-              Deming used throughout his career; Shewhart&rsquo;s later treatment of the cycle of
-              statistical methodology (Shewhart, 1939) is the ancestor of the Plan-Do-Check-Act
-              cycle. The exact formalization of PDCA as a four-step named cycle is variously
-              attributed in secondary sources (to Shewhart, to Deming&rsquo;s Japanese lectures, or
-              to joint attribution); Deming himself later renamed the third step &ldquo;Study&rdquo;
-              in <em>The New Economics</em> (1993). Deming worked with Shewhart at Western Electric
-              / Bell Labs in the 1920s-30s and consistently credited him; secondary accounts
-              describe the relationship as that of a younger collaborator and protege rather than
-              formal student.
+              Deming used throughout his career. Attribution of the Plan-Do-Check-Act cycle varies
+              across secondary academic sources: Anderson, Rungtusanatham, and Schroeder (1994)
+              consistently refer to &ldquo;Shewhart&rsquo;s (1931) PDSA cycle,&rdquo; while other
+              accounts point to Shewhart&rsquo;s 1939 book{' '}
+              <em>Statistical Method from the Viewpoint of Quality Control</em> as the origin of the
+              four-step named cycle. The exact formalization of PDCA is further variously attributed
+              (to Shewhart, to Deming&rsquo;s Japanese lectures, or to joint attribution); Deming
+              himself later used &ldquo;Study&rdquo; in place of &ldquo;Check&rdquo; in{' '}
+              <em>The New Economics</em> (1993). Deming worked with Shewhart at Western Electric /
+              Bell Labs in the 1920s-30s and consistently credited him; secondary accounts describe
+              the relationship as that of a younger collaborator and protege rather than formal
+              student.
             </li>
             <li>
               <strong>Human Relations School (Mayo, 1933):</strong> Deming&rsquo;s emphasis on
@@ -514,14 +517,16 @@ const BibliographyArticlePage = () => {
           <h3 className={H3_CLASSES}>Key Mechanisms</h3>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>
-                Plan-Do-Check-Act Cycle (PDCA) - later renamed Plan-Do-Study-Act (PDSA):
-              </strong>{' '}
+              <strong>Plan-Do-Check-Act Cycle (PDCA) - later Plan-Do-Study-Act (PDSA):</strong>{' '}
               Organizations continuously cycle through planning improvements, implementing changes,
-              checking / studying results, and acting on learning. The cycle was introduced by
-              Shewhart (1939) as PDCA and adopted by Deming in the 1982 and 1986 books under that
-              name; Deming renamed the &ldquo;Check&rdquo; step to &ldquo;Study&rdquo; starting in
-              his 1993 book <em>The New Economics</em>. Both forms are widely used.
+              checking / studying results, and acting on learning. The cycle is attributed to
+              Shewhart in secondary sources; Anderson, Rungtusanatham, and Schroeder (1994) cite
+              Shewhart (1931) as the source of the PDSA cycle, while other accounts attribute the
+              four-step named cycle to Shewhart&rsquo;s 1939 book{' '}
+              <em>Statistical Method from the Viewpoint of Quality Control</em>. Deming adopted and
+              popularized the cycle in his management work; he later used &ldquo;Study&rdquo; in
+              place of &ldquo;Check&rdquo; in <em>The New Economics</em> (1993). Both forms are
+              widely used.
             </li>
             <li>
               <strong>Statistical Process Control:</strong> Using statistical tools to monitor
@@ -953,7 +958,8 @@ const BibliographyArticlePage = () => {
             <li id="ref-deming-1993">
               Deming, W. E. (1993). <em>The New Economics for Industry, Government, Education</em>.
               MIT Center for Advanced Engineering Study. (Introduces the System of Profound
-              Knowledge and renames Shewhart&rsquo;s PDCA cycle to PDSA.)
+              Knowledge; uses &ldquo;Study&rdquo; in place of &ldquo;Check&rdquo; in the
+              Plan-Do-Study-Act form of the cycle.)
             </li>
             <li id="ref-deming-institute-2018">
               The W. Edwards Deming Institute. (2018).{' '}
@@ -1000,7 +1006,9 @@ const BibliographyArticlePage = () => {
             <li id="ref-shewhart-1939">
               Shewhart, W. A. (1939).{' '}
               <em>Statistical Method from the Viewpoint of Quality Control</em>. Graduate School,
-              U.S. Department of Agriculture. (Source of the Plan-Do-Check-Act cycle.)
+              U.S. Department of Agriculture. (Cited in some accounts as the origin of the four-step
+              Plan-Do-Check-Act cycle; Anderson et al. (1994) instead attribute the PDSA cycle to
+              Shewhart, 1931.)
             </li>
             <li id="ref-taylor-1911">
               Taylor, F. W. (1911). <em>The Principles of Scientific Management</em>. Harper &amp;
