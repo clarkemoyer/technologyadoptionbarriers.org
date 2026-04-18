@@ -202,9 +202,13 @@ const BibliographyArticlePage = () => {
             <em>Quality, Productivity, and Competitive Position</em>, Deming (1986){' '}
             <em>Out of the Crisis</em>, and Deming (1993) <em>The New Economics</em> is not attached
             to the project&rsquo;s Zotero library. Claims on this page about the content of those
-            books are drawn from secondary sources and from the canonical Deming Institute (2018)
-            one-pager. The 14 Points are the one element of the framework for which a primary-source
-            statement (the Deming Institute one-pager) has been used as ground truth on this page.
+            books are verified against two authoritative academic proxies: Anderson, Rungtusanatham,
+            and Schroeder (1994) in <em>Academy of Management Review</em> (which reproduces
+            Deming&rsquo;s 14 Points verbatim from Deming, 1986: 23-24 in its Table 1 and
+            articulates a formal theory of quality management underlying the Deming method), and
+            Hackman and Wageman (1995) in <em>Administrative Science Quarterly</em> (which analyzes
+            TQM as a philosophy and intervention package drawing on Deming, Juran, and Ishikawa).
+            The Deming Institute (2018) one-pager is used as a secondary curated reference.
           </p>
         </section>
 
@@ -376,7 +380,12 @@ const BibliographyArticlePage = () => {
 
           <h3 className={H3_CLASSES}>Deming&rsquo;s 14 Points for Management</h3>
           <p className={PARAGRAPH_CLASSES}>
-            The canonical form of the 14 Points is as curated by{' '}
+            Two authoritative renderings of the 14 Points are used on this page as ground truth. The
+            1986 version of the list as reproduced in{' '}
+            <strong>Anderson, Rungtusanatham, and Schroeder (1994)</strong>, Academy of Management
+            Review, Table 1 (which quotes Deming, 1986: 23-24 verbatim) is the primary source used
+            below, and is the version supplying sub-parts (a)/(b) for Points 11 and 12. The
+            later-curated one-pager by{' '}
             <a
               id="cite-ref-deming-institute-2018-1"
               href="#ref-deming-institute-2018"
@@ -384,16 +393,19 @@ const BibliographyArticlePage = () => {
             >
               The W. Edwards Deming Institute (2018)
             </a>
-            . The Institute attributes the list to &ldquo;Dr. Deming&rsquo;s seminal book,{' '}
-            <em>Out of the Crisis</em>&rdquo; - i.e., the 1986 edition - as the first presentation
-            of this canonical form. The points are reproduced verbatim below; each is annotated with
-            a short secondary-source explanation. Because a PDF of Deming (1982) or (1986) is not
-            attached to the project&rsquo;s Zotero library, this page treats the Deming Institute
-            one-pager as the ground truth for the list.
+            , which the Institute attributes to &ldquo;Dr. Deming&rsquo;s seminal book,{' '}
+            <em>Out of the Crisis</em>&rdquo; (the 1986 edition), is a well-known reformatted
+            version that sometimes merges the sub-parts and shortens phrasing. Because no PDF of
+            Deming (1982) or (1986) is attached to the project&rsquo;s Zotero library, Anderson et
+            al.&rsquo;s (1994) Table 1 is used for primary verification below, with Deming Institute
+            divergences noted where they occur.
           </p>
           <ol className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Create constancy of purpose for improving products and services.</strong>{' '}
+              <strong>
+                Create constancy of purpose toward improvement of product and service, with the aim
+                to become competitive and to stay in business, and to provide jobs.
+              </strong>{' '}
               Long-term commitment to improvement rather than quarterly results.
             </li>
             <li>
@@ -401,30 +413,34 @@ const BibliographyArticlePage = () => {
               levels of delays, mistakes, defective material, and workmanship.
             </li>
             <li>
-              <strong>Cease dependence on inspection to achieve quality.</strong> Build quality into
-              the process rather than inspect it in at the end.
+              <strong>Cease dependence on mass inspection to improve quality.</strong> Eliminate the
+              need for inspection on a mass basis by building quality into the product in the first
+              place.
             </li>
             <li>
               <strong>
-                End the practice of awarding business on price alone; instead, minimize total cost
-                by working with a single supplier.
+                End the practice of awarding business on the basis of price tag alone. Instead,
+                minimize total cost. Move toward a single supplier for any one item, on a long-term
+                relationship of loyalty and trust.
               </strong>{' '}
-              Establish long-term supplier relationships based on a loyalty-and-trust relation
-              rather than on price.
+              Establish long-term supplier relationships based on loyalty and trust rather than on
+              price.
             </li>
             <li>
               <strong>
-                Improve constantly and forever every process for planning, production, and service.
+                Improve constantly and forever the system of production and service, to improve
+                quality and productivity, and thus constantly decrease costs.
               </strong>{' '}
-              Continuous improvement of every activity, not only production.
+              Continuous improvement of every activity in the system, not only production.
             </li>
             <li>
               <strong>Institute training on the job.</strong> Train workers on the job to standard,
               as part of the process of doing the work.
             </li>
             <li>
-              <strong>Adopt and institute leadership.</strong> Supervision of management and workers
-              should be aimed at helping people and systems do a better job, not at finding fault.
+              <strong>Institute leadership.</strong> The aim of supervision should be to help people
+              and machines and gadgets to do a better job. Supervision of management is in need of
+              overhaul, as well as supervision of production workers.
             </li>
             <li>
               <strong>Drive out fear.</strong> Create psychological safety so people can raise
@@ -435,35 +451,48 @@ const BibliographyArticlePage = () => {
               production must work as a team to foresee production and service problems.
             </li>
             <li>
-              <strong>Eliminate slogans, exhortations, and targets for the workforce.</strong>{' '}
-              Exhortations without means to do better create adversarial relations and shift the
-              burden from the system to the worker.
+              <strong>
+                Eliminate slogans, exhortations, and targets for the workforce asking for zero
+                defects and new levels of productivity.
+              </strong>{' '}
+              Such exhortations only create adversarial relationships, as the bulk of the causes of
+              low quality and low productivity belong to the system and thus lie beyond the power of
+              the workforce.
             </li>
             <li>
               <strong>
-                Eliminate numerical quotas for the workforce and numerical goals for management.
+                (a) Eliminate work standards (quotas) on the factory floor. Substitute leadership.
+                (b) Eliminate management by objective. Eliminate management by numbers, numeric
+                goals. Substitute leadership.
               </strong>{' '}
-              Both distort process behavior and become substitutes for leadership.
+              Anderson, Rungtusanatham, and Schroeder (1994) reproduce Point 11 from Deming (1986:
+              23-24) with these two explicit sub-parts; some later curated versions (including the
+              Deming Institute one-pager) present the idea as a single merged statement. Both
+              distort process behavior and become substitutes for leadership.
             </li>
             <li>
               <strong>
-                Remove barriers that rob people of pride of workmanship, and eliminate the annual
-                rating or merit system.
+                (a) Remove barriers that rob the hourly worker of his or her right to pride of
+                workmanship. The responsibility of supervisors must be changed from sheer numbers to
+                quality. (b) Remove barriers that rob people in management and in engineering of
+                their right to pride of workmanship. This means, inter alia, abolishment of the
+                annual or merit rating and of management by objective.
               </strong>{' '}
-              Barriers include bad supervision, defective tooling, and the merit rating itself,
-              which rewards performance apparent to the rater rather than to the system.
+              Anderson et al. (1994) likewise reproduce Point 12 from Deming (1986: 23-24) with two
+              sub-parts addressing hourly workers and management separately; later curated versions
+              often merge them.
+            </li>
+            <li>
+              <strong>Institute a vigorous program of education and self-improvement.</strong>{' '}
+              Continuous learning is an investment in the enterprise, not a cost. Anderson et al.
+              (1994), reproducing Deming (1986: 23-24), state Point 13 without a closing &ldquo;for
+              everyone&rdquo;; some curated one-pagers add that phrase.
             </li>
             <li>
               <strong>
-                Institute a vigorous program of education and self-improvement for everyone.
-              </strong>{' '}
-              Continuous learning is an investment in the enterprise, not a cost.
-            </li>
-            <li>
-              <strong>
-                Put everybody in the company to work accomplishing the transformation.
-              </strong>{' '}
-              The transformation is everybody&rsquo;s job.
+                Put everybody in the company to work to accomplish the transformation. The
+                transformation is everybody&rsquo;s job.
+              </strong>
             </li>
           </ol>
           <p className={PARAGRAPH_CLASSES}>
