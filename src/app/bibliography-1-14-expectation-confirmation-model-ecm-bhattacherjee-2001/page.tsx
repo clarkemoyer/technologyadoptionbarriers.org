@@ -298,25 +298,42 @@ const BibliographyArticlePage = () => {
           <h3 className={H3_CLASSES}>ECM Causal Mechanisms</h3>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Expectations-to-Confirmation Pathway:</strong> Pre-use expectations, combined
-              with post-use perceived performance, determine confirmation. Larger gaps between
-              expectations and performance produce stronger disconfirmation effects.
+              <strong>Expectations-to-Confirmation (theoretical):</strong> At the ECT theoretical
+              level, confirmation is the cognitive result of comparing pre-use expectations to
+              perceived performance. In the ECM research model (Figure 2, p. 356), confirmation is
+              measured directly as a single construct rather than decomposed into separate
+              expectations and performance measures.
             </li>
             <li>
-              <strong>Confirmation-to-Satisfaction Pathway:</strong> Degree of confirmation is
-              primary driver of user satisfaction. Positive confirmation produces satisfaction;
-              negative confirmation produces dissatisfaction.
+              <strong>H1. Satisfaction -&gt; Continuance Intention:</strong> Satisfaction is the
+              strongest predictor of continuance intention (standardized path coefficient 0.567, p
+              &lt; .001 per Figure 3, p. 363). Reported as beta = 0.57 in prose (p. 364), accounting
+              for 32 percent of continuance intention variance.
             </li>
             <li>
-              <strong>Satisfaction-to-Continuance Pathway:</strong> Satisfaction directly influences
-              continuance intention (path coefficient .567 in Figure 3). Satisfaction is the
-              strongest predictor of continuance, reflecting that users who are satisfied with prior
-              use intend to continue.
+              <strong>H2. Confirmation -&gt; Satisfaction:</strong> Confirmation is the dominant
+              antecedent of satisfaction (standardized path coefficient 0.451, p &lt; .001 per
+              Figure 3; beta = 0.53 in prose, p. 364), accounting for 28 percent of satisfaction
+              variance.
             </li>
             <li>
-              <strong>Usefulness-to-Continuance Pathway:</strong> Post-adoption perceived
-              usefulness, shaped by confirmation (.227), directly predicts both satisfaction (.451)
-              and continuance intention (.294). PU influences satisfaction, not the reverse.
+              <strong>H3. Perceived Usefulness -&gt; Satisfaction:</strong> Post-adoption perceived
+              usefulness positively influences satisfaction (standardized path coefficient 0.227, p
+              &lt; .01 per Figure 3; beta = 0.23 in prose, p. 364), accounting for 5 percent of
+              satisfaction variance. In ECM, perceived usefulness influences satisfaction, not the
+              reverse.
+            </li>
+            <li>
+              <strong>H4. Perceived Usefulness -&gt; Continuance Intention:</strong> Post-adoption
+              perceived usefulness directly predicts continuance intention (standardized path
+              coefficient 0.294, p &lt; .001 per Figure 3; beta = 0.29 in prose, p. 364), accounting
+              for 9 percent of continuance intention variance.
+            </li>
+            <li>
+              <strong>H5. Confirmation -&gt; Perceived Usefulness:</strong> Confirmation shapes
+              post-adoption perceived usefulness (standardized path coefficient 0.525, p &lt; .001
+              per Figure 3; reported as beta = 0.48 in the prose on p. 364), accounting for 20
+              percent of perceived usefulness variance.
             </li>
             <li>
               <strong>Temporal Dynamics:</strong> Model captures time progression from pre-adoption
@@ -338,9 +355,10 @@ const BibliographyArticlePage = () => {
               repurchase and loyalty decisions.
             </li>
             <li>
-              <strong>Explained continuance variance:</strong> Original study explained 41% of
-              continuance intention variance, demonstrating substantial predictive power for
-              post-adoption behaviors.
+              <strong>Explained continuance variance:</strong> Original study explained 41 percent
+              of continuance intention variance (R&sup2; = 0.41), 33 percent of satisfaction
+              variance (R&sup2; = 0.33), and 20 percent of perceived usefulness variance (R&sup2; =
+              0.20), demonstrating substantial predictive power for post-adoption behaviors.
             </li>
             <li>
               <strong>Temporal validity:</strong> Model captures dynamic user experience progression
@@ -475,29 +493,35 @@ const BibliographyArticlePage = () => {
               ensuring ecological validity.
             </li>
             <li>
-              <strong>Adequate sample size:</strong> Study included N=122 participants, providing
-              reasonable statistical power for parameter estimation and relationship testing in path
-              analysis framework.
+              <strong>Sample size and sampling frame:</strong> 1,000 online banking customers were
+              sampled from a mid-sized U.S. bank customer base; 122 usable responses (approximately
+              12 percent response rate) were analyzed, providing reasonable statistical power for
+              the four-construct covariance-based structural equation model.
             </li>
             <li>
-              <strong>Measurement validation:</strong> Reported reliability coefficients
-              (Cronbach&rsquo;s alpha ranging from 0.85 to 0.92 across constructs) indicating strong
-              internal consistency of measurement scales.
+              <strong>Measurement validation:</strong> Reported composite reliabilities (Table 3, p.
+              362) of 0.83 (Continuance Intention), 0.87 (Satisfaction), 0.88 (Perceived
+              Usefulness), and 0.82 (Confirmation), all above the 0.70 threshold.
             </li>
             <li>
-              <strong>Convergent and discriminant validity:</strong> Demonstrated through average
-              variance explained (AVE) and inter-construct correlations that measured scales validly
-              represent distinct constructs.
+              <strong>Convergent and discriminant validity:</strong> Average variance extracted
+              (AVE) values ranged from 0.60 to 0.65 (Table 3, p. 362), all above the 0.50 threshold.
+              Chi-square difference tests (Table 4, p. 363) between constrained and unconstrained
+              measurement models were significant (p &lt; .001) for all construct pairs, supporting
+              discriminant validity.
             </li>
             <li>
-              <strong>Structural model testing:</strong> Used path analysis to test hypothesized
-              relationships, providing direct evidence of proposed causal mechanisms and their
-              relative strength.
+              <strong>Structural equation modeling with EQS:</strong> Confirmatory factor analysis
+              and structural model estimated with the EQS program (Bentler, 1989) using maximum
+              likelihood estimation on the covariance matrix, testing the hypothesized causal
+              relationships directly.
             </li>
             <li>
-              <strong>Model fit assessment:</strong> Reported fit statistics demonstrating adequate
-              model fit to observed data, suggesting theoretical relationships represent actual data
-              patterns.
+              <strong>Model fit assessment:</strong> Structural model fit (Figure 3, p. 363):
+              chi-square = 116.76, df = 68, p &lt; .001; chi-square/df = 1.717; NFI = 0.883, NNFI =
+              0.928, CFI = 0.946. All five hypothesized paths were significant (p &lt; .01). The
+              model explained 41 percent of continuance intention variance, 33 percent of
+              satisfaction variance, and 20 percent of perceived usefulness variance.
             </li>
           </ul>
         </section>
