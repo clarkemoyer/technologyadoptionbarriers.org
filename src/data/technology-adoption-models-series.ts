@@ -238,7 +238,7 @@ export const technologyAdoptionModelsSeries: SeriesStructure = {
       {
         id: 'bib-1-16',
         title: 'Model of Adoption of Technology in Households (MATH)',
-        slug: '/bibliography-1-16-math-venkatesh-brown-2001',
+        slug: '/bibliography-1-16-math-brown-venkatesh-2005',
       },
       {
         id: 'bib-1-17',

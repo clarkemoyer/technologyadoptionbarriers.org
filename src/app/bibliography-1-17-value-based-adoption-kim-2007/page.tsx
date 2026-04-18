@@ -896,11 +896,11 @@ const BibliographyArticlePage = () => {
           <div className="space-y-4">
             <p className={PARAGRAPH_CLASSES}>
               <Link
-                href="/bibliography-1-16-math-venkatesh-brown-2001"
+                href="/bibliography-1-16-math-brown-venkatesh-2005"
                 className="text-blue-600 hover:text-blue-800 underline"
               >
-                &larr; Previous: Model of Adoption of Technology in Households (Venkatesh &amp;
-                Brown)
+                &larr; Previous: Model of Adoption of Technology in Households (Brown &amp;
+                Venkatesh)
               </Link>
             </p>
             <p className={PARAGRAPH_CLASSES}>
