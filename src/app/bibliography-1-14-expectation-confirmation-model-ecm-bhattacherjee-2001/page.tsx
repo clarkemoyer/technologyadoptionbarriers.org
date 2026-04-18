@@ -469,7 +469,7 @@ const BibliographyArticlePage = () => {
             <li>
               <strong>Acceptance-discontinuance anomaly:</strong> Bhattacherjee frames ECM as an
               explanation for the &ldquo;acceptance-discontinuance anomaly&rdquo; (abstract and p.
-              354), the empirical pattern in which users accept a system at adoption but later
+              352), the empirical pattern in which users accept a system at adoption but later
               discontinue. TAM cannot explain this, because the same pre-acceptance variables should
               predict both behaviors; ECM explains it through disconfirmation and dissatisfaction
               occurring after use.
