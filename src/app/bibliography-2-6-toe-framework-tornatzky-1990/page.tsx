@@ -159,18 +159,30 @@ const BibliographyArticlePage = () => {
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Technological context:</strong> characteristics of the technology (both
-              internal current technology base and external technologies in the market).
+              <strong>Technological context:</strong> &ldquo;both the existing technologies in use
+              and new technologies relevant to the firm&rdquo; (Zhu et al., 2006, p. 1559, restating
+              Tornatzky &amp; Fleischer 1990, pp. 152-154).
             </li>
             <li>
-              <strong>Organizational context:</strong> characteristics of the adopting firm (size,
-              structure, slack, communication, managerial attitudes).
+              <strong>Organizational context:</strong> &ldquo;descriptive measures about the
+              organization such as scope, size, and managerial structure&rdquo; (Zhu et al., 2006,
+              p. 1559).
             </li>
             <li>
-              <strong>Environmental context:</strong> industry structure, competitive pressure,
-              regulatory environment, trading-partner behavior.
+              <strong>Environmental context:</strong> &ldquo;the arena in which a firm conducts its
+              business - its industry, competitors, and dealings with government&rdquo; (Zhu et al.,
+              2006, pp. 1559-1560).
             </li>
           </ul>
+          <p className={PARAGRAPH_CLASSES}>
+            Later empirical TOE studies (e.g., Iacovou, Benbasat, &amp; Dexter, 1995; Chau &amp;
+            Tam, 1997; Oliveira &amp; Martins, 2011) populate these three contexts with additional
+            operational sub-factors such as trading-partner pressure, top management support, and
+            Rogers&rsquo; (1995) innovation attributes (relative advantage, compatibility,
+            complexity, trialability, observability). Those sub-factors are not attributed to
+            Tornatzky &amp; Fleischer (1990) in the proxy source; they are downstream conventions of
+            the TOE empirical literature.
+          </p>
           <p className={PARAGRAPH_CLASSES}>
             The &ldquo;TOE&rdquo; acronym itself is a later-literature convention. Secondary sources
             (e.g., Baker, 2011, <em>Information Systems Theory</em>; Oliveira &amp; Martins, 2011,{' '}
