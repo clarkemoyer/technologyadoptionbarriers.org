@@ -185,17 +185,14 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Preceding Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
-            The TTF model synthesized multiple foundational theoretical streams:
+            Goodhue and Thompson (1995) position TTF within two complementary research streams and
+            build on several specific prior studies:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Contingency theory (Lawrence &amp; Lorsch):</strong> Established that
-              organizational effectiveness depends on fit between organizational characteristics and
-              environmental demands.
-            </li>
-            <li>
-              <strong>Job fit theory:</strong> Demonstrated that job performance improves when job
-              characteristics match worker capabilities and preferences.
+              <strong>Utilization-focus stream (attitudes and behavior):</strong> Theories of
+              attitudes and behavior grounded in Fishbein and Ajzen, Bagozzi, and Triandis
+              predicting user intentions to utilize systems.
             </li>
             <li>
               <strong>
@@ -209,11 +206,23 @@ const BibliographyArticlePage = () => {
                 </a>
                 ):
               </strong>{' '}
-              Provided context showing acceptance differs from performance impact.
+              Cited directly as a utilization-stream antecedent; TPC positions TTF as complementary
+              to, not competitive with, technology acceptance explanations.
+            </li>
+            <li>
+              <strong>Task-technology fit-focus stream (cognitive fit):</strong> Prior fit research
+              including Jarvenpaa (1989) and Vessey (1991) on data representation and cognitive fit
+              in decision-making tasks.
+            </li>
+            <li>
+              <strong>IS success framework (DeLone and McLean, 1992):</strong> The direct conceptual
+              comparator; TPC extends DeLone and McLean&rsquo;s model by elevating task-technology
+              fit to an explicit construct and clarifying the links between utilization and
+              performance impacts.
             </li>
             <li>
               <strong>
-                Diffusion of Innovations (
+                Broader intellectual heritage: contingency thinking, diffusion of innovations (
                 <a
                   id="cite-ref-rogers-1983-1"
                   href="#ref-rogers-1983"
@@ -223,11 +232,10 @@ const BibliographyArticlePage = () => {
                 </a>
                 ):
               </strong>{' '}
-              Offered insights on innovation compatibility and relative advantage.
-            </li>
-            <li>
-              <strong>Expectancy theory (Vroom):</strong> Grounded understanding that performance
-              improvements depend on proper tool-task alignment.
+              Organizational contingency work (e.g., Fry and Slocum, 1984) and innovation diffusion
+              research inform the fit argument; Goodhue and Thompson (1995) do not cite Rogers
+              directly but engage adjacent literature (Cooper and Zmud, 1990; Tornatzky and Klein,
+              1982) on fit and organizational adoption.
             </li>
           </ul>
         </section>
@@ -542,29 +550,36 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Following Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
-            The Goodhue and Thompson fit concept influenced subsequent IT evaluation and
-            implementation research:
+            The Goodhue and Thompson TTF construct has been extended and integrated into multiple
+            subsequent IT evaluation frameworks:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Fit-Viability Model extensions:</strong> Later research expanded fit to
-              include organizational, strategic, and user capability fit dimensions.
+              <strong>TTF-TAM integration (Dishaw and Strong, 1999):</strong> Combined TTF with the
+              Technology Acceptance Model, showing that task-technology fit complements usefulness
+              and ease-of-use perceptions in predicting system use and performance.
             </li>
             <li>
-              <strong>Person-Organization Fit frameworks:</strong> Applied similar matching logic to
-              hiring and team composition decisions.
+              <strong>Group Support Systems TTF (Zigurs and Buckland, 1998):</strong> Extended TTF
+              to group decision-support contexts, proposing a fit profile theory matching GSS
+              capabilities to group task types.
             </li>
             <li>
-              <strong>Design Science research:</strong> Used fit concepts to evaluate whether
-              designed systems matched problem contexts and user needs.
+              <strong>UTAUT (Venkatesh, Morris, Davis, and Davis, 2003):</strong> The Unified Theory
+              of Acceptance and Use of Technology consolidated eight prior acceptance models,
+              drawing on the utilization-focus stream that TPC also builds on, though UTAUT
+              emphasizes acceptance rather than fit.
             </li>
             <li>
-              <strong>Implementation science:</strong> Applied fit logic to understand how
-              organizational and intervention characteristics affect implementation success.
+              <strong>Fit-Viability Model extensions:</strong> Later research (e.g., mobile
+              commerce, e-learning) expanded fit to include organizational, strategic, and user
+              capability fit dimensions beyond the original 8-factor TTF instrument.
             </li>
             <li>
-              <strong>Digital transformation models:</strong> Emphasized fit between business
-              processes, organizational capabilities, and technology architecture choices.
+              <strong>Individual and organizational performance frameworks:</strong> TTF has been
+              applied and reported in hundreds of downstream studies across decision support,
+              enterprise systems, mobile, and analytics domains, with the 1995 paper among the most
+              cited in MIS Quarterly.
             </li>
           </ul>
         </section>
