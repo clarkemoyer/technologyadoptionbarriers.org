@@ -70,7 +70,7 @@ const Article16Page = () => {
             Task-Technology Fit: The Principle That Fit Beats Universal Usefulness
           </h2>
           <p className={PARAGRAPH_CLASSES}>
-            Dorothy Goodhue and Thomas Thompson&apos;s 1995 Task-Technology Fit (TTF) model emerges
+            Dale Goodhue and Ronald Thompson&apos;s 1995 Task-Technology Fit (TTF) model emerges
             from a deceptively simple observation: technologies receiving strong adoption often fail
             to improve performance, while technologies not perceived as particularly useful
             sometimes enhance performance dramatically. This paradox revealed a fundamental gap in
@@ -91,10 +91,12 @@ const Article16Page = () => {
             requirements and technology capabilities.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            Goodhue and Thompson conducted a large-scale empirical study across 25 organizations and
-            784 users of an integrated computer dispatch (ICD) system used in service organizations.
-            The key finding was striking: task-technology fit predicted individual performance (r =
-            .67) far more strongly than utilization alone (r = .24). In other words, how well the
+            Goodhue and Thompson conducted a large-scale empirical study of 662 respondents using 25
+            information technologies across a transportation company (Company A, n=400) and an
+            insurance company (Company B, n=262). Across 8 regression models (Table 3, p.227), the
+            fit-as-matching conception of task-technology fit predicted self-reported individual
+            performance impacts more consistently than utilization alone, with adjusted R-squared
+            values ranging from 0.04 to 0.25 across the regressions. In other words, how well the
             system matched the work people actually did mattered more than how much people used it.
             Users could employ a poorly-fitting system intensively and still fail to improve
             performance. Conversely, users of a well-fitting system improved performance even with
