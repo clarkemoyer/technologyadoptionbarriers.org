@@ -277,10 +277,14 @@ const BibliographyArticlePage = () => {
                 </Link>
                 ):
               </strong>{' '}
-              Established fundamental insight that innovation characteristics (relative advantage,
-              compatibility, complexity, trial-ability, observability) influence adoption. TOE
-              incorporated these innovation characteristics into the technological context
-              dimension.
+              Established that innovation characteristics (relative advantage, compatibility,
+              complexity, trialability, observability) influence adoption. Zhu, Kraemer, and Xu
+              (2006, pp. 1559-1560) describe the TOE framework as &ldquo;consistent with the
+              innovation diffusion theory of Rogers (1995)&rdquo;, which emphasized technological
+              characteristics along with internal and external organizational characteristics.
+              Whether Tornatzky and Fleischer (1990) directly incorporated Rogers&rsquo; five
+              innovation attributes into their Technological context is not verified from the proxy
+              source (the book PDF is not in the project&rsquo;s Zotero library).
             </li>
             <li>
               <strong>
