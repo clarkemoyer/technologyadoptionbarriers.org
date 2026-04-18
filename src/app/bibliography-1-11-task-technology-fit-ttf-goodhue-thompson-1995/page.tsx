@@ -236,13 +236,16 @@ const BibliographyArticlePage = () => {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Describe The Model</h2>
           <p className={PARAGRAPH_CLASSES}>
-            The TTF model proposes a direct causal path: task requirements and technology
-            characteristics jointly determine task-technology fit, which influences utilization of
-            system functionality, which in turn drives individual performance. The model emphasizes
-            that high fit encourages utilization of relevant system capabilities and that such
-            utilization directly improves task execution quality and efficiency. High acceptance or
-            ease of use without fit produces system use unconnected to performance. Conversely, high
-            fit combined with extensive utilization produces substantial performance improvements.
+            Goodhue and Thompson (1995) name their integrated framework the Technology-to-
+            Performance Chain (TPC), with task-technology fit (TTF) as a core construct within it.
+            The TPC proposes that task requirements and technology characteristics jointly determine
+            task-technology fit, which influences both utilization of system functionality and the
+            performance impact of that utilization. The authors formulated three testable
+            propositions: (P1) task and technology characteristics predict TTF; (P2) TTF influences
+            utilization; and (P3) TTF adds explanatory power in predicting perceived performance
+            beyond utilization alone. High acceptance or ease of use without fit produces system use
+            unconnected to performance; high fit combined with extensive utilization produces
+            performance improvements.
           </p>
 
           <h3 className={H3_CLASSES}>What does the model measure?</h3>
@@ -286,8 +289,9 @@ const BibliographyArticlePage = () => {
               claims.
             </li>
             <li>
-              <strong>Large-scale empirical validation:</strong> Tested with 662 users across 26
-              departments and 2 companies demonstrating robust findings across diverse contexts.
+              <strong>Large-scale empirical validation:</strong> Tested with 662 users employing 25
+              different information technologies across 26 non-IS departments in 2 companies,
+              demonstrating robust findings across diverse contexts.
             </li>
             <li>
               <strong>Distinct from acceptance:</strong> Shows fit independently predicts
@@ -387,25 +391,29 @@ const BibliographyArticlePage = () => {
               with multiple survey items enabling measurement error assessment.
             </li>
             <li>
-              <strong>Exploratory factor analysis:</strong> Used EFA to identify the 8-factor
-              structure of the TTF measure derived from 16 original dimensions/items, validating
-              hypothesized dimensions.
+              <strong>Exploratory factor analysis:</strong> Used principal components factor
+              analysis with promax rotation. From 48 questions measuring 21 original TTF dimensions,
+              14 questions and 5 dimensions were dropped; the remaining 34 questions (covering 16 of
+              the 21 original dimensions) collapsed into 8 final TTF factors (Table 1).
             </li>
             <li>
               <strong>Reliability testing:</strong> Reported Cronbach&rsquo;s alpha coefficients for
-              all scales demonstrating internal consistency.
+              the 8 TTF factors ranging from .60 to .88 (Table 1).
             </li>
             <li>
               <strong>Discriminant validity:</strong> Confirmed that fit, utilization, and
               performance constructs are empirically distinct through correlation analysis.
             </li>
             <li>
-              <strong>Correlational and regression analysis:</strong> Tested model predictions using
-              multiple regression and path analysis showing fit-to-performance relationships.
+              <strong>Multiple regression analysis:</strong> Tested Proposition 1 with eight
+              regressions predicting each TTF factor from task and technology characteristics;
+              adjusted R-squared values ranged from .04 to .25 across the 8 regressions (Table 3).
             </li>
             <li>
-              <strong>Multiple departments:</strong> Collected data across 26 departments and 2
-              organizations enabling consistency checks across contexts.
+              <strong>Multiple departments:</strong> Collected data across 26 non-IS departments in
+              two companies (400 respondents from Company A, a transportation enterprise; 262 from
+              Company B, an insurance company; total n = 662) enabling consistency checks across
+              contexts.
             </li>
           </ul>
         </section>
@@ -418,12 +426,14 @@ const BibliographyArticlePage = () => {
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Multi-department validation:</strong> 26 departments across 2 companies
-              provides diverse context demonstrating generalization across units.
+              <strong>Multi-department validation:</strong> 26 non-IS departments across 2 companies
+              (transportation and insurance) provides diverse context demonstrating generalization
+              across units.
             </li>
             <li>
-              <strong>System diversity:</strong> Research included both transaction processing and
-              decision support systems suggesting fit applies across system types.
+              <strong>System diversity:</strong> 25 different major information systems (13 in
+              Company A and 12 in Company B, each used by a minimum of 5 employees) span transaction
+              processing and decision support contexts suggesting fit applies across system types.
             </li>
             <li>
               <strong>Large sample size:</strong> 662 end-users provides substantial statistical
