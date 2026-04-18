@@ -144,10 +144,12 @@ const BibliographyArticlePage = () => {
           <p className={PARAGRAPH_CLASSES}>
             <strong>Source note:</strong> The project&rsquo;s Zotero library does not contain a PDF
             of Tornatzky &amp; Fleischer (1990) <em>The Processes of Technological Innovation</em>.
-            A PDF of Drazin&rsquo;s 1991 review of the book is available and confirms publisher
-            (D.C. Heath/Lexington Books), 298 pages, four-part structure, Rogers-diffusion-tradition
-            positioning, and that Everett Rogers wrote the prologue. Detailed page-level claims on
-            this page are not verified against the book itself.
+            Structural review for this page uses Zhu, Kraemer, and Xu (2006),{' '}
+            <em>Management Science</em>, 52(10), 1557-1576, as an authorized peer-reviewed proxy.
+            Zhu et al. restate the TOE framework citing Tornatzky and Fleischer (1990, pp. 152-154)
+            and apply it in a widely cited empirical study of e-business assimilation across 1,857
+            firms in 10 countries. Detailed page-level claims on this page that go beyond the
+            three-context definitions given in Zhu et al. are not verified against the book itself.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             TOE is a conceptual framework, not a measurement instrument. It does not propose scales,
@@ -361,21 +363,6 @@ const BibliographyArticlePage = () => {
               Established that organizational strategy and structure must align with environmental
               characteristics. TOE incorporated environmental contingency principle by emphasizing
               that technology adoption depends on environmental pressure and opportunity.
-            </li>
-            <li>
-              <strong>
-                Technology Acceptance Model (
-                <a
-                  id="cite-ref-davis-1989-2"
-                  href="#ref-davis-1989"
-                  className="text-tabs-teal-deep hover:underline"
-                >
-                  Davis, 1989
-                </a>
-                ):
-              </strong>{' '}
-              Emphasized perceived usefulness and perceived ease of use as technology adoption
-              drivers. TOE incorporated these perceived technology characteristics.
             </li>
           </ul>
         </section>
@@ -636,7 +623,8 @@ const BibliographyArticlePage = () => {
             model. &ldquo;Internal validity&rdquo; below is assessed as logical coherence and
             fidelity to the diffusion-of-innovation tradition the book synthesizes. Specific content
             claims against Tornatzky &amp; Fleischer (1990) are unverified at page level because the
-            book PDF is not in the project&rsquo;s Zotero library.
+            book PDF is not in the project&rsquo;s Zotero library; Zhu, Kraemer, and Xu (2006) is
+            used as a peer-reviewed proxy for the three-context definitions only.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             As a comprehensive synthesis rather than a novel empirical study, the TOE Framework is
@@ -909,11 +897,6 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-davis-1989-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                ></a>{' '}
-                <a
-                  href="#cite-ref-davis-1989-2"
-                  className="text-tabs-teal-deep hover:underline"
-                  aria-label="Back to citation 2"
                 ></a>
               </span>{' '}
               https://doi.org/10.2307/249008
