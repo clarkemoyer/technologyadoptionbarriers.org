@@ -317,15 +317,16 @@ const BibliographyArticlePage = () => {
                 </a>
                 ):
               </strong>{' '}
-              Identified relative advantage, complexity, trialability, and observability as
-              innovation characteristics predicting adoption. TAM2 incorporates related concepts
-              through output quality, result demonstrability, and job relevance.
+              Rogers&rsquo;s diffusion framework was operationalized for IS contexts by Moore and
+              Benbasat (1991), from whom TAM2 adapted the image, result demonstrability, and
+              voluntariness scales (p.194). TAM2 does not cite Rogers (1995) directly.
             </li>
             <li>
               <strong>Social Psychology Literature on Conformity and Compliance:</strong> Provided
               theoretical foundations for subjective norm and image effects as social influence
-              mechanisms shaping adoption behavior, especially in organizational contexts where
-              conformity pressures operate.
+              mechanisms. TAM2 explicitly invokes Kelman&rsquo;s (1958) three-process framework
+              (compliance, internalization, identification) to differentiate direct and indirect
+              effects of subjective norm (p.187-190).
             </li>
             <li>
               <strong>
@@ -338,9 +339,9 @@ const BibliographyArticlePage = () => {
                 </Link>
                 ):
               </strong>{' '}
-              Demonstrated that technology adoption and performance depend on alignment between
-              technology capabilities and job task requirements, foundational to TAM2&rsquo;s job
-              relevance construct.
+              TAM2 does not cite Goodhue and Thompson (1995) directly; it does cite Goodhue (1995,
+              Management Science). The job relevance and output quality scales were adapted from
+              Davis, Bagozzi, and Warshaw (1992), not Goodhue.
             </li>
           </ul>
         </section>
