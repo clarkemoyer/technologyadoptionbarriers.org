@@ -143,9 +143,11 @@ const BibliographyArticlePage = () => {
             of Humphrey (1989) <em>Managing the Software Process</em>. Claims on this page are
             anchored to the SEI/CMU formalization of the CMM published as Paulk, Curtis, Chrissis,
             &amp; Weber (1993) <em>Capability Maturity Model, Version 1.1</em> (IEEE Software, July
-            1993), for which a PDF is available in the project&rsquo;s Zotero library. Paulk et al.
-            (1993) explicitly extends the process-maturity framework first described in
-            Humphrey&rsquo;s 1989 book.
+            1993), for which a PDF is available in the project&rsquo;s Zotero library. Per Paulk et
+            al. (1993, p. 18), the SEI released a brief description of the process-maturity
+            framework in September 1987, which &ldquo;was later expanded in Watts Humphrey&rsquo;s
+            book, <em>Managing the Software Process</em>&rdquo; (1989), and subsequently evolved
+            into the Capability Maturity Model.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             CMM measures <em>process maturity</em> on an ordinal five-point scale (Paulk et al.,
