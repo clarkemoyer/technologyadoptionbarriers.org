@@ -41,8 +41,8 @@ const getDimensionsFromSvgElement = (svgElement: Element | null): SvgDimensions 
   const viewBoxDimensions = parseViewBox(svgElement.getAttribute('viewBox'))
   if (viewBoxDimensions) return viewBoxDimensions
 
-  const width = Number(svgElement.getAttribute('width'))
-  const height = Number(svgElement.getAttribute('height'))
+  const width = parseFloat(svgElement.getAttribute('width') ?? '')
+  const height = parseFloat(svgElement.getAttribute('height') ?? '')
 
   if (!Number.isNaN(width) && !Number.isNaN(height) && width > 0 && height > 0) {
     return { width, height }
@@ -83,7 +83,6 @@ const MindMapViewer = () => {
   const transformRef = useRef<ReactZoomPanPinchRef | null>(null)
   const wrapperRef = useRef<HTMLDivElement | null>(null)
   const [svgDimensions, setSvgDimensions] = useState<SvgDimensions | null>(null)
-  const [fitScale, setFitScale] = useState<number | null>(null)
 
   const syncSvgDimensions = useCallback(() => {
     const wrapper = wrapperRef.current
@@ -116,67 +115,17 @@ const MindMapViewer = () => {
       const x = (w - svgDimensions.width * scale) / 2
       const y = (h - svgDimensions.height * scale) / 2
       instance.setTransform(x, y, scale, animate)
-      setFitScale(scale)
     },
     [svgDimensions]
   )
 
   useEffect(() => {
-    const wrapper = wrapperRef.current
-    if (!wrapper) return
-
-    const syncDimensions = () => {
+    const raf = requestAnimationFrame(() => {
       syncSvgDimensions()
-    }
-
-    const loadTargets = new Set<Element>()
-
-    const addLoadListener = (target: Element) => {
-      if (loadTargets.has(target)) return
-      target.addEventListener('load', syncDimensions)
-      loadTargets.add(target)
-    }
-
-    const removeLoadListener = (target: Element) => {
-      if (!loadTargets.has(target)) return
-      target.removeEventListener('load', syncDimensions)
-      loadTargets.delete(target)
-    }
-
-    const collectLoadTargets = (root: Element) => {
-      const targets: Element[] = []
-      if (root.matches('img, object')) {
-        targets.push(root)
-      }
-      root.querySelectorAll('img, object').forEach((target) => targets.push(target))
-      return targets
-    }
-
-    collectLoadTargets(wrapper).forEach(addLoadListener)
-
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        mutation.addedNodes.forEach((node) => {
-          if (!(node instanceof Element)) return
-          collectLoadTargets(node).forEach(addLoadListener)
-        })
-
-        mutation.removedNodes.forEach((node) => {
-          if (!(node instanceof Element)) return
-          collectLoadTargets(node).forEach(removeLoadListener)
-        })
-      })
     })
-
-    observer.observe(wrapper, { childList: true, subtree: true })
-
-    const raf = requestAnimationFrame(syncDimensions)
 
     return () => {
       cancelAnimationFrame(raf)
-      observer.disconnect()
-      loadTargets.forEach((target) => target.removeEventListener('load', syncDimensions))
-      loadTargets.clear()
     }
   }, [syncSvgDimensions])
 
@@ -211,9 +160,10 @@ const MindMapViewer = () => {
         className="relative mx-auto"
         style={{ height: 'min(80vh, 900px)', maxWidth: '100%' }}
       >
+        {/* `initialScale` is only applied on mount; later fit updates are handled via `setTransform`. */}
         <TransformWrapper
           ref={transformRef}
-          initialScale={fitScale ?? 0.08}
+          initialScale={0.08}
           minScale={0.02}
           maxScale={4}
           limitToBounds={false}
@@ -234,6 +184,7 @@ const MindMapViewer = () => {
               alt="TABS literature review mind map showing technology adoption models, frameworks, standards, and the culminating research project workflow."
               width={svgDimensions?.width}
               height={svgDimensions?.height}
+              onLoad={syncSvgDimensions}
               draggable={false}
               style={{
                 width: svgDimensions?.width,
