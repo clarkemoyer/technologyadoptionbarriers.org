@@ -160,14 +160,6 @@
     "category": "Barriers"
   },
   {
-    "id": "barriers-survey-stats",
-    "url": "/barriers/survey-stats",
-    "title": "Redirecting - TABS",
-    "description": "",
-    "content": "Redirecting - TABS",
-    "category": "Barriers"
-  },
-  {
     "id": "bibliography-1-1-theory-of-reasoned-action-tra-fishbein-ajzen-1975",
     "url": "/bibliography-1-1-theory-of-reasoned-action-tra-fishbein-ajzen-1975",
     "title": "Bibliography: Theory of Reasoned Action (TRA) - Fishbein & Ajzen (1975)",
@@ -317,14 +309,6 @@
     "title": "Bibliography: Theory of Planned Behavior (TPB) - Ajzen (1991)",
     "description": "Deep dive into the Theory of Planned Behavior by Icek Ajzen (1991), exploring attitudes, norms, and perceived control as determinants of intentional behavior.",
     "content": "Bibliography: Theory of Planned Behavior (TPB) - Ajzen (1991). Deep dive into the Theory of Planned Behavior by Icek Ajzen (1991), exploring attitudes, norms, and perceived control as determinants of intentional behavior. Theory of Planned Behavior TPB Ajzen 1991 Model Identification Model Name: Theory of Planned Behavior Authors: Icek Ajzen Publication Date: 1991 Model Abbreviation: TPB Target of Model: Individual Intentional Behavior Across Diverse Domains Disciplinary Origin: Social Psychology, Behavioral Science Theory Publication Information Author: Icek Ajzen Formal Publication Date: 1991 Official Title: The Theory of Planned Behavior Journal: Organizational Behavior and Human Decision Processes Volume Issue: Vol. 50, No. Pages: 179-211 DOI: /0749-5978 91 90020-T Citation Information...",
-    "category": "Bibliography"
-  },
-  {
-    "id": "bibliography-1-8-personal-computing-acceptance-thompson-1991",
-    "url": "/bibliography-1-8-personal-computing-acceptance-thompson-1991",
-    "title": "Redirecting - TABS",
-    "description": "",
-    "content": "Redirecting - TABS",
     "category": "Bibliography"
   },
   {
@@ -816,14 +800,6 @@
     "category": "Making of TABS"
   },
   {
-    "id": "making-of-tabs-data-analysis",
-    "url": "/making-of-tabs/data-analysis",
-    "title": "Redirecting - TABS",
-    "description": "",
-    "content": "Redirecting - TABS",
-    "category": "Making of TABS"
-  },
-  {
     "id": "making-of-tabs-development-workflow",
     "url": "/making-of-tabs/development-workflow",
     "title": "Development Workflow - Making of TABS",
@@ -888,14 +864,6 @@
     "category": "Making of TABS"
   },
   {
-    "id": "making-of-tabs-integrations-prolific-dashboard",
-    "url": "/making-of-tabs/integrations/prolific/dashboard",
-    "title": "Redirecting - TABS",
-    "description": "",
-    "content": "Redirecting - TABS",
-    "category": "Making of TABS"
-  },
-  {
     "id": "making-of-tabs-integrations-qualtrics",
     "url": "/making-of-tabs/integrations/qualtrics",
     "title": "Qualtrics Integration - Making of TABS",
@@ -920,43 +888,11 @@
     "category": "Making of TABS"
   },
   {
-    "id": "making-of-tabs-reproducible-analysis",
-    "url": "/making-of-tabs/reproducible-analysis",
-    "title": "Redirecting - TABS",
-    "description": "",
-    "content": "Redirecting - TABS",
-    "category": "Making of TABS"
-  },
-  {
     "id": "making-of-tabs-seo",
     "url": "/making-of-tabs/seo",
     "title": "SEO Transparency & Dashboard - Making of TABS",
     "description": "SEO metrics, baseline audit, and strategic roadmap for the Technology Adoption Barriers project - a transparent, build-time snapshot.",
     "content": "SEO Transparency & Dashboard - Making of TABS. SEO metrics, baseline audit, and strategic roadmap for the Technology Adoption Barriers project - a transparent, build-time snapshot. SEO Benchmarking Transparency ℹ️ Note on Static Deployment Architecture The TABS website is generated entirely as static output: and hosted on GitHub Pages for security and performance. Because of architectural limitation, dashboard cannot query live-polling React APIs such as Google Search Console or Google Analytics natively on the client without exposing private API keys. Instead, dashboard represents statically generated snapshot rendered directly our internal data pipelines at build time. Dashboard Snapshot Sync: Data Collection Window: to Search Engine Optimization SEO is often treated as secretive marketi...",
-    "category": "Making of TABS"
-  },
-  {
-    "id": "making-of-tabs-seo-baseline-audit",
-    "url": "/making-of-tabs/seo/baseline-audit",
-    "title": "Baseline SEO Audit - Making of TABS",
-    "description": "This page has moved. See the consolidated SEO Transparency page.",
-    "content": "Baseline SEO Audit - Making of TABS. This page has moved. See the consolidated SEO Transparency page. This page has been consolidated into the SEO Benchmarking Transparency page. Go to Baseline Audit",
-    "category": "Making of TABS"
-  },
-  {
-    "id": "making-of-tabs-seo-dashboard",
-    "url": "/making-of-tabs/seo/dashboard",
-    "title": "SEO Performance Dashboard - Making of TABS",
-    "description": "This page has moved. See the consolidated SEO Transparency page.",
-    "content": "SEO Performance Dashboard - Making of TABS. This page has moved. See the consolidated SEO Transparency page. This page has been consolidated into the SEO Benchmarking Transparency page. Go to Performance Dashboard",
-    "category": "Making of TABS"
-  },
-  {
-    "id": "making-of-tabs-seo-strategy",
-    "url": "/making-of-tabs/seo/strategy",
-    "title": "SEO Strategy Roadmap - Making of TABS",
-    "description": "This page has moved. See the consolidated SEO Transparency page.",
-    "content": "SEO Strategy Roadmap - Making of TABS. This page has moved. See the consolidated SEO Transparency page. This page has been consolidated into the SEO Benchmarking Transparency page. Go to Strategy Roadmap",
     "category": "Making of TABS"
   },
   {
@@ -989,14 +925,6 @@
     "title": "Results - TABS",
     "description": "Survey results from the Technology Adoption Barriers Survey: sample demographics, descriptive statistics, scale reliability, sensitivity analysis, and open data.",
     "content": "Results - TABS. Survey results from the Technology Adoption Barriers Survey: sample demographics, descriptive statistics, scale reliability, sensitivity analysis, and open data. Results The Technology Adoption Barriers Survey TABS collects data organizational leaders about the barriers, readiness, and maturity factors that influence technology adoption. Every metric is computed independently across four primary result groups so researchers can choose the dataset that matches their quality requirements. All statistics are generated automatically by the daily analysis pipeline and updated every time data is collected. label: 'Total Responses', value: totalN",
-    "category": "Results"
-  },
-  {
-    "id": "results-cmo-survey",
-    "url": "/results/cmo-survey",
-    "title": "Redirecting - TABS",
-    "description": "",
-    "content": "Redirecting - TABS",
     "category": "Results"
   },
   {
@@ -1037,14 +965,6 @@
     "title": "CRP 2026 Key Findings - TABS",
     "description": "Effect sizes, cross-tabulations, t-tests, and ANOVA from the CRP 2026 replication, computed independently across three CRP sample definitions.",
     "content": "CRP 2026 Key Findings - TABS. Effect sizes, cross-tabulations, t-tests, and ANOVA from the CRP 2026 replication, computed independently across three CRP sample definitions. CRP 2026: Key Findings Published: April 2026 All effect sizes, cross-tabulations, t-tests, and ANOVA are computed independently for each of the three CRP sample definitions. This ensures that any finding can be validated against the researcher chosen dataset. Effect Sizes Cohen Cohen measures the standardized difference between group means. Values of |d| are negligible, small, medium, and large. Each comparison is computed separately for each result group. CRP_GROUPS group sample === details sampleDetails effects details?.effect_sizes hasEffects effects && effects 'tech_vs_nontech' && effects 'tech_vs_nontech' .construc...",
-    "category": "Results"
-  },
-  {
-    "id": "results-crp-2026-glossary",
-    "url": "/results/crp-2026/glossary",
-    "title": "Redirecting - TABS",
-    "description": "",
-    "content": "Redirecting - TABS",
     "category": "Results"
   },
   {

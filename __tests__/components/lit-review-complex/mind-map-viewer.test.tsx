@@ -11,8 +11,25 @@ class ResizeObserverMock {
   unobserve() {}
   disconnect() {}
 }
-;(global as unknown as { ResizeObserver: typeof ResizeObserverMock }).ResizeObserver =
-  ResizeObserverMock
+
+type GlobalWithResizeObserver = {
+  ResizeObserver?: typeof ResizeObserverMock
+}
+
+const globalWithResizeObserver = global as typeof global & GlobalWithResizeObserver
+const originalResizeObserver = globalWithResizeObserver.ResizeObserver
+
+beforeAll(() => {
+  globalWithResizeObserver.ResizeObserver = ResizeObserverMock
+})
+
+afterAll(() => {
+  if (originalResizeObserver) {
+    globalWithResizeObserver.ResizeObserver = originalResizeObserver
+  } else {
+    delete globalWithResizeObserver.ResizeObserver
+  }
+})
 
 describe('MindMapViewer', () => {
   it('renders the mind map image with descriptive alt text', () => {
