@@ -129,14 +129,54 @@ const MindMapViewer = () => {
       syncSvgDimensions()
     }
 
-    const loadTargets = wrapper.querySelectorAll('img, object')
-    loadTargets.forEach((target) => target.addEventListener('load', syncDimensions))
+    const loadTargets = new Set<Element>()
+
+    const addLoadListener = (target: Element) => {
+      if (loadTargets.has(target)) return
+      target.addEventListener('load', syncDimensions)
+      loadTargets.add(target)
+    }
+
+    const removeLoadListener = (target: Element) => {
+      if (!loadTargets.has(target)) return
+      target.removeEventListener('load', syncDimensions)
+      loadTargets.delete(target)
+    }
+
+    const collectLoadTargets = (root: Element) => {
+      const targets: Element[] = []
+      if (root.matches('img, object')) {
+        targets.push(root)
+      }
+      root.querySelectorAll('img, object').forEach((target) => targets.push(target))
+      return targets
+    }
+
+    collectLoadTargets(wrapper).forEach(addLoadListener)
+
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        mutation.addedNodes.forEach((node) => {
+          if (!(node instanceof Element)) return
+          collectLoadTargets(node).forEach(addLoadListener)
+        })
+
+        mutation.removedNodes.forEach((node) => {
+          if (!(node instanceof Element)) return
+          collectLoadTargets(node).forEach(removeLoadListener)
+        })
+      })
+    })
+
+    observer.observe(wrapper, { childList: true, subtree: true })
 
     const raf = requestAnimationFrame(syncDimensions)
 
     return () => {
       cancelAnimationFrame(raf)
+      observer.disconnect()
       loadTargets.forEach((target) => target.removeEventListener('load', syncDimensions))
+      loadTargets.clear()
     }
   }, [syncSvgDimensions])
 
