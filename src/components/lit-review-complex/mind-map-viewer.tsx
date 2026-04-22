@@ -138,12 +138,23 @@ const MindMapViewer = () => {
   }, [fitToWrapper, svgDimensions])
 
   // Re-fit on viewport resize so the map stays framed when the layout changes.
+  // RAF-throttled so rapid resize events coalesce into one update per frame.
   useEffect(() => {
     if (!svgDimensions) return
 
-    const onResize = () => fitToWrapper(0)
+    let rafId: ReturnType<typeof requestAnimationFrame> | null = null
+    const onResize = () => {
+      if (rafId !== null) cancelAnimationFrame(rafId)
+      rafId = requestAnimationFrame(() => {
+        rafId = null
+        fitToWrapper(0)
+      })
+    }
     window.addEventListener('resize', onResize)
-    return () => window.removeEventListener('resize', onResize)
+    return () => {
+      window.removeEventListener('resize', onResize)
+      if (rafId !== null) cancelAnimationFrame(rafId)
+    }
   }, [fitToWrapper, svgDimensions])
 
   const handleZoomIn = () => transformRef.current?.zoomIn()
