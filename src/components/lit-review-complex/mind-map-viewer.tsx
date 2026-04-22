@@ -8,44 +8,154 @@ import {
 } from 'react-zoom-pan-pinch'
 import { assetPath } from '@/lib/assetPath'
 
-const SVG_WIDTH = 10206
-const SVG_HEIGHT = 6731
+type SvgDimensions = {
+  width: number
+  height: number
+}
+
 const FIT_PADDING = 0.95
 
-const fitScaleFor = (wrapperWidth: number, wrapperHeight: number) =>
-  Math.min(wrapperWidth / SVG_WIDTH, wrapperHeight / SVG_HEIGHT) * FIT_PADDING
+const parseViewBox = (viewBox: string | null): SvgDimensions | null => {
+  if (!viewBox) return null
+
+  const parts = viewBox
+    .trim()
+    .split(/[\s,]+/)
+    .map(Number)
+
+  if (parts.length !== 4 || Number.isNaN(parts[2]) || Number.isNaN(parts[3])) {
+    return null
+  }
+
+  const width = parts[2]
+  const height = parts[3]
+
+  if (width <= 0 || height <= 0) return null
+
+  return { width, height }
+}
+
+const getDimensionsFromSvgElement = (svgElement: Element | null): SvgDimensions | null => {
+  if (!svgElement) return null
+
+  const viewBoxDimensions = parseViewBox(svgElement.getAttribute('viewBox'))
+  if (viewBoxDimensions) return viewBoxDimensions
+
+  const width = Number(svgElement.getAttribute('width'))
+  const height = Number(svgElement.getAttribute('height'))
+
+  if (!Number.isNaN(width) && !Number.isNaN(height) && width > 0 && height > 0) {
+    return { width, height }
+  }
+
+  return null
+}
+
+const getSvgDimensionsFromContainer = (container: HTMLDivElement): SvgDimensions | null => {
+  const inlineSvg = container.querySelector('svg')
+  const inlineDimensions = getDimensionsFromSvgElement(inlineSvg)
+  if (inlineDimensions) return inlineDimensions
+
+  const objectElement = container.querySelector('object')
+  const objectSvg = objectElement?.contentDocument?.querySelector('svg') ?? null
+  const objectDimensions = getDimensionsFromSvgElement(objectSvg)
+  if (objectDimensions) return objectDimensions
+
+  const imageElement = container.querySelector('img')
+  if (imageElement && imageElement.naturalWidth > 0 && imageElement.naturalHeight > 0) {
+    return {
+      width: imageElement.naturalWidth,
+      height: imageElement.naturalHeight,
+    }
+  }
+
+  return null
+}
+
+const fitScaleFor = (
+  wrapperWidth: number,
+  wrapperHeight: number,
+  svgWidth: number,
+  svgHeight: number
+) => Math.min(wrapperWidth / svgWidth, wrapperHeight / svgHeight) * FIT_PADDING
 
 const MindMapViewer = () => {
   const transformRef = useRef<ReactZoomPanPinchRef | null>(null)
   const wrapperRef = useRef<HTMLDivElement | null>(null)
+  const [svgDimensions, setSvgDimensions] = useState<SvgDimensions | null>(null)
   const [fitScale, setFitScale] = useState<number | null>(null)
 
-  const fitToWrapper = useCallback((animate = 0) => {
+  const syncSvgDimensions = useCallback(() => {
     const wrapper = wrapperRef.current
-    const instance = transformRef.current
-    if (!wrapper || !instance) return
-    const w = wrapper.clientWidth
-    const h = wrapper.clientHeight
-    if (w <= 0 || h <= 0) return
-    const scale = fitScaleFor(w, h)
-    const x = (w - SVG_WIDTH * scale) / 2
-    const y = (h - SVG_HEIGHT * scale) / 2
-    instance.setTransform(x, y, scale, animate)
-    setFitScale(scale)
+    if (!wrapper) return
+
+    const nextDimensions = getSvgDimensionsFromContainer(wrapper)
+    if (!nextDimensions) return
+
+    setSvgDimensions((previousDimensions) => {
+      if (
+        previousDimensions?.width === nextDimensions.width &&
+        previousDimensions?.height === nextDimensions.height
+      ) {
+        return previousDimensions
+      }
+
+      return nextDimensions
+    })
   }, [])
 
-  // Fit on mount once the wrapper has real dimensions.
+  const fitToWrapper = useCallback(
+    (animate = 0) => {
+      const wrapper = wrapperRef.current
+      const instance = transformRef.current
+      if (!wrapper || !instance || !svgDimensions) return
+      const w = wrapper.clientWidth
+      const h = wrapper.clientHeight
+      if (w <= 0 || h <= 0) return
+      const scale = fitScaleFor(w, h, svgDimensions.width, svgDimensions.height)
+      const x = (w - svgDimensions.width * scale) / 2
+      const y = (h - svgDimensions.height * scale) / 2
+      instance.setTransform(x, y, scale, animate)
+      setFitScale(scale)
+    },
+    [svgDimensions]
+  )
+
   useEffect(() => {
+    const wrapper = wrapperRef.current
+    if (!wrapper) return
+
+    const syncDimensions = () => {
+      syncSvgDimensions()
+    }
+
+    const loadTargets = wrapper.querySelectorAll('img, object')
+    loadTargets.forEach((target) => target.addEventListener('load', syncDimensions))
+
+    const raf = requestAnimationFrame(syncDimensions)
+
+    return () => {
+      cancelAnimationFrame(raf)
+      loadTargets.forEach((target) => target.removeEventListener('load', syncDimensions))
+    }
+  }, [syncSvgDimensions])
+
+  // Fit on mount once the wrapper and SVG have real dimensions.
+  useEffect(() => {
+    if (!svgDimensions) return
+
     const raf = requestAnimationFrame(() => fitToWrapper(0))
     return () => cancelAnimationFrame(raf)
-  }, [fitToWrapper])
+  }, [fitToWrapper, svgDimensions])
 
   // Re-fit on viewport resize so the map stays framed when the layout changes.
   useEffect(() => {
+    if (!svgDimensions) return
+
     const onResize = () => fitToWrapper(0)
     window.addEventListener('resize', onResize)
     return () => window.removeEventListener('resize', onResize)
-  }, [fitToWrapper])
+  }, [fitToWrapper, svgDimensions])
 
   const handleZoomIn = () => transformRef.current?.zoomIn()
   const handleZoomOut = () => transformRef.current?.zoomOut()
@@ -72,18 +182,22 @@ const MindMapViewer = () => {
         >
           <TransformComponent
             wrapperStyle={{ width: '100%', height: '100%' }}
-            contentStyle={{ width: SVG_WIDTH, height: SVG_HEIGHT }}
+            contentStyle={
+              svgDimensions
+                ? { width: svgDimensions.width, height: svgDimensions.height }
+                : { width: '100%', height: '100%' }
+            }
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={assetPath('/Svgs/lit-review/mind-map.svg')}
               alt="TABS literature review mind map showing technology adoption models, frameworks, standards, and the culminating research project workflow."
-              width={SVG_WIDTH}
-              height={SVG_HEIGHT}
+              width={svgDimensions?.width}
+              height={svgDimensions?.height}
               draggable={false}
               style={{
-                width: SVG_WIDTH,
-                height: SVG_HEIGHT,
+                width: svgDimensions?.width,
+                height: svgDimensions?.height,
                 userSelect: 'none',
               }}
             />
