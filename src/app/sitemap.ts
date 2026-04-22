@@ -596,5 +596,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.7,
     },
+    // Literature Review Mind Map (complex zoomable SVG)
+    {
+      url: `${baseUrl}/lit-review-complex`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
   ]
 }
