@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import {
   TransformComponent,
   TransformWrapper,
@@ -10,29 +10,65 @@ import { assetPath } from '@/lib/assetPath'
 
 const SVG_WIDTH = 10206
 const SVG_HEIGHT = 6731
+const FIT_PADDING = 0.95
+
+const fitScaleFor = (wrapperWidth: number, wrapperHeight: number) =>
+  Math.min(wrapperWidth / SVG_WIDTH, wrapperHeight / SVG_HEIGHT) * FIT_PADDING
 
 const MindMapViewer = () => {
   const transformRef = useRef<ReactZoomPanPinchRef | null>(null)
+  const wrapperRef = useRef<HTMLDivElement | null>(null)
+  const [fitScale, setFitScale] = useState<number | null>(null)
+
+  const fitToWrapper = useCallback((animate = 0) => {
+    const wrapper = wrapperRef.current
+    const instance = transformRef.current
+    if (!wrapper || !instance) return
+    const w = wrapper.clientWidth
+    const h = wrapper.clientHeight
+    if (w <= 0 || h <= 0) return
+    const scale = fitScaleFor(w, h)
+    const x = (w - SVG_WIDTH * scale) / 2
+    const y = (h - SVG_HEIGHT * scale) / 2
+    instance.setTransform(x, y, scale, animate)
+    setFitScale(scale)
+  }, [])
+
+  // Fit on mount once the wrapper has real dimensions.
+  useEffect(() => {
+    const raf = requestAnimationFrame(() => fitToWrapper(0))
+    return () => cancelAnimationFrame(raf)
+  }, [fitToWrapper])
+
+  // Re-fit on viewport resize so the map stays framed when the layout changes.
+  useEffect(() => {
+    const onResize = () => fitToWrapper(0)
+    window.addEventListener('resize', onResize)
+    return () => window.removeEventListener('resize', onResize)
+  }, [fitToWrapper])
 
   const handleZoomIn = () => transformRef.current?.zoomIn()
   const handleZoomOut = () => transformRef.current?.zoomOut()
-  const handleReset = () => transformRef.current?.resetTransform()
+  const handleReset = () => fitToWrapper(200)
 
   return (
     <section
       aria-label="TABS literature review mind map"
       className="relative bg-slate-50 border-y border-slate-200"
     >
-      <div className="relative mx-auto" style={{ height: 'min(80vh, 900px)', maxWidth: '100%' }}>
+      <div
+        ref={wrapperRef}
+        className="relative mx-auto"
+        style={{ height: 'min(80vh, 900px)', maxWidth: '100%' }}
+      >
         <TransformWrapper
           ref={transformRef}
-          initialScale={0.15}
-          minScale={0.05}
+          initialScale={fitScale ?? 0.08}
+          minScale={0.02}
           maxScale={4}
           limitToBounds={false}
-          centerOnInit
           wheel={{ step: 0.1 }}
-          doubleClick={{ mode: 'reset' }}
+          doubleClick={{ mode: 'reset', animationTime: 200 }}
         >
           <TransformComponent
             wrapperStyle={{ width: '100%', height: '100%' }}
