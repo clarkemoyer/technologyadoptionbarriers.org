@@ -206,6 +206,14 @@ function extractStaticMetadata(source: string): {
 }
 
 /**
+ * File extensions that should be preserved when stripping JS dot-notation.
+ * These appear as meaningful content in JSX text (e.g. `business-management-models.svg`)
+ * and must not be erased by the generic word.word removal pass.
+ * Add new extensions here as needed.
+ */
+const PRESERVED_FILE_EXTENSIONS = 'svg|png|jpg|jpeg|gif|webp|pdf|tsx?|jsx?|json|css|html?|md|txt'
+
+/**
  * Best-effort extraction of visible text from a TSX file.
  *
  * Strategy: find the JSX return block, strip JSX tags / attributes / imports /
@@ -217,6 +225,13 @@ function extractVisibleText(source: string): string {
   const returnParenMatch = source.match(/return\s*\(\s*([\s\S]*?)\)\s*\}/)
   const returnTagMatch = !returnParenMatch ? source.match(/return\s*(<[\s\S]*?>)\s*\}/) : null
   const jsx = returnParenMatch?.[1] ?? returnTagMatch?.[1] ?? ''
+
+  // Pre-compile the dot-notation regex that preserves file extensions.
+  // Using `new RegExp` so the extensions string can be referenced by name.
+  const dotNotationRe = new RegExp(
+    String.raw`\b\w+\.(?!(?:${PRESERVED_FILE_EXTENSIONS})\b)\w+`,
+    'g'
+  )
 
   let text = jsx
     // Remove {/* comments */}
@@ -239,16 +254,12 @@ function extractVisibleText(source: string): string {
       ' '
     )
     // Remove JS method calls and dot-notation (e.g. .toFixed, val.toString, obj.prop)
-    // but NOT common file extensions (e.g. business-management-models.svg) which are
-    // meaningful content text and should survive into the search index.
+    // but NOT file extensions listed in PRESERVED_FILE_EXTENSIONS.
     .replace(
       /\.(?:toFixed|toString|indexOf|map|filter|reduce|forEach|concat|slice|join|replace|match|split|trim|push|length|includes|find|some|every|keys|values|entries)\b/g,
       ' '
     )
-    .replace(
-      /\b\w+\.(?!(?:svg|png|jpg|jpeg|gif|webp|pdf|tsx?|jsx?|json|css|html?|md|txt)\b)\w+/g,
-      ' '
-    )
+    .replace(dotNotationRe, ' ')
     // Remove residual angle-bracket fragments, parens, brackets noise
     .replace(/[<>(){}[\]]/g, ' ')
     // Remove remaining HTML entities
