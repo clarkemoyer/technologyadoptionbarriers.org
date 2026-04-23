@@ -321,7 +321,15 @@ export const sidebarSections: SidebarSection[] = [
     label: 'Home',
     icon: '🏠',
     href: '/',
-    groups: [],
+    groups: [
+      {
+        title: 'Featured Visualizations',
+        links: [
+          { title: 'Mind Maps Gallery', href: '/making-of-tabs/mind-maps' },
+          { title: 'Full Mind Map', href: '/making-of-tabs/mind-maps/full-mind-map' },
+        ],
+      },
+    ],
   },
   {
     id: 'survey',
