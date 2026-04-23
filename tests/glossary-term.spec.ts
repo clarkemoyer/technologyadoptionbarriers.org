@@ -17,7 +17,7 @@ test.describe('Glossary Term popover on /results/reliability', () => {
 
     // Hover to open the popover
     await triggerButton.hover()
-    const dialog = page.getByRole('dialog')
+    const dialog = page.getByRole('dialog', { name: /cronbach/i })
     await expect(dialog).toBeVisible()
 
     // Dialog should contain the short definition
@@ -34,18 +34,27 @@ test.describe('Glossary Term popover on /results/reliability', () => {
     const triggerButton = page.getByRole('button', { name: /cronbach/i }).first()
     await triggerButton.click()
 
-    const dialog = page.getByRole('dialog')
+    const dialog = page.getByRole('dialog', { name: /cronbach/i })
     await expect(dialog).toBeVisible()
 
-    // Click somewhere outside the component. The popover opens ABOVE the
-    // trigger (`bottom-full left-0`), so the h1 directly above the
-    // Cronbach's alpha paragraph ends up covered by the dialog. Dispatch a
-    // raw pointerdown at a known-safe coordinate (far below the popover)
-    // which matches the outside-click contract the component actually
-    // listens for.
-    await page.mouse.move(5, 500)
-    await page.mouse.down()
-    await page.mouse.up()
+    // Click somewhere outside the component using a layout-aware position.
+    // The popover opens ABOVE the trigger (`bottom-full left-0`), so we
+    // derive a point below the trigger that is clear of both the trigger
+    // and the popover without relying on hard-coded viewport coordinates.
+    const triggerBox = await triggerButton.boundingBox()
+    const body = page.locator('body')
+    const bodyBox = await body.boundingBox()
+
+    expect(triggerBox).not.toBeNull()
+    expect(bodyBox).not.toBeNull()
+
+    const clickX = Math.max(1, Math.min(10, bodyBox!.width - 1))
+    const clickY = Math.min(
+      bodyBox!.height - 1,
+      Math.max(triggerBox!.y + triggerBox!.height + 24, 1)
+    )
+
+    await body.click({ position: { x: clickX, y: clickY } })
     await expect(dialog).not.toBeVisible()
   })
 
@@ -55,7 +64,7 @@ test.describe('Glossary Term popover on /results/reliability', () => {
     const triggerButton = page.getByRole('button', { name: /cronbach/i }).first()
     await triggerButton.hover()
 
-    const dialog = page.getByRole('dialog')
+    const dialog = page.getByRole('dialog', { name: /cronbach/i })
     await expect(dialog).toBeVisible()
 
     const link = dialog.getByRole('link', { name: /see full entry/i })

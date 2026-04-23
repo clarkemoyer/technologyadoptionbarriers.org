@@ -48,6 +48,7 @@ export default function Term({ termId, children, glossaryHref = '/results/glossa
   const [open, setOpen] = useState(false)
   const popoverId = useId()
   const titleId = useId()
+  const definitionId = useId()
   const containerRef = useRef<HTMLSpanElement>(null)
   const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
@@ -144,6 +145,7 @@ export default function Term({ termId, children, glossaryHref = '/results/glossa
         aria-haspopup="dialog"
         aria-expanded={open}
         aria-controls={open ? popoverId : undefined}
+        aria-describedby={open ? definitionId : undefined}
         className="decoration-dotted decoration-blue-500 underline underline-offset-2 text-current bg-transparent border-0 p-0 cursor-help focus-visible:outline-2 focus-visible:outline-blue-600"
         onClick={() => setOpen(true)}
         onMouseEnter={() => {
@@ -180,7 +182,9 @@ export default function Term({ termId, children, glossaryHref = '/results/glossa
           <span id={titleId} className="block font-semibold text-blue-900 mb-1">
             {entry.term}
           </span>
-          <span className="block leading-relaxed">{entry.shortDefinition}</span>
+          <span id={definitionId} className="block leading-relaxed">
+            {entry.shortDefinition}
+          </span>
           <Link
             href={`${glossaryHref}#${entry.id}`}
             className="mt-2 inline-block text-xs text-blue-700 hover:underline focus-visible:underline"
