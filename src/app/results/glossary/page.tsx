@@ -282,12 +282,13 @@ const PAGE_EXTRAS: GlossaryPageExtra[] = [
 /* ── Derive full ENTRIES from the shared glossary-terms data + page-specific extras ── */
 const ENTRIES: GlossaryEntry[] = PAGE_EXTRAS.map((extra) => {
   const base = _termBase.get(extra.id)!
+  // Spread `extra` first so `id` comes through once; static fields from the
+  // shared glossary-terms data then override anything on `extra` if needed.
   return {
-    id: base.id,
+    ...extra,
     term: base.term,
     category: base.category,
     whatItMeasures: base.shortDefinition,
-    ...extra,
   }
 })
 
