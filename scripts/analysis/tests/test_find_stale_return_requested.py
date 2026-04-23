@@ -8,7 +8,8 @@ Covers:
   - missing participant_id is excluded
   - no researcher messages yields (None, None)
   - custom STALE_HOURS threshold is respected
-  - _msg_time raises ValueError for messages with no valid timestamp
+  - _msg_time returns None for messages with no valid timestamp
+  - classify_submission tolerates timestamp-less messages (skips them)
 """
 
 from datetime import datetime, timedelta, timezone
@@ -224,20 +225,49 @@ class TestMsgTime:
         m = {"sender_id": "x", "created_at": dt.strftime("%Y-%m-%dT%H:%M:%SZ")}
         assert _msg_time(m) == dt
 
-    def test_missing_timestamps_raises_value_error(self):
-        """_msg_time raises ValueError when neither timestamp field is present."""
-        with pytest.raises(ValueError, match="missing a valid timestamp"):
-            _msg_time({"sender_id": "x"})
+    def test_missing_timestamps_returns_none(self):
+        """_msg_time returns None when neither timestamp field is present."""
+        assert _msg_time({"sender_id": "x"}) is None
 
-    def test_unparseable_timestamps_raises_value_error(self):
-        """_msg_time raises ValueError when both timestamp fields are unparseable."""
-        with pytest.raises(ValueError, match="missing a valid timestamp"):
-            _msg_time({"sender_id": "x", "sent_at": "not-a-date", "created_at": None})
+    def test_unparseable_timestamps_returns_none(self):
+        """_msg_time returns None when both timestamp fields are unparseable."""
+        assert _msg_time({"sender_id": "x", "sent_at": "not-a-date", "created_at": None}) is None
 
-    def test_classify_submission_raises_for_bad_msg_timestamp(self):
-        """classify_submission propagates ValueError when a message has no valid timestamp."""
+    def test_classify_tolerates_timestampless_participant_message(self):
+        """A participant message with no timestamp cannot prove a reply-after-RR
+        happened, so it is skipped for ordering purposes and the submission
+        stays classified as stale."""
         rr_time = NOW - timedelta(hours=60)
         sub = _sub("PID_N", rr=rr_time)
-        bad_msgs = [{"sender_id": "PID_N", "sent_at": "bad-timestamp"}]
-        with pytest.raises(ValueError, match="missing a valid timestamp"):
-            classify_submission(sub, bad_msgs, RESEARCHER_ID, NOW, CUTOFF)
+        msgs = [
+            {"sender_id": RESEARCHER_ID, "sent_at": _ts(rr_time - timedelta(hours=1))},
+            {"sender_id": "PID_N", "sent_at": "bad-timestamp"},
+        ]
+        bucket, record = classify_submission(sub, msgs, RESEARCHER_ID, NOW, CUTOFF)
+        assert bucket == "stale_no_reply_to_rr"
+        assert record is not None
+        assert record["pid"] == "PID_N"
+
+    def test_classify_tolerates_timestampless_researcher_message_message_only_path(self):
+        """A researcher message with no timestamp is skipped for ordering in the
+        message-only path; if at least one researcher message with a valid
+        timestamp exists, classification proceeds as normal."""
+        good_time = NOW - timedelta(hours=60)
+        sub = _sub("PID_T")
+        msgs = [
+            {"sender_id": RESEARCHER_ID, "sent_at": "bad-timestamp"},
+            _msg(RESEARCHER_ID, good_time),
+        ]
+        bucket, record = classify_submission(sub, msgs, RESEARCHER_ID, NOW, CUTOFF)
+        assert bucket == "stale_no_reply_to_message"
+        assert record["pid"] == "PID_T"
+
+    def test_classify_returns_none_when_all_researcher_messages_lack_timestamps(self):
+        """If every researcher message lacks a valid timestamp in the
+        message-only path, there is no anchor to measure from and the
+        submission is not classified."""
+        sub = _sub("PID_U")
+        msgs = [{"sender_id": RESEARCHER_ID, "sent_at": "bad-timestamp"}]
+        bucket, record = classify_submission(sub, msgs, RESEARCHER_ID, NOW, CUTOFF)
+        assert bucket is None
+        assert record is None

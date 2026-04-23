@@ -98,17 +98,28 @@ def _parse_iso(ts):
 
 
 def _msg_time(m):
+    """Return the best-effort timestamp for a message, or ``None`` if neither
+    ``sent_at`` nor ``created_at`` is a parseable timestamp.
+
+    Prolific returns a small number of messages with both fields null or
+    malformed (observed in live data: ~4 per daily run out of ~560 subs).
+    These are typically system-generated records. Returning ``None`` lets
+    callers skip the message for ordering purposes rather than failing the
+    entire PID's classification.
+    """
     t = _parse_iso(m.get("sent_at")) or _parse_iso(m.get("created_at"))
-    if t is None:
-        raise ValueError(
-            "Message is missing a valid timestamp in both 'sent_at' and 'created_at'"
-        )
     return t
 
 
 def classify_submission(sub, msgs, researcher_id, now, cutoff):
     """Return (bucket_name, record_dict) or (None, None) if submission
-    doesn't qualify for any bucket."""
+    doesn't qualify for any bucket.
+
+    Messages with no valid timestamp are silently skipped when ordering
+    against an anchor (return_requested or last researcher message). Since
+    we cannot prove such a message was sent *after* our anchor, treating
+    it as not-after is safe for reject/request-return classification.
+    """
     pid = sub.get("participant_id", "")
     if not pid or sub.get("status") != "AWAITING REVIEW":
         return None, None
@@ -118,7 +129,10 @@ def classify_submission(sub, msgs, researcher_id, now, cutoff):
     rr = _parse_iso(sub.get("return_requested"))
 
     if rr is not None:
-        replies_after_rr = [m for m in participant_msgs if _msg_time(m) > rr]
+        replies_after_rr = [
+            m for m in participant_msgs
+            if (ts := _msg_time(m)) is not None and ts > rr
+        ]
         if replies_after_rr:
             return None, None
         age_h = (now - rr).total_seconds() / 3600.0
@@ -136,10 +150,14 @@ def classify_submission(sub, msgs, researcher_id, now, cutoff):
         return "in_window_rr", record
 
     # No return_requested — consider the latest researcher message
-    if not researcher_msgs:
+    researcher_times = [t for t in (_msg_time(m) for m in researcher_msgs) if t is not None]
+    if not researcher_times:
         return None, None
-    last_msg_time = max(_msg_time(m) for m in researcher_msgs)
-    replies_after_msg = [m for m in participant_msgs if _msg_time(m) > last_msg_time]
+    last_msg_time = max(researcher_times)
+    replies_after_msg = [
+        m for m in participant_msgs
+        if (ts := _msg_time(m)) is not None and ts > last_msg_time
+    ]
     if replies_after_msg:
         return None, None
     age_h = (now - last_msg_time).total_seconds() / 3600.0
