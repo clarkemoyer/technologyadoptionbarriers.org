@@ -15,63 +15,6 @@ type SvgDimensions = {
 
 const FIT_PADDING = 0.95
 
-const parseViewBox = (viewBox: string | null): SvgDimensions | null => {
-  if (!viewBox) return null
-
-  const parts = viewBox
-    .trim()
-    .split(/[\s,]+/)
-    .map(Number)
-
-  if (parts.length !== 4 || Number.isNaN(parts[2]) || Number.isNaN(parts[3])) {
-    return null
-  }
-
-  const width = parts[2]
-  const height = parts[3]
-
-  if (width <= 0 || height <= 0) return null
-
-  return { width, height }
-}
-
-const getDimensionsFromSvgElement = (svgElement: Element | null): SvgDimensions | null => {
-  if (!svgElement) return null
-
-  const viewBoxDimensions = parseViewBox(svgElement.getAttribute('viewBox'))
-  if (viewBoxDimensions) return viewBoxDimensions
-
-  const width = parseFloat(svgElement.getAttribute('width') ?? '')
-  const height = parseFloat(svgElement.getAttribute('height') ?? '')
-
-  if (!Number.isNaN(width) && !Number.isNaN(height) && width > 0 && height > 0) {
-    return { width, height }
-  }
-
-  return null
-}
-
-const getSvgDimensionsFromContainer = (container: HTMLDivElement): SvgDimensions | null => {
-  const inlineSvg = container.querySelector('svg')
-  const inlineDimensions = getDimensionsFromSvgElement(inlineSvg)
-  if (inlineDimensions) return inlineDimensions
-
-  const objectElement = container.querySelector('object')
-  const objectSvg = objectElement?.contentDocument?.querySelector('svg') ?? null
-  const objectDimensions = getDimensionsFromSvgElement(objectSvg)
-  if (objectDimensions) return objectDimensions
-
-  const imageElement = container.querySelector('img')
-  if (imageElement && imageElement.naturalWidth > 0 && imageElement.naturalHeight > 0) {
-    return {
-      width: imageElement.naturalWidth,
-      height: imageElement.naturalHeight,
-    }
-  }
-
-  return null
-}
-
 const fitScaleFor = (
   wrapperWidth: number,
   wrapperHeight: number,
@@ -82,25 +25,16 @@ const fitScaleFor = (
 const MindMapViewer = () => {
   const transformRef = useRef<ReactZoomPanPinchRef | null>(null)
   const wrapperRef = useRef<HTMLDivElement | null>(null)
+  const imgRef = useRef<HTMLImageElement | null>(null)
   const [svgDimensions, setSvgDimensions] = useState<SvgDimensions | null>(null)
 
   const syncSvgDimensions = useCallback(() => {
-    const wrapper = wrapperRef.current
-    if (!wrapper) return
-
-    const nextDimensions = getSvgDimensionsFromContainer(wrapper)
-    if (!nextDimensions) return
-
-    setSvgDimensions((previousDimensions) => {
-      if (
-        previousDimensions?.width === nextDimensions.width &&
-        previousDimensions?.height === nextDimensions.height
-      ) {
-        return previousDimensions
-      }
-
-      return nextDimensions
-    })
+    const img = imgRef.current
+    if (!img || img.naturalWidth <= 0 || img.naturalHeight <= 0) return
+    const next: SvgDimensions = { width: img.naturalWidth, height: img.naturalHeight }
+    setSvgDimensions((prev) =>
+      prev?.width === next.width && prev?.height === next.height ? prev : next
+    )
   }, [])
 
   const fitToWrapper = useCallback(
@@ -119,29 +53,21 @@ const MindMapViewer = () => {
     [svgDimensions]
   )
 
+  // Covers the cached-image case: React may not fire `onLoad` if the image
+  // is already in the browser cache when the component mounts.
   useEffect(() => {
-    const raf = requestAnimationFrame(() => {
-      syncSvgDimensions()
-    })
-
-    return () => {
-      cancelAnimationFrame(raf)
-    }
+    syncSvgDimensions()
   }, [syncSvgDimensions])
 
-  // Fit on mount once the wrapper and SVG have real dimensions.
   useEffect(() => {
     if (!svgDimensions) return
-
     const raf = requestAnimationFrame(() => fitToWrapper(0))
     return () => cancelAnimationFrame(raf)
   }, [fitToWrapper, svgDimensions])
 
-  // Re-fit on viewport resize so the map stays framed when the layout changes.
-  // RAF-throttled so rapid resize events coalesce into one update per frame.
+  // RAF-throttled resize so rapid events coalesce into one update per frame.
   useEffect(() => {
     if (!svgDimensions) return
-
     let rafId: ReturnType<typeof requestAnimationFrame> | null = null
     const onResize = () => {
       if (rafId !== null) cancelAnimationFrame(rafId)
@@ -160,6 +86,10 @@ const MindMapViewer = () => {
   const handleZoomIn = () => transformRef.current?.zoomIn()
   const handleZoomOut = () => transformRef.current?.zoomOut()
   const handleReset = () => fitToWrapper(200)
+  // The library's own `doubleClick.mode: 'reset'` reverts to `initialScale`,
+  // not the computed fit transform, which would jump the image off-center.
+  // Handle the gesture ourselves so it matches the Reset button.
+  const handleDoubleClick = () => fitToWrapper(200)
 
   return (
     <section
@@ -171,7 +101,6 @@ const MindMapViewer = () => {
         className="relative mx-auto"
         style={{ height: 'min(80vh, 900px)', maxWidth: '100%' }}
       >
-        {/* `initialScale` is only applied on mount; later fit updates are handled via `setTransform`. */}
         <TransformWrapper
           ref={transformRef}
           initialScale={0.08}
@@ -179,7 +108,7 @@ const MindMapViewer = () => {
           maxScale={4}
           limitToBounds={false}
           wheel={{ step: 0.1 }}
-          doubleClick={{ mode: 'reset', animationTime: 200 }}
+          doubleClick={{ disabled: true }}
         >
           <TransformComponent
             wrapperStyle={{ width: '100%', height: '100%' }}
@@ -191,11 +120,13 @@ const MindMapViewer = () => {
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
+              ref={imgRef}
               src={assetPath('/Svgs/lit-review/mind-map.svg')}
               alt="TABS literature review mind map showing technology adoption models, frameworks, standards, and the culminating research project workflow."
               width={svgDimensions?.width}
               height={svgDimensions?.height}
               onLoad={syncSvgDimensions}
+              onDoubleClick={handleDoubleClick}
               draggable={false}
               style={{
                 width: svgDimensions?.width,
