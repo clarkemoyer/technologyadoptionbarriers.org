@@ -145,7 +145,7 @@ export default function Term({ termId, children, glossaryHref = '/results/glossa
         aria-expanded={open ? 'true' : 'false'}
         aria-controls={open ? popoverId : undefined}
         className="decoration-dotted decoration-blue-500 underline underline-offset-2 text-current bg-transparent border-0 p-0 cursor-help focus-visible:outline-2 focus-visible:outline-blue-600"
-        onClick={() => setOpen((v) => !v)}
+        onClick={() => setOpen(true)}
         onMouseEnter={() => {
           cancelClose()
           setOpen(true)
