@@ -53,11 +53,11 @@ jobs:
           python-version: '3.12'
       # Node.js only needed for modes that still run TS (single, search-messages, request-return, awaiting-report, verify-iri)
       - uses: actions/setup-node@v6
-        if: ${{ !contains(fromJSON('["demographics","find-url-replies","all-replies","send-custom","unreject","send-thank-you"]'), inputs.mode) }}
+        if: ${{ !contains(fromJSON('["demographics","find-url-replies","all-replies","send-custom","unreject","send-thank-you","stale-return-requested"]'), inputs.mode) }}
         with:
           node-version: '20'
           cache: 'npm'
-      - if: ${{ !contains(fromJSON('["demographics","find-url-replies","all-replies","send-custom","unreject","send-thank-you"]'), inputs.mode) }}
+      - if: ${{ !contains(fromJSON('["demographics","find-url-replies","all-replies","send-custom","unreject","send-thank-you","stale-return-requested"]'), inputs.mode) }}
         run: npm ci
 
       - name: Fetch Prolific demographics

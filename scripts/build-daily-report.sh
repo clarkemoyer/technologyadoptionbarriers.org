@@ -248,15 +248,11 @@ def fmt_bucket(title, action, items, empty_msg):
         reasons = '; '.join(r.get('reasons') or [])
         if len(reasons) > 60:
             reasons = reasons[:57] + '...'
-        print(f"| `{r['pid']}` | {r['age_hours']} | {r.get('researcher_messages', 0)} | {reasons} |")
+        pid = r.get('pid', '')
+        pid_redacted = f'****{pid[-4:]}' if len(pid) >= 4 else pid
+        print(f"| `{pid_redacted}` | {r['age_hours']} | {r.get('researcher_messages', 0)} | {reasons} |")
     print('')
-    pids = ','.join(r['pid'] for r in items)
-    print('<details><summary>PID list for workflow dispatch</summary>')
-    print('')
-    print('```')
-    print(pids)
-    print('```')
-    print('</details>')
+    print(f'*Full PID list is in the `stale-triage` workflow artifact (operators only).*')
     print('')
 
 
@@ -264,17 +260,20 @@ print(f'## Stale AWAITING REVIEW ({hours}h threshold)')
 print('')
 print(f'Live Prolific data, computed at `{d.get("computed_at", "unknown")}`.')
 print('')
+if d.get('fetch_errors', 0) > 0:
+    print(f'> ⚠️ {d["fetch_errors"]} submission(s) could not be classified (message API error) — check the `stale-triage` artifact for details.')
+    print('')
 print(f'**Stale no response to return request:** {len(rr)} | **Stale no response (message only):** {len(mm)} | In window: {len(in_rr) + len(in_mm)}')
 print('')
 fmt_bucket(
     f'Stale no response to return request ({len(rr)})',
     'Prolific auto-APPROVES after the reserve timeout. Reject these.',
     rr,
-    'All return-requested submissions are still within the 48h window or have participant replies. No rejections needed right now.',
+    f'All return-requested submissions are still within the {hours}h window or have participant replies. No rejections needed right now.',
 )
 fmt_bucket(
     f'Stale no response to TABS message ({len(mm)})',
-    'Messaged > 48h ago with no API-level return request yet. Dispatch request-return for these.',
+    f'Messaged > {hours}h ago with no API-level return request yet. Dispatch request-return for these.',
     mm,
     'No untreated stale messages. Messaging pipeline is caught up.',
 )

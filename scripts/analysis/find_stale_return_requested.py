@@ -2,7 +2,7 @@
 """
 Find stale AWAITING REVIEW submissions that need operator attention.
 
-Emits three buckets that the daily report and ad-hoc operator checks both
+Emits four buckets that the daily report and ad-hoc operator checks both
 consume, based on the TABS policy that Prolific auto-APPROVES stale
 submissions after its reserve timeout:
 
@@ -17,12 +17,20 @@ submissions after its reserve timeout:
      reply after that message. These are the candidates for an API-level
      request-return (the formal next step before rejection).
 
-  3. IN_WINDOW
-     Anything above that is still within the STALE_HOURS window, so leave
-     alone until the window closes.
+  3. IN_WINDOW_RR
+     `return_requested` is set but still within the STALE_HOURS window, so
+     leave alone until the window closes.
+
+  4. IN_WINDOW_MSG
+     TABS has sent a message but no return request yet, still within the
+     STALE_HOURS window, so leave alone until the window closes.
 
 Engaged participants (any reply after our most recent action) are excluded
-from all three buckets — they belong on the approve path.
+from all four buckets — they belong on the approve path.
+
+Submissions where the message-history API call fails are placed in a
+FETCH_ERROR category and excluded from all recommendations — they should
+not be assumed to have no reply.
 
 Environment variables:
   PROLIFIC_API_TOKEN  - Prolific API token (required)
@@ -36,6 +44,7 @@ Environment variables:
 import json
 import os
 import sys
+import time
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
@@ -47,6 +56,9 @@ from tabs_api import (
 )
 
 DEFAULT_RESEARCHER_ID = "68264cbfdeb62546fe6060fe"
+
+# Delay between per-PID message API calls to avoid Prolific rate limiting.
+_API_CALL_DELAY = 0.2
 
 
 def _require_env(name: str) -> str:
@@ -118,6 +130,30 @@ def classify_submission(sub, msgs, researcher_id, now, cutoff):
     return "in_window_msg", record
 
 
+def _fetch_messages_with_backoff(pid, api_token, max_retries=3):
+    """Fetch messages for a PID with exponential backoff on transient errors.
+
+    Returns ``(msgs, None)`` on success or ``(None, error_str)`` when all
+    retries are exhausted.  Callers **must** treat a ``None`` return as a
+    fetch error and skip classification rather than assuming no reply.
+    """
+    last_err = ""
+    for attempt in range(max_retries):
+        try:
+            if attempt > 0:
+                wait = 2 ** attempt
+                print(
+                    f"  Retry {attempt}/{max_retries - 1} for {pid} in {wait}s",
+                    file=sys.stderr,
+                )
+                time.sleep(wait)
+            msgs = prolific_user_messages(pid, api_token)
+            return msgs, None
+        except Exception as e:
+            last_err = str(e)
+    return None, last_err
+
+
 def _print_bucket(title, items):
     print(f"=== {title} ({len(items)}) ===")
     for r in sorted(items, key=lambda x: -x["age_hours"]):
@@ -158,15 +194,30 @@ def main():
         "in_window_msg": [],
     }
 
+    fetch_errors = []
+    requests_made = 0
+    requests_skipped = 0  # PIDs with no participant_id
+
     for sub in awaiting:
         pid = sub.get("participant_id", "")
         if not pid:
+            requests_skipped += 1
             continue
-        try:
-            msgs = prolific_user_messages(pid, api_token)
-        except Exception as e:
-            print(f"  Warning: failed to fetch messages for {pid}: {e}", file=sys.stderr)
-            msgs = []
+        # Small inter-call delay to avoid Prolific rate limiting.
+        if requests_made > 0:
+            time.sleep(_API_CALL_DELAY)
+        msgs, err = _fetch_messages_with_backoff(pid, api_token)
+        requests_made += 1
+        if msgs is None:
+            # Fetch failed — do not classify this PID.  Assuming "no reply"
+            # here would risk a wrongful rejection if the participant had in
+            # fact replied and the API call merely failed transiently.
+            print(
+                f"  Error: failed to fetch messages for {pid}: {err}",
+                file=sys.stderr,
+            )
+            fetch_errors.append({"pid": pid, "error": err})
+            continue
         bucket, record = classify_submission(sub, msgs, researcher_id, now, cutoff)
         if bucket:
             buckets[bucket].append(record)
@@ -190,6 +241,21 @@ def main():
 
     rr_pids = ",".join(r["pid"] for r in buckets["stale_no_reply_to_rr"])
     msg_pids = ",".join(r["pid"] for r in buckets["stale_no_reply_to_message"])
+
+    if fetch_errors:
+        print(
+            f"=== FETCH ERRORS ({len(fetch_errors)}) "
+            f"— excluded from all recommendations ==="
+        )
+        for fe in fetch_errors:
+            print(f"  {fe['pid']}: {fe['error']}")
+        print()
+
+    print(
+        f"Message API requests: {requests_made} made, "
+        f"{requests_skipped} skipped (no PID), "
+        f"{len(fetch_errors)} errors"
+    )
     print(f"STALE_NO_REPLY_TO_RR_PID_LIST={rr_pids}")
     print(f"STALE_NO_REPLY_TO_MESSAGE_PID_LIST={msg_pids}")
 
@@ -199,6 +265,7 @@ def main():
             "computed_at": now.isoformat(),
             "stale_hours": stale_hours,
             "counts": {k: len(v) for k, v in buckets.items()},
+            "fetch_errors": len(fetch_errors),
             "buckets": buckets,
         }
         Path(output_json).write_text(json.dumps(payload, indent=2), encoding="utf-8")
