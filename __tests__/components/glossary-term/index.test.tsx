@@ -55,6 +55,32 @@ describe('Term', () => {
     expect(screen.queryByRole('dialog')).toBeNull()
   })
 
+  it('toggles closed on a second click (keyboard/touch — no mouse hover active)', () => {
+    render(<Term termId="rmsea">RMSEA</Term>)
+    const btn = screen.getByRole('button')
+
+    // First click opens (no mouseenter, so mouseInsideRef is false → toggle)
+    fireEvent.click(btn)
+    expect(screen.getByRole('dialog')).toBeInTheDocument()
+
+    // Second click closes (mouseInsideRef still false → toggle again)
+    fireEvent.click(btn)
+    expect(screen.queryByRole('dialog')).toBeNull()
+  })
+
+  it('does not toggle closed on click when mouse is inside (hover-open scenario)', () => {
+    render(<Term termId="rmsea">RMSEA</Term>)
+    const btn = screen.getByRole('button')
+
+    // Simulate hover opening the popover
+    fireEvent.mouseEnter(btn)
+    expect(screen.getByRole('dialog')).toBeInTheDocument()
+
+    // Click while mouse is still inside should NOT close the popover
+    fireEvent.click(btn)
+    expect(screen.getByRole('dialog')).toBeInTheDocument()
+  })
+
   it('sets aria-expanded in sync with open state and opens a dialog', () => {
     render(<Term termId="htmt">HTMT</Term>)
     const btn = screen.getByRole('button')

@@ -51,6 +51,11 @@ export default function Term({ termId, children, glossaryHref = '/results/glossa
   const definitionId = useId()
   const containerRef = useRef<HTMLSpanElement>(null)
   const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  // True while the pointer is inside the trigger button or the popover.
+  // Used to suppress click-toggling when hover already controls open state:
+  // mouseenter (hover) fires before click on desktop, so without this guard
+  // a hover+click sequence would open then immediately close the popover.
+  const mouseInsideRef = useRef(false)
 
   const cancelClose = useCallback(() => {
     if (closeTimerRef.current !== null) {
@@ -155,16 +160,27 @@ export default function Term({ termId, children, glossaryHref = '/results/glossa
       <button
         type="button"
         aria-haspopup="dialog"
-        aria-expanded={open ? 'true' : 'false'}
+        aria-expanded={open}
         aria-controls={open ? popoverId : undefined}
         aria-describedby={open ? definitionId : undefined}
         className="decoration-dotted decoration-blue-500 underline underline-offset-2 text-current bg-transparent border-0 p-0 cursor-help focus-visible:outline-2 focus-visible:outline-blue-600"
-        onClick={() => setOpen(true)}
+        onClick={() => {
+          // When the mouse is inside the component, hover already controls the
+          // open state — suppress toggling so hover+click doesn't close the
+          // popover immediately after hover opened it. For keyboard and touch
+          // (where mouseInsideRef stays false), allow normal toggle behavior.
+          if (mouseInsideRef.current) return
+          setOpen((v) => !v)
+        }}
         onMouseEnter={() => {
+          mouseInsideRef.current = true
           cancelClose()
           setOpen(true)
         }}
-        onMouseLeave={scheduleClose}
+        onMouseLeave={() => {
+          mouseInsideRef.current = false
+          scheduleClose()
+        }}
         onFocus={() => {
           cancelClose()
           setOpen(true)
@@ -180,10 +196,14 @@ export default function Term({ termId, children, glossaryHref = '/results/glossa
           aria-labelledby={titleId}
           className="absolute bottom-full left-0 mb-2 w-72 rounded-md border border-slate-300 bg-white p-3 text-sm text-slate-800 shadow-lg z-50"
           onMouseEnter={() => {
+            mouseInsideRef.current = true
             cancelClose()
             setOpen(true)
           }}
-          onMouseLeave={scheduleClose}
+          onMouseLeave={() => {
+            mouseInsideRef.current = false
+            scheduleClose()
+          }}
         >
           <span id={titleId} className="block font-semibold text-blue-900 mb-1">
             {entry.term}
