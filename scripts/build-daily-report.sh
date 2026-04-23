@@ -246,6 +246,7 @@ def fmt_bucket(title, action, items, empty_msg):
     print('|---|---:|---:|---|')
     for r in sorted(items, key=lambda x: -x.get('age_hours', 0)):
         reasons = '; '.join(r.get('reasons') or [])
+        reasons = reasons.replace('|', r'\|').replace('\r', '').replace('\n', ' ')
         if len(reasons) > 60:
             reasons = reasons[:57] + '...'
         pid = r.get('pid', '')

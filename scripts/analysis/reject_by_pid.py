@@ -103,11 +103,11 @@ def _build_auto_exclude(duration: int, iri_fail: int, speed_flag: int) -> Tuple[
 def _build_flag_single_iri(_duration: int, iri_fail: int) -> Tuple[str, List[str]]:
     msg = (
         "Hi, thank you for participating in our Technology Adoption Barriers Survey. "
-        f"Unfortunately, your submission has been rejected because {iri_fail} of 3 "
-        "embedded attention check questions was answered differently than the instructions "
-        "specified. We asked you to review this via a return-offer message; we did not "
-        "receive a reply within the review window, so we are unable to verify the answer. "
-        "If you believe this is an error, please reply to this message with any questions."
+        "Unfortunately, your submission has been rejected because one of the 3 embedded "
+        "attention check questions was answered differently than the instructions specified. "
+        "We asked you to review this via a return-offer message; we did not receive a reply "
+        "within the review window, so we are unable to verify the answer. If you believe "
+        "this is an error, please reply to this message with any questions."
     )
     return msg, [REJECTION_CATEGORIES["FAILED_ATTENTION_CHECK"], REJECTION_CATEGORIES["OTHER"]]
 
