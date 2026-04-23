@@ -1,7 +1,11 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
 import { axe, toHaveNoViolations } from 'jest-axe'
-import MindMapViewer from '@/components/mind-maps/mind-map-viewer'
+import MindMapViewer, {
+  computeFitTransform,
+  MIN_SCALE,
+  MAX_SCALE,
+} from '@/components/mind-maps/mind-map-viewer'
 
 expect.extend(toHaveNoViolations)
 
@@ -56,5 +60,49 @@ describe('MindMapViewer', () => {
     const { container } = render(<MindMapViewer {...defaultProps} />)
     const results = await axe(container)
     expect(results).toHaveNoViolations()
+  })
+
+  describe('computeFitTransform – scale clamping', () => {
+    it('clamps to MIN_SCALE when the SVG is much larger than the wrapper', () => {
+      // Raw fit scale: min(800/50000, 600/30000) * 0.95 ≈ 0.0152, below MIN_SCALE
+      const wrapperW = 800
+      const wrapperH = 600
+      const svgW = 50_000
+      const svgH = 30_000
+      const { scale, x, y } = computeFitTransform(wrapperW, wrapperH, svgW, svgH)
+
+      expect(scale).toBe(MIN_SCALE)
+      // x/y must be computed from the CLAMPED scale, not the unclamped fit scale
+      expect(x).toBeCloseTo((wrapperW - svgW * MIN_SCALE) / 2)
+      expect(y).toBeCloseTo((wrapperH - svgH * MIN_SCALE) / 2)
+    })
+
+    it('clamps to MAX_SCALE when the SVG is much smaller than the wrapper', () => {
+      // Raw fit scale: min(800/10, 600/8) * 0.95 = 71.25, above MAX_SCALE
+      const wrapperW = 800
+      const wrapperH = 600
+      const svgW = 10
+      const svgH = 8
+      const { scale, x, y } = computeFitTransform(wrapperW, wrapperH, svgW, svgH)
+
+      expect(scale).toBe(MAX_SCALE)
+      expect(x).toBeCloseTo((wrapperW - svgW * MAX_SCALE) / 2)
+      expect(y).toBeCloseTo((wrapperH - svgH * MAX_SCALE) / 2)
+    })
+
+    it('uses the unclamped fit scale when it is within [MIN_SCALE, MAX_SCALE]', () => {
+      // Fit scale for 800×600 wrapper and 1200×900 SVG:
+      // min(800/1200, 600/900) * 0.95 ≈ 0.633 — well within range
+      const wrapperW = 800
+      const wrapperH = 600
+      const svgW = 1200
+      const svgH = 900
+      const { scale } = computeFitTransform(wrapperW, wrapperH, svgW, svgH)
+
+      expect(scale).toBeGreaterThan(MIN_SCALE)
+      expect(scale).toBeLessThan(MAX_SCALE)
+      // Should equal min(800/1200, 600/900) * 0.95
+      expect(scale).toBeCloseTo(Math.min(wrapperW / svgW, wrapperH / svgH) * 0.95)
+    })
   })
 })

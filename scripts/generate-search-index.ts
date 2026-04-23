@@ -239,11 +239,16 @@ function extractVisibleText(source: string): string {
       ' '
     )
     // Remove JS method calls and dot-notation (e.g. .toFixed, val.toString, obj.prop)
+    // but NOT common file extensions (e.g. business-management-models.svg) which are
+    // meaningful content text and should survive into the search index.
     .replace(
       /\.(?:toFixed|toString|indexOf|map|filter|reduce|forEach|concat|slice|join|replace|match|split|trim|push|length|includes|find|some|every|keys|values|entries)\b/g,
       ' '
     )
-    .replace(/\b\w+\.\w+/g, ' ')
+    .replace(
+      /\b\w+\.(?!(?:svg|png|jpg|jpeg|gif|webp|pdf|tsx?|jsx?|json|css|html?|md|txt)\b)\w+/g,
+      ' '
+    )
     // Remove residual angle-bracket fragments, parens, brackets noise
     .replace(/[<>(){}[\]]/g, ' ')
     // Remove remaining HTML entities
@@ -291,7 +296,8 @@ function extractVisibleText(source: string): string {
     'className',
     'onClick',
     'onChange',
-    // JS keywords
+    // JS keywords (NB: 'from' is intentionally omitted – it appears as an English
+    // preposition in JSX text, and import statements are outside the return block)
     'true',
     'false',
     'null',
@@ -303,7 +309,6 @@ function extractVisibleText(source: string): string {
     'function',
     'import',
     'export',
-    'from',
     'async',
     'await',
     'new',

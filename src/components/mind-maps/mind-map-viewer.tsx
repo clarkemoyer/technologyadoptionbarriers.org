@@ -23,6 +23,14 @@ type MindMapViewerProps = {
 }
 
 const FIT_PADDING = 0.95
+/** Scale used on first render before `fitToWrapper` fires (SVG is very large so start small). */
+export const INITIAL_SCALE = 0.08
+/** Hard floor: prevents the user from shrinking the map to a near-invisible speck. */
+export const MIN_SCALE = 0.02
+/** Hard ceiling: 4× is sufficient to read leaf-level text in the exported map. */
+export const MAX_SCALE = 4
+/** Fraction of the current scale added/removed per mouse-wheel tick. */
+export const WHEEL_STEP = 0.1
 
 const fitScaleFor = (
   wrapperWidth: number,
@@ -30,6 +38,30 @@ const fitScaleFor = (
   svgWidth: number,
   svgHeight: number
 ) => Math.min(wrapperWidth / svgWidth, wrapperHeight / svgHeight) * FIT_PADDING
+
+/**
+ * Compute the scale and centered translation for fitting an SVG inside a wrapper,
+ * clamped to [minScale, maxScale].
+ *
+ * Exported so unit tests can verify the clamping behaviour without depending on
+ * real DOM layout (refs return 0 in JSDOM).
+ */
+export function computeFitTransform(
+  wrapperWidth: number,
+  wrapperHeight: number,
+  svgWidth: number,
+  svgHeight: number,
+  minScale = MIN_SCALE,
+  maxScale = MAX_SCALE
+): { scale: number; x: number; y: number } {
+  const raw = fitScaleFor(wrapperWidth, wrapperHeight, svgWidth, svgHeight)
+  const scale = Math.max(minScale, Math.min(maxScale, raw))
+  return {
+    scale,
+    x: (wrapperWidth - svgWidth * scale) / 2,
+    y: (wrapperHeight - svgHeight * scale) / 2,
+  }
+}
 
 const MindMapViewer = ({ src, alt, ariaLabel }: MindMapViewerProps) => {
   const transformRef = useRef<ReactZoomPanPinchRef | null>(null)
@@ -54,9 +86,7 @@ const MindMapViewer = ({ src, alt, ariaLabel }: MindMapViewerProps) => {
       const w = wrapper.clientWidth
       const h = wrapper.clientHeight
       if (w <= 0 || h <= 0) return
-      const scale = fitScaleFor(w, h, svgDimensions.width, svgDimensions.height)
-      const x = (w - svgDimensions.width * scale) / 2
-      const y = (h - svgDimensions.height * scale) / 2
+      const { scale, x, y } = computeFitTransform(w, h, svgDimensions.width, svgDimensions.height)
       instance.setTransform(x, y, scale, animate)
     },
     [svgDimensions]
@@ -114,11 +144,11 @@ const MindMapViewer = ({ src, alt, ariaLabel }: MindMapViewerProps) => {
       >
         <TransformWrapper
           ref={transformRef}
-          initialScale={0.08}
-          minScale={0.02}
-          maxScale={4}
+          initialScale={INITIAL_SCALE}
+          minScale={MIN_SCALE}
+          maxScale={MAX_SCALE}
           limitToBounds={false}
-          wheel={{ step: 0.1 }}
+          wheel={{ step: WHEEL_STEP }}
           doubleClick={{ disabled: true }}
         >
           <TransformComponent
