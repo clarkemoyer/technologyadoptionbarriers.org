@@ -8,13 +8,14 @@ Covers:
   - missing participant_id is excluded
   - no researcher messages yields (None, None)
   - custom STALE_HOURS threshold is respected
+  - _msg_time raises ValueError for messages with no valid timestamp
 """
 
 from datetime import datetime, timedelta, timezone
 
 import pytest
 
-from find_stale_return_requested import classify_submission
+from find_stale_return_requested import classify_submission, _msg_time
 
 RESEARCHER_ID = "researcher_001"
 NOW = datetime(2026, 4, 23, 12, 0, 0, tzinfo=timezone.utc)
@@ -206,3 +207,37 @@ class TestCustomThreshold:
         cutoff_48h = NOW - timedelta(hours=48)
         bucket_48, _ = classify_submission(sub, msgs, RESEARCHER_ID, NOW, cutoff_48h)
         assert bucket_48 == "in_window_rr"
+
+
+# ── _msg_time sentinel behaviour ─────────────────────────────────────────────
+
+class TestMsgTime:
+    def test_valid_sent_at_is_returned(self):
+        """_msg_time returns the parsed sent_at timestamp."""
+        dt = NOW - timedelta(hours=5)
+        m = {"sender_id": "x", "sent_at": dt.strftime("%Y-%m-%dT%H:%M:%SZ")}
+        assert _msg_time(m) == dt
+
+    def test_falls_back_to_created_at(self):
+        """_msg_time uses created_at when sent_at is absent."""
+        dt = NOW - timedelta(hours=3)
+        m = {"sender_id": "x", "created_at": dt.strftime("%Y-%m-%dT%H:%M:%SZ")}
+        assert _msg_time(m) == dt
+
+    def test_missing_timestamps_raises_value_error(self):
+        """_msg_time raises ValueError when neither timestamp field is present."""
+        with pytest.raises(ValueError, match="missing a valid timestamp"):
+            _msg_time({"sender_id": "x"})
+
+    def test_unparseable_timestamps_raises_value_error(self):
+        """_msg_time raises ValueError when both timestamp fields are unparseable."""
+        with pytest.raises(ValueError, match="missing a valid timestamp"):
+            _msg_time({"sender_id": "x", "sent_at": "not-a-date", "created_at": None})
+
+    def test_classify_submission_raises_for_bad_msg_timestamp(self):
+        """classify_submission propagates ValueError when a message has no valid timestamp."""
+        rr_time = NOW - timedelta(hours=60)
+        sub = _sub("PID_N", rr=rr_time)
+        bad_msgs = [{"sender_id": "PID_N", "sent_at": "bad-timestamp"}]
+        with pytest.raises(ValueError, match="missing a valid timestamp"):
+            classify_submission(sub, bad_msgs, RESEARCHER_ID, NOW, CUTOFF)

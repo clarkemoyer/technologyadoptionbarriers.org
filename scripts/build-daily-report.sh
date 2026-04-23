@@ -226,7 +226,8 @@ STALE_TRIAGE_SECTION=""
 if [ -f "$STALE_TRIAGE_FILE" ]; then
   if STALE_TRIAGE_SECTION=$(STALE_TRIAGE_FILE="$STALE_TRIAGE_FILE" python3 << 'STALEEOF'
 import json, os
-d = json.load(open(os.environ['STALE_TRIAGE_FILE']))
+with open(os.environ['STALE_TRIAGE_FILE'], encoding='utf-8') as f:
+    d = json.load(f)
 hours = d.get('stale_hours', 48)
 rr = d.get('buckets', {}).get('stale_no_reply_to_rr', [])
 mm = d.get('buckets', {}).get('stale_no_reply_to_message', [])

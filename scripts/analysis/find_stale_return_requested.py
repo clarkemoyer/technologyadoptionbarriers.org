@@ -100,7 +100,11 @@ def _parse_iso(ts):
 
 def _msg_time(m):
     t = _parse_iso(m.get("sent_at")) or _parse_iso(m.get("created_at"))
-    return t or datetime.min.replace(tzinfo=timezone.utc)
+    if t is None:
+        raise ValueError(
+            "Message is missing a valid timestamp in both 'sent_at' and 'created_at'"
+        )
+    return t
 
 
 def classify_submission(sub, msgs, researcher_id, now, cutoff):
@@ -273,7 +277,15 @@ def main():
             )
             fetch_errors.append({"pid": pid, "error": err})
             continue
-        bucket, record = classify_submission(sub, msgs, researcher_id, now, cutoff)
+        try:
+            bucket, record = classify_submission(sub, msgs, researcher_id, now, cutoff)
+        except ValueError as exc:
+            print(
+                f"  Error: classification failed for {pid}: {exc}",
+                file=sys.stderr,
+            )
+            fetch_errors.append({"pid": pid, "error": str(exc)})
+            continue
         if bucket:
             buckets[bucket].append(record)
 
