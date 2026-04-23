@@ -53,6 +53,9 @@ test.describe('Glossary Term popover on /results/reliability', () => {
 
     const link = dialog.getByRole('link', { name: /see full entry/i })
     await expect(link).toBeVisible()
-    await expect(link).toHaveAttribute('href', /\/results\/glossary#cronbach-alpha/)
+    // Next.js static export adds a trailing slash before fragments, so
+    // /results/glossary#cronbach-alpha is rewritten to
+    // /results/glossary/#cronbach-alpha. Accept either form.
+    await expect(link).toHaveAttribute('href', /\/results\/glossary\/?#cronbach-alpha/)
   })
 })
