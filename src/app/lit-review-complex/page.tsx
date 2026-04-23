@@ -12,7 +12,7 @@ import ClientRedirect from '@/components/client-redirect'
  */
 export const metadata: Metadata = {
   title: 'Redirecting… | Making of TABS',
-  robots: { index: false, follow: false },
+  robots: { index: false, follow: true },
   alternates: {
     canonical: '/making-of-tabs/mind-maps/full-mind-map',
   },
