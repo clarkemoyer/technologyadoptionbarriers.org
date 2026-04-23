@@ -129,11 +129,10 @@ def classify_submission(sub, msgs, researcher_id, now, cutoff):
     rr = _parse_iso(sub.get("return_requested"))
 
     if rr is not None:
-        replies_after_rr = [
-            m for m in participant_msgs
-            if (ts := _msg_time(m)) is not None and ts > rr
-        ]
-        if replies_after_rr:
+        if any(
+            (ts := _msg_time(m)) is not None and ts > rr
+            for m in participant_msgs
+        ):
             return None, None
         age_h = (now - rr).total_seconds() / 3600.0
         record = {
@@ -154,10 +153,10 @@ def classify_submission(sub, msgs, researcher_id, now, cutoff):
     if not researcher_times:
         return None, None
     last_msg_time = max(researcher_times)
-    replies_after_msg = [
-        m for m in participant_msgs
-        if (ts := _msg_time(m)) is not None and ts > last_msg_time
-    ]
+    replies_after_msg = any(
+        (ts := _msg_time(m)) is not None and ts > last_msg_time
+        for m in participant_msgs
+    )
     if replies_after_msg:
         return None, None
     age_h = (now - last_msg_time).total_seconds() / 3600.0
