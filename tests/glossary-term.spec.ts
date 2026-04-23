@@ -37,8 +37,15 @@ test.describe('Glossary Term popover on /results/reliability', () => {
     const dialog = page.getByRole('dialog')
     await expect(dialog).toBeVisible()
 
-    // Click somewhere outside the component (the page heading)
-    await page.locator('h1').click()
+    // Click somewhere outside the component. The popover opens ABOVE the
+    // trigger (`bottom-full left-0`), so the h1 directly above the
+    // Cronbach's alpha paragraph ends up covered by the dialog. Dispatch a
+    // raw pointerdown at a known-safe coordinate (far below the popover)
+    // which matches the outside-click contract the component actually
+    // listens for.
+    await page.mouse.move(5, 500)
+    await page.mouse.down()
+    await page.mouse.up()
     await expect(dialog).not.toBeVisible()
   })
 
