@@ -391,16 +391,34 @@ export function ValidationPageContent({ data, variant }: Props) {
                 </tr>
               </thead>
               <tbody>
-                {(
-                  [
-                    { label: "Cronbach's \u03B1", key: 'cronbach_alpha' as const },
-                    { label: "McDonald's \u03C9", key: 'mcdonalds_omega' as const },
-                    { label: 'Composite Reliability', key: 'composite_reliability' as const },
-                    { label: 'AVE', key: 'ave_from_loadings' as const },
-                    { label: 'Split-Half', key: 'split_half' as const },
-                  ] as const
-                ).map((row, i) => (
-                  <tr key={row.key} className={i % 2 === 1 ? 'bg-gray-50' : ''}>
+                {[
+                  {
+                    label: <Term termId="cronbach-alpha">{"Cronbach's \u03B1"}</Term>,
+                    key: 'cronbach_alpha' as const,
+                    rowKey: 'cronbach_alpha',
+                  },
+                  {
+                    label: <Term termId="mcdonalds-omega">{"McDonald's \u03C9"}</Term>,
+                    key: 'mcdonalds_omega' as const,
+                    rowKey: 'mcdonalds_omega',
+                  },
+                  {
+                    label: <Term termId="composite-reliability">Composite Reliability</Term>,
+                    key: 'composite_reliability' as const,
+                    rowKey: 'composite_reliability',
+                  },
+                  {
+                    label: <Term termId="ave">AVE</Term>,
+                    key: 'ave_from_loadings' as const,
+                    rowKey: 'ave',
+                  },
+                  {
+                    label: <Term termId="split-half">Split-Half</Term>,
+                    key: 'split_half' as const,
+                    rowKey: 'split_half',
+                  },
+                ].map((row, i) => (
+                  <tr key={row.rowKey} className={i % 2 === 1 ? 'bg-gray-50' : ''}>
                     <td className="px-3 py-1.5 border font-medium">{row.label}</td>
                     {CONSTRUCTS.map((c) => (
                       <td key={c.construct} className="text-right px-3 py-1.5 border font-mono">
