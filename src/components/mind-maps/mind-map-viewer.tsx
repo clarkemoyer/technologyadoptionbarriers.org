@@ -212,10 +212,12 @@ const MindMapViewer = ({ src, alt, ariaLabel, initialFocus }: MindMapViewerProps
     const el = containerRef.current
     if (!el) return
     if (document.fullscreenElement === el) {
-      void document.exitFullscreen()
-    } else {
-      void el.requestFullscreen()
+      if (typeof document.exitFullscreen !== 'function') return
+      void document.exitFullscreen().catch(() => {})
+      return
     }
+    if (typeof el.requestFullscreen !== 'function') return
+    void el.requestFullscreen().catch(() => {})
   }, [])
 
   const handleZoomIn = () => zoomTo(currentScale + BUTTON_STEP)
@@ -278,15 +280,13 @@ const MindMapViewer = ({ src, alt, ariaLabel, initialFocus }: MindMapViewerProps
   return (
     <section
       aria-label={resolvedAriaLabel}
-      className="relative bg-slate-50 border-y border-slate-200"
+      className="relative bg-slate-50 border-y border-slate-200 focus-visible:outline-2 focus-visible:outline-blue-600 focus-visible:outline-offset-0"
+      tabIndex={0}
+      onKeyDown={handleKeyDown}
     >
       <div
         ref={containerRef}
         className={isFullscreen ? 'relative bg-slate-50 w-screen h-screen' : 'relative'}
-        // Focusable so arrow/+/-/0/F keys work. outline-none avoids a focus ring on
-        // the whole region while keeping it in the tab order.
-        tabIndex={0}
-        onKeyDown={handleKeyDown}
       >
         <div
           ref={wrapperRef}

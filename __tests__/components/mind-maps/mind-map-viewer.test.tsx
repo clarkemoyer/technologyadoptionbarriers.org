@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, screen } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import { axe, toHaveNoViolations } from 'jest-axe'
 import MindMapViewer from '@/components/mind-maps/mind-map-viewer'
 
@@ -50,6 +50,30 @@ describe('MindMapViewer', () => {
     expect(screen.getByRole('button', { name: /zoom in/i })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: /zoom out/i })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: /reset/i })).toBeInTheDocument()
+  })
+
+  it('renders the zoom slider with an accessible label', () => {
+    render(<MindMapViewer {...defaultProps} />)
+    const slider = screen.getByRole('slider', { name: /zoom level/i })
+    expect(slider).toBeInTheDocument()
+    expect(slider).toHaveAttribute('type', 'range')
+  })
+
+  it('renders the fullscreen button with aria-pressed="false" initially', () => {
+    render(<MindMapViewer {...defaultProps} />)
+    const btn = screen.getByRole('button', { name: /enter fullscreen/i })
+    expect(btn).toBeInTheDocument()
+    expect(btn).toHaveAttribute('aria-pressed', 'false')
+  })
+
+  it('keyboard shortcuts do not call preventDefault when an interactive control has focus', () => {
+    render(<MindMapViewer {...defaultProps} />)
+    const slider = screen.getByRole('slider', { name: /zoom level/i })
+    const preventDefaultSpy = jest.fn()
+    // Firing directly on the slider: the handleKeyDown guard should bail out
+    // before calling preventDefault, leaving the slider free to respond.
+    fireEvent.keyDown(slider, { key: 'ArrowRight', preventDefault: preventDefaultSpy })
+    expect(preventDefaultSpy).not.toHaveBeenCalled()
   })
 
   it('has no accessibility violations', async () => {
