@@ -34,6 +34,7 @@ Exits non-zero if:
 """
 
 import csv
+import json
 import os
 import sys
 from pathlib import Path
@@ -48,8 +49,12 @@ from tabs_api import (
     prolific_study_info,
 )
 
-
-SMEAL_BENCHMARK_MIN = 5.0  # minutes; kept in sync with disposition_triage
+# Load the Smeal speed threshold from the shared constants file so this script
+# stays in sync with the disposition logic in tabs_v2_data_audit.py.
+_CONSTANTS_PATH = Path(__file__).parent / "tabs_v2_constants.json"
+_CONSTANTS = json.loads(_CONSTANTS_PATH.read_text(encoding="utf-8")) if _CONSTANTS_PATH.exists() else {}
+_SMEAL_SECONDS = _CONSTANTS.get("DURATION_THRESHOLDS", {}).get("smealBenchmarkMin", 300)
+SMEAL_BENCHMARK_MIN: float = _SMEAL_SECONDS / 60  # convert to minutes for message text
 
 
 def _require_env(name: str) -> str:

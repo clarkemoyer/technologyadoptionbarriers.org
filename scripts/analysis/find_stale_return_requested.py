@@ -28,9 +28,10 @@ submissions after its reserve timeout:
 Engaged participants (any reply after our most recent action) are excluded
 from all four buckets — they belong on the approve path.
 
-Submissions where the message-history API call fails are placed in a
-FETCH_ERROR category and excluded from all recommendations — they should
-not be assumed to have no reply.
+Submissions where the message-history API call fails are excluded from all
+four recommendation buckets and reported separately via the
+`fetch_errors`/`fetch_error_details` output fields — they should not be
+assumed to have no reply.
 
 Environment variables:
   PROLIFIC_API_TOKEN  - Prolific API token (required)
