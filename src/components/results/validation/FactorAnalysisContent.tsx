@@ -11,6 +11,7 @@ import {
   PARAGRAPH_CLASSES,
 } from '@/lib/articleStyles'
 import { DATA_UNAVAILABLE } from '@/lib/sentinelMarker'
+import Term from '@/components/glossary-term'
 
 /* ══════════════════════════════════════════════════════════════════
    TYPES
@@ -327,8 +328,8 @@ export function FactorAnalysisContent({ data, variant }: Props) {
         <section className={SECTION_CLASSES}>
           <p className={PARAGRAPH_CLASSES}>
             The TABS Barriers scale includes {sample.metadata.n_barriers} items and was developed
-            through a concept-mapping process that identified four theoretical sub-constructs.
-            Exploratory Factor Analysis (EFA) on the{' '}
+            through a concept-mapping process that identified four theoretical sub-constructs.{' '}
+            <Term termId="efa">Exploratory Factor Analysis (EFA)</Term> on the{' '}
             {variant === 'crp'
               ? `CRP-200 frozen dataset (N=${sample.metadata.n_total}`
               : `full TABS dataset included ${sample.metadata.n_total} responses`}
@@ -375,8 +376,9 @@ export function FactorAnalysisContent({ data, variant }: Props) {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Level 2: EFA-Derived Structure (2 Factors)</h2>
           <p className={PARAGRAPH_CLASSES}>
-            Horn&rsquo;s Parallel Analysis compared actual eigenvalues against the 95th percentile
-            of random-data eigenvalues and retained{' '}
+            <Term termId="parallel-analysis">Horn&rsquo;s Parallel Analysis</Term> compared actual{' '}
+            <Term termId="eigenvalue">eigenvalues</Term> against the 95th percentile of random-data
+            eigenvalues and retained{' '}
             {fa.efa_factors.length === 1 ? 'one factor' : `${fa.efa_factors.length} factors`}.
             {hasTwoFactors
               ? ` The two factors explain a cumulative ${(efa.total_variance * 100).toFixed(1)}% of variance. Factor correlations (r = ${fa.factor_correlation!.toFixed(3).replace(/^(-?)0\./, '$1.')}) confirm the oblique rotation was appropriate.`
