@@ -13,6 +13,15 @@ type SvgDimensions = {
   height: number
 }
 
+type MindMapViewerProps = {
+  /** Path under /public — e.g. '/Svgs/mind-maps/full-mind-map.svg'. */
+  src: string
+  /** Descriptive alt text for the image. */
+  alt: string
+  /** aria-label for the surrounding section; defaults to the alt text. */
+  ariaLabel?: string
+}
+
 const FIT_PADDING = 0.95
 
 const fitScaleFor = (
@@ -22,7 +31,7 @@ const fitScaleFor = (
   svgHeight: number
 ) => Math.min(wrapperWidth / svgWidth, wrapperHeight / svgHeight) * FIT_PADDING
 
-const MindMapViewer = () => {
+const MindMapViewer = ({ src, alt, ariaLabel }: MindMapViewerProps) => {
   const transformRef = useRef<ReactZoomPanPinchRef | null>(null)
   const wrapperRef = useRef<HTMLDivElement | null>(null)
   const imgRef = useRef<HTMLImageElement | null>(null)
@@ -91,9 +100,11 @@ const MindMapViewer = () => {
   // Handle the gesture ourselves so it matches the Reset button.
   const handleDoubleClick = () => fitToWrapper(200)
 
+  const resolvedAriaLabel = ariaLabel ?? alt
+
   return (
     <section
-      aria-label="TABS literature review mind map"
+      aria-label={resolvedAriaLabel}
       className="relative bg-slate-50 border-y border-slate-200"
     >
       <div
@@ -121,8 +132,8 @@ const MindMapViewer = () => {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               ref={imgRef}
-              src={assetPath('/Svgs/lit-review/mind-map.svg')}
-              alt="TABS literature review mind map showing technology adoption models, frameworks, standards, and the culminating research project workflow."
+              src={assetPath(src)}
+              alt={alt}
               width={svgDimensions?.width}
               height={svgDimensions?.height}
               onLoad={syncSvgDimensions}
@@ -173,7 +184,7 @@ const MindMapViewer = () => {
         Source: exported from Lucidspark. For a fully interactive version with clickable nodes, see
         the{' '}
         <a
-          href={assetPath('/Svgs/lit-review/mind-map.svg')}
+          href={assetPath(src)}
           className="underline hover:text-slate-900"
           target="_blank"
           rel="noopener noreferrer"

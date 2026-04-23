@@ -596,12 +596,60 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.7,
     },
-    // Literature Review Mind Map (complex zoomable SVG)
+    // Mind Maps (gallery under Making of TABS, one URL per map)
     {
-      url: `${baseUrl}/lit-review-complex`,
+      url: `${baseUrl}/making-of-tabs/mind-maps`,
       lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/making-of-tabs/mind-maps/full-mind-map`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/making-of-tabs/mind-maps/business-management-models`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.5,
+    },
+    {
+      url: `${baseUrl}/making-of-tabs/mind-maps/it-management-models`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.5,
+    },
+    {
+      url: `${baseUrl}/making-of-tabs/mind-maps/enterprise-it-architecture`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.5,
+    },
+    {
+      url: `${baseUrl}/making-of-tabs/mind-maps/project-program-risk-management`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.5,
+    },
+    {
+      url: `${baseUrl}/making-of-tabs/mind-maps/standards-regulations`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.5,
+    },
+    {
+      url: `${baseUrl}/making-of-tabs/mind-maps/tabs-project-operations`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.5,
+    },
+    {
+      url: `${baseUrl}/making-of-tabs/mind-maps/culminating-research-project`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.5,
     },
   ]
 }

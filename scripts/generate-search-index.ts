@@ -309,7 +309,6 @@ function extractVisibleText(source: string): string {
     'new',
     'this',
     // Common leaked JS identifiers
-    'map',
     'filter',
     'reduce',
     'forEach',

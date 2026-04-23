@@ -1,24 +1,23 @@
 import type { Metadata } from 'next'
-import MindMapViewer from '@/components/lit-review-complex/mind-map-viewer'
+import ClientRedirect from '@/components/client-redirect'
 
+/**
+ * Permanent redirect stub: /lit-review-complex → /making-of-tabs/mind-maps/full-mind-map
+ *
+ * The route was deployed briefly under this slug before being reorganised.
+ * Because this is a static export (GitHub Pages) Next.js `redirects()` in
+ * next.config.ts are not available; this client-side redirect is the
+ * lightest-weight equivalent.  The canonical tag and noindex directive ensure
+ * search engines follow the new URL instead of indexing this stub.
+ */
 export const metadata: Metadata = {
-  title: 'Literature Review Mind Map (Complex)',
-  description:
-    'Interactive pan-and-zoom view of the Technology Adoption Barriers Survey (TABS) literature review mind map, covering models, frameworks, standards, and the culminating research project workflow.',
+  title: 'Redirecting… | Making of TABS',
+  robots: { index: false, follow: true },
+  alternates: {
+    canonical: '/making-of-tabs/mind-maps/full-mind-map',
+  },
 }
 
-const LitReviewComplexPage = () => {
-  return (
-    <main className="pt-[80px]">
-      <div className="bg-tabs-navy py-[60px] text-white text-center px-4">
-        <h1 className="text-[36px] md:text-[48px] font-bold">Literature Review Mind Map</h1>
-        <p className="text-[18px] md:text-[20px] opacity-90 max-w-3xl mx-auto mt-2">
-          Complex view — drag to pan, scroll or pinch to zoom. Double-click to reset.
-        </p>
-      </div>
-      <MindMapViewer />
-    </main>
-  )
+export default function LitReviewComplexRedirectPage() {
+  return <ClientRedirect to="/making-of-tabs/mind-maps/full-mind-map" />
 }
-
-export default LitReviewComplexPage
