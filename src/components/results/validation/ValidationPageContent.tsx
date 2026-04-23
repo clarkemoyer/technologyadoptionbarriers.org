@@ -10,6 +10,7 @@ import {
   SECTION_CLASSES,
   PARAGRAPH_CLASSES,
 } from '@/lib/articleStyles'
+import Term from '@/components/glossary-term'
 import {
   type ConstructValidation,
   fmt,
@@ -417,9 +418,11 @@ export function ValidationPageContent({ data, variant }: Props) {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>2. Exploratory Factor Analysis</h2>
           <p className={PARAGRAPH_CLASSES}>
-            EFA was conducted on each construct independently using Maximum Likelihood estimation
-            with Promax oblique rotation. The number of factors was determined by Horn&rsquo;s
-            Parallel Analysis comparing actual eigenvalues against 95th-percentile random data
+            <Term termId="efa">EFA</Term> was conducted on each construct independently using
+            Maximum Likelihood estimation with <Term termId="promax">Promax oblique rotation</Term>.
+            The number of factors was determined by{' '}
+            <Term termId="parallel-analysis">Horn&rsquo;s Parallel Analysis</Term> comparing actual{' '}
+            <Term termId="eigenvalue">eigenvalues</Term> against 95th-percentile random data
             eigenvalues.
           </p>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
@@ -441,9 +444,9 @@ export function ValidationPageContent({ data, variant }: Props) {
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>3. Confirmatory Factor Analysis</h2>
           <p className={PARAGRAPH_CLASSES}>
-            CFA tests whether the EFA-derived factor structure fits the data when specified as a
-            confirmatory model. Single-factor models were fit for each construct, plus a 4-factor
-            model for Barriers using the concept-mapping sub-constructs.
+            <Term termId="cfa">CFA</Term> tests whether the EFA-derived factor structure fits the
+            data when specified as a confirmatory model. Single-factor models were fit for each
+            construct, plus a 4-factor model for Barriers using the concept-mapping sub-constructs.
           </p>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
             {CONSTRUCTS.map((c) => (
@@ -569,8 +572,9 @@ export function ValidationPageContent({ data, variant }: Props) {
           <h2 className={H2_CLASSES}>4. Discriminant Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
             Discriminant validity assesses whether the three TABS constructs are empirically
-            distinct from one another. Two complementary methods are used: HTMT and the
-            Fornell-Larcker criterion.
+            distinct from one another. Two complementary methods are used:{' '}
+            <Term termId="htmt">HTMT</Term> and the{' '}
+            <Term termId="fornell-larcker">Fornell-Larcker criterion</Term>.
           </p>
 
           <h3 className={H3_CLASSES}>HTMT Ratios</h3>
@@ -732,8 +736,11 @@ export function ValidationPageContent({ data, variant }: Props) {
 
           <h3 className={H3_CLASSES}>Flagged Items</h3>
           <p className={PARAGRAPH_CLASSES}>
-            Items are flagged if their corrected item-total correlation falls below .30, or if
-            deleting them would increase Cronbach&rsquo;s alpha. The current validation summary
+            Items are flagged if their{' '}
+            <Term termId="corrected-itc">corrected item-total correlation</Term> falls below .30, or
+            if deleting them would increase{' '}
+            <Term termId="cronbach-alpha">Cronbach&rsquo;s alpha</Term> (see{' '}
+            <Term termId="alpha-if-deleted">alpha-if-deleted</Term>). The current validation summary
             reports whether any items fall below the CITC threshold and the minimum observed CITC:
           </p>
           {(sample.Barriers as Record<string, unknown>).itc_all_above_030 ? (
