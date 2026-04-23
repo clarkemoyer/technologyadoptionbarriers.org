@@ -130,14 +130,16 @@ export function joinSegments(segments: string[]): string {
 function extractStaticMetadata(source: string): {
   title: string | null
   description: string | null
+  robotsIndexFalse: boolean
 } {
   let title: string | null = null
   let description: string | null = null
+  let robotsIndexFalse = false
 
   // Locate `export const metadata = {` (with optional `: TypeAnnotation`)
   const exportMatch = source.match(/export\s+const\s+metadata\s*(?::\s*[\w.]+\s*)?\s*=\s*\{/)
   if (!exportMatch || exportMatch.index === undefined) {
-    return { title, description }
+    return { title, description, robotsIndexFalse }
   }
 
   // Walk the source from the opening `{`, respecting string boundaries,
@@ -183,7 +185,7 @@ function extractStaticMetadata(source: string): {
     }
   }
 
-  if (blockEnd === -1) return { title, description }
+  if (blockEnd === -1) return { title, description, robotsIndexFalse }
 
   const metadataBlock = source.slice(blockStart, blockEnd + 1)
 
@@ -195,7 +197,12 @@ function extractStaticMetadata(source: string): {
   const descMatch = metadataBlock.match(/(?:^|[,{]\s*)description:\s*\n?\s*(['"`])([\s\S]*?)\1/)
   if (descMatch) description = descMatch[2].replace(/\s+/g, ' ').trim()
 
-  return { title, description }
+  // Detect robots: { index: false } — skip redirect stubs and noindex pages
+  if (/robots\s*:\s*\{[^}]*\bindex\s*:\s*false\b/.test(metadataBlock)) {
+    robotsIndexFalse = true
+  }
+
+  return { title, description, robotsIndexFalse }
 }
 
 /**
@@ -463,10 +470,13 @@ async function generateSearchIndex() {
     }
 
     const source = await fs.readFile(filePath, 'utf-8')
-    const { title, description } = extractStaticMetadata(source)
+    const { title, description, robotsIndexFalse } = extractStaticMetadata(source)
 
     // Skip pages without metadata (e.g. layout-only files)
     if (!title) continue
+
+    // Skip noindex pages (redirect stubs, etc.)
+    if (robotsIndexFalse) continue
 
     const visibleText = extractVisibleText(source)
     const segments = [title, description, visibleText]

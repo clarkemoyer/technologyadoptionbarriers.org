@@ -1,0 +1,189 @@
+'use client'
+
+import { useCallback, useEffect, useRef, useState } from 'react'
+import {
+  TransformComponent,
+  TransformWrapper,
+  type ReactZoomPanPinchRef,
+} from 'react-zoom-pan-pinch'
+import { assetPath } from '@/lib/assetPath'
+
+type SvgDimensions = {
+  width: number
+  height: number
+}
+
+const FIT_PADDING = 0.95
+
+const fitScaleFor = (
+  wrapperWidth: number,
+  wrapperHeight: number,
+  svgWidth: number,
+  svgHeight: number
+) => Math.min(wrapperWidth / svgWidth, wrapperHeight / svgHeight) * FIT_PADDING
+
+const MindMapViewer = () => {
+  const transformRef = useRef<ReactZoomPanPinchRef | null>(null)
+  const wrapperRef = useRef<HTMLDivElement | null>(null)
+  const imgRef = useRef<HTMLImageElement | null>(null)
+  const [svgDimensions, setSvgDimensions] = useState<SvgDimensions | null>(null)
+
+  const syncSvgDimensions = useCallback(() => {
+    const img = imgRef.current
+    if (!img || img.naturalWidth <= 0 || img.naturalHeight <= 0) return
+    const next: SvgDimensions = { width: img.naturalWidth, height: img.naturalHeight }
+    setSvgDimensions((prev) =>
+      prev?.width === next.width && prev?.height === next.height ? prev : next
+    )
+  }, [])
+
+  const fitToWrapper = useCallback(
+    (animate = 0) => {
+      const wrapper = wrapperRef.current
+      const instance = transformRef.current
+      if (!wrapper || !instance || !svgDimensions) return
+      const w = wrapper.clientWidth
+      const h = wrapper.clientHeight
+      if (w <= 0 || h <= 0) return
+      const scale = fitScaleFor(w, h, svgDimensions.width, svgDimensions.height)
+      const x = (w - svgDimensions.width * scale) / 2
+      const y = (h - svgDimensions.height * scale) / 2
+      instance.setTransform(x, y, scale, animate)
+    },
+    [svgDimensions]
+  )
+
+  // Covers the cached-image case: React may not fire `onLoad` if the image
+  // is already in the browser cache when the component mounts.
+  useEffect(() => {
+    syncSvgDimensions()
+  }, [syncSvgDimensions])
+
+  useEffect(() => {
+    if (!svgDimensions) return
+    const raf = requestAnimationFrame(() => fitToWrapper(0))
+    return () => cancelAnimationFrame(raf)
+  }, [fitToWrapper, svgDimensions])
+
+  // RAF-throttled resize so rapid events coalesce into one update per frame.
+  useEffect(() => {
+    if (!svgDimensions) return
+    let rafId: ReturnType<typeof requestAnimationFrame> | null = null
+    const onResize = () => {
+      if (rafId !== null) cancelAnimationFrame(rafId)
+      rafId = requestAnimationFrame(() => {
+        rafId = null
+        fitToWrapper(0)
+      })
+    }
+    window.addEventListener('resize', onResize)
+    return () => {
+      window.removeEventListener('resize', onResize)
+      if (rafId !== null) cancelAnimationFrame(rafId)
+    }
+  }, [fitToWrapper, svgDimensions])
+
+  const handleZoomIn = () => transformRef.current?.zoomIn()
+  const handleZoomOut = () => transformRef.current?.zoomOut()
+  const handleReset = () => fitToWrapper(200)
+  // The library's own `doubleClick.mode: 'reset'` reverts to `initialScale`,
+  // not the computed fit transform, which would jump the image off-center.
+  // Handle the gesture ourselves so it matches the Reset button.
+  const handleDoubleClick = () => fitToWrapper(200)
+
+  return (
+    <section
+      aria-label="TABS literature review mind map"
+      className="relative bg-slate-50 border-y border-slate-200"
+    >
+      <div
+        ref={wrapperRef}
+        className="relative mx-auto"
+        style={{ height: 'min(80vh, 900px)', maxWidth: '100%' }}
+      >
+        <TransformWrapper
+          ref={transformRef}
+          initialScale={0.08}
+          minScale={0.02}
+          maxScale={4}
+          limitToBounds={false}
+          wheel={{ step: 0.1 }}
+          doubleClick={{ disabled: true }}
+        >
+          <TransformComponent
+            wrapperStyle={{ width: '100%', height: '100%' }}
+            contentStyle={
+              svgDimensions
+                ? { width: svgDimensions.width, height: svgDimensions.height }
+                : { width: '100%', height: '100%' }
+            }
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              ref={imgRef}
+              src={assetPath('/Svgs/lit-review/mind-map.svg')}
+              alt="TABS literature review mind map showing technology adoption models, frameworks, standards, and the culminating research project workflow."
+              width={svgDimensions?.width}
+              height={svgDimensions?.height}
+              onLoad={syncSvgDimensions}
+              onDoubleClick={handleDoubleClick}
+              draggable={false}
+              style={{
+                width: svgDimensions?.width,
+                height: svgDimensions?.height,
+                userSelect: 'none',
+              }}
+            />
+          </TransformComponent>
+        </TransformWrapper>
+
+        <div
+          className="absolute top-3 right-3 flex gap-1 bg-white/95 border border-slate-300 rounded-md shadow-sm p-1"
+          role="toolbar"
+          aria-label="Mind map zoom controls"
+        >
+          <button
+            type="button"
+            onClick={handleZoomIn}
+            aria-label="Zoom in"
+            className="px-3 py-1 text-base font-semibold text-slate-800 hover:bg-slate-100 rounded"
+          >
+            +
+          </button>
+          <button
+            type="button"
+            onClick={handleZoomOut}
+            aria-label="Zoom out"
+            className="px-3 py-1 text-base font-semibold text-slate-800 hover:bg-slate-100 rounded"
+          >
+            &minus;
+          </button>
+          <button
+            type="button"
+            onClick={handleReset}
+            aria-label="Reset zoom and position"
+            className="px-3 py-1 text-sm font-medium text-slate-800 hover:bg-slate-100 rounded"
+          >
+            Reset
+          </button>
+        </div>
+      </div>
+
+      <p className="text-center text-sm text-slate-600 py-3 px-4">
+        Source: exported from Lucidspark. For a fully interactive version with clickable nodes, see
+        the{' '}
+        <a
+          href={assetPath('/Svgs/lit-review/mind-map.svg')}
+          className="underline hover:text-slate-900"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          raw SVG
+        </a>
+        .
+      </p>
+    </section>
+  )
+}
+
+export default MindMapViewer
