@@ -88,6 +88,29 @@ describe('Term', () => {
     })
   })
 
+  it('closes when focus leaves the component entirely (Tab past the link)', () => {
+    render(
+      <div>
+        <Term termId="kmo">KMO</Term>
+        <button type="button">after</button>
+      </div>
+    )
+    const trigger = screen.getAllByRole('button')[0]
+    // Open via focus on trigger
+    fireEvent.focus(trigger)
+    expect(screen.getByRole('dialog')).toBeInTheDocument()
+
+    // Simulate Tab into the link (focus stays inside container → dialog stays open)
+    const link = screen.getByRole('link', { name: /see full entry/i })
+    fireEvent.blur(trigger, { relatedTarget: link })
+    expect(screen.getByRole('dialog')).toBeInTheDocument()
+
+    // Simulate Tab past the link → relatedTarget is the outside "after" button
+    const after = screen.getAllByRole('button')[1]
+    fireEvent.blur(link, { relatedTarget: after })
+    expect(screen.queryByRole('dialog')).toBeNull()
+  })
+
   it('falls back to plain text when the termId is not in the glossary', () => {
     render(<Term termId="nonexistent-term-xyz">fallback text</Term>)
     expect(screen.queryByRole('button')).toBeNull()

@@ -138,12 +138,24 @@ export default function Term({ termId, children, glossaryHref = '/results/glossa
 
   const display = children ?? entry.term
 
+  // Close when focus exits the entire component. React synthetic onBlur
+  // bubbles, so a blur on either the trigger button or the "See full
+  // entry" link hits this handler; relatedTarget is the element receiving
+  // focus next. If the next focus is outside the container (e.g. the user
+  // Tabs past the link), close the popover. If it's still inside (e.g.
+  // Tab from button into link), leave it open.
+  const handleContainerBlur = (e: React.FocusEvent<HTMLSpanElement>) => {
+    if (!containerRef.current?.contains(e.relatedTarget as Node | null)) {
+      setOpen(false)
+    }
+  }
+
   return (
-    <span ref={containerRef} className="relative inline-block">
+    <span ref={containerRef} className="relative inline-block" onBlur={handleContainerBlur}>
       <button
         type="button"
         aria-haspopup="dialog"
-        aria-expanded={open}
+        aria-expanded={open ? 'true' : 'false'}
         aria-controls={open ? popoverId : undefined}
         aria-describedby={open ? definitionId : undefined}
         className="decoration-dotted decoration-blue-500 underline underline-offset-2 text-current bg-transparent border-0 p-0 cursor-help focus-visible:outline-2 focus-visible:outline-blue-600"
@@ -156,12 +168,6 @@ export default function Term({ termId, children, glossaryHref = '/results/glossa
         onFocus={() => {
           cancelClose()
           setOpen(true)
-        }}
-        onBlur={(e) => {
-          // Keep open if focus moved into the popover (e.g. onto the "See full entry" link).
-          if (!containerRef.current?.contains(e.relatedTarget as Node | null)) {
-            setOpen(false)
-          }
         }}
       >
         {display}
