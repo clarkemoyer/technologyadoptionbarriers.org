@@ -57,7 +57,9 @@ from tabs_api import (
 
 DEFAULT_RESEARCHER_ID = "68264cbfdeb62546fe6060fe"
 
-# Delay between per-PID message API calls to avoid Prolific rate limiting.
+# Delay between per-PID message API calls to stay well within Prolific's
+# undocumented rate limits (observed ~5 req/s on shared plans; 0.2s gives ~3/s
+# with some headroom and avoids bursting).
 _API_CALL_DELAY = 0.2
 
 
@@ -141,7 +143,7 @@ def _fetch_messages_with_backoff(pid, api_token, max_retries=3):
     for attempt in range(max_retries):
         try:
             if attempt > 0:
-                wait = 2 ** attempt
+                wait = min(2 ** attempt, 30)  # cap at 30s to avoid runaway delays
                 print(
                     f"  Retry {attempt}/{max_retries - 1} for {pid} in {wait}s",
                     file=sys.stderr,
