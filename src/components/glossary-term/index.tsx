@@ -71,7 +71,7 @@ export default function Term({ termId, children, glossaryHref = '/results/glossa
     }, 150)
   }, [cancelClose])
 
-  const closeTooltip = useCallback(
+  const closePopover = useCallback(
     ({ restoreFocus = false }: { restoreFocus?: boolean } = {}) => {
       cancelClose()
       const container = containerRef.current
@@ -115,12 +115,12 @@ export default function Term({ termId, children, glossaryHref = '/results/glossa
     if (!open) return
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        closeTooltip({ restoreFocus: true })
+        closePopover({ restoreFocus: true })
       }
     }
     const onClickOutside = (e: PointerEvent) => {
       if (!containerRef.current?.contains(e.target as Node)) {
-        closeTooltip()
+        closePopover()
       }
     }
     document.addEventListener('keydown', onKey)
@@ -129,7 +129,7 @@ export default function Term({ termId, children, glossaryHref = '/results/glossa
       document.removeEventListener('keydown', onKey)
       document.removeEventListener('pointerdown', onClickOutside)
     }
-  }, [open, closeTooltip])
+  }, [open, closePopover])
 
   if (!entry) {
     return <>{children ?? termId}</>
@@ -142,7 +142,7 @@ export default function Term({ termId, children, glossaryHref = '/results/glossa
       <button
         type="button"
         aria-haspopup="dialog"
-        aria-expanded={open ? 'true' : 'false'}
+        aria-expanded={open}
         aria-controls={open ? popoverId : undefined}
         className="decoration-dotted decoration-blue-500 underline underline-offset-2 text-current bg-transparent border-0 p-0 cursor-help focus-visible:outline-2 focus-visible:outline-blue-600"
         onClick={() => setOpen(true)}
