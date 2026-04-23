@@ -596,15 +596,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.7,
     },
-    // Literature Review Mind Map (overview + cuts under Making of TABS)
+    // Mind Maps (gallery under Making of TABS, one URL per map)
     {
-      url: `${baseUrl}/making-of-tabs/literature-review-mind-map`,
+      url: `${baseUrl}/making-of-tabs/mind-maps`,
       lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.6,
     },
     {
-      url: `${baseUrl}/making-of-tabs/literature-review-mind-map/complex`,
+      url: `${baseUrl}/making-of-tabs/mind-maps/literature-review`,
       lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.6,

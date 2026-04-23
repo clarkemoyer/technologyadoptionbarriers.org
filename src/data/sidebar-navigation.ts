@@ -83,7 +83,7 @@ function makingOfTabsToGroups(items: MakingOfTabsItem[]): SidebarGroup[] {
   const dataAnalysis: SidebarLink[] = []
   const seo: SidebarLink[] = []
   const presentations: SidebarLink[] = []
-  const litReviewMindMap: SidebarLink[] = []
+  const mindMaps: SidebarLink[] = []
 
   for (const item of items) {
     const link: SidebarLink = { title: item.title, href: item.href }
@@ -118,11 +118,11 @@ function makingOfTabsToGroups(items: MakingOfTabsItem[]): SidebarGroup[] {
           integrations.push({ title: child.title, href: child.href })
         }
       }
-    } else if (item.href.startsWith('/making-of-tabs/literature-review-mind-map')) {
-      litReviewMindMap.push(link)
+    } else if (item.href.startsWith('/making-of-tabs/mind-maps')) {
+      mindMaps.push(link)
       if (item.children) {
         for (const child of item.children) {
-          litReviewMindMap.push({ title: child.title, href: child.href })
+          mindMaps.push({ title: child.title, href: child.href })
         }
       }
     } else if (item.href.startsWith('/making-of-tabs/seo')) {
@@ -137,7 +137,7 @@ function makingOfTabsToGroups(items: MakingOfTabsItem[]): SidebarGroup[] {
     { title: 'AI in TABS', links: aiInTabs },
     { title: 'Technical Integrations', links: integrations },
     { title: 'SEO & Transparency', links: seo },
-    { title: 'Literature Review Mind Map', links: litReviewMindMap },
+    { title: 'Mind Maps', links: mindMaps },
     { title: 'Presentations', links: presentations },
   ].filter((g) => g.links.length > 0)
 }
