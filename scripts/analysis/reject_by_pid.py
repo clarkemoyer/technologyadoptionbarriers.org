@@ -104,7 +104,7 @@ def _build_flag_single_iri(_duration: int, iri_fail: int) -> Tuple[str, List[str
     msg = (
         "Hi, thank you for participating in our Technology Adoption Barriers Survey. "
         "Unfortunately, your submission has been rejected because one of the 3 embedded "
-        "attention check questions was answered differently than the instructions specified. "
+        "attention-check questions was answered differently than the instructions specified. "
         "We asked you to review this via a return-offer message; we did not receive a reply "
         "within the review window, so we are unable to verify the answer. If you believe "
         "this is an error, please reply to this message with any questions."

@@ -429,7 +429,7 @@ class TestRejectByPid:
     def test_flag_single_iri_message_and_categories(self):
         from reject_by_pid import _classify_and_build
         msg, cats = _classify_and_build(self._row("FLAG-SINGLE-IRI", duration=600, iri_fail=1))
-        assert "one of the 3 embedded attention check" in msg
+        assert "one of the 3 embedded attention-check" in msg
         assert "return-offer message" in msg
         assert "FAILED_ATTENTION_CHECK" in cats
         assert "OTHER" in cats
