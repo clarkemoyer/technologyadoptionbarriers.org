@@ -51,6 +51,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 
 from tabs_api import (
+    prolific_recent_messages,
     prolific_submissions,
     prolific_user_messages,
 )
@@ -200,9 +201,40 @@ def main():
     requests_made = 0
     requests_skipped = 0  # PIDs with no participant_id
 
+    # Pre-fetch all recent messages since the cutoff in one batch call.
+    # Participants who sent a message after the cutoff are definitionally engaged
+    # (they replied within the stale window), so we can exclude them without
+    # making a per-PID call.  Per-PID calls are still needed for all other PIDs
+    # because a reply before the cutoff (e.g., just after the return request was
+    # set) would also be engagement but would not appear in the batch.
+    cutoff_iso = cutoff.strftime("%Y-%m-%dT%H:%M:%SZ")
+    recently_replied_pids: set = set()
+    try:
+        recent_msgs = prolific_recent_messages(cutoff_iso, api_token, study_id=study_id)
+        recently_replied_pids = {
+            m.get("sender_id", "")
+            for m in recent_msgs
+            if m.get("sender_id") and m.get("sender_id") != researcher_id
+        }
+        print(
+            f"Batch pre-fetch: {len(recent_msgs)} messages since {cutoff_iso}; "
+            f"{len(recently_replied_pids)} participants replied recently."
+        )
+    except Exception as exc:  # noqa: BLE001
+        print(
+            f"Warning: bulk message pre-fetch failed ({exc}), "
+            "falling back to per-PID calls for all submissions.",
+            file=sys.stderr,
+        )
+
     for sub in awaiting:
         pid = sub.get("participant_id", "")
         if not pid:
+            requests_skipped += 1
+            continue
+        # Skip per-PID call for recently-replied participants: they are engaged
+        # by definition (replied within the stale window), so they are not stale.
+        if pid in recently_replied_pids:
             requests_skipped += 1
             continue
         # Small inter-call delay to avoid Prolific rate limiting.
@@ -268,6 +300,7 @@ def main():
             "stale_hours": stale_hours,
             "counts": {k: len(v) for k, v in buckets.items()},
             "fetch_errors": len(fetch_errors),
+            "fetch_error_details": fetch_errors,
             "buckets": buckets,
         }
         Path(output_json).write_text(json.dumps(payload, indent=2), encoding="utf-8")

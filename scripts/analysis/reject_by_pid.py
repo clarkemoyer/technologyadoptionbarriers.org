@@ -2,15 +2,20 @@
 """
 DESTRUCTIVE: Reject AWAITING REVIEW submissions by PID, disposition-aware.
 
-Generalises `reject_auto_exclude.py` to cover any disposition. Intended for
-stale PIDs that received a formal API request-return and did not respond
-within the 48h window — see `find_stale_return_requested.py` for the
-upstream triage.
+Generalises `reject_auto_exclude.py` to support the explicitly handled
+disposition types in `_classify_and_build()` (currently AUTO-EXCLUDE and the
+modelled FLAG-* variants). Intended for stale PIDs that received a formal API
+request-return and did not respond within the 48h window — see
+`find_stale_return_requested.py` for the upstream triage.
+
+A disposition not in the handled set will abort the run rather than inventing
+an unmodelled rejection reason.
 
 The rejection message and Prolific rejection categories are chosen per-PID
-from the disposition CSV, so a FLAG-SMEAL stale PID gets a speed-framed
-message and TOO_QUICKLY category while an AUTO-EXCLUDE:IRI3 stale PID gets
-an attention-check message and FAILED_ATTENTION_CHECK category.
+from the disposition CSV for supported dispositions, so a FLAG-SMEAL stale PID
+gets a speed-framed message and TOO_QUICKLY category while an
+AUTO-EXCLUDE:IRI3 stale PID gets an attention-check message and
+FAILED_ATTENTION_CHECK category.
 
 Environment variables:
   PROLIFIC_API_TOKEN  - Prolific API token (required)
@@ -44,7 +49,7 @@ from tabs_api import (
 )
 
 
-SMEAL_BENCHMARK_MIN = 5.0  # display-only; kept in sync with disposition_triage
+SMEAL_BENCHMARK_MIN = 5.0  # minutes; kept in sync with disposition_triage
 
 
 def _require_env(name: str) -> str:
@@ -57,6 +62,12 @@ def _require_env(name: str) -> str:
 
 def _fmt_minutes(duration_seconds: int) -> str:
     return f"{duration_seconds / 60:.1f}"
+
+
+def _safe_int(row: Dict[str, str], key: str) -> int:
+    """Parse an integer field from a CSV row, returning 0 for missing/non-integer values."""
+    raw = (row.get(key) or "").strip()
+    return int(raw) if raw.isdigit() else 0
 
 
 # ── Per-disposition message + category builders ──────────────────────────
@@ -112,7 +123,7 @@ def _build_flag_speed(duration: int) -> Tuple[str, List[str]]:
     msg = (
         "Hi, thank you for participating in our Technology Adoption Barriers Survey. "
         f"Unfortunately, your submission has been rejected because it was completed in "
-        f"{_fmt_minutes(duration)} minutes, below our 5-minute minimum. We offered you the "
+        f"{_fmt_minutes(duration)} minutes, below our {SMEAL_BENCHMARK_MIN:.0f}-minute minimum. We offered you the "
         "option to return the submission voluntarily; we did not receive a reply within the "
         "review window. If you believe this is an error, please reply to this message with "
         "any questions."
@@ -148,13 +159,9 @@ def _classify_and_build(row: Dict[str, str]) -> Tuple[str, List[str]]:
 
     Raises ValueError if the disposition is not one of the handled types.
     """
-    def _int(key: str) -> int:
-        raw = (row.get(key) or "").strip()
-        return int(raw) if raw.isdigit() else 0
-
-    duration = _int("Duration_Seconds")
-    iri_fail = _int("IRI_Fail_Count")
-    speed_flag = _int("Speed_Flag")
+    duration = _safe_int(row, "Duration_Seconds")
+    iri_fail = _safe_int(row, "IRI_Fail_Count")
+    speed_flag = _safe_int(row, "Speed_Flag")
     disposition = (row.get("Disposition") or "").strip()
 
     if disposition == "AUTO-EXCLUDE":
@@ -243,9 +250,9 @@ def main() -> None:
         records.append({
             "pid": pid,
             "disposition": (row.get("Disposition") or "").strip(),
-            "duration": int((row.get("Duration_Seconds") or "0").strip() or 0),
-            "iri_fail": int((row.get("IRI_Fail_Count") or "0").strip() or 0),
-            "speed_flag": int((row.get("Speed_Flag") or "0").strip() or 0),
+            "duration": _safe_int(row, "Duration_Seconds"),
+            "iri_fail": _safe_int(row, "IRI_Fail_Count"),
+            "speed_flag": _safe_int(row, "Speed_Flag"),
             "message": msg,
             "categories": cats,
         })

@@ -1,13 +1,16 @@
 # ╔══════════════════════════════════════════════════════════════════════╗
-# ║  DESTRUCTIVE WORKFLOW: Reject submissions by PID (any disposition)  ║
+# ║  DESTRUCTIVE WORKFLOW: Reject submissions by PID                     ║
 # ║                                                                      ║
-# ║  Generalises prolific-reject-auto-exclude.yml to cover FLAG-* and    ║
-# ║  any other disposition. Targets the "stale no response to return     ║
-# ║  request" bucket produced by find_stale_return_requested.py.         ║
+# ║  Uses reject_by_pid.py to reject selected submissions whose          ║
+# ║  dispositions are explicitly handled by that script (currently       ║
+# ║  AUTO-EXCLUDE and the modelled FLAG-* variants). Commonly used for   ║
+# ║  the "stale no response to return request" bucket produced by        ║
+# ║  find_stale_return_requested.py. Unsupported dispositions will       ║
+# ║  abort the run rather than inventing an unmodelled reason.           ║
 # ║                                                                      ║
 # ║  Rejection messages and Prolific rejection categories are chosen     ║
-# ║  per-PID from the disposition CSV, so each participant gets a fair  ║
-# ║  reason tied to their actual flag.                                   ║
+# ║  per-PID from the disposition CSV for supported dispositions only,   ║
+# ║  so each participant gets a reason tied to their actual flag.        ║
 # ║                                                                      ║
 # ║  SAFETY REQUIREMENTS:                                                ║
 # ║    1. Manual trigger only (workflow_dispatch)                        ║

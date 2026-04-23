@@ -224,7 +224,7 @@ fi
 STALE_TRIAGE_FILE="$ARTIFACTS_DIR/stale-triage/stale-triage.json"
 STALE_TRIAGE_SECTION=""
 if [ -f "$STALE_TRIAGE_FILE" ]; then
-  STALE_TRIAGE_SECTION=$(STALE_TRIAGE_FILE="$STALE_TRIAGE_FILE" python3 << 'STALEEOF'
+  if STALE_TRIAGE_SECTION=$(STALE_TRIAGE_FILE="$STALE_TRIAGE_FILE" python3 << 'STALEEOF'
 import json, os
 d = json.load(open(os.environ['STALE_TRIAGE_FILE']))
 hours = d.get('stale_hours', 48)
@@ -278,7 +278,15 @@ fmt_bucket(
     'No untreated stale messages. Messaging pipeline is caught up.',
 )
 STALEEOF
-  ) || STALE_TRIAGE_SECTION=""
+  ); then
+    :
+  else
+    STALE_TRIAGE_SECTION="## Stale AWAITING REVIEW
+
+> ⚠️ Could not render stale triage section (artifact may be corrupted or schema changed).
+> Check the \`stale-triage\` workflow artifact and runner logs for details.
+"
+  fi
 fi
 
 STALE_TRIAGE_SECTION_FORMATTED=""

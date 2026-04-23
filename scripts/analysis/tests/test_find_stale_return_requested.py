@@ -10,13 +10,9 @@ Covers:
   - custom STALE_HOURS threshold is respected
 """
 
-import sys
 from datetime import datetime, timedelta, timezone
-from pathlib import Path
 
 import pytest
-
-sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from find_stale_return_requested import classify_submission
 
