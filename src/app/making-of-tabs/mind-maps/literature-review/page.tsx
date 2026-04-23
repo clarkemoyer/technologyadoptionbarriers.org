@@ -34,7 +34,7 @@ const LiteratureReviewMindMapPage = () => {
 
       {/* Break out of the making-of-tabs max-w-4xl container so the full map
           has viewport-wide room to render at a readable default zoom. */}
-      <div className="relative left-1/2 right-1/2 -mx-[50vw] w-screen">
+      <div className="relative left-1/2 right-1/2 -mx-[50vw] w-screen overflow-x-clip">
         <MindMapViewer />
       </div>
     </div>
