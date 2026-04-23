@@ -321,7 +321,7 @@ def main() -> None:
         if not p:
             continue
         status_map[p] = s.get("status", "UNKNOWN")
-        if p in target_pid_set:
+        if p in target_pid_set and s.get("id"):
             pid_to_sub_id[p] = s["id"]
     print(f"  Resolved {len(pid_to_sub_id)} / {len(records)} submission IDs")
     print()
