@@ -281,13 +281,17 @@ const PAGE_EXTRAS: GlossaryPageExtra[] = [
 
 /* ── Derive full ENTRIES from the shared glossary-terms data + page-specific extras ── */
 const ENTRIES: GlossaryEntry[] = PAGE_EXTRAS.map((extra) => {
-  const base = _termBase.get(extra.id)!
+  const base = _termBase.get(extra.id)
+  if (!base) {
+    throw new Error(
+      `Glossary configuration error: PAGE_EXTRAS entry "${extra.id}" does not exist in glossaryTerms.`
+    )
+  }
   return {
-    id: base.id,
+    ...extra,
     term: base.term,
     category: base.category,
     whatItMeasures: base.shortDefinition,
-    ...extra,
   }
 })
 

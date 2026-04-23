@@ -49,34 +49,66 @@ export default function Term({ termId, children, glossaryHref = '/results/glossa
   const popoverId = useId()
   const titleId = useId()
   const containerRef = useRef<HTMLSpanElement>(null)
+  const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
-  const closeTooltip = useCallback(({ restoreFocus = false }: { restoreFocus?: boolean } = {}) => {
-    const container = containerRef.current
-    const trigger = container?.querySelector<HTMLButtonElement>('button')
-    const activeElement = document.activeElement
-    const shouldRestoreFocus =
-      restoreFocus &&
-      trigger instanceof HTMLButtonElement &&
-      !!activeElement &&
-      container?.contains(activeElement) &&
-      activeElement !== trigger
-
-    setOpen(false)
-
-    if (!shouldRestoreFocus || !(trigger instanceof HTMLButtonElement)) {
-      return
+  const cancelClose = useCallback(() => {
+    if (closeTimerRef.current !== null) {
+      clearTimeout(closeTimerRef.current)
+      closeTimerRef.current = null
     }
+  }, [])
 
-    // Intercept the programmatic focusin in capture phase so React's
-    // onFocus handler (which would re-open the popover) never fires.
-    const swallowProgrammaticFocus = (event: FocusEvent) => {
-      event.stopPropagation()
-      trigger.removeEventListener('focusin', swallowProgrammaticFocus, true)
+  // Delays closing by 150 ms so the pointer can traverse the mb-2 gap between
+  // the trigger and the popover without unmounting the popover prematurely.
+  // Also skips closing when keyboard focus is still inside the component.
+  const scheduleClose = useCallback(() => {
+    cancelClose()
+    closeTimerRef.current = setTimeout(() => {
+      closeTimerRef.current = null
+      if (!containerRef.current?.contains(document.activeElement)) {
+        setOpen(false)
+      }
+    }, 150)
+  }, [cancelClose])
+
+  const closeTooltip = useCallback(
+    ({ restoreFocus = false }: { restoreFocus?: boolean } = {}) => {
+      cancelClose()
+      const container = containerRef.current
+      const trigger = container?.querySelector<HTMLButtonElement>('button')
+      const activeElement = document.activeElement
+      const shouldRestoreFocus =
+        restoreFocus &&
+        trigger instanceof HTMLButtonElement &&
+        !!activeElement &&
+        container?.contains(activeElement) &&
+        activeElement !== trigger
+
+      setOpen(false)
+
+      if (!shouldRestoreFocus || !(trigger instanceof HTMLButtonElement)) {
+        return
+      }
+
+      // Intercept the programmatic focusin in capture phase so React's
+      // onFocus handler (which would re-open the popover) never fires.
+      const swallowProgrammaticFocus = (event: FocusEvent) => {
+        event.stopPropagation()
+        trigger.removeEventListener('focusin', swallowProgrammaticFocus, true)
+      }
+      trigger.addEventListener('focusin', swallowProgrammaticFocus, true)
+      requestAnimationFrame(() => {
+        trigger.focus()
+      })
+    },
+    [cancelClose]
+  )
+
+  // Cleanup pending timer on unmount.
+  useEffect(() => {
+    return () => {
+      if (closeTimerRef.current !== null) clearTimeout(closeTimerRef.current)
     }
-    trigger.addEventListener('focusin', swallowProgrammaticFocus, true)
-    requestAnimationFrame(() => {
-      trigger.focus()
-    })
   }, [])
 
   useEffect(() => {
@@ -111,11 +143,18 @@ export default function Term({ termId, children, glossaryHref = '/results/glossa
         type="button"
         aria-haspopup="dialog"
         aria-expanded={open ? 'true' : 'false'}
+        aria-controls={open ? popoverId : undefined}
         className="decoration-dotted decoration-blue-500 underline underline-offset-2 text-current bg-transparent border-0 p-0 cursor-help focus-visible:outline-2 focus-visible:outline-blue-600"
         onClick={() => setOpen((v) => !v)}
-        onMouseEnter={() => setOpen(true)}
-        onMouseLeave={() => setOpen(false)}
-        onFocus={() => setOpen(true)}
+        onMouseEnter={() => {
+          cancelClose()
+          setOpen(true)
+        }}
+        onMouseLeave={scheduleClose}
+        onFocus={() => {
+          cancelClose()
+          setOpen(true)
+        }}
         onBlur={(e) => {
           // Keep open if focus moved into the popover (e.g. onto the "See full entry" link).
           if (!containerRef.current?.contains(e.relatedTarget as Node | null)) {
@@ -132,9 +171,11 @@ export default function Term({ termId, children, glossaryHref = '/results/glossa
           aria-modal="false"
           aria-labelledby={titleId}
           className="absolute bottom-full left-0 mb-2 w-72 rounded-md border border-slate-300 bg-white p-3 text-sm text-slate-800 shadow-lg z-50"
-          // Keep the popover open while the pointer is over it.
-          onMouseEnter={() => setOpen(true)}
-          onMouseLeave={() => setOpen(false)}
+          onMouseEnter={() => {
+            cancelClose()
+            setOpen(true)
+          }}
+          onMouseLeave={scheduleClose}
         >
           <span id={titleId} className="block font-semibold text-blue-900 mb-1">
             {entry.term}
