@@ -42,7 +42,7 @@ import json
 import os
 import sys
 from pathlib import Path
-from typing import Dict, List, Tuple
+from typing import Dict, List, Set, Tuple
 
 sys.path.insert(0, str(Path(__file__).parent))
 
@@ -216,7 +216,7 @@ def main() -> None:
         sys.exit(1)
 
     target_pids: List[str] = []
-    seen_pids: set = set()
+    seen_pids: Set[str] = set()
     for raw_pid in pid_list_raw.split(","):
         pid = raw_pid.strip()
         if not pid:
@@ -319,17 +319,18 @@ def main() -> None:
     # Pre-validate that every target PID is currently AWAITING REVIEW.
     # Any other status (APPROVED, RETURNED, REJECTED, …) would cause the
     # Prolific API to error mid-run and leave a partial/unclear outcome.
+    # prolific_submission_statuses returns a Dict[participant_id, status_string].
     print("Pre-validating submission statuses...")
     status_map = prolific_submission_statuses(study_id, api_token)
-    not_rejectable: List[str] = []
+    non_awaiting_pids: List[str] = []
     for r in records:
         status = status_map.get(r["pid"], "NOT FOUND")
         if status != "AWAITING REVIEW":
             print(f"  WARNING: PID {r['pid']} has status {status!r} — expected AWAITING REVIEW", file=sys.stderr)
-            not_rejectable.append(r["pid"])
-    if not_rejectable:
+            non_awaiting_pids.append(r["pid"])
+    if non_awaiting_pids:
         print(
-            f"\nAborting: {len(not_rejectable)} PID(s) are not in AWAITING REVIEW status.",
+            f"\nAborting: {len(non_awaiting_pids)} PID(s) are not in AWAITING REVIEW status.",
             file=sys.stderr,
         )
         print("Re-run the triage to confirm current statuses before rejecting.", file=sys.stderr)
