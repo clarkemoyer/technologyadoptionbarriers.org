@@ -624,14 +624,6 @@
     "category": "General"
   },
   {
-    "id": "lit-review-complex",
-    "url": "/lit-review-complex",
-    "title": "Literature Review Mind Map (Complex)",
-    "description": "Interactive pan-and-zoom view of the Technology Adoption Barriers Survey (TABS) literature review mind map, covering models, frameworks, standards, and the culminating research project workflow.",
-    "content": "Literature Review Mind Map (Complex). Interactive pan-and-zoom view of the Technology Adoption Barriers Survey (TABS) literature review mind map, covering models, frameworks, standards, and the culminating research project workflow. Literature Review Mind Map Complex view drag to pan, scroll or pinch to zoom. Double-click to reset.",
-    "category": "General"
-  },
-  {
     "id": "making-of-tabs",
     "url": "/making-of-tabs",
     "title": "The Making of TABS",
@@ -877,6 +869,22 @@
     "title": "Zotero Integration - Making of TABS",
     "description": "How TABS integrates Zotero as the canonical reference library, giving AI agents direct access to vetted academic sources via the pyzotero MCP server and Web API.",
     "content": "Zotero Integration - Making of TABS. How TABS integrates Zotero as the canonical reference library, giving AI agents direct access to vetted academic sources via the pyzotero MCP server and Web API. Making of TABS Technical Integrations Zotero Zotero Reference Library Vetted Sources The TABS project maintains Zotero library of over 3,300 academic references organized across 199 collections. This library serves as the canonical, vetted source of truth for every citation in the Culminating Research Project CRP The Zotero integration gives AI agents direct, programmatic access to archive enabling citation verification, literature discovery, full-text PDF retrieval, and cross-referencing with external databases like Semantic Scholar. Why Zotero Academic research demands an auditable chain clai...",
+    "category": "Making of TABS"
+  },
+  {
+    "id": "making-of-tabs-literature-review-mind-map",
+    "url": "/making-of-tabs/literature-review-mind-map",
+    "title": "Literature Review Mind Map | Making of TABS",
+    "description": "Overview of the TABS literature review mind map - a Lucidspark-built map of the models, frameworks, and standards that shape technology adoption research, plus smaller zoomed-in cuts of each taxonomy branch.",
+    "content": "Literature Review Mind Map | Making of TABS. Overview of the TABS literature review mind map - a Lucidspark-built map of the models, frameworks, and standards that shape technology adoption research, plus smaller zoomed-in cuts of each taxonomy branch. Literature Review Mind Map The TABS literature review mind visualizes the full landscape of models, frameworks, and standards that underpin the Technology Adoption Barriers Survey. It was built in Lucidspark, exported as SVG, and is rendered here with pan-and-zoom viewer so the whole taxonomy spanning individual adoption theories, organizational frameworks, and the culminating research project workflow stays readable at any scale. The full is large and information-dense, so sub-collection also breaks it into smaller, focused cuts. Each cut z...",
+    "category": "Making of TABS"
+  },
+  {
+    "id": "making-of-tabs-literature-review-mind-map-complex",
+    "url": "/making-of-tabs/literature-review-mind-map/complex",
+    "title": "Literature Review Mind Map - Full View | Making of TABS",
+    "description": "Interactive pan-and-zoom view of the full Technology Adoption Barriers Survey (TABS) literature review mind map, covering models, frameworks, standards, and the culminating research project workflow.",
+    "content": "Literature Review Mind Map - Full View | Making of TABS. Interactive pan-and-zoom view of the full Technology Adoption Barriers Survey (TABS) literature review mind map, covering models, frameworks, standards, and the culminating research project workflow. Literature Review Mind Map Full View This is the complete TABS literature review mind map, exported Lucidspark. Drag to pan, scroll or pinch to zoom, and double-click to to the fitted view. Smaller zoomed-in cuts of each taxonomy branch are listed on the mind overview",
     "category": "Making of TABS"
   },
   {

@@ -596,9 +596,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.7,
     },
-    // Literature Review Mind Map (complex zoomable SVG)
+    // Literature Review Mind Map (overview + cuts under Making of TABS)
     {
-      url: `${baseUrl}/lit-review-complex`,
+      url: `${baseUrl}/making-of-tabs/literature-review-mind-map`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/making-of-tabs/literature-review-mind-map/complex`,
       lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.6,

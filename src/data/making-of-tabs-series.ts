@@ -101,6 +101,16 @@ export const makingOfTabsSeries: MakingOfTabsItem[] = [
     title: 'SEO Transparency',
     href: '/making-of-tabs/seo',
   },
+  {
+    title: 'Literature Review Mind Map',
+    href: '/making-of-tabs/literature-review-mind-map',
+    children: [
+      {
+        title: 'Full Map (Complex)',
+        href: '/making-of-tabs/literature-review-mind-map/complex',
+      },
+    ],
+  },
   { title: 'CMO Survey Inspiration', href: '/making-of-tabs/cmo-survey' },
 ]
 

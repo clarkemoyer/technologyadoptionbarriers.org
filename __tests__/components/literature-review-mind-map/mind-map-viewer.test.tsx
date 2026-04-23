@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
 import { axe, toHaveNoViolations } from 'jest-axe'
-import MindMapViewer from '@/components/lit-review-complex/mind-map-viewer'
+import MindMapViewer from '@/components/literature-review-mind-map/mind-map-viewer'
 
 expect.extend(toHaveNoViolations)
 
