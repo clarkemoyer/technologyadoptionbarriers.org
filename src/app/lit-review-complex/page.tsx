@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import RedirectClient from './components/redirect-client'
+import ClientRedirect from '@/components/client-redirect'
 
 /**
  * Permanent redirect stub: /lit-review-complex → /making-of-tabs/mind-maps/literature-review
@@ -19,5 +19,5 @@ export const metadata: Metadata = {
 }
 
 export default function LitReviewComplexRedirectPage() {
-  return <RedirectClient />
+  return <ClientRedirect to="/making-of-tabs/mind-maps/literature-review" />
 }
