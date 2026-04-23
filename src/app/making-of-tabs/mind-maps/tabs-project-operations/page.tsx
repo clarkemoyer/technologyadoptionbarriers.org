@@ -22,25 +22,25 @@ const TabsProjectOperationsPage = () => {
           This cut of the TABS mind map zooms into the TABS Project Operations branch - the
           operational side of the TABS project itself (website infrastructure and compliance,
           content strategy, and partnership fostering) as distinct from the literature review
-          taxonomy. It renders the{' '}
+          taxonomy. It is served from <code>/Svgs/mind-maps/tabs-project-operations.svg</code>,
+          which currently contains a rough viewBox crop of the{' '}
           <Link
             href="/making-of-tabs/mind-maps/full-mind-map"
             className="text-blue-600 underline hover:text-blue-800"
           >
             full mind map
-          </Link>{' '}
-          SVG with the viewport focused on this branch - pan, zoom, or double-click to reset back to
-          the TABS Project Operations framing.
+          </Link>
+          . The file will be replaced with a dedicated Lucidspark export for this cluster as soon as
+          one is available.
         </p>
       </article>
 
       {/* Break out of the making-of-tabs max-w-4xl container so the cut has viewport-wide room. */}
       <div className="relative left-1/2 right-1/2 -mx-[50vw] w-screen overflow-x-clip">
         <MindMapViewer
-          src="/Svgs/mind-maps/full-mind-map.svg"
+          src="/Svgs/mind-maps/tabs-project-operations.svg"
           alt="TABS Project Operations cut of the TABS mind map."
           ariaLabel="TABS mind map cut: TABS Project Operations"
-          initialFocus={{ x: 7400, y: 0, w: 2800, h: 1600 }}
         />
       </div>
     </div>

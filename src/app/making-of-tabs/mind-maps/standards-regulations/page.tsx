@@ -22,25 +22,26 @@ const StandardsRegulationsPage = () => {
           This cut of the TABS mind map zooms into the Standards and Regulations branch - the
           families of standards and compliance regimes (COBIT, ITIL, ISO/IEC 20000 and 27001, PCI
           DSS, CMM/CMMI, Microsoft frameworks, and U.S. federal cybersecurity) that constrain how
-          technology gets adopted. It renders the{' '}
+          technology gets adopted. It is served from{' '}
+          <code>/Svgs/mind-maps/standards-regulations.svg</code>, which currently contains a rough
+          viewBox crop of the{' '}
           <Link
             href="/making-of-tabs/mind-maps/full-mind-map"
             className="text-blue-600 underline hover:text-blue-800"
           >
             full mind map
-          </Link>{' '}
-          SVG with the viewport focused on this branch - pan, zoom, or double-click to reset back to
-          the Standards & Regulations framing.
+          </Link>
+          . The file will be replaced with a dedicated Lucidspark export for this cluster as soon as
+          one is available.
         </p>
       </article>
 
       {/* Break out of the making-of-tabs max-w-4xl container so the cut has viewport-wide room. */}
       <div className="relative left-1/2 right-1/2 -mx-[50vw] w-screen overflow-x-clip">
         <MindMapViewer
-          src="/Svgs/mind-maps/full-mind-map.svg"
+          src="/Svgs/mind-maps/standards-regulations.svg"
           alt="Standards & Regulations cut of the TABS mind map."
           ariaLabel="TABS mind map cut: Standards & Regulations"
-          initialFocus={{ x: 1800, y: 2600, w: 1900, h: 1900 }}
         />
       </div>
     </div>

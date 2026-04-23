@@ -114,9 +114,9 @@ const MindMapsOverviewPage = () => {
             </Link>
           </div>
           <p className="text-sm text-gray-600 italic">
-            Each branch cut renders the full Lucidspark SVG with the viewport focused on that
-            cluster - pan, zoom, or double-click to reset back to the branch framing, or open the
-            full map for an unconstrained view.
+            The seven branch cuts are currently served as rough viewBox placeholders over the full
+            map; each file will be replaced with a dedicated Lucidspark export for that cluster when
+            ready.
           </p>
         </section>
 

@@ -21,25 +21,26 @@ const ProjectProgramRiskManagementPage = () => {
         <p className="mb-6 text-gray-800">
           This cut of the TABS mind map zooms into the Project, Program, and Risk Management branch
           - the delivery and risk frameworks (PMBOK, PRINCE2, risk management standards) that sit
-          between strategy and execution. It renders the{' '}
+          between strategy and execution. It is served from{' '}
+          <code>/Svgs/mind-maps/project-program-risk-management.svg</code>, which currently contains
+          a rough viewBox crop of the{' '}
           <Link
             href="/making-of-tabs/mind-maps/full-mind-map"
             className="text-blue-600 underline hover:text-blue-800"
           >
             full mind map
-          </Link>{' '}
-          SVG with the viewport focused on this branch - pan, zoom, or double-click to reset back to
-          the Project, Program & Risk Management framing.
+          </Link>
+          . The file will be replaced with a dedicated Lucidspark export for this cluster as soon as
+          one is available.
         </p>
       </article>
 
       {/* Break out of the making-of-tabs max-w-4xl container so the cut has viewport-wide room. */}
       <div className="relative left-1/2 right-1/2 -mx-[50vw] w-screen overflow-x-clip">
         <MindMapViewer
-          src="/Svgs/mind-maps/full-mind-map.svg"
+          src="/Svgs/mind-maps/project-program-risk-management.svg"
           alt="Project, Program & Risk Management cut of the TABS mind map."
           ariaLabel="TABS mind map cut: Project, Program & Risk Management"
-          initialFocus={{ x: 6600, y: 4500, w: 3600, h: 2200 }}
         />
       </div>
     </div>
