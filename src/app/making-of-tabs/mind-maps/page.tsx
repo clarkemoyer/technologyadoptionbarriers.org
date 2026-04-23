@@ -34,10 +34,10 @@ const MindMapsOverviewPage = () => {
           <h2 className={H2_CLASSES}>Available Maps</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
             <Link
-              href="/making-of-tabs/mind-maps/full-mind-map"
+              href="/making-of-tabs/mind-maps/literature-review"
               className="block rounded-xl border border-blue-200 bg-blue-50 p-5 transition-shadow hover:shadow-md"
             >
-              <p className="font-bold text-blue-900 mb-1">Full Mind Map</p>
+              <p className="font-bold text-blue-900 mb-1">Literature Review Mind Map</p>
               <p className="text-sm text-blue-800">
                 The complete Lucidspark export covering Business Management, IT, Enterprise
                 Architecture, Project/Program/Risk Management, Standards &amp; Regulations, Website

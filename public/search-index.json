@@ -876,15 +876,15 @@
     "url": "/making-of-tabs/mind-maps",
     "title": "Mind Maps | Making of TABS",
     "description": "Gallery of TABS mind maps - Lucidspark-built visualizations of the models, frameworks, and standards that shape technology adoption research, plus smaller zoomed-in cuts of each taxonomy branch.",
-    "content": "Mind Maps | Making of TABS. Gallery of TABS mind maps - Lucidspark-built visualizations of the models, frameworks, and standards that shape technology adoption research, plus smaller zoomed-in cuts of each taxonomy branch. Mind Maps This collection holds the interactive mind maps that sit behind the Technology Adoption Barriers Survey. Each map is built in Lucidspark, exported as SVG, and rendered on its own page with pan-and-zoom viewer so the full taxonomy stays readable at any scale. The full literature review map is large and information-dense, so collection also grows with smaller zoomed-in cuts. Each cut focuses on single branch of the taxonomy and lives as its own page alongside the full map. Available Maps Full Mind Map The complete Lucidspark covering Business Management, IT, Ente...",
+    "content": "Mind Maps | Making of TABS. Gallery of TABS mind maps - Lucidspark-built visualizations of the models, frameworks, and standards that shape technology adoption research, plus smaller zoomed-in cuts of each taxonomy branch. Mind Maps This collection holds the interactive mind maps that sit behind the Technology Adoption Barriers Survey. Each map is built in Lucidspark, exported as SVG, and rendered on its own page with pan-and-zoom viewer so the full taxonomy stays readable at any scale. The full literature review map is large and information-dense, so collection also grows with smaller zoomed-in cuts. Each cut focuses on single branch of the taxonomy and lives as its own page alongside the full map. Available Maps Literature Review Mind Map The complete Lucidspark covering Business Management, IT, Ente...",
     "category": "Making of TABS"
   },
   {
-    "id": "making-of-tabs-mind-maps-full-mind-map",
-    "url": "/making-of-tabs/mind-maps/full-mind-map",
-    "title": "Full Mind Map | Making of TABS",
-    "description": "Interactive pan-and-zoom view of the full Technology Adoption Barriers Survey (TABS) mind map, covering frameworks and models across Business Management, IT, Enterprise Architecture, Project/Program/Risk Management, Standards & Regulations, Website Operations, and the Culminating Research Project workflow.",
-    "content": "Full Mind Map | Making of TABS. Interactive pan-and-zoom view of the full Technology Adoption Barriers Survey (TABS) mind map, covering frameworks and models across Business Management, IT, Enterprise Architecture, Project/Program/Risk Management, Standards & Regulations, Website Operations, and the Culminating Research Project workflow. Full Mind Map The complete TABS mind map, exported Lucidspark. Drag to pan, scroll or pinch to zoom, and double-click to to the fitted view. Smaller zoomed-in cuts of each branch will appear alongside map under the Mind Maps collection as they are carved out.",
+    "id": "making-of-tabs-mind-maps-literature-review",
+    "url": "/making-of-tabs/mind-maps/literature-review",
+    "title": "Literature Review Mind Map | Making of TABS",
+    "description": "Interactive pan-and-zoom view of the full TABS literature review mind map, covering frameworks and models across Business Management, IT, Enterprise Architecture, Project/Program/Risk Management, Standards & Regulations, Website Operations, and the Culminating Research Project workflow.",
+    "content": "Literature Review Mind Map | Making of TABS. Interactive pan-and-zoom view of the full TABS literature review mind map, covering frameworks and models across Business Management, IT, Enterprise Architecture, Project/Program/Risk Management, Standards & Regulations, Website Operations, and the Culminating Research Project workflow. Literature Review Mind Map The complete TABS mind map, exported from Lucidspark. Drag to pan, scroll or pinch to zoom, and double-click to return to the fitted view. Smaller zoomed-in cuts of each branch will appear alongside this map under the Mind Maps collection as they are carved out.",
     "category": "Making of TABS"
   },
   {
