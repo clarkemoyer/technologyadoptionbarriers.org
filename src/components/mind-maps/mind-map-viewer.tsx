@@ -338,7 +338,7 @@ const MindMapViewer = ({ src, alt, ariaLabel, initialFocus }: MindMapViewerProps
           <div
             className="absolute top-3 right-3 flex flex-wrap items-center gap-1 bg-white/95 border border-slate-300 rounded-md shadow-sm p-1"
             role="toolbar"
-            aria-label="Mind map zoom controls"
+            aria-label="Mind map controls"
           >
             <button
               type="button"

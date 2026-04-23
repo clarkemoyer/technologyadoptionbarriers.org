@@ -44,9 +44,9 @@ describe('MindMapViewer', () => {
     expect(img).toHaveAttribute('src', expect.stringContaining('full-mind-map.svg'))
   })
 
-  it('exposes zoom controls as a labelled toolbar', () => {
+  it('exposes controls as a labelled toolbar', () => {
     render(<MindMapViewer {...defaultProps} />)
-    expect(screen.getByRole('toolbar', { name: /zoom controls/i })).toBeInTheDocument()
+    expect(screen.getByRole('toolbar', { name: /mind map controls/i })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: /zoom in/i })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: /zoom out/i })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: /reset/i })).toBeInTheDocument()
@@ -74,6 +74,37 @@ describe('MindMapViewer', () => {
     // before calling preventDefault, leaving the slider free to respond.
     fireEvent.keyDown(slider, { key: 'ArrowRight', preventDefault: preventDefaultSpy })
     expect(preventDefaultSpy).not.toHaveBeenCalled()
+  })
+
+  it('renders correctly with the initialFocus prop', () => {
+    const initialFocus = { x: 2900, y: 4500, w: 3700, h: 2200 }
+    render(<MindMapViewer {...defaultProps} initialFocus={initialFocus} />)
+    // Component must render its image and controls without crashing
+    expect(screen.getByRole('img', { name: /tabs full mind map/i })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /reset/i })).toBeInTheDocument()
+    expect(screen.getByRole('toolbar', { name: /mind map controls/i })).toBeInTheDocument()
+  })
+
+  it('does not crash when initialFocus has zero or negative dimensions', () => {
+    // focusRegion validates inputs; these edge cases must be silently ignored
+    const { unmount: u1 } = render(
+      <MindMapViewer {...defaultProps} initialFocus={{ x: 0, y: 0, w: 0, h: 0 }} />
+    )
+    expect(screen.getByRole('img')).toBeInTheDocument()
+    u1()
+
+    const { unmount: u2 } = render(
+      <MindMapViewer {...defaultProps} initialFocus={{ x: 100, y: 100, w: -50, h: -20 }} />
+    )
+    expect(screen.getByRole('img')).toBeInTheDocument()
+    u2()
+  })
+
+  it('has no accessibility violations when rendered with initialFocus', async () => {
+    const initialFocus = { x: 5300, y: 700, w: 3700, h: 1100 }
+    const { container } = render(<MindMapViewer {...defaultProps} initialFocus={initialFocus} />)
+    const results = await axe(container)
+    expect(results).toHaveNoViolations()
   })
 
   it('has no accessibility violations', async () => {
