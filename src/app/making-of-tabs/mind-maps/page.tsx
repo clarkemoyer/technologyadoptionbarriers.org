@@ -34,20 +34,22 @@ const MindMapsOverviewPage = () => {
           <h2 className={H2_CLASSES}>Available Maps</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
             <Link
-              href="/making-of-tabs/mind-maps/literature-review"
+              href="/making-of-tabs/mind-maps/full-mind-map"
               className="block rounded-xl border border-blue-200 bg-blue-50 p-5 transition-shadow hover:shadow-md"
             >
-              <p className="font-bold text-blue-900 mb-1">Literature Review (Full Map)</p>
+              <p className="font-bold text-blue-900 mb-1">Full Mind Map</p>
               <p className="text-sm text-blue-800">
-                The complete Lucidspark export covering individual adoption models, organizational
-                frameworks, standards, and the culminating research project workflow.
+                The complete Lucidspark export covering Business Management, IT, Enterprise
+                Architecture, Project/Program/Risk Management, Standards &amp; Regulations, Website
+                Operations, and the Culminating Research Project workflow.
               </p>
             </Link>
           </div>
           <p className="text-sm text-gray-600 italic">
-            Branch-specific cuts - for example, the individual-level adoption models, the
-            organizational frameworks, and the culminating research project workflow - will join
-            this gallery as separate pages as they are carved out of the full map.
+            Branch-specific cuts carved out of the full map will join this gallery as separate
+            pages. Planned cuts: Business Management Models, IT &amp; IT Management Models,
+            Enterprise &amp; IT Architecture, Project/Program/Risk Management, Standards &amp;
+            Regulations, TABS Project Operations, and the Culminating Research Project workflow.
           </p>
         </section>
 

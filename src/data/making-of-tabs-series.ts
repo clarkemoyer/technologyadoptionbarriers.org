@@ -106,8 +106,8 @@ export const makingOfTabsSeries: MakingOfTabsItem[] = [
     href: '/making-of-tabs/mind-maps',
     children: [
       {
-        title: 'Literature Review',
-        href: '/making-of-tabs/mind-maps/literature-review',
+        title: 'Full Mind Map',
+        href: '/making-of-tabs/mind-maps/full-mind-map',
       },
     ],
   },

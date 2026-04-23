@@ -604,7 +604,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.6,
     },
     {
-      url: `${baseUrl}/making-of-tabs/mind-maps/literature-review`,
+      url: `${baseUrl}/making-of-tabs/mind-maps/full-mind-map`,
       lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.6,
