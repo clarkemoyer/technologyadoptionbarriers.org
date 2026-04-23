@@ -1,13 +1,13 @@
 {
-  "updatedAt": "2026-04-23T11:12:21.207093+00:00",
-  "last_updated": "2026-04-23T11:12:21.207106+00:00",
+  "updatedAt": "2026-04-23T13:57:06.339612+00:00",
+  "last_updated": "2026-04-23T13:57:06.339631+00:00",
   "study": {
     "id": "69c17630acada6abeead2da5",
     "name": "Technology Adoption Barriers Survey (2026)",
     "status": "ACTIVE",
     "totalAvailablePlaces": 500,
     "placesTaken": 323,
-    "averageRewardPerHour": 3986.55,
+    "averageRewardPerHour": 3994.65,
     "averageTimeTaken": 10,
     "reward": 700,
     "publishedAt": "2026-03-23T18:00:28.650000Z"
@@ -19,16 +19,16 @@
     "awaitingReview": 25,
     "percentComplete": 64.6
   },
-  "totalResponses": 545,
-  "uniqueParticipants": 532,
+  "totalResponses": 548,
+  "uniqueParticipants": 534,
   "duplicatesRemoved": 0,
   "dispositions": {
     "INCOMPLETE": 81,
     "CLEAN": 103,
-    "FLAG-SMEAL": 60,
+    "FLAG-SMEAL": 61,
     "FLAG-SPEED": 10,
     "FLAG-PARTIAL-STRAIGHTLINING": 40,
-    "FLAG-SINGLE-IRI": 92,
+    "FLAG-SINGLE-IRI": 93,
     "AUTO-EXCLUDE": 142,
     "FLAG-RECAPTCHA": 4
   },
@@ -44,7 +44,7 @@
     "FLAG-SMEAL": {
       "APPROVED": 52,
       "AWAITING REVIEW": 6,
-      "RETURNED": 2
+      "RETURNED": 3
     },
     "FLAG-SPEED": {
       "RETURNED": 1,
@@ -58,13 +58,13 @@
     "FLAG-SINGLE-IRI": {
       "RETURNED": 7,
       "APPROVED": 80,
-      "AWAITING REVIEW": 5
+      "AWAITING REVIEW": 6
     },
     "AUTO-EXCLUDE": {
       "REJECTED": 42,
       "APPROVED": 14,
-      "AWAITING REVIEW": 10,
-      "RETURNED": 76
+      "AWAITING REVIEW": 9,
+      "RETURNED": 77
     },
     "FLAG-RECAPTCHA": {
       "APPROVED": 4
@@ -80,7 +80,7 @@
   "actions": {
     "approved": 298,
     "rejected": 42,
-    "returned": 174,
+    "returned": 177,
     "timedOut": 6,
     "awaitingReview": 25,
     "active": 0,
@@ -88,9 +88,9 @@
   },
   "iriPassRates": {
     "barrier": 58.5,
-    "readiness": 69.2,
-    "maturity": 82.7,
-    "denominator": 451
+    "readiness": 69.3,
+    "maturity": 82.8,
+    "denominator": 453
   },
   "studyId": "69c17630acada6abeead2da5",
   "studyName": "Technology Adoption Barriers Survey (2026)"
