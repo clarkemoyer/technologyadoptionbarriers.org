@@ -92,7 +92,10 @@ def _parse_stale_hours() -> int:
 def _parse_iso(ts):
     if not ts:
         return None
-    return datetime.fromisoformat(ts.replace("Z", "+00:00"))
+    try:
+        return datetime.fromisoformat(ts.replace("Z", "+00:00"))
+    except ValueError:
+        return None
 
 
 def _msg_time(m):

@@ -288,6 +288,12 @@ STALEEOF
 > Check the \`stale-triage\` workflow artifact and runner logs for details.
 "
   fi
+else
+  STALE_TRIAGE_SECTION="## Stale AWAITING REVIEW
+
+> ⚠️ Stale triage data is unavailable — the \`stale-triage\` artifact was not found at \`$STALE_TRIAGE_FILE\`.
+> This usually means the artifact download failed or the stale-triage step did not run. Review the workflow run before acting on stale queue status.
+"
 fi
 
 STALE_TRIAGE_SECTION_FORMATTED=""
