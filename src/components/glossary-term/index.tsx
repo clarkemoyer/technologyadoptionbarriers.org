@@ -1,9 +1,17 @@
 'use client'
 
-import { useEffect, useId, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
 import Link from 'next/link'
 import { glossaryTerms, type GlossaryTermEntry } from '@/data/glossary-terms'
+
+/**
+ * Note: intentionally separate from src/components/ui/tooltip.tsx.
+ * That component uses role="tooltip" (non-interactive) for icon labels.
+ * This component uses role="dialog" because its popover contains a
+ * focusable "See full entry" link, which ARIA 1.2 prohibits inside
+ * role="tooltip".
+ */
 
 const termLookup: Map<string, GlossaryTermEntry> = new Map(
   glossaryTerms.map((entry) => [entry.id, entry])
@@ -23,35 +31,64 @@ type TermProps = {
 }
 
 /**
- * Inline glossary term with an accessible hover/focus/tap tooltip.
+ * Inline glossary term with an accessible hover/focus/tap popover.
  *
- * Renders as a `<button>` so the tooltip can be triggered by keyboard
- * (focus), mouse (hover), or touch (tap). Escape dismisses. A click
- * outside the button closes it.
+ * Renders as a `<button>` so the popover can be triggered by keyboard
+ * (focus), mouse (hover), or touch (tap). Escape dismisses and restores
+ * focus to the trigger when called from within the popover. A pointerdown
+ * outside the component closes it.
  *
  * If `termId` is not in the glossary data, the component renders its
- * children (or the id) as plain text without a tooltip - no crash and no
+ * children (or the id) as plain text without a popover - no crash and no
  * silent "popover on an unknown term" trap.
  */
 export default function Term({ termId, children, glossaryHref = '/results/glossary' }: TermProps) {
   const entry = useMemo(() => termLookup.get(termId), [termId])
 
   const [open, setOpen] = useState(false)
-  const tooltipId = useId()
+  const popoverId = useId()
+  const titleId = useId()
   const containerRef = useRef<HTMLSpanElement>(null)
+
+  const closeTooltip = useCallback(({ restoreFocus = false }: { restoreFocus?: boolean } = {}) => {
+    const container = containerRef.current
+    const trigger = container?.querySelector<HTMLButtonElement>('button')
+    const activeElement = document.activeElement
+    const shouldRestoreFocus =
+      restoreFocus &&
+      trigger instanceof HTMLButtonElement &&
+      !!activeElement &&
+      container?.contains(activeElement) &&
+      activeElement !== trigger
+
+    setOpen(false)
+
+    if (!shouldRestoreFocus || !(trigger instanceof HTMLButtonElement)) {
+      return
+    }
+
+    // Intercept the programmatic focusin in capture phase so React's
+    // onFocus handler (which would re-open the popover) never fires.
+    const swallowProgrammaticFocus = (event: FocusEvent) => {
+      event.stopPropagation()
+      trigger.removeEventListener('focusin', swallowProgrammaticFocus, true)
+    }
+    trigger.addEventListener('focusin', swallowProgrammaticFocus, true)
+    requestAnimationFrame(() => {
+      trigger.focus()
+    })
+  }, [])
 
   useEffect(() => {
     if (!open) return
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        // Do not re-focus the trigger here - it fires onFocus, which re-opens
-        // the tooltip. The trigger already has focus when Escape is pressed.
-        setOpen(false)
+        closeTooltip({ restoreFocus: true })
       }
     }
     const onClickOutside = (e: PointerEvent) => {
       if (!containerRef.current?.contains(e.target as Node)) {
-        setOpen(false)
+        closeTooltip()
       }
     }
     document.addEventListener('keydown', onKey)
@@ -60,7 +97,7 @@ export default function Term({ termId, children, glossaryHref = '/results/glossa
       document.removeEventListener('keydown', onKey)
       document.removeEventListener('pointerdown', onClickOutside)
     }
-  }, [open])
+  }, [open, closeTooltip])
 
   if (!entry) {
     return <>{children ?? termId}</>
@@ -72,7 +109,7 @@ export default function Term({ termId, children, glossaryHref = '/results/glossa
     <span ref={containerRef} className="relative inline-block">
       <button
         type="button"
-        aria-describedby={open ? tooltipId : undefined}
+        aria-haspopup="dialog"
         aria-expanded={open ? 'true' : 'false'}
         className="decoration-dotted decoration-blue-500 underline underline-offset-2 text-current bg-transparent border-0 p-0 cursor-help focus-visible:outline-2 focus-visible:outline-blue-600"
         onClick={() => setOpen((v) => !v)}
@@ -80,7 +117,7 @@ export default function Term({ termId, children, glossaryHref = '/results/glossa
         onMouseLeave={() => setOpen(false)}
         onFocus={() => setOpen(true)}
         onBlur={(e) => {
-          // Keep open if focus moved into the tooltip (e.g. onto the "See full entry" link).
+          // Keep open if focus moved into the popover (e.g. onto the "See full entry" link).
           if (!containerRef.current?.contains(e.relatedTarget as Node | null)) {
             setOpen(false)
           }
@@ -90,14 +127,18 @@ export default function Term({ termId, children, glossaryHref = '/results/glossa
       </button>
       {open && (
         <span
-          id={tooltipId}
-          role="tooltip"
+          id={popoverId}
+          role="dialog"
+          aria-modal="false"
+          aria-labelledby={titleId}
           className="absolute bottom-full left-0 mb-2 w-72 rounded-md border border-slate-300 bg-white p-3 text-sm text-slate-800 shadow-lg z-50"
-          // Keep the tooltip open while the pointer is over it.
+          // Keep the popover open while the pointer is over it.
           onMouseEnter={() => setOpen(true)}
           onMouseLeave={() => setOpen(false)}
         >
-          <span className="block font-semibold text-blue-900 mb-1">{entry.term}</span>
+          <span id={titleId} className="block font-semibold text-blue-900 mb-1">
+            {entry.term}
+          </span>
           <span className="block leading-relaxed">{entry.shortDefinition}</span>
           <Link
             href={`${glossaryHref}#${entry.id}`}

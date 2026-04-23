@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent, act, waitFor } from '@testing-library/react'
 import { axe, toHaveNoViolations } from 'jest-axe'
 import Term from '@/components/glossary-term'
 
@@ -16,14 +16,14 @@ describe('Term', () => {
     expect(screen.getByRole('button')).toHaveTextContent('KMO')
   })
 
-  it('opens the tooltip on click and renders the short definition', () => {
+  it('opens the dialog on click and renders the short definition', () => {
     render(<Term termId="kmo">KMO</Term>)
     const btn = screen.getByRole('button')
-    expect(screen.queryByRole('tooltip')).toBeNull()
+    expect(screen.queryByRole('dialog')).toBeNull()
     fireEvent.click(btn)
-    const tip = screen.getByRole('tooltip')
-    expect(tip).toBeInTheDocument()
-    expect(tip).toHaveTextContent(/sampling adequacy for factor analysis/i)
+    const dialog = screen.getByRole('dialog')
+    expect(dialog).toBeInTheDocument()
+    expect(dialog).toHaveTextContent(/sampling adequacy for factor analysis/i)
   })
 
   it('includes a link to the full glossary entry when open', () => {
@@ -42,29 +42,50 @@ describe('Term', () => {
     )
     const termBtn = screen.getAllByRole('button')[0]
     fireEvent.focus(termBtn)
-    expect(screen.getByRole('tooltip')).toBeInTheDocument()
+    expect(screen.getByRole('dialog')).toBeInTheDocument()
     fireEvent.blur(termBtn)
-    expect(screen.queryByRole('tooltip')).toBeNull()
+    expect(screen.queryByRole('dialog')).toBeNull()
   })
 
   it('closes on Escape key', () => {
     render(<Term termId="rmsea">RMSEA</Term>)
     fireEvent.click(screen.getByRole('button'))
-    expect(screen.getByRole('tooltip')).toBeInTheDocument()
+    expect(screen.getByRole('dialog')).toBeInTheDocument()
     fireEvent.keyDown(document, { key: 'Escape' })
-    expect(screen.queryByRole('tooltip')).toBeNull()
+    expect(screen.queryByRole('dialog')).toBeNull()
   })
 
-  it('sets aria-expanded and aria-describedby in sync with open state', () => {
+  it('sets aria-expanded in sync with open state and opens a dialog', () => {
     render(<Term termId="htmt">HTMT</Term>)
     const btn = screen.getByRole('button')
     expect(btn).toHaveAttribute('aria-expanded', 'false')
-    expect(btn).not.toHaveAttribute('aria-describedby')
+    expect(screen.queryByRole('dialog')).toBeNull()
 
     fireEvent.click(btn)
     expect(btn).toHaveAttribute('aria-expanded', 'true')
-    const tip = screen.getByRole('tooltip')
-    expect(btn).toHaveAttribute('aria-describedby', tip.getAttribute('id')!)
+    expect(screen.getByRole('dialog')).toBeInTheDocument()
+  })
+
+  it('restores focus to the trigger when Escape is pressed from within the dialog', async () => {
+    render(<Term termId="kmo">KMO</Term>)
+    const btn = screen.getByRole('button')
+
+    // Open the dialog
+    fireEvent.click(btn)
+    expect(screen.getByRole('dialog')).toBeInTheDocument()
+
+    // Move focus to the "See full entry" link inside the dialog
+    const link = screen.getByRole('link', { name: /see full entry/i })
+    act(() => link.focus())
+    expect(link).toHaveFocus()
+
+    // Press Escape — dialog should close and focus should return to trigger
+    fireEvent.keyDown(document, { key: 'Escape' })
+    expect(screen.queryByRole('dialog')).toBeNull()
+
+    await waitFor(() => {
+      expect(btn).toHaveFocus()
+    })
   })
 
   it('falls back to plain text when the termId is not in the glossary', () => {
@@ -87,12 +108,12 @@ describe('Term', () => {
         </button>
       </div>
     )
-    // Open the tooltip
+    // Open the dialog
     fireEvent.click(screen.getAllByRole('button')[0])
-    expect(screen.getByRole('tooltip')).toBeInTheDocument()
+    expect(screen.getByRole('dialog')).toBeInTheDocument()
     // Pointer down outside the component closes it
     fireEvent.pointerDown(screen.getByTestId('outside'))
-    expect(screen.queryByRole('tooltip')).toBeNull()
+    expect(screen.queryByRole('dialog')).toBeNull()
   })
 
   it('has no accessibility violations in the closed state', async () => {
