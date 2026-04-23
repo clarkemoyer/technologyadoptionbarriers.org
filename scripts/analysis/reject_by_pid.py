@@ -31,6 +31,10 @@ Exits non-zero if:
     unknown PID, since we would not know how to build a fair message)
   - A disposition is not one of the explicitly-handled types (refuse to
     invent a rejection reason for disposition types we have not modelled)
+  - Any PID is not in AWAITING REVIEW status on Prolific at the time of
+    the live run (prevents mid-run errors from stale-status PIDs)
+  - Any target PID could not be resolved to a submission ID after the live
+    rejection loop (indicates a PID was silently skipped)
 """
 
 import csv
@@ -47,6 +51,7 @@ from tabs_api import (
     prolific_get_submission_ids_map,
     prolific_reject_submission,
     prolific_study_info,
+    prolific_submission_statuses,
 )
 
 # Load the Smeal speed threshold from the shared constants file so this script
@@ -210,7 +215,17 @@ def main() -> None:
         print("================================================================", file=sys.stderr)
         sys.exit(1)
 
-    target_pids = [p.strip() for p in pid_list_raw.split(",") if p.strip()]
+    target_pids: List[str] = []
+    seen_pids: set = set()
+    for raw_pid in pid_list_raw.split(","):
+        pid = raw_pid.strip()
+        if not pid:
+            continue
+        if pid in seen_pids:
+            print(f"WARNING: duplicate PID in PID_LIST (ignored): {pid}", file=sys.stderr)
+            continue
+        seen_pids.add(pid)
+        target_pids.append(pid)
     if not target_pids:
         print("Error: PID_LIST must contain at least one PID", file=sys.stderr)
         sys.exit(1)
@@ -301,6 +316,27 @@ def main() -> None:
     print(f"  Resolved {len([p for p in pid_to_sub_id if pid_to_sub_id[p]])} / {len(records)}")
     print()
 
+    # Pre-validate that every target PID is currently AWAITING REVIEW.
+    # Any other status (APPROVED, RETURNED, REJECTED, …) would cause the
+    # Prolific API to error mid-run and leave a partial/unclear outcome.
+    print("Pre-validating submission statuses...")
+    status_map = prolific_submission_statuses(study_id, api_token)
+    not_rejectable: List[str] = []
+    for r in records:
+        status = status_map.get(r["pid"], "NOT FOUND")
+        if status != "AWAITING REVIEW":
+            print(f"  WARNING: PID {r['pid']} has status {status!r} — expected AWAITING REVIEW", file=sys.stderr)
+            not_rejectable.append(r["pid"])
+    if not_rejectable:
+        print(
+            f"\nAborting: {len(not_rejectable)} PID(s) are not in AWAITING REVIEW status.",
+            file=sys.stderr,
+        )
+        print("Re-run the triage to confirm current statuses before rejecting.", file=sys.stderr)
+        sys.exit(1)
+    print(f"  All {len(records)} PIDs confirmed AWAITING REVIEW.")
+    print()
+
     not_found: List[str] = []
     rejected = 0
 
@@ -323,7 +359,12 @@ def main() -> None:
     print()
     print(f"REJECTED: {rejected} | NOT FOUND: {len(not_found)}")
     if not_found:
-        print(f"PIDs not found: {', '.join(not_found)}")
+        print(
+            f"Error: {len(not_found)} PID(s) could not be resolved to a submission ID and were NOT rejected: "
+            f"{', '.join(not_found)}",
+            file=sys.stderr,
+        )
+        sys.exit(1)
 
 
 if __name__ == "__main__":

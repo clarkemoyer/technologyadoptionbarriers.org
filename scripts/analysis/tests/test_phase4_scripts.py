@@ -611,3 +611,27 @@ class TestRejectByPidCli:
         assert result.returncode == 0
         assert "DRY RUN" in result.stdout
         assert "Would reject: 1" in result.stdout
+
+    def test_duplicate_pids_deduplicates_in_dry_run(self, tmp_path):
+        """Duplicate PIDs in PID_LIST are de-duplicated; dry run exits 0 with count=1."""
+        csv_path = self._csv(
+            tmp_path,
+            [["PID_A", "AUTO-EXCLUDE", "600", "2", "0"]],
+        )
+        result = subprocess.run(
+            [sys.executable, self.SCRIPT],
+            env={
+                "PROLIFIC_API_TOKEN": "test",
+                "STUDY_ID": "STUDY_1",
+                "CSV_FILE_PATH": csv_path,
+                "PID_LIST": "PID_A,PID_A,PID_A",
+                # DRY_RUN defaults to true
+            },
+            capture_output=True,
+            text=True,
+        )
+        assert result.returncode == 0
+        # After de-duplication only 1 unique PID, so plan shows "Would reject: 1"
+        assert "Would reject: 1" in result.stdout
+        # A warning about duplicates must be emitted to stderr
+        assert "duplicate" in result.stderr.lower()
