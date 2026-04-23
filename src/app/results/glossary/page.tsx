@@ -287,6 +287,8 @@ const ENTRIES: GlossaryEntry[] = PAGE_EXTRAS.map((extra) => {
       `Glossary configuration error: PAGE_EXTRAS entry "${extra.id}" does not exist in glossaryTerms.`
     )
   }
+  // Spread `extra` first so `id` comes through once; static fields from the
+  // shared glossary-terms data then override anything on `extra` if needed.
   return {
     ...extra,
     term: base.term,
