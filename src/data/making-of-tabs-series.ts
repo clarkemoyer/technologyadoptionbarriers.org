@@ -106,8 +106,36 @@ export const makingOfTabsSeries: MakingOfTabsItem[] = [
     href: '/making-of-tabs/mind-maps',
     children: [
       {
-        title: 'Literature Review',
-        href: '/making-of-tabs/mind-maps/literature-review',
+        title: 'Full Mind Map',
+        href: '/making-of-tabs/mind-maps/full-mind-map',
+      },
+      {
+        title: 'Business Management Models',
+        href: '/making-of-tabs/mind-maps/business-management-models',
+      },
+      {
+        title: 'IT & IT Management Models',
+        href: '/making-of-tabs/mind-maps/it-management-models',
+      },
+      {
+        title: 'Enterprise & IT Architecture',
+        href: '/making-of-tabs/mind-maps/enterprise-it-architecture',
+      },
+      {
+        title: 'Project, Program & Risk Management',
+        href: '/making-of-tabs/mind-maps/project-program-risk-management',
+      },
+      {
+        title: 'Standards & Regulations',
+        href: '/making-of-tabs/mind-maps/standards-regulations',
+      },
+      {
+        title: 'TABS Project Operations',
+        href: '/making-of-tabs/mind-maps/tabs-project-operations',
+      },
+      {
+        title: 'Culminating Research Project',
+        href: '/making-of-tabs/mind-maps/culminating-research-project',
       },
     ],
   },

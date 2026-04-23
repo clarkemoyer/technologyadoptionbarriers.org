@@ -4,19 +4,19 @@ import { ARTICLE_CLASSES, H1_CLASSES } from '@/lib/articleStyles'
 import MindMapViewer from '@/components/mind-maps/mind-map-viewer'
 
 export const metadata: Metadata = {
-  title: 'Literature Review Mind Map | Making of TABS',
+  title: 'Full Mind Map | Making of TABS',
   description:
-    'Interactive pan-and-zoom view of the full TABS literature review mind map, covering frameworks and models across Business Management, IT, Enterprise Architecture, Project/Program/Risk Management, Standards & Regulations, Website Operations, and the Culminating Research Project workflow.',
+    'Interactive pan-and-zoom view of the full Technology Adoption Barriers Survey (TABS) mind map, covering frameworks and models across Business Management, IT, Enterprise Architecture, Project/Program/Risk Management, Standards & Regulations, Website Operations, and the Culminating Research Project workflow.',
   alternates: {
-    canonical: '/making-of-tabs/mind-maps/literature-review',
+    canonical: '/making-of-tabs/mind-maps/full-mind-map',
   },
 }
 
-const LiteratureReviewMindMapPage = () => {
+const FullMindMapPage = () => {
   return (
     <div className="pt-20 sm:pt-[120px] bg-white">
       <article className={ARTICLE_CLASSES}>
-        <h1 className={H1_CLASSES}>Literature Review Mind Map</h1>
+        <h1 className={H1_CLASSES}>Full Mind Map</h1>
 
         <p className="mb-6 text-gray-800">
           The complete TABS mind map, exported from Lucidspark. Drag to pan, scroll or pinch to
@@ -35,10 +35,14 @@ const LiteratureReviewMindMapPage = () => {
       {/* Break out of the making-of-tabs max-w-4xl container so the full map
           has viewport-wide room to render at a readable default zoom. */}
       <div className="relative left-1/2 right-1/2 -mx-[50vw] w-screen overflow-x-clip">
-        <MindMapViewer />
+        <MindMapViewer
+          src="/Svgs/mind-maps/full-mind-map.svg"
+          alt="TABS full mind map showing technology adoption frameworks, models, standards, website operations, and the culminating research project workflow."
+          ariaLabel="TABS full mind map"
+        />
       </div>
     </div>
   )
 }
 
-export default LiteratureReviewMindMapPage
+export default FullMindMapPage

@@ -604,10 +604,52 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.6,
     },
     {
-      url: `${baseUrl}/making-of-tabs/mind-maps/literature-review`,
+      url: `${baseUrl}/making-of-tabs/mind-maps/full-mind-map`,
       lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/making-of-tabs/mind-maps/business-management-models`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.5,
+    },
+    {
+      url: `${baseUrl}/making-of-tabs/mind-maps/it-management-models`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.5,
+    },
+    {
+      url: `${baseUrl}/making-of-tabs/mind-maps/enterprise-it-architecture`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.5,
+    },
+    {
+      url: `${baseUrl}/making-of-tabs/mind-maps/project-program-risk-management`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.5,
+    },
+    {
+      url: `${baseUrl}/making-of-tabs/mind-maps/standards-regulations`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.5,
+    },
+    {
+      url: `${baseUrl}/making-of-tabs/mind-maps/tabs-project-operations`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.5,
+    },
+    {
+      url: `${baseUrl}/making-of-tabs/mind-maps/culminating-research-project`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.5,
     },
   ]
 }

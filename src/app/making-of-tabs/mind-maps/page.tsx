@@ -34,22 +34,89 @@ const MindMapsOverviewPage = () => {
           <h2 className={H2_CLASSES}>Available Maps</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
             <Link
-              href="/making-of-tabs/mind-maps/literature-review"
+              href="/making-of-tabs/mind-maps/full-mind-map"
               className="block rounded-xl border border-blue-200 bg-blue-50 p-5 transition-shadow hover:shadow-md"
             >
-              <p className="font-bold text-blue-900 mb-1">Literature Review Mind Map</p>
+              <p className="font-bold text-blue-900 mb-1">Full Mind Map</p>
               <p className="text-sm text-blue-800">
-                The complete Lucidspark export covering Business Management, IT, Enterprise
-                Architecture, Project/Program/Risk Management, Standards &amp; Regulations, Website
-                Operations, and the Culminating Research Project workflow.
+                The complete Lucidspark export covering every branch - best for exploring how the
+                whole taxonomy connects.
+              </p>
+            </Link>
+            <Link
+              href="/making-of-tabs/mind-maps/business-management-models"
+              className="block rounded-xl border border-slate-200 bg-slate-50 p-5 transition-shadow hover:shadow-md"
+            >
+              <p className="font-bold text-slate-900 mb-1">Business Management Models</p>
+              <p className="text-sm text-slate-700">
+                Strategic, operational, and change-management frameworks (~1989-2023).
+              </p>
+            </Link>
+            <Link
+              href="/making-of-tabs/mind-maps/it-management-models"
+              className="block rounded-xl border border-slate-200 bg-slate-50 p-5 transition-shadow hover:shadow-md"
+            >
+              <p className="font-bold text-slate-900 mb-1">IT &amp; IT Management Models</p>
+              <p className="text-sm text-slate-700">
+                Technology adoption, governance, and IT-function management models.
+              </p>
+            </Link>
+            <Link
+              href="/making-of-tabs/mind-maps/enterprise-it-architecture"
+              className="block rounded-xl border border-slate-200 bg-slate-50 p-5 transition-shadow hover:shadow-md"
+            >
+              <p className="font-bold text-slate-900 mb-1">Enterprise &amp; IT Architecture</p>
+              <p className="text-sm text-slate-700">
+                Architecture frameworks (Zachman, TOGAF, FEAF) that structure enterprise tech
+                stacks.
+              </p>
+            </Link>
+            <Link
+              href="/making-of-tabs/mind-maps/project-program-risk-management"
+              className="block rounded-xl border border-slate-200 bg-slate-50 p-5 transition-shadow hover:shadow-md"
+            >
+              <p className="font-bold text-slate-900 mb-1">
+                Project, Program &amp; Risk Management
+              </p>
+              <p className="text-sm text-slate-700">
+                Delivery and risk frameworks (PMBOK, PRINCE2) between strategy and execution.
+              </p>
+            </Link>
+            <Link
+              href="/making-of-tabs/mind-maps/standards-regulations"
+              className="block rounded-xl border border-slate-200 bg-slate-50 p-5 transition-shadow hover:shadow-md"
+            >
+              <p className="font-bold text-slate-900 mb-1">Standards &amp; Regulations</p>
+              <p className="text-sm text-slate-700">
+                COBIT, ITIL, ISO/IEC 20000, ISO/IEC 27001, PCI DSS, CMM/CMMI, Microsoft, U.S.
+                federal cybersecurity.
+              </p>
+            </Link>
+            <Link
+              href="/making-of-tabs/mind-maps/tabs-project-operations"
+              className="block rounded-xl border border-slate-200 bg-slate-50 p-5 transition-shadow hover:shadow-md"
+            >
+              <p className="font-bold text-slate-900 mb-1">TABS Project Operations</p>
+              <p className="text-sm text-slate-700">
+                Website infrastructure, content strategy, and partnership fostering for the TABS
+                project itself.
+              </p>
+            </Link>
+            <Link
+              href="/making-of-tabs/mind-maps/culminating-research-project"
+              className="block rounded-xl border border-slate-200 bg-slate-50 p-5 transition-shadow hover:shadow-md"
+            >
+              <p className="font-bold text-slate-900 mb-1">Culminating Research Project</p>
+              <p className="text-sm text-slate-700">
+                The six-phase workflow: conceptualisation, deconstruction, design,
+                operationalisation, implementation, distribution.
               </p>
             </Link>
           </div>
           <p className="text-sm text-gray-600 italic">
-            Branch-specific cuts carved out of the full map will join this gallery as separate
-            pages. Planned cuts: Business Management Models, IT &amp; IT Management Models,
-            Enterprise &amp; IT Architecture, Project/Program/Risk Management, Standards &amp;
-            Regulations, TABS Project Operations, and the Culminating Research Project workflow.
+            The seven branch cuts are currently served as rough viewBox placeholders over the full
+            map; each file will be replaced with a dedicated Lucidspark export for that cluster when
+            ready.
           </p>
         </section>
 
