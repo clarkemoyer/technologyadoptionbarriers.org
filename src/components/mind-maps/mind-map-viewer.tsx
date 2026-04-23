@@ -88,7 +88,11 @@ const MindMapViewer = ({ src, alt, ariaLabel, initialFocus }: MindMapViewerProps
       const w = wrapper.clientWidth
       const h = wrapper.clientHeight
       if (w <= 0 || h <= 0) return
-      const scale = fitScaleFor(w, h, svgDimensions.width, svgDimensions.height)
+      const scale = clamp(
+        fitScaleFor(w, h, svgDimensions.width, svgDimensions.height),
+        MIN_SCALE,
+        MAX_SCALE
+      )
       const x = (w - svgDimensions.width * scale) / 2
       const y = (h - svgDimensions.height * scale) / 2
       instance.setTransform(x, y, scale, animate)
@@ -106,11 +110,25 @@ const MindMapViewer = ({ src, alt, ariaLabel, initialFocus }: MindMapViewerProps
       const w = wrapper.clientWidth
       const h = wrapper.clientHeight
       if (w <= 0 || h <= 0) return
-      const scale = clamp(focusScaleFor(w, h, region.w, region.h), MIN_SCALE, MAX_SCALE)
-      const regionCx = region.x + region.w / 2
-      const regionCy = region.y + region.h / 2
+
+      const { x: regionX, y: regionY, w: regionW, h: regionH } = region
+      if (
+        !Number.isFinite(regionX) ||
+        !Number.isFinite(regionY) ||
+        !Number.isFinite(regionW) ||
+        !Number.isFinite(regionH) ||
+        regionW <= 0 ||
+        regionH <= 0
+      ) {
+        return
+      }
+
+      const scale = clamp(focusScaleFor(w, h, regionW, regionH), MIN_SCALE, MAX_SCALE)
+      const regionCx = regionX + regionW / 2
+      const regionCy = regionY + regionH / 2
       const x = w / 2 - regionCx * scale
       const y = h / 2 - regionCy * scale
+      if (!Number.isFinite(scale) || !Number.isFinite(x) || !Number.isFinite(y)) return
       instance.setTransform(x, y, scale, animate)
       setCurrentScale(scale)
     },
@@ -209,6 +227,9 @@ const MindMapViewer = ({ src, alt, ariaLabel, initialFocus }: MindMapViewerProps
 
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLElement>) => {
+      // Don't steal arrow/key events from interactive controls (e.g. the zoom slider).
+      const tag = (e.target as HTMLElement).tagName
+      if (tag === 'INPUT' || tag === 'BUTTON' || tag === 'SELECT' || tag === 'TEXTAREA') return
       switch (e.key) {
         case 'ArrowUp':
           e.preventDefault()
@@ -283,7 +304,9 @@ const MindMapViewer = ({ src, alt, ariaLabel, initialFocus }: MindMapViewerProps
             limitToBounds={false}
             wheel={{ step: WHEEL_STEP }}
             doubleClick={{ disabled: true }}
-            onTransform={(_, state) => setCurrentScale(state.scale)}
+            onTransform={(_, state) =>
+              setCurrentScale((prev) => (prev === state.scale ? prev : state.scale))
+            }
           >
             <TransformComponent
               wrapperStyle={{ width: '100%', height: '100%' }}
