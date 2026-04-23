@@ -21,26 +21,25 @@ const BusinessManagementModelsPage = () => {
         <p className="mb-6 text-gray-800">
           This cut of the TABS mind map zooms into the Business Management branch - strategic,
           operational, and change-management frameworks that shaped how organisations think about
-          technology adoption from roughly 1989 through 2023. It is served from{' '}
-          <code>/Svgs/mind-maps/business-management-models.svg</code>, which currently contains a
-          rough viewBox crop of the{' '}
+          technology adoption from roughly 1989 through 2023. It renders the{' '}
           <Link
             href="/making-of-tabs/mind-maps/full-mind-map"
             className="text-blue-600 underline hover:text-blue-800"
           >
             full mind map
-          </Link>
-          . The file will be replaced with a dedicated Lucidspark export for this cluster as soon as
-          one is available.
+          </Link>{' '}
+          SVG with the viewport focused on this branch - pan, zoom, or double-click to reset back to
+          the Business Management framing.
         </p>
       </article>
 
       {/* Break out of the making-of-tabs max-w-4xl container so the cut has viewport-wide room. */}
       <div className="relative left-1/2 right-1/2 -mx-[50vw] w-screen overflow-x-clip">
         <MindMapViewer
-          src="/Svgs/mind-maps/business-management-models.svg"
+          src="/Svgs/mind-maps/full-mind-map.svg"
           alt="Business Management Models cut of the TABS mind map."
           ariaLabel="TABS mind map cut: Business Management Models"
+          initialFocus={{ x: 2900, y: 4500, w: 3700, h: 2200 }}
         />
       </div>
     </div>

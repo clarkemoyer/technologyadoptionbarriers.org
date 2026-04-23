@@ -21,25 +21,25 @@ const ItManagementModelsPage = () => {
         <p className="mb-6 text-gray-800">
           This cut of the TABS mind map zooms into the IT and IT Management branch - the models and
           theories that describe how technology is adopted, governed, and managed inside the IT
-          function. It is served from <code>/Svgs/mind-maps/it-management-models.svg</code>, which
-          currently contains a rough viewBox crop of the{' '}
+          function. It renders the{' '}
           <Link
             href="/making-of-tabs/mind-maps/full-mind-map"
             className="text-blue-600 underline hover:text-blue-800"
           >
             full mind map
-          </Link>
-          . The file will be replaced with a dedicated Lucidspark export for this cluster as soon as
-          one is available.
+          </Link>{' '}
+          SVG with the viewport focused on this branch - pan, zoom, or double-click to reset back to
+          the IT Management framing.
         </p>
       </article>
 
       {/* Break out of the making-of-tabs max-w-4xl container so the cut has viewport-wide room. */}
       <div className="relative left-1/2 right-1/2 -mx-[50vw] w-screen overflow-x-clip">
         <MindMapViewer
-          src="/Svgs/mind-maps/it-management-models.svg"
+          src="/Svgs/mind-maps/full-mind-map.svg"
           alt="IT & IT Management Models cut of the TABS mind map."
           ariaLabel="TABS mind map cut: IT & IT Management Models"
+          initialFocus={{ x: 0, y: 2600, w: 3700, h: 1900 }}
         />
       </div>
     </div>

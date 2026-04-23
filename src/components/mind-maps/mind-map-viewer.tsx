@@ -13,6 +13,17 @@ type SvgDimensions = {
   height: number
 }
 
+export type MindMapViewerInitialFocus = {
+  /** Top-left x in SVG coordinates. */
+  x: number
+  /** Top-left y in SVG coordinates. */
+  y: number
+  /** Width of the region in SVG coordinates. */
+  w: number
+  /** Height of the region in SVG coordinates. */
+  h: number
+}
+
 type MindMapViewerProps = {
   /** Path under /public — e.g. '/Svgs/mind-maps/full-mind-map.svg'. */
   src: string
@@ -20,9 +31,21 @@ type MindMapViewerProps = {
   alt: string
   /** aria-label for the surrounding section; defaults to the alt text. */
   ariaLabel?: string
+  /**
+   * Optional region of the SVG (in SVG coordinates) to center and zoom to
+   * on initial render. When omitted, the full image is fit to the wrapper.
+   */
+  initialFocus?: MindMapViewerInitialFocus
 }
 
 const FIT_PADDING = 0.95
+const MIN_SCALE = 0.02
+const MAX_SCALE = 8
+const WHEEL_STEP = 0.1
+const BUTTON_STEP = 0.15
+const KEY_PAN_PX = 80
+
+const clamp = (v: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, v))
 
 const fitScaleFor = (
   wrapperWidth: number,
@@ -31,11 +54,21 @@ const fitScaleFor = (
   svgHeight: number
 ) => Math.min(wrapperWidth / svgWidth, wrapperHeight / svgHeight) * FIT_PADDING
 
-const MindMapViewer = ({ src, alt, ariaLabel }: MindMapViewerProps) => {
+const focusScaleFor = (
+  wrapperWidth: number,
+  wrapperHeight: number,
+  regionWidth: number,
+  regionHeight: number
+) => Math.min(wrapperWidth / regionWidth, wrapperHeight / regionHeight) * FIT_PADDING
+
+const MindMapViewer = ({ src, alt, ariaLabel, initialFocus }: MindMapViewerProps) => {
   const transformRef = useRef<ReactZoomPanPinchRef | null>(null)
   const wrapperRef = useRef<HTMLDivElement | null>(null)
   const imgRef = useRef<HTMLImageElement | null>(null)
+  const containerRef = useRef<HTMLDivElement | null>(null)
   const [svgDimensions, setSvgDimensions] = useState<SvgDimensions | null>(null)
+  const [currentScale, setCurrentScale] = useState(MIN_SCALE)
+  const [isFullscreen, setIsFullscreen] = useState(false)
 
   const syncSvgDimensions = useCallback(() => {
     const img = imgRef.current
@@ -46,6 +79,7 @@ const MindMapViewer = ({ src, alt, ariaLabel }: MindMapViewerProps) => {
     )
   }, [])
 
+  /** Center the whole image in the wrapper. */
   const fitToWrapper = useCallback(
     (animate = 0) => {
       const wrapper = wrapperRef.current
@@ -58,21 +92,51 @@ const MindMapViewer = ({ src, alt, ariaLabel }: MindMapViewerProps) => {
       const x = (w - svgDimensions.width * scale) / 2
       const y = (h - svgDimensions.height * scale) / 2
       instance.setTransform(x, y, scale, animate)
+      setCurrentScale(scale)
     },
     [svgDimensions]
   )
 
-  // Covers the cached-image case: React may not fire `onLoad` if the image
+  /** Center a specific SVG-space region in the wrapper. */
+  const focusRegion = useCallback(
+    (region: MindMapViewerInitialFocus, animate = 0) => {
+      const wrapper = wrapperRef.current
+      const instance = transformRef.current
+      if (!wrapper || !instance || !svgDimensions) return
+      const w = wrapper.clientWidth
+      const h = wrapper.clientHeight
+      if (w <= 0 || h <= 0) return
+      const scale = clamp(focusScaleFor(w, h, region.w, region.h), MIN_SCALE, MAX_SCALE)
+      const regionCx = region.x + region.w / 2
+      const regionCy = region.y + region.h / 2
+      const x = w / 2 - regionCx * scale
+      const y = h / 2 - regionCy * scale
+      instance.setTransform(x, y, scale, animate)
+      setCurrentScale(scale)
+    },
+    [svgDimensions]
+  )
+
+  const handleDoubleClick = () => {
+    if (initialFocus) focusRegion(initialFocus, 200)
+    else fitToWrapper(200)
+  }
+
+  // Covers the cached-image case: React may not fire onLoad if the image
   // is already in the browser cache when the component mounts.
   useEffect(() => {
     syncSvgDimensions()
   }, [syncSvgDimensions])
 
+  // Initial framing: focus a region if provided, else fit the whole image.
   useEffect(() => {
     if (!svgDimensions) return
-    const raf = requestAnimationFrame(() => fitToWrapper(0))
+    const raf = requestAnimationFrame(() => {
+      if (initialFocus) focusRegion(initialFocus, 0)
+      else fitToWrapper(0)
+    })
     return () => cancelAnimationFrame(raf)
-  }, [fitToWrapper, svgDimensions])
+  }, [fitToWrapper, focusRegion, initialFocus, svgDimensions])
 
   // RAF-throttled resize so rapid events coalesce into one update per frame.
   useEffect(() => {
@@ -82,7 +146,8 @@ const MindMapViewer = ({ src, alt, ariaLabel }: MindMapViewerProps) => {
       if (rafId !== null) cancelAnimationFrame(rafId)
       rafId = requestAnimationFrame(() => {
         rafId = null
-        fitToWrapper(0)
+        if (initialFocus) focusRegion(initialFocus, 0)
+        else fitToWrapper(0)
       })
     }
     window.addEventListener('resize', onResize)
@@ -90,15 +155,102 @@ const MindMapViewer = ({ src, alt, ariaLabel }: MindMapViewerProps) => {
       window.removeEventListener('resize', onResize)
       if (rafId !== null) cancelAnimationFrame(rafId)
     }
-  }, [fitToWrapper, svgDimensions])
+  }, [fitToWrapper, focusRegion, initialFocus, svgDimensions])
 
-  const handleZoomIn = () => transformRef.current?.zoomIn()
-  const handleZoomOut = () => transformRef.current?.zoomOut()
-  const handleReset = () => fitToWrapper(200)
-  // The library's own `doubleClick.mode: 'reset'` reverts to `initialScale`,
-  // not the computed fit transform, which would jump the image off-center.
-  // Handle the gesture ourselves so it matches the Reset button.
-  const handleDoubleClick = () => fitToWrapper(200)
+  // Track fullscreen state so the toolbar label + icon reflect reality.
+  useEffect(() => {
+    const onChange = () => setIsFullscreen(document.fullscreenElement === containerRef.current)
+    document.addEventListener('fullscreenchange', onChange)
+    return () => document.removeEventListener('fullscreenchange', onChange)
+  }, [])
+
+  // Zoom buttons / slider / keyboard controls use the transform instance.
+  const zoomTo = useCallback((nextScale: number, animate = 150) => {
+    const wrapper = wrapperRef.current
+    const instance = transformRef.current
+    if (!wrapper || !instance) return
+    const clamped = clamp(nextScale, MIN_SCALE, MAX_SCALE)
+    const state = instance.state
+    // Zoom toward the wrapper centre so the viewport doesn't drift.
+    const w = wrapper.clientWidth
+    const h = wrapper.clientHeight
+    const cx = w / 2
+    const cy = h / 2
+    const ratio = clamped / state.scale
+    const nextX = cx - (cx - state.positionX) * ratio
+    const nextY = cy - (cy - state.positionY) * ratio
+    instance.setTransform(nextX, nextY, clamped, animate)
+    setCurrentScale(clamped)
+  }, [])
+
+  const panBy = useCallback((dx: number, dy: number) => {
+    const instance = transformRef.current
+    if (!instance) return
+    const s = instance.state
+    instance.setTransform(s.positionX + dx, s.positionY + dy, s.scale, 0)
+  }, [])
+
+  const toggleFullscreen = useCallback(() => {
+    const el = containerRef.current
+    if (!el) return
+    if (document.fullscreenElement === el) {
+      void document.exitFullscreen()
+    } else {
+      void el.requestFullscreen()
+    }
+  }, [])
+
+  const handleZoomIn = () => zoomTo(currentScale + BUTTON_STEP)
+  const handleZoomOut = () => zoomTo(currentScale - BUTTON_STEP)
+  const handleReset = useCallback(() => {
+    if (initialFocus) focusRegion(initialFocus, 200)
+    else fitToWrapper(200)
+  }, [initialFocus, focusRegion, fitToWrapper])
+
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent<HTMLElement>) => {
+      switch (e.key) {
+        case 'ArrowUp':
+          e.preventDefault()
+          panBy(0, KEY_PAN_PX)
+          break
+        case 'ArrowDown':
+          e.preventDefault()
+          panBy(0, -KEY_PAN_PX)
+          break
+        case 'ArrowLeft':
+          e.preventDefault()
+          panBy(KEY_PAN_PX, 0)
+          break
+        case 'ArrowRight':
+          e.preventDefault()
+          panBy(-KEY_PAN_PX, 0)
+          break
+        case '+':
+        case '=':
+          e.preventDefault()
+          zoomTo(currentScale + BUTTON_STEP)
+          break
+        case '-':
+        case '_':
+          e.preventDefault()
+          zoomTo(currentScale - BUTTON_STEP)
+          break
+        case '0':
+          e.preventDefault()
+          handleReset()
+          break
+        case 'f':
+        case 'F':
+          e.preventDefault()
+          toggleFullscreen()
+          break
+        default:
+          break
+      }
+    },
+    [currentScale, handleReset, panBy, toggleFullscreen, zoomTo]
+  )
 
   const resolvedAriaLabel = ariaLabel ?? alt
 
@@ -108,88 +260,123 @@ const MindMapViewer = ({ src, alt, ariaLabel }: MindMapViewerProps) => {
       className="relative bg-slate-50 border-y border-slate-200"
     >
       <div
-        ref={wrapperRef}
-        className="relative mx-auto"
-        style={{ height: 'min(80vh, 900px)', maxWidth: '100%' }}
+        ref={containerRef}
+        className={isFullscreen ? 'relative bg-slate-50 w-screen h-screen' : 'relative'}
+        // Focusable so arrow/+/-/0/F keys work. outline-none avoids a focus ring on
+        // the whole region while keeping it in the tab order.
+        tabIndex={0}
+        onKeyDown={handleKeyDown}
       >
-        <TransformWrapper
-          ref={transformRef}
-          initialScale={0.08}
-          minScale={0.02}
-          maxScale={4}
-          limitToBounds={false}
-          wheel={{ step: 0.1 }}
-          doubleClick={{ disabled: true }}
-        >
-          <TransformComponent
-            wrapperStyle={{ width: '100%', height: '100%' }}
-            contentStyle={
-              svgDimensions
-                ? { width: svgDimensions.width, height: svgDimensions.height }
-                : { width: '100%', height: '100%' }
-            }
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              ref={imgRef}
-              src={assetPath(src)}
-              alt={alt}
-              width={svgDimensions?.width}
-              height={svgDimensions?.height}
-              onLoad={syncSvgDimensions}
-              onDoubleClick={handleDoubleClick}
-              draggable={false}
-              style={{
-                width: svgDimensions?.width,
-                height: svgDimensions?.height,
-                userSelect: 'none',
-              }}
-            />
-          </TransformComponent>
-        </TransformWrapper>
-
         <div
-          className="absolute top-3 right-3 flex gap-1 bg-white/95 border border-slate-300 rounded-md shadow-sm p-1"
-          role="toolbar"
-          aria-label="Mind map zoom controls"
+          ref={wrapperRef}
+          className="relative mx-auto"
+          style={{
+            height: isFullscreen ? '100vh' : 'min(80vh, 900px)',
+            maxWidth: '100%',
+          }}
         >
-          <button
-            type="button"
-            onClick={handleZoomIn}
-            aria-label="Zoom in"
-            className="px-3 py-1 text-base font-semibold text-slate-800 hover:bg-slate-100 rounded"
+          <TransformWrapper
+            ref={transformRef}
+            initialScale={0.08}
+            minScale={MIN_SCALE}
+            maxScale={MAX_SCALE}
+            limitToBounds={false}
+            wheel={{ step: WHEEL_STEP }}
+            doubleClick={{ disabled: true }}
+            onTransform={(_, state) => setCurrentScale(state.scale)}
           >
-            +
-          </button>
-          <button
-            type="button"
-            onClick={handleZoomOut}
-            aria-label="Zoom out"
-            className="px-3 py-1 text-base font-semibold text-slate-800 hover:bg-slate-100 rounded"
+            <TransformComponent
+              wrapperStyle={{ width: '100%', height: '100%' }}
+              contentStyle={
+                svgDimensions
+                  ? { width: svgDimensions.width, height: svgDimensions.height }
+                  : { width: '100%', height: '100%' }
+              }
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                ref={imgRef}
+                src={assetPath(src)}
+                alt={alt}
+                width={svgDimensions?.width}
+                height={svgDimensions?.height}
+                onLoad={syncSvgDimensions}
+                onDoubleClick={handleDoubleClick}
+                draggable={false}
+                style={{
+                  width: svgDimensions?.width,
+                  height: svgDimensions?.height,
+                  userSelect: 'none',
+                }}
+              />
+            </TransformComponent>
+          </TransformWrapper>
+
+          <div
+            className="absolute top-3 right-3 flex flex-wrap items-center gap-1 bg-white/95 border border-slate-300 rounded-md shadow-sm p-1"
+            role="toolbar"
+            aria-label="Mind map zoom controls"
           >
-            &minus;
-          </button>
-          <button
-            type="button"
-            onClick={handleReset}
-            aria-label="Reset zoom and position"
-            className="px-3 py-1 text-sm font-medium text-slate-800 hover:bg-slate-100 rounded"
-          >
-            Reset
-          </button>
+            <button
+              type="button"
+              onClick={handleZoomOut}
+              aria-label="Zoom out"
+              className="px-3 py-1 text-base font-semibold text-slate-800 hover:bg-slate-100 rounded"
+            >
+              &minus;
+            </button>
+            <input
+              type="range"
+              min={MIN_SCALE}
+              max={MAX_SCALE}
+              step={0.01}
+              value={currentScale}
+              onChange={(e) => zoomTo(parseFloat(e.target.value), 0)}
+              aria-label="Zoom level"
+              title={`Zoom: ${(currentScale * 100).toFixed(0)}%`}
+              className="w-24 accent-blue-600"
+            />
+            <button
+              type="button"
+              onClick={handleZoomIn}
+              aria-label="Zoom in"
+              className="px-3 py-1 text-base font-semibold text-slate-800 hover:bg-slate-100 rounded"
+            >
+              +
+            </button>
+            <span className="mx-1 h-5 w-px bg-slate-300" aria-hidden="true" />
+            <button
+              type="button"
+              onClick={handleReset}
+              aria-label="Reset zoom and position"
+              className="px-3 py-1 text-sm font-medium text-slate-800 hover:bg-slate-100 rounded"
+            >
+              Reset
+            </button>
+            <button
+              type="button"
+              onClick={toggleFullscreen}
+              aria-label={isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'}
+              aria-pressed={isFullscreen}
+              className="px-3 py-1 text-sm font-medium text-slate-800 hover:bg-slate-100 rounded"
+            >
+              {isFullscreen ? 'Exit FS' : 'Fullscreen'}
+            </button>
+          </div>
         </div>
       </div>
 
       <p className="text-center text-sm text-slate-600 py-3 px-4">
-        Source: exported from Lucidspark. For a fully interactive version with clickable nodes, see
-        the{' '}
+        Source: exported from Lucidspark. Drag to pan, scroll or pinch to zoom, double-click to
+        reset. Arrow keys pan, <kbd>+</kbd>/<kbd>-</kbd> zoom, <kbd>0</kbd> reset, <kbd>F</kbd>{' '}
+        toggles fullscreen.{' '}
         <a
           href={assetPath(src)}
           className="underline hover:text-slate-900"
           target="_blank"
           rel="noopener noreferrer"
         >
-          raw SVG
+          Open raw SVG
         </a>
         .
       </p>
