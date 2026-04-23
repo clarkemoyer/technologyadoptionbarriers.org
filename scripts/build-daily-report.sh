@@ -220,6 +220,74 @@ $RECOMMENDATIONS
 "
 fi
 
+# --- Stale AWAITING REVIEW triage (reject vs request-return candidates) ---
+STALE_TRIAGE_FILE="$ARTIFACTS_DIR/stale-triage/stale-triage.json"
+STALE_TRIAGE_SECTION=""
+if [ -f "$STALE_TRIAGE_FILE" ]; then
+  STALE_TRIAGE_SECTION=$(STALE_TRIAGE_FILE="$STALE_TRIAGE_FILE" python3 << 'STALEEOF'
+import json, os
+d = json.load(open(os.environ['STALE_TRIAGE_FILE']))
+hours = d.get('stale_hours', 48)
+rr = d.get('buckets', {}).get('stale_no_reply_to_rr', [])
+mm = d.get('buckets', {}).get('stale_no_reply_to_message', [])
+in_rr = d.get('buckets', {}).get('in_window_rr', [])
+in_mm = d.get('buckets', {}).get('in_window_msg', [])
+
+
+def fmt_bucket(title, action, items, empty_msg):
+    print(f'### {title}')
+    print(f'*{action}*')
+    print('')
+    if not items:
+        print(empty_msg)
+        print('')
+        return
+    print('| PID | Age (h) | Researcher msgs | Reasons |')
+    print('|---|---:|---:|---|')
+    for r in sorted(items, key=lambda x: -x.get('age_hours', 0)):
+        reasons = '; '.join(r.get('reasons') or [])
+        if len(reasons) > 60:
+            reasons = reasons[:57] + '...'
+        print(f"| `{r['pid']}` | {r['age_hours']} | {r.get('researcher_messages', 0)} | {reasons} |")
+    print('')
+    pids = ','.join(r['pid'] for r in items)
+    print('<details><summary>PID list for workflow dispatch</summary>')
+    print('')
+    print('```')
+    print(pids)
+    print('```')
+    print('</details>')
+    print('')
+
+
+print(f'## Stale AWAITING REVIEW ({hours}h threshold)')
+print('')
+print(f'Live Prolific data, computed at `{d.get("computed_at", "unknown")}`.')
+print('')
+print(f'**Stale no response to return request:** {len(rr)} | **Stale no response (message only):** {len(mm)} | In window: {len(in_rr) + len(in_mm)}')
+print('')
+fmt_bucket(
+    f'Stale no response to return request ({len(rr)})',
+    'Prolific auto-APPROVES after the reserve timeout. Reject these.',
+    rr,
+    'All return-requested submissions are still within the 48h window or have participant replies. No rejections needed right now.',
+)
+fmt_bucket(
+    f'Stale no response to TABS message ({len(mm)})',
+    'Messaged > 48h ago with no API-level return request yet. Dispatch request-return for these.',
+    mm,
+    'No untreated stale messages. Messaging pipeline is caught up.',
+)
+STALEEOF
+  ) || STALE_TRIAGE_SECTION=""
+fi
+
+STALE_TRIAGE_SECTION_FORMATTED=""
+if [ -n "$STALE_TRIAGE_SECTION" ]; then
+  STALE_TRIAGE_SECTION_FORMATTED="$STALE_TRIAGE_SECTION
+"
+fi
+
 # Build full reconciliation section (empty string if no data)
 RECONCILIATION_SECTION=""
 if [ -n "$RECONCILIATION_TABLE" ]; then
@@ -279,6 +347,7 @@ $TRIAGE_BREAKDOWN
 
 $RECONCILIATION_SECTION
 $RECOMMENDATIONS_SECTION
+$STALE_TRIAGE_SECTION_FORMATTED
 ## Auto-Approve CLEAN
 
 - **CLEAN dispositions:** $APPROVE_CLEAN_COUNT
