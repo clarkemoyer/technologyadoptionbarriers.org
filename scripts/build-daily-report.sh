@@ -250,7 +250,7 @@ def fmt_bucket(title, action, items, empty_msg):
             reasons = reasons[:57] + '...'
         pid = r.get('pid', '')
         pid_redacted = ('****' + pid[-4:]) if pid else '(no PID)'
-        print(f"| `{pid_redacted}` | {r['age_hours']} | {r.get('researcher_messages', 0)} | {reasons} |")
+        print(f"| `{pid_redacted}` | {r.get('age_hours', 'unknown')} | {r.get('researcher_messages', 0)} | {reasons} |")
     print('')
     print(f'*Full PID list is in the `stale-triage` workflow artifact (operators only).*')
     print('')

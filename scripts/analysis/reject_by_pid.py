@@ -78,7 +78,7 @@ def _safe_int(row: Dict[str, str], key: str) -> int:
 def _build_auto_exclude(duration: int, iri_fail: int, speed_flag: int) -> Tuple[str, List[str]]:
     reasons = []
     if speed_flag == 1:
-        reasons.append(f"it was completed in {_fmt_minutes(duration)} minutes (below our 5-minute minimum)")
+        reasons.append(f"it was completed in {_fmt_minutes(duration)} minutes (below our {SMEAL_BENCHMARK_MIN:.0f}-minute minimum)")
     reasons.append(f"{iri_fail} of 3 embedded attention checks were answered incorrectly")
     reason_text = " and ".join(reasons)
     msg = (
@@ -95,7 +95,7 @@ def _build_auto_exclude(duration: int, iri_fail: int, speed_flag: int) -> Tuple[
     return msg, cats
 
 
-def _build_flag_single_iri(duration: int, iri_fail: int) -> Tuple[str, List[str]]:
+def _build_flag_single_iri(_duration: int, iri_fail: int) -> Tuple[str, List[str]]:
     msg = (
         "Hi, thank you for participating in our Technology Adoption Barriers Survey. "
         f"Unfortunately, your submission has been rejected because {iri_fail} of 3 "

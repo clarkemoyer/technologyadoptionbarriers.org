@@ -392,3 +392,100 @@ class TestRejectFailedIRI:
             text=True,
         )
         assert "IRI_Fail_Count == 3: 2" in result.stdout
+
+
+# ── reject_by_pid.py ────────────────────────────────────────────
+
+class TestRejectByPid:
+    """Tests for disposition-aware rejection helpers in reject_by_pid.py."""
+
+    def _row(self, disposition, duration=600, iri_fail=2, speed_flag=0):
+        return {
+            "PROLIFIC_PID": "PID_TEST",
+            "Disposition": disposition,
+            "Duration_Seconds": str(duration),
+            "IRI_Fail_Count": str(iri_fail),
+            "Speed_Flag": str(speed_flag),
+        }
+
+    def test_auto_exclude_message_and_categories(self):
+        from reject_by_pid import _classify_and_build, SMEAL_BENCHMARK_MIN
+        msg, cats = _classify_and_build(self._row("AUTO-EXCLUDE", duration=600, iri_fail=2, speed_flag=0))
+        assert "2 of 3 embedded attention checks" in msg
+        assert f"{SMEAL_BENCHMARK_MIN:.0f}-minute minimum" not in msg  # no speed flag
+        assert "FAILED_ATTENTION_CHECK" in cats
+        assert "TOO_QUICKLY" not in cats
+        assert "OTHER" in cats
+
+    def test_auto_exclude_with_speed_uses_smeal_constant(self):
+        from reject_by_pid import _classify_and_build, SMEAL_BENCHMARK_MIN
+        msg, cats = _classify_and_build(self._row("AUTO-EXCLUDE", duration=180, iri_fail=3, speed_flag=1))
+        assert f"{SMEAL_BENCHMARK_MIN:.0f}-minute minimum" in msg
+        assert "3.0 minutes" in msg
+        assert "3 of 3 embedded attention checks" in msg
+        assert "FAILED_ATTENTION_CHECK" in cats
+        assert "TOO_QUICKLY" in cats
+
+    def test_flag_single_iri_message_and_categories(self):
+        from reject_by_pid import _classify_and_build
+        msg, cats = _classify_and_build(self._row("FLAG-SINGLE-IRI", duration=600, iri_fail=1))
+        assert "1 of 3 embedded attention check" in msg
+        assert "return-offer message" in msg
+        assert "FAILED_ATTENTION_CHECK" in cats
+        assert "OTHER" in cats
+
+    def test_flag_smeal_message_and_categories(self):
+        from reject_by_pid import _classify_and_build
+        msg, cats = _classify_and_build(self._row("FLAG-SMEAL", duration=240))
+        assert "4.0 minutes" in msg
+        assert "voluntarily" in msg
+        assert "TOO_QUICKLY" in cats
+        assert "OTHER" in cats
+
+    def test_flag_speed_uses_smeal_constant(self):
+        from reject_by_pid import _classify_and_build, SMEAL_BENCHMARK_MIN
+        msg, cats = _classify_and_build(self._row("FLAG-SPEED", duration=180))
+        assert f"{SMEAL_BENCHMARK_MIN:.0f}-minute minimum" in msg
+        assert "TOO_QUICKLY" in cats
+
+    def test_flag_partial_straightlining_message_and_categories(self):
+        from reject_by_pid import _classify_and_build
+        msg, cats = _classify_and_build(self._row("FLAG-PARTIAL-STRAIGHTLINING", duration=600))
+        assert "identical-response pattern" in msg
+        assert "LOW_EFFORT" in cats
+        assert "OTHER" in cats
+
+    def test_flag_recaptcha_message_and_categories(self):
+        from reject_by_pid import _classify_and_build
+        msg, cats = _classify_and_build(self._row("FLAG-RECAPTCHA", duration=600))
+        assert "reCAPTCHA" in msg
+        assert "FAILED_AUTHENTICITY_CHECK" in cats
+        assert "OTHER" in cats
+
+    def test_unhandled_disposition_raises(self):
+        from reject_by_pid import _classify_and_build
+        import pytest
+        with pytest.raises(ValueError, match="Unhandled disposition"):
+            _classify_and_build(self._row("CLEAN"))
+
+    def test_safe_int_empty_field(self):
+        from reject_by_pid import _safe_int
+        row = {"Duration_Seconds": "", "IRI_Fail_Count": "NaN", "Speed_Flag": "1"}
+        assert _safe_int(row, "Duration_Seconds") == 0
+        assert _safe_int(row, "IRI_Fail_Count") == 0
+        assert _safe_int(row, "Speed_Flag") == 1
+
+    def test_all_messages_include_survey_name(self):
+        from reject_by_pid import _classify_and_build
+        dispositions = [
+            ("AUTO-EXCLUDE", {"iri_fail": 2, "speed_flag": 0}),
+            ("FLAG-SINGLE-IRI", {"iri_fail": 1, "speed_flag": 0}),
+            ("FLAG-SMEAL", {}),
+            ("FLAG-SPEED", {}),
+            ("FLAG-PARTIAL-STRAIGHTLINING", {}),
+            ("FLAG-RECAPTCHA", {}),
+        ]
+        for disp, kwargs in dispositions:
+            row = self._row(disp, **kwargs)
+            msg, _ = _classify_and_build(row)
+            assert "Technology Adoption Barriers Survey" in msg, f"Missing survey name for {disp}"

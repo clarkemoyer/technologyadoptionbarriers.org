@@ -72,6 +72,22 @@ def _require_env(name: str) -> str:
     return value
 
 
+def _parse_stale_hours() -> int:
+    """Return the configured stale-hours threshold, or exit with a clear error."""
+    raw = os.environ.get("STALE_HOURS")
+    if raw is None:
+        return 48
+    try:
+        return int(raw.strip())
+    except (TypeError, ValueError):
+        print(
+            f"Invalid STALE_HOURS value: {raw!r}. "
+            "Expected an integer number of hours, e.g. 48.",
+            file=sys.stderr,
+        )
+        raise SystemExit(2)
+
+
 def _parse_iso(ts):
     if not ts:
         return None
@@ -173,7 +189,7 @@ def _print_bucket(title, items):
 def main():
     api_token = _require_env("PROLIFIC_API_TOKEN")
     study_id = _require_env("STUDY_ID")
-    stale_hours = int(os.environ.get("STALE_HOURS", "48"))
+    stale_hours = _parse_stale_hours()
     researcher_id = os.environ.get("RESEARCHER_ID", DEFAULT_RESEARCHER_ID)
     output_json = os.environ.get("OUTPUT_JSON_PATH")
 
@@ -199,7 +215,8 @@ def main():
 
     fetch_errors = []
     requests_made = 0
-    requests_skipped = 0  # PIDs with no participant_id
+    skipped_no_pid = 0
+    skipped_recent_reply = 0
 
     # Pre-fetch all recent messages since the cutoff in one batch call.
     # Participants who sent a message after the cutoff are definitionally engaged
@@ -230,12 +247,12 @@ def main():
     for sub in awaiting:
         pid = sub.get("participant_id", "")
         if not pid:
-            requests_skipped += 1
+            skipped_no_pid += 1
             continue
         # Skip per-PID call for recently-replied participants: they are engaged
         # by definition (replied within the stale window), so they are not stale.
         if pid in recently_replied_pids:
-            requests_skipped += 1
+            skipped_recent_reply += 1
             continue
         # Small inter-call delay to avoid Prolific rate limiting.
         if requests_made > 0:
@@ -287,7 +304,8 @@ def main():
 
     print(
         f"Message API requests: {requests_made} made, "
-        f"{requests_skipped} skipped (no PID), "
+        f"{skipped_no_pid} skipped (no PID), "
+        f"{skipped_recent_reply} skipped (recent reply), "
         f"{len(fetch_errors)} errors"
     )
     print(f"STALE_NO_REPLY_TO_RR_PID_LIST={rr_pids}")
