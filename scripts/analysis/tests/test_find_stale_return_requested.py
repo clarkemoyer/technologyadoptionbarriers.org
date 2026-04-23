@@ -248,7 +248,7 @@ class TestMsgTime:
         assert record is not None
         assert record["pid"] == "PID_N"
 
-    def test_classify_tolerates_timestampless_researcher_message_message_only_path(self):
+    def test_classify_tolerates_timestampless_researcher_message_only_path(self):
         """A researcher message with no timestamp is skipped for ordering in the
         message-only path; if at least one researcher message with a valid
         timestamp exists, classification proceeds as normal."""
