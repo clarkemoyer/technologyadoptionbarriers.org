@@ -227,11 +227,15 @@ def main():
     skipped_recent_reply = 0
 
     # Pre-fetch all recent messages since the cutoff in one batch call.
-    # Participants who sent a message after the cutoff are definitionally engaged
-    # (they replied within the stale window), so we can exclude them without
-    # making a per-PID call.  Per-PID calls are still needed for all other PIDs
-    # because a reply before the cutoff (e.g., just after the return request was
-    # set) would also be engagement but would not appear in the batch.
+    # Participants who sent a message after the cutoff are safe to skip for
+    # *stale* detection: they replied within the review window and therefore
+    # cannot be stale.  This optimisation may conservatively undercount
+    # in_window_* entries in the edge case where the researcher sent a
+    # follow-up after the participant's reply (the batch data lacks
+    # per-participant conversation context to detect that pattern reliably).
+    # Per-PID calls are still issued for all other participants because a
+    # reply before the cutoff (e.g., just after the return request was set)
+    # also represents engagement but would not appear in this batch window.
     cutoff_iso = cutoff.strftime("%Y-%m-%dT%H:%M:%SZ")
     recently_replied_pids: set = set()
     try:
@@ -257,8 +261,11 @@ def main():
         if not pid:
             skipped_no_pid += 1
             continue
-        # Skip per-PID call for recently-replied participants: they are engaged
-        # by definition (replied within the stale window), so they are not stale.
+        # Skip per-PID call for recently-replied participants: they replied
+        # within the stale window so cannot be stale.  In the edge case where
+        # the researcher sent a follow-up after their reply, this PID may be
+        # absent from an in_window_* bucket — that conservative miss is
+        # accepted as a cost of the batch-optimisation.
         if pid in recently_replied_pids:
             skipped_recent_reply += 1
             continue
