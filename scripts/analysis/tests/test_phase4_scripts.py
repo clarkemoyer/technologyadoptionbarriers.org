@@ -489,3 +489,125 @@ class TestRejectByPid:
             row = self._row(disp, **kwargs)
             msg, _ = _classify_and_build(row)
             assert "Technology Adoption Barriers Survey" in msg, f"Missing survey name for {disp}"
+
+
+# ── reject_by_pid.py (CLI / subprocess) ────────────────────────────────────
+
+class TestRejectByPidCli:
+    """CLI/subprocess integration tests for reject_by_pid.py safety guards."""
+
+    SCRIPT = str(SCRIPTS_DIR / "reject_by_pid.py")
+
+    _BASE_HEADERS = [
+        "PROLIFIC_PID", "Disposition", "Duration_Seconds",
+        "IRI_Fail_Count", "Speed_Flag",
+    ]
+
+    def _csv(self, tmp_path, rows):
+        return _write_csv(tmp_path, self._BASE_HEADERS, rows)
+
+    def test_safety_stop_wrong_confirm(self, tmp_path):
+        """Live mode with wrong CONFIRM_REJECT must abort with SAFETY STOP."""
+        csv_path = self._csv(
+            tmp_path,
+            [["PID_A", "AUTO-EXCLUDE", "600", "2", "0"]],
+        )
+        result = subprocess.run(
+            [sys.executable, self.SCRIPT],
+            env={
+                "PROLIFIC_API_TOKEN": "test",
+                "STUDY_ID": "STUDY_1",
+                "CSV_FILE_PATH": csv_path,
+                "PID_LIST": "PID_A",
+                "DRY_RUN": "false",
+                "CONFIRM_REJECT": "wrong",
+            },
+            capture_output=True,
+            text=True,
+        )
+        assert result.returncode != 0
+        assert "SAFETY STOP" in result.stderr
+
+    def test_safety_stop_missing_confirm(self, tmp_path):
+        """Live mode with empty CONFIRM_REJECT must abort with SAFETY STOP."""
+        csv_path = self._csv(
+            tmp_path,
+            [["PID_A", "AUTO-EXCLUDE", "600", "2", "0"]],
+        )
+        result = subprocess.run(
+            [sys.executable, self.SCRIPT],
+            env={
+                "PROLIFIC_API_TOKEN": "test",
+                "STUDY_ID": "STUDY_1",
+                "CSV_FILE_PATH": csv_path,
+                "PID_LIST": "PID_A",
+                "DRY_RUN": "false",
+                # CONFIRM_REJECT deliberately absent
+            },
+            capture_output=True,
+            text=True,
+        )
+        assert result.returncode != 0
+        assert "SAFETY STOP" in result.stderr
+
+    def test_abort_unknown_pid(self, tmp_path):
+        """PID in PID_LIST that is absent from the CSV must abort."""
+        csv_path = self._csv(
+            tmp_path,
+            [["PID_A", "AUTO-EXCLUDE", "600", "2", "0"]],
+        )
+        result = subprocess.run(
+            [sys.executable, self.SCRIPT],
+            env={
+                "PROLIFIC_API_TOKEN": "test",
+                "STUDY_ID": "STUDY_1",
+                "CSV_FILE_PATH": csv_path,
+                "PID_LIST": "PID_UNKNOWN",
+            },
+            capture_output=True,
+            text=True,
+        )
+        assert result.returncode != 0
+        assert "not in the disposition CSV" in result.stderr
+
+    def test_abort_unhandled_disposition(self, tmp_path):
+        """A PID whose disposition is not in the handled set must abort."""
+        csv_path = self._csv(
+            tmp_path,
+            [["PID_A", "CLEAN", "900", "0", "0"]],
+        )
+        result = subprocess.run(
+            [sys.executable, self.SCRIPT],
+            env={
+                "PROLIFIC_API_TOKEN": "test",
+                "STUDY_ID": "STUDY_1",
+                "CSV_FILE_PATH": csv_path,
+                "PID_LIST": "PID_A",
+            },
+            capture_output=True,
+            text=True,
+        )
+        assert result.returncode != 0
+        assert "Unhandled disposition" in result.stderr
+
+    def test_dry_run_success(self, tmp_path):
+        """Dry run with a valid CSV and known PID must exit 0 and print summary."""
+        csv_path = self._csv(
+            tmp_path,
+            [["PID_A", "AUTO-EXCLUDE", "600", "2", "0"]],
+        )
+        result = subprocess.run(
+            [sys.executable, self.SCRIPT],
+            env={
+                "PROLIFIC_API_TOKEN": "test",
+                "STUDY_ID": "STUDY_1",
+                "CSV_FILE_PATH": csv_path,
+                "PID_LIST": "PID_A",
+                # DRY_RUN defaults to true
+            },
+            capture_output=True,
+            text=True,
+        )
+        assert result.returncode == 0
+        assert "DRY RUN" in result.stdout
+        assert "Would reject: 1" in result.stdout

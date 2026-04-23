@@ -6,22 +6,22 @@ Emits four buckets that the daily report and ad-hoc operator checks both
 consume, based on the TABS policy that Prolific auto-APPROVES stale
 submissions after its reserve timeout:
 
-  1. STALE_NO_REPLY_TO_RR
+  1. `stale_no_reply_to_rr`
      AWAITING REVIEW, `return_requested` set, > STALE_HOURS old, and no
      participant reply since `return_requested`. These are the reject
      candidates.
 
-  2. STALE_NO_REPLY_TO_MESSAGE
+  2. `stale_no_reply_to_message`
      AWAITING REVIEW, `return_requested` NOT set, TABS has sent at least one
      message, last TABS message is > STALE_HOURS old, and no participant
      reply after that message. These are the candidates for an API-level
      request-return (the formal next step before rejection).
 
-  3. IN_WINDOW_RR
+  3. `in_window_rr`
      `return_requested` is set but still within the STALE_HOURS window, so
      leave alone until the window closes.
 
-  4. IN_WINDOW_MSG
+  4. `in_window_msg`
      TABS has sent a message but no return request yet, still within the
      STALE_HOURS window, so leave alone until the window closes.
 
