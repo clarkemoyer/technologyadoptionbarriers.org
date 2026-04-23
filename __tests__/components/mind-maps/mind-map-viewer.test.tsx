@@ -80,6 +80,23 @@ describe('MindMapViewer', () => {
     expect(event.defaultPrevented).toBe(false)
   })
 
+  it('keyboard shortcuts preventDefault when the viewer itself has focus', () => {
+    const { container } = render(<MindMapViewer {...defaultProps} />)
+    const viewer = container.querySelector('section')
+    expect(viewer).not.toBeNull()
+
+    // Use a real KeyboardEvent and check defaultPrevented, because fireEvent
+    // init-object overrides of `preventDefault` are not reliable.
+    const event = new KeyboardEvent('keydown', {
+      key: 'ArrowRight',
+      bubbles: true,
+      cancelable: true,
+    })
+
+    viewer?.dispatchEvent(event)
+    expect(event.defaultPrevented).toBe(true)
+  })
+
   it('renders correctly with the initialFocus prop', () => {
     const initialFocus = { x: 2900, y: 4500, w: 3700, h: 2200 }
     render(<MindMapViewer {...defaultProps} initialFocus={initialFocus} />)

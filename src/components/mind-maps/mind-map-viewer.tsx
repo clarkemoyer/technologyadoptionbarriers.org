@@ -227,6 +227,20 @@ const MindMapViewer = ({ src, alt, ariaLabel, initialFocus }: MindMapViewerProps
     else fitToWrapper(200)
   }, [initialFocus, focusRegion, fitToWrapper])
 
+  const handlePointerDown = useCallback((e: React.PointerEvent<HTMLElement>) => {
+    // Focus the section on pointer-down so keyboard shortcuts work immediately
+    // after clicking/dragging the map. Skip when the pointer lands on an
+    // interactive descendant so those controls retain their own focus.
+    const target = e.target
+    if (
+      target instanceof HTMLElement &&
+      target.closest('a,button,input,select,textarea,[contenteditable]')
+    ) {
+      return
+    }
+    e.currentTarget.focus({ preventScroll: true })
+  }, [])
+
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLElement>) => {
       // Don't steal arrow/key events from interactive controls (e.g. the zoom slider)
@@ -288,6 +302,7 @@ const MindMapViewer = ({ src, alt, ariaLabel, initialFocus }: MindMapViewerProps
       aria-label={resolvedAriaLabel}
       className="relative bg-slate-50 border-y border-slate-200 focus-visible:outline-2 focus-visible:outline-blue-600 focus-visible:outline-offset-0"
       tabIndex={0}
+      onPointerDown={handlePointerDown}
       onKeyDown={handleKeyDown}
     >
       <div
