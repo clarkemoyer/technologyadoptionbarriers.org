@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import { axe, toHaveNoViolations } from 'jest-axe'
 import MindMapViewer from '@/components/mind-maps/mind-map-viewer'
 
@@ -66,14 +66,18 @@ describe('MindMapViewer', () => {
     expect(btn).toHaveAttribute('aria-pressed', 'false')
   })
 
-  it('keyboard shortcuts do not call preventDefault when an interactive control has focus', () => {
+  it('keyboard shortcuts do not preventDefault when an interactive control has focus', () => {
     render(<MindMapViewer {...defaultProps} />)
     const slider = screen.getByRole('slider', { name: /zoom level/i })
-    const preventDefaultSpy = jest.fn()
-    // Firing directly on the slider: the handleKeyDown guard should bail out
-    // before calling preventDefault, leaving the slider free to respond.
-    fireEvent.keyDown(slider, { key: 'ArrowRight', preventDefault: preventDefaultSpy })
-    expect(preventDefaultSpy).not.toHaveBeenCalled()
+    // Use a real KeyboardEvent and check defaultPrevented, because fireEvent
+    // init-object overrides of `preventDefault` are not reliable.
+    const event = new KeyboardEvent('keydown', {
+      key: 'ArrowRight',
+      bubbles: true,
+      cancelable: true,
+    })
+    slider.dispatchEvent(event)
+    expect(event.defaultPrevented).toBe(false)
   })
 
   it('renders correctly with the initialFocus prop', () => {

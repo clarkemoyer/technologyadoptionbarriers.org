@@ -229,9 +229,15 @@ const MindMapViewer = ({ src, alt, ariaLabel, initialFocus }: MindMapViewerProps
 
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLElement>) => {
-      // Don't steal arrow/key events from interactive controls (e.g. the zoom slider).
-      const tag = (e.target as HTMLElement).tagName
-      if (tag === 'INPUT' || tag === 'BUTTON' || tag === 'SELECT' || tag === 'TEXTAREA') return
+      // Don't steal arrow/key events from interactive controls (e.g. the zoom slider)
+      // or links/contenteditable elements inside the viewer.
+      const target = e.target
+      if (
+        target instanceof HTMLElement &&
+        target.closest('a,button,input,select,textarea,[contenteditable]')
+      ) {
+        return
+      }
       switch (e.key) {
         case 'ArrowUp':
           e.preventDefault()
