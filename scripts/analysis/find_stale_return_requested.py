@@ -52,7 +52,6 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 
 from tabs_api import (
-    prolific_recent_messages,
     prolific_submissions,
     prolific_user_messages,
 )
@@ -224,51 +223,17 @@ def main():
     fetch_errors = []
     requests_made = 0
     skipped_no_pid = 0
-    skipped_recent_reply = 0
-
-    # Pre-fetch all recent messages since the cutoff in one batch call.
-    # Participants who sent a message after the cutoff are safe to skip for
-    # *stale* detection: they replied within the review window and therefore
-    # cannot be stale.  This optimisation may conservatively undercount
-    # in_window_* entries in the edge case where the researcher sent a
-    # follow-up after the participant's reply (the batch data lacks
-    # per-participant conversation context to detect that pattern reliably).
-    # Per-PID calls are still issued for all other participants because a
-    # reply before the cutoff (e.g., just after the return request was set)
-    # also represents engagement but would not appear in this batch window.
-    cutoff_iso = cutoff.strftime("%Y-%m-%dT%H:%M:%SZ")
-    recently_replied_pids: set = set()
-    try:
-        recent_msgs = prolific_recent_messages(cutoff_iso, api_token, study_id=study_id)
-        recently_replied_pids = {
-            m.get("sender_id", "")
-            for m in recent_msgs
-            if m.get("sender_id") and m.get("sender_id") != researcher_id
-        }
-        print(
-            f"Batch pre-fetch: {len(recent_msgs)} messages since {cutoff_iso}; "
-            f"{len(recently_replied_pids)} participants replied recently."
-        )
-    except Exception as exc:  # noqa: BLE001
-        print(
-            f"Warning: bulk message pre-fetch failed ({exc}), "
-            "falling back to per-PID calls for all submissions.",
-            file=sys.stderr,
-        )
 
     for sub in awaiting:
         pid = sub.get("participant_id", "")
         if not pid:
             skipped_no_pid += 1
             continue
-        # Skip per-PID call for recently-replied participants: they replied
-        # within the stale window so cannot be stale.  In the edge case where
-        # the researcher sent a follow-up after their reply, this PID may be
-        # absent from an in_window_* bucket — that conservative miss is
-        # accepted as a cost of the batch-optimisation.
-        if pid in recently_replied_pids:
-            skipped_recent_reply += 1
-            continue
+        # Do not skip per-PID history fetches based solely on a recent reply.
+        # A participant may have replied after the cutoff and still be stale
+        # if TABS sent a later follow-up (message or return request) that the
+        # participant never answered.  Full per-PID history is required to
+        # determine whether they replied after our most recent action.
         # Small inter-call delay to avoid Prolific rate limiting.
         if requests_made > 0:
             time.sleep(_API_CALL_DELAY)
@@ -328,7 +293,6 @@ def main():
     print(
         f"Message API requests: {requests_made} made, "
         f"{skipped_no_pid} skipped (no PID), "
-        f"{skipped_recent_reply} skipped (recent reply), "
         f"{len(fetch_errors)} errors"
     )
     print(f"STALE_NO_REPLY_TO_RR_PID_LIST={rr_pids}")

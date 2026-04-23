@@ -48,10 +48,9 @@ sys.path.insert(0, str(Path(__file__).parent))
 
 from tabs_api import (
     REJECTION_CATEGORIES,
-    prolific_get_submission_ids_map,
     prolific_reject_submission,
     prolific_study_info,
-    prolific_submission_statuses,
+    prolific_submissions,
 )
 
 # Load the Smeal speed threshold from the shared constants file so this script
@@ -310,18 +309,26 @@ def main() -> None:
     print(f"  Study: {study.get('name', 'UNKNOWN')} (status: {study.get('status', 'UNKNOWN')})")
     print()
 
-    # Look up submission IDs for all PIDs up front
-    print("Looking up submission IDs...")
-    pid_to_sub_id = prolific_get_submission_ids_map(study_id, [r["pid"] for r in records], api_token)
-    print(f"  Resolved {len([p for p in pid_to_sub_id if pid_to_sub_id[p]])} / {len(records)}")
+    # Fetch all submissions once; derive both the PID→submission_id map and
+    # the PID→status map from the same API response to avoid double fetching.
+    print("Looking up submission IDs and statuses...")
+    target_pid_set = {r["pid"] for r in records}
+    all_subs = prolific_submissions(study_id, api_token)
+    pid_to_sub_id: Dict[str, str] = {}
+    status_map: Dict[str, str] = {}
+    for s in all_subs:
+        p = s.get("participant_id", "")
+        if not p:
+            continue
+        status_map[p] = s.get("status", "UNKNOWN")
+        if p in target_pid_set:
+            pid_to_sub_id[p] = s["id"]
+    print(f"  Resolved {len(pid_to_sub_id)} / {len(records)} submission IDs")
     print()
 
     # Pre-validate that every target PID is currently AWAITING REVIEW.
     # Any other status (APPROVED, RETURNED, REJECTED, …) would cause the
     # Prolific API to error mid-run and leave a partial/unclear outcome.
-    # prolific_submission_statuses returns a Dict[participant_id, status_string].
-    print("Pre-validating submission statuses...")
-    status_map = prolific_submission_statuses(study_id, api_token)
     non_awaiting_pids: List[str] = []
     for r in records:
         status = status_map.get(r["pid"], "NOT FOUND")
