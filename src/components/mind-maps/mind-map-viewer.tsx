@@ -39,6 +39,7 @@ type MindMapViewerProps = {
 }
 
 const FIT_PADDING = 0.95
+const INITIAL_SCALE = 0.08
 const MIN_SCALE = 0.02
 const MAX_SCALE = 8
 const WHEEL_STEP = 0.1
@@ -67,7 +68,7 @@ const MindMapViewer = ({ src, alt, ariaLabel, initialFocus }: MindMapViewerProps
   const imgRef = useRef<HTMLImageElement | null>(null)
   const containerRef = useRef<HTMLDivElement | null>(null)
   const [svgDimensions, setSvgDimensions] = useState<SvgDimensions | null>(null)
-  const [currentScale, setCurrentScale] = useState(MIN_SCALE)
+  const [currentScale, setCurrentScale] = useState(INITIAL_SCALE)
   const [isFullscreen, setIsFullscreen] = useState(false)
 
   const syncSvgDimensions = useCallback(() => {
@@ -101,15 +102,15 @@ const MindMapViewer = ({ src, alt, ariaLabel, initialFocus }: MindMapViewerProps
     [svgDimensions]
   )
 
-  /** Center a specific SVG-space region in the wrapper. */
+  /** Center a specific SVG-space region in the wrapper. Returns true on success, false if inputs are invalid. */
   const focusRegion = useCallback(
-    (region: MindMapViewerInitialFocus, animate = 0) => {
+    (region: MindMapViewerInitialFocus, animate = 0): boolean => {
       const wrapper = wrapperRef.current
       const instance = transformRef.current
-      if (!wrapper || !instance || !svgDimensions) return
+      if (!wrapper || !instance || !svgDimensions) return false
       const w = wrapper.clientWidth
       const h = wrapper.clientHeight
-      if (w <= 0 || h <= 0) return
+      if (w <= 0 || h <= 0) return false
 
       const { x: regionX, y: regionY, w: regionW, h: regionH } = region
       if (
@@ -120,7 +121,7 @@ const MindMapViewer = ({ src, alt, ariaLabel, initialFocus }: MindMapViewerProps
         regionW <= 0 ||
         regionH <= 0
       ) {
-        return
+        return false
       }
 
       const scale = clamp(focusScaleFor(w, h, regionW, regionH), MIN_SCALE, MAX_SCALE)
@@ -128,16 +129,20 @@ const MindMapViewer = ({ src, alt, ariaLabel, initialFocus }: MindMapViewerProps
       const regionCy = regionY + regionH / 2
       const x = w / 2 - regionCx * scale
       const y = h / 2 - regionCy * scale
-      if (!Number.isFinite(scale) || !Number.isFinite(x) || !Number.isFinite(y)) return
+      if (!Number.isFinite(scale) || !Number.isFinite(x) || !Number.isFinite(y)) return false
       instance.setTransform(x, y, scale, animate)
       setCurrentScale(scale)
+      return true
     },
     [svgDimensions]
   )
 
   const handleDoubleClick = () => {
-    if (initialFocus) focusRegion(initialFocus, 200)
-    else fitToWrapper(200)
+    if (initialFocus) {
+      if (!focusRegion(initialFocus, 200)) fitToWrapper(200)
+    } else {
+      fitToWrapper(200)
+    }
   }
 
   // Covers the cached-image case: React may not fire onLoad if the image
@@ -150,8 +155,11 @@ const MindMapViewer = ({ src, alt, ariaLabel, initialFocus }: MindMapViewerProps
   useEffect(() => {
     if (!svgDimensions) return
     const raf = requestAnimationFrame(() => {
-      if (initialFocus) focusRegion(initialFocus, 0)
-      else fitToWrapper(0)
+      if (initialFocus) {
+        if (!focusRegion(initialFocus, 0)) fitToWrapper(0)
+      } else {
+        fitToWrapper(0)
+      }
     })
     return () => cancelAnimationFrame(raf)
   }, [fitToWrapper, focusRegion, initialFocus, svgDimensions])
@@ -164,8 +172,11 @@ const MindMapViewer = ({ src, alt, ariaLabel, initialFocus }: MindMapViewerProps
       if (rafId !== null) cancelAnimationFrame(rafId)
       rafId = requestAnimationFrame(() => {
         rafId = null
-        if (initialFocus) focusRegion(initialFocus, 0)
-        else fitToWrapper(0)
+        if (initialFocus) {
+          if (!focusRegion(initialFocus, 0)) fitToWrapper(0)
+        } else {
+          fitToWrapper(0)
+        }
       })
     }
     window.addEventListener('resize', onResize)
@@ -223,8 +234,11 @@ const MindMapViewer = ({ src, alt, ariaLabel, initialFocus }: MindMapViewerProps
   const handleZoomIn = () => zoomTo(currentScale + BUTTON_STEP)
   const handleZoomOut = () => zoomTo(currentScale - BUTTON_STEP)
   const handleReset = useCallback(() => {
-    if (initialFocus) focusRegion(initialFocus, 200)
-    else fitToWrapper(200)
+    if (initialFocus) {
+      if (!focusRegion(initialFocus, 200)) fitToWrapper(200)
+    } else {
+      fitToWrapper(200)
+    }
   }, [initialFocus, focusRegion, fitToWrapper])
 
   const handlePointerDown = useCallback((e: React.PointerEvent<HTMLElement>) => {
@@ -319,7 +333,7 @@ const MindMapViewer = ({ src, alt, ariaLabel, initialFocus }: MindMapViewerProps
         >
           <TransformWrapper
             ref={transformRef}
-            initialScale={0.08}
+            initialScale={INITIAL_SCALE}
             minScale={MIN_SCALE}
             maxScale={MAX_SCALE}
             limitToBounds={false}
