@@ -6,7 +6,7 @@ export type GlossaryTermEntry = {
   shortDefinition: string
 }
 
-export const glossaryTerms: readonly GlossaryTermEntry[] = [
+export const glossaryTerms = [
   {
     id: 'cronbach-alpha',
     term: "Cronbach's Alpha (α)",
@@ -182,4 +182,4 @@ export const glossaryTerms: readonly GlossaryTermEntry[] = [
     shortDefinition:
       'The average discrepancy between the observed and model-implied correlation matrices, standardized to a 0-1 scale. Lower values indicate the model reproduces the correlations more faithfully.',
   },
-] as const
+] satisfies readonly GlossaryTermEntry[]

@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useId, useMemo, useRef, useState } from 'react'
+import type { ReactNode } from 'react'
 import Link from 'next/link'
 import { glossaryTerms, type GlossaryTermEntry } from '@/data/glossary-terms'
 
@@ -16,7 +17,7 @@ type TermProps = {
    * Useful for rendering short forms (e.g. "KMO") when the entry's `term`
    * is "Kaiser-Meyer-Olkin (KMO) Measure".
    */
-  children?: React.ReactNode
+  children?: ReactNode
   /** Where the "See full entry" link points. Defaults to the canonical glossary. */
   glossaryHref?: string
 }
@@ -37,7 +38,6 @@ export default function Term({ termId, children, glossaryHref = '/results/glossa
 
   const [open, setOpen] = useState(false)
   const tooltipId = useId()
-  const buttonRef = useRef<HTMLButtonElement>(null)
   const containerRef = useRef<HTMLSpanElement>(null)
 
   useEffect(() => {
@@ -49,16 +49,16 @@ export default function Term({ termId, children, glossaryHref = '/results/glossa
         setOpen(false)
       }
     }
-    const onClickOutside = (e: MouseEvent) => {
+    const onClickOutside = (e: PointerEvent) => {
       if (!containerRef.current?.contains(e.target as Node)) {
         setOpen(false)
       }
     }
     document.addEventListener('keydown', onKey)
-    document.addEventListener('mousedown', onClickOutside)
+    document.addEventListener('pointerdown', onClickOutside)
     return () => {
       document.removeEventListener('keydown', onKey)
-      document.removeEventListener('mousedown', onClickOutside)
+      document.removeEventListener('pointerdown', onClickOutside)
     }
   }, [open])
 
@@ -71,7 +71,6 @@ export default function Term({ termId, children, glossaryHref = '/results/glossa
   return (
     <span ref={containerRef} className="relative inline-block">
       <button
-        ref={buttonRef}
         type="button"
         aria-describedby={open ? tooltipId : undefined}
         aria-expanded={open ? 'true' : 'false'}

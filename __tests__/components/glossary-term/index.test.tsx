@@ -78,6 +78,23 @@ describe('Term', () => {
     expect(screen.getByText('nonexistent-term-xyz')).toBeInTheDocument()
   })
 
+  it('closes when a pointerdown event fires outside the component', () => {
+    render(
+      <div>
+        <Term termId="kmo">KMO</Term>
+        <button type="button" data-testid="outside">
+          Outside
+        </button>
+      </div>
+    )
+    // Open the tooltip
+    fireEvent.click(screen.getAllByRole('button')[0])
+    expect(screen.getByRole('tooltip')).toBeInTheDocument()
+    // Pointer down outside the component closes it
+    fireEvent.pointerDown(screen.getByTestId('outside'))
+    expect(screen.queryByRole('tooltip')).toBeNull()
+  })
+
   it('has no accessibility violations in the closed state', async () => {
     const { container } = render(<Term termId="kmo">KMO</Term>)
     const results = await axe(container)
