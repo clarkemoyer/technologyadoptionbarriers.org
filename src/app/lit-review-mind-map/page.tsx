@@ -43,6 +43,8 @@ export default function LitReviewMindMapPage() {
         alt="TABS literature review mind map — full landscape of technology adoption models and frameworks."
         width={15823}
         height={9757}
+        decoding="async"
+        fetchPriority="high"
         className="block w-full h-auto"
       />
     </div>
