@@ -98,7 +98,7 @@ export const DEMOGRAPHIC_COLUMNS = {
 /*  before the survey (tracked as FLAG-RECAPTCHA in disposition data). */
 /* ------------------------------------------------------------------ */
 
-const IRI_ITEMS_PER_LIKERT_BLOCK = 3 // barriers + readiness + maturity
+const IRI_ITEMS_TOTAL = 3 // 1 attention-check item per Likert block (barriers + readiness + maturity)
 const DEMOGRAPHIC_ITEMS = 10 // Q1-Q9 plus Q74 open-ended feedback
 const RECAPTCHA_ITEMS = 1
 
@@ -106,7 +106,7 @@ export const TOTAL_ITEMS_PRESENTED =
   ITEM_COUNTS.barriers +
   ITEM_COUNTS.readiness +
   ITEM_COUNTS.maturity +
-  IRI_ITEMS_PER_LIKERT_BLOCK +
+  IRI_ITEMS_TOTAL +
   DEMOGRAPHIC_ITEMS +
   RECAPTCHA_ITEMS
 
