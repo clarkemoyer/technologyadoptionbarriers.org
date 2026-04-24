@@ -98,8 +98,8 @@ export const DEMOGRAPHIC_COLUMNS = {
 /*  before the survey (tracked as FLAG-RECAPTCHA in disposition data). */
 /* ------------------------------------------------------------------ */
 
-const IRI_ITEMS_TOTAL = 3 // 1 attention-check item per Likert block (barriers + readiness + maturity)
-const DEMOGRAPHIC_ITEMS = 10 // Q1-Q9 plus Q74 open-ended feedback
+const IRI_ITEMS_TOTAL = Object.keys(IRI_COLUMNS).length // 1 per Likert block (barriers + readiness + maturity)
+const DEMOGRAPHIC_ITEMS = Object.keys(DEMOGRAPHIC_COLUMNS).length // Q1-Q9 plus Q74 open-ended feedback
 const RECAPTCHA_ITEMS = 1
 
 export const TOTAL_ITEMS_PRESENTED =
