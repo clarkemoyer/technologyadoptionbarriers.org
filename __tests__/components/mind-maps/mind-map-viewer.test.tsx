@@ -67,33 +67,50 @@ describe('MindMapViewer', () => {
     const { container } = render(<MindMapViewer {...defaultProps} />)
     const section = container.querySelector('section')!
 
-    // Simulate entering fullscreen: make document.fullscreenElement return the section
-    Object.defineProperty(document, 'fullscreenElement', {
-      configurable: true,
-      get: () => section,
-    })
-    act(() => {
-      document.dispatchEvent(new Event('fullscreenchange'))
-    })
-
-    expect(screen.getByRole('button', { name: /exit fullscreen/i })).toHaveAttribute(
-      'aria-pressed',
-      'true'
+    const hadOwnFullscreenElement = Object.prototype.hasOwnProperty.call(
+      document,
+      'fullscreenElement'
+    )
+    const originalFullscreenElementDescriptor = Object.getOwnPropertyDescriptor(
+      document,
+      'fullscreenElement'
     )
 
-    // Simulate exiting fullscreen
-    Object.defineProperty(document, 'fullscreenElement', {
-      configurable: true,
-      get: () => null,
-    })
-    act(() => {
-      document.dispatchEvent(new Event('fullscreenchange'))
-    })
+    try {
+      // Simulate entering fullscreen: make document.fullscreenElement return the section
+      Object.defineProperty(document, 'fullscreenElement', {
+        configurable: true,
+        get: () => section,
+      })
+      act(() => {
+        document.dispatchEvent(new Event('fullscreenchange'))
+      })
 
-    expect(screen.getByRole('button', { name: /enter fullscreen/i })).toHaveAttribute(
-      'aria-pressed',
-      'false'
-    )
+      expect(screen.getByRole('button', { name: /exit fullscreen/i })).toHaveAttribute(
+        'aria-pressed',
+        'true'
+      )
+
+      // Simulate exiting fullscreen
+      Object.defineProperty(document, 'fullscreenElement', {
+        configurable: true,
+        get: () => null,
+      })
+      act(() => {
+        document.dispatchEvent(new Event('fullscreenchange'))
+      })
+
+      expect(screen.getByRole('button', { name: /enter fullscreen/i })).toHaveAttribute(
+        'aria-pressed',
+        'false'
+      )
+    } finally {
+      if (hadOwnFullscreenElement && originalFullscreenElementDescriptor) {
+        Object.defineProperty(document, 'fullscreenElement', originalFullscreenElementDescriptor)
+      } else {
+        delete (document as Document & { fullscreenElement?: Element | null }).fullscreenElement
+      }
+    }
   })
 
   it('has no accessibility violations', async () => {
