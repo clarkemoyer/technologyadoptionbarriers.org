@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import { assetPath } from '@/lib/assetPath'
 
 export const metadata: Metadata = {
@@ -28,18 +29,20 @@ export default function LitReviewMindMapPage() {
           >
             Open raw SVG
           </a>
-          <a
+          <Link
             href="/making-of-tabs/mind-maps/"
             className="text-blue-700 underline hover:text-blue-900"
           >
             Back to Mind Maps
-          </a>
+          </Link>
         </span>
       </header>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={src}
         alt="TABS literature review mind map — full landscape of technology adoption models and frameworks."
+        width={15823}
+        height={9757}
         className="block w-full h-auto"
       />
     </div>
