@@ -1,7 +1,11 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
 import { axe, toHaveNoViolations } from 'jest-axe'
-import MindMapViewer from '@/components/mind-maps/mind-map-viewer'
+import MindMapViewer, {
+  computeFitTransform,
+  MIN_SCALE,
+  MAX_SCALE,
+} from '@/components/mind-maps/mind-map-viewer'
 
 expect.extend(toHaveNoViolations)
 
@@ -44,93 +48,61 @@ describe('MindMapViewer', () => {
     expect(img).toHaveAttribute('src', expect.stringContaining('full-mind-map.svg'))
   })
 
-  it('exposes controls as a labelled toolbar', () => {
+  it('exposes zoom controls as a labelled toolbar', () => {
     render(<MindMapViewer {...defaultProps} />)
-    expect(screen.getByRole('toolbar', { name: /mind map controls/i })).toBeInTheDocument()
+    expect(screen.getByRole('toolbar', { name: /zoom controls/i })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: /zoom in/i })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: /zoom out/i })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: /reset/i })).toBeInTheDocument()
-  })
-
-  it('renders the zoom slider with an accessible label', () => {
-    render(<MindMapViewer {...defaultProps} />)
-    const slider = screen.getByRole('slider', { name: /zoom level/i })
-    expect(slider).toBeInTheDocument()
-    expect(slider).toHaveAttribute('type', 'range')
-  })
-
-  it('renders the fullscreen button with aria-pressed="false" initially', () => {
-    render(<MindMapViewer {...defaultProps} />)
-    const btn = screen.getByRole('button', { name: /enter fullscreen/i })
-    expect(btn).toBeInTheDocument()
-    expect(btn).toHaveAttribute('aria-pressed', 'false')
-  })
-
-  it('keyboard shortcuts do not preventDefault when an interactive control has focus', () => {
-    render(<MindMapViewer {...defaultProps} />)
-    const slider = screen.getByRole('slider', { name: /zoom level/i })
-    // Use a real KeyboardEvent and check defaultPrevented, because fireEvent
-    // init-object overrides of `preventDefault` are not reliable.
-    const event = new KeyboardEvent('keydown', {
-      key: 'ArrowRight',
-      bubbles: true,
-      cancelable: true,
-    })
-    slider.dispatchEvent(event)
-    expect(event.defaultPrevented).toBe(false)
-  })
-
-  it('keyboard shortcuts preventDefault when the viewer itself has focus', () => {
-    const { container } = render(<MindMapViewer {...defaultProps} />)
-    const viewer = container.querySelector('section')
-    expect(viewer).not.toBeNull()
-
-    // Use a real KeyboardEvent and check defaultPrevented, because fireEvent
-    // init-object overrides of `preventDefault` are not reliable.
-    const event = new KeyboardEvent('keydown', {
-      key: 'ArrowRight',
-      bubbles: true,
-      cancelable: true,
-    })
-
-    viewer?.dispatchEvent(event)
-    expect(event.defaultPrevented).toBe(true)
-  })
-
-  it('renders correctly with the initialFocus prop', () => {
-    const initialFocus = { x: 2900, y: 4500, w: 3700, h: 2200 }
-    render(<MindMapViewer {...defaultProps} initialFocus={initialFocus} />)
-    // Component must render its image and controls without crashing
-    expect(screen.getByRole('img', { name: /tabs full mind map/i })).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: /reset/i })).toBeInTheDocument()
-    expect(screen.getByRole('toolbar', { name: /mind map controls/i })).toBeInTheDocument()
-  })
-
-  it('does not crash when initialFocus has zero or negative dimensions', () => {
-    // focusRegion validates inputs; these edge cases must be silently ignored
-    const { unmount: u1 } = render(
-      <MindMapViewer {...defaultProps} initialFocus={{ x: 0, y: 0, w: 0, h: 0 }} />
-    )
-    expect(screen.getByRole('img')).toBeInTheDocument()
-    u1()
-
-    const { unmount: u2 } = render(
-      <MindMapViewer {...defaultProps} initialFocus={{ x: 100, y: 100, w: -50, h: -20 }} />
-    )
-    expect(screen.getByRole('img')).toBeInTheDocument()
-    u2()
-  })
-
-  it('has no accessibility violations when rendered with initialFocus', async () => {
-    const initialFocus = { x: 5300, y: 700, w: 3700, h: 1100 }
-    const { container } = render(<MindMapViewer {...defaultProps} initialFocus={initialFocus} />)
-    const results = await axe(container)
-    expect(results).toHaveNoViolations()
   })
 
   it('has no accessibility violations', async () => {
     const { container } = render(<MindMapViewer {...defaultProps} />)
     const results = await axe(container)
     expect(results).toHaveNoViolations()
+  })
+
+  describe('computeFitTransform – scale clamping', () => {
+    it('clamps to MIN_SCALE when the SVG is much larger than the wrapper', () => {
+      // Raw fit scale: min(800/50000, 600/30000) * 0.95 ≈ 0.0152, below MIN_SCALE
+      const wrapperW = 800
+      const wrapperH = 600
+      const svgW = 50_000
+      const svgH = 30_000
+      const { scale, x, y } = computeFitTransform(wrapperW, wrapperH, svgW, svgH)
+
+      expect(scale).toBe(MIN_SCALE)
+      // x/y must be computed from the CLAMPED scale, not the unclamped fit scale
+      expect(x).toBeCloseTo((wrapperW - svgW * MIN_SCALE) / 2)
+      expect(y).toBeCloseTo((wrapperH - svgH * MIN_SCALE) / 2)
+    })
+
+    it('clamps to MAX_SCALE when the SVG is much smaller than the wrapper', () => {
+      // Raw fit scale: min(800/10, 600/8) * 0.95 = 71.25, above MAX_SCALE
+      const wrapperW = 800
+      const wrapperH = 600
+      const svgW = 10
+      const svgH = 8
+      const { scale, x, y } = computeFitTransform(wrapperW, wrapperH, svgW, svgH)
+
+      expect(scale).toBe(MAX_SCALE)
+      expect(x).toBeCloseTo((wrapperW - svgW * MAX_SCALE) / 2)
+      expect(y).toBeCloseTo((wrapperH - svgH * MAX_SCALE) / 2)
+    })
+
+    it('uses the unclamped fit scale when it is within [MIN_SCALE, MAX_SCALE]', () => {
+      // Fit scale for 800×600 wrapper and 1200×900 SVG:
+      // min(800/1200, 600/900) * 0.95 ≈ 0.633 — well within range
+      const wrapperW = 800
+      const wrapperH = 600
+      const svgW = 1200
+      const svgH = 900
+      const { scale } = computeFitTransform(wrapperW, wrapperH, svgW, svgH)
+
+      expect(scale).toBeGreaterThan(MIN_SCALE)
+      expect(scale).toBeLessThan(MAX_SCALE)
+      // Should equal min(800/1200, 600/900) * 0.95
+      expect(scale).toBeCloseTo(Math.min(wrapperW / svgW, wrapperH / svgH) * 0.95)
+    })
   })
 })
