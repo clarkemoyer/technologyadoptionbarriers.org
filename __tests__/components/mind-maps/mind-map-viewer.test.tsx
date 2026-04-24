@@ -5,6 +5,7 @@ import MindMapViewer, {
   computeFitTransform,
   MIN_SCALE,
   MAX_SCALE,
+  WHEEL_STEP,
 } from '@/components/mind-maps/mind-map-viewer'
 
 expect.extend(toHaveNoViolations)
@@ -117,6 +118,14 @@ describe('MindMapViewer', () => {
     const { container } = render(<MindMapViewer {...defaultProps} />)
     const results = await axe(container)
     expect(results).toHaveNoViolations()
+  })
+
+  it('WHEEL_STEP is small enough that a single mouse-wheel notch does not max out zoom', () => {
+    // react-zoom-pan-pinch v4 computes scale_delta = deltaY * WHEEL_STEP.
+    // A typical mouse-wheel notch produces |deltaY| ~100; the resulting scale
+    // delta must stay well below 1.0 to avoid leaping to MIN_SCALE/MAX_SCALE.
+    expect(WHEEL_STEP).toBe(0.0003)
+    expect(Math.abs(100 * WHEEL_STEP)).toBeLessThan(0.1)
   })
 
   describe('computeFitTransform – scale clamping', () => {

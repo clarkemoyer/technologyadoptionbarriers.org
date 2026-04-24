@@ -35,10 +35,13 @@ export const MAX_SCALE = 4
  * scale delta, not a per-notch fraction, so this needs to be small enough that
  * a single mouse-wheel notch (|deltaY| ~100) produces a gentle zoom change.
  *
- * Typical zoom-in wheel input uses a negative deltaY, though the sign can vary
- * with scroll direction or invert settings; the magnitude is what matters here.
- * At step=0.0003: deltaY=-100 -> -0.03 scale delta; trackpad deltaY=-10 ->
- * -0.003 scale delta (near-continuous fine zoom).
+ * The library applies the raw `deltaY` sign directly: negative `deltaY`
+ * decreases scale and positive `deltaY` increases scale. Devices and OS/browser
+ * settings can still produce different signs for the same physical gesture, so
+ * the examples below describe the arithmetic, not a universal "zoom in/out"
+ * direction across all hardware.
+ * At step=0.0003: deltaY=-100 -> -0.03 additive scale delta; trackpad
+ * deltaY=-10 -> -0.003 additive scale delta (near-continuous fine zoom).
  */
 export const WHEEL_STEP = 0.0003
 
