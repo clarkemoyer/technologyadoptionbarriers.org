@@ -25,17 +25,17 @@ test.describe('Homepage Statistics Section', () => {
 
     // Surveys Completed: Prolific-approved count from disposition-summary.json
     await expect(getCounterBlock('Surveys Completed')).toContainText(
-      dispositionData.completionProgress.approved.toLocaleString(),
+      dispositionData.completionProgress.approved.toLocaleString()
     )
 
     // Survey Questions: participant-facing item total derived from constants
     await expect(getCounterBlock('Survey Questions')).toContainText(
-      TOTAL_ITEMS_PRESENTED.toLocaleString(),
+      TOTAL_ITEMS_PRESENTED.toLocaleString()
     )
 
     // Verified Visitors: production hostname visitors from impact.json
     await expect(getCounterBlock('Verified Visitors')).toContainText(
-      (parseInt(impactData.verifiedVisitors, 10) || 0).toLocaleString(),
+      (parseInt(impactData.verifiedVisitors, 10) || 0).toLocaleString()
     )
   })
 })
