@@ -17,8 +17,15 @@ export function formatUtcTimestamp(timestamp?: string | null): string | null {
   }
 
   const normalizedTimestamp = timestamp.replace(/\.\d{4,}/, (match: string) => match.slice(0, 4))
+  const date = new Date(normalizedTimestamp)
 
-  return `${new Date(normalizedTimestamp).toLocaleString('en-US', {
+  // `toLocaleString` on an invalid Date yields "Invalid Date"; return null so
+  // callers render their placeholder instead of shipping "Invalid Date UTC".
+  if (Number.isNaN(date.getTime())) {
+    return null
+  }
+
+  return `${date.toLocaleString('en-US', {
     dateStyle: 'medium',
     timeStyle: 'short',
     timeZone: 'UTC',

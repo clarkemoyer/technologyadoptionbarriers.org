@@ -127,7 +127,7 @@ export function joinSegments(segments: string[]): string {
  * metadata = { ... }` block so nested objects like `openGraph.title` are never
  * accidentally matched in place of the top-level title.
  */
-function extractStaticMetadata(source: string): {
+export function extractStaticMetadata(source: string): {
   title: string | null
   description: string | null
   robotsIndexFalse: boolean

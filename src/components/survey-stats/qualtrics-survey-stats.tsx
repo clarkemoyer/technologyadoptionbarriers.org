@@ -15,7 +15,7 @@ export default function QualtricsSurveyStats() {
   const questionCount: number | null = metricsData.questionCount ?? null
 
   const dispositionUpdatedAt = formatUtcTimestamp(dispositionData.updatedAt)
-  const qualticsUpdatedAt = formatUtcTimestamp(metricsData.collectedAt)
+  const qualtricsUpdatedAt = formatUtcTimestamp(metricsData.collectedAt)
 
   return (
     <section className="mx-auto w-full max-w-5xl px-6 py-10">
@@ -23,7 +23,7 @@ export default function QualtricsSurveyStats() {
         <h2 className="text-3xl font-bold text-slate-900">Survey stats</h2>
         <p className="mt-2 text-slate-700">
           Source: Qualtrics API (cached via GitHub Actions). Last updated{' '}
-          <span className="font-medium">{qualticsUpdatedAt ?? metricsData.collectedAt}</span>.
+          <span className="font-medium">{qualtricsUpdatedAt ?? metricsData.collectedAt}</span>.
         </p>
         <div className="mt-4 rounded-lg border border-slate-200 bg-white p-4">
           <div className="text-sm text-slate-600">Survey</div>
