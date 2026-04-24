@@ -140,14 +140,15 @@ const MindMapViewer = ({ src, alt, ariaLabel }: MindMapViewerProps) => {
     const el = containerRef.current
     if (!el) return
     if (document.fullscreenElement === el) {
-      void document.exitFullscreen()
+      document.exitFullscreen().catch(() => {})
     } else {
-      void el.requestFullscreen()
+      el.requestFullscreen().catch(() => {})
     }
   }, [])
 
   // Track fullscreen state so the button label + fit stay in sync with reality
-  // (user can exit via Esc or F11, which doesn't go through our toggle handler).
+  // (user can exit via Esc or browser fullscreen UI, which doesn't go through
+  // our toggle handler).
   useEffect(() => {
     const onChange = () => {
       const nowFs = document.fullscreenElement === containerRef.current
@@ -168,7 +169,7 @@ const MindMapViewer = ({ src, alt, ariaLabel }: MindMapViewerProps) => {
       aria-label={resolvedAriaLabel}
       className={
         isFullscreen
-          ? 'relative bg-slate-50 w-screen h-screen'
+          ? 'relative bg-slate-50 w-screen h-screen flex flex-col overflow-hidden'
           : 'relative bg-slate-50 border-y border-slate-200'
       }
     >
@@ -176,7 +177,7 @@ const MindMapViewer = ({ src, alt, ariaLabel }: MindMapViewerProps) => {
         ref={wrapperRef}
         className="relative mx-auto"
         style={{
-          height: isFullscreen ? '100vh' : 'min(80vh, 900px)',
+          ...(isFullscreen ? { flex: '1 1 0', minHeight: 0 } : { height: 'min(80vh, 900px)' }),
           maxWidth: '100%',
         }}
       >
@@ -220,7 +221,7 @@ const MindMapViewer = ({ src, alt, ariaLabel }: MindMapViewerProps) => {
         <div
           className="absolute top-3 right-3 flex items-center gap-1 bg-white/95 border border-slate-300 rounded-md shadow-sm p-1"
           role="toolbar"
-          aria-label="Mind map zoom controls"
+          aria-label="Mind map controls"
         >
           <button
             type="button"

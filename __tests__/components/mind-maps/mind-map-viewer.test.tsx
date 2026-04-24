@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, screen } from '@testing-library/react'
+import { render, screen, act } from '@testing-library/react'
 import { axe, toHaveNoViolations } from 'jest-axe'
 import MindMapViewer, {
   computeFitTransform,
@@ -50,10 +50,50 @@ describe('MindMapViewer', () => {
 
   it('exposes zoom controls as a labelled toolbar', () => {
     render(<MindMapViewer {...defaultProps} />)
-    expect(screen.getByRole('toolbar', { name: /zoom controls/i })).toBeInTheDocument()
+    expect(screen.getByRole('toolbar', { name: /mind map controls/i })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: /zoom in/i })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: /zoom out/i })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: /reset/i })).toBeInTheDocument()
+  })
+
+  it('renders the fullscreen button with aria-pressed="false" by default', () => {
+    render(<MindMapViewer {...defaultProps} />)
+    const btn = screen.getByRole('button', { name: /enter fullscreen/i })
+    expect(btn).toBeInTheDocument()
+    expect(btn).toHaveAttribute('aria-pressed', 'false')
+  })
+
+  it('updates the fullscreen button label and aria-pressed on fullscreenchange', () => {
+    const { container } = render(<MindMapViewer {...defaultProps} />)
+    const section = container.querySelector('section')!
+
+    // Simulate entering fullscreen: make document.fullscreenElement return the section
+    Object.defineProperty(document, 'fullscreenElement', {
+      configurable: true,
+      get: () => section,
+    })
+    act(() => {
+      document.dispatchEvent(new Event('fullscreenchange'))
+    })
+
+    expect(screen.getByRole('button', { name: /exit fullscreen/i })).toHaveAttribute(
+      'aria-pressed',
+      'true'
+    )
+
+    // Simulate exiting fullscreen
+    Object.defineProperty(document, 'fullscreenElement', {
+      configurable: true,
+      get: () => null,
+    })
+    act(() => {
+      document.dispatchEvent(new Event('fullscreenchange'))
+    })
+
+    expect(screen.getByRole('button', { name: /enter fullscreen/i })).toHaveAttribute(
+      'aria-pressed',
+      'false'
+    )
   })
 
   it('has no accessibility violations', async () => {
