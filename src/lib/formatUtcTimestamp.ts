@@ -19,15 +19,33 @@ export function formatUtcTimestamp(timestamp?: string | null): string | null {
   const normalizedTimestamp = timestamp.replace(/\.\d{4,}/, (match: string) => match.slice(0, 4))
   const date = new Date(normalizedTimestamp)
 
-  // `toLocaleString` on an invalid Date yields "Invalid Date"; return null so
-  // callers render their placeholder instead of shipping "Invalid Date UTC".
+  // Parsing an invalid timestamp yields NaN; return null so callers render
+  // their placeholder instead of shipping a misleading timestamp string.
   if (Number.isNaN(date.getTime())) {
     return null
   }
 
-  return `${date.toLocaleString('en-US', {
-    dateStyle: 'medium',
-    timeStyle: 'short',
-    timeZone: 'UTC',
-  })} UTC`
+  const monthNames = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ]
+  const month = monthNames[date.getUTCMonth()]
+  const day = date.getUTCDate()
+  const year = date.getUTCFullYear()
+  const hours24 = date.getUTCHours()
+  const minutes = String(date.getUTCMinutes()).padStart(2, '0')
+  const period = hours24 >= 12 ? 'PM' : 'AM'
+  const hours12 = hours24 % 12 || 12
+
+  return `${month} ${day}, ${year}, ${hours12}:${minutes} ${period} UTC`
 }
