@@ -36,14 +36,11 @@ const StandardsRegulationsPage = () => {
         </p>
       </article>
 
-      {/* Break out of the making-of-tabs max-w-4xl container so the cut has viewport-wide room. */}
-      <div className="relative left-1/2 right-1/2 -mx-[50vw] w-screen overflow-x-clip">
-        <MindMapViewer
-          src="/Svgs/mind-maps/standards-regulations.svg"
-          alt="Standards & Regulations cut of the TABS mind map."
-          ariaLabel="TABS mind map cut: Standards & Regulations"
-        />
-      </div>
+      <MindMapViewer
+        src="/Svgs/mind-maps/standards-regulations.svg"
+        alt="Standards & Regulations cut of the TABS mind map."
+        ariaLabel="TABS mind map cut: Standards & Regulations"
+      />
     </div>
   )
 }

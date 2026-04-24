@@ -29,8 +29,12 @@ export const INITIAL_SCALE = 0.08
 export const MIN_SCALE = 0.02
 /** Hard ceiling: 4× is sufficient to read leaf-level text in the exported map. */
 export const MAX_SCALE = 4
-/** Fraction of the current scale added/removed per mouse-wheel tick. */
-export const WHEEL_STEP = 0.1
+/**
+ * Fraction of the current scale added/removed per mouse-wheel tick.
+ * Kept small so a single scroll notch produces a gentle zoom change rather
+ * than a big jump. With step=0.03 each notch multiplies the scale by ~1.03.
+ */
+export const WHEEL_STEP = 0.03
 
 const fitScaleFor = (
   wrapperWidth: number,
@@ -67,7 +71,9 @@ const MindMapViewer = ({ src, alt, ariaLabel }: MindMapViewerProps) => {
   const transformRef = useRef<ReactZoomPanPinchRef | null>(null)
   const wrapperRef = useRef<HTMLDivElement | null>(null)
   const imgRef = useRef<HTMLImageElement | null>(null)
+  const containerRef = useRef<HTMLElement | null>(null)
   const [svgDimensions, setSvgDimensions] = useState<SvgDimensions | null>(null)
+  const [isFullscreen, setIsFullscreen] = useState(false)
 
   const syncSvgDimensions = useCallback(() => {
     const img = imgRef.current
@@ -130,17 +136,50 @@ const MindMapViewer = ({ src, alt, ariaLabel }: MindMapViewerProps) => {
   // Handle the gesture ourselves so it matches the Reset button.
   const handleDoubleClick = () => fitToWrapper(200)
 
+  const toggleFullscreen = useCallback(() => {
+    const el = containerRef.current
+    if (!el) return
+    if (document.fullscreenElement === el) {
+      document.exitFullscreen().catch(() => {})
+    } else {
+      el.requestFullscreen().catch(() => {})
+    }
+  }, [])
+
+  // Track fullscreen state so the button label + fit stay in sync with reality
+  // (user can exit via Esc or browser fullscreen UI, which doesn't go through
+  // our toggle handler).
+  useEffect(() => {
+    const onChange = () => {
+      const nowFs = document.fullscreenElement === containerRef.current
+      setIsFullscreen(nowFs)
+      // Refit whenever the viewport-height changes (entering/leaving fullscreen
+      // swaps between wrapper height and 100vh).
+      requestAnimationFrame(() => fitToWrapper(0))
+    }
+    document.addEventListener('fullscreenchange', onChange)
+    return () => document.removeEventListener('fullscreenchange', onChange)
+  }, [fitToWrapper])
+
   const resolvedAriaLabel = ariaLabel ?? alt
 
   return (
     <section
+      ref={containerRef}
       aria-label={resolvedAriaLabel}
-      className="relative bg-slate-50 border-y border-slate-200"
+      className={
+        isFullscreen
+          ? 'relative bg-slate-50 w-screen h-screen flex flex-col overflow-hidden'
+          : 'relative bg-slate-50 border-y border-slate-200'
+      }
     >
       <div
         ref={wrapperRef}
         className="relative mx-auto"
-        style={{ height: 'min(80vh, 900px)', maxWidth: '100%' }}
+        style={{
+          ...(isFullscreen ? { flex: '1 1 0', minHeight: 0 } : { height: 'min(80vh, 900px)' }),
+          maxWidth: '100%',
+        }}
       >
         <TransformWrapper
           ref={transformRef}
@@ -149,6 +188,7 @@ const MindMapViewer = ({ src, alt, ariaLabel }: MindMapViewerProps) => {
           maxScale={MAX_SCALE}
           limitToBounds={false}
           wheel={{ step: WHEEL_STEP }}
+          smooth
           doubleClick={{ disabled: true }}
         >
           <TransformComponent
@@ -179,18 +219,10 @@ const MindMapViewer = ({ src, alt, ariaLabel }: MindMapViewerProps) => {
         </TransformWrapper>
 
         <div
-          className="absolute top-3 right-3 flex gap-1 bg-white/95 border border-slate-300 rounded-md shadow-sm p-1"
+          className="absolute top-3 right-3 flex items-center gap-1 bg-white/95 border border-slate-300 rounded-md shadow-sm p-1"
           role="toolbar"
-          aria-label="Mind map zoom controls"
+          aria-label="Mind map controls"
         >
-          <button
-            type="button"
-            onClick={handleZoomIn}
-            aria-label="Zoom in"
-            className="px-3 py-1 text-base font-semibold text-slate-800 hover:bg-slate-100 rounded"
-          >
-            +
-          </button>
           <button
             type="button"
             onClick={handleZoomOut}
@@ -201,11 +233,29 @@ const MindMapViewer = ({ src, alt, ariaLabel }: MindMapViewerProps) => {
           </button>
           <button
             type="button"
+            onClick={handleZoomIn}
+            aria-label="Zoom in"
+            className="px-3 py-1 text-base font-semibold text-slate-800 hover:bg-slate-100 rounded"
+          >
+            +
+          </button>
+          <button
+            type="button"
             onClick={handleReset}
             aria-label="Reset zoom and position"
             className="px-3 py-1 text-sm font-medium text-slate-800 hover:bg-slate-100 rounded"
           >
             Reset
+          </button>
+          <span aria-hidden="true" className="mx-1 h-5 w-px bg-slate-300" />
+          <button
+            type="button"
+            onClick={toggleFullscreen}
+            aria-label={isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'}
+            aria-pressed={isFullscreen}
+            className="px-3 py-1 text-sm font-medium text-slate-800 hover:bg-slate-100 rounded"
+          >
+            {isFullscreen ? 'Exit Fullscreen' : 'Fullscreen'}
           </button>
         </div>
       </div>

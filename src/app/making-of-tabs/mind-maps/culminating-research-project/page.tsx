@@ -35,14 +35,11 @@ const CulminatingResearchProjectPage = () => {
         </p>
       </article>
 
-      {/* Break out of the making-of-tabs max-w-4xl container so the cut has viewport-wide room. */}
-      <div className="relative left-1/2 right-1/2 -mx-[50vw] w-screen overflow-x-clip">
-        <MindMapViewer
-          src="/Svgs/mind-maps/culminating-research-project.svg"
-          alt="Culminating Research Project Workflow cut of the TABS mind map."
-          ariaLabel="TABS mind map cut: Culminating Research Project Workflow"
-        />
-      </div>
+      <MindMapViewer
+        src="/Svgs/mind-maps/culminating-research-project.svg"
+        alt="Culminating Research Project Workflow cut of the TABS mind map."
+        ariaLabel="TABS mind map cut: Culminating Research Project Workflow"
+      />
     </div>
   )
 }
