@@ -33,10 +33,12 @@ export const MAX_SCALE = 4
  * Multiplier applied to raw `deltaY` values when computing how much to zoom
  * per wheel event. react-zoom-pan-pinch v4 uses `deltaY * step` as an additive
  * scale delta, not a per-notch fraction, so this needs to be small enough that
- * a single mouse-wheel notch (deltaY ~100) produces a gentle zoom change.
+ * a single mouse-wheel notch (|deltaY| ~100) produces a gentle zoom change.
  *
- * At step=0.0003: deltaY=100 -> +0.03 scale (~10% relative at fit, ~1% near max);
- * trackpad deltaY=10 -> +0.003 scale (near-continuous fine zoom).
+ * Typical zoom-in wheel input uses a negative deltaY, though the sign can vary
+ * with scroll direction or invert settings; the magnitude is what matters here.
+ * At step=0.0003: deltaY=-100 -> -0.03 scale delta; trackpad deltaY=-10 ->
+ * -0.003 scale delta (near-continuous fine zoom).
  */
 export const WHEEL_STEP = 0.0003
 
