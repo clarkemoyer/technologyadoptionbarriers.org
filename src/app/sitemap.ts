@@ -655,7 +655,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // it can render the SVG at full viewport width, no article-column clip).
     {
       url: `${baseUrl}/lit-review-mind-map`,
-      lastModified: new Date('2026-04-24'),
+      lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.6,
     },
