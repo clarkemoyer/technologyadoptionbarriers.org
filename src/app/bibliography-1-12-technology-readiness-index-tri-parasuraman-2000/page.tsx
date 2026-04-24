@@ -338,7 +338,45 @@ const BibliographyArticlePage = () => {
           </p>
         </section>
 
-        {/* 6. Preceding Models or Theories */}
+        {/* 6. What Does the Model Measure? */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>What Does the Model Measure?</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            The Technology Readiness Index (TRI) is a psychometric scale. Parasuraman (2000)
+            develops a 36-item Likert instrument measuring a general personality-trait construct of
+            technology readiness, composed of four dimensions:
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Optimism (contributor):</strong> A positive view of technology and a belief
+              that it offers people increased control, flexibility, and efficiency. Measured via
+              multi-item scale.
+            </li>
+            <li>
+              <strong>Innovativeness (contributor):</strong> A tendency to be a technology pioneer
+              and thought leader.
+            </li>
+            <li>
+              <strong>Discomfort (inhibitor):</strong> A perceived lack of control over technology
+              and a feeling of being overwhelmed by it.
+            </li>
+            <li>
+              <strong>Insecurity (inhibitor):</strong> Distrust of technology and skepticism about
+              its ability to work properly, often tied to privacy and transaction-integrity
+              concerns.
+            </li>
+          </ul>
+          <p className={PARAGRAPH_CLASSES}>
+            TRI produces a composite technology-readiness score and four subscale scores. The 2000
+            instrument was developed and validated with a nationally representative US sample
+            (&gt;1,000 consumers); Parasuraman &amp; Colby subsequently produced TRI 2.0 (2015,
+            bibliography 1-21) - a shorter 16-item instrument. The original 36-item scale reports
+            Cronbach&rsquo;s alpha values above conventional thresholds for each subscale in the
+            validation sample.
+          </p>
+        </section>
+
+        {/* 7. Preceding Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Preceding Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -358,7 +396,7 @@ const BibliographyArticlePage = () => {
                 </a>
                 ):
               </strong>{' '}
-              Established categories of adopters (innovators, early adopters, early majority, late
+              Articulated categories of adopters (innovators, early adopters, early majority, late
               majority, laggards) based on individual characteristics and risk tolerance. TRI
               operationalizes these differences more precisely through multi-dimensional
               measurement.
@@ -391,8 +429,9 @@ const BibliographyArticlePage = () => {
                 </a>
                 ):
               </strong>{' '}
-              Established perceived usefulness and perceived ease of use as adoption predictors, but
-              did not fully explore underlying personality dispositions driving these perceptions.
+              Proposed perceived usefulness and perceived ease of use as adoption predictors; the
+              model did not fully explore underlying personality dispositions driving these
+              perceptions.
             </li>
             <li>
               <strong>
@@ -421,13 +460,13 @@ const BibliographyArticlePage = () => {
                 </a>
                 ):
               </strong>{' '}
-              Demonstrated that individual innovativeness toward information technology is a stable
-              personality trait predicting adoption across systems.
+              Argued and reported evidence that individual innovativeness toward information
+              technology can be a stable personality trait predicting adoption across systems.
             </li>
           </ul>
         </section>
 
-        {/* 7. Describe The Model */}
+        {/* 8. Describe The Model */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Describe The Model</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -543,7 +582,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 8. Key Contributions */}
+        {/* 9. Key Contributions */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Key Contributions</h2>
           <ul className={BODY_LIST_CLASSES}>
@@ -553,7 +592,7 @@ const BibliographyArticlePage = () => {
               dimensions with strong psychometric properties.
             </li>
             <li>
-              <strong>Multidimensional readiness concept:</strong> Demonstrated that technology
+              <strong>Multidimensional readiness concept:</strong> Proposed that technology
               readiness is not unidimensional (acceptance/resistance) but comprises distinct
               psychological components (optimism, innovativeness, discomfort, insecurity).
             </li>
@@ -580,7 +619,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 9. Internal Validity */}
+        {/* 10. Internal Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Internal Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -617,7 +656,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 10. External Validity */}
+        {/* 11. External Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>External Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -660,7 +699,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 11. Relevance to Technology Adoption */}
+        {/* 12. Relevance to Technology Adoption */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Relevance to Technology Adoption</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -745,7 +784,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 12. Following Models or Theories */}
+        {/* 13. Following Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Following Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -789,7 +828,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 13. References */}
+        {/* 14. References */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>References</h2>
           <ol className={REFERENCES_OL_CLASSES}>
@@ -799,6 +838,7 @@ const BibliographyArticlePage = () => {
           </ol>
         </section>
 
+        {/* 15. Further Reading */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Further Reading</h2>
           <ol className={REFERENCES_OL_CLASSES}>
@@ -808,7 +848,7 @@ const BibliographyArticlePage = () => {
           </ol>
         </section>
 
-        {/* 14. Series Navigation */}
+        {/* 16. Series Navigation */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Series Navigation</h2>
           <div className="space-y-4">

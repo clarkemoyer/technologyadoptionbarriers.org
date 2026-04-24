@@ -126,7 +126,9 @@ const BibliographyArticlePage = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             The paper positions itself against three precursor paradigms that it reviews and
-            critiques (Sections I-III, pp.509-516):
+            critiques under the named headings &ldquo;Models of Strategy Emphasizing the
+            Exploitation of Market Power&rdquo; (p.511) and &ldquo;Models of Strategy Emphasizing
+            Efficiency&rdquo; (p.513), before introducing the dynamic capabilities approach (p.515):
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
@@ -152,8 +154,9 @@ const BibliographyArticlePage = () => {
             private wealth creation depends &ldquo;in large measure on honing internal
             technological, organizational, and managerial processes inside the firm&rdquo; rather
             than on strategizing in the game-theoretic sense (abstract, p.509). The paper presents
-            the framework conceptually (pp.509-524) and then illustrates it via examples of
-            strategic capabilities in real firms (pp.524-533).
+            the framework conceptually (pp.509-527) and closes with a Conclusion section
+            (pp.527-530) comparing the four paradigms on efficiency vs. market power and drawing
+            normative implications for strategic management.
           </p>
         </section>
 
@@ -180,11 +183,13 @@ const BibliographyArticlePage = () => {
             pp.1319-1350).
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            The 1997 paper&rsquo;s analytical method is: (i) define the hierarchy of firm-level
-            factors that might generate advantage; (ii) distinguish paradigms of strategy; (iii)
-            identify the three Ps that shape dynamic capabilities; (iv) show by case-example how
-            each of the three Ps generates or erodes competitive advantage in technology-intensive
-            industries (semiconductors, biotechnology, consumer electronics).
+            The 1997 paper&rsquo;s analytical method is: (i) review three precursor paradigms of
+            strategy (competitive forces, strategic conflict, resource-based) and their limits; (ii)
+            define the hierarchy of firm-level factors that might generate advantage; (iii) identify
+            the three Ps that shape dynamic capabilities; (iv) discuss replicability and
+            imitatability and illustrate the argument with firm-level examples drawn from
+            technology-intensive settings (including semiconductors, information services, and
+            software, p.515).
           </p>
         </section>
 
@@ -250,7 +255,7 @@ const BibliographyArticlePage = () => {
             <li>
               <strong>Positions:</strong> The firm&rsquo;s current specific endowments of
               technology, intellectual property, complementary assets, customer base, and external
-              relations with suppliers and complementors. The paper enumerates seven illustrative
+              relations with suppliers and complementors. The paper enumerates eight illustrative
               asset classes: technological, complementary, financial, reputational, structural,
               institutional, market-structure, and organizational-boundary assets (p.521-523).
             </li>
@@ -357,7 +362,7 @@ const BibliographyArticlePage = () => {
               </strong>{' '}
               Central reference. Supplies the concept of organizational routines as the unit of
               analysis for competence and for evolutionary selection. Cited repeatedly throughout
-              the paper (pp.515, 519, 526, 529).
+              the paper (pp.510, 515, 520, 525).
             </li>
             <li>
               <strong>
@@ -411,9 +416,9 @@ const BibliographyArticlePage = () => {
                 </a>
                 ):
               </strong>{' '}
-              Cited on p.518 and p.522. Supplies the argument that path dependencies matter most
-              where conditions of increasing returns obtain. Essential to the &ldquo;paths&rdquo;
-              leg of the three-Ps framework.
+              Cited on p.523 in the discussion of increasing returns and lock-in. Supplies the
+              argument that path dependencies matter most where conditions of increasing returns
+              obtain. Essential to the &ldquo;paths&rdquo; leg of the three-Ps framework.
             </li>
             <li>
               <strong>
@@ -454,11 +459,15 @@ const BibliographyArticlePage = () => {
           <h2 className={H2_CLASSES}>Describe The Model</h2>
           <p className={PARAGRAPH_CLASSES}>
             Teece, Pisano &amp; Shuen (1997) develop the framework in four steps: (1) review and
-            critique three precursor paradigms of strategy; (2) lay out a hierarchical vocabulary of
-            firm-level factors; (3) advance the three-Ps argument - competitive advantage is shaped
-            by processes, positions, and paths; (4) apply the framework to illustrative firm cases
-            (the paper discusses cases in semiconductors, consumer electronics, and biotechnology,
-            pp.524-533).
+            critique three precursor paradigms of strategy under the named headings &ldquo;Models of
+            Strategy Emphasizing the Exploitation of Market Power&rdquo; and &ldquo;Models of
+            Strategy Emphasizing Efficiency&rdquo; (pp.509-515); (2) lay out a hierarchical
+            vocabulary of firm-level factors (pp.515-517); (3) advance the three-Ps argument -
+            competitive advantage is shaped by processes, positions, and paths (pp.518-524); (4)
+            discuss replicability and imitatability and close with normative implications for
+            strategic management (pp.524-530). The paper is conceptual throughout and draws on
+            firm-level examples (IBM, Texas Instruments, Philips, Toyota, Chrysler, Microsoft,
+            Intel, and others) rather than formal case studies.
           </p>
 
           <h3 className={H3_CLASSES}>Three precursor paradigms critiqued (pp.509-515)</h3>
@@ -523,7 +532,7 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>Positions:</strong> Specific asset endowments that shape the firm&rsquo;s
-              strategic posture. Seven illustrative classes (p.521-523):{' '}
+              strategic posture. Eight illustrative classes (p.521-523):{' '}
               <em>technological assets</em>, <em>complementary assets</em>,{' '}
               <em>financial assets</em>,<em>reputational assets</em>, <em>structural assets</em>{' '}
               (formal/informal structure and governance), <em>institutional assets</em> (regulatory,
@@ -556,9 +565,10 @@ const BibliographyArticlePage = () => {
               to capture the rents.
             </li>
             <li>
-              <strong>Co-specialization of assets:</strong> Dynamic capabilities arise from the way
-              the firm&rsquo;s processes, positions, and paths are co-specialized to one another;
-              reconfiguration involves rebuilding these links when conditions change (p.527).
+              <strong>Interdependence of processes, positions, and paths:</strong> Dynamic
+              capabilities arise from how the firm&rsquo;s processes are shaped by its asset
+              positions and molded by its evolutionary and co-evolutionary paths (p.518);
+              reconfiguration involves rebuilding these links when conditions change.
             </li>
           </ul>
 
@@ -652,8 +662,9 @@ const BibliographyArticlePage = () => {
             <li>
               <strong>Path-dependency and managerial agency tension:</strong> The paper
               simultaneously emphasizes strong path dependency and managerial ability to
-              reconfigure. The boundary between these two is not sharp; critics (e.g. Pisano, 1994,
-              cited p.520) have noted the difficulty.
+              reconfigure. The boundary between these two is not sharp; the paper cites Pisano
+              (1994) on the depth-of-knowledge question (p.525, footnote 56) but does not resolve
+              this tension.
             </li>
           </ul>
         </section>
@@ -695,9 +706,9 @@ const BibliographyArticlePage = () => {
               empirical researchers named, distinct process functions to operationalize.
             </li>
             <li>
-              <strong>Seven asset classes for &ldquo;positions&rdquo;:</strong> Technological,
-              complementary, financial, reputational, structural, institutional, market, and
-              organizational-boundary assets (p.521-523). A useful typology that has influenced
+              <strong>Eight asset classes for &ldquo;positions&rdquo;:</strong> Technological,
+              complementary, financial, reputational, structural, institutional, market (structure),
+              and organizational-boundary assets (p.521-523). A useful typology that has influenced
               subsequent capabilities research.
             </li>
             <li>
@@ -872,7 +883,7 @@ const BibliographyArticlePage = () => {
             <li>
               <strong>Weak learning processes:</strong> Organizations that do not capture and codify
               experience across repeated uses of a technology fail to improve speed and quality over
-              time (Nelson &amp; Winter, 1982; Leonard-Barton, 1995, cited p.519).
+              time (Nelson &amp; Winter, 1982; Leonard-Barton, 1995, cited p.520 footnote 41).
             </li>
             <li>
               <strong>Limited reconfiguration capacity:</strong> Organizations embedded in
@@ -944,10 +955,10 @@ const BibliographyArticlePage = () => {
               rivals can easily observe and copy.
             </li>
             <li>
-              <strong>Keep position and process co-specialized:</strong> The dynamic capabilities
-              argument is that assets, processes, and paths must be co-specialized. Don&rsquo;t hire
-              new capabilities without evolving the processes and the asset base they are meant to
-              work with (Teece, Pisano &amp; Shuen, 1997, p.527).
+              <strong>Keep position and process aligned:</strong> The dynamic capabilities argument
+              is that organizational processes are shaped by asset positions and molded by
+              evolutionary paths (p.518). Don&rsquo;t hire new capabilities without evolving the
+              processes and the asset base they are meant to work with.
             </li>
           </ul>
         </section>

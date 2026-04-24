@@ -117,8 +117,8 @@ const BibliographyArticlePage = () => {
             Fishbein and Ajzen&rsquo;s fundamental insight was that the problem lay not in attitudes
             themselves but in the level of specificity at which attitudes were measured. Most
             attitude research assessed general attitudes toward general targets, then attempted to
-            predict specific behaviors. Their revolutionary proposition was that behavior is most
-            directly predicted not by attitudes but by behavioral intentions, an individual&rsquo;s
+            predict specific behaviors. Their key proposition was that behavior is most directly
+            predicted not by attitudes but by behavioral intentions - an individual&rsquo;s
             conscious plan or decision to perform a behavior.
           </p>
           <p className={PARAGRAPH_CLASSES}>
@@ -200,7 +200,56 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 6. Preceding Models or Theories */}
+        {/* 6. What Does the Model Measure? */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>What Does the Model Measure?</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            The Theory of Reasoned Action is a measurement model. Fishbein and Ajzen (1975)
+            operationalize each theoretical construct through multi-item scales that use bipolar
+            adjective pairs (semantic differential) or agree/disagree Likert items. The measured
+            constructs are:
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Behavioral Intention (BI):</strong> Direct measure of the user&rsquo;s plan or
+              willingness to perform the target behavior.
+            </li>
+            <li>
+              <strong>Attitude Toward the Behavior (AB):</strong> Overall favorable/unfavorable
+              evaluation of performing the behavior, typically via semantic-differential items
+              (good-bad, wise-foolish, pleasant-unpleasant, beneficial-harmful).
+            </li>
+            <li>
+              <strong>Subjective Norm (SN):</strong> Perception of social pressure from important
+              referents to perform or not perform the behavior.
+            </li>
+            <li>
+              <strong>Behavioral Beliefs (bi) &times; Outcome Evaluations (ei):</strong> Belief
+              strength about each consequence multiplied by evaluation of that consequence; summed
+              across salient beliefs to form the cognitive basis of AB.
+            </li>
+            <li>
+              <strong>Normative Beliefs (nj) &times; Motivation to Comply (mj):</strong> Belief
+              about whether each referent thinks the behavior should be performed multiplied by
+              motivation to comply with that referent; summed across salient referents to form the
+              cognitive basis of SN.
+            </li>
+            <li>
+              <strong>Behavior (B):</strong> Observed action (typically through self-report or
+              system log).
+            </li>
+          </ul>
+          <p className={PARAGRAPH_CLASSES}>
+            Fishbein and Ajzen (1975) provide construct definitions, item formats, and scoring
+            procedures, including the expectancy-value sums (AB = &Sigma;bi &middot; ei; SN =
+            &Sigma;nj &middot; mj) and the principle of compatibility (intent, attitude, and
+            behavior must be matched on action, target, context, and time to preserve predictive
+            validity). Subsequent studies report reliability and validity evidence for TRA scales
+            across a wide range of behaviors.
+          </p>
+        </section>
+
+        {/* 7. Preceding Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Preceding Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -241,7 +290,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 7. Describe The Model */}
+        {/* 8. Describe The Model */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Describe The Model</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -405,7 +454,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 8. Key Contributions */}
+        {/* 9. Key Contributions */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Key Contributions</h2>
           <ul className={BODY_LIST_CLASSES}>
@@ -419,7 +468,7 @@ const BibliographyArticlePage = () => {
               product as the cognitive basis of attitude and the cognitive basis of subjective norm.
             </li>
             <li>
-              <strong>Principle of Compatibility:</strong> Established the measurement requirement
+              <strong>Principle of Compatibility:</strong> Articulated the measurement requirement
               that attitude, intention, and behavior be specified at matching action, target,
               context, and time levels.
             </li>
@@ -478,18 +527,20 @@ const BibliographyArticlePage = () => {
               diagnostic assessment of adoption readiness.
             </li>
             <li>
-              <strong>Cross-domain generalizability:</strong> Demonstrated predictive power across
-              health, environmental, consumer, organizational, and technology-adoption behaviors.
+              <strong>Cross-domain application:</strong> Subsequent research has reported TRA
+              applications across health, environmental, consumer, organizational, and
+              technology-adoption behaviors; predictive performance varies by domain and
+              methodology.
             </li>
             <li>
-              <strong>Methodological legacy:</strong> Established rigorous measurement practices
+              <strong>Methodological legacy:</strong> Helped codify measurement practices
               (semantic-differential attitude scales, belief-elicitation procedures, intention
-              operationalization) that remain standard in adoption research.
+              operationalization) that are commonly used in adoption research.
             </li>
           </ul>
         </section>
 
-        {/* 9. Internal Validity */}
+        {/* 10. Internal Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Internal Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -542,7 +593,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 10. External Validity */}
+        {/* 11. External Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>External Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -598,7 +649,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 11. Relevance to Technology Adoption */}
+        {/* 12. Relevance to Technology Adoption */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Relevance to Technology Adoption</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -709,7 +760,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 12. Following Models or Theories */}
+        {/* 13. Following Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Following Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>TRA served as the direct structural antecedent for:</p>
@@ -818,7 +869,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 13. References */}
+        {/* 14. References */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>References</h2>
           <ol className={REFERENCES_OL_CLASSES}>
@@ -916,7 +967,7 @@ const BibliographyArticlePage = () => {
           </ol>
         </section>
 
-        {/* 14. Further Reading */}
+        {/* 15. Further Reading */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Further Reading</h2>
           <ol className={REFERENCES_OL_CLASSES}>
@@ -953,7 +1004,7 @@ const BibliographyArticlePage = () => {
           </ol>
         </section>
 
-        {/* 15. Series Navigation */}
+        {/* 16. Series Navigation */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Series Navigation</h2>
           <p className={PARAGRAPH_CLASSES}>

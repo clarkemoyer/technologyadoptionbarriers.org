@@ -62,7 +62,7 @@ const pickRankOf: Record<string, number> = {}
 pickSorted.forEach((r, i) => {
   pickRankOf[r.item] = i + 1
 })
-const meanRankOf: Record<string, number> = {}
+const meanRankOf: Partial<Record<string, number>> = {}
 meanSorted.forEach((r, i) => {
   meanRankOf[r.item] = i + 1
 })
@@ -157,8 +157,18 @@ const positiveMovers = [...moversAll].filter((r) => r.delta > 0).sort((a, b) => 
 const topNegative = negativeMovers.slice(0, 2)
 const topPositive = positiveMovers.slice(0, 2)
 
+// The Pick-vs-Mean comparison table below only renders the top 10 items from the pick ranking.
+// Gate the "omitted Mean Rank" explanatory sentence on whether any of those rendered rows is
+// actually missing a Mean Rank value, not on whether the full 18-item pick list has one. This
+// keeps the prose consistent with what the reader can see. In the frozen CRP N=200 dataset no
+// omission occurs, but the guard stays in place so the page renders correctly if a future
+// pipeline run surfaces an item where every response is missing.
+const displayedPick: PickItem[] = pickSorted.slice(0, 10)
+const hasOmittedMeanRank =
+  meanRankable.length > 0 && displayedPick.some((r) => meanRankOf[r.item] === undefined)
+
 const TopBarriersPage = () => {
-  const topPick = pickSorted.slice(0, 10)
+  const topPick = displayedPick
   const topMean = meanSorted.slice(0, 10)
   const maxPick = topPick.length > 0 ? Math.max(...topPick.map((r) => r.count)) : 0
 
@@ -362,8 +372,10 @@ const TopBarriersPage = () => {
             Interpretation: Delta = Pick Rank - Mean Rank. A negative Delta means the barrier is
             more salient under the forced-choice task than under continuous rating (it rises when
             participants must prioritize), and a positive Delta means the opposite (it falls under
-            forced choice relative to continuous rating). Barriers omitted from the Mean Rank column
-            are those with no valid continuous-rating mean in the frozen dataset.
+            forced choice relative to continuous rating).
+            {hasOmittedMeanRank
+              ? ' Barriers missing a Mean Rank value above are those with no valid continuous-rating responses for that item in this dataset.'
+              : null}
           </p>
         </section>
 

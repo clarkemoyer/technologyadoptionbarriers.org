@@ -214,7 +214,69 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 6. Preceding Models or Theories */}
+        {/* 6. What Does the Model Measure? */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>What Does the Model Measure?</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            Taylor and Todd (1995) decompose each TPB belief structure into multiple
+            technology-specific constructs. The measured constructs are:
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Attitude (from decomposed attitudinal beliefs):</strong>
+              <ul className={BODY_LIST_CLASSES}>
+                <li>
+                  <strong>Perceived Usefulness:</strong> Rogers-style relative advantage / TAM PU
+                  adapted to the technology context.
+                </li>
+                <li>
+                  <strong>Perceived Ease of Use:</strong> Davis 1989 PEOU.
+                </li>
+                <li>
+                  <strong>Compatibility:</strong> Rogers 1983 compatibility with values,
+                  experiences, and needs.
+                </li>
+              </ul>
+            </li>
+            <li>
+              <strong>Subjective Norm (from decomposed normative beliefs):</strong>
+              <ul className={BODY_LIST_CLASSES}>
+                <li>
+                  <strong>Peer Influence:</strong> Influence of colleagues.
+                </li>
+                <li>
+                  <strong>Superior&rsquo;s Influence:</strong> Influence of supervisors/managers.
+                </li>
+              </ul>
+            </li>
+            <li>
+              <strong>Perceived Behavioral Control (from decomposed control beliefs):</strong>
+              <ul className={BODY_LIST_CLASSES}>
+                <li>
+                  <strong>Self-Efficacy:</strong> Bandura-style belief in one&rsquo;s capability.
+                </li>
+                <li>
+                  <strong>Resource Facilitating Conditions:</strong> Access to money, time, and
+                  other resources.
+                </li>
+                <li>
+                  <strong>Technology Facilitating Conditions:</strong> Access to compatible
+                  technology and support.
+                </li>
+              </ul>
+            </li>
+            <li>
+              <strong>Behavioral Intention and Behavior:</strong> Standard TPB dependent measures.
+            </li>
+          </ul>
+          <p className={PARAGRAPH_CLASSES}>
+            Taylor and Todd (1995) report a field study of information center users; they provide
+            reliability and validity evidence for the decomposed scales and compare the decomposed
+            TPB with TAM and pure TPB.
+          </p>
+        </section>
+
+        {/* 7. Preceding Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Preceding Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -269,7 +331,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 7. Describe the Model */}
+        {/* 8. Describe the Model */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Describe the Model</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -385,17 +447,17 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 8. Key Contributions */}
+        {/* 9. Key Contributions */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Key Contributions</h2>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Theoretical integration model:</strong> Demonstrated how to combine
-              TPB&rsquo;s behavioral intention framework with TAM&rsquo;s IT-specific constructs
-              into unified model.
+              <strong>Theoretical integration model:</strong> Illustrated how to combine TPB&rsquo;s
+              behavioral-intention framework with TAM&rsquo;s IT-specific constructs into a unified
+              model.
             </li>
             <li>
-              <strong>Decomposition methodology:</strong> Established approach for making general
+              <strong>Decomposition methodology:</strong> Articulated an approach for making general
               behavioral theories technology-specific through construct decomposition.
             </li>
             <li>
@@ -419,7 +481,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 9. Internal Validity */}
+        {/* 10. Internal Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Internal Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -458,7 +520,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 10. External Validity */}
+        {/* 11. External Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>External Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -494,7 +556,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 11. Relevance to Technology Adoption */}
+        {/* 12. Relevance to Technology Adoption */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Relevance to Technology Adoption</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -570,7 +632,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 12. Following Models or Theories */}
+        {/* 13. Following Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Following Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -608,7 +670,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 13. References */}
+        {/* 14. References */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>References</h2>
           <ol className={REFERENCES_OL_CLASSES}>
@@ -688,6 +750,7 @@ const BibliographyArticlePage = () => {
           </ol>
         </section>
 
+        {/* 15. Further Reading */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Further Reading</h2>
           <ol className={REFERENCES_OL_CLASSES}>
@@ -719,7 +782,7 @@ const BibliographyArticlePage = () => {
           </ol>
         </section>
 
-        {/* 14. Series Navigation */}
+        {/* 16. Series Navigation */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Series Navigation</h2>
           <div className="space-y-4">
