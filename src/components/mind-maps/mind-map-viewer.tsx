@@ -252,7 +252,7 @@ const MindMapViewer = ({ src, alt, ariaLabel }: MindMapViewerProps) => {
             type="button"
             onClick={toggleFullscreen}
             aria-label={isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'}
-            aria-pressed={isFullscreen ? 'true' : 'false'}
+            aria-pressed={isFullscreen}
             className="px-3 py-1 text-sm font-medium text-slate-800 hover:bg-slate-100 rounded"
           >
             {isFullscreen ? 'Exit Fullscreen' : 'Fullscreen'}
