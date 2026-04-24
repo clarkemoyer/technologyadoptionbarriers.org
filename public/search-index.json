@@ -624,6 +624,14 @@
     "category": "General"
   },
   {
+    "id": "lit-review-mind-map",
+    "url": "/lit-review-mind-map",
+    "title": "TABS Literature Review Mind Map",
+    "description": "Full-resolution static rendering of the TABS literature review mind map (15823×9757 native SVG). Use browser pinch/scroll to zoom.",
+    "content": "TABS Literature Review Mind Map. Full-resolution static rendering of the TABS literature review mind map (15823×9757 native SVG). Use browser pinch/scroll to zoom. TABS Literature Review Mind Map Native resolution 15823×9757 zoom in your browser for arbitrary detail. Open raw SVG Back to Mind Maps",
+    "category": "General"
+  },
+  {
     "id": "making-of-tabs",
     "url": "/making-of-tabs",
     "title": "The Making of TABS",

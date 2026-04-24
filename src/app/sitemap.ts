@@ -651,5 +651,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.5,
     },
+    // Static full-resolution lit review map (outside Making-of-TABS layout so
+    // it can render the SVG at full viewport width, no article-column clip).
+    {
+      url: `${baseUrl}/lit-review-mind-map`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
   ]
 }
