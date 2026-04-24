@@ -30,11 +30,15 @@ export const MIN_SCALE = 0.02
 /** Hard ceiling: 4× is sufficient to read leaf-level text in the exported map. */
 export const MAX_SCALE = 4
 /**
- * Fraction of the current scale added/removed per mouse-wheel tick.
- * Kept small so a single scroll notch produces a gentle zoom change rather
- * than a big jump. With step=0.03 each notch multiplies the scale by ~1.03.
+ * Multiplier applied to raw `deltaY` values when computing how much to zoom
+ * per wheel event. react-zoom-pan-pinch v4 uses `deltaY * step` as an additive
+ * scale delta, not a per-notch fraction, so this needs to be small enough that
+ * a single mouse-wheel notch (deltaY ~100) produces a gentle zoom change.
+ *
+ * At step=0.0003: deltaY=100 -> +0.03 scale (~10% relative at fit, ~1% near max);
+ * trackpad deltaY=10 -> +0.003 scale (near-continuous fine zoom).
  */
-export const WHEEL_STEP = 0.03
+export const WHEEL_STEP = 0.0003
 
 const fitScaleFor = (
   wrapperWidth: number,
