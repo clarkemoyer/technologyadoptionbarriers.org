@@ -10,7 +10,7 @@ const Statistics = () => {
   // Prolific-approved submissions from the daily disposition pipeline.
   const surveysCompleted = dispositionData.completionProgress.approved
   // Production hostname visitors (excludes localhost/CI/Playwright test traffic).
-  const verifiedVisitors = parseInt(impactData.verifiedVisitors) || 0
+  const verifiedVisitors = parseInt(impactData.verifiedVisitors, 10) || 0
 
   return (
     <section id="statistics" className="w-full py-[80px] bg-white">
