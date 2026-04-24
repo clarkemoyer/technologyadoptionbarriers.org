@@ -35,14 +35,11 @@ const ProjectProgramRiskManagementPage = () => {
         </p>
       </article>
 
-      {/* Break out of the making-of-tabs max-w-4xl container so the cut has viewport-wide room. */}
-      <div className="relative left-1/2 right-1/2 -mx-[50vw] w-screen overflow-x-clip">
-        <MindMapViewer
-          src="/Svgs/mind-maps/project-program-risk-management.svg"
-          alt="Project, Program & Risk Management cut of the TABS mind map."
-          ariaLabel="TABS mind map cut: Project, Program & Risk Management"
-        />
-      </div>
+      <MindMapViewer
+        src="/Svgs/mind-maps/project-program-risk-management.svg"
+        alt="Project, Program & Risk Management cut of the TABS mind map."
+        ariaLabel="TABS mind map cut: Project, Program & Risk Management"
+      />
     </div>
   )
 }

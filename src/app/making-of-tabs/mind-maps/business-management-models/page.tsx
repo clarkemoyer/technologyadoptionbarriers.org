@@ -35,14 +35,11 @@ const BusinessManagementModelsPage = () => {
         </p>
       </article>
 
-      {/* Break out of the making-of-tabs max-w-4xl container so the cut has viewport-wide room. */}
-      <div className="relative left-1/2 right-1/2 -mx-[50vw] w-screen overflow-x-clip">
-        <MindMapViewer
-          src="/Svgs/mind-maps/business-management-models.svg"
-          alt="Business Management Models cut of the TABS mind map."
-          ariaLabel="TABS mind map cut: Business Management Models"
-        />
-      </div>
+      <MindMapViewer
+        src="/Svgs/mind-maps/business-management-models.svg"
+        alt="Business Management Models cut of the TABS mind map."
+        ariaLabel="TABS mind map cut: Business Management Models"
+      />
     </div>
   )
 }

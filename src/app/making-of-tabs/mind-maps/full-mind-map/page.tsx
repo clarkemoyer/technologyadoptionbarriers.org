@@ -32,15 +32,11 @@ const FullMindMapPage = () => {
         </p>
       </article>
 
-      {/* Break out of the making-of-tabs max-w-4xl container so the full map
-          has viewport-wide room to render at a readable default zoom. */}
-      <div className="relative left-1/2 right-1/2 -mx-[50vw] w-screen overflow-x-clip">
-        <MindMapViewer
-          src="/Svgs/mind-maps/full-mind-map.svg"
-          alt="TABS full mind map showing technology adoption frameworks, models, standards, website operations, and the culminating research project workflow."
-          ariaLabel="TABS full mind map"
-        />
-      </div>
+      <MindMapViewer
+        src="/Svgs/mind-maps/full-mind-map.svg"
+        alt="TABS full mind map showing technology adoption frameworks, models, standards, website operations, and the culminating research project workflow."
+        ariaLabel="TABS full mind map"
+      />
     </div>
   )
 }
