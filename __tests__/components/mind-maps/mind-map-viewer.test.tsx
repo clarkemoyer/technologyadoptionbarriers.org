@@ -120,12 +120,21 @@ describe('MindMapViewer', () => {
     expect(results).toHaveNoViolations()
   })
 
-  it('WHEEL_STEP is small enough that a single mouse-wheel notch does not max out zoom', () => {
+  it('keeps a single mouse-wheel notch within zoom bounds from a representative fit scale', () => {
     // react-zoom-pan-pinch v4 computes scale_delta = deltaY * WHEEL_STEP.
-    // A typical mouse-wheel notch produces |deltaY| ~100; the resulting scale
-    // delta must stay well below 1.0 to avoid leaping to MIN_SCALE/MAX_SCALE.
+    // Start from a representative fit scale that is comfortably within bounds,
+    // then verify a typical mouse-wheel notch (|deltaY| ~100) does not jump
+    // directly to either zoom extreme.
     expect(WHEEL_STEP).toBe(0.0003)
-    expect(Math.abs(100 * WHEEL_STEP)).toBeLessThan(0.1)
+
+    const { scale: fitScale } = computeFitTransform(800, 600, 800, 600)
+    const wheelNotchDelta = 100 * WHEEL_STEP
+
+    expect(fitScale).toBeGreaterThan(MIN_SCALE)
+    expect(fitScale).toBeLessThan(MAX_SCALE)
+
+    expect(fitScale + wheelNotchDelta).toBeLessThan(MAX_SCALE)
+    expect(fitScale - wheelNotchDelta).toBeGreaterThan(MIN_SCALE)
   })
 
   describe('computeFitTransform – scale clamping', () => {
