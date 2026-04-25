@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test'
-import sensitivityData from '../src/data/sensitivity-analysis.json'
+import dispositionData from '../src/data/disposition-summary.json'
 
 test.describe('Homepage Live Results Section', () => {
   test('should display live results section with top 3 barriers', async ({ page }) => {
@@ -8,8 +8,8 @@ test.describe('Homepage Live Results Section', () => {
     // Check section heading
     await expect(page.getByRole('heading', { name: 'Live Results: Top Barriers' })).toBeVisible()
 
-    // Check participant count is displayed (derive from data to avoid brittleness)
-    const totalN = sensitivityData.top3_pick_counts.total_n
+    // Headline N reads from the same source as the homepage Statistics callout.
+    const totalN = dispositionData.completionProgress.approved
     await expect(page.locator('#live-results')).toContainText(totalN.toLocaleString())
 
     // Check all 3 rank badges are visible
