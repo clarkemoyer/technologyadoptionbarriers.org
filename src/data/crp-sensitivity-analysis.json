@@ -1710,5 +1710,690 @@
       "examples": ""
     }
   ],
-  "last_updated": "2026-04-16T11:02:38.149828Z"
+  "top3_pick_counts": {
+    "total_n": 200,
+    "items": [
+      {
+        "item": "B1",
+        "text": "Resistance to change among employees or middle management.",
+        "count": 56,
+        "pct": 28.0
+      },
+      {
+        "item": "B2",
+        "text": "Lack of support or clear vision from top leadership (including the board, e.g., governing body, oversight committee).",
+        "count": 21,
+        "pct": 10.5
+      },
+      {
+        "item": "B3",
+        "text": "Organizational culture that discourages risk-taking or experimentation with new technologies.",
+        "count": 19,
+        "pct": 9.5
+      },
+      {
+        "item": "B4",
+        "text": "Insufficient skills or expertise within the workforce to utilize new technologies effectively.",
+        "count": 30,
+        "pct": 15.0
+      },
+      {
+        "item": "B5",
+        "text": "Inadequate training programs for new technologies.",
+        "count": 13,
+        "pct": 6.5
+      },
+      {
+        "item": "B6",
+        "text": "High cost associated with acquiring or implementing new technologies.",
+        "count": 75,
+        "pct": 37.5
+      },
+      {
+        "item": "B7",
+        "text": "Difficulty integrating new technologies with existing legacy systems.",
+        "count": 73,
+        "pct": 36.5
+      },
+      {
+        "item": "B8",
+        "text": "Inadequate IT infrastructure (e.g., network, storage, computing power) to support new technologies.",
+        "count": 21,
+        "pct": 10.5
+      },
+      {
+        "item": "B9",
+        "text": "Difficulty demonstrating clear value (e.g., mission impact, public value, cost-effectiveness) for new technology investments.",
+        "count": 28,
+        "pct": 14.0
+      },
+      {
+        "item": "B10",
+        "text": "Lack of a clear strategy or roadmap for technology adoption.",
+        "count": 29,
+        "pct": 14.5
+      },
+      {
+        "item": "B11",
+        "text": "Insufficient governance processes for selecting and managing new technologies.",
+        "count": 6,
+        "pct": 3.0
+      },
+      {
+        "item": "B12",
+        "text": "New technologies disrupting existing workflows or processes significantly.",
+        "count": 44,
+        "pct": 22.0
+      },
+      {
+        "item": "B13",
+        "text": "Concerns about cybersecurity risks associated with new technologies.",
+        "count": 52,
+        "pct": 26.0
+      },
+      {
+        "item": "B14",
+        "text": "Concerns about data privacy compliance related to new technologies.",
+        "count": 54,
+        "pct": 27.0
+      },
+      {
+        "item": "B15",
+        "text": "Lack of trust in the reliability or performance of new technologies or vendors.",
+        "count": 18,
+        "pct": 9.0
+      },
+      {
+        "item": "B16",
+        "text": "Uncertainty or complexity related to regulatory requirements.",
+        "count": 20,
+        "pct": 10.0
+      },
+      {
+        "item": "B17",
+        "text": "Pressure to adopt technology due to external factors (e.g., mandates, public expectations, peer agency actions), without adequate internal readiness.",
+        "count": 19,
+        "pct": 9.5
+      },
+      {
+        "item": "B18",
+        "text": "Difficulty finding reliable technology vendors or partners.",
+        "count": 22,
+        "pct": 11.0
+      }
+    ],
+    "items_sorted_desc": [
+      {
+        "item": "B6",
+        "text": "High cost associated with acquiring or implementing new technologies.",
+        "count": 75,
+        "pct": 37.5
+      },
+      {
+        "item": "B7",
+        "text": "Difficulty integrating new technologies with existing legacy systems.",
+        "count": 73,
+        "pct": 36.5
+      },
+      {
+        "item": "B1",
+        "text": "Resistance to change among employees or middle management.",
+        "count": 56,
+        "pct": 28.0
+      },
+      {
+        "item": "B14",
+        "text": "Concerns about data privacy compliance related to new technologies.",
+        "count": 54,
+        "pct": 27.0
+      },
+      {
+        "item": "B13",
+        "text": "Concerns about cybersecurity risks associated with new technologies.",
+        "count": 52,
+        "pct": 26.0
+      },
+      {
+        "item": "B12",
+        "text": "New technologies disrupting existing workflows or processes significantly.",
+        "count": 44,
+        "pct": 22.0
+      },
+      {
+        "item": "B4",
+        "text": "Insufficient skills or expertise within the workforce to utilize new technologies effectively.",
+        "count": 30,
+        "pct": 15.0
+      },
+      {
+        "item": "B10",
+        "text": "Lack of a clear strategy or roadmap for technology adoption.",
+        "count": 29,
+        "pct": 14.5
+      },
+      {
+        "item": "B9",
+        "text": "Difficulty demonstrating clear value (e.g., mission impact, public value, cost-effectiveness) for new technology investments.",
+        "count": 28,
+        "pct": 14.0
+      },
+      {
+        "item": "B18",
+        "text": "Difficulty finding reliable technology vendors or partners.",
+        "count": 22,
+        "pct": 11.0
+      },
+      {
+        "item": "B2",
+        "text": "Lack of support or clear vision from top leadership (including the board, e.g., governing body, oversight committee).",
+        "count": 21,
+        "pct": 10.5
+      },
+      {
+        "item": "B8",
+        "text": "Inadequate IT infrastructure (e.g., network, storage, computing power) to support new technologies.",
+        "count": 21,
+        "pct": 10.5
+      },
+      {
+        "item": "B16",
+        "text": "Uncertainty or complexity related to regulatory requirements.",
+        "count": 20,
+        "pct": 10.0
+      },
+      {
+        "item": "B3",
+        "text": "Organizational culture that discourages risk-taking or experimentation with new technologies.",
+        "count": 19,
+        "pct": 9.5
+      },
+      {
+        "item": "B17",
+        "text": "Pressure to adopt technology due to external factors (e.g., mandates, public expectations, peer agency actions), without adequate internal readiness.",
+        "count": 19,
+        "pct": 9.5
+      },
+      {
+        "item": "B15",
+        "text": "Lack of trust in the reliability or performance of new technologies or vendors.",
+        "count": 18,
+        "pct": 9.0
+      },
+      {
+        "item": "B5",
+        "text": "Inadequate training programs for new technologies.",
+        "count": 13,
+        "pct": 6.5
+      },
+      {
+        "item": "B11",
+        "text": "Insufficient governance processes for selecting and managing new technologies.",
+        "count": 6,
+        "pct": 3.0
+      }
+    ]
+  },
+  "item_descriptives": {
+    "barriers": [
+      {
+        "item": "B1",
+        "text": "Resistance to change among employees or middle management.",
+        "mean": 2.9698,
+        "sd": 1.3443,
+        "n": 199
+      },
+      {
+        "item": "B2",
+        "text": "Lack of support or clear vision from top leadership (including the board, e.g., governing body, oversight committee).",
+        "mean": 2.4798,
+        "sd": 1.2813,
+        "n": 198
+      },
+      {
+        "item": "B3",
+        "text": "Organizational culture that discourages risk-taking or experimentation with new technologies.",
+        "mean": 2.35,
+        "sd": 1.3626,
+        "n": 200
+      },
+      {
+        "item": "B4",
+        "text": "Insufficient skills or expertise within the workforce to utilize new technologies effectively.",
+        "mean": 2.8,
+        "sd": 1.2155,
+        "n": 200
+      },
+      {
+        "item": "B5",
+        "text": "Inadequate training programs for new technologies.",
+        "mean": 2.603,
+        "sd": 1.1273,
+        "n": 199
+      },
+      {
+        "item": "B6",
+        "text": "High cost associated with acquiring or implementing new technologies.",
+        "mean": 3.4596,
+        "sd": 1.1776,
+        "n": 198
+      },
+      {
+        "item": "B7",
+        "text": "Difficulty integrating new technologies with existing legacy systems.",
+        "mean": 3.3769,
+        "sd": 1.1822,
+        "n": 199
+      },
+      {
+        "item": "B8",
+        "text": "Inadequate IT infrastructure (e.g., network, storage, computing power) to support new technologies.",
+        "mean": 2.5327,
+        "sd": 1.2341,
+        "n": 199
+      },
+      {
+        "item": "B9",
+        "text": "Difficulty demonstrating clear value (e.g., mission impact, public value, cost-effectiveness) for new technology investments.",
+        "mean": 2.605,
+        "sd": 1.1338,
+        "n": 200
+      },
+      {
+        "item": "B10",
+        "text": "Lack of a clear strategy or roadmap for technology adoption.",
+        "mean": 2.7286,
+        "sd": 1.1963,
+        "n": 199
+      },
+      {
+        "item": "B11",
+        "text": "Insufficient governance processes for selecting and managing new technologies.",
+        "mean": 2.3687,
+        "sd": 1.1446,
+        "n": 198
+      },
+      {
+        "item": "B12",
+        "text": "New technologies disrupting existing workflows or processes significantly.",
+        "mean": 2.905,
+        "sd": 1.2425,
+        "n": 200
+      },
+      {
+        "item": "B13",
+        "text": "Concerns about cybersecurity risks associated with new technologies.",
+        "mean": 3.26,
+        "sd": 1.2651,
+        "n": 200
+      },
+      {
+        "item": "B14",
+        "text": "Concerns about data privacy compliance related to new technologies.",
+        "mean": 3.175,
+        "sd": 1.2816,
+        "n": 200
+      },
+      {
+        "item": "B15",
+        "text": "Lack of trust in the reliability or performance of new technologies or vendors.",
+        "mean": 2.6,
+        "sd": 1.0797,
+        "n": 200
+      },
+      {
+        "item": "B16",
+        "text": "Uncertainty or complexity related to regulatory requirements.",
+        "mean": 2.5829,
+        "sd": 1.2317,
+        "n": 199
+      },
+      {
+        "item": "B17",
+        "text": "Pressure to adopt technology due to external factors (e.g., mandates, public expectations, peer agency actions), without adequate internal readiness.",
+        "mean": 2.57,
+        "sd": 1.1841,
+        "n": 200
+      },
+      {
+        "item": "B18",
+        "text": "Difficulty finding reliable technology vendors or partners.",
+        "mean": 2.3333,
+        "sd": 1.1129,
+        "n": 198
+      }
+    ],
+    "readiness": [
+      {
+        "item": "R1",
+        "text": "Formal digital or technology strategy",
+        "mean": 3.23,
+        "sd": 1.1014,
+        "n": 200
+      },
+      {
+        "item": "R2",
+        "text": "Dedicated IT leadership role",
+        "mean": 3.27,
+        "sd": 1.016,
+        "n": 200
+      },
+      {
+        "item": "R3",
+        "text": "Skilled in-house technology staff",
+        "mean": 3.1186,
+        "sd": 0.9665,
+        "n": 194
+      },
+      {
+        "item": "R4",
+        "text": "Adequate financial resources for technology",
+        "mean": 3.1111,
+        "sd": 1.0888,
+        "n": 198
+      },
+      {
+        "item": "R5",
+        "text": "Willingness to invest in new technologies",
+        "mean": 3.46,
+        "sd": 1.0166,
+        "n": 200
+      },
+      {
+        "item": "R6",
+        "text": "Data and analytics capabilities",
+        "mean": 3.1212,
+        "sd": 1.0831,
+        "n": 198
+      },
+      {
+        "item": "R7",
+        "text": "Cybersecurity and risk management capabilities",
+        "mean": 2.9698,
+        "sd": 1.0679,
+        "n": 199
+      },
+      {
+        "item": "R8",
+        "text": "Change management capabilities",
+        "mean": 3.0251,
+        "sd": 0.9125,
+        "n": 199
+      },
+      {
+        "item": "R9",
+        "text": "Vendor and partner management capabilities",
+        "mean": 3.1859,
+        "sd": 1.0302,
+        "n": 199
+      },
+      {
+        "item": "R10",
+        "text": "Digital infrastructure (cloud, network, devices)",
+        "mean": 2.7538,
+        "sd": 1.0024,
+        "n": 199
+      },
+      {
+        "item": "R11",
+        "text": "Alignment between IT and business strategy",
+        "mean": 3.245,
+        "sd": 1.0913,
+        "n": 200
+      },
+      {
+        "item": "R12",
+        "text": "Cross-functional collaboration on technology",
+        "mean": 3.1224,
+        "sd": 1.0104,
+        "n": 196
+      },
+      {
+        "item": "R13",
+        "text": "Employee digital skills",
+        "mean": 3.132,
+        "sd": 0.9912,
+        "n": 197
+      },
+      {
+        "item": "R14",
+        "text": "Leadership digital literacy",
+        "mean": 3.3163,
+        "sd": 1.1241,
+        "n": 196
+      },
+      {
+        "item": "R15",
+        "text": "Innovation culture",
+        "mean": 3.1122,
+        "sd": 0.9158,
+        "n": 196
+      },
+      {
+        "item": "R16",
+        "text": "Willingness to experiment with new technologies",
+        "mean": 3.0653,
+        "sd": 0.9644,
+        "n": 199
+      },
+      {
+        "item": "R17",
+        "text": "Customer or stakeholder demand for technology",
+        "mean": 3.0704,
+        "sd": 1.0941,
+        "n": 199
+      }
+    ],
+    "maturity": [
+      {
+        "item": "M1",
+        "text": "IT Investment & Value Mgmt",
+        "mean": 3.1667,
+        "sd": 1.0556,
+        "n": 198
+      },
+      {
+        "item": "M2",
+        "text": "IT-Enabled Innovation",
+        "mean": 3.06,
+        "sd": 1.1192,
+        "n": 200
+      },
+      {
+        "item": "M3",
+        "text": "Process Mgmt & Standardization",
+        "mean": 3.2172,
+        "sd": 0.8774,
+        "n": 198
+      },
+      {
+        "item": "M4",
+        "text": "Data Governance & Analytics",
+        "mean": 3.1869,
+        "sd": 1.0807,
+        "n": 198
+      },
+      {
+        "item": "M5",
+        "text": "Tech Risk & Resilience",
+        "mean": 3.3485,
+        "sd": 1.0591,
+        "n": 198
+      },
+      {
+        "item": "M6",
+        "text": "Strategic IT Planning",
+        "mean": 3.1566,
+        "sd": 1.0667,
+        "n": 198
+      },
+      {
+        "item": "M7",
+        "text": "Workforce Capability",
+        "mean": 3.075,
+        "sd": 1.0887,
+        "n": 200
+      },
+      {
+        "item": "M8",
+        "text": "Change Leadership",
+        "mean": 3.0051,
+        "sd": 1.0875,
+        "n": 198
+      }
+    ]
+  },
+  "construct_grand": {
+    "barriers": {
+      "mean": 2.7644,
+      "sd": 0.6893,
+      "n": 200
+    },
+    "readiness": {
+      "mean": 3.1361,
+      "sd": 0.6674,
+      "n": 200
+    },
+    "maturity": {
+      "mean": 3.1533,
+      "sd": 0.7855,
+      "n": 200
+    }
+  },
+  "demographics_detailed": {
+    "roles": [
+      {
+        "label": "Other (please specify)",
+        "count": 38,
+        "pct": 19.0
+      },
+      {
+        "label": "CIO (e.g., Director of IT)",
+        "count": 33,
+        "pct": 16.5
+      },
+      {
+        "label": "COO (e.g., Deputy Director, Chief of Staff, Assistant Secretary for Administration)",
+        "count": 22,
+        "pct": 11.0
+      },
+      {
+        "label": "CSO (e.g., Director of Strategic Planning, Policy Director, Chief Strategy Officer)",
+        "count": 20,
+        "pct": 10.0
+      },
+      {
+        "label": "CEO (e.g., Agency Director, Secretary, Administrator, City/County Manager)",
+        "count": 18,
+        "pct": 9.0
+      },
+      {
+        "label": "CMO (e.g., Director of Communications, Public Affairs Officer, Chief Marketing & Communications Officer)",
+        "count": 15,
+        "pct": 7.5
+      },
+      {
+        "label": "CHRO (e.g., Chief Human Capital Officer (CHCO), Director of Human Resources, Personnel Director)",
+        "count": 14,
+        "pct": 7.0
+      },
+      {
+        "label": "CTO (e.g., Director of Technology/Innovation, Chief Scientist)",
+        "count": 14,
+        "pct": 7.0
+      },
+      {
+        "label": "CFO (e.g., Director of Finance, Budget Director, Comptroller)",
+        "count": 12,
+        "pct": 6.0
+      },
+      {
+        "label": "CRO (e.g., Director of Budget/Finance, Director of Development/Fundraising, Head of Revenue Operations)",
+        "count": 12,
+        "pct": 6.0
+      },
+      {
+        "label": "CISO (e.g., Director of Cybersecurity, Chief Security Officer)",
+        "count": 2,
+        "pct": 1.0
+      }
+    ],
+    "org_sizes": [
+      {
+        "label": "100-499",
+        "count": 52,
+        "pct": 26.0
+      },
+      {
+        "label": "1000-4999",
+        "count": 41,
+        "pct": 20.5
+      },
+      {
+        "label": "<100",
+        "count": 33,
+        "pct": 16.5
+      },
+      {
+        "label": "500-999",
+        "count": 29,
+        "pct": 14.5
+      },
+      {
+        "label": "10000+",
+        "count": 27,
+        "pct": 13.5
+      },
+      {
+        "label": "5000-9999",
+        "count": 18,
+        "pct": 9.0
+      }
+    ],
+    "profit_models": [
+      {
+        "label": "For-Profit",
+        "count": 151,
+        "pct": 75.5
+      },
+      {
+        "label": "Non-Profit",
+        "count": 36,
+        "pct": 18.0
+      },
+      {
+        "label": "Government/Public Sector",
+        "count": 13,
+        "pct": 6.5
+      }
+    ],
+    "decision_authority": [
+      {
+        "label": "I am one of several key decision-makers who collectively decide on technology adoption",
+        "count": 91,
+        "pct": 45.5
+      },
+      {
+        "label": "I am the primary decision-maker for technology adoption in my area of responsibility",
+        "count": 50,
+        "pct": 25.0
+      },
+      {
+        "label": "I provide significant input and recommendations, but final decisions are made by others",
+        "count": 42,
+        "pct": 21.0
+      },
+      {
+        "label": "I have limited involvement \u2014 I primarily implement technology decisions made by leadership",
+        "count": 13,
+        "pct": 6.5
+      },
+      {
+        "label": "I have no direct involvement in technology adoption decisions",
+        "count": 4,
+        "pct": 2.0
+      }
+    ]
+  },
+  "last_updated": "2026-04-25T10:57:13.399297Z",
+  "extended_last_updated": "2026-04-25T10:57:13.399297Z"
 }

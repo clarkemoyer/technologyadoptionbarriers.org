@@ -34,9 +34,11 @@ const BibliographyArticlePage = () => {
               <strong>Framework Abbreviation:</strong> Hype Cycle
             </p>
             <p>
-              <strong>Target of Framework:</strong> Visualization and prediction of technology
-              adoption trajectory through five phases tracking changes in technology visibility and
-              engineering maturity over time.
+              <strong>Target of Framework:</strong> Visualization of the typical progression of an
+              emerging technology through five phases, plotting Visibility against Maturity to
+              characterize movement from overenthusiasm through disillusionment to an eventual
+              understanding of the technology&rsquo;s relevance and role in a market or domain
+              (Linden and Fenn, 2003).
             </p>
             <p>
               <strong>Disciplinary Origin:</strong> Market Research, Technology Analysis, Innovation
@@ -166,9 +168,10 @@ const BibliographyArticlePage = () => {
               by both hype and maturity dynamics.
             </li>
             <li>
-              <strong>Innovation Trigger:</strong> Initial introduction of technology generating
-              excitement and media attention. Innovation triggers often result from research
-              breakthroughs, technology demonstrations, or vendor announcements.
+              <strong>Technology Trigger:</strong> The initial introduction of a technology through
+              a technological breakthrough, public demonstration, press release, or other event that
+              generates significant publicity and industry interest; typically no usable products
+              exist, only research and laboratory prototypes (Linden and Fenn, 2003).
             </li>
             <li>
               <strong>Peak of Inflated Expectations:</strong> Maximum hype and visibility when
@@ -266,21 +269,23 @@ const BibliographyArticlePage = () => {
           <h2 className={H2_CLASSES}>Describe The Model</h2>
           <p className={PARAGRAPH_CLASSES}>
             The Gartner Hype Cycle provides visualization of technology adoption trajectory through
-            five phases tracking changes in both technology visibility (hype) and engineering
-            maturity over time. The framework plots technologies on two-dimensional graph with
-            visibility on vertical axis and time on horizontal axis. Technologies progress through
-            predictable phases from initial innovation through mature adoption.
+            five phases tracking changes in technology Visibility and Maturity. In Linden and
+            Fenn&rsquo;s (2003) canonical figure, the hype curve plots Visibility on the vertical
+            axis and Maturity on the horizontal axis. Progression through the five phases represents
+            the typical movement of an emerging technology from overenthusiasm, through a period of
+            disillusionment, to an eventual understanding of the technology&rsquo;s relevance and
+            role in a market or domain.
           </p>
 
           <h3 className={H3_CLASSES}>Five Phases of the Hype Cycle</h3>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Innovation Trigger:</strong> Phase 1 marks initial introduction of technology
-              through research breakthrough, product announcement, or demonstration. Technology
-              generates excitement and media attention. Vendors and technology proponents promote
-              the technology. Media reports emphasize potential revolutionary impact. Organizations
-              begin considering adoption. Visibility increases from zero baseline. Engineering
-              maturity remains low because technology is early in development.
+              <strong>Technology Trigger:</strong> Phase 1 marks initial introduction of technology
+              through a technological breakthrough, public demonstration, press release, or other
+              event that generates significant publicity and industry interest in an emerging
+              technology. Typically no usable products exist, only research and laboratory
+              prototypes. Venture capitalists may provide some early funding just after the Trigger
+              if they expect the technology to be a fast runner (Linden and Fenn, 2003).
             </li>
             <li>
               <strong>Peak of Inflated Expectations:</strong> Phase 2 represents maximum visibility
