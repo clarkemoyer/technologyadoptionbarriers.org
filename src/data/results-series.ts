@@ -20,6 +20,7 @@ export const resultsSeries: ResultsSeriesItem[] = [
       { title: 'Data Quality', href: '/results/crp-2026/data-quality' },
       { title: 'Factor Analysis', href: '/results/crp-2026/factor-analysis' },
       { title: 'Instrument Validation', href: '/results/crp-2026/validation' },
+      { title: 'Top 3 Barriers', href: '/results/crp-2026/top-barriers' },
     ],
   },
   {
@@ -35,6 +36,7 @@ export const resultsSeries: ResultsSeriesItem[] = [
       { title: 'Data Quality', href: '/results/data-quality' },
       { title: 'Factor Analysis', href: '/results/factor-analysis' },
       { title: 'Instrument Validation', href: '/results/validation' },
+      { title: 'Top 3 Barriers', href: '/results/top-barriers' },
     ],
   },
   {

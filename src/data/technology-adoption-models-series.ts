@@ -238,7 +238,7 @@ export const technologyAdoptionModelsSeries: SeriesStructure = {
       {
         id: 'bib-1-16',
         title: 'Model of Adoption of Technology in Households (MATH)',
-        slug: '/bibliography-1-16-math-venkatesh-brown-2001',
+        slug: '/bibliography-1-16-math-brown-venkatesh-2005',
       },
       {
         id: 'bib-1-17',
@@ -356,8 +356,8 @@ export const technologyAdoptionModelsSeries: SeriesStructure = {
       },
       {
         id: 'bib-2-20',
-        title: 'Gartner Hype Cycle Methodology',
-        slug: '/bibliography-2-20-gartner-hype-cycle-methodology-2025',
+        title: 'Cybersecurity Maturity Model Certification (CMMC)',
+        slug: '/bibliography-2-20-cmmc-dod-2020',
       },
       {
         id: 'bib-2-21',

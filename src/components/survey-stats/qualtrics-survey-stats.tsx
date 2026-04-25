@@ -1,4 +1,6 @@
 import metricsData from '@/data/qualtrics-metrics.json'
+import dispositionData from '@/data/disposition-summary.json'
+import { formatUtcTimestamp } from '@/lib/formatUtcTimestamp'
 
 type QualtricsMetrics = typeof metricsData
 
@@ -9,6 +11,11 @@ function formatMetricName(metric: string): string {
 export default function QualtricsSurveyStats() {
   const metrics = metricsData.metrics
   const maxValue = Math.max(1, ...metrics.map((m) => m.value))
+  const placesTaken: number | null = dispositionData.study?.placesTaken ?? null
+  const questionCount: number | null = metricsData.questionCount ?? null
+
+  const dispositionUpdatedAt = formatUtcTimestamp(dispositionData.updatedAt)
+  const qualtricsUpdatedAt = formatUtcTimestamp(metricsData.collectedAt)
 
   return (
     <section className="mx-auto w-full max-w-5xl px-6 py-10">
@@ -16,7 +23,7 @@ export default function QualtricsSurveyStats() {
         <h2 className="text-3xl font-bold text-slate-900">Survey stats</h2>
         <p className="mt-2 text-slate-700">
           Source: Qualtrics API (cached via GitHub Actions). Last updated{' '}
-          <span className="font-medium">{metricsData.collectedAt}</span>.
+          <span className="font-medium">{qualtricsUpdatedAt ?? '—'}</span>.
         </p>
         <div className="mt-4 rounded-lg border border-slate-200 bg-white p-4">
           <div className="text-sm text-slate-600">Survey</div>
@@ -28,6 +35,27 @@ export default function QualtricsSurveyStats() {
             <div className="text-sm text-slate-700">
               <span className="font-medium">Org:</span> {metricsData.survey.organizationId}
             </div>
+          </div>
+        </div>
+
+        {/* Cached counts from Prolific and Qualtrics */}
+        <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div className="rounded-lg border border-blue-200 bg-blue-50 p-4">
+            <div className="text-sm font-medium text-blue-900">Places Taken</div>
+            <div className="mt-1 text-3xl font-bold text-blue-700">
+              {placesTaken !== null ? placesTaken.toLocaleString() : '—'}
+            </div>
+            <div className="mt-1 text-xs text-blue-600">
+              Cached snapshot from Prolific. Last updated{' '}
+              <span className="font-medium">{dispositionUpdatedAt ?? '—'}</span>.
+            </div>
+          </div>
+          <div className="rounded-lg border border-orange-200 bg-orange-50 p-4">
+            <div className="text-sm font-medium text-orange-900">Question Count</div>
+            <div className="mt-1 text-3xl font-bold text-orange-700">
+              {questionCount !== null ? questionCount.toLocaleString() : '—'}
+            </div>
+            <div className="mt-1 text-xs text-orange-600">Total survey questions</div>
           </div>
         </div>
       </header>
