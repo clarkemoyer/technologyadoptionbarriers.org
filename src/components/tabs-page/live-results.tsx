@@ -20,12 +20,17 @@ const LiveResults = () => {
       <div className="w-[90%] mx-auto max-w-[4096px]">
         {/* Section Header */}
         <div className="text-center mb-[60px]">
-          <h2 className="text-[48px] font-bold text-gray-900 mb-[20px] font-serif">
+          <h2 className="text-[48px] font-bold text-gray-900 mb-[16px] font-serif">
             Live Results: Top Barriers
           </h2>
+          {/* Surveys-completed counter — matches the Statistics callout value.
+              Kept visually separate so it is read as a status line, not as
+              the denominator for the top-3 card percentages below. */}
+          <p className="text-[14px] text-gray-500 uppercase tracking-widest mb-[16px]">
+            {totalN.toLocaleString()} Surveys Completed
+          </p>
           <p className="text-[20px] text-gray-700 max-w-[800px] mx-auto">
-            {totalN.toLocaleString()} surveys completed. Here are the most commonly identified
-            technology adoption barriers.
+            Here are the most commonly identified technology adoption barriers.
           </p>
         </div>
 

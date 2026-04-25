@@ -69,10 +69,13 @@ describe('LiveResults component', () => {
   it('should display explanatory text about the results', () => {
     render(<LiveResults />)
 
-    expect(
-      screen.getByText(/most commonly identified technology adoption barriers/i)
-    ).toBeInTheDocument()
+    // "Surveys Completed" counter is a separate status line, not part of the top-3 intro
     expect(screen.getByText(/surveys completed/i)).toBeInTheDocument()
+    // Top-3 intro is a standalone sentence with no N reference (avoids implying the
+    // card percentages use the same denominator as the completion counter)
+    expect(
+      screen.getByText(/here are the most commonly identified technology adoption barriers/i)
+    ).toBeInTheDocument()
     expect(
       screen.getByText(/Explore detailed analysis, cross-tabulations, and statistical findings/i)
     ).toBeInTheDocument()
