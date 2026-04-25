@@ -19,7 +19,7 @@ export default function LastUpdated({ utcTimestamp, className }: LastUpdatedProp
     return null
   }
 
-  let display = '—'
+  let display = '-'
   try {
     const date = new Date(utcTimestamp)
     if (!isNaN(date.getTime())) {
@@ -35,7 +35,7 @@ export default function LastUpdated({ utcTimestamp, className }: LastUpdatedProp
       })
     }
   } catch {
-    display = '—'
+    display = '-'
   }
 
   return <p className={className ?? 'text-xs text-gray-400 mt-2'}>Last updated: {display}</p>

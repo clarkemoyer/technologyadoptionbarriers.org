@@ -4,7 +4,7 @@ name: Daily Pipeline (Analysis + Operations)
 # Replaces the separate analysis-pipeline.yml (09:00) and
 # daily-disposition-processing.yml (11:00) with a single chained workflow.
 #
-# All jobs are linked by `needs:` — each phase starts immediately when its
+# All jobs are linked by `needs:` - each phase starts immediately when its
 # dependencies finish. Total wall-clock time is ~10-15 min instead of 2+ hours.
 #
 # Data flow:
@@ -15,11 +15,11 @@ name: Daily Pipeline (Analysis + Operations)
 #   Phase 5: Create daily report issue with deltas
 #
 # Safety: Only approves CLEAN (all checks passed) and sends review
-# messages. Does NOT reject anyone — all rejections require manual trigger.
+# messages. Does NOT reject anyone - all rejections require manual trigger.
 
 on:
   schedule:
-    - cron: '30 10 * * *' # Daily at 10:30 UTC (6:30am ET) — results ready by 7:00am ET
+    - cron: '30 10 * * *' # Daily at 10:30 UTC (6:30am ET) - results ready by 7:00am ET
   workflow_dispatch:
 
 concurrency:
@@ -128,16 +128,20 @@ jobs:
       # to preserve the moment-in-time snapshot used for the CRP submission.
       # To regenerate, delete public/datasets/TABS_V2_CRP_2026_public_dataset.csv
       # from the repo and re-run the pipeline.
+      # FAIL-FAST (PR #1695): no continue-on-error. If the CRP dataset
+      # build is needed (no existing snapshot) and it fails, the whole
+      # workflow must fail so no new JSON reaches src/data/ from a
+      # partially-populated pipeline run. The step's own early-exits
+      # cover the expected skip cases (CSV already frozen).
       - name: Build CRP dataset (N=200)
         id: crp
-        continue-on-error: true
         run: |
           CRP_CSV="public/datasets/TABS_V2_CRP_2026_public_dataset.csv"
           PIPELINE_BRANCH="chore/daily-pipeline-data"
 
           # Check 1: already in current checkout
           if [ -f "$CRP_CSV" ]; then
-            echo "CRP dataset already exists in checkout — skipping to preserve frozen snapshot"
+            echo "CRP dataset already exists in checkout - skipping to preserve frozen snapshot"
             echo "produced=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
@@ -145,7 +149,7 @@ jobs:
           # Check 2: already on origin/main (covers workflow_dispatch from non-main branch)
           git fetch --no-tags --depth=1 origin "main:refs/remotes/origin/main" 2>/dev/null || true
           if git show "origin/main:$CRP_CSV" >/dev/null 2>&1; then
-            echo "CRP dataset already exists on origin/main — skipping to preserve frozen snapshot"
+            echo "CRP dataset already exists on origin/main - skipping to preserve frozen snapshot"
             echo "produced=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
@@ -153,7 +157,7 @@ jobs:
           # Check 3: already on pending daily-pipeline PR branch (not yet merged)
           git fetch --no-tags --depth=1 origin "$PIPELINE_BRANCH:refs/remotes/origin/$PIPELINE_BRANCH" 2>/dev/null || true
           if git show "origin/$PIPELINE_BRANCH:$CRP_CSV" >/dev/null 2>&1; then
-            echo "CRP dataset already exists on origin/$PIPELINE_BRANCH — skipping to preserve frozen snapshot"
+            echo "CRP dataset already exists on origin/$PIPELINE_BRANCH - skipping to preserve frozen snapshot"
             echo "produced=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
@@ -166,10 +170,12 @@ jobs:
             --skip-review
           echo "produced=true" >> "$GITHUB_OUTPUT"
 
+      # FAIL-FAST (PR #1695): no continue-on-error. If CRP filtering
+      # fails mid-run, the workflow must stop rather than proceed to
+      # commit on stale/mismatched row counts.
       - name: Build CRP-only enriched CSV for analysis
         id: crp_filter
         if: steps.crp.outputs.produced == 'true'
-        continue-on-error: true
         run: |
           python3 - <<'PY'
           import csv, pathlib, sys
@@ -193,7 +199,7 @@ jobs:
           print(f"  Filtered rows: {len(data)} (expected {len(selected_ids)})")
 
           if len(data) != len(selected_ids):
-              print(f"  ERROR: Row count mismatch — expected {len(selected_ids)}, got {len(data)}", file=sys.stderr)
+              print(f"  ERROR: Row count mismatch - expected {len(selected_ids)}, got {len(data)}", file=sys.stderr)
               sys.exit(1)
 
           with output.open("w", newline="", encoding="utf-8") as f:
@@ -210,7 +216,7 @@ jobs:
             cp "${{ runner.temp }}/crp-output/TABS_V2_CRP_public_dataset.csv" \
                "${{ runner.temp }}/crp-public/TABS_V2_CRP_2026_public_dataset.csv"
           else
-            echo "CRP public CSV not found — skipping"
+            echo "CRP public CSV not found - skipping"
           fi
 
       # ── Unified Analysis: LIVE dataset ─────────────────────────
@@ -222,15 +228,33 @@ jobs:
           python scripts/analysis/tabs_v2_unified_data_analysis.py \
             "${{ runner.temp }}/qualtrics-enriched.csv" \
             --json "${{ runner.temp }}/live-unified.json"
-          # Extract backward-compatible JSONs for page imports
+          # Extract backward-compatible JSONs for page imports.
+          # FAIL-FAST (PR #1695): hard dict lookups, not .get() defaults.
+          # If 'sensitivity' or 'validation' is missing from the unified
+          # JSON - or is None or {} - the explicit presence/emptiness
+          # guard below calls sys.exit(1) with a ::error:: annotation
+          # BEFORE any d[key] lookup runs, so the step fails with an
+          # actionable message rather than a raw KeyError. set -euo
+          # pipefail then fails the whole job, and the commit step is
+          # gated off by needs:[analyze], so no empty {} ever reaches
+          # src/data/sensitivity-analysis.json.
+          # Do NOT change these to d.get(key, {}) - that re-introduces
+          # the silent-default policy that PR #1695 explicitly removes.
           python3 << 'PYEOF'
-          import json
+          import json, sys
           with open('${{ runner.temp }}/live-unified.json') as f:
               d = json.load(f)
+          for required_key in ('sensitivity', 'validation'):
+              if required_key not in d:
+                  print(f'::error::live-unified.json missing required key: {required_key}', file=sys.stderr)
+                  sys.exit(1)
+              if d[required_key] is None or d[required_key] == {}:
+                  print(f'::error::live-unified.json has empty/null {required_key} block', file=sys.stderr)
+                  sys.exit(1)
           with open('${{ runner.temp }}/sensitivity-analysis.json', 'w') as f:
-              json.dump(d.get('sensitivity', {}), f, indent=2)
+              json.dump(d['sensitivity'], f, indent=2)
           with open('${{ runner.temp }}/live-validation.json', 'w') as f:
-              json.dump(d.get('validation') or {}, f, indent=2)
+              json.dump(d['validation'], f, indent=2)
           print('Extracted: sensitivity-analysis.json, live-validation.json')
           PYEOF
 
@@ -255,7 +279,7 @@ jobs:
             exit 1
           fi
           if [ ! -f "$ENRICHED_CSV" ]; then
-            echo "::error::Enriched Qualtrics CSV not found — cannot join auth flags"
+            echo "::error::Enriched Qualtrics CSV not found - cannot join auth flags"
             exit 1
           fi
           python3 - <<PY
@@ -358,22 +382,33 @@ jobs:
           set -euo pipefail
           CRP_CSV="${{ runner.temp }}/crp-enriched-for-analysis.csv"
           if [ ! -f "$CRP_CSV" ]; then
-            echo "::error::Enriched CRP CSV not found — CRP enrichment step must have failed"
+            echo "::error::Enriched CRP CSV not found - CRP enrichment step must have failed"
             exit 1
           fi
           python scripts/analysis/tabs_v2_unified_data_analysis.py \
             "$CRP_CSV" \
             --crp200 \
             --json "${{ runner.temp }}/crp-unified.json"
-          # Extract backward-compatible JSONs for page imports
+          # Extract backward-compatible JSONs for page imports.
+          # FAIL-FAST (PR #1695): hard dict lookups, not .get() defaults.
+          # Identical policy to the live-unified extractor above - see
+          # that block's header comment for rationale. Do NOT change
+          # these to d.get(key, {}).
           python3 << 'PYEOF'
-          import json
+          import json, sys
           with open('${{ runner.temp }}/crp-unified.json') as f:
               d = json.load(f)
+          for required_key in ('sensitivity', 'validation'):
+              if required_key not in d:
+                  print(f'::error::crp-unified.json missing required key: {required_key}', file=sys.stderr)
+                  sys.exit(1)
+              if d[required_key] is None or d[required_key] == {}:
+                  print(f'::error::crp-unified.json has empty/null {required_key} block', file=sys.stderr)
+                  sys.exit(1)
           with open('${{ runner.temp }}/crp-sensitivity-analysis.json', 'w') as f:
-              json.dump(d.get('sensitivity', {}), f, indent=2)
+              json.dump(d['sensitivity'], f, indent=2)
           with open('${{ runner.temp }}/crp-validation.json', 'w') as f:
-              json.dump(d.get('validation') or {}, f, indent=2)
+              json.dump(d['validation'], f, indent=2)
           print('Extracted: crp-sensitivity-analysis.json, crp-validation.json')
           PYEOF
 
@@ -401,10 +436,11 @@ jobs:
           path: |
             ${{ runner.temp }}/sensitivity-analysis.json
             ${{ runner.temp }}/data-audit.json
+            ${{ runner.temp }}/live-validation.json
           retention-days: 7
           if-no-files-found: warn
 
-      # Full unified JSON — internal only, never committed to repo
+      # Full unified JSON - internal only, never committed to repo
       - uses: actions/upload-artifact@v7
         if: always()
         with:
@@ -566,6 +602,23 @@ jobs:
           path: ${{ runner.temp }}/disposition-summary.json
           retention-days: 1
 
+      - name: Find stale AWAITING REVIEW submissions
+        # Outputs two buckets used by the daily report:
+        # - stale no reply to return request (reject candidates)
+        # - stale no reply to TABS message  (request-return candidates)
+        run: python3 scripts/analysis/find_stale_return_requested.py
+        env:
+          PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
+          STUDY_ID: ${{ vars.PROLIFIC_STUDY_ID }}
+          STALE_HOURS: '48'
+          OUTPUT_JSON_PATH: ${{ runner.temp }}/stale-triage.json
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: stale-triage
+          path: ${{ runner.temp }}/stale-triage.json
+          retention-days: 1
+
   # ── Phase 4: Commit all data (single PR) ─────────────────────
   commit-results:
     name: 'Phase 4: Commit All Data'
@@ -601,7 +654,7 @@ jobs:
       - name: Stage CRP files into repo
         run: |
           set -euo pipefail
-          # CRP public CSV — only staged on first build (produced=true)
+          # CRP public CSV - only staged on first build (produced=true)
           if [ -f "${{ runner.temp }}/crp-csv/TABS_V2_CRP_2026_public_dataset.csv" ]; then
             mkdir -p public/datasets
             cp "${{ runner.temp }}/crp-csv/TABS_V2_CRP_2026_public_dataset.csv" \
@@ -609,7 +662,7 @@ jobs:
             echo "  Staged: public/datasets/TABS_V2_CRP_2026_public_dataset.csv"
           fi
 
-          # CRP analysis JSONs — MUST exist, produced daily
+          # CRP analysis JSONs - MUST exist, produced daily
           if [ ! -f "${{ runner.temp }}/crp-json/crp-sensitivity-analysis.json" ]; then
             echo "::error::crp-sensitivity-analysis.json missing from CRP analysis results"
             exit 1
@@ -629,7 +682,7 @@ jobs:
       - name: Compute files to format
         id: format_files
         run: |
-          FILES="src/data/sensitivity-analysis.json src/data/data-audit.json src/data/disposition-summary.json"
+          FILES="src/data/sensitivity-analysis.json src/data/data-audit.json src/data/disposition-summary.json src/data/live-validation.json"
           if [ -f "src/data/crp-sensitivity-analysis.json" ]; then
             FILES="$FILES src/data/crp-sensitivity-analysis.json"
           fi

@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       dry_run:
-        description: 'Dry run — triage only, no Prolific approval'
+        description: 'Dry run - triage only, no Prolific approval'
         type: boolean
         default: true
       auto_accept_clean:
@@ -58,7 +58,7 @@ jobs:
           OUTPUT_PATH: ${{ runner.temp }}/disposition.csv
 
       # Artifact is required to pass data between jobs. Contains only
-      # PROLIFIC_PIDs and computed flags — no survey response data.
+      # PROLIFIC_PIDs and computed flags - no survey response data.
       # Retention is minimized; artifact is auto-deleted after 1 day.
       - name: Upload disposition CSV
         uses: actions/upload-artifact@v7

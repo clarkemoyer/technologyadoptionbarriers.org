@@ -1,6 +1,8 @@
 /* HIDE SITE HEADER AND FOOTER FOR PRESENTATION */
 #header,
-footer {
+#sidebar,
+footer,
+[data-cookie-consent] {
   display: none !important;
 }
 

@@ -12,7 +12,7 @@ import SeriesNavigation from '@/components/series-navigation'
 import ArticleTOC from '@/components/article-toc'
 
 export const metadata: Metadata = {
-  title: 'Article 2.3: Managing the Lifecycle â€“ The Gartner Hype Cycle',
+  title: 'Article 2.3: Managing the Lifecycle - The Gartner Hype Cycle',
   description:
     'How the Gartner Hype Cycle explains expectations, maturity, and adoption timing for emerging technologies, and how leaders can use it as a strategic decision tool.',
 }
@@ -21,14 +21,12 @@ const Article23Page = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
-        <h1 className={H1_CLASSES}>
-          Article 2.3: Managing the Lifecycle â€“ The Gartner Hype Cycle
-        </h1>
+        <h1 className={H1_CLASSES}>Article 2.3: Managing the Lifecycle - The Gartner Hype Cycle</h1>
 
         <section className={SECTION_CLASSES}>
           <p className={PARAGRAPH_CLASSES}>
             Every year, technology executives face a version of the same challenge: they receive
-            pitches for emerging technologiesâ€“artificial intelligence, blockchain, edge computing,
+            pitches for emerging technologies - artificial intelligence, blockchain, edge computing,
             quantum computing, metaverse platforms. Consultants highlight how these technologies are
             &quot;transformative.&quot; Competitors appear to be investing. Industry analysts
             publish glowing reports about future potential. The pressure to invest builds. Yet
@@ -40,7 +38,7 @@ const Article23Page = () => {
             How should leaders think about technology maturity when facing inevitable hype around
             emerging technologies? How can they distinguish between technologies that represent
             genuine opportunities and those that are oversold? How should they pace investment in
-            emerging technologiesâ€“moving fast enough to avoid missing important shifts, but not so
+            emerging technologies - moving fast enough to avoid missing important shifts, but not so
             fast that they waste capital on technologies that never deliver practical value?
           </p>
           <p className={PARAGRAPH_CLASSES}>
@@ -56,7 +54,7 @@ const Article23Page = () => {
             The Gartner Hype Cycle identifies five distinct phases in technology maturation [1][2]:
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Innovation Trigger:</strong> A breakthrough occurs or early prototype is
+            <strong>Innovation Trigger: </strong>A breakthrough occurs or early prototype is
             developed capturing media and industry attention. The technology appears to offer
             transformative potential. Early adopters and futurists become excited about
             possibilities. At this phase, technology usually is not commercially mature, real-world
@@ -64,16 +62,16 @@ const Article23Page = () => {
             potential seems enormous.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Peak of Inflated Expectations:</strong> Media coverage explodes. Success stories
+            <strong>Peak of Inflated Expectations: </strong>Media coverage explodes. Success stories
             generate excitement. Startups multiply offering products based on the technology.
             Established firms announce major investments. The technology appears in every industry
             conference and consultant presentation. Investment flows. Yet reality typically lags
             vision. Many announced projects fail. Products often underperform expectations. During
             this phase, expectations become increasingly disconnected from reality. Consultants and
-            vendors have incentives to increase hypeâ€“generating buzz drives business.
+            vendors have incentives to increase hype - generating buzz drives business.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Trough of Disillusionment:</strong> Expectations collide with reality. Failed
+            <strong>Trough of Disillusionment: </strong>Expectations collide with reality. Failed
             projects are publicized. Products that performed poorly are abandoned. Media interest
             shifts elsewhere, coverage declining sharply. Investment enthusiasm cools. Startups fail
             or pivot toward different ideas. Firms that invested heavily in immature technology
@@ -82,7 +80,7 @@ const Article23Page = () => {
             unlimited potential now seems overhyped and disappointing.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Slope of Enlightenment:</strong> Surviving vendors consolidate. Real-world
+            <strong>Slope of Enlightenment: </strong>Surviving vendors consolidate. Real-world
             applications and use cases clarify. Organizations learn from earlier projects what works
             and what does not. Incremental improvements continue. The technology finds applications
             where it genuinely creates value, even if broader transformation promises don&apos;t
@@ -92,7 +90,7 @@ const Article23Page = () => {
             avoiding the costs of very early adoption.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Plateau of Productivity:</strong> The technology becomes mainstream. Broad
+            <strong>Plateau of Productivity: </strong>The technology becomes mainstream. Broad
             adoption occurs. Practical applications are well-established. The technology becomes
             part of the normal technology landscape rather than an emerging novelty. Vendors
             understand markets, competitive dynamics stabilize, and mature products compete on price
@@ -110,7 +108,7 @@ const Article23Page = () => {
             different timing decisions about adopting emerging technologies.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Early Adopters in Competitive Fields:</strong> Organizations in intensely
+            <strong>Early Adopters in Competitive Fields: </strong>Organizations in intensely
             competitive environments where first-mover advantage is critical may need to invest
             during the Peak of Inflated Expectations, despite high uncertainty. The cost of being
             late may exceed the cost of failed early attempts. These organizations manage the risk
@@ -119,8 +117,8 @@ const Article23Page = () => {
             some will provide crucial advantage.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Pragmatic Followers:</strong> Organizations in moderately competitive
-            environments may strategically invest in the Slope of Enlightenment phaseâ€“after
+            <strong>Pragmatic Followers: </strong>Organizations in moderately competitive
+            environments may strategically invest in the Slope of Enlightenment phase - after
             initial hype has subsided, successful applications have emerged, and implementation
             knowledge is more available, but before the technology is completely mature and
             commoditized. This timing allows organizations to adopt proven approaches, benefit from
@@ -128,7 +126,7 @@ const Article23Page = () => {
             universal.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Follower Organizations:</strong> Organizations in stable or slowly changing
+            <strong>Follower Organizations: </strong>Organizations in stable or slowly changing
             competitive environments may wisely wait until the Plateau of Productivity phase. By
             this point, technology implementation is proven, costs have declined through competition
             and volume, and expertise is readily available. The organization may not achieve
@@ -136,7 +134,7 @@ const Article23Page = () => {
             reliable.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Avoiding the Trough:</strong> The Hype Cycle suggests that organizations should
+            <strong>Avoiding the Trough: </strong>The Hype Cycle suggests that organizations should
             be especially cautious about major technology commitments during the Peak of Inflated
             Expectations. The combination of high uncertainty, widespread failures, and sharp
             visibility decline creates challenging conditions for technology initiatives.
@@ -153,7 +151,7 @@ const Article23Page = () => {
             Not all technologies follow the Hype Cycle path. Some genuinely transformative
             technologies move more directly from Innovation Trigger toward adoption without a severe
             Trough of Disillusionment. Some overhyped technologies never make it through the Trough
-            to genuine productivityâ€“they collapse completely and never recover. The timing of each
+            to genuine productivity - they collapse completely and never recover. The timing of each
             phase is unpredictable. Some technologies spend years at peak expectations. Others drop
             quickly into disillusionment.
           </p>
@@ -207,32 +205,32 @@ const Article23Page = () => {
             framework as part of disciplined decision-making:
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Identify Technology Maturity Phase:</strong> First, attempt to assess where an
+            <strong>Identify Technology Maturity Phase: </strong>First, attempt to assess where an
             emerging technology sits in the Hype Cycle. Is media coverage at a peak, with ubiquitous
             hype? Or has coverage cooled as early implementation challenges emerged? Are vendors
             consolidating around proven approaches? This assessment provides context for
             understanding the likely evolution ahead.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Assess Business Case Alignment:</strong> Regardless of where a technology sits
+            <strong>Assess Business Case Alignment: </strong>Regardless of where a technology sits
             in the Hype Cycle, assess whether the technology addresses genuine business needs.
             Hype-driven investments in technologies that do not actually solve business problems
             typically fail.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Determine Strategic Timing Requirements:</strong> Assess whether your
+            <strong>Determine Strategic Timing Requirements: </strong>Assess whether your
             competitive strategy requires early adoption. Are you competing on innovation and speed,
             where early advantage is critical? Or are you competing on execution excellence and
             cost, where waiting for mature, proven technology is acceptable?
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Plan for Technology Trough:</strong> If investing in technologies approaching or
+            <strong>Plan for Technology Trough: </strong>If investing in technologies approaching or
             at the Peak of Inflated Expectations, explicitly plan for the Trough of Disillusionment.
             Budget multiple experiments recognizing most will fail. Build organizational tolerance
             for failure and learning.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Monitor and Adjust:</strong> As technologies move through the Hype Cycle, plans
+            <strong>Monitor and Adjust: </strong>As technologies move through the Hype Cycle, plans
             should adjust. Technologies you expected to mature quickly may instead decline into the
             Trough more deeply than anticipated. Conversely, technologies may emerge from the Trough
             faster than expected. Regular reassessment allows adjustment of investments and
@@ -287,8 +285,8 @@ const Article23Page = () => {
             strategy and risk tolerance.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            Leaders who manage emerging technologies strategicallyâ€“using Hype Cycle thinking
-            alongside strategic frameworks like TOE, RBV, and dynamic capabilitiesâ€“position their
+            Leaders who manage emerging technologies strategically - using Hype Cycle thinking
+            alongside strategic frameworks like TOE, RBV, and dynamic capabilities - position their
             organizations to harness genuinely valuable technologies while avoiding the costs of
             hype-driven investments in technologies that never deliver practical value.
           </p>

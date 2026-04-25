@@ -92,7 +92,7 @@ Computes all descriptive and inferential statistics reported in the CRP Results 
 
 **Constraints**: Conservative Clean ⊆ Flexible Clean ⊆ Prolific Accepted ⊆ All V2, and All V2 Finished ⊆ All V2
 
-Prolific Accepted is defined by Prolific approval status (all V2 APPROVED responses). All V2 Finished is defined by survey completion plus duration ≥ 120s. These two sets overlap but neither is guaranteed to be a subset of the other — a response can be APPROVED but INCOMPLETE (rare edge case), or FINISHED but not APPROVED. Conservative Clean is the primary analysis sample for the CRP. The sensitivity analysis runs all statistics across all 5 definitions to demonstrate robustness.
+Prolific Accepted is defined by Prolific approval status (all V2 APPROVED responses). All V2 Finished is defined by survey completion plus duration ≥ 120s. These two sets overlap but neither is guaranteed to be a subset of the other - a response can be APPROVED but INCOMPLETE (rare edge case), or FINISHED but not APPROVED. Conservative Clean is the primary analysis sample for the CRP. The sensitivity analysis runs all statistics across all 5 definitions to demonstrate robustness.
 
 **Deduplication**: When a participant retakes the survey, the completed response is preferred over an incomplete retake. Among completed responses, latest wins.
 

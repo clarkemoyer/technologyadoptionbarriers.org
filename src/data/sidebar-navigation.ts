@@ -1,5 +1,5 @@
 /**
- * Sidebar Navigation — Single source of truth for all site navigation.
+ * Sidebar Navigation - Single source of truth for all site navigation.
  *
  * Replaces nav data previously scattered across:
  * - header/index.tsx (inline menuItems)
@@ -49,6 +49,7 @@ export interface SidebarSection {
 function resultsToGroups(items: ResultsSeriesItem[]): SidebarGroup[] {
   const crp2026 = items.find((i) => i.title === 'CRP 2026')
   const fullDataset = items.find((i) => i.title === 'TABS Full Dataset')
+  const shared = items.find((i) => i.title === 'Shared')
 
   const crpLinks: SidebarLink[] = [
     { title: 'CRP Overview & Download', href: '/results/crp-2026' },
@@ -60,6 +61,9 @@ function resultsToGroups(items: ResultsSeriesItem[]): SidebarGroup[] {
     ...(fullDataset?.children?.map((c) => ({ title: c.title, href: c.href })) ?? []),
   ]
 
+  const sharedLinks: SidebarLink[] =
+    shared?.children?.map((c) => ({ title: c.title, href: c.href })) ?? []
+
   const dashboardLinks: SidebarLink[] = items
     .filter((i) => !i.children && i.href !== '/results')
     .map((i) => ({ title: i.title, href: i.href }))
@@ -67,6 +71,7 @@ function resultsToGroups(items: ResultsSeriesItem[]): SidebarGroup[] {
   return [
     { title: 'CRP 2026 Dataset', links: crpLinks },
     { title: 'Live Results (Updated Daily)', links: liveLinks },
+    { title: 'Shared Resources', links: sharedLinks },
     { title: 'Dashboards & Comparisons', links: dashboardLinks },
   ]
 }
@@ -78,6 +83,7 @@ function makingOfTabsToGroups(items: MakingOfTabsItem[]): SidebarGroup[] {
   const dataAnalysis: SidebarLink[] = []
   const seo: SidebarLink[] = []
   const presentations: SidebarLink[] = []
+  const mindMaps: SidebarLink[] = []
 
   for (const item of items) {
     const link: SidebarLink = { title: item.title, href: item.href }
@@ -112,6 +118,13 @@ function makingOfTabsToGroups(items: MakingOfTabsItem[]): SidebarGroup[] {
           integrations.push({ title: child.title, href: child.href })
         }
       }
+    } else if (item.href.startsWith('/making-of-tabs/mind-maps')) {
+      mindMaps.push(link)
+      if (item.children) {
+        for (const child of item.children) {
+          mindMaps.push({ title: child.title, href: child.href })
+        }
+      }
     } else if (item.href.startsWith('/making-of-tabs/seo')) {
       seo.push(link)
     } else if (item.href.startsWith('/making-of-tabs/tabs-presentation')) {
@@ -124,6 +137,7 @@ function makingOfTabsToGroups(items: MakingOfTabsItem[]): SidebarGroup[] {
     { title: 'AI in TABS', links: aiInTabs },
     { title: 'Technical Integrations', links: integrations },
     { title: 'SEO & Transparency', links: seo },
+    { title: 'Mind Maps', links: mindMaps },
     { title: 'Presentations', links: presentations },
   ].filter((g) => g.links.length > 0)
 }
@@ -148,15 +162,27 @@ function modelsToGroups(): SidebarGroup[] {
     })),
   ]
 
-  const bibLinks: SidebarLink[] = series.bibliography
-    ? [{ title: 'Series Bibliography', href: series.bibliography.slug }]
-    : []
+  const bibOverviewLinks: SidebarLink[] = [
+    { title: 'Comprehensive Bibliography', href: series.bibliography.slug },
+  ]
+
+  const bibIndividualLinks: SidebarLink[] = series.bibliographyArticles.individual.map((a) => ({
+    title: a.title,
+    href: a.slug,
+  }))
+
+  const bibOrgLinks: SidebarLink[] = series.bibliographyArticles.organizational.map((a) => ({
+    title: a.title,
+    href: a.slug,
+  }))
 
   return [
     { title: 'Series Overview', links: overview },
     { title: "Branch 1: The User's Journey", links: branch1Links },
     { title: "Branch 2: The Organization's Playbook", links: branch2Links },
-    { title: 'Bibliography', links: bibLinks },
+    { title: 'Bibliography', links: bibOverviewLinks },
+    { title: '📚 Individual Models', links: bibIndividualLinks },
+    { title: '🏢 Organizational Models', links: bibOrgLinks },
   ].filter((g) => g.links.length > 0)
 }
 
@@ -197,6 +223,30 @@ function teachingToGroups(): SidebarGroup[] {
     })
   }
 
+  groups.push({
+    title: 'Presentations',
+    links: [
+      { title: 'Full Deck (Standard)', href: `${baseSlug}/presentation` },
+      { title: 'Full Deck (4K)', href: `${baseSlug}/presentation/4k` },
+      { title: 'Visual Gallery', href: `${baseSlug}/visual-gallery` },
+    ],
+  })
+
+  groups.push({
+    title: 'Focused Briefings',
+    links: [
+      { title: 'Lifecycle Positioning', href: `${baseSlug}/lifecycle-positioning` },
+      {
+        title: 'Lifecycle Positioning Presentation (Standard)',
+        href: `${baseSlug}/lifecycle-positioning/presentation`,
+      },
+      {
+        title: 'Lifecycle Positioning Presentation (4K)',
+        href: `${baseSlug}/lifecycle-positioning/presentation/4k`,
+      },
+    ],
+  })
+
   groups.unshift({
     title: 'Series Overview',
     links: [{ title: 'Teaching Series Overview', href: baseSlug }],
@@ -234,9 +284,9 @@ function surveyToGroups(): SidebarGroup[] {
     {
       title: 'Concept Mapping',
       links: [
+        { title: 'Summary', href: '/concept-mapping/summary' },
         { title: 'Simple Concept Map', href: '/concept-mapping/simple' },
         { title: 'Complex Concept Map', href: '/concept-mapping/complex' },
-        { title: 'Summary', href: '/concept-mapping/summary' },
       ],
     },
   ]
@@ -271,7 +321,15 @@ export const sidebarSections: SidebarSection[] = [
     label: 'Home',
     icon: '🏠',
     href: '/',
-    groups: [],
+    groups: [
+      {
+        title: 'Featured Visualizations',
+        links: [
+          { title: 'Mind Maps Gallery', href: '/making-of-tabs/mind-maps' },
+          { title: 'Full Mind Map', href: '/making-of-tabs/mind-maps/full-mind-map' },
+        ],
+      },
+    ],
   },
   {
     id: 'survey',

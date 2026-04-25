@@ -59,6 +59,16 @@ const SEGMENT_LABELS: Record<string, string> = {
   cloudflare: 'Cloudflare',
   prolific: 'Prolific',
   qualtrics: 'Qualtrics',
+  'mind-maps': 'Mind Maps',
+  'full-mind-map': 'Full Mind Map',
+  'literature-review': 'Literature Review',
+  'business-management-models': 'Business Management Models',
+  'culminating-research-project': 'Culminating Research Project',
+  'enterprise-it-architecture': 'Enterprise & IT Architecture',
+  'it-management-models': 'IT & IT Management Models',
+  'project-program-risk-management': 'Project, Program & Risk Management',
+  'standards-regulations': 'Standards & Regulations',
+  'tabs-project-operations': 'TABS Project Operations',
 }
 
 function capitalize(segment: string): string {

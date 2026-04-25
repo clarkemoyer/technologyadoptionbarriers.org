@@ -223,7 +223,7 @@ export default function ConceptMappingSummary() {
                       {row.substantiveItems}
                     </td>
                     <td className="px-4 py-3 text-right text-gray-600 sm:px-6">
-                      {row.attentionChecks != null ? row.attentionChecks : '—'}
+                      {row.attentionChecks != null ? row.attentionChecks : '-'}
                     </td>
                     <td className="px-4 py-3 text-gray-600 sm:px-6">{row.scaleMethod}</td>
                   </tr>

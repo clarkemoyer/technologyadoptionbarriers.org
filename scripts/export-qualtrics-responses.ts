@@ -17,7 +17,7 @@ import { dirname, basename } from 'node:path'
 import { inflateRawSync } from 'node:zlib'
 
 /**
- * Minimal ZIP extraction — finds the first .csv entry and inflates it.
+ * Minimal ZIP extraction - finds the first .csv entry and inflates it.
  * Supports only DEFLATE (method 8) and STORED (method 0) entries.
  */
 function extractCsvFromZip(zipBuffer: Buffer): string {

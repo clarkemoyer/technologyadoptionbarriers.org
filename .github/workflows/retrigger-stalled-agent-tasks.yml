@@ -7,7 +7,7 @@ name: Retrigger Stalled Agent Tasks
 #
 # Retrigger mechanism:
 #   1. Remove `copilot` from the issue's assignees
-#   2. Re-add `copilot` as assignee — this starts a new Copilot agent session
+#   2. Re-add `copilot` as assignee - this starts a new Copilot agent session
 #   3. Post a comment explaining the retrigger
 #
 # This workflow can be triggered:
@@ -27,7 +27,7 @@ on:
         type: number
         default: 24
       dry_run:
-        description: 'Dry run — report stalled tasks without retriggering'
+        description: 'Dry run - report stalled tasks without retriggering'
         required: false
         type: boolean
         default: true

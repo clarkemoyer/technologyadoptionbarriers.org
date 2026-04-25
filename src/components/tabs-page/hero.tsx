@@ -50,7 +50,7 @@ const Hero = () => {
                 TAKE THE TABS
               </a>
               <a
-                href={assetPath('/making-of-tabs/tabs-presentation')}
+                href={assetPath('/tabs-presentation')}
                 className="inline-block px-[35px] py-[15px] bg-white text-tabs-teal-deep text-[18px] font-bold rounded-[4px] border border-tabs-teal-deep/30 hover:bg-gray-50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tabs-teal-deep focus-visible:ring-offset-2"
               >
                 VIEW PRESENTATION

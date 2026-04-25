@@ -5,7 +5,7 @@ import { MOMENT_IN_TIME_CONFIGS } from '@/data/moment-in-time-configs'
 
 /* ────────────────────────────────────────────────────────────
    Dark-native visual components for the fullscreen presenter.
-   These are ONLY used by the presentation route — the landing
+   These are ONLY used by the presentation route - the landing
    page continues to use the light-themed visuals in
    src/components/technology-adoption-series/slide-render.tsx.
    ──────────────────────────────────────────────────────────── */
@@ -349,9 +349,9 @@ function Visual06_TechnologyLifecyclePositioningDiagram({ mode }: { mode?: 'hd' 
     { x: 470, label: 'Trending Behind', sub: 'Declining' },
     { x: 580, label: 'End of Support', sub: 'Migrate' },
   ]
-  // Innovation curve (peaks early, declines) — Y values in SVG coords (lower Y = higher value)
+  // Innovation curve (peaks early, declines) - Y values in SVG coords (lower Y = higher value)
   const innovY = [55, 75, 155, 215, 240]
-  // Risk curve (U-shaped) — Y values (lower Y = higher risk)
+  // Risk curve (U-shaped) - Y values (lower Y = higher risk)
   const riskY = [60, 130, 225, 160, 70]
 
   const innovPath = `M${stages[0].x} ${innovY[0]} C${stages[0].x + 40} ${innovY[0]},${stages[1].x - 40} ${innovY[1]},${stages[1].x} ${innovY[1]} C${stages[1].x + 60} ${innovY[1] + 20},${stages[2].x - 60} ${innovY[2]},${stages[2].x} ${innovY[2]} C${stages[2].x + 60} ${innovY[2] + 15},${stages[3].x - 60} ${innovY[3]},${stages[3].x} ${innovY[3]} C${stages[3].x + 50} ${innovY[3] + 10},${stages[4].x - 50} ${innovY[4]},${stages[4].x} ${innovY[4]}`
@@ -465,7 +465,7 @@ function Visual06_TechnologyLifecyclePositioningDiagram({ mode }: { mode?: 'hd' 
         </text>
       </svg>
       <div className="text-center text-base text-slate-400">
-        Risk is <span className="font-semibold text-amber-300">U-shaped</span> — highest at both
+        Risk is <span className="font-semibold text-amber-300">U-shaped</span> - highest at both
         extremes. The <span className="font-semibold text-cyan-400">Leading Edge → Mainstream</span>{' '}
         zone balances innovation with manageable risk.
       </div>
@@ -540,7 +540,7 @@ function Visual08_StrategicPositioningTarget() {
           strokeWidth="1.5"
         />
         <text x="50" y="48" fontSize="13" fill="#64748b">
-          Bleeding Edge — monitor only
+          Bleeding Edge - monitor only
         </text>
         {/* Middle ring */}
         <rect
@@ -555,7 +555,7 @@ function Visual08_StrategicPositioningTarget() {
           strokeDasharray="6 4"
         />
         <text x="100" y="88" fontSize="14" fontWeight="600" fill="#22d3ee">
-          Leading Edge — target ✅
+          Leading Edge - target ✅
         </text>
         {/* Inner ring */}
         <rect
@@ -570,14 +570,14 @@ function Visual08_StrategicPositioningTarget() {
           strokeWidth="2"
         />
         <text x="195" y="155" fontSize="16" fontWeight="700" fill="#22d3ee">
-          Mainstream — target ✅
+          Mainstream - target ✅
         </text>
         {/* Bottom label */}
         <text x="100" y="225" fontSize="13" fill="#64748b">
-          Trending Behind — cloud enabling only
+          Trending Behind - cloud enabling only
         </text>
         <text x="50" y="265" fontSize="13" fill="#475569">
-          End of Support — avoid / migrate
+          End of Support - avoid / migrate
         </text>
       </svg>
     </div>
@@ -825,12 +825,12 @@ function Visual13_AdoptionEnablingCapabilities() {
   const cards = [
     {
       title: 'Graceful Degradation',
-      body: 'Users trust the system — it fails safely and recovers quickly.',
+      body: 'Users trust the system - it fails safely and recovers quickly.',
     },
     { title: 'Scalable Deployment', body: 'Deploy where users operate, not vice versa.' },
     {
       title: 'Resilient Operations',
-      body: 'Works in degraded conditions — no workarounds needed.',
+      body: 'Works in degraded conditions - no workarounds needed.',
     },
   ]
   return (
@@ -893,7 +893,7 @@ function Visual15_PhasedAdoptionRoadmap() {
     { label: 'Develop with frequent user testing', note: 'Iterative feedback' },
     { label: 'Pilot with early adopters', note: 'Positive feedback' },
     { label: 'Expand as demand grows (voluntary)', note: 'Advocacy to peers' },
-    { label: 'Scaled adoption — self-sustaining', note: 'User-driven roadmap' },
+    { label: 'Scaled adoption - self-sustaining', note: 'User-driven roadmap' },
   ]
   return (
     <div className="flex h-full items-center justify-center">
@@ -1039,7 +1039,7 @@ function Visual24_DeepDiveAiFriction() {
         ))}
         <div className="mt-2 text-center text-base text-slate-400">
           Adoption depends on <span className="font-semibold text-cyan-400">trust</span>,{' '}
-          <span className="font-semibold text-cyan-400">explainability</span>, and governance — not
+          <span className="font-semibold text-cyan-400">explainability</span>, and governance - not
           just model accuracy.
         </div>
       </div>
@@ -1375,7 +1375,7 @@ function Visual20_DeepDiveSourcingStrategy() {
         ))}
       </div>
       <div className="text-center text-base text-slate-400">
-        <span className="font-semibold text-cyan-400">&ldquo;Best tool for the job&rdquo;</span> —
+        <span className="font-semibold text-cyan-400">&ldquo;Best tool for the job&rdquo;</span> -
         evaluate based on mission, lifecycle position, and adoption implications.
       </div>
     </div>
@@ -1461,7 +1461,7 @@ function Visual23_DeepDiveLegacyMigration() {
       </div>
       <div className="text-center text-base text-slate-400">
         Legacy migration is{' '}
-        <span className="font-semibold text-amber-300">involuntary adoption</span> —
+        <span className="font-semibold text-amber-300">involuntary adoption</span> -
         over-communicate, train extensively, and move fast.
       </div>
     </div>
@@ -1636,7 +1636,7 @@ function LifecycleTimelineChart({
 
         {/* Phase duration explanation header */}
         <text x="800" y="160" textAnchor="middle" fontSize="20" fill="#cbd5e1">
-          Bar width is proportional to time spent in each phase — total span: {totalYears}
+          Bar width is proportional to time spent in each phase - total span: {totalYears}
         </text>
 
         {/* Asymmetry callout arrows */}
@@ -1788,7 +1788,7 @@ function LifecycleTimelineChart({
           adoption data
         </text>
         <text x="800" y="755" textAnchor="middle" fontSize="16" fill="#cbd5e1">
-          — the S-curve is an idealization; actual diffusion is shaped by market, regulatory, and
+          - the S-curve is an idealization; actual diffusion is shaped by market, regulatory, and
           network effects.
         </text>
 
@@ -1813,11 +1813,11 @@ function Visual27_HardwareLifecycleTimeline() {
   return (
     <LifecycleTimelineChart
       title="Hardware Example: Hard Disk Drives (HDDs)"
-      subtitle="From IBM RAMAC (1956) to SSD displacement — 70+ year lifecycle"
+      subtitle="From IBM RAMAC (1956) to SSD displacement - 70+ year lifecycle"
       phases={cfg.phases}
       totalYears="~77 years"
       ariaLabel="HDD lifecycle timeline showing 14 years bleeding edge, 15 years leading edge, 30 years mainstream, 13 years trending behind, and ongoing end of support"
-      noteText="Long mainstream plateau (30 yrs) creates a right-skewed curve — slow start, extended peak, then rapid SSD displacement"
+      noteText="Long mainstream plateau (30 yrs) creates a right-skewed curve - slow start, extended peak, then rapid SSD displacement"
       sourceText="Sources: Computer History Museum (2024); IDC Worldwide HDD Forecast (2024); Backblaze Drive Stats (2023-2025)"
     />
   )
@@ -1829,11 +1829,11 @@ function Visual28_SoftwareLifecycleTimeline() {
   return (
     <LifecycleTimelineChart
       title="Software Example: Adobe Flash"
-      subtitle="From FutureSplash (1996) to EOL removal (2021) — 25 year lifecycle"
+      subtitle="From FutureSplash (1996) to EOL removal (2021) - 25 year lifecycle"
       phases={cfg.phases}
       totalYears="~25 years"
       ariaLabel="Adobe Flash lifecycle timeline showing 4 years bleeding edge, 5 years leading edge, 7 years mainstream, 5 years trending behind, 3 years end of support, and 1 year end of life"
-      noteText="Compressed end-of-life (1 yr) after Apple's 2010 rejection + HTML5 — left-skewed tail with steep decline"
+      noteText="Compressed end-of-life (1 yr) after Apple's 2010 rejection + HTML5 - left-skewed tail with steep decline"
       sourceText="Sources: Adobe Flash EOL Page (2020); W3Techs Historical Usage (2023); Steve Jobs 'Thoughts on Flash' (2010)"
     />
   )
@@ -1845,11 +1845,11 @@ function Visual29_SupplyChainLifecycleTimeline() {
   return (
     <LifecycleTimelineChart
       title="Supply Chain Example: Barcode / UPC Systems"
-      subtitle="From patent (1952) to RFID/IoT displacement — 80+ year lifecycle"
+      subtitle="From patent (1952) to RFID/IoT displacement - 80+ year lifecycle"
       phases={cfg.phases}
       totalYears="~83 years"
       ariaLabel="Barcode lifecycle timeline showing 22 years bleeding edge, 11 years leading edge, 35 years mainstream, 10 years trending behind, and projected end of support"
-      noteText="Extremely long bleeding edge (22 yrs) — technology existed decades before infrastructure enabled adoption"
+      noteText="Extremely long bleeding edge (22 yrs) - technology existed decades before infrastructure enabled adoption"
       sourceText="Sources: GS1 Barcode History (2024); McKinsey Supply Chain 4.0 (2024); Zebra Technologies Global Study (2024)"
     />
   )
@@ -1861,11 +1861,11 @@ function Visual33_MLAILifecycleTimeline() {
   return (
     <LifecycleTimelineChart
       title="ML/AI Example: Machine Learning & Artificial Intelligence"
-      subtitle="From Turing's paper (1950) to ChatGPT — 75+ year lifecycle, still ascending"
+      subtitle="From Turing's paper (1950) to ChatGPT - 75+ year lifecycle, still ascending"
       phases={cfg.phases}
       totalYears="~75+ years (ongoing)"
       ariaLabel="ML/AI lifecycle timeline showing 47 years bleeding edge, 23 years leading edge, and ongoing mainstream adoption since 2020"
-      noteText="Longest bleeding edge of any example (47 yrs) — two AI winters stalled adoption until compute + data + algorithms aligned"
+      noteText="Longest bleeding edge of any example (47 yrs) - two AI winters stalled adoption until compute + data + algorithms aligned"
       sourceText="Sources: Stanford HAI AI Index (2024); Turing (1950); McCarthy (1956); Krizhevsky/AlexNet (2012); Vaswani/Transformers (2017)"
     />
   )
@@ -1874,7 +1874,7 @@ function Visual33_MLAILifecycleTimeline() {
 // ── MOMENT IN TIME CHARTS (Slides 30-35) ─────────────────
 
 /* Column-based layout showing multiple technologies positioned by lifecycle stage.
-   Companion to the timeline charts (slides 27-29) — these freeze a single moment
+   Companion to the timeline charts (slides 27-29) - these freeze a single moment
    and map the competitive landscape across lifecycle stages. */
 
 function MomentInTimeChart({

@@ -44,7 +44,7 @@ def main():
     print()
 
     if dry_run:
-        print("DRY RUN — message not sent")
+        print("DRY RUN - message not sent")
     else:
         prolific_send_message(study_id, pid, message, api_token)
         print("Message sent successfully")

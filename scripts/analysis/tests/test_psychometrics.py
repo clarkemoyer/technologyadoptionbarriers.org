@@ -1,4 +1,4 @@
-"""Tests for tabs_v2_psychometrics.py — instrument validation functions.
+"""Tests for tabs_v2_psychometrics.py - instrument validation functions.
 
 Uses production-format synthetic CSV with all required columns.
 """

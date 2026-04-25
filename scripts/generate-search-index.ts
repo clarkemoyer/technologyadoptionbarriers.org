@@ -81,7 +81,7 @@ function categorize(urlPath: string): string {
  * followed by closing quotes/brackets/parentheses.
  *
  * Used to decide whether a `'. '` separator is needed between content
- * segments in the search index — prevents double-period artifacts like
+ * segments in the search index - prevents double-period artifacts like
  * `(TABS)..` while preserving intentional punctuation (`U.S.`, `Ph.D.`).
  *
  * @example
@@ -91,7 +91,7 @@ function categorize(urlPath: string): string {
  * endsWithTerminalPunctuation('Hello')    // false
  */
 export function endsWithTerminalPunctuation(text: string): boolean {
-  return /[.!?:;—–][)\]}'"\u2018\u2019\u201C\u201D\u00BB]*$/.test(text.trimEnd())
+  return /[.!?:;\u2014\u2013][)\]}'"\u2018\u2019\u201C\u201D\u00BB]*$/.test(text.trimEnd())
 }
 
 /**
@@ -127,17 +127,19 @@ export function joinSegments(segments: string[]): string {
  * metadata = { ... }` block so nested objects like `openGraph.title` are never
  * accidentally matched in place of the top-level title.
  */
-function extractStaticMetadata(source: string): {
+export function extractStaticMetadata(source: string): {
   title: string | null
   description: string | null
+  robotsIndexFalse: boolean
 } {
   let title: string | null = null
   let description: string | null = null
+  let robotsIndexFalse = false
 
   // Locate `export const metadata = {` (with optional `: TypeAnnotation`)
   const exportMatch = source.match(/export\s+const\s+metadata\s*(?::\s*[\w.]+\s*)?\s*=\s*\{/)
   if (!exportMatch || exportMatch.index === undefined) {
-    return { title, description }
+    return { title, description, robotsIndexFalse }
   }
 
   // Walk the source from the opening `{`, respecting string boundaries,
@@ -183,20 +185,33 @@ function extractStaticMetadata(source: string): {
     }
   }
 
-  if (blockEnd === -1) return { title, description }
+  if (blockEnd === -1) return { title, description, robotsIndexFalse }
 
   const metadataBlock = source.slice(blockStart, blockEnd + 1)
 
-  // Match title — backreference ensures apostrophes inside the string are kept
+  // Match title - backreference ensures apostrophes inside the string are kept
   const titleMatch = metadataBlock.match(/(?:^|[,{]\s*)title:\s*(['"`])([\s\S]*?)\1/)
   if (titleMatch) title = titleMatch[2].replace(/\s+/g, ' ').trim()
 
-  // Match description — may span multiple lines
+  // Match description - may span multiple lines
   const descMatch = metadataBlock.match(/(?:^|[,{]\s*)description:\s*\n?\s*(['"`])([\s\S]*?)\1/)
   if (descMatch) description = descMatch[2].replace(/\s+/g, ' ').trim()
 
-  return { title, description }
+  // Detect robots: { index: false } — skip redirect stubs and noindex pages
+  if (/robots\s*:\s*\{[^}]*\bindex\s*:\s*false\b/.test(metadataBlock)) {
+    robotsIndexFalse = true
+  }
+
+  return { title, description, robotsIndexFalse }
 }
+
+/**
+ * File extensions that should be preserved when stripping JS dot-notation.
+ * These appear as meaningful content in JSX text (e.g. `business-management-models.svg`)
+ * and must not be erased by the generic word.word removal pass.
+ * Add new extensions here as needed.
+ */
+const PRESERVED_FILE_EXTENSIONS = 'svg|png|jpg|jpeg|gif|webp|pdf|tsx?|jsx?|json|css|html?|md|txt'
 
 /**
  * Best-effort extraction of visible text from a TSX file.
@@ -211,10 +226,17 @@ function extractVisibleText(source: string): string {
   const returnTagMatch = !returnParenMatch ? source.match(/return\s*(<[\s\S]*?>)\s*\}/) : null
   const jsx = returnParenMatch?.[1] ?? returnTagMatch?.[1] ?? ''
 
+  // Pre-compile the dot-notation regex that preserves file extensions.
+  // Using `new RegExp` so the extensions string can be referenced by name.
+  const dotNotationRe = new RegExp(
+    String.raw`\b\w+\.(?!(?:${PRESERVED_FILE_EXTENSIONS})\b)\w+`,
+    'g'
+  )
+
   let text = jsx
     // Remove {/* comments */}
     .replace(/\{\/\*[\s\S]*?\*\/\}/g, '')
-    // Remove JSX expressions — handle nested braces by repeated passes
+    // Remove JSX expressions - handle nested braces by repeated passes
     .replace(/\{[^{}]*\}/g, ' ')
     .replace(/\{[^{}]*\}/g, ' ')
     .replace(/\{[^{}]*\}/g, ' ')
@@ -232,11 +254,12 @@ function extractVisibleText(source: string): string {
       ' '
     )
     // Remove JS method calls and dot-notation (e.g. .toFixed, val.toString, obj.prop)
+    // but NOT file extensions listed in PRESERVED_FILE_EXTENSIONS.
     .replace(
       /\.(?:toFixed|toString|indexOf|map|filter|reduce|forEach|concat|slice|join|replace|match|split|trim|push|length|includes|find|some|every|keys|values|entries)\b/g,
       ' '
     )
-    .replace(/\b\w+\.\w+/g, ' ')
+    .replace(dotNotationRe, ' ')
     // Remove residual angle-bracket fragments, parens, brackets noise
     .replace(/[<>(){}[\]]/g, ' ')
     // Remove remaining HTML entities
@@ -284,7 +307,8 @@ function extractVisibleText(source: string): string {
     'className',
     'onClick',
     'onChange',
-    // JS keywords
+    // JS keywords (NB: 'from' is intentionally omitted – it appears as an English
+    // preposition in JSX text, and import statements are outside the return block)
     'true',
     'false',
     'null',
@@ -296,13 +320,11 @@ function extractVisibleText(source: string): string {
     'function',
     'import',
     'export',
-    'from',
     'async',
     'await',
     'new',
     'this',
     // Common leaked JS identifiers
-    'map',
     'filter',
     'reduce',
     'forEach',
@@ -416,7 +438,7 @@ function expandTeachingSeriesRoutes(): SearchItem[] {
       items.push({
         id: '', // assigned later
         url: `${rootSlug}/${slide.segment}`,
-        title: `${slide.title} — Technology Adoption Teaching Series`,
+        title: `${slide.title} - Technology Adoption Teaching Series`,
         description: `${part.title}: ${slide.title}`,
         content: `${slide.title}. ${part.title}. Technology Adoption Teaching Series.`,
         category: 'Teaching Series',
@@ -428,7 +450,7 @@ function expandTeachingSeriesRoutes(): SearchItem[] {
     items.push({
       id: '', // assigned later
       url: `${rootSlug}/${resource.segment}`,
-      title: `${resource.title} — Technology Adoption Teaching Series`,
+      title: `${resource.title} - Technology Adoption Teaching Series`,
       description: `Teaching series resource: ${resource.title}`,
       content: `${resource.title}. Technology Adoption Teaching Series resource.`,
       category: 'Teaching Series',
@@ -456,17 +478,20 @@ async function generateSearchIndex() {
   for (const filePath of allPageFiles) {
     const urlPath = filePathToUrl(filePath, appDir)
 
-    // Skip dynamic route templates — they are expanded separately
+    // Skip dynamic route templates - they are expanded separately
     if (urlPath.includes('[')) {
       skippedDynamic++
       continue
     }
 
     const source = await fs.readFile(filePath, 'utf-8')
-    const { title, description } = extractStaticMetadata(source)
+    const { title, description, robotsIndexFalse } = extractStaticMetadata(source)
 
     // Skip pages without metadata (e.g. layout-only files)
     if (!title) continue
+
+    // Skip noindex pages (redirect stubs, etc.)
+    if (robotsIndexFalse) continue
 
     const visibleText = extractVisibleText(source)
     const segments = [title, description, visibleText]
@@ -508,7 +533,7 @@ async function generateSearchIndex() {
   }
   console.log(`   Expanded ${teachingItems.length} teaching series routes`)
 
-  // FAQ entries — link to /faq (no fragment; accordion IDs use dynamic useId()
+  // FAQ entries - link to /faq (no fragment; accordion IDs use dynamic useId()
   // prefixes so deep-linking is not reliably possible).  Each entry gets a
   // unique id so the deduplication below does not collapse them into one.
   for (let i = 0; i < faqs.length; i++) {
@@ -526,7 +551,7 @@ async function generateSearchIndex() {
 
   console.log(`   Added ${faqs.length} FAQ entries`)
 
-  // Deduplicate by URL — static pages are richer so they win over expanded routes.
+  // Deduplicate by URL - static pages are richer so they win over expanded routes.
   // FAQ entries share the /faq URL with the static page but are individually
   // distinct; they bypass URL-based dedup using a composite url+id key.
   const seen = new Set<string>()

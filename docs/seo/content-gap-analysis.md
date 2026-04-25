@@ -1,8 +1,8 @@
 # Content Gap & Keyword Opportunity Analysis
 
 **Last Updated:** 2026-03-23
-**Related Issue:** [#484 — Content Gap & Keyword Opportunity Analysis](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/484)
-**Parent Issue:** [#473 — SEO Benchmark Initiative](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/473)
+**Related Issue:** [#484 - Content Gap & Keyword Opportunity Analysis](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/484)
+**Parent Issue:** [#473 - SEO Benchmark Initiative](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/473)
 **Companion Documents:**
 
 - [Competitor Profiles](./competitor-profiles.md)
@@ -52,7 +52,7 @@ This document identifies keyword gaps and content opportunities where competitor
 5. **15 existing pages** have specific improvement recommendations including content depth expansion, keyword targeting, and internal linking enhancements.
 6. **Content consolidation opportunities** exist in the teaching series where individual slide pages could be consolidated into comprehensive topic guides.
 
-**Strategic recommendation:** TABS should prioritize (a) filling gaps in practitioner-focused barrier content that bridges academic models to real-world adoption challenges, (b) creating industry-specific adoption guides leveraging survey data, and (c) optimizing existing bibliography articles for featured snippet capture. These three actions align with TABS's unique differentiator — combining academic rigor with practitioner focus and original survey data.
+**Strategic recommendation:** TABS should prioritize (a) filling gaps in practitioner-focused barrier content that bridges academic models to real-world adoption challenges, (b) creating industry-specific adoption guides leveraging survey data, and (c) optimizing existing bibliography articles for featured snippet capture. These three actions align with TABS's unique differentiator - combining academic rigor with practitioner focus and original survey data.
 
 ---
 
@@ -71,11 +71,11 @@ This document identifies keyword gaps and content opportunities where competitor
 
 ### Analysis Approach
 
-1. **Content inventory mapping** — Categorize all TABS pages by topic cluster and content type
-2. **Competitor keyword profiling** — Identify keywords driving traffic to competitor pages in overlapping topic areas
-3. **Gap identification** — Cross-reference competitor keywords against TABS content to find uncovered topics
-4. **Opportunity scoring** — Rank each gap by search volume × relevance × feasibility (inverse of difficulty)
-5. **Recommendation prioritization** — Categorize into quick wins, medium-term, and long-term investments
+1. **Content inventory mapping** - Categorize all TABS pages by topic cluster and content type
+2. **Competitor keyword profiling** - Identify keywords driving traffic to competitor pages in overlapping topic areas
+3. **Gap identification** - Cross-reference competitor keywords against TABS content to find uncovered topics
+4. **Opportunity scoring** - Rank each gap by search volume × relevance × feasibility (inverse of difficulty)
+5. **Recommendation prioritization** - Categorize into quick wins, medium-term, and long-term investments
 
 ### Scoring Framework
 
@@ -120,28 +120,28 @@ The following map shows TABS's current content coverage across key topic cluster
 |                                | Diffusion of Innovations                    | ✅       | Bibliography 1-2                               | Single comprehensive page                               |
 |                                | Theory of Planned Behavior                  | ✅       | Bibliography 1-7, 1-10                         | TPB + Decomposed TPB                                    |
 |                                | Model comparison / selection guide          | ⚠️       | Series articles (general)                      | No single comparison page                               |
-|                                | Applied model case studies                  | ❌       | —                                              | No real-world application examples                      |
+|                                | Applied model case studies                  | ❌       | -                                              | No real-world application examples                      |
 | **Barriers to Adoption**       | General barriers overview                   | ✅       | `/barriers`                                    | Survey-driven; unique data                              |
 |                                | Barrier categories (cost, complexity, etc.) | ⚠️       | `/barriers` (general)                          | Not broken out into dedicated pages                     |
-|                                | Industry-specific barriers                  | ❌       | —                                              | No healthcare, education, manufacturing, etc.           |
+|                                | Industry-specific barriers                  | ❌       | -                                              | No healthcare, education, manufacturing, etc.           |
 |                                | Role-specific barriers                      | ⚠️       | Persona pages, `/for-organizations/*`          | Thin content; navigational                              |
-|                                | Legacy system barriers                      | ❌       | —                                              | High-value gap identified in competitor analysis        |
-|                                | Cybersecurity adoption barriers             | ❌       | —                                              | High-value gap                                          |
-| **Digital Divide**             | Digital divide overview                     | ❌       | —                                              | Major gap; competitors (Pew, NDIA, ITU) rank strongly   |
-|                                | Demographics of adoption gaps               | ❌       | —                                              | Pew Research dominant but TABS has relevant survey data |
-|                                | Rural vs. urban technology access           | ❌       | —                                              | NDIA, World Bank cover this space                       |
-|                                | Age-based technology adoption               | ❌       | —                                              | High search volume; Pew Research dominant               |
+|                                | Legacy system barriers                      | ❌       | -                                              | High-value gap identified in competitor analysis        |
+|                                | Cybersecurity adoption barriers             | ❌       | -                                              | High-value gap                                          |
+| **Digital Divide**             | Digital divide overview                     | ❌       | -                                              | Major gap; competitors (Pew, NDIA, ITU) rank strongly   |
+|                                | Demographics of adoption gaps               | ❌       | -                                              | Pew Research dominant but TABS has relevant survey data |
+|                                | Rural vs. urban technology access           | ❌       | -                                              | NDIA, World Bank cover this space                       |
+|                                | Age-based technology adoption               | ❌       | -                                              | High search volume; Pew Research dominant               |
 | **Organizational Change**      | Change management frameworks                | ⚠️       | Organizational bibliography articles           | Academic focus; no practitioner guidance                |
-|                                | Digital transformation strategy             | ❌       | —                                              | McKinsey, Deloitte, Forrester dominant                  |
+|                                | Digital transformation strategy             | ❌       | -                                              | McKinsey, Deloitte, Forrester dominant                  |
 |                                | Executive decision-making in adoption       | ⚠️       | `/for-organizations/executive-leaders`         | Thin page; needs expansion                              |
-|                                | ROI of technology adoption                  | ❌       | —                                              | High-value gap for decision-makers                      |
+|                                | ROI of technology adoption                  | ❌       | -                                              | High-value gap for decision-makers                      |
 | **Research Methodology**       | Survey design for adoption studies          | ⚠️       | Making of TABS pages                           | Internal focus; not targeting researchers               |
-|                                | Measuring adoption outcomes                 | ❌       | —                                              | Research community demand                               |
-|                                | Adoption metrics and KPIs                   | ❌       | —                                              | Practitioner + researcher demand                        |
-| **Emerging Technology**        | AI adoption barriers                        | ❌       | —                                              | Rapidly growing search interest                         |
+|                                | Measuring adoption outcomes                 | ❌       | -                                              | Research community demand                               |
+|                                | Adoption metrics and KPIs                   | ❌       | -                                              | Practitioner + researcher demand                        |
+| **Emerging Technology**        | AI adoption barriers                        | ❌       | -                                              | Rapidly growing search interest                         |
 |                                | Cloud adoption frameworks                   | ✅       | Bibliography 2-16, 2-17, 2-18, 2-19            | AWS CAF, Microsoft CAF covered                          |
-|                                | IoT adoption challenges                     | ❌       | —                                              | Industry-specific demand                                |
-|                                | Automation and workforce adoption           | ❌       | —                                              | Growing search volume                                   |
+|                                | IoT adoption challenges                     | ❌       | -                                              | Industry-specific demand                                |
+|                                | Automation and workforce adoption           | ❌       | -                                              | Growing search volume                                   |
 
 ---
 
@@ -224,13 +224,13 @@ The following tables identify specific keywords where competitors rank in positi
 | Organizational Change & Leadership | 6               | 752                 | Low–Medium      | Partial (thin org pages)        |
 | Industry-Specific Adoption         | 5               | 820                 | Medium          | None                            |
 | Research & Methodology             | 3               | 530                 | Low–Medium      | Partial (Making of TABS)        |
-| **Total**                          | **35**          | **1,041**           | **Medium**      | —                               |
+| **Total**                          | **35**          | **1,041**           | **Medium**      | -                               |
 
 ---
 
 ## Low-Hanging Fruit: Page 2–3 Optimization Targets
 
-These are keywords where TABS likely ranks in positions 11–30 based on content relevance, existing indexed pages, and partial keyword alignment. These represent the highest-ROI optimization targets because content already exists — it just needs enhancement.
+These are keywords where TABS likely ranks in positions 11–30 based on content relevance, existing indexed pages, and partial keyword alignment. These represent the highest-ROI optimization targets because content already exists - it just needs enhancement.
 
 | #   | Keyword                                 | Est. TABS Position | Existing TABS Page                                                   | Optimization Action                                                                        | Effort | Expected Gain    |
 | --- | --------------------------------------- | ------------------ | -------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ | ------ | ---------------- |
@@ -305,118 +305,118 @@ These require substantial research, data collection, or industry expertise. They
 
 The following existing pages can rank higher with specific content updates, expanded sections, and improved keyword targeting.
 
-#### 1. `/barriers` — Barriers Overview Page
+#### 1. `/barriers` - Barriers Overview Page
 
 **Current state:** General overview of technology adoption barriers with survey-driven data.
 **Improvement recommendations:**
 
-- **Add barrier category breakdown** — Create subheadings for specific barrier types (cost, complexity, training, security, change resistance, legacy systems) with dedicated content for each
-- **Expand with data visualizations** — Add charts/graphs from TABS survey data showing barrier prevalence and severity rankings
-- **Add "Barriers by Role" section** — Cross-link to persona pages with role-specific barrier insights
-- **Optimize meta title** — Update to "Technology Adoption Barriers: Research-Based Guide to Overcoming Adoption Challenges"
-- **Add FAQ schema** — Include 5–8 FAQs addressing common barrier questions for SERP feature capture
+- **Add barrier category breakdown** - Create subheadings for specific barrier types (cost, complexity, training, security, change resistance, legacy systems) with dedicated content for each
+- **Expand with data visualizations** - Add charts/graphs from TABS survey data showing barrier prevalence and severity rankings
+- **Add "Barriers by Role" section** - Cross-link to persona pages with role-specific barrier insights
+- **Optimize meta title** - Update to "Technology Adoption Barriers: Research-Based Guide to Overcoming Adoption Challenges"
+- **Add FAQ schema** - Include 5–8 FAQs addressing common barrier questions for SERP feature capture
 - **Impact:** 5 | **Effort:** 3 | **Priority Score:** 15
 
-#### 2. `/barriers/survey-stats` — Survey Statistics Page
+#### 2. `/barriers/survey-stats` - Survey Statistics Page
 
 **Current state:** Displays survey response statistics.
 **Improvement recommendations:**
 
-- **Add survey methodology section** — Describe TABS survey design, sample size, demographics, and Qualtrics/Prolific integration
-- **Include comparison benchmarks** — Compare TABS findings with published industry adoption statistics (Gartner, Forrester)
-- **Add downloadable data summary** — Offer a research-friendly data summary (PDF or CSV)
+- **Add survey methodology section** - Describe TABS survey design, sample size, demographics, and Qualtrics/Prolific integration
+- **Include comparison benchmarks** - Compare TABS findings with published industry adoption statistics (Gartner, Forrester)
+- **Add downloadable data summary** - Offer a research-friendly data summary (PDF or CSV)
 - **Optimize for keyword** "technology adoption survey" and "technology adoption statistics"
 - **Impact:** 4 | **Effort:** 3 | **Priority Score:** 12
 
-#### 3. `/bibliography-1-6-technology-acceptance-model-tam-davis-1989` — TAM Bibliography
+#### 3. `/bibliography-1-6-technology-acceptance-model-tam-davis-1989` - TAM Bibliography
 
 **Current state:** Academic documentation of the Technology Acceptance Model.
 **Improvement recommendations:**
 
-- **Add "TAM in Practice" section** — 2–3 real-world examples of TAM application
-- **Add comparison with TAM2 and TAM3** — Cross-reference table linking to related bibliography entries
-- **Add "Strengths & Limitations" section** — Commonly searched subtopic
-- **Add FAQ section** — "What is TAM?", "How is TAM used?", "What are TAM variables?"
-- **Optimize meta title** — "Technology Acceptance Model (TAM): Complete Guide — Davis 1989"
+- **Add "TAM in Practice" section** - 2–3 real-world examples of TAM application
+- **Add comparison with TAM2 and TAM3** - Cross-reference table linking to related bibliography entries
+- **Add "Strengths & Limitations" section** - Commonly searched subtopic
+- **Add FAQ section** - "What is TAM?", "How is TAM used?", "What are TAM variables?"
+- **Optimize meta title** - "Technology Acceptance Model (TAM): Complete Guide - Davis 1989"
 - **Impact:** 5 | **Effort:** 2 | **Priority Score:** 20
 
-#### 4. `/bibliography-1-15-unified-theory-utaut-venkatesh-2003` — UTAUT Bibliography
+#### 4. `/bibliography-1-15-unified-theory-utaut-venkatesh-2003` - UTAUT Bibliography
 
 **Current state:** Academic documentation of UTAUT.
 **Improvement recommendations:**
 
 - **Add visual diagram** of UTAUT constructs and relationships
-- **Add comparison with UTAUT2** — Differences, improvements, and when to use each
+- **Add comparison with UTAUT2** - Differences, improvements, and when to use each
 - **Add "Applying UTAUT" section** with step-by-step guidance for practitioners
-- **Include table of UTAUT moderators** — Age, gender, experience, voluntariness
-- **Optimize for featured snippet** — Add concise definition paragraph at the top
+- **Include table of UTAUT moderators** - Age, gender, experience, voluntariness
+- **Optimize for featured snippet** - Add concise definition paragraph at the top
 - **Impact:** 5 | **Effort:** 2 | **Priority Score:** 20
 
-#### 5. `/bibliography-1-2-diffusion-of-innovations-rogers` — Diffusion of Innovations
+#### 5. `/bibliography-1-2-diffusion-of-innovations-rogers` - Diffusion of Innovations
 
 **Current state:** Academic documentation of Rogers' Diffusion of Innovations theory.
 **Improvement recommendations:**
 
 - **Add adoption curve diagram** with the five adopter categories
-- **Add modern technology examples** — Map real tech products to adopter categories
-- **Add "Applying DOI to Your Organization" section** — Practical guidance
-- **Expand with innovation characteristics** — Detailed explanation of relative advantage, compatibility, complexity, trialability, observability
+- **Add modern technology examples** - Map real tech products to adopter categories
+- **Add "Applying DOI to Your Organization" section** - Practical guidance
+- **Expand with innovation characteristics** - Detailed explanation of relative advantage, compatibility, complexity, trialability, observability
 - **Impact:** 4 | **Effort:** 2 | **Priority Score:** 16
 
-#### 6. `/for-organizations` — For Organizations Landing Page
+#### 6. `/for-organizations` - For Organizations Landing Page
 
 **Current state:** Entry point to role-specific organizational guidance.
 **Improvement recommendations:**
 
-- **Expand from navigation page to substantive content** — Add 1,500+ words on organizational technology adoption challenges
-- **Add framework overview** — Brief comparison of organizational adoption frameworks
-- **Add "Assessment Checklist"** — Quick organizational readiness self-assessment
-- **Improve internal linking** — Deep links to relevant bibliography entries and barrier pages
+- **Expand from navigation page to substantive content** - Add 1,500+ words on organizational technology adoption challenges
+- **Add framework overview** - Brief comparison of organizational adoption frameworks
+- **Add "Assessment Checklist"** - Quick organizational readiness self-assessment
+- **Improve internal linking** - Deep links to relevant bibliography entries and barrier pages
 - **Target keyword** "organizational technology adoption" and "technology adoption for organizations"
 - **Impact:** 4 | **Effort:** 3 | **Priority Score:** 12
 
-#### 7. `/for-organizations/executive-leaders` — Executive Leaders Page
+#### 7. `/for-organizations/executive-leaders` - Executive Leaders Page
 
 **Current state:** Thin page targeting executive decision-makers.
 **Improvement recommendations:**
 
 - **Expand to 2,000+ words** covering executive responsibilities in technology adoption
-- **Add ROI considerations section** — Link executive concern to cost/benefit analysis
-- **Add "Common Executive Mistakes" section** — Based on survey data and research
-- **Add executive briefing download** — PDF summarizing key findings
+- **Add ROI considerations section** - Link executive concern to cost/benefit analysis
+- **Add "Common Executive Mistakes" section** - Based on survey data and research
+- **Add executive briefing download** - PDF summarizing key findings
 - **Target keywords** "CTO technology adoption," "executive technology strategy"
 - **Impact:** 4 | **Effort:** 3 | **Priority Score:** 12
 
-#### 8. `/faq` — FAQ Page
+#### 8. `/faq` - FAQ Page
 
 **Current state:** Common questions about TABS.
 **Improvement recommendations:**
 
-- **Expand question scope** — Add questions about technology adoption generally, not just TABS specifically
-- **Implement FAQ schema markup** — Structured data for SERP feature capture
-- **Group questions by category** — About TABS, About Technology Adoption, About the Survey, Research & Methodology
-- **Target long-tail keywords** in question wording — e.g., "what are the main barriers to technology adoption"
+- **Expand question scope** - Add questions about technology adoption generally, not just TABS specifically
+- **Implement FAQ schema markup** - Structured data for SERP feature capture
+- **Group questions by category** - About TABS, About Technology Adoption, About the Survey, Research & Methodology
+- **Target long-tail keywords** in question wording - e.g., "what are the main barriers to technology adoption"
 - **Impact:** 4 | **Effort:** 2 | **Priority Score:** 16
 
-#### 9. `/technology-adoption-series` — Series Root Page
+#### 9. `/technology-adoption-series` - Series Root Page
 
 **Current state:** Navigation hub for the adoption models article series.
 **Improvement recommendations:**
 
-- **Add 1,000+ words of substantive overview content** — Define what technology adoption models are and why they matter
-- **Add a model comparison table** — Quick-reference grid of all 40 models with key attributes
-- **Add "How to Use This Series" guidance** — Help visitors find the most relevant model for their needs
-- **Optimize for "technology adoption models" keyword** — Currently competes with its own child pages
+- **Add 1,000+ words of substantive overview content** - Define what technology adoption models are and why they matter
+- **Add a model comparison table** - Quick-reference grid of all 40 models with key attributes
+- **Add "How to Use This Series" guidance** - Help visitors find the most relevant model for their needs
+- **Optimize for "technology adoption models" keyword** - Currently competes with its own child pages
 - **Impact:** 5 | **Effort:** 3 | **Priority Score:** 15
 
-#### 10. `/start` — Getting Started Page
+#### 10. `/start` - Getting Started Page
 
 **Current state:** Persona selection entry point.
 **Improvement recommendations:**
 
-- **Add context-setting content** — Explain what TABS offers and why barrier identification matters
-- **Expand persona descriptions** — 2–3 sentences per persona explaining what they'll find
-- **Add "Quick Assessment" call to action** — Direct path to the survey
+- **Add context-setting content** - Explain what TABS offers and why barrier identification matters
+- **Expand persona descriptions** - 2–3 sentences per persona explaining what they'll find
+- **Add "Quick Assessment" call to action** - Direct path to the survey
 - **Target keyword** "technology adoption barriers assessment" and "identify technology barriers"
 - **Impact:** 3 | **Effort:** 2 | **Priority Score:** 12
 
@@ -584,12 +584,12 @@ EFFORT├──────────────────┼────�
 
 TABS has automated SEO data collection through:
 
-- **Google Search Console API** — `src/lib/google-search-console.ts` (keyword rankings, impressions, clicks)
-- **Google Analytics 4 API** — `src/lib/google-analytics.ts` (page-level traffic, engagement metrics)
-- **Automated weekly collection** — `.github/workflows/seo-metrics.yml` (Mondays 01:00 UTC)
+- **Google Search Console API** - `src/lib/google-search-console.ts` (keyword rankings, impressions, clicks)
+- **Google Analytics 4 API** - `src/lib/google-analytics.ts` (page-level traffic, engagement metrics)
+- **Automated weekly collection** - `.github/workflows/seo-metrics.yml` (Mondays 01:00 UTC)
 - **Collection scripts**:
-  - `scripts/collect-seo-keywords.ts` — Top 100 keywords by clicks, top 50 landing pages
-  - `scripts/collect-page-seo-metrics.ts` — Per-page SEO performance with GSC + GA4 merge
+  - `scripts/collect-seo-keywords.ts` - Top 100 keywords by clicks, top 50 landing pages
+  - `scripts/collect-page-seo-metrics.ts` - Per-page SEO performance with GSC + GA4 merge
 
 ### Recommended Tools for Ongoing Analysis
 
@@ -608,9 +608,9 @@ TABS has automated SEO data collection through:
 | ---------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- | ------------------------------------------------------------------ |
 | [Competitor Profiles](./competitor-profiles.md)                                                                        | 12 competitor strategies, DA estimates, content focus | Identifies which competitors own which keyword spaces              |
 | [Competitive SERP Benchmarking](./competitive-serp-benchmarking.md)                                                    | 25 priority keyword positions, SERP features          | Provides baseline ranking data and SERP opportunity analysis       |
-| Page Performance Analysis (planned — [#479](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/479)) | Top/bottom performing pages with traffic data         | Will provide actual traffic data to validate gap priorities        |
-| On-Page SEO Audit (planned — [#480](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/480))         | Technical SEO issues, meta tag audit                  | Will identify technical fixes that complement content improvements |
-| SEO Dashboard (planned — [#483](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/483))             | Ongoing monitoring and reporting templates            | Will track progress on implementing these recommendations          |
+| Page Performance Analysis (planned - [#479](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/479)) | Top/bottom performing pages with traffic data         | Will provide actual traffic data to validate gap priorities        |
+| On-Page SEO Audit (planned - [#480](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/480))         | Technical SEO issues, meta tag audit                  | Will identify technical fixes that complement content improvements |
+| SEO Dashboard (planned - [#483](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/483))             | Ongoing monitoring and reporting templates            | Will track progress on implementing these recommendations          |
 
 ---
 

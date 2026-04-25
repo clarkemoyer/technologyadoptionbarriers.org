@@ -38,22 +38,15 @@ function isUrl(value: string): boolean {
 /** Columns that tend to have long text and should support expand */
 const EXPANDABLE_COLUMNS = new Set([
   'Survey Item (Question Text)',
-  'Scale Type / Response Options',
   'APA Citation (Full)',
   'Measurement Objective',
-  'Relationship to Other Items',
 ])
 
 /**
- * Column max-widths so sparse columns (e.g. RIS Citation, mostly N/A) shrink
- * and content-heavy columns get more space. Applied via inline style.
+ * Column max-widths for the 7-column simple view. Applied via inline style.
  */
 const COLUMN_MAX_WIDTHS: Partial<Record<(typeof conceptMappingData.headers)[number], string>> = {
-  'RIS Citation': '70px',
-  'Source Link (URL/DOI)': '90px',
-  'Variable Type': '100px',
   'Item Code / Variable Name': '120px',
-  'Qualtrics QID / Export Tag': '140px',
 }
 
 /** Max characters shown before truncation */
@@ -62,28 +55,17 @@ const TRUNCATE_LENGTH = 120
 /** Descriptions shown in column header tooltips */
 const COLUMN_DESCRIPTIONS: Partial<Record<string, string>> = {
   'Section / Primary Construct':
-    'The major survey section (A–E) and primary theoretical construct this item belongs to.',
+    'The major survey section (A-E) and primary theoretical construct this item belongs to.',
   'Sub-Construct / Grouping':
     'The more specific thematic grouping within the section (e.g., "Strategic Leadership & Governance").',
   'Survey Item (Question Text)': 'The exact question text presented to survey respondents.',
   'Measurement Objective': 'The specific concept or phenomenon this item is designed to measure.',
   'Item Code / Variable Name':
     'The short alphanumeric item code (e.g., "B1") and the associated variable name used in exported data files.',
-  'Variable Type':
-    'The statistical measurement level of this item (e.g., Ordinal Likert, Categorical).',
   'Theoretical Grounding (Source)':
     "The academic frameworks, models, or prior studies that informed this item's design.",
   'APA Citation (Full)':
     'Full academic citation in APA 7th edition format for the primary theoretical source.',
-  'RIS Citation':
-    'Citation in RIS format, compatible with reference managers such as Zotero, Mendeley, and EndNote.',
-  'Source Link (URL/DOI)': 'A direct hyperlink or DOI to the primary source document or scale.',
-  'Scale Type / Response Options':
-    'The response format and scale labels presented to respondents for this item.',
-  'Qualtrics QID / Export Tag':
-    'The internal Qualtrics question ID and the column header name in exported response data.',
-  'Relationship to Other Items':
-    'Cross-references to other survey items that share theoretical overlap or empirical correlation.',
 }
 
 /** Short descriptions for each section, shown in section-filter tooltip icons */
@@ -106,7 +88,7 @@ function ExpandableCell({ value, header }: { value: string; header: string }) {
   const shouldTruncate = EXPANDABLE_COLUMNS.has(header) && value.length > TRUNCATE_LENGTH
 
   if (!value) {
-    return <span className="text-gray-400">—</span>
+    return <span className="text-gray-400">-</span>
   }
 
   if (isUrl(value)) {

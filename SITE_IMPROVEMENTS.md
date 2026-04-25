@@ -12,17 +12,17 @@ This document tracks user-facing improvements and planned enhancements for the T
 
 The following items were previously tracked here and are now **complete**:
 
-- ✅ **Comprehensive FAQ page** — 42 questions across 8 categories with accordion interface (PR #292, Issue #210)
-- ✅ **Persona landing pages** — "See Yourself in the Survey" with mega menu, homepage teaser, and footer integration (PR #206, #208, Issue #205)
-- ✅ **Technology Adoption Models article series** — 18 scholarly articles + 21 bibliography pages fully populated (PRs #263, #267, #275, Issue #261)
-- ✅ **Teaching series pages** — Educational resources, slide deck, handout materials, workshop guides (PR #245, Issue #244)
-- ✅ **Full slide deck** — 25-slide presentation with 4K visuals and frame expansion on series landing page (PR #249, #250, Issue #248)
-- ✅ **CMO Survey influence page** — Added under Making of TABS (PR #203, Issue #202)
-- ✅ **"For Organizations" mega menu** — Category pages accessible from navigation (PR #225, Issue #224)
-- ✅ **Brand color centralization** — Tailwind tokens replace scattered hex values (PR #291, Issue #290)
-- ✅ **GitHub Sponsors integration** — Stripe-backed donations live at three site locations (PR #320, Issue #99)
-- ✅ **Content credibility audit** — 9-section review of all user-facing content (PRs #304–#312, Issue #294)
-- ✅ **Prolific footer survey link** — Direct participant recruitment link (PR #233, Issue #232)
+- ✅ **Comprehensive FAQ page** - 42 questions across 8 categories with accordion interface (PR #292, Issue #210)
+- ✅ **Persona landing pages** - "See Yourself in the Survey" with mega menu, homepage teaser, and footer integration (PR #206, #208, Issue #205)
+- ✅ **Technology Adoption Models article series** - 18 scholarly articles + 21 bibliography pages fully populated (PRs #263, #267, #275, Issue #261)
+- ✅ **Teaching series pages** - Educational resources, slide deck, handout materials, workshop guides (PR #245, Issue #244)
+- ✅ **Full slide deck** - 25-slide presentation with 4K visuals and frame expansion on series landing page (PR #249, #250, Issue #248)
+- ✅ **CMO Survey influence page** - Added under Making of TABS (PR #203, Issue #202)
+- ✅ **"For Organizations" mega menu** - Category pages accessible from navigation (PR #225, Issue #224)
+- ✅ **Brand color centralization** - Tailwind tokens replace scattered hex values (PR #291, Issue #290)
+- ✅ **GitHub Sponsors integration** - Stripe-backed donations live at three site locations (PR #320, Issue #99)
+- ✅ **Content credibility audit** - 9-section review of all user-facing content (PRs #304-#312, Issue #294)
+- ✅ **Prolific footer survey link** - Direct participant recruitment link (PR #233, Issue #232)
 
 ## Current Priorities
 
@@ -44,8 +44,8 @@ The following items were previously tracked here and are now **complete**:
 
 ## Open Enhancement Issues
 
-- **[#323](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/323)**: Reading progress / TOC sidebar for long article pages — sticky table of contents with scroll-aware highlighting
-- **[#324](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/324)**: Press-kit section expansion on the Media page — project summary, logo pack, key facts, citation
+- **[#323](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/323)**: Reading progress / TOC sidebar for long article pages - sticky table of contents with scroll-aware highlighting
+- **[#324](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/324)**: Press-kit section expansion on the Media page - project summary, logo pack, key facts, citation
 - **Barriers page**: Add filters/search if the barrier list grows
 - **Qualtrics MCP reliability**: Document and keep a known-good flow (OAuth Bearer token + SSE headers) for stable use in VS Code and the GitHub coding agent
 

@@ -40,7 +40,7 @@ from scipy.stats import shapiro, spearmanr
 warnings.filterwarnings('ignore', category=FutureWarning)
 warnings.filterwarnings('ignore', category=RuntimeWarning)
 
-# Optional imports — degrade gracefully
+# Optional imports - degrade gracefully
 try:
     from factor_analyzer import FactorAnalyzer
     from factor_analyzer.factor_analyzer import calculate_kmo, calculate_bartlett_sphericity
@@ -235,7 +235,7 @@ def composite_reliability(loadings):
 
 
 def mcdonalds_omega(data):
-    """McDonald's omega_t (total) — model-based reliability.
+    """McDonald's omega_t (total) - model-based reliability.
     Uses single-factor CFA loadings from factor_analyzer."""
     d = data.dropna()
     if not HAS_FACTOR_ANALYZER or len(d) < 10:
@@ -305,7 +305,7 @@ def run_efa(data, construct_name, n_factors=None, max_factors=6):
 
     result['n_factors'] = n_factors
 
-    # Run EFA — promax (oblique) rotation
+    # Run EFA - promax (oblique) rotation
     rotation = 'promax' if n_factors > 1 else None
     try:
         fa = FactorAnalyzer(n_factors=n_factors, rotation=rotation, method='ml')
@@ -390,7 +390,7 @@ def run_cfa(data, model_spec, construct_name):
     try:
         mod = semopy.Model(model_spec)
         mod.fit(d)
-        # Fit indices — semopy.calc_stats() returns metrics as row index,
+        # Fit indices - semopy.calc_stats() returns metrics as row index,
         # 'Value' as the single column.  Access: fit_stats.loc[metric, 'Value'].
         fit_stats = semopy.calc_stats(mod)
         result['chi2'] = round(float(fit_stats.loc['chi2', 'Value']), 3) if 'chi2' in fit_stats.index else None

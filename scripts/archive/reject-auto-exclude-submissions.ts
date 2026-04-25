@@ -342,7 +342,7 @@ async function main() {
   /* ---------- Execute or dry run -------------------------------------- */
   if (dryRun) {
     console.log('================================================================')
-    console.log('  DRY RUN — no submissions will be rejected')
+    console.log('  DRY RUN - no submissions will be rejected')
     console.log(`  Would reject: ${filtered.length} participants`)
     console.log('  Each would receive a personalized message.')
     console.log('  Set DRY_RUN=false and CONFIRM_REJECT=REJECT to execute')
@@ -369,7 +369,7 @@ async function main() {
     for (const r of filtered) {
       const subId = pidToSubId.get(r.pid)
       if (!subId) {
-        console.log(`  WARNING: No submission found for PID ${r.pid} — skipping`)
+        console.log(`  WARNING: No submission found for PID ${r.pid} - skipping`)
         notFound.push(r.pid)
         continue
       }
@@ -400,7 +400,7 @@ async function main() {
     [
       '## Prolific AUTO-EXCLUDE Rejection',
       '',
-      '> **DESTRUCTIVE OPERATION** — rejected participants will NOT be paid.',
+      '> **DESTRUCTIVE OPERATION** - rejected participants will NOT be paid.',
       '',
       `- **Run time (UTC):** ${new Date().toISOString()}`,
       `- **Operator:** ${mdEscape(user.name)}`,
@@ -425,7 +425,7 @@ async function main() {
       ...buildMessageExamples(bySubType),
       '',
       dryRun
-        ? '> **Dry run** — no rejections executed.'
+        ? '> **Dry run** - no rejections executed.'
         : '> **All listed participants have been rejected with personalized messages.**',
       '',
     ].join('\n')

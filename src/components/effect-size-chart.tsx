@@ -46,7 +46,7 @@ interface CustomTooltipProps {
 const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
   if (active && payload && payload.length) {
     const data = payload[0].payload
-    const dVal = data.d !== null ? data.d.toFixed(3) : '—'
+    const dVal = data.d !== null ? data.d.toFixed(3) : '-'
     const ci =
       data.ci_lower != null && data.ci_upper != null
         ? `[${data.ci_lower.toFixed(3)}, ${data.ci_upper.toFixed(3)}]`

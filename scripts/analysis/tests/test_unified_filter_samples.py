@@ -71,7 +71,7 @@ class TestFilterSamplesCrp200:
 
 
 # ---------------------------------------------------------------------------
-# Tests: crp200=False (default — V2_START datetime comparison)
+# Tests: crp200=False (default - V2_START datetime comparison)
 # ---------------------------------------------------------------------------
 
 class TestFilterSamplesLivePath:
@@ -90,7 +90,7 @@ class TestFilterSamplesLivePath:
         assert len(v2) == 0
 
     def test_date_only_same_day_excluded_without_crp200(self):
-        """'2026-03-23' (date-only) is BEFORE V2_START — excluded on the live path.
+        """'2026-03-23' (date-only) is BEFORE V2_START - excluded on the live path.
 
         This documents the exact bug that crp200=True fixes: a date-only
         StartDate from the same launch day is excluded on the live path because

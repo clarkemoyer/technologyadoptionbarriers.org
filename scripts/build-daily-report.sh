@@ -136,7 +136,7 @@ for f in "$ARTIFACTS_DIR"/message-metrics-*/message-output.txt; do
       TOTAL_SENT=$((TOTAL_SENT + ${SENT:-0}))
       TOTAL_FAILED=$((TOTAL_FAILED + ${FAILED:-0}))
     else
-      # No participants matched this disposition — show 0/0/0/0 so it still appears in report
+      # No participants matched this disposition - show 0/0/0/0 so it still appears in report
       MSG_ROWS="$MSG_ROWS
 | $DISP | 0 | 0 | 0 | 0 |"
     fi
@@ -163,23 +163,23 @@ new_msgs = int(os.environ.get('TOTAL_SENT', '0'))
 ae_awaiting = dbs.get('AUTO-EXCLUDE', {}).get('AWAITING REVIEW', 0)
 if ae_awaiting > 0:
     if new_msgs == 0:
-        recs.append(f'| ⏳ Waiting | **{ae_awaiting} AUTO-EXCLUDE** awaiting review | All messaged with return-offer — waiting on participants to return. Reject if no response by deadline. |')
+        recs.append(f'| ⏳ Waiting | **{ae_awaiting} AUTO-EXCLUDE** awaiting review | All messaged with return-offer - waiting on participants to return. Reject if no response by deadline. |')
     else:
-        recs.append(f'| 🔴 Critical | **{ae_awaiting} AUTO-EXCLUDE** awaiting review | Send return-offer messages or reject — these failed multiple quality checks |')
+        recs.append(f'| 🔴 Critical | **{ae_awaiting} AUTO-EXCLUDE** awaiting review | Send return-offer messages or reject - these failed multiple quality checks |')
 
-# Priority 2: Any FLAG with AWAITING REVIEW — need manual decision
+# Priority 2: Any FLAG with AWAITING REVIEW - need manual decision
 for disp in ['FLAG-SINGLE-IRI', 'FLAG-SMEAL', 'FLAG-SPEED', 'FLAG-PARTIAL-STRAIGHTLINING', 'FLAG-RECAPTCHA']:
     n = dbs.get(disp, {}).get('AWAITING REVIEW', 0)
     if n > 0:
         guidance = {
-            'FLAG-SINGLE-IRI': 'Review IRI answer — approve if borderline, message if unclear',
-            'FLAG-SMEAL': 'Review completion time — approve if IRI checks all passed',
-            'FLAG-SPEED': 'Review — fast but all IRIs passed; likely approvable',
-            'FLAG-PARTIAL-STRAIGHTLINING': 'Review response variance — approve if answers show engagement',
-            'FLAG-RECAPTCHA': 'Review reCAPTCHA score — approve if other quality signals OK',
+            'FLAG-SINGLE-IRI': 'Review IRI answer - approve if borderline, message if unclear',
+            'FLAG-SMEAL': 'Review completion time - approve if IRI checks all passed',
+            'FLAG-SPEED': 'Review - fast but all IRIs passed; likely approvable',
+            'FLAG-PARTIAL-STRAIGHTLINING': 'Review response variance - approve if answers show engagement',
+            'FLAG-RECAPTCHA': 'Review reCAPTCHA score - approve if other quality signals OK',
         }.get(disp, 'Manual review needed')
         if new_msgs == 0:
-            recs.append(f'| ⏳ Waiting | **{n} {disp}** awaiting review | Already messaged — check for replies, then approve or reject |')
+            recs.append(f'| ⏳ Waiting | **{n} {disp}** awaiting review | Already messaged - check for replies, then approve or reject |')
         else:
             recs.append(f'| 🟡 Action | **{n} {disp}** awaiting review | {guidance} |')
 
@@ -191,7 +191,7 @@ if ae_approved > 0:
 # Priority 4: INCOMPLETE still awaiting
 inc_awaiting = dbs.get('INCOMPLETE', {}).get('AWAITING REVIEW', 0)
 if inc_awaiting > 0:
-    recs.append(f'| 🔵 Low | **{inc_awaiting} INCOMPLETE** awaiting review | Likely abandoned — consider requesting return |')
+    recs.append(f'| 🔵 Low | **{inc_awaiting} INCOMPLETE** awaiting review | Likely abandoned - consider requesting return |')
 
 # Summary counts
 total_awaiting = sum(r.get('AWAITING REVIEW', 0) for r in dbs.values())
@@ -207,7 +207,7 @@ if recs:
     print('')
     print(f'**Summary:** {total_awaiting} total awaiting review, {total_approved} approved, {total_returned} returned, {total_rejected} rejected')
 else:
-    print('No actions needed — all dispositions have been processed.')
+    print('No actions needed - all dispositions have been processed.')
 RECEOF
   ) || RECOMMENDATIONS=""
 fi
@@ -217,6 +217,89 @@ if [ -n "$RECOMMENDATIONS" ]; then
   RECOMMENDATIONS_SECTION="## Recommended Actions
 
 $RECOMMENDATIONS
+"
+fi
+
+# --- Stale AWAITING REVIEW triage (reject vs request-return candidates) ---
+STALE_TRIAGE_FILE="$ARTIFACTS_DIR/stale-triage/stale-triage.json"
+STALE_TRIAGE_SECTION=""
+if [ -f "$STALE_TRIAGE_FILE" ]; then
+  if STALE_TRIAGE_SECTION=$(STALE_TRIAGE_FILE="$STALE_TRIAGE_FILE" python3 << 'STALEEOF'
+import json, os
+with open(os.environ['STALE_TRIAGE_FILE'], encoding='utf-8') as f:
+    d = json.load(f)
+hours = d.get('stale_hours', 48)
+rr = d.get('buckets', {}).get('stale_no_reply_to_rr', [])
+mm = d.get('buckets', {}).get('stale_no_reply_to_message', [])
+in_rr = d.get('buckets', {}).get('in_window_rr', [])
+in_mm = d.get('buckets', {}).get('in_window_msg', [])
+
+
+def fmt_bucket(title, action, items, empty_msg):
+    print(f'### {title}')
+    print(f'*{action}*')
+    print('')
+    if not items:
+        print(empty_msg)
+        print('')
+        return
+    print('| PID | Age (h) | Researcher msgs | Reasons |')
+    print('|---|---:|---:|---|')
+    for r in sorted(items, key=lambda x: -x.get('age_hours', 0)):
+        reasons = '; '.join(r.get('reasons') or [])
+        reasons = reasons.replace('|', r'\|').replace('\r', '').replace('\n', ' ')
+        if len(reasons) > 60:
+            reasons = reasons[:57] + '...'
+        pid = r.get('pid', '')
+        pid_redacted = ('****' + pid[-4:]) if pid else '(no PID)'
+        print(f"| `{pid_redacted}` | {r.get('age_hours', 'unknown')} | {r.get('researcher_messages', 0)} | {reasons} |")
+    print('')
+    print(f'*Full PID list is in the `stale-triage` workflow artifact (operators only).*')
+    print('')
+
+
+print(f'## Stale AWAITING REVIEW ({hours}h threshold)')
+print('')
+print(f'Live Prolific data, computed at `{d.get("computed_at", "unknown")}`.')
+print('')
+if d.get('fetch_errors', 0) > 0:
+    print(f'> ⚠️ {d["fetch_errors"]} submission(s) could not be classified (message API error) — check the `stale-triage` artifact for details.')
+    print('')
+print(f'**Stale no response to return request:** {len(rr)} | **Stale no response (message only):** {len(mm)} | In window: {len(in_rr) + len(in_mm)}')
+print('')
+fmt_bucket(
+    f'Stale no response to return request ({len(rr)})',
+    'Prolific auto-APPROVES after the reserve timeout. Reject these.',
+    rr,
+    f'All return-requested submissions are still within the {hours}h window or have participant replies. No rejections needed right now.',
+)
+fmt_bucket(
+    f'Stale no response to TABS message ({len(mm)})',
+    f'Messaged > {hours}h ago with no API-level return request yet. Dispatch request-return for these.',
+    mm,
+    'No untreated stale messages. Messaging pipeline is caught up.',
+)
+STALEEOF
+  ); then
+    :
+  else
+    STALE_TRIAGE_SECTION="## Stale AWAITING REVIEW
+
+> ⚠️ Could not render stale triage section (artifact may be corrupted or schema changed).
+> Check the \`stale-triage\` workflow artifact and runner logs for details.
+"
+  fi
+else
+  STALE_TRIAGE_SECTION="## Stale AWAITING REVIEW
+
+> ⚠️ Stale triage data is unavailable — the \`stale-triage\` artifact was not found at \`$STALE_TRIAGE_FILE\`.
+> This usually means the artifact download failed or the stale-triage step did not run. Review the workflow run before acting on stale queue status.
+"
+fi
+
+STALE_TRIAGE_SECTION_FORMATTED=""
+if [ -n "$STALE_TRIAGE_SECTION" ]; then
+  STALE_TRIAGE_SECTION_FORMATTED="$STALE_TRIAGE_SECTION
 "
 fi
 
@@ -233,19 +316,19 @@ fi
 WARNINGS=""
 if [ "${TRIAGE_RESULT:-}" = "failure" ]; then
   WARNINGS="$WARNINGS
-> ⚠️ **Export & Triage failed** — triage counts may be stale."
+> ⚠️ **Export & Triage failed** - triage counts may be stale."
 fi
 if [ "${APPROVE_RESULT_STATUS:-}" = "failure" ]; then
   WARNINGS="$WARNINGS
-> ⚠️ **Auto-Approve failed** — CLEAN submissions may not have been approved."
+> ⚠️ **Auto-Approve failed** - CLEAN submissions may not have been approved."
 fi
 if [ "${MESSAGE_RESULT:-}" = "failure" ]; then
   WARNINGS="$WARNINGS
-> ⚠️ **Messaging failed** — some FLAG participants may not have been contacted."
+> ⚠️ **Messaging failed** - some FLAG participants may not have been contacted."
 fi
 if [ "${DASHBOARD_RESULT:-}" = "failure" ] || [ "$HAS_DASHBOARD" = false ]; then
   WARNINGS="$WARNINGS
-> ⚠️ **Dashboard data unavailable** — Prolific status counts and deltas may be incomplete."
+> ⚠️ **Dashboard data unavailable** - Prolific status counts and deltas may be incomplete."
 fi
 
 DASHBOARD_NOTE=""
@@ -279,6 +362,7 @@ $TRIAGE_BREAKDOWN
 
 $RECONCILIATION_SECTION
 $RECOMMENDATIONS_SECTION
+$STALE_TRIAGE_SECTION_FORMATTED
 ## Auto-Approve CLEAN
 
 - **CLEAN dispositions:** $APPROVE_CLEAN_COUNT

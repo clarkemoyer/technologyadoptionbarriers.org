@@ -1,4 +1,4 @@
-"""Tests for tabs_v2_psychometrics.py main() — full report generation.
+"""Tests for tabs_v2_psychometrics.py main() - full report generation.
 
 Runs main() against the production-format test CSV and verifies all 12
 report sections are generated. This covers lines 419-1251 which make up

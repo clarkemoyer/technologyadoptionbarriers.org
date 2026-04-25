@@ -13,7 +13,7 @@ import SeriesNavigation from '@/components/series-navigation'
 import ArticleTOC from '@/components/article-toc'
 
 export const metadata: Metadata = {
-  title: "Article 1: Branch Introduction – The User's Journey",
+  title: "Article 1: Branch Introduction - The User's Journey",
   description:
     'Branch introduction to the evolution of individual technology acceptance and use models, from foundational theories through TAM, UTAUT, and specialized adoption frameworks.',
 }
@@ -22,13 +22,13 @@ const UsersJourneyPage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
-        <h1 className={H1_CLASSES}>Article 1: Branch Introduction – The User’s Journey</h1>
+        <h1 className={H1_CLASSES}>Article 1: Branch Introduction - The User’s Journey</h1>
 
         <section className={SECTION_CLASSES}>
           <p className={PARAGRAPH_CLASSES}>
             In our introductory article, we established the landscape of technology adoption through
             the lens of a trifecta: Organizational, User, and Consumer Adoption. We positioned
-            Organizational Adoption–the C-Suite’s strategic focus–as the apex. We now turn our
+            Organizational Adoption-the C-Suite’s strategic focus-as the apex. We now turn our
             attention to the other two domains, which together form the deeply human side of the
             adoption equation: the internal employee’s decision to use a new system and the external
             customer’s choice to integrate a technology into their lives.
@@ -72,7 +72,7 @@ const UsersJourneyPage = () => {
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>The Foundational “Grandparents”:</strong> The earliest attempts to model this
+              <strong>The Foundational “Grandparents”: </strong>The earliest attempts to model this
               behavior did not originate in information systems research but drew from a rich
               tapestry of established theories. Social psychology gave us the powerful
               intention-behavior link through the Theory of Reasoned Action (TRA) [1] and the Theory
@@ -84,14 +84,14 @@ const UsersJourneyPage = () => {
               PC Utilization (MPCU) [6], which attempted to synthesize these diverse perspectives.
             </li>
             <li>
-              <strong>The Watershed Moment:</strong> The field was revolutionized by the development
+              <strong>The Watershed Moment: </strong>The field was revolutionized by the development
               of the Technology Acceptance Model (TAM) [7]. It offered a powerful and, crucially,
               parsimonious explanation for technology use, focusing on two core beliefs: Perceived
               Usefulness and Perceived Ease of Use. For decades, TAM became the dominant theoretical
               lens for researchers.
             </li>
             <li>
-              <strong>Expansion and Unification:</strong> Following TAM’s success, the next period
+              <strong>Expansion and Unification: </strong>Following TAM’s success, the next period
               was characterized by expansion and refinement. Researchers extended the original model
               to increase its explanatory power, resulting in TAM 2 [8] and TAM 3 [9]. This era of
               energetic model-building eventually culminated in a landmark effort to synthesize the
@@ -99,7 +99,7 @@ const UsersJourneyPage = () => {
               and Use of Technology (UTAUT) [10].
             </li>
             <li>
-              <strong>Broadening the Lens: Context and Personality:</strong> With a unified model
+              <strong>Broadening the Lens: Context and Personality: </strong>With a unified model
               established for organizational users, research began to branch out. Scholars adapted
               the unified theory for the consumer world, resulting in UTAUT2 [11], which added
               crucial constructs like hedonic motivation and price value. Concurrently, other
@@ -188,7 +188,7 @@ const UsersJourneyPage = () => {
             </li>
             <li>
               Davis, F. D. (1989). Perceived usefulness, perceived ease of use, and user acceptance
-              of information technology. MIS Quarterly, 13(3), 319–340.{' '}
+              of information technology. MIS Quarterly, 13(3), 319-340.{' '}
               <a
                 href="https://doi.org/10.2307/249008"
                 target="_blank"
@@ -237,7 +237,7 @@ const UsersJourneyPage = () => {
             <li>
               Venkatesh, V., Thong, J. Y. L., &amp; Xu, X. (2012). Consumer acceptance and use of
               information technology: Extending the unified theory of acceptance and use of
-              technology. MIS Quarterly, 36(1), 157–178.{' '}
+              technology. MIS Quarterly, 36(1), 157-178.{' '}
               <a
                 href="https://doi.org/10.2307/41410412"
                 target="_blank"

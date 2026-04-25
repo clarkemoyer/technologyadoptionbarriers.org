@@ -21,8 +21,8 @@ export const metadata: Metadata = {
   },
 }
 
-// Derived from src/data/crp-sensitivity-analysis.json — updated by the daily pipeline.
-// No fallback values — if the JSON is missing or malformed, the page must show
+// Derived from src/data/crp-sensitivity-analysis.json - updated by the daily pipeline.
+// No fallback values - if the JSON is missing or malformed, the page must show
 // a visible "data unavailable" state rather than fake numbers.
 type CrpSample = { key: string; n: number }
 const crpSamples: CrpSample[] = Array.isArray((crpData as { samples?: unknown }).samples)
@@ -104,12 +104,12 @@ const CRP2026Page = () => {
               </p>
               <ul className={BODY_LIST_CLASSES}>
                 <li>
-                  <strong>Tier 1 — Conservative Clean (auto-include):</strong> All responses passing
+                  <strong>Tier 1 - Conservative Clean (auto-include):</strong> All responses passing
                   every quality gate: 3/3 IRI attention checks, duration ≥ 540s, reCAPTCHA ≥ 0.5, no
                   straightlining, no auth flags (N={d(CRP_CONSERVATIVE_CLEAN)})
                 </li>
                 <li>
-                  <strong>Tier 2 — Flexible Clean surplus (auto-include):</strong> Responses passing
+                  <strong>Tier 2 - Flexible Clean surplus (auto-include):</strong> Responses passing
                   basic quality (all 3 IRIs + duration ≥ 480s) that did not qualify for Tier 1 (N=
                   {CRP_FLEXIBLE_CLEAN !== null && CRP_CONSERVATIVE_CLEAN !== null
                     ? CRP_FLEXIBLE_CLEAN - CRP_CONSERVATIVE_CLEAN
@@ -117,7 +117,7 @@ const CRP2026Page = () => {
                   )
                 </li>
                 <li>
-                  <strong>Tier 3 — Quality-ranked fill:</strong> Remaining Prolific Accepted
+                  <strong>Tier 3 - Quality-ranked fill:</strong> Remaining Prolific Accepted
                   responses ranked by a 100-point composite quality score, selected until N=
                   {d(CRP_SAMPLE_SIZE)} is reached
                 </li>
@@ -258,7 +258,7 @@ const CRP2026Page = () => {
               <Link href="/results/crp-2026/validation" className="text-blue-600 hover:underline">
                 Instrument Validation
               </Link>{' '}
-              &mdash; full psychometric validation at N={d(CRP_SAMPLE_SIZE)}
+              - full psychometric validation at N={d(CRP_SAMPLE_SIZE)}
             </li>
             <li>
               <Link
@@ -267,31 +267,37 @@ const CRP2026Page = () => {
               >
                 Factor Analysis
               </Link>{' '}
-              &mdash; hierarchical barrier factor structure
+              - hierarchical barrier factor structure
+            </li>
+            <li>
+              <Link href="/results/crp-2026/top-barriers" className="text-blue-600 hover:underline">
+                Top 3 Barriers
+              </Link>{' '}
+              - forced-choice salience ranking vs continuous-rating ranking
             </li>
             <li>
               <Link href="/results/crp-2026/glossary" className="text-blue-600 hover:underline">
                 Statistics Glossary
               </Link>{' '}
-              &mdash; what every statistic means and how it&apos;s calculated
+              - what every statistic means and how it&apos;s calculated
             </li>
             <li>
               <Link href="/results/reproducibility" className="text-blue-600 hover:underline">
                 Open Data &amp; Reproducibility
               </Link>{' '}
-              &mdash; analysis scripts and reproduction instructions
+              - analysis scripts and reproduction instructions
             </li>
             <li>
               <Link href="/results/sensitivity" className="text-blue-600 hover:underline">
                 Sensitivity Analysis
               </Link>{' '}
-              &mdash; robustness across sample definitions
+              - robustness across sample definitions
             </li>
             <li>
               <Link href="/results/data-quality" className="text-blue-600 hover:underline">
                 Data Quality Pipeline
               </Link>{' '}
-              &mdash; how responses are validated before analysis
+              - how responses are validated before analysis
             </li>
             <li>
               <Link href="/results" className="text-blue-600 hover:underline">

@@ -2,7 +2,7 @@
  * TABS V2 Flagged Response Review Dashboard
  *
  * Reads a disposition CSV, identifies all FLAG-* participants,
- * checks their messaging status (placeholder — messaging API WIP),
+ * checks their messaging status (placeholder - messaging API WIP),
  * and generates a RECOMMENDATION report.
  *
  * ╔══════════════════════════════════════════════════════════════════╗
@@ -139,13 +139,13 @@ function getRecommendation(messageStatus: MessageStatus): Recommendation {
 function getRecommendationNotes(messageStatus: MessageStatus, disposition: string): string {
   switch (messageStatus) {
     case 'REPLIED':
-      return `Participant replied to ${disposition} message — human should review reply content before approving`
+      return `Participant replied to ${disposition} message - human should review reply content before approving`
     case 'NO_REPLY':
-      return `No reply after 48h to ${disposition} message — recommend rejection`
+      return `No reply after 48h to ${disposition} message - recommend rejection`
     case 'PENDING':
-      return `Message sent < 48h ago for ${disposition} — waiting for reply`
+      return `Message sent < 48h ago for ${disposition} - waiting for reply`
     case 'NOT_MESSAGED':
-      return `No message sent yet for ${disposition} — send FLAG message first`
+      return `No message sent yet for ${disposition} - send FLAG message first`
   }
 }
 
@@ -292,7 +292,7 @@ function generateSummary(rows: FlaggedParticipant[], studyId: string, dryRun: bo
 async function main() {
   console.log('================================================================')
   console.log('  Flagged Response Review Dashboard')
-  console.log('  RECOMMENDATIONS ONLY — does NOT approve or reject anyone')
+  console.log('  RECOMMENDATIONS ONLY - does NOT approve or reject anyone')
   console.log('================================================================')
   console.log('')
 
@@ -384,7 +384,7 @@ async function main() {
   /* ---------- Check message status for each flagged PID -------------- */
   console.log('Checking message status for flagged participants...')
   if (dryRun) {
-    console.log('  (Dry run: using placeholder data — no API calls)')
+    console.log('  (Dry run: using placeholder data - no API calls)')
   }
   console.log('')
 

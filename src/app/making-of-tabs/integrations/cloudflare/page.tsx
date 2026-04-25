@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES, H3_CLASSES } from '@/lib/articleStyles'
 import Link from 'next/link'
 export const metadata: Metadata = {
-  title: 'Cloudflare Integration — Making of TABS',
+  title: 'Cloudflare Integration - Making of TABS',
   description:
-    'How TABS uses Cloudflare as the DNS, CDN, SSL, and security layer in front of GitHub Pages — including caching strategy, performance optimizations, and security headers.',
+    'How TABS uses Cloudflare as the DNS, CDN, SSL, and security layer in front of GitHub Pages - including caching strategy, performance optimizations, and security headers.',
   alternates: {
     canonical: '/making-of-tabs/integrations/cloudflare',
   },
@@ -16,7 +16,7 @@ const CloudflareIntegrationPage = () => {
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>Cloudflare</h1>
         <p className="mb-8 text-lg sm:text-xl text-gray-600 font-sans">
-          DNS, global CDN, SSL termination, and security headers — all on the Free plan, sitting
+          DNS, global CDN, SSL termination, and security headers - all on the Free plan, sitting
           between visitors and the GitHub Pages origin.
         </p>
 
@@ -25,7 +25,7 @@ const CloudflareIntegrationPage = () => {
           <h2 className={H2_CLASSES}>Architecture</h2>
           <p className="mb-4">
             The TABS site is statically exported by Next.js and hosted on GitHub Pages. Cloudflare
-            sits in front of GitHub Pages as a reverse proxy — all traffic to{' '}
+            sits in front of GitHub Pages as a reverse proxy - all traffic to{' '}
             <code>technologyadoptionbarriers.org</code> flows through Cloudflare&rsquo;s edge
             network before reaching the origin:
           </p>
@@ -116,7 +116,7 @@ const CloudflareIntegrationPage = () => {
                   <td className="px-4 py-2 border-b">1 month</td>
                   <td className="px-4 py-2 border-b">1 year</td>
                   <td className="px-4 py-2 border-b">
-                    Content-hashed immutable assets — filename changes on rebuild
+                    Content-hashed immutable assets - filename changes on rebuild
                   </td>
                 </tr>
                 <tr className="bg-gray-50">
@@ -136,7 +136,7 @@ const CloudflareIntegrationPage = () => {
                   <td className="px-4 py-2">1 hour</td>
                   <td className="px-4 py-2">1 hour</td>
                   <td className="px-4 py-2">
-                    HTML pages update on deployment — short TTL for freshness
+                    HTML pages update on deployment - short TTL for freshness
                   </td>
                 </tr>
               </tbody>
@@ -145,10 +145,10 @@ const CloudflareIntegrationPage = () => {
           <div className="rounded-lg bg-blue-50 border border-blue-200 p-4 text-sm font-sans mb-6">
             <p className="font-semibold text-blue-900 mb-1">Expected performance gains</p>
             <ul className="list-disc pl-5 space-y-1 text-blue-800">
-              <li>Cache hit ratio: 70–90% for static assets</li>
-              <li>TTFB improvement: 30–50% from CDN proximity</li>
-              <li>LCP improvement: 15–30%</li>
-              <li>Bandwidth savings: 40–60%</li>
+              <li>Cache hit ratio: 70-90% for static assets</li>
+              <li>TTFB improvement: 30-50% from CDN proximity</li>
+              <li>LCP improvement: 15-30%</li>
+              <li>Bandwidth savings: 40-60%</li>
             </ul>
           </div>
         </section>
@@ -168,7 +168,7 @@ const CloudflareIntegrationPage = () => {
                 <tr>
                   <td className="px-4 py-2 border-b">Encryption mode</td>
                   <td className="px-4 py-2 border-b">
-                    <strong>Full (strict)</strong> — end-to-end encryption, GitHub Pages certificate
+                    <strong>Full (strict)</strong> - end-to-end encryption, GitHub Pages certificate
                     validated
                   </td>
                 </tr>
@@ -179,13 +179,13 @@ const CloudflareIntegrationPage = () => {
                 <tr>
                   <td className="px-4 py-2 border-b">Always Use HTTPS</td>
                   <td className="px-4 py-2 border-b">
-                    Enabled — HTTP requests redirected to HTTPS
+                    Enabled - HTTP requests redirected to HTTPS
                   </td>
                 </tr>
                 <tr className="bg-gray-50">
                   <td className="px-4 py-2">Automatic HTTPS Rewrites</td>
                   <td className="px-4 py-2">
-                    Enabled — rewrites mixed-content <code>http://</code> links in responses
+                    Enabled - rewrites mixed-content <code>http://</code> links in responses
                   </td>
                 </tr>
               </tbody>
@@ -216,7 +216,7 @@ const CloudflareIntegrationPage = () => {
               <tbody>
                 <tr>
                   <td className="px-4 py-2 border-b">Auto Minify (JS/CSS/HTML)</td>
-                  <td className="px-4 py-2 border-b">10–30% smaller file sizes</td>
+                  <td className="px-4 py-2 border-b">10-30% smaller file sizes</td>
                 </tr>
                 <tr className="bg-gray-50">
                   <td className="px-4 py-2 border-b">Brotli Compression</td>
@@ -307,15 +307,15 @@ const CloudflareIntegrationPage = () => {
           </p>
           <ul className="list-disc pl-5 space-y-2 mb-6 font-sans text-base">
             <li>
-              <strong>No server-side logic</strong> — there are no API routes, no database queries,
+              <strong>No server-side logic</strong> - there are no API routes, no database queries,
               and no dynamic rendering to overwhelm
             </li>
             <li>
-              <strong>High cacheability</strong> — most requests are served from Cloudflare&rsquo;s
+              <strong>High cacheability</strong> - most requests are served from Cloudflare&rsquo;s
               edge cache without reaching the origin
             </li>
             <li>
-              <strong>CDN absorption</strong> — even under heavy load, Cloudflare&rsquo;s global
+              <strong>CDN absorption</strong> - even under heavy load, Cloudflare&rsquo;s global
               network absorbs the traffic across 270+ points of presence
             </li>
           </ul>
@@ -335,20 +335,20 @@ const CloudflareIntegrationPage = () => {
           </p>
           <ul className="list-disc pl-5 space-y-2 mb-6 font-sans text-base">
             <li>
-              <strong>Cloudflare Workers / Pages</strong> — the site is deployed via GitHub Pages,
+              <strong>Cloudflare Workers / Pages</strong> - the site is deployed via GitHub Pages,
               not Cloudflare Pages. Cloudflare Pages is recommended as a future option for PR
               preview deployments.
             </li>
             <li>
-              <strong>Cloudflare Analytics</strong> — analytics are handled by Google Analytics and
+              <strong>Cloudflare Analytics</strong> - analytics are handled by Google Analytics and
               Microsoft Clarity, which provide richer behavioral data
             </li>
             <li>
-              <strong>Cloudflare Access / Zero Trust</strong> — the site is fully public with no
+              <strong>Cloudflare Access / Zero Trust</strong> - the site is fully public with no
               restricted areas
             </li>
             <li>
-              <strong>Email routing</strong> — email is handled outside Cloudflare
+              <strong>Email routing</strong> - email is handled outside Cloudflare
             </li>
           </ul>
         </section>
@@ -359,7 +359,7 @@ const CloudflareIntegrationPage = () => {
           <ul className="list-disc pl-5 space-y-3 mb-6 font-sans text-base">
             <li>
               <strong>The Free plan is genuinely sufficient.</strong> Between 3 Page Rules, 10
-              Transform Rules, unlimited bandwidth, and global CDN — the Free tier covers everything
+              Transform Rules, unlimited bandwidth, and global CDN - the Free tier covers everything
               a static nonprofit site needs.
             </li>
             <li>
@@ -375,8 +375,8 @@ const CloudflareIntegrationPage = () => {
             </li>
             <li>
               <strong>Security headers belong at the edge.</strong> Injecting headers via Cloudflare
-              Transform Rules means they apply to every response — including error pages and
-              redirects — without relying on application-level middleware that a static export
+              Transform Rules means they apply to every response - including error pages and
+              redirects - without relying on application-level middleware that a static export
               cannot provide.
             </li>
           </ul>
@@ -393,7 +393,7 @@ const CloudflareIntegrationPage = () => {
               >
                 GitHub Integration
               </Link>{' '}
-              — CI/CD, deployment, and the GitHub Pages origin
+              - CI/CD, deployment, and the GitHub Pages origin
             </li>
             <li>
               <Link
@@ -402,7 +402,7 @@ const CloudflareIntegrationPage = () => {
               >
                 Google Analytics Integration
               </Link>{' '}
-              — impact measurement that runs through Cloudflare&rsquo;s proxy
+              - impact measurement that runs through Cloudflare&rsquo;s proxy
             </li>
             <li>
               <Link
@@ -411,7 +411,7 @@ const CloudflareIntegrationPage = () => {
               >
                 Microsoft Clarity Integration
               </Link>{' '}
-              — behavioral analytics that also passes through the CDN
+              - behavioral analytics that also passes through the CDN
             </li>
             <li>
               <Link

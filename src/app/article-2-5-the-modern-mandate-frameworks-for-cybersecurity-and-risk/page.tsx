@@ -12,9 +12,9 @@ import SeriesNavigation from '@/components/series-navigation'
 import ArticleTOC from '@/components/article-toc'
 
 export const metadata: Metadata = {
-  title: 'Article 2.5: The Modern Mandate â€“ Frameworks for Cybersecurity and Risk',
+  title: 'Article 2.5: The Modern Mandate - Frameworks for Cybersecurity and Risk',
   description:
-    'Frameworks for cybersecurity and risk managementâ€“NIST RMF, NIST CSF, CMMC, and ISO 27001â€“that shape organizational technology adoption decisions.',
+    'Frameworks for cybersecurity and risk management - NIST RMF, NIST CSF, CMMC, and ISO 27001 - that shape organizational technology adoption decisions.',
 }
 
 const Article25Page = () => {
@@ -22,19 +22,19 @@ const Article25Page = () => {
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>
-          Article 2.5: The Modern Mandate â€“ Frameworks for Cybersecurity and Risk
+          Article 2.5: The Modern Mandate - Frameworks for Cybersecurity and Risk
         </h1>
 
         <section className={SECTION_CLASSES}>
           <p className={PARAGRAPH_CLASSES}>
             In 2013, a major retailer suffered a breach that exposed customer credit card data from
             millions of transactions. The investigation revealed that the attacker had accessed the
-            system months earlier but remained undetected. The retailer had security
-            technologyâ€“firewalls, intrusion detection systems, antivirus softwareâ€“yet the breach
-            still occurred. The problem was not lack of technology; it was lack of systematic
-            security practice. The organization had security tools but no coherent security
-            framework, no systematic monitoring approach, no clear understanding of critical assets
-            needing protection, no documented incident response procedures.
+            system months earlier but remained undetected. The retailer had security technology -
+            firewalls, intrusion detection systems, antivirus software - yet the breach still
+            occurred. The problem was not lack of technology; it was lack of systematic security
+            practice. The organization had security tools but no coherent security framework, no
+            systematic monitoring approach, no clear understanding of critical assets needing
+            protection, no documented incident response procedures.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             This breach exemplified a lesson that organizations learned repeatedly throughout the
@@ -97,40 +97,40 @@ const Article25Page = () => {
             The NIST RMF specifies a structured process for managing information security risk [1]:
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Prepare</strong> involves establishing the context for security management.
+            <strong>Prepare </strong>involves establishing the context for security management.
             Organizations assess their risk environment, establish organizational risk tolerance,
             define organizational roles and responsibilities for security, and identify which
             information systems are critical to organizational success.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Categorize</strong> involves classifying information systems based on the impact
+            <strong>Categorize </strong>involves classifying information systems based on the impact
             their compromise, loss, or degradation would have on organizational operations. A system
             whose failure would significantly disrupt critical operations requires stronger security
             controls than systems whose failure would create minor inconvenience.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Select</strong> involves selecting appropriate security controls based on
+            <strong>Select </strong>involves selecting appropriate security controls based on
             categorization and risk assessment. If a system is categorized as high-impact,
             organizations select stronger controls than for low-impact systems.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Implement</strong> involves actually implementing selected security controls
+            <strong>Implement </strong>involves actually implementing selected security controls
             within the organization&apos;s information systems.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Assess</strong> involves evaluating whether implemented controls are actually
+            <strong>Assess </strong>involves evaluating whether implemented controls are actually
             effective. Organizations assess whether controls are designed correctly, implemented
             correctly, and operating effectively [1].
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Authorize</strong> involves senior management formally accepting residual risk
+            <strong>Authorize </strong>involves senior management formally accepting residual risk
             and authorizing continued system operation. Rather than assuming perfect security, the
             RMF acknowledges that all systems operate with some residual risk. Senior leaders must
             formally accept that risk based on understanding the controls in place and the residual
             vulnerabilities.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Monitor</strong> involves continuously monitoring systems to ensure controls
+            <strong>Monitor </strong>involves continuously monitoring systems to ensure controls
             remain effective and to detect security incidents early [1].
           </p>
           <p className={PARAGRAPH_CLASSES}>
@@ -153,29 +153,29 @@ const Article25Page = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>The CSF specifies five core functions [2]:</p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Identify</strong> involves understanding organizational assets, systems, and
+            <strong>Identify </strong>involves understanding organizational assets, systems, and
             data. Organizations cannot protect what they do not know they have. Many organizations
-            struggle with asset visibilityâ€“they do not have complete inventories of systems,
+            struggle with asset visibility - they do not have complete inventories of systems,
             applications, and data. The Identify function requires organizations to establish
             comprehensive understanding of what they are trying to protect.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Protect</strong> involves implementing security controls to prevent unauthorized
+            <strong>Protect </strong>involves implementing security controls to prevent unauthorized
             access, theft, damage, or disruption. This function includes access controls,
             encryption, security awareness training, and other preventive measures.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Detect</strong> involves identifying when security incidents have occurred.
+            <strong>Detect </strong>involves identifying when security incidents have occurred.
             Detection is critical because prevention is never perfect; attackers will sometimes
             breach defenses. Organizations must have capabilities to notice when breaches occur so
             they can respond before significant damage is done.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Respond</strong> involves responding to detected incidents. This includes
+            <strong>Respond </strong>involves responding to detected incidents. This includes
             containment, eradication, and notification [2].
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Recover</strong> involves recovering from security incidents and restoring
+            <strong>Recover </strong>involves recovering from security incidents and restoring
             systems to normal operation.
           </p>
           <p className={PARAGRAPH_CLASSES}>
@@ -190,7 +190,7 @@ const Article25Page = () => {
           <p className={PARAGRAPH_CLASSES}>
             In 2019, the U.S. Department of Defense issued guidance establishing the Cybersecurity
             Maturity Model Certification (CMMC) as a requirement for organizations in the Defense
-            Industrial Baseâ€“companies that supply products and services to the Department of
+            Industrial Base - companies that supply products and services to the Department of
             Defense [3]. CMMC emerged from recognition that the previous approach of &quot;trust but
             verify&quot; was insufficient. The DoD had required contractors to claim they
             implemented certain security practices, but had limited ability to verify those claims.
@@ -204,15 +204,15 @@ const Article25Page = () => {
             CMMC specifies maturity levels building upon NIST standards [3]:
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Level 1 (Foundational)</strong> requires implementation of basic security
+            <strong>Level 1 (Foundational) </strong>requires implementation of basic security
             practices covering areas like access control, identification, and incident response.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Level 2 (Advanced)</strong> requires more sophisticated practices like
+            <strong>Level 2 (Advanced) </strong>requires more sophisticated practices like
             configuration management, vulnerability assessment, and risk assessment.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Levels 3â€“5 (Progressive)</strong> require progressively more sophisticated
+            <strong>Levels 3-5 (Progressive) </strong>require progressively more sophisticated
             practices appropriate to organizations handling highly sensitive information or
             operating in critical infrastructure contexts [3].
           </p>
@@ -237,7 +237,7 @@ const Article25Page = () => {
             operations, organizations serving international markets, and organizations in
             jurisdictions that recognize ISO standards can use ISO 27001 as a common security
             framework. Many organizations implement both NIST and ISO frameworks, recognizing that
-            they are complementary rather than competitiveâ€“they address the same security
+            they are complementary rather than competitive - they address the same security
             challenges from slightly different angles.
           </p>
 
@@ -246,12 +246,12 @@ const Article25Page = () => {
             Contemporary security frameworks share several common characteristics. First, they treat
             security as an organizational concern requiring management from top leadership, not just
             technical implementation. Second, they recognize that security requires multiple
-            complementary approachesâ€“technical controls, procedural controls, and organizational
+            complementary approaches - technical controls, procedural controls, and organizational
             practices all matter. Third, they recognize that security is not static; it requires
             continuous improvement and adaptation as threats evolve.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            These frameworks are not in competition. The NIST RMF and CSF are complementaryâ€“the
+            These frameworks are not in competition. The NIST RMF and CSF are complementary - the
             RMF provides detailed technical guidance while the CSF provides a high-level functional
             framework. CMMC builds on NIST standards by adding third-party certification. ISO 27001
             provides international applicability. Organizations often implement multiple frameworks
@@ -261,7 +261,7 @@ const Article25Page = () => {
             The most important insight from these frameworks is that compliance alone is
             insufficient. An organization can implement every control specified by a framework and
             still suffer significant security incidents. True security requires viewing frameworks
-            as baselinesâ€“minimum expectationsâ€“and going beyond compliance to build
+            as baselines - minimum expectations - and going beyond compliance to build
             organizational security cultures where protecting information assets is viewed as
             everyone&apos;s responsibility [1][2][3][4].
           </p>
@@ -270,7 +270,7 @@ const Article25Page = () => {
           <p className={PARAGRAPH_CLASSES}>
             Underlying all these frameworks is a fundamental principle: all organizations face
             information security risks. Organizations cannot eliminate risk; they can only manage
-            it. The goal is not perfect securityâ€“an impossible and economically unjustifiable
+            it. The goal is not perfect security - an impossible and economically unjustifiable
             pursuit. The goal is to understand risks, make informed decisions about which risks to
             accept and which to mitigate, implement controls appropriate to organizational risk
             tolerance, monitor continuously for threats, and continuously improve security
@@ -293,7 +293,7 @@ const Article25Page = () => {
             responsibility requiring leadership attention, governance structures, and continuous
             improvement. In an era when information is among organizations&apos; most valuable
             assets and when security breaches can have severe financial and reputational
-            consequences, this framework-driven approach to security management is not optionalâ€“it
+            consequences, this framework-driven approach to security management is not optional - it
             is essential.
           </p>
         </section>
@@ -316,7 +316,7 @@ const Article25Page = () => {
               2.0. DoD Contract Management Guidance.
             </li>
             <li>
-              ISO/IEC. (2022). ISO/IEC 27001:2022 â€“ Information Security Management Systems.
+              ISO/IEC. (2022). ISO/IEC 27001:2022 - Information Security Management Systems.
               International Organization for Standardization.
             </li>
           </ol>

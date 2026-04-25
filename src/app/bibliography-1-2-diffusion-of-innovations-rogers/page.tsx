@@ -8,21 +8,22 @@ import {
   SECTION_CLASSES,
   PARAGRAPH_CLASSES,
   BODY_LIST_CLASSES,
+  REFERENCES_OL_CLASSES,
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
-  title: 'Bibliography: Diffusion of Innovations – Rogers',
+  title: 'Bibliography: Diffusion of Innovations - Rogers (1962)',
   description:
-    'Deep dive into Diffusion of Innovations by Everett M. Rogers (1962), exploring its foundational contributions to technology adoption research.',
+    'Deep dive into Diffusion of Innovations by Everett M. Rogers (1962), a foundational framework for understanding how innovations spread across individuals and organizations.',
 }
 
 const BibliographyArticlePage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
-        <h1 className={H1_CLASSES}>Diffusion of Innovations – Rogers</h1>
+        <h1 className={H1_CLASSES}>Diffusion of Innovations - Rogers (1962)</h1>
 
-        {/* Model Identification */}
+        {/* 1. Model Identification */}
         <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
           <h2 className={H2_CLASSES}>Model Identification</h2>
           <div className="space-y-2">
@@ -30,629 +31,767 @@ const BibliographyArticlePage = () => {
               <strong>Model Name:</strong> Diffusion of Innovations
             </p>
             <p>
-              <strong>Authors:</strong> Everett M. Rogers
+              <strong>Model Abbreviation:</strong> DOI
             </p>
             <p>
-              <strong>Publication Date:</strong> 1962
+              <strong>Target of Model:</strong> Individual Innovation Adoption (organizational
+              adoption covered in{' '}
+              <Link
+                href="/bibliography-2-21-diffusion-of-innovations-organizational-rogers-1962"
+                className="text-tabs-teal-deep hover:underline"
+              >
+                Bibliography 2-21
+              </Link>
+              )
+            </p>
+            <p>
+              <strong>Disciplinary Origin:</strong> Interdisciplinary (synthesizing agricultural
+              economics, rural sociology, public health, anthropology, communication, marketing)
             </p>
           </div>
         </section>
 
-        {/* Citation Information */}
+        {/* 2. Theory Publication Information */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Theory Publication Information</h2>
+          <div className="space-y-2">
+            <p>
+              <strong>Author:</strong> Everett M. Rogers
+            </p>
+            <p>
+              <strong>Formal Publication Date:</strong> 1962
+            </p>
+            <p>
+              <strong>Official Title:</strong> Diffusion of Innovations
+            </p>
+            <p>
+              <strong>Publisher:</strong> The Free Press
+            </p>
+            <p>
+              <strong>ISBN:</strong> 978-0-7432-2209-9 (5th edition, 2003)
+            </p>
+          </div>
+        </section>
+
+        {/* 3. Citation Information */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Citation Information</h2>
-          <div className="bg-blue-50 p-4 rounded border-l-4 border-blue-500">
-            <p className="text-sm font-mono">
-              Rogers, E. M. (1962). <em>Diffusion of innovations</em>. Free Press.
-            </p>
+          <div className="bg-blue-50 p-4 rounded border-l-4 border-blue-500 space-y-3">
+            <div>
+              <p className="text-xs font-bold uppercase text-blue-900 mb-1">APA (7th ed.)</p>
+              <p className="text-sm font-mono">
+                Rogers, E. M. (
+                <a href="#ref-rogers-1962" className="text-tabs-teal-deep hover:underline">
+                  1962
+                </a>
+                ). <em>Diffusion of innovations</em>. The Free Press.
+              </p>
+            </div>
+            <div>
+              <p className="text-xs font-bold uppercase text-blue-900 mb-1">
+                Chicago (Author-Date)
+              </p>
+              <p className="text-sm font-mono">
+                Rogers, Everett M. 1962. <em>Diffusion of Innovations</em>. The Free Press.
+              </p>
+            </div>
           </div>
         </section>
 
-        {/* Main Content */}
+        {/* 4. Why Was the Model Created? */}
         <section className={SECTION_CLASSES}>
-          <section className="mb-6">
-            <h3 className={H3_CLASSES}>Why was the model made?</h3>
-            <p className={PARAGRAPH_CLASSES}>
-              Rogers developed the Diffusion of Innovations framework to address a fundamental gap
-              in understanding technology adoption across diverse contexts. The core problem
-              motivating this model was simple yet profound: there is a wide gap between when
-              innovations become available and when they are actually adopted. Many innovations
-              require lengthy periods— sometimes years—from their introduction until they achieve
-              widespread adoption. This gap creates practical challenges for individuals and
-              organizations seeking to accelerate adoption rates. The framework emerged from
-              Rogers’s recognition that understanding how innovations spread through populations
-              required examining multiple dimensions simultaneously. Prior research in various
-              fields (agriculture, public health, sociology, anthropology, marketing, education) had
-              generated substantial empirical findings, but these remained disconnected across
-              disciplines. Rogers synthesized this body of research to create an integrated
-              theoretical framework that could explain diffusion processes across innovation types,
-              populations, and contexts.
-            </p>
-            <p className={PARAGRAPH_CLASSES}>
-              The model was fundamentally motivated by practical concerns facing change agencies,
-              organizational leaders, and development programs. These practitioners needed guidance
-              on how to speed up innovation adoption and understand the factors affecting adoption
-              rates. The framework provided both theoretical understanding and practical guidance.
-              Rogers explicitly framed diffusion as encompassing both the planned and spontaneous
-              spread of new ideas, making the model applicable to diverse real-world situations.
-            </p>
-          </section>
-          <section className="mb-6">
-            <h3 className={H3_CLASSES}>How was the model’s internal validity tested?</h3>
-            <p className={PARAGRAPH_CLASSES}>
-              Rogers’s work involved extensive examination of existing diffusion research rather
-              than conducting single validation studies. The internal validity of the model rested
-              on several methodological foundations: First, Rogers synthesized findings from
-              hundreds of empirical diffusion studies conducted across multiple disciplines. The
-              book drew on approximately 405 publications available at the time of first edition
-              publication. This broad empirical foundation provided convergent evidence for the
-              model’s core concepts. Multiple independent research teams across different fields
-              reached similar conclusions about how innovations spread, lending credibility to the
-              framework. Second, the model’s conceptual structure was built on clearly defined
-              theoretical constructs. Rogers established precise definitions for key elements:
-              innovation (an idea, practice, or object perceived as new), communication channels
-              (the means by which messages get from one individual to another), time (the
-              innovation-decision process from first knowledge through adoption or rejection), and
-              social system (the population in which adoption occurs).
-            </p>
-            <p className={PARAGRAPH_CLASSES}>
-              These definitions enabled consistent measurement and comparison across studies. Third,
-              Rogers demonstrated the convergence of findings across disciplinary boundaries.
-              Research traditions in education, rural sociology, public health and medical
-              sociology, communication, marketing, geography, and general sociology all produced
-              findings supporting similar patterns in diffusion. This multi-disciplinary convergence
-              strengthened the internal validity by showing that the patterns observed in
-              agricultural adoption also appeared in medical innovation, educational technology, and
-              consumer product adoption.
-            </p>
-          </section>
-          <section className="mb-6">
-            <h3 className={H3_CLASSES}>How was the model’s external validity tested?</h3>
-            <p className={PARAGRAPH_CLASSES}>
-              The external validity of the Diffusion of Innovations model was established through
-              its application across diverse contexts documented in the original publication: The
-              framework demonstrated applicability across multiple types of innovations including
-              technological innovations (hybrid seed corn, new agricultural methods), medical
-              innovations (new drugs, medical procedures), educational innovations, and
-              organizational innovations. The consistent patterns observed across these diverse
-              innovation types suggested the model possessed strong external validity. Rogers
-              documented case examples illustrating the model across different social systems and
-              populations. The famous Los Molinos water-boiling case study from Peru exemplified
-              diffusion failure and demonstrated how cultural factors, social structure, and the
-              role of change agents affected adoption outcomes across cultural contexts. This case
-              analysis demonstrated that the model’s concepts could explain adoption patterns not
-              only in Western industrialized societies but also in developing nations with different
-              cultural systems.
-            </p>
-            <p className={PARAGRAPH_CLASSES}>
-              The model’s application to both individual-level adoption (how single farmers decided
-              to adopt hybrid corn) and organizational-level decisions (how institutions adopted new
-              technologies) demonstrated external validity across different levels of analysis. The
-              framework accommodated both micro-level psychological factors and macro-level social
-              structural factors affecting adoption. The model was further validated through its
-              applicability across different time periods. Diffusion research examined both
-              contemporary adoptions and historical cases spanning centuries, from the spread of
-              innovations in medieval times to modern technological adoption. The consistent
-              patterns across these temporal contexts suggested robust external validity.
-            </p>
-          </section>
-          <section className="mb-6">
-            <h3 className={H3_CLASSES}>How is the model intended to be used in practice?</h3>
-            <p className={PARAGRAPH_CLASSES}>
-              Rogers designed the Diffusion of Innovations framework as both a theoretical resource
-              and a practical guide for practitioners. The intended uses were multifaceted: For
-              change agents and organizational leaders, the model provided diagnostic tools to
-              understand current adoption patterns and predict future adoption trajectories. By
-              assessing characteristics of a specific innovation (relative advantage, compatibility,
-              complexity, trialability, observability), practitioners could estimate likely adoption
-              rates and identify which population segments would adopt earliest. The model guided
-              decisions about communication strategy. Understanding that different adopter
-              categories (innovators, early adopters, early majority, late majority, laggards) had
-              different information-seeking patterns and communication preferences, practitioners
-              could tailor their approach. Mass media channels were more effective for reaching
-              early adopters, while interpersonal channels proved essential for convincing the late
-              majority and laggards.
-            </p>
-            <p className={PARAGRAPH_CLASSES}>
-              Practitioners could use the innovation-decision process stages (knowledge, persuasion,
-              decision, implementation, confirmation) to structure their interventions.
-              Understanding where a target population stood in this process enabled more focused and
-              effective change efforts. For instance, if populations remained in the knowledge
-              stage, mass media campaigns disseminating basic information would be appropriate. If
-              populations had reached the decision stage but remained unconvinced of relative
-              advantage, targeted interpersonal communication emphasizing performance benefits would
-              be more effective. The framework helped practitioners understand barriers to adoption.
-              By examining cultural values and beliefs (such as the belief system around water
-              temperature in Los Molinos), social structural factors (interpersonal network
-              patterns), and organizational characteristics, change agents could identify specific
-              obstacles and address them directly. For research and evaluation purposes, the model
-              provided a comprehensive framework for assessing diffusion campaign effectiveness.
-            </p>
-            <p className={PARAGRAPH_CLASSES}>
-              Organizations could measure adoption rates, identify which populations were adopting
-              versus resisting, track movement through the innovation-decision process stages, and
-              assess whether characteristics of early adopters differed from late adopters.
-            </p>
-          </section>
-          <section className="mb-6">
-            <h3 className={H3_CLASSES}>What does the model measure?</h3>
-            <p className={PARAGRAPH_CLASSES}>
-              The Diffusion of Innovations model operationalizes several key measurement dimensions:
-              Adoption rate: The speed at which an innovation is adopted by members of a social
-              system, typically measured as the number of individuals adopting within a given time
-              period. Rogers emphasized that adoption follows an S- shaped curve pattern when
-              plotted against time, with slowly accelerating adoption initially, then rapid
-              adoption, then slowing at saturation.
-            </p>
-            <ul className={BODY_LIST_CLASSES}>
-              <li>
-                <strong>Adopter categories:</strong> The framework classifies adopters based on
-                their relative earliness in adoption timing: innovators (approximately 2.5% who
-                adopt earliest), early adopters (approximately 13.5%), early majority (approximately
-                34%), late majority (approximately 34%), and laggards (approximately 16% who adopt
-                latest). Adoption timing is measured in standard deviations from the mean adoption
-                time
-              </li>
-              <li>
-                <strong>Innovation characteristics:</strong> The model measures perceptions of five
-                key innovation attributes that explain rate of adoption: - Relative advantage
-                (degree to which an innovation is perceived as better than the idea it supersedes) -
-                Compatibility (degree to which an innovation is perceived as consistent with
-                existing values and past experiences) - Complexity (degree to which an innovation is
-                perceived as difficult to understand and use) - Trialability (degree to which an
-                innovation may be experimented with on limited basis) - Observability (degree to
-                which results are visible to others) Innovation-decision process: The model measures
-                progression through five stages (knowledge, persuasion, decision, implementation,
-                confirmation), tracking when individuals gain awareness of an innovation, form
-                attitudes toward it, decide to adopt or reject it, implement the decision, and seek
-                reinforcement
-              </li>
-              <li>
-                <strong>Communication effectiveness:</strong> The model measures the role of
-                different channel types (mass media versus interpersonal) at different innovation-
-                decision process stages, and the degree to which homophily (similarity between
-                communicators) affects information transfer
-              </li>
-              <li>
-                <strong>Time dimension:</strong> The model explicitly measures the
-                innovation-decision period (length of time from first knowledge to adoption or
-                rejection decision), the rate of adoption (relative speed with which adoption
-                occurs), and the innovation period (how long a particular innovation remains current
-                in a social system)
-              </li>
-            </ul>
-          </section>
-          <section className="mb-6">
-            <h3 className={H3_CLASSES}>What are the main strengths of the model?</h3>
-            <p className={PARAGRAPH_CLASSES}>
-              The Diffusion of Innovations model possesses several considerable strengths:
-              Comprehensive integrative framework: The model successfully synthesizes empirical
-              findings from hundreds of studies across multiple disciplines into a coherent
-              theoretical framework. Rather than treating diffusion as isolated phenomena in
-              agriculture, medicine, or education, Rogers demonstrated universal patterns applying
-              across contexts. This integrative power made the model extraordinarily influential and
-              applicable to diverse situations.
-            </p>
-            <ul className={BODY_LIST_CLASSES}>
-              <li>
-                <strong>Clear conceptual structure:</strong> The model articulates precisely defined
-                core concepts (innovation, communication channels, time, social system) that enable
-                consistent measurement and comparison across studies. This clarity made the
-                framework teachable and implementable. Practitioners and researchers could easily
-                understand and apply the model’s core elements
-              </li>
-              <li>
-                <strong>Practical applicability:</strong> The model provides actionable guidance for
-                change agents and organizational leaders. By identifying innovation characteristics
-                that predict adoption, understanding adopter category differences, and recognizing
-                communication channel effectiveness at different stages, practitioners can design
-                more effective adoption programs. The framework moves beyond pure theory toward
-                practical utility
-              </li>
-              <li>
-                <strong>Explanatory power across contexts:</strong> The model demonstrates strong
-                explanatory power across diverse innovations (agricultural, medical, educational,
-                technological), different social systems (developed and developing nations, rural
-                and urban, traditional and modern societies), and different time periods. This broad
-                applicability strengthens confidence in the framework’s validity
-              </li>
-              <li>
-                <strong>Recognition of time as fundamental dimension:</strong> Unlike many
-                behavioral models treating time as peripheral, Rogers elevated time to central
-                importance. The innovation-decision process stages explicitly recognized that
-                adoption involves movement through psychological stages occurring over time. This
-                temporal perspective proved essential for understanding and predicting adoption
-                patterns
-              </li>
-              <li>
-                <strong>Heterophily acknowledgment:</strong> The model recognizes that effective
-                diffusion often involves communication between heterophilous individuals (those
-                different in characteristics) even though homophilous communication is more frequent
-                and comfortable. This insight explained why change agents, opinion leaders, and
-                bridge individuals play disproportionate roles in innovation spread
-              </li>
-            </ul>
-          </section>
-          <section className="mb-6">
-            <h3 className={H3_CLASSES}>What are the main weaknesses of the model?</h3>
-            <p className={PARAGRAPH_CLASSES}>
-              Despite its strengths, the Diffusion of Innovations model has notable limitations:
-              Pro-innovation bias: Rogers acknowledged that the model exhibits pro- innovation
-              bias—the assumption that innovations are inherently desirable and should be diffused
-              as widely and rapidly as possible. However, this bias limits applicability to
-              situations where diffusion is genuinely beneficial. Some innovations may be
-              undesirable for certain populations or in certain contexts, yet the framework treats
-              resistance as a problem to overcome rather than exploring whether rejection might
-              sometimes be rational.
-            </p>
-            <ul className={BODY_LIST_CLASSES}>
-              <li>
-                <strong>The Los Molinos water-boiling case illustrates this:</strong> the health
-                worker promoted water boiling despite its cultural incompatibility with local belief
-                systems, assuming that adoption would occur and be beneficial once information was
-                communicated
-              </li>
-              <li>
-                <strong>Individual-level focus with incomplete organizational theory:</strong> While
-                Rogers’s model accommodates both individual and organizational adoption, the
-                organizational adoption sections of the 1962 edition remain less developed than
-                individual-level analysis. Organizations involve power structures, resource
-                constraints, and decision-making processes that the individual-focused model does
-                not fully capture. Subsequent editions and other theories have developed more
-                sophisticated organizational adoption frameworks
-              </li>
-              <li>
-                <strong>Incomplete treatment of structural barriers:</strong> The model emphasizes
-                individual characteristics and psychological factors in adoption decisions but gives
-                less attention to structural barriers preventing adoption even among motivated
-                individuals. Economic constraints, lack of infrastructure, regulatory barriers, or
-                organizational policies may prevent adoption regardless of individual attitudes or
-                knowledge. The model provides less guidance on removing structural barriers than on
-                changing individual predispositions
-              </li>
-              <li>
-                <strong>Limited predictive precision:</strong> While the model identifies factors
-                affecting adoption rates, its predictive accuracy for specific innovations in
-                specific contexts remains moderate. Innovation characteristics (relative advantage,
-                compatibility, etc.) explain substantial variation in adoption rates, but not all
-                variation. Unanticipated contextual factors, contingencies, and interactions limit
-                precise prediction of adoption trajectories for new innovations
-              </li>
-              <li>
-                <strong>Adoption rate measurement challenges:</strong> Measuring adoption and
-                adoption rates proves more complex than the model sometimes suggests. Defining what
-                constitutes “adoption” (full implementation? trial use? knowledge?), measuring
-                actual adoption versus stated intention, and tracking adoption rates over extended
-                periods create practical measurement difficulties. Agricultural innovations like
-                hybrid seeds enable clear adoption measurement, but adoption of practices, ideas, or
-                complex technologies proves more ambiguous
-              </li>
-              <li>
-                <strong>Cultural and context limitations:</strong> While the model applies across
-                diverse contexts, Rogers’s original formulation emerged from Western, primarily
-                North American and European research traditions. The balance of factors affecting
-                adoption, relative importance of various innovation characteristics, and optimal
-                change strategies may vary across cultural contexts in ways the model does not fully
-                specify. The effectiveness of different change strategies may depend on cultural
-                context in ways not elaborated in the original framework
-              </li>
-            </ul>
-          </section>
-          <section className="mb-6">
-            <h3 className={H3_CLASSES}>How does this model differ from older models?</h3>
-            <p className={PARAGRAPH_CLASSES}>
-              The Diffusion of Innovations model represented a significant departure from prior
-              research approaches in several key ways: Systematic integration across disciplines:
-              Prior to Rogers’s work, diffusion research existed primarily in isolated disciplinary
-              silos. Anthropologists studied cultural diffusion, rural sociologists studied
-              agricultural innovation adoption, public health researchers investigated medical
-              innovation adoption, and marketers studied consumer product adoption. These research
-              traditions rarely communicated or built on each other’s findings. Rogers’s fundamental
-              innovation was synthesizing these disparate traditions into a unified framework
-              revealing common patterns across contexts. This integration represented unprecedented
-              theoretical systematization of diffusion phenomena.
-            </p>
-            <ul className={BODY_LIST_CLASSES}>
-              <li>
-                <strong>Explicit time dimension:</strong> Earlier research often treated adoption as
-                a discrete event—individuals either adopted or did not—without examining how
-                adoption decisions unfolded over time. Rogers elevated the temporal dimension to
-                central theoretical importance. The five-stage innovation- decision process provided
-                a detailed temporal framework for understanding adoption as unfolding through
-                knowledge, persuasion, decision, implementation, and confirmation stages occurring
-                sequentially over time
-              </li>
-              <li>
-                <strong>Attention to communication processes:</strong> While earlier research
-                documented that communication occurred in diffusion, Rogers provided systematic
-                analysis of communication channel types and their differential effectiveness at
-                different adoption stages. The distinction between mass media and interpersonal
-                channels, the role of opinion leaders, and the importance of homophily in
-                communication patterns represented advances over prior, more general communication
-                accounts
-              </li>
-              <li>
-                <strong>Social system focus:</strong> Earlier research often emphasized individual
-                characteristics and decisions. Rogers placed equal emphasis on social system
-                characteristics (size, structure, norms, values, social integration, cultural
-                context) as determinants of diffusion patterns. This social system perspective
-                recognized that adoption outcomes reflected not just individual psychology but
-                broader cultural, social, and structural contexts
-              </li>
-              <li>
-                <strong>Characteristics-based prediction framework:</strong> Prior diffusion
-                research documented what happened (adoption patterns) but offered limited systematic
-                framework for predicting adoption rates from innovation characteristics. Rogers
-                provided a parsimonious framework of five innovation characteristics (relative
-                advantage, compatibility, complexity, trialability, observability) predicting
-                adoption rates. This characteristics- based approach enabled more systematic
-                prediction and comparison across innovations
-              </li>
-              <li>
-                <strong>Recognition of heterogeneity:</strong> Earlier diffusion accounts sometimes
-                implied that all individuals would eventually adopt beneficial innovations—a linear
-                progress view. Rogers emphasized that adoption rates vary substantially across
-                populations, some individuals (laggards) may never adopt even successful
-                innovations, and heterogeneity in adoption timelines was normal and expected, not
-                anomalous
-              </li>
-            </ul>
-          </section>
-          <section className="mb-6">
-            <h3 className={H3_CLASSES}>
-              What Barriers to Technology Adoption does the model identify?
-            </h3>
-            <p className={PARAGRAPH_CLASSES}>
-              The Diffusion of Innovations model identifies multiple categories of barriers to
-              technology adoption, operating at individual, interpersonal, social, and
-              organizational levels: Psychological barriers related to innovation characteristics:
-              The model identifies specific innovation characteristics that create adoption
-              barriers. Innovations perceived as complex (difficult to understand and use) encounter
-              greater resistance than simple innovations.
-            </p>
-            <ul className={BODY_LIST_CLASSES}>
-              <li>
-                <strong>The Los Molinos water-boiling example illustrates:</strong> the practice
-                seemed simple to health workers but involved complex causal reasoning about germs
-                and water temperature requiring villagers to adopt unfamiliar scientific concepts.
-                Innovations perceived as having low relative advantage (minimal superiority over
-                existing practices) face adoption barriers. If individuals see little benefit from
-                changing established practices, motivation to adopt decreases. Innovations perceived
-                as low in observability (results not visible to others) diffuse more slowly because
-                potential adopters cannot clearly see advantages through observation. Innovations
-                requiring experimentation (low trialability) encounter more resistance because
-                individuals cannot sample results on a limited basis before full commitment
-              </li>
-              <li>
-                <strong>Compatibility barriers:</strong> Innovations incompatible with existing
-                values, beliefs, and past experiences face substantial adoption barriers. This
-                emerged clearly in Los Molinos where boiling water contradicted the cultural belief
-                system linking water temperature to health through a hot- cold classification system
-                unrelated to germ theory. Innovation incompatibility with organizational cultures,
-                work processes, or technological infrastructure creates organizational adoption
-                barriers. Villagers’ historical learning to dislike boiled water, combined with
-                social meanings attached to water types, created compatibility barriers that mere
-                information about germ theory could not overcome
-              </li>
-              <li>
-                <strong>Social and cultural barriers:</strong> The model identifies social network
-                structure as creating adoption barriers. Individuals isolated from social networks
-                that had already adopted an innovation remained unaware of it longer and encountered
-                fewer social pressures toward adoption. Conversely, dense interconnection within
-                networks accelerates information spread but can also create conformity pressures
-                resisting innovations contradicting group norms. Cultural values and traditions
-                directly impede adoption when innovations violate them. As documented in Los
-                Molinos, cultural beliefs about water’s properties contradicted the innovation’s
-                underlying scientific rationale. Social stratification and status considerations
-                create barriers when innovations are associated with particular status groups. The
-                Los Molinos health worker’s middle-class status and “outsider” characteristics made
-                her less effective in spreading innovations to lower-status community members who
-                had limited interpersonal network ties with her
-              </li>
-              <li>
-                <strong>Structural and resource barriers:</strong> The model identifies that
-                structural conditions affecting people’s actual behavioral control create adoption
-                barriers. In Los Molinos, limited access to fuel for boiling water created a
-                structural barrier independent of whether villagers were convinced of water
-                boiling’s value. Infrastructure limitations, economic constraints, and resource
-                unavailability prevent adoption even among motivated individuals. Limited prior
-                experience with innovations creates barriers because individuals cannot assess
-                trialability on a limited basis
-              </li>
-              <li>
-                <strong>Barriers in change agent strategy:</strong> The model identifies that
-                ineffective change agent strategy creates adoption barriers. Change agents too
-                focused on “innovation orientation” rather than “client orientation” communicate in
-                ways failing to reach clients at their psychological stages. Needing change agents
-                lacking familiarity with local context risk cultural mismatches. The health worker
-                in Los Molinos, lacking deep cultural understanding, could not effectively
-                communicate about water boiling’s benefits in locally meaningful terms. Change
-                agents with low credibility in target communities encounter resistance regardless of
-                innovation quality. Poor selection of target individuals for initial persuasion
-                attempts can generate negative community reactions limiting subsequent diffusion
-              </li>
-              <li>
-                <strong>Communication barriers:</strong> The model identifies that information about
-                innovations must actually reach potential adopters at appropriate decision- making
-                stages. Reliance on mass media for information about complex, incompatible
-                innovations limits effectiveness because mass media excel at creating awareness but
-                prove less effective for persuasion and decision- making. Geographic isolation,
-                limited access to communication channels, or language barriers prevent information
-                reaching potential adopters
-              </li>
-            </ul>
-          </section>
-          <section className="mb-6">
-            <h3 className={H3_CLASSES}>
-              What does the model instruct leaders to do in order to reduce these barriers?
-            </h3>
-            <p className={PARAGRAPH_CLASSES}>
-              The Diffusion of Innovations model provides explicit guidance for leaders and change
-              agents to reduce adoption barriers: Adapt innovation presentation to innovation
-              characteristics: Leaders should first recognize what innovation characteristics create
-              barriers and design adoption strategies addressing these specific barriers. For
-              innovations perceived as complex, instruction and training programs reducing perceived
-              complexity prove essential. Demonstrations showing actual innovation use can reduce
-              complexity barriers more effectively than information alone. For innovations with low
-              perceived relative advantage, leaders should highlight and communicate actual
-              performance benefits persuasively. This may require structuring adoption incentives,
-              subsidies, or support mechanisms making advantages more apparent. For innovations low
-              in observability, group demonstrations, field days, and site visits enabling potential
-              adopters to observe results directly can overcome barriers.
-            </p>
-            <p className={PARAGRAPH_CLASSES}>
-              For innovations low in trialability, pilot programs enabling limited experimentation
-              reduce barriers by permitting risk-free exploration. Making complex innovations
-              divisible into testable components increases trialability.
-            </p>
-            <ul className={BODY_LIST_CLASSES}>
-              <li>
-                <strong>Ensure innovation-context compatibility:</strong> Leaders must assess
-                compatibility barriers and address them through innovation adaptation or recipient
-                system preparation. When innovations are incompatible with cultural values and
-                beliefs (as water boiling was incompatible with Los Molinos belief systems about
-                hot-cold water), change strategies should involve education addressing underlying
-                beliefs, not just advocating adoption. Leaders may need to wait for generational
-                change or work extensively with receptive populations (like Mrs. B in Los Molinos)
-                who can champion innovations within their communities. In organizational contexts,
-                innovations may require adaptation to existing systems, work processes, or values.
-                Providing supplementary training and systems to make innovations compatible with
-                existing organizational cultures facilitates adoption. Leaders should map innovation
-                compatibility with target population values and beliefs before launching diffusion
-                campaigns, recognizing that incompatibility requires education or adaptation rather
-                than mere information dissemination
-              </li>
-              <li>
-                <strong>Leverage homophilous communication while bridging heterophily:</strong>{' '}
-                Leaders should recognize that homophilous communication (person-to- person among
-                similar individuals) drives adoption, but change agents necessarily introduce
-                heterophily. The model instructs leaders to identify and empower local opinion
-                leaders and early adopters who share target population characteristics, values, and
-                communication styles. These homophilous bridges prove far more effective than change
-                agents alone because they communicate in culturally appropriate ways and carry
-                social credibility. Organizing training and support for local opinion leaders to
-                become innovation advocates reduces communication barriers substantially. For
-                complex innovations requiring more technical expertise, leaders should position
-                change agents as technical resources supporting opinion leaders rather than primary
-                persuaders, reducing heterophily barriers while retaining necessary expertise
-              </li>
-              <li>
-                <strong>Structure the innovation-decision process strategically:</strong>{' '}
-                Understanding that adopters move through knowledge, persuasion, decision,
-                implementation, and confirmation stages, leaders should differentiate strategies by
-                stage. At the knowledge stage, mass media channels effectively reach broad
-                populations and create awareness. At the persuasion stage, when psychological
-                barriers around relative advantage and compatibility emerge, interpersonal
-                communication and demonstrations prove more effective. At the decision stage,
-                reducing risk through trial opportunities or conditional adoption (partial
-                implementation) helps overcome decision barriers. At the implementation stage,
-                technical assistance, training, and problem-solving support reduce barriers from
-                complexity. At the confirmation stage, reinforcement and community reinforcement
-                reduce discontinuance when adopters encounter difficulties or negative feedback
-              </li>
-              <li>
-                <strong>Address structural barriers directly:</strong> While the model emphasizes
-                psychological and communicative factors, leaders must recognize that structural
-                barriers require structural solutions. Innovations may require infrastructure
-                investment (fuel availability for water boiling), economic support (subsidies for
-                farmers adopting hybrid seeds), regulatory change, or organizational policy
-                modification. Identifying structural barriers early and addressing them through
-                resource provision, policy change, or system adaptation proves essential for
-                reducing overall adoption barriers. The model implies that information and
-                persuasion alone cannot overcome fundamental structural constraints
-              </li>
-              <li>
-                <strong>Design culturally appropriate change strategies:</strong> Leaders should
-                invest in understanding local cultural contexts, values, belief systems, and social
-                structures before launching diffusion programs. In Los Molinos, the health worker’s
-                failure partly reflected insufficient cultural understanding. Leaders should
-                identify which aspects of cultural systems create compatibility barriers versus
-                which create mere communication barriers
-              </li>
-              <li>
-                <strong>This distinction guides strategy:</strong> communication barriers resolve
-                through better information transfer, while compatibility barriers may require
-                long-term education, demonstration of benefits through trusted community members, or
-                adaptation of innovations to fit cultural contexts better. Leaders should avoid
-                viewing cultural resistance merely as ignorance to overcome through information,
-                instead recognizing cultural coherence and designing strategies respecting cultural
-                meaning systems while encouraging beneficial innovation adoption
-              </li>
-              <li>
-                <strong>Select and train change agents carefully:</strong> Leaders should select
-                change agents with cultural competence in target communities or provide extensive
-                cultural training. Change agents should understand not just innovations but local
-                contexts, belief systems, social networks, and cultural values. Training should
-                emphasize client orientation (understanding client needs, values, and perspectives)
-                rather than innovation orientation (assuming innovations will obviously benefit all
-                adopters). Leaders should position change agents as resources supporting locally
-                identified needs rather than external experts promoting predetermined innovations.
-                Building credibility through demonstrated respect for local perspectives and
-                involvement of community members in innovation decisions increases change agent
-                effectiveness and reduces resistance barriers
-              </li>
-              <li>
-                <strong>Identify and support early adopter communities:</strong> Leaders should
-                recognize that some individuals and communities adopt innovations earlier than
-                others, not from irrationality but from systematic differences in values (openness
-                to change), economic circumstances (ability to take risks), social position (access
-                to information), and personality (need for status). Supporting initial adoption
-                among early adopters creates visible examples, builds social proof, and generates
-                peer pressure supporting broader adoption. Recognizing that early adopters may
-                differ in values and approaches from the broader population, leaders should design
-                strategies enabling early majority and late majority adoption without demanding that
-                all populations adopt for identical reasons or in identical ways. 7
-              </li>
-              <li>
-                <strong>Following Models or Theories Following Models:</strong> Technology
-                Acceptance Model (Davis, 1989); Theory of Planned Behavior extensions (Ajzen, 1991);
-                Extensions of DOI to organizational contexts; Unified Theory of Acceptance and Use
-                of Technology (UTAUT) Following Theories: Theory of Planned Behavior applications;
-                Social cognitive theory applications to innovation adoption; Models of
-                organizational innovation adoption; Implementation science frameworks Series
-                Navigation Diffusion of Innovations (Rogers, 1962) - Foundational Framework The
-                Theory of Planned Behavior (Ajzen, 1991) - Individual Behavior Prediction Perceived
-                Usefulness, Perceived Ease of Use, and User Acceptance of Information Technology
-                (Davis, 1989) - Technology-Specific Acceptance Extrinsic and Intrinsic Motivation to
-                Use Computers in the Workplace (Davis et al., 1992) - Motivation in Technology
-                Adoption References 1.Rogers, E. M. (1962). Diffusion of innovations . The Free
-                Press. 2.Rogers, E. M., & Shoemaker, F. F. (1971)
-              </li>
-              <li>
-                <strong>Communication of innovations:</strong> A cross-cultural approach (2nd ed.).
-                Free Press. 3.Rogers, E. M. (1983). Diffusion of innovations (3rd ed.). The Free
-                Press. 4.Tarde, G. (1890). The laws of imitation . Henry Holt. 5.Wellin, E. (1955).
-                Water boiling in a Peruvian village. In B. D. Paul (Ed.), Health, culture, and
-                community: Case studies of public reactions to health programs . Russell Sage
-                Foundation. This article synthesizes content exclusively from Rogers (1962)
-                Diffusion of Innovations to provide a comprehensive analysis of this foundational
-                model for understanding technology adoption processes across individuals,
-                organizations, and social systems
-              </li>
-              <li>
-                <strong>Source Note:</strong> This article was written without a singular PDF source
-                document. Content is synthesized from the work’s widely established contributions to
-                the technology adoption literature as referenced across multiple sources in this
-                series. Readers are encouraged to consult the original publication for primary
-                source verification. Social Cognitive Theory (SCT) - Bandura (1986): Understanding
-                Self-Efficacy and Technology Adoption 1
-              </li>
-            </ul>
-          </section>
-          <p className="mt-8 text-sm italic text-gray-600">
-            Note: This article provides an overview based on the comprehensive literature review.
-            Readers are encouraged to consult the original publication for complete details.
+          <h2 className={H2_CLASSES}>Why Was the Model Created?</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            Rogers developed the Diffusion of Innovations framework to address a fundamental gap in
+            understanding how innovations spread across diverse contexts. The core problem
+            motivating this model was simple yet profound: there is a wide gap between when
+            innovations become available and when they are actually adopted. Many innovations
+            require lengthy periods, sometimes years, from their introduction until they achieve
+            widespread adoption. This gap creates practical challenges for individuals and
+            organizations seeking to accelerate adoption rates.
+          </p>
+          <p className={PARAGRAPH_CLASSES}>
+            The framework emerged from Rogers&rsquo;s recognition that understanding how innovations
+            spread through populations required examining multiple dimensions simultaneously. Prior
+            research in various fields (agriculture, public health, sociology, anthropology,
+            marketing, education) had generated substantial empirical findings, but these remained
+            disconnected across disciplines. Rogers synthesized this body of research to create an
+            integrated theoretical framework that could explain diffusion processes across
+            innovation types, populations, and contexts.
+          </p>
+          <p className={PARAGRAPH_CLASSES}>
+            The model was fundamentally motivated by practical concerns facing change agencies,
+            organizational leaders, and development programs. These practitioners needed guidance on
+            how to speed up innovation adoption and understand the factors affecting adoption rates.
+            The framework provided both theoretical understanding and practical guidance. Rogers
+            explicitly framed diffusion as encompassing both the planned and spontaneous spread of
+            new ideas, making the model applicable to diverse real-world situations.
           </p>
         </section>
 
-        {/* Navigation */}
-        <section className="mt-12 pt-6 border-t border-gray-200">
-          <Link
-            href="/article-bibliography-comprehensive-series-bibliography"
-            className="text-blue-600 hover:text-blue-800 underline"
-          >
-            ← Back to Complete Bibliography
-          </Link>
+        {/* 5. Core Concepts and Definitions */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Core Concepts and Definitions</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            Diffusion of Innovations operationalizes several central constructs with precise
+            definitions:
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Innovation:</strong> An idea, practice, or object perceived as new by the
+              individual or organization considering its adoption. Newness is defined
+              psychologically, not chronologically.
+            </li>
+            <li>
+              <strong>Diffusion:</strong> The process by which an innovation is communicated through
+              certain channels over time among members of a social system. Encompasses both planned
+              change efforts and spontaneous spread.
+            </li>
+            <li>
+              <strong>Communication Channels:</strong> The means by which messages about innovations
+              get from one individual to another. Includes mass media channels (reaching many
+              simultaneously) and interpersonal channels (face-to-face communication).
+            </li>
+            <li>
+              <strong>Time:</strong> A fundamental dimension encompassing the innovation-decision
+              process stages, the rate of adoption, and the innovation period. Rogers elevated time
+              to central theoretical importance.
+            </li>
+            <li>
+              <strong>Social System:</strong> The population in which adoption occurs, with defined
+              structure, norms, culture, and social integration characteristics affecting diffusion
+              patterns.
+            </li>
+            <li>
+              <strong>Adoption Rate:</strong> The speed at which an innovation is adopted by members
+              of a social system, typically measured as the number of individuals adopting within a
+              given time period.
+            </li>
+            <li>
+              <strong>Adopter Categories:</strong> Classifications of individuals based on their
+              relative earliness in adoption: innovators (2.5%), early adopters (13.5%), early
+              majority (34%), late majority (34%), and laggards (16%).
+            </li>
+            <li>
+              <strong>Relative Advantage:</strong> The degree to which an innovation is perceived as
+              better than the idea it supersedes.
+            </li>
+            <li>
+              <strong>Compatibility:</strong> The degree to which an innovation is perceived as
+              consistent with existing values, past experiences, and needs of potential adopters.
+            </li>
+            <li>
+              <strong>Complexity:</strong> The degree to which an innovation is perceived as
+              difficult to understand and use.
+            </li>
+            <li>
+              <strong>Trialability:</strong> The degree to which an innovation may be experimented
+              with on a limited basis before full commitment.
+            </li>
+            <li>
+              <strong>Observability:</strong> The degree to which results of an innovation are
+              visible to others.
+            </li>
+            <li>
+              <strong>Homophily:</strong> The principle that individuals communicate more frequently
+              with similar others (similar in values, beliefs, education, social status) than with
+              dissimilar others.
+            </li>
+          </ul>
+        </section>
+
+        {/* 6. What Does the Model Measure? */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>What Does the Model Measure?</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            Rogers&rsquo; Diffusion of Innovations is partly a measurement model and partly a
+            sociological/process model. It identifies constructs that empirical studies have
+            operationalized across many domains:
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Five Perceived Attributes of Innovations:</strong> Relative Advantage,
+              Compatibility, Complexity, Trialability, and Observability - typically measured via
+              Likert-scale perception items. Moore &amp; Benbasat (1991) provide a widely used
+              validated instrument adapting these attributes for information technology adoption.
+            </li>
+            <li>
+              <strong>Adopter Categories:</strong> Five categories based on time-of-adoption
+              relative to mean: Innovators (first 2.5%), Early Adopters (next 13.5%), Early Majority
+              (next 34%), Late Majority (next 34%), Laggards (final 16%).
+            </li>
+            <li>
+              <strong>Rate of Adoption:</strong> Cumulative percentage of members of a social system
+              adopting an innovation over time, typically producing the characteristic S-curve.
+            </li>
+            <li>
+              <strong>Innovation-Decision Process Stages:</strong> Knowledge, Persuasion, Decision,
+              Implementation, and Confirmation - assessed via self-report or observational methods.
+            </li>
+            <li>
+              <strong>Communication Channels and Social System Characteristics:</strong> Mass-media
+              vs interpersonal channels; norms, opinion leadership, and network density, typically
+              measured through sociometric or network-analysis methods.
+            </li>
+          </ul>
+          <p className={PARAGRAPH_CLASSES}>
+            Rogers (1962; subsequent editions through 2003) synthesizes hundreds of diffusion
+            studies across agriculture, medicine, consumer products, and information technologies.
+            The theory does not prescribe a single canonical instrument; operationalization varies
+            by domain and study.
+          </p>
+        </section>
+
+        {/* 7. Preceding Models or Theories */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Preceding Models or Theories</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            Diffusion of Innovations built upon several prior intellectual traditions:
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Gabriel Tarde&rsquo;s &ldquo;The Laws of Imitation&rdquo; (1890):</strong>{' '}
+              Early European conceptualization of how ideas spread through imitation and social
+              influence.
+            </li>
+            <li>
+              <strong>European diffusion research traditions:</strong> British and German-Austrian
+              diffusionists who examined cultural and technological diffusion from anthropological
+              perspectives.
+            </li>
+            <li>
+              <strong>Early sociology and anthropology research:</strong> Foundational work on
+              innovation adoption patterns in diverse cultural and social contexts.
+            </li>
+            <li>
+              <strong>Agricultural economics research:</strong> Empirical studies of how farmers
+              adopted new farming practices and technologies.
+            </li>
+            <li>
+              <strong>Public health and medical sociology:</strong> Research on adoption of new
+              medical practices and health interventions.
+            </li>
+            <li>
+              <strong>Consumer behavior and marketing research:</strong> Studies of how consumers
+              adopted new products and product categories.
+            </li>
+          </ul>
+        </section>
+
+        {/* 8. Describe The Model */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Describe The Model</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            The Diffusion of Innovations model conceptualizes innovation adoption as a process
+            unfolding over time within a social system, influenced by innovation characteristics,
+            individual attributes, communication processes, and social structures. The model
+            emphasizes that adoption is neither instantaneous nor uniform across populations.
+          </p>
+
+          <h3 className={H3_CLASSES}>The Innovation-Decision Process</h3>
+          <p className={PARAGRAPH_CLASSES}>
+            Rogers specifies five stages through which individuals move in deciding to adopt or
+            reject an innovation:
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Knowledge stage:</strong> The individual becomes aware of the innovation and
+              has some understanding of its basic functions.
+            </li>
+            <li>
+              <strong>Persuasion stage:</strong> The individual forms a favorable or unfavorable
+              attitude toward the innovation, influenced by perceived characteristics and social
+              influences.
+            </li>
+            <li>
+              <strong>Decision stage:</strong> The individual engages in mental and behavioral
+              activity to adopt or reject the innovation, sometimes involving trial or pilot use.
+            </li>
+            <li>
+              <strong>Implementation stage:</strong> The individual puts the innovation to use,
+              often requiring training and technical support.
+            </li>
+            <li>
+              <strong>Confirmation stage:</strong> The individual seeks reinforcement for the
+              adoption decision, potentially discontinuing use if outcomes disappoint or
+              contradictions emerge.
+            </li>
+          </ul>
+
+          <h3 className={H3_CLASSES}>Adoption Rate and the S-Curve</h3>
+          <p className={PARAGRAPH_CLASSES}>
+            A central empirical finding is that innovation adoption follows an S-shaped (sigmoid)
+            curve when graphed over time. Initially, adoption is slow. Then, as awareness spreads
+            and social proof accumulates, adoption accelerates. Eventually, as the population of
+            potential adopters shrinks, adoption slows again, approaching saturation. The steepness
+            of the curve and the timing of the rapid adoption phase vary across innovations and
+            social systems.
+          </p>
+
+          <h3 className={H3_CLASSES}>Adopter Categories</h3>
+          <p className={PARAGRAPH_CLASSES}>
+            Populations distribute across five adopter categories based on relative adoption timing:
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Innovators (2.5%):</strong> Earliest adopters, often motivated by novelty and
+              risk tolerance, with high education and broad social networks bridging multiple
+              groups.
+            </li>
+            <li>
+              <strong>Early Adopters (13.5%):</strong> Opinion leaders within their social systems,
+              seeking information actively, and viewed as credible by others who follow their
+              example.
+            </li>
+            <li>
+              <strong>Early Majority (34%):</strong> Adopt before the average, deliberative in
+              decision-making, and socially connected but not opinion leaders.
+            </li>
+            <li>
+              <strong>Late Majority (34%):</strong> Adopt after the average, skeptical until social
+              pressure builds, and economically constrained more than earlier adopters.
+            </li>
+            <li>
+              <strong>Laggards (16%):</strong> Final adopters or non-adopters, motivated by
+              tradition, with limited social networks and economic resources.
+            </li>
+          </ul>
+
+          <h3 className={H3_CLASSES}>Key Strengths</h3>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Comprehensive integrative framework:</strong> Successfully synthesizes
+              empirical findings from hundreds of studies across disciplines into a coherent
+              theoretical model.
+            </li>
+            <li>
+              <strong>Clear conceptual structure:</strong> Articulates precisely defined core
+              concepts enabling consistent measurement and comparison across diverse contexts.
+            </li>
+            <li>
+              <strong>Practical applicability:</strong> Provides actionable guidance for change
+              agents and organizational leaders to accelerate beneficial adoption.
+            </li>
+            <li>
+              <strong>Explanatory power across contexts:</strong> Demonstrates strong applicability
+              across diverse innovations, social systems, and time periods.
+            </li>
+            <li>
+              <strong>Recognition of time as fundamental:</strong> Elevates temporal processes to
+              central theoretical importance rather than treating adoption as an instantaneous
+              event.
+            </li>
+            <li>
+              <strong>Heterophily acknowledgment:</strong> Recognizes that innovation spread often
+              requires communication between dissimilar individuals, explaining the role of change
+              agents and opinion leaders.
+            </li>
+          </ul>
+
+          <h3 className={H3_CLASSES}>Key Weaknesses</h3>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Pro-innovation bias:</strong> The model assumes innovations are inherently
+              desirable and should be widely diffused, limiting applicability to situations where
+              diffusion is genuinely beneficial and sometimes failing to recognize that rejection
+              may be rational.
+            </li>
+            <li>
+              <strong>Individual-level focus with incomplete organizational theory:</strong> While
+              accommodating organizational adoption, the organizational sections remain less
+              developed than individual-level analysis, overlooking power structures and complex
+              decision-making.
+            </li>
+            <li>
+              <strong>Incomplete treatment of structural barriers:</strong> Emphasizes individual
+              characteristics and psychological factors but gives less attention to structural
+              barriers like economic constraints and infrastructure limitations.
+            </li>
+            <li>
+              <strong>Limited predictive precision:</strong> While identifying factors affecting
+              adoption rates, predictive accuracy for specific innovations in specific contexts
+              remains moderate.
+            </li>
+            <li>
+              <strong>Adoption rate measurement challenges:</strong> Defining &ldquo;adoption&rdquo;
+              and measuring actual adoption versus stated intention proves complex, particularly for
+              non-tangible innovations.
+            </li>
+            <li>
+              <strong>Cultural and context limitations:</strong> While broadly applicable, the model
+              emerged from Western research traditions; relative importance of factors may vary
+              across cultural contexts.
+            </li>
+          </ul>
+        </section>
+
+        {/* 9. Key Contributions */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Key Contributions</h2>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Systematic integration across disciplines:</strong> Unified isolated diffusion
+              research traditions (agricultural, medical, educational, consumer) into a coherent
+              framework revealing universal diffusion patterns.
+            </li>
+            <li>
+              <strong>Explicit time dimension:</strong> Elevated temporal processes to central
+              theoretical importance through the five-stage innovation-decision process.
+            </li>
+            <li>
+              <strong>Communication channel analysis:</strong> Provided systematic analysis of how
+              communication types (mass media versus interpersonal) differentially support adoption
+              at different decision stages.
+            </li>
+            <li>
+              <strong>Innovation characteristics framework:</strong> Articulated a parsimonious set
+              of five innovation attributes (relative advantage, compatibility, complexity,
+              trialability, observability) associated with adoption rates.
+            </li>
+            <li>
+              <strong>Adopter categorization system:</strong> Created a standardized classification
+              of adopters based on timing that enables systematic comparison across innovations and
+              populations.
+            </li>
+            <li>
+              <strong>Social system focus:</strong> Emphasized that adoption outcomes reflect not
+              just individual psychology but broader cultural, social, and structural contexts.
+            </li>
+            <li>
+              <strong>Methodological legacy:</strong> Helped codify measurement practices and
+              research designs that are widely used in adoption and implementation science research.
+            </li>
+          </ul>
+        </section>
+
+        {/* 10. Internal Validity */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Internal Validity</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            Rogers&rsquo;s approach to establishing internal validity involved extensive synthesis
+            and meta-analysis of existing diffusion research rather than conducting single
+            validation studies:
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Synthesis of empirical literature:</strong> Rogers synthesized findings from
+              approximately 405 empirical diffusion studies conducted across multiple disciplines,
+              providing convergent evidence for core concepts.
+            </li>
+            <li>
+              <strong>Clear conceptual definitions:</strong> Provides precisely defined core
+              concepts (innovation, communication channels, time, social system) enabling consistent
+              measurement and comparison across studies.
+            </li>
+            <li>
+              <strong>Multi-disciplinary convergence:</strong> Compiles research from education,
+              rural sociology, public health, communication, marketing, and geography that Rogers
+              reads as producing broadly similar diffusion patterns.
+            </li>
+            <li>
+              <strong>Consistent relationships across behaviors:</strong> Showed consistent adopter
+              category patterns and innovation characteristic effects across diverse behaviors
+              (agricultural adoption, medical innovation, educational technology, voting, family
+              planning).
+            </li>
+            <li>
+              <strong>Cross-population consistency:</strong> Documented consistent relationships
+              across ages, educational levels, cultural backgrounds, and socioeconomic statuses.
+            </li>
+          </ul>
+        </section>
+
+        {/* 11. External Validity */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>External Validity</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            Diffusion of Innovations achieved substantial external validity through diverse
+            applications:
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Diverse innovation types:</strong> The framework demonstrated applicability
+              across technological innovations (hybrid seeds), medical innovations (new drugs and
+              procedures), educational innovations, and organizational innovations.
+            </li>
+            <li>
+              <strong>Cross-cultural case examples:</strong> The Los Molinos water-boiling case
+              study from Peru exemplified diffusion in developing nations with different cultural
+              systems, demonstrating applicability beyond Western industrialized societies.
+            </li>
+            <li>
+              <strong>Multiple levels of analysis:</strong> Showed applicability to both
+              individual-level adoption decisions and organizational-level adoption, demonstrating
+              generalizability across analytical levels.
+            </li>
+            <li>
+              <strong>Temporal generalizability:</strong> Reports consistent patterns across both
+              contemporary and historical cases spanning centuries.
+            </li>
+            <li>
+              <strong>Real-world behavior measurement:</strong> Studies measured actual adoption
+              (actual blood donation, voting, technology use) rather than only intentions,
+              strengthening external validity claims.
+            </li>
+            <li>
+              <strong>Implementation context validation:</strong> Organizational deployments of the
+              model demonstrated effectiveness of Rogers&rsquo;s prescriptions for accelerating
+              beneficial innovation adoption in real-world settings.
+            </li>
+          </ul>
+        </section>
+
+        {/* 12. Relevance to Technology Adoption */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Relevance to Technology Adoption</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            Diffusion of Innovations is directly relevant to technology adoption because it explains
+            how innovations spread through populations and identifies factors shaping adoption rates
+            and patterns. The model provides organizational leaders with a comprehensive framework
+            for understanding adoption barriers and designing effective acceleration strategies.
+          </p>
+
+          <h3 className={H3_CLASSES}>Barriers to Technology Adoption Identified by DOI</h3>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Complexity barriers:</strong> Innovations perceived as difficult to understand
+              and use encounter greater resistance. Complex technologies require more training and
+              support.
+            </li>
+            <li>
+              <strong>Low relative advantage:</strong> If individuals see little benefit from
+              adoption, motivation decreases regardless of technology quality.
+            </li>
+            <li>
+              <strong>Compatibility barriers:</strong> Innovations incompatible with existing
+              values, beliefs, work processes, or organizational cultures face substantial adoption
+              resistance.
+            </li>
+            <li>
+              <strong>Low observability:</strong> Innovations whose benefits are not visible to
+              potential adopters diffuse more slowly.
+            </li>
+            <li>
+              <strong>Limited trialability:</strong> Innovations that cannot be tested on a limited
+              basis before full commitment encounter more resistance.
+            </li>
+            <li>
+              <strong>Social and cultural barriers:</strong> Network isolation, incompatible
+              cultural values, and status considerations create adoption barriers.
+            </li>
+            <li>
+              <strong>Structural barriers:</strong> Infrastructure limitations, economic
+              constraints, and resource unavailability prevent adoption even among motivated
+              individuals.
+            </li>
+            <li>
+              <strong>Communication barriers:</strong> Ineffective change agent strategy, poor
+              communication matching adoption stages, or geographic isolation prevent awareness and
+              persuasion.
+            </li>
+          </ul>
+
+          <h3 className={H3_CLASSES}>Leadership Actions DOI Prescribes</h3>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Adapt to innovation characteristics:</strong> Identify specific innovation
+              characteristics creating barriers and design targeted strategies (training for
+              complexity, demonstrations for low observability).
+            </li>
+            <li>
+              <strong>Ensure innovation compatibility:</strong> Assess and address compatibility
+              barriers through innovation adaptation or recipient system preparation.
+            </li>
+            <li>
+              <strong>Leverage homophilous communication:</strong> Identify and empower local
+              opinion leaders who share target population characteristics to serve as innovation
+              advocates.
+            </li>
+            <li>
+              <strong>Structure adoption-decision process:</strong> Differentiate strategies by
+              innovation-decision stage, using mass media for knowledge, interpersonal communication
+              for persuasion.
+            </li>
+            <li>
+              <strong>Address structural barriers:</strong> Invest in infrastructure, provide
+              economic support, and remove policy barriers preventing adoption.
+            </li>
+            <li>
+              <strong>Design culturally appropriate strategies:</strong> Understand local values and
+              belief systems; address compatibility barriers through education and cultural
+              adaptation.
+            </li>
+            <li>
+              <strong>Select and train change agents:</strong> Choose culturally competent change
+              agents who understand local contexts and adopt client-oriented rather than
+              innovation-oriented approaches.
+            </li>
+            <li>
+              <strong>Identify and support early adopters:</strong> Support initial adoption among
+              early adopters to create visible examples and build social proof.
+            </li>
+          </ul>
+        </section>
+
+        {/* 13. Following Models or Theories */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Following Models or Theories</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            Diffusion of Innovations provided the foundational framework upon which numerous
+            subsequent adoption models built:
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>
+                Technology Acceptance Model (
+                <a
+                  id="cite-ref-davis-1989-1"
+                  href="#ref-davis-1989"
+                  className="text-tabs-teal-deep hover:underline"
+                >
+                  Davis, 1989
+                </a>
+                ):
+              </strong>{' '}
+              Adapted DOI&rsquo;s innovation-decision framework to technology contexts, emphasizing
+              perceived usefulness and ease of use.
+            </li>
+            <li>
+              <strong>
+                Theory of Planned Behavior (
+                <a
+                  id="cite-ref-ajzen-1991-1"
+                  href="#ref-ajzen-1991"
+                  className="text-tabs-teal-deep hover:underline"
+                >
+                  Ajzen, 1991
+                </a>
+                ):
+              </strong>{' '}
+              While TPB extends TRA rather than DOI directly, it incorporated the role of perceived
+              behavioral control in innovation adoption decisions, complementing DOI&rsquo;s focus
+              on innovation characteristics with individual capability assessment.
+            </li>
+            <li>
+              <strong>
+                Unified Theory of Acceptance and Use of Technology (UTAUT) (
+                <Link
+                  href="/bibliography-1-15-unified-theory-utaut-venkatesh-2003"
+                  className="text-tabs-teal-deep hover:underline"
+                >
+                  Venkatesh et al., 2003
+                </Link>
+                ):
+              </strong>{' '}
+              Integrated DOI with other adoption theories into a unified predictive framework.
+            </li>
+            <li>
+              <strong>Implementation science frameworks:</strong> Applied DOI concepts to
+              understanding dissemination and implementation of evidence-based practices in health
+              and organizational contexts.
+            </li>
+            <li>
+              <strong>Organizational innovation adoption models:</strong> Extended DOI&rsquo;s
+              concepts to organizational and institutional adoption contexts.
+            </li>
+          </ul>
+        </section>
+
+        {/* 14. References */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>References</h2>
+          <ol className={REFERENCES_OL_CLASSES}>
+            <li id="ref-rogers-1962">
+              Rogers, E. M. (1962). <em>Diffusion of innovations</em>. The Free Press.
+            </li>
+            <li id="ref-davis-1989">
+              Davis, F. D. (1989). Perceived Usefulness, Perceived Ease of Use, and User Acceptance
+              of Information Technology. <em>MIS Quarterly</em>, 13(3), 319-340.
+              https://doi.org/10.2307/249008
+              <span className="text-xs ml-1">
+                <a
+                  href="#cite-ref-davis-1989-1"
+                  className="text-tabs-teal-deep hover:underline"
+                  aria-label="Back to citation 1"
+                ></a>
+              </span>
+            </li>
+            <li id="ref-ajzen-1991">
+              Ajzen, I. (1991). The theory of planned behavior.{' '}
+              <em>Organizational Behavior and Human Decision Processes</em>, 50(2), 179-211.
+              https://doi.org/10.1016/0749-5978(91)90020-T
+              <span className="text-xs ml-1">
+                <a
+                  href="#cite-ref-ajzen-1991-1"
+                  className="text-tabs-teal-deep hover:underline"
+                  aria-label="Back to citation 1"
+                ></a>
+              </span>
+            </li>
+          </ol>
+        </section>
+
+        {/* 15. Further Reading */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Further Reading</h2>
+          <ol className={REFERENCES_OL_CLASSES}>
+            <li id="ref-rogers-1971">
+              Rogers, E. M., &amp; Shoemaker, F. F. (1971).{' '}
+              <em>Communication of innovations: A cross-cultural approach</em> (2nd ed.). Free
+              Press.
+            </li>
+            <li id="ref-rogers-1983">
+              Rogers, E. M. (1983). <em>Diffusion of innovations</em> (3rd ed.). The Free Press.
+            </li>
+            <li id="ref-rogers-2003">
+              Rogers, E. M. (2003). <em>Diffusion of innovations</em> (5th ed.). Free Press.
+            </li>
+            <li id="ref-tarde-1890">
+              Tarde, G. (1890). <em>The laws of imitation</em>. Henry Holt.
+            </li>
+            <li id="ref-wellin-1955">
+              Wellin, E. (1955). Water boiling in a Peruvian village. In B. D. Paul (Ed.),{' '}
+              <em>
+                Health, culture, and community: Case studies of public reactions to health programs
+              </em>
+              . Russell Sage Foundation.
+            </li>
+          </ol>
+        </section>
+
+        {/* 16. Series Navigation */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Series Navigation</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            This article is part of a comprehensive bibliography examining foundational and
+            contemporary models of technology adoption:
+          </p>
+          <div className="space-y-4">
+            <p className={PARAGRAPH_CLASSES}>
+              <Link
+                href="/bibliography-1-1-theory-of-reasoned-action-tra-fishbein-ajzen-1975"
+                className="text-blue-600 hover:text-blue-800 underline"
+              >
+                &larr; Previous: Theory of Reasoned Action (TRA)
+              </Link>
+            </p>
+            <p className={PARAGRAPH_CLASSES}>
+              <Link
+                href="/bibliography-1-3-social-cognitive-theory-sct-bandura-1986"
+                className="text-blue-600 hover:text-blue-800 underline"
+              >
+                Next: Social Cognitive Theory (SCT) &rarr;
+              </Link>
+            </p>
+            <p className={`${PARAGRAPH_CLASSES} mt-6`}>
+              <Link
+                href="/article-bibliography-comprehensive-series-bibliography"
+                className="text-blue-600 hover:text-blue-800 underline"
+              >
+                Back to Complete Bibliography
+              </Link>
+            </p>
+          </div>
         </section>
       </article>
     </main>

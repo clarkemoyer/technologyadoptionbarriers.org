@@ -7,9 +7,9 @@ import dynamic from 'next/dynamic'
 const SEOHistoryChart = dynamic(() => import('@/components/tabs/seo-history-chart'))
 
 export const metadata: Metadata = {
-  title: 'SEO Transparency & Dashboard — Making of TABS',
+  title: 'SEO Transparency & Dashboard - Making of TABS',
   description:
-    'SEO metrics, baseline audit, and strategic roadmap for the Technology Adoption Barriers project — a transparent, build-time snapshot.',
+    'SEO metrics, baseline audit, and strategic roadmap for the Technology Adoption Barriers project - a transparent, build-time snapshot.',
   alternates: {
     canonical: '/making-of-tabs/seo',
   },
@@ -123,7 +123,7 @@ const SEOTransparencyPage = () => {
                   ? '↑'
                   : seoMetrics.overview.organicSessionsChange < 0
                     ? '↓'
-                    : '–'}{' '}
+                    : '0%'}{' '}
                 {seoMetrics.overview.organicSessionsChange !== 0 &&
                   `${Math.abs(seoMetrics.overview.organicSessionsChange)}%`}
               </span>
@@ -143,7 +143,7 @@ const SEOTransparencyPage = () => {
                   ? '↑'
                   : seoMetrics.overview.totalImpressionsChange < 0
                     ? '↓'
-                    : '–'}{' '}
+                    : '0%'}{' '}
                 {seoMetrics.overview.totalImpressionsChange !== 0 &&
                   `${Math.abs(seoMetrics.overview.totalImpressionsChange)}%`}
               </span>
@@ -163,7 +163,7 @@ const SEOTransparencyPage = () => {
                   ? '↑'
                   : seoMetrics.overview.averagePositionChange > 0
                     ? '↓'
-                    : '–'}{' '}
+                    : 'no change'}{' '}
                 {seoMetrics.overview.averagePositionChange !== 0 &&
                   `${Math.abs(seoMetrics.overview.averagePositionChange)} spots`}
               </span>
@@ -183,7 +183,7 @@ const SEOTransparencyPage = () => {
                   ? '↑'
                   : seoMetrics.overview.domainAuthorityChange < 0
                     ? '↓'
-                    : '–'}{' '}
+                    : '0'}{' '}
                 {seoMetrics.overview.domainAuthorityChange !== 0 &&
                   `${Math.abs(seoMetrics.overview.domainAuthorityChange)} points`}
               </span>

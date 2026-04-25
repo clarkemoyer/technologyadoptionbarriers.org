@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
 import Link from 'next/link'
 export const metadata: Metadata = {
-  title: 'AI Validity Checks — Making of TABS',
+  title: 'AI Validity Checks - Making of TABS',
   description:
     'An overview of how we use advanced AI models to perform rigorous validity checks on our academic and organizational content.',
 }

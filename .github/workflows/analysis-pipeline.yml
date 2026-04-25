@@ -75,7 +75,7 @@ jobs:
       - name: Install Python dependencies
         run: pip install -r scripts/analysis/requirements.txt
 
-      # Export Qualtrics CSV — stays on runner, never uploaded
+      # Export Qualtrics CSV - stays on runner, never uploaded
       - name: Export Qualtrics CSV
         run: python3 scripts/analysis/export_qualtrics.py
         env:
@@ -84,7 +84,7 @@ jobs:
           QUALTRICS_SURVEY_ID: ${{ vars.QUALTRICS_SURVEY_ID }}
           OUTPUT_PATH: ${{ runner.temp }}/qualtrics-raw.csv
 
-      # Download Prolific data (auth checks + statuses — pseudonymous PIDs only)
+      # Download Prolific data (auth checks + statuses - pseudonymous PIDs only)
       - uses: actions/download-artifact@v8
         with:
           name: prolific-data
@@ -103,7 +103,7 @@ jobs:
             --statuses "${{ runner.temp }}/statuses.json" \
             --output "${{ runner.temp }}/qualtrics-enriched.csv"
 
-      # Data audit — validate Python disposition matches TS pipeline
+      # Data audit - validate Python disposition matches TS pipeline
       # Also produces a disposition CSV for the operations pipeline (daily-disposition-processing)
       # to consume, eliminating a redundant Qualtrics export.
       - name: Data audit (disposition waterfall)
@@ -186,7 +186,7 @@ jobs:
             python3 scripts/analysis/tests/generate_summary.py "${{ runner.temp }}/data-audit.json" >> "$GITHUB_STEP_SUMMARY"
           fi
 
-      # Upload analysis outputs for website (JSON only — no PII)
+      # Upload analysis outputs for website (JSON only - no PII)
       # Always upload so results are available even if later steps fail
       - uses: actions/upload-artifact@v7
         if: always()
@@ -199,7 +199,7 @@ jobs:
           if-no-files-found: warn
 
       # Disposition CSV for the operations pipeline (daily-disposition-processing).
-      # Contains PROLIFIC_PID + Disposition — no other PII. Produced from the same
+      # Contains PROLIFIC_PID + Disposition - no other PII. Produced from the same
       # enriched data the analysis uses, ensuring a single source of truth.
       - uses: actions/upload-artifact@v7
         if: always()

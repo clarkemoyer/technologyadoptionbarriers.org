@@ -1,5 +1,5 @@
 /**
- * TABS V2 Instrument Constants — Single Source of Truth
+ * TABS V2 Instrument Constants - Single Source of Truth
  *
  * This file defines all shared constants for the TABS V2 survey instrument.
  * Both the live TypeScript disposition pipeline and the public Python analysis
@@ -88,6 +88,29 @@ export const DEMOGRAPHIC_COLUMNS = {
 } as const
 
 /* ------------------------------------------------------------------ */
+/*  Participant-facing item count                                      */
+/*                                                                     */
+/*  Total items a respondent actually sees in a complete submission.   */
+/*  Barriers/Readiness/Maturity blocks each include 1 IRI attention-   */
+/*  check item (presented inline in the matrix, excluded from scoring).*/
+/*  Demographics cover Q1-Q9 plus the open-ended Q74 feedback prompt.  */
+/*  The reCAPTCHA challenge is a gating item participants complete     */
+/*  before the survey (tracked as FLAG-RECAPTCHA in disposition data). */
+/* ------------------------------------------------------------------ */
+
+const IRI_ITEMS_TOTAL = Object.keys(IRI_COLUMNS).length // 1 per Likert block (barriers + readiness + maturity)
+const DEMOGRAPHIC_ITEMS = Object.keys(DEMOGRAPHIC_COLUMNS).length // Q1-Q9 plus Q74 open-ended feedback
+const RECAPTCHA_ITEMS = 1
+
+export const TOTAL_ITEMS_PRESENTED =
+  ITEM_COUNTS.barriers +
+  ITEM_COUNTS.readiness +
+  ITEM_COUNTS.maturity +
+  IRI_ITEMS_TOTAL +
+  DEMOGRAPHIC_ITEMS +
+  RECAPTCHA_ITEMS
+
+/* ------------------------------------------------------------------ */
 /*  Duration Thresholds                                                */
 /* ------------------------------------------------------------------ */
 
@@ -143,7 +166,7 @@ export const PROFIT_MODEL_VALUES = ['For-Profit', 'Non-Profit', 'Government/Publ
 
 /* ------------------------------------------------------------------ */
 /*  Survey Blocks (for straightlining analysis)                        */
-/*  Use substantive item counts only — IRI items have predetermined    */
+/*  Use substantive item counts only - IRI items have predetermined    */
 /*  correct answers and must NOT be included in within-person SD       */
 /*  calculations. Including IRIs artificially inflates variance and    */
 /*  masks straightlining. See Issue #735 for the root-cause analysis.  */

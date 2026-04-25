@@ -25,8 +25,6 @@ const BibliographyPage = () => {
           Comprehensive Series Bibliography: Foundations of Technology Adoption
         </h1>
 
-        <SeriesNavigation className="mt-6" />
-
         {/* Executive Summary */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Executive Summary</h2>
@@ -56,24 +54,24 @@ const BibliographyPage = () => {
           </p>
           <ol className={BODY_OL_CLASSES}>
             <li>
-              <strong>Individual Model Articles:</strong> New dedicated pages for each of the 21
+              <strong>Individual Model Articles: </strong>New dedicated pages for each of the 21
               individual technology adoption models, featuring detailed histories, methodologies,
               and validation approaches. Click any model to explore in depth.
             </li>
             <li>
-              <strong>Organizational Model Articles:</strong> New dedicated pages for the
+              <strong>Organizational Model Articles: </strong>New dedicated pages for the
               organizational-level frameworks (Branch 2: The Organization&rsquo;s Playbook),
               covering strategic and resource-based theories underpinning enterprise technology
               adoption. Click any framework to explore in depth.
             </li>
             <li>
-              <strong>Inventory Dashboard (Quick Scan):</strong> Located immediately below, this
+              <strong>Inventory Dashboard (Quick Scan): </strong>Located immediately below, this
               section provides a high-level list of all unique titles and authors in a side-by-side
               comparison. Use this for a fast &ldquo;at-a-glance&rdquo; verification of the scope
               and coverage of each track.
             </li>
             <li>
-              <strong>Detailed APA Reference Lists:</strong> Located further down, these sections
+              <strong>Detailed APA Reference Lists: </strong>Located further down, these sections
               provide the complete, APA-formatted citations for every entry, separated by track. Use
               these for academic referencing and verification of source authority.
             </li>
@@ -141,10 +139,10 @@ const BibliographyPage = () => {
               <div className="text-sm text-gray-600">Ajzen (1991)</div>
             </Link>
             <Link
-              href="/bibliography-1-8-personal-computing-acceptance-thompson-1991"
+              href="/bibliography-1-8-personal-computing-utilization-thompson-1991"
               className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
             >
-              <div className="font-semibold text-blue-600">8. Personal Computing Acceptance</div>
+              <div className="font-semibold text-blue-600">8. Personal Computing Utilization</div>
               <div className="text-sm text-gray-600">Thompson et al. (1991)</div>
             </Link>
             <Link
@@ -197,11 +195,11 @@ const BibliographyPage = () => {
               <div className="text-sm text-gray-600">Venkatesh et al. (2003)</div>
             </Link>
             <Link
-              href="/bibliography-1-16-math-venkatesh-brown-2001"
+              href="/bibliography-1-16-math-brown-venkatesh-2005"
               className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
             >
               <div className="font-semibold text-blue-600">16. MATH</div>
-              <div className="text-sm text-gray-600">Venkatesh &amp; Brown (2001)</div>
+              <div className="text-sm text-gray-600">Brown &amp; Venkatesh (2005)</div>
             </Link>
             <Link
               href="/bibliography-1-17-value-based-adoption-kim-2007"
@@ -404,11 +402,13 @@ const BibliographyPage = () => {
               <div className="text-sm text-gray-600">Microsoft (2025)</div>
             </Link>
             <Link
-              href="/bibliography-2-20-gartner-hype-cycle-methodology-2025"
+              href="/bibliography-2-20-cmmc-dod-2020"
               className="block p-3 bg-white rounded border border-gray-300 hover:border-green-500 hover:shadow-md transition-all"
             >
-              <div className="font-semibold text-green-700">20. Gartner Hype Cycle Methodology</div>
-              <div className="text-sm text-gray-600">Gartner (2025)</div>
+              <div className="font-semibold text-green-700">
+                20. Cybersecurity Maturity Model Certification (CMMC)
+              </div>
+              <div className="text-sm text-gray-600">U.S. DoD (2020)</div>
             </Link>
             <Link
               href="/bibliography-2-21-diffusion-of-innovations-organizational-rogers-1962"
@@ -624,7 +624,7 @@ const BibliographyPage = () => {
           <div className="space-y-4">
             <p className="pl-8 -indent-8">
               Ajzen, I. (1991). The theory of planned behavior.{' '}
-              <em>Organizational Behavior and Human Decision Processes, 50</em>(2), 179–211.
+              <em>Organizational Behavior and Human Decision Processes, 50</em>(2), 179-211.
               https://doi.org/10.1016/0749-5978(91)90020-T
             </p>
             <p className="pl-8 -indent-8">
@@ -634,22 +634,22 @@ const BibliographyPage = () => {
             </p>
             <p className="pl-8 -indent-8">
               Bhattacherjee, A. (2001). Understanding information systems continuance: An
-              expectation-confirmation model. <em>MIS Quarterly, 25</em>(3), 351–370.
+              expectation-confirmation model. <em>MIS Quarterly, 25</em>(3), 351-370.
             </p>
             <p className="pl-8 -indent-8">
               Brown, S. A., &amp; Venkatesh, V. (2005). Model of Adoption of Technology in
               Households: A Baseline Model Test and Extension Incorporating Household Life Cycle.{' '}
-              <em>MIS Quarterly, 29</em>(3), 399–426. https://doi.org/10.2307/25148690
+              <em>MIS Quarterly, 29</em>(3), 399-426. https://doi.org/10.2307/25148690
             </p>
             <p className="pl-8 -indent-8">
               Davis, F. D. (1989). Perceived Usefulness, Perceived Ease of Use, and User Acceptance
-              of Information Technology. <em>MIS Quarterly, 13</em>(3), 319–340.
+              of Information Technology. <em>MIS Quarterly, 13</em>(3), 319-340.
               https://doi.org/10.2307/249008
             </p>
             <p className="pl-8 -indent-8">
               Davis, F. D., Bagozzi, R. P., &amp; Warshaw, P. R. (1992). Extrinsic and Intrinsic
               Motivation to Use Computers in the Workplace.{' '}
-              <em>Journal of Applied Social Psychology, 22</em>(14), 1111–1132.
+              <em>Journal of Applied Social Psychology, 22</em>(14), 1111-1132.
               https://doi.org/10.1111/j.1559-1816.1992.tb00945.x
             </p>
             <p className="pl-8 -indent-8">
@@ -661,42 +661,42 @@ const BibliographyPage = () => {
             </p>
             <p className="pl-8 -indent-8">
               Goodhue, D. L., &amp; Thompson, R. L. (1995). Task-Technology Fit and Individual
-              Performance. <em>MIS Quarterly, 19</em>(2), 213–236. https://doi.org/10.2307/249689
+              Performance. <em>MIS Quarterly, 19</em>(2), 213-236. https://doi.org/10.2307/249689
             </p>
             <p className="pl-8 -indent-8">
               Kim, H.-W., Chan, H. C., &amp; Gupta, S. (2007). Value-based Adoption of Mobile
               Internet: An empirical investigation. <em>Decision Support Systems, 43</em>(1),
-              111–126. https://doi.org/10.1016/j.dss.2005.05.009
+              111-126. https://doi.org/10.1016/j.dss.2005.05.009
             </p>
             <p className="pl-8 -indent-8">
               Lin, C.-H., Shih, H.-Y., &amp; Sher, P. J. (2007). Integrating technology readiness
               into technology acceptance: The TRAM model. <em>Psychology &amp; Marketing, 24</em>
-              (7), 641–657. https://doi.org/10.1002/mar.20177
+              (7), 641-657. https://doi.org/10.1002/mar.20177
             </p>
             <p className="pl-8 -indent-8">
               Parasuraman, A. (2000). Technology readiness index (TRI): A multiple-item scale to
               measure readiness to embrace new technologies. <em>Journal of Service Research, 2</em>
-              (4), 307–320.
+              (4), 307-320.
             </p>
             <p className="pl-8 -indent-8">
               Parasuraman, A., &amp; Colby, C. L. (2015). An Updated and Streamlined Technology
-              Readiness Index: TRI 2.0. <em>Journal of Service Research, 18</em>(1), 59–74.
+              Readiness Index: TRI 2.0. <em>Journal of Service Research, 18</em>(1), 59-74.
               https://doi.org/10.1177/1094670514539730
             </p>
             <p className="pl-8 -indent-8">
               Ram, S. (1987). A MODEL OF INNOVATION RESISTANCE.{' '}
-              <em>Advances in Consumer Research, 14</em>(1), 208–212.
+              <em>Advances in Consumer Research, 14</em>(1), 208-212.
             </p>
             <p className="pl-8 -indent-8">
               Rogers, E. M. (1962). <em>Diffusion of innovations</em>. Free Press.
             </p>
             <p className="pl-8 -indent-8">
               Samuelson, W., &amp; Zeckhauser, R. (1988). Status Quo Bias in Decision Making.{' '}
-              <em>Journal of Risk and Uncertainty, 1</em>(1), 7–59.
+              <em>Journal of Risk and Uncertainty, 1</em>(1), 7-59.
             </p>
             <p className="pl-8 -indent-8">
               Taylor, S., &amp; Todd, P. A. (1995). Understanding Information Technology Usage: A
-              Test of Competing Models. <em>Information Systems Research, 6</em>(2), 144–176.
+              Test of Competing Models. <em>Information Systems Research, 6</em>(2), 144-176.
               https://doi.org/10.1287/isre.6.2.144
             </p>
             <p className="pl-8 -indent-8">
@@ -705,23 +705,23 @@ const BibliographyPage = () => {
             </p>
             <p className="pl-8 -indent-8">
               Venkatesh, V., &amp; Bala, H. (2008). Technology Acceptance Model 3 and a Research
-              Agenda on Interventions. <em>Decision Sciences, 39</em>(2), 273–315.
+              Agenda on Interventions. <em>Decision Sciences, 39</em>(2), 273-315.
               https://doi.org/10.1111/j.1540-5915.2008.00192.x
             </p>
             <p className="pl-8 -indent-8">
               Venkatesh, V., &amp; Davis, F. D. (2000). A Theoretical Extension of the Technology
               Acceptance Model: Four Longitudinal Field Studies. <em>Management Science, 46</em>
-              (2), 186–204.
+              (2), 186-204.
             </p>
             <p className="pl-8 -indent-8">
               Venkatesh, V., Morris, M. G., Davis, G. B., &amp; Davis, F. D. (2003). User Acceptance
               of Information Technology: Toward a Unified View. <em>MIS Quarterly, 27</em>
-              (3), 425–478. https://doi.org/10.2307/30036540
+              (3), 425-478. https://doi.org/10.2307/30036540
             </p>
             <p className="pl-8 -indent-8">
               Venkatesh, V., Thong, J. Y. L., &amp; Xu, X. (2012). Consumer Acceptance and Use of
               Information Technology: Extending the Unified Theory of Acceptance and Use of
-              Technology. <em>MIS Quarterly, 36</em>(1), 157–178. https://doi.org/10.2307/41410412
+              Technology. <em>MIS Quarterly, 36</em>(1), 157-178. https://doi.org/10.2307/41410412
             </p>
           </div>
         </section>
@@ -738,7 +738,7 @@ const BibliographyPage = () => {
             </p>
             <p className="pl-8 -indent-8">
               Barney, J. (1991). Firm Resources and Sustained Competitive Advantage.{' '}
-              <em>Journal of Management, 17</em>(1), 99–120.
+              <em>Journal of Management, 17</em>(1), 99-120.
               https://doi.org/10.1177/014920639101700108
             </p>
             <p className="pl-8 -indent-8">
@@ -749,12 +749,12 @@ const BibliographyPage = () => {
             <p className="pl-8 -indent-8">
               Cooper, R. B., &amp; Zmud, R. W. (1990). Information Technology Implementation
               Research: A Technological Diffusion Approach. <em>Management Science, 36</em>(2),
-              123–139. https://doi.org/10.1287/mnsc.36.2.123
+              123-139. https://doi.org/10.1287/mnsc.36.2.123
             </p>
             <p className="pl-8 -indent-8">
               Davenport, T. H., &amp; Short, J. E. (1990). The New Industrial Engineering:
               Information Technology and Business Process Redesign. <em>Sloan Management Review</em>
-              , Summer 1990, 11–27.
+              , Summer 1990, 11-27.
             </p>
             <p className="pl-8 -indent-8">
               Deming, W. E. (1982). <em>Quality, productivity, and competitive position</em>.
@@ -803,8 +803,8 @@ const BibliographyPage = () => {
             </p>
             <p className="pl-8 -indent-8">
               Teece, D. J., Pisano, G., &amp; Shuen, A. (1997). Dynamic capabilities and strategic
-              management. <em>Strategic Management Journal, 18</em>(7), 509–533.
-              https://doi.org/10.1002/(SICI)1097-0266(199708)18:7&lt;509::AID-SMJ882&gt;3.0.CO;2-Z
+              management. <em>Strategic Management Journal, 18</em>(7), 509-533.
+              https://doi.org/10.1002/smj.882
             </p>
             <p className="pl-8 -indent-8">
               The Open Group. (1995). <em>TOGAF</em>. The Open Group.
@@ -827,7 +827,7 @@ const BibliographyPage = () => {
             </p>
             <p className="pl-8 -indent-8">
               Wernerfelt, B. (1984). A Resource-based View of the Firm.{' '}
-              <em>Strategic Management Journal, 5</em>(2), 171–180.
+              <em>Strategic Management Journal, 5</em>(2), 171-180.
               https://doi.org/10.1002/smj.4250050207
             </p>
           </div>

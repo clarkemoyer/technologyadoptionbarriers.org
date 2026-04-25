@@ -12,7 +12,7 @@ import sensitivityData from '@/data/sensitivity-analysis.json'
 import LastUpdated from '@/components/last-updated'
 
 export const metadata: Metadata = {
-  title: 'Descriptive Statistics — TABS Results',
+  title: 'Descriptive Statistics - TABS Results',
   description:
     'Grand means, standard deviations, and inter-construct correlations for the Technology Adoption Barriers Survey across barriers, readiness, and maturity constructs.',
   alternates: {
@@ -27,7 +27,7 @@ const getMetricValue = (key: string, sample: string): number | null => {
 }
 
 const fmt = (val: number | null, decimals: number = 4): string => {
-  if (val === null) return '—'
+  if (val === null) return '-'
   return val.toFixed(decimals)
 }
 
@@ -72,7 +72,7 @@ const DescriptivePage = () => {
                 {samples.map((sample, i) => (
                   <tr key={sample.key} className={i % 2 === 1 ? 'bg-gray-50' : ''}>
                     <td className="border border-gray-300 px-4 py-2 font-medium">
-                      {sample.label} (N={sample.n ?? '—'})
+                      {sample.label} (N={sample.n ?? '-'})
                     </td>
                     <td className="border border-gray-300 px-4 py-2 text-right font-mono">
                       {fmt(getMetricValue('barrier_mean', sample.key))}
@@ -109,7 +109,7 @@ const DescriptivePage = () => {
                 {samples.map((sample, i) => (
                   <tr key={sample.key} className={i % 2 === 1 ? 'bg-gray-50' : ''}>
                     <td className="border border-gray-300 px-4 py-2 font-medium">
-                      {sample.label} (N={sample.n ?? '—'})
+                      {sample.label} (N={sample.n ?? '-'})
                     </td>
                     <td className="border border-gray-300 px-4 py-2 text-right font-mono">
                       {fmt(getMetricValue('readiness_mean', sample.key))}
@@ -146,7 +146,7 @@ const DescriptivePage = () => {
                 {samples.map((sample, i) => (
                   <tr key={sample.key} className={i % 2 === 1 ? 'bg-gray-50' : ''}>
                     <td className="border border-gray-300 px-4 py-2 font-medium">
-                      {sample.label} (N={sample.n ?? '—'})
+                      {sample.label} (N={sample.n ?? '-'})
                     </td>
                     <td className="border border-gray-300 px-4 py-2 text-right font-mono">
                       {fmt(getMetricValue('maturity_mean', sample.key))}
@@ -178,7 +178,7 @@ const DescriptivePage = () => {
             { key: 'prolific_accepted', label: 'Prolific Accepted' },
             { key: 'v2_finished', label: 'All V2 Finished' },
           ].map((group) => {
-            const n = samples.find((s) => s.key === group.key)?.n ?? '—'
+            const n = samples.find((s) => s.key === group.key)?.n ?? '-'
             const br = getMetricValue('corr_br', group.key)
             const bm = getMetricValue('corr_bm', group.key)
             const rm = getMetricValue('corr_rm', group.key)
@@ -264,7 +264,7 @@ const DescriptivePage = () => {
           <div className="bg-amber-50 border border-amber-200 rounded-lg p-6">
             <p className="text-sm text-amber-900">
               The Readiness and Maturity constructs include a &ldquo;Don&rsquo;t Know&rdquo;
-              response option. These responses are excluded from scoring &mdash; they are treated as
+              response option. These responses are excluded from scoring - they are treated as
               missing data rather than mapped to a numeric value. This prevents artificial deflation
               of construct means. The Barriers construct does not offer a &ldquo;Don&rsquo;t
               Know&rdquo; option.
@@ -280,19 +280,19 @@ const DescriptivePage = () => {
               <Link href="/results/reliability" className="text-blue-600 hover:underline">
                 Scale Reliability
               </Link>{' '}
-              &mdash; Cronbach&rsquo;s alpha for each construct
+              - Cronbach&rsquo;s alpha for each construct
             </li>
             <li>
               <Link href="/results/sensitivity" className="text-blue-600 hover:underline">
                 Sensitivity Analysis
               </Link>{' '}
-              &mdash; robustness across all five sample definitions
+              - robustness across all five sample definitions
             </li>
             <li>
               <Link href="/results/data-quality" className="text-blue-600 hover:underline">
                 Data Quality Pipeline
               </Link>{' '}
-              &mdash; how responses are validated before analysis
+              - how responses are validated before analysis
             </li>
             <li>
               <Link href="/results" className="text-blue-600 hover:underline">

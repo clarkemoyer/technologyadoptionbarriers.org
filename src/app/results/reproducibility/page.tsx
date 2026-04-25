@@ -14,7 +14,7 @@ import sensitivityData from '@/data/sensitivity-analysis.json'
 import LastUpdated from '@/components/last-updated'
 
 export const metadata: Metadata = {
-  title: 'Open Data & Reproducibility — TABS Results',
+  title: 'Open Data & Reproducibility - TABS Results',
   description:
     'How the TABS project ensures reproducible, transparent research through shared constants, automated validation, and open-source analysis scripts that anyone can run.',
   alternates: {
@@ -130,13 +130,50 @@ const ReproducibleAnalysisPage = () => {
         <section className="mb-12 text-gray-800">
           <h2 className={H2_CLASSES}>Analysis Scripts</h2>
           <p className={PARAGRAPH_CLASSES}>
-            The reproducible analysis pipeline consists of five core Python scripts plus a
-            presentation validator. Each script reads a standard Qualtrics CSV export and applies
-            identical scale mappings, column definitions, and quality filters sourced from the
-            shared constants file.
+            The reproducible analysis pipeline is built around a single unified script that
+            consolidates all analysis phases - sensitivity, advanced statistics, data quality, and
+            psychometric validation - into one run. The unified script runs validation across all
+            five sample definitions, producing per-sample results with sample-size adequacy
+            metadata. The individual component scripts remain available for targeted analysis.
           </p>
 
           <div className="space-y-8">
+            <div className="bg-blue-50 border-2 border-blue-300 rounded-lg p-6 shadow-sm">
+              <h3 className={H3_CLASSES}>
+                Unified Analysis (
+                <a
+                  href={`${GITHUB_SCRIPTS_BLOB_BASE}/tabs_v2_unified_data_analysis.py`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 underline hover:text-blue-800"
+                >
+                  tabs_v2_unified_data_analysis.py
+                </a>
+                ) - Primary
+              </h3>
+              <p className={PARAGRAPH_CLASSES}>
+                The recommended way to reproduce all TABS statistics. Consolidates sensitivity
+                analysis, advanced statistics (PCA, regression, ANOVA), data quality audits, and
+                full psychometric validation into a single run. Produces one unified JSON output
+                containing all sections. Validation runs on all five named sample definitions
+                (Conservative Clean through All V2) with per-sample CFA, EFA, HTMT, and reliability
+                metrics.
+              </p>
+              <p className="text-gray-600 font-sans text-sm">
+                <strong>Key outputs:</strong> Unified JSON with sensitivity analysis, advanced
+                statistics, quality audit, and per-sample validation including adequacy metadata
+                (N:parameter ratios). Extracts to{' '}
+                <code className="bg-gray-100 px-1 rounded text-xs">sensitivity-analysis.json</code>,{' '}
+                <code className="bg-gray-100 px-1 rounded text-xs">live-validation.json</code>, and{' '}
+                <code className="bg-gray-100 px-1 rounded text-xs">crp-validation.json</code>.
+              </p>
+            </div>
+
+            <p className="text-sm text-gray-500 font-sans italic">
+              The following individual scripts are available for targeted analysis. They share the
+              same constants and scale mappings but run independently.
+            </p>
+
             <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
               <h3 className={H3_CLASSES}>
                 1. Data Audit (
@@ -204,15 +241,16 @@ const ReproducibleAnalysisPage = () => {
                 )
               </h3>
               <p className={PARAGRAPH_CLASSES}>
-                Validates 84 statistical claims embedded in the CRP document against computed values
-                from the source CSV. This ensures that all reported statistics &mdash; construct
-                means, correlations, reliability coefficients, validity metrics, and demographic
-                tables &mdash; are traceable to the data and protects against transcription errors.
+                Comprehensive instrument validation and data quality report covering content
+                validity, construct validity, reliability, IRI attention check effectiveness,
+                missing data patterns, response distributions, common method variance (CMV), and
+                response bias diagnostics.
               </p>
               <p className="text-gray-600 font-sans text-sm">
-                <strong>Key outputs:</strong> Pass/fail summary with detailed mismatch reports.
-                Coverage includes Cronbach&rsquo;s alpha, AVE, HTMT ratios, factor loadings, and
-                demographic breakdowns.
+                <strong>Key outputs:</strong> Cronbach&rsquo;s alpha, KMO/Bartlett&rsquo;s, PCA
+                factor extraction, IRI pass rates by construct, missing data percentages,
+                Shapiro-Wilk normality tests, skewness/kurtosis distributions, and Harman&rsquo;s
+                single-factor CMV test.
               </p>
             </div>
 
@@ -299,7 +337,7 @@ const ReproducibleAnalysisPage = () => {
             The analysis script supports five sample definitions, from most to least restrictive.
             Each applies different quality filters to the same underlying V2 dataset. Running all
             statistics against every sample definition demonstrates whether findings are robust to
-            inclusion criteria — a key requirement for publication-grade research.
+            inclusion criteria - a key requirement for publication-grade research.
           </p>
           <div className="overflow-x-auto my-6">
             <table className="w-full border-collapse font-sans text-sm">
@@ -316,7 +354,7 @@ const ReproducibleAnalysisPage = () => {
                     <td className="border border-gray-300 px-4 py-2 font-medium">{sample.label}</td>
                     <td className="border border-gray-300 px-4 py-2">{sample.description}</td>
                     <td className="border border-gray-300 px-4 py-2 text-right font-mono">
-                      {sample.n ?? '—'}
+                      {sample.n ?? '-'}
                     </td>
                   </tr>
                 ))}
@@ -326,9 +364,9 @@ const ReproducibleAnalysisPage = () => {
           <p className="text-sm text-gray-500 mt-2">
             N values are populated by running{' '}
             <code className="bg-gray-100 px-1.5 py-0.5 rounded text-sm font-mono">
-              python tabs_v2_analysis.py &lt;csv&gt; --json sensitivity-analysis.json
+              python tabs_v2_unified_data_analysis.py &lt;csv&gt; --json unified.json
             </code>{' '}
-            against the production dataset.
+            and extracting the sensitivity section from the unified output.
           </p>
         </section>
 
@@ -371,7 +409,7 @@ const ReproducibleAnalysisPage = () => {
                             key={s.key}
                             className="border border-gray-300 px-4 py-2 text-right font-mono"
                           >
-                            {(metric.values as Record<string, number | null>)[s.key] ?? '—'}
+                            {(metric.values as Record<string, number | null>)[s.key] ?? '-'}
                           </td>
                         ))}
                       </tr>
@@ -407,30 +445,32 @@ cd technologyadoptionbarriers.org/scripts/analysis
 # Install Python dependencies (pinned versions)
 pip install -r requirements.txt
 
-# Run with test data (included in repo)
-python tabs_v2_data_audit.py --input test_data_qualtrics.csv
-python tabs_v2_analysis.py test_data_qualtrics.csv
-python tabs_v2_psychometrics.py test_data_qualtrics.csv
-python tabs_v2_advanced.py test_data_qualtrics.csv
-python tabs_v2_quality_audit.py test_data_qualtrics.csv
+# ── Recommended: Unified analysis (reproduces all results) ──
 
 # Run with production data (from ScholarSphere)
-python tabs_v2_data_audit.py --input <path_to_production_csv>
-python tabs_v2_analysis.py <path_to_production_csv>
-python tabs_v2_psychometrics.py <path_to_production_csv>
-python tabs_v2_advanced.py <path_to_production_csv>
-python tabs_v2_quality_audit.py <path_to_production_csv>
+python tabs_v2_unified_data_analysis.py <path_to_csv> --json unified.json
+
+# Run CRP-200 frozen dataset
+python tabs_v2_unified_data_analysis.py <path_to_crp_csv> --crp200 --json crp-unified.json
+
+# Extract individual JSON files from unified output
+python -c "import json; d=json.load(open('unified.json')); json.dump(d['sensitivity'], open('sensitivity-analysis.json','w'), indent=2)"
+python -c "import json; d=json.load(open('unified.json')); json.dump(d['validation'], open('live-validation.json','w'), indent=2)"
+
+# Choose a different primary sample for advanced analysis
+python tabs_v2_unified_data_analysis.py <csv> --json unified.json \\
+  --primary-sample flexible_clean
+
+# ── Alternative: Individual scripts (for targeted analysis) ──
+
+python tabs_v2_data_audit.py --input <path_to_csv>
+python tabs_v2_analysis.py <path_to_csv>
+python tabs_v2_psychometrics.py <path_to_csv>
+python tabs_v2_advanced.py <path_to_csv>
+python tabs_v2_quality_audit.py <path_to_csv>
 
 # Validate defense presentation
-python ../validate-deck.py <path_to_csv> <path_to_pptx>
-
-# Export sensitivity analysis as JSON (for dashboard)
-python tabs_v2_analysis.py <csv> --json sensitivity-analysis.json
-
-# Run with a different primary sample definition
-python tabs_v2_analysis.py <csv> --primary-sample conservative_clean
-python tabs_v2_analysis.py <csv> --primary-sample flexible_clean
-python tabs_v2_analysis.py <csv> --primary-sample prolific_accepted`}</pre>
+python ../validate-deck.py <path_to_csv> <path_to_pptx>`}</pre>
           </div>
         </section>
 
@@ -498,7 +538,7 @@ python tabs_v2_analysis.py <csv> --primary-sample prolific_accepted`}</pre>
                       tests/generate_test_data.py
                     </a>
                   </td>
-                  <td className="border border-gray-300 px-4 py-2 text-right font-mono">—</td>
+                  <td className="border border-gray-300 px-4 py-2 text-right font-mono">-</td>
                   <td className="border border-gray-300 px-4 py-2">
                     Deterministic generator for the production-format synthetic dataset. Public
                     directory browsing is intentionally not linked here while the repository

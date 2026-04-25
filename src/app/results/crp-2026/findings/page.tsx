@@ -12,7 +12,7 @@ import sensitivityData from '@/data/crp-sensitivity-analysis.json'
 import EffectSizeChart from '@/components/effect-size-chart'
 import { DATA_UNAVAILABLE } from '@/lib/sentinelMarker'
 export const metadata: Metadata = {
-  title: 'CRP 2026 Key Findings — TABS',
+  title: 'CRP 2026 Key Findings - TABS',
   description:
     'Effect sizes, cross-tabulations, t-tests, and ANOVA from the CRP 2026 replication, computed independently across three CRP sample definitions.',
   alternates: {
@@ -91,13 +91,13 @@ const CRP_GROUPS = [
 ]
 
 const fmt = (val: number | null | undefined, decimals: number = 2): string => {
-  if (val === null || val === undefined) return '—'
+  if (val === null || val === undefined) return '-'
   const prefix = val > 0 ? '+' : ''
   return prefix + val.toFixed(decimals)
 }
 
 const formatPValue = (p: number | null | undefined): string => {
-  if (p === null || p === undefined) return '—'
+  if (p === null || p === undefined) return '-'
   return p < 0.001 ? '<.001' : p.toFixed(3)
 }
 
@@ -105,7 +105,7 @@ const formatAnovaDf = (
   dfBetween: number | null | undefined,
   dfWithin: number | null | undefined
 ): string => {
-  if (dfBetween == null || dfWithin == null) return '—'
+  if (dfBetween == null || dfWithin == null) return '-'
   return `${dfBetween}, ${dfWithin}`
 }
 
@@ -140,8 +140,8 @@ const CrpFindingsPage = () => {
           <h2 className={H2_CLASSES}>Effect Sizes (Cohen&rsquo;s d)</h2>
           <p className={PARAGRAPH_CLASSES}>
             Cohen&rsquo;s d measures the standardized difference between group means. Values of |d|
-            &lt; 0.2 are negligible, 0.2&ndash;0.5 small, 0.5&ndash;0.8 medium, and &gt; 0.8 large.
-            Each comparison is computed separately for each result group.
+            &lt; 0.2 are negligible, 0.2-0.5 small, 0.5-0.8 medium, and &gt; 0.8 large. Each
+            comparison is computed separately for each result group.
           </p>
 
           {CRP_GROUPS.map((group) => {
@@ -159,7 +159,7 @@ const CrpFindingsPage = () => {
                 className={`border-l-4 ${group.color} bg-gray-50 rounded-lg p-5 mb-6`}
               >
                 <h3 className={H3_CLASSES}>
-                  {group.label} (N={sample?.n ?? '—'})
+                  {group.label} (N={sample?.n ?? '-'})
                 </h3>
 
                 {hasEffects ? (
@@ -167,7 +167,7 @@ const CrpFindingsPage = () => {
                     {/* Tech vs Non-Tech */}
                     <div>
                       <h4 className="text-xs font-bold text-gray-600 uppercase mb-2">
-                        Technical vs Non-Technical — n=
+                        Technical vs Non-Technical - n=
                         {effects['tech_vs_nontech'].tech_n} vs n=
                         {effects['tech_vs_nontech'].nontech_n}
                       </h4>
@@ -217,10 +217,10 @@ const CrpFindingsPage = () => {
                               <tr key={construct} className="border-b border-gray-200">
                                 <td className="py-1.5 px-2 font-medium capitalize">{construct}</td>
                                 <td className="py-1.5 px-2 text-right font-mono">
-                                  {vals.tech_mean?.toFixed(4) ?? '—'}
+                                  {vals.tech_mean?.toFixed(4) ?? '-'}
                                 </td>
                                 <td className="py-1.5 px-2 text-right font-mono">
-                                  {vals.nontech_mean?.toFixed(4) ?? '—'}
+                                  {vals.nontech_mean?.toFixed(4) ?? '-'}
                                 </td>
                                 <td className="py-1.5 px-2 text-right font-mono font-semibold">
                                   {fmt(vals.d)}
@@ -240,7 +240,7 @@ const CrpFindingsPage = () => {
                       Object.keys(effects['large_vs_small'].constructs ?? {}).length > 0 && (
                         <div>
                           <h4 className="text-xs font-bold text-gray-600 uppercase mb-2">
-                            Large Org (5000+) vs Small/Medium — n=
+                            Large Org (5000+) vs Small/Medium - n=
                             {effects['large_vs_small'].large_n} vs n=
                             {effects['large_vs_small'].small_medium_n}
                           </h4>
@@ -292,10 +292,10 @@ const CrpFindingsPage = () => {
                                       {construct}
                                     </td>
                                     <td className="py-1.5 px-2 text-right font-mono">
-                                      {vals.large_mean?.toFixed(4) ?? '—'}
+                                      {vals.large_mean?.toFixed(4) ?? '-'}
                                     </td>
                                     <td className="py-1.5 px-2 text-right font-mono">
-                                      {vals.small_medium_mean?.toFixed(4) ?? '—'}
+                                      {vals.small_medium_mean?.toFixed(4) ?? '-'}
                                     </td>
                                     <td className="py-1.5 px-2 text-right font-mono font-semibold">
                                       {fmt(vals.d)}
@@ -343,7 +343,7 @@ const CrpFindingsPage = () => {
                 className={`border-l-4 ${group.color} bg-gray-50 rounded-lg p-5 mb-6`}
               >
                 <h3 className={H3_CLASSES}>
-                  {group.label} (N={sample?.n ?? '—'})
+                  {group.label} (N={sample?.n ?? '-'})
                 </h3>
 
                 {hasData ? (
@@ -369,13 +369,13 @@ const CrpFindingsPage = () => {
                                   <td className="py-1.5 px-2 font-medium">{row.group}</td>
                                   <td className="py-1.5 px-2 text-right font-mono">{row.n}</td>
                                   <td className="py-1.5 px-2 text-right font-mono">
-                                    {row.barrier_mean?.toFixed(2) ?? '—'}
+                                    {row.barrier_mean?.toFixed(2) ?? '-'}
                                   </td>
                                   <td className="py-1.5 px-2 text-right font-mono">
-                                    {row.readiness_mean?.toFixed(2) ?? '—'}
+                                    {row.readiness_mean?.toFixed(2) ?? '-'}
                                   </td>
                                   <td className="py-1.5 px-2 text-right font-mono">
-                                    {row.maturity_mean?.toFixed(2) ?? '—'}
+                                    {row.maturity_mean?.toFixed(2) ?? '-'}
                                   </td>
                                 </tr>
                               ))}
@@ -408,13 +408,13 @@ const CrpFindingsPage = () => {
                                   <td className="py-1.5 px-2 font-medium">{row.group}</td>
                                   <td className="py-1.5 px-2 text-right font-mono">{row.n}</td>
                                   <td className="py-1.5 px-2 text-right font-mono">
-                                    {row.barrier_mean?.toFixed(2) ?? '—'}
+                                    {row.barrier_mean?.toFixed(2) ?? '-'}
                                   </td>
                                   <td className="py-1.5 px-2 text-right font-mono">
-                                    {row.readiness_mean?.toFixed(2) ?? '—'}
+                                    {row.readiness_mean?.toFixed(2) ?? '-'}
                                   </td>
                                   <td className="py-1.5 px-2 text-right font-mono">
-                                    {row.maturity_mean?.toFixed(2) ?? '—'}
+                                    {row.maturity_mean?.toFixed(2) ?? '-'}
                                   </td>
                                 </tr>
                               ))}
@@ -461,8 +461,8 @@ const CrpFindingsPage = () => {
                         <h4 className="font-sans font-semibold text-gray-700 text-sm mb-2">
                           Welch&rsquo;s t-test: Technical vs Non-Technical
                           <span className="text-gray-500 font-normal ml-2">
-                            (n<sub>tech</sub>={inf.t_tests_tech_vs_nontech.tech_n ?? '—'}, n
-                            <sub>non-tech</sub>={inf.t_tests_tech_vs_nontech.nontech_n ?? '—'})
+                            (n<sub>tech</sub>={inf.t_tests_tech_vs_nontech.tech_n ?? '-'}, n
+                            <sub>non-tech</sub>={inf.t_tests_tech_vs_nontech.nontech_n ?? '-'})
                           </span>
                         </h4>
                         <div className="overflow-x-auto">
@@ -482,10 +482,10 @@ const CrpFindingsPage = () => {
                                   <tr key={construct} className={vals.sig ? 'bg-green-50' : ''}>
                                     <td className="p-2 border-b capitalize">{construct}</td>
                                     <td className="text-right p-2 border-b font-mono">
-                                      {vals.t?.toFixed(3) ?? '—'}
+                                      {vals.t?.toFixed(3) ?? '-'}
                                     </td>
                                     <td className="text-right p-2 border-b font-mono">
-                                      {vals.df?.toFixed(1) ?? '—'}
+                                      {vals.df?.toFixed(1) ?? '-'}
                                     </td>
                                     <td className="text-right p-2 border-b font-mono">
                                       {formatPValue(vals.p)}
@@ -508,8 +508,8 @@ const CrpFindingsPage = () => {
                         <h4 className="font-sans font-semibold text-gray-700 text-sm mb-2">
                           Welch&rsquo;s t-test: Large vs Small/Medium Org
                           <span className="text-gray-500 font-normal ml-2">
-                            (n<sub>large</sub>={inf.t_tests_large_vs_small.large_n ?? '—'}, n
-                            <sub>sm/med</sub>={inf.t_tests_large_vs_small.small_medium_n ?? '—'})
+                            (n<sub>large</sub>={inf.t_tests_large_vs_small.large_n ?? '-'}, n
+                            <sub>sm/med</sub>={inf.t_tests_large_vs_small.small_medium_n ?? '-'})
                           </span>
                         </h4>
                         <div className="overflow-x-auto">
@@ -529,10 +529,10 @@ const CrpFindingsPage = () => {
                                   <tr key={construct} className={vals.sig ? 'bg-green-50' : ''}>
                                     <td className="p-2 border-b capitalize">{construct}</td>
                                     <td className="text-right p-2 border-b font-mono">
-                                      {vals.t?.toFixed(3) ?? '—'}
+                                      {vals.t?.toFixed(3) ?? '-'}
                                     </td>
                                     <td className="text-right p-2 border-b font-mono">
-                                      {vals.df?.toFixed(1) ?? '—'}
+                                      {vals.df?.toFixed(1) ?? '-'}
                                     </td>
                                     <td className="text-right p-2 border-b font-mono">
                                       {formatPValue(vals.p)}
@@ -575,7 +575,7 @@ const CrpFindingsPage = () => {
                                   <tr key={construct} className={vals.sig ? 'bg-green-50' : ''}>
                                     <td className="p-2 border-b capitalize">{construct}</td>
                                     <td className="text-right p-2 border-b font-mono">
-                                      {vals.f?.toFixed(3) ?? '—'}
+                                      {vals.f?.toFixed(3) ?? '-'}
                                     </td>
                                     <td className="text-right p-2 border-b font-mono">
                                       {formatAnovaDf(vals.df_between, vals.df_within)}
@@ -621,7 +621,7 @@ const CrpFindingsPage = () => {
                                   <tr key={construct} className={vals.sig ? 'bg-green-50' : ''}>
                                     <td className="p-2 border-b capitalize">{construct}</td>
                                     <td className="text-right p-2 border-b font-mono">
-                                      {vals.f?.toFixed(3) ?? '—'}
+                                      {vals.f?.toFixed(3) ?? '-'}
                                     </td>
                                     <td className="text-right p-2 border-b font-mono">
                                       {formatAnovaDf(vals.df_between, vals.df_within)}
@@ -652,20 +652,28 @@ const CrpFindingsPage = () => {
           })}
         </section>
 
-        {/* ── Forthcoming Analyses ── */}
+        {/* ── Completed Analyses ── */}
         <section className="mb-12 text-gray-800">
-          <h2 className={H2_CLASSES}>Forthcoming Analyses</h2>
-          <div className="bg-gray-50 border border-gray-200 rounded-xl p-8 text-center">
+          <h2 className={H2_CLASSES}>Completed Analyses</h2>
+          <div className="bg-green-50 border border-green-200 rounded-xl p-8 text-center">
             <p className="text-gray-600 max-w-lg mx-auto mb-6 font-sans text-base">
-              The following additional analyses are planned for future releases:
+              The following additional analyses have been completed:
             </p>
             <div className="flex flex-wrap justify-center gap-3">
-              <span className="inline-block bg-white border border-gray-300 rounded-full px-4 py-1.5 text-sm text-gray-600">
-                Regression Models
-              </span>
-              <span className="inline-block bg-white border border-gray-300 rounded-full px-4 py-1.5 text-sm text-gray-600">
-                Factor Analysis
-              </span>
+              <Link
+                href="/results/crp-2026/validation"
+                aria-label="View completed Regression Models analysis"
+                className="inline-flex items-center gap-1.5 bg-white border border-green-300 rounded-full px-4 py-1.5 text-sm text-green-700 hover:bg-green-100 transition-colors"
+              >
+                <span aria-hidden="true">✓</span> Regression Models
+              </Link>
+              <Link
+                href="/results/crp-2026/factor-analysis"
+                aria-label="View completed Factor Analysis results"
+                className="inline-flex items-center gap-1.5 bg-white border border-green-300 rounded-full px-4 py-1.5 text-sm text-green-700 hover:bg-green-100 transition-colors"
+              >
+                <span aria-hidden="true">✓</span> Factor Analysis
+              </Link>
             </div>
           </div>
         </section>
@@ -678,25 +686,25 @@ const CrpFindingsPage = () => {
               <Link href="/results/crp-2026/descriptive" className="text-blue-600 hover:underline">
                 Descriptive Statistics
               </Link>{' '}
-              &mdash; means, SDs, and correlations per result group
+              - means, SDs, and correlations per result group
             </li>
             <li>
               <Link href="/results/crp-2026/sample" className="text-blue-600 hover:underline">
                 Sample &amp; Demographics
               </Link>{' '}
-              &mdash; demographic breakdowns per result group
+              - demographic breakdowns per result group
             </li>
             <li>
               <Link href="/results/crp-2026/sensitivity" className="text-blue-600 hover:underline">
                 Sensitivity Analysis
               </Link>{' '}
-              &mdash; all metrics and deltas across datasets
+              - all metrics and deltas across datasets
             </li>
             <li>
               <Link href="/results/crp-2026/data-quality" className="text-blue-600 hover:underline">
                 Data Quality Pipeline
               </Link>{' '}
-              &mdash; quality checks and disposition waterfall
+              - quality checks and disposition waterfall
             </li>
             <li>
               <Link href="/results/crp-2026" className="text-blue-600 hover:underline">

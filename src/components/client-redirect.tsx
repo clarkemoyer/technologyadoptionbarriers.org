@@ -7,7 +7,9 @@ import Link from 'next/link'
 export default function ClientRedirect({ to }: { to: string }) {
   const router = useRouter()
   useEffect(() => {
-    router.replace(to)
+    const search = window.location.search
+    const hash = window.location.hash
+    router.replace(to + search + hash)
   }, [router, to])
 
   return (

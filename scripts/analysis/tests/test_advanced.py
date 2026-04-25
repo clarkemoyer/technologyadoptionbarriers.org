@@ -1,4 +1,4 @@
-"""Tests for tabs_v2_advanced.py — inferential statistics and PCA.
+"""Tests for tabs_v2_advanced.py - inferential statistics and PCA.
 
 Uses production-format synthetic CSV with all required columns.
 """

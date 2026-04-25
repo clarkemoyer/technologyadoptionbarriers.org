@@ -5,8 +5,8 @@ Generate disposition-summary.json from live Prolific API data + disposition CSV.
 Python port of scripts/generate-disposition-summary.ts.
 
 Combines:
-  1. Prolific API — real submission statuses (approved, rejected, returned, etc.)
-  2. Disposition CSV — triage results (CLEAN, AUTO-EXCLUDE, FLAG-*, etc.)
+  1. Prolific API - real submission statuses (approved, rejected, returned, etc.)
+  2. Disposition CSV - triage results (CLEAN, AUTO-EXCLUDE, FLAG-*, etc.)
 
 Output: src/data/disposition-summary.json (committed to repo, drives the dashboard page)
 
@@ -148,7 +148,7 @@ def main():
         if disposition == "AUTO-EXCLUDE" and prolific_status == "APPROVED":
             print(f"  ANOMALY: AUTO-EXCLUDE PID {pid} is APPROVED on Prolific")
 
-        # IRI pass rates — count only finished responses
+        # IRI pass rates - count only finished responses
         if disposition != "INCOMPLETE":
             finished_participants += 1
             iri_barrier_pass += int(row[iri_barrier_idx]) if iri_barrier_idx < len(row) and row[iri_barrier_idx].strip().isdigit() else 0

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""deidentify_tabs_data.py — De-identification pipeline for TABS V2 public dataset.
+"""deidentify_tabs_data.py - De-identification pipeline for TABS V2 public dataset.
 
 Implements the 5-step NIST Expert Determination protocol described in CRP
 Appendix L for preparing survey data for ScholarSphere deposit.
@@ -511,7 +511,7 @@ def main() -> int:
 
     print("\n" + "=" * 72)
     if verification_failed:
-        print("DE-IDENTIFICATION FAILED — PII detected in output")
+        print("DE-IDENTIFICATION FAILED - PII detected in output")
         print("  Public dataset was removed. Review the PII report and re-run.")
     else:
         print("DE-IDENTIFICATION COMPLETE")

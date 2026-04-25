@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import { TechnologyAdoptionSeriesResourcePage } from '../_resource-page'
 
 export const metadata: Metadata = {
-  title: 'Opening and closing scripts — Technology Adoption Teaching Series',
+  title: 'Opening and closing scripts - Technology Adoption Teaching Series',
   description:
     'Facilitator scripts for starting and ending the Technology Adoption Teaching Series workshop.',
 }

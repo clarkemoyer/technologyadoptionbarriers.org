@@ -5,14 +5,8 @@
     "Survey Item (Question Text)",
     "Measurement Objective",
     "Item Code / Variable Name",
-    "Variable Type",
     "Theoretical Grounding (Source)",
-    "APA Citation (Full)",
-    "RIS Citation",
-    "Source Link (URL/DOI)",
-    "Scale Type / Response Options",
-    "Qualtrics QID / Export Tag",
-    "Relationship to Other Items"
+    "APA Citation (Full)"
   ],
   "row_count": 57,
   "rows": [
@@ -22,14 +16,8 @@
       "Survey Item (Question Text)": "What is your primary C-suite role (or equivalent senior leadership role in a government/public sector organization) within the organization? (Select one)",
       "Measurement Objective": "Respondent's senior leadership position and functional area.",
       "Item Code / Variable Name": "A1 / Demo_Role",
-      "Variable Type": "Categorical (Nominal)",
       "Theoretical Grounding (Source)": "N/A (Demographic)",
-      "APA Citation (Full)": "N/A",
-      "RIS Citation": "N/A",
-      "Source Link (URL/DOI)": "N/A",
-      "Scale Type / Response Options": "Categorical (11 options): CEO (e.g., Agency Director, Secretary, Administrator, City/County Manager); CFO (e.g., Director of Finance, Budget Director, Comptroller); CIO (e.g., Director of IT); CISO (e.g., Director of Cybersecurity, Chief Security Officer); COO (e.g., Deputy Director, Chief of Staff, Assistant Secretary for Administration); CMO (e.g., Director of Communications, Public Affairs Officer, Chief Marketing & Communications Officer); CTO (e.g., Director of Technology/Innovation, Chief Scientist); CSO (e.g., Director of Strategic Planning, Policy Director, Chief Strategy Officer); CHRO (e.g., Chief Human Capital Officer (CHCO), Director of Human Resources, Personnel Director); CRO (e.g., Director of Budget/Finance, Director of Development/Fundraising, Head of Revenue Operations); Other (please specify)",
-      "Qualtrics QID / Export Tag": "QID205 / Q1_Role",
-      "Relationship to Other Items": ""
+      "APA Citation (Full)": "N/A"
     },
     {
       "Section / Primary Construct": "Section A: Demographics",
@@ -37,14 +25,8 @@
       "Survey Item (Question Text)": "How would you describe your level of involvement in strategic technology adoption decisions at your organization?",
       "Measurement Objective": "Respondent's level of involvement in strategic technology adoption decisions.",
       "Item Code / Variable Name": "A1b / Demo_DecisionAuth",
-      "Variable Type": "Categorical (Ordinal)",
-      "Theoretical Grounding (Source)": "Rogers (2003) — Innovation-Decision Types (Optional, Collective, Authority)",
-      "APA Citation (Full)": "Rogers, E. M. (2003). Diffusion of innovations (5th ed.). Free Press.",
-      "RIS Citation": "TY  - BOOK\nAU  - Rogers, Everett M.\nTI  - Diffusion of Innovations\nET  - 5th\nPY  - 2003\nPB  - Free Press\nCY  - New York, NY\nSN  - 9780743222099\nER  -",
-      "Source Link (URL/DOI)": "N/A",
-      "Scale Type / Response Options": "Categorical (5 options): I am the primary decision-maker for technology adoption in my area of responsibility; I am one of several key decision-makers who collectively decide on technology adoption; I provide significant input and recommendations, but final decisions are made by others; I have limited involvement — I primarily implement technology decisions made by leadership; I have no direct involvement in technology adoption decisions",
-      "Qualtrics QID / Export Tag": "QID237 / Q2_DecisionAuth",
-      "Relationship to Other Items": ""
+      "Theoretical Grounding (Source)": "Rogers (2003) - Innovation-Decision Types (Optional, Collective, Authority)",
+      "APA Citation (Full)": "Rogers, E. M. (2003). Diffusion of innovations (5th ed.). Free Press."
     },
     {
       "Section / Primary Construct": "Section A: Demographics",
@@ -52,14 +34,8 @@
       "Survey Item (Question Text)": "What is the primary industry of your organization?",
       "Measurement Objective": "Primary industry sector of the organization.",
       "Item Code / Variable Name": "A2 / Demo_Industry",
-      "Variable Type": "Categorical (Nominal)",
       "Theoretical Grounding (Source)": "N/A (Demographic)",
-      "APA Citation (Full)": "N/A",
-      "RIS Citation": "N/A",
-      "Source Link (URL/DOI)": "N/A",
-      "Scale Type / Response Options": "Categorical (26 options): Federal Government/Defense; State Government; Local Government (City/County/Municipality); Public Education (K-12/Higher Ed); Non-Profit Organization (Non-Governmental); Public Healthcare; Agriculture, Forestry, Fishing and Hunting; Mining, Quarrying, and Oil and Gas Extraction; Utilities; Construction; Manufacturing; Wholesale Trade; Retail Trade; Transportation and Warehousing; Information; Finance and Insurance; Real Estate and Rental and Leasing; Professional, Scientific, and Technical Services; Management of Companies and Enterprises; Administrative and Support and Waste Management and Remediation Services; Educational Services (Private); Health Care and Social Assistance (Private); Arts, Entertainment, and Recreation; Accommodation and Food Services; Other Services (except Public Administration); Other (please specify)",
-      "Qualtrics QID / Export Tag": "QID206 / Q3_Industry",
-      "Relationship to Other Items": ""
+      "APA Citation (Full)": "N/A"
     },
     {
       "Section / Primary Construct": "Section A: Demographics",
@@ -67,14 +43,8 @@
       "Survey Item (Question Text)": "What is the approximate number of employees in your organization globally?",
       "Measurement Objective": "Organization size by global employee count.",
       "Item Code / Variable Name": "A3 / Demo_OrgSize_Employees",
-      "Variable Type": "Categorical (Ordinal)",
       "Theoretical Grounding (Source)": "N/A (Demographic)",
-      "APA Citation (Full)": "N/A",
-      "RIS Citation": "N/A",
-      "Source Link (URL/DOI)": "N/A",
-      "Scale Type / Response Options": "Categorical (6 options): <100; 100-499; 500-999; 1000-4999; 5000-9999; 10000+",
-      "Qualtrics QID / Export Tag": "QID207 / Q4_OrgSize",
-      "Relationship to Other Items": ""
+      "APA Citation (Full)": "N/A"
     },
     {
       "Section / Primary Construct": "Section A: Demographics",
@@ -82,14 +52,8 @@
       "Survey Item (Question Text)": "What is your organization's primary profit model?",
       "Measurement Objective": "For-Profit, Non-Profit, or Government/Public Sector classification.",
       "Item Code / Variable Name": "A4 / Demo_ProfitModel",
-      "Variable Type": "Categorical (Nominal)",
       "Theoretical Grounding (Source)": "N/A (Demographic)",
-      "APA Citation (Full)": "N/A",
-      "RIS Citation": "N/A",
-      "Source Link (URL/DOI)": "N/A",
-      "Scale Type / Response Options": "Categorical (3 options): For-Profit; Non-Profit; Government/Public Sector",
-      "Qualtrics QID / Export Tag": "QID208 / Q5_ProfitModel",
-      "Relationship to Other Items": ""
+      "APA Citation (Full)": "N/A"
     },
     {
       "Section / Primary Construct": "Section A: Demographics",
@@ -97,14 +61,8 @@
       "Survey Item (Question Text)": "What was your organization's approximate annual revenue (or annual operating budget for government/public sector) in the last fiscal year?",
       "Measurement Objective": "Annual revenue or operating budget range.",
       "Item Code / Variable Name": "A5 / Demo_AnnualRevenue_Budget",
-      "Variable Type": "Categorical (Ordinal)",
       "Theoretical Grounding (Source)": "N/A (Demographic)",
-      "APA Citation (Full)": "N/A",
-      "RIS Citation": "N/A",
-      "Source Link (URL/DOI)": "N/A",
-      "Scale Type / Response Options": "Categorical (6 options): <$10M; $10M-$49M; $50M-$99M; $100M-$499M; $500M-$999M; $1B+",
-      "Qualtrics QID / Export Tag": "QID209 / Q6_RevenueBudget",
-      "Relationship to Other Items": ""
+      "APA Citation (Full)": "N/A"
     },
     {
       "Section / Primary Construct": "Section A: Demographics",
@@ -112,14 +70,8 @@
       "Survey Item (Question Text)": "What was your personal area of responsibilities approximate annual operating budget in the last fiscal year?",
       "Measurement Objective": "Respondent's personal area operating budget range.",
       "Item Code / Variable Name": "A6 / Demo_PersonalBudget",
-      "Variable Type": "Categorical (Ordinal)",
       "Theoretical Grounding (Source)": "N/A (Demographic)",
-      "APA Citation (Full)": "N/A",
-      "RIS Citation": "N/A",
-      "Source Link (URL/DOI)": "N/A",
-      "Scale Type / Response Options": "Categorical (6 options): <$10M; $10M-$49M; $50M-$99M; $100M-$499M; $500M-$999M; $1B+",
-      "Qualtrics QID / Export Tag": "QID231 / Q7_PersonalBudget",
-      "Relationship to Other Items": ""
+      "APA Citation (Full)": "N/A"
     },
     {
       "Section / Primary Construct": "Section A: Demographics",
@@ -127,14 +79,8 @@
       "Survey Item (Question Text)": "What is your organization's primary geographic area of operations?",
       "Measurement Objective": "Primary geographic area of operations (U.S. vs. International).",
       "Item Code / Variable Name": "A7 / Demo_GeoArea",
-      "Variable Type": "Categorical (Nominal)",
       "Theoretical Grounding (Source)": "N/A (Demographic)",
-      "APA Citation (Full)": "N/A",
-      "RIS Citation": "N/A",
-      "Source Link (URL/DOI)": "N/A",
-      "Scale Type / Response Options": "Categorical (2 options): United States; International",
-      "Qualtrics QID / Export Tag": "QID210 / Q8_GeoScope",
-      "Relationship to Other Items": ""
+      "APA Citation (Full)": "N/A"
     },
     {
       "Section / Primary Construct": "Section A: Demographics",
@@ -142,14 +88,8 @@
       "Survey Item (Question Text)": "What is your organization's primary geographic scale of operations?",
       "Measurement Objective": "Geographic scale of operations (Local to International).",
       "Item Code / Variable Name": "A8 / Demo_GeoScale",
-      "Variable Type": "Categorical (Ordinal)",
       "Theoretical Grounding (Source)": "N/A (Demographic)",
-      "APA Citation (Full)": "N/A",
-      "RIS Citation": "N/A",
-      "Source Link (URL/DOI)": "N/A",
-      "Scale Type / Response Options": "Categorical (4 options): Local; Regional; National; International",
-      "Qualtrics QID / Export Tag": "QID232 / Q9_GeoScale",
-      "Relationship to Other Items": ""
+      "APA Citation (Full)": "N/A"
     },
     {
       "Section / Primary Construct": "Section B: Perceived Technology Adoption Barriers",
@@ -157,14 +97,8 @@
       "Survey Item (Question Text)": "Resistance to change among employees or middle management.",
       "Measurement Objective": "Severity of employee/middle management resistance to adopting new technologies.",
       "Item Code / Variable Name": "B1 / Barrier_ResistChangeEmp",
-      "Variable Type": "Ordinal (Likert-type)",
       "Theoretical Grounding (Source)": "Kotter (1995); Tornatzky & Fleischer (1990)",
-      "APA Citation (Full)": "Rogers, E. M. (1962). Diffusion of innovations. Free Press. ISBN: 978-0-02-926670-0",
-      "RIS Citation": "TY - BOOK\\nAU - Rogers, Everett M.\\nPY - 2003\\nTI - Diffusion of innovations\\nED - 5th\\nPB - Free Press\\nER -",
-      "Source Link (URL/DOI)": "(e.g., https://www.amazon.com/Diffusion-Innovations-5th-Everett-Rogers/dp/0743222091)",
-      "Scale Type / Response Options": "5-point Barrier Severity: Not a Barrier; Minor Barrier; Moderate Barrier; Significant Barrier; Major Barrier + Don't Know",
-      "Qualtrics QID / Export Tag": "QID213 / Q10-28_Barriers_1",
-      "Relationship to Other Items": "maps to B1"
+      "APA Citation (Full)": "Kotter, J. P. (1995). Leading change: Why transformation efforts fail. Harvard Business Review, 73(2), 59-67. || Tornatzky, L. G., & Fleischer, M. (1990). The processes of technological innovation. Lexington Books."
     },
     {
       "Section / Primary Construct": "Section B: Perceived Technology Adoption Barriers",
@@ -172,14 +106,8 @@
       "Survey Item (Question Text)": "Lack of support or clear vision from top leadership (including the board, e.g., governing body, oversight committee).",
       "Measurement Objective": "Severity of lack of top leadership support or clear technology vision.",
       "Item Code / Variable Name": "B2 / Barrier_LackLeadershipSupport",
-      "Variable Type": "Ordinal (Likert-type)",
       "Theoretical Grounding (Source)": "Kotter (1995); Jeyaraj et al. (2006)",
-      "APA Citation (Full)": "Rogers, E. M. (1962). Diffusion of innovations. Free Press. ISBN: 978-0-02-926670-0",
-      "RIS Citation": "TY - BOOK\\nAU - Rogers, Everett M.\\nPY - 2003\\nTI - Diffusion of innovations\\nED - 5th\\nPB - Free Press\\nER -",
-      "Source Link (URL/DOI)": "(e.g., https://www.amazon.com/Diffusion-Innovations-5th-Everett-Rogers/dp/0743222091)",
-      "Scale Type / Response Options": "5-point Barrier Severity: Not a Barrier; Minor Barrier; Moderate Barrier; Significant Barrier; Major Barrier + Don't Know",
-      "Qualtrics QID / Export Tag": "QID213 / Q10-28_Barriers_2",
-      "Relationship to Other Items": "maps to B2"
+      "APA Citation (Full)": "Kotter, J. P. (1995). Leading change: Why transformation efforts fail. Harvard Business Review, 73(2), 59-67. || Jeyaraj, A., Rottman, J. W., & Lacity, M. C. (2006). A review of the predictors, linkages, and biases in IT innovation adoption research. Journal of Information Technology, 21(1), 1-23."
     },
     {
       "Section / Primary Construct": "Section B: Perceived Technology Adoption Barriers",
@@ -187,14 +115,8 @@
       "Survey Item (Question Text)": "Organizational culture that discourages risk-taking or experimentation with new technologies.",
       "Measurement Objective": "Severity of risk-averse organizational culture as a technology adoption barrier.",
       "Item Code / Variable Name": "B3 / Barrier_CultureRiskAverse",
-      "Variable Type": "Ordinal (Likert-type)",
       "Theoretical Grounding (Source)": "Hofstede (1980); Cameron & Quinn (2006)",
-      "APA Citation (Full)": "Schein, E. H. (2010). Organizational culture and leadership (4th ed.). John Wiley & Sons.",
-      "RIS Citation": "TY - BOOK\\nAU - Schein, Edgar H.\\nPY - 2010\\nTI - Organizational culture and leadership\\nED - 4th\\nPB - John Wiley & Sons\\nER -",
-      "Source Link (URL/DOI)": "(e.g., https://www.amazon.com/Organizational-Culture-Leadership-Jossey-Bass-Business/dp/0470185864)",
-      "Scale Type / Response Options": "5-point Barrier Severity: Not a Barrier; Minor Barrier; Moderate Barrier; Significant Barrier; Major Barrier + Don't Know",
-      "Qualtrics QID / Export Tag": "QID213 / Q10-28_Barriers_3",
-      "Relationship to Other Items": "maps to B3"
+      "APA Citation (Full)": "Hofstede, G. (1980). Culture's consequences: International differences in work-related values. Sage Publications. || Cameron, K. S., & Quinn, R. E. (2006). Diagnosing and changing organizational culture: Based on the competing values framework (Rev. ed.). Jossey-Bass."
     },
     {
       "Section / Primary Construct": "Section B: Perceived Technology Adoption Barriers",
@@ -202,14 +124,8 @@
       "Survey Item (Question Text)": "Insufficient skills or expertise within the workforce to utilize new technologies effectively.",
       "Measurement Objective": "Severity of workforce skills/expertise gap for utilizing new technologies.",
       "Item Code / Variable Name": "B4 / Barrier_LackSkillsExpertise",
-      "Variable Type": "Ordinal (Likert-type)",
       "Theoretical Grounding (Source)": "Davis (1989); Venkatesh et al. (2003)",
-      "APA Citation (Full)": "Barney, J. (1991). Firm resources and sustained competitive advantage. Journal of Management, 17(1), 99-120.",
-      "RIS Citation": "TY - JOUR\\nAU - Barney, J.\\nPY - 1991\\nTI - Firm resources and sustained competitive advantage\\nJO - Journal of Management\\nVL - 17\\nIS - 1\\nSP - 99\\nEP - 120\\nDO - 10.1177/014920639101700108\\nER -",
-      "Source Link (URL/DOI)": "https://doi.org/10.1177/014920639101700108",
-      "Scale Type / Response Options": "5-point Barrier Severity: Not a Barrier; Minor Barrier; Moderate Barrier; Significant Barrier; Major Barrier + Don't Know",
-      "Qualtrics QID / Export Tag": "QID213 / Q10-28_Barriers_4",
-      "Relationship to Other Items": "maps to B4"
+      "APA Citation (Full)": "Davis, F. D. (1989). Perceived usefulness, perceived ease of use, and user acceptance of information technology. MIS Quarterly, 13(3), 319-340. || Venkatesh, V., Morris, M. G., Davis, G. B., & Davis, F. D. (2003). User acceptance of information technology: Toward a unified view. MIS Quarterly, 27(3), 425-478."
     },
     {
       "Section / Primary Construct": "Section B: Perceived Technology Adoption Barriers",
@@ -217,14 +133,8 @@
       "Survey Item (Question Text)": "Inadequate training programs for new technologies.",
       "Measurement Objective": "Severity of inadequate technology training programs as a barrier.",
       "Item Code / Variable Name": "B5 / Barrier_InadequateTraining",
-      "Variable Type": "Ordinal (Likert-type)",
       "Theoretical Grounding (Source)": "Rogers (2003); Venkatesh et al. (2003)",
-      "APA Citation (Full)": "Venkatesh, V., Thong, J. Y. L., & Xu, X. (2012). Consumer acceptance and use of information technology: extending the unified theory of acceptance and use of technology. MIS Quarterly, 36(1), 157-178.",
-      "RIS Citation": "TY - JOUR\\nAU - Venkatesh, Viswanath\\nAU - Thong, James Y. L.\\nAU - Xu, Xin\\nPY - 2012\\nTI - Consumer acceptance and use of information technology: extending the unified theory of acceptance and use of technology\\nJO - MIS Quarterly\\nVL - 36\\nIS - 1\\nSP - 157\\nEP - 178\\nDO - 10.2307/41410412\\nER -",
-      "Source Link (URL/DOI)": "https://doi.org/10.2307/41410412 or https://misq.org/consumer-acceptance-and-use-of-information-technology-extending-the-unified-theory-of-acceptance-and-use-of-technology.html",
-      "Scale Type / Response Options": "5-point Barrier Severity: Not a Barrier; Minor Barrier; Moderate Barrier; Significant Barrier; Major Barrier + Don't Know",
-      "Qualtrics QID / Export Tag": "QID213 / Q10-28_Barriers_5",
-      "Relationship to Other Items": "maps to B5"
+      "APA Citation (Full)": "Rogers, E. M. (2003). Diffusion of innovations (5th ed.). Free Press. || Venkatesh, V., Morris, M. G., Davis, G. B., & Davis, F. D. (2003). User acceptance of information technology: Toward a unified view. MIS Quarterly, 27(3), 425-478."
     },
     {
       "Section / Primary Construct": "Section B: Perceived Technology Adoption Barriers",
@@ -232,14 +142,8 @@
       "Survey Item (Question Text)": "High cost associated with acquiring or implementing new technologies.",
       "Measurement Objective": "Severity of high costs associated with technology acquisition and implementation.",
       "Item Code / Variable Name": "B6 / Barrier_HighCost",
-      "Variable Type": "Ordinal (Likert-type)",
       "Theoretical Grounding (Source)": "Tornatzky & Fleischer (1990); Zhu et al. (2006)",
-      "APA Citation (Full)": "Tornatzky, L. G., & Fleischer, M. (1990). The processes of technological innovation. Lexington Books.",
-      "RIS Citation": "TY - BOOK\\nAU - Tornatzky, Louis G.\\nAU - Fleischer, Mitchell\\nPY - 1990\\nTI - The processes of technological innovation\\nPB - Lexington Books\\nER -",
-      "Source Link (URL/DOI)": "(e.g., https://www.amazon.com/Processes-Technological-Innovation-Louis-Tornatzky/dp/0669203483)",
-      "Scale Type / Response Options": "5-point Barrier Severity: Not a Barrier; Minor Barrier; Moderate Barrier; Significant Barrier; Major Barrier + Don't Know",
-      "Qualtrics QID / Export Tag": "QID213 / Q10-28_Barriers_6",
-      "Relationship to Other Items": "maps to B6"
+      "APA Citation (Full)": "Tornatzky, L. G., & Fleischer, M. (1990). The processes of technological innovation. Lexington Books. || Zhu, K., Kraemer, K. L., & Xu, S. (2006). The process of innovation assimilation by firms in different countries: A technology diffusion perspective on e-business. Management Science, 52(10), 1557-1576."
     },
     {
       "Section / Primary Construct": "Section B: Perceived Technology Adoption Barriers",
@@ -247,14 +151,8 @@
       "Survey Item (Question Text)": "Difficulty integrating new technologies with existing legacy systems.",
       "Measurement Objective": "Severity of legacy system integration challenges.",
       "Item Code / Variable Name": "B7 / Barrier_IntegrationDiff",
-      "Variable Type": "Ordinal (Likert-type)",
       "Theoretical Grounding (Source)": "Ross et al. (2006); Weill & Ross (2004)",
-      "APA Citation (Full)": "Rogers, E. M. (1962). Diffusion of innovations. Free Press. ISBN: 978-0-02-926670-0",
-      "RIS Citation": "TY - BOOK\\nAU - Rogers, Everett M.\\nPY - 2003\\nTI - Diffusion of innovations\\nED - 5th\\nPB - Free Press\\nER -",
-      "Source Link (URL/DOI)": "(e.g., https://www.amazon.com/Diffusion-Innovations-5th-Everett-Rogers/dp/0743222091)",
-      "Scale Type / Response Options": "5-point Barrier Severity: Not a Barrier; Minor Barrier; Moderate Barrier; Significant Barrier; Major Barrier + Don't Know",
-      "Qualtrics QID / Export Tag": "QID213 / Q10-28_Barriers_7",
-      "Relationship to Other Items": "maps to B7"
+      "APA Citation (Full)": "Ross, J. W., Weill, P., & Robertson, D. C. (2014). Enterprise architecture as strategy: Creating a foundation for business execution. Harvard Business School Press. (Original work published 2006) || Weill, P., & Ross, J. W. (2004). IT governance: How top performers manage IT decision rights for superior results. Harvard Business School Press."
     },
     {
       "Section / Primary Construct": "Section B: Perceived Technology Adoption Barriers",
@@ -262,14 +160,8 @@
       "Survey Item (Question Text)": "Inadequate IT infrastructure (e.g., network, storage, computing power) to support new technologies.",
       "Measurement Objective": "Severity of inadequate IT infrastructure (network, storage, computing) as a barrier.",
       "Item Code / Variable Name": "B8 / Barrier_InadequateInfra",
-      "Variable Type": "Ordinal (Likert-type)",
       "Theoretical Grounding (Source)": "Weill & Ross (2004); Zhu et al. (2006)",
-      "APA Citation (Full)": "Tornatzky, L. G., & Fleischer, M. (1990). The processes of technological innovation. Lexington Books.",
-      "RIS Citation": "TY - BOOK\\nAU - Tornatzky, Louis G.\\nAU - Fleischer, Mitchell\\nPY - 1990\\nTI - The processes of technological innovation\\nPB - Lexington Books\\nER -",
-      "Source Link (URL/DOI)": "(e.g., https://www.amazon.com/Processes-Technological-Innovation-Louis-Tornatzky/dp/0669203483)",
-      "Scale Type / Response Options": "5-point Barrier Severity: Not a Barrier; Minor Barrier; Moderate Barrier; Significant Barrier; Major Barrier + Don't Know",
-      "Qualtrics QID / Export Tag": "QID213 / Q10-28_Barriers_8",
-      "Relationship to Other Items": "maps to B8"
+      "APA Citation (Full)": "Weill, P., & Ross, J. W. (2004). IT governance: How top performers manage IT decision rights for superior results. Harvard Business School Press. || Zhu, K., Kraemer, K. L., & Xu, S. (2006). The process of innovation assimilation by firms in different countries: A technology diffusion perspective on e-business. Management Science, 52(10), 1557-1576."
     },
     {
       "Section / Primary Construct": "Section B: Perceived Technology Adoption Barriers",
@@ -277,14 +169,8 @@
       "Survey Item (Question Text)": "Difficulty demonstrating clear value (e.g., mission impact, public value, cost-effectiveness) for new technology investments.",
       "Measurement Objective": "Severity of difficulty demonstrating clear value for technology investments.",
       "Item Code / Variable Name": "B9 / Barrier_ValueDemoDiff",
-      "Variable Type": "Ordinal (Likert-type)",
       "Theoretical Grounding (Source)": "DeLone & McLean (2003); Brynjolfsson (1993)",
-      "APA Citation (Full)": "Venkatesh, V., Thong, J. Y. L., & Xu, X. (2012). Consumer acceptance and use of information technology: extending the unified theory of acceptance and use of technology. MIS Quarterly, 36(1), 157-178.",
-      "RIS Citation": "TY - JOUR\\nAU - Venkatesh, Viswanath\\nAU - Thong, James Y. L.\\nAU - Xu, Xin\\nPY - 2012\\nTI - Consumer acceptance and use of information technology: extending the unified theory of acceptance and use of technology\\nJO - MIS Quarterly\\nVL - 36\\nIS - 1\\nSP - 157\\nEP - 178\\nDO - 10.2307/41410412\\nER -",
-      "Source Link (URL/DOI)": "https://doi.org/10.2307/41410412 or https://misq.org/consumer-acceptance-and-use-of-information-technology-extending-the-unified-theory-of-acceptance-and-use-of-technology.html",
-      "Scale Type / Response Options": "5-point Barrier Severity: Not a Barrier; Minor Barrier; Moderate Barrier; Significant Barrier; Major Barrier + Don't Know",
-      "Qualtrics QID / Export Tag": "QID213 / Q10-28_Barriers_9",
-      "Relationship to Other Items": "maps to B9"
+      "APA Citation (Full)": "DeLone, W. H., & McLean, E. R. (2003). The DeLone and McLean model of information systems success: A ten-year update. Journal of Management Information Systems, 19(4), 9-30. || Brynjolfsson, E. (1993). The productivity paradox of information technology. Communications of the ACM, 36(12), 66-77."
     },
     {
       "Section / Primary Construct": "Section B: Perceived Technology Adoption Barriers",
@@ -292,14 +178,8 @@
       "Survey Item (Question Text)": "Lack of a clear strategy or roadmap for technology adoption.",
       "Measurement Objective": "Severity of lacking a clear technology adoption strategy or roadmap.",
       "Item Code / Variable Name": "B10 / Barrier_LackStrategy",
-      "Variable Type": "Ordinal (Likert-type)",
       "Theoretical Grounding (Source)": "Henderson & Venkatraman (1993); Ross et al. (2006)",
-      "APA Citation (Full)": "Tornatzky, L. G., & Fleischer, M. (1990). The processes of technological innovation. Lexington Books.",
-      "RIS Citation": "TY - BOOK\\nAU - Tornatzky, Louis G.\\nAU - Fleischer, Mitchell\\nPY - 1990\\nTI - The processes of technological innovation\\nPB - Lexington Books\\nER -",
-      "Source Link (URL/DOI)": "(e.g., https://www.amazon.com/Processes-Technological-Innovation-Louis-Tornatzky/dp/0669203483)",
-      "Scale Type / Response Options": "5-point Barrier Severity: Not a Barrier; Minor Barrier; Moderate Barrier; Significant Barrier; Major Barrier + Don't Know",
-      "Qualtrics QID / Export Tag": "QID213 / Q10-28_Barriers_10",
-      "Relationship to Other Items": "maps to B10"
+      "APA Citation (Full)": "Henderson, J. C., & Venkatraman, N. (1993). Strategic alignment: Leveraging information technology for transforming organizations. IBM Systems Journal, 32(1), 472-484. || Ross, J. W., Weill, P., & Robertson, D. C. (2014). Enterprise architecture as strategy: Creating a foundation for business execution. Harvard Business School Press. (Original work published 2006)"
     },
     {
       "Section / Primary Construct": "Section B: Perceived Technology Adoption Barriers",
@@ -307,14 +187,8 @@
       "Survey Item (Question Text)": "Insufficient governance processes for selecting and managing new technologies.",
       "Measurement Objective": "Severity of insufficient technology governance processes.",
       "Item Code / Variable Name": "B11 / Barrier_LackGovernance",
-      "Variable Type": "Ordinal (Likert-type)",
       "Theoretical Grounding (Source)": "Weill & Ross (2004); COBIT (ISACA)",
-      "APA Citation (Full)": "Weill, P., & Ross, J. W. (2004). IT governance: How top performers manage IT decision rights for superior results. Harvard Business Press.",
-      "RIS Citation": "TY - BOOK\\nAU - Weill, Peter\\nAU - Ross, Jeanne W.\\nPY - 2004\\nTI - IT governance: How top performers manage IT decision rights for superior results\\nPB - Harvard Business Press\\nER -",
-      "Source Link (URL/DOI)": "(e.g., https://www.amazon.com/Governance-Performers-Decision-Superior-Results/dp/1591392535)",
-      "Scale Type / Response Options": "5-point Barrier Severity: Not a Barrier; Minor Barrier; Moderate Barrier; Significant Barrier; Major Barrier + Don't Know",
-      "Qualtrics QID / Export Tag": "QID213 / Q10-28_Barriers_11",
-      "Relationship to Other Items": "maps to B11"
+      "APA Citation (Full)": "Weill, P., & Ross, J. W. (2004). IT governance: How top performers manage IT decision rights for superior results. Harvard Business School Press. || ISACA. (2019). COBIT 2019 framework: Governance and management objectives. ISACA."
     },
     {
       "Section / Primary Construct": "Section B: Perceived Technology Adoption Barriers",
@@ -322,14 +196,8 @@
       "Survey Item (Question Text)": "New technologies disrupting existing workflows or processes significantly.",
       "Measurement Objective": "Severity of workflow/process disruption from new technology adoption.",
       "Item Code / Variable Name": "B12 / Barrier_WorkflowDisrupt",
-      "Variable Type": "Ordinal (Likert-type)",
       "Theoretical Grounding (Source)": "Davenport (1993); Hammer & Champy (1993)",
-      "APA Citation (Full)": "Rogers, E. M. (1962). Diffusion of innovations. Free Press. ISBN: 978-0-02-926670-0",
-      "RIS Citation": "TY - BOOK\\nAU - Rogers, Everett M.\\nPY - 2003\\nTI - Diffusion of innovations\\nED - 5th\\nPB - Free Press\\nER -",
-      "Source Link (URL/DOI)": "(e.g., https://www.amazon.com/Diffusion-Innovations-5th-Everett-Rogers/dp/0743222091)",
-      "Scale Type / Response Options": "5-point Barrier Severity: Not a Barrier; Minor Barrier; Moderate Barrier; Significant Barrier; Major Barrier + Don't Know",
-      "Qualtrics QID / Export Tag": "QID213 / Q10-28_Barriers_12",
-      "Relationship to Other Items": "maps to B12"
+      "APA Citation (Full)": "Davenport, T. H. (1993). Process innovation: Reengineering work through information technology. Harvard Business School Press. || Hammer, M., & Champy, J. (1993). Reengineering the corporation: A manifesto for business revolution. HarperBusiness."
     },
     {
       "Section / Primary Construct": "Section B: Perceived Technology Adoption Barriers",
@@ -337,14 +205,8 @@
       "Survey Item (Question Text)": "Concerns about cybersecurity risks associated with new technologies.",
       "Measurement Objective": "Severity of cybersecurity risk concerns as a technology adoption barrier.",
       "Item Code / Variable Name": "B13 / Barrier_CyberRisk",
-      "Variable Type": "Ordinal (Likert-type)",
       "Theoretical Grounding (Source)": "NIST CSF; ISO 27001",
-      "APA Citation (Full)": "Featherman, M. S., & Pavlou, P. A. (2003). Predicting e-services adoption: a perceived risk facets perspective. International Journal of Human-Computer Studies, 59(4), 451-474.",
-      "RIS Citation": "TY - JOUR\\nAU - Featherman, Mauricio S.\\nAU - Pavlou, Paul A.\\nPY - 2003\\nTI - Predicting e-services adoption: a perceived risk facets perspective\\nJO - International Journal of Human-Computer Studies\\nVL - 59\\nIS - 4\\nSP - 451\\nEP - 474\\nDO - 10.1016/S1071-5819(03)00111-X\\nER -",
-      "Source Link (URL/DOI)": "https://doi.org/10.1016/S1071-5819(03)00111-X",
-      "Scale Type / Response Options": "5-point Barrier Severity: Not a Barrier; Minor Barrier; Moderate Barrier; Significant Barrier; Major Barrier + Don't Know",
-      "Qualtrics QID / Export Tag": "QID213 / Q10-28_Barriers_13",
-      "Relationship to Other Items": "maps to B13"
+      "APA Citation (Full)": "National Institute of Standards and Technology. (2024). NIST Cybersecurity Framework (CSF) 2.0 (NIST CSWP 29). U.S. Department of Commerce. || International Organization for Standardization. (2022). Information security, cybersecurity and privacy protection - Information security management systems - Requirements (ISO/IEC 27001:2022)."
     },
     {
       "Section / Primary Construct": "Section B: Perceived Technology Adoption Barriers",
@@ -352,14 +214,8 @@
       "Survey Item (Question Text)": "Concerns about data privacy compliance related to new technologies.",
       "Measurement Objective": "Severity of data privacy compliance concerns as a technology adoption barrier.",
       "Item Code / Variable Name": "B14 / Barrier_PrivacyRisk",
-      "Variable Type": "Ordinal (Likert-type)",
       "Theoretical Grounding (Source)": "GDPR frameworks; NIST Privacy Framework",
-      "APA Citation (Full)": "Dinev, T., & Hart, P. (2006). An extended privacy calculus model for e-commerce transactions. Information Systems Research, 17(1), 61-80.",
-      "RIS Citation": "TY - JOUR\\nAU - Dinev, Tamara\\nAU - Hart, Paul\\nPY - 2006\\nTI - An extended privacy calculus model for e-commerce transactions\\nJO - Information Systems Research\\nVL - 17\\nIS - 1\\nSP - 61\\nEP - 80\\nDO - 10.1287/isre.1050.0080\\nER -",
-      "Source Link (URL/DOI)": "https://doi.org/10.1287/isre.1050.0080",
-      "Scale Type / Response Options": "5-point Barrier Severity: Not a Barrier; Minor Barrier; Moderate Barrier; Significant Barrier; Major Barrier + Don't Know",
-      "Qualtrics QID / Export Tag": "QID213 / Q10-28_Barriers_14",
-      "Relationship to Other Items": "maps to B14"
+      "APA Citation (Full)": "European Parliament & Council of the European Union. (2016). Regulation (EU) 2016/679 of the European Parliament and of the Council (General Data Protection Regulation). Official Journal of the European Union, L 119, 1-88. || National Institute of Standards and Technology. (2020). NIST Privacy Framework: A tool for improving privacy through enterprise risk management (Version 1.0). U.S. Department of Commerce."
     },
     {
       "Section / Primary Construct": "Section B: Perceived Technology Adoption Barriers",
@@ -367,14 +223,8 @@
       "Survey Item (Question Text)": "Lack of trust in the reliability or performance of new technologies or vendors.",
       "Measurement Objective": "Severity of lack of trust in technology/vendor reliability.",
       "Item Code / Variable Name": "B15 / Barrier_LackTrustTechVendor",
-      "Variable Type": "Ordinal (Likert-type)",
       "Theoretical Grounding (Source)": "Mayer et al. (1995); Gefen et al. (2003)",
-      "APA Citation (Full)": "McKnight, D. H., Choudhury, V., & Kacmar, C. (2002). Developing and validating trust measures for e-commerce: An integrative typology. Information Systems Research, 13(3), 334-359.",
-      "RIS Citation": "TY - JOUR\\nAU - McKnight, D. Harrison\\nAU - Choudhury, Vivek\\nAU - Kacmar, Charles\\nPY - 2002\\nTI - Developing and validating trust measures for e-commerce: An integrative typology\\nJO - Information Systems Research\\nVL - 13\\nIS - 3\\nSP - 334\\nEP - 359\\nDO - 10.1287/isre.13.3.334.81\\nER -",
-      "Source Link (URL/DOI)": "https://doi.org/10.1287/isre.13.3.334.81",
-      "Scale Type / Response Options": "5-point Barrier Severity: Not a Barrier; Minor Barrier; Moderate Barrier; Significant Barrier; Major Barrier + Don't Know",
-      "Qualtrics QID / Export Tag": "QID213 / Q10-28_Barriers_15",
-      "Relationship to Other Items": "maps to B15"
+      "APA Citation (Full)": "Mayer, R. C., Davis, J. H., & Schoorman, F. D. (1995). An integrative model of organizational trust. Academy of Management Review, 20(3), 709-734. || Gefen, D., Karahanna, E., & Straub, D. W. (2003). Trust and TAM in online shopping: An integrated model. MIS Quarterly, 27(1), 51-90."
     },
     {
       "Section / Primary Construct": "Section B: Perceived Technology Adoption Barriers",
@@ -382,14 +232,8 @@
       "Survey Item (Question Text)": "Uncertainty or complexity related to regulatory requirements.",
       "Measurement Objective": "Severity of regulatory uncertainty or complexity as a barrier.",
       "Item Code / Variable Name": "B16 / Barrier_RegulatoryUncertain",
-      "Variable Type": "Ordinal (Likert-type)",
       "Theoretical Grounding (Source)": "North (1990); Blind (2012)",
-      "APA Citation (Full)": "Tornatzky, L. G., & Fleischer, M. (1990). The processes of technological innovation. Lexington Books.",
-      "RIS Citation": "TY - BOOK\\nAU - Tornatzky, Louis G.\\nAU - Fleischer, Mitchell\\nPY - 1990\\nTI - The processes of technological innovation\\nPB - Lexington Books\\nER -",
-      "Source Link (URL/DOI)": "(e.g., https://www.amazon.com/Processes-Technological-Innovation-Louis-Tornatzky/dp/0669203483)",
-      "Scale Type / Response Options": "5-point Barrier Severity: Not a Barrier; Minor Barrier; Moderate Barrier; Significant Barrier; Major Barrier + Don't Know",
-      "Qualtrics QID / Export Tag": "QID213 / Q10-28_Barriers_16",
-      "Relationship to Other Items": "maps to B16"
+      "APA Citation (Full)": "North, D. C. (1990). Institutions, institutional change and economic performance. Cambridge University Press. || Blind, K. (2012). The influence of regulations on innovation: A quantitative assessment for OECD countries. Research Policy, 41(2), 391-400."
     },
     {
       "Section / Primary Construct": "Section B: Perceived Technology Adoption Barriers",
@@ -397,14 +241,8 @@
       "Survey Item (Question Text)": "Pressure to adopt technology due to external factors (e.g., mandates, public expectations, peer agency actions), without adequate internal readiness.",
       "Measurement Objective": "Severity of external pressures to adopt technology without adequate readiness.",
       "Item Code / Variable Name": "B17 / Barrier_ExternalPressure",
-      "Variable Type": "Ordinal (Likert-type)",
       "Theoretical Grounding (Source)": "DiMaggio & Powell (1983); Scott (2001)",
-      "APA Citation (Full)": "Tornatzky, L. G., & Fleischer, M. (1990). The processes of technological innovation. Lexington Books.",
-      "RIS Citation": "TY - BOOK\\nAU - Tornatzky, Louis G.\\nAU - Fleischer, Mitchell\\nPY - 1990\\nTI - The processes of technological innovation\\nPB - Lexington Books\\nER -",
-      "Source Link (URL/DOI)": "(e.g., https://www.amazon.com/Processes-Technological-Innovation-Louis-Tornatzky/dp/0669203483)",
-      "Scale Type / Response Options": "5-point Barrier Severity: Not a Barrier; Minor Barrier; Moderate Barrier; Significant Barrier; Major Barrier + Don't Know",
-      "Qualtrics QID / Export Tag": "QID213 / Q10-28_Barriers_17",
-      "Relationship to Other Items": "maps to B17"
+      "APA Citation (Full)": "DiMaggio, P. J., & Powell, W. W. (1983). The iron cage revisited: Institutional isomorphism and collective rationality in organizational fields. American Sociological Review, 48(2), 147-160. || Scott, W. R. (2014). Institutions and organizations: Ideas, interests, and identities (4th ed.). Sage Publications."
     },
     {
       "Section / Primary Construct": "Section B: Perceived Technology Adoption Barriers",
@@ -412,14 +250,8 @@
       "Survey Item (Question Text)": "Difficulty finding reliable technology vendors or partners.",
       "Measurement Objective": "Severity of difficulty finding reliable technology vendors or partners.",
       "Item Code / Variable Name": "B18 / Barrier_VendorDiff",
-      "Variable Type": "Ordinal (Likert-type)",
       "Theoretical Grounding (Source)": "Lacity & Willcocks (2012)",
-      "APA Citation (Full)": "Williamson, O. E. (1985). The economic institutions of capitalism: Firms, markets, relational contracting. Free Press.",
-      "RIS Citation": "TY - BOOK\\nAU - Williamson, Oliver E.\\nPY - 1985\\nTI - The economic institutions of capitalism: Firms, markets, relational contracting\\nPB - Free Press\\nER -",
-      "Source Link (URL/DOI)": "(e.g., https://www.amazon.com/Economic-Institutions-Capitalism-Relational-Contracting/dp/068486374X)",
-      "Scale Type / Response Options": "5-point Barrier Severity: Not a Barrier; Minor Barrier; Moderate Barrier; Significant Barrier; Major Barrier + Don't Know",
-      "Qualtrics QID / Export Tag": "QID213 / Q10-28_Barriers_18",
-      "Relationship to Other Items": "maps to B18"
+      "APA Citation (Full)": "Lacity, M. C., & Willcocks, L. P. (2012). Advanced outsourcing practice: Rethinking ITO, BPO, and cloud services. Palgrave Macmillan."
     },
     {
       "Section / Primary Construct": "Section B: Perceived Technology Adoption Barriers",
@@ -427,14 +259,8 @@
       "Survey Item (Question Text)": "Of all the barriers listed above, which THREE are the most significant barriers your organization currently faces? (Select exactly 3)",
       "Measurement Objective": "Identify top 3 most significant barriers via forced-choice selection from all 18 barrier items.",
       "Item Code / Variable Name": "B_Top3 / Barrier_Top3Select",
-      "Variable Type": "Categorical (Nominal - multi-select)",
       "Theoretical Grounding (Source)": "Integrated TABS Framework (Moyer, 2025)",
-      "APA Citation (Full)": "Moyer, C. (2025). Technology Adoption Barriers Survey (TABS) framework.",
-      "RIS Citation": "N/A",
-      "Source Link (URL/DOI)": "N/A",
-      "Scale Type / Response Options": "Select exactly 3 of 18 barrier items (randomized presentation order)",
-      "Qualtrics QID / Export Tag": "QID238 / Q29-46_Top3Barriers",
-      "Relationship to Other Items": "Follows barrier severity rating (QID213); replaces removed Q9/Q10 rank-order questions"
+      "APA Citation (Full)": "Moyer, C. (2025). Technology Adoption Barriers Survey (TABS): An integrated framework for measuring barriers, readiness, and maturity. Pennsylvania State University."
     },
     {
       "Section / Primary Construct": "Section B: Attention Check",
@@ -442,14 +268,8 @@
       "Survey Item (Question Text)": "The degree to which internal communication gaps slow adoption efforts (select Major Barrier for this item).",
       "Measurement Objective": "Attention/validity check embedded in barrier severity matrix (instructed-response item).",
       "Item Code / Variable Name": "B_AC / Barrier_AttentionCheck",
-      "Variable Type": "Ordinal (Likert-type)",
       "Theoretical Grounding (Source)": "Survey methodology best practice (IRI)",
-      "APA Citation (Full)": "N/A",
-      "RIS Citation": "N/A",
-      "Source Link (URL/DOI)": "N/A",
-      "Scale Type / Response Options": "Major Barrier",
-      "Qualtrics QID / Export Tag": "QID213 / Q10-28_Barriers_19",
-      "Relationship to Other Items": "Attention check item; expected response: Major Barrier (instructed-response item)"
+      "APA Citation (Full)": "N/A"
     },
     {
       "Section / Primary Construct": "Section C: Perceived Organizational Technology Readiness",
@@ -457,14 +277,8 @@
       "Survey Item (Question Text)": "Clarity and communication of the leadership's vision for technology adoption and digital transformation.",
       "Measurement Objective": "Readiness: clarity/communication of leadership's technology vision.",
       "Item Code / Variable Name": "C1 / Ready_LeaderVisionClarity",
-      "Variable Type": "Ordinal (Likert-type)",
       "Theoretical Grounding (Source)": "Kotter (1995); Jeyaraj et al. (2006)",
-      "APA Citation (Full)": "Rogers, E. M. (1962). Diffusion of innovations. Free Press. ISBN: 978-0-02-926670-0",
-      "RIS Citation": "TY - BOOK\\nAU - Rogers, Everett M.\\nPY - 2003\\nTI - Diffusion of innovations\\nED - 5th\\nPB - Free Press\\nER -",
-      "Source Link (URL/DOI)": "(e.g., https://www.amazon.com/Diffusion-Innovations-5th-Everett-Rogers/dp/0743222091)",
-      "Scale Type / Response Options": "5-point Readiness/Capability: Very Low Readiness/Capability; Low Readiness/Capability; Moderate Readiness/Capability; High Readiness/Capability; Very High Readiness/Capability + Don't Know",
-      "Qualtrics QID / Export Tag": "QID217 / Q47-64_Readiness_1",
-      "Relationship to Other Items": ""
+      "APA Citation (Full)": "Kotter, J. P. (1995). Leading change: Why transformation efforts fail. Harvard Business Review, 73(2), 59-67. || Jeyaraj, A., Rottman, J. W., & Lacity, M. C. (2006). A review of the predictors, linkages, and biases in IT innovation adoption research. Journal of Information Technology, 21(1), 1-23."
     },
     {
       "Section / Primary Construct": "Section C: Perceived Organizational Technology Readiness",
@@ -472,14 +286,8 @@
       "Survey Item (Question Text)": "Alignment of technology strategy with overall organizational goals and mission objectives.",
       "Measurement Objective": "Readiness: alignment of technology strategy with organizational goals.",
       "Item Code / Variable Name": "C2 / Ready_StratAlign",
-      "Variable Type": "Ordinal (Likert-type)",
       "Theoretical Grounding (Source)": "Henderson & Venkatraman (1993)",
-      "APA Citation (Full)": "Henderson, J. C., & Venkatraman, N. (1993). Strategic alignment: Leveraging information technology for transforming organizations. IBM Systems Journal, 32(1), 4-16.",
-      "RIS Citation": "TY - JOUR\\nAU - Henderson, John C.\\nAU - Venkatraman, N.\\nPY - 1993\\nTI - Strategic alignment: Leveraging information technology for transforming organizations\\nJO - IBM Systems Journal\\nVL - 32\\nIS - 1\\nSP - 4\\nEP - 16\\nDO - 10.1147/sj.321.0004\\nER -",
-      "Source Link (URL/DOI)": "https://doi.org/10.1147/sj.321.0004 (Link often via ResearchGate or University Library for Sloan Management Review version: Winter 1994, Vol. 35, No. 2, pp. 57-71)",
-      "Scale Type / Response Options": "5-point Readiness/Capability: Very Low Readiness/Capability; Low Readiness/Capability; Moderate Readiness/Capability; High Readiness/Capability; Very High Readiness/Capability + Don't Know",
-      "Qualtrics QID / Export Tag": "QID217 / Q47-64_Readiness_2",
-      "Relationship to Other Items": ""
+      "APA Citation (Full)": "Henderson, J. C., & Venkatraman, N. (1993). Strategic alignment: Leveraging information technology for transforming organizations. IBM Systems Journal, 32(1), 472-484."
     },
     {
       "Section / Primary Construct": "Section C: Perceived Organizational Technology Readiness",
@@ -487,14 +295,8 @@
       "Survey Item (Question Text)": "Effectiveness of IT governance structures in guiding technology decisions and investments.",
       "Measurement Objective": "Readiness: effectiveness of IT governance structures.",
       "Item Code / Variable Name": "C3 / Ready_ITGovEffective",
-      "Variable Type": "Ordinal (Likert-type)",
       "Theoretical Grounding (Source)": "Weill & Ross (2004); COBIT (ISACA)",
-      "APA Citation (Full)": "Weill, P., & Ross, J. W. (2004). IT governance: How top performers manage IT decision rights for superior results. Harvard Business Press.",
-      "RIS Citation": "TY - BOOK\\nAU - Weill, Peter\\nAU - Ross, Jeanne W.\\nPY - 2004\\nTI - IT governance: How top performers manage IT decision rights for superior results\\nPB - Harvard Business Press\\nER -",
-      "Source Link (URL/DOI)": "(e.g., https://www.amazon.com/Governance-Performers-Decision-Superior-Results/dp/1591392535)",
-      "Scale Type / Response Options": "5-point Readiness/Capability: Very Low Readiness/Capability; Low Readiness/Capability; Moderate Readiness/Capability; High Readiness/Capability; Very High Readiness/Capability + Don't Know",
-      "Qualtrics QID / Export Tag": "QID217 / Q47-64_Readiness_3",
-      "Relationship to Other Items": ""
+      "APA Citation (Full)": "Weill, P., & Ross, J. W. (2004). IT governance: How top performers manage IT decision rights for superior results. Harvard Business School Press. || ISACA. (2019). COBIT 2019 framework: Governance and management objectives. ISACA."
     },
     {
       "Section / Primary Construct": "Section C: Perceived Organizational Technology Readiness",
@@ -502,14 +304,8 @@
       "Survey Item (Question Text)": "Openness of the organizational culture to embracing change and new ways of working.",
       "Measurement Objective": "Readiness: openness of organizational culture to change.",
       "Item Code / Variable Name": "C4 / Ready_CultureOpenness",
-      "Variable Type": "Ordinal (Likert-type)",
       "Theoretical Grounding (Source)": "Hofstede (1980); Cameron & Quinn (2006)",
-      "APA Citation (Full)": "Schein, E. H. (2010). Organizational culture and leadership (4th ed.). John Wiley & Sons.",
-      "RIS Citation": "TY - BOOK\\nAU - Schein, Edgar H.\\nPY - 2010\\nTI - Organizational culture and leadership\\nED - 4th\\nPB - John Wiley & Sons\\nER -",
-      "Source Link (URL/DOI)": "(e.g., https://www.amazon.com/Organizational-Culture-Leadership-Jossey-Bass-Business/dp/0470185864)",
-      "Scale Type / Response Options": "5-point Readiness/Capability: Very Low Readiness/Capability; Low Readiness/Capability; Moderate Readiness/Capability; High Readiness/Capability; Very High Readiness/Capability + Don't Know",
-      "Qualtrics QID / Export Tag": "QID217 / Q47-64_Readiness_4",
-      "Relationship to Other Items": ""
+      "APA Citation (Full)": "Hofstede, G. (1980). Culture's consequences: International differences in work-related values. Sage Publications. || Cameron, K. S., & Quinn, R. E. (2006). Diagnosing and changing organizational culture: Based on the competing values framework (Rev. ed.). Jossey-Bass."
     },
     {
       "Section / Primary Construct": "Section C: Perceived Organizational Technology Readiness",
@@ -517,14 +313,8 @@
       "Survey Item (Question Text)": "Extent to which innovation and experimentation with technology are encouraged and supported.",
       "Measurement Objective": "Readiness: extent innovation/experimentation is encouraged.",
       "Item Code / Variable Name": "C5 / Ready_InnovationSupport",
-      "Variable Type": "Ordinal (Likert-type)",
       "Theoretical Grounding (Source)": "Christensen (1997); O'Reilly & Tushman (2004)",
-      "APA Citation (Full)": "Rogers, E. M. (1962). Diffusion of innovations. Free Press. ISBN: 978-0-02-926670-0",
-      "RIS Citation": "TY - BOOK\\nAU - Rogers, Everett M.\\nPY - 2003\\nTI - Diffusion of innovations\\nED - 5th\\nPB - Free Press\\nER -",
-      "Source Link (URL/DOI)": "(e.g., https://www.amazon.com/Diffusion-Innovations-5th-Everett-Rogers/dp/0743222091)",
-      "Scale Type / Response Options": "5-point Readiness/Capability: Very Low Readiness/Capability; Low Readiness/Capability; Moderate Readiness/Capability; High Readiness/Capability; Very High Readiness/Capability + Don't Know",
-      "Qualtrics QID / Export Tag": "QID217 / Q47-64_Readiness_5",
-      "Relationship to Other Items": ""
+      "APA Citation (Full)": "Christensen, C. M. (1997). The innovator's dilemma: When new technologies cause great firms to fail. Harvard Business School Press. || O'Reilly, C. A., III, & Tushman, M. L. (2004). The ambidextrous organization. Harvard Business Review, 82(4), 74-81."
     },
     {
       "Section / Primary Construct": "Section C: Perceived Organizational Technology Readiness",
@@ -532,14 +322,8 @@
       "Survey Item (Question Text)": "Availability of personnel with the necessary technical skills to implement and manage new technologies.",
       "Measurement Objective": "Readiness: availability of technically skilled personnel.",
       "Item Code / Variable Name": "C6 / Ready_TechSkillsAvail",
-      "Variable Type": "Ordinal (Likert-type)",
       "Theoretical Grounding (Source)": "Davis (1989); Venkatesh et al. (2003)",
-      "APA Citation (Full)": "Tornatzky, L. G., & Fleischer, M. (1990). The processes of technological innovation. Lexington Books.",
-      "RIS Citation": "TY - BOOK\\nAU - Tornatzky, Louis G.\\nAU - Fleischer, Mitchell\\nPY - 1990\\nTI - The processes of technological innovation\\nPB - Lexington Books\\nER -",
-      "Source Link (URL/DOI)": "(e.g., https://www.amazon.com/Processes-Technological-Innovation-Louis-Tornatzky/dp/0669203483)                                                                                                                                                                                 ",
-      "Scale Type / Response Options": "5-point Readiness/Capability: Very Low Readiness/Capability; Low Readiness/Capability; Moderate Readiness/Capability; High Readiness/Capability; Very High Readiness/Capability + Don't Know",
-      "Qualtrics QID / Export Tag": "QID217 / Q47-64_Readiness_6",
-      "Relationship to Other Items": ""
+      "APA Citation (Full)": "Davis, F. D. (1989). Perceived usefulness, perceived ease of use, and user acceptance of information technology. MIS Quarterly, 13(3), 319-340. || Venkatesh, V., Morris, M. G., Davis, G. B., & Davis, F. D. (2003). User acceptance of information technology: Toward a unified view. MIS Quarterly, 27(3), 425-478."
     },
     {
       "Section / Primary Construct": "Section C: Perceived Organizational Technology Readiness",
@@ -547,14 +331,8 @@
       "Survey Item (Question Text)": "Effectiveness of training programs in preparing employees for new technologies.",
       "Measurement Objective": "Readiness: effectiveness of technology training programs.",
       "Item Code / Variable Name": "C7 / Ready_TrainingEffective",
-      "Variable Type": "Ordinal (Likert-type)",
       "Theoretical Grounding (Source)": "Rogers (2003); Venkatesh et al. (2003)",
-      "APA Citation (Full)": "Venkatesh, V., Thong, J. Y. L., & Xu, X. (2012). Consumer acceptance and use of information technology: extending the unified theory of acceptance and use of technology. MIS Quarterly, 36(1), 157-178.",
-      "RIS Citation": "TY - JOUR\\nAU - Venkatesh, Viswanath\\nAU - Thong, James Y. L.\\nAU - Xu, Xin\\nPY - 2012\\nTI - Consumer acceptance and use of information technology: extending the unified theory of acceptance and use of technology\\nJO - MIS Quarterly\\nVL - 36\\nIS - 1\\nSP - 157\\nEP - 178\\nDO - 10.2307/41410412\\nER -",
-      "Source Link (URL/DOI)": "https://doi.org/10.2307/41410412 or https://misq.org/consumer-acceptance-and-use-of-information-technology-extending-the-unified-theory-of-acceptance-and-use-of-technology.html",
-      "Scale Type / Response Options": "5-point Readiness/Capability: Very Low Readiness/Capability; Low Readiness/Capability; Moderate Readiness/Capability; High Readiness/Capability; Very High Readiness/Capability + Don't Know",
-      "Qualtrics QID / Export Tag": "QID217 / Q47-64_Readiness_7",
-      "Relationship to Other Items": ""
+      "APA Citation (Full)": "Rogers, E. M. (2003). Diffusion of innovations (5th ed.). Free Press. || Venkatesh, V., Morris, M. G., Davis, G. B., & Davis, F. D. (2003). User acceptance of information technology: Toward a unified view. MIS Quarterly, 27(3), 425-478."
     },
     {
       "Section / Primary Construct": "Section C: Perceived Organizational Technology Readiness",
@@ -562,14 +340,8 @@
       "Survey Item (Question Text)": "Maturity of change management processes to support technology transitions.",
       "Measurement Objective": "Readiness: maturity of change management processes.",
       "Item Code / Variable Name": "C8 / Ready_ChangeMgtMaturity",
-      "Variable Type": "Ordinal (Likert-type)",
       "Theoretical Grounding (Source)": "Kotter (1995); Prosci ADKAR",
-      "APA Citation (Full)": "Kotter, J. P. (1995). Leading change: Why transformation efforts fail. Harvard Business Review, 73(2), 59-67.",
-      "RIS Citation": "TY - BOOK\\nAU - Kotter, John P.\\nPY - 1996\\nTI - Leading change\\nPB - Harvard Business Press\\nER -",
-      "Source Link (URL/DOI)": "(e.g., https://www.amazon.com/Leading-Change-New-Preface-Author/dp/1422186431)",
-      "Scale Type / Response Options": "5-point Readiness/Capability: Very Low Readiness/Capability; Low Readiness/Capability; Moderate Readiness/Capability; High Readiness/Capability; Very High Readiness/Capability + Don't Know",
-      "Qualtrics QID / Export Tag": "QID217 / Q47-64_Readiness_8",
-      "Relationship to Other Items": ""
+      "APA Citation (Full)": "Kotter, J. P. (1995). Leading change: Why transformation efforts fail. Harvard Business Review, 73(2), 59-67. || Hiatt, J. M. (2006). ADKAR: A model for change in business, government and our community. Prosci Learning Center Publications."
     },
     {
       "Section / Primary Construct": "Section C: Perceived Organizational Technology Readiness",
@@ -577,14 +349,8 @@
       "Survey Item (Question Text)": "Adequacy and scalability of the current IT infrastructure (network, cloud, hardware).",
       "Measurement Objective": "Readiness: adequacy/scalability of IT infrastructure.",
       "Item Code / Variable Name": "C9 / Ready_InfraAdequacy",
-      "Variable Type": "Ordinal (Likert-type)",
       "Theoretical Grounding (Source)": "Weill & Ross (2004); Zhu et al. (2006)",
-      "APA Citation (Full)": "Tornatzky, L. G., & Fleischer, M. (1990). The processes of technological innovation. Lexington Books.",
-      "RIS Citation": "TY - BOOK\\nAU - Tornatzky, Louis G.\\nAU - Fleischer, Mitchell\\nPY - 1990\\nTI - The processes of technological innovation\\nPB - Lexington Books\\nER -",
-      "Source Link (URL/DOI)": "(e.g., https://www.amazon.com/Processes-Technological-Innovation-Louis-Tornatzky/dp/0669203483)",
-      "Scale Type / Response Options": "5-point Readiness/Capability: Very Low Readiness/Capability; Low Readiness/Capability; Moderate Readiness/Capability; High Readiness/Capability; Very High Readiness/Capability + Don't Know",
-      "Qualtrics QID / Export Tag": "QID217 / Q47-64_Readiness_9",
-      "Relationship to Other Items": ""
+      "APA Citation (Full)": "Weill, P., & Ross, J. W. (2004). IT governance: How top performers manage IT decision rights for superior results. Harvard Business School Press. || Zhu, K., Kraemer, K. L., & Xu, S. (2006). The process of innovation assimilation by firms in different countries: A technology diffusion perspective on e-business. Management Science, 52(10), 1557-1576."
     },
     {
       "Section / Primary Construct": "Section C: Perceived Organizational Technology Readiness",
@@ -592,14 +358,8 @@
       "Survey Item (Question Text)": "Compatibility and interoperability between new technologies and existing systems.",
       "Measurement Objective": "Readiness: compatibility between new and existing systems.",
       "Item Code / Variable Name": "C10 / Ready_SystemCompat",
-      "Variable Type": "Ordinal (Likert-type)",
       "Theoretical Grounding (Source)": "Ross et al. (2006); IEEE interoperability standards",
-      "APA Citation (Full)": "Rogers, E. M. (1962). Diffusion of innovations. Free Press. ISBN: 978-0-02-926670-0",
-      "RIS Citation": "TY - BOOK\\nAU - Rogers, Everett M.\\nPY - 2003\\nTI - Diffusion of innovations\\nED - 5th\\nPB - Free Press\\nER -",
-      "Source Link (URL/DOI)": "https://www.amazon.com/Diffusion-Innovations-5th-Everett-Rogers/dp/0743222091                                                                                                                                         ",
-      "Scale Type / Response Options": "5-point Readiness/Capability: Very Low Readiness/Capability; Low Readiness/Capability; Moderate Readiness/Capability; High Readiness/Capability; Very High Readiness/Capability + Don't Know",
-      "Qualtrics QID / Export Tag": "QID217 / Q47-64_Readiness_10",
-      "Relationship to Other Items": ""
+      "APA Citation (Full)": "Ross, J. W., Weill, P., & Robertson, D. C. (2014). Enterprise architecture as strategy: Creating a foundation for business execution. Harvard Business School Press. (Original work published 2006) || Institute of Electrical and Electronics Engineers. (2011). IEEE standard for smart grid interoperability of energy technology and information technology operation with the electric power system (EPS), end-use applications, and loads (IEEE Std 2030-2011). IEEE."
     },
     {
       "Section / Primary Construct": "Section C: Perceived Organizational Technology Readiness",
@@ -607,14 +367,8 @@
       "Survey Item (Question Text)": "Availability and responsiveness of technical support for technology users.",
       "Measurement Objective": "Readiness: availability/responsiveness of technical support.",
       "Item Code / Variable Name": "C11 / Ready_TechSupport",
-      "Variable Type": "Ordinal (Likert-type)",
       "Theoretical Grounding (Source)": "DeLone & McLean (2003)",
-      "APA Citation (Full)": "Venkatesh, V., Thong, J. Y. L., & Xu, X. (2012). Consumer acceptance and use of information technology: extending the unified theory of acceptance and use of technology. MIS Quarterly, 36(1), 157-178.",
-      "RIS Citation": "TY - JOUR\\nAU - Venkatesh, Viswanath\\nAU - Thong, James Y. L.\\nAU - Xu, Xin\\nPY - 2012\\nTI - Consumer acceptance and use of information technology: extending the unified theory of acceptance and use of technology\\nJO - MIS Quarterly\\nVL - 36\\nIS - 1\\nSP - 157\\nEP - 178\\nDO - 10.2307/41410412\\nER -",
-      "Source Link (URL/DOI)": "https://doi.org/10.2307/41410412 or https://misq.org/consumer-acceptance-and-use-of-information-technology-extending-the-unified-theory-of-acceptance-and-use-of-technology.html",
-      "Scale Type / Response Options": "5-point Readiness/Capability: Very Low Readiness/Capability; Low Readiness/Capability; Moderate Readiness/Capability; High Readiness/Capability; Very High Readiness/Capability + Don't Know",
-      "Qualtrics QID / Export Tag": "QID217 / Q47-64_Readiness_11",
-      "Relationship to Other Items": ""
+      "APA Citation (Full)": "DeLone, W. H., & McLean, E. R. (2003). The DeLone and McLean model of information systems success: A ten-year update. Journal of Management Information Systems, 19(4), 9-30."
     },
     {
       "Section / Primary Construct": "Section C: Perceived Organizational Technology Readiness",
@@ -622,14 +376,8 @@
       "Survey Item (Question Text)": "Maturity of data governance policies and practices.",
       "Measurement Objective": "Readiness: maturity of data governance policies/practices.",
       "Item Code / Variable Name": "C12 / Ready_DataGovMaturity",
-      "Variable Type": "Ordinal (Likert-type)",
       "Theoretical Grounding (Source)": "DAMA-DMBOK; COBIT (ISACA)",
-      "APA Citation (Full)": "Innovation Value Institute. (2016). IT capability maturity framework (IT-CMF): The body of knowledge guide (2nd ed.). Van Haren Publishing. ISBN: 978-94-018-0050-1",
-      "RIS Citation": "TY - WEB\\nAU - Innovation Value Institute\\nTI - IT Capability Maturity Framework (IT-CMF)\\nUR - https://ivi.ie/it-cmf/\\nER -",
-      "Source Link (URL/DOI)": "https://ivi.ie/it-cmf/",
-      "Scale Type / Response Options": "5-point Readiness/Capability: Very Low Readiness/Capability; Low Readiness/Capability; Moderate Readiness/Capability; High Readiness/Capability; Very High Readiness/Capability + Don't Know",
-      "Qualtrics QID / Export Tag": "QID217 / Q47-64_Readiness_12",
-      "Relationship to Other Items": ""
+      "APA Citation (Full)": "DAMA International. (2017). DAMA-DMBOK: Data management body of knowledge (2nd ed.). Technics Publications. || ISACA. (2019). COBIT 2019 framework: Governance and management objectives. ISACA."
     },
     {
       "Section / Primary Construct": "Section C: Perceived Organizational Technology Readiness",
@@ -637,14 +385,8 @@
       "Survey Item (Question Text)": "Overall quality and reliability of organizational data used for decision-making and AI/ML models.",
       "Measurement Objective": "Readiness: quality/reliability of organizational data.",
       "Item Code / Variable Name": "C13 / Ready_DataQuality",
-      "Variable Type": "Ordinal (Likert-type)",
       "Theoretical Grounding (Source)": "Wang & Strong (1996); DAMA-DMBOK",
-      "APA Citation (Full)": "Wang, R. Y., & Strong, D. M. (1996). Beyond accuracy: What data quality means to data consumers. Journal of Management Information Systems, 12(4), 5-33.",
-      "RIS Citation": "TY - JOUR\\nAU - Wang, Richard Y.\\nAU - Strong, Diane M.\\nPY - 1996\\nTI - Beyond accuracy: What data quality means to data consumers\\nJO - Journal of Management Information Systems\\nVL - 12\\nIS - 4\\nSP - 5\\nEP - 33\\nDO - 10.1080/07421222.1996.11518099\\nER -",
-      "Source Link (URL/DOI)": "https://doi.org/10.1080/07421222.1996.11518099",
-      "Scale Type / Response Options": "5-point Readiness/Capability: Very Low Readiness/Capability; Low Readiness/Capability; Moderate Readiness/Capability; High Readiness/Capability; Very High Readiness/Capability + Don't Know",
-      "Qualtrics QID / Export Tag": "QID217 / Q47-64_Readiness_13",
-      "Relationship to Other Items": ""
+      "APA Citation (Full)": "Wang, R. Y., & Strong, D. M. (1996). Beyond accuracy: What data quality means to data consumers. Journal of Management Information Systems, 12(4), 5-33. || DAMA International. (2017). DAMA-DMBOK: Data management body of knowledge (2nd ed.). Technics Publications."
     },
     {
       "Section / Primary Construct": "Section C: Perceived Organizational Technology Readiness",
@@ -652,14 +394,8 @@
       "Survey Item (Question Text)": "Organization's capability in data analytics and leveraging data for insights.",
       "Measurement Objective": "Readiness: data analytics and insights capability.",
       "Item Code / Variable Name": "C14 / Ready_AnalyticsCap",
-      "Variable Type": "Ordinal (Likert-type)",
       "Theoretical Grounding (Source)": "Davenport & Harris (2007)",
-      "APA Citation (Full)": "Teece, D. J. (2007). Explicating dynamic capabilities: the nature and microfoundations of (sustainable) enterprise performance. Strategic Management Journal, 28(13), 1319-1350.",
-      "RIS Citation": "TY - JOUR\\nAU - Teece, David J.\\nPY - 2007\\nTI - Explicating dynamic capabilities: the nature and microfoundations of (sustainable) enterprise performance\\nJO - Strategic Management Journal\\nVL - 28\\nIS - 13\\nSP - 1319\\nEP - 1350\\nDO - 10.1002/smj.640\\nER -",
-      "Source Link (URL/DOI)": "https://doi.org/10.1002/smj.640",
-      "Scale Type / Response Options": "5-point Readiness/Capability: Very Low Readiness/Capability; Low Readiness/Capability; Moderate Readiness/Capability; High Readiness/Capability; Very High Readiness/Capability + Don't Know",
-      "Qualtrics QID / Export Tag": "QID217 / Q47-64_Readiness_14",
-      "Relationship to Other Items": ""
+      "APA Citation (Full)": "Davenport, T. H., & Harris, J. G. (2009). Competing on analytics: The new science of winning (Updated ed.). Harvard Business Press."
     },
     {
       "Section / Primary Construct": "Section C: Perceived Organizational Technology Readiness",
@@ -667,14 +403,8 @@
       "Survey Item (Question Text)": "Maturity and efficiency of business processes potentially impacted by new technology.",
       "Measurement Objective": "Readiness: maturity/efficiency of business processes.",
       "Item Code / Variable Name": "C15 / Ready_ProcessMaturity",
-      "Variable Type": "Ordinal (Likert-type)",
       "Theoretical Grounding (Source)": "CMMI; Hammer & Champy (1993)",
-      "APA Citation (Full)": "Innovation Value Institute. (2016). IT capability maturity framework (IT-CMF): The body of knowledge guide (2nd ed.). Van Haren Publishing. ISBN: 978-94-018-0050-1",
-      "RIS Citation": "TY - WEB\\nAU - Innovation Value Institute\\nTI - IT Capability Maturity Framework (IT-CMF)\\nUR - https://ivi.ie/it-cmf/\\nER -",
-      "Source Link (URL/DOI)": "https://ivi.ie/it-cmf/",
-      "Scale Type / Response Options": "5-point Readiness/Capability: Very Low Readiness/Capability; Low Readiness/Capability; Moderate Readiness/Capability; High Readiness/Capability; Very High Readiness/Capability + Don't Know",
-      "Qualtrics QID / Export Tag": "QID217 / Q47-64_Readiness_15",
-      "Relationship to Other Items": ""
+      "APA Citation (Full)": "ISACA. (2018). CMMI V2.0 model. CMMI Institute/ISACA. || Hammer, M., & Champy, J. (1993). Reengineering the corporation: A manifesto for business revolution. HarperBusiness."
     },
     {
       "Section / Primary Construct": "Section C: Perceived Organizational Technology Readiness",
@@ -682,14 +412,8 @@
       "Survey Item (Question Text)": "Effectiveness of processes for monitoring technology performance and user satisfaction.",
       "Measurement Objective": "Readiness: effectiveness of technology performance monitoring.",
       "Item Code / Variable Name": "C16 / Ready_MonitorEffective",
-      "Variable Type": "Ordinal (Likert-type)",
       "Theoretical Grounding (Source)": "DeLone & McLean (2003); ITIL",
-      "APA Citation (Full)": "DeLone, W. H., & McLean, E. R. (2003). The DeLone and McLean model of information systems success: a ten-year update. Journal of Management Information Systems, 19(4), 9-30.",
-      "RIS Citation": "TY - JOUR\\nAU - DeLone, William H.\\nAU - McLean, Ephraim R.\\nPY - 2003\\nTI - The DeLone and McLean model of information systems success: a ten-year update\\nJO - Journal of Management Information Systems\\nVL - 19\\nIS - 4\\nSP - 9\\nEP - 30\\nDO - 10.1080/07421222.2003.11045748\\nER -",
-      "Source Link (URL/DOI)": "https://doi.org/10.1080/07421222.2003.11045748",
-      "Scale Type / Response Options": "5-point Readiness/Capability: Very Low Readiness/Capability; Low Readiness/Capability; Moderate Readiness/Capability; High Readiness/Capability; Very High Readiness/Capability + Don't Know",
-      "Qualtrics QID / Export Tag": "QID217 / Q47-64_Readiness_16",
-      "Relationship to Other Items": ""
+      "APA Citation (Full)": "DeLone, W. H., & McLean, E. R. (2003). The DeLone and McLean model of information systems success: A ten-year update. Journal of Management Information Systems, 19(4), 9-30. || Axelos. (2019). ITIL foundation: ITIL 4 edition. TSO (The Stationery Office)."
     },
     {
       "Section / Primary Construct": "Section C: Perceived Organizational Technology Readiness",
@@ -697,14 +421,8 @@
       "Survey Item (Question Text)": "Adequacy of financial budget allocated for strategic technology adoption and innovation.",
       "Measurement Objective": "Readiness: adequacy of financial budget for technology adoption.",
       "Item Code / Variable Name": "C17 / Ready_FinancialBudget",
-      "Variable Type": "Ordinal (Likert-type)",
       "Theoretical Grounding (Source)": "Tornatzky & Fleischer (1990); Zhu et al. (2006)",
-      "APA Citation (Full)": "Tornatzky, L. G., & Fleischer, M. (1990). The processes of technological innovation. Lexington Books.",
-      "RIS Citation": "TY - BOOK\\nAU - Tornatzky, Louis G.\\nAU - Fleischer, Mitchell\\nPY - 1990\\nTI - The processes of technological innovation\\nPB - Lexington Books\\nER -",
-      "Source Link (URL/DOI)": "(e.g., https://www.amazon.com/Processes-Technological-Innovation-Louis-Tornatzky/dp/0669203483)",
-      "Scale Type / Response Options": "5-point Readiness/Capability: Very Low Readiness/Capability; Low Readiness/Capability; Moderate Readiness/Capability; High Readiness/Capability; Very High Readiness/Capability + Don't Know",
-      "Qualtrics QID / Export Tag": "QID217 / Q47-64_Readiness_17",
-      "Relationship to Other Items": ""
+      "APA Citation (Full)": "Tornatzky, L. G., & Fleischer, M. (1990). The processes of technological innovation. Lexington Books. || Zhu, K., Kraemer, K. L., & Xu, S. (2006). The process of innovation assimilation by firms in different countries: A technology diffusion perspective on e-business. Management Science, 52(10), 1557-1576."
     },
     {
       "Section / Primary Construct": "Section C: Attention Check",
@@ -712,14 +430,8 @@
       "Survey Item (Question Text)": "The extent to which assessment processes capture meaningful input (select Low Readiness/Capability for this item).",
       "Measurement Objective": "Attention/validity check embedded in readiness matrix (instructed-response item).",
       "Item Code / Variable Name": "C_AC / Ready_AttentionCheck",
-      "Variable Type": "Ordinal (Likert-type)",
       "Theoretical Grounding (Source)": "Survey methodology best practice (IRI)",
-      "APA Citation (Full)": "N/A",
-      "RIS Citation": "N/A",
-      "Source Link (URL/DOI)": "N/A",
-      "Scale Type / Response Options": "Low Readiness/Capability",
-      "Qualtrics QID / Export Tag": "QID217 / Q47-64_Readiness_18",
-      "Relationship to Other Items": "Attention check item; expected response: Low Readiness/Capability (instructed-response item)"
+      "APA Citation (Full)": "N/A"
     },
     {
       "Section / Primary Construct": "Section D: Perceived Maturity of Organizational Capabilities",
@@ -727,14 +439,8 @@
       "Survey Item (Question Text)": "IT Investment & Value Management: How mature is your organization's approach to selecting, managing, and realizing value from IT investments, ensuring clear alignment with strategic objectives and mission impact?",
       "Measurement Objective": "Maturity of IT investment selection, management, and value realization.",
       "Item Code / Variable Name": "D1 / Maturity_ITInvestValue",
-      "Variable Type": "Ordinal (Maturity Level)",
       "Theoretical Grounding (Source)": "Val IT (ISACA); GAO ITIM",
-      "APA Citation (Full)": "Innovation Value Institute. (2016). IT capability maturity framework (IT-CMF): The body of knowledge guide (2nd ed.). Van Haren Publishing. ISBN: 978-94-018-0050-1",
-      "RIS Citation": "TY - WEB\\nAU - Innovation Value Institute\\nTI - IT Capability Maturity Framework (IT-CMF)\\nUR - https://ivi.ie/it-cmf/\\nER -",
-      "Source Link (URL/DOI)": "https://ivi.ie/it-cmf/",
-      "Scale Type / Response Options": "5-level Maturity: Level 1: Initial/Ad Hoc; Level 2: Developing/Repeatable; Level 3: Defined/Standardized; Level 4: Managed/Quantitatively Managed; Level 5: Optimizing/Innovating + Don't Know",
-      "Qualtrics QID / Export Tag": "QID220 / Q65-73_Maturity_1",
-      "Relationship to Other Items": ""
+      "APA Citation (Full)": "IT Governance Institute. (2008). Enterprise value: Governance of IT investments - The Val IT framework 2.0. ISACA. || U.S. Government Accountability Office. (2004). Information technology investment management: A framework for assessing and improving process maturity (GAO-04-394G). GAO."
     },
     {
       "Section / Primary Construct": "Section D: Perceived Maturity of Organizational Capabilities",
@@ -742,14 +448,8 @@
       "Survey Item (Question Text)": "IT-Enabled Organizational Innovation: How mature is your organization's capability to systematically identify, explore, and leverage technology for driving organizational innovation, developing new services/products, or achieving significant operational/mission improvements?",
       "Measurement Objective": "Maturity of systematic technology-driven organizational innovation.",
       "Item Code / Variable Name": "D2 / Maturity_ITInnovation",
-      "Variable Type": "Ordinal (Maturity Level)",
       "Theoretical Grounding (Source)": "Christensen (1997); O'Reilly & Tushman (2004)",
-      "APA Citation (Full)": "Rogers, E. M. (1962). Diffusion of innovations. Free Press. ISBN: 978-0-02-926670-0",
-      "RIS Citation": "TY - BOOK\\nAU - Rogers, Everett M.\\nPY - 2003\\nTI - Diffusion of innovations\\nED - 5th\\nPB - Free Press\\nER -",
-      "Source Link (URL/DOI)": "(e.g., https://www.amazon.com/Diffusion-Innovations-5th-Everett-Rogers/dp/0743222091)",
-      "Scale Type / Response Options": "5-level Maturity: Level 1: Initial/Ad Hoc; Level 2: Developing/Repeatable; Level 3: Defined/Standardized; Level 4: Managed/Quantitatively Managed; Level 5: Optimizing/Innovating + Don't Know",
-      "Qualtrics QID / Export Tag": "QID220 / Q65-73_Maturity_2",
-      "Relationship to Other Items": ""
+      "APA Citation (Full)": "Christensen, C. M. (1997). The innovator's dilemma: When new technologies cause great firms to fail. Harvard Business School Press. || O'Reilly, C. A., III, & Tushman, M. L. (2004). The ambidextrous organization. Harvard Business Review, 82(4), 74-81."
     },
     {
       "Section / Primary Construct": "Section D: Perceived Maturity of Organizational Capabilities",
@@ -757,14 +457,8 @@
       "Survey Item (Question Text)": "Organizational Process Management & Standardization: How mature is the consistency, standardization, effectiveness, and integration of key organizational processes (e.g., project management, service delivery, operational workflows) that are critical for technology adoption and sustained performance?",
       "Measurement Objective": "Maturity of process standardization, effectiveness, and integration.",
       "Item Code / Variable Name": "D3 / Maturity_ProcessMgt",
-      "Variable Type": "Ordinal (Maturity Level)",
       "Theoretical Grounding (Source)": "CMMI (SEI/ISACA); Hammer & Champy (1993)",
-      "APA Citation (Full)": "Innovation Value Institute. (2016). IT capability maturity framework (IT-CMF): The body of knowledge guide (2nd ed.). Van Haren Publishing. ISBN: 978-94-018-0050-1",
-      "RIS Citation": "TY - WEB\\nAU - Innovation Value Institute\\nTI - IT Capability Maturity Framework (IT-CMF)\\nUR - https://ivi.ie/it-cmf/\\nER -",
-      "Source Link (URL/DOI)": "https://ivi.ie/it-cmf/",
-      "Scale Type / Response Options": "5-level Maturity: Level 1: Initial/Ad Hoc; Level 2: Developing/Repeatable; Level 3: Defined/Standardized; Level 4: Managed/Quantitatively Managed; Level 5: Optimizing/Innovating + Don't Know",
-      "Qualtrics QID / Export Tag": "QID220 / Q65-73_Maturity_3",
-      "Relationship to Other Items": ""
+      "APA Citation (Full)": "ISACA. (2018). CMMI V2.0 model. CMMI Institute/ISACA. || Hammer, M., & Champy, J. (1993). Reengineering the corporation: A manifesto for business revolution. HarperBusiness."
     },
     {
       "Section / Primary Construct": "Section D: Perceived Maturity of Organizational Capabilities",
@@ -772,14 +466,8 @@
       "Survey Item (Question Text)": "Data Governance & Analytics for Decision-Making: How mature is your organization's approach to governing its data assets, ensuring data quality, and utilizing data analytics and business intelligence to inform strategic and operational decision-making and drive improvements?",
       "Measurement Objective": "Maturity of data governance, quality, and analytics for decision-making.",
       "Item Code / Variable Name": "D4 / Maturity_DataGovAnalytics",
-      "Variable Type": "Ordinal (Maturity Level)",
       "Theoretical Grounding (Source)": "DAMA-DMBOK; COBIT (ISACA)",
-      "APA Citation (Full)": "Innovation Value Institute. (2016). IT capability maturity framework (IT-CMF): The body of knowledge guide (2nd ed.). Van Haren Publishing. ISBN: 978-94-018-0050-1",
-      "RIS Citation": "TY - WEB\\nAU - Innovation Value Institute\\nTI - IT Capability Maturity Framework (IT-CMF)\\nUR - https://ivi.ie/it-cmf/\\nER -",
-      "Source Link (URL/DOI)": "https://ivi.ie/it-cmf/",
-      "Scale Type / Response Options": "5-level Maturity: Level 1: Initial/Ad Hoc; Level 2: Developing/Repeatable; Level 3: Defined/Standardized; Level 4: Managed/Quantitatively Managed; Level 5: Optimizing/Innovating + Don't Know",
-      "Qualtrics QID / Export Tag": "QID220 / Q65-73_Maturity_4",
-      "Relationship to Other Items": ""
+      "APA Citation (Full)": "DAMA International. (2017). DAMA-DMBOK: Data management body of knowledge (2nd ed.). Technics Publications. || ISACA. (2019). COBIT 2019 framework: Governance and management objectives. ISACA."
     },
     {
       "Section / Primary Construct": "Section D: Perceived Maturity of Organizational Capabilities",
@@ -787,14 +475,8 @@
       "Survey Item (Question Text)": "Technology Risk & Resilience Management: How mature is your organization's integrated approach to identifying, assessing, proactively managing, and governing technology-related risks (including cybersecurity, data privacy, vendor risks, and operational disruptions) to ensure business resilience and compliance?",
       "Measurement Objective": "Maturity of integrated technology risk identification and management.",
       "Item Code / Variable Name": "D5 / Maturity_TechRiskMgt",
-      "Variable Type": "Ordinal (Maturity Level)",
       "Theoretical Grounding (Source)": "NIST CSF; ISO 31000; COBIT (ISACA)",
-      "APA Citation (Full)": "U.S. Department of Defense. (n.d.). Cybersecurity Maturity Model Certification (CMMC). Office of the Under Secretary of Defense for Acquisition & Sustainment.",
-      "RIS Citation": "TY - WEB\\nAU - U.S. Department of Defense\\nTI - Cybersecurity Maturity Model Certification (CMMC)\\nPB - Office of the Under Secretary of Defense for Acquisition & Sustainment\\nUR - https://dodcio.defense.gov/CMMC/\\nER -",
-      "Source Link (URL/DOI)": "https://dodcio.defense.gov/CMMC/",
-      "Scale Type / Response Options": "5-level Maturity: Level 1: Initial/Ad Hoc; Level 2: Developing/Repeatable; Level 3: Defined/Standardized; Level 4: Managed/Quantitatively Managed; Level 5: Optimizing/Innovating + Don't Know",
-      "Qualtrics QID / Export Tag": "QID220 / Q65-73_Maturity_5",
-      "Relationship to Other Items": ""
+      "APA Citation (Full)": "National Institute of Standards and Technology. (2024). NIST Cybersecurity Framework (CSF) 2.0 (NIST CSWP 29). U.S. Department of Commerce. || International Organization for Standardization. (2018). Risk management - Guidelines (ISO 31000:2018). || ISACA. (2019). COBIT 2019 framework: Governance and management objectives. ISACA."
     },
     {
       "Section / Primary Construct": "Section D: Perceived Maturity of Organizational Capabilities",
@@ -802,14 +484,8 @@
       "Survey Item (Question Text)": "Strategic IT Planning & Enterprise Architecture: How mature are the processes for developing, communicating, governing, and adapting an overall IT strategy and enterprise architecture that are dynamically aligned with and support the organization's overarching mission, goals, and evolving needs?",
       "Measurement Objective": "Maturity of IT strategic planning and enterprise architecture.",
       "Item Code / Variable Name": "D6 / Maturity_StratPlanEA",
-      "Variable Type": "Ordinal (Maturity Level)",
       "Theoretical Grounding (Source)": "TOGAF; Henderson & Venkatraman (1993)",
-      "APA Citation (Full)": "Innovation Value Institute. (2016). IT capability maturity framework (IT-CMF): The body of knowledge guide (2nd ed.). Van Haren Publishing. ISBN: 978-94-018-0050-1",
-      "RIS Citation": "TY - WEB\\nAU - Innovation Value Institute\\nTI - IT Capability Maturity Framework (IT-CMF)\\nUR - https://ivi.ie/it-cmf/\\nER -",
-      "Source Link (URL/DOI)": "https://ivi.ie/it-cmf/",
-      "Scale Type / Response Options": "5-level Maturity: Level 1: Initial/Ad Hoc; Level 2: Developing/Repeatable; Level 3: Defined/Standardized; Level 4: Managed/Quantitatively Managed; Level 5: Optimizing/Innovating + Don't Know",
-      "Qualtrics QID / Export Tag": "QID220 / Q65-73_Maturity_6",
-      "Relationship to Other Items": ""
+      "APA Citation (Full)": "The Open Group. (2022). The TOGAF standard (10th ed.). The Open Group. || Henderson, J. C., & Venkatraman, N. (1993). Strategic alignment: Leveraging information technology for transforming organizations. IBM Systems Journal, 32(1), 472-484."
     },
     {
       "Section / Primary Construct": "Section D: Perceived Maturity of Organizational Capabilities",
@@ -817,14 +493,8 @@
       "Survey Item (Question Text)": "Workforce Capability & Talent Development: How mature is your organization's systematic approach to planning for, attracting, developing, retaining, and managing personnel with the necessary skills, competencies, and roles to effectively implement, manage, support, and leverage technology?",
       "Measurement Objective": "Maturity of workforce capability planning, development, and retention.",
       "Item Code / Variable Name": "D7 / Maturity_WorkforceDev",
-      "Variable Type": "Ordinal (Maturity Level)",
       "Theoretical Grounding (Source)": "OPM3 (PMI); CMMI People CMM",
-      "APA Citation (Full)": "Innovation Value Institute. (2016). IT capability maturity framework (IT-CMF): The body of knowledge guide (2nd ed.). Van Haren Publishing. ISBN: 978-94-018-0050-1",
-      "RIS Citation": "TY - WEB\\nAU - Innovation Value Institute\\nTI - IT Capability Maturity Framework (IT-CMF)\\nUR - https://ivi.ie/it-cmf/\\nER -",
-      "Source Link (URL/DOI)": "https://ivi.ie/it-cmf/",
-      "Scale Type / Response Options": "5-level Maturity: Level 1: Initial/Ad Hoc; Level 2: Developing/Repeatable; Level 3: Defined/Standardized; Level 4: Managed/Quantitatively Managed; Level 5: Optimizing/Innovating + Don't Know",
-      "Qualtrics QID / Export Tag": "QID220 / Q65-73_Maturity_7",
-      "Relationship to Other Items": ""
+      "APA Citation (Full)": "Project Management Institute. (2013). Organizational project management maturity model (OPM3) (3rd ed.). PMI. || Curtis, B., Hefley, W. E., & Miller, S. A. (2009). People Capability Maturity Model (P-CMM) version 2.0 (2nd ed., CMU/SEI-2009-TR-003). Software Engineering Institute, Carnegie Mellon University."
     },
     {
       "Section / Primary Construct": "Section D: Perceived Maturity of Organizational Capabilities",
@@ -832,14 +502,8 @@
       "Survey Item (Question Text)": "Change Leadership & Adoption Management: How mature is your organization's capability to effectively lead and manage the complex organizational, cultural, and human aspects of change associated with significant technology adoption, digital transformation initiatives, and new ways of working?",
       "Measurement Objective": "Maturity of leading organizational/cultural change for technology adoption.",
       "Item Code / Variable Name": "D8 / Maturity_ChangeLead",
-      "Variable Type": "Ordinal (Maturity Level)",
       "Theoretical Grounding (Source)": "Kotter (1995); Prosci ADKAR; CMMI",
-      "APA Citation (Full)": "Kotter, J. P. (1995). Leading change: Why transformation efforts fail. Harvard Business Review, 73(2), 59-67.",
-      "RIS Citation": "TY - BOOK\\nAU - Kotter, John P.\\nPY - 1996\\nTI - Leading change\\nPB - Harvard Business Press\\nER -",
-      "Source Link (URL/DOI)": "(e.g., https://www.amazon.com/Leading-Change-New-Preface-Author/dp/1422186431)",
-      "Scale Type / Response Options": "5-level Maturity: Level 1: Initial/Ad Hoc; Level 2: Developing/Repeatable; Level 3: Defined/Standardized; Level 4: Managed/Quantitatively Managed; Level 5: Optimizing/Innovating + Don't Know",
-      "Qualtrics QID / Export Tag": "QID220 / Q65-73_Maturity_8",
-      "Relationship to Other Items": ""
+      "APA Citation (Full)": "Kotter, J. P. (1995). Leading change: Why transformation efforts fail. Harvard Business Review, 73(2), 59-67. || Hiatt, J. M. (2006). ADKAR: A model for change in business, government and our community. Prosci Learning Center Publications. || ISACA. (2018). CMMI V2.0 model. CMMI Institute/ISACA."
     },
     {
       "Section / Primary Construct": "Section D: Attention Check",
@@ -847,14 +511,8 @@
       "Survey Item (Question Text)": "Internal Process Alignment: For this item, to confirm careful reading, please select Level 2: Developing/Repeatable.",
       "Measurement Objective": "Attention/validity check embedded in maturity matrix (instructed-response item).",
       "Item Code / Variable Name": "D_AC / Maturity_AttentionCheck",
-      "Variable Type": "Ordinal (Maturity Level)",
       "Theoretical Grounding (Source)": "Survey methodology best practice (IRI)",
-      "APA Citation (Full)": "N/A",
-      "RIS Citation": "N/A",
-      "Source Link (URL/DOI)": "N/A",
-      "Scale Type / Response Options": "Level 2: Developing/Repeatable",
-      "Qualtrics QID / Export Tag": "QID220 / Q65-73_Maturity_9",
-      "Relationship to Other Items": "Attention check item; expected response: Level 2: Developing/Repeatable (instructed-response item)"
+      "APA Citation (Full)": "N/A"
     },
     {
       "Section / Primary Construct": "Section E: Final Thoughts & Feedback",
@@ -862,14 +520,8 @@
       "Survey Item (Question Text)": "Are there any other significant barriers, readiness factors, or aspects of organizational maturity related to technology adoption that you believe were not adequately covered in this survey? Please elaborate.",
       "Measurement Objective": "Capture additional barriers, readiness factors, or maturity aspects not covered.",
       "Item Code / Variable Name": "E1 / Feedback_Open",
-      "Variable Type": "Open Text",
       "Theoretical Grounding (Source)": "Qualitative exploratory (supplemental)",
-      "APA Citation (Full)": "N/A",
-      "RIS Citation": "N/A",
-      "Source Link (URL/DOI)": "N/A",
-      "Scale Type / Response Options": "Open-ended text response (multi-line)",
-      "Qualtrics QID / Export Tag": "QID225 / Q74_Feedback",
-      "Relationship to Other Items": ""
+      "APA Citation (Full)": "N/A"
     }
   ]
 }

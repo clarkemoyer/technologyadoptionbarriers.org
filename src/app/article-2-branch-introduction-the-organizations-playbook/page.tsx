@@ -13,7 +13,7 @@ import SeriesNavigation from '@/components/series-navigation'
 import ArticleTOC from '@/components/article-toc'
 
 export const metadata: Metadata = {
-  title: 'Article 2: Branch Introduction â€“ The Organizationâ€™s Playbook',
+  title: 'Article 2: Branch Introduction - The Organization’s Playbook',
   description:
     'Branch introduction to organizational technology adoption frameworks, covering strategy, maturity models, hype cycles, enterprise architecture, security, cloud adoption, and AI adoption.',
 }
@@ -22,25 +22,23 @@ const OrganizationsPlaybookPage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
-        <h1 className={H1_CLASSES}>
-          Article 2: Branch Introduction â€“ The Organizationâ€™s Playbook
-        </h1>
+        <h1 className={H1_CLASSES}>Article 2: Branch Introduction - The Organization’s Playbook</h1>
 
         <section className={SECTION_CLASSES}>
           <p className={PARAGRAPH_CLASSES}>
-            Having thoroughly explored the psychological and cognitive drivers of the individualâ€™s
+            Having thoroughly explored the psychological and cognitive drivers of the individual’s
             adoption journey, we now pivot our focus from the micro to the macro. We ascend from the
-            userâ€™s desktop to the C-Suite, shifting our lens from the personal calculus of
+            user’s desktop to the C-Suite, shifting our lens from the personal calculus of
             acceptance to the strategic imperatives of the organization. Welcome to the second major
-            branch of our series: The Organizationâ€™s Playbook.
+            branch of our series: The Organization’s Playbook.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            Here, the central question is no longer â€œWill an individual use this technology?â€ but
-            rather, â€œHow does our organization decide to invest in, implement, and integrate a
-            technology to achieve strategic goals?â€ This is the realm of high-stakes capital
+            Here, the central question is no longer “Will an individual use this technology?” but
+            rather, “How does our organization decide to invest in, implement, and integrate a
+            technology to achieve strategic goals?” This is the realm of high-stakes capital
             allocation, competitive maneuvering, operational overhaul, and systemic risk management.
-            If the userâ€™s journey is a story of psychology, the organizationâ€™s playbook is a
-            story of strategy.
+            If the user’s journey is a story of psychology, the organization’s playbook is a story
+            of strategy.
           </p>
         </section>
 
@@ -64,21 +62,21 @@ const OrganizationsPlaybookPage = () => {
           <h2 className={H2_CLASSES}>From Theory to Frameworks: A Narrative Arc</h2>
           <p className={PARAGRAPH_CLASSES}>
             The evolution of organizational adoption guidance follows a distinct path, moving from
-            high-level academic theories that explain the â€œwhyâ€ to detailed, prescriptive
-            frameworks that dictate the â€œhow.â€
+            high-level academic theories that explain the “why” to detailed, prescriptive frameworks
+            that dictate the “how.”
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>The Strategic â€œWhyâ€:</strong> The intellectual foundation for
-              organizational adoption lies in strategic management theory. Foundational frameworks
-              like the Technology-Organization-Environment (TOE) framework [2] provided a lens for
+              <strong>The Strategic “Why”: </strong>The intellectual foundation for organizational
+              adoption lies in strategic management theory. Foundational frameworks like the
+              Technology-Organization-Environment (TOE) framework [2] provided a lens for
               understanding the external and internal forces that prompt a firm to consider a new
               technology. Meanwhile, the Resource-Based View (RBV) of the firm [3] framed technology
               as a potential source of sustained competitive advantage, providing a powerful
               strategic justification for investment.
             </li>
             <li>
-              <strong>The Procedural â€œHowâ€:</strong> As organizations began to invest heavily in
+              <strong>The Procedural “How”: </strong>As organizations began to invest heavily in
               software and IT, the focus shifted from why they should adopt to how they could do so
               effectively and repeatably. This led to the rise of maturity models, most famously the
               Capability Maturity Model (CMM) [4] and its successor, CMMI. While these focused on
@@ -87,7 +85,7 @@ const OrganizationsPlaybookPage = () => {
               managing the entire IT function as a value-adding business unit.
             </li>
             <li>
-              <strong>The Influence of the Intermediary:</strong> Parallel to the development of
+              <strong>The Influence of the Intermediary: </strong>Parallel to the development of
               academic and vendor frameworks, a powerful ecosystem of industry analysts and
               consultants emerged to guide executive decision-making. Firms like Gartner
               institutionalized technology evaluation through tools like the Hype Cycle and the
@@ -97,7 +95,7 @@ const OrganizationsPlaybookPage = () => {
               adoption strategies.
             </li>
             <li>
-              <strong>The Blueprint and the Mandate: Architecture and Risk:</strong> As enterprise
+              <strong>The Blueprint and the Mandate: Architecture and Risk: </strong>As enterprise
               IT became more complex, the need for a coherent blueprint became critical. This led to
               the development of enterprise architecture frameworks like The Open Group Architecture
               Framework (TOGAF) [7] to align business and technology strategy. Simultaneously, as
@@ -108,12 +106,12 @@ const OrganizationsPlaybookPage = () => {
               building systems to building them securely and resiliently.
             </li>
             <li>
-              <strong>The Prescriptive â€œWhatâ€: Cloud and AI Playbooks:</strong> The modern era is
+              <strong>The Prescriptive “What”: Cloud and AI Playbooks: </strong>The modern era is
               characterized by the rise of highly detailed, prescriptive playbooks from the
               technology vendors themselves. Major cloud providers created comprehensive guides like
               the AWS Cloud Adoption Framework (CAF) [10] and the Microsoft Cloud Adoption Framework
               for Azure to navigate digital transformation. Most recently, this trend has extended
-              to the AI Frontier, with emerging frameworks like Microsoftâ€™s AI Adoption Framework
+              to the AI Frontier, with emerging frameworks like Microsoft’s AI Adoption Framework
               [11] designed to address the unique challenges of adopting artificial intelligence,
               machine learning, and generative AI, focusing on issues like data readiness, model
               governance, and responsible AI principles.
@@ -125,7 +123,7 @@ const OrganizationsPlaybookPage = () => {
           <h2 className={H2_CLASSES}>Roadmap for this Branch</h2>
           <p className={PARAGRAPH_CLASSES}>
             This narrative arc provides the structure for the articles in this branch. Our
-            exploration of the organizationâ€™s playbook is organized as follows:
+            exploration of the organization’s playbook is organized as follows:
           </p>
           <p className={PARAGRAPH_CLASSES}>
             We will begin by exploring the core strategic theories that guide organizational tech
@@ -157,7 +155,7 @@ const OrganizationsPlaybookPage = () => {
             </li>
             <li>
               Barney, J. (1991). Firm resources and sustained competitive advantage. Journal of
-              Management, 17(1), 99â€“120.{' '}
+              Management, 17(1), 99-120.{' '}
               <a
                 href="https://doi.org/10.1177/014920639101700108"
                 target="_blank"
@@ -172,8 +170,8 @@ const OrganizationsPlaybookPage = () => {
               Maturity Model for Software, Version 1.1. Carnegie Mellon University.
             </li>
             <li>
-              Curley, M. (2016). The IT Capability Maturity Frameworkâ„¢ (IT-CMFâ„¢) 2nd Edition.
-              Van Haren Publishing.
+              Curley, M. (2016). The IT Capability Maturity Framework™ (IT-CMF™) 2nd Edition. Van
+              Haren Publishing.
             </li>
             <li>
               Pollock, N., &amp; Williams, R. (2016). How Industry Analysts Shape the Digital
@@ -187,9 +185,7 @@ const OrganizationsPlaybookPage = () => {
                 https://doi.org/10.1093/acprof:oso/9780198704621.001.0001
               </a>
             </li>
-            <li>
-              The Open Group. (2018). The TOGAFÂ® Standard, Version 9.2. Van Haren Publishing.
-            </li>
+            <li>The Open Group. (2018). The TOGAF® Standard, Version 9.2. Van Haren Publishing.</li>
             <li>
               National Institute of Standards and Technology. (2018). Risk Management Framework for
               Information Systems and Organizations: A System Life Cycle Approach for Security and
@@ -231,12 +227,12 @@ const OrganizationsPlaybookPage = () => {
               Microsoft. (n.d.). Get started with the AI adoption framework for the Microsoft Cloud.
               Microsoft Learn. Retrieved from{' '}
               <a
-                href="https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/strategy/ai-strategy-and-planning"
+                href="https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/strategy/inform/ai"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-600 hover:underline"
               >
-                https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/strategy/ai-strategy-and-planning
+                https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/strategy/inform/ai
               </a>
             </li>
           </ol>

@@ -2,10 +2,10 @@
 """Fetch Prolific auth checks and submission statuses for the analysis pipeline.
 
 Reads environment variables:
-  PROLIFIC_API_TOKEN  — Prolific API token (required)
-  PROLIFIC_STUDY_ID   — Study ID (required)
-  AUTH_OUTPUT         — Path to write auth checks CSV (default: /tmp/auth-checks.csv)
-  STATUSES_OUTPUT     — Path to write statuses JSON (default: /tmp/statuses.json)
+  PROLIFIC_API_TOKEN  - Prolific API token (required)
+  PROLIFIC_STUDY_ID   - Study ID (required)
+  AUTH_OUTPUT         - Path to write auth checks CSV (default: /tmp/auth-checks.csv)
+  STATUSES_OUTPUT     - Path to write statuses JSON (default: /tmp/statuses.json)
 """
 import json
 import os

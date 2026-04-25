@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import { TechnologyAdoptionSeriesResourcePage } from '../_resource-page'
 
 export const metadata: Metadata = {
-  title: 'Technology lifecycle assessment template — Technology Adoption Teaching Series',
+  title: 'Technology lifecycle assessment template - Technology Adoption Teaching Series',
   description:
     'A practical template for assessing technology lifecycle positioning and adoption risk.',
 }

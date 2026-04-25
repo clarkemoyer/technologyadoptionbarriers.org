@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'SEO Performance Dashboard — Making of TABS',
+  title: 'SEO Performance Dashboard - Making of TABS',
   description: 'This page has moved. See the consolidated SEO Transparency page.',
   alternates: {
     canonical: '/making-of-tabs/seo',

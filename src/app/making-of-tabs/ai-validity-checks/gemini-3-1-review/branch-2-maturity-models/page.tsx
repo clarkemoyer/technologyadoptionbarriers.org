@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
 import Link from 'next/link'
 export const metadata: Metadata = {
-  title: 'Maturity Models Review — Making of TABS',
+  title: 'Maturity Models Review - Making of TABS',
   description: 'Gemini 3.1 Pro validity check of maturity models and hype cycles in TABS.',
   alternates: {
     canonical: '/making-of-tabs/ai-validity-checks/gemini-3-1-review/branch-2-maturity-models',
@@ -37,9 +37,9 @@ export default function Page() {
             <span className="text-green-600 font-bold">Verified Accurate</span>
           </p>
           <p className="mb-4">
-            The review confirmed the accuracy of the Gartner Hype Cycle description. The five
-            phases—Innovation Trigger, Peak of Inflated Expectations, Trough of Disillusionment,
-            Slope of Enlightenment, and Plateau of Productivity—are factually correct and align with
+            The review confirmed the accuracy of the Gartner Hype Cycle description. The five phases
+            - Innovation Trigger, Peak of Inflated Expectations, Trough of Disillusionment, Slope of
+            Enlightenment, and Plateau of Productivity - are factually correct and align with
             Gartner&apos;s official methodology.
           </p>
           <div className="mt-8 flex justify-between">
