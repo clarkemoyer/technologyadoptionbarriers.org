@@ -1,4 +1,4 @@
-"""Tests for enrich_qualtrics_csv.py — CSV enrichment with Prolific data."""
+"""Tests for enrich_qualtrics_csv.py - CSV enrichment with Prolific data."""
 
 import csv
 import json

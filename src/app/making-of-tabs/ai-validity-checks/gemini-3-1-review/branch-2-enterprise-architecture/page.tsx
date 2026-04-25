@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
 import Link from 'next/link'
 export const metadata: Metadata = {
-  title: 'Enterprise Architecture Review — Making of TABS',
+  title: 'Enterprise Architecture Review - Making of TABS',
   description: 'Gemini 3.1 Pro validity check of enterprise architecture frameworks in TABS.',
   alternates: {
     canonical:

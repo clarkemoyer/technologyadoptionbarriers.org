@@ -33,7 +33,7 @@ THANK_YOU_MESSAGE = (
     "Hi, thank you for participating in our Technology Adoption Barriers Survey "
     "and for taking the time to respond to our review message. Your submission "
     "has been approved. We appreciate your thoughtful engagement and the insights "
-    "you shared — they are valuable to our research. Thank you again for your "
+    "you shared - they are valuable to our research. Thank you again for your "
     "contribution!"
 )
 
@@ -110,7 +110,7 @@ def main():
 
     headers = rows[0]
 
-    # Require explicit PROLIFIC_PID column — no fallback for safety
+    # Require explicit PROLIFIC_PID column - no fallback for safety
     pid_idx = -1
     for i, h in enumerate(headers):
         if h.strip() == "PROLIFIC_PID":
@@ -124,7 +124,7 @@ def main():
         )
         sys.exit(1)
 
-    # Require explicit Disposition column — no fallback for safety
+    # Require explicit Disposition column - no fallback for safety
     disp_idx = -1
     for i, h in enumerate(headers):
         if h.strip().lower() == "disposition":
@@ -141,7 +141,7 @@ def main():
     print(f"  Disposition column: '{headers[disp_idx]}' (index {disp_idx})")
     print()
 
-    # Parse rows — find CLEAN dispositions
+    # Parse rows - find CLEAN dispositions
     clean_pids: list[str] = []
     skipped = 0
     for row in rows[1:]:
@@ -153,7 +153,7 @@ def main():
             if pid:
                 clean_pids.append(pid)
             else:
-                print(f"  Warning: CLEAN row with empty PID — skipping")
+                print(f"  Warning: CLEAN row with empty PID - skipping")
                 skipped += 1
 
     total_data_rows = len(rows) - 1
@@ -196,9 +196,9 @@ def main():
                 elif status == "AWAITING REVIEW":
                     pids_to_approve.append(pid)
                 else:
-                    # RETURNED, TIMED-OUT, REJECTED, etc. — cannot approve
+                    # RETURNED, TIMED-OUT, REJECTED, etc. - cannot approve
                     non_approvable += 1
-                    print(f"  Warning: CLEAN PID {pid} has Prolific status '{status}' — cannot approve")
+                    print(f"  Warning: CLEAN PID {pid} has Prolific status '{status}' - cannot approve")
 
             print(f"  Already APPROVED: {already_approved}")
             print(f"  AWAITING REVIEW (will approve): {len(pids_to_approve)}")
@@ -210,7 +210,7 @@ def main():
 
         # Approve
         if dry_run:
-            print(f"DRY RUN — {len(clean_pids)} submissions would be approved")
+            print(f"DRY RUN - {len(clean_pids)} submissions would be approved")
             print("  (Set DRY_RUN=false to approve live)")
         elif pids_to_approve:
             print(f"Approving {len(pids_to_approve)} submissions for study {study_id} ({study_name})...")
@@ -231,7 +231,7 @@ def main():
         # so only message the ones that are known to be approved.
         # newly_approved + already_approved = the group of actually approved participants.
         if dry_run:
-            print(f"DRY RUN — {len(clean_pids)} participants would be checked for thank-you messages")
+            print(f"DRY RUN - {len(clean_pids)} participants would be checked for thank-you messages")
             messages_sent = len(clean_pids)
         else:
             approved_message_pids = set(already_approved_pids) | set(pids_to_approve)
@@ -248,7 +248,7 @@ def main():
                         for m in existing
                     )
                     if already_sent:
-                        print(f"  SKIP {pid} — already received thank-you")
+                        print(f"  SKIP {pid} - already received thank-you")
                         messages_already_sent += 1
                         continue
 

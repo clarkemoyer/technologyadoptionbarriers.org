@@ -34,7 +34,7 @@ CSV_PATH = sys.argv[1]
 
 # V2 filter threshold
 V2_THRESHOLD = '2026-03-23 14:00:00'
-# Prolific live test of V2 instrument (2026-03-23 09:07 AM, COO, 876s) — valid V2 response
+# Prolific live test of V2 instrument (2026-03-23 09:07 AM, COO, 876s) - valid V2 response
 PROLIFIC_TEST_ID = 'R_1QK12IJpHjC3wd6'
 
 # Scale value mappings
@@ -480,10 +480,10 @@ def main():
         print(f"  M{idx}: {name}")
 
     # ========================================================================
-    # 2. CONSTRUCT VALIDITY — INTERNAL STRUCTURE (PCA)
+    # 2. CONSTRUCT VALIDITY - INTERNAL STRUCTURE (PCA)
     # ========================================================================
 
-    print("\n\n2. CONSTRUCT VALIDITY — INTERNAL STRUCTURE (PCA/FACTOR ANALYSIS)")
+    print("\n\n2. CONSTRUCT VALIDITY - INTERNAL STRUCTURE (PCA/FACTOR ANALYSIS)")
     print("-" * 80)
 
     # Combine all constructs for overall PCA
@@ -553,10 +553,10 @@ def main():
         print(f"PCA Error: {e}")
 
     # ========================================================================
-    # 3. RELIABILITY — INTERNAL CONSISTENCY
+    # 3. RELIABILITY - INTERNAL CONSISTENCY
     # ========================================================================
 
-    print("\n\n3. RELIABILITY — INTERNAL CONSISTENCY")
+    print("\n\n3. RELIABILITY - INTERNAL CONSISTENCY")
     print("-" * 80)
 
     def analyze_scale(name, item_cols, df_data):
@@ -688,7 +688,7 @@ def main():
     # 5. IRI EFFECTIVENESS
     # ========================================================================
 
-    print("\n\n5. CRITERION VALIDITY — IRI EFFECTIVENESS")
+    print("\n\n5. CRITERION VALIDITY - IRI EFFECTIVENESS")
     print("-" * 80)
 
     # Check IRIs

@@ -12,9 +12,9 @@ import SeriesNavigation from '@/components/series-navigation'
 import ArticleTOC from '@/components/article-toc'
 
 export const metadata: Metadata = {
-  title: 'Article 2.6: The Cloud Revolution â€“ Prescriptive Adoption Frameworks',
+  title: 'Article 2.6: The Cloud Revolution - Prescriptive Adoption Frameworks',
   description:
-    'How cloud vendors productized adoption theory into prescriptive frameworksâ€“AWS CAF, AWS ETF, and Microsoft Azure CAFâ€“transforming how organizations plan and execute technology adoption.',
+    'How cloud vendors productized adoption theory into prescriptive frameworks - AWS CAF, AWS ETF, and Microsoft Azure CAF - transforming how organizations plan and execute technology adoption.',
 }
 
 const Article26Page = () => {
@@ -22,7 +22,7 @@ const Article26Page = () => {
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>
-          Article 2.6: The Cloud Revolution â€“ Prescriptive Adoption Frameworks
+          Article 2.6: The Cloud Revolution - Prescriptive Adoption Frameworks
         </h1>
 
         <section className={SECTION_CLASSES}>
@@ -31,7 +31,7 @@ const Article26Page = () => {
             changed. Earlier frameworks like TAFIM, TOGAF, and NIST&apos;s RMF emerged from
             government and academia, providing conceptual structures and methodological guidance
             that organizations had to interpret and implement. They said &quot;here are the
-            principles&quot;â€“and organizations had to figure out how to apply them. Contemporary
+            principles&quot; - and organizations had to figure out how to apply them. Contemporary
             frameworks from cloud vendors take a different approach. They say &quot;here is exactly
             what you should do, step by step, with specific checklists, tools, and proven
             approaches.&quot; This shift from conceptual guidance to prescriptive guidance
@@ -40,7 +40,7 @@ const Article26Page = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             The emergence of cloud computing as the dominant computing model accelerated this shift.
-            Cloud vendorsâ€“Amazon Web Services, Microsoft, Google Cloudâ€“needed to help thousands
+            Cloud vendors - Amazon Web Services, Microsoft, Google Cloud - needed to help thousands
             of organizations transition from on-premises infrastructure to cloud. They could not
             rely on each organization to interpret abstract principles and independently develop
             implementation approaches. Instead, they developed highly detailed, prescriptive
@@ -63,7 +63,7 @@ const Article26Page = () => {
             TOGAF, for instance, specified that organizations should follow the Architecture
             Development Method (ADM), but implementation details were the organization&apos;s
             responsibility. The framework provided structure, not prescription. This flexibility was
-            valuableâ€“organizations could adapt frameworks to their contexts. But it also created
+            valuable - organizations could adapt frameworks to their contexts. But it also created
             burdens. Organizations had to translate abstract principles into concrete actions. They
             had to figure out sequencing, resource allocation, governance approaches, and success
             metrics.
@@ -99,37 +99,37 @@ const Article26Page = () => {
             organizational concerns:
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Business Perspective</strong> addresses business-focused cloud adoption
+            <strong>Business Perspective </strong>addresses business-focused cloud adoption
             concerns: how cloud adoption aligns with business strategy, how to communicate business
             value to stakeholders, how to establish governance ensuring that cloud investments
             deliver business value, how to manage cloud spending, and how to track return on
             investment [1].
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>People Perspective</strong> addresses workforce-related concerns: building
+            <strong>People Perspective </strong>addresses workforce-related concerns: building
             organizational capabilities and skills necessary for cloud adoption, developing training
             programs, restructuring organizational roles, building cloud expertise, managing career
             transitions as roles change, and ensuring organizational culture embraces cloud adoption
             [1].
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Governance Perspective</strong> addresses decision-making and control concerns:
+            <strong>Governance Perspective </strong>addresses decision-making and control concerns:
             establishing governance structures for cloud decisions, managing risks, ensuring
             compliance with regulatory requirements, managing IT portfolio, and making coherent
             investment decisions [1].
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Platform Perspective</strong> addresses technology concerns: designing cloud
+            <strong>Platform Perspective </strong>addresses technology concerns: designing cloud
             platform architecture, selecting cloud services, managing cloud infrastructure, ensuring
             security and reliability, and building cloud operational capabilities [1].
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Security Perspective</strong> addresses security-specific concerns: implementing
+            <strong>Security Perspective </strong>addresses security-specific concerns: implementing
             controls ensuring cloud systems are secure, managing data security, ensuring compliance
             with security standards, and establishing security governance [1].
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Operations Perspective</strong> addresses how organizations should operate cloud
+            <strong>Operations Perspective </strong>addresses how organizations should operate cloud
             systems differently from traditional on-premises operations: establishing new
             operational processes, defining service monitoring and management approaches, developing
             incident response capabilities, and establishing financial management for cloud
@@ -137,7 +137,7 @@ const Article26Page = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             What makes AWS CAF prescriptive is the detailed guidance within each perspective. The
-            framework does not say &quot;your governance needs to improve&quot;â€“it specifies
+            framework does not say &quot;your governance needs to improve&quot; - it specifies
             exactly what governance capabilities you need to develop, the typical sequence for
             developing them, how to assess your current state, how to prioritize improvement
             efforts, and how to measure progress. Organizations can follow AWS CAF similar to
@@ -176,26 +176,26 @@ const Article26Page = () => {
             The ETF structures transformation into four distinct phases:
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Prioritize</strong> focuses on identifying transformation opportunities,
+            <strong>Prioritize </strong>focuses on identifying transformation opportunities,
             understanding the path forward, assessing organizational readiness, and establishing
             business cases for transformation investment. Organizations clarify what they are trying
             to achieve, what business problems cloud should solve, and what value should be
             realized.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Ready</strong> focuses on preparing the organization for transformation:
+            <strong>Ready </strong>focuses on preparing the organization for transformation:
             building governance structures, establishing cross-functional leadership, assessing
             capability gaps, establishing transformation programs, and building foundational
             capabilities [2].
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Enable</strong> focuses on building the organizational capabilities, skills, and
+            <strong>Enable </strong>focuses on building the organizational capabilities, skills, and
             capacity necessary for cloud operations and business transformation. Organizations
             invest in workforce development, establish Cloud Centers of Excellence, implement
             experiential learning programs, and build operational competency.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Transform</strong> focuses on the actual transformation: incubating new
+            <strong>Transform </strong>focuses on the actual transformation: incubating new
             approaches through pilots, scaling successful approaches across the organization,
             managing organizational change, and embedding new ways of working into regular business
             operations [2].
@@ -221,28 +221,28 @@ const Article26Page = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>The Microsoft framework specifies these phases [3]:</p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Define Strategy</strong> addresses foundational questions about why the
+            <strong>Define Strategy </strong>addresses foundational questions about why the
             organization is adopting cloud, what business outcomes cloud should enable, and what
             organizational changes are necessary.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Plan</strong> involves creating detailed adoption plans specifying what should
+            <strong>Plan </strong>involves creating detailed adoption plans specifying what should
             be migrated first, what dependencies exist, and what resources are required.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Ready</strong> involves preparing the organizationâ€“establishing governance,
+            <strong>Ready </strong>involves preparing the organization - establishing governance,
             building technical readiness, ensuring organizational readiness.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Adopt</strong> involves the actual migration and implementationâ€“moving
+            <strong>Adopt </strong>involves the actual migration and implementation - moving
             applications and data to cloud, establishing cloud operations.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Govern</strong> involves establishing governance and controls ensuring cloud
+            <strong>Govern </strong>involves establishing governance and controls ensuring cloud
             systems operate securely, comply with requirements, and deliver expected value [3].
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Manage</strong> involves establishing operational management practices ensuring
+            <strong>Manage </strong>involves establishing operational management practices ensuring
             cloud systems remain secure, reliable, and cost-optimized.
           </p>
           <p className={PARAGRAPH_CLASSES}>
@@ -279,7 +279,7 @@ const Article26Page = () => {
           <p className={PARAGRAPH_CLASSES}>
             Third, adoption becomes more certain. Vendor frameworks reduce the likelihood of major
             adoption missteps. Organizations following frameworks systematically address all the
-            areas necessary for successful adoptionâ€“business strategy, skills development,
+            areas necessary for successful adoption - business strategy, skills development,
             governance, security, operations, financial management. Organizations that improvise
             adoption approaches often discover too late that they failed to address important areas.
           </p>
@@ -311,7 +311,7 @@ const Article26Page = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             The most effective adoption approaches combine vendor frameworks with customization.
-            Organizations use vendor frameworks as starting pointsâ€“proven playbooks from which to
+            Organizations use vendor frameworks as starting points - proven playbooks from which to
             work. But they thoughtfully adapt frameworks to their specific contexts, adjusting
             emphasis based on organizational priorities, adjusting sequencing based on
             organizational constraints, and adjusting specific practices based on organizational
@@ -326,7 +326,7 @@ const Article26Page = () => {
             frameworks requiring organizational interpretation, organizations increasingly use
             highly detailed playbooks integrated with tools, services, and professional support
             ecosystems. This trend is extending beyond cloud adoption to other technology adoption
-            areasâ€“AI adoption frameworks, data analytics adoption frameworks, and others follow
+            areas - AI adoption frameworks, data analytics adoption frameworks, and others follow
             the cloud adoption framework model of detailed prescription integrated with ecosystem
             support.
           </p>
@@ -342,9 +342,9 @@ const Article26Page = () => {
             The most important insight from the cloud adoption framework evolution is that effective
             technology adoption requires deliberate, systematic approaches. Whether organizations
             follow vendor frameworks, develop custom frameworks, or adapt frameworks to their
-            contexts, organizations that adopt systematicallyâ€“with clear governance, with
+            contexts, organizations that adopt systematically - with clear governance, with
             attention to all dimensions of adoption including organizational change, with adequate
-            resourcing, with accountability for outcomesâ€“achieve far better results than
+            resourcing, with accountability for outcomes - achieve far better results than
             organizations that adopt ad-hoc, reacting to emerging opportunities without systematic
             planning.
           </p>

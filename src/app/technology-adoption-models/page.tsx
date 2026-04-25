@@ -5,7 +5,7 @@ import SeriesNavigation from '@/components/series-navigation'
 import ImageLightbox from '@/components/ui/image-lightbox'
 
 export const metadata: Metadata = {
-  title: 'Technology Adoption Models & Frameworks – Series Overview',
+  title: 'Technology Adoption Models & Frameworks - Series Overview',
   description:
     'A multi-part series exploring the most influential technology adoption models and frameworks, from foundational theories to modern enterprise, cloud, and AI playbooks.',
 }
@@ -20,7 +20,7 @@ const ModelsPage = () => {
 
         <p className="mb-3 sm:mb-6">
           “Getting a new idea adopted, even when it has obvious advantages, is often very
-          difficult.” – Everett M. Rogers, Diffusion of Innovations [1]
+          difficult.” - Everett M. Rogers, Diffusion of Innovations [1]
         </p>
 
         <p className="mb-3 sm:mb-6">
@@ -67,10 +67,10 @@ const ModelsPage = () => {
             strategy and operations, where the C-Suite makes high-stakes decisions. The central
             question here is: How does our organization decide to invest in, implement, and
             integrate a technology to achieve strategic goals? This perspective examines the
-            powerful forces at play–such as competitive and environmental pressures [2], the search
-            for a sustainable advantage through strategic resource allocation [3], and the immense
-            challenge of re-engineering established workflows [4]. It is the strategic umbrella
-            under which all other adoption activities occur.
+            powerful forces at play - such as competitive and environmental pressures [2], the
+            search for a sustainable advantage through strategic resource allocation [3], and the
+            immense challenge of re-engineering established workflows [4]. It is the strategic
+            umbrella under which all other adoption activities occur.
           </p>
 
           <h3 className={H3_CLASSES}>2. User Adoption: The Internal Challenge</h3>
@@ -94,9 +94,9 @@ const ModelsPage = () => {
             motivates an external customer to adopt and integrate our technology into their lives?
             This involves understanding market needs, pricing, user experience (UX), and the social
             dynamics of consumer choice [1]. Whether it’s a new mobile app, a smart home device, or
-            a SaaS platform for small businesses, the drivers here–such as hedonic motivation and
-            price value–are fundamentally different from those in a mandatory corporate environment
-            [9].
+            a SaaS platform for small businesses, the drivers here - such as hedonic motivation and
+            price value - are fundamentally different from those in a mandatory corporate
+            environment [9].
           </p>
         </section>
 
@@ -195,7 +195,7 @@ const ModelsPage = () => {
             </li>
             <li>
               Barney, J. (1991). Firm resources and sustained competitive advantage. Journal of
-              Management, 17(1), 99–120.{' '}
+              Management, 17(1), 99-120.{' '}
               <a
                 href="https://doi.org/10.1177/014920639101700108"
                 target="_blank"
@@ -227,7 +227,7 @@ const ModelsPage = () => {
             </li>
             <li>
               Davis, F. D. (1989). Perceived usefulness, perceived ease of use, and user acceptance
-              of information technology. MIS Quarterly, 13(3), 319–340.{' '}
+              of information technology. MIS Quarterly, 13(3), 319-340.{' '}
               <a
                 href="https://doi.org/10.2307/249008"
                 target="_blank"
@@ -252,7 +252,7 @@ const ModelsPage = () => {
             <li>
               Venkatesh, V., Thong, J. Y. L., &amp; Xu, X. (2012). Consumer acceptance and use of
               information technology: Extending the unified theory of acceptance and use of
-              technology. MIS Quarterly, 36(1), 157–178.{' '}
+              technology. MIS Quarterly, 36(1), 157-178.{' '}
               <a
                 href="https://doi.org/10.2307/41410412"
                 target="_blank"

@@ -1,8 +1,8 @@
 # Top-Performing Pages SEO Analysis
 
 **Last Updated:** 2026-03-23
-**Related Issue:** [#479 — Top-Performing Pages SEO Analysis](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/479)
-**Parent Issue:** [#473 — SEO Benchmark Initiative](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/473)
+**Related Issue:** [#479 - Top-Performing Pages SEO Analysis](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/479)
+**Parent Issue:** [#473 - SEO Benchmark Initiative](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/473)
 **Companion Documents:** [Competitive SERP Benchmarking](./competitive-serp-benchmarking.md) · [Competitor Profiles](./competitor-profiles.md)
 
 ---
@@ -116,7 +116,7 @@ Pages are scored on a composite **Organic Performance Index (OPI)** combining:
 | **Persona & org pages**    |        10+ | 0.7              | Role-specific pages (executives, finance, operations, technology) and persona entry points                                    |
 | **Making of TABS pages**   |        20+ | 0.7              | Project documentation (integrations, development workflow, AI validity, accessibility)                                        |
 | **Legal/policy pages**     |          7 | 0.3              | Privacy policy, terms of service, cookie policy, etc.                                                                         |
-| **Total**                  |  **~600+** | —                | Including teaching series slides and dynamic persona pages                                                                    |
+| **Total**                  |  **~600+** | -                | Including teaching series slides and dynamic persona pages                                                                    |
 
 ### Content Hierarchy
 
@@ -290,7 +290,7 @@ Pages are classified as underperformers based on:
 
 | Rank | URL Path                                                              | Content Type  | Primary Issue                   | Est. Organic Sessions (28d) | Diagnosis                                                                                                                                                                                | Improvement Recommendation                                                                                                                                                                   |
 | ---: | :-------------------------------------------------------------------- | :------------ | :------------------------------ | --------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|    1 | `/survey-complete`                                                    | Utility       | No search intent                |                         0–5 | Confirmation page with no organic value; should not target search traffic                                                                                                                | **No action needed.** Utility page — noindex is appropriate. Ensure `<meta name="robots" content="noindex">` is set.                                                                         |
+|    1 | `/survey-complete`                                                    | Utility       | No search intent                |                         0–5 | Confirmation page with no organic value; should not target search traffic                                                                                                                | **No action needed.** Utility page - noindex is appropriate. Ensure `<meta name="robots" content="noindex">` is set.                                                                         |
 |    2 | `/contribution-policy`                                                | Legal         | No search demand                |                         0–5 | Legal boilerplate; no external search demand for this content                                                                                                                            | **No action needed.** Legal compliance page. Consider noindex to reduce crawl budget waste.                                                                                                  |
 |    3 | `/vulnerability-disclosure-policy`                                    | Legal         | No search demand                |                         0–5 | Security policy page; necessary but not an organic target                                                                                                                                | **No action needed.** Ensure page is accessible for security researchers.                                                                                                                    |
 |    4 | `/cookie-policy`                                                      | Legal         | No search demand                |                        5–10 | Cookie consent compliance page; minimal organic value                                                                                                                                    | **No action needed.** Compliance requirement.                                                                                                                                                |
@@ -305,7 +305,7 @@ Pages are classified as underperformers based on:
 |   13 | `/bibliography-2-9-business-process-reengineering-hammer-champy-1993` | Bibliography  | Competitive topic, thin content |                        5–15 | Similar to BPR above. "Business process reengineering" has moderate volume (~2,900/mo) but dominated by Wikipedia and established textbooks.                                             | **Medium priority.** Differentiate by focusing on BPR as a technology adoption driver rather than general management theory.                                                                 |
 |   14 | `/bibliography-1-9-intrinsic-extrinsic-motivation-davis-1992`         | Bibliography  | Broad topic mismatch            |                        5–15 | "Intrinsic and extrinsic motivation" is a massive keyword (~74,000/mo) dominated by psychology sites. The TABS angle (motivation in technology adoption) is too narrow for this keyword. | **Medium priority.** Retarget to "motivation in technology adoption" or "intrinsic motivation technology use." Add connection to TAM's perceived usefulness/ease of use constructs.          |
 |   15 | `/bibliography-2-15-it-cmf-innovation-value-institute-2016`           | Bibliography  | Niche framework + thin content  |                        0–10 | IT-CMF (IT Capability Maturity Framework) has limited search volume. Content is reference-style.                                                                                         | **Low priority.** Cross-link to maturity model article (article-2-2). Add practical application examples.                                                                                    |
-|   16 | `/making-of-tabs/integrations/microsoft-clarity`                      | Documentation | No external search demand       |                        0–10 | Internal documentation about TABS's use of Microsoft Clarity. No external organic search interest.                                                                                       | **No action needed.** Internal documentation page — serves existing audience.                                                                                                                |
+|   16 | `/making-of-tabs/integrations/microsoft-clarity`                      | Documentation | No external search demand       |                        0–10 | Internal documentation about TABS's use of Microsoft Clarity. No external organic search interest.                                                                                       | **No action needed.** Internal documentation page - serves existing audience.                                                                                                                |
 |   17 | `/making-of-tabs/integrations/cloudflare`                             | Documentation | No external search demand       |                        0–10 | Internal documentation about Cloudflare integration.                                                                                                                                     | **No action needed.**                                                                                                                                                                        |
 |   18 | `/making-of-tabs/development-workflow`                                | Documentation | No external search demand       |                        0–10 | Developer documentation for the TABS project.                                                                                                                                            | **No action needed.** Serves contributors and transparency goals.                                                                                                                            |
 |   19 | `/making-of-tabs/integrations/prolific`                               | Documentation | No external search demand       |                        5–15 | Documentation about Prolific integration. May receive some traffic from researchers curious about Prolific.                                                                              | **Low priority.** Add "Prolific for academic research" angle if expanding.                                                                                                                   |
@@ -319,33 +319,33 @@ Analysis of the bottom 20 pages reveals five recurring patterns:
 
 - These pages serve compliance and utility purposes, not organic acquisition
 - **Action:** Confirm appropriate noindex tags; no SEO optimization needed
-- **Impact:** Zero — these pages are working as intended
+- **Impact:** Zero - these pages are working as intended
 
 **2. Niche bibliography pages lack search volume (8 of 20)**
 
 - Individual bibliography reference pages for obscure or dated models have near-zero search demand
 - The reference-style format (citation information, brief model description) doesn't provide enough content depth to rank
 - **Action:** Selectively expand high-potential bibliography pages; consolidate or cross-link low-volume ones
-- **Impact:** Medium — improving even a few bibliography pages for searchable model names could capture incremental traffic
+- **Impact:** Medium - improving even a few bibliography pages for searchable model names could capture incremental traffic
 
 **3. Making-of-tabs pages serve internal audiences (3 of 20)**
 
 - Project documentation pages (integrations, development workflow) are valuable for transparency and contributor onboarding but have no organic search audience
 - **Action:** No SEO optimization needed; consider noindex for purely internal documentation
-- **Impact:** Zero — these pages are working as intended
+- **Impact:** Zero - these pages are working as intended
 
 **4. Acronym-heavy titles reduce discoverability**
 
 - Pages using acronyms in titles (MATH, TRAM, IT-CMF, TAFIM) miss searchers who use full model names
 - **Action:** Expand page titles to include full model names alongside acronyms
-- **Impact:** Low-medium — simple title changes could improve impressions for niche searches
+- **Impact:** Low-medium - simple title changes could improve impressions for niche searches
 
 **5. Competitive topics with thin content cannot rank**
 
 - Bibliography pages on well-known topics (BPR, diffusion of innovations) compete against Wikipedia and established publications
 - At 500–1,000 words of reference content, TABS pages cannot match the depth of 5,000+ word competitor articles
 - **Action:** Selectively expand competitive-topic pages into comprehensive guides, or refocus on differentiated angles
-- **Impact:** Medium-high — expanded high-volume bibliography pages could capture significant new traffic
+- **Impact:** Medium-high - expanded high-volume bibliography pages could capture significant new traffic
 
 ---
 
@@ -370,11 +370,11 @@ Comparing TABS content types against industry benchmarks for similar nonprofit/r
 
 | Content Type                    | TABS Avg Sessions/Page | Industry Benchmark | Gap Assessment                                                                   |
 | :------------------------------ | ---------------------: | -----------------: | :------------------------------------------------------------------------------- |
-| Core hub pages                  |            1,000–1,300 |        2,000–5,000 | **Below benchmark** — hub pages need more content depth and keyword optimization |
-| Article series (individual)     |                500–750 |            300–800 | **At benchmark** — performing well for a DA 10–15 site                           |
-| Article series (organizational) |                220–360 |            300–800 | **Below benchmark** — organizational content needs expansion                     |
-| Bibliography pages              |                  50–90 |            100–300 | **Below benchmark** — reference pages too thin for ranking                       |
-| Persona pages                   |                100–180 |          500–1,500 | **Significantly below** — persona pages need substantial content investment      |
+| Core hub pages                  |            1,000–1,300 |        2,000–5,000 | **Below benchmark** - hub pages need more content depth and keyword optimization |
+| Article series (individual)     |                500–750 |            300–800 | **At benchmark** - performing well for a DA 10–15 site                           |
+| Article series (organizational) |                220–360 |            300–800 | **Below benchmark** - organizational content needs expansion                     |
+| Bibliography pages              |                  50–90 |            100–300 | **Below benchmark** - reference pages too thin for ranking                       |
+| Persona pages                   |                100–180 |          500–1,500 | **Significantly below** - persona pages need substantial content investment      |
 
 ### Content Type Insights
 
@@ -395,7 +395,7 @@ Comparing TABS content types against industry benchmarks for similar nonprofit/r
 **Largest volume, lowest per-page performance: Bibliography pages**
 
 - 40 bibliography pages represent the single largest content category
-- Most pages are 500–1,000 words of reference content — too thin to rank independently
+- Most pages are 500–1,000 words of reference content - too thin to rank independently
 - Top-performing bibliography pages (TAM, DOI) benefit from keyword volume in their associated model names
 - **Recommendation:** Identify the 10 bibliography pages with highest keyword volume potential and expand into comprehensive guides. For low-volume pages, ensure strong cross-linking to parent articles.
 
@@ -416,11 +416,11 @@ These improvements require minimal development effort and can be implemented imm
 
 |   # | Action                                                                                                                                                                               | Page(s) Affected                                                                              | Expected Impact                            | Effort   |
 | --: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------- | :----------------------------------------- | :------- |
-|   1 | **Optimize title tags for top 5 articles** — ensure primary keyword appears in first 60 characters of title tag. E.g., "Technology Acceptance Model (TAM): A Deep Dive – TABS"       | article-1-2, article-1-4, article-1-1, article-1-3, article-1-5                               | +15–25% CTR improvement                    | Low      |
-|   2 | **Add meta descriptions to all article pages** — write unique 150–160 character descriptions including primary keyword and value proposition                                         | All 16 article pages                                                                          | +10–20% CTR improvement from SERP          | Low      |
-|   3 | **Expand acronym-only titles in bibliography pages** — change "MATH – Venkatesh & Brown (2001)" to "Model of Adoption of Technology in Households (MATH) – Venkatesh & Brown (2001)" | bibliography-1-16, bibliography-1-18, bibliography-2-10, bibliography-2-13, bibliography-2-15 | +20–50% impressions for affected pages     | Low      |
-|   4 | **Add `noindex` to utility/confirmation pages** — prevent `/survey-complete` from consuming crawl budget                                                                             | /survey-complete                                                                              | Marginal crawl budget improvement          | Very low |
-|   5 | **Improve internal linking from bibliography to articles** — add prominent "Read the full article" CTAs on bibliography pages linking to their parent article series pages           | All 40 bibliography pages                                                                     | Improved link equity flow to article pages | Low      |
+|   1 | **Optimize title tags for top 5 articles** - ensure primary keyword appears in first 60 characters of title tag. E.g., "Technology Acceptance Model (TAM): A Deep Dive – TABS"       | article-1-2, article-1-4, article-1-1, article-1-3, article-1-5                               | +15–25% CTR improvement                    | Low      |
+|   2 | **Add meta descriptions to all article pages** - write unique 150–160 character descriptions including primary keyword and value proposition                                         | All 16 article pages                                                                          | +10–20% CTR improvement from SERP          | Low      |
+|   3 | **Expand acronym-only titles in bibliography pages** - change "MATH – Venkatesh & Brown (2001)" to "Model of Adoption of Technology in Households (MATH) – Venkatesh & Brown (2001)" | bibliography-1-16, bibliography-1-18, bibliography-2-10, bibliography-2-13, bibliography-2-15 | +20–50% impressions for affected pages     | Low      |
+|   4 | **Add `noindex` to utility/confirmation pages** - prevent `/survey-complete` from consuming crawl budget                                                                             | /survey-complete                                                                              | Marginal crawl budget improvement          | Very low |
+|   5 | **Improve internal linking from bibliography to articles** - add prominent "Read the full article" CTAs on bibliography pages linking to their parent article series pages           | All 40 bibliography pages                                                                     | Improved link equity flow to article pages | Low      |
 
 ### Medium-Term Improvements (1–2 Months)
 
@@ -428,11 +428,11 @@ These improvements require moderate content investment:
 
 |   # | Action                                                                                                                                                                                                                                             | Page(s) Affected                    | Expected Impact                                                                                          | Effort      |
 | --: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :---------------------------------- | :------------------------------------------------------------------------------------------------------- | :---------- |
-|   6 | **Expand `/barriers` page to 3,000+ words** — add structured barrier categories, data from survey results, numbered lists, and FAQ section with schema markup                                                                                      | /barriers                           | Target page 1 for "technology adoption barriers" (720/mo) and "barriers to technology adoption" (590/mo) | Medium      |
-|   7 | **Add "Model Explained" sections to top articles** — add plain-language H2 sections titled "UTAUT Explained" and "TAM Explained" optimized for featured snippet capture                                                                            | article-1-4, article-1-2            | Capture featured snippets for "[model] explained" queries                                                | Medium      |
-|   8 | **Expand top 5 bibliography pages into comprehensive guides** — expand TAM (bibliography-1-6), DOI (bibliography-1-2), UTAUT (bibliography-1-15), TRI (bibliography-1-12), and TPB (bibliography-1-7) from reference pages into 2,000+ word guides | 5 high-potential bibliography pages | New ranking opportunities for model-name keywords                                                        | Medium-high |
-|   9 | **Add structured data (FAQ schema) to key pages** — implement FAQ schema on `/barriers`, `/faq`, and top article pages to capture People Also Ask SERP features                                                                                    | /barriers, /faq, top articles       | SERP feature visibility; +10–30% CTR                                                                     | Medium      |
-|  10 | **Deepen persona pages with role-specific content** — add 2,000+ words of content to each `/for-organizations/*` page with role-specific barrier data, case studies, and actionable recommendations                                                | 4 persona pages                     | Open new keyword opportunities for leadership-specific terms                                             | Medium-high |
+|   6 | **Expand `/barriers` page to 3,000+ words** - add structured barrier categories, data from survey results, numbered lists, and FAQ section with schema markup                                                                                      | /barriers                           | Target page 1 for "technology adoption barriers" (720/mo) and "barriers to technology adoption" (590/mo) | Medium      |
+|   7 | **Add "Model Explained" sections to top articles** - add plain-language H2 sections titled "UTAUT Explained" and "TAM Explained" optimized for featured snippet capture                                                                            | article-1-4, article-1-2            | Capture featured snippets for "[model] explained" queries                                                | Medium      |
+|   8 | **Expand top 5 bibliography pages into comprehensive guides** - expand TAM (bibliography-1-6), DOI (bibliography-1-2), UTAUT (bibliography-1-15), TRI (bibliography-1-12), and TPB (bibliography-1-7) from reference pages into 2,000+ word guides | 5 high-potential bibliography pages | New ranking opportunities for model-name keywords                                                        | Medium-high |
+|   9 | **Add structured data (FAQ schema) to key pages** - implement FAQ schema on `/barriers`, `/faq`, and top article pages to capture People Also Ask SERP features                                                                                    | /barriers, /faq, top articles       | SERP feature visibility; +10–30% CTR                                                                     | Medium      |
+|  10 | **Deepen persona pages with role-specific content** - add 2,000+ words of content to each `/for-organizations/*` page with role-specific barrier data, case studies, and actionable recommendations                                                | 4 persona pages                     | Open new keyword opportunities for leadership-specific terms                                             | Medium-high |
 
 ### Long-Term Strategy (3–6 Months)
 
@@ -440,11 +440,11 @@ Strategic content investments for sustained organic growth:
 
 |   # | Action                                                                                                                                                                                                                                                                                  | Expected Impact                                                                    | Effort  |
 | --: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------- | :------ |
-|  11 | **Create dedicated keyword landing pages** — build new pages targeting high-opportunity keywords identified in [competitive benchmarking](./competitive-serp-benchmarking.md): "technology adoption models comparison," "cloud adoption framework," "cybersecurity adoption challenges" | Capture traffic for 3–5 new keyword clusters totaling 3,000+ monthly searches      | High    |
-|  12 | **Build internal linking architecture** — implement systematic internal linking strategy connecting all related content (articles → bibliography → teaching series → persona pages) with contextual anchor text                                                                         | Improved crawl efficiency, link equity distribution, and topical authority signals | Medium  |
-|  13 | **Establish a content refresh cadence** — update top 20 pages quarterly with new data from surveys, updated statistics, and fresh examples                                                                                                                                              | Maintain and improve existing rankings; signal freshness to search engines         | Ongoing |
-|  14 | **Pursue academic citation backlinks** — outreach to academic institutions and researchers who cite the adoption models documented on TABS, requesting links to TABS bibliography pages as supplementary resources                                                                      | Domain authority improvement; direct referral traffic from academic sources        | High    |
-|  15 | **Optimize for SERP features at scale** — add structured data, comparison tables, and definition blocks across all article pages targeting 15+ capturable SERP features identified in [competitive benchmarking](./competitive-serp-benchmarking.md)                                    | Significant visibility increase across multiple keyword clusters                   | High    |
+|  11 | **Create dedicated keyword landing pages** - build new pages targeting high-opportunity keywords identified in [competitive benchmarking](./competitive-serp-benchmarking.md): "technology adoption models comparison," "cloud adoption framework," "cybersecurity adoption challenges" | Capture traffic for 3–5 new keyword clusters totaling 3,000+ monthly searches      | High    |
+|  12 | **Build internal linking architecture** - implement systematic internal linking strategy connecting all related content (articles → bibliography → teaching series → persona pages) with contextual anchor text                                                                         | Improved crawl efficiency, link equity distribution, and topical authority signals | Medium  |
+|  13 | **Establish a content refresh cadence** - update top 20 pages quarterly with new data from surveys, updated statistics, and fresh examples                                                                                                                                              | Maintain and improve existing rankings; signal freshness to search engines         | Ongoing |
+|  14 | **Pursue academic citation backlinks** - outreach to academic institutions and researchers who cite the adoption models documented on TABS, requesting links to TABS bibliography pages as supplementary resources                                                                      | Domain authority improvement; direct referral traffic from academic sources        | High    |
+|  15 | **Optimize for SERP features at scale** - add structured data, comparison tables, and definition blocks across all article pages targeting 15+ capturable SERP features identified in [competitive benchmarking](./competitive-serp-benchmarking.md)                                    | Significant visibility increase across multiple keyword clusters                   | High    |
 
 ---
 
@@ -454,9 +454,9 @@ Strategic content investments for sustained organic growth:
 
 TABS has existing infrastructure for ongoing page performance monitoring:
 
-- **Weekly SEO metrics workflow** (`.github/workflows/seo-metrics.yml`) — collects GSC keyword rankings and GA4 page performance every Monday at 01:00 UTC
-- **Page metrics script** (`scripts/collect-page-seo-metrics.ts`) — fetches top pages by clicks, maps keywords to pages, and generates JSON reports
-- **Keyword collection script** (`scripts/collect-seo-keywords.ts`) — tracks top keywords and organic landing page performance
+- **Weekly SEO metrics workflow** (`.github/workflows/seo-metrics.yml`) - collects GSC keyword rankings and GA4 page performance every Monday at 01:00 UTC
+- **Page metrics script** (`scripts/collect-page-seo-metrics.ts`) - fetches top pages by clicks, maps keywords to pages, and generates JSON reports
+- **Keyword collection script** (`scripts/collect-seo-keywords.ts`) - tracks top keywords and organic landing page performance
 
 ### Recommended Monitoring Schedule
 
@@ -476,9 +476,9 @@ This analysis feeds directly into related SEO benchmark deliverables:
 | :------------------------------------------------------------------ | :-------------------------------------------------------------------------- |
 | [Competitive SERP Benchmarking](./competitive-serp-benchmarking.md) | Provides keyword-level competitive context for page optimization priorities |
 | [Competitor Profiles](./competitor-profiles.md)                     | Identifies competitor content strategies to inform content expansion        |
-| On-Page SEO Audit (planned — #480)                                  | Will provide technical on-page audit details for individual pages           |
-| Content Gap Analysis (planned — #484)                               | Will identify missing content opportunities based on keyword gaps           |
-| Comprehensive Benchmark Report (planned — #481)                     | Will synthesize all findings into a unified strategy document               |
+| On-Page SEO Audit (planned - #480)                                  | Will provide technical on-page audit details for individual pages           |
+| Content Gap Analysis (planned - #484)                               | Will identify missing content opportunities based on keyword gaps           |
+| Comprehensive Benchmark Report (planned - #481)                     | Will synthesize all findings into a unified strategy document               |
 
 ---
 

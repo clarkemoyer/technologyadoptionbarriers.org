@@ -28,7 +28,7 @@ import re
 import sys
 from pathlib import Path
 
-# 24 lowercase hex characters — the Prolific PID / study-ID format.
+# 24 lowercase hex characters - the Prolific PID / study-ID format.
 # No anchors: also catches PIDs embedded inside longer string values.
 _PID_RE = re.compile(r"[0-9a-f]{24}")
 
@@ -77,7 +77,7 @@ def _is_allowed(key_path: str) -> bool:
     if leaf in _ALLOWED_LEAF_KEYS:
         return True
 
-    # study.id  — value nested inside a dict keyed "study", under key "id"
+    # study.id  - value nested inside a dict keyed "study", under key "id"
     if leaf == "id" and len(parts) >= 2 and parts[-2] == "study":
         return True
 
@@ -138,7 +138,7 @@ def main(argv: list[str] | None = None) -> int:
     violation_count = len(all_violations)
 
     if had_parse_error:
-        print(f"\nPII scan: could not complete — read/parse error(s) in {file_count} file(s) checked.")
+        print(f"\nPII scan: could not complete - read/parse error(s) in {file_count} file(s) checked.")
         print("Fix the errors above and re-run the scan.")
         return 2
 

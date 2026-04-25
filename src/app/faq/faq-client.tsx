@@ -229,7 +229,7 @@ export default function FaqPageClient() {
       <section className="py-[40px] sm:py-[60px]">
         <div className="w-[90%] mx-auto max-w-[1200px]">
           <div className="flex flex-col lg:flex-row gap-[32px] lg:gap-[48px]">
-            {/* Sidebar — category filters */}
+            {/* Sidebar - category filters */}
             <nav className="lg:w-[280px] shrink-0" aria-label="FAQ categories">
               <h2 className="text-[14px] font-bold text-gray-400 uppercase tracking-wider mb-[16px]">
                 Categories

@@ -68,7 +68,7 @@ async function main() {
       continue
     }
     if (sub.status !== 'REJECTED') {
-      console.log(`  SKIP: ${pid} — status is ${sub.status} (not REJECTED)`)
+      console.log(`  SKIP: ${pid} - status is ${sub.status} (not REJECTED)`)
       skipped++
       continue
     }
@@ -82,7 +82,7 @@ async function main() {
         unrejected++
       } catch (error: unknown) {
         const msg = error instanceof Error ? error.message : String(error)
-        console.error(`  FAILED: ${pid} — ${msg}`)
+        console.error(`  FAILED: ${pid} - ${msg}`)
         failed++
       }
     }

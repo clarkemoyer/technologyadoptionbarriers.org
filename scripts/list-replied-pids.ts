@@ -31,7 +31,7 @@ async function main() {
       console.log(`APPROVE: ${pid} (${(sub?.time_taken / 60).toFixed(1)} min)`)
     } else {
       otherStatus.push(pid)
-      console.log(`SKIP: ${pid} — already ${status}`)
+      console.log(`SKIP: ${pid} - already ${status}`)
     }
   }
 

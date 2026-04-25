@@ -1,9 +1,9 @@
-# SEO Performance Dashboard — March 2026
+# SEO Performance Dashboard - March 2026
 
 **Report Period:** 2026-02-23 to 2026-03-23
 **Generated:** 2026-03-23
 **Data Sources:** Google Search Console, Google Analytics 4, Moz Link Explorer (free tier)
-**Related Issue:** [#473 — SEO Benchmark Initiative](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/473)
+**Related Issue:** [#473 - SEO Benchmark Initiative](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/473)
 
 ---
 
@@ -55,7 +55,7 @@
 | 21–50          |             2 |              4 |     -2 |
 | 50+            |             0 |              0 |      0 |
 
-> **Takeaway:** Strong upward migration — 5 keywords now on Page 1, up from 2 in the prior period. No keywords have declined.
+> **Takeaway:** Strong upward migration - 5 keywords now on Page 1, up from 2 in the prior period. No keywords have declined.
 
 ---
 
@@ -140,7 +140,7 @@
 
 ```mermaid
 xychart-beta
-  title "Organic Clicks — Last 6 Months"
+  title "Organic Clicks - Last 6 Months"
   x-axis ["Oct", "Nov", "Dec", "Jan", "Feb", "Mar"]
   y-axis "Clicks" 0 --> 2500
   bar [800, 950, 1100, 1400, 1890, 2180]
@@ -148,7 +148,7 @@ xychart-beta
 
 ```mermaid
 xychart-beta
-  title "Average Position — Last 6 Months (Lower is Better)"
+  title "Average Position - Last 6 Months (Lower is Better)"
   x-axis ["Oct", "Nov", "Dec", "Jan", "Feb", "Mar"]
   y-axis "Position" 0 --> 50
   line [42.1, 38.5, 35.2, 33.8, 31.6, 28.4]
@@ -156,7 +156,7 @@ xychart-beta
 
 ```mermaid
 xychart-beta
-  title "Domain Authority — Last 6 Months"
+  title "Domain Authority - Last 6 Months"
   x-axis ["Oct", "Nov", "Dec", "Jan", "Feb", "Mar"]
   y-axis "DA Score" 0 --> 20
   line [6, 7, 8, 9, 10, 12]

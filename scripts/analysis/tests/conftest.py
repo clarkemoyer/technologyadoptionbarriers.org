@@ -1,4 +1,4 @@
-"""Pytest conftest — set up paths and import fixtures."""
+"""Pytest conftest - set up paths and import fixtures."""
 
 import sys
 from pathlib import Path

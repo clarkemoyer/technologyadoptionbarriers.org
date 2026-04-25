@@ -5,7 +5,7 @@ name: TABS PR Triage
 # What this does:
 #   1. Lists all Copilot agent tasks (open issues assigned to copilot)
 #      using `gh agent-task list` (or Issues API fallback for older gh CLI)
-#   2. Flags stalled tasks — no activity in 24 hours
+#   2. Flags stalled tasks - no activity in 24 hours
 #   3. Flags tasks whose associated PR has failing CI
 #   4. Posts a Step Summary report
 #   5. Optionally re-triggers stalled tasks (set RETRIGGER=true input)
@@ -97,14 +97,14 @@ jobs:
             const searchQuery = `repo:${context.repo.owner}/${context.repo.repo} is:issue is:open "${ALERT_TITLE_PREFIX}" in:title`;
             const existing = await github.rest.search.issuesAndPullRequests({ q: searchQuery, per_page: 5 });
             if (existing.data.total_count > 0) {
-              console.log('Open triage issue already exists — skipping creation.');
+              console.log('Open triage issue already exists - skipping creation.');
               return;
             }
 
             const issue = await github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              title: `⚠️ ${ALERT_TITLE_PREFIX} — ${new Date().toISOString().slice(0, 10)}`,
+              title: `⚠️ ${ALERT_TITLE_PREFIX} - ${new Date().toISOString().slice(0, 10)}`,
               body,
               labels: ['agent-task', 'triage'],
             });

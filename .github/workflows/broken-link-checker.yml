@@ -122,7 +122,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          BODY="## Broken Link Report — $(date -u +%Y-%m-%d)
+          BODY="## Broken Link Report - $(date -u +%Y-%m-%d)
 
           **Internal links checked:** $CHECKED
           **Internal broken:** $BROKEN
@@ -150,7 +150,7 @@ jobs:
           **Workflow:** [View run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})"
 
           gh issue create \
-            --title "Broken links detected — $(date -u +%Y-%m-%d)" \
+            --title "Broken links detected - $(date -u +%Y-%m-%d)" \
             --body "$BODY" \
             --label "bug"
 

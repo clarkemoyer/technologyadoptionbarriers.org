@@ -466,7 +466,7 @@ Languages     | Python / Go / JS  | Perl / PHP (Legacy)
     slideNumber: 27,
     part: 'Part 5: Deep Dives',
     ascii: `
-Hardware: Hard Disk Drives (HDDs) — ~77 year lifecycle
+Hardware: Hard Disk Drives (HDDs) - ~77 year lifecycle
 Bar width proportional to time in phase
 
 |-- Bleeding Edge --|-- Leading --|---- Mainstream ----|-- Trending --|EoS|
@@ -482,7 +482,7 @@ Sources: Computer History Museum (2024); IDC HDD Forecast (2024)
     slideNumber: 28,
     part: 'Part 5: Deep Dives',
     ascii: `
-Software: Adobe Flash — ~25 year lifecycle
+Software: Adobe Flash - ~25 year lifecycle
 Bar width proportional to time in phase
 
 |Bleed|Leading|- Mainstream -|Trending|EoS|E|
@@ -498,13 +498,13 @@ Sources: Adobe Flash EOL Page (2020); W3Techs (2023)
     slideNumber: 29,
     part: 'Part 5: Deep Dives',
     ascii: `
-Supply Chain: Barcode/UPC Systems — ~83 year lifecycle
+Supply Chain: Barcode/UPC Systems - ~83 year lifecycle
 Bar width proportional to time in phase
 
 |---- Bleeding Edge ----|-- Leading --|------ Mainstream ------|Trending|EoS|
 |  22 yrs (1952-1974)   | 11 yrs     | 35 yrs (1985-2020)    | 10 yrs |5yr|
 
-Extremely long bleeding edge — infrastructure lag before adoption
+Extremely long bleeding edge - infrastructure lag before adoption
 Sources: GS1 Barcode History (2024); McKinsey Supply Chain 4.0 (2024)
     `,
   },

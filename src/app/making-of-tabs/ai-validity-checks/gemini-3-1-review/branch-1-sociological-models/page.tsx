@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
 import Link from 'next/link'
 export const metadata: Metadata = {
-  title: 'Sociological Models Review — Making of TABS',
+  title: 'Sociological Models Review - Making of TABS',
   description: 'Gemini 3.1 Pro validity check of sociological models in TABS.',
   alternates: {
     canonical: '/making-of-tabs/ai-validity-checks/gemini-3-1-review/branch-1-sociological-models',
@@ -40,7 +40,7 @@ export default function Page() {
           </p>
           <p className="mb-4">
             Albert Bandura&apos;s (1986) Social Cognitive Theory was audited for accuracy. The site
-            correctly emphasizes the concept of &quot;reciprocal determinism&quot;—the dynamic
+            correctly emphasizes the concept of &quot;reciprocal determinism&quot; - the dynamic
             interaction between personal, behavioral, and environmental factors. The application of
             SCT to computer self-efficacy (Compeau & Higgins, 1995) is also factually correct.
           </p>

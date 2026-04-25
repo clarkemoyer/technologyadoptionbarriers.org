@@ -18,7 +18,7 @@ export type MaturityItem = {
   examples?: string[]
 }
 
-// Perceived Maturity of Organizational Capabilities — Official TABS Survey Items
+// Perceived Maturity of Organizational Capabilities - Official TABS Survey Items
 // Source: TABS Survey Section D (https://smeal.qualtrics.com/jfe/form/SV_bkMopd73A8fzfwO)
 export const maturityItems: MaturityItem[] = [
   {

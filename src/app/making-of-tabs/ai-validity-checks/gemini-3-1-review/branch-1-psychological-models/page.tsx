@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
 import Link from 'next/link'
 export const metadata: Metadata = {
-  title: 'Psychological Models Review — Making of TABS',
+  title: 'Psychological Models Review - Making of TABS',
   description: 'Gemini 3.1 Pro validity check of foundational psychological models in TABS.',
   alternates: {
     canonical: '/making-of-tabs/ai-validity-checks/gemini-3-1-review/branch-1-psychological-models',
@@ -28,8 +28,8 @@ export default function Page() {
           </p>
           <p className="mb-4">
             The review confirmed that TRA is correctly attributed to Martin Fishbein and Icek Ajzen
-            (1975). The core constructs—Attitude Toward Behavior and Subjective Norm leading to
-            Behavioral Intention—are accurately described. The site correctly notes TRA&apos;s
+            (1975). The core constructs - Attitude Toward Behavior and Subjective Norm leading to
+            Behavioral Intention - are accurately described. The site correctly notes TRA&apos;s
             origins in social psychology rather than technology specifically.
           </p>
           <h2 className={H2_CLASSES}>Theory of Planned Behavior (TPB)</h2>

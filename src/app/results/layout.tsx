@@ -4,25 +4,13 @@ import { usePathname } from 'next/navigation'
 import Breadcrumbs from '@/components/breadcrumbs'
 import PrevNextCards from '@/components/prev-next-cards'
 import ReadingProgressBar from '@/components/reading-progress-bar'
-import UnifiedNavigation, { type SeriesNavItem } from '@/components/unified-navigation'
-import { resultsSeries, flattenResultsSeries, type ResultsSeriesItem } from '@/data/results-series'
+import UnifiedNavigation from '@/components/unified-navigation'
+import { flattenResultsSeries } from '@/data/results-series'
 import { normalizePath } from '@/lib/normalizePath'
-
-function mapToNavItems(items: ResultsSeriesItem[], currentPath: string): SeriesNavItem[] {
-  return items.map((item) => ({
-    title: item.title,
-    href: item.href,
-    isCurrent: !item.isGroup && normalizePath(item.href) === currentPath,
-    isGroup: item.isGroup,
-    children: item.children ? mapToNavItems(item.children, currentPath) : undefined,
-  }))
-}
 
 export default function ResultsLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
   const currentPath = normalizePath(pathname)
-
-  const seriesNavItems = mapToNavItems(resultsSeries, currentPath)
 
   const flat = flattenResultsSeries()
   const currentIndex = flat.findIndex((item) => normalizePath(item.href) === currentPath)
@@ -36,7 +24,7 @@ export default function ResultsLayout({ children }: { children: React.ReactNode 
         {children}
         <PrevNextCards prev={prev} next={next} className="mt-12" />
       </div>
-      <UnifiedNavigation seriesItems={seriesNavItems} seriesLabel="Results" />
+      <UnifiedNavigation />
       <ReadingProgressBar />
     </>
   )

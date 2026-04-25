@@ -68,7 +68,7 @@ def run_ts_triage(csv_path: str, output_path: str) -> dict | None:
     )
 
     if result.returncode != 0:
-        # tsx is available but triage failed — this is a real error, not a skip
+        # tsx is available but triage failed - this is a real error, not a skip
         raise RuntimeError(
             f"TS triage failed (exit {result.returncode}):\n{result.stderr[:1000]}"
         )
@@ -143,7 +143,7 @@ class TestCrossValidation:
         """Compare TS and Python dispositions for every PID.
 
         Uses an unenriched CSV (no Auth_LLM/Auth_Bots/Prolific_Status columns)
-        because the TS pipeline doesn't read auth columns from the CSV — it
+        because the TS pipeline doesn't read auth columns from the CSV - it
         hardcodes them to empty. Both pipelines should produce identical
         dispositions when auth columns are absent.
         """
@@ -185,7 +185,7 @@ class TestCrossValidation:
         the Python waterfall will flag responses with LOW/MIXED auth scores
         as FLAG-AUTH-FAIL or FLAG-AUTH-MIXED. The TS pipeline ignores these
         columns and classifies the same responses as CLEAN or other non-auth
-        dispositions. This is expected — the TS pipeline receives a separate
+        dispositions. This is expected - the TS pipeline receives a separate
         auth check enrichment in production.
         """
         # Run Python on the ENRICHED CSV (has Auth_LLM/Auth_Bots)
@@ -281,4 +281,4 @@ class TestCrossValidation:
         row["Auth_LLM"] = ""
         assert compute_disposition(row) == "AUTO-EXCLUDE"
 
-        # And so on — this mirrors the TS waterfall exactly
+        # And so on - this mirrors the TS waterfall exactly

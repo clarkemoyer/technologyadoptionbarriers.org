@@ -12,9 +12,9 @@ import SeriesNavigation from '@/components/series-navigation'
 import ArticleTOC from '@/components/article-toc'
 
 export const metadata: Metadata = {
-  title: 'Article 2.7: The AI Frontier â€“ Frameworks for Adopting AI, ML, and GenAI',
+  title: 'Article 2.7: The AI Frontier - Frameworks for Adopting AI, ML, and GenAI',
   description:
-    'How emerging AI adoption frameworksâ€“AWS CAF-AI, Microsoft AI guidance, and responsible AI principlesâ€“address the unique challenges of adopting artificial intelligence at organizational scale.',
+    'How emerging AI adoption frameworks - AWS CAF-AI, Microsoft AI guidance, and responsible AI principles - address the unique challenges of adopting artificial intelligence at organizational scale.',
 }
 
 const Article27Page = () => {
@@ -22,13 +22,13 @@ const Article27Page = () => {
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>
-          Article 2.7: The AI Frontier â€“ Frameworks for Adopting AI, ML, and GenAI
+          Article 2.7: The AI Frontier - Frameworks for Adopting AI, ML, and GenAI
         </h1>
 
         <section className={SECTION_CLASSES}>
           <p className={PARAGRAPH_CLASSES}>
             In November 2022, OpenAI released ChatGPT to the public. Within two months, the
-            application had reached 100 million usersâ€“the fastest user adoption of any consumer
+            application had reached 100 million users - the fastest user adoption of any consumer
             application in history. The technology shocked organizations unprepared for generative
             AI&apos;s capabilities and disrupted technology adoption thinking that had stabilized
             over the previous decade. Where cloud adoption frameworks had addressed moving
@@ -41,7 +41,7 @@ const Article27Page = () => {
             ChatGPT&apos;s success forced a reckoning. Organizations realized they faced a new
             technology adoption challenge. Generative AI was not simply a new service to be deployed
             alongside existing services, like cloud migration. Generative AI had potential to
-            fundamentally disrupt how work is performedâ€“to automate knowledge work in ways
+            fundamentally disrupt how work is performed - to automate knowledge work in ways
             previous technologies could not, to supplement human expertise with machine-generated
             insights, to augment human decision-making with algorithmic recommendations. This
             disruption created unique adoption challenges. Knowledge workers feared job
@@ -69,7 +69,7 @@ const Article27Page = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             The answer is that AI adoption creates challenges that existing frameworks do not
-            adequately address. Unlike cloud migration (which has a clear destinationâ€“your systems
+            adequately address. Unlike cloud migration (which has a clear destination - your systems
             running in cloud rather than on-premises), AI adoption has unclear endpoints. How much
             of an organization&apos;s work should be automated by AI? How much should be augmented?
             Should AI assist humans or replace them? These are strategic questions existing
@@ -89,7 +89,7 @@ const Article27Page = () => {
             consume, AI systems are often custom-built for specific organizational contexts.
             Organizations must decide whether to build custom AI models, fine-tune pre-trained
             models, or use pre-trained models available from cloud providers. Organizations must
-            curate and manage dataâ€“often the most expensive component of AI systems. Organizations
+            curate and manage data - often the most expensive component of AI systems. Organizations
             must train specialists with AI expertise. AI adoption is not merely consuming
             technology; it is developing in-house technological capability.
           </p>
@@ -107,12 +107,12 @@ const Article27Page = () => {
           <p className={PARAGRAPH_CLASSES}>
             In response to these challenges, AWS released CAF-AI in November 2024, extending the
             proven AWS Cloud Adoption Framework specifically to address AI adoption [1]. CAF-AI
-            builds on the traditional CAF&apos;s six perspectivesâ€“Business, People, Governance,
-            Platform, Security, Operationsâ€“but extends each perspective with AI-specific
+            builds on the traditional CAF&apos;s six perspectives - Business, People, Governance,
+            Platform, Security, Operations - but extends each perspective with AI-specific
             foundational capabilities.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Business Perspective</strong> in CAF-AI addresses AI strategy and business
+            <strong>Business Perspective </strong>in CAF-AI addresses AI strategy and business
             opportunity identification. Rather than simply asking &quot;should we adopt
             cloud?&quot;, organizations must ask &quot;what business problems should AI solve? What
             competitive advantages can AI enable? Which business processes should be augmented or
@@ -122,19 +122,19 @@ const Article27Page = () => {
             this strategic assessment [1].
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>People Perspective</strong> in CAF-AI addresses the unique workforce challenges
-            AI adoption creates. This includes developing ML Fluencyâ€“shared understanding across
+            <strong>People Perspective </strong>in CAF-AI addresses the unique workforce challenges
+            AI adoption creates. This includes developing ML Fluency - shared understanding across
             the organization about what AI can and cannot do, how AI systems learn from data, what
-            ethical considerations AI raises. It includes Workforce Transformationâ€“identifying how
+            ethical considerations AI raises. It includes Workforce Transformation - identifying how
             organizational roles will change, developing training programs for new skills needed,
             managing workforce transitions as roles evolve, and addressing workforce anxiety about
-            job displacement. It includes Organizational Alignmentâ€“ensuring business and technical
-            units collaborate on AI initiatives. It includes Culture Evolutionâ€“developing
+            job displacement. It includes Organizational Alignment - ensuring business and technical
+            units collaborate on AI initiatives. It includes Culture Evolution - developing
             organizational culture embracing experimentation, tolerating failure as part of
             learning, and empowering teams to innovate with AI [1].
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Governance Perspective</strong> in CAF-AI addresses how organizations should
+            <strong>Governance Perspective </strong>in CAF-AI addresses how organizations should
             govern AI systems. This is fundamentally different from cloud governance. Cloud
             governance typically addresses cost control, security, and compliance. AI governance
             additionally addresses responsible use of AI: ensuring AI systems do not embed biases,
@@ -146,31 +146,31 @@ const Article27Page = () => {
             organizational risk tolerance [1].
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Platform Perspective</strong> in CAF-AI addresses the technical infrastructure
-            required for AI. This includes Data Architectureâ€“ensuring organizations have
+            <strong>Platform Perspective </strong>in CAF-AI addresses the technical infrastructure
+            required for AI. This includes Data Architecture - ensuring organizations have
             high-quality data organized in ways AI systems can use effectively. This includes MLOps
-            capabilityâ€“establishing processes for managing AI model lifecycles: developing models,
+            capability - establishing processes for managing AI model lifecycles: developing models,
             testing them, deploying them, monitoring them, updating them. This includes AI Service
-            Architectureâ€“deciding which AI capabilities to build custom versus acquire from cloud
+            Architecture - deciding which AI capabilities to build custom versus acquire from cloud
             providers. This includes ensuring organizations have the cloud infrastructure and AI
             services necessary to support AI workloads [1].
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Security Perspective</strong> in CAF-AI addresses security concerns specific to
+            <strong>Security Perspective </strong>in CAF-AI addresses security concerns specific to
             AI. Beyond traditional information security concerns, AI security includes addressing
-            potential attacks on AI systemsâ€“attackers deliberately providing data designed to
+            potential attacks on AI systems - attackers deliberately providing data designed to
             cause AI models to malfunction or to manipulate model outputs. Security includes
             managing data used to train AI models, ensuring sensitive data is protected, and
             ensuring AI systems cannot inadvertently expose sensitive information in their outputs.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Operations Perspective</strong> in CAF-AI addresses how organizations should
+            <strong>Operations Perspective </strong>in CAF-AI addresses how organizations should
             operate AI systems differently from traditional software systems. AI systems require
-            continuous monitoring to ensure model accuracy and fairness. AI systems may
-            driftâ€“performance degrading over time as underlying data distributions change.
-            Organizations need monitoring and governance processes detecting and addressing model
-            drift. Organizations need mechanisms for human oversight of AI system outputs.
-            Organizations need protocols for when AI systems should defer to human judgment [1].
+            continuous monitoring to ensure model accuracy and fairness. AI systems may drift -
+            performance degrading over time as underlying data distributions change. Organizations
+            need monitoring and governance processes detecting and addressing model drift.
+            Organizations need mechanisms for human oversight of AI system outputs. Organizations
+            need protocols for when AI systems should defer to human judgment [1].
           </p>
 
           <h2 className={H2_CLASSES}>Microsoft AI Adoption Framework: Responsible AI Emphasis</h2>
@@ -234,13 +234,13 @@ const Article27Page = () => {
             Responsible AI frameworks typically address multiple dimensions:
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Fairness</strong> ensures AI systems do not discriminate against protected
+            <strong>Fairness </strong>ensures AI systems do not discriminate against protected
             groups or produce disparate impacts. This requires understanding potential sources of
             bias in training data, identifying protected characteristics systems might use to
             discriminate, and implementing approaches mitigating bias.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Transparency and Explainability</strong> address whether stakeholders understand
+            <strong>Transparency and Explainability </strong>address whether stakeholders understand
             how AI systems make decisions. Some AI systems (particularly complex deep learning
             systems) operate as &quot;black boxes&quot; where even developers cannot fully explain
             why the system made a particular decision. Responsible AI frameworks specify that
@@ -248,19 +248,19 @@ const Article27Page = () => {
             understand limitations on explainability.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Accountability</strong> ensures organizations take responsibility for AI system
+            <strong>Accountability </strong>ensures organizations take responsibility for AI system
             outcomes. This includes establishing clear ownership, creating decision-making
             authority, ensuring sufficient oversight, and being prepared to intervene if AI systems
             operate outside acceptable parameters.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Robustness and Safety</strong> ensure AI systems function reliably and do not
+            <strong>Robustness and Safety </strong>ensure AI systems function reliably and do not
             cause unintended harms. This includes testing AI systems against adversarial attacks,
             ensuring AI systems fail safely if they encounter unexpected situations, and preventing
             AI systems from operating outside intended domains.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Privacy and Data Governance</strong> ensure that AI systems protect sensitive
+            <strong>Privacy and Data Governance </strong>ensure that AI systems protect sensitive
             information used in training, that organizations respect individuals&apos; privacy
             rights, and that data used in AI systems is properly governed [1].
           </p>
@@ -271,11 +271,11 @@ const Article27Page = () => {
           <p className={PARAGRAPH_CLASSES}>
             While machine learning frameworks address learning systems that discover patterns in
             data, generative AI creates distinct challenges. Generative AI systems can produce novel
-            contentâ€“text, images, code, reasoningâ€“based on patterns in training data. This
+            content - text, images, code, reasoning - based on patterns in training data. This
             capability is powerful; generative AI can augment human creativity and accelerate
             knowledge work. Yet generative AI also creates unique risks. Generative AI systems can
-            &quot;hallucinate&quot;â€“produce confident false information. They can inadvertently
-            reproduce copyrighted training material. They can be jailbrokenâ€“tricked into producing
+            &quot;hallucinate&quot; - produce confident false information. They can inadvertently
+            reproduce copyrighted training material. They can be jailbroken - tricked into producing
             content contradicting organizational policy. They can reflect biases in training data in
             subtle, difficult-to-detect ways [1].
           </p>
@@ -285,7 +285,7 @@ const Article27Page = () => {
             from producing certain categories of content. Organizations must monitor generative AI
             usage for policy violations. Organizations must establish clear policies about which
             generative AI applications are approved for production use versus which remain
-            experimental. Organizations must address data governanceâ€“what organizational data can
+            experimental. Organizations must address data governance - what organizational data can
             be used to train or fine-tune generative AI models, recognizing that data provided to
             generative AI services may be retained and used for model improvement.
           </p>
@@ -335,18 +335,18 @@ const Article27Page = () => {
 
           <h2 className={H2_CLASSES}>Synthesis: Closing the Adoption Journey</h2>
           <p className={PARAGRAPH_CLASSES}>
-            Looking back across the series of articlesâ€“from Rogers&apos; Diffusion of Innovations
+            Looking back across the series of articles - from Rogers&apos; Diffusion of Innovations
             through Technology Acceptance Models, from individual adoption through organizational
-            frameworks, from architecture and security through cloud transformation to AI
-            adoptionâ€“we have traced how organizations systematically adopt technology at scale.
-            Each article built on previous understanding, yet each revealed new challenges as
-            technology and organizational contexts evolved.
+            frameworks, from architecture and security through cloud transformation to AI adoption -
+            we have traced how organizations systematically adopt technology at scale. Each article
+            built on previous understanding, yet each revealed new challenges as technology and
+            organizational contexts evolved.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             The journey began with understanding how individuals decide to adopt technologies.
             Rogers&apos; theory showed that people adopt technologies through stages: awareness,
             persuasion, decision, implementation, confirmation. Different people adopt at different
-            ratesâ€“innovators embrace new technologies while late adopters are skeptical. UTAUT
+            rates - innovators embrace new technologies while late adopters are skeptical. UTAUT
             refined this understanding, showing that effort expectancy, performance expectancy,
             social influence, and facilitating conditions shape adoption decisions.
           </p>
@@ -364,7 +364,7 @@ const Article27Page = () => {
             disciplined structures ensuring that technology decisions support business strategy and
             enable organizational coherence. Security and risk frameworks provided the governance
             approaches ensuring that technology adoption is managed as a strategic business concern.
-            Cloud adoption frameworks demonstrated how to productize adoption guidanceâ€“to package
+            Cloud adoption frameworks demonstrated how to productize adoption guidance - to package
             years of adoption experience into detailed, prescriptive playbooks that organizations
             can follow.
           </p>
@@ -375,8 +375,8 @@ const Article27Page = () => {
             It is fundamentally reshaping how work is performed, how organizations are structured,
             and how value is created. It requires new governance approaches addressing responsible
             use. It requires new skill development focused on understanding AI rather than just
-            deploying it. It requires new organizational structuresâ€“AI Centers of Excellence and
-            governance boardsâ€“managing AI across organizational boundaries.
+            deploying it. It requires new organizational structures - AI Centers of Excellence and
+            governance boards - managing AI across organizational boundaries.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             Yet the fundamental principles underlying all these frameworks remain consistent.
@@ -388,12 +388,12 @@ const Article27Page = () => {
             rather than just technology deployment.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            Organizations that understand these principles and systematically apply themâ€“whether
-            through established frameworks or custom approaches tailored to unique
-            contextsâ€“consistently achieve far better adoption outcomes than organizations that
-            approach adoption ad-hoc, reacting to opportunities without systematic planning. The
-            frameworks surveyed throughout this series represent accumulated wisdom from decades of
-            technology adoption experience. They are not perfect; they must be adapted to specific
+            Organizations that understand these principles and systematically apply them - whether
+            through established frameworks or custom approaches tailored to unique contexts -
+            consistently achieve far better adoption outcomes than organizations that approach
+            adoption ad-hoc, reacting to opportunities without systematic planning. The frameworks
+            surveyed throughout this series represent accumulated wisdom from decades of technology
+            adoption experience. They are not perfect; they must be adapted to specific
             organizational contexts. But they provide invaluable guidance on how to navigate the
             complex journey of organizational technology adoption.
           </p>
@@ -413,14 +413,14 @@ const Article27Page = () => {
               Institute of Standards and Technology.
             </li>
             <li>
-              Microsoft. (2025). Microsoft AI adoption â€“ Cloud Adoption Framework. Microsoft Learn
+              Microsoft. (2025). Microsoft AI adoption - Cloud Adoption Framework. Microsoft Learn
               and AI Adoption Guidance.
             </li>
             <li>Rogers, E. M. (1962). Diffusion of Innovations. Free Press.</li>
             <li>
               Venkatesh, V., Morris, M. G., Davis, G. B., &amp; Davis, F. D. (2003). User acceptance
               of information technology: Toward a unified view. <em>MIS Quarterly</em>, 27(3),
-              425â€“478.
+              425-478.
             </li>
           </ol>
         </section>

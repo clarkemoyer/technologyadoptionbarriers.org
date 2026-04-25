@@ -22,9 +22,9 @@ const MakingOfTabsPage = () => {
             availability requires a suite of specialized tools and services.
           </p>
           <p className="mb-6">
-            This page provides an overview of the &quot;stack&quot;—the collection of technologies
-            and methodologies—we employ to bring TABS to life. From the survey instrument itself to
-            the analytics that help us understand our audience, every component plays a critical
+            This page provides an overview of the &quot;stack&quot; - the collection of technologies
+            and methodologies - we employ to bring TABS to life. From the survey instrument itself
+            to the analytics that help us understand our audience, every component plays a critical
             role.
           </p>
         </section>
@@ -103,7 +103,7 @@ const MakingOfTabsPage = () => {
               To reach a diverse and representative sample of organizational leaders, we partner
               with <strong>Prolific</strong>. Unlike traditional survey panels, Prolific specializes
               in high-quality academic research. It enables us to pre-screen participants based on
-              specific criteria—such as job seniority and industry sector—ensuring that our data
+              specific criteria - such as job seniority and industry sector - ensuring that our data
               reflects the true voice of decision-makers.
             </p>
           </div>

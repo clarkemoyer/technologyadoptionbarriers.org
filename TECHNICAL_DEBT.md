@@ -51,10 +51,10 @@ As of v0.3.1, the project produces **0 ESLint errors and 0 warnings**. Running `
 
 All of the following ESLint categories were resolved by code fixes in December 2025 or by removal of legacy components in v0.3.0:
 
-- ~~`react-hooks/set-state-in-effect` (6 occurrences)~~ ✅ **RESOLVED** — Fixed December 2025 using `useLayoutEffect`
-- ~~`react-hooks/exhaustive-deps` (2 occurrences)~~ ✅ **RESOLVED** — Fixed December 2025 with `useCallback` and local refs
-- ~~`react-hooks/immutability` (1 occurrence)~~ ✅ **RESOLVED** — Component (`src/components/home/Testimonials/index.tsx`) removed in v0.3.0
-- ~~`@next/next/no-img-element` (6 occurrences)~~ ✅ **RESOLVED** — Legacy FFC components removed in v0.3.0; remaining `<img>` tags in header/footer are intentional (static export incompatible with `<Image />`)
+- ~~`react-hooks/set-state-in-effect` (6 occurrences)~~ ✅ **RESOLVED** - Fixed December 2025 using `useLayoutEffect`
+- ~~`react-hooks/exhaustive-deps` (2 occurrences)~~ ✅ **RESOLVED** - Fixed December 2025 with `useCallback` and local refs
+- ~~`react-hooks/immutability` (1 occurrence)~~ ✅ **RESOLVED** - Component (`src/components/home/Testimonials/index.tsx`) removed in v0.3.0
+- ~~`@next/next/no-img-element` (6 occurrences)~~ ✅ **RESOLVED** - Legacy FFC components removed in v0.3.0; remaining `<img>` tags in header/footer are intentional (static export incompatible with `<Image />`)
 
 ### Architectural Note: `<img>` vs `<Image />`
 
@@ -65,7 +65,7 @@ The project uses `<img>` tags with the `assetPath()` helper instead of Next.js `
 - Images use `assetPath()` for GitHub Pages basePath compatibility
 - ESLint is configured to not warn about this pattern
 
-**Priority:** N/A — Expected behavior, not technical debt
+**Priority:** N/A - Expected behavior, not technical debt
 
 ---
 
@@ -73,28 +73,28 @@ The project uses `<img>` tags with the `assetPath()` helper instead of Next.js `
 
 ### Current Status (February 2026)
 
-The project has **41 vulnerabilities** (5 moderate, 36 high) identified by `npm audit`. All are in **development-only dependencies** — none affect the production static site.
+The project has **41 vulnerabilities** (5 moderate, 36 high) identified by `npm audit`. All are in **development-only dependencies** - none affect the production static site.
 
 #### 1. ESLint / TypeScript-ESLint Dependency Chain (36 high, 5 moderate)
 
 **Affected Packages:**
 
-- `ajv` < 8.18.0 (ReDoS via `$data` option) — Moderate
-- `minimatch` < 10.2.1 (ReDoS via repeated wildcards) — High
-- `@isaacs/brace-expansion` 5.0.0 (Uncontrolled Resource Consumption) — High
+- `ajv` < 8.18.0 (ReDoS via `$data` option) - Moderate
+- `minimatch` < 10.2.1 (ReDoS via repeated wildcards) - High
+- `@isaacs/brace-expansion` 5.0.0 (Uncontrolled Resource Consumption) - High
 
 **Dependency Chain:** `eslint` → `@eslint/eslintrc` → `ajv`/`minimatch`; `@typescript-eslint/*` → `minimatch`; `jest-snapshot` → `@isaacs/brace-expansion`
 
 **Impact:**
 
-- **Development only** — these packages are dev dependencies (linting, testing)
-- **No production impact** — not included in `npm run build` output
-- **Limited risk** — ReDoS requires crafted input patterns, not user-facing
+- **Development only** - these packages are dev dependencies (linting, testing)
+- **No production impact** - not included in `npm run build` output
+- **Limited risk** - ReDoS requires crafted input patterns, not user-facing
 
 **Available Fixes:**
 
 - `npm audit fix` resolves `@isaacs/brace-expansion` safely
-- `npm audit fix --force` would downgrade `eslint` to 4.x (breaking — not viable)
+- `npm audit fix --force` would downgrade `eslint` to 4.x (breaking - not viable)
 - Wait for `eslint-config-next` and `typescript-eslint` to update their dependency ranges
 
 **Current Decision:** Monitor via Dependabot. The ESLint ecosystem will resolve these as packages adopt `ajv` 8.18+ and `minimatch` 10.2.1+.
@@ -341,14 +341,14 @@ These architectural patterns are not needed for this static site:
 
 **Recently Completed (v0.3.0 / v0.3.1, February 2026):**
 
-- [x] Refactor accordion components to use `useLayoutEffect` — **COMPLETED** (Dec 2025)
-- [x] Review and fix `exhaustive-deps` warnings in carousel components — **COMPLETED** (Dec 2025)
-- [x] Reduced React Hooks warnings from 10 to 0 — **COMPLETED** (v0.3.0 removed legacy components)
-- [x] ESLint clean: 0 errors, 0 warnings — **COMPLETED** (v0.3.0)
-- [x] Archive write-operation Qualtrics workflows — **COMPLETED** (PR #317)
-- [x] Centralize brand colors into Tailwind tokens — **COMPLETED** (PR #291)
-- [x] Content credibility audit across 9 site sections — **COMPLETED** (PRs #304–#312)
-- [x] Prolific script idempotency improvements — **COMPLETED** (PR #318)
+- [x] Refactor accordion components to use `useLayoutEffect` - **COMPLETED** (Dec 2025)
+- [x] Review and fix `exhaustive-deps` warnings in carousel components - **COMPLETED** (Dec 2025)
+- [x] Reduced React Hooks warnings from 10 to 0 - **COMPLETED** (v0.3.0 removed legacy components)
+- [x] ESLint clean: 0 errors, 0 warnings - **COMPLETED** (v0.3.0)
+- [x] Archive write-operation Qualtrics workflows - **COMPLETED** (PR #317)
+- [x] Centralize brand colors into Tailwind tokens - **COMPLETED** (PR #291)
+- [x] Content credibility audit across 9 site sections - **COMPLETED** (PRs #304–#312)
+- [x] Prolific script idempotency improvements - **COMPLETED** (PR #318)
 
 **Immediate (Next Sprint):**
 

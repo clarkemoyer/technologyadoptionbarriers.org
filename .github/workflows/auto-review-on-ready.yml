@@ -17,6 +17,8 @@ env:
 jobs:
   dispatch-review:
     runs-on: ubuntu-latest
+    permissions:
+      actions: write
     if: github.event.pull_request.draft == false
     steps:
       - name: Dispatch review cycle
@@ -24,10 +26,10 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           echo "PR #${{ github.event.pull_request.number }} marked ready for review"
-          echo "Dispatching Copilot review cycle (up to 14 rounds)..."
+          echo "Dispatching Copilot review cycle (up to 7 rounds)..."
           gh workflow run copilot-review-cycle.yml \
             -R ${{ github.repository }} \
             -f pr_number=${{ github.event.pull_request.number }} \
             -f round=1 \
-            -f max_rounds=14
+            -f max_rounds=7
           echo "Review cycle dispatched."

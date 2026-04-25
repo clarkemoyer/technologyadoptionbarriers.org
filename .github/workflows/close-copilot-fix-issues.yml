@@ -58,7 +58,7 @@ jobs:
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 issue_number: issue.number,
-                body: `Automatically closed — parent PR #${prNumber} has been merged.`,
+                body: `Automatically closed - parent PR #${prNumber} has been merged.`,
               });
 
               console.log(`  Closed #${issue.number}`);

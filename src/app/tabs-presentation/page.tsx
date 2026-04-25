@@ -204,7 +204,7 @@ const TABSPresentationPage = () => {
                   <div className="terminal-dot terminal-dot-red"></div>
                   <div className="terminal-dot terminal-dot-yellow"></div>
                   <div className="terminal-dot terminal-dot-green"></div>
-                  <span className="terminal-title">tabs_terminal — bash</span>
+                  <span className="terminal-title">tabs_terminal - bash</span>
                 </div>
                 <div className="terminal-body">
                   <p>&gt; init TABS_Survey_Protocol</p>

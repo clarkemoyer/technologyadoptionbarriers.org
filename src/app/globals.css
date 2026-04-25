@@ -3,33 +3,33 @@
 
 :root {
   /* ── TABS Brand Color Palette ───────────────────────────────────────
-   * Canonical brand colors — use Tailwind tokens (e.g. bg-tabs-orange)
+   * Canonical brand colors - use Tailwind tokens (e.g. bg-tabs-orange)
    * instead of hardcoded hex values in components.
    * ─────────────────────────────────────────────────────────────────── */
 
-  /* Orange — primary action color (buttons, CTAs) */
+  /* Orange - primary action color (buttons, CTAs) */
   --tabs-orange: #f57c20;
   --tabs-orange-hover: #d66a1a;
 
-  /* Blue — bright accent (stats, secondary buttons) */
+  /* Blue - bright accent (stats, secondary buttons) */
   --tabs-blue: #2ea3f2;
   --tabs-blue-hover: #2589cc;
 
-  /* Navy — dark headings, dark backgrounds */
+  /* Navy - dark headings, dark backgrounds */
   --tabs-navy: #113563;
   --tabs-navy-bg: #1a2b4b;
 
-  /* Teal — mission / growth / nature tones */
+  /* Teal - mission / growth / nature tones */
   --tabs-teal-deep: #145044;
   --tabs-teal: #0e7162;
   --tabs-teal-bright: #26c699;
   --tabs-teal-bright-hover: #1fa680;
   --tabs-green: #5fb38d;
 
-  /* Primary — mid-blue, used in some buttons/accents */
+  /* Primary - mid-blue, used in some buttons/accents */
   --tabs-primary: #2a6682;
 
-  /* Link — standard link blue */
+  /* Link - standard link blue */
   --tabs-link: #2563eb;
   --tabs-link-hover: #1d4ed8;
 

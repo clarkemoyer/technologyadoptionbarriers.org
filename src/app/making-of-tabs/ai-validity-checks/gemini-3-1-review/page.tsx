@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
 import Link from 'next/link'
 export const metadata: Metadata = {
-  title: 'Gemini 3.1 Validity Review — Making of TABS',
+  title: 'Gemini 3.1 Validity Review - Making of TABS',
   description:
     'The comprehensive validity review conducted by Gemini 3.1 Pro on the TABS public content.',
   alternates: {

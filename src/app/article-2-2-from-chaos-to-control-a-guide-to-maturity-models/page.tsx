@@ -12,9 +12,9 @@ import SeriesNavigation from '@/components/series-navigation'
 import ArticleTOC from '@/components/article-toc'
 
 export const metadata: Metadata = {
-  title: 'Article 2.2: From Chaos to Control â€“ A Guide to Maturity Models',
+  title: 'Article 2.2: From Chaos to Control - A Guide to Maturity Models',
   description:
-    'A practical overview of maturity modelsâ€“CMM, CMMI, IT-CMF, and Cooper-Zmud implementation stagesâ€“and how they guide organizational change and capability development.',
+    'A practical overview of maturity models - CMM, CMMI, IT-CMF, and Cooper-Zmud implementation stages - and how they guide organizational change and capability development.',
 }
 
 const Article22Page = () => {
@@ -22,7 +22,7 @@ const Article22Page = () => {
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>
-          Article 2.2: From Chaos to Control â€“ A Guide to Maturity Models
+          Article 2.2: From Chaos to Control - A Guide to Maturity Models
         </h1>
 
         <section className={SECTION_CLASSES}>
@@ -68,7 +68,7 @@ const Article22Page = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>The CMM defined five maturity levels [1]:</p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Level 1 â€“ Initial:</strong> Organizations at this level operate with ad hoc,
+            <strong>Level 1 - Initial: </strong>Organizations at this level operate with ad hoc,
             largely unpredictable processes. Success depends primarily on individual talents and
             heroics rather than organizational systems. Projects often exceed budgets and schedules.
             Quality problems emerge unexpectedly. While the organization may produce working
@@ -76,32 +76,32 @@ const Article22Page = () => {
             status until problems become critical.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Level 2 â€“ Repeatable:</strong> Organizations have established basic project
+            <strong>Level 2 - Repeatable: </strong>Organizations have established basic project
             management processes. Requirements are documented and tracked. Projects are planned and
-            monitored. Changes are managed. At this level, successful projects are repeatableâ€“an
+            monitored. Changes are managed. At this level, successful projects are repeatable - an
             organization with strong personnel can execute similar projects successfully multiple
             times. However, processes remain primarily at the project level. Different projects may
             use different approaches. Organizational learning from one project to another remains
             limited.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Level 3 â€“ Defined:</strong> Organizations have defined standard processes at
-            the organizational level, not just project level. Process documentation exists. New
-            projects tailor the organizational standard processes rather than inventing their own
-            approaches. Engineers understand common terminology and procedures. Quality assurance
-            functions are defined. Configuration management is standardized. Organizations at this
-            level benefit from cumulative organizational learningâ€“improvements in standard
-            processes benefit all projects.
+            <strong>Level 3 - Defined: </strong>Organizations have defined standard processes at the
+            organizational level, not just project level. Process documentation exists. New projects
+            tailor the organizational standard processes rather than inventing their own approaches.
+            Engineers understand common terminology and procedures. Quality assurance functions are
+            defined. Configuration management is standardized. Organizations at this level benefit
+            from cumulative organizational learning - improvements in standard processes benefit all
+            projects.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Level 4 â€“ Managed:</strong> Organizations establish quantitative management
+            <strong>Level 4 - Managed: </strong>Organizations establish quantitative management
             discipline. Performance is measured systematically. Organizations understand
             statistically how their processes perform under different conditions. Rather than
             relying on intuition or best judgment, managers make decisions based on measured process
             performance data. Performance variation is understood and controlled.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Level 5 â€“ Optimizing:</strong> Organizations achieve continuous process
+            <strong>Level 5 - Optimizing: </strong>Organizations achieve continuous process
             improvement. Improvement initiatives are systematic. Organizations learn from experience
             and deliberately incorporate learning into process improvements. Innovation is
             encouraged. Organizations at this level continuously evolve toward higher performance
@@ -121,7 +121,7 @@ const Article22Page = () => {
           </h2>
           <p className={PARAGRAPH_CLASSES}>
             As the CMM gained adoption, organizations recognized both its value and its limitations.
-            Multiple capability maturity models emergedâ€“the Software Capability Maturity Model for
+            Multiple capability maturity models emerged - the Software Capability Maturity Model for
             software development, the Systems Engineering Capability Maturity Model for systems
             engineering, the Integrated Product Development CMM for product development, and the
             Software Acquisition CMM for contractor management. Organizations adopting multiple
@@ -167,52 +167,51 @@ const Article22Page = () => {
             The IT-CMF organizes IT capability around seven Building Blocks:
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Governance Building Block:</strong> How IT organizations are
-            governedâ€“decision-making structures, board-level oversight, IT strategy alignment,
-            risk management. Organizations at higher maturity levels have clear governance
-            structures, executive accountability for IT, and IT strategy integrated with business
-            strategy.
+            <strong>Governance Building Block: </strong>How IT organizations are governed -
+            decision-making structures, board-level oversight, IT strategy alignment, risk
+            management. Organizations at higher maturity levels have clear governance structures,
+            executive accountability for IT, and IT strategy integrated with business strategy.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Supply Chain Building Block:</strong> How IT organizations source and manage IT
-            servicesâ€“vendor selection, service delivery partnerships, contract management,
+            <strong>Supply Chain Building Block: </strong>How IT organizations source and manage IT
+            services - vendor selection, service delivery partnerships, contract management,
             supplier performance management. Organizations at higher maturity levels have structured
             approaches to supplier selection and management rather than ad hoc vendor relationships.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Engagement Building Block:</strong> How IT organizations engage with business
-            stakeholdersâ€“understanding requirements, communicating IT capabilities and
+            <strong>Engagement Building Block: </strong>How IT organizations engage with business
+            stakeholders - understanding requirements, communicating IT capabilities and
             limitations, managing relationships. Organizations at higher maturity improve from
             reactive IT responding to demands to proactive IT understanding business strategy and
             proposing IT-enabled opportunities.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Operations Building Block:</strong> How IT organizations manage IT
-            servicesâ€“service delivery, infrastructure management, incident and problem management,
-            service level management. Organizations at higher maturity achieve consistent service
-            delivery and proactive problem management rather than reactive crisis management.
+            <strong>Operations Building Block: </strong>How IT organizations manage IT services -
+            service delivery, infrastructure management, incident and problem management, service
+            level management. Organizations at higher maturity achieve consistent service delivery
+            and proactive problem management rather than reactive crisis management.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Development Building Block:</strong> How IT organizations develop new
-            capabilitiesâ€“application development processes, project management, technical
+            <strong>Development Building Block: </strong>How IT organizations develop new
+            capabilities - application development processes, project management, technical
             architecture, software quality assurance. Organizations at higher maturity have
             disciplined development processes delivering solutions predictably.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Performance Building Block:</strong> How IT organizations measure and
-            demonstrate valueâ€“metrics definition, performance measurement, business value
+            <strong>Performance Building Block: </strong>How IT organizations measure and
+            demonstrate value - metrics definition, performance measurement, business value
             communication. Organizations at higher maturity demonstrate how IT contributes to
             business objectives rather than focusing merely on technical metrics.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Organization Building Block:</strong> How IT organizations structure
-            themselvesâ€“roles and responsibilities, skills and competencies, culture and values.
-            Organizations at higher maturity align structure with strategy, develop needed skills
-            systematically, and build cultures supporting continuous improvement.
+            <strong>Organization Building Block: </strong>How IT organizations structure themselves
+            - roles and responsibilities, skills and competencies, culture and values. Organizations
+            at higher maturity align structure with strategy, develop needed skills systematically,
+            and build cultures supporting continuous improvement.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             The IT-CMF explicitly recognizes that IT capability depends not just on processes and
-            systems but on organizational factorsâ€“structure, skills, cultureâ€“and business
+            systems but on organizational factors - structure, skills, culture - and business
             alignment. An organization might have sophisticated technical processes but fail to
             demonstrate business value because it lacks governance and engagement maturity. The
             IT-CMF directs organizations toward holistic capability development across all Building
@@ -234,41 +233,41 @@ const Article22Page = () => {
             technologies:
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Initiation:</strong> Organizations scan for problems and opportunities,
+            <strong>Initiation: </strong>Organizations scan for problems and opportunities,
             identifying potential technological solutions. This stage involves assessing current
             needs, investigating available technologies, and determining whether adopting specific
             technologies makes sense given organizational characteristics and competitive
             environment.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Adoption:</strong> Organizations make commitment decisions, navigating both
+            <strong>Adoption: </strong>Organizations make commitment decisions, navigating both
             rational decision-making and organizational politics. Executives decide to invest
             resources, committing the organization to implementation.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Adaptation:</strong> Organizations actually implement technologyâ€“installing
+            <strong>Adaptation: </strong>Organizations actually implement technology - installing
             systems, configuring them for organizational context, revising organizational
             procedures, training personnel. Success at this stage depends heavily on managing
             implementation complexity and organizational resistance.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Acceptance:</strong> Organizations work to build organizational commitment to
+            <strong>Acceptance: </strong>Organizations work to build organizational commitment to
             using new technology. Personnel must actually adopt new ways of working rather than
             reverting to familiar approaches.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Routinization:</strong> Organizations integrate technology into standard
+            <strong>Routinization: </strong>Organizations integrate technology into standard
             operational practices. Technology use becomes normal, routine activity rather than novel
             or disruptive. Systems and procedures stabilize.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Infusion:</strong> Organizations achieve full value from technology by using it
+            <strong>Infusion: </strong>Organizations achieve full value from technology by using it
             at its fullest potential. Rather than using basic functionality, organizations leverage
             sophisticated capabilities. Technology becomes deeply integrated into how work gets
             done.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            These stages clarify that technology adoption is not binaryâ€“a single moment when an
+            These stages clarify that technology adoption is not binary - a single moment when an
             organization &quot;adopts&quot; technology and implementation is &quot;done.&quot;
             Rather, adoption unfolds across extended time, moving from initial decision through
             organizational integration to full value realization. Organizations often underestimate
@@ -304,7 +303,7 @@ const Article22Page = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             Fifth, maturity models provide realistic expectations about improvement timelines.
-            Progressing from one maturity level to the next typically requires 18â€“24 months of
+            Progressing from one maturity level to the next typically requires 18-24 months of
             sustained focus. Organizations expecting rapid multi-level advancement will be
             disappointed. Organizations understanding that improvement requires sustained multi-year
             commitment can plan and fund realistically.
@@ -316,40 +315,40 @@ const Article22Page = () => {
             considerations emerge:
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Assess Current State Realistically:</strong> Use maturity model definitions to
+            <strong>Assess Current State Realistically: </strong>Use maturity model definitions to
             assess where the organization currently operates. This assessment should be honest,
             based on observable organizational practices rather than aspirational claims. External
             assessors sometimes provide more objective assessment than internal staff.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Define Target Capability:</strong> Decide what maturity level is appropriate
+            <strong>Define Target Capability: </strong>Decide what maturity level is appropriate
             given competitive strategy, organizational context, and resource constraints. Not all
             organizations need Level 5 capability. Target definition should be strategic, not
             automatic.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Identify Foundational Gaps:</strong> Before pursuing advanced capability, ensure
+            <strong>Identify Foundational Gaps: </strong>Before pursuing advanced capability, ensure
             foundational capability is solid. Organizations cannot achieve reliable measurement and
             control without defined, repeatable processes. Identifying and addressing foundational
             gaps prevents wasted effort.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Sequence Improvement Activities:</strong> Rather than attempting simultaneous
+            <strong>Sequence Improvement Activities: </strong>Rather than attempting simultaneous
             improvement across all Process Areas or Building Blocks, sequence improvements so early
             improvements create foundations for later improvements.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Allocate Sustained Resources:</strong> Assign dedicated resources to capability
+            <strong>Allocate Sustained Resources: </strong>Assign dedicated resources to capability
             development and maintain those resources over extended timelines. Improvement
             initiatives dependent on part-time contributions typically struggle.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Integrate with Business Strategy:</strong> Connect capability development to
+            <strong>Integrate with Business Strategy: </strong>Connect capability development to
             business strategy. Capability improvement should address business needs and support
             competitive strategy, not be pursued as end in itself.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Build Organizational Support:</strong> Gain commitment from executives,
+            <strong>Build Organizational Support: </strong>Gain commitment from executives,
             managers, and operational personnel. Maturity model implementation requires
             organizational change and may be resisted by those comfortable with current approaches.
           </p>
@@ -380,8 +379,8 @@ const Article22Page = () => {
             performance.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            The maturity models discussed in this articleâ€“CMM, CMMI, IT-CMF, and
-            Cooper-Zmud&apos;s implementation stagesâ€“provide frameworks for understanding this
+            The maturity models discussed in this article - CMM, CMMI, IT-CMF, and
+            Cooper-Zmud&apos;s implementation stages - provide frameworks for understanding this
             progression. They offer both diagnosis (where are we now?) and prescription (how do we
             advance toward higher capability?). Organizations that take maturity frameworks
             seriously, invest in sustained capability development, and accept the discipline
@@ -402,7 +401,7 @@ const Article22Page = () => {
               integration and product improvement. Addison-Wesley.
             </li>
             <li>
-              Innovation Value Institute. (2016). IT capability maturity framework (IT-CMF) â€“ The
+              Innovation Value Institute. (2016). IT capability maturity framework (IT-CMF) - The
               building block framework. Van Haren Publishing.
             </li>
             <li>

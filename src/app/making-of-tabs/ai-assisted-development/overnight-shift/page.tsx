@@ -3,7 +3,7 @@ import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES, H3_CLASSES } from '@/lib/artic
 import Link from 'next/link'
 import { assetPath } from '@/lib/assetPath'
 export const metadata: Metadata = {
-  title: "Copilot's Got the Overnight Shift — AI-Assisted Development — Making of TABS",
+  title: "Copilot's Got the Overnight Shift - AI-Assisted Development - Making of TABS",
   description:
     'A real screenshot from a Claude Code session showing multi-agent orchestration: Claude finishing work, assigning 9 issues to Copilot for overnight processing, and signing off.',
   alternates: {
@@ -16,12 +16,12 @@ const OvernightShiftPage = () => {
     <div className="pt-20 sm:pt-[120px] bg-white">
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>
-          &ldquo;Go Sleep — Copilot&apos;s Got the Overnight Shift&rdquo;
+          &ldquo;Go Sleep - Copilot&apos;s Got the Overnight Shift&rdquo;
         </h1>
 
         <div className="mb-8 rounded-xl border border-purple-200 bg-purple-50 p-6">
           <p className="text-sm text-purple-900 font-semibold mb-2">
-            Zotero Integration Session — April 6–7, 2026
+            Zotero Integration Session - April 6-7, 2026
           </p>
           <p className="text-sm text-purple-800">
             A real, unscripted moment from a Claude Code session that captures the multi-agent
@@ -36,14 +36,14 @@ const OvernightShiftPage = () => {
           <figure className="mb-6">
             <img
               src={assetPath('/Images/making-of-tabs/copilot-overnight-shift.png')}
-              alt="Claude Code session handing 9 issues to Copilot for overnight processing and signing off, 'Go sleep — Copilot's got the overnight shift.'"
+              alt="Claude Code session handing 9 issues to Copilot for overnight processing and signing off, 'Go sleep - Copilot's got the overnight shift.'"
               className="w-full rounded-lg border border-gray-200 shadow-md"
             />
             <figcaption className="mt-3 text-sm text-gray-500 italic text-center">
               Claude Code wrapping up the Zotero integration session: PRs #1281 and #1283 are
               merged, PR #1293 is waiting on auto-merge, 9 issues are assigned to Copilot for
               overnight processing, and issue #1347 is documented for the next session. The final
-              sign-off reads, &ldquo;You&apos;re good. Go sleep — Copilot&apos;s got the overnight
+              sign-off reads, &ldquo;You&apos;re good. Go sleep - Copilot&apos;s got the overnight
               shift.&rdquo;
             </figcaption>
           </figure>
@@ -68,7 +68,7 @@ const OvernightShiftPage = () => {
               <div>
                 <h3 className={H3_CLASSES}>Merged</h3>
                 <p>
-                  PRs #1281 and #1283 — already merged and deployed. The Zotero environment setup
+                  PRs #1281 and #1283 - already merged and deployed. The Zotero environment setup
                   and initial bibliography integration are live.
                 </p>
               </div>
@@ -84,7 +84,7 @@ const OvernightShiftPage = () => {
               <div>
                 <h3 className={H3_CLASSES}>Auto-merge Waiting</h3>
                 <p>
-                  PR #1293 — CI passed, auto-merge is enabled. It will merge on its own once status
+                  PR #1293 - CI passed, auto-merge is enabled. It will merge on its own once status
                   checks propagate. No human intervention needed.
                 </p>
               </div>
@@ -117,7 +117,7 @@ const OvernightShiftPage = () => {
               <div>
                 <h3 className={H3_CLASSES}>Documented for Next Session</h3>
                 <p>
-                  Issue #1347 — work that requires human decision-making or is too complex for
+                  Issue #1347 - work that requires human decision-making or is too complex for
                   autonomous execution, saved for the next interactive session.
                 </p>
               </div>
@@ -134,7 +134,7 @@ const OvernightShiftPage = () => {
             <div>
               <h3 className={H3_CLASSES}>1. Multi-Agent Orchestration</h3>
               <p>
-                Claude Code acts as the session orchestrator — researching the codebase, writing
+                Claude Code acts as the session orchestrator - researching the codebase, writing
                 implementations, opening PRs, and creating issues. When the session ends, it
                 delegates remaining work to GitHub Copilot&apos;s coding agent, which operates
                 autonomously on assigned issues. Two AI agents, different capabilities, coordinated
@@ -148,7 +148,7 @@ const OvernightShiftPage = () => {
                 The pipeline does not stop when the human leaves. Auto-merge waits for CI checks to
                 pass and merges without intervention. Copilot picks up issues, writes code, and
                 opens PRs that go through the same automated review cycle. By morning, the human
-                wakes up to PRs ready for review — not an empty backlog.
+                wakes up to PRs ready for review - not an empty backlog.
               </p>
             </div>
 

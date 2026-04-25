@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
 import Link from 'next/link'
 export const metadata: Metadata = {
-  title: 'Development Workflow — Making of TABS',
+  title: 'Development Workflow - Making of TABS',
   description:
     'The CI/CD pipeline, merge queue, automated testing, and operational workflows that keep the TABS website reliable and continuously deployed.',
   alternates: {
@@ -19,7 +19,7 @@ const DevelopmentWorkflowPage = () => {
         <section className="mb-10 text-gray-800">
           <p className="mb-6">
             Every change to the TABS website follows a structured path from idea to production. This
-            is not accidental — for a research project that handles survey data and analytics, we
+            is not accidental - for a research project that handles survey data and analytics, we
             need to know that every deployed change has been tested, reviewed, and verified. This
             page documents our entire development pipeline.
           </p>
@@ -147,7 +147,7 @@ const DevelopmentWorkflowPage = () => {
                 <tr className="border-b border-gray-100">
                   <td className="p-3 font-semibold">E2E Shard 1/4</td>
                   <td className="p-3" rowSpan={4}>
-                    Playwright browser tests split across four parallel shards — logo rendering,
+                    Playwright browser tests split across four parallel shards - logo rendering,
                     image loading, navigation, page content verification
                   </td>
                   <td className="p-3" rowSpan={4}>
@@ -202,7 +202,7 @@ const DevelopmentWorkflowPage = () => {
             the state of main when the PR was opened.
           </p>
           <p>
-            This is especially valuable for a statically exported site — a broken build in the merge
+            This is especially valuable for a statically exported site - a broken build in the merge
             queue stops the deploy before it ever reaches GitHub Pages.
           </p>
         </section>
@@ -361,31 +361,31 @@ git worktree add -b docs/api ../tabs-docs main
         <section className="mb-12 text-gray-800">
           <h2 className={H2_CLASSES}>Living Documentation</h2>
           <p className="mb-6">
-            Documentation is not an afterthought — it is a first-class part of every change. When a
+            Documentation is not an afterthought - it is a first-class part of every change. When a
             feature is added, its documentation is updated in the same PR. This includes:
           </p>
 
           <ul className="list-disc pl-6 space-y-2 mb-6">
             <li>
-              <strong>CHANGELOG.md</strong> — tracks every release and notable change
+              <strong>CHANGELOG.md</strong> - tracks every release and notable change
             </li>
             <li>
-              <strong>Instruction files</strong> — AGENTS.md, CLAUDE.md, GEMINI.md updated when
+              <strong>Instruction files</strong> - AGENTS.md, CLAUDE.md, GEMINI.md updated when
               architecture changes
             </li>
             <li>
-              <strong>Sitemap</strong> — maintained in src/app/sitemap.ts; new routes are added
+              <strong>Sitemap</strong> - maintained in src/app/sitemap.ts; new routes are added
               manually to keep SEO coverage complete
             </li>
             <li>
-              <strong>Community health files</strong> — CODE_OF_CONDUCT, CONTRIBUTING, SECURITY,
+              <strong>Community health files</strong> - CODE_OF_CONDUCT, CONTRIBUTING, SECURITY,
               SUPPORT maintained alongside code
             </li>
           </ul>
 
           <p>
             This &quot;living documentation&quot; approach means the project remains understandable
-            to new contributors — human or AI — at any point in time.
+            to new contributors - human or AI - at any point in time.
           </p>
         </section>
 

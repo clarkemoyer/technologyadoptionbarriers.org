@@ -128,7 +128,7 @@ export interface Submission {
 
 /**
  * Demographics archived at submission completion.
- * Fields vary per participant — values are strings or DATA_EXPIRED if not answered.
+ * Fields vary per participant - values are strings or DATA_EXPIRED if not answered.
  * @see https://docs.prolific.com/api-reference/submissions/get-submission-demographics
  */
 export interface SubmissionDemographics {
@@ -248,13 +248,13 @@ async function fetchAllPages<T>(endpoint: string, apiToken: string): Promise<Pag
 
   let nextUrl = firstPage.meta?.next
   while (nextUrl) {
-    // meta.next may be absolute or relative — normalize to API path
+    // meta.next may be absolute or relative - normalize to API path
     let path: string
     try {
       const url = new URL(nextUrl)
       path = url.pathname.replace(/^\/api\/v1/, '') + url.search
     } catch {
-      // Relative URL — use as-is
+      // Relative URL - use as-is
       path = nextUrl
     }
     const page = await makeApiRequest<PaginatedResponse<T>>(path, apiToken)
@@ -387,7 +387,7 @@ export async function getSubmissionDemographics(
 
 /**
  * Fetch demographics for all submissions in a study.
- * Makes one API call per submission — use sparingly.
+ * Makes one API call per submission - use sparingly.
  */
 export async function getStudyDemographics(
   studyId: string,
@@ -422,7 +422,7 @@ export async function getStudyDemographics(
  * Pass these to `exportStudyDemographics(studyId, apiToken, filterIds)` to include
  * prescreener responses alongside base demographics in the export.
  *
- * Privacy: Prescreener data contains PII and must be handled ephemerally — never
+ * Privacy: Prescreener data contains PII and must be handled ephemerally - never
  * committed to the repository or displayed on public pages.
  *
  * @see https://docs.prolific.com/api-reference/filters/get-filters

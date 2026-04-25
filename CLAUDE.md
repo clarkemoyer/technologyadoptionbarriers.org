@@ -489,7 +489,7 @@ Jules is Google's autonomous coding agent powered by Gemini. We use the **Ultra 
 - Automatic issue finding and scheduled sessions
 - Build and quality checks before PR creation
 
-Jules and Copilot are complementary — Jules handles scale and frontend tasks, while Copilot handles backend automation and code review.
+Jules and Copilot are complementary - Jules handles scale and frontend tasks, while Copilot handles backend automation and code review.
 
 ## IDE-Specific Capabilities
 
@@ -573,7 +573,7 @@ Two GitHub MCP servers are available with different access levels:
 | **Built-in Copilot plugin** | `mcp__plugin_github_github__` | Read-only       | Fast reads: PR details, file contents, search, Copilot agent delegation    |
 | **`gh` CLI**                | `Bash(gh ...)`                | Full read/write | Workflow dispatch, PR state changes (draft/ready), fallback for all writes |
 
-**Local npx server setup** (Claude Desktop — `claude_desktop_config.json`):
+**Local npx server setup** (Claude Desktop - `claude_desktop_config.json`):
 
 ```json
 {
@@ -597,26 +597,26 @@ Two GitHub MCP servers are available with different access levels:
 
 **Reference library management via MCP tools:**
 
-- **Package**: `pyzotero[mcp]` (v1.11.0) — Python wrapper for the Zotero API
+- **Package**: `pyzotero[mcp]` (v1.11.0) - Python wrapper for the Zotero API
 - **Setup**: `uvx --from "pyzotero[mcp]==1.11.0" pyzotero-mcp` (stdio transport)
 - **Auth**: Connects to local Zotero desktop (localhost:23119), no API key needed
 - **User ID**: Set `ZOTERO_USER_ID` to your Zotero account's user ID (e.g., `export ZOTERO_USER_ID="<your-zotero-user-id>"`)
 
 **Zotero Library Tools (6):**
 
-- `search(query, fulltext, itemtype, collection, tag)` — Search library by content, type, or tag
-- `get_item(key)` — Retrieve a single item by key
-- `get_children(key)` — Get child items (attachments, notes)
-- `list_collections(limit)` — List all collections
-- `list_tags(collection)` — List tags, optionally filtered by collection
-- `get_fulltext(key)` — Extract full-text content from PDFs
+- `search(query, fulltext, itemtype, collection, tag)` - Search library by content, type, or tag
+- `get_item(key)` - Retrieve a single item by key
+- `get_children(key)` - Get child items (attachments, notes)
+- `list_collections(limit)` - List all collections
+- `list_tags(collection)` - List tags, optionally filtered by collection
+- `get_fulltext(key)` - Extract full-text content from PDFs
 
 **Semantic Scholar Tools (4):**
 
-- `find_related(doi)` — Find semantically similar papers
-- `get_citations(doi)` — Papers that cite a given paper
-- `get_references(doi)` — Papers referenced by a given paper
-- `search_semantic_scholar(query)` — Cross-database search with library cross-check
+- `find_related(doi)` - Find semantically similar papers
+- `get_citations(doi)` - Papers that cite a given paper
+- `get_references(doi)` - Papers referenced by a given paper
+- `search_semantic_scholar(query)` - Cross-database search with library cross-check
 
 **Configuration locations:**
 
@@ -736,10 +736,10 @@ const response = await gaClient.runReport({
 
 #### Zotero Web API v3
 
-**Reference library management — vetted sources of truth for the CRP:**
+**Reference library management - vetted sources of truth for the CRP:**
 
 - **Base URL**: `https://api.zotero.org`
-- **Auth**: `Zotero-API-Key` header (or local API at `localhost:23119` — no key needed)
+- **Auth**: `Zotero-API-Key` header (or local API at `localhost:23119` - no key needed)
 - **Client**: `pyzotero` Python library (v1.11.0)
 - **Environment**: `zotero-prod` (GitHub Actions)
 - **User ID**: Set via `ZOTERO_USER_ID` environment variable
@@ -754,7 +754,7 @@ from pyzotero import zotero
 # Cloud API (CI/GitHub Actions)
 zot = zotero.Zotero(int(os.environ['ZOTERO_USER_ID']), 'user', os.environ['ZOTERO_API_KEY'])
 
-# Local API (development — no key needed)
+# Local API (development - no key needed)
 zot = zotero.Zotero(0, 'user')
 zot.endpoint = 'http://localhost:23119/api'
 
@@ -916,13 +916,61 @@ Pipeline data has strict PII boundaries:
 | Prolific demographics       | Yes (per-participant)      | No (in-memory join)  | Ephemeral         |
 | Step summaries              | No (aggregate counts)      | No (Actions UI)      | Workflow lifetime |
 | Workflow logs               | Yes (PIDs in debug output) | No (Actions UI)      | 90 days           |
+| GitHub issue bodies         | **No (redact to last 4)**  | Yes (issue history)  | Permanent         |
+| PR descriptions             | **No (redact to last 4)**  | Yes (PR history)     | Permanent         |
+| Issue / PR comments         | **No (redact to last 4)**  | Yes                  | Permanent         |
+| Commit messages             | **No**                     | Yes                  | Permanent         |
 
 **Rules**:
 
-- Never commit PROLIFIC_PID or participant-level data to the repository
-- Step summaries use aggregate counts only (no PID tables)
-- De-identified public dataset excludes all direct identifiers
-- Raw demographic CSVs exist only in `${{ runner.temp }}` (ephemeral workspace)
+- Never commit PROLIFIC_PID or participant-level data to the repository.
+- **"The repository" includes GitHub issue bodies, PR descriptions, issue/PR
+  comments, commit messages, and step summaries** - anything GitHub persists
+  alongside the repo. These surfaces are permanent, enumerable via the REST
+  API, and frequently indexed. Treat them the same as `git push`.
+- Step summaries and issue bodies use aggregate counts only (no PID tables).
+- If operators need a PID list for copy/paste, put the full list in a
+  retention-capped Actions artifact and link to it from the issue. Redact
+  any PID that still has to appear inline to its last 4 characters
+  (e.g. `****f305`).
+- De-identified public dataset excludes all direct identifiers.
+- Raw demographic CSVs exist only in `${{ runner.temp }}` (ephemeral workspace).
+
+### Post-mortem: stale-triage PID leak (2026-04-23)
+
+**What happened.** The first iteration of the stale-AWAITING-REVIEW section
+added to the daily disposition report (PR #1774) rendered full PROLIFIC_PIDs
+in the issue body, plus a collapsed `<details>` block with a comma-separated
+PID list for pasting into the reject workflow. Daily report issues are
+permanent GitHub content, so this put per-participant data into a surface
+the privacy table above marked as off-limits.
+
+**Why the rule didn't fire.** The Privacy & Data Flow table listed
+"Committed to Repo?" as the dimension, and issue bodies were not explicitly
+named. I was optimising for operator convenience (paste-friendly PID list)
+and treated the issue body as an ephemeral notification rather than
+persistent repo content. The older pattern ("Step summaries use aggregate
+counts only") was the right instinct and should have transferred — issues
+are strictly more public and longer-lived than step summaries — but I did
+not make that inference.
+
+**Fix applied.** Redact inline PIDs to `****<last-4>` and keep the full
+list only in the 1-day `stale-triage` Actions artifact. A link in the
+section points operators at the artifact.
+
+**How to prevent a recurrence.**
+
+1. Before any workflow step emits to a GitHub-managed surface (issue body,
+   PR description, issue/PR comment, commit message, step summary),
+   explicitly ask: "is any per-participant datum in this output?" If yes,
+   redact or move the raw data to a retention-capped Actions artifact and
+   link to it.
+2. The rule is now in the privacy table under **"'The repository' includes
+   ..."** — future contributions that touch these surfaces must compare
+   against that line, not just the committed-file boundary.
+3. When adding a new report section, run the output shape past the privacy
+   table as a review checklist item, the same way new routes run through
+   the sitemap + canonical check.
 
 ## Workflow Dispatch Quick Reference
 
@@ -973,7 +1021,7 @@ All Python scripts live in `scripts/analysis/`. They are the primary language fo
 
 ## Custom Agents
 
-Claude Code agents are defined in `.claude/agents/` (gitignored — local only). They provide specialized behavior invoked automatically or explicitly.
+Claude Code agents are defined in `.claude/agents/` (gitignored - local only). They provide specialized behavior invoked automatically or explicitly.
 
 ### TABS Repo Agents
 
@@ -987,7 +1035,7 @@ Claude Code agents are defined in `.claude/agents/` (gitignored — local only).
 
 | Agent                  | Purpose                                                                     |
 | ---------------------- | --------------------------------------------------------------------------- |
-| `copilot-review-cycle` | Full review cycle — request review, read comments, fix code, commit, repeat |
+| `copilot-review-cycle` | Full review cycle - request review, read comments, fix code, commit, repeat |
 | `pr-reviewer`          | FFC-specific PR review checklist (naming, security, a11y, static export)    |
 
 **Invoke**: Claude auto-selects agents based on task description. You can also say "use the pipeline-validator agent" explicitly.
@@ -1018,7 +1066,7 @@ Project-level hooks in `.claude/settings.json`:
 | ------------- | ------------- | --------------------------------- |
 | `PostToolUse` | `Write\|Edit` | Auto-run Prettier on edited files |
 
-Hooks run automatically — no approval needed. They ensure formatting compliance without manual `npm run format`.
+Hooks run automatically - no approval needed. They ensure formatting compliance without manual `npm run format`.
 
 ### Available Hook Events
 
@@ -1032,7 +1080,7 @@ Hooks run automatically — no approval needed. They ensure formatting complianc
 
 Claude Code operates under a tiered permission system configured in `~/.claude/settings.json`.
 
-### Denied (43 rules) — blocked entirely
+### Denied (43 rules) - blocked entirely
 
 - Git destructive: force push, reset --hard, clean, filter-branch
 - Secret leakage: any bash with API_TOKEN, SECRET, PRIVATE_KEY, PASSWORD
@@ -1042,12 +1090,12 @@ Claude Code operates under a tiered permission system configured in `~/.claude/s
 - GitHub merge via MCP (forces human approval)
 - Calendar event deletion
 
-### Prompts (18 tools) — requires approval each time
+### Prompts (18 tools) - requires approval each time
 
 - Computer Use: clicks, typing, key presses, drag, clipboard write, open app
 - Chrome: form fills, JS execution, file upload, click actions
 
-### Auto-allowed (500+ tools) — runs without prompting
+### Auto-allowed (500+ tools) - runs without prompting
 
 - All GitHub MCP read/write (local npx server)
 - All Cloudflare create/read/update (NOT delete)
@@ -1060,18 +1108,52 @@ Claude Code operates under a tiered permission system configured in `~/.claude/s
 
 ## Dependency Provenance
 
-All MCP servers and API dependencies are tracked for provenance risk. See [issue #783](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/783) for the full chart.
+**Rule**: Only adopt from official sources or well-audited community projects. Our Python scripts (`scripts/analysis/`) are the safest API layer for Prolific and Qualtrics — neither company provides official SDKs or MCP servers.
 
-### Risk Tiers
+### Dependency Risk Chart
 
-| Tier         | Criteria                                                 | Examples                                                       |
-| ------------ | -------------------------------------------------------- | -------------------------------------------------------------- |
-| **Low**      | Official, from the company, actively maintained          | GitHub MCP, Cloudflare MCP, Google Analytics MCP, `googleapis` |
-| **Medium**   | Community but mature (100+ stars, multiple contributors) | `peter-evans/create-pull-request`, Google Search Console MCP   |
-| **High**     | Community, single maintainer, or stale                   | Qualtrics MCP (academic), R Statistics MCP (stale)             |
-| **Critical** | Missing, deprecated, or cannot verify                    | `@modelcontextprotocol/server-github` (deprecated)             |
+_(Metrics snapshot as of April 2026. See tracking [issue #783](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/783) for the original source.)_
 
-**Rule**: Prefer official sources. Our Python scripts (`scripts/analysis/`) are the safest API layer for Prolific and Qualtrics — neither company provides official SDKs or MCP servers.
+<<<<<<< HEAD
+
+#### MCP Servers
+
+| Dependency                                                    | Publisher              | Official?    | Stars        | Last Activity | Risk                                          |
+| ------------------------------------------------------------- | ---------------------- | ------------ | ------------ | ------------- | --------------------------------------------- |
+| GitHub MCP (`github/github-mcp-server`)                       | GitHub, Inc.           | **Yes**      | 28,565       | Mar 2026      | **Low**                                       |
+| Cloudflare MCP (`cloudflare/mcp-server-cloudflare`)           | Cloudflare             | **Yes**      | 3,586        | Mar 2026      | **Low**                                       |
+| Cloudflare Code Mode (`cloudflare/mcp`)                       | Cloudflare             | **Yes**      | 318          | Apr 2026      | **Low** (new)                                 |
+| Google Analytics MCP (`googleanalytics/google-analytics-mcp`) | Google                 | **Yes**      | 1,734        | Mar 2026      | **Low**                                       |
+| Microsoft Learn MCP (`MicrosoftDocs/mcp`)                     | Microsoft              | **Yes**      | 1,520        | Apr 2026      | **Low**                                       |
+| `@modelcontextprotocol/server-github` (npm)                   | Anthropic (deprecated) | Was official | 83K monorepo | Feb 2026      | **Medium** -- deprecated, migrate             |
+| Google Search Console (`AminForou/mcp-gsc`)                   | Community              | No           | 616          | Apr 2026      | **Medium**                                    |
+| Google Search Console (`ahonn/mcp-server-gsc`)                | Community              | No           | 199          | Feb 2026      | **Medium**                                    |
+| Qualtrics MCP (`yrvelez/qualtrics-mcp-server`)                | Community (academic)   | No           | 17           | Mar 2026      | **High** -- 3 contributors, single maintainer |
+| R Statistics (`finite-sample/rmcp`)                           | Community              | No           | 201          | Dec 2025      | **High** -- stale 4+ months, 2 contributors   |
+| Prolific MCP (`SeanAlexanderHarris/prolific-mcp`)             | **MISSING**            | No           | N/A          | N/A           | **CRITICAL** -- repo does not exist on GitHub |
+| Qualtrics/SAP Official MCP                                    | Qualtrics/SAP          | N/A          | N/A          | N/A           | **Monitor** -- SAP is AAIF member             |
+| Prolific Official MCP                                         | Prolific               | N/A          | N/A          | N/A           | **Monitor** -- None exists                    |
+
+#### npm Packages and GitHub Actions
+
+| Dependency                           | Publisher | Official? | Stars | Last Release | Risk                                          |
+| ------------------------------------ | --------- | --------- | ----- | ------------ | --------------------------------------------- |
+| `@google-analytics/data`             | Google    | **Yes**   | --    | Oct 2025     | **Low**                                       |
+| `googleapis` (Search Console)        | Google    | **Yes**   | --    | Feb 2026     | **Low**                                       |
+| `actions/upload-artifact` v7         | GitHub    | **Yes**   | 4,014 | Feb 2026     | **Low**                                       |
+| `actions/download-artifact` v8       | GitHub    | **Yes**   | 1,810 | Mar 2026     | **Low**                                       |
+| `peter-evans/create-pull-request` v8 | Community | No        | 2,731 | Jan 2026     | **Low** -- extremely mature, 30+ contributors |
+
+#### API Clients (REST, no SDK)
+
+_Note: Python scripts in scripts/analysis/ are functional -- no urgency._
+
+| API              | Provider      | Official SDK?                   | Our Client                                                  | Risk                                    |
+| ---------------- | ------------- | ------------------------------- | ----------------------------------------------------------- | --------------------------------------- |
+| Prolific API v1  | Prolific      | **No official SDK** (REST only) | `scripts/analysis/tabs_api.py` + `src/lib/prolific-api.ts`  | **Medium** -- custom client, API stable |
+| Qualtrics API v3 | Qualtrics/SAP | **No official SDK** (REST only) | `scripts/analysis/tabs_api.py` + `src/lib/qualtrics-api.ts` | **Medium** -- custom client, API stable |
+
+**Rule**: Prefer official sources. Our Python scripts (`scripts/analysis/`) are the safest API layer for Prolific and Qualtrics - neither company provides official SDKs or MCP servers.
 
 ## Resources
 
@@ -1079,11 +1161,11 @@ All MCP servers and API dependencies are tracked for provenance risk. See [issue
 
 The live website documents this infrastructure at `/making-of-tabs/`:
 
-- `/making-of-tabs/ai-assisted-development` — How AI agents build and maintain the site
-- `/making-of-tabs/development-workflow` — CI/CD pipeline, merge queue, automated testing
-- `/making-of-tabs/integrations/` — Cloudflare, GitHub, Google Analytics, Prolific, Qualtrics
-- `/making-of-tabs/data-analysis` — Analysis pipeline, psychometrics, quality audits
-- `/making-of-tabs/reproducible-analysis` — Reproducibility documentation
+- `/making-of-tabs/ai-assisted-development` - How AI agents build and maintain the site
+- `/making-of-tabs/development-workflow` - CI/CD pipeline, merge queue, automated testing
+- `/making-of-tabs/integrations/` - Cloudflare, GitHub, Google Analytics, Prolific, Qualtrics
+- `/making-of-tabs/data-analysis` - Analysis pipeline, psychometrics, quality audits
+- `/making-of-tabs/reproducible-analysis` - Reproducibility documentation
 
 ### Project Documentation
 

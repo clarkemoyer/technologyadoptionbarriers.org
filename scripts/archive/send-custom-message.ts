@@ -42,7 +42,7 @@ async function main() {
   console.log('')
 
   if (dryRun) {
-    console.log('DRY RUN — message not sent')
+    console.log('DRY RUN - message not sent')
   } else {
     await sendMessage(studyId, pid, message, token)
     console.log('Message sent successfully')

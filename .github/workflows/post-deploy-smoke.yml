@@ -92,7 +92,7 @@ jobs:
           set -uo pipefail
 
           # Find every non-HTML file, excluding:
-          #   - dotfiles (e.g. .nojekyll, .gitkeep) — GitHub Pages does
+          #   - dotfiles (e.g. .nojekyll, .gitkeep) - GitHub Pages does
           #     not serve files whose names start with '.'
           #   - _next/static/** (build-specific hashed paths that differ
           #     between the deploy build and this discovery build; pages
@@ -258,23 +258,23 @@ jobs:
 
           : > /tmp/infra-results.txt
 
-          # 1. 404 error handling — nonexistent URL must return 404
+          # 1. 404 error handling - nonexistent URL must return 404
           # NOTE: This path is reserved for smoke testing and must NEVER be created as a real page.
           check "404 error page" "${SITE_URL}/__smoke-test-404-check__" "404"
 
-          # 2. sitemap.xml — SEO infrastructure
+          # 2. sitemap.xml - SEO infrastructure
           check "sitemap.xml" "${SITE_URL}/sitemap.xml" "200"
 
-          # 3. robots.txt — crawler configuration
+          # 3. robots.txt - crawler configuration
           check "robots.txt" "${SITE_URL}/robots.txt" "200"
 
-          # 4. CNAME — custom domain configuration
+          # 4. CNAME - custom domain configuration
           check "CNAME" "${SITE_URL}/CNAME" "200"
 
-          # 5. site.webmanifest — PWA metadata
+          # 5. site.webmanifest - PWA metadata
           check "site.webmanifest" "${SITE_URL}/site.webmanifest" "200"
 
-          # 6. Homepage content verification — validates rendering, not just status
+          # 6. Homepage content verification - validates rendering, not just status
           CONTENT=$(curl -s -L --max-time 15 "${SITE_URL}/" 2>/dev/null)
           if echo "$CONTENT" | grep -q "Technology Adoption Barriers"; then
             echo "| Homepage content | ✅ Contains expected text |" >> /tmp/infra-results.txt
@@ -283,7 +283,7 @@ jobs:
             INFRA_FAIL=$((INFRA_FAIL + 1))
           fi
 
-          # 7. Content-Type for HTML pages — must serve text/html
+          # 7. Content-Type for HTML pages - must serve text/html
           CT=$(curl -s -I -L --max-time 15 "${SITE_URL}/" 2>/dev/null | grep -i '^content-type:' | head -1)
           if echo "$CT" | grep -qi 'text/html'; then
             echo "| HTML Content-Type | ✅ text/html |" >> /tmp/infra-results.txt
@@ -292,7 +292,7 @@ jobs:
             INFRA_FAIL=$((INFRA_FAIL + 1))
           fi
 
-          # 8. HTTPS redirect — HTTP must redirect to HTTPS
+          # 8. HTTPS redirect - HTTP must redirect to HTTPS
           # Intentionally non-blocking (⚠️ not ❌): CI runners may have network
           # restrictions that prevent following HTTP→HTTPS redirects, so a
           # failure here does NOT increment INFRA_FAIL.
@@ -341,9 +341,10 @@ jobs:
 
           : > /tmp/redirect-results.txt
 
-          # Old Making of TABS pages → Results section
+          # Legacy redirects between Making of TABS and Results sections
           check_redirect "${SITE_URL}/making-of-tabs/data-analysis" "/results/data-quality" "/making-of-tabs/data-analysis"
-          check_redirect "${SITE_URL}/making-of-tabs/cmo-survey" "/results/cmo-survey" "/making-of-tabs/cmo-survey"
+          # CMO Survey moved TO making-of-tabs in PR #1516; /results/cmo-survey has a ClientRedirect stub
+          check_redirect "${SITE_URL}/results/cmo-survey" "/making-of-tabs/cmo-survey" "/results/cmo-survey"
           check_redirect "${SITE_URL}/making-of-tabs/reproducible-analysis" "/results/reproducibility" "/making-of-tabs/reproducible-analysis"
           check_redirect "${SITE_URL}/making-of-tabs/integrations/prolific/dashboard" "/results/dashboard" "/making-of-tabs/.../prolific/dashboard"
           check_redirect "${SITE_URL}/barriers/survey-stats" "/results/survey-stats" "/barriers/survey-stats"
@@ -472,7 +473,7 @@ jobs:
 
           : > /tmp/content-results.txt
 
-          # Results section — verify key content renders
+          # Results section - verify key content renders
           check_content "${SITE_URL}/results" "Prolific Approved" "/results overview"
           check_content "${SITE_URL}/results" "Clean Sample" "/results hero stats"
           check_content "${SITE_URL}/results/data-quality" "Disposition Waterfall" "/results/data-quality"
@@ -480,14 +481,14 @@ jobs:
           check_content "${SITE_URL}/results/reliability" "Cronbach" "/results/reliability"
           check_content "${SITE_URL}/results/sensitivity" "Conservative Clean" "/results/sensitivity"
 
-          # Barriers page — still functional
+          # Barriers page - still functional
           check_content "${SITE_URL}/barriers" "Technology Adoption Barriers" "/barriers"
 
-          # Making of TABS — still functional after restructure
+          # Making of TABS - still functional after restructure
           check_content "${SITE_URL}/making-of-tabs" "Making of TABS" "/making-of-tabs"
 
           # Check for pipeline data failure sentinel on key pages.
-          # Pages render "[DATA UNAVAILABLE — pipeline error]" when JSON data
+          # Pages render "[DATA UNAVAILABLE - pipeline error]" when JSON data
           # is missing or malformed. Any occurrence is a pipeline failure.
           SENTINEL_FAIL=0
           check_no_sentinel() {
@@ -499,13 +500,13 @@ jobs:
 
             if [ "$curl_exit" -ne 0 ] || [ "$http_status" -lt 200 ] || [ "$http_status" -ge 400 ]; then
               : > /tmp/sentinel-body
-              echo "| $label | ❌ Fetch failed (curl=$curl_exit, http=$http_status) — sentinel check inconclusive |" >> /tmp/content-results.txt
+              echo "| $label | ❌ Fetch failed (curl=$curl_exit, http=$http_status) - sentinel check inconclusive |" >> /tmp/content-results.txt
               SENTINEL_FAIL=$((SENTINEL_FAIL + 1))
               return
             fi
 
-            if grep -F -q -- "[DATA UNAVAILABLE — pipeline error]" /tmp/sentinel-body 2>/dev/null; then
-              echo "| $label | ❌ Contains [DATA UNAVAILABLE] sentinel — pipeline data missing |" >> /tmp/content-results.txt
+            if grep -F -q -- "[DATA UNAVAILABLE - pipeline error]" /tmp/sentinel-body 2>/dev/null; then
+              echo "| $label | ❌ Contains [DATA UNAVAILABLE] sentinel - pipeline data missing |" >> /tmp/content-results.txt
               SENTINEL_FAIL=$((SENTINEL_FAIL + 1))
             else
               echo "| $label | ✅ No data-unavailable markers |" >> /tmp/content-results.txt
@@ -668,7 +669,7 @@ jobs:
 
             // Safety guard: do not create an incident issue if no checks actually failed
             if (totalFail === 0) {
-              core.info('totalFail is 0 — skipping incident issue creation.');
+              core.info('totalFail is 0 - skipping incident issue creation.');
               return;
             }
 

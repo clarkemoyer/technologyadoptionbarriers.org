@@ -1,4 +1,4 @@
-"""Tests for tabs_v2_quality_audit.py — data quality assessment.
+"""Tests for tabs_v2_quality_audit.py - data quality assessment.
 
 Uses production-format synthetic CSV with all required columns.
 """

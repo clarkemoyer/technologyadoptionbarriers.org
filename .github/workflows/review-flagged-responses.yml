@@ -18,7 +18,7 @@ on:
         required: false
         type: string
       dry_run:
-        description: 'Dry run — use placeholder messaging data (no API calls)'
+        description: 'Dry run - use placeholder messaging data (no API calls)'
         required: true
         type: boolean
         default: true
@@ -132,7 +132,7 @@ jobs:
         run: |
           echo ""
           echo "================================================================"
-          echo "  RECOMMENDATIONS ONLY — Review complete."
+          echo "  RECOMMENDATIONS ONLY - Review complete."
           echo ""
           echo "  To act on these recommendations:"
           echo "    - Approve: Use 'Prolific Approve Submissions' workflow"

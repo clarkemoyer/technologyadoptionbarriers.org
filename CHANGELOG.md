@@ -13,13 +13,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Technical integrations page at `/making-of-tabs/integrations` documenting Qualtrics, Prolific, and GitHub Sponsors architecture
 - Permanent Survey Flow export workflow (`qualtrics-dump-flow.yml`) for read-only flow inspection
-- GitHub Sponsors integration (Stripe-backed) for PCI-compliant donations — one-time and recurring
+- GitHub Sponsors integration (Stripe-backed) for PCI-compliant donations - one-time and recurring
 - Sponsor button enabled in GitHub repository header via `FUNDING.yml`
 
 ### Changed
 
 - Visual 06 refactored to dual-curve lifecycle positioning chart with improved data visualization
-- Prolific integration script idempotency improved — row comparisons now happen before removal
+- Prolific integration script idempotency improved - row comparisons now happen before removal
 - Workflow permissions hardened with explicit `contents: read` blocks
 - Updated Qualtrics survey metrics and Google Analytics impact stats
 - Archived write-operation Qualtrics workflows to `workflows-archived/`
@@ -40,17 +40,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 
 - 14 stale remote branches and 3 stale local branches cleaned up
-- Closed PR #100 (direct Stripe integration) — superseded by GitHub Sponsors
+- Closed PR #100 (direct Stripe integration) - superseded by GitHub Sponsors
 
 ## [0.3.0] - 2026-02-16
 
 ### Added
 
-- Technology Adoption Models article series — 16 research articles across 2 branches with scholarly content from peer-reviewed PDFs
+- Technology Adoption Models article series - 16 research articles across 2 branches with scholarly content from peer-reviewed PDFs
 - 24 individual bibliography article pages created from PDF extraction
-- Persona navigation with mega menu — "See Yourself in the Survey" landing pages for 11 roles
+- Persona navigation with mega menu - "See Yourself in the Survey" landing pages for 11 roles
 - Comprehensive FAQ page with accordion sections
-- Teaching series pages — educational resources for the Technology Adoption series
+- Teaching series pages - educational resources for the Technology Adoption series
 - Full 25-slide presentation deck with 4K visuals and ASCII art gallery
 - CMO Survey influence page under Making of TABS
 - Prolific–Qualtrics live participant recruitment pipeline on production survey
@@ -58,11 +58,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Article style normalization — shared constants (`articleStyles.ts`) for consistent typography across all articles
+- Article style normalization - shared constants (`articleStyles.ts`) for consistent typography across all articles
 - Visual naming system refactored from numeric IDs to semantic names
 - Header mega menu now scrollable with fixed alignment issues
 - "For Organizations" mega menu updated with category pages
-- Trailing slash support — URLs with and without trailing slashes now resolve correctly
+- Trailing slash support - URLs with and without trailing slashes now resolve correctly
 - 12 Dependabot dependency updates merged (Next.js 16.1.x, framer-motion 12.33.x, etc.)
 
 ### Fixed

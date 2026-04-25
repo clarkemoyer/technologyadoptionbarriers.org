@@ -38,7 +38,7 @@ export interface MomentInTimeConfig {
 }
 
 export const MOMENT_IN_TIME_CONFIGS: Record<number, MomentInTimeConfig> = {
-  // Slide 30: Companion to Slide 27 (HDDs) — Data Center Storage landscape
+  // Slide 30: Companion to Slide 27 (HDDs) - Data Center Storage landscape
   30: {
     title: 'Data Center Storage: A Moment in Time',
     subtitle: 'Where storage technologies sit today across the adoption lifecycle',
@@ -50,15 +50,15 @@ export const MOMENT_IN_TIME_CONFIGS: Record<number, MomentInTimeConfig> = {
         technologies: [
           {
             name: 'DNA Data Storage',
-            detail: 'Microsoft/Twist Bio — lab-stage, years from production',
+            detail: 'Microsoft/Twist Bio - lab-stage, years from production',
           },
           {
             name: 'Glass Storage (Project Silica)',
-            detail: 'Microsoft Research — quartz glass, archival prototype',
+            detail: 'Microsoft Research - quartz glass, archival prototype',
           },
           {
             name: 'CXL-attached Storage',
-            detail: 'CXL 3.0 memory pooling — early silicon, no ecosystem yet',
+            detail: 'CXL 3.0 memory pooling - early silicon, no ecosystem yet',
           },
         ],
       },
@@ -68,11 +68,11 @@ export const MOMENT_IN_TIME_CONFIGS: Record<number, MomentInTimeConfig> = {
         technologies: [
           {
             name: 'QLC NVMe SSDs (60+ TB)',
-            detail: 'Solidigm D5-P5336 61TB — shipping, early enterprise adoption',
+            detail: 'Solidigm D5-P5336 61TB - shipping, early enterprise adoption',
           },
           {
             name: 'Computational Storage',
-            detail: 'Samsung CSD — processing at the drive, niche HPC workloads',
+            detail: 'Samsung CSD - processing at the drive, niche HPC workloads',
           },
           { name: 'PCIe Gen 5 NVMe', detail: 'Shipping in high-end servers, ecosystem maturing' },
         ],
@@ -83,16 +83,16 @@ export const MOMENT_IN_TIME_CONFIGS: Record<number, MomentInTimeConfig> = {
         technologies: [
           {
             name: 'TLC NVMe SSDs',
-            detail: 'Default for primary storage — Samsung, Micron, SK hynix',
+            detail: 'Default for primary storage - Samsung, Micron, SK hynix',
           },
-          { name: 'SAS/SATA SSDs', detail: 'Workhorse enterprise drives — proven, cost-effective' },
+          { name: 'SAS/SATA SSDs', detail: 'Workhorse enterprise drives - proven, cost-effective' },
           {
             name: 'All-Flash Arrays (AFA)',
-            detail: 'Pure Storage, NetApp AFF, Dell PowerStore — standard tier-1',
+            detail: 'Pure Storage, NetApp AFF, Dell PowerStore - standard tier-1',
           },
           {
             name: 'Object Storage (S3-compatible)',
-            detail: 'MinIO, Ceph, cloud-native — dominant for unstructured data',
+            detail: 'MinIO, Ceph, cloud-native - dominant for unstructured data',
           },
         ],
       },
@@ -102,15 +102,15 @@ export const MOMENT_IN_TIME_CONFIGS: Record<number, MomentInTimeConfig> = {
         technologies: [
           {
             name: 'High-capacity HDDs (20+ TB)',
-            detail: 'Seagate Exos, WD Ultrastar — bulk/cold storage, declining share',
+            detail: 'Seagate Exos, WD Ultrastar - bulk/cold storage, declining share',
           },
           {
             name: 'Hybrid Flash Arrays',
-            detail: 'Mix of SSD + HDD tiers — being replaced by all-flash',
+            detail: 'Mix of SSD + HDD tiers - being replaced by all-flash',
           },
           {
             name: 'SAN (Fibre Channel)',
-            detail: 'Still in legacy enterprise — NVMe-oF displacing for new deployments',
+            detail: 'Still in legacy enterprise - NVMe-oF displacing for new deployments',
           },
         ],
       },
@@ -121,11 +121,11 @@ export const MOMENT_IN_TIME_CONFIGS: Record<number, MomentInTimeConfig> = {
         technologies: [
           {
             name: 'Consumer HDDs (< 4 TB)',
-            detail: 'Production winding down — no new consumer models',
+            detail: 'Production winding down - no new consumer models',
           },
           {
             name: 'SAS 12 Gbps HDDs',
-            detail: 'Legacy enterprise — vendors shifting to SSD-only portfolios',
+            detail: 'Legacy enterprise - vendors shifting to SSD-only portfolios',
           },
         ],
       },
@@ -136,11 +136,11 @@ export const MOMENT_IN_TIME_CONFIGS: Record<number, MomentInTimeConfig> = {
         technologies: [
           {
             name: 'Tape Libraries (LTO-5 and earlier)',
-            detail: 'No parts, no media — fully obsolete',
+            detail: 'No parts, no media - fully obsolete',
           },
           {
             name: '10K/15K RPM HDDs',
-            detail: 'Performance HDDs killed by SSDs — no longer manufactured',
+            detail: 'Performance HDDs killed by SSDs - no longer manufactured',
           },
         ],
       },
@@ -149,7 +149,7 @@ export const MOMENT_IN_TIME_CONFIGS: Record<number, MomentInTimeConfig> = {
       'Sources: IDC Worldwide SSD/HDD Forecast (2024); Gartner Storage MQ (2024); StorageNewsletter.com (2025)',
   },
 
-  // Slide 31: Companion to Slide 28 (Flash) — Rich Web Experiences landscape
+  // Slide 31: Companion to Slide 28 (Flash) - Rich Web Experiences landscape
   31: {
     title: 'Rich Web Experiences: A Moment in Time',
     subtitle: 'Where web interaction technologies sit today across the adoption lifecycle',
@@ -161,15 +161,15 @@ export const MOMENT_IN_TIME_CONFIGS: Record<number, MomentInTimeConfig> = {
         technologies: [
           {
             name: 'WebGPU',
-            detail: 'GPU compute in browser — Chrome shipped, Safari/Firefox partial',
+            detail: 'GPU compute in browser - Chrome shipped, Safari/Firefox partial',
           },
           {
             name: 'WebTransport',
-            detail: 'HTTP/3-based bidirectional — replacing WebSocket for real-time',
+            detail: 'HTTP/3-based bidirectional - replacing WebSocket for real-time',
           },
           {
             name: 'View Transitions API',
-            detail: 'SPA/MPA page transitions — Chrome only, spec evolving',
+            detail: 'SPA/MPA page transitions - Chrome only, spec evolving',
           },
         ],
       },
@@ -179,15 +179,15 @@ export const MOMENT_IN_TIME_CONFIGS: Record<number, MomentInTimeConfig> = {
         technologies: [
           {
             name: 'WebAssembly (Wasm)',
-            detail: 'Near-native performance — Figma, Photoshop, game engines',
+            detail: 'Near-native performance - Figma, Photoshop, game engines',
           },
           {
             name: 'Web Components (Lit, Stencil)',
-            detail: 'Framework-agnostic — growing in design systems',
+            detail: 'Framework-agnostic - growing in design systems',
           },
           {
             name: 'WebXR / Immersive Web',
-            detail: 'VR/AR in browser — Meta Quest, Apple Vision Pro support',
+            detail: 'VR/AR in browser - Meta Quest, Apple Vision Pro support',
           },
         ],
       },
@@ -195,30 +195,30 @@ export const MOMENT_IN_TIME_CONFIGS: Record<number, MomentInTimeConfig> = {
         stage: 'Mainstream',
         color: '#22c55e',
         technologies: [
-          { name: 'HTML5 Canvas / SVG', detail: 'Universal — charts, games, interactive graphics' },
+          { name: 'HTML5 Canvas / SVG', detail: 'Universal - charts, games, interactive graphics' },
           {
             name: 'CSS Animations / Transitions',
-            detail: 'Hardware-accelerated — replaced Flash for most motion',
+            detail: 'Hardware-accelerated - replaced Flash for most motion',
           },
           {
             name: 'JavaScript SPA Frameworks',
-            detail: 'React, Vue, Angular — dominant interactive web platform',
+            detail: 'React, Vue, Angular - dominant interactive web platform',
           },
-          { name: 'WebSocket', detail: 'Real-time communication — chat, live data, collaboration' },
+          { name: 'WebSocket', detail: 'Real-time communication - chat, live data, collaboration' },
         ],
       },
       {
         stage: 'Trending Behind',
         color: '#f97316',
         technologies: [
-          { name: 'jQuery', detail: 'Still on 77% of websites — declining in new projects' },
+          { name: 'jQuery', detail: 'Still on 77% of websites - declining in new projects' },
           {
             name: 'Server-rendered MPA (traditional)',
-            detail: 'Rails, PHP templates — moving to hybrid (HTMX, Turbo)',
+            detail: 'Rails, PHP templates - moving to hybrid (HTMX, Turbo)',
           },
           {
             name: 'Java Applets (legacy enterprise)',
-            detail: 'Internal tools only — no browser support since 2020',
+            detail: 'Internal tools only - no browser support since 2020',
           },
         ],
       },
@@ -227,8 +227,8 @@ export const MOMENT_IN_TIME_CONFIGS: Record<number, MomentInTimeConfig> = {
         color: '#ef4444',
         textColor: '#fff',
         technologies: [
-          { name: 'Adobe Flash', detail: 'Kill switch activated Jan 2021 — zero browser support' },
-          { name: 'Microsoft Silverlight', detail: 'EOL Oct 2021 — removed from all browsers' },
+          { name: 'Adobe Flash', detail: 'Kill switch activated Jan 2021 - zero browser support' },
+          { name: 'Microsoft Silverlight', detail: 'EOL Oct 2021 - removed from all browsers' },
         ],
       },
       {
@@ -236,8 +236,8 @@ export const MOMENT_IN_TIME_CONFIGS: Record<number, MomentInTimeConfig> = {
         color: '#991b1b',
         textColor: '#fff',
         technologies: [
-          { name: 'ActiveX Controls', detail: 'IE-only — IE itself EOL June 2022' },
-          { name: 'Java Web Start / JNLP', detail: 'Removed from JDK 11+ — no runtime available' },
+          { name: 'ActiveX Controls', detail: 'IE-only - IE itself EOL June 2022' },
+          { name: 'Java Web Start / JNLP', detail: 'Removed from JDK 11+ - no runtime available' },
         ],
       },
     ],
@@ -245,7 +245,7 @@ export const MOMENT_IN_TIME_CONFIGS: Record<number, MomentInTimeConfig> = {
       'Sources: W3Techs Usage Statistics (2025); Can I Use browser compat (2025); HTTP Archive Web Almanac (2024)',
   },
 
-  // Slide 32: Companion to Slide 29 (Barcodes) — Supply Chain Identification landscape
+  // Slide 32: Companion to Slide 29 (Barcodes) - Supply Chain Identification landscape
   32: {
     title: 'Supply Chain Identification: A Moment in Time',
     subtitle:
@@ -258,15 +258,15 @@ export const MOMENT_IN_TIME_CONFIGS: Record<number, MomentInTimeConfig> = {
         technologies: [
           {
             name: 'Blockchain Track-and-Trace',
-            detail: 'IBM Food Trust, TradeLens (shut down) — hype cooling',
+            detail: 'IBM Food Trust, TradeLens (shut down) - hype cooling',
           },
           {
             name: 'Computer Vision Checkout',
-            detail: 'Amazon Just Walk Out — scaling back, accuracy issues',
+            detail: 'Amazon Just Walk Out - scaling back, accuracy issues',
           },
           {
             name: 'Digital Twins for Supply Chain',
-            detail: 'Real-time simulation — pilot stage, high complexity',
+            detail: 'Real-time simulation - pilot stage, high complexity',
           },
         ],
       },
@@ -276,15 +276,15 @@ export const MOMENT_IN_TIME_CONFIGS: Record<number, MomentInTimeConfig> = {
         technologies: [
           {
             name: 'GS1 Digital Link QR Codes',
-            detail: 'Sunrise 2027 initiative — major CPGs adopting, retailers lagging',
+            detail: 'Sunrise 2027 initiative - major CPGs adopting, retailers lagging',
           },
           {
             name: 'UHF RFID (item-level retail)',
-            detail: 'Zara, Nike, Walmart — 30B+ tags/year, but not universal',
+            detail: 'Zara, Nike, Walmart - 30B+ tags/year, but not universal',
           },
           {
             name: 'IoT Sensors (cold chain)',
-            detail: 'Temperature/location tracking — pharma and food adoption growing',
+            detail: 'Temperature/location tracking - pharma and food adoption growing',
           },
         ],
       },
@@ -294,19 +294,19 @@ export const MOMENT_IN_TIME_CONFIGS: Record<number, MomentInTimeConfig> = {
         technologies: [
           {
             name: '1D Barcodes (UPC/EAN)',
-            detail: '6B+ scans/day — universal retail, still the global standard',
+            detail: '6B+ scans/day - universal retail, still the global standard',
           },
           {
             name: '2D Barcodes (QR/Data Matrix)',
-            detail: 'Payments, marketing, pharma serialization — broad adoption',
+            detail: 'Payments, marketing, pharma serialization - broad adoption',
           },
           {
             name: 'RFID (pallet/case level)',
-            detail: 'Walmart mandate since 2003 — standard in logistics/warehouse',
+            detail: 'Walmart mandate since 2003 - standard in logistics/warehouse',
           },
           {
             name: 'EDI (Electronic Data Interchange)',
-            detail: 'B2B standard since 1980s — deeply embedded, slow to change',
+            detail: 'B2B standard since 1980s - deeply embedded, slow to change',
           },
         ],
       },
@@ -316,11 +316,11 @@ export const MOMENT_IN_TIME_CONFIGS: Record<number, MomentInTimeConfig> = {
         technologies: [
           {
             name: '1D Barcodes (proprietary formats)',
-            detail: 'Custom retailer codes — migrating to GS1 standards',
+            detail: 'Custom retailer codes - migrating to GS1 standards',
           },
           {
             name: 'Manual Data Entry / Paper-based',
-            detail: 'Still used in developing markets — digitization replacing',
+            detail: 'Still used in developing markets - digitization replacing',
           },
           {
             name: 'Older EDI Standards (ANSI X12)',
@@ -335,9 +335,9 @@ export const MOMENT_IN_TIME_CONFIGS: Record<number, MomentInTimeConfig> = {
         technologies: [
           {
             name: 'Magnetic Stripe Inventory Tags',
-            detail: 'Replaced by RFID — no new deployments',
+            detail: 'Replaced by RFID - no new deployments',
           },
-          { name: 'Punch Card Inventory Systems', detail: 'Museum pieces — no vendor support' },
+          { name: 'Punch Card Inventory Systems', detail: 'Museum pieces - no vendor support' },
         ],
       },
       {
@@ -347,11 +347,11 @@ export const MOMENT_IN_TIME_CONFIGS: Record<number, MomentInTimeConfig> = {
         technologies: [
           {
             name: 'Kimball Tags (retail price tickets)',
-            detail: 'Perforated paper tags — fully obsolete since 1990s',
+            detail: 'Perforated paper tags - fully obsolete since 1990s',
           },
           {
             name: 'OCR-A Font Scanning',
-            detail: 'Pre-barcode optical reading — no scanners in service',
+            detail: 'Pre-barcode optical reading - no scanners in service',
           },
         ],
       },
@@ -360,7 +360,7 @@ export const MOMENT_IN_TIME_CONFIGS: Record<number, MomentInTimeConfig> = {
       'Sources: GS1 Sunrise 2027 (2024); IDTechEx RFID Forecast (2024); McKinsey Supply Chain 4.0 (2024)',
   },
 
-  // Slide 34: Companion to Slide 33 (ML/AI) — AI/ML landscape
+  // Slide 34: Companion to Slide 33 (ML/AI) - AI/ML landscape
   34: {
     title: 'ML/AI: A Moment in Time',
     subtitle: 'Where machine learning and AI technologies sit today across the adoption lifecycle',
@@ -372,15 +372,15 @@ export const MOMENT_IN_TIME_CONFIGS: Record<number, MomentInTimeConfig> = {
         technologies: [
           {
             name: 'Artificial General Intelligence (AGI)',
-            detail: 'Theoretical — no consensus on timeline or definition',
+            detail: 'Theoretical - no consensus on timeline or definition',
           },
           {
             name: 'Neuromorphic Computing',
-            detail: 'Intel Loihi 2, IBM NorthPole — brain-inspired chips, lab-stage',
+            detail: 'Intel Loihi 2, IBM NorthPole - brain-inspired chips, lab-stage',
           },
           {
             name: 'Quantum Machine Learning',
-            detail: 'Hybrid quantum-classical — error rates too high for production',
+            detail: 'Hybrid quantum-classical - error rates too high for production',
           },
         ],
       },
@@ -390,19 +390,19 @@ export const MOMENT_IN_TIME_CONFIGS: Record<number, MomentInTimeConfig> = {
         technologies: [
           {
             name: 'AI Agents (autonomous)',
-            detail: 'Multi-step tool use — Claude, GPT, Gemini agents emerging',
+            detail: 'Multi-step tool use - Claude, GPT, Gemini agents emerging',
           },
           {
             name: 'Multimodal Foundation Models',
-            detail: 'GPT-4o, Gemini, Claude — text+image+audio, rapidly maturing',
+            detail: 'GPT-4o, Gemini, Claude - text+image+audio, rapidly maturing',
           },
           {
             name: 'On-device / Edge LLMs',
-            detail: 'Apple Intelligence, Gemini Nano — privacy-first, limited capability',
+            detail: 'Apple Intelligence, Gemini Nano - privacy-first, limited capability',
           },
           {
             name: 'AI Code Generation',
-            detail: 'Copilot, Claude Code, Cursor — high adoption among developers, evolving fast',
+            detail: 'Copilot, Claude Code, Cursor - high adoption among developers, evolving fast',
           },
         ],
       },
@@ -412,19 +412,19 @@ export const MOMENT_IN_TIME_CONFIGS: Record<number, MomentInTimeConfig> = {
         technologies: [
           {
             name: 'Large Language Models (LLMs)',
-            detail: 'ChatGPT, Claude, Gemini — 100M+ users, enterprise SaaS standard',
+            detail: 'ChatGPT, Claude, Gemini - 100M+ users, enterprise SaaS standard',
           },
           {
             name: 'Image Generation (Diffusion)',
-            detail: 'Midjourney, DALL-E, Stable Diffusion — creative/marketing standard',
+            detail: 'Midjourney, DALL-E, Stable Diffusion - creative/marketing standard',
           },
           {
             name: 'MLOps Platforms',
-            detail: 'MLflow, Weights & Biases, SageMaker — standard ML infrastructure',
+            detail: 'MLflow, Weights & Biases, SageMaker - standard ML infrastructure',
           },
           {
             name: 'Recommendation Systems',
-            detail: 'Netflix, Spotify, Amazon — embedded in every platform, invisible',
+            detail: 'Netflix, Spotify, Amazon - embedded in every platform, invisible',
           },
         ],
       },
@@ -434,15 +434,15 @@ export const MOMENT_IN_TIME_CONFIGS: Record<number, MomentInTimeConfig> = {
         technologies: [
           {
             name: 'Traditional ML (sklearn pipelines)',
-            detail: 'Random forests, SVMs, XGBoost — still used, losing ground to deep learning',
+            detail: 'Random forests, SVMs, XGBoost - still used, losing ground to deep learning',
           },
           {
             name: 'Rule-based Expert Systems',
-            detail: 'If-then engines — legacy enterprise, being replaced by ML models',
+            detail: 'If-then engines - legacy enterprise, being replaced by ML models',
           },
           {
             name: 'RNNs / LSTMs for NLP',
-            detail: 'Sequence models pre-transformer — superseded by attention architectures',
+            detail: 'Sequence models pre-transformer - superseded by attention architectures',
           },
         ],
       },
@@ -453,11 +453,11 @@ export const MOMENT_IN_TIME_CONFIGS: Record<number, MomentInTimeConfig> = {
         technologies: [
           {
             name: 'First-gen Chatbots (keyword-based)',
-            detail: 'Pattern-matching bots — replaced by LLM-powered assistants',
+            detail: 'Pattern-matching bots - replaced by LLM-powered assistants',
           },
           {
             name: 'TensorFlow 1.x',
-            detail: 'Session-based API — deprecated, no security patches after 2023',
+            detail: 'Session-based API - deprecated, no security patches after 2023',
           },
         ],
       },
@@ -468,11 +468,11 @@ export const MOMENT_IN_TIME_CONFIGS: Record<number, MomentInTimeConfig> = {
         technologies: [
           {
             name: 'Expert System Shells (CLIPS, Jess)',
-            detail: '1980s/90s AI tooling — no active development or community',
+            detail: '1980s/90s AI tooling - no active development or community',
           },
           {
             name: 'Symbolic AI Frameworks (Cyc, Prolog-based)',
-            detail: 'Knowledge-base reasoning — academic only, no commercial use',
+            detail: 'Knowledge-base reasoning - academic only, no commercial use',
           },
         ],
       },
@@ -481,10 +481,10 @@ export const MOMENT_IN_TIME_CONFIGS: Record<number, MomentInTimeConfig> = {
       'Sources: Stanford HAI AI Index (2024); Gartner AI Hype Cycle (2024); State of AI Report (2024)',
   },
 
-  // Slide 35: LLM-specific moment in time — tighter focus than slide 34
+  // Slide 35: LLM-specific moment in time - tighter focus than slide 34
   35: {
     title: 'Large Language Models: A Moment in Time',
-    subtitle: 'Where LLM technologies, architectures, and tooling sit today — zoomed in',
+    subtitle: 'Where LLM technologies, architectures, and tooling sit today - zoomed in',
     asOf: '2025',
     stages: [
       {
@@ -493,15 +493,15 @@ export const MOMENT_IN_TIME_CONFIGS: Record<number, MomentInTimeConfig> = {
         technologies: [
           {
             name: 'Persistent Memory LLMs',
-            detail: 'Infinite context via memory systems — MemGPT, research-stage',
+            detail: 'Infinite context via memory systems - MemGPT, research-stage',
           },
           {
             name: 'Mixture-of-Agents (MoA)',
-            detail: 'Multi-LLM orchestration — Together AI research, no production standard',
+            detail: 'Multi-LLM orchestration - Together AI research, no production standard',
           },
           {
             name: 'Self-improving / Self-play',
-            detail: 'Models that improve via own output — alignment risks unresolved',
+            detail: 'Models that improve via own output - alignment risks unresolved',
           },
         ],
       },
@@ -511,19 +511,19 @@ export const MOMENT_IN_TIME_CONFIGS: Record<number, MomentInTimeConfig> = {
         technologies: [
           {
             name: 'Reasoning Models (o1, Claude)',
-            detail: 'Chain-of-thought at inference — OpenAI o1/o3, shipping but evolving fast',
+            detail: 'Chain-of-thought at inference - OpenAI o1/o3, shipping but evolving fast',
           },
           {
             name: 'Agentic Tool Use',
-            detail: 'Claude Code, Devin, Codex — autonomous multi-step coding/research',
+            detail: 'Claude Code, Devin, Codex - autonomous multi-step coding/research',
           },
           {
             name: 'On-device LLMs (< 7B)',
-            detail: 'Gemini Nano, Phi-3, Llama 3 mobile — privacy-first, limited capability',
+            detail: 'Gemini Nano, Phi-3, Llama 3 mobile - privacy-first, limited capability',
           },
           {
             name: 'Long-context (1M+ tokens)',
-            detail: 'Gemini 1.5 Pro, Claude — shipping but retrieval quality degrades at scale',
+            detail: 'Gemini 1.5 Pro, Claude - shipping but retrieval quality degrades at scale',
           },
         ],
       },
@@ -533,19 +533,19 @@ export const MOMENT_IN_TIME_CONFIGS: Record<number, MomentInTimeConfig> = {
         technologies: [
           {
             name: 'Cloud LLM APIs',
-            detail: 'OpenAI, Anthropic, Google — enterprise standard, usage-based pricing',
+            detail: 'OpenAI, Anthropic, Google - enterprise standard, usage-based pricing',
           },
           {
             name: 'RAG (Retrieval-Augmented Gen)',
-            detail: 'Vector DB + LLM — standard enterprise pattern for grounded answers',
+            detail: 'Vector DB + LLM - standard enterprise pattern for grounded answers',
           },
           {
             name: 'Instruction-tuned Chat Models',
-            detail: 'ChatGPT, Claude, Gemini chat — 100M+ users, default interface',
+            detail: 'ChatGPT, Claude, Gemini chat - 100M+ users, default interface',
           },
           {
             name: 'Open-weight Models (7B-70B)',
-            detail: 'Llama 3, Mistral, Qwen — self-hosted enterprise, fine-tuning standard',
+            detail: 'Llama 3, Mistral, Qwen - self-hosted enterprise, fine-tuning standard',
           },
         ],
       },
@@ -555,15 +555,15 @@ export const MOMENT_IN_TIME_CONFIGS: Record<number, MomentInTimeConfig> = {
         technologies: [
           {
             name: 'GPT-3 / text-davinci',
-            detail: 'Original completion API — deprecated by OpenAI, replaced by chat models',
+            detail: 'Original completion API - deprecated by OpenAI, replaced by chat models',
           },
           {
             name: 'BERT / RoBERTa (standalone)',
-            detail: 'Encoder-only models — still in legacy pipelines, LLMs handle these tasks now',
+            detail: 'Encoder-only models - still in legacy pipelines, LLMs handle these tasks now',
           },
           {
             name: 'Basic Prompt Engineering',
-            detail: 'Simple few-shot prompts — giving way to structured tool use and agents',
+            detail: 'Simple few-shot prompts - giving way to structured tool use and agents',
           },
         ],
       },
@@ -574,11 +574,11 @@ export const MOMENT_IN_TIME_CONFIGS: Record<number, MomentInTimeConfig> = {
         technologies: [
           {
             name: 'GPT-2 (standalone)',
-            detail: '2019 model — no API, outperformed by every current model',
+            detail: '2019 model - no API, outperformed by every current model',
           },
           {
             name: 'Early Seq2seq Chatbots',
-            detail: 'Pre-transformer NLG — Google Meena, Facebook BlenderBot 1.0',
+            detail: 'Pre-transformer NLG - Google Meena, Facebook BlenderBot 1.0',
           },
         ],
       },
@@ -589,11 +589,11 @@ export const MOMENT_IN_TIME_CONFIGS: Record<number, MomentInTimeConfig> = {
         technologies: [
           {
             name: 'ELIZA / PARRY',
-            detail: '1960s pattern-matching — historical curiosity, zero practical use',
+            detail: '1960s pattern-matching - historical curiosity, zero practical use',
           },
           {
             name: 'Markov Chain Text Generation',
-            detail: 'Statistical n-gram models — replaced entirely by neural approaches',
+            detail: 'Statistical n-gram models - replaced entirely by neural approaches',
           },
         ],
       },

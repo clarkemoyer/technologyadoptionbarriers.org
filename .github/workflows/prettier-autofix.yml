@@ -10,7 +10,7 @@ name: Prettier Auto-fix
 # - npm ci --ignore-scripts prevents npm lifecycle scripts (preinstall,
 #   postinstall, etc.) from running during install. Note that npx prettier
 #   still executes code from the dependency versions defined by the PR
-#   branch's package-lock.json — this is acceptable because the same-repo
+#   branch's package-lock.json - this is acceptable because the same-repo
 #   check limits exposure to branches within the repository.
 
 on:
@@ -61,10 +61,10 @@ jobs:
         run: |
           if npx prettier --check .; then
             echo "formatted=true" >> "$GITHUB_OUTPUT"
-            echo "Prettier check passed — failure is not a formatting issue."
+            echo "Prettier check passed - failure is not a formatting issue."
           else
             echo "formatted=false" >> "$GITHUB_OUTPUT"
-            echo "Prettier check failed — will auto-fix."
+            echo "Prettier check failed - will auto-fix."
           fi
 
       - name: Auto-fix formatting

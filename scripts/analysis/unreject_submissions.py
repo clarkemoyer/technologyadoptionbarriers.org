@@ -69,7 +69,7 @@ def main():
             not_found += 1
             continue
         if sub["status"] != "REJECTED":
-            print(f"  SKIP: {pid} — status is {sub['status']} (not REJECTED)")
+            print(f"  SKIP: {pid} - status is {sub['status']} (not REJECTED)")
             skipped += 1
             continue
 
@@ -81,7 +81,7 @@ def main():
                 prolific_unreject(sub["id"], api_token)
                 unrejected += 1
             except Exception as e:
-                print(f"  FAILED: {pid} — {e}")
+                print(f"  FAILED: {pid} - {e}")
                 failed += 1
 
     print()

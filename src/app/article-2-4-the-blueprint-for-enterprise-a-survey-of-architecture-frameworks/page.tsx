@@ -12,9 +12,9 @@ import SeriesNavigation from '@/components/series-navigation'
 import ArticleTOC from '@/components/article-toc'
 
 export const metadata: Metadata = {
-  title: 'Article 2.4: The Blueprint for Enterprise â€“ A Survey of Architecture Frameworks',
+  title: 'Article 2.4: The Blueprint for Enterprise - A Survey of Architecture Frameworks',
   description:
-    'A survey of enterprise architecture frameworksâ€“TAFIM, TOGAF, DoDAF, and UAFâ€“and how they support planning, governance, and adoption at scale.',
+    'A survey of enterprise architecture frameworks - TAFIM, TOGAF, DoDAF, and UAF - and how they support planning, governance, and adoption at scale.',
 }
 
 const Article24Page = () => {
@@ -22,7 +22,7 @@ const Article24Page = () => {
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>
-          Article 2.4: The Blueprint for Enterprise â€“ A Survey of Architecture Frameworks
+          Article 2.4: The Blueprint for Enterprise - A Survey of Architecture Frameworks
         </h1>
 
         <section className={SECTION_CLASSES}>
@@ -34,7 +34,7 @@ const Article24Page = () => {
             ensuring alignment between business and technology. Still others understand it as the
             organizational capability to manage complexity, avoid redundancy, and enable systems to
             work together seamlessly. In truth, enterprise architecture encompasses all these
-            perspectivesâ€“but it begins with a fundamental insight: without intentional
+            perspectives - but it begins with a fundamental insight: without intentional
             architectural guidance, large organizations fragment into isolated islands of
             technology, unable to share information or capabilities.
           </p>
@@ -53,7 +53,7 @@ const Article24Page = () => {
             matters. In large organizations, technology decisions made independently by different
             business units frequently create conflicts. Team A selects a database platform for a new
             system; Team B independently selects a different platform for a different system.
-            Neither platform was necessarily wrongâ€“but now the organization has two incompatible
+            Neither platform was necessarily wrong - but now the organization has two incompatible
             data ecosystems. Data cannot flow freely between them. Systems cannot invoke each
             other&apos;s capabilities. Duplicate services are built because teams don&apos;t know
             about existing capabilities. This is the &quot;stovepipe&quot; problem: systems that
@@ -65,9 +65,9 @@ const Article24Page = () => {
             questions: What services and capabilities should be standardized across the
             organization? What variations should be tolerated for specific business unit needs? How
             should systems communicate with each other? What technologies and standards should be
-            mandated? Without architectural guidance, organizations become reactiveâ€“making
+            mandated? Without architectural guidance, organizations become reactive - making
             decisions when crises force them. With architectural guidance, organizations become
-            proactiveâ€“making decisions from a coherent understanding of desired future state.
+            proactive - making decisions from a coherent understanding of desired future state.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             The best enterprise architecture frameworks recognize that architecture is not about
@@ -85,8 +85,8 @@ const Article24Page = () => {
             the U.S. Department of Defense in 1994, stands as one of the first comprehensive
             enterprise architecture frameworks applied at truly massive scale [1]. The Defense
             Department operated thousands of information systems developed over decades by different
-            contractors using incompatible technologies. Mission areasâ€“strategic operations,
-            logistics, personnel management, communicationsâ€“operated with separate, incompatible
+            contractors using incompatible technologies. Mission areas - strategic operations,
+            logistics, personnel management, communications - operated with separate, incompatible
             systems that could not exchange information or share capabilities.
           </p>
           <p className={PARAGRAPH_CLASSES}>
@@ -100,8 +100,8 @@ const Article24Page = () => {
           <p className={PARAGRAPH_CLASSES}>
             What made TAFIM innovative was its approach to solving the standardization problem
             without mandating specific technologies. Rather than saying &quot;use product X,&quot;
-            TAFIM specified service areasâ€“Application Platform Services, Communications Services,
-            Information Management Servicesâ€“and defined standardized application programming
+            TAFIM specified service areas - Application Platform Services, Communications Services,
+            Information Management Services - and defined standardized application programming
             interfaces (APIs) and external environment interfaces (EEIs) through which services
             would be accessed [1]. Different mission areas could implement services using different
             technologies; what mattered was that they implemented standardized interfaces.
@@ -129,7 +129,7 @@ const Article24Page = () => {
             Open Group, a consortium of technology vendors and users, developed TOGAF (The Open
             Group Architecture Framework), first published in 1995 and continuously refined through
             multiple versions [2]. TOGAF shifted the focus from technical specification to
-            architectural methodologyâ€“how organizations should approach the process of developing
+            architectural methodology - how organizations should approach the process of developing
             enterprise architecture.
           </p>
           <p className={PARAGRAPH_CLASSES}>
@@ -146,23 +146,23 @@ const Article24Page = () => {
             address:
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Business Architecture</strong> defines how the organization structures itself to
+            <strong>Business Architecture </strong>defines how the organization structures itself to
             deliver value. It addresses organizational functions, processes, and the information
             those processes require.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Data Architecture</strong> defines what information the organization must
+            <strong>Data Architecture </strong>defines what information the organization must
             manage, how that information is structured, and how information flows through the
             organization.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Application Architecture</strong> defines what applications the organization
+            <strong>Application Architecture </strong>defines what applications the organization
             needs to deliver required functions and manage required information. It identifies which
             applications are needed, what each application does, and how applications interact.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Technology Architecture</strong> defines the infrastructureâ€“computing
-            platforms, networks, storage, security capabilitiesâ€“required to support applications
+            <strong>Technology Architecture </strong>defines the infrastructure - computing
+            platforms, networks, storage, security capabilities - required to support applications
             and data [2].
           </p>
           <p className={PARAGRAPH_CLASSES}>
@@ -177,20 +177,20 @@ const Article24Page = () => {
             The Department of Defense, building on TAFIM&apos;s foundation, developed the Defense
             Architecture Framework (DoDAF) as a successor approach more closely aligned with how the
             military actually planned and executed operations [3]. DoDAF shifted from focusing on
-            technical architecture to focusing on viewsâ€“multiple perspectives from which to
+            technical architecture to focusing on views - multiple perspectives from which to
             understand complex systems.
           </p>
           <p className={PARAGRAPH_CLASSES}>DoDAF defined three major view categories:</p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Operational Views</strong> showed how the organization performed its operations,
+            <strong>Operational Views </strong>showed how the organization performed its operations,
             what functions were necessary, and how information flowed through operations.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Systems Views</strong> showed what systems supported those operations, how
+            <strong>Systems Views </strong>showed what systems supported those operations, how
             systems interacted, and what capabilities systems provided.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Technical Views</strong> showed the standards and technology choices supporting
+            <strong>Technical Views </strong>showed the standards and technology choices supporting
             systems.
           </p>
           <p className={PARAGRAPH_CLASSES}>
@@ -204,7 +204,7 @@ const Article24Page = () => {
             synthesize lessons from military architecture frameworks and provide a more unified,
             standardized approach to representing complex systems-of-systems architectures [4]. UAF
             incorporates views-based thinking from DoDAF but with greater emphasis on standardized
-            data modeling and metamodelsâ€“the underlying structure defining what kinds of
+            data modeling and metamodels - the underlying structure defining what kinds of
             information architecture should capture.
           </p>
 
@@ -212,7 +212,7 @@ const Article24Page = () => {
           <p className={PARAGRAPH_CLASSES}>
             Contemporary enterprise architecture frameworks reflect a maturation of thinking about
             what architecture truly is. Early frameworks like TAFIM emphasized creating
-            comprehensive blueprintsâ€“detailed specifications of how systems should be designed.
+            comprehensive blueprints - detailed specifications of how systems should be designed.
             Modern frameworks increasingly recognize that detailed blueprints cannot predict the
             future; technologies change, business requirements evolve, and organizations need
             architecture that can evolve rather than architecture that rigidly specifies future
@@ -223,10 +223,10 @@ const Article24Page = () => {
             computing, microservices, and agile development methods have challenged traditional
             enterprise architecture approaches that assumed stable requirements and relatively long
             technology lifecycles. New architectural philosophies emphasize principles and patterns
-            rather than detailed specifications [5]. They emphasize evolutionary
-            architectureâ€“architecture that can evolve over time while maintaining coherence. They
-            emphasize modular architectureâ€“breaking large systems into relatively independent
-            modules that can be developed, deployed, and evolved somewhat independently.
+            rather than detailed specifications [5]. They emphasize evolutionary architecture -
+            architecture that can evolve over time while maintaining coherence. They emphasize
+            modular architecture - breaking large systems into relatively independent modules that
+            can be developed, deployed, and evolved somewhat independently.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             Yet the fundamental insight underlying all these frameworks remains unchanged: large
@@ -240,9 +240,9 @@ const Article24Page = () => {
             architecture is not simply technical specification; it is an organizational capability.
             The best architectural frameworks specify not just what architecture should look like
             but how organizations should develop, maintain, and evolve architecture over time. They
-            address governanceâ€“how organizations make architectural decisions. They address
-            competency developmentâ€“building organizations&apos; capacity to think architecturally.
-            They address communicationâ€“how architectural decisions are conveyed to stakeholders.
+            address governance - how organizations make architectural decisions. They address
+            competency development - building organizations&apos; capacity to think architecturally.
+            They address communication - how architectural decisions are conveyed to stakeholders.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             Organizations that excel at enterprise architecture recognize it as a capability they
@@ -257,10 +257,10 @@ const Article24Page = () => {
           <p className={PARAGRAPH_CLASSES}>
             Why does this matter? Because architecture has direct implications for organizational
             agility, cost efficiency, and competitive capability. Organizations with coherent
-            architecture can implement new capabilities fasterâ€“they leverage existing systems and
+            architecture can implement new capabilities faster - they leverage existing systems and
             services rather than building from scratch. They manage technology costs more
-            effectivelyâ€“standardized services achieve economies of scale. They adapt to market
-            changes fasterâ€“they can repurpose existing capabilities for new business requirements
+            effectively - standardized services achieve economies of scale. They adapt to market
+            changes faster - they can repurpose existing capabilities for new business requirements
             rather than being constrained by rigid systems designed for old requirements.
           </p>
           <p className={PARAGRAPH_CLASSES}>
@@ -273,7 +273,7 @@ const Article24Page = () => {
           <p className={PARAGRAPH_CLASSES}>
             The enterprise architecture frameworks surveyed in this article provide organizational
             leaders with mental models, methodologies, and governance structures for avoiding these
-            traps. They are not perfectâ€“each has strengths and limitations. But they represent
+            traps. They are not perfect - each has strengths and limitations. But they represent
             accumulated wisdom from decades of experience managing technology at enterprise scale.
           </p>
 
@@ -296,8 +296,8 @@ const Article24Page = () => {
             architecture.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            What matters is that organizational leadersâ€“not just technology leaders but business
-            leaders and operational leadersâ€“understand the organizational landscape as an
+            What matters is that organizational leaders - not just technology leaders but business
+            leaders and operational leaders - understand the organizational landscape as an
             interconnected whole. They recognize that isolated technology decisions accumulate into
             fragmented, inefficient systems. They invest in creating and maintaining architectural
             coherence. They make this a governance priority, not an afterthought.
@@ -305,7 +305,7 @@ const Article24Page = () => {
           <p className={PARAGRAPH_CLASSES}>
             Enterprise architecture frameworks provide the intellectual scaffolding and practical
             methodologies for achieving this. They transform architecture from individual decisions
-            into organizational strategy. This is their true valueâ€“not in the specific technical
+            into organizational strategy. This is their true value - not in the specific technical
             details they specify, which will inevitably become dated, but in the disciplined,
             coherent thinking about organizational technology landscapes that they enable and
             encourage.

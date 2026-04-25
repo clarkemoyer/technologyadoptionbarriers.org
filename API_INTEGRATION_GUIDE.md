@@ -94,7 +94,7 @@ Currently, `src/lib/qualtrics-api.ts` exports only:
 
 **Optional Variables:**
 
-- `PROLIFIC_QUALTRICS_AUTHENTICITY_SCRIPT` - Prolific authenticity checks script tag (required only if authenticity checks are enabled; not a secret — contains only a public URL)
+- `PROLIFIC_QUALTRICS_AUTHENTICITY_SCRIPT` - Prolific authenticity checks script tag (required only if authenticity checks are enabled; not a secret - contains only a public URL)
 - `QUALTRICS_USERID` - Qualtrics user ID (used by smoke-test workflows)
 - `QUALTRICS_USERNAME` - Qualtrics username (used by smoke-test workflows)
 
@@ -255,10 +255,10 @@ npx tsx scripts/qualtrics-dump-flow.ts
 
 The Qualtrics Survey Flow drives the end-of-survey experience for both website and Prolific respondents. When the apply script runs with `lock_down_redirect=true`, it inserts two conditional branches after all question blocks:
 
-1. **Branch 1** — If `SOURCE` is not empty → redirect to website completion page
-2. **Branch 2** — If `PROLIFIC_PID` is not empty → set `SOURCE=prolific`, redirect to Prolific
+1. **Branch 1** - If `SOURCE` is not empty → redirect to website completion page
+2. **Branch 2** - If `PROLIFIC_PID` is not empty → set `SOURCE=prolific`, redirect to Prolific
 
-This two-branch design ensures `COMPLETE_URL` is always set to a safe, allowlisted destination. For full details including the exact API field values, branch ordering rationale, and a visual flow diagram, see [PROLIFIC_INTEGRATION.md — Two-Branch Survey Flow Architecture](./PROLIFIC_INTEGRATION.md#two-branch-survey-flow-architecture-redirect-lockdown).
+This two-branch design ensures `COMPLETE_URL` is always set to a safe, allowlisted destination. For full details including the exact API field values, branch ordering rationale, and a visual flow diagram, see [PROLIFIC_INTEGRATION.md - Two-Branch Survey Flow Architecture](./PROLIFIC_INTEGRATION.md#two-branch-survey-flow-architecture-redirect-lockdown).
 
 ### Annual Survey Rollover Process
 
@@ -908,7 +908,7 @@ console.log(response.rows)
 
 **Solutions:**
 
-- Verify property ID: use the raw numeric ID (e.g., `123456789`), not prefixed with `properties/` — the client library prepends that internally
+- Verify property ID: use the raw numeric ID (e.g., `123456789`), not prefixed with `properties/` - the client library prepends that internally
 - Grant service account "Viewer" role in GA4 property settings
 - Check property exists in Google Analytics UI
 

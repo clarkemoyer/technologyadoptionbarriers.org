@@ -146,7 +146,7 @@ def main() -> int:
         segments.append(Segment(start=float(seg.start), end=float(seg.end), text=str(seg.text)))
 
     header_lines = [
-        "Introduction to The TABS Project — Transcript (Auto-generated)",
+        "Introduction to The TABS Project - Transcript (Auto-generated)",
         "",
         f"Language: {info.language}",
         f"Model: faster-whisper {args.model} ({args.compute_type})",

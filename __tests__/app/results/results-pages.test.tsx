@@ -3,7 +3,7 @@
  *
  * These tests verify that each results page renders without errors
  * when given the current (possibly placeholder) JSON data. They do
- * NOT test interactive behavior — only that the component tree mounts.
+ * NOT test interactive behavior - only that the component tree mounts.
  */
 
 import React from 'react'
@@ -420,7 +420,7 @@ describe('Sample & Demographics Page', () => {
 
   it('renders empty-state row when role_categories is absent from JSON', async () => {
     // roleCategories is derived inside the component, so temporarily removing it
-    // from the shared mock object is sufficient — no module re-load required.
+    // from the shared mock object is sufficient - no module re-load required.
     const saved = MOCK_SENSITIVITY_DATA.role_categories
     ;(MOCK_SENSITIVITY_DATA as Record<string, unknown>).role_categories = undefined
     try {
@@ -601,17 +601,33 @@ describe('CRP 2026 Factor Analysis Page', () => {
   })
 })
 
-describe('CRP 2026 Glossary Page', () => {
+describe('Statistics Glossary Page (shared)', () => {
   it('renders heading', async () => {
-    const { default: Page } = await import('@/app/results/crp-2026/glossary/page')
+    const { default: Page } = await import('@/app/results/glossary/page')
     render(<Page />)
     expect(screen.getByRole('heading', { name: /Statistics Glossary/i })).toBeInTheDocument()
   })
 
   it('renders at least one glossary entry', async () => {
-    const { default: Page } = await import('@/app/results/crp-2026/glossary/page')
+    const { default: Page } = await import('@/app/results/glossary/page')
     render(<Page />)
     expect(screen.getAllByText(/Cronbach/i).length).toBeGreaterThan(0)
+  })
+})
+
+describe('Full Dataset Factor Analysis Page', () => {
+  it('renders heading', async () => {
+    const { default: Page } = await import('@/app/results/factor-analysis/page')
+    render(<Page />)
+    expect(screen.getByRole('heading', { name: /Barrier Factor Structure/i })).toBeInTheDocument()
+  })
+})
+
+describe('Full Dataset Validation Page', () => {
+  it('renders heading', async () => {
+    const { default: Page } = await import('@/app/results/validation/page')
+    render(<Page />)
+    expect(screen.getByRole('heading', { name: /Instrument Validation/i })).toBeInTheDocument()
   })
 })
 

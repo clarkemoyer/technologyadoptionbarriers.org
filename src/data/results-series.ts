@@ -20,7 +20,7 @@ export const resultsSeries: ResultsSeriesItem[] = [
       { title: 'Data Quality', href: '/results/crp-2026/data-quality' },
       { title: 'Factor Analysis', href: '/results/crp-2026/factor-analysis' },
       { title: 'Instrument Validation', href: '/results/crp-2026/validation' },
-      { title: 'Statistics Glossary', href: '/results/crp-2026/glossary' },
+      { title: 'Top 3 Barriers', href: '/results/crp-2026/top-barriers' },
     ],
   },
   {
@@ -34,13 +34,23 @@ export const resultsSeries: ResultsSeriesItem[] = [
       { title: 'Sensitivity Analysis', href: '/results/sensitivity' },
       { title: 'Key Findings', href: '/results/findings' },
       { title: 'Data Quality', href: '/results/data-quality' },
+      { title: 'Factor Analysis', href: '/results/factor-analysis' },
+      { title: 'Instrument Validation', href: '/results/validation' },
+      { title: 'Top 3 Barriers', href: '/results/top-barriers' },
+    ],
+  },
+  {
+    title: 'Shared',
+    href: '/results',
+    isGroup: true,
+    children: [
+      { title: 'Statistics Glossary', href: '/results/glossary' },
       { title: 'Reproducibility', href: '/results/reproducibility' },
     ],
   },
   { title: 'Dashboard', href: '/results/dashboard' },
   { title: 'Dataset Comparison', href: '/results/dataset-comparison' },
   { title: 'Survey Statistics', href: '/results/survey-stats' },
-  { title: 'CMO Survey', href: '/results/cmo-survey' },
 ]
 
 /** Flat ordered list for prev/next navigation (excludes group-only nodes) */

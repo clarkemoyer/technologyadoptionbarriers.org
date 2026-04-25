@@ -9,11 +9,11 @@
 
 The TABS project uses two daily pipelines to process survey data:
 
-1. **Analysis Pipeline** (Python, 09:00 UTC / 4 AM EST) — exports, enriches,
+1. **Analysis Pipeline** (Python, 09:00 UTC / 4 AM EST) - exports, enriches,
    de-identifies, and analyzes data. Produces JSON for the website and a
    public CSV for ScholarSphere.
 
-2. **Operations Pipeline** (TypeScript, 11:00 UTC / 7 AM EST) — approves
+2. **Operations Pipeline** (TypeScript, 11:00 UTC / 7 AM EST) - approves
    CLEAN submissions, messages flagged participants, generates the dashboard,
    and creates daily report issues.
 
@@ -47,7 +47,7 @@ operations pipeline and for morning review.
                     ┌──────────────┐
                     │ Qualtrics API│
                     └──────┬───────┘
-                           │ raw CSV (PII — stays on runner)
+                           │ raw CSV (PII - stays on runner)
                            ▼
 ┌──────────────┐    ┌──────────────┐
 │ Prolific API │───▶│   Enrich     │
@@ -117,7 +117,7 @@ multiple rows for the same PROLIFIC_PID. The deduplication logic:
 This is critical: without it, a participant who completed the survey,
 got approved on Prolific, then started a retake but didn't finish it
 would have their completed response overwritten by the incomplete
-retake — causing Prolific Accepted to undercount by 1.
+retake - causing Prolific Accepted to undercount by 1.
 
 ## Edge Cases
 
@@ -168,7 +168,7 @@ retake — causing Prolific Accepted to undercount by 1.
 | `src/lib/tabs-survey-constants.ts`        | Single source of truth for instrument constants             |
 | `scripts/analysis/tabs_v2_constants.json` | JSON export of TS constants (CI-generated)                  |
 
-### Operations (TypeScript — Phases 3-5 migration pending)
+### Operations (TypeScript - Phases 3-5 migration pending)
 
 | Script                                       | Purpose                                 | Risk     |
 | -------------------------------------------- | --------------------------------------- | -------- |
@@ -308,14 +308,14 @@ via `generate-constants-json.ts` (runs on every commit via `validate-analysis.ym
 
 ## Related Issues & PRs
 
-- [#684](https://github.com/clarkemoyer/technologyadoptionbarriers.org/pull/684) — Analysis pipeline + sensitivity analysis + 250 tests
-- [#687](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/687) — TS → Python consolidation plan
-- [#688](https://github.com/clarkemoyer/technologyadoptionbarriers.org/pull/688) — Phase 1: Triage + export to Python
-- [#693](https://github.com/clarkemoyer/technologyadoptionbarriers.org/pull/693) — Phase 2: Read-only ops + sample redesign
-- [#700](https://github.com/clarkemoyer/technologyadoptionbarriers.org/pull/700) — Data Analysis & Quality public page
-- [#674](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/674) — CLEAN discrepancy documentation (closed)
-- [#675](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/675) — IRI pass rate denominator fix (closed)
-- [#669](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/669) — Pipeline guide (closed by #695)
+- [#684](https://github.com/clarkemoyer/technologyadoptionbarriers.org/pull/684) - Analysis pipeline + sensitivity analysis + 250 tests
+- [#687](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/687) - TS → Python consolidation plan
+- [#688](https://github.com/clarkemoyer/technologyadoptionbarriers.org/pull/688) - Phase 1: Triage + export to Python
+- [#693](https://github.com/clarkemoyer/technologyadoptionbarriers.org/pull/693) - Phase 2: Read-only ops + sample redesign
+- [#700](https://github.com/clarkemoyer/technologyadoptionbarriers.org/pull/700) - Data Analysis & Quality public page
+- [#674](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/674) - CLEAN discrepancy documentation (closed)
+- [#675](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/675) - IRI pass rate denominator fix (closed)
+- [#669](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/669) - Pipeline guide (closed by #695)
 
 ---
 

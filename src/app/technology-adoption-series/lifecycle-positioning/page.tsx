@@ -16,7 +16,7 @@ import {
 } from './constants'
 
 export const metadata: Metadata = {
-  title: 'Technology Lifecycle Positioning — Focused Briefing',
+  title: 'Technology Lifecycle Positioning - Focused Briefing',
   description:
     'A focused lifecycle-positioning briefing: adoption foundations, the dual-curve target zone, transition signals, and decision lenses across hardware, supply chain, and AI/ML.',
 }
@@ -38,7 +38,7 @@ export default async function LifecyclePositioningPage() {
         <h1 className={H1_CLASSES}>Technology Lifecycle Positioning</h1>
 
         <p className="mb-4 text-lg text-gray-700">
-          Where a technology sits in its lifecycle — from bleeding edge to end of support — shapes
+          Where a technology sits in its lifecycle - from bleeding edge to end of support - shapes
           every decision about adoption, architecture, and investment. This focused deck moves from
           adoption foundations to the dual-curve target zone, then applies clear decision lenses to
           hardware, supply chain, and AI/ML examples.
@@ -148,7 +148,7 @@ export default async function LifecyclePositioningPage() {
                 {LIFECYCLE_SLIDE_DESCRIPTIONS[slide.number] ? (
                   <span className="text-gray-600">
                     {' '}
-                    — {LIFECYCLE_SLIDE_DESCRIPTIONS[slide.number]}
+                    - {LIFECYCLE_SLIDE_DESCRIPTIONS[slide.number]}
                   </span>
                 ) : null}
               </li>

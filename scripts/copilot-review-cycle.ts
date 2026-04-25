@@ -69,7 +69,7 @@ function gh(args: string, retries = MAX_RETRIES): string {
         console.log(`  Retry ${attempt}/${retries} after ${delayMs}ms...`)
         const start = Date.now()
         while (Date.now() - start < delayMs) {
-          // busy-wait — avoids shell sleep dependency
+          // busy-wait - avoids shell sleep dependency
         }
         continue
       }
@@ -90,7 +90,7 @@ function ghJsonArray<T>(args: string): T[] {
     if (Array.isArray(parsed)) return parsed
     return [parsed]
   } catch {
-    // --paginate emits multiple JSON arrays: [...][...] — wrap and merge
+    // --paginate emits multiple JSON arrays: [...][...] - wrap and merge
     const fixed = '[' + raw.replace(/\]\s*\[/g, ',') + ']'
     try {
       const outer = JSON.parse(fixed)
@@ -223,7 +223,7 @@ function resolveThread(threadId: string): boolean {
  * Resolve all unresolved Copilot review threads whose comments match
  * the given review comment IDs. This prevents old threads from
  * being re-flagged in subsequent Copilot review rounds.
- * Only resolves threads initiated by Copilot — human threads are left intact.
+ * Only resolves threads initiated by Copilot - human threads are left intact.
  */
 function resolveReviewThreads(repo: string, prNumber: string, reviewCommentIds: number[]): number {
   if (reviewCommentIds.length === 0) return 0
@@ -298,7 +298,7 @@ function assignCopilotToFix(repo: string, prNumber: string, comments: ReviewComm
     })
     .join('\n')
 
-  // Comment on the PR with @copilot — Copilot pushes fixes to the SAME branch.
+  // Comment on the PR with @copilot - Copilot pushes fixes to the SAME branch.
   // This avoids creating separate issues/sub-PRs that cause cascading review loops.
   const body = [
     `@copilot Please fix the following review comments directly on this PR branch:\n`,
@@ -317,6 +317,9 @@ function assignCopilotToFix(repo: string, prNumber: string, comments: ReviewComm
   }
 }
 
+/** Cooldown between rounds to avoid hitting Copilot review API rate limits. */
+const ROUND_COOLDOWN_MS = 60_000
+
 function dispatchNextRound(
   repo: string,
   prNumber: string,
@@ -324,6 +327,10 @@ function dispatchNextRound(
   maxRounds: number,
   autoMerge: boolean
 ): void {
+  console.log(
+    `Cooldown: waiting ${ROUND_COOLDOWN_MS / 1000}s before dispatching round ${nextRound}/${maxRounds}...`
+  )
+  execSync(`sleep ${ROUND_COOLDOWN_MS / 1000}`, { stdio: 'inherit' })
   console.log(`Dispatching round ${nextRound}/${maxRounds}...`)
   gh(
     `workflow run copilot-review-cycle.yml -R ${repo} ` +
@@ -435,7 +442,7 @@ async function waitForFixes(
 ): Promise<boolean> {
   const startTime = Date.now()
   console.log(
-    `Waiting for fixes — direct push or Copilot sub-PR (timeout: ${FIX_TIMEOUT_MS / 60000} min)...`
+    `Waiting for fixes - direct push or Copilot sub-PR (timeout: ${FIX_TIMEOUT_MS / 60000} min)...`
   )
 
   while (Date.now() - startTime < FIX_TIMEOUT_MS) {
@@ -495,7 +502,7 @@ interface CheckRun {
   details_url: string
 }
 
-// Name of this workflow's check run — excluded from CI polling to avoid self-deadlock
+// Name of this workflow's check run - excluded from CI polling to avoid self-deadlock
 const SELF_CHECK_NAME = 'Review Round'
 
 /**
@@ -775,7 +782,7 @@ async function main() {
   if (comments.length === 0) {
     console.log('\nCopilot review is clean!')
 
-    // Resolve all remaining Copilot-initiated review threads — cycle is complete
+    // Resolve all remaining Copilot-initiated review threads - cycle is complete
     // Human-initiated threads are left intact to preserve human review workflows.
     console.log('Resolving remaining Copilot review threads...')
     const resolvedOnClean = resolveAllCopilotThreads(repo, prNumber)
@@ -784,7 +791,7 @@ async function main() {
     }
 
     // Close any remaining fix issues from previous rounds
-    closeFixIssues(repo, prNumber, 'All review comments resolved — review passed clean.')
+    closeFixIssues(repo, prNumber, 'All review comments resolved - review passed clean.')
 
     // Build consolidated round history for the final comment
     const roundHistory = buildRoundHistory(repo, prNumber, round)
@@ -800,12 +807,12 @@ async function main() {
         const merged = enableAutoMerge(repo, prNumber)
         mergeNote = merged
           ? ' Auto-merge has been enabled.'
-          : ' Auto-merge could not be enabled — merge manually.'
+          : ' Auto-merge could not be enabled - merge manually.'
       }
       postComment(
         repo,
         prNumber,
-        `${roundHistory}\n\n**Copilot Review Cycle:** ✅ Passed after ${round} round(s) — review clean, all CI checks green. Ready to merge.${mergeNote}`
+        `${roundHistory}\n\n**Copilot Review Cycle:** ✅ Passed after ${round} round(s) - review clean, all CI checks green. Ready to merge.${mergeNote}`
       )
       writeSummary(prNumber, round, maxRounds, 'READY_TO_MERGE', 0, 'Review clean + CI green')
     } else if (ciResult === 'fail') {
@@ -850,7 +857,7 @@ async function main() {
     process.exit(0)
   }
 
-  // Step 6: Comments found — log them
+  // Step 6: Comments found - log them
   console.log('\nComments:')
   for (const c of comments) {
     const loc = c.line ? `${c.path}:${c.line}` : c.path
@@ -872,7 +879,7 @@ async function main() {
   // Step 8: Assign Copilot coding agent to fix comments
   assignCopilotToFix(repo, prNumber, comments)
 
-  // Step 9: Wait for fixes — direct push or Copilot sub-PR (auto-merged)
+  // Step 9: Wait for fixes - direct push or Copilot sub-PR (auto-merged)
   const headSha = pr.headRefOid
   const fixed = await waitForFixes(repo, prNumber, headSha, pr.headRefName)
 
@@ -882,7 +889,7 @@ async function main() {
     const retryFixed = await waitForFixes(repo, prNumber, headSha, pr.headRefName)
 
     if (!retryFixed) {
-      console.log('\nRetry also timed out. Dispatching next round — review will re-check.')
+      console.log('\nRetry also timed out. Dispatching next round - review will re-check.')
       postComment(
         repo,
         prNumber,
@@ -937,7 +944,7 @@ async function main() {
   }
 
   if (ciResult === 'timeout') {
-    console.log('\nCI timed out after fixes. Dispatching next round — it will re-check.')
+    console.log('\nCI timed out after fixes. Dispatching next round - it will re-check.')
     postComment(
       repo,
       prNumber,

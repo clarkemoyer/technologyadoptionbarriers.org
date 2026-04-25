@@ -216,18 +216,18 @@ Automatic deployment on push to `main` via `.github/workflows/deploy.yml`:
 
 **NEVER commit any of the following:**
 
-- **Prolific Participant IDs (PIDs)** — 24-character hex strings (e.g., `5df961cb53e8466f17606ae1`)
+- **Prolific Participant IDs (PIDs)** - 24-character hex strings (e.g., `5df961cb53e8466f17606ae1`)
 - **Email addresses, names, or any direct identifiers**
-- **Raw Qualtrics CSV data** — stays on the runner, never uploaded as artifacts
-- **Prolific demographic data** — processed ephemerally, never stored
+- **Raw Qualtrics CSV data** - stays on the runner, never uploaded as artifacts
+- **Prolific demographic data** - processed ephemerally, never stored
 - **API tokens, secrets, or credentials** in any file
 
 **What IS safe to commit (aggregates only):**
 
-- `src/data/sensitivity-analysis.json` — aggregate statistics per result group (means, SDs, alphas)
-- `src/data/disposition-summary.json` — aggregate disposition counts
-- `src/data/data-audit.json` — aggregate waterfall counts
-- `src/data/impact.json` — Google Analytics aggregates
+- `src/data/sensitivity-analysis.json` - aggregate statistics per result group (means, SDs, alphas)
+- `src/data/disposition-summary.json` - aggregate disposition counts
+- `src/data/data-audit.json` - aggregate waterfall counts
+- `src/data/impact.json` - Google Analytics aggregates
 
 **PII patterns to watch for:**
 
@@ -248,7 +248,7 @@ Automatic deployment on push to `main` via `.github/workflows/deploy.yml`:
 2. Create a GitHub issue tagged `security` describing what was found
 3. The repo owner must use `git filter-branch` or BFG to remove from history
 
-### Build Artifacts — Never Commit
+### Build Artifacts - Never Commit
 
 **NEVER commit these file patterns:**
 

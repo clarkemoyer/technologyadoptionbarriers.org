@@ -292,18 +292,18 @@ Recommended website link format:
 
 ### Two-Branch Survey Flow Architecture (Redirect Lockdown)
 
-When redirect lockdown is enabled (`lock_down_redirect=true`), the apply script (`scripts/qualtrics-apply-prolific-integration.ts`) inserts **two conditional branches at the end of the Survey Flow**, after all survey question blocks. These branches guarantee that `COMPLETE_URL` is always set to a hard-coded, allowlisted destination — regardless of what (if anything) the inbound URL passes.
+When redirect lockdown is enabled (`lock_down_redirect=true`), the apply script (`scripts/qualtrics-apply-prolific-integration.ts`) inserts **two conditional branches at the end of the Survey Flow**, after all survey question blocks. These branches guarantee that `COMPLETE_URL` is always set to a hard-coded, allowlisted destination - regardless of what (if anything) the inbound URL passes.
 
 #### Branch order and logic
 
 The two branches appear in the Survey Flow immediately after the last Standard (question) block, in this order:
 
-1. **Branch 1 — "If `SOURCE` Is Not Empty"**
+1. **Branch 1 - "If `SOURCE` Is Not Empty"**
    - **Condition:** The `SOURCE` Embedded Data field is not empty.
    - **Action:** Sets `COMPLETE_URL` to the **website completion page** (e.g., `https://technologyadoptionbarriers.org/survey-complete`), then terminates with a redirect to that URL.
    - **Why this fires first:** When a respondent arrives from the TABS website, the link explicitly passes `SOURCE=TABS_Website` (or similar). Similarly, Prolific links pass `SOURCE=prolific`. So if `SOURCE` has any value at all, the respondent came from a known channel, and the default safe redirect is the website completion page.
 
-2. **Branch 2 — "If `PROLIFIC_PID` Is Not Empty"**
+2. **Branch 2 - "If `PROLIFIC_PID` Is Not Empty"**
    - **Condition:** The `PROLIFIC_PID` Embedded Data field is not empty.
    - **Action:** Sets `SOURCE` to `"prolific"` and sets `COMPLETE_URL` to the **Prolific completion URL** (e.g., `https://app.prolific.com/submissions/complete?cc=<CODE>`), then terminates with a redirect to Prolific.
    - **Why this exists:** This is a safety-net branch. If a Prolific participant somehow arrives without `SOURCE` being set (e.g., a misconfigured study URL), the presence of `PROLIFIC_PID` alone is enough to tag them as Prolific and redirect correctly.
@@ -391,8 +391,8 @@ The apply script (`scripts/qualtrics-apply-prolific-integration.ts`) performs th
 1. **GET** the current Survey Flow from `GET /survey-definitions/{surveyId}/flow`.
 2. **Remove** any existing TABS branches (identified by their `Description` matching the `tabsBranchDescriptions` Set).
 3. **Rebuild** the two branches using the builder functions:
-   - `buildSourceIsNotEmptyBranchLogic()` — Branch 1 condition
-   - `buildProlificPresentBranchLogic()` — Branch 2 condition
+   - `buildSourceIsNotEmptyBranchLogic()` - Branch 1 condition
+   - `buildProlificPresentBranchLogic()` - Branch 2 condition
 4. **Append** the new branches at the end of the root `Flow` array.
 5. **PUT** the modified flow back to `PUT /survey-definitions/{surveyId}/flow`.
 6. **(Optional)** Attempt to publish the survey version via API if `publish_after_apply=true`.
@@ -405,7 +405,7 @@ If you are using Prolific’s “Authenticity checks (beta)”, ensure the Proli
 
 Automation note (recommended):
 
-- Store the entire script tag as an environment variable named `PROLIFIC_QUALTRICS_AUTHENTICITY_SCRIPT` in the `qualtrics-prod` GitHub environment (it is not a secret — the tag contains only a public URL).
+- Store the entire script tag as an environment variable named `PROLIFIC_QUALTRICS_AUTHENTICITY_SCRIPT` in the `qualtrics-prod` GitHub environment (it is not a secret - the tag contains only a public URL).
 - The apply tooling will inject it into the survey header when that variable is present and the workflow input `apply_authenticity_script` is enabled in GitHub Actions.
 
 After editing, make sure the survey is saved and any required publish/activate step is completed.

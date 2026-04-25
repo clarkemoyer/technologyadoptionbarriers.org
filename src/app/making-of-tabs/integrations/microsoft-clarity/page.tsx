@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES, H3_CLASSES } from '@/lib/articleStyles'
 import Link from 'next/link'
 export const metadata: Metadata = {
-  title: 'Microsoft Clarity Integration — Making of TABS',
+  title: 'Microsoft Clarity Integration - Making of TABS',
   description:
     'How TABS integrates Microsoft Clarity for heatmaps and session recordings, with privacy-first consent gating, SPA route tracking, and cookie cleanup.',
   alternates: {
@@ -17,7 +17,7 @@ const MicrosoftClarityIntegrationPage = () => {
         <h1 className={H1_CLASSES}>Microsoft Clarity</h1>
         <p className="mb-8 text-lg sm:text-xl text-gray-600 font-sans">
           Consent-gated behavioral analytics with heatmaps, session recordings, and SPA route
-          tracking — all on the free tier.
+          tracking - all on the free tier.
         </p>
 
         {/* ── Why Clarity ── */}
@@ -30,11 +30,11 @@ const MicrosoftClarityIntegrationPage = () => {
           </p>
           <ul className="list-disc pl-5 space-y-2 mb-6 font-sans text-base">
             <li>
-              <strong>Heatmaps</strong> — aggregated click, scroll, and movement maps for every
+              <strong>Heatmaps</strong> - aggregated click, scroll, and movement maps for every
               page, revealing which sections attract attention and which are skipped.
             </li>
             <li>
-              <strong>Session recordings</strong> — anonymized replays of real visitor sessions,
+              <strong>Session recordings</strong> - anonymized replays of real visitor sessions,
               showing navigation paths, confusion points, and rage clicks.
             </li>
           </ul>
@@ -69,7 +69,7 @@ const MicrosoftClarityIntegrationPage = () => {
                   <tr>
                     <td className="px-4 py-2 border-b font-mono">1</td>
                     <td className="px-4 py-2 border-b">
-                      Visitor arrives — no Clarity script is present on the page
+                      Visitor arrives - no Clarity script is present on the page
                     </td>
                   </tr>
                   <tr className="bg-gray-50">
@@ -150,7 +150,7 @@ const MicrosoftClarityIntegrationPage = () => {
           <h2 className={H2_CLASSES}>SPA Route Tracking</h2>
           <p className="mb-4">
             A static site exported from Next.js App Router behaves as a single-page application
-            after the initial load — navigating between pages uses client-side routing, which means
+            after the initial load - navigating between pages uses client-side routing, which means
             Clarity would record every page view as the landing page URL. To solve this, a dedicated{' '}
             <code>ClarityRouteTracker</code> component is rendered in the root layout.
           </p>
@@ -208,31 +208,31 @@ const MicrosoftClarityIntegrationPage = () => {
           </p>
           <ul className="list-disc pl-5 space-y-2 mb-6 font-sans text-base">
             <li>
-              <strong>Basic rendering</strong> — the component returns <code>null</code> (no DOM
+              <strong>Basic rendering</strong> - the component returns <code>null</code> (no DOM
               output)
             </li>
             <li>
-              <strong>Route call</strong> — verifies{' '}
+              <strong>Route call</strong> - verifies{' '}
               <code>window.clarity(&apos;set&apos;, &apos;page&apos;, &apos;/some-path&apos;)</code>{' '}
               is invoked with the current pathname
             </li>
             <li>
-              <strong>Base path handling</strong> — when <code>NEXT_PUBLIC_BASE_PATH</code> is set,
+              <strong>Base path handling</strong> - when <code>NEXT_PUBLIC_BASE_PATH</code> is set,
               the path is prefixed correctly
             </li>
             <li>
-              <strong>Root path</strong> — ensures <code>/</code> does not produce a double-slash
+              <strong>Root path</strong> - ensures <code>/</code> does not produce a double-slash
             </li>
             <li>
-              <strong>Graceful degradation</strong> — no error is thrown when{' '}
+              <strong>Graceful degradation</strong> - no error is thrown when{' '}
               <code>window.clarity</code> is undefined (consent not granted)
             </li>
             <li>
-              <strong>Route updates</strong> — re-rendering with a new pathname triggers a new
+              <strong>Route updates</strong> - re-rendering with a new pathname triggers a new
               Clarity call
             </li>
             <li>
-              <strong>No double slashes</strong> — edge-case test for basePath + root pathname
+              <strong>No double slashes</strong> - edge-case test for basePath + root pathname
             </li>
           </ul>
         </section>
@@ -309,7 +309,7 @@ const MicrosoftClarityIntegrationPage = () => {
               >
                 Google Analytics Integration
               </Link>{' '}
-              — quantitative impact measurement and the Verified Visitors methodology
+              - quantitative impact measurement and the Verified Visitors methodology
             </li>
             <li>
               <Link
@@ -318,7 +318,7 @@ const MicrosoftClarityIntegrationPage = () => {
               >
                 Cloudflare Integration
               </Link>{' '}
-              — CDN, DNS, and security layer
+              - CDN, DNS, and security layer
             </li>
             <li>
               <Link

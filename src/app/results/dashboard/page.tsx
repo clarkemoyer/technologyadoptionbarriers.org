@@ -4,9 +4,10 @@ import Link from 'next/link'
 import dispositionData from '@/data/disposition-summary.json'
 import sensitivityData from '@/data/sensitivity-analysis.json'
 import LastUpdated from '@/components/last-updated'
+import { formatUtcTimestamp } from '@/lib/formatUtcTimestamp'
 
 export const metadata: Metadata = {
-  title: 'Prolific Dashboard — TABS Results',
+  title: 'Prolific Dashboard - TABS Results',
   description:
     'Live disposition breakdown for the Technology Adoption Barriers Survey: approvals, rejections, flags, and manual review status.',
   alternates: {
@@ -369,9 +370,9 @@ const DispositionDashboardPage = () => {
           </div>
         </section>
 
-        {/* ── Result Group Types — The Four Analysis Datasets ── */}
+        {/* ── Result Group Types - The Four Analysis Datasets ── */}
         <section className="mb-12">
-          <h2 className={H2_CLASSES}>Result Group Types — The Four Analysis Datasets</h2>
+          <h2 className={H2_CLASSES}>Result Group Types - The Four Analysis Datasets</h2>
           <p className="mb-4 text-gray-600">
             Every TABS metric is computed independently across four primary result groups
             (datasets). Each group applies progressively fewer quality filters. Researchers choose
@@ -406,7 +407,7 @@ const DispositionDashboardPage = () => {
                   <span className={`font-bold ${match ? 'text-green-800' : 'text-red-800'}`}>
                     {match
                       ? 'Prolific API and pipeline Ns match'
-                      : 'Prolific API and pipeline Ns do NOT match — investigate'}
+                      : 'Prolific API and pipeline Ns do NOT match - investigate'}
                   </span>
                 </div>
                 <p className="text-sm text-gray-700">
@@ -429,15 +430,15 @@ const DispositionDashboardPage = () => {
             )
           })()}
 
-          {/* Four Result Groups — full statistics per dataset */}
+          {/* Four Result Groups - full statistics per dataset */}
           {(() => {
             const getVal = (metricKey: string, sampleKey: string): number | null => {
               const m = metricMap.get(metricKey)
               if (!m) return null
               return (m.values as Record<string, number | null>)[sampleKey] ?? null
             }
-            const fmt4 = (v: number | null) => (v !== null ? v.toFixed(4) : '—')
-            const fmt2 = (v: number | null) => (v !== null ? v.toFixed(2) : '—')
+            const fmt4 = (v: number | null) => (v !== null ? v.toFixed(4) : '-')
+            const fmt2 = (v: number | null) => (v !== null ? v.toFixed(2) : '-')
 
             const groups = [
               {
@@ -448,7 +449,7 @@ const DispositionDashboardPage = () => {
                 bg: 'bg-green-50',
                 definition:
                   'Prolific APPROVED + all quality checks (3 IRIs, duration ≥ 540s, reCAPTCHA, no straightlining, auth)',
-                usage: 'Primary CRP analysis — all published findings',
+                usage: 'Primary CRP analysis - all published findings',
               },
               {
                 num: 2,
@@ -457,7 +458,7 @@ const DispositionDashboardPage = () => {
                 color: 'border-blue-500',
                 bg: 'bg-blue-50',
                 definition: 'Prolific APPROVED + basic quality (3 IRIs + duration ≥ 480s)',
-                usage: 'Sensitivity analysis — verifies findings hold with lighter filters',
+                usage: 'Sensitivity analysis - verifies findings hold with lighter filters',
               },
               {
                 num: 3,
@@ -467,7 +468,7 @@ const DispositionDashboardPage = () => {
                 bg: 'bg-amber-50',
                 definition:
                   'All deduplicated V2 rows with Prolific APPROVED status (must match Prolific UI)',
-                usage: 'N ceiling — maximum usable sample, platform truth',
+                usage: 'N ceiling - maximum usable sample, platform truth',
               },
               {
                 num: 4,
@@ -476,7 +477,7 @@ const DispositionDashboardPage = () => {
                 color: 'border-gray-400',
                 bg: 'bg-gray-50',
                 definition: 'All finished responses with duration ≥ 120s (any Prolific status)',
-                usage: 'Full-population baseline — includes returned/rejected/awaiting',
+                usage: 'Full-population baseline - includes returned/rejected/awaiting',
               },
             ]
 
@@ -493,7 +494,7 @@ const DispositionDashboardPage = () => {
                         <span className="text-xs font-bold text-gray-400">#{group.num}</span>
                         <h3 className="text-lg font-bold text-gray-900">{group.label}</h3>
                         <span className="text-lg font-mono font-bold text-gray-700">
-                          N = {sample?.n ?? '—'}
+                          N = {sample?.n ?? '-'}
                         </span>
                       </div>
                       <p className="text-sm text-gray-700 mb-1">
@@ -562,8 +563,8 @@ const DispositionDashboardPage = () => {
 
                       {/* Correlations for this dataset */}
                       <div className="mt-2 text-xs text-gray-600">
-                        <strong>Correlations:</strong> B–R = {fmt2(getVal('corr_br', group.key))},
-                        B–M = {fmt2(getVal('corr_bm', group.key))}, R–M ={' '}
+                        <strong>Correlations:</strong> B-R = {fmt2(getVal('corr_br', group.key))},
+                        B-M = {fmt2(getVal('corr_bm', group.key))}, R-M ={' '}
                         {fmt2(getVal('corr_rm', group.key))}
                       </div>
                     </div>
@@ -614,7 +615,7 @@ const DispositionDashboardPage = () => {
         <section className="mb-12">
           <h2 className={H2_CLASSES}>Disposition Waterfall</h2>
           <p className="mb-4 text-gray-600">
-            Each response is evaluated through this waterfall — the first matching step determines
+            Each response is evaluated through this waterfall - the first matching step determines
             the disposition:
           </p>
           <div className="overflow-x-auto">
@@ -632,7 +633,7 @@ const DispositionDashboardPage = () => {
                   <td className="py-2 px-3">0</td>
                   <td className="py-2 px-3 font-medium">INCOMPLETE</td>
                   <td className="py-2 px-3">Survey not finished</td>
-                  <td className="py-2 px-3 text-gray-400">—</td>
+                  <td className="py-2 px-3 text-gray-400">-</td>
                 </tr>
                 <tr className="border-b border-gray-100 bg-red-50/50">
                   <td className="py-2 px-3" rowSpan={5}>
@@ -713,16 +714,7 @@ const DispositionDashboardPage = () => {
 
         {/* Footer */}
         <footer className="mt-12 pt-8 border-t border-gray-200 text-sm text-gray-500">
-          <p>
-            Last updated:{' '}
-            {new Date(d.updatedAt.replace(/\.\d{4,}/, (m: string) => m.slice(0, 4))).toLocaleString(
-              'en-US',
-              {
-                dateStyle: 'medium',
-                timeStyle: 'short',
-              }
-            )}
-          </p>
+          <p>Last updated: {formatUtcTimestamp(d.updatedAt) ?? '—'}</p>
           <p className="mt-1">
             Reference: Meade &amp; Craig (2012). Identifying careless responses in survey data.{' '}
             <em>Psychological Methods</em>, 17(3), 437-455.

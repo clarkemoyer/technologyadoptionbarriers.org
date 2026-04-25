@@ -60,7 +60,7 @@ For more details, see [GitHub's documentation on using Copilot to work on issues
 
 1. Request a Copilot code review on your pull request by selecting Copilot as a reviewer from the "Reviewers" dropdown, or by commenting `@copilot review` on the PR. For more details, see [GitHub Copilot Code Review documentation](https://docs.github.com/en/copilot/using-github-copilot/code-review/using-copilot-code-review).
 2. Review all comments and suggestions provided by Copilot.
-3. Address relevant feedback (use your judgment—not all suggestions may apply to the project context).
+3. Address relevant feedback (use your judgment-not all suggestions may apply to the project context).
 4. Re-run the Copilot review after making changes.
 5. Repeat this process until no additional actionable comments remain.
 6. Then request human reviewer approval.
@@ -87,7 +87,7 @@ Follow these best practices when using GitHub Copilot:
 
 ### Accessing Multiple AI Models in GitHub Copilot (VS Code)
 
-GitHub Copilot in VS Code provides access to multiple advanced AI models—including **OpenAI GPT-4**, **Google Gemini**, and **Anthropic Claude**—directly through GitHub's infrastructure. You do not need to integrate external AI providers or supply your own API keys; model selection is managed within Copilot's interface.
+GitHub Copilot in VS Code provides access to multiple advanced AI models-including **OpenAI GPT-4**, **Google Gemini**, and **Anthropic Claude**-directly through GitHub's infrastructure. You do not need to integrate external AI providers or supply your own API keys; model selection is managed within Copilot's interface.
 
 #### Model Selection and Availability
 

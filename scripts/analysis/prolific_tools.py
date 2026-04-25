@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Prolific read-only utilities — Python replacements for TS scripts.
+Prolific read-only utilities - Python replacements for TS scripts.
 
 Replaces:
   - collect-prolific-data.ts     → collect (list studies or print submission status breakdown)
@@ -16,7 +16,7 @@ Usage:
 
 Note:
   This PR switches workflows from the TS scripts to this Python CLI.
-  The TS scripts are not deleted in this PR — they remain in scripts/
+  The TS scripts are not deleted in this PR - they remain in scripts/
   as a rollback path. They will be removed in Phase 5 (#687) after
   production validation confirms the Python replacements work correctly.
 
@@ -198,7 +198,7 @@ def cmd_participant_messages():
             print(f"  {body}\n")
         else:
             body_len = len(msg.get("body", "") or "")
-            print(f"[{ts}] {sender}: ({body_len} chars — set SHOW_BODIES=1 to display)")
+            print(f"[{ts}] {sender}: ({body_len} chars - set SHOW_BODIES=1 to display)")
 
 
 # ── url-replies (matches find-url-reply.ts) ──────────────────
@@ -209,7 +209,7 @@ def cmd_url_replies():
     Matches find-url-reply.ts: for each submission, checks per-participant
     message history for (1) researcher message containing the study domain,
     and (2) any participant reply exists. Note: the TS script does not
-    check chronological ordering — it only checks both conditions exist.
+    check chronological ordering - it only checks both conditions exist.
     """
     token = _require_env("PROLIFIC_API_TOKEN")
     study_id = _require_env("STUDY_ID")
@@ -287,7 +287,7 @@ def cmd_replied_pids():
             print(f"APPROVE: {pid} ({time_taken / 60:.1f} min)")
         else:
             other_status.append(pid)
-            print(f"SKIP: {pid} — already {status}")
+            print(f"SKIP: {pid} - already {status}")
 
     print()
     print(f"Total replied: {len(replied_pids)}")

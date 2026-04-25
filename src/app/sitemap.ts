@@ -29,270 +29,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     // Bibliography
-    ...(technologyAdoptionModelsSeries.bibliography
-      ? [
-          {
-            url: `${baseUrl}${technologyAdoptionModelsSeries.bibliography.slug}`,
-            lastModified: now,
-            changeFrequency: 'monthly' as const,
-            priority: 0.6,
-          },
-        ]
-      : []),
-    // Individual Bibliography Articles (21 models)
     {
-      url: `${baseUrl}/bibliography-1-1-theory-of-reasoned-action-tra-fishbein-ajzen-1975`,
+      url: `${baseUrl}${technologyAdoptionModelsSeries.bibliography.slug}`,
       lastModified: now,
-      changeFrequency: 'monthly',
+      changeFrequency: 'monthly' as const,
       priority: 0.6,
     },
-    {
-      url: `${baseUrl}/bibliography-1-2-diffusion-of-innovations-rogers`,
+    // Bibliography Articles (42 total: 21 individual + 21 organizational) — derived from single source of truth
+    ...[
+      ...technologyAdoptionModelsSeries.bibliographyArticles.individual,
+      ...technologyAdoptionModelsSeries.bibliographyArticles.organizational,
+    ].map((entry) => ({
+      url: `${baseUrl}${entry.slug}`,
       lastModified: now,
-      changeFrequency: 'monthly',
+      changeFrequency: 'monthly' as const,
       priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/bibliography-1-3-social-cognitive-theory-sct-bandura-1986`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/bibliography-1-4-model-of-innovation-resistance-ram-sheth-1989`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/bibliography-1-5-status-quo-bias-samuelson-zeckhauser-1988`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/bibliography-1-6-technology-acceptance-model-tam-davis-1989`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/bibliography-1-7-theory-of-planned-behavior-tpb-ajzen-1991`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/bibliography-1-8-personal-computing-acceptance-thompson-1991`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/bibliography-1-9-intrinsic-extrinsic-motivation-davis-1992`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/bibliography-1-10-decomposed-tpb-taylor-todd-1995`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/bibliography-1-11-task-technology-fit-ttf-goodhue-thompson-1995`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/bibliography-1-12-technology-readiness-index-tri-parasuraman-2000`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/bibliography-1-13-technology-acceptance-model-2-tam2-venkatesh-davis-2000`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/bibliography-1-14-expectation-confirmation-model-ecm-bhattacherjee-2001`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/bibliography-1-15-unified-theory-utaut-venkatesh-2003`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/bibliography-1-16-math-venkatesh-brown-2001`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/bibliography-1-17-value-based-adoption-kim-2007`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/bibliography-1-18-tram-lin-2007`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/bibliography-1-19-technology-acceptance-model-3-tam3-venkatesh-bala-2008`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/bibliography-1-20-utaut2-venkatesh-2012`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/bibliography-1-21-technology-readiness-index-2-tri-2-parasuraman-colby-2015`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    // Organizational Bibliography Articles (21 models)
-    {
-      url: `${baseUrl}/bibliography-2-1-resource-based-view-rbv-wernerfelt-1984`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/bibliography-2-2-vrio-framework-barney-1991`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/bibliography-2-3-dynamic-capabilities-teece-1997`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/bibliography-2-4-total-quality-management-tqm-deming-1982`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/bibliography-2-5-capability-maturity-model-cmm-humphrey-1989`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/bibliography-2-6-toe-framework-tornatzky-1990`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/bibliography-2-7-it-implementation-research-cooper-zmud-1990`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/bibliography-2-8-business-process-redesign-davenport-short-1990`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/bibliography-2-9-business-process-reengineering-hammer-champy-1993`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/bibliography-2-10-tafim-dod-1994`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/bibliography-2-11-gartner-hype-cycle-fenn-1995`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/bibliography-2-12-togaf-the-open-group-1995`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/bibliography-2-13-dodaf-dod-2003`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/bibliography-2-14-cmmi-chrissis-2005`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/bibliography-2-15-it-cmf-innovation-value-institute-2016`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/bibliography-2-16-aws-caf-ai-2024`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/bibliography-2-17-aws-etf-prescriptive-guidance-2024`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/bibliography-2-18-microsoft-cloud-adoption-framework-2025`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/bibliography-2-19-microsoft-ai-adoption-framework-2025`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/bibliography-2-20-gartner-hype-cycle-methodology-2025`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/bibliography-2-21-diffusion-of-innovations-organizational-rogers-1962`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
+    })),
     // Branch introductions
     ...technologyAdoptionModelsSeries.branches.map((branch) => ({
       url: `${baseUrl}${branch.slug}`,
@@ -410,7 +162,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/results/cmo-survey`,
+      url: `${baseUrl}/making-of-tabs/cmo-survey`,
       lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.7,
@@ -470,16 +222,40 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     {
-      url: `${baseUrl}/results/crp-2026/glossary`,
+      url: `${baseUrl}/results/crp-2026/validation`,
       lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.7,
     },
     {
-      url: `${baseUrl}/results/crp-2026/validation`,
+      url: `${baseUrl}/results/crp-2026/top-barriers`,
       lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/results/factor-analysis`,
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/results/validation`,
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/results/top-barriers`,
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/results/glossary`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
     },
     // Start / persona pages
     {
@@ -557,7 +333,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.7,
     },
-    // /making-of-tabs/cmo-survey → /results/cmo-survey (redirect)
+    // CMO Survey now lives at /making-of-tabs/cmo-survey (moved from /results/cmo-survey)
     {
       url: `${baseUrl}/making-of-tabs/integrations`,
       lastModified: now,
@@ -819,6 +595,69 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.7,
+    },
+    // Mind Maps (gallery under Making of TABS, one URL per map)
+    {
+      url: `${baseUrl}/making-of-tabs/mind-maps`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/making-of-tabs/mind-maps/full-mind-map`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/making-of-tabs/mind-maps/business-management-models`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.5,
+    },
+    {
+      url: `${baseUrl}/making-of-tabs/mind-maps/it-management-models`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.5,
+    },
+    {
+      url: `${baseUrl}/making-of-tabs/mind-maps/enterprise-it-architecture`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.5,
+    },
+    {
+      url: `${baseUrl}/making-of-tabs/mind-maps/project-program-risk-management`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.5,
+    },
+    {
+      url: `${baseUrl}/making-of-tabs/mind-maps/standards-regulations`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.5,
+    },
+    {
+      url: `${baseUrl}/making-of-tabs/mind-maps/tabs-project-operations`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.5,
+    },
+    {
+      url: `${baseUrl}/making-of-tabs/mind-maps/culminating-research-project`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.5,
+    },
+    // Static full-resolution lit review map (outside Making-of-TABS layout so
+    // it can render the SVG at full viewport width, no article-column clip).
+    {
+      url: `${baseUrl}/lit-review-mind-map`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
     },
   ]
 }

@@ -160,7 +160,7 @@ export default function QuotesPageClient() {
             Famous Quotes on Technology Adoption
           </h1>
           <p className="text-lg sm:text-xl opacity-90 max-w-2xl mx-auto mb-2">
-            From ancient philosophers to AI pioneers — a chronological journey through humanity
+            From ancient philosophers to AI pioneers - a chronological journey through humanity
             {"'"}s relationship with innovation and change.
           </p>
           <p className="text-sm opacity-70">

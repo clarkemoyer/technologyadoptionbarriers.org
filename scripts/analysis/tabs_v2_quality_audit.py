@@ -55,7 +55,7 @@ print(f"  Total V2 rows: {N_all}")
 print(f"{'='*80}")
 
 # ══════════════════════════════════════════════════════════════════
-# 1. DISPOSITION FUNNEL — Where do we lose respondents?
+# 1. DISPOSITION FUNNEL - Where do we lose respondents?
 # ══════════════════════════════════════════════════════════════════
 print(f"\n{'='*80}")
 print(f"  1. DISPOSITION FUNNEL & ATTRITION")
@@ -106,8 +106,8 @@ clean = sum(1 for i, r in enumerate(all_rows) if durations[i] >= 480 and
             r[idx[IRI_M]] == "Level 2: Developing/Repeatable")
 print(f"\n  Disposition funnel:")
 print(f"    Total V2:       {N_all:>4}")
-print(f"    Duration ≥ 8m:  {dur_pass:>4} ({100*dur_pass/N_all:.1f}%) — lost {N_all - dur_pass}")
-print(f"    + All 3 IRI:    {clean:>4} ({100*clean/N_all:.1f}%) — lost {dur_pass - clean} more")
+print(f"    Duration ≥ 8m:  {dur_pass:>4} ({100*dur_pass/N_all:.1f}%) - lost {N_all - dur_pass}")
+print(f"    + All 3 IRI:    {clean:>4} ({100*clean/N_all:.1f}%) - lost {dur_pass - clean} more")
 print(f"    *** Clean retention rate: {100*clean/N_all:.1f}% ***")
 
 # ══════════════════════════════════════════════════════════════════
@@ -221,7 +221,7 @@ for i, c in enumerate(READINESS_COLS):
         print(f"    {rname:>35}: {dk:>3} ({100*dk/clean:.1f}%)")
 
 # ══════════════════════════════════════════════════════════════════
-# 4. RESPONSE QUALITY — Straightlining, central tendency, extreme
+# 4. RESPONSE QUALITY - Straightlining, central tendency, extreme
 # ══════════════════════════════════════════════════════════════════
 print(f"\n{'='*80}")
 print(f"  4. RESPONSE QUALITY ISSUES")
@@ -400,10 +400,10 @@ r_rm, p_rm = sp.pearsonr(ra, ma)
 print(f"    R-M correlation: r = {r_rm:.3f} (p = {p_rm:.2e})")
 print(f"    Shared variance: {r_rm**2:.1%}")
 if r_rm > 0.70:
-    print(f"    ⚠ r > .70 raises discriminant validity concern — are these really distinct constructs?")
+    print(f"    ⚠ r > .70 raises discriminant validity concern - are these really distinct constructs?")
 
 # ══════════════════════════════════════════════════════════════════
-# 8. IRI FILTER BIAS — Does the filter systematically exclude?
+# 8. IRI FILTER BIAS - Does the filter systematically exclude?
 # ══════════════════════════════════════════════════════════════════
 print(f"\n{'='*80}")
 print(f"  8. IRI FILTER SELECTION BIAS")
@@ -421,7 +421,7 @@ iri_fail_rows = [r for i, r in dur_pass_rows if not (
 print(f"\n  Duration ≥ 480s: {len(dur_pass_rows)} total, {len(iri_pass_rows)} IRI-pass, {len(iri_fail_rows)} IRI-fail")
 
 # Compare role distributions
-print(f"\n  8A: Role distribution — IRI-pass vs IRI-fail")
+print(f"\n  8A: Role distribution - IRI-pass vs IRI-fail")
 pass_roles = Counter(map_role(r[idx['Q1_Role']]) for r in iri_pass_rows)
 fail_roles = Counter(map_role(r[idx['Q1_Role']]) for r in iri_fail_rows)
 print(f"  {'Role':>8} {'Pass':>6} {'Pass%':>7} {'Fail':>6} {'Fail%':>7} {'Delta':>7}")
@@ -433,7 +433,7 @@ for role in ['CIO', 'CTO', 'CEO', 'CFO', 'CMO', 'COO', 'CHRO', 'CSO', 'CRO', 'Ot
     print(f"  {role:>8} {p_n:>6} {p_pct:>6.1f}% {f_n:>6} {f_pct:>6.1f}% {p_pct-f_pct:>+6.1f}%")
 
 # Compare org size distributions
-print(f"\n  8B: Org size — IRI-pass vs IRI-fail")
+print(f"\n  8B: Org size - IRI-pass vs IRI-fail")
 pass_sizes = Counter(r[idx['Q4_OrgSize']] for r in iri_pass_rows)
 fail_sizes = Counter(r[idx['Q4_OrgSize']] for r in iri_fail_rows)
 for sz in ['<100', '100-499', '500-999', '1000-4999', '5000-9999', '10000+']:
@@ -444,7 +444,7 @@ for sz in ['<100', '100-499', '500-999', '1000-4999', '5000-9999', '10000+']:
     print(f"  {sz:>12} {p_n:>6} {p_pct:>6.1f}% {f_n:>6} {f_pct:>6.1f}% {p_pct-f_pct:>+6.1f}%")
 
 # Compare mean scores
-print(f"\n  8C: Construct means — IRI-pass vs IRI-fail")
+print(f"\n  8C: Construct means - IRI-pass vs IRI-fail")
 for name, cols, scale in [("Barriers", BARRIER_COLS, BARRIER_SCALE),
                            ("Readiness", READINESS_COLS, READINESS_SCALE),
                            ("Maturity", MATURITY_COLS, MATURITY_SCALE)]:
@@ -518,11 +518,11 @@ print(f"""
      through for payment vs. engaged respondents
   d) Panel fatigue: Professional survey-takers may respond differently
      than genuine first-time respondents
-  e) Geographic concentration: {100*geo_counts.get('United States', 0)/clean:.0f}% US-based — limited
+  e) Geographic concentration: {100*geo_counts.get('United States', 0)/clean:.0f}% US-based - limited
      international generalizability
-  f) For-Profit dominance: {100*prof_counts.get('For-Profit', 0)/clean:.0f}% For-Profit — government and
+  f) For-Profit dominance: {100*prof_counts.get('For-Profit', 0)/clean:.0f}% For-Profit - government and
      non-profit sectors underrepresented
-  g) Convenience timing: All responses collected within ~{len(set(dates))} days —
+  g) Convenience timing: All responses collected within ~{len(set(dates))} days -
      no seasonal variation captured
 """)
 
@@ -534,29 +534,29 @@ print(f"  SUMMARY OF DATA ISSUES (ranked by severity)")
 print(f"{'='*80}")
 print(f"""
   HIGH SEVERITY:
-  1. Small N for key subgroups — CRO (n=4), CSO (n=5), CTO (n=7),
+  1. Small N for key subgroups - CRO (n=4), CSO (n=5), CTO (n=7),
      Govt (n=8), 5000-9999 (n=6), International (n=10). Many interaction
      analyses have cells with n < 5, making results unreliable.
-  2. High attrition — Only {100*clean/N_all:.0f}% of V2 respondents pass the clean filter.
+  2. High attrition - Only {100*clean/N_all:.0f}% of V2 respondents pass the clean filter.
      This severe filtering raises concerns about representativeness.
-  3. R-M discriminant validity — r = {r_rm:.3f} ({r_rm**2:.0%} shared variance).
+  3. R-M discriminant validity - r = {r_rm:.3f} ({r_rm**2:.0%} shared variance).
      Readiness and Maturity may not be distinct constructs.
 
   MODERATE SEVERITY:
-  4. Demographic imbalance — For-Profit ({100*prof_counts.get('For-Profit',0)/clean:.0f}%) and US-based
+  4. Demographic imbalance - For-Profit ({100*prof_counts.get('For-Profit',0)/clean:.0f}%) and US-based
      ({100*geo_counts.get('United States',0)/clean:.0f}%) dominate. Results may not generalize to government
      or international contexts.
-  5. Non-normality — Shapiro-Wilk likely rejects normality for at least
+  5. Non-normality - Shapiro-Wilk likely rejects normality for at least
      one construct, though parametric tests are generally robust at N=102.
-  6. Self-report single-method — All three constructs measured via
+  6. Self-report single-method - All three constructs measured via
      same-format Likert scales from same respondent, inflating shared
      method variance and potentially biasing correlations upward.
 
   LOWER SEVERITY:
-  7. Temporal clustering — All data collected in a narrow window;
+  7. Temporal clustering - All data collected in a narrow window;
      results reflect a single point-in-time snapshot.
-  8. No causal inference — Cross-sectional design cannot determine
+  8. No causal inference - Cross-sectional design cannot determine
      whether barriers cause low readiness or vice versa.
-  9. Prolific panel effects — Professional survey-takers may exhibit
+  9. Prolific panel effects - Professional survey-takers may exhibit
      different response patterns than a true probability sample.
 """)

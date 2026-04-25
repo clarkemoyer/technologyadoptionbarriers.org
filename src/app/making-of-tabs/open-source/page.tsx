@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
 import Link from 'next/link'
 export const metadata: Metadata = {
-  title: 'Open Source & Community — Making of TABS',
+  title: 'Open Source & Community - Making of TABS',
   description:
-    'Why the TABS project is open source — Apache 2.0 licensing, community health files, contribution guidelines, academic citation, and how we build in public.',
+    'Why the TABS project is open source - Apache 2.0 licensing, community health files, contribution guidelines, academic citation, and how we build in public.',
   alternates: {
     canonical: '/making-of-tabs/open-source',
   },
@@ -43,25 +43,25 @@ const OpenSourcePage = () => {
 
           <ul className="list-disc pl-6 space-y-2 mb-6">
             <li>
-              <strong>Commercial use</strong> — organizations can use, modify, and distribute the
+              <strong>Commercial use</strong> - organizations can use, modify, and distribute the
               code freely
             </li>
             <li>
-              <strong>Modification</strong> — anyone can adapt the code for their own projects
+              <strong>Modification</strong> - anyone can adapt the code for their own projects
             </li>
             <li>
-              <strong>Patent protection</strong> — contributors grant a patent license, providing
+              <strong>Patent protection</strong> - contributors grant a patent license, providing
               legal clarity
             </li>
             <li>
-              <strong>Attribution only</strong> — the only requirement is to include the license and
+              <strong>Attribution only</strong> - the only requirement is to include the license and
               copyright notice
             </li>
           </ul>
 
           <p className="mb-6">
-            We chose Apache 2.0 over MIT or GPL because it provides explicit patent protection —
-            important for a project connected to academic research — while remaining maximally
+            We chose Apache 2.0 over MIT or GPL because it provides explicit patent protection -
+            important for a project connected to academic research - while remaining maximally
             permissive for adoption.
           </p>
         </section>
@@ -155,32 +155,32 @@ license: Apache-2.0`}</code>
 
           <ol className="list-decimal pl-6 space-y-3 mb-6">
             <li>
-              <strong>Open an issue</strong> — describe the change, bug, or feature request
+              <strong>Open an issue</strong> - describe the change, bug, or feature request
             </li>
             <li>
-              <strong>Create a feature branch</strong> — use conventional naming (
+              <strong>Create a feature branch</strong> - use conventional naming (
               <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">feat/</code>,{' '}
               <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">fix/</code>,{' '}
               <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">docs/</code>)
             </li>
             <li>
-              <strong>Make changes</strong> — follow the style guide, naming conventions, and
+              <strong>Make changes</strong> - follow the style guide, naming conventions, and
               accessibility requirements
             </li>
             <li>
-              <strong>Open a pull request</strong> — the PR template auto-populates with checklists
+              <strong>Open a pull request</strong> - the PR template auto-populates with checklists
               for testing, accessibility, and documentation
             </li>
             <li>
-              <strong>Pass CI</strong> — formatting, linting, unit tests, E2E tests, and
+              <strong>Pass CI</strong> - formatting, linting, unit tests, E2E tests, and
               accessibility checks must all pass
             </li>
             <li>
-              <strong>Code review</strong> — automated Copilot review plus human review for all
+              <strong>Code review</strong> - automated Copilot review plus human review for all
               changes
             </li>
             <li>
-              <strong>Squash merge</strong> — clean commit history on{' '}
+              <strong>Squash merge</strong> - clean commit history on{' '}
               <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">main</code>
             </li>
           </ol>
@@ -228,23 +228,23 @@ license: Apache-2.0`}</code>
 
           <ul className="list-disc pl-6 space-y-2 mb-6">
             <li>
-              <strong>Issues track all work</strong> — feature requests, bugs, and improvements are
+              <strong>Issues track all work</strong> - feature requests, bugs, and improvements are
               documented in GitHub Issues
             </li>
             <li>
-              <strong>PRs show the process</strong> — code review comments, CI results, and
+              <strong>PRs show the process</strong> - code review comments, CI results, and
               iteration are all part of the public record
             </li>
             <li>
-              <strong>Changelog documents releases</strong> — every version includes a detailed
+              <strong>Changelog documents releases</strong> - every version includes a detailed
               summary of changes
             </li>
             <li>
-              <strong>Agent instruction files</strong> — AGENTS.md, CLAUDE.md, and GEMINI.md
+              <strong>Agent instruction files</strong> - AGENTS.md, CLAUDE.md, and GEMINI.md
               document how AI coding agents are configured for this project
             </li>
             <li>
-              <strong>CI/CD is transparent</strong> — GitHub Actions workflows are visible in the
+              <strong>CI/CD is transparent</strong> - GitHub Actions workflows are visible in the
               repository
             </li>
           </ul>
@@ -252,7 +252,7 @@ license: Apache-2.0`}</code>
 
         <section className="pt-8 border-t border-gray-200">
           <p className="text-sm text-gray-600 italic">
-            Open source is not just a license — it is how we work.
+            Open source is not just a license - it is how we work.
           </p>
         </section>
       </article>

@@ -1,4 +1,4 @@
-name: Zotero — Create Website Citations Collection
+name: Zotero - Create Website Citations Collection
 on:
   workflow_dispatch:
 
@@ -55,8 +55,8 @@ jobs:
 
           subs_to_create = []
           for name in [
-              'Bibliography Series — Branch 1 (User Adoption Models)',
-              'Bibliography Series — Branch 2 (Organizational Frameworks)',
+              'Bibliography Series - Branch 1 (User Adoption Models)',
+              'Bibliography Series - Branch 2 (Organizational Frameworks)',
               'Article Series',
               'Concept Maps',
               'Results & Analysis',
@@ -74,7 +74,7 @@ jobs:
 
           # Verify
           all_subs = zot.collections_sub(parent_key)
-          print(f"\n✅ Website Citations ({parent_key}) — {len(all_subs)} subcollections:")
+          print(f"\n✅ Website Citations ({parent_key}) - {len(all_subs)} subcollections:")
           for s in all_subs:
-              print(f"  {s['key']} — {s['data']['name']}")
+              print(f"  {s['key']} - {s['data']['name']}")
           PYEOF

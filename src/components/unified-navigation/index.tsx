@@ -4,6 +4,8 @@ import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { slugify } from '@/lib/slugify'
+import { SIDEBAR_WIDTH } from '@/lib/sidebar-constants'
+import { useSidebarPlacement } from '@/lib/useSidebarPlacement'
 
 export interface SeriesNavItem {
   title: string
@@ -50,6 +52,7 @@ export default function UnifiedNavigation({
   const [activeId, setActiveId] = useState<string>('')
   const [mobileOpen, setMobileOpen] = useState(false)
   const [footerOffset, setFooterOffset] = useState(MIN_BOTTOM_GAP)
+  const { canShowDesktop, tocLeft } = useSidebarPlacement(pathname)
   const panelRef = useRef<HTMLDivElement>(null)
   const footerOffsetRef = useRef(MIN_BOTTOM_GAP)
   const rafIdRef = useRef<number | null>(null)
@@ -112,7 +115,7 @@ export default function UnifiedNavigation({
   const effectiveHeaderH = headerH || DEFAULT_HEADER_HEIGHT
   const scrollMargin = `${effectiveHeaderH + SCROLL_MARGIN_GAP}px`
 
-  // Scan article for H2 headings — ensure unique IDs
+  // Scan article for H2 headings - ensure unique IDs
   useEffect(() => {
     const article = document.querySelector('article')
     if (!article) return
@@ -139,10 +142,12 @@ export default function UnifiedNavigation({
       el.style.scrollMarginTop = scrollMargin
       return { id: el.id, text: el.textContent || '' }
     })
+    // DOM scan result - intentional sync from external system
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setHeadings(items)
   }, [pathname, scrollMargin])
 
-  // Scroll spy with IntersectionObserver — rootMargin tracks dynamic header height
+  // Scroll spy with IntersectionObserver - rootMargin tracks dynamic header height
   useEffect(() => {
     if (typeof IntersectionObserver === 'undefined') return
     const article = document.querySelector('article')
@@ -167,9 +172,18 @@ export default function UnifiedNavigation({
     return () => observer.disconnect()
   }, [headings, effectiveHeaderH])
 
+  // Reset mobile panel when switching to desktop sidebar
+  useEffect(() => {
+    if (canShowDesktop) {
+      // Layout state sync: reset panel when viewport crosses the desktop breakpoint
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setMobileOpen(false)
+    }
+  }, [canShowDesktop])
+
   // Close mobile panel on outside click
   useEffect(() => {
-    if (!mobileOpen) return
+    if (!mobileOpen || canShowDesktop) return
     function handleClick(e: MouseEvent) {
       if (panelRef.current && !panelRef.current.contains(e.target as Node)) {
         setMobileOpen(false)
@@ -177,7 +191,7 @@ export default function UnifiedNavigation({
     }
     document.addEventListener('mousedown', handleClick)
     return () => document.removeEventListener('mousedown', handleClick)
-  }, [mobileOpen])
+  }, [mobileOpen, canShowDesktop])
 
   const hasSeries = seriesItems && seriesItems.length > 0
   const hasToc = headings.length > 0
@@ -291,101 +305,105 @@ export default function UnifiedNavigation({
 
   return (
     <>
-      {/* Desktop sidebar */}
-      <nav
-        aria-label="Page navigation"
-        className={`hidden xl:block fixed z-30 ${className ?? ''}`}
-        style={{
-          top: `${effectiveHeaderH + 40}px`,
-          bottom: `${footerOffset}px`,
-          right: 'max(1rem, calc((100vw - 1200px) / 2 - 240px))',
-          width: '210px',
-        }}
-      >
-        <div className="space-y-6 h-full overflow-y-auto pr-2">
-          {seriesContent}
-          {hasSeries && hasToc && <hr className="border-gray-200" />}
-          {tocContent}
-        </div>
-      </nav>
-
-      {/* Mobile FAB + panel */}
-      <div className="xl:hidden fixed bottom-6 right-6 z-50" ref={panelRef}>
-        {mobileOpen && (
-          <div
-            id="mobile-nav-panel"
-            className="absolute bottom-14 right-0 w-72 max-h-[60vh] overflow-y-auto bg-white rounded-xl shadow-2xl border border-gray-200 p-4 space-y-4"
-          >
-            {hasSeries && (
-              <details>
-                <summary className="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2 cursor-pointer">
-                  {seriesLabel}
-                </summary>
-                <div className="mt-2">{renderSeriesTree(seriesItems, 'mobile:')}</div>
-              </details>
-            )}
-            {hasToc && (
-              <details
-                ref={(node) => {
-                  if (node && !node.hasAttribute('data-init')) {
-                    node.open = true
-                    node.setAttribute('data-init', '')
-                  }
-                }}
-              >
-                <summary className="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2 cursor-pointer">
-                  On this page
-                </summary>
-                <ul className="mt-2 space-y-1 text-sm">
-                  {headings.map((h) => (
-                    <li key={h.id}>
-                      <a
-                        href={`#${h.id}`}
-                        onClick={handleLinkClick}
-                        className={`block py-0.5 transition-colors ${
-                          activeId === h.id
-                            ? 'font-semibold text-tabs-teal-deep'
-                            : 'text-gray-500 hover:text-gray-900'
-                        }`}
-                      >
-                        {h.text}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </details>
-            )}
-          </div>
-        )}
-        <button
-          type="button"
-          aria-label="Navigation"
-          aria-expanded={mobileOpen}
-          aria-controls="mobile-nav-panel"
-          onClick={() => setMobileOpen((v) => !v)}
-          className="flex h-12 w-12 items-center justify-center rounded-full bg-tabs-teal-deep text-white shadow-lg hover:opacity-90 transition-opacity"
+      {/* Desktop sidebar — shown only when enough space to the right of the article */}
+      {canShowDesktop && (
+        <nav
+          aria-label="Page navigation"
+          className={`fixed z-30 ${className ?? ''}`}
+          style={{
+            top: `${effectiveHeaderH + 40}px`,
+            bottom: `${footerOffset}px`,
+            left: `${tocLeft}px`,
+            width: `${SIDEBAR_WIDTH}px`,
+          }}
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            aria-hidden="true"
+          <div className="space-y-6 h-full overflow-y-auto pr-2">
+            {seriesContent}
+            {hasSeries && hasToc && <hr className="border-gray-200" />}
+            {tocContent}
+          </div>
+        </nav>
+      )}
+
+      {/* Mobile FAB + panel — shown when desktop sidebar doesn't fit */}
+      {!canShowDesktop && (
+        <div className="fixed bottom-6 right-6 z-50" ref={panelRef}>
+          {mobileOpen && (
+            <div
+              id="mobile-nav-panel"
+              className="absolute bottom-14 right-0 w-72 max-h-[60vh] overflow-y-auto bg-white rounded-xl shadow-2xl border border-gray-200 p-4 space-y-4"
+            >
+              {hasSeries && (
+                <details>
+                  <summary className="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2 cursor-pointer">
+                    {seriesLabel}
+                  </summary>
+                  <div className="mt-2">{renderSeriesTree(seriesItems, 'mobile:')}</div>
+                </details>
+              )}
+              {hasToc && (
+                <details
+                  ref={(node) => {
+                    if (node && !node.hasAttribute('data-init')) {
+                      node.open = true
+                      node.setAttribute('data-init', '')
+                    }
+                  }}
+                >
+                  <summary className="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2 cursor-pointer">
+                    On this page
+                  </summary>
+                  <ul className="mt-2 space-y-1 text-sm">
+                    {headings.map((h) => (
+                      <li key={h.id}>
+                        <a
+                          href={`#${h.id}`}
+                          onClick={handleLinkClick}
+                          className={`block py-0.5 transition-colors ${
+                            activeId === h.id
+                              ? 'font-semibold text-tabs-teal-deep'
+                              : 'text-gray-500 hover:text-gray-900'
+                          }`}
+                        >
+                          {h.text}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </details>
+              )}
+            </div>
+          )}
+          <button
+            type="button"
+            aria-label="Navigation"
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-nav-panel"
+            onClick={() => setMobileOpen((v) => !v)}
+            className="flex h-12 w-12 items-center justify-center rounded-full bg-tabs-teal-deep text-white shadow-lg hover:opacity-90 transition-opacity"
           >
-            <line x1="8" y1="6" x2="21" y2="6" />
-            <line x1="8" y1="12" x2="21" y2="12" />
-            <line x1="8" y1="18" x2="21" y2="18" />
-            <line x1="3" y1="6" x2="3.01" y2="6" />
-            <line x1="3" y1="12" x2="3.01" y2="12" />
-            <line x1="3" y1="18" x2="3.01" y2="18" />
-          </svg>
-        </button>
-      </div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <line x1="8" y1="6" x2="21" y2="6" />
+              <line x1="8" y1="12" x2="21" y2="12" />
+              <line x1="8" y1="18" x2="21" y2="18" />
+              <line x1="3" y1="6" x2="3.01" y2="6" />
+              <line x1="3" y1="12" x2="3.01" y2="12" />
+              <line x1="3" y1="18" x2="3.01" y2="18" />
+            </svg>
+          </button>
+        </div>
+      )}
     </>
   )
 }

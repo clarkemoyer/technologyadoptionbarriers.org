@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES, H3_CLASSES } from '@/lib/articleStyles'
 import Link from 'next/link'
 export const metadata: Metadata = {
-  title: 'Qualtrics Integration — Making of TABS',
+  title: 'Qualtrics Integration - Making of TABS',
   description:
     'How TABS uses Qualtrics for survey design, data collection, and automated management via the Qualtrics REST API v3 and GitHub Actions workflows.',
   alternates: {
@@ -38,7 +38,7 @@ const QualtricsIntegrationPage = () => {
               REST API v3
             </a>
             , which enables us to copy surveys, inspect definitions, apply configuration changes,
-            and export data — all from GitHub Actions.
+            and export data - all from GitHub Actions.
           </p>
         </section>
 
@@ -50,20 +50,20 @@ const QualtricsIntegrationPage = () => {
           </p>
           <ul className="mb-4 list-disc space-y-2 pl-6">
             <li>
-              <strong>Sophisticated logic capabilities</strong> — Complex question branching adapts
+              <strong>Sophisticated logic capabilities</strong> - Complex question branching adapts
               to the respondent&apos;s role and industry, ensuring participants see only the
               questions relevant to them.
             </li>
             <li>
-              <strong>Enterprise-grade security</strong> — SOC 2 Type II compliance, data encryption
+              <strong>Enterprise-grade security</strong> - SOC 2 Type II compliance, data encryption
               at rest and in transit, and fine-grained access controls.
             </li>
             <li>
-              <strong>API-first platform</strong> — Every aspect of survey management (creation,
+              <strong>API-first platform</strong> - Every aspect of survey management (creation,
               configuration, export) is accessible via REST endpoints, enabling full automation.
             </li>
             <li>
-              <strong>Embedded Data &amp; Survey Flow</strong> — The Survey Flow engine allows us to
+              <strong>Embedded Data &amp; Survey Flow</strong> - The Survey Flow engine allows us to
               capture URL parameters, set variables, branch conditionally, and control the
               respondent experience without custom code.
             </li>
@@ -84,14 +84,14 @@ const QualtricsIntegrationPage = () => {
             <p className="mb-2 font-semibold">Key environment values</p>
             <ul className="list-disc space-y-1 pl-5">
               <li>
-                <code>QUALTRICS_BASE_URL</code> — Datacenter root (e.g.,{' '}
+                <code>QUALTRICS_BASE_URL</code> - Datacenter root (e.g.,{' '}
                 <code>https://yul1.qualtrics.com</code>)
               </li>
               <li>
-                <code>QUALTRICS_SURVEY_ID</code> — Active survey ID (updated during annual rollover)
+                <code>QUALTRICS_SURVEY_ID</code> - Active survey ID (updated during annual rollover)
               </li>
               <li>
-                <code>QUALTRICS_API_TOKEN</code> — API authentication secret
+                <code>QUALTRICS_API_TOKEN</code> - API authentication secret
               </li>
             </ul>
           </div>
@@ -199,7 +199,7 @@ const QualtricsIntegrationPage = () => {
 
           <p className="mb-4">
             The most critical piece of the Qualtrics configuration is the{' '}
-            <strong>Survey Flow</strong> — the sequence of logic steps executed for each respondent.
+            <strong>Survey Flow</strong> - the sequence of logic steps executed for each respondent.
             The TABS survey uses a &quot;redirect lockdown&quot; pattern with two conditional
             branches that ensure every respondent ends up at the correct destination.
           </p>
@@ -214,7 +214,7 @@ const QualtricsIntegrationPage = () => {
             </p>
 
             <div className="mb-4 rounded-lg border border-blue-200 bg-blue-50 p-4">
-              <p className="mb-1 font-semibold text-blue-900">Branch 1 — SOURCE is not empty</p>
+              <p className="mb-1 font-semibold text-blue-900">Branch 1 - SOURCE is not empty</p>
               <p className="text-sm text-blue-800">
                 Respondent came from a known channel. Sets <code>COMPLETE_URL</code> to the website
                 completion page and redirects there.
@@ -223,7 +223,7 @@ const QualtricsIntegrationPage = () => {
 
             <div className="mb-4 rounded-lg border border-green-200 bg-green-50 p-4">
               <p className="mb-1 font-semibold text-green-900">
-                Branch 2 — PROLIFIC_PID is not empty
+                Branch 2 - PROLIFIC_PID is not empty
               </p>
               <p className="text-sm text-green-800">
                 Safety net for Prolific participants arriving without <code>SOURCE</code>. Sets the
@@ -257,27 +257,27 @@ const QualtricsIntegrationPage = () => {
 
           <ol className="mb-6 list-decimal space-y-3 pl-6">
             <li>
-              <strong>Test connectivity</strong> — Run the smoke test workflow to verify API
+              <strong>Test connectivity</strong> - Run the smoke test workflow to verify API
               credentials are valid.
             </li>
             <li>
-              <strong>Copy the survey</strong> — Use the copy workflow to clone the current
+              <strong>Copy the survey</strong> - Use the copy workflow to clone the current
               year&apos;s survey.
             </li>
             <li>
-              <strong>Update environment variable</strong> — Point <code>QUALTRICS_SURVEY_ID</code>{' '}
+              <strong>Update environment variable</strong> - Point <code>QUALTRICS_SURVEY_ID</code>{' '}
               at the new survey ID in GitHub environment variables.
             </li>
             <li>
-              <strong>Verify configuration</strong> — Run the verification workflow against the new
+              <strong>Verify configuration</strong> - Run the verification workflow against the new
               survey.
             </li>
             <li>
-              <strong>Apply Prolific integration</strong> — If the copy didn&apos;t preserve Survey
+              <strong>Apply Prolific integration</strong> - If the copy didn&apos;t preserve Survey
               Flow branches, re-apply them using the apply workflow.
             </li>
             <li>
-              <strong>Update Prolific study</strong> — Point the Prolific study&apos;s external URL
+              <strong>Update Prolific study</strong> - Point the Prolific study&apos;s external URL
               at the new Qualtrics survey link.
             </li>
           </ol>
@@ -301,11 +301,11 @@ const QualtricsIntegrationPage = () => {
 
           <ul className="mb-4 list-disc space-y-2 pl-6">
             <li>
-              <strong>Surveys Completed</strong> — Total response count across all distribution
+              <strong>Surveys Completed</strong> - Total response count across all distribution
               channels
             </li>
             <li>
-              <strong>Survey Questions</strong> — Actual question count fetched from the survey
+              <strong>Survey Questions</strong> - Actual question count fetched from the survey
               definition API (replacing a previously hardcoded &quot;100+&quot;)
             </li>
           </ul>
@@ -335,7 +335,7 @@ const QualtricsIntegrationPage = () => {
               >
                 Prolific Integration
               </Link>{' '}
-              — participant recruitment and the Qualtrics–Prolific bridge
+              - participant recruitment and the Qualtrics-Prolific bridge
             </li>
             <li>
               <Link
@@ -344,7 +344,7 @@ const QualtricsIntegrationPage = () => {
               >
                 Google Analytics Integration
               </Link>{' '}
-              — impact measurement and verified visitors
+              - impact measurement and verified visitors
             </li>
           </ul>
         </section>

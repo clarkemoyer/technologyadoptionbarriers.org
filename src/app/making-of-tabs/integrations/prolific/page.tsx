@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES, H3_CLASSES } from '@/lib/articleStyles'
 import Link from 'next/link'
 export const metadata: Metadata = {
-  title: 'Prolific Integration — Making of TABS',
+  title: 'Prolific Integration - Making of TABS',
   description:
-    'How TABS uses Prolific for participant recruitment, the Qualtrics–Prolific bridge architecture, and automated data collection workflows.',
+    'How TABS uses Prolific for participant recruitment, the Qualtrics-Prolific bridge architecture, and automated data collection workflows.',
   alternates: {
     canonical: '/making-of-tabs/integrations/prolific',
   },
@@ -42,20 +42,20 @@ const ProlificIntegrationPage = () => {
           <h2 className={H2_CLASSES}>Why Prolific</h2>
           <ul className="mb-4 list-disc space-y-2 pl-6">
             <li>
-              <strong>Research-grade participants</strong> — Prolific&apos;s pool is verified and
+              <strong>Research-grade participants</strong> - Prolific&apos;s pool is verified and
               rated for data quality, with built-in attention checks and approval mechanisms.
             </li>
             <li>
-              <strong>Pre-screening</strong> — We can target participants by industry, company size,
+              <strong>Pre-screening</strong> - We can target participants by industry, company size,
               seniority level, and geographic region, ensuring the survey reaches decision-makers
               who actually experience technology adoption barriers.
             </li>
             <li>
-              <strong>Ethical recruitment</strong> — Participants are fairly compensated and
+              <strong>Ethical recruitment</strong> - Participants are fairly compensated and
               informed about study purposes, aligning with academic research ethics standards.
             </li>
             <li>
-              <strong>API access</strong> — Prolific&apos;s REST API enables automated data
+              <strong>API access</strong> - Prolific&apos;s REST API enables automated data
               collection, study management, and submission tracking.
             </li>
           </ul>
@@ -63,7 +63,7 @@ const ProlificIntegrationPage = () => {
 
         {/* ── How It Connects ── */}
         <section className="mb-12 text-gray-800">
-          <h2 className={H2_CLASSES}>The Qualtrics–Prolific Bridge</h2>
+          <h2 className={H2_CLASSES}>The Qualtrics-Prolific Bridge</h2>
 
           <div className="mb-8">
             <h3 className={H3_CLASSES}>Participant Flow</h3>
@@ -73,13 +73,13 @@ const ProlificIntegrationPage = () => {
             </p>
             <ul className="mb-4 list-disc space-y-2 pl-6">
               <li>
-                <code>PROLIFIC_PID</code> — The participant&apos;s unique Prolific identifier
+                <code>PROLIFIC_PID</code> - The participant&apos;s unique Prolific identifier
               </li>
               <li>
-                <code>STUDY_ID</code> — The Prolific study identifier
+                <code>STUDY_ID</code> - The Prolific study identifier
               </li>
               <li>
-                <code>SESSION_ID</code> — The specific session identifier
+                <code>SESSION_ID</code> - The specific session identifier
               </li>
             </ul>
             <p className="mb-4">
@@ -156,7 +156,7 @@ const ProlificIntegrationPage = () => {
             <p className="mb-4">
               The TypeScript client wraps the{' '}
               <a
-                href="https://docs.prolific.com/docs/api-docs/public/"
+                href="https://docs.prolific.com/api-reference/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-600 underline hover:text-blue-800"
@@ -220,7 +220,7 @@ const ProlificIntegrationPage = () => {
           </ul>
 
           <p className="mb-4">
-            This verification is part of the annual rollover checklist — after copying a survey and
+            This verification is part of the annual rollover checklist - after copying a survey and
             re-applying the Prolific integration, the verify workflow confirms everything is wired
             correctly before the study goes live.
           </p>
@@ -233,21 +233,21 @@ const ProlificIntegrationPage = () => {
           <p className="mb-4">The Prolific integration is designed with privacy in mind:</p>
           <ul className="mb-4 list-disc space-y-2 pl-6">
             <li>
-              <strong>No PII in code</strong> — Prolific participant IDs are anonymous identifiers.
+              <strong>No PII in code</strong> - Prolific participant IDs are anonymous identifiers.
               No names, emails, or other personally identifiable information flows through the
               automation.
             </li>
             <li>
-              <strong>Secrets management</strong> — API tokens are stored as GitHub Actions
+              <strong>Secrets management</strong> - API tokens are stored as GitHub Actions
               environment secrets, encrypted at rest, and never exposed in logs or source code.
             </li>
             <li>
-              <strong>Minimal data retention</strong> — Automated workflows collect aggregate
+              <strong>Minimal data retention</strong> - Automated workflows collect aggregate
               statistics only. Individual submission data is accessed on-demand for research
               purposes and is not stored in the repository.
             </li>
             <li>
-              <strong>Fair compensation</strong> — All Prolific participants are compensated at or
+              <strong>Fair compensation</strong> - All Prolific participants are compensated at or
               above the platform&apos;s recommended rates.
             </li>
           </ul>
@@ -272,7 +272,7 @@ const ProlificIntegrationPage = () => {
               >
                 Qualtrics Integration
               </Link>{' '}
-              — survey engine and Survey Flow architecture
+              - survey engine and Survey Flow architecture
             </li>
             <li>
               <Link
@@ -281,7 +281,7 @@ const ProlificIntegrationPage = () => {
               >
                 Google Analytics Integration
               </Link>{' '}
-              — impact measurement and verified visitors
+              - impact measurement and verified visitors
             </li>
           </ul>
         </section>
