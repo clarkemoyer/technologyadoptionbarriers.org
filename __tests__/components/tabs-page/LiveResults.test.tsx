@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import { axe, toHaveNoViolations } from 'jest-axe'
 import LiveResults from '../../../src/components/tabs-page/live-results'
+import dispositionData from '../../../src/data/disposition-summary.json'
 import sensitivityData from '../../../src/data/sensitivity-analysis.json'
 
 // Extend Jest matchers
@@ -14,9 +15,9 @@ describe('LiveResults component', () => {
     expect(screen.getByText('Live Results: Top Barriers')).toBeInTheDocument()
   })
 
-  it('should display the participant count', () => {
+  it('should display the participant count from the same source as the homepage Statistics callout', () => {
     render(<LiveResults />)
-    const totalN = sensitivityData.top3_pick_counts.total_n
+    const totalN = dispositionData.completionProgress.approved
     const formattedTotalN = totalN.toLocaleString()
     expect(screen.getByText(new RegExp(formattedTotalN))).toBeInTheDocument()
   })

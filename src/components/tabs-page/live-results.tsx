@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import dispositionData from '@/data/disposition-summary.json'
 import sensitivityData from '@/data/sensitivity-analysis.json'
 
 /**
@@ -9,7 +10,10 @@ const LiveResults = () => {
   // Get top 3 barriers by count without mutating imported JSON data
   const top3Barriers = sensitivityData.top3_pick_counts.items_sorted_desc.slice(0, 3)
 
-  const totalN = sensitivityData.top3_pick_counts.total_n
+  // Headline N reads from the same source as the homepage Statistics callout
+  // so the prose cannot drift from the counter when the two pipeline JSON
+  // files refresh on different schedules.
+  const totalN = dispositionData.completionProgress.approved
 
   return (
     <section id="live-results" className="w-full py-[80px] bg-gray-50">
