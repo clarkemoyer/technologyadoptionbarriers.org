@@ -9,8 +9,12 @@ test.describe('Homepage Live Results Section', () => {
     await expect(page.getByRole('heading', { name: 'Live Results: Top Barriers' })).toBeVisible()
 
     // Headline N reads from the same source as the homepage Statistics callout.
+    // Assert on the full "N Surveys Completed" string so the test cannot pass by
+    // coincidentally matching a barrier count that happens to equal the approved N.
     const totalN = dispositionData.completionProgress.approved
-    await expect(page.locator('#live-results')).toContainText(totalN.toLocaleString())
+    await expect(page.locator('#live-results')).toContainText(
+      `${totalN.toLocaleString()} Surveys Completed`
+    )
 
     // Check all 3 rank badges are visible
     const section = page.locator('#live-results')
