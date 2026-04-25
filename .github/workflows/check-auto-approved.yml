@@ -1,0 +1,123 @@
+name: Check Auto-Approved Submissions
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  check-auto-approved:
+    name: Check 21-day auto-approvals
+    runs-on: ubuntu-latest
+    environment: prolific-prod
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Check for auto-approved submissions
+        env:
+          PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
+          STUDY_ID: ${{ vars.PROLIFIC_STUDY_ID }}
+        run: |
+          python3 - <<'PYEOF'
+          import os, json, requests
+          from datetime import datetime, timedelta, timezone
+
+          token = os.environ["PROLIFIC_API_TOKEN"]
+          study_id = os.environ["STUDY_ID"]
+          headers = {"Authorization": f"Token {token}"}
+          base = "https://api.prolific.com/api/v1"
+
+          # Fetch all submissions
+          subs = []
+          url = f"{base}/studies/{study_id}/submissions/?limit=1000"
+          while url:
+              resp = requests.get(url, headers=headers)
+              resp.raise_for_status()
+              data = resp.json()
+              subs.extend(data.get("results", []))
+              url = data.get("next")
+
+          print(f"Total submissions: {len(subs)}")
+
+          # V2 start date
+          v2_start = datetime(2026, 3, 23, 14, 0, 0, tzinfo=timezone.utc)
+          auto_approve_window = timedelta(days=21)
+
+          approved = [s for s in subs if s.get("status") == "APPROVED"]
+          print(f"Total APPROVED: {len(approved)}")
+          print()
+
+          # Check each approved submission for 21-day auto-approval signal
+          suspect_auto = []
+          for sub in approved:
+              pid = sub.get("participant_id", "?")
+              started = sub.get("started_at")
+              completed = sub.get("completed_at")
+              status_changed = sub.get("status_changed_at") or sub.get("date_of_return") or ""
+
+              if not started:
+                  continue
+
+              started_dt = datetime.fromisoformat(started.replace("Z", "+00:00"))
+              auto_deadline = started_dt + auto_approve_window
+
+              # Parse status_changed if available
+              if status_changed:
+                  changed_dt = datetime.fromisoformat(status_changed.replace("Z", "+00:00"))
+                  # Auto-approval: status changed right around the 21-day mark (within 24h)
+                  delta = abs((changed_dt - auto_deadline).total_seconds())
+                  is_suspect = delta < 86400  # within 24 hours of the deadline
+              else:
+                  # No status_changed timestamp - check if started > 21 days ago
+                  now = datetime.now(timezone.utc)
+                  is_suspect = (now - started_dt) >= auto_approve_window
+
+              if is_suspect:
+                  suspect_auto.append({
+                      "pid": pid,
+                      "started": started[:19],
+                      "completed": (completed or "")[:19],
+                      "status_changed": status_changed[:19] if status_changed else "unknown",
+                      "auto_deadline": auto_deadline.isoformat()[:19],
+                  })
+
+          print(f"=== Suspected 21-day auto-approvals: {len(suspect_auto)} ===")
+          for s in suspect_auto:
+              print(f"  PID: {s['pid']}")
+              print(f"    Started:        {s['started']}")
+              print(f"    Completed:      {s['completed']}")
+              print(f"    Status changed: {s['status_changed']}")
+              print(f"    21-day deadline: {s['auto_deadline']}")
+              print()
+
+          # Also show all approved submissions with their IRI status from the study
+          # (IRI data is in Qualtrics, not Prolific, so we just flag timing here)
+          print(f"=== All APPROVED submissions by start date ===")
+          for sub in sorted(approved, key=lambda s: s.get("started_at", "")):
+              pid = sub.get("participant_id", "?")
+              started = (sub.get("started_at") or "")[:19]
+              changed = (sub.get("status_changed_at") or "")[:19]
+              print(f"  {pid}  started={started}  approved={changed}")
+
+          # Summary
+          print()
+          print(f"=== SUMMARY ===")
+          print(f"Total submissions:            {len(subs)}")
+          print(f"Total APPROVED:               {len(approved)}")
+          print(f"Suspected 21-day auto-approve: {len(suspect_auto)}")
+          if suspect_auto:
+              print(f"PIDs: {', '.join(s['pid'] for s in suspect_auto)}")
+          PYEOF
