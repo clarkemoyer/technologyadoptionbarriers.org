@@ -252,6 +252,89 @@ $RECOMMENDATIONS
 "
 fi
 
+# --- Stale AWAITING REVIEW triage (reject vs request-return candidates) ---
+STALE_TRIAGE_FILE="$ARTIFACTS_DIR/stale-triage/stale-triage.json"
+STALE_TRIAGE_SECTION=""
+if [ -f "$STALE_TRIAGE_FILE" ]; then
+  if STALE_TRIAGE_SECTION=$(STALE_TRIAGE_FILE="$STALE_TRIAGE_FILE" python3 << 'STALEEOF'
+import json, os
+with open(os.environ['STALE_TRIAGE_FILE'], encoding='utf-8') as f:
+    d = json.load(f)
+hours = d.get('stale_hours', 48)
+rr = d.get('buckets', {}).get('stale_no_reply_to_rr', [])
+mm = d.get('buckets', {}).get('stale_no_reply_to_message', [])
+in_rr = d.get('buckets', {}).get('in_window_rr', [])
+in_mm = d.get('buckets', {}).get('in_window_msg', [])
+
+
+def fmt_bucket(title, action, items, empty_msg):
+    print(f'### {title}')
+    print(f'*{action}*')
+    print('')
+    if not items:
+        print(empty_msg)
+        print('')
+        return
+    print('| PID | Age (h) | Researcher msgs | Reasons |')
+    print('|---|---:|---:|---|')
+    for r in sorted(items, key=lambda x: -x.get('age_hours', 0)):
+        reasons = '; '.join(r.get('reasons') or [])
+        reasons = reasons.replace('|', r'\|').replace('\r', '').replace('\n', ' ')
+        if len(reasons) > 60:
+            reasons = reasons[:57] + '...'
+        pid = r.get('pid', '')
+        pid_redacted = ('****' + pid[-4:]) if pid else '(no PID)'
+        print(f"| `{pid_redacted}` | {r.get('age_hours', 'unknown')} | {r.get('researcher_messages', 0)} | {reasons} |")
+    print('')
+    print(f'*Full PID list is in the `stale-triage` workflow artifact (operators only).*')
+    print('')
+
+
+print(f'## Stale AWAITING REVIEW ({hours}h threshold)')
+print('')
+print(f'Live Prolific data, computed at `{d.get("computed_at", "unknown")}`.')
+print('')
+if d.get('fetch_errors', 0) > 0:
+    print(f'> ⚠️ {d["fetch_errors"]} submission(s) could not be classified (message API error) — check the `stale-triage` artifact for details.')
+    print('')
+print(f'**Stale no response to return request:** {len(rr)} | **Stale no response (message only):** {len(mm)} | In window: {len(in_rr) + len(in_mm)}')
+print('')
+fmt_bucket(
+    f'Stale no response to return request ({len(rr)})',
+    'Prolific auto-APPROVES after the reserve timeout. Reject these.',
+    rr,
+    f'All return-requested submissions are still within the {hours}h window or have participant replies. No rejections needed right now.',
+)
+fmt_bucket(
+    f'Stale no response to TABS message ({len(mm)})',
+    f'Messaged > {hours}h ago with no API-level return request yet. Dispatch request-return for these.',
+    mm,
+    'No untreated stale messages. Messaging pipeline is caught up.',
+)
+STALEEOF
+  ); then
+    :
+  else
+    STALE_TRIAGE_SECTION="## Stale AWAITING REVIEW
+
+> ⚠️ Could not render stale triage section (artifact may be corrupted or schema changed).
+> Check the \`stale-triage\` workflow artifact and runner logs for details.
+"
+  fi
+else
+  STALE_TRIAGE_SECTION="## Stale AWAITING REVIEW
+
+> ⚠️ Stale triage data is unavailable — the \`stale-triage\` artifact was not found at \`$STALE_TRIAGE_FILE\`.
+> This usually means the artifact download failed or the stale-triage step did not run. Review the workflow run before acting on stale queue status.
+"
+fi
+
+STALE_TRIAGE_SECTION_FORMATTED=""
+if [ -n "$STALE_TRIAGE_SECTION" ]; then
+  STALE_TRIAGE_SECTION_FORMATTED="$STALE_TRIAGE_SECTION
+"
+fi
+
 # Build full reconciliation section (empty string if no data)
 RECONCILIATION_SECTION=""
 if [ -n "$RECONCILIATION_TABLE" ]; then
@@ -311,6 +394,7 @@ $TRIAGE_BREAKDOWN
 
 $RECONCILIATION_SECTION
 $RECOMMENDATIONS_SECTION
+$STALE_TRIAGE_SECTION_FORMATTED
 ## Auto-Approve CLEAN
 
 - **CLEAN dispositions:** $APPROVE_CLEAN_COUNT

@@ -225,7 +225,56 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 6. Preceding Models or Theories */}
+        {/* 6. What Does the Model Measure? */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>What Does the Model Measure?</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            UTAUT is a unified measurement model. Venkatesh, Morris, Davis, and Davis (2003)
+            synthesize constructs from eight prior acceptance models into a single parsimonious
+            framework with four direct determinants and four moderators. Measured constructs:
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Performance Expectancy (PE):</strong> Degree to which a user believes the
+              system will help them attain gains in job performance. Derived from perceived
+              usefulness (TAM), extrinsic motivation, job-fit, relative advantage, and outcome
+              expectations.
+            </li>
+            <li>
+              <strong>Effort Expectancy (EE):</strong> Degree of ease associated with using the
+              system. Derived from perceived ease of use (TAM), complexity (DTPB), and ease of use
+              (DOI).
+            </li>
+            <li>
+              <strong>Social Influence (SI):</strong> Degree to which the user perceives that
+              important others believe they should use the system. Derived from subjective norm
+              (TRA/TPB), social factors (PC utilization), and image (TAM2).
+            </li>
+            <li>
+              <strong>Facilitating Conditions (FC):</strong> Degree to which the user believes
+              organizational and technical infrastructure exists to support system use. Derived from
+              PBC (TPB/DTPB), facilitating conditions (PC utilization), and compatibility (DOI).
+            </li>
+            <li>
+              <strong>Behavioral Intention (BI):</strong> Self-reported intent to use the system.
+            </li>
+            <li>
+              <strong>Use Behavior (UB):</strong> Observed system use.
+            </li>
+            <li>
+              <strong>Moderators:</strong> Gender, Age, Experience, and Voluntariness of Use - each
+              proposed to moderate specific determinant-to-intent/use paths.
+            </li>
+          </ul>
+          <p className={PARAGRAPH_CLASSES}>
+            Venkatesh et al. (2003) develop items for PE, EE, SI, FC, BI, and Use (Appendix A of the
+            paper) and report reliability and validity evidence from a longitudinal study in four
+            organizations and 215 participants; UTAUT explains substantially more variance in
+            intention than any of the eight predecessor models in that study.
+          </p>
+        </section>
+
+        {/* 7. Preceding Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Preceding Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -364,7 +413,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 7. Describe The Model */}
+        {/* 8. Describe The Model */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Describe The Model</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -541,7 +590,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 8. Key Contributions */}
+        {/* 9. Key Contributions */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Key Contributions</h2>
           <ul className={BODY_LIST_CLASSES}>
@@ -552,10 +601,11 @@ const BibliographyArticlePage = () => {
               traditions.
             </li>
             <li>
-              <strong>Four-construct adoption model validated:</strong> Demonstrated that
-              performance expectancy, effort expectancy, social influence, and facilitating
-              conditions comprehensively explain technology adoption intention across different
-              technologies and organizational contexts.
+              <strong>Four-construct adoption model reported:</strong> Reports that performance
+              expectancy, effort expectancy, social influence, and facilitating conditions together
+              explain a substantial share of technology-adoption-intention variance in the original
+              longitudinal study&rsquo;s four-organization sample; generalization to other contexts
+              relies on subsequent replication literature.
             </li>
             <li>
               <strong>Predictive power benchmark:</strong> Achieved 70 percent variance explained in
@@ -592,7 +642,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 9. Internal Validity */}
+        {/* 10. Internal Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Internal Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -651,7 +701,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 10. External Validity */}
+        {/* 11. External Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>External Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -709,7 +759,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 11. Relevance to Technology Adoption */}
+        {/* 12. Relevance to Technology Adoption */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Relevance to Technology Adoption</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -813,7 +863,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 12. Following Models or Theories */}
+        {/* 13. Following Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Following Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -885,7 +935,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 13. References */}
+        {/* 14. References */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>References</h2>
           <ol className={REFERENCES_OL_CLASSES}>
@@ -965,6 +1015,7 @@ const BibliographyArticlePage = () => {
           </ol>
         </section>
 
+        {/* 15. Further Reading */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Further Reading</h2>
           <ol className={REFERENCES_OL_CLASSES}>
@@ -995,7 +1046,7 @@ const BibliographyArticlePage = () => {
           </ol>
         </section>
 
-        {/* 14. Series Navigation */}
+        {/* 16. Series Navigation */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Series Navigation</h2>
           <div className="space-y-4">

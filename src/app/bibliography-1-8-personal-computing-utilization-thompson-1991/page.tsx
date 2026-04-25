@@ -185,7 +185,56 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 6. Preceding Models or Theories */}
+        {/* 6. What Does the Model Measure? */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>What Does the Model Measure?</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            Thompson, Higgins, and Howell (1991) adapt Triandis&rsquo; theoretical framework into a
+            measurement model of personal computing utilization. Core measured constructs:
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Utilization:</strong> Frequency, duration, and diversity of personal computer
+              use; measured via self-report usage items.
+            </li>
+            <li>
+              <strong>Perceived Near-Term Consequences (job fit):</strong> Beliefs about how
+              computer use fits and improves specific job tasks.
+            </li>
+            <li>
+              <strong>Perceived Long-Term Consequences:</strong> Beliefs about how computer use will
+              affect career, knowledge, and future opportunities.
+            </li>
+            <li>
+              <strong>Complexity:</strong> Perceived difficulty of understanding and using the
+              technology.
+            </li>
+            <li>
+              <strong>Affect Toward Use:</strong> Feelings of joy, pleasure, or
+              displeasure/depression associated with computer use.
+            </li>
+            <li>
+              <strong>Social Factors:</strong> Internalized subjective culture and specific
+              interpersonal agreements - perceptions of how referents think one should use the
+              computer.
+            </li>
+            <li>
+              <strong>Facilitating Conditions:</strong> Objective factors in the environment that
+              make computer use easier (support, infrastructure, availability).
+            </li>
+            <li>
+              <strong>Habit:</strong> Automaticity of behavior; operationalized through self-report
+              of habitual patterns.
+            </li>
+          </ul>
+          <p className={PARAGRAPH_CLASSES}>
+            Thompson et al. (1991) report survey-based scale development with participants in a
+            large organization and provide reliability estimates for each construct. Construct sets
+            from this model were later partly absorbed into UTAUT (Venkatesh et al., 2003).
+          </p>
+        </section>
+
+        {/* 7. Preceding Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Preceding Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -227,7 +276,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 7. Describe The Model */}
+        {/* 8. Describe The Model */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Describe The Model</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -327,7 +376,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 8. Key Contributions */}
+        {/* 9. Key Contributions */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Key Contributions</h2>
           <ul className={BODY_LIST_CLASSES}>
@@ -358,7 +407,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 9. Internal Validity */}
+        {/* 10. Internal Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Internal Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -389,7 +438,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 10. External Validity */}
+        {/* 11. External Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>External Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -416,7 +465,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 11. Relevance to Technology Adoption */}
+        {/* 12. Relevance to Technology Adoption */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Relevance to Technology Adoption</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -495,7 +544,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 12. Following Models or Theories */}
+        {/* 13. Following Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Following Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -545,7 +594,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 13. References */}
+        {/* 14. References */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>References</h2>
           <ol className={REFERENCES_OL_CLASSES}>
@@ -556,6 +605,7 @@ const BibliographyArticlePage = () => {
           </ol>
         </section>
 
+        {/* 15. Further Reading */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Further Reading</h2>
           <ol className={REFERENCES_OL_CLASSES}>
@@ -589,7 +639,7 @@ const BibliographyArticlePage = () => {
           </ol>
         </section>
 
-        {/* 14. Series Navigation */}
+        {/* 16. Series Navigation */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Series Navigation</h2>
           <div className="space-y-4">

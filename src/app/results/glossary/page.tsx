@@ -8,6 +8,7 @@ import {
 } from '@/lib/articleStyles'
 import Link from 'next/link'
 import validationData from '@/data/crp-validation.json'
+import { glossaryTerms } from '@/data/glossary-terms'
 export const metadata: Metadata = {
   title: 'Statistics Glossary - TABS Results',
   description:
@@ -52,14 +53,19 @@ type GlossaryEntry = {
   tabsContext?: string
 }
 
-const ENTRIES: GlossaryEntry[] = [
+/**
+ * Page-specific fields: howCalculated, thresholds, and optional tabsContext.
+ * id, term, category, and whatItMeasures are derived from glossary-terms.ts
+ * (the single source of truth for inline-tooltip copy) so they never drift.
+ */
+type GlossaryPageExtra = Omit<GlossaryEntry, 'term' | 'category' | 'whatItMeasures'>
+
+const _termBase = new Map(glossaryTerms.map((g) => [g.id, g]))
+
+const PAGE_EXTRAS: GlossaryPageExtra[] = [
   /* ── Reliability ── */
   {
     id: 'cronbach-alpha',
-    term: "Cronbach's Alpha (α)",
-    category: 'Reliability',
-    whatItMeasures:
-      'Internal consistency reliability - the degree to which all items in a scale measure the same underlying construct. Higher alpha means items are more closely related.',
     howCalculated:
       'α = (k / (k − 1)) × (1 − Σs²ᵢ / s²ₜ), where k = number of items, s²ᵢ = variance of each item, s²ₜ = variance of the total score. TABS also reports the Feldt (1965) 95% confidence interval.',
     thresholds:
@@ -68,10 +74,6 @@ const ENTRIES: GlossaryEntry[] = [
   },
   {
     id: 'mcdonalds-omega',
-    term: "McDonald's Omega (ω)",
-    category: 'Reliability',
-    whatItMeasures:
-      'Model-based reliability that accounts for varying item-factor loadings. Unlike alpha, which assumes all items contribute equally (tau-equivalent model), omega uses the actual factor loading weights from a single-factor model.',
     howCalculated:
       'ω = (Σλᵢ)² / ((Σλᵢ)² + Σ(1 − λ²ᵢ)), where λᵢ are the standardized factor loadings from a single-factor model. This is equivalent to total reliability omega.',
     thresholds:
@@ -80,10 +82,6 @@ const ENTRIES: GlossaryEntry[] = [
   },
   {
     id: 'composite-reliability',
-    term: 'Composite Reliability (CR)',
-    category: 'Reliability',
-    whatItMeasures:
-      'The proportion of variance in the composite score that is attributable to the true score. CR is computed from factor loadings and is a key component of construct validity assessment alongside AVE.',
     howCalculated:
       'CR = (Σλᵢ)² / ((Σλᵢ)² + Σε²ᵢ), where λᵢ are standardized factor loadings and ε²ᵢ = 1 − λ²ᵢ are the error variances. Numerically equivalent to omega when computed from the same loadings.',
     thresholds:
@@ -92,10 +90,6 @@ const ENTRIES: GlossaryEntry[] = [
   },
   {
     id: 'split-half',
-    term: 'Split-Half Reliability',
-    category: 'Reliability',
-    whatItMeasures:
-      'An alternative reliability estimate that splits the scale into two halves (odd-numbered vs even-numbered items), computes the correlation between halves, and adjusts for test length.',
     howCalculated:
       'rₛₕ = 2r / (1 + r), where r is the Pearson correlation between the two half-scores. This is the Spearman-Brown prophecy formula, which estimates what the reliability would be if both halves were combined.',
     thresholds:
@@ -104,10 +98,6 @@ const ENTRIES: GlossaryEntry[] = [
   },
   {
     id: 'alpha-if-deleted',
-    term: 'Alpha-if-Deleted',
-    category: 'Reliability',
-    whatItMeasures:
-      "What Cronbach's alpha would be if a specific item were removed from the scale. Items whose deletion would increase alpha may be weakening internal consistency.",
     howCalculated:
       "Recompute Cronbach's alpha on the remaining k−1 items for each item in turn. Report the change (Δα) and flag items where deletion would increase alpha.",
     thresholds:
@@ -118,10 +108,6 @@ const ENTRIES: GlossaryEntry[] = [
   /* ── Item Analysis ── */
   {
     id: 'corrected-itc',
-    term: 'Corrected Item-Total Correlation (CITC)',
-    category: 'Item Analysis',
-    whatItMeasures:
-      "The Pearson correlation between each item and the sum of all other items in the scale (excluding that item). This avoids the part-whole correlation inflation that occurs if the item is included in its own total. It measures how well each item 'tracks' with the rest of the scale.",
     howCalculated:
       'For item i, CITCᵢ = r(xᵢ, T₋ᵢ), where T₋ᵢ is the sum of all items except item i.',
     thresholds:
@@ -132,10 +118,6 @@ const ENTRIES: GlossaryEntry[] = [
   },
   {
     id: 'inter-item-correlation',
-    term: 'Inter-Item Correlation Matrix',
-    category: 'Item Analysis',
-    whatItMeasures:
-      'The full matrix of pairwise Pearson correlations between all items in a scale. Summary statistics (mean, min, max, SD) describe how tightly items cluster together.',
     howCalculated:
       'Standard Pearson r between each pair of items. Summary: mean of all unique pairwise correlations, plus minimum, maximum, and standard deviation.',
     thresholds:
@@ -146,10 +128,6 @@ const ENTRIES: GlossaryEntry[] = [
   /* ── Factor Analysis ── */
   {
     id: 'kmo',
-    term: 'Kaiser-Meyer-Olkin (KMO) Measure',
-    category: 'Factor Analysis',
-    whatItMeasures:
-      'Sampling adequacy for factor analysis. It compares the magnitudes of observed correlations to partial correlations. High KMO means the correlations between variables are largely explained by other variables, making factor analysis appropriate.',
     howCalculated:
       'KMO = ΣΣr²ᵢⱼ / (ΣΣr²ᵢⱼ + ΣΣp²ᵢⱼ), where rᵢⱼ are correlations and pᵢⱼ are partial correlations. Values closer to 1.0 mean factor analysis is more appropriate.',
     thresholds:
@@ -158,10 +136,6 @@ const ENTRIES: GlossaryEntry[] = [
   },
   {
     id: 'bartlett',
-    term: "Bartlett's Test of Sphericity",
-    category: 'Factor Analysis',
-    whatItMeasures:
-      'Whether the correlation matrix is significantly different from an identity matrix (where all correlations are zero). A significant result means the items share enough variance to support factor analysis.',
     howCalculated:
       'χ² = −(N − 1 − (2k+5)/6) × ln|R|, where N = sample size, k = number of variables, |R| = determinant of the correlation matrix. Tested against a chi-squared distribution with k(k−1)/2 degrees of freedom.',
     thresholds:
@@ -171,10 +145,6 @@ const ENTRIES: GlossaryEntry[] = [
   },
   {
     id: 'efa',
-    term: 'Exploratory Factor Analysis (EFA)',
-    category: 'Factor Analysis',
-    whatItMeasures:
-      'The underlying latent factor structure of a set of items without imposing a pre-specified model. EFA identifies how many factors the data supports and which items load on each factor.',
     howCalculated:
       'TABS uses Maximum Likelihood (ML) estimation with Promax oblique rotation. ML is preferred for normally-distributed data; Promax allows factors to correlate (appropriate for related constructs). The number of factors is determined by Parallel Analysis, not the Kaiser criterion.',
     thresholds:
@@ -184,10 +154,6 @@ const ENTRIES: GlossaryEntry[] = [
   },
   {
     id: 'parallel-analysis',
-    term: "Horn's Parallel Analysis",
-    category: 'Factor Analysis',
-    whatItMeasures:
-      'The number of factors to retain in EFA. It compares actual eigenvalues from the data against eigenvalues generated from random data of the same dimensionality. Factors are retained only when actual eigenvalues exceed the random expectation.',
     howCalculated:
       'Generate many (typically 100-1,000) random datasets with the same N and k. Compute eigenvalues for each. Retain factors whose actual eigenvalues exceed the 95th percentile of the random eigenvalues.',
     thresholds:
@@ -196,10 +162,6 @@ const ENTRIES: GlossaryEntry[] = [
   },
   {
     id: 'cfa',
-    term: 'Confirmatory Factor Analysis (CFA)',
-    category: 'Factor Analysis',
-    whatItMeasures:
-      'Tests whether a pre-specified factor structure fits the observed data. Unlike EFA (which discovers structure), CFA confirms whether a hypothesized model adequately reproduces the observed covariance matrix.',
     howCalculated:
       'Fit a structural equation model where latent factors predict observed items. Estimate factor loadings, error variances, and factor correlations using ML estimation. Evaluate fit using multiple indices (CFI, TLI, RMSEA, SRMR).',
     thresholds:
@@ -210,10 +172,6 @@ const ENTRIES: GlossaryEntry[] = [
   /* ── Validity ── */
   {
     id: 'ave',
-    term: 'Average Variance Extracted (AVE)',
-    category: 'Validity',
-    whatItMeasures:
-      'The proportion of variance in the items that is captured by the latent construct (as opposed to measurement error). AVE is the core measure of convergent validity - whether items converge on their intended construct.',
     howCalculated:
       'AVE = Σλ²ᵢ / k, where λᵢ are the standardized factor loadings and k is the number of items. This is the mean of the squared loadings - the average communality.',
     thresholds:
@@ -222,10 +180,6 @@ const ENTRIES: GlossaryEntry[] = [
   },
   {
     id: 'htmt',
-    term: 'Heterotrait-Monotrait Ratio (HTMT)',
-    category: 'Validity',
-    whatItMeasures:
-      'Discriminant validity - whether two constructs are empirically distinct. HTMT estimates the correlation between constructs as if they were measured perfectly (correcting for measurement error). Lower values indicate better discrimination.',
     howCalculated:
       'HTMT = mean(heterotrait-heteromethod correlations) / geometric mean of (mean(monotrait-heteromethod correlations) for each construct). Bootstrap confidence intervals (2,000 iterations) are reported for inferential testing.',
     thresholds:
@@ -234,10 +188,6 @@ const ENTRIES: GlossaryEntry[] = [
   },
   {
     id: 'fornell-larcker',
-    term: 'Fornell-Larcker Criterion',
-    category: 'Validity',
-    whatItMeasures:
-      "Discriminant validity by comparing the square root of each construct's AVE against its correlations with other constructs. If a construct shares more variance with its own items than with another construct, they are discriminant.",
     howCalculated:
       'For each construct pair (A, B): check whether √AVE(A) > |r(A,B)| and √AVE(B) > |r(A,B)|. Both conditions must hold for discriminant validity.',
     thresholds:
@@ -248,10 +198,6 @@ const ENTRIES: GlossaryEntry[] = [
   /* ── Normality ── */
   {
     id: 'shapiro-wilk',
-    term: 'Shapiro-Wilk Test',
-    category: 'Normality',
-    whatItMeasures:
-      'Whether a variable follows a normal distribution. A significant result (p < .05) means the distribution departs significantly from normality.',
     howCalculated:
       'W = (Σaᵢx₍ᵢ₎)² / Σ(xᵢ − x̄)², where x₍ᵢ₎ are the ordered values and aᵢ are tabulated coefficients. W ranges from 0 to 1, with 1 indicating perfect normality.',
     thresholds:
@@ -261,10 +207,6 @@ const ENTRIES: GlossaryEntry[] = [
   },
   {
     id: 'skewness-kurtosis',
-    term: 'Skewness and Kurtosis',
-    category: 'Normality',
-    whatItMeasures:
-      'Skewness measures distributional asymmetry (0 = symmetric). Kurtosis measures tail heaviness relative to a normal distribution (0 = normal, positive = heavy tails, negative = light tails).',
     howCalculated:
       'Skewness = E[(X−μ)³] / σ³. Kurtosis (excess) = E[(X−μ)⁴] / σ⁴ − 3. Both are standardized moments of the distribution.',
     thresholds:
@@ -276,10 +218,6 @@ const ENTRIES: GlossaryEntry[] = [
   /* ── Additional ── */
   {
     id: 'eigenvalue',
-    term: 'Eigenvalue',
-    category: 'Factor Analysis',
-    whatItMeasures:
-      "The amount of total variance in the items that a single factor accounts for. Each factor's eigenvalue represents its explanatory power. Eigenvalues sum to the number of variables.",
     howCalculated:
       'Computed from the eigendecomposition of the correlation matrix R. The eigenvalue λⱼ for factor j is the sum of squared factor loadings for that factor across all items.',
     thresholds:
@@ -288,10 +226,6 @@ const ENTRIES: GlossaryEntry[] = [
   },
   {
     id: 'communality',
-    term: 'Communality',
-    category: 'Factor Analysis',
-    whatItMeasures:
-      'The proportion of an item\'s variance that is explained by the extracted factors. It is the item-level analogue of R² - "how much of this item is captured by the factors?"',
     howCalculated:
       'h²ᵢ = Σλ²ᵢⱼ across all retained factors, where λᵢⱼ is the loading of item i on factor j. Equivalently, 1 minus the uniqueness.',
     thresholds:
@@ -301,10 +235,6 @@ const ENTRIES: GlossaryEntry[] = [
   },
   {
     id: 'variance-explained',
-    term: 'Cumulative Variance Explained',
-    category: 'Factor Analysis',
-    whatItMeasures:
-      'The total percentage of item variance accounted for by all retained factors combined. Higher values mean the factor solution captures more of the systematic variation in the data.',
     howCalculated:
       'Sum of (eigenvalue / k) × 100 for each retained factor, where k is the number of items.',
     thresholds:
@@ -313,10 +243,6 @@ const ENTRIES: GlossaryEntry[] = [
   },
   {
     id: 'promax',
-    term: 'Promax Rotation',
-    category: 'Factor Analysis',
-    whatItMeasures:
-      'An oblique rotation method for factor analysis that allows extracted factors to be correlated. This is appropriate when the underlying constructs are theoretically related (as opposed to Varimax, which forces orthogonal/uncorrelated factors).',
     howCalculated:
       'Start with a Varimax (orthogonal) rotation, then raise the loadings to a power (kappa, typically 4) and use the resulting matrix as a target for oblique Procrustes rotation. This simplifies the loading pattern while allowing inter-factor correlations.',
     thresholds:
@@ -325,10 +251,6 @@ const ENTRIES: GlossaryEntry[] = [
   },
   {
     id: 'cfi',
-    term: 'Comparative Fit Index (CFI)',
-    category: 'CFA Fit Indices',
-    whatItMeasures:
-      'How much better the hypothesized model fits compared to a null (independence) model where all items are uncorrelated. Ranges from 0 to 1.',
     howCalculated:
       'CFI = 1 − max((χ²ₘ − dfₘ), 0) / max((χ²₀ − df₀), (χ²ₘ − dfₘ), 0), where m = proposed model, 0 = null model.',
     thresholds: '≥ .95 good fit, ≥ .90 acceptable fit (Hu & Bentler, 1999).',
@@ -336,30 +258,18 @@ const ENTRIES: GlossaryEntry[] = [
   },
   {
     id: 'tli',
-    term: 'Tucker-Lewis Index (TLI)',
-    category: 'CFA Fit Indices',
-    whatItMeasures:
-      'Similar to CFI but penalizes model complexity. Values can exceed 1.0 or fall below 0. More conservative than CFI for models with many parameters.',
     howCalculated: 'TLI = ((χ²₀/df₀) − (χ²ₘ/dfₘ)) / ((χ²₀/df₀) − 1).',
     thresholds: '≥ .95 good fit, ≥ .90 acceptable (same as CFI).',
     tabsContext: `Maturity TLI = ${f3(m.cfa.tli)} (excellent). Readiness TLI = ${f3(r.cfa.tli)} (acceptable). Barriers TLI = ${f3(b.cfa.tli)} (poor).`,
   },
   {
     id: 'rmsea',
-    term: 'Root Mean Square Error of Approximation (RMSEA)',
-    category: 'CFA Fit Indices',
-    whatItMeasures:
-      'The average amount of misfit per degree of freedom. It estimates how well the model fits the population covariance matrix (not just the sample). Lower is better.',
     howCalculated: 'RMSEA = √(max((χ²ₘ − dfₘ) / (dfₘ × (N−1)), 0)).',
     thresholds: '≤ .06 good, ≤ .08 acceptable, > .10 poor (Browne & Cudeck, 1993).',
     tabsContext: `Maturity RMSEA = ${f3(m.cfa.rmsea)} (good). Readiness RMSEA = ${f3(r.cfa.rmsea)} (acceptable). Barriers RMSEA = ${f3(b.cfa.rmsea)} (borderline poor).`,
   },
   {
     id: 'srmr',
-    term: 'Standardized Root Mean Square Residual (SRMR)',
-    category: 'CFA Fit Indices',
-    whatItMeasures:
-      'The average discrepancy between the observed and model-implied correlation matrices, standardized to a 0-1 scale. Lower values indicate the model reproduces the correlations more faithfully.',
     howCalculated:
       'SRMR = √(ΣΣ(sᵢⱼ − σ̂ᵢⱼ)² / (k(k+1)/2)), where s and σ̂ are observed and predicted correlations.',
     thresholds:
@@ -368,6 +278,24 @@ const ENTRIES: GlossaryEntry[] = [
       'SRMR is not always available from all estimation methods. When computed, all TABS constructs fall within acceptable ranges.',
   },
 ]
+
+/* ── Derive full ENTRIES from the shared glossary-terms data + page-specific extras ── */
+const ENTRIES: GlossaryEntry[] = PAGE_EXTRAS.map((extra) => {
+  const base = _termBase.get(extra.id)
+  if (!base) {
+    throw new Error(
+      `Glossary configuration error: PAGE_EXTRAS entry "${extra.id}" does not exist in glossaryTerms.`
+    )
+  }
+  // Spread `extra` first so `id` comes through once; static fields from the
+  // shared glossary-terms data then override anything on `extra` if needed.
+  return {
+    ...extra,
+    term: base.term,
+    category: base.category,
+    whatItMeasures: base.shortDefinition,
+  }
+})
 
 /* ── Group entries by category ── */
 const categories = [...new Set(ENTRIES.map((e) => e.category))]

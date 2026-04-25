@@ -200,7 +200,49 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 6. Preceding Models or Theories */}
+        {/* 6. What Does the Model Measure? */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>What Does the Model Measure?</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            Rogers&rsquo; Diffusion of Innovations is partly a measurement model and partly a
+            sociological/process model. It identifies constructs that empirical studies have
+            operationalized across many domains:
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Five Perceived Attributes of Innovations:</strong> Relative Advantage,
+              Compatibility, Complexity, Trialability, and Observability - typically measured via
+              Likert-scale perception items. Moore &amp; Benbasat (1991) provide a widely used
+              validated instrument adapting these attributes for information technology adoption.
+            </li>
+            <li>
+              <strong>Adopter Categories:</strong> Five categories based on time-of-adoption
+              relative to mean: Innovators (first 2.5%), Early Adopters (next 13.5%), Early Majority
+              (next 34%), Late Majority (next 34%), Laggards (final 16%).
+            </li>
+            <li>
+              <strong>Rate of Adoption:</strong> Cumulative percentage of members of a social system
+              adopting an innovation over time, typically producing the characteristic S-curve.
+            </li>
+            <li>
+              <strong>Innovation-Decision Process Stages:</strong> Knowledge, Persuasion, Decision,
+              Implementation, and Confirmation - assessed via self-report or observational methods.
+            </li>
+            <li>
+              <strong>Communication Channels and Social System Characteristics:</strong> Mass-media
+              vs interpersonal channels; norms, opinion leadership, and network density, typically
+              measured through sociometric or network-analysis methods.
+            </li>
+          </ul>
+          <p className={PARAGRAPH_CLASSES}>
+            Rogers (1962; subsequent editions through 2003) synthesizes hundreds of diffusion
+            studies across agriculture, medicine, consumer products, and information technologies.
+            The theory does not prescribe a single canonical instrument; operationalization varies
+            by domain and study.
+          </p>
+        </section>
+
+        {/* 7. Preceding Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Preceding Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -236,7 +278,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 7. Describe The Model */}
+        {/* 8. Describe The Model */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Describe The Model</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -383,7 +425,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 8. Key Contributions */}
+        {/* 9. Key Contributions */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Key Contributions</h2>
           <ul className={BODY_LIST_CLASSES}>
@@ -402,9 +444,9 @@ const BibliographyArticlePage = () => {
               at different decision stages.
             </li>
             <li>
-              <strong>Innovation characteristics framework:</strong> Established a parsimonious set
+              <strong>Innovation characteristics framework:</strong> Articulated a parsimonious set
               of five innovation attributes (relative advantage, compatibility, complexity,
-              trialability, observability) predicting adoption rates.
+              trialability, observability) associated with adoption rates.
             </li>
             <li>
               <strong>Adopter categorization system:</strong> Created a standardized classification
@@ -416,13 +458,13 @@ const BibliographyArticlePage = () => {
               just individual psychology but broader cultural, social, and structural contexts.
             </li>
             <li>
-              <strong>Methodological legacy:</strong> Established rigorous measurement practices and
-              research designs that remain standard in adoption and implementation science research.
+              <strong>Methodological legacy:</strong> Helped codify measurement practices and
+              research designs that are widely used in adoption and implementation science research.
             </li>
           </ul>
         </section>
 
-        {/* 9. Internal Validity */}
+        {/* 10. Internal Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Internal Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -437,14 +479,14 @@ const BibliographyArticlePage = () => {
               providing convergent evidence for core concepts.
             </li>
             <li>
-              <strong>Clear conceptual definitions:</strong> Established precisely defined core
+              <strong>Clear conceptual definitions:</strong> Provides precisely defined core
               concepts (innovation, communication channels, time, social system) enabling consistent
               measurement and comparison across studies.
             </li>
             <li>
-              <strong>Multi-disciplinary convergence:</strong> Demonstrated that research in
-              education, rural sociology, public health, communication, marketing, and geography all
-              produced findings supporting similar diffusion patterns.
+              <strong>Multi-disciplinary convergence:</strong> Compiles research from education,
+              rural sociology, public health, communication, marketing, and geography that Rogers
+              reads as producing broadly similar diffusion patterns.
             </li>
             <li>
               <strong>Consistent relationships across behaviors:</strong> Showed consistent adopter
@@ -459,7 +501,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 10. External Validity */}
+        {/* 11. External Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>External Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -483,9 +525,8 @@ const BibliographyArticlePage = () => {
               generalizability across analytical levels.
             </li>
             <li>
-              <strong>Temporal generalizability:</strong> Demonstrated consistent patterns across
-              both contemporary and historical cases spanning centuries, suggesting robust external
-              validity across time periods.
+              <strong>Temporal generalizability:</strong> Reports consistent patterns across both
+              contemporary and historical cases spanning centuries.
             </li>
             <li>
               <strong>Real-world behavior measurement:</strong> Studies measured actual adoption
@@ -500,7 +541,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 11. Relevance to Technology Adoption */}
+        {/* 12. Relevance to Technology Adoption */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Relevance to Technology Adoption</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -592,7 +633,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 12. Following Models or Theories */}
+        {/* 13. Following Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Following Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -656,7 +697,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 13. References */}
+        {/* 14. References */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>References</h2>
           <ol className={REFERENCES_OL_CLASSES}>
@@ -690,6 +731,7 @@ const BibliographyArticlePage = () => {
           </ol>
         </section>
 
+        {/* 15. Further Reading */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Further Reading</h2>
           <ol className={REFERENCES_OL_CLASSES}>
@@ -717,7 +759,7 @@ const BibliographyArticlePage = () => {
           </ol>
         </section>
 
-        {/* 14. Series Navigation */}
+        {/* 16. Series Navigation */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Series Navigation</h2>
           <p className={PARAGRAPH_CLASSES}>

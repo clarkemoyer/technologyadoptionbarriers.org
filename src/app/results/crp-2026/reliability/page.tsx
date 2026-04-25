@@ -8,6 +8,7 @@ import {
 } from '@/lib/articleStyles'
 import Link from 'next/link'
 import sensitivityData from '@/data/crp-sensitivity-analysis.json'
+import Term from '@/components/glossary-term'
 export const metadata: Metadata = {
   title: 'CRP 2026 Scale Reliability - TABS',
   description:
@@ -54,7 +55,8 @@ const CrpReliabilityPage = () => {
 
         <section className={SECTION_CLASSES}>
           <p className={PARAGRAPH_CLASSES}>
-            Scale reliability is assessed using Cronbach&rsquo;s alpha (&alpha;), the most widely
+            Scale reliability is assessed using{' '}
+            <Term termId="cronbach-alpha">Cronbach&rsquo;s alpha</Term> (&alpha;), the most widely
             used measure of internal consistency. A coefficient of &alpha; &ge; 0.70 is generally
             considered acceptable for research purposes (Nunnally &amp; Bernstein, 1994), while
             values above 0.80 indicate good to excellent reliability.

@@ -139,12 +139,14 @@ const BibliographyArticlePage = () => {
             The purpose of the paper, stated explicitly in the introduction, is to &ldquo;develop
             some simple economic tools for analysing a firm&rsquo;s resource position and to look at
             some strategic options suggested by this analysis&rdquo; (p.171). Specifically, the
-            paper uses Porter&rsquo;s (1980) five competitive forces as the analytical tool but
-            applies them at the resource level (p.173), producing the notion of a resource position
-            barrier, the resource-product matrix, and the dynamic-strategy illustrations (sequential
-            entry, exploit-and-develop, stepping stones). Wernerfelt closes the paper by calling it
-            &ldquo;a first cut at a huge can of worms&rdquo; (p.180), with much research still
-            needed on the implementability of the strategies suggested.
+            paper takes Porter&rsquo;s (1980) five competitive forces as its analytical tool (stated
+            on p.172: &ldquo;for purposes of analysis, Porter&rsquo;s five competitive forces
+            (Porter, 1980) will be used&rdquo;) and applies them at the resource level (pp.172-173),
+            producing the notion of a resource position barrier, the resource-product matrix, and
+            the dynamic-strategy illustrations (sequential entry, exploit-and-develop, stepping
+            stones). Wernerfelt closes the paper by calling it &ldquo;a first cut at a huge can of
+            worms&rdquo; (p.180), with much research still needed on the implementability of the
+            strategies suggested.
           </p>
         </section>
 
@@ -170,11 +172,11 @@ const BibliographyArticlePage = () => {
             The paper&rsquo;s analytical tools are conceptual rather than statistical: (i) the
             notion of a <em>resource position barrier</em> (analogous to an entry barrier, for
             resources rather than product-markets); (ii) the <em>resource-product matrix</em>
-            (Figure 1, p.175) showing how a given resource can support multiple products and a given
+            (Figure 1, p.176) showing how a given resource can support multiple products and a given
             product can draw on multiple resources; and (iii) a small set of illustrative diagrams
-            for dynamic strategy - <em>sequential entry</em> (Figure 2, p.176),
-            <em>exploit-and-develop</em> (Figure 3, p.177), and <em>stepping stones</em> (Figure 4,
-            p.178). The paper is presented by the author as &ldquo;a first cut at a huge can of
+            for dynamic strategy - <em>sequential entry</em> (Figure 2, p.177),
+            <em>exploit-and-develop</em> (Figure 3, p.179), and <em>stepping stones</em> (Figure 4,
+            p.179). The paper is presented by the author as &ldquo;a first cut at a huge can of
             worms&rdquo; (p.180), explicitly calling for further research on implementability. The
             later VRIN/VRIO apparatus commonly associated with RBV comes from Barney (1991) and is
             NOT in Wernerfelt (1984).
@@ -216,7 +218,7 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>Resource-product matrix:</strong> The central analytical device of the paper
-              (Figure 1, p.175). Rows represent resources, columns represent product-markets; X
+              (Figure 1, p.176). Rows represent resources, columns represent product-markets; X
               entries mark a resource&rsquo;s role in a product-market. The matrix makes explicit
               that diversification can be analysed from the resource side (reading across a row) as
               well as from the product side (reading down a column), and that products share
@@ -224,15 +226,17 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>Mergers and acquisitions:</strong> Wernerfelt frames M&amp;A as an opportunity
-              to trade otherwise non-marketable resources in bundles. Acquisitions allow firms to
-              buy or sell resources which have &ldquo;a high degree of transparency&rdquo; only
-              between specific pairs of firms, through an imperfect market with few buyers and
-              targets (pp.174-175).
+              to trade otherwise non-marketable resources in bundles - for example, to sell an image
+              or to buy a combination of technological capabilities and contacts in a given set of
+              markets. The M&amp;A market is characterised as &ldquo;a very imperfect market with
+              few buyers and targets, and yet with a low degree of transparency owing to the
+              heterogeneity of both buyers and targets&rdquo;, with the implication that a given
+              target will have different values for different buyers (p.175).
             </li>
             <li>
               <strong>Sequential entry, exploit-and-develop, stepping stones:</strong> Three
               dynamic-strategy patterns illustrated using the resource-product matrix (Figures 2-4,
-              pp.176-178). Sequential entry uses a single resource in successive markets;
+              pp.177-179). Sequential entry uses a single resource in successive markets;
               exploit-and-develop uses profits from an established resource to build a new one;
               stepping stones enter adjacent product-markets to build up resource positions for a
               longer-term target market.
@@ -305,10 +309,12 @@ const BibliographyArticlePage = () => {
                 ):
               </strong>{' '}
               Wernerfelt explicitly <em>uses</em> Porter&rsquo;s five competitive forces as the
-              analytical tool, noting (p.173) that while Porter&rsquo;s forces were originally
-              intended for product-market analysis, they apply by analogy at the resource level. The
-              paper positions the resource perspective as complementary to Porter&rsquo;s
-              product-perspective, not as its opposition.
+              analytical tool: the paper states on p.172 that &ldquo;for purposes of analysis,
+              Porter&rsquo;s five competitive forces (Porter, 1980) will be used, although these
+              were originally intended as tools for analysis of products only&rdquo;, and develops
+              the resource-level application on pp.172-173. The paper positions the resource
+              perspective as complementary to Porter&rsquo;s product-perspective, not as its
+              opposition.
             </li>
             <li>
               <strong>
@@ -348,9 +354,9 @@ const BibliographyArticlePage = () => {
                 ):
               </strong>{' '}
               BCG&rsquo;s experience-curve and growth-share matrix directly inspired the
-              resource-product matrix. Wernerfelt notes that the product portfolio theory
-              (Henderson, 1979) &ldquo;underscores the duality between the product and resource
-              perspectives on the firm&rdquo; (p.177).
+              resource-product matrix. Wernerfelt notes that the close analogy to the product
+              portfolio theory (Henderson, 1979) &ldquo;underscores the duality between the product
+              and resource perspectives on the firm&rdquo; (p.178).
             </li>
             <li>
               <strong>
@@ -388,10 +394,10 @@ const BibliographyArticlePage = () => {
             from the product side to the resource side; (2) identify classes of resources for which
             resource position barriers can be built; (3) illustrate dynamic strategy with the
             resource-product matrix; (4) extend the analysis to mergers and acquisitions as a means
-            of trading otherwise non-marketable resources. The paper uses Porter&rsquo;s (1980) five
-            competitive forces as the tool of analysis but applies them at the resource level
-            (p.173), positioning RBV as complement to - not replacement of - industrial-organization
-            strategy analysis.
+            of trading otherwise non-marketable resources. The paper adopts Porter&rsquo;s (1980)
+            five competitive forces as its tool of analysis (stated on p.172) and applies them at
+            the resource level (pp.172-173), positioning RBV as complement to - not replacement of -
+            industrial-organization strategy analysis.
           </p>
 
           <h3 className={H3_CLASSES}>Resource position barriers (pp.172-173)</h3>
@@ -440,20 +446,21 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>Production experience:</strong> If the leader executes the experience curve
-              strategy correctly, later resource producers have to pay their experience in an uphill
-              battle with earlier producers who have lower costs (BCG, 1972). Ideally, later
+              strategy correctly, later resource producers have to pay for their experience in an
+              uphill battle with earlier producers who have lower costs (BCG, 1972). Ideally, later
               acquirers should pay more for the experience and expect lower returns from it.
             </li>
             <li>
-              <strong>Technological leads:</strong> A technological lead allows the firm higher
-              returns and enables it to keep better people in a more stimulating setting, so that
-              the organization can develop and calibrate more advanced ideas than followers - who
-              must often face the reinvention of your ideas easier than you found the original
-              invention. The advantage is fragile and must be kept protected.
+              <strong>Technological leads:</strong> A technological lead gives the firm higher
+              returns and enables it to keep better people in a more stimulating setting, so the
+              organization can develop and calibrate more advanced ideas than followers. Followers,
+              in turn, often find the reinvention of the leader&rsquo;s ideas easier than the leader
+              found the original invention, so the leader must keep growing its technological
+              capability - feasibly, by ploughing high current returns back into R&amp;D (p.174).
             </li>
           </ul>
 
-          <h3 className={H3_CLASSES}>Resource-product matrix and dynamic strategy (pp.175-178)</h3>
+          <h3 className={H3_CLASSES}>Resource-product matrix and dynamic strategy (pp.176-179)</h3>
           <p className={PARAGRAPH_CLASSES}>
             The resource-product matrix (Figure 1) is a grid with resources as rows and
             product-markets as columns, with X entries marking a resource&rsquo;s use in a given
@@ -462,32 +469,38 @@ const BibliographyArticlePage = () => {
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Sequential entry (Figure 2, p.176):</strong> A single resource is used in
-              successive product-markets over time. Wernerfelt gives the example of a firm using
-              production skills to enter pen, lighters, and razors sequentially.
+              <strong>Sequential entry (Figure 2, p.177):</strong> A single resource is used in
+              successive product-markets over time. Wernerfelt gives the example of BIC, which used
+              its mass marketing skills to enter the markets for pens, lighters, and razors
+              sequentially (p.176). Figure 2 illustrates the same pattern abstractly, with a firm
+              developing production skills in a domestic market before going international.
             </li>
             <li>
-              <strong>Exploit-and-develop (Figure 3, p.177):</strong> Profits from an established
+              <strong>Exploit-and-develop (Figure 3, p.179):</strong> Profits from an established
               resource (e.g. &ldquo;domestic contacts&rdquo;) are used to build a new resource (e.g.
               &ldquo;international contacts&rdquo;) through joint cost effects. This balances
               exploitation of existing resources against development of new ones.
             </li>
             <li>
-              <strong>Stepping stones (Figure 4, p.178):</strong> A firm enters related
-              product-markets not for their own sake but because each market short-term balance
-              effects (joint positioning, shared learning) that build resource positions for a
-              longer-term target product-market.
+              <strong>Stepping stones (Figure 4, p.179):</strong> Candidates for diversification are
+              evaluated not only for their short-term balance effects (as in a product portfolio)
+              but also for their long-term capacity to function as stepping stones to further
+              expansion. Wernerfelt attributes this pattern to Japanese firms (citing{' '}
+              <em>Business Week</em>, 1981) - for example, building skills in chips as a bridge into
+              the computer industry.
             </li>
           </ul>
 
-          <h3 className={H3_CLASSES}>Mergers and acquisitions (pp.174-175)</h3>
+          <h3 className={H3_CLASSES}>Mergers and acquisitions (p.175)</h3>
           <p className={PARAGRAPH_CLASSES}>
             Wernerfelt treats M&amp;A as the primary vehicle for trading non-marketable resources in
-            bundles - brand, technology, skills - under thin-market conditions. Prospective buyers
-            limit search to targets satisfying simple criteria: what resources a target has, which
-            the firm can take advantage of, the cost of doing so, and what the firm could pay for
-            them. Related-supplementary and related-complementary acquisition strategies are
-            distinguished (
+            bundles - brand, technology, skills - under thin-market conditions with a <em>low</em>{' '}
+            degree of transparency. Prospective buyers limit search to targets satisfying simple
+            criteria: (a) what resources a given target has, (b) which of those the firm can
+            effectively take advantage of, (c) the cost of doing so, and (d) what the firm could pay
+            for them (p.175). Related-supplementary (get more of the resources you already have) and
+            related-complementary (get resources that combine effectively with those you already
+            have) acquisition strategies are distinguished (
             <a
               id="cite-ref-salter-weinhold-1979-1"
               href="#ref-salter-weinhold-1979"
@@ -509,7 +522,7 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>Explicit duality:</strong> The &ldquo;two sides of the same coin&rdquo;
-              framing (p.171) and the resource-product matrix (Figure 1, p.175) force the analyst to
+              framing (p.171) and the resource-product matrix (Figure 1, p.176) force the analyst to
               see both resources and products simultaneously, surfacing diversification
               opportunities that a product-only analysis would miss.
             </li>
@@ -569,8 +582,8 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>Mathematical appendix is minor:</strong> The paper includes a brief formal
-              model of sequential entry (pp.176-177) but it is illustrative rather than a general
-              formalization of resource position barriers.
+              two-period model of sequential entry (pp.177-178) but it is illustrative rather than a
+              general formalization of resource position barriers.
             </li>
             <li>
               <strong>Resource definition inherits Caves&rsquo;s looseness:</strong> Wernerfelt
@@ -612,7 +625,7 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>Resource-product matrix:</strong> Introduced the resource-product matrix
-              (Figure 1, p.175) as a working analytical tool, explicitly connected to
+              (Figure 1, p.176) as a working analytical tool, explicitly connected to
               growth-share-style portfolio thinking (Henderson, 1979) and to the duality between
               product and resource perspectives.
             </li>
@@ -625,7 +638,7 @@ const BibliographyArticlePage = () => {
             <li>
               <strong>Dynamic strategy patterns:</strong> Provided three schematic dynamic-strategy
               patterns on the resource-product matrix - sequential entry, exploit-and-develop,
-              stepping stones (Figures 2-4, pp.176-178) - offering a vocabulary for multi-period
+              stepping stones (Figures 2-4, pp.177-179) - offering a vocabulary for multi-period
               resource development.
             </li>
             <li>
@@ -680,7 +693,7 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>Mathematical appendix for sequential entry:</strong> The sequential-entry
-              illustration (pp.176-177) is backed by a small formal model of two-period optimal
+              illustration (pp.177-178) is backed by a small formal model of two-period optimal
               entry conditions, providing limited but explicit mathematical grounding for that
               specific pattern.
             </li>
@@ -900,10 +913,10 @@ const BibliographyArticlePage = () => {
                 ):
               </strong>{' '}
               Introduced <em>time-compression diseconomies</em>, <em>asset-mass efficiencies</em>,
-              <em>interconnectedness of asset stocks</em>, <em>asset erosion</em>, and{' '}
-              <em>causal ambiguity</em> as specific mechanisms that make resource positions
-              defensible. These are the mechanisms often (incorrectly) attributed to Wernerfelt
-              1984.
+              <em>interconnectedness of asset stocks</em>, and <em>asset erosion</em> as specific
+              mechanisms that make resource positions defensible, and also discussed causal
+              ambiguity as an imitability barrier (originally attributed to Lippman &amp; Rumelt,
+              1982). These are the mechanisms often (incorrectly) attributed to Wernerfelt 1984.
             </li>
             <li>
               <strong>
@@ -925,23 +938,6 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>
-                Cornerstones of competitive advantage (
-                <a
-                  id="cite-ref-peteraf-1993-1"
-                  href="#ref-peteraf-1993"
-                  className="text-tabs-teal-deep hover:underline"
-                >
-                  Peteraf, 1993
-                </a>
-                ):
-              </strong>{' '}
-              Integrated the Wernerfelt, Barney, and Dierickx &amp; Cool strands into four
-              conditions: <em>heterogeneity</em>, <em>ex post limits to competition</em>,
-              <em>imperfect mobility</em>, and <em>ex ante limits to competition</em>. Widely
-              adopted as the canonical statement of the RBV logic.
-            </li>
-            <li>
-              <strong>
                 Industry vs. firm effects (
                 <a
                   id="cite-ref-rumelt-1991-1"
@@ -959,20 +955,38 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>
-                Dynamic Capabilities (
+                Cornerstones of competitive advantage (
                 <a
-                  id="cite-ref-teece-1997-1"
-                  href="#ref-teece-1997"
+                  id="cite-ref-peteraf-1993-1"
+                  href="#ref-peteraf-1993"
                   className="text-tabs-teal-deep hover:underline"
                 >
-                  Teece, Pisano, &amp; Shuen, 1997
+                  Peteraf, 1993
                 </a>
                 ):
               </strong>{' '}
-              Extended RBV to dynamic environments by shifting the focus from static resources to
-              organizational capabilities for sensing market changes, seizing opportunities, and
-              reconfiguring resources. Addresses Wernerfelt&rsquo;s original concern that the
-              framework needed a dynamic treatment.
+              Integrated the Wernerfelt, Barney, and Dierickx &amp; Cool strands into four
+              conditions: <em>heterogeneity</em>, <em>ex post limits to competition</em>,
+              <em>imperfect mobility</em>, and <em>ex ante limits to competition</em>. Widely
+              adopted as the canonical statement of the RBV logic.
+            </li>
+            <li>
+              <strong>
+                Core competencies (
+                <a
+                  id="cite-ref-hamel-1994-1"
+                  href="#ref-hamel-1994"
+                  className="text-tabs-teal-deep hover:underline"
+                >
+                  Hamel &amp; Prahalad, 1994
+                </a>
+                ):
+              </strong>{' '}
+              Popularized the view of firms as bundles of core competencies - collective
+              organizational learning - that enable entry into multiple markets, extending the
+              resource-product matrix logic to a managerial audience. (Note: the seminal HBR article
+              is Prahalad &amp; Hamel, 1990, &ldquo;The Core Competence of the Corporation&rdquo;;
+              the 1994 book is the book-length restatement.)
             </li>
             <li>
               <strong>
@@ -992,19 +1006,20 @@ const BibliographyArticlePage = () => {
             </li>
             <li>
               <strong>
-                Core competencies (
+                Dynamic Capabilities (
                 <a
-                  id="cite-ref-hamel-1994-1"
-                  href="#ref-hamel-1994"
+                  id="cite-ref-teece-1997-1"
+                  href="#ref-teece-1997"
                   className="text-tabs-teal-deep hover:underline"
                 >
-                  Hamel &amp; Prahalad, 1994
+                  Teece, Pisano, &amp; Shuen, 1997
                 </a>
                 ):
               </strong>{' '}
-              Popularized the view of firms as bundles of core competencies - collective
-              organizational learning - that enable entry into multiple markets, extending the
-              resource-product matrix logic to a managerial audience.
+              Extended RBV to dynamic environments by shifting the focus from static resources to
+              organizational capabilities for sensing market changes, seizing opportunities, and
+              reconfiguring resources. Addresses Wernerfelt&rsquo;s original concern that the
+              framework needed a dynamic treatment.
             </li>
           </ul>
         </section>
