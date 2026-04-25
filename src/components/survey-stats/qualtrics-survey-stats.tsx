@@ -32,7 +32,11 @@ function formatCurrency(pence: number | null | undefined): string {
 }
 
 function formatHourlyRate(minorUnitsPerHour: number | null | undefined): string {
-  if (minorUnitsPerHour === null || minorUnitsPerHour === undefined || Number.isNaN(minorUnitsPerHour))
+  if (
+    minorUnitsPerHour === null ||
+    minorUnitsPerHour === undefined ||
+    Number.isNaN(minorUnitsPerHour)
+  )
     return '—'
   // Prolific reports averageRewardPerHour in minor units (for example pence/cents) of the study currency.
   const major = minorUnitsPerHour / 100
