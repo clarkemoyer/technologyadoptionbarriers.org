@@ -70,7 +70,18 @@ const BibliographyArticlePage = () => {
               <strong>Pages:</strong> 186-204
             </p>
             <p>
-              <strong>URL:</strong>{' '}
+              <strong>DOI:</strong>{' '}
+              <a
+                href="https://doi.org/10.1287/mnsc.46.2.186.11926"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:underline"
+              >
+                https://doi.org/10.1287/mnsc.46.2.186.11926
+              </a>
+            </p>
+            <p>
+              <strong>JSTOR:</strong>{' '}
               <a
                 href="https://www.jstor.org/stable/2634758"
                 target="_blank"
@@ -306,15 +317,16 @@ const BibliographyArticlePage = () => {
                 </a>
                 ):
               </strong>{' '}
-              Identified relative advantage, complexity, trialability, and observability as
-              innovation characteristics predicting adoption. TAM2 incorporates related concepts
-              through output quality, result demonstrability, and job relevance.
+              Rogers&rsquo;s diffusion framework was operationalized for IS contexts by Moore and
+              Benbasat (1991), from whom TAM2 adapted the image, result demonstrability, and
+              voluntariness scales (p.194). TAM2 does not cite Rogers (1995) directly.
             </li>
             <li>
               <strong>Social Psychology Literature on Conformity and Compliance:</strong> Provided
               theoretical foundations for subjective norm and image effects as social influence
-              mechanisms shaping adoption behavior, especially in organizational contexts where
-              conformity pressures operate.
+              mechanisms. TAM2 explicitly invokes Kelman&rsquo;s (1958) three-process framework
+              (compliance, internalization, identification) to differentiate direct and indirect
+              effects of subjective norm (p.187-190).
             </li>
             <li>
               <strong>
@@ -327,9 +339,9 @@ const BibliographyArticlePage = () => {
                 </Link>
                 ):
               </strong>{' '}
-              Demonstrated that technology adoption and performance depend on alignment between
-              technology capabilities and job task requirements, foundational to TAM2&rsquo;s job
-              relevance construct.
+              TAM2 does not cite Goodhue and Thompson (1995) directly; it does cite Goodhue (1995,
+              Management Science). The job relevance and output quality scales were adapted from
+              Davis, Bagozzi, and Warshaw (1992), not Goodhue.
             </li>
           </ul>
         </section>
@@ -411,9 +423,9 @@ const BibliographyArticlePage = () => {
               organizations can leverage to enhance adoption.
             </li>
             <li>
-              <strong>Empirical rigor:</strong> Adequate sample sizes across four studies (N=48, 50,
-              51, 51; total N=200), multiple measurement points, and real organizational technology
-              implementations provide strong empirical foundation.
+              <strong>Empirical rigor:</strong> Four longitudinal field studies across four
+              organizations (total N=156), multiple measurement occasions, and real organizational
+              technology implementations provide strong empirical foundation.
             </li>
             <li>
               <strong>Moderator testing:</strong> Direct empirical tests of experience and
@@ -446,9 +458,11 @@ const BibliographyArticlePage = () => {
               cloud, and AI technologies where adoption mechanisms may operate differently.
             </li>
             <li>
-              <strong>Actual behavior-to-intention discrepancy:</strong> While longitudinal, the
-              studies measured actual system usage through systems logs, but usage may not reflect
-              true acceptance or voluntary choice, especially in mandatory contexts.
+              <strong>Self-reported usage measure:</strong> The studies used self-reported usage
+              (&ldquo;On average, how much time do you spend on the system every day?&rdquo;) rather
+              than objectively measured usage, which the authors note as a limitation (p.199).
+              Common-method variance was mitigated by separating intention and usage measurements by
+              at least one month, but self-reported usage may not fully reflect actual behavior.
             </li>
             <li>
               <strong>Missing organizational and contextual factors:</strong> Model does not
@@ -506,8 +520,8 @@ const BibliographyArticlePage = () => {
               applies universally.
             </li>
             <li>
-              <strong>Large-scale organizational validation:</strong> Conducted research in real
-              organizational settings with system-logged usage data rather than laboratory
+              <strong>Field-based organizational validation:</strong> Conducted research in real
+              organizational settings during actual system implementations rather than laboratory
               conditions, establishing practical relevance to organizational technology management.
             </li>
           </ul>
@@ -522,41 +536,48 @@ const BibliographyArticlePage = () => {
           <ul className={BODY_LIST_CLASSES}>
             <li>
               <strong>Longitudinal design with multiple measurement occasions:</strong> Rather than
-              cross-sectional snapshots, all four field studies measured constructs at multiple time
-              points (typically baseline, month 1, month 2, month 3), allowing assessment of
-              temporal relationships and experience effects.
+              cross-sectional snapshots, all four field studies measured model constructs at three
+              points in time (T1: post-training/preimplementation; T2: one month postimplementation;
+              T3: three months postimplementation), with self-reported usage additionally measured
+              at T4 (five months postimplementation), allowing assessment of temporal relationships
+              and experience effects.
             </li>
             <li>
-              <strong>Large samples across studies:</strong> Each of the four studies included
-              approximately 50 participants (N=48, 50, 51, 51; total N=200), providing sufficient
-              statistical power to detect hypothesized relationships and moderating effects.
+              <strong>Multi-study design:</strong> Four longitudinal field studies across four
+              organizations with usable responses of n=38, 39, 43, and 36 at all points of
+              measurement (total N=156), providing sufficient data to detect hypothesized
+              relationships and moderating effects.
             </li>
             <li>
-              <strong>Real organizational implementations:</strong> Studies used actual technology
-              implementations (e.g., new enterprise systems, mandatory software deployments) rather
+              <strong>Real organizational implementations:</strong> Studies used actual system
+              introductions in naturalistic workplace settings (a manufacturing firm, a financial
+              services firm, an accounting services firm, and an investment banking firm) rather
               than artificial laboratory contexts, ensuring adoption pressures and outcomes reflect
               reality.
             </li>
             <li>
-              <strong>System-logged usage as dependent variable:</strong> Rather than relying on
-              self-reported usage intentions or perceived usage, studies measured actual system
-              usage through system logs, reducing common method variance and establishing behavioral
-              outcomes.
+              <strong>Separation of intention and usage measurement:</strong> To mitigate
+              common-method variance, intention was measured at one time period and self-reported
+              usage was measured in the subsequent wave (T1&rarr;T2, T2&rarr;T3, T3&rarr;T4),
+              separating the two measures by at least one month.
             </li>
             <li>
               <strong>Hypothesized moderation tests:</strong> Explicitly tested proposed moderation
-              effects (experience, voluntariness) through appropriate statistical methods,
-              demonstrating that relationships vary as predicted by theory.
+              of the subjective norm&ndash;intention relationship by voluntariness and experience,
+              and of the subjective norm&ndash;usefulness relationship by experience, via regression
+              analyses at each time period and pooled across studies (n=468 pooled).
             </li>
             <li>
-              <strong>Psychometric validation:</strong> Reported reliability coefficients
-              (Cronbach&rsquo;s alpha), convergent validity, and discriminant validity evidence for
-              survey-measured constructs.
+              <strong>Psychometric validation:</strong> All measurement scales exhibited Cronbach
+              alpha coefficients above 0.80 across all four studies and three time periods (Appendix
+              1). Construct validity was supported by principal components analysis with direct
+              oblimin rotation (all cross-loadings below 0.30, Appendix 2) and by
+              multitrait-multimethod matrix analysis (p.194).
             </li>
             <li>
-              <strong>Alternative explanation controls:</strong> Measured and controlled for
-              potential confounds including prior experience, user demographics, and system
-              characteristics that might explain adoption outcomes.
+              <strong>Pooled summary model:</strong> Pooling across four studies and three time
+              periods yielded n=468, with Adjusted R&sup2; of 0.51 for perceived usefulness and 0.49
+              for behavioral intention (Figure 2 notes, p.197).
             </li>
           </ul>
         </section>
@@ -570,15 +591,17 @@ const BibliographyArticlePage = () => {
           <ul className={BODY_LIST_CLASSES}>
             <li>
               <strong>Organizational setting generalization:</strong> Four studies conducted in
-              different organizations (two U.S. financial institutions, one manufacturing
-              organization, one U.S. government agency) provide some diversity, but all are large,
-              established organizations with formal IT infrastructures.
+              different organizations (a medium-sized manufacturing firm, a large financial services
+              firm, a small accounting services firm, and a small international investment banking
+              firm) provide some industry diversity, but all are commercial organizations and sample
+              sizes per study were modest (n=36 to n=43 usable at all measurement points).
             </li>
             <li>
-              <strong>Technology type limitations:</strong> Studies focused on enterprise systems
-              and mandatory software implementations. Generalization to consumer technology,
-              voluntary adoption contexts without organizational enforcement, or radically new
-              technology categories (AI, VR) requires investigation.
+              <strong>Technology type limitations:</strong> Studies examined workplace business
+              systems (floor scheduling, Windows mainframe migration, customer account management,
+              and investment portfolio analysis), two mandatory and two voluntary within
+              organizational settings. Generalization to consumer technology, non-work contexts, or
+              radically new technology categories (AI, VR) requires investigation.
             </li>
             <li>
               <strong>Cultural generalizability:</strong> U.S.-based samples limit generalization to
@@ -775,7 +798,15 @@ const BibliographyArticlePage = () => {
             <li id="ref-venkatesh-2000">
               Venkatesh, V., &amp; Davis, F. D. (2000). A theoretical extension of the technology
               acceptance model: Four longitudinal field studies. <em>Management Science</em>, 46(2),
-              186-204.
+              186-204.{' '}
+              <a
+                href="https://doi.org/10.1287/mnsc.46.2.186.11926"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:underline"
+              >
+                https://doi.org/10.1287/mnsc.46.2.186.11926
+              </a>
             </li>
             <li id="ref-davis-1989">
               Davis, F. D. (1989). Perceived usefulness, perceived ease of use, and user acceptance
@@ -784,10 +815,19 @@ const BibliographyArticlePage = () => {
                 <a
                   href="#cite-ref-davis-1989-1"
                   className="text-tabs-teal-deep hover:underline"
-                  aria-label="Back to citation 1"
-                ></a>
+                  aria-label="Back to in-text citation for Davis (1989)"
+                >
+                  &#x21A9;
+                </a>
               </span>{' '}
-              https://doi.org/10.2307/249008
+              <a
+                href="https://doi.org/10.2307/249008"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:underline"
+              >
+                https://doi.org/10.2307/249008
+              </a>
             </li>
             <li id="ref-rogers-1995">
               Rogers, E. M. (1995). Diffusion of innovations (4th ed.). Free Press.
@@ -795,8 +835,10 @@ const BibliographyArticlePage = () => {
                 <a
                   href="#cite-ref-rogers-1995-1"
                   className="text-tabs-teal-deep hover:underline"
-                  aria-label="Back to citation 1"
-                ></a>
+                  aria-label="Back to in-text citation for Rogers (1995)"
+                >
+                  &#x21A9;
+                </a>
               </span>
             </li>
             <li id="ref-venkatesh-2003">
@@ -807,10 +849,19 @@ const BibliographyArticlePage = () => {
                 <a
                   href="#cite-ref-venkatesh-2003-1"
                   className="text-tabs-teal-deep hover:underline"
-                  aria-label="Back to citation 1"
-                ></a>
+                  aria-label="Back to in-text citation for Venkatesh et al. (2003)"
+                >
+                  &#x21A9;
+                </a>
               </span>{' '}
-              https://doi.org/10.2307/30036540
+              <a
+                href="https://doi.org/10.2307/30036540"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:underline"
+              >
+                https://doi.org/10.2307/30036540
+              </a>
             </li>
           </ol>
         </section>
@@ -825,17 +876,39 @@ const BibliographyArticlePage = () => {
             </li>
             <li id="ref-goodhue-1995">
               Goodhue, D. L., &amp; Thompson, R. L. (1995). Task-technology fit and individual
-              performance. <em>MIS Quarterly</em>, 19(2), 213-236. https://doi.org/10.2307/249689
+              performance. <em>MIS Quarterly</em>, 19(2), 213-236.{' '}
+              <a
+                href="https://doi.org/10.2307/249689"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:underline"
+              >
+                https://doi.org/10.2307/249689
+              </a>
             </li>
             <li id="ref-venkatesh-2008">
               Venkatesh, V., &amp; Bala, H. (2008). Technology acceptance model 3 and a research
-              agenda on interventions. <em>Decision Sciences</em>, 39(2), 273-315.
-              https://doi.org/10.1111/j.1540-5915.2008.00192.x
+              agenda on interventions. <em>Decision Sciences</em>, 39(2), 273-315.{' '}
+              <a
+                href="https://doi.org/10.1111/j.1540-5915.2008.00192.x"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:underline"
+              >
+                https://doi.org/10.1111/j.1540-5915.2008.00192.x
+              </a>
             </li>
             <li id="ref-compeau-1995">
               Compeau, D. R., &amp; Higgins, C. A. (1995). Computer self-efficacy: Development of a
-              measure and initial test. <em>MIS Quarterly</em>, 19(2), 189-211.
-              https://doi.org/10.2307/249688
+              measure and initial test. <em>MIS Quarterly</em>, 19(2), 189-211.{' '}
+              <a
+                href="https://doi.org/10.2307/249688"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:underline"
+              >
+                https://doi.org/10.2307/249688
+              </a>
             </li>
             <li id="ref-bandura-1997">
               Bandura, A. (1997). Self-efficacy: The exercise of control. W.H. Freeman.

@@ -14,7 +14,7 @@ import {
 export const metadata: Metadata = {
   title: 'Bibliography: Total Quality Management (TQM) - Deming (1982)',
   description:
-    'Comprehensive overview of W. Edwards Deming\u2019s quality-management philosophy as introduced in Quality, Productivity, and Competitive Position (1982) and expanded in Out of the Crisis (1986): the 14 Points for Management, the PDCA cycle inherited from Shewhart, and statistical thinking about common-cause versus special-cause variation. The later System of Profound Knowledge (Deming, 1993) is discussed for context but is not in the 1982/1986 books.',
+    'Comprehensive overview of W. Edwards Deming\u2019s quality-management philosophy as introduced in Quality, Productivity, and Competitive Position (1982) and expanded in Out of the Crisis (1986): the 14 Points for Management, the Plan-Do-Check-Act / Plan-Do-Study-Act cycle attributed to Shewhart, and statistical thinking about common-cause versus special-cause variation. The later System of Profound Knowledge (Deming, 1993) is discussed for context but is not in the 1982/1986 books.',
 }
 
 const BibliographyArticlePage = () => {
@@ -202,9 +202,13 @@ const BibliographyArticlePage = () => {
             <em>Quality, Productivity, and Competitive Position</em>, Deming (1986){' '}
             <em>Out of the Crisis</em>, and Deming (1993) <em>The New Economics</em> is not attached
             to the project&rsquo;s Zotero library. Claims on this page about the content of those
-            books are drawn from secondary sources and from the canonical Deming Institute (2018)
-            one-pager. The 14 Points are the one element of the framework for which a primary-source
-            statement (the Deming Institute one-pager) has been used as ground truth on this page.
+            books are verified against two authoritative academic proxies: Anderson, Rungtusanatham,
+            and Schroeder (1994) in <em>Academy of Management Review</em> (which reproduces
+            Deming&rsquo;s 14 Points verbatim from Deming, 1986: 23-24 in its Table 1 and
+            articulates a formal theory of quality management underlying the Deming method), and
+            Hackman and Wageman (1995) in <em>Administrative Science Quarterly</em> (which analyzes
+            TQM as a philosophy and intervention package drawing on Deming, Juran, and Ishikawa).
+            The Deming Institute (2018) one-pager is used as a secondary curated reference.
           </p>
         </section>
 
@@ -302,15 +306,18 @@ const BibliographyArticlePage = () => {
               </strong>{' '}
               The most direct and widely-documented influence on Deming. Shewhart&rsquo;s
               control-chart methods (Shewhart, 1931) supply the common-cause/special-cause framework
-              Deming used throughout his career; Shewhart&rsquo;s later treatment of the cycle of
-              statistical methodology (Shewhart, 1939) is the ancestor of the Plan-Do-Check-Act
-              cycle. The exact formalization of PDCA as a four-step named cycle is variously
-              attributed in secondary sources (to Shewhart, to Deming&rsquo;s Japanese lectures, or
-              to joint attribution); Deming himself later renamed the third step &ldquo;Study&rdquo;
-              in <em>The New Economics</em> (1993). Deming worked with Shewhart at Western Electric
-              / Bell Labs in the 1920s-30s and consistently credited him; secondary accounts
-              describe the relationship as that of a younger collaborator and protege rather than
-              formal student.
+              Deming used throughout his career. Attribution of the Plan-Do-Check-Act cycle varies
+              across secondary academic sources: Anderson, Rungtusanatham, and Schroeder (1994)
+              consistently refer to &ldquo;Shewhart&rsquo;s (1931) PDSA cycle,&rdquo; while other
+              accounts point to Shewhart&rsquo;s 1939 book{' '}
+              <em>Statistical Method from the Viewpoint of Quality Control</em> as the origin of the
+              four-step named cycle. The exact formalization of PDCA is further variously attributed
+              (to Shewhart, to Deming&rsquo;s Japanese lectures, or to joint attribution); Deming
+              himself later used &ldquo;Study&rdquo; in place of &ldquo;Check&rdquo; in{' '}
+              <em>The New Economics</em> (1993). Deming worked with Shewhart at Western Electric /
+              Bell Labs in the 1920s-30s and consistently credited him; secondary accounts describe
+              the relationship as that of a younger collaborator and protege rather than formal
+              student.
             </li>
             <li>
               <strong>Human Relations School (Mayo, 1933):</strong> Deming&rsquo;s emphasis on
@@ -373,7 +380,12 @@ const BibliographyArticlePage = () => {
 
           <h3 className={H3_CLASSES}>Deming&rsquo;s 14 Points for Management</h3>
           <p className={PARAGRAPH_CLASSES}>
-            The canonical form of the 14 Points is as curated by{' '}
+            Two authoritative renderings of the 14 Points are used on this page as ground truth. The
+            1986 version of the list as reproduced in{' '}
+            <strong>Anderson, Rungtusanatham, and Schroeder (1994)</strong>, Academy of Management
+            Review, Table 1 (which quotes Deming, 1986: 23-24 verbatim) is the primary source used
+            below, and is the version supplying sub-parts (a)/(b) for Points 11 and 12. The
+            later-curated one-pager by{' '}
             <a
               id="cite-ref-deming-institute-2018-1"
               href="#ref-deming-institute-2018"
@@ -381,16 +393,19 @@ const BibliographyArticlePage = () => {
             >
               The W. Edwards Deming Institute (2018)
             </a>
-            . The Institute attributes the list to &ldquo;Dr. Deming&rsquo;s seminal book,{' '}
-            <em>Out of the Crisis</em>&rdquo; - i.e., the 1986 edition - as the first presentation
-            of this canonical form. The points are reproduced verbatim below; each is annotated with
-            a short secondary-source explanation. Because a PDF of Deming (1982) or (1986) is not
-            attached to the project&rsquo;s Zotero library, this page treats the Deming Institute
-            one-pager as the ground truth for the list.
+            , which the Institute attributes to &ldquo;Dr. Deming&rsquo;s seminal book,{' '}
+            <em>Out of the Crisis</em>&rdquo; (the 1986 edition), is a well-known reformatted
+            version that sometimes merges the sub-parts and shortens phrasing. Because no PDF of
+            Deming (1982) or (1986) is attached to the project&rsquo;s Zotero library, Anderson et
+            al.&rsquo;s (1994) Table 1 is used for primary verification below, with Deming Institute
+            divergences noted where they occur.
           </p>
           <ol className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Create constancy of purpose for improving products and services.</strong>{' '}
+              <strong>
+                Create constancy of purpose toward improvement of product and service, with the aim
+                to become competitive and to stay in business, and to provide jobs.
+              </strong>{' '}
               Long-term commitment to improvement rather than quarterly results.
             </li>
             <li>
@@ -398,30 +413,34 @@ const BibliographyArticlePage = () => {
               levels of delays, mistakes, defective material, and workmanship.
             </li>
             <li>
-              <strong>Cease dependence on inspection to achieve quality.</strong> Build quality into
-              the process rather than inspect it in at the end.
+              <strong>Cease dependence on mass inspection to improve quality.</strong> Eliminate the
+              need for inspection on a mass basis by building quality into the product in the first
+              place.
             </li>
             <li>
               <strong>
-                End the practice of awarding business on price alone; instead, minimize total cost
-                by working with a single supplier.
+                End the practice of awarding business on the basis of price tag alone. Instead,
+                minimize total cost. Move toward a single supplier for any one item, on a long-term
+                relationship of loyalty and trust.
               </strong>{' '}
-              Establish long-term supplier relationships based on a loyalty-and-trust relation
-              rather than on price.
+              Establish long-term supplier relationships based on loyalty and trust rather than on
+              price.
             </li>
             <li>
               <strong>
-                Improve constantly and forever every process for planning, production, and service.
+                Improve constantly and forever the system of production and service, to improve
+                quality and productivity, and thus constantly decrease costs.
               </strong>{' '}
-              Continuous improvement of every activity, not only production.
+              Continuous improvement of every activity in the system, not only production.
             </li>
             <li>
               <strong>Institute training on the job.</strong> Train workers on the job to standard,
               as part of the process of doing the work.
             </li>
             <li>
-              <strong>Adopt and institute leadership.</strong> Supervision of management and workers
-              should be aimed at helping people and systems do a better job, not at finding fault.
+              <strong>Institute leadership.</strong> The aim of supervision should be to help people
+              and machines and gadgets to do a better job. Supervision of management is in need of
+              overhaul, as well as supervision of production workers.
             </li>
             <li>
               <strong>Drive out fear.</strong> Create psychological safety so people can raise
@@ -432,35 +451,48 @@ const BibliographyArticlePage = () => {
               production must work as a team to foresee production and service problems.
             </li>
             <li>
-              <strong>Eliminate slogans, exhortations, and targets for the workforce.</strong>{' '}
-              Exhortations without means to do better create adversarial relations and shift the
-              burden from the system to the worker.
+              <strong>
+                Eliminate slogans, exhortations, and targets for the workforce asking for zero
+                defects and new levels of productivity.
+              </strong>{' '}
+              Such exhortations only create adversarial relationships, as the bulk of the causes of
+              low quality and low productivity belong to the system and thus lie beyond the power of
+              the workforce.
             </li>
             <li>
               <strong>
-                Eliminate numerical quotas for the workforce and numerical goals for management.
+                (a) Eliminate work standards (quotas) on the factory floor. Substitute leadership.
+                (b) Eliminate management by objective. Eliminate management by numbers, numeric
+                goals. Substitute leadership.
               </strong>{' '}
-              Both distort process behavior and become substitutes for leadership.
+              Anderson, Rungtusanatham, and Schroeder (1994) reproduce Point 11 from Deming (1986:
+              23-24) with these two explicit sub-parts; some later curated versions (including the
+              Deming Institute one-pager) present the idea as a single merged statement. Both
+              distort process behavior and become substitutes for leadership.
             </li>
             <li>
               <strong>
-                Remove barriers that rob people of pride of workmanship, and eliminate the annual
-                rating or merit system.
+                (a) Remove barriers that rob the hourly worker of his or her right to pride of
+                workmanship. The responsibility of supervisors must be changed from sheer numbers to
+                quality. (b) Remove barriers that rob people in management and in engineering of
+                their right to pride of workmanship. This means, inter alia, abolishment of the
+                annual or merit rating and of management by objective.
               </strong>{' '}
-              Barriers include bad supervision, defective tooling, and the merit rating itself,
-              which rewards performance apparent to the rater rather than to the system.
+              Anderson et al. (1994) likewise reproduce Point 12 from Deming (1986: 23-24) with two
+              sub-parts addressing hourly workers and management separately; later curated versions
+              often merge them.
+            </li>
+            <li>
+              <strong>Institute a vigorous program of education and self-improvement.</strong>{' '}
+              Continuous learning is an investment in the enterprise, not a cost. Anderson et al.
+              (1994), reproducing Deming (1986: 23-24), state Point 13 without a closing &ldquo;for
+              everyone&rdquo;; some curated one-pagers add that phrase.
             </li>
             <li>
               <strong>
-                Institute a vigorous program of education and self-improvement for everyone.
-              </strong>{' '}
-              Continuous learning is an investment in the enterprise, not a cost.
-            </li>
-            <li>
-              <strong>
-                Put everybody in the company to work accomplishing the transformation.
-              </strong>{' '}
-              The transformation is everybody&rsquo;s job.
+                Put everybody in the company to work to accomplish the transformation. The
+                transformation is everybody&rsquo;s job.
+              </strong>
             </li>
           </ol>
           <p className={PARAGRAPH_CLASSES}>
@@ -514,14 +546,16 @@ const BibliographyArticlePage = () => {
           <h3 className={H3_CLASSES}>Key Mechanisms</h3>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>
-                Plan-Do-Check-Act Cycle (PDCA) - later renamed Plan-Do-Study-Act (PDSA):
-              </strong>{' '}
+              <strong>Plan-Do-Check-Act Cycle (PDCA) - later Plan-Do-Study-Act (PDSA):</strong>{' '}
               Organizations continuously cycle through planning improvements, implementing changes,
-              checking / studying results, and acting on learning. The cycle was introduced by
-              Shewhart (1939) as PDCA and adopted by Deming in the 1982 and 1986 books under that
-              name; Deming renamed the &ldquo;Check&rdquo; step to &ldquo;Study&rdquo; starting in
-              his 1993 book <em>The New Economics</em>. Both forms are widely used.
+              checking / studying results, and acting on learning. The cycle is attributed to
+              Shewhart in secondary sources; Anderson, Rungtusanatham, and Schroeder (1994) cite
+              Shewhart (1931) as the source of the PDSA cycle, while other accounts attribute the
+              four-step named cycle to Shewhart&rsquo;s 1939 book{' '}
+              <em>Statistical Method from the Viewpoint of Quality Control</em>. Deming adopted and
+              popularized the cycle in his management work; he later used &ldquo;Study&rdquo; in
+              place of &ldquo;Check&rdquo; in <em>The New Economics</em> (1993). Both forms are
+              widely used.
             </li>
             <li>
               <strong>Statistical Process Control:</strong> Using statistical tools to monitor
@@ -953,7 +987,8 @@ const BibliographyArticlePage = () => {
             <li id="ref-deming-1993">
               Deming, W. E. (1993). <em>The New Economics for Industry, Government, Education</em>.
               MIT Center for Advanced Engineering Study. (Introduces the System of Profound
-              Knowledge and renames Shewhart&rsquo;s PDCA cycle to PDSA.)
+              Knowledge; uses &ldquo;Study&rdquo; in place of &ldquo;Check&rdquo; in the
+              Plan-Do-Study-Act form of the cycle.)
             </li>
             <li id="ref-deming-institute-2018">
               The W. Edwards Deming Institute. (2018).{' '}
@@ -1000,7 +1035,9 @@ const BibliographyArticlePage = () => {
             <li id="ref-shewhart-1939">
               Shewhart, W. A. (1939).{' '}
               <em>Statistical Method from the Viewpoint of Quality Control</em>. Graduate School,
-              U.S. Department of Agriculture. (Source of the Plan-Do-Check-Act cycle.)
+              U.S. Department of Agriculture. (Cited in some accounts as the origin of the four-step
+              Plan-Do-Check-Act cycle; Anderson et al. (1994) instead attribute the PDSA cycle to
+              Shewhart, 1931.)
             </li>
             <li id="ref-taylor-1911">
               Taylor, F. W. (1911). <em>The Principles of Scientific Management</em>. Harper &amp;

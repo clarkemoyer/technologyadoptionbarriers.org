@@ -144,10 +144,12 @@ const BibliographyArticlePage = () => {
           <p className={PARAGRAPH_CLASSES}>
             <strong>Source note:</strong> The project&rsquo;s Zotero library does not contain a PDF
             of Tornatzky &amp; Fleischer (1990) <em>The Processes of Technological Innovation</em>.
-            A PDF of Drazin&rsquo;s 1991 review of the book is available and confirms publisher
-            (D.C. Heath/Lexington Books), 298 pages, four-part structure, Rogers-diffusion-tradition
-            positioning, and that Everett Rogers wrote the prologue. Detailed page-level claims on
-            this page are not verified against the book itself.
+            Structural review for this page uses Zhu, Kraemer, and Xu (2006),{' '}
+            <em>Management Science</em>, 52(10), 1557-1576, as an authorized peer-reviewed proxy.
+            Zhu et al. restate the TOE framework citing Tornatzky and Fleischer (1990, pp. 152-154)
+            and apply it in a widely cited empirical study of e-business assimilation across 1,857
+            firms in 10 countries. Detailed page-level claims on this page that go beyond the
+            three-context definitions given in Zhu et al. are not verified against the book itself.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             TOE is a conceptual framework, not a measurement instrument. It does not propose scales,
@@ -157,18 +159,30 @@ const BibliographyArticlePage = () => {
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Technological context:</strong> characteristics of the technology (both
-              internal current technology base and external technologies in the market).
+              <strong>Technological context:</strong> &ldquo;both the existing technologies in use
+              and new technologies relevant to the firm&rdquo; (Zhu et al., 2006, p. 1559, restating
+              Tornatzky &amp; Fleischer 1990, pp. 152-154).
             </li>
             <li>
-              <strong>Organizational context:</strong> characteristics of the adopting firm (size,
-              structure, slack, communication, managerial attitudes).
+              <strong>Organizational context:</strong> &ldquo;descriptive measures about the
+              organization such as scope, size, and managerial structure&rdquo; (Zhu et al., 2006,
+              p. 1559).
             </li>
             <li>
-              <strong>Environmental context:</strong> industry structure, competitive pressure,
-              regulatory environment, trading-partner behavior.
+              <strong>Environmental context:</strong> &ldquo;the arena in which a firm conducts its
+              business - its industry, competitors, and dealings with government&rdquo; (Zhu et al.,
+              2006, pp. 1559-1560).
             </li>
           </ul>
+          <p className={PARAGRAPH_CLASSES}>
+            Later empirical TOE studies (e.g., Iacovou, Benbasat, &amp; Dexter, 1995; Chau &amp;
+            Tam, 1997; Oliveira &amp; Martins, 2011) populate these three contexts with additional
+            operational sub-factors such as trading-partner pressure, top management support, and
+            Rogers&rsquo; (1995) innovation attributes (relative advantage, compatibility,
+            complexity, trialability, observability). Those sub-factors are not attributed to
+            Tornatzky &amp; Fleischer (1990) in the proxy source; they are downstream conventions of
+            the TOE empirical literature.
+          </p>
           <p className={PARAGRAPH_CLASSES}>
             The &ldquo;TOE&rdquo; acronym itself is a later-literature convention. Secondary sources
             (e.g., Baker, 2011, <em>Information Systems Theory</em>; Oliveira &amp; Martins, 2011,{' '}
@@ -263,10 +277,14 @@ const BibliographyArticlePage = () => {
                 </Link>
                 ):
               </strong>{' '}
-              Established fundamental insight that innovation characteristics (relative advantage,
-              compatibility, complexity, trial-ability, observability) influence adoption. TOE
-              incorporated these innovation characteristics into the technological context
-              dimension.
+              Established that innovation characteristics (relative advantage, compatibility,
+              complexity, trialability, observability) influence adoption. Zhu, Kraemer, and Xu
+              (2006, pp. 1559-1560) describe the TOE framework as &ldquo;consistent with the
+              innovation diffusion theory of Rogers (1995)&rdquo;, which emphasized technological
+              characteristics along with internal and external organizational characteristics.
+              Whether Tornatzky and Fleischer (1990) directly incorporated Rogers&rsquo; five
+              innovation attributes into their Technological context is not verified from the proxy
+              source (the book PDF is not in the project&rsquo;s Zotero library).
             </li>
             <li>
               <strong>
@@ -361,21 +379,6 @@ const BibliographyArticlePage = () => {
               Established that organizational strategy and structure must align with environmental
               characteristics. TOE incorporated environmental contingency principle by emphasizing
               that technology adoption depends on environmental pressure and opportunity.
-            </li>
-            <li>
-              <strong>
-                Technology Acceptance Model (
-                <a
-                  id="cite-ref-davis-1989-2"
-                  href="#ref-davis-1989"
-                  className="text-tabs-teal-deep hover:underline"
-                >
-                  Davis, 1989
-                </a>
-                ):
-              </strong>{' '}
-              Emphasized perceived usefulness and perceived ease of use as technology adoption
-              drivers. TOE incorporated these perceived technology characteristics.
             </li>
           </ul>
         </section>
@@ -636,7 +639,8 @@ const BibliographyArticlePage = () => {
             model. &ldquo;Internal validity&rdquo; below is assessed as logical coherence and
             fidelity to the diffusion-of-innovation tradition the book synthesizes. Specific content
             claims against Tornatzky &amp; Fleischer (1990) are unverified at page level because the
-            book PDF is not in the project&rsquo;s Zotero library.
+            book PDF is not in the project&rsquo;s Zotero library; Zhu, Kraemer, and Xu (2006) is
+            used as a peer-reviewed proxy for the three-context definitions only.
           </p>
           <p className={PARAGRAPH_CLASSES}>
             As a comprehensive synthesis rather than a novel empirical study, the TOE Framework is
@@ -909,11 +913,6 @@ const BibliographyArticlePage = () => {
                   href="#cite-ref-davis-1989-1"
                   className="text-tabs-teal-deep hover:underline"
                   aria-label="Back to citation 1"
-                ></a>{' '}
-                <a
-                  href="#cite-ref-davis-1989-2"
-                  className="text-tabs-teal-deep hover:underline"
-                  aria-label="Back to citation 2"
                 ></a>
               </span>{' '}
               https://doi.org/10.2307/249008

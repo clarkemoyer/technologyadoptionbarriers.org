@@ -195,11 +195,11 @@ const BibliographyPage = () => {
               <div className="text-sm text-gray-600">Venkatesh et al. (2003)</div>
             </Link>
             <Link
-              href="/bibliography-1-16-math-venkatesh-brown-2001"
+              href="/bibliography-1-16-math-brown-venkatesh-2005"
               className="block p-3 bg-white rounded border border-gray-300 hover:border-blue-500 hover:shadow-md transition-all"
             >
               <div className="font-semibold text-blue-600">16. MATH</div>
-              <div className="text-sm text-gray-600">Venkatesh &amp; Brown (2001)</div>
+              <div className="text-sm text-gray-600">Brown &amp; Venkatesh (2005)</div>
             </Link>
             <Link
               href="/bibliography-1-17-value-based-adoption-kim-2007"
