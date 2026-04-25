@@ -228,6 +228,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     {
+      url: `${baseUrl}/results/crp-2026/top-barriers`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
       url: `${baseUrl}/results/factor-analysis`,
       lastModified: now,
       changeFrequency: 'weekly',
@@ -235,6 +241,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${baseUrl}/results/validation`,
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/results/top-barriers`,
       lastModified: now,
       changeFrequency: 'weekly',
       priority: 0.7,
@@ -583,6 +595,69 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.7,
+    },
+    // Mind Maps (gallery under Making of TABS, one URL per map)
+    {
+      url: `${baseUrl}/making-of-tabs/mind-maps`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/making-of-tabs/mind-maps/full-mind-map`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/making-of-tabs/mind-maps/business-management-models`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.5,
+    },
+    {
+      url: `${baseUrl}/making-of-tabs/mind-maps/it-management-models`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.5,
+    },
+    {
+      url: `${baseUrl}/making-of-tabs/mind-maps/enterprise-it-architecture`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.5,
+    },
+    {
+      url: `${baseUrl}/making-of-tabs/mind-maps/project-program-risk-management`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.5,
+    },
+    {
+      url: `${baseUrl}/making-of-tabs/mind-maps/standards-regulations`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.5,
+    },
+    {
+      url: `${baseUrl}/making-of-tabs/mind-maps/tabs-project-operations`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.5,
+    },
+    {
+      url: `${baseUrl}/making-of-tabs/mind-maps/culminating-research-project`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.5,
+    },
+    // Static full-resolution lit review map (outside Making-of-TABS layout so
+    // it can render the SVG at full viewport width, no article-column clip).
+    {
+      url: `${baseUrl}/lit-review-mind-map`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
     },
   ]
 }

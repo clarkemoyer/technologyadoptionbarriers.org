@@ -215,7 +215,69 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 6. Preceding Models or Theories */}
+        {/* 6. What Does the Model Measure? */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>What Does the Model Measure?</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            Brown and Venkatesh (2005) develop MATH as a decomposed belief-structure measurement
+            model for household technology adoption. The framework adapts TPB and extends it with
+            household-specific belief decompositions:
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Utilitarian Outcomes (attitudinal):</strong>
+              <ul className={BODY_LIST_CLASSES}>
+                <li>Utility for Children (e.g., educational use)</li>
+                <li>Utility for Work-Related Use</li>
+                <li>Applications for Personal Use</li>
+              </ul>
+            </li>
+            <li>
+              <strong>Hedonic Outcomes (attitudinal):</strong> Fun, enjoyment, and excitement of
+              using the technology at home.
+            </li>
+            <li>
+              <strong>Social Outcomes (attitudinal):</strong> Status gains from being seen as
+              technologically savvy within one&rsquo;s household/social network.
+            </li>
+            <li>
+              <strong>Normative Beliefs:</strong>
+              <ul className={BODY_LIST_CLASSES}>
+                <li>Friends and Family Influences</li>
+                <li>Secondary Sources&rsquo; Influences (e.g., media, vendors)</li>
+                <li>Workplace Referents&rsquo; Influences</li>
+              </ul>
+            </li>
+            <li>
+              <strong>Control Beliefs:</strong>
+              <ul className={BODY_LIST_CLASSES}>
+                <li>Fear of Technological Advances (Rapid Change)</li>
+                <li>Declining Cost / Cost</li>
+                <li>Perceived Ease of Use / Self-Efficacy</li>
+                <li>Requisite Knowledge for Use</li>
+              </ul>
+            </li>
+            <li>
+              <strong>
+                Attitude, Subjective Norm, Perceived Behavioral Control, and Behavioral Intention:
+              </strong>{' '}
+              Standard TPB dependent constructs.
+            </li>
+            <li>
+              <strong>Moderators:</strong> Age, Income, Marital Status, Life-Stage, and Presence of
+              Children - proposed to moderate relationships between specific beliefs and the TPB
+              second-order constructs.
+            </li>
+          </ul>
+          <p className={PARAGRAPH_CLASSES}>
+            Brown and Venkatesh (2005) report a survey-based study with &gt;700 US household
+            respondents and provide validity evidence and path-coefficient estimates for the
+            decomposed belief structure. The household framing distinguishes MATH from UTAUT and
+            other workplace-oriented models.
+          </p>
+        </section>
+
+        {/* 7. Preceding Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Preceding Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -315,7 +377,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 7. Describe The Model */}
+        {/* 8. Describe The Model */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Describe The Model</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -482,25 +544,25 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 8. Key Contributions */}
+        {/* 9. Key Contributions */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Key Contributions</h2>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>First household-specific adoption model:</strong> Established that household
-              technology adoption required distinct theoretical framework from organizational
+              <strong>Early household-specific adoption model:</strong> Argued that household
+              technology adoption benefits from a distinct theoretical framework from organizational
               adoption, challenging assumptions that single models apply universally.
             </li>
             <li>
-              <strong>Multiple benefit dimensions in consumer adoption:</strong> Demonstrated that
-              household adoption decisions involve evaluating multiple benefit dimensions (work,
-              education, entertainment, family) rather than single performance criterion in
-              organizational adoption.
+              <strong>Multiple benefit dimensions in consumer adoption:</strong> Argued and reported
+              evidence that household adoption decisions involve evaluating multiple benefit
+              dimensions (work, education, entertainment, family) rather than a single performance
+              criterion as is typical in organizational-adoption research.
             </li>
             <li>
-              <strong>Collective household decision-making framework:</strong> Established household
-              adoption as collective family decision rather than individual choice, requiring
-              understanding of preference negotiation and family influence dynamics.
+              <strong>Collective household decision-making framework:</strong> Frames household
+              adoption as a collective family decision rather than an individual choice, requiring
+              attention to preference negotiation and family influence dynamics.
             </li>
             <li>
               <strong>Cost as primary household adoption barrier:</strong> Empirically demonstrated
@@ -535,7 +597,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 9. Internal Validity */}
+        {/* 10. Internal Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Internal Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -584,7 +646,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 10. External Validity */}
+        {/* 11. External Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>External Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -642,7 +704,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 11. Relevance to Technology Adoption */}
+        {/* 12. Relevance to Technology Adoption */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Relevance to Technology Adoption</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -752,7 +814,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 12. Following Models or Theories */}
+        {/* 13. Following Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Following Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -815,7 +877,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 13. References */}
+        {/* 14. References */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>References</h2>
           <ol className={REFERENCES_OL_CLASSES}>
@@ -877,6 +939,7 @@ const BibliographyArticlePage = () => {
           </ol>
         </section>
 
+        {/* 15. Further Reading */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Further Reading</h2>
           <ol className={REFERENCES_OL_CLASSES}>
@@ -909,7 +972,7 @@ const BibliographyArticlePage = () => {
           </ol>
         </section>
 
-        {/* 14. Series Navigation */}
+        {/* 16. Series Navigation */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Series Navigation</h2>
           <div className="space-y-4">
