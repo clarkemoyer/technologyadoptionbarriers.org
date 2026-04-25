@@ -19,10 +19,8 @@ describe('LiveResults component', () => {
     render(<LiveResults />)
     const totalN = dispositionData.completionProgress.approved
     const formattedTotalN = totalN.toLocaleString()
-    // Match the full status-line text so a barrier count equal to approved N cannot cause a false positive.
-    expect(
-      screen.getByText(new RegExp(`^${formattedTotalN} Surveys Completed$`))
-    ).toBeInTheDocument()
+    // Exact string match — avoids false positives from locale metacharacters (e.g. "." thousands separator).
+    expect(screen.getByText(`${formattedTotalN} Surveys Completed`)).toBeInTheDocument()
   })
 
   it('should display exactly 3 barriers', () => {
