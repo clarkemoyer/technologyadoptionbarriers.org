@@ -12,7 +12,7 @@
     "url": "/article-1-1-the-bedrock-foundational-theories-that-shaped-tech-acceptance",
     "title": "Article 1.1: The Bedrock - Foundational Theories That Shaped Tech Acceptance",
     "description": "An overview of pre-TAM theories that laid the groundwork for technology acceptance research, including key constructs that influenced later adoption models.",
-    "content": "Article 1.1: The Bedrock - Foundational Theories That Shaped Tech Acceptance. An overview of pre-TAM theories that laid the groundwork for technology acceptance research, including key constructs that influenced later adoption models. Article The Bedrock Foundational Theories That Shaped Tech Acceptance Before the Technology Acceptance Model TAM provided focused lens for information systems research, the study of why people choose to use technology was grounded in broader and more diverse set of foundational theories. These “grandparent” models, drawn sociology, social psychology, and management, provided the essential intellectual DNA for everything that followed. To understand the evolution of adoption research, we must first appreciate bedrock-the core constructs and perspectives that e...",
+    "content": "Article 1.1: The Bedrock - Foundational Theories That Shaped Tech Acceptance. An overview of pre-TAM theories that laid the groundwork for technology acceptance research, including key constructs that influenced later adoption models. Article The Bedrock Foundational Theories That Shaped Tech Acceptance Before the Technology Acceptance Model TAM provided focused lens for information systems research, the study of why people choose to use technology was grounded in broader and more diverse set of foundational theories. These “grandparent” models, drawn from sociology, social psychology, and management, provided the essential intellectual DNA for everything that followed. To understand the evolution of adoption research, we must first appreciate bedrock-the core constructs and perspectives t...",
     "category": "Article Series"
   },
   {
@@ -52,7 +52,7 @@
     "url": "/article-1-6-context-is-king-specialized-individual-adoption-models",
     "title": "Article 1.6: Context is King - Specialized Individual Adoption Models",
     "description": "Exploring specialized models that address context-specific adoption factors: Task-Technology Fit, household adoption dynamics, and value-based frameworks.",
-    "content": "Article 1.6: Context is King - Specialized Individual Adoption Models. Exploring specialized models that address context-specific adoption factors: Task-Technology Fit, household adoption dynamics, and value-based frameworks. Article Context is King Specialized Individual Adoption Models Introduction: The Limits of Universal Models As researchers refined technology adoption frameworks throughout the 1990s and early 2000s, they pursued increasingly universal models-theories explaining adoption across diverse technologies, user populations, and organizational contexts. The Technology Acceptance Model demonstrated that perceived usefulness and ease of use predict adoption across systems email to enterprise resource planning. The Unified Theory of Acceptance and Use of Technology integrated ei...",
+    "content": "Article 1.6: Context is King - Specialized Individual Adoption Models. Exploring specialized models that address context-specific adoption factors: Task-Technology Fit, household adoption dynamics, and value-based frameworks. Article Context is King Specialized Individual Adoption Models Introduction: The Limits of Universal Models As researchers refined technology adoption frameworks throughout the 1990s and early 2000s, they pursued increasingly universal models-theories explaining adoption across diverse technologies, user populations, and organizational contexts. The Technology Acceptance Model demonstrated that perceived usefulness and ease of use predict adoption across systems from email to enterprise resource planning. The Unified Theory of Acceptance and Use of Technology integrat...",
     "category": "Article Series"
   },
   {
@@ -60,7 +60,7 @@
     "url": "/article-1-7-are-you-ready-the-role-of-technology-readiness-tri-and-tram",
     "title": "Article 1.7: Are You Ready? - The Role of Technology Readiness (TRI & TRAM)",
     "description": "Exploring how individual technology readiness-combining optimism, innovativeness, discomfort, and insecurity-shapes adoption decisions across contexts.",
-    "content": "Article 1.7: Are You Ready? - The Role of Technology Readiness (TRI & TRAM). Exploring how individual technology readiness-combining optimism, innovativeness, discomfort, and insecurity-shapes adoption decisions across contexts. Article Are You Ready? The Role of Technology Readiness TRI TRAM Introduction: The Persistent Individual Differences We have journeyed through the landscape of technology adoption research foundational frameworks establishing that perceived usefulness and ease of use drive adoption, through increasingly sophisticated models recognizing the role of social influences, gender, and contextual fit. Yet one critical dimension has emerged repeatedly in background observations: some people embrace technologies eagerly while others resist them, and these differences persist...",
+    "content": "Article 1.7: Are You Ready? - The Role of Technology Readiness (TRI & TRAM). Exploring how individual technology readiness-combining optimism, innovativeness, discomfort, and insecurity-shapes adoption decisions across contexts. Article Are You Ready? The Role of Technology Readiness TRI TRAM Introduction: The Persistent Individual Differences We have journeyed through the landscape of technology adoption research from foundational frameworks establishing that perceived usefulness and ease of use drive adoption, through increasingly sophisticated models recognizing the role of social influences, gender, and contextual fit. Yet one critical dimension has emerged repeatedly in background observations: some people embrace technologies eagerly while others resist them, and these differences pe...",
     "category": "Article Series"
   },
   {
@@ -108,7 +108,7 @@
     "url": "/article-2-5-the-modern-mandate-frameworks-for-cybersecurity-and-risk",
     "title": "Article 2.5: The Modern Mandate - Frameworks for Cybersecurity and Risk",
     "description": "Frameworks for cybersecurity and risk management - NIST RMF, NIST CSF, CMMC, and ISO 27001 - that shape organizational technology adoption decisions.",
-    "content": "Article 2.5: The Modern Mandate - Frameworks for Cybersecurity and Risk. Frameworks for cybersecurity and risk management - NIST RMF, NIST CSF, CMMC, and ISO 27001 - that shape organizational technology adoption decisions. Article The Modern Mandate Frameworks for Cybersecurity and Risk In 2013, major retailer suffered breach that exposed customer credit card data millions of transactions. The investigation revealed that the attacker had accessed the system months earlier but remained undetected. The retailer had security technology firewalls, intrusion detection systems, antivirus software yet the breach still occurred. The problem was not lack of technology; it was lack of systematic security practice. The organization had security tools but no coherent security framework, no systematic ...",
+    "content": "Article 2.5: The Modern Mandate - Frameworks for Cybersecurity and Risk. Frameworks for cybersecurity and risk management - NIST RMF, NIST CSF, CMMC, and ISO 27001 - that shape organizational technology adoption decisions. Article The Modern Mandate Frameworks for Cybersecurity and Risk In 2013, major retailer suffered breach that exposed customer credit card data from millions of transactions. The investigation revealed that the attacker had accessed the system months earlier but remained undetected. The retailer had security technology firewalls, intrusion detection systems, antivirus software yet the breach still occurred. The problem was not lack of technology; it was lack of systematic security practice. The organization had security tools but no coherent security framework, no system...",
     "category": "Article Series"
   },
   {
@@ -116,7 +116,7 @@
     "url": "/article-2-6-the-cloud-revolution-prescriptive-adoption-frameworks",
     "title": "Article 2.6: The Cloud Revolution - Prescriptive Adoption Frameworks",
     "description": "How cloud vendors productized adoption theory into prescriptive frameworks - AWS CAF, AWS ETF, and Microsoft Azure CAF - transforming how organizations plan and execute technology adoption.",
-    "content": "Article 2.6: The Cloud Revolution - Prescriptive Adoption Frameworks. How cloud vendors productized adoption theory into prescriptive frameworks - AWS CAF, AWS ETF, and Microsoft Azure CAF - transforming how organizations plan and execute technology adoption. Article The Cloud Revolution Prescriptive Adoption Frameworks The relationship between organizations and adoption frameworks has fundamentally changed. Earlier frameworks like TAFIM, TOGAF, and NIST RMF emerged government and academia, providing conceptual structures and methodological guidance that organizations had to interpret and implement. They said here are the principles and organizations had to figure out how to apply them. Contemporary frameworks cloud vendors take different approach. They say here is exactly what you should ...",
+    "content": "Article 2.6: The Cloud Revolution - Prescriptive Adoption Frameworks. How cloud vendors productized adoption theory into prescriptive frameworks - AWS CAF, AWS ETF, and Microsoft Azure CAF - transforming how organizations plan and execute technology adoption. Article The Cloud Revolution Prescriptive Adoption Frameworks The relationship between organizations and adoption frameworks has fundamentally changed. Earlier frameworks like TAFIM, TOGAF, and NIST RMF emerged from government and academia, providing conceptual structures and methodological guidance that organizations had to interpret and implement. They said here are the principles and organizations had to figure out how to apply them. Contemporary frameworks from cloud vendors take different approach. They say here is exactly what y...",
     "category": "Article Series"
   },
   {
@@ -124,7 +124,7 @@
     "url": "/article-2-7-the-ai-frontier-frameworks-for-adopting-ai-ml-and-genai",
     "title": "Article 2.7: The AI Frontier - Frameworks for Adopting AI, ML, and GenAI",
     "description": "How emerging AI adoption frameworks - AWS CAF-AI, Microsoft AI guidance, and responsible AI principles - address the unique challenges of adopting artificial intelligence at organizational scale.",
-    "content": "Article 2.7: The AI Frontier - Frameworks for Adopting AI, ML, and GenAI. How emerging AI adoption frameworks - AWS CAF-AI, Microsoft AI guidance, and responsible AI principles - address the unique challenges of adopting artificial intelligence at organizational scale. Article The AI Frontier Frameworks for Adopting AI, ML, and GenAI In November 2022, OpenAI released ChatGPT to the public. Within two months, the application had reached 100 million users the fastest user adoption of any consumer application in history. The technology shocked organizations unprepared for generative AI capabilities and disrupted technology adoption thinking that had stabilized over the previous decade. Where cloud adoption frameworks had addressed moving infrastructure on-premises to cloud, or digital transfo...",
+    "content": "Article 2.7: The AI Frontier - Frameworks for Adopting AI, ML, and GenAI. How emerging AI adoption frameworks - AWS CAF-AI, Microsoft AI guidance, and responsible AI principles - address the unique challenges of adopting artificial intelligence at organizational scale. Article The AI Frontier Frameworks for Adopting AI, ML, and GenAI In November 2022, OpenAI released ChatGPT to the public. Within two months, the application had reached 100 million users the fastest user adoption of any consumer application in history. The technology shocked organizations unprepared for generative AI capabilities and disrupted technology adoption thinking that had stabilized over the previous decade. Where cloud adoption frameworks had addressed moving infrastructure from on-premises to cloud, or digital tr...",
     "category": "Article Series"
   },
   {
@@ -132,7 +132,7 @@
     "url": "/article-2-branch-introduction-the-organizations-playbook",
     "title": "Article 2: Branch Introduction - The Organization’s Playbook",
     "description": "Branch introduction to organizational technology adoption frameworks, covering strategy, maturity models, hype cycles, enterprise architecture, security, cloud adoption, and AI adoption.",
-    "content": "Article 2: Branch Introduction - The Organization’s Playbook. Branch introduction to organizational technology adoption frameworks, covering strategy, maturity models, hype cycles, enterprise architecture, security, cloud adoption, and AI adoption. Article 2: Branch Introduction The Organization’s Playbook Having thoroughly explored the psychological and cognitive drivers of the individual’s adoption journey, we now pivot our focus the micro to the macro. We ascend the user’s desktop to the C-Suite, shifting our lens the personal calculus of acceptance to the strategic imperatives of the organization. Welcome to the second major branch of our series: The Organization’s Playbook. Here, the central question is no longer “Will an individual use technology?” but rather, “How does our organizat...",
+    "content": "Article 2: Branch Introduction - The Organization’s Playbook. Branch introduction to organizational technology adoption frameworks, covering strategy, maturity models, hype cycles, enterprise architecture, security, cloud adoption, and AI adoption. Article 2: Branch Introduction The Organization’s Playbook Having thoroughly explored the psychological and cognitive drivers of the individual’s adoption journey, we now pivot our focus from the micro to the macro. We ascend from the user’s desktop to the C-Suite, shifting our lens from the personal calculus of acceptance to the strategic imperatives of the organization. Welcome to the second major branch of our series: The Organization’s Playbook. Here, the central question is no longer “Will an individual use technology?” but rather, “How doe...",
     "category": "Article Series"
   },
   {
@@ -140,7 +140,7 @@
     "url": "/article-bibliography-comprehensive-series-bibliography",
     "title": "Comprehensive Series Bibliography: Foundations of Technology Adoption",
     "description": "Definitive, exhaustive bibliography for the “Technology Adoption Models” series, covering individual user journeys and organizational playbooks with fully cited APA references.",
-    "content": "Comprehensive Series Bibliography: Foundations of Technology Adoption. Definitive, exhaustive bibliography for the “Technology Adoption Models” series, covering individual user journeys and organizational playbooks with fully cited APA references. Comprehensive Series Bibliography: Foundations of Technology Adoption Executive Summary This bibliography serves as the definitive, exhaustive scholarly record for the Technology Adoption Models series. It consolidates every intellectual foundation identified in the project research database, bifurcated into the Individual User Journey Branch and the Organization Playbook Branch For doctoral-level researchers, document provides the complete longitudinal record of theory evolution, ensuring no seminal work the source RIS datasets is omitted. For e...",
+    "content": "Comprehensive Series Bibliography: Foundations of Technology Adoption. Definitive, exhaustive bibliography for the “Technology Adoption Models” series, covering individual user journeys and organizational playbooks with fully cited APA references. Comprehensive Series Bibliography: Foundations of Technology Adoption Executive Summary This bibliography serves as the definitive, exhaustive scholarly record for the Technology Adoption Models series. It consolidates every intellectual foundation identified in the project research database, bifurcated into the Individual User Journey Branch and the Organization Playbook Branch For doctoral-level researchers, document provides the complete longitudinal record of theory evolution, ensuring no seminal work from the source RIS datasets is omitted. ...",
     "category": "Article Series"
   },
   {
@@ -160,347 +160,339 @@
     "category": "Barriers"
   },
   {
-    "id": "barriers-survey-stats",
-    "url": "/barriers/survey-stats",
-    "title": "Redirecting - TABS",
-    "description": "",
-    "content": "Redirecting - TABS",
-    "category": "Barriers"
-  },
-  {
     "id": "bibliography-1-1-theory-of-reasoned-action-tra-fishbein-ajzen-1975",
     "url": "/bibliography-1-1-theory-of-reasoned-action-tra-fishbein-ajzen-1975",
     "title": "Bibliography: Theory of Reasoned Action (TRA) - Fishbein & Ajzen (1975)",
     "description": "Deep dive into Theory of Reasoned Action (TRA) by Martin Fishbein and Icek Ajzen (1975), exploring its foundational contributions to technology adoption research.",
-    "content": "Bibliography: Theory of Reasoned Action (TRA) - Fishbein & Ajzen (1975). Deep dive into Theory of Reasoned Action (TRA) by Martin Fishbein and Icek Ajzen (1975), exploring its foundational contributions to technology adoption research. Theory of Reasoned Action TRA Fishbein Ajzen 1975 Model Identification Model Name: Theory of Reasoned Action TRA Authors: Martin Fishbein and Icek Ajzen Publication Date: 1975 Citation Information Fishbein, M., Ajzen, I. 1975 Belief, attitude, intention, and behavior: An introduction to theory and research Addison-Wesley Publishing Company. Why was the model made? The Theory of Reasoned Action emerged Fishbein and Ajzen’s attempt to resolve one of the most persistent and frustrating problems in social psychology: the weak relationship between attitudes and a...",
+    "content": "Bibliography: Theory of Reasoned Action (TRA) - Fishbein & Ajzen (1975). Deep dive into Theory of Reasoned Action (TRA) by Martin Fishbein and Icek Ajzen (1975), exploring its foundational contributions to technology adoption research. Theory of Reasoned Action TRA Fishbein Ajzen 1975 Model Identification Model Name: Theory of Reasoned Action Model Abbreviation: TRA Target of Model: Individual Technology Adoption Disciplinary Origin: Social Psychology Theory Publication Information Authors: Martin Fishbein and Icek Ajzen Formal Publication Date: 1975 Official Title: Belief, Attitude, Intention, and Behavior: An Introduction to Theory and Research Publisher: Addison-Wesley Publishing Company Pages: 578 ISBN: 978-0-201-02089-2 Citation Information APA 7th ed. Fishbein, M., Ajzen, I. 1975 Bel...",
     "category": "Bibliography"
   },
   {
     "id": "bibliography-1-10-decomposed-tpb-taylor-todd-1995",
     "url": "/bibliography-1-10-decomposed-tpb-taylor-todd-1995",
     "title": "Bibliography: Decomposed TPB - Taylor & Todd (1995)",
-    "description": "Deep dive into Understanding Information Technology Usage: A Test of by Shirley Taylor, Peter A. Todd (1995), exploring its foundational contributions to technology adoption research.",
-    "content": "Bibliography: Decomposed TPB - Taylor & Todd (1995). Deep dive into Understanding Information Technology Usage: A Test of by Shirley Taylor, Peter A. Todd (1995), exploring its foundational contributions to technology adoption research. Decomposed TPB Taylor Todd 1995 Model Identification Model Name: Decomposed Theory of Planned Behavior DTPB Authors: Shirley Taylor, Peter A. Todd Publication Date: 1995 Citation Information Taylor, S., Todd, P. A. 1995 Understanding information technology usage: test of competing models. Information Systems Research, 144-176. Why was the model made? Taylor and Todd developed their competing models framework to address fundamental ambiguities and theoretical gaps in information technology adoption research. By the mid-1990s, multiple theoretical frameworks ...",
+    "description": "Comprehensive analysis of the Decomposed Theory of Planned Behavior (DTPB), which decomposes attitudinal, normative, and control beliefs into technology-specific multidimensional constructs for predicting IT adoption.",
+    "content": "Bibliography: Decomposed TPB - Taylor & Todd (1995). Comprehensive analysis of the Decomposed Theory of Planned Behavior (DTPB), which decomposes attitudinal, normative, and control beliefs into technology-specific multidimensional constructs for predicting IT adoption. Decomposed TPB Taylor Todd 1995 Model Identification Model Name: Decomposed Theory of Planned Behavior Model Abbreviation: DTPB Target of Model: IT Adoption and Usage Behavior Prediction Disciplinary Origin: Information Systems, Social Psychology, Behavioral Decision Making Theory Publication Information Authors: Shirley Taylor, Peter A. Todd Formal Publication Date: 1995 Official Title: Understanding Information Technology Usage: Test of Competing Models Journal: Information Systems Research Volume Issue: Vol. 6, No. Pages...",
     "category": "Bibliography"
   },
   {
     "id": "bibliography-1-11-task-technology-fit-ttf-goodhue-thompson-1995",
     "url": "/bibliography-1-11-task-technology-fit-ttf-goodhue-thompson-1995",
     "title": "Bibliography: Task-Technology Fit (TTF) - Goodhue & Thompson (1995)",
-    "description": "Deep dive into Task-Technology Fit and Individual Performance by Dorothy L. Goodhue, Thomas B. Thompson (1995), exploring its foundational contributions to technology adoption research.",
-    "content": "Bibliography: Task-Technology Fit (TTF) - Goodhue & Thompson (1995). Deep dive into Task-Technology Fit and Individual Performance by Dorothy L. Goodhue, Thomas B. Thompson (1995), exploring its foundational contributions to technology adoption research. Task-Technology Fit TTF Goodhue Thompson 1995 Model Identification Model Name: Task-Technology Fit and Individual Performance Authors: Dorothy L. Goodhue, Thomas B. Thompson Publication Date: 1995 Citation Information Goodhue, D. L., Thompson, T. B. 1995 Task-technology fit and individual performance. MIS Quarterly, 19 213-236. Why was the model made? Goodhue and Thompson developed the Task-Technology Fit model to address fundamental disconnect in Information Systems research: technologies receiving strong acceptance and widespread adoptio...",
+    "description": "Deep exploration of the Task-Technology Fit model, which posits that IT system characteristics and user task requirements determine system fit, functional utilization, and individual performance.",
+    "content": "Bibliography: Task-Technology Fit (TTF) - Goodhue & Thompson (1995). Deep exploration of the Task-Technology Fit model, which posits that IT system characteristics and user task requirements determine system fit, functional utilization, and individual performance. Task-Technology Fit TTF Goodhue Thompson 1995 Model Identification Model Name: Task-Technology Fit and Individual Performance Model Abbreviation: TTF Model Target of Model: Fit Between Task Requirements and Technology Capabilities Disciplinary Origin: Information Systems, Organizational Behavior, Human-Computer Interaction Theory Publication Information Authors: Dale L. Goodhue, Ronald L. Thompson Formal Publication Date: 1995 Official Title: Task-Technology Fit and Individual Performance Journal: MIS Quarterly Volume Issue: Vol....",
     "category": "Bibliography"
   },
   {
     "id": "bibliography-1-12-technology-readiness-index-tri-parasuraman-2000",
     "url": "/bibliography-1-12-technology-readiness-index-tri-parasuraman-2000",
     "title": "Bibliography: Technology Readiness Index (TRI) - Parasuraman (2000)",
-    "description": "Deep dive into the Technology Readiness Index (TRI) by A. Parasuraman (2000), exploring its foundational contributions to technology adoption research.",
-    "content": "Bibliography: Technology Readiness Index (TRI) - Parasuraman (2000). Deep dive into the Technology Readiness Index (TRI) by A. Parasuraman (2000), exploring its foundational contributions to technology adoption research. Technology Readiness Index TRI Parasuraman 2000 Model Identification Model Name: Technology Readiness Index Authors: A. Parasuraman Publication Date: 2000 Citation Information Parasuraman, A. 2000 Technology readiness TRI multiple-item scale to measure readiness to embrace technologies. Journal of Service Research 307-320. The Technology Readiness Index was developed to address significant in the extant literature on technology adoption and consumer behavior. While extensive research existed on people’s adoption of technology in organizational and work settings, little sch...",
+    "description": "In-depth exploration of the Technology Readiness Index (TRI), a foundational scale measuring individual predispositions to embrace or resist technology innovations across four dimensions.",
+    "content": "Bibliography: Technology Readiness Index (TRI) - Parasuraman (2000). In-depth exploration of the Technology Readiness Index (TRI), a foundational scale measuring individual predispositions to embrace or resist technology innovations across four dimensions. Technology Readiness Index TRI Parasuraman 2000 Model Identification Model Name: Technology Readiness Index Model Abbreviation: TRI Target of Model: Individual Psychological Readiness and Propensity to Adopt Technology Disciplinary Origin: Consumer Behavior, Service Marketing, Technology Adoption Theory Publication Information Author: A. Parasuraman Formal Publication Date: 2000 Official Title: Technology readiness TRI multiple-item scale to measure readiness to embrace technologies Journal: Journal of Service Research Volume Issue: Vol....",
     "category": "Bibliography"
   },
   {
     "id": "bibliography-1-13-technology-acceptance-model-2-tam2-venkatesh-davis-2000",
     "url": "/bibliography-1-13-technology-acceptance-model-2-tam2-venkatesh-davis-2000",
     "title": "Bibliography: Technology Acceptance Model 2 (TAM2) - Venkatesh & Davis (2000)",
-    "description": "Deep dive into the Technology Acceptance Model 2 (TAM2) by Viswanath Venkatesh and Fred D. Davis (2000), exploring social influence and cognitive instrumental processes that determine perceived usefulness in technology adoption.",
-    "content": "Bibliography: Technology Acceptance Model 2 (TAM2) - Venkatesh & Davis (2000). Deep dive into the Technology Acceptance Model 2 (TAM2) by Viswanath Venkatesh and Fred D. Davis (2000), exploring social influence and cognitive instrumental processes that determine perceived usefulness in technology adoption. Technology Acceptance Model TAM2 Venkatesh Davis 2000 Model Identification Model Name: Technology Acceptance Model TAM2 Authors: Viswanath Venkatesh and Fred D. Davis Publication Date: 2000 Citation Information Venkatesh, V., Davis, F. D. 2000 theoretical extension of the technology acceptance model: Four longitudinal field studies. Management Science 46 186-204. https:// .11926 Why TAM2 Was Created The Technology Acceptance Model TAM proposed by Davis in 1989, identified perceived usefu...",
+    "description": "In-depth exploration of the Technology Acceptance Model 2 (TAM2), extending the original TAM with social influence and cognitive instrumental processes through four longitudinal field studies.",
+    "content": "Bibliography: Technology Acceptance Model 2 (TAM2) - Venkatesh & Davis (2000). In-depth exploration of the Technology Acceptance Model 2 (TAM2), extending the original TAM with social influence and cognitive instrumental processes through four longitudinal field studies. Technology Acceptance Model TAM2 Venkatesh Davis 2000 Model Identification Model Name: Technology Acceptance Model Model Abbreviation: TAM2 Target of Model: Determinants of Perceived Usefulness and User Acceptance in Mandatory and Voluntary Adoption Contexts Disciplinary Origin: Information Systems, Technology Adoption, Organizational Behavior Theory Publication Information Authors: Viswanath Venkatesh and Fred D. Davis Formal Publication Date: 2000 Official Title: theoretical extension of the technology acceptance model: ...",
     "category": "Bibliography"
   },
   {
     "id": "bibliography-1-14-expectation-confirmation-model-ecm-bhattacherjee-2001",
     "url": "/bibliography-1-14-expectation-confirmation-model-ecm-bhattacherjee-2001",
     "title": "Bibliography: Expectation-Confirmation Model (ECM) - Bhattacherjee (2001)",
-    "description": "Deep dive into Expectation-Confirmation Model of Information Systems by Anol Bhattacherjee (2001), exploring its foundational contributions to technology adoption research.",
-    "content": "Bibliography: Expectation-Confirmation Model (ECM) - Bhattacherjee (2001). Deep dive into Expectation-Confirmation Model of Information Systems by Anol Bhattacherjee (2001), exploring its foundational contributions to technology adoption research. Expectation-Confirmation Model ECM Bhattacherjee 2001 Model Identification Model Name: Expectation-Confirmation Model of Information Systems Authors: Anol Bhattacherjee Publication Date: 2001 Citation Information Bhattacherjee, A. 2001 Understanding information systems continuance: An expectation-confirmation model. MIS Quarterly, 25 351-370. Why was the model made? Bhattacherjee developed the Expectation-Confirmation Model of Information Systems Continuance ECM-ISC in response to critical in information systems research. While substantial resear...",
+    "description": "In-depth exploration of the Expectation-Confirmation Model (ECM), adapting expectation-confirmation theory to information systems post-adoption continuance behavior.",
+    "content": "Bibliography: Expectation-Confirmation Model (ECM) - Bhattacherjee (2001). In-depth exploration of the Expectation-Confirmation Model (ECM), adapting expectation-confirmation theory to information systems post-adoption continuance behavior. Expectation-Confirmation Model ECM Bhattacherjee 2001 Model Identification Model Name: Expectation-Confirmation Model Model Abbreviation: ECM, IS Continuance Model Target of Model: Post-Adoption Continuance Intentions and Sustained Technology Use Disciplinary Origin: Information Systems, Consumer Behavior, Technology Adoption Theory Publication Information Author: Anol Bhattacherjee Formal Publication Date: 2001 Official Title: Understanding information systems continuance: An expectation-confirmation model Journal: MIS Quarterly Volume Issue: Vol. 25, ...",
     "category": "Bibliography"
   },
   {
     "id": "bibliography-1-15-unified-theory-utaut-venkatesh-2003",
     "url": "/bibliography-1-15-unified-theory-utaut-venkatesh-2003",
     "title": "Bibliography: Unified Theory of Acceptance and Use of Technology (UTAUT) - Venkatesh et al. (2003)",
-    "description": "Deep dive into the Unified Theory of Acceptance and Use of Technology (UTAUT) by Venkatesh, Morris, Davis, and Davis (2003), a landmark synthesis of eight competing technology adoption models into a single unified framework.",
-    "content": "Bibliography: Unified Theory of Acceptance and Use of Technology (UTAUT) - Venkatesh et al. (2003). Deep dive into the Unified Theory of Acceptance and Use of Technology (UTAUT) by Venkatesh, Morris, Davis, and Davis (2003), a landmark synthesis of eight competing technology adoption models into a single unified framework. Unified Theory of Acceptance and Use of Technology UTAUT Venkatesh et al. 2003 Model Identification Model Name: Unified Theory of Acceptance and Use of Technology UTAUT Authors: Viswanath Venkatesh, Michael G. Morris, Gordon B. Davis, and Fred D. Davis Publication Date: 2003 Citation Information Venkatesh, V., Morris, M. G., Davis, G. B., Davis, F. D. 2003 User acceptance of information technology: Toward unified view. MIS Quarterly 27 425-478. https:// /30036540 Why UTA...",
+    "description": "Comprehensive overview of the Unified Theory of Acceptance and Use of Technology (UTAUT), synthesizing eight prior models to predict technology acceptance with performance expectancy, effort expectancy, social influence, and facilitating conditions across user demographics.",
+    "content": "Bibliography: Unified Theory of Acceptance and Use of Technology (UTAUT) - Venkatesh et al. (2003). Comprehensive overview of the Unified Theory of Acceptance and Use of Technology (UTAUT), synthesizing eight prior models to predict technology acceptance with performance expectancy, effort expectancy, social influence, and facilitating conditions across user demographics. Unified Theory of Acceptance and Use of Technology UTAUT Venkatesh et al. 2003 Model Identification Model Name: Unified Theory of Acceptance and Use of Technology Model Abbreviation: UTAUT Target of Model: Determinants of technology acceptance intention and usage behavior integrating constructs from eight prior adoption theories with moderating effects of demographic and contextual factors Disciplinary Origin: Information...",
     "category": "Bibliography"
   },
   {
-    "id": "bibliography-1-16-math-venkatesh-brown-2001",
-    "url": "/bibliography-1-16-math-venkatesh-brown-2001",
-    "title": "Bibliography: Model of Adoption of Technology in Households (MATH) - Venkatesh & Brown (2001)",
-    "description": "Deep dive into Model of Adoption of Technology in Households (MATH) by Susan A. Brown and Viswanath Venkatesh (2005), exploring its foundational contributions to technology adoption research.",
-    "content": "Bibliography: Model of Adoption of Technology in Households (MATH) - Venkatesh & Brown (2001). Deep dive into Model of Adoption of Technology in Households (MATH) by Susan A. Brown and Viswanath Venkatesh (2005), exploring its foundational contributions to technology adoption research. Model of Adoption of Technology in Households MATH Venkatesh Brown 2001 Model Identification Model Name: Model of Adoption of Technology in Households MATH Authors: Susan A. Brown and Viswanath Venkatesh Publication Date: 2005 Citation Information Brown, S. A., Venkatesh, V. 2005 model of adoption of technology in households: baseline model test and extension incorporating household life cycle. MIS Quarterly, 29 399-426. Why was the model made? Brown and Venkatesh developed MATH in response to significant in...",
+    "id": "bibliography-1-16-math-brown-venkatesh-2005",
+    "url": "/bibliography-1-16-math-brown-venkatesh-2005",
+    "title": "Bibliography: Model of Adoption of Technology in Households (MATH) - Brown & Venkatesh (2005)",
+    "description": "In-depth exploration of the Model of Adoption of Technology in Households (MATH), identifying attitudinal, normative, and control beliefs as predictors of PC adoption in household contexts distinct from organizational technology adoption.",
+    "content": "Bibliography: Model of Adoption of Technology in Households (MATH) - Brown & Venkatesh (2005). In-depth exploration of the Model of Adoption of Technology in Households (MATH), identifying attitudinal, normative, and control beliefs as predictors of PC adoption in household contexts distinct from organizational technology adoption. Model of Adoption of Technology in Households MATH Brown Venkatesh 2005 Model Identification Model Name: Model of Adoption of Technology in Households Model Abbreviation: MATH Target of Model: Determinants of personal computer adoption decisions in household contexts, distinguishing household technology adoption from organizational technology adoption through attitudinal, normative, and control beliefs Disciplinary Origin: Consumer Behavior, Household Economics,...",
     "category": "Bibliography"
   },
   {
     "id": "bibliography-1-17-value-based-adoption-kim-2007",
     "url": "/bibliography-1-17-value-based-adoption-kim-2007",
-    "title": "Bibliography: Value-Based Adoption Model - Kim et al. (2007)",
-    "description": "Deep dive into the Value-Based Adoption of Mobile Internet (VAM) model by Kim et al. (2007), exploring its foundational contributions to technology adoption research.",
-    "content": "Bibliography: Value-Based Adoption Model - Kim et al. (2007). Deep dive into the Value-Based Adoption of Mobile Internet (VAM) model by Kim et al. (2007), exploring its foundational contributions to technology adoption research. Value-Based Adoption Model Kim et al. 2007 Model Identification Model Name: Value-Based Adoption of Mobile Internet VAM Authors: Kim et al. Publication Date: 2007 Citation Information Kim, H.-W., Chan, H. C., Gupta, S. 2007 Value-based adoption of mobile internet: An empirical investigation. Decision Support Systems 43 111-126. Why was the model made? The Value-Based Adoption of Mobile Internet VAM model was developed to address fundamental in existing technology adoption theories. The authors recognized that previous adoption models, particularly the Technology Ac...",
+    "title": "Bibliography: Value-Based Adoption Model (VAM) - Kim et al. (2007)",
+    "description": "Comprehensive examination of the Value-Based Adoption Model (VAM), which posits that technology adoption is driven by perceived value as trade-off between perceived benefits and perceived sacrifices in consumer technology adoption.",
+    "content": "Bibliography: Value-Based Adoption Model (VAM) - Kim et al. (2007). Comprehensive examination of the Value-Based Adoption Model (VAM), which posits that technology adoption is driven by perceived value as trade-off between perceived benefits and perceived sacrifices in consumer technology adoption. Value-Based Adoption Model VAM Kim et al. 2007 Model Identification Model Name: Value-Based Adoption Model Model Abbreviation: VAM Target of Model: Determinants of consumer technology adoption intention based on perceived value as trade-off between perceived benefits usefulness and enjoyment and perceived sacrifices fee and technicality Disciplinary Origin: Consumer Behavior, Marketing, Technology Adoption, Value Theory Theory Publication Information Authors: Hee-Woong Kim, Hock Chuan Chan, and ...",
     "category": "Bibliography"
   },
   {
     "id": "bibliography-1-18-tram-lin-2007",
     "url": "/bibliography-1-18-tram-lin-2007",
     "title": "Bibliography: Technology Readiness and Acceptance Model (TRAM) - Lin et al. (2007)",
-    "description": "Deep dive into the Technology Readiness and Acceptance Model (TRAM) by Lin et al. (2007), exploring its foundational contributions to technology adoption research.",
-    "content": "Bibliography: Technology Readiness and Acceptance Model (TRAM) - Lin et al. (2007). Deep dive into the Technology Readiness and Acceptance Model (TRAM) by Lin et al. (2007), exploring its foundational contributions to technology adoption research. Technology Readiness and Acceptance Model TRAM Lin et al. 2007 Model Identification Model Name: Technology Readiness and Acceptance Model TRAM Authors: Lin et al. Publication Date: 2007 Citation Information Lin, C.-H., Shih, H.-Y., Sher, P. J. 2007 Integrating technology readiness into technology acceptance: The TRAM model. Psychology Marketing 24 641-657. Why was the model made? The Technology Readiness and Acceptance Model TRAM was developed to address significant in existing technology adoption literature by integrating two complementary but p...",
+    "description": "Comprehensive overview of the Technology Readiness and Acceptance Model (TRAM), integrating personality dimensions of technology readiness with technology acceptance constructs to predict technology adoption across demographic segments.",
+    "content": "Bibliography: Technology Readiness and Acceptance Model (TRAM) - Lin et al. (2007). Comprehensive overview of the Technology Readiness and Acceptance Model (TRAM), integrating personality dimensions of technology readiness with technology acceptance constructs to predict technology adoption across demographic segments. Technology Readiness and Acceptance Model TRAM Lin et al. 2007 Model Identification Model Name: Technology Readiness and Acceptance Model Model Abbreviation: TRAM Target of Model: Integration of technology readiness personality dimensions with technology acceptance constructs to predict adoption intention and technology acceptance across user populations Disciplinary Origin: Information Systems, Technology Adoption, Consumer Behavior, Marketing Psychology Theory Publication ...",
     "category": "Bibliography"
   },
   {
     "id": "bibliography-1-19-technology-acceptance-model-3-tam3-venkatesh-bala-2008",
     "url": "/bibliography-1-19-technology-acceptance-model-3-tam3-venkatesh-bala-2008",
     "title": "Bibliography: Technology Acceptance Model 3 (TAM3) - Venkatesh & Bala (2008)",
-    "description": "Deep dive into the Technology Acceptance Model 3 (TAM3) by Viswanath Venkatesh and Hillol Bala (2008), providing a complete nomological network of TAM with determinants of perceived usefulness and perceived ease of use plus a research agenda on interventions.",
-    "content": "Bibliography: Technology Acceptance Model 3 (TAM3) - Venkatesh & Bala (2008). Deep dive into the Technology Acceptance Model 3 (TAM3) by Viswanath Venkatesh and Hillol Bala (2008), providing a complete nomological network of TAM with determinants of perceived usefulness and perceived ease of use plus a research agenda on interventions. Technology Acceptance Model TAM3 Venkatesh Bala 2008 Model Identification Model Name: Technology Acceptance Model TAM3 Authors: Viswanath Venkatesh and Hillol Bala Publication Date: 2008 Citation Information Venkatesh, V., Bala, H. 2008 Technology acceptance model and research agenda on interventions. Decision Sciences 39 273-315. https:// Why TAM3 Was Created By 2008, the Technology Acceptance Model lineage had produced two important but incomplete extensio...",
+    "description": "Comprehensive overview of the Technology Acceptance Model 3 (TAM3), synthesizing TAM2 antecedents of perceived usefulness with determinants of perceived ease of use, including experience and usage moderators.",
+    "content": "Bibliography: Technology Acceptance Model 3 (TAM3) - Venkatesh & Bala (2008). Comprehensive overview of the Technology Acceptance Model 3 (TAM3), synthesizing TAM2 antecedents of perceived usefulness with determinants of perceived ease of use, including experience and usage moderators. Technology Acceptance Model TAM3 Venkatesh Bala 2008 Model Identification Model Name: Technology Acceptance Model Model Abbreviation: TAM3 Target of Model: Integration of TAM2 determinants of perceived usefulness with comprehensive determinants of perceived ease of use, including moderating effects of experience and usage context Disciplinary Origin: Information Systems, Technology Adoption, Human-Computer Interaction Theory Publication Information Authors: Viswanath Venkatesh and Hillol Bala Formal Publicat...",
     "category": "Bibliography"
   },
   {
     "id": "bibliography-1-2-diffusion-of-innovations-rogers",
     "url": "/bibliography-1-2-diffusion-of-innovations-rogers",
-    "title": "Bibliography: Diffusion of Innovations - Rogers",
-    "description": "Deep dive into Diffusion of Innovations by Everett M. Rogers (1962), exploring its foundational contributions to technology adoption research.",
-    "content": "Bibliography: Diffusion of Innovations - Rogers. Deep dive into Diffusion of Innovations by Everett M. Rogers (1962), exploring its foundational contributions to technology adoption research. Diffusion of Innovations Rogers Model Identification Model Name: Diffusion of Innovations Authors: Everett M. Rogers Publication Date: 1962 Citation Information Rogers, E. M. 1962 Diffusion of innovations Free Press. Why was the model made? Rogers developed the Diffusion of Innovations framework to address fundamental in understanding technology adoption across diverse contexts. The core problem motivating model was simple yet profound: there is wide between when innovations become available and when they are actually adopted. Many innovations require lengthy periods sometimes years their introduction...",
+    "title": "Bibliography: Diffusion of Innovations - Rogers (1962)",
+    "description": "Deep dive into Diffusion of Innovations by Everett M. Rogers (1962), a foundational framework for understanding how innovations spread across individuals and organizations.",
+    "content": "Bibliography: Diffusion of Innovations - Rogers (1962). Deep dive into Diffusion of Innovations by Everett M. Rogers (1962), a foundational framework for understanding how innovations spread across individuals and organizations. Diffusion of Innovations Rogers 1962 Model Identification Model Name: Diffusion of Innovations Model Abbreviation: DOI Target of Model: Individual Innovation Adoption organizational adoption covered in Bibliography 2-21 Disciplinary Origin: Interdisciplinary synthesizing agricultural economics, rural sociology, public health, anthropology, communication, marketing Theory Publication Information Author: Everett M. Rogers Formal Publication Date: 1962 Official Title: Diffusion of Innovations Publisher: The Free Press ISBN: 978-0-7432-2209-9 5th edition, 2003 Citation...",
     "category": "Bibliography"
   },
   {
     "id": "bibliography-1-20-utaut2-venkatesh-2012",
     "url": "/bibliography-1-20-utaut2-venkatesh-2012",
     "title": "Bibliography: Unified Theory of Acceptance and Use of Technology 2 (UTAUT2) - Venkatesh et al. (2012)",
-    "description": "Deep dive into the Unified Theory of Acceptance and Use of Technology 2 (UTAUT2) by Venkatesh, Thong, and Xu (2012), extending the UTAUT framework to consumer technology adoption with hedonic motivation, price value, and habit.",
-    "content": "Bibliography: Unified Theory of Acceptance and Use of Technology 2 (UTAUT2) - Venkatesh et al. (2012). Deep dive into the Unified Theory of Acceptance and Use of Technology 2 (UTAUT2) by Venkatesh, Thong, and Xu (2012), extending the UTAUT framework to consumer technology adoption with hedonic motivation, price value, and habit. Unified Theory of Acceptance and Use of Technology UTAUT2 Venkatesh et al. 2012 Model Identification Model Name: Unified Theory of Acceptance and Use of Technology UTAUT2 Authors: Viswanath Venkatesh, James Y. L. Thong, and Xin Xu Publication Date: 2012 Citation Information Venkatesh, V., Thong, J. Y. L., Xu, X. 2012 Consumer acceptance and use of information technology: Extending the unified theory of acceptance and use of technology. MIS Quarterly 36 157-178. htt...",
+    "description": "Comprehensive overview of UTAUT2, extending the unified theory of technology acceptance to consumer contexts by adding hedonic motivation, price value, and habit as key adoption determinants.",
+    "content": "Bibliography: Unified Theory of Acceptance and Use of Technology 2 (UTAUT2) - Venkatesh et al. (2012). Comprehensive overview of UTAUT2, extending the unified theory of technology acceptance to consumer contexts by adding hedonic motivation, price value, and habit as key adoption determinants. Unified Theory of Acceptance and Use of Technology UTAUT2 Venkatesh et al. 2012 Model Identification Model Name: Unified Theory of Acceptance and Use of Technology Model Abbreviation: UTAUT2 Target of Model: Determinants of consumer adoption and use of technology, extending UTAUT by adding hedonic motivation, price value, and habit while removing voluntariness moderator for voluntary consumer contexts Disciplinary Origin: Information Systems, Consumer Behavior, Technology Adoption, Marketing Theory P...",
     "category": "Bibliography"
   },
   {
     "id": "bibliography-1-21-technology-readiness-index-2-tri-2-parasuraman-colby-2015",
     "url": "/bibliography-1-21-technology-readiness-index-2-tri-2-parasuraman-colby-2015",
     "title": "Bibliography: Technology Readiness Index 2.0 (TRI 2.0) - Parasuraman & Colby (2015)",
-    "description": "Deep dive into Technology Readiness Index 2.0 by A. Parasuraman, (2015), exploring its foundational contributions to technology adoption research.",
-    "content": "Bibliography: Technology Readiness Index 2.0 (TRI 2.0) - Parasuraman & Colby (2015). Deep dive into Technology Readiness Index 2.0 by A. Parasuraman, (2015), exploring its foundational contributions to technology adoption research. Technology Readiness Index TRI Parasuraman Colby 2015 Model Identification Model Name: Technology Readiness Index Authors: A. Parasuraman, Publication Date: 2015 Citation Information Parasuraman, A., Colby, C. L. 2015 An updated and streamlined technology readiness index: TRI Journal of Service Research 18 59-74. Why was the model made? The TRI was developed to address limitations and necessary updates to the original 36-item Technology Readiness Index that had been in use for over decade. Although the original TRI had become widely used in academic research and...",
+    "description": "Comprehensive overview of the Technology Readiness Index 2.0 (TRI 2.0), an updated and streamlined measurement scale with 16 items assessing technology readiness across four dimensions: Optimism, Innovativeness, Discomfort, and Insecurity.",
+    "content": "Bibliography: Technology Readiness Index 2.0 (TRI 2.0) - Parasuraman & Colby (2015). Comprehensive overview of the Technology Readiness Index 2.0 (TRI 2.0), an updated and streamlined measurement scale with 16 items assessing technology readiness across four dimensions: Optimism, Innovativeness, Discomfort, and Insecurity. Technology Readiness Index TRI Parasuraman Colby 2015 Model Identification Model Name: Technology Readiness Index Model Abbreviation: TRI Target of Model: Individual-level propensity to adopt and use technologies, measured as stable trait-like tendency reflecting optimism, innovativeness, discomfort, and insecurity regarding technology Disciplinary Origin: Marketing, Consumer Research, Technology Adoption, Information Systems Theory Publication Information Authors: A. Pa...",
     "category": "Bibliography"
   },
   {
     "id": "bibliography-1-3-social-cognitive-theory-sct-bandura-1986",
     "url": "/bibliography-1-3-social-cognitive-theory-sct-bandura-1986",
     "title": "Bibliography: Social Cognitive Theory (SCT) - Bandura (1986)",
-    "description": "Deep dive into Social Cognitive Theory (SCT) by Albert Bandura (1986), exploring its foundational contributions to technology adoption research.",
-    "content": "Bibliography: Social Cognitive Theory (SCT) - Bandura (1986). Deep dive into Social Cognitive Theory (SCT) by Albert Bandura (1986), exploring its foundational contributions to technology adoption research. Social Cognitive Theory SCT Bandura 1986 Model Identification Model Name: Social Cognitive Theory SCT Authors: Albert Bandura Publication Date: 1986 Citation Information Bandura, A. 1986 Social foundations of thought and action: social cognitive theory Prentice-Hall. Why was the model made? Albert Bandura developed Social Cognitive Theory in 1986 to provide comprehensive psychological framework that addresses fundamental limitation in behavioral and cognitive psychology: the tendency to emphasize either environmental factors or personal factors in isolation. Bandura observed that human ...",
+    "description": "Deep dive into Social Cognitive Theory by Albert Bandura (1986), exploring self-efficacy and its critical role in technology adoption decisions.",
+    "content": "Bibliography: Social Cognitive Theory (SCT) - Bandura (1986). Deep dive into Social Cognitive Theory by Albert Bandura (1986), exploring self-efficacy and its critical role in technology adoption decisions. Social Cognitive Theory SCT Bandura 1986 Model Identification Model Name: Social Cognitive Theory Model Abbreviation: SCT Target of Model: Human behavior and learning later applied to individual technology adoption Disciplinary Origin: Psychological Theory Theory Publication Information Author: Albert Bandura Formal Publication Date: 1986 Official Title: Social Foundations of Thought and Action: Social Cognitive Theory Publisher: Prentice-Hall ISBN: 978-0-13-815614-5 Citation Information APA 7th ed. Bandura, A. 1986 Social foundations of thought and action: social cognitive theory Prent...",
     "category": "Bibliography"
   },
   {
     "id": "bibliography-1-4-model-of-innovation-resistance-ram-sheth-1989",
     "url": "/bibliography-1-4-model-of-innovation-resistance-ram-sheth-1989",
     "title": "Bibliography: Model of Innovation Resistance - Ram & Sheth (1989)",
-    "description": "Deep dive into A Model of Innovation Resistance by Sundaresan Ram (1987), exploring its foundational contributions to technology adoption research.",
-    "content": "Bibliography: Model of Innovation Resistance - Ram & Sheth (1989). Deep dive into A Model of Innovation Resistance by Sundaresan Ram (1987), exploring its foundational contributions to technology adoption research. Model of Innovation Resistance Ram Sheth 1989 Model Identification Model Name: Model of Innovation Resistance Authors: Sundaresan Ram Publication Date: 1987 Citation Information Ram, S. 1987 model of innovation resistance. In P. F. Schwepker J. F. Hair Eds. Research in Consumer Behavior, 4, 213-239. JAI Press. Why was the model made? Sundaresan Ram developed the Innovation Resistance Model to address critical in innovation adoption research. Prior research, particularly Rogers’ highly influential Diffusion of Innovations theory, focused extensively on understanding why some inno...",
+    "description": "The Innovation Resistance Model (IRM) by Ram (1987) and Ram & Sheth (1989) identifies usage, value, risk, tradition, and image barriers to technology adoption.",
+    "content": "Bibliography: Model of Innovation Resistance - Ram & Sheth (1989). The Innovation Resistance Model (IRM) by Ram (1987) and Ram & Sheth (1989) identifies usage, value, risk, tradition, and image barriers to technology adoption. Model of Innovation Resistance Ram Sheth 1989 Model Identification Model Name: Model of Innovation Resistance Model Abbreviation: IRM Innovation Resistance Model Target of Model: Individual Technology Adoption Disciplinary Origin: Consumer Behavior and Innovation Research Theory Publication Information Authors: Sundaresan Ram 1987 Sundaresan Ram Jagdish N. Sheth 1989 Formal Publication Date: 1987 original model 1989 expanded theory Official Title: Model of Innovation Resistance Publication Venue: Advances in Consumer Research, Vol. 14 1987 expanded in Journal of Cons...",
     "category": "Bibliography"
   },
   {
     "id": "bibliography-1-5-status-quo-bias-samuelson-zeckhauser-1988",
     "url": "/bibliography-1-5-status-quo-bias-samuelson-zeckhauser-1988",
-    "title": "Bibliography: Status Quo Bias - Samuelson & Zeckhauser (1988)",
-    "description": "Deep dive into Status Quo Bias (also referenced as Status Quo Effect) by William Samuelson and Richard Zeckhauser (1988), exploring its foundational contributions to technology adoption research.",
-    "content": "Bibliography: Status Quo Bias - Samuelson & Zeckhauser (1988). Deep dive into Status Quo Bias (also referenced as Status Quo Effect) by William Samuelson and Richard Zeckhauser (1988), exploring its foundational contributions to technology adoption research. Status Quo Bias Samuelson Zeckhauser 1988 Model Identification Model Name: Status Quo Bias Authors: William Samuelson and Richard Zeckhauser Publication Date: 1988 Citation Information Samuelson, W., Zeckhauser, R. 1988 Status quo bias in decision making. Journal of Risk and Uncertainty, 7-59. Why was the model made? Samuelson and Zeckhauser developed their theory of status quo bias in response to striking and consistent empirical observation: individuals demonstrably deviate predictions of rational choice theory by disproportionately ...",
+    "title": "Bibliography: Status Quo Bias in Decision Making - Samuelson & Zeckhauser (1988)",
+    "description": "Deep dive into Status Quo Bias in Decision Making by Samuelson and Zeckhauser (1988), exploring how individuals favor maintaining existing alternatives in technology adoption decisions.",
+    "content": "Bibliography: Status Quo Bias in Decision Making - Samuelson & Zeckhauser (1988). Deep dive into Status Quo Bias in Decision Making by Samuelson and Zeckhauser (1988), exploring how individuals favor maintaining existing alternatives in technology adoption decisions. Status Quo Bias in Decision Making Samuelson Zeckhauser 1988 Model Identification Model Name: Status Quo Bias also Status Quo Effect, Status Quo Inertia Model Abbreviation: SQB Target of Model: Individual Decision-Making Bias Disciplinary Origin: Behavioral Economics and Decision Theory Theory Publication Information Authors: William Samuelson and Richard Zeckhauser Formal Publication Date: 1988 Official Title: Status Quo Bias in Decision Making Journal: Journal of Risk and Uncertainty Volume/Issue: pp. 7-59 DOI: /BF00055551 C...",
     "category": "Bibliography"
   },
   {
     "id": "bibliography-1-6-technology-acceptance-model-tam-davis-1989",
     "url": "/bibliography-1-6-technology-acceptance-model-tam-davis-1989",
     "title": "Bibliography: Technology Acceptance Model (TAM) - Davis (1989)",
-    "description": "Deep dive into Technology Acceptance Model by Fred D. Davis (1989), exploring its foundational contributions to technology adoption research.",
-    "content": "Bibliography: Technology Acceptance Model (TAM) - Davis (1989). Deep dive into Technology Acceptance Model by Fred D. Davis (1989), exploring its foundational contributions to technology adoption research. Technology Acceptance Model TAM Davis 1989 Model Identification Model Name: Technology Acceptance Model Authors: Fred D. Davis Publication Date: 1989 Citation Information Davis, F. D. 1989 Perceived usefulness, perceived ease of use, and user acceptance of information technology. MIS Quarterly, 13 319-340. Why was the model made? Fred Davis developed the Technology Acceptance Model to address critical in information systems research and practice. The fundamental problem motivating TAM was straightforward but significant: Information Systems practitioners and organizations needed predicti...",
+    "description": "Deep dive into the Technology Acceptance Model by Fred Davis (1989), exploring perceived usefulness and ease of use as determinants of technology adoption.",
+    "content": "Bibliography: Technology Acceptance Model (TAM) - Davis (1989). Deep dive into the Technology Acceptance Model by Fred Davis (1989), exploring perceived usefulness and ease of use as determinants of technology adoption. Technology Acceptance Model TAM Davis 1989 Model Identification Model Name: Technology Acceptance Model Model Abbreviation: TAM Target of Model: Individual Technology Adoption in Organizational Contexts Disciplinary Origin: Information Systems, Applied Behavioral Science Theory Publication Information Author: Fred D. Davis Formal Publication Date: 1989 Official Title: Perceived Usefulness, Perceived Ease of Use, and User Acceptance of Information Technology Journal: MIS Quarterly Volume Issue: Vol. 13, No. Pages: 319-340 DOI: /249008 Citation Information APA 7th ed. Davis, ...",
     "category": "Bibliography"
   },
   {
     "id": "bibliography-1-7-theory-of-planned-behavior-tpb-ajzen-1991",
     "url": "/bibliography-1-7-theory-of-planned-behavior-tpb-ajzen-1991",
     "title": "Bibliography: Theory of Planned Behavior (TPB) - Ajzen (1991)",
-    "description": "Deep dive into Theory of Planned Behavior by Icek Ajzen (1991), exploring its foundational contributions to technology adoption research.",
-    "content": "Bibliography: Theory of Planned Behavior (TPB) - Ajzen (1991). Deep dive into Theory of Planned Behavior by Icek Ajzen (1991), exploring its foundational contributions to technology adoption research. Theory of Planned Behavior TPB Ajzen 1991 Model Identification Model Name: Theory of Planned Behavior Authors: Icek Ajzen Publication Date: 1991 Citation Information Ajzen, I. 1991 The theory of planned behavior. Organizational Behavior and Human Decision Processes, 50 179-211. Why was the model made? Ajzen developed the Theory of Planned Behavior to address critical limitations in the Theory of Reasoned Action TRA and to provide more comprehensive framework for understanding and predicting intentional behavior across diverse behavioral domains. The fundamental motivation stemmed recognizing ...",
+    "description": "Deep dive into the Theory of Planned Behavior by Icek Ajzen (1991), exploring attitudes, norms, and perceived control as determinants of intentional behavior.",
+    "content": "Bibliography: Theory of Planned Behavior (TPB) - Ajzen (1991). Deep dive into the Theory of Planned Behavior by Icek Ajzen (1991), exploring attitudes, norms, and perceived control as determinants of intentional behavior. Theory of Planned Behavior TPB Ajzen 1991 Model Identification Model Name: Theory of Planned Behavior Authors: Icek Ajzen Publication Date: 1991 Model Abbreviation: TPB Target of Model: Individual Intentional Behavior Across Diverse Domains Disciplinary Origin: Social Psychology, Behavioral Science Theory Publication Information Author: Icek Ajzen Formal Publication Date: 1991 Official Title: The Theory of Planned Behavior Journal: Organizational Behavior and Human Decision Processes Volume Issue: Vol. 50, No. Pages: 179-211 DOI: /0749-5978 91 90020-T Citation Information...",
     "category": "Bibliography"
   },
   {
-    "id": "bibliography-1-8-personal-computing-acceptance-thompson-1991",
-    "url": "/bibliography-1-8-personal-computing-acceptance-thompson-1991",
-    "title": "Bibliography: Personal Computing Acceptance - Thompson et al. (1991)",
-    "description": "Deep dive into Toward a Conceptual Model of Personal Computing by Ronald L. Thompson, Christopher A. Higgins, Jane M. Howell (1991), exploring its foundational contributions to technology adoption research.",
-    "content": "Bibliography: Personal Computing Acceptance - Thompson et al. (1991). Deep dive into Toward a Conceptual Model of Personal Computing by Ronald L. Thompson, Christopher A. Higgins, Jane M. Howell (1991), exploring its foundational contributions to technology adoption research. Personal Computing Acceptance Thompson et al. 1991 Model Identification Model Name: Toward Conceptual Model of Personal Computing Authors: Ronald L. Thompson, Christopher A. Higgins, Jane M. Howell Publication Date: 1991 Citation Information Thompson, R. L., Higgins, C. A., Howell, J. M. 1991 Toward conceptual model of personal computing utilization. MIS Quarterly, 15 125-143. Why was the model made? Thompson et al. developed their PC utilization model to address significant in understanding personal computer adoption...",
+    "id": "bibliography-1-8-personal-computing-utilization-thompson-1991",
+    "url": "/bibliography-1-8-personal-computing-utilization-thompson-1991",
+    "title": "Bibliography: Personal Computing Utilization - Thompson et al. (1991)",
+    "description": "Deep dive into the Personal Computing Utilization Model by Thompson, Higgins, and Howell (1991), exploring determinants of actual PC usage in organizational contexts.",
+    "content": "Bibliography: Personal Computing Utilization - Thompson et al. (1991). Deep dive into the Personal Computing Utilization Model by Thompson, Higgins, and Howell (1991), exploring determinants of actual PC usage in organizational contexts. Personal Computing Utilization Thompson et al. 1991 Model Identification Model Name: Toward Conceptual Model of Personal Computing Utilization Model Abbreviation: PC Utilization Model Target of Model: Individual Technology Usage in Organizational Contexts Disciplinary Origin: Information Systems, Organizational Behavior Theory Publication Information Authors: Ronald L. Thompson, Christopher A. Higgins, Jane M. Howell Formal Publication Date: 1991 Official Title: Toward Conceptual Model of Personal Computing Utilization Journal: MIS Quarterly Volume Issue: ...",
     "category": "Bibliography"
   },
   {
     "id": "bibliography-1-9-intrinsic-extrinsic-motivation-davis-1992",
     "url": "/bibliography-1-9-intrinsic-extrinsic-motivation-davis-1992",
     "title": "Bibliography: Intrinsic & Extrinsic Motivation - Davis et al. (1992)",
-    "description": "Deep dive into Extrinsic and Intrinsic Motivation Framework for Technology by Fred D. Davis, Richard P. Bagozzi, and Paul R. Warshaw (1992), exploring its foundational contributions to technology adoption research.",
-    "content": "Bibliography: Intrinsic & Extrinsic Motivation - Davis et al. (1992). Deep dive into Extrinsic and Intrinsic Motivation Framework for Technology by Fred D. Davis, Richard P. Bagozzi, and Paul R. Warshaw (1992), exploring its foundational contributions to technology adoption research. Intrinsic Extrinsic Motivation Davis et al. 1992 Model Identification Model Name: Extrinsic and Intrinsic Motivation Framework for Technology Authors: Fred D. Davis, Richard P. Bagozzi, and Paul R. Warshaw Publication Date: 1992 Citation Information Davis, F. D., Bagozzi, R. P., Warshaw, P. R. 1992 Extrinsic and intrinsic motivation to use computers in the workplace. Journal of Applied Social Psychology, 22 14 1111-1132. Why was the model made? Davis, Bagozzi, and Warshaw developed the Extrinsic and Intrinsic ...",
+    "description": "Deep dive into intrinsic and extrinsic motivation in technology adoption, examining how enjoyment and perceived usefulness jointly predict computer usage intentions.",
+    "content": "Bibliography: Intrinsic & Extrinsic Motivation - Davis et al. (1992). Deep dive into intrinsic and extrinsic motivation in technology adoption, examining how enjoyment and perceived usefulness jointly predict computer usage intentions. Intrinsic Extrinsic Motivation Davis et al. 1992 Model Identification Model Name: Extrinsic and Intrinsic Motivation Extension to the Technology Acceptance Model Model Abbreviation: TAM with Motivation Dynamics Target of Model: Individual Motivation and System Usage Intentions Disciplinary Origin: Information Systems, Motivation Psychology, Behavioral Research Theory Publication Information Authors: Fred D. Davis, Richard P. Bagozzi, Paul R. Warshaw Formal Publication Date: 1992 Official Title: Extrinsic and Intrinsic Motivation to Use Computers in the Workp...",
     "category": "Bibliography"
   },
   {
     "id": "bibliography-2-1-resource-based-view-rbv-wernerfelt-1984",
     "url": "/bibliography-2-1-resource-based-view-rbv-wernerfelt-1984",
     "title": "Bibliography: A Resource-Based View (RBV) - Wernerfelt (1984)",
-    "description": "An exploration of Wernerfelt's Resource-Based View of the firm, a foundational framework for understanding how organizational resources and capabilities drive competitive advantage and strategic technology adoption.",
-    "content": "Bibliography: A Resource-Based View (RBV) - Wernerfelt (1984). An exploration of Wernerfelt's Resource-Based View of the firm, a foundational framework for understanding how organizational resources and capabilities drive competitive advantage and strategic technology adoption. Bibliography: Resource-Based View RBV Wernerfelt 1984 Framework Identification Framework Name: Resource-Based View RBV Authors: Birger Wernerfelt Publication Date: 1984 Citation Information Wernerfelt, B. 1984 resource-based view of the firm. Strategic Management Journal 171-180. In 1984, Birger Wernerfelt published Resource-Based View of the Firm in the Strategic Management Journal, introducing revolutionary perspective that would fundamentally reshape how organizations think about competitive advantage and strateg...",
+    "description": "Comprehensive overview of the Resource-Based View of the Firm, foundational strategic management theory arguing that competitive advantage originates from internal firm resources rather than industry structure, establishing resources as sustainable sources of performance differentiation.",
+    "content": "Bibliography: A Resource-Based View (RBV) - Wernerfelt (1984). Comprehensive overview of the Resource-Based View of the Firm, foundational strategic management theory arguing that competitive advantage originates from internal firm resources rather than industry structure, establishing resources as sustainable sources of performance differentiation. Resource-Based View RBV Wernerfelt 1984 Framework Identification Framework Name: Resource-Based View of the Firm Framework Abbreviation: RBV Target of Framework: resource-side counterpart to product-market analysis. Introduces the notions of resource position barrier, resource-product matrix, and dynamic-strategy patterns sequential entry, exploit-and-develop, stepping stones as tools for analysing firm resource position. The later VRIN/VRIO fo...",
     "category": "Bibliography"
   },
   {
     "id": "bibliography-2-10-tafim-dod-1994",
     "url": "/bibliography-2-10-tafim-dod-1994",
     "title": "Bibliography: Technical Architecture Framework for Information Management (TAFIM) - U.S. DoD (1994)",
-    "description": "An exploration of the U.S. Department of Defense's Technical Architecture Framework for Information Management (TAFIM), a pioneering enterprise architecture framework that established standards-based interoperability principles for large-scale information technology adoption.",
-    "content": "Bibliography: Technical Architecture Framework for Information Management (TAFIM) - U.S. DoD (1994). An exploration of the U.S. Department of Defense's Technical Architecture Framework for Information Management (TAFIM), a pioneering enterprise architecture framework that established standards-based interoperability principles for large-scale information technology adoption. Technical Architecture Framework for Information Management TAFIM DoD 1994 Framework Identification Framework Name: Technical Architecture Framework for Information Management TAFIM Authors: Department of Defense Publication Date: 1994 Version 1996 Citation Information Department of Defense. 1996 Technical Architecture Framework for Information Management TAFIM Version Volume 2: Technical Reference Model. The Technical...",
+    "description": "Comprehensive overview of the Technical Architecture Framework for Information Management (TAFIM). Explains how TAFIM established principles of layered IT architecture, reference models, and standards-based interoperability for enterprise systems.",
+    "content": "Bibliography: Technical Architecture Framework for Information Management (TAFIM) - U.S. DoD (1994). Comprehensive overview of the Technical Architecture Framework for Information Management (TAFIM). Explains how TAFIM established principles of layered IT architecture, reference models, and standards-based interoperability for enterprise systems. Technical Architecture Framework for Information Management TAFIM DoD 1994 Framework Identification Framework Name: Technical Architecture Framework for Information Management Framework Abbreviation: TAFIM Target of Framework: Providing enterprise architecture structure through layered reference models establishing technology architecture principles, standards, and interoperability requirements for information systems across large complex organiza...",
     "category": "Bibliography"
   },
   {
     "id": "bibliography-2-11-gartner-hype-cycle-fenn-1995",
     "url": "/bibliography-2-11-gartner-hype-cycle-fenn-1995",
     "title": "Bibliography: Gartner Hype Cycle - Fenn (1995)",
-    "description": "An exploration of the Gartner Hype Cycle framework developed by Jackie Fenn, a widely used consulting model for understanding technology adoption timing, maturity, and the gap between inflated expectations and realized value.",
-    "content": "Bibliography: Gartner Hype Cycle - Fenn (1995). An exploration of the Gartner Hype Cycle framework developed by Jackie Fenn, a widely used consulting model for understanding technology adoption timing, maturity, and the gap between inflated expectations and realized value. Gartner Hype Cycle Jackie Fenn Gartner 1995 Framework Identification Framework Name: Gartner Hype Cycle Authors: Jackie Fenn and Gartner Publication Date: 1995 Citation Information Fenn, J. 1995 When to leap on the hype cycle. Gartner. The Gartner Hype Cycle, introduced by Jackie Fenn and the Gartner analyst team in 1995, offers distinctive model for understanding technology adoption timing and maturity. Rather than providing detailed framework for how organizations should adopt technologies, the Hype Cycle provides conc...",
+    "description": "Comprehensive overview of the Gartner Hype Cycle model. Explains how emerging technologies follow a five-phase adoption pattern from initial innovation trigger through disillusionment to the productivity plateau.",
+    "content": "Bibliography: Gartner Hype Cycle - Fenn (1995). Comprehensive overview of the Gartner Hype Cycle model. Explains how emerging technologies follow a five-phase adoption pattern from initial innovation trigger through disillusionment to the productivity plateau. Gartner Hype Cycle Fenn 1995 Framework Identification Framework Name: Gartner Hype Cycle Framework Abbreviation: Hype Cycle Target of Framework: Visualization of the typical progression of an emerging technology through five phases, plotting Visibility against Maturity to characterize movement from overenthusiasm through disillusionment to an eventual understanding of the technology relevance and role in market or domain Linden and Fenn, 2003 Disciplinary Origin: Market Research, Technology Analysis, Innovation Management, Organizati...",
     "category": "Bibliography"
   },
   {
     "id": "bibliography-2-12-togaf-the-open-group-1995",
     "url": "/bibliography-2-12-togaf-the-open-group-1995",
     "title": "Bibliography: TOGAF - The Open Group Architecture Framework (1995)",
-    "description": "An in-depth review of TOGAF (The Open Group Architecture Framework), covering its Architecture Development Method, four domains, enterprise-wide technology adoption guidance, internal and external validity, and relevance to overcoming technology adoption barriers.",
-    "content": "Bibliography: TOGAF - The Open Group Architecture Framework (1995). An in-depth review of TOGAF (The Open Group Architecture Framework), covering its Architecture Development Method, four domains, enterprise-wide technology adoption guidance, internal and external validity, and relevance to overcoming technology adoption barriers. The Open Group Architecture Framework TOGAF The Open Group 1995 Framework Identification Framework Name: The Open Group Architecture Framework TOGAF Authors: The Open Group Publication Date: 1995 Citation Information The Open Group. 1995 The Open Group Architecture Framework TOGAF The Open Group. The Open Group Architecture Framework TOGAF is one of the most widely adopted enterprise architecture frameworks in the world. First released by The Open Group in 1995, ...",
+    "description": "Comprehensive overview of The Open Group Architecture Framework (TOGAF). Explains the Architecture Development Method, Enterprise Continuum, and TOGAF role as the dominant enterprise architecture framework applied across industries.",
+    "content": "Bibliography: TOGAF - The Open Group Architecture Framework (1995). Comprehensive overview of The Open Group Architecture Framework (TOGAF). Explains the Architecture Development Method, Enterprise Continuum, and TOGAF role as the dominant enterprise architecture framework applied across industries. TOGAF The Open Group Architecture Framework 1995 Framework Identification Framework Name: The Open Group Architecture Framework Framework Abbreviation: TOGAF Target of Framework: Providing standard enterprise architecture framework enabling organizations to design, develop, and implement business and technology architecture. TOGAF enables consistency and interoperability across architecture practice globally. Disciplinary Origin: Enterprise Architecture, Information Systems Management, Systems ...",
     "category": "Bibliography"
   },
   {
     "id": "bibliography-2-13-dodaf-dod-2003",
     "url": "/bibliography-2-13-dodaf-dod-2003",
     "title": "Bibliography: DoDAF - Department of Defense Architecture Framework (2003)",
-    "description": "An in-depth overview of the Department of Defense Architecture Framework (DoDAF), a military enterprise architecture standard created in 2003 to resolve interoperability crises, enable multi-service coordination, and govern technology adoption across defense and government environments.",
-    "content": "Bibliography: DoDAF - Department of Defense Architecture Framework (2003). An in-depth overview of the Department of Defense Architecture Framework (DoDAF), a military enterprise architecture standard created in 2003 to resolve interoperability crises, enable multi-service coordination, and govern technology adoption across defense and government environments. Department of Defense Architecture Framework DoDAF DoD 2003 Framework Identification Framework Name: Department of Defense Architecture Framework DoDAF Authors: Department of Defense Publication Date: 2003 Citation Information Department of Defense. 2003 DoDAF Version Department of Defense. The Department of Defense Architecture Framework DoDAF is comprehensive enterprise architecture framework developed and published by the Departme...",
+    "description": "Comprehensive overview of the Department of Defense Architecture Framework (DoDAF). Explains capability-based architecture, viewpoints-based description, and DoDAF role as mandatory architecture framework for US DoD acquisitions and joint capabilities.",
+    "content": "Bibliography: DoDAF - Department of Defense Architecture Framework (2003). Comprehensive overview of the Department of Defense Architecture Framework (DoDAF). Explains capability-based architecture, viewpoints-based description, and DoDAF role as mandatory architecture framework for US DoD acquisitions and joint capabilities. DoDAF Department of Defense Architecture Framework 2003 Framework Identification Framework Name: Department of Defense Architecture Framework Framework Abbreviation: DoDAF Target of Framework: Providing mandatory architecture description framework for US Department of Defense acquisitions, capability development, and joint operations. DoDAF enables consistent capability-based architecture across defense enterprise. Disciplinary Origin: Enterprise Architecture, Defense...",
     "category": "Bibliography"
   },
   {
     "id": "bibliography-2-14-cmmi-chrissis-2005",
     "url": "/bibliography-2-14-cmmi-chrissis-2005",
     "title": "Bibliography: CMMI - Capability Maturity Model Integration (Chrissis et al., 2005)",
-    "description": "An in-depth overview of the Capability Maturity Model Integration (CMMI) framework developed by Chrissis, Konrad, and Shrum at Carnegie Mellon SEI, covering its five maturity levels, process areas, and relevance to technology adoption and organizational process improvement.",
-    "content": "Bibliography: CMMI - Capability Maturity Model Integration (Chrissis et al., 2005). An in-depth overview of the Capability Maturity Model Integration (CMMI) framework developed by Chrissis, Konrad, and Shrum at Carnegie Mellon SEI, covering its five maturity levels, process areas, and relevance to technology adoption and organizational process improvement. Capability Maturity Model Integration CMMI Chrissis, Konrad Shrum 2005 Framework Identification Framework Name: Capability Maturity Model Integration CMMI Authors: Mary Beth Chrissis, Mike Konrad, and Sandy Shrum Publication Date: 2005 Citation Information Chrissis, M. B., Konrad, M., Shrum, S. 2005 CMMI: Guidelines for process integration and product improvement. Addison-Wesley Professional. Published in 2005 by Carnegie Mellon Universi...",
+    "description": "Comprehensive overview of Capability Maturity Model Integration (CMMI). Explains maturity levels, process areas, and CMMI role as foundational framework for IT process capability assessment and organizational maturity measurement.",
+    "content": "Bibliography: CMMI - Capability Maturity Model Integration (Chrissis et al., 2005). Comprehensive overview of Capability Maturity Model Integration (CMMI). Explains maturity levels, process areas, and CMMI role as foundational framework for IT process capability assessment and organizational maturity measurement. CMMI Capability Maturity Model Integration Chrissis et al., 2005 Framework Identification Framework Name: Capability Maturity Model Integration Framework Abbreviation: CMMI Target of Framework: Providing unified maturity assessment model integrating multiple capability models to measure organizational capability across development, acquisition, and services. CMMI enables organizations to assess and improve process capability maturity. Disciplinary Origin: Software Engineering, Sys...",
     "category": "Bibliography"
   },
   {
     "id": "bibliography-2-15-it-cmf-innovation-value-institute-2016",
     "url": "/bibliography-2-15-it-cmf-innovation-value-institute-2016",
-    "title": "Bibliography: IT Capability Maturity Framework (IT-CMF) \\u2013 Innovation Value Institute (2016)",
-    "description": "Overview of the IT Capability Maturity Framework (IT-CMF\\u2122) developed by the Innovation Value Institute at University of Ireland Maynooth. Covers the seven Building Blocks, five maturity levels, internal and external validity, and relevance to technology adoption and IT value realization.",
-    "content": "Bibliography: IT Capability Maturity Framework (IT-CMF) \\u2013 Innovation Value Institute (2016). Overview of the IT Capability Maturity Framework (IT-CMF\\u2122) developed by the Innovation Value Institute at University of Ireland Maynooth. Covers the seven Building Blocks, five maturity levels, internal and external validity, and relevance to technology adoption and IT value realization. IT Capability Maturity Framework IT-CMF Innovation Value Institute 2016 Framework Identification Framework Name: IT Capability Maturity Framework IT-CMF™ Authors: Innovation Value Institute Publication Date: 2016 Citation Information Innovation Value Institute. 2016 IT Capability Maturity Framework™ IT-CMF™ The building framework. University of Ireland, Maynooth. The IT Capability Maturity Framework IT-CM...",
+    "title": "Bibliography: IT-CMF - Innovation Value Institute (2016)",
+    "description": "Comprehensive overview of the IT Capability Maturity Framework (IT-CMF). Explains the 36 Critical Capabilities, 5-level maturity model, and IT-CMF role as comprehensive framework for IT capability assessment and business-IT alignment.",
+    "content": "Bibliography: IT-CMF - Innovation Value Institute (2016). Comprehensive overview of the IT Capability Maturity Framework (IT-CMF). Explains the 36 Critical Capabilities, 5-level maturity model, and IT-CMF role as comprehensive framework for IT capability assessment and business-IT alignment. IT-CMF Innovation Value Institute 2016 Framework Identification Framework Name: IT Capability Maturity Framework Framework Abbreviation: IT-CMF Target of Framework: Providing comprehensive framework for assessing and improving IT capability maturity across organizations. IT-CMF enables organizations to systematically evaluate IT effectiveness and identify capability improvement opportunities aligned with business value creation. Disciplinary Origin: IT Management, Business-IT Alignment, IT Governance, ...",
     "category": "Bibliography"
   },
   {
     "id": "bibliography-2-16-aws-caf-ai-2024",
     "url": "/bibliography-2-16-aws-caf-ai-2024",
     "title": "Bibliography: AWS Cloud Adoption Framework for AI/ML (CAF-AI) - AWS (2024)",
-    "description": "An exploration of the AWS Cloud Adoption Framework for Artificial Intelligence, Machine Learning, and Generative AI (CAF-AI), a comprehensive organizational framework published by Amazon Web Services in 2024 for guiding enterprise AI adoption.",
-    "content": "Bibliography: AWS Cloud Adoption Framework for AI/ML (CAF-AI) - AWS (2024). An exploration of the AWS Cloud Adoption Framework for Artificial Intelligence, Machine Learning, and Generative AI (CAF-AI), a comprehensive organizational framework published by Amazon Web Services in 2024 for guiding enterprise AI adoption. AWS Cloud Adoption Framework for AI/ML CAF-AI Amazon Web Services 2024 Framework Identification Framework Name: AWS Cloud Adoption Framework for AI/ML CAF-AI Authors: Amazon Web Services Publication Date: 2024 Citation Information Amazon Web Services. 2024 AWS Cloud Adoption Framework for Artificial Intelligence, Machine Learning, and Generative AI. AWS Whitepaper. In November 2024, Amazon Web Services AWS published the AWS Cloud Adoption Framework for Artificial Intelligence...",
+    "description": "Comprehensive overview of the AWS Cloud Adoption Framework specialization for Artificial Intelligence, Machine Learning, and Generative AI. Explains the six perspectives, foundational AI capabilities, and the role of CAF-AI in guiding organizations through the AI adoption journey.",
+    "content": "Bibliography: AWS Cloud Adoption Framework for AI/ML (CAF-AI) - AWS (2024). Comprehensive overview of the AWS Cloud Adoption Framework specialization for Artificial Intelligence, Machine Learning, and Generative AI. Explains the six perspectives, foundational AI capabilities, and the role of CAF-AI in guiding organizations through the AI adoption journey. AWS Cloud Adoption Framework for AI/ML CAF-AI AWS 2024 Framework Identification Framework Name: AWS Cloud Adoption Framework for Artificial Intelligence, Machine Learning, and Generative AI Framework Abbreviation: CAF-AI also referred to as AWS CAF-AI in the whitepaper prose Target of Framework: Guiding organizations through cloud-based artificial intelligence, machine learning, and generative AI adoption. AWS CAF for AI provides structur...",
     "category": "Bibliography"
   },
   {
     "id": "bibliography-2-17-aws-etf-prescriptive-guidance-2024",
     "url": "/bibliography-2-17-aws-etf-prescriptive-guidance-2024",
     "title": "Bibliography: AWS Prescriptive Guidance - Enterprise Transformation Framework (ETF) (2024)",
-    "description": "An exploration of the AWS Prescriptive Guidance on Strategic Transformation and Change Methodology (Enterprise Transformation Framework), a comprehensive framework published by Amazon Web Services in 2024 for accelerating return on cloud investment through systematic organizational transformation.",
-    "content": "Bibliography: AWS Prescriptive Guidance - Enterprise Transformation Framework (ETF) (2024). An exploration of the AWS Prescriptive Guidance on Strategic Transformation and Change Methodology (Enterprise Transformation Framework), a comprehensive framework published by Amazon Web Services in 2024 for accelerating return on cloud investment through systematic organizational transformation. AWS Prescriptive Guidance: Enterprise Transformation Framework ETF Amazon Web Services 2024 Framework Identification Framework Name: AWS Prescriptive Guidance: Enterprise Transformation Framework ETF Authors: Amazon Web Services Publication Date: 2024 Citation Information Amazon Web Services. 2024 Accelerating your on cloud investment by adopting strategic transformation and change methodology. AWS Prescri...",
+    "description": "Overview of the AWS Enterprise Transformation Framework (ETF) by Gladwell and Watson (AWS, November 2024). Covers the four capability pillars (Business and Strategy, FinOps, Operations, People and Culture), the four-phase AWS Enterprise Transformation program (Prioritize, Ready, Enable, Transform), the AWS Organizational Change Acceleration (OCA) 6-Point Framework, and alignment with the AWS Cloud Adoption Framework.",
+    "content": "Bibliography: AWS Prescriptive Guidance - Enterprise Transformation Framework (ETF) (2024). Overview of the AWS Enterprise Transformation Framework (ETF) by Gladwell and Watson (AWS, November 2024). Covers the four capability pillars (Business and Strategy, FinOps, Operations, People and Culture), the four-phase AWS Enterprise Transformation program (Prioritize, Ready, Enable, Transform), the AWS Organizational Change Acceleration (OCA) 6-Point Framework, and alignment with the AWS Cloud Adoption Framework. AWS Prescriptive Guidance Enterprise Transformation Framework ETF 2024 Framework Identification Framework Name: AWS Enterprise Transformation Framework Framework Abbreviation: AWS ETF Target of Framework: Guiding enterprises through end-to-end cloud transformation by operationalizing th...",
     "category": "Bibliography"
   },
   {
     "id": "bibliography-2-18-microsoft-cloud-adoption-framework-2025",
     "url": "/bibliography-2-18-microsoft-cloud-adoption-framework-2025",
     "title": "Bibliography: Microsoft Cloud Adoption Framework for Azure (CAF) (2025)",
-    "description": "An exploration of the Microsoft Cloud Adoption Framework for Azure (CAF), the most comprehensive cloud-specific adoption framework in widespread organizational use, continuously evolved through 2025 to address strategy, governance, security, and organizational change management throughout cloud adoption journeys.",
-    "content": "Bibliography: Microsoft Cloud Adoption Framework for Azure (CAF) (2025). An exploration of the Microsoft Cloud Adoption Framework for Azure (CAF), the most comprehensive cloud-specific adoption framework in widespread organizational use, continuously evolved through 2025 to address strategy, governance, security, and organizational change management throughout cloud adoption journeys. Microsoft Cloud Adoption Framework for Azure CAF Microsoft 2025 Framework Identification Framework Name: Microsoft Cloud Adoption Framework for Azure CAF Authors: Microsoft Publication Date: 2025 Citation Information Sumner, S., Microsoft. 2025 Microsoft Cloud Adoption Framework for Azure. Microsoft Learn. The Microsoft Cloud Adoption Framework for Azure Microsoft CAF represents one of the most comprehensive ...",
+    "description": "Comprehensive overview of the Microsoft Cloud Adoption Framework for Azure. Explains the seven core methodologies, organizational motivations, cloud adoption lifecycle, readiness and governance frameworks, and enterprise-scale cloud transformation strategy.",
+    "content": "Bibliography: Microsoft Cloud Adoption Framework for Azure (CAF) (2025). Comprehensive overview of the Microsoft Cloud Adoption Framework for Azure. Explains the seven core methodologies, organizational motivations, cloud adoption lifecycle, readiness and governance frameworks, and enterprise-scale cloud transformation strategy. Microsoft Cloud Adoption Framework for Azure CAF 2025 Framework Identification Framework Name: Microsoft Cloud Adoption Framework for Azure Framework Abbreviation: Microsoft CAF Target of Framework: Guiding organizations through comprehensive cloud adoption on Microsoft Azure. Microsoft Cloud Adoption Framework provides structured methodology for organizations to plan cloud migration, establish governance, ensure security, and operate cloud infrastructure at scale....",
     "category": "Bibliography"
   },
   {
     "id": "bibliography-2-19-microsoft-ai-adoption-framework-2025",
     "url": "/bibliography-2-19-microsoft-ai-adoption-framework-2025",
-    "title": "Bibliography: Microsoft AI Adoption Framework (2025)",
-    "description": "An exploration of the Microsoft AI Adoption Framework (April 2025), which extends the Microsoft Cloud Adoption Framework to address the unique organizational, governance, data readiness, and responsible AI challenges of adopting artificial intelligence and generative AI within enterprise organizations.",
-    "content": "Bibliography: Microsoft AI Adoption Framework (2025). An exploration of the Microsoft AI Adoption Framework (April 2025), which extends the Microsoft Cloud Adoption Framework to address the unique organizational, governance, data readiness, and responsible AI challenges of adopting artificial intelligence and generative AI within enterprise organizations. Microsoft AI Adoption Framework Microsoft 2025 Framework Identification Framework Name: Microsoft AI Adoption Framework Authors: Microsoft Publication Date: 2025 Citation Information Sumner, S. 2025 Microsoft AI adoption Cloud Adoption Framework. Microsoft Learn. Published by Microsoft in April 2025, the Microsoft AI Adoption Framework extends the proven Microsoft Cloud Adoption Framework CAF to address the unique challenges of adopting a...",
+    "title": "Bibliography: Microsoft AI Adoption Framework - Microsoft (2025)",
+    "description": "Comprehensive overview of the Microsoft AI Adoption Framework for enterprise AI strategy, readiness, and responsible governance. Explains the six AI adoption steps, Microsoft AI decision tree, responsible AI principles, and organizational readiness assessment.",
+    "content": "Bibliography: Microsoft AI Adoption Framework - Microsoft (2025). Comprehensive overview of the Microsoft AI Adoption Framework for enterprise AI strategy, readiness, and responsible governance. Explains the six AI adoption steps, Microsoft AI decision tree, responsible AI principles, and organizational readiness assessment. Microsoft AI Adoption Framework Microsoft 2025 Framework Identification Framework Name: Microsoft AI Adoption Framework: Strategy, Readiness, and Governance for Enterprise AI Framework Abbreviation: Microsoft AI Adoption Framework Target of Framework: Guiding enterprise organizations through comprehensive artificial intelligence adoption including strategy development, organizational readiness assessment, responsible AI governance, and sustainable AI operations. Discip...",
     "category": "Bibliography"
   },
   {
     "id": "bibliography-2-2-vrio-framework-barney-1991",
     "url": "/bibliography-2-2-vrio-framework-barney-1991",
-    "title": "Bibliography: VRIO Framework - Barney (1991)",
-    "description": "An exploration of Jay Barney's VRIO Framework for analyzing firm resources and sustained competitive advantage, providing practical criteria for evaluating which organizational capabilities drive technology adoption success.",
-    "content": "Bibliography: VRIO Framework - Barney (1991). An exploration of Jay Barney's VRIO Framework for analyzing firm resources and sustained competitive advantage, providing practical criteria for evaluating which organizational capabilities drive technology adoption success. Bibliography: VRIO Framework Barney 1991 Framework Identification Framework Name: VRIO Framework Authors: Jay B. Barney Publication Date: 1991 Citation Information Barney, J. B. 1991 Firm resources and sustained competitive advantage. Journal of Management 17 99-120. In 1991, Jay B. Barney published Firm Resources and Sustained Competitive Advantage in the Journal of Management, creating what would become one of the most widely applied frameworks in strategic management: the VRIO Framework. Building on Wernerfelt 1984 Resou...",
+    "title": "Bibliography: VRIN/VRIO Framework - Barney (1991)",
+    "description": "Comprehensive overview of the Barney (1991) VRIN framework (Valuable, Rare, Inimitable, Non-substitutable) for sustained competitive advantage, together with its later VRIO refinement (Barney, 1995, 1997) which substitutes Organization for Non-substitutability.",
+    "content": "Bibliography: VRIN/VRIO Framework - Barney (1991). Comprehensive overview of the Barney (1991) VRIN framework (Valuable, Rare, Inimitable, Non-substitutable) for sustained competitive advantage, together with its later VRIO refinement (Barney, 1995, 1997) which substitutes Organization for Non-substitutability. VRIN/VRIO Framework Barney 1991 Framework Identification Framework Name: VRIN framework Valuable, Rare, Imperfectly Imitable, Non-substitutable as introduced in Barney 1991 Later refined into the VRIO framework Valuable, Rare, Imperfectly Imitable, Organized in Barney 1995 and Barney 1997 Framework Abbreviation: VRIN 1991 VRIO 1995, 1997 The abbreviation VRIN itself does not appear in Barney 1991 the paper labels the four attributes as Value, Rareness, Imperfect Imitability, and Sub...",
     "category": "Bibliography"
   },
   {
-    "id": "bibliography-2-20-gartner-hype-cycle-methodology-2025",
-    "url": "/bibliography-2-20-gartner-hype-cycle-methodology-2025",
-    "title": "Bibliography: Gartner Hype Cycle Research Methodology (2025)",
-    "description": "An exploration of the Gartner Hype Cycle Research Methodology (2025), a widely used organizational tool for tracking technology maturity and managing enterprise technology adoption decisions across the five-phase hype cycle.",
-    "content": "Bibliography: Gartner Hype Cycle Research Methodology (2025). An exploration of the Gartner Hype Cycle Research Methodology (2025), a widely used organizational tool for tracking technology maturity and managing enterprise technology adoption decisions across the five-phase hype cycle. Gartner Hype Cycle Research Methodology Gartner 2025 Framework Identification Framework Name: Gartner Hype Cycle Research Methodology Authors: Gartner Publication Date: 2025 continuously updated since 1995 Citation Information Gartner. 2025 Gartner Hype Cycle research methodology. Gartner. The Gartner Hype Cycle Research Methodology represents the current, institutionalized form of the Hype Cycle framework that Gartner has continuously evolved since Jackie Fenn introduced the original model in 1995. While th...",
+    "id": "bibliography-2-20-cmmc-dod-2020",
+    "url": "/bibliography-2-20-cmmc-dod-2020",
+    "title": "Bibliography: Cybersecurity Maturity Model Certification (CMMC) - U.S. DoD (2020)",
+    "description": "Comprehensive overview of the Cybersecurity Maturity Model Certification (CMMC), the U.S. Department of Defense framework for assessing defense industrial base contractor cybersecurity maturity to protect Controlled Unclassified Information and Federal Contract Information.",
+    "content": "Bibliography: Cybersecurity Maturity Model Certification (CMMC) - U.S. DoD (2020). Comprehensive overview of the Cybersecurity Maturity Model Certification (CMMC), the U.S. Department of Defense framework for assessing defense industrial base contractor cybersecurity maturity to protect Controlled Unclassified Information and Federal Contract Information. Cybersecurity Maturity Model Certification CMMC DoD 2020 Framework Identification Framework Name: Cybersecurity Maturity Model Certification Framework Abbreviation: CMMC Target of Framework: Ensuring defense industrial base DIB contractors implement adequate cybersecurity practices to protect Controlled Unclassified Information CUI and Federal Contract Information FCI CMMC establishes unified standard for cybersecurity maturity across DoD...",
     "category": "Bibliography"
   },
   {
     "id": "bibliography-2-21-diffusion-of-innovations-organizational-rogers-1962",
     "url": "/bibliography-2-21-diffusion-of-innovations-organizational-rogers-1962",
-    "title": "Bibliography: Diffusion of Innovations - Organizational Perspective - Rogers (1962)",
-    "description": "An exploration of Diffusion of Innovations by Everett M. Rogers (1962) from an organizational adoption perspective, examining how the five adopter categories, innovation attributes, and diffusion channels apply to enterprise and institutional technology adoption decisions.",
-    "content": "Bibliography: Diffusion of Innovations - Organizational Perspective - Rogers (1962). An exploration of Diffusion of Innovations by Everett M. Rogers (1962) from an organizational adoption perspective, examining how the five adopter categories, innovation attributes, and diffusion channels apply to enterprise and institutional technology adoption decisions. Diffusion of Innovations Organizational Perspective Rogers 1962 Framework Identification Framework Name: Diffusion of Innovations Organizational Perspective Authors: Everett M. Rogers Publication Date: 1962 Citation Information Rogers, E. M. 1962 Diffusion of innovations. Free Press. Everett Rogers Diffusion of Innovations 1962 is among the most cited works in the social sciences, synthesizing research across agriculture, public health, ...",
+    "title": "Bibliography: Diffusion of Innovations - Organizational Perspective - Rogers (1962/2003)",
+    "description": "Comprehensive overview of Rogers' Diffusion of Innovations theory (1st ed. 1962; 5th ed. 2003) focused on organizational adoption. Covers organizational innovativeness, innovation-development process, organizational adoption stages, champions and change agents, and foundational diffusion research synthesizing the diffusion tradition.",
+    "content": "Bibliography: Diffusion of Innovations - Organizational Perspective - Rogers (1962/2003). Comprehensive overview of Rogers' Diffusion of Innovations theory (1st ed. 1962; 5th ed. 2003) focused on organizational adoption. Covers organizational innovativeness, innovation-development process, organizational adoption stages, champions and change agents, and foundational diffusion research synthesizing the diffusion tradition. Diffusion of Innovations: Organizational Adoption Lens Rogers 1962/2003 Model Identification Model Name: Diffusion of Innovations Organizational Adoption Focus Model Abbreviation: DOI Organizational Author: Everett M. Rogers Target of Model: The organizational adoption dimension of Rogers Diffusion of Innovations theory, addressing how organizations adopt innovations incl...",
     "category": "Bibliography"
   },
   {
     "id": "bibliography-2-3-dynamic-capabilities-teece-1997",
     "url": "/bibliography-2-3-dynamic-capabilities-teece-1997",
     "title": "Bibliography: Dynamic Capabilities Framework - Teece, Pisano, & Shuen (1997)",
-    "description": "An exploration of the Dynamic Capabilities Framework and how it extends the Resource-Based View to address sustained competitive advantage in rapidly changing, turbulent environments through organizational sensing, seizing, and transformation.",
-    "content": "Bibliography: Dynamic Capabilities Framework - Teece, Pisano, & Shuen (1997). An exploration of the Dynamic Capabilities Framework and how it extends the Resource-Based View to address sustained competitive advantage in rapidly changing, turbulent environments through organizational sensing, seizing, and transformation. Bibliography: Dynamic Capabilities Framework Teece, Pisano, Shuen 1997 Framework Identification Framework Name: Dynamic Capabilities Framework Authors: David J. Teece, Gary Pisano, and Amy Shuen Publication Date: 1997 Citation Information Teece, D. J., Pisano, G., Shuen, A. 1997 Dynamic capabilities and strategic management. Strategic Management Journal 18 509-533. In 1997, David J. Teece, Gary Pisano, and Amy Shuen published Dynamic Capabilities and Strategic Management in...",
+    "description": "Comprehensive overview of the Teece, Pisano & Shuen (1997) dynamic capabilities framework, defined as the firm ability to integrate, build, and reconfigure internal and external competences, and organized around the three Ps - processes, positions, paths - as sources of competitive advantage in regimes of rapid technological change.",
+    "content": "Bibliography: Dynamic Capabilities Framework - Teece, Pisano, & Shuen (1997). Comprehensive overview of the Teece, Pisano & Shuen (1997) dynamic capabilities framework, defined as the firm ability to integrate, build, and reconfigure internal and external competences, and organized around the three Ps - processes, positions, paths - as sources of competitive advantage in regimes of rapid technological change. Dynamic Capabilities Framework Teece, Pisano, Shuen 1997 Framework Identification Framework Name: Dynamic Capabilities Framework Framework Abbreviation: DC Target of Framework: Explain sources of competitive advantage in regimes of rapid technological change by analyzing firm managerial and organizational processes, asset positions, and evolution paths. Defines dynamic capabilities as...",
     "category": "Bibliography"
   },
   {
     "id": "bibliography-2-4-total-quality-management-tqm-deming-1982",
     "url": "/bibliography-2-4-total-quality-management-tqm-deming-1982",
     "title": "Bibliography: Total Quality Management (TQM) - Deming (1982)",
-    "description": "An exploration of W. Edwards Deming's Total Quality Management philosophy, a foundational framework for understanding how management systems, continuous improvement, and organizational culture drive quality and technology adoption success.",
-    "content": "Bibliography: Total Quality Management (TQM) - Deming (1982). An exploration of W. Edwards Deming's Total Quality Management philosophy, a foundational framework for understanding how management systems, continuous improvement, and organizational culture drive quality and technology adoption success. Total Quality Management TQM W. Edwards Deming 1982 Framework Identification Framework Name: Total Quality Management TQM Authors: W. Edwards Deming Publication Date: 1982 Citation Information Deming, W. E. 1982 Quality, productivity, and competitive position. Massachusetts Institute of Technology, Center for Advanced Engineering Study. W. Edwards Deming Total Quality Management TQM philosophy, articulated most comprehensively in Quality, Productivity, and Competitive Position 1982 fundamental...",
+    "description": "Comprehensive overview of W. Edwards Deming\\u2019s quality-management philosophy as introduced in Quality, Productivity, and Competitive Position (1982) and expanded in Out of the Crisis (1986): the 14 Points for Management, the Plan-Do-Check-Act / Plan-Do-Study-Act cycle attributed to Shewhart, and statistical thinking about common-cause versus special-cause variation. The later System of Profound Knowledge (Deming, 1993) is discussed for context but is not in the 1982/1986 books.",
+    "content": "Bibliography: Total Quality Management (TQM) - Deming (1982). Comprehensive overview of W. Edwards Deming\\u2019s quality-management philosophy as introduced in Quality, Productivity, and Competitive Position (1982) and expanded in Out of the Crisis (1986): the 14 Points for Management, the Plan-Do-Check-Act / Plan-Do-Study-Act cycle attributed to Shewhart, and statistical thinking about common-cause versus special-cause variation. The later System of Profound Knowledge (Deming, 1993) is discussed for context but is not in the 1982/1986 books. Total Quality Management TQM Deming 1982 Framework Identification Framework Name: Total Quality Management Deming Philosophy Framework Abbreviation: TQM Target of Framework: Holistic management philosophy for organizational transformation through cont...",
     "category": "Bibliography"
   },
   {
     "id": "bibliography-2-5-capability-maturity-model-cmm-humphrey-1989",
     "url": "/bibliography-2-5-capability-maturity-model-cmm-humphrey-1989",
     "title": "Bibliography: Capability Maturity Model (CMM) - Humphrey (1989)",
-    "description": "An exploration of Watts S. Humphrey's Capability Maturity Model, a foundational framework for assessing and improving software development capability through five distinct maturity levels.",
-    "content": "Bibliography: Capability Maturity Model (CMM) - Humphrey (1989). An exploration of Watts S. Humphrey's Capability Maturity Model, a foundational framework for assessing and improving software development capability through five distinct maturity levels. Capability Maturity Model CMM Watts S. Humphrey 1989 Framework Identification Framework Name: Capability Maturity Model CMM Authors: Watts S. Humphrey Publication Date: 1989 Citation Information Humphrey, W. S. 1989 Managing the software process. Addison-Wesley. Watts S. Humphrey Capability Maturity Model CMM developed at Carnegie Mellon University Software Engineering Institute SEI for the Department of Defense, transformed how organizations assess and improve software development capability. Published comprehensively in Managing the Softw...",
+    "description": "Comprehensive overview of the Capability Maturity Model, a five-level framework for assessing and improving software development process maturity, foundational methodology for IT process improvement emphasizing standardization, measurement, and continuous advancement.",
+    "content": "Bibliography: Capability Maturity Model (CMM) - Humphrey (1989). Comprehensive overview of the Capability Maturity Model, a five-level framework for assessing and improving software development process maturity, foundational methodology for IT process improvement emphasizing standardization, measurement, and continuous advancement. Capability Maturity Model CMM Humphrey 1989 Framework Identification Framework Name: Capability Maturity Model for Software Framework Abbreviation: CMM Target of Framework: Assessment and improvement of software development process maturity through five-level framework emphasizing standardization, measurement, and continuous advancement enabling organizations to predict and control software development costs, schedules, and quality Disciplinary Origin: Software ...",
     "category": "Bibliography"
   },
   {
     "id": "bibliography-2-6-toe-framework-tornatzky-1990",
     "url": "/bibliography-2-6-toe-framework-tornatzky-1990",
-    "title": "Bibliography: Technology-Organization-Environment (TOE) Framework - Tornatzky, Fleischer & Chakrabarti (1990)",
-    "description": "An exploration of the Technology-Organization-Environment (TOE) Framework by Tornatzky, Fleischer, and Chakrabarti, a foundational model for understanding organizational technology adoption through three comprehensive contextual dimensions.",
-    "content": "Bibliography: Technology-Organization-Environment (TOE) Framework - Tornatzky, Fleischer & Chakrabarti (1990). An exploration of the Technology-Organization-Environment (TOE) Framework by Tornatzky, Fleischer, and Chakrabarti, a foundational model for understanding organizational technology adoption through three comprehensive contextual dimensions. Technology-Organization-Environment TOE Framework Tornatzky, Fleischer Chakrabarti 1990 Framework Identification Framework Name: Technology-Organization-Environment TOE Framework Authors: Louis G. Tornatzky, Mitchell Fleischer, and Atul K. Chakrabarti Publication Date: 1990 Citation Information Tornatzky, L. G., Fleischer, M., Chakrabarti, A. K. 1990 The processes of technological innovation. Lexington Books. The Technology-Organization-Environ...",
+    "title": "Bibliography: Technology-Organization-Environment (TOE) Framework - Tornatzky & Fleischer (1990)",
+    "description": "Comprehensive overview of the Technology-Organization-Environment (TOE) Framework. Explains how technological, organizational, and environmental contexts shape technology adoption decisions in organizations.",
+    "content": "Bibliography: Technology-Organization-Environment (TOE) Framework - Tornatzky & Fleischer (1990). Comprehensive overview of the Technology-Organization-Environment (TOE) Framework. Explains how technological, organizational, and environmental contexts shape technology adoption decisions in organizations. Technology-Organization-Environment TOE Framework Tornatzky Fleischer 1990 Framework Identification Framework Name: Technology-Organization-Environment Framework Framework Abbreviation: TOE Target of Framework: Explanation of how three contextual dimensions technological characteristics, organizational characteristics, and environmental characteristics jointly influence organizational decisions about technology adoption and implementation Disciplinary Origin: Management Information Systems...",
     "category": "Bibliography"
   },
   {
     "id": "bibliography-2-7-it-implementation-research-cooper-zmud-1990",
     "url": "/bibliography-2-7-it-implementation-research-cooper-zmud-1990",
     "title": "Bibliography: IT Implementation Research - Cooper & Zmud (1990)",
-    "description": "An exploration of Cooper and Zmud's IT Implementation Process Model, a foundational framework for understanding information technology implementation through six stages and the critical role of task-technology compatibility.",
-    "content": "Bibliography: IT Implementation Research - Cooper & Zmud (1990). An exploration of Cooper and Zmud's IT Implementation Process Model, a foundational framework for understanding information technology implementation through six stages and the critical role of task-technology compatibility. IT Implementation Research: Technological Diffusion Approach Cooper Zmud 1990 Framework Identification Framework Name: IT Implementation Research: Technological Diffusion Approach Authors: Randolph B. Cooper and Robert W. Zmud Publication Date: 1990 Citation Information Cooper, R. B., Zmud, R. W. 1990 Information technology implementation research: technological diffusion approach. Management Science 36 123-139. Randolph B. Cooper and Robert W. Zmud Information Technology Implementation Research: Technolo...",
+    "description": "Comprehensive overview of the Cooper & Zmud Six-Stage IT Implementation Model. Explains the systematic stages through which organizations implement information technology innovations.",
+    "content": "Bibliography: IT Implementation Research - Cooper & Zmud (1990). Comprehensive overview of the Cooper & Zmud Six-Stage IT Implementation Model. Explains the systematic stages through which organizations implement information technology innovations. IT Implementation Research Cooper Zmud 1990 Model Identification Model Name: Six-Stage IT Implementation Model as applied and tested empirically by Cooper Zmud, 1990; the underlying six-stage framework is from Kwon Zmud, 1987 Model Abbreviation: Commonly referred to as the Kwon-Zmud six-stage model or the Cooper-Zmud stage model. No single canonical acronym appears in Cooper Zmud 1990 Target of Model: Explanation of how organizations progress through six distinct stages when implementing an information technology innovation Initiation, Adoption,...",
     "category": "Bibliography"
   },
   {
     "id": "bibliography-2-8-business-process-redesign-davenport-short-1990",
     "url": "/bibliography-2-8-business-process-redesign-davenport-short-1990",
     "title": "Bibliography: Business Process Redesign (BPR) - Davenport & Short (1990)",
-    "description": "An exploration of the Business Process Redesign framework by Davenport and Short, which established how information technology enables radical redesign of core business processes for competitive advantage.",
-    "content": "Bibliography: Business Process Redesign (BPR) - Davenport & Short (1990). An exploration of the Business Process Redesign framework by Davenport and Short, which established how information technology enables radical redesign of core business processes for competitive advantage. Business Process Redesign BPR Davenport Short 1990 Framework Identification Framework Name: Business Process Redesign BPR Authors: Thomas H. Davenport and James E. Short Publication Date: 1990 Citation Information Davenport, T. H., Short, J. E. 1990 The industrial engineering: Information technology and business process redesign. Sloan Management Review 31 11-27. In 1990, Thomas H. Davenport and James E. Short published The New Industrial Engineering: Information Technology and Business Process Redesign in the Sloa...",
+    "description": "Comprehensive overview of Business Process Redesign (BPR) methodology. Explains how information technology enables fundamental redesign of business processes for competitive advantage.",
+    "content": "Bibliography: Business Process Redesign (BPR) - Davenport & Short (1990). Comprehensive overview of Business Process Redesign (BPR) methodology. Explains how information technology enables fundamental redesign of business processes for competitive advantage. Business Process Redesign BPR Davenport Short 1990 Framework Identification Framework Name: Business Process Redesign Framework Abbreviation: BPR Alternative Names: The New Industrial Engineering the article own title framing Davenport Short 1990 use the term business process redesign throughout; Business Process Reengineering is the related term popularized by Hammer 1990 and Hammer Champy 1993 and is not used by Davenport Short. Target of Framework: Explanation of how organizations use information technology not to incrementally impr...",
     "category": "Bibliography"
   },
   {
     "id": "bibliography-2-9-business-process-reengineering-hammer-champy-1993",
     "url": "/bibliography-2-9-business-process-reengineering-hammer-champy-1993",
     "title": "Bibliography: Business Process Reengineering (BPR) - Hammer & Champy (1993)",
-    "description": "An exploration of Hammer and Champy's Business Process Reengineering framework, the influential manifesto for radical organizational transformation through fundamental process redesign enabled by information technology.",
-    "content": "Bibliography: Business Process Reengineering (BPR) - Hammer & Champy (1993). An exploration of Hammer and Champy's Business Process Reengineering framework, the influential manifesto for radical organizational transformation through fundamental process redesign enabled by information technology. Business Process Reengineering BPR Hammer Champy 1993 Framework Identification Framework Name: Business Process Reengineering BPR Authors: Michael Hammer and James Champy Publication Date: 1993 Citation Information Hammer, M., Champy, J. 1993 Reengineering the corporation: manifesto for business revolution 1st ed. HarperBusiness. In 1993, Michael Hammer and James Champy published Reengineering the Corporation: Manifesto for Business Revolution one of the most provocative and widely read management ...",
+    "description": "Comprehensive overview of Business Process Reengineering (BPR). Explains fundamental rethinking and radical redesign of business processes to achieve dramatic improvements in performance, cost, quality, service, and speed.",
+    "content": "Bibliography: Business Process Reengineering (BPR) - Hammer & Champy (1993). Comprehensive overview of Business Process Reengineering (BPR). Explains fundamental rethinking and radical redesign of business processes to achieve dramatic improvements in performance, cost, quality, service, and speed. Business Process Reengineering BPR Hammer Champy 1993 Framework Identification Framework Name: Business Process Reengineering Framework Abbreviation: BPR Target of Framework: Fundamentally rethinking and radically redesigning business processes through technology adoption to achieve dramatic improvements in critical contemporary performance measures including cost, quality, service, and speed. Disciplinary Origin: Operations Management, Management Information Systems, Strategic Management, Organ...",
     "category": "Bibliography"
   },
   {
@@ -632,6 +624,14 @@
     "category": "General"
   },
   {
+    "id": "lit-review-mind-map",
+    "url": "/lit-review-mind-map",
+    "title": "TABS Literature Review Mind Map",
+    "description": "Full-resolution static rendering of the TABS literature review mind map (15823×9757 native SVG). Use browser pinch/scroll to zoom.",
+    "content": "TABS Literature Review Mind Map. Full-resolution static rendering of the TABS literature review mind map (15823×9757 native SVG). Use browser pinch/scroll to zoom. TABS Literature Review Mind Map Native resolution 15823×9757 zoom in your browser for arbitrary detail. Open raw SVG Back to Mind Maps",
+    "category": "General"
+  },
+  {
     "id": "making-of-tabs",
     "url": "/making-of-tabs",
     "title": "The Making of TABS",
@@ -660,7 +660,7 @@
     "url": "/making-of-tabs/ai-assisted-development/overnight-shift",
     "title": "Copilot's Got the Overnight Shift - AI-Assisted Development - Making of TABS",
     "description": "A real screenshot from a Claude Code session showing multi-agent orchestration: Claude finishing work, assigning 9 issues to Copilot for overnight processing, and signing off.",
-    "content": "Copilot's Got the Overnight Shift - AI-Assisted Development - Making of TABS. A real screenshot from a Claude Code session showing multi-agent orchestration: Claude finishing work, assigning 9 issues to Copilot for overnight processing, and signing off. Go Sleep Copilot Got the Overnight Shift Zotero Integration Session April 6-7, 2026 real, unscripted moment Claude Code session that captures the multi-agent workflow in action: one AI agent finishing its work, delegating issues to another agent for overnight processing, and signing off. The Moment img assetPath '/Images/making-of-tabs/copilot-overnight-",
+    "content": "Copilot's Got the Overnight Shift - AI-Assisted Development - Making of TABS. A real screenshot from a Claude Code session showing multi-agent orchestration: Claude finishing work, assigning 9 issues to Copilot for overnight processing, and signing off. Go Sleep Copilot Got the Overnight Shift Zotero Integration Session April 6-7, 2026 real, unscripted moment from Claude Code session that captures the multi-agent workflow in action: one AI agent finishing its work, delegating issues to another agent for overnight processing, and signing off. The Moment img assetPath '/Images/making-of-tabs/copilot-overnight-shift.png'",
     "category": "Making of TABS"
   },
   {
@@ -668,7 +668,7 @@
     "url": "/making-of-tabs/ai-assisted-development/squash-merge-incident",
     "title": "The Squash Merge Incident - AI-Assisted Development - Making of TABS",
     "description": "How a single squash merge silently reverted 25+ pull requests, the root cause analysis, the full restoration effort, and the permanent safeguards now in place.",
-    "content": "The Squash Merge Incident - AI-Assisted Development - Making of TABS. How a single squash merge silently reverted 25+ pull requests, the root cause analysis, the full restoration effort, and the permanent safeguards now in place. The Squash Merge Incident Incident Date: April 6-7, 2026 single squash merge silently reverted 25+ previously merged pull requests across 67 files, destroying security fixes, accessibility features, statistical analysis code, and research data. second squash merge downgraded GitHub Actions versions across 30 workflow files. Full restoration required commits across PRs touching 50+ files. What Happened During batch merge session managed by Claude Code, PR #927 5-file feature adding an effect size chart was squash-merged into main. The branch had been forked main ap...",
+    "content": "The Squash Merge Incident - AI-Assisted Development - Making of TABS. How a single squash merge silently reverted 25+ pull requests, the root cause analysis, the full restoration effort, and the permanent safeguards now in place. The Squash Merge Incident Incident Date: April 6-7, 2026 single squash merge silently reverted 25+ previously merged pull requests across 67 files, destroying security fixes, accessibility features, statistical analysis code, and research data. second squash merge downgraded GitHub Actions versions across 30 workflow files. Full restoration required commits across PRs touching 50+ files. What Happened During batch merge session managed by Claude Code, PR #927 5-file feature adding an effect size chart was squash-merged into main. The branch had been forked from ma...",
     "category": "Making of TABS"
   },
   {
@@ -692,7 +692,7 @@
     "url": "/making-of-tabs/ai-validity-checks/gemini-3-1-review/bibliography-and-citations",
     "title": "Bibliography & Citations Review — Making of TABS",
     "description": "Gemini 3.1 Pro validity check of the TABS comprehensive bibliography.",
-    "content": "Bibliography & Citations Review — Making of TABS. Gemini 3.1 Pro validity check of the TABS comprehensive bibliography. Bibliography Citations Review critical component of the validity check was ensuring the accuracy of the academic citations and the comprehensive series bibliography. Citation Accuracy Verification Status: Verified Accurate Gemini Pro cross-referenced dozens of citations across the site. The review confirmed that: Author names are spelled correctly and listed in the proper order. Publication years the original seminal papers. Journal titles, volume numbers, and issue numbers are accurate. The APA formatting style is consistently applied across all bibliography pages. Data Integrity In addition to academic citations, the review audited the static data files The data structu...",
+    "content": "Bibliography & Citations Review — Making of TABS. Gemini 3.1 Pro validity check of the TABS comprehensive bibliography. Bibliography Citations Review critical component of the validity check was ensuring the accuracy of the academic citations and the comprehensive series bibliography. Citation Accuracy Verification Status: Verified Accurate Gemini Pro cross-referenced dozens of citations across the site. The review confirmed that: Author names are spelled correctly and listed in the proper order. Publication years the original seminal papers. Journal titles, volume numbers, and issue numbers are accurate. The APA formatting style is consistently applied across all bibliography pages. Data Integrity In addition to academic citations, the review audited the static data files barriers.ts impa...",
     "category": "Making of TABS"
   },
   {
@@ -772,7 +772,7 @@
     "url": "/making-of-tabs/ai-validity-checks/gemini-3-1-review/methodology",
     "title": "Methodology: Gemini 3.1 Review - Making of TABS",
     "description": "The methodology used by Gemini 3.1 Pro to audit the TABS content.",
-    "content": "Methodology: Gemini 3.1 Review - Making of TABS. The methodology used by Gemini 3.1 Pro to audit the TABS content. Methodology: Gemini Review To ensure thorough and unbiased audit, Gemini Pro employed systematic methodology to extract, analyze, and verify the content across the TABS repository. 1. Content Extraction The first phase involved reading the core content files directly the source code. This included: Article Pages: Extracting the text all src/app/article-* directories, covering both Branch Individual User Journey and Branch Organization Playbook Data Files: Analyzing src/data/ and qualtrics- to ensure data integrity. Bibliographies: Reviewing the comprehensive series bibliography and individual article citations. 2. Verification via Pattern Matching Given the massive volume of t...",
+    "content": "Methodology: Gemini 3.1 Review - Making of TABS. The methodology used by Gemini 3.1 Pro to audit the TABS content. Methodology: Gemini Review To ensure thorough and unbiased audit, Gemini Pro employed systematic methodology to extract, analyze, and verify the content across the TABS repository. 1. Content Extraction The first phase involved reading the core content files directly from the source code. This included: Article Pages: Extracting the text from all src/app/article-* directories, covering both Branch Individual User Journey and Branch Organization Playbook Data Files: Analyzing src/data/barriers.ts impact.json and qualtrics-metrics.json to ensure data integrity. Bibliographies: Reviewing the comprehensive series bibliography and individual article citations. 2. Verification via P...",
     "category": "Making of TABS"
   },
   {
@@ -780,7 +780,7 @@
     "url": "/making-of-tabs/automation-infrastructure",
     "title": "Automation Infrastructure - Making of TABS",
     "description": "How the TABS project automates the full lifecycle from issue assignment to human review - daily data pipelines, privacy-safe boundaries, AI agent coordination, and dependency provenance.",
-    "content": "Automation Infrastructure - Making of TABS. How the TABS project automates the full lifecycle from issue assignment to human review - daily data pipelines, privacy-safe boundaries, AI agent coordination, and dependency provenance. Automation Infrastructure TABS is operated almost entirely through automated pipelines. This page documents the two main chains: the hands-off coding workflow that takes GitHub Issue to merged PR without any human writing code, and the daily data pipeline that processes Prolific submissions, runs analysis, and commits results all without human pressing button. The Hands-Off Chain Every feature and fix follows an eight-step chain GitHub Issue to merged PR. No human writes code; the workflow is purely assignment, review, and approval. Step Actor Action Output '1', ...",
+    "content": "Automation Infrastructure - Making of TABS. How the TABS project automates the full lifecycle from issue assignment to human review - daily data pipelines, privacy-safe boundaries, AI agent coordination, and dependency provenance. Automation Infrastructure TABS is operated almost entirely through automated pipelines. This page documents the two main chains: the hands-off coding workflow that takes GitHub Issue to merged PR without any human writing code, and the daily data pipeline that processes Prolific submissions, runs analysis, and commits results all without human pressing button. The Hands-Off Chain Every feature and fix follows an eight-step chain from GitHub Issue to merged PR. No human writes code; the workflow is purely assignment, review, and approval. Step Actor Action Output ...",
     "category": "Making of TABS"
   },
   {
@@ -788,7 +788,7 @@
     "url": "/making-of-tabs/cmo-survey",
     "title": "CMO Survey Comparison - Making of TABS",
     "description": "Learn how The CMO Survey has influenced and inspired the Technology Adoption Barriers Survey (TABS) methodology, design, and longitudinal research approach.",
-    "content": "CMO Survey Comparison - Making of TABS. Learn how The CMO Survey has influenced and inspired the Technology Adoption Barriers Survey (TABS) methodology, design, and longitudinal research approach. The CMO Survey: Inspiring TABS The Technology Adoption Barriers Survey TABS draws significant inspiration one of the most successful longitudinal research initiatives in business: The CMO Survey Since 2008, The CMO Survey has provided invaluable insights into marketing trends, spending patterns, and strategic priorities, serving as trusted benchmark for marketing leaders worldwide. This page explores how The CMO Survey proven methodology, longitudinal approach, and commitment to open access have shaped the development and vision of TABS. Quick Facts: The CMO Survey Timeline Launched: 2008 Frequen...",
+    "content": "CMO Survey Comparison - Making of TABS. Learn how The CMO Survey has influenced and inspired the Technology Adoption Barriers Survey (TABS) methodology, design, and longitudinal research approach. The CMO Survey: Inspiring TABS The Technology Adoption Barriers Survey TABS draws significant inspiration from one of the most successful longitudinal research initiatives in business: The CMO Survey Since 2008, The CMO Survey has provided invaluable insights into marketing trends, spending patterns, and strategic priorities, serving as trusted benchmark for marketing leaders worldwide. This page explores how The CMO Survey proven methodology, longitudinal approach, and commitment to open access have shaped the development and vision of TABS. Quick Facts: The CMO Survey Timeline Launched: 2008 Fr...",
     "category": "Making of TABS"
   },
   {
@@ -796,15 +796,7 @@
     "url": "/making-of-tabs/content-architecture",
     "title": "Content Architecture - Making of TABS",
     "description": "How the TABS site is organized - 149+ statically generated pages, data-driven content, SEO strategy, responsive design, and the static export approach.",
-    "content": "Content Architecture - Making of TABS. How the TABS site is organized - 149+ statically generated pages, data-driven content, SEO strategy, responsive design, and the static export approach. Content Architecture What started as single-page site has grown into 149+ statically generated pages covering research articles, teaching materials, bibliography entries, organizational resources, and project documentation. This page explains how we organize that content, keep it maintainable, and ensure it performs well at scale. Static Export Architecture TABS uses with output: every page is pre-rendered to static HTML at build time. There is no server. The entire site is collection of HTML, CSS, and JavaScript files hosted on GitHub Pages. Why Static Export? Performance pages load instantly CDN with...",
-    "category": "Making of TABS"
-  },
-  {
-    "id": "making-of-tabs-data-analysis",
-    "url": "/making-of-tabs/data-analysis",
-    "title": "Redirecting - TABS",
-    "description": "",
-    "content": "Redirecting - TABS",
+    "content": "Content Architecture - Making of TABS. How the TABS site is organized - 149+ statically generated pages, data-driven content, SEO strategy, responsive design, and the static export approach. Content Architecture What started as single-page site has grown into 149+ statically generated pages covering research articles, teaching materials, bibliography entries, organizational resources, and project documentation. This page explains how we organize that content, keep it maintainable, and ensure it performs well at scale. Static Export Architecture TABS uses Next.js with output: every page is pre-rendered to static HTML at build time. There is no server. The entire site is collection of HTML, CSS, and JavaScript files hosted on GitHub Pages. Why Static Export? Performance pages load instantly ...",
     "category": "Making of TABS"
   },
   {
@@ -812,7 +804,7 @@
     "url": "/making-of-tabs/development-workflow",
     "title": "Development Workflow - Making of TABS",
     "description": "The CI/CD pipeline, merge queue, automated testing, and operational workflows that keep the TABS website reliable and continuously deployed.",
-    "content": "Development Workflow - Making of TABS. The CI/CD pipeline, merge queue, automated testing, and operational workflows that keep the TABS website reliable and continuously deployed. Development Workflow Every change to the TABS website follows structured path idea to production. This is not accidental for research project that handles survey data and analytics, we need to know that every deployed change has been tested, reviewed, and verified. This page documents our entire development pipeline. Issue PR Merge Deploy No code reaches production without passing through pipeline: GitHub Issue Every change starts as tracked issue. Bug reports, feature requests, and documentation updates all get an issue number for traceability. Feature Branch branch is created main using conventional naming: fea...",
+    "content": "Development Workflow - Making of TABS. The CI/CD pipeline, merge queue, automated testing, and operational workflows that keep the TABS website reliable and continuously deployed. Development Workflow Every change to the TABS website follows structured path from idea to production. This is not accidental for research project that handles survey data and analytics, we need to know that every deployed change has been tested, reviewed, and verified. This page documents our entire development pipeline. Issue PR Merge Deploy No code reaches production without passing through pipeline: GitHub Issue Every change starts as tracked issue. Bug reports, feature requests, and documentation updates all get an issue number for traceability. Feature Branch branch is created from main using conventional n...",
     "category": "Making of TABS"
   },
   {
@@ -820,7 +812,7 @@
     "url": "/making-of-tabs/integrations",
     "title": "Technical Integrations & Workflows - Making of TABS",
     "description": "A detailed guide to the API integrations, automated workflows, and Survey Flow architecture that power the Technology Adoption Barriers Survey (TABS).",
-    "content": "Technical Integrations & Workflows - Making of TABS. A detailed guide to the API integrations, automated workflows, and Survey Flow architecture that power the Technology Adoption Barriers Survey (TABS). Technical Integrations Workflows Running long-term academic survey across multiple platforms requires reliable, automated plumbing. This page explains the four major platform integrations that keep TABS running: Qualtrics the survey engine Prolific the participant recruitment platform Google Analytics Search Console impact measurement and SEO transparency and Zotero the vetted reference library powering AI-assisted research Each integration is managed through GitHub Actions workflows and TypeScript or Python client libraries, so the entire operational lifecycle survey creation to data coll...",
+    "content": "Technical Integrations & Workflows - Making of TABS. A detailed guide to the API integrations, automated workflows, and Survey Flow architecture that power the Technology Adoption Barriers Survey (TABS). Technical Integrations Workflows Running long-term academic survey across multiple platforms requires reliable, automated plumbing. This page explains the four major platform integrations that keep TABS running: Qualtrics the survey engine Prolific the participant recruitment platform Google Analytics Search Console impact measurement and SEO transparency and Zotero the vetted reference library powering AI-assisted research Each integration is managed through GitHub Actions workflows and TypeScript or Python client libraries, so the entire operational lifecycle from survey creation to data...",
     "category": "Making of TABS"
   },
   {
@@ -828,7 +820,7 @@
     "url": "/making-of-tabs/integrations/cloudflare",
     "title": "Cloudflare Integration - Making of TABS",
     "description": "How TABS uses Cloudflare as the DNS, CDN, SSL, and security layer in front of GitHub Pages - including caching strategy, performance optimizations, and security headers.",
-    "content": "Cloudflare Integration - Making of TABS. How TABS uses Cloudflare as the DNS, CDN, SSL, and security layer in front of GitHub Pages - including caching strategy, performance optimizations, and security headers. Cloudflare DNS, global CDN, SSL termination, and security headers all on the Free plan, sitting between visitors and the GitHub Pages origin. Architecture The TABS site is statically exported by and hosted on GitHub Pages. Cloudflare sits in front of GitHub Pages as reverse proxy all traffic to flows through Cloudflare edge network before reaching the origin: The application itself has no awareness of Cloudflare There are no Cloudflare Workers, no no edge functions. Cloudflare is purely infrastructure-level integration configured entirely through the Cloudflare dashboard. DNS Config...",
+    "content": "Cloudflare Integration - Making of TABS. How TABS uses Cloudflare as the DNS, CDN, SSL, and security layer in front of GitHub Pages - including caching strategy, performance optimizations, and security headers. Cloudflare DNS, global CDN, SSL termination, and security headers all on the Free plan, sitting between visitors and the GitHub Pages origin. Architecture The TABS site is statically exported by Next.js and hosted on GitHub Pages. Cloudflare sits in front of GitHub Pages as reverse proxy all traffic to flows through Cloudflare edge network before reaching the origin: The Next.js application itself has no awareness of Cloudflare There are no Cloudflare Workers, no no edge functions. Cloudflare is purely infrastructure-level integration configured entirely through the Cloudflare dashb...",
     "category": "Making of TABS"
   },
   {
@@ -836,7 +828,7 @@
     "url": "/making-of-tabs/integrations/github",
     "title": "GitHub Integration - Making of TABS",
     "description": "How TABS uses GitHub as a comprehensive DevOps platform: 12 Actions workflows, automated code review, CodeQL security scanning, Dependabot, GitHub Pages deployment, and release management.",
-    "content": "GitHub Integration - Making of TABS. How TABS uses GitHub as a comprehensive DevOps platform: 12 Actions workflows, automated code review, CodeQL security scanning, Dependabot, GitHub Pages deployment, and release management. GitHub GitHub is the operational backbone of TABS it hosts the code, enforces quality gates, deploys the site, scans for vulnerabilities, and orchestrates every external-API data pipeline. Role Overview Most projects treat GitHub as place to store code and open pull requests. TABS uses it as full DevOps platform Every automated task daily analytics reports to weekly participant-data collection runs inside GitHub Actions, is gated by environment secrets, and produces auditable step summaries. CI/CD Pipeline Continuous Integration The core CI workflow runs on every pull...",
+    "content": "GitHub Integration - Making of TABS. How TABS uses GitHub as a comprehensive DevOps platform: 12 Actions workflows, automated code review, CodeQL security scanning, Dependabot, GitHub Pages deployment, and release management. GitHub GitHub is the operational backbone of TABS it hosts the code, enforces quality gates, deploys the site, scans for vulnerabilities, and orchestrates every external-API data pipeline. Role Overview Most projects treat GitHub as place to store code and open pull requests. TABS uses it as full DevOps platform Every automated task from daily analytics reports to weekly participant-data collection runs inside GitHub Actions, is gated by environment secrets, and produces auditable step summaries. CI/CD Pipeline Continuous Integration The core CI workflow runs on every...",
     "category": "Making of TABS"
   },
   {
@@ -872,19 +864,11 @@
     "category": "Making of TABS"
   },
   {
-    "id": "making-of-tabs-integrations-prolific-dashboard",
-    "url": "/making-of-tabs/integrations/prolific/dashboard",
-    "title": "Redirecting - TABS",
-    "description": "",
-    "content": "Redirecting - TABS",
-    "category": "Making of TABS"
-  },
-  {
     "id": "making-of-tabs-integrations-qualtrics",
     "url": "/making-of-tabs/integrations/qualtrics",
     "title": "Qualtrics Integration - Making of TABS",
     "description": "How TABS uses Qualtrics for survey design, data collection, and automated management via the Qualtrics REST API v3 and GitHub Actions workflows.",
-    "content": "Qualtrics Integration - Making of TABS. How TABS uses Qualtrics for survey design, data collection, and automated management via the Qualtrics REST API v3 and GitHub Actions workflows. Qualtrics Integration Qualtrics is the survey engine at the heart of the TABS research project. It hosts the survey instrument, manages branching logic, captures respondent data, and handles the post-survey redirect flow. We interact with Qualtrics programmatically via its REST API v3 which enables us to copy surveys, inspect definitions, apply configuration changes, and data all GitHub Actions. Why Qualtrics We chose Qualtrics for several reasons critical to long-term academic survey: Sophisticated logic capabilities Complex question branching adapts to the respondent role and industry, ensuring participant...",
+    "content": "Qualtrics Integration - Making of TABS. How TABS uses Qualtrics for survey design, data collection, and automated management via the Qualtrics REST API v3 and GitHub Actions workflows. Qualtrics Integration Qualtrics is the survey engine at the heart of the TABS research project. It hosts the survey instrument, manages branching logic, captures respondent data, and handles the post-survey redirect flow. We interact with Qualtrics programmatically via its REST API v3 which enables us to copy surveys, inspect definitions, apply configuration changes, and data all from GitHub Actions. Why Qualtrics We chose Qualtrics for several reasons critical to long-term academic survey: Sophisticated logic capabilities Complex question branching adapts to the respondent role and industry, ensuring partic...",
     "category": "Making of TABS"
   },
   {
@@ -892,7 +876,79 @@
     "url": "/making-of-tabs/integrations/zotero",
     "title": "Zotero Integration - Making of TABS",
     "description": "How TABS integrates Zotero as the canonical reference library, giving AI agents direct access to vetted academic sources via the pyzotero MCP server and Web API.",
-    "content": "Zotero Integration - Making of TABS. How TABS integrates Zotero as the canonical reference library, giving AI agents direct access to vetted academic sources via the pyzotero MCP server and Web API. Making of TABS Technical Integrations Zotero Zotero Reference Library Vetted Sources The TABS project maintains Zotero library of over 3,300 academic references organized across 199 collections. This library serves as the canonical, vetted source of truth for every citation in the Culminating Research Project CRP The Zotero integration gives AI agents direct, programmatic access to archive enabling citation verification, literature discovery, full-text PDF retrieval, and cross-referencing with external databases like Semantic Scholar. Why Zotero Academic research demands an auditable chain clai...",
+    "content": "Zotero Integration - Making of TABS. How TABS integrates Zotero as the canonical reference library, giving AI agents direct access to vetted academic sources via the pyzotero MCP server and Web API. Making of TABS Technical Integrations Zotero Zotero Reference Library Vetted Sources The TABS project maintains Zotero library of over 3,300 academic references organized across 199 collections. This library serves as the canonical, vetted source of truth for every citation in the Culminating Research Project CRP The Zotero integration gives AI agents direct, programmatic access to archive enabling citation verification, literature discovery, full-text PDF retrieval, and cross-referencing with external databases like Semantic Scholar. Why Zotero Academic research demands an auditable chain from...",
+    "category": "Making of TABS"
+  },
+  {
+    "id": "making-of-tabs-mind-maps",
+    "url": "/making-of-tabs/mind-maps",
+    "title": "Mind Maps | Making of TABS",
+    "description": "Gallery of TABS mind maps - Lucidspark-built visualizations of the models, frameworks, and standards that shape technology adoption research, plus smaller zoomed-in cuts of each taxonomy branch.",
+    "content": "Mind Maps | Making of TABS. Gallery of TABS mind maps - Lucidspark-built visualizations of the models, frameworks, and standards that shape technology adoption research, plus smaller zoomed-in cuts of each taxonomy branch. Mind Maps This collection holds the interactive mind maps that sit behind the Technology Adoption Barriers Survey. Each map is built in Lucidspark, exported as SVG, and rendered on its own page with pan-and-zoom viewer so the full taxonomy stays readable at any scale. The full literature review map is large and information-dense, so collection also grows with smaller zoomed-in cuts. Each cut focuses on single branch of the taxonomy and lives as its own page alongside the full map. Available Maps Full Mind Map The complete Lucidspark covering every branch best for explori...",
+    "category": "Making of TABS"
+  },
+  {
+    "id": "making-of-tabs-mind-maps-business-management-models",
+    "url": "/making-of-tabs/mind-maps/business-management-models",
+    "title": "Business Management Models | Making of TABS",
+    "description": "Cut of the TABS literature review mind map focused on Business Management frameworks and models from roughly 1989 to 2023.",
+    "content": "Business Management Models | Making of TABS. Cut of the TABS literature review mind map focused on Business Management frameworks and models from roughly 1989 to 2023. Business Management Models This cut of the TABS mind map zooms into the Business Management branch strategic, operational, and change-management frameworks that shaped how organisations think about technology adoption from roughly 1989 through 2023. It is served from /Svgs/mind-maps/business-management-models.svg which currently contains rough viewBox crop of the full mind map The file will be replaced with dedicated Lucidspark for cluster as soon as one is available.",
+    "category": "Making of TABS"
+  },
+  {
+    "id": "making-of-tabs-mind-maps-culminating-research-project",
+    "url": "/making-of-tabs/mind-maps/culminating-research-project",
+    "title": "Culminating Research Project Workflow | Making of TABS",
+    "description": "Cut of the TABS mind map focused on the Culminating Research Project (CRP) six-phase product-development workflow.",
+    "content": "Culminating Research Project Workflow | Making of TABS. Cut of the TABS mind map focused on the Culminating Research Project (CRP) six-phase product-development workflow. Culminating Research Project Workflow This cut of the TABS mind map zooms into the Culminating Research Project workflow the six phases that move TABS from construct identification through survey instrument design, operationalisation, implementation, and public distribution. It is served from /Svgs/mind-maps/culminating-research-project.svg which currently contains rough viewBox crop of the full mind map The file will be replaced with dedicated Lucidspark for cluster as soon as one is available.",
+    "category": "Making of TABS"
+  },
+  {
+    "id": "making-of-tabs-mind-maps-enterprise-it-architecture",
+    "url": "/making-of-tabs/mind-maps/enterprise-it-architecture",
+    "title": "Enterprise & IT Architecture | Making of TABS",
+    "description": "Cut of the TABS literature review mind map focused on Enterprise and IT Architecture frameworks.",
+    "content": "Enterprise & IT Architecture | Making of TABS. Cut of the TABS literature review mind map focused on Enterprise and IT Architecture frameworks. Enterprise IT Architecture This cut of the TABS mind map zooms into the Enterprise and IT Architecture branch the architecture frameworks Zachman, TOGAF, FEAF, and their kin that structure how enterprises reason about technology stacks. It is served from /Svgs/mind-maps/enterprise-it-architecture.svg which currently contains rough viewBox crop of the full mind map The file will be replaced with dedicated Lucidspark for cluster as soon as one is available.",
+    "category": "Making of TABS"
+  },
+  {
+    "id": "making-of-tabs-mind-maps-full-mind-map",
+    "url": "/making-of-tabs/mind-maps/full-mind-map",
+    "title": "Full Mind Map | Making of TABS",
+    "description": "Interactive pan-and-zoom view of the full Technology Adoption Barriers Survey (TABS) mind map, covering frameworks and models across Business Management, IT, Enterprise Architecture, Project/Program/Risk Management, Standards & Regulations, Website Operations, and the Culminating Research Project workflow.",
+    "content": "Full Mind Map | Making of TABS. Interactive pan-and-zoom view of the full Technology Adoption Barriers Survey (TABS) mind map, covering frameworks and models across Business Management, IT, Enterprise Architecture, Project/Program/Risk Management, Standards & Regulations, Website Operations, and the Culminating Research Project workflow. Full Mind Map The complete TABS mind map, exported from Lucidspark. Drag to pan, scroll or pinch to zoom, and double-click to to the fitted view. Smaller zoomed-in cuts of each branch will appear alongside map under the Mind Maps collection as they are carved out.",
+    "category": "Making of TABS"
+  },
+  {
+    "id": "making-of-tabs-mind-maps-it-management-models",
+    "url": "/making-of-tabs/mind-maps/it-management-models",
+    "title": "IT & IT Management Models | Making of TABS",
+    "description": "Cut of the TABS literature review mind map focused on IT and IT management models from roughly 1989 to 2023.",
+    "content": "IT & IT Management Models | Making of TABS. Cut of the TABS literature review mind map focused on IT and IT management models from roughly 1989 to 2023. IT IT Management Models This cut of the TABS mind map zooms into the IT and IT Management branch the models and theories that describe how technology is adopted, governed, and managed inside the IT function. It is served from /Svgs/mind-maps/it-management-models.svg which currently contains rough viewBox crop of the full mind map The file will be replaced with dedicated Lucidspark for cluster as soon as one is available.",
+    "category": "Making of TABS"
+  },
+  {
+    "id": "making-of-tabs-mind-maps-project-program-risk-management",
+    "url": "/making-of-tabs/mind-maps/project-program-risk-management",
+    "title": "Project, Program & Risk Management | Making of TABS",
+    "description": "Cut of the TABS literature review mind map focused on project, program, and risk management frameworks.",
+    "content": "Project, Program & Risk Management | Making of TABS. Cut of the TABS literature review mind map focused on project, program, and risk management frameworks. Project, Program Risk Management This cut of the TABS mind map zooms into the Project, Program, and Risk Management branch the delivery and risk frameworks PMBOK, PRINCE2, risk management standards that sit between strategy and execution. It is served from /Svgs/mind-maps/project-program-risk-management.svg which currently contains rough viewBox crop of the full mind map The file will be replaced with dedicated Lucidspark for cluster as soon as one is available.",
+    "category": "Making of TABS"
+  },
+  {
+    "id": "making-of-tabs-mind-maps-standards-regulations",
+    "url": "/making-of-tabs/mind-maps/standards-regulations",
+    "title": "Standards & Regulations | Making of TABS",
+    "description": "Cut of the TABS literature review mind map focused on the standards and regulations families that govern IT adoption.",
+    "content": "Standards & Regulations | Making of TABS. Cut of the TABS literature review mind map focused on the standards and regulations families that govern IT adoption. Standards Regulations This cut of the TABS mind map zooms into the Standards and Regulations branch the families of standards and compliance regimes COBIT, ITIL, ISO/IEC 20000 and 27001, PCI DSS, CMM/CMMI, Microsoft frameworks, and federal cybersecurity that constrain how technology gets adopted. It is served from /Svgs/mind-maps/standards-regulations.svg which currently contains rough viewBox crop of the full mind map The file will be replaced with dedicated Lucidspark for cluster as soon as one is available.",
+    "category": "Making of TABS"
+  },
+  {
+    "id": "making-of-tabs-mind-maps-tabs-project-operations",
+    "url": "/making-of-tabs/mind-maps/tabs-project-operations",
+    "title": "TABS Project Operations | Making of TABS",
+    "description": "Cut of the TABS mind map focused on the operational side of the TABS project itself - the website, content, and partnership infrastructure.",
+    "content": "TABS Project Operations | Making of TABS. Cut of the TABS mind map focused on the operational side of the TABS project itself - the website, content, and partnership infrastructure. TABS Project Operations This cut of the TABS mind map zooms into the TABS Project Operations branch the operational side of the TABS project itself website infrastructure and compliance, content strategy, and partnership fostering as distinct from the literature review taxonomy. It is served from /Svgs/mind-maps/tabs-project-operations.svg which currently contains rough viewBox crop of the full mind map The file will be replaced with dedicated Lucidspark for cluster as soon as one is available.",
     "category": "Making of TABS"
   },
   {
@@ -904,43 +960,11 @@
     "category": "Making of TABS"
   },
   {
-    "id": "making-of-tabs-reproducible-analysis",
-    "url": "/making-of-tabs/reproducible-analysis",
-    "title": "Redirecting - TABS",
-    "description": "",
-    "content": "Redirecting - TABS",
-    "category": "Making of TABS"
-  },
-  {
     "id": "making-of-tabs-seo",
     "url": "/making-of-tabs/seo",
     "title": "SEO Transparency & Dashboard - Making of TABS",
     "description": "SEO metrics, baseline audit, and strategic roadmap for the Technology Adoption Barriers project - a transparent, build-time snapshot.",
-    "content": "SEO Transparency & Dashboard - Making of TABS. SEO metrics, baseline audit, and strategic roadmap for the Technology Adoption Barriers project - a transparent, build-time snapshot. SEO Benchmarking Transparency ℹ️ Note on Static Deployment Architecture The TABS website is generated entirely as static output: and hosted on GitHub Pages for security and performance. Because of architectural limitation, dashboard cannot query live-polling React APIs such as Google Search Console or Google Analytics natively on the client without exposing private API keys. Instead, dashboard represents statically generated snapshot rendered directly our internal data pipelines at build time. Dashboard Snapshot Sync: Data Collection Window: to Search Engine Optimization SEO is often treated as secretive marketi...",
-    "category": "Making of TABS"
-  },
-  {
-    "id": "making-of-tabs-seo-baseline-audit",
-    "url": "/making-of-tabs/seo/baseline-audit",
-    "title": "Baseline SEO Audit - Making of TABS",
-    "description": "This page has moved. See the consolidated SEO Transparency page.",
-    "content": "Baseline SEO Audit - Making of TABS. This page has moved. See the consolidated SEO Transparency page. This page has been consolidated into the SEO Benchmarking Transparency page. Go to Baseline Audit",
-    "category": "Making of TABS"
-  },
-  {
-    "id": "making-of-tabs-seo-dashboard",
-    "url": "/making-of-tabs/seo/dashboard",
-    "title": "SEO Performance Dashboard - Making of TABS",
-    "description": "This page has moved. See the consolidated SEO Transparency page.",
-    "content": "SEO Performance Dashboard - Making of TABS. This page has moved. See the consolidated SEO Transparency page. This page has been consolidated into the SEO Benchmarking Transparency page. Go to Performance Dashboard",
-    "category": "Making of TABS"
-  },
-  {
-    "id": "making-of-tabs-seo-strategy",
-    "url": "/making-of-tabs/seo/strategy",
-    "title": "SEO Strategy Roadmap - Making of TABS",
-    "description": "This page has moved. See the consolidated SEO Transparency page.",
-    "content": "SEO Strategy Roadmap - Making of TABS. This page has moved. See the consolidated SEO Transparency page. This page has been consolidated into the SEO Benchmarking Transparency page. Go to Strategy Roadmap",
+    "content": "SEO Transparency & Dashboard - Making of TABS. SEO metrics, baseline audit, and strategic roadmap for the Technology Adoption Barriers project - a transparent, build-time snapshot. SEO Benchmarking Transparency ℹ️ Note on Static Deployment Architecture The TABS website is generated entirely as static output: and hosted on GitHub Pages for security and performance. Because of architectural limitation, dashboard cannot query live-polling React APIs such as Google Search Console or Google Analytics natively on the client without exposing private API keys. Instead, dashboard represents statically generated snapshot rendered directly from our internal data pipelines at build time. Dashboard Snapshot Sync: Data Collection Window: to Search Engine Optimization SEO is often treated as secretive ma...",
     "category": "Making of TABS"
   },
   {
@@ -964,7 +988,7 @@
     "url": "/privacy-policy",
     "title": "Privacy Policy | Technology Adoption Barriers Survey (TABS)",
     "description": "Privacy Policy for the Technology Adoption Barriers Survey (TABS) website",
-    "content": "Privacy Policy | Technology Adoption Barriers Survey (TABS). Privacy Policy for the Technology Adoption Barriers Survey (TABS) website. Privacy Policy Effective Date: 12-07-2025 Introduction At Technology Adoption Barriers Survey TABS accessible https:// your privacy is one of our primary concerns. This Privacy Policy document contains types of information we collect and record, and how we use it. By using our website, you hereby consent to our Privacy Policy and agree to its terms. Who We Are Our website address is: https:// Information We Collect Cookies Our website uses cookies to enhance your browsing experience: Cookie Consent Preference: We store your cookie consent choice so we do not ask again on every visit. This cookie is kept until you clear your browser data. Analytics Cookies:...",
+    "content": "Privacy Policy | Technology Adoption Barriers Survey (TABS). Privacy Policy for the Technology Adoption Barriers Survey (TABS) website. Privacy Policy Effective Date: 12-07-2025 Introduction At Technology Adoption Barriers Survey TABS accessible from https:// your privacy is one of our primary concerns. This Privacy Policy document contains types of information we collect and record, and how we use it. By using our website, you hereby consent to our Privacy Policy and agree to its terms. Who We Are Our website address is: https:// Information We Collect Cookies Our website uses cookies to enhance your browsing experience: Cookie Consent Preference: We store your cookie consent choice so we do not ask again on every visit. This cookie is kept until you clear your browser data. Analytics Coo...",
     "category": "Legal"
   },
   {
@@ -972,15 +996,7 @@
     "url": "/results",
     "title": "Results - TABS",
     "description": "Survey results from the Technology Adoption Barriers Survey: sample demographics, descriptive statistics, scale reliability, sensitivity analysis, and open data.",
-    "content": "Results - TABS. Survey results from the Technology Adoption Barriers Survey: sample demographics, descriptive statistics, scale reliability, sensitivity analysis, and open data. Results The Technology Adoption Barriers Survey TABS collects data organizational leaders about the barriers, readiness, and maturity factors that influence technology adoption. Every metric is computed independently across four primary result groups so researchers can choose the dataset that matches their quality requirements. All statistics are generated automatically by the daily analysis pipeline and updated every time data is collected. label: 'Total Responses', value: totalN",
-    "category": "Results"
-  },
-  {
-    "id": "results-cmo-survey",
-    "url": "/results/cmo-survey",
-    "title": "Redirecting - TABS",
-    "description": "",
-    "content": "Redirecting - TABS",
+    "content": "Results - TABS. Survey results from the Technology Adoption Barriers Survey: sample demographics, descriptive statistics, scale reliability, sensitivity analysis, and open data. Results The Technology Adoption Barriers Survey TABS collects data from organizational leaders about the barriers, readiness, and maturity factors that influence technology adoption. Every metric is computed independently across four primary result groups so researchers can choose the dataset that matches their quality requirements. All statistics are generated automatically by the daily analysis pipeline and updated every time data is collected. label: 'Total Responses', value: totalN",
     "category": "Results"
   },
   {
@@ -996,7 +1012,7 @@
     "url": "/results/crp-2026/data-quality",
     "title": "CRP 2026 Data Quality - TABS",
     "description": "How the TABS project ensures data quality through multi-stage validation, disposition waterfall logic, and sensitivity analysis across 3 primary groups.",
-    "content": "CRP 2026 Data Quality - TABS. How the TABS project ensures data quality through multi-stage validation, disposition waterfall logic, and sensitivity analysis across 3 primary groups. CRP 2026: Data Quality Pipeline Published: April 2026 The TABS project applies multi-stage data quality pipeline to every survey response. This page documents how responses flow collection through validation to analysis, the quality checks applied at each stage, the edge cases we discovered and resolved, and the sensitivity analysis that demonstrates our findings are robust to inclusion criteria. All statistics on page are generated automatically by the daily analysis pipeline and updated every time the pipeline runs. The numbers shown here the Prolific platform exactly. Data Flow Every survey response passes ...",
+    "content": "CRP 2026 Data Quality - TABS. How the TABS project ensures data quality through multi-stage validation, disposition waterfall logic, and sensitivity analysis across 3 primary groups. CRP 2026: Data Quality Pipeline Published: April 2026 The TABS project applies multi-stage data quality pipeline to every survey response. This page documents how responses flow from collection through validation to analysis, the quality checks applied at each stage, the edge cases we discovered and resolved, and the sensitivity analysis that demonstrates our findings are robust to inclusion criteria. All statistics on page are generated automatically by the daily analysis pipeline and updated every time the pipeline runs. The numbers shown here the Prolific platform exactly. Data Flow Every survey response pa...",
     "category": "Results"
   },
   {
@@ -1024,14 +1040,6 @@
     "category": "Results"
   },
   {
-    "id": "results-crp-2026-glossary",
-    "url": "/results/crp-2026/glossary",
-    "title": "Redirecting - TABS",
-    "description": "",
-    "content": "Redirecting - TABS",
-    "category": "Results"
-  },
-  {
     "id": "results-crp-2026-reliability",
     "url": "/results/crp-2026/reliability",
     "title": "CRP 2026 Scale Reliability - TABS",
@@ -1044,7 +1052,7 @@
     "url": "/results/crp-2026/sample",
     "title": "CRP 2026 Sample & Demographics - TABS",
     "description": "Participant demographics for the Technology Adoption Barriers Survey across three result groups: roles, industries, organization sizes, and geographic distribution.",
-    "content": "CRP 2026 Sample & Demographics - TABS. Participant demographics for the Technology Adoption Barriers Survey across three result groups: roles, industries, organization sizes, and geographic distribution. CRP 2026: Sample Demographics Published: April 2026 Demographics are computed independently for each of the three primary result groups. This allows researchers to verify that the composition of their chosen dataset matches their generalizability requirements. All statistics on page are generated by the daily analysis pipeline. Demographic Data Sources Participant demographics are collected two independent sources. These capture different types of information and should not be conflated: Survey Demographics Qualtrics Self-reported by participants within the TABS survey instrument itself qu...",
+    "content": "CRP 2026 Sample & Demographics - TABS. Participant demographics for the Technology Adoption Barriers Survey across three result groups: roles, industries, organization sizes, and geographic distribution. CRP 2026: Sample Demographics Published: April 2026 Demographics are computed independently for each of the three primary result groups. This allows researchers to verify that the composition of their chosen dataset matches their generalizability requirements. All statistics on page are generated by the daily analysis pipeline. Demographic Data Sources Participant demographics are collected from two independent sources. These capture different types of information and should not be conflated: Survey Demographics Qualtrics Self-reported by participants within the TABS survey instrument itse...",
     "category": "Results"
   },
   {
@@ -1052,7 +1060,15 @@
     "url": "/results/crp-2026/sensitivity",
     "title": "CRP 2026 Sensitivity Analysis - TABS",
     "description": "Full sensitivity analysis for the CRP 2026 Technology Adoption Barriers Survey: every metric computed across three CRP sample definitions to demonstrate robustness to inclusion criteria.",
-    "content": "CRP 2026 Sensitivity Analysis - TABS. Full sensitivity analysis for the CRP 2026 Technology Adoption Barriers Survey: every metric computed across three CRP sample definitions to demonstrate robustness to inclusion criteria. CRP 2026: Sensitivity Analysis Published: April 2026 Sensitivity analysis tests whether findings are robust to the choice of inclusion criteria. Every metric means, standard deviations, inter-construct correlations, and reliability coefficients is computed independently across three CRP sample definitions. If finding holds across Conservative Clean N= and Prolific Accepted N= it is robust to inclusion criteria. Sample Definitions The three primary result groups below are used throughout analysis. They are nested most restrictive to least restrictive. Key Label Descript...",
+    "content": "CRP 2026 Sensitivity Analysis - TABS. Full sensitivity analysis for the CRP 2026 Technology Adoption Barriers Survey: every metric computed across three CRP sample definitions to demonstrate robustness to inclusion criteria. CRP 2026: Sensitivity Analysis Published: April 2026 Sensitivity analysis tests whether findings are robust to the choice of inclusion criteria. Every metric means, standard deviations, inter-construct correlations, and reliability coefficients is computed independently across three CRP sample definitions. If finding holds across Conservative Clean N= and Prolific Accepted N= it is robust to inclusion criteria. Sample Definitions The three primary result groups below are used throughout analysis. They are nested from most restrictive to least restrictive. Key Label Des...",
+    "category": "Results"
+  },
+  {
+    "id": "results-crp-2026-top-barriers",
+    "url": "/results/crp-2026/top-barriers",
+    "title": "CRP 2026 Top 3 Barriers - TABS",
+    "description": "Top-3 barrier salience ranking for the TABS CRP 2026 frozen dataset (N=200). Compares forced-choice pick counts with mean-based ranking and highlights divergences between cultural and cybersecurity barriers.",
+    "content": "CRP 2026 Top 3 Barriers - TABS. Top-3 barrier salience ranking for the TABS CRP 2026 frozen dataset (N=200). Compares forced-choice pick counts with mean-based ranking and highlights divergences between cultural and cybersecurity barriers. CRP 2026: Top Barriers Published: April 2026 This page presents the forced-choice Top barriers ranking from the TABS CRP 2026 frozen dataset N= Each participant selected up to three barriers from the full list of 18. Counts below reflect the number of participants who included each barrier in their top 3. The forced-choice ranking complements the continuous Likert-based ranking shown on the Descriptive Statistics page. Comparing the two rankings surfaces which barriers rise or fall in salience when participants are forced to choose only small number of i...",
     "category": "Results"
   },
   {
@@ -1076,7 +1092,7 @@
     "url": "/results/data-quality",
     "title": "Data Quality Pipeline - TABS Results",
     "description": "How the TABS project ensures data quality through multi-stage validation, disposition waterfall logic, and sensitivity analysis across five sample definitions.",
-    "content": "Data Quality Pipeline - TABS Results. How the TABS project ensures data quality through multi-stage validation, disposition waterfall logic, and sensitivity analysis across five sample definitions. Data Quality Pipeline The TABS project applies multi-stage data quality pipeline to every survey response. This page documents how responses flow collection through validation to analysis, the quality checks applied at each stage, the edge cases we discovered and resolved, and the sensitivity analysis that demonstrates our findings are robust to inclusion criteria. All statistics on page are generated automatically by the daily analysis pipeline and updated every time the pipeline runs. The numbers shown here the Prolific platform exactly. Data Flow Every survey response passes through pipeline ...",
+    "content": "Data Quality Pipeline - TABS Results. How the TABS project ensures data quality through multi-stage validation, disposition waterfall logic, and sensitivity analysis across five sample definitions. Data Quality Pipeline The TABS project applies multi-stage data quality pipeline to every survey response. This page documents how responses flow from collection through validation to analysis, the quality checks applied at each stage, the edge cases we discovered and resolved, and the sensitivity analysis that demonstrates our findings are robust to inclusion criteria. All statistics on page are generated automatically by the daily analysis pipeline and updated every time the pipeline runs. The numbers shown here the Prolific platform exactly. Data Flow Every survey response passes through pipe...",
     "category": "Results"
   },
   {
@@ -1084,7 +1100,7 @@
     "url": "/results/dataset-comparison",
     "title": "Dataset Comparison - TABS Results",
     "description": "Side-by-side comparison of all statistics across the four primary result groups of the Technology Adoption Barriers Survey.",
-    "content": "Dataset Comparison - TABS Results. Side-by-side comparison of all statistics across the four primary result groups of the Technology Adoption Barriers Survey. Dataset Comparison This page provides comprehensive side-by-side comparison of all four primary result groups. Each group represents an independent dataset with progressively less restrictive quality criteria. Researchers can use comparison to assess how data cleaning decisions affect statistical conclusions. !dataAvailable && Sample or metric data missing sensitivity- Check the daily pipeline workflow.",
+    "content": "Dataset Comparison - TABS Results. Side-by-side comparison of all statistics across the four primary result groups of the Technology Adoption Barriers Survey. Dataset Comparison This page provides comprehensive side-by-side comparison of all four primary result groups. Each group represents an independent dataset with progressively less restrictive quality criteria. Researchers can use comparison to assess how data cleaning decisions affect statistical conclusions. !dataAvailable && Sample or metric data missing from sensitivity-analysis.json. Check the daily pipeline workflow.",
     "category": "Results"
   },
   {
@@ -1116,7 +1132,7 @@
     "url": "/results/glossary",
     "title": "Statistics Glossary - TABS Results",
     "description": "Plain-language explanations of every psychometric and statistical method used in the TABS instrument validation, including formulas, thresholds, and interpretive guidance.",
-    "content": "Statistics Glossary - TABS Results. Plain-language explanations of every psychometric and statistical method used in the TABS instrument validation, including formulas, thresholds, and interpretive guidance. Statistics Glossary Published: April 2026 This glossary explains every psychometric and statistical method used in the TABS instrument validation. Each entry describes what the statistic measures, how it is calculated, commonly accepted thresholds, and the TABS-specific results the CRP-200 frozen dataset N=200 Jump to: categories cat, `#cat-$ /\\s+/g, '-'",
+    "content": "Statistics Glossary - TABS Results. Plain-language explanations of every psychometric and statistical method used in the TABS instrument validation, including formulas, thresholds, and interpretive guidance. Statistics Glossary Published: April 2026 This glossary explains every psychometric and statistical method used in the TABS instrument validation. Each entry describes what the statistic measures, how it is calculated, commonly accepted thresholds, and the TABS-specific results from the CRP-200 frozen dataset N=200 Jump to: categories cat, `#cat-$ /\\s+/g, '-'",
     "category": "Results"
   },
   {
@@ -1140,7 +1156,7 @@
     "url": "/results/sample",
     "title": "Sample & Demographics - TABS Results",
     "description": "Participant demographics for the Technology Adoption Barriers Survey across four result groups: roles, industries, organization sizes, and geographic distribution.",
-    "content": "Sample & Demographics - TABS Results. Participant demographics for the Technology Adoption Barriers Survey across four result groups: roles, industries, organization sizes, and geographic distribution. Sample Demographics Demographics are computed independently for each of the four primary result groups. This allows researchers to verify that the composition of their chosen dataset matches their generalizability requirements. All statistics on page are generated by the daily analysis pipeline. Demographic Data Sources Participant demographics are collected two independent sources. These capture different types of information and should not be conflated: Survey Demographics Qualtrics Self-reported by participants within the TABS survey instrument itself questions Q1-Q9 These are role-specif...",
+    "content": "Sample & Demographics - TABS Results. Participant demographics for the Technology Adoption Barriers Survey across four result groups: roles, industries, organization sizes, and geographic distribution. Sample Demographics Demographics are computed independently for each of the four primary result groups. This allows researchers to verify that the composition of their chosen dataset matches their generalizability requirements. All statistics on page are generated by the daily analysis pipeline. Demographic Data Sources Participant demographics are collected from two independent sources. These capture different types of information and should not be conflated: Survey Demographics Qualtrics Self-reported by participants within the TABS survey instrument itself questions Q1-Q9 These are role-s...",
     "category": "Results"
   },
   {
@@ -1148,7 +1164,7 @@
     "url": "/results/sensitivity",
     "title": "Sensitivity Analysis - TABS Results",
     "description": "Full sensitivity analysis for the Technology Adoption Barriers Survey: every metric computed across five sample definitions to demonstrate robustness to inclusion criteria.",
-    "content": "Sensitivity Analysis - TABS Results. Full sensitivity analysis for the Technology Adoption Barriers Survey: every metric computed across five sample definitions to demonstrate robustness to inclusion criteria. Sensitivity Analysis Sensitivity analysis tests whether findings are robust to the choice of inclusion criteria. Every metric means, standard deviations, inter-construct correlations, and reliability coefficients is computed independently across five nested sample definitions. If finding holds across Conservative Clean N= and All V2 N= it is robust to inclusion criteria. Sample Definitions The five sample definitions below are used throughout analysis. They are nested most restrictive to least restrictive, with the exception of Prolific Accepted and All V2 Finished, which overlap but...",
+    "content": "Sensitivity Analysis - TABS Results. Full sensitivity analysis for the Technology Adoption Barriers Survey: every metric computed across five sample definitions to demonstrate robustness to inclusion criteria. Sensitivity Analysis Sensitivity analysis tests whether findings are robust to the choice of inclusion criteria. Every metric means, standard deviations, inter-construct correlations, and reliability coefficients is computed independently across five nested sample definitions. If finding holds across Conservative Clean N= and All V2 N= it is robust to inclusion criteria. Sample Definitions The five sample definitions below are used throughout analysis. They are nested from most restrictive to least restrictive, with the exception of Prolific Accepted and All V2 Finished, which overla...",
     "category": "Results"
   },
   {
@@ -1156,7 +1172,15 @@
     "url": "/results/survey-stats",
     "title": "Survey Statistics - TABS Results",
     "description": "Live survey metrics and response data from the Technology Adoption Barriers Survey (TABS), pulled from Qualtrics via GitHub Actions.",
-    "content": "Survey Statistics - TABS Results. Live survey metrics and response data from the Technology Adoption Barriers Survey (TABS), pulled from Qualtrics via GitHub Actions. Survey Statistics Live metrics pulled Qualtrics via GitHub Actions.",
+    "content": "Survey Statistics - TABS Results. Live survey metrics and response data from the Technology Adoption Barriers Survey (TABS), pulled from Qualtrics via GitHub Actions. Survey Statistics Live metrics pulled from Qualtrics via GitHub Actions.",
+    "category": "Results"
+  },
+  {
+    "id": "results-top-barriers",
+    "url": "/results/top-barriers",
+    "title": "Top 3 Barriers (Live) - TABS",
+    "description": "Live forced-choice Top 3 barriers ranking from the growing TABS V2 dataset. Compares pick counts with continuous-rating means and updates daily as new responses are accepted on Prolific.",
+    "content": "Top 3 Barriers (Live) - TABS. Live forced-choice Top 3 barriers ranking from the growing TABS V2 dataset. Compares pick counts with continuous-rating means and updates daily as new responses are accepted on Prolific. Top Barriers Live Live dataset Updated: formatUpdated LAST_UPDATED",
     "category": "Results"
   },
   {
@@ -1276,7 +1300,7 @@
     "url": "/survey-complete",
     "title": "Survey Complete | TABS",
     "description": "Thank you for participating in the Technology Adoption Barriers Survey (TABS) survey.",
-    "content": "Survey Complete | TABS. Thank you for participating in the Technology Adoption Barriers Survey (TABS) survey. Thank you for participating Your response has been recorded. We appreciate you taking the time to help improve our understanding of technology adoption barriers. What happens next? TABS is longitudinal effort. If you re willing, please plan to take the TABS survey again in future cycle so we can measure how technology adoption barriers change over time. Also, consider sharing year TABS survey with the rest of the leadership team in your organization C-suite, VPs, Directors broader input makes the dataset stronger. Share Survey via Email Join Mailing List Came Prolific? If you entered survey through Prolific, you should typically be redirected back to Prolific automatically at the e...",
+    "content": "Survey Complete | TABS. Thank you for participating in the Technology Adoption Barriers Survey (TABS) survey. Thank you for participating Your response has been recorded. We appreciate you taking the time to help improve our understanding of technology adoption barriers. What happens next? TABS is longitudinal effort. If you re willing, please plan to take the TABS survey again in future cycle so we can measure how technology adoption barriers change over time. Also, consider sharing year TABS survey with the rest of the leadership team in your organization C-suite, VPs, Directors broader input makes the dataset stronger. Share Survey via Email Join Mailing List Came from Prolific? If you entered survey through Prolific, you should typically be redirected back to Prolific automatically at ...",
     "category": "General"
   },
   {
@@ -1308,7 +1332,7 @@
     "url": "/technology-adoption-series/lifecycle-positioning",
     "title": "Technology Lifecycle Positioning - Focused Briefing",
     "description": "A focused lifecycle-positioning briefing: adoption foundations, the dual-curve target zone, transition signals, and decision lenses across hardware, supply chain, and AI/ML.",
-    "content": "Technology Lifecycle Positioning - Focused Briefing. A focused lifecycle-positioning briefing: adoption foundations, the dual-curve target zone, transition signals, and decision lenses across hardware, supply chain, and AI/ML. Technology Lifecycle Positioning Where technology sits in its lifecycle bleeding edge to end of support shapes every decision about adoption, architecture, and investment. This focused deck moves adoption foundations to the dual-curve target zone, then applies clear decision lenses to hardware, supply chain, and AI/ML examples. Estimated time: ~30 minutes for presentation, ~45 minutes with discussion. Loading presentation… iframe assetPath '/technology-adoption-series/lifecycle-positioning/presentation'",
+    "content": "Technology Lifecycle Positioning - Focused Briefing. A focused lifecycle-positioning briefing: adoption foundations, the dual-curve target zone, transition signals, and decision lenses across hardware, supply chain, and AI/ML. Technology Lifecycle Positioning Where technology sits in its lifecycle from bleeding edge to end of support shapes every decision about adoption, architecture, and investment. This focused deck moves from adoption foundations to the dual-curve target zone, then applies clear decision lenses to hardware, supply chain, and AI/ML examples. Estimated time: ~30 minutes for presentation, ~45 minutes with discussion. Loading presentation… iframe assetPath '/technology-adoption-series/lifecycle-positioning/presentation'",
     "category": "Teaching Series"
   },
   {
