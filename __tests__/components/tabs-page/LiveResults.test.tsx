@@ -15,7 +15,7 @@ describe('LiveResults component', () => {
     expect(screen.getByText('Live Results: Top Barriers')).toBeInTheDocument()
   })
 
-  it('should display the participant count from the same source as the homepage Statistics callout', () => {
+  it('should display the survey-completion count from the same source as the homepage Statistics callout', () => {
     render(<LiveResults />)
     const totalN = dispositionData.completionProgress.approved
     const formattedTotalN = totalN.toLocaleString()
@@ -72,6 +72,7 @@ describe('LiveResults component', () => {
     expect(
       screen.getByText(/most commonly identified technology adoption barriers/i)
     ).toBeInTheDocument()
+    expect(screen.getByText(/surveys completed/i)).toBeInTheDocument()
     expect(
       screen.getByText(/Explore detailed analysis, cross-tabulations, and statistical findings/i)
     ).toBeInTheDocument()

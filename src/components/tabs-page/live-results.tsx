@@ -24,8 +24,8 @@ const LiveResults = () => {
             Live Results: Top Barriers
           </h2>
           <p className="text-[20px] text-gray-700 max-w-[800px] mx-auto">
-            Based on responses from {totalN.toLocaleString()} verified participants, here are the
-            most commonly identified technology adoption barriers.
+            {totalN.toLocaleString()} surveys completed. Here are the most commonly identified
+            technology adoption barriers.
           </p>
         </div>
 
