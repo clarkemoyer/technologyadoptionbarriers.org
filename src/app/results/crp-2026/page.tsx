@@ -258,7 +258,7 @@ const CRP2026Page = () => {
               <Link href="/results/crp-2026/validation" className="text-blue-600 hover:underline">
                 Instrument Validation
               </Link>{' '}
-              &mdash; full psychometric validation at N={d(CRP_SAMPLE_SIZE)}
+              - full psychometric validation at N={d(CRP_SAMPLE_SIZE)}
             </li>
             <li>
               <Link
@@ -267,31 +267,37 @@ const CRP2026Page = () => {
               >
                 Factor Analysis
               </Link>{' '}
-              &mdash; hierarchical barrier factor structure
+              - hierarchical barrier factor structure
+            </li>
+            <li>
+              <Link href="/results/crp-2026/top-barriers" className="text-blue-600 hover:underline">
+                Top 3 Barriers
+              </Link>{' '}
+              - forced-choice salience ranking vs continuous-rating ranking
             </li>
             <li>
               <Link href="/results/crp-2026/glossary" className="text-blue-600 hover:underline">
                 Statistics Glossary
               </Link>{' '}
-              &mdash; what every statistic means and how it&apos;s calculated
+              - what every statistic means and how it&apos;s calculated
             </li>
             <li>
               <Link href="/results/reproducibility" className="text-blue-600 hover:underline">
                 Open Data &amp; Reproducibility
               </Link>{' '}
-              &mdash; analysis scripts and reproduction instructions
+              - analysis scripts and reproduction instructions
             </li>
             <li>
               <Link href="/results/sensitivity" className="text-blue-600 hover:underline">
                 Sensitivity Analysis
               </Link>{' '}
-              &mdash; robustness across sample definitions
+              - robustness across sample definitions
             </li>
             <li>
               <Link href="/results/data-quality" className="text-blue-600 hover:underline">
                 Data Quality Pipeline
               </Link>{' '}
-              &mdash; how responses are validated before analysis
+              - how responses are validated before analysis
             </li>
             <li>
               <Link href="/results" className="text-blue-600 hover:underline">

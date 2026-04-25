@@ -41,9 +41,9 @@ const SensitivityPage = () => {
         <section className={SECTION_CLASSES}>
           <p className={PARAGRAPH_CLASSES}>
             Sensitivity analysis tests whether findings are robust to the choice of inclusion
-            criteria. Every key metric &mdash; means, standard deviations, inter-construct
-            correlations, and reliability coefficients &mdash; is computed independently across five
-            nested sample definitions. If a finding holds across Conservative Clean (N=
+            criteria. Every key metric - means, standard deviations, inter-construct correlations,
+            and reliability coefficients - is computed independently across five nested sample
+            definitions. If a finding holds across Conservative Clean (N=
             {conservativeN}) and All V2 (N={v2AllN}), it is robust to inclusion criteria.
           </p>
         </section>
@@ -277,19 +277,19 @@ const SensitivityPage = () => {
               <Link href="/results/descriptive" className="text-blue-600 hover:underline">
                 Descriptive Statistics
               </Link>{' '}
-              &mdash; Detailed means, SDs, and correlations with interpretation
+              - Detailed means, SDs, and correlations with interpretation
             </li>
             <li>
               <Link href="/results/reliability" className="text-blue-600 hover:underline">
                 Scale Reliability
               </Link>{' '}
-              &mdash; Cronbach&rsquo;s alpha analysis with references
+              - Cronbach&rsquo;s alpha analysis with references
             </li>
             <li>
               <Link href="/results/data-quality" className="text-blue-600 hover:underline">
                 Data Quality Pipeline
               </Link>{' '}
-              &mdash; How sample definitions are computed
+              - How sample definitions are computed
             </li>
           </ul>
         </section>
@@ -299,7 +299,7 @@ const SensitivityPage = () => {
             <Link href="/results/reproducibility" className="text-blue-600 hover:underline">
               Open Data &amp; Reproducibility
             </Link>{' '}
-            &mdash; download the dataset and reproduce these results yourself.{' '}
+            - download the dataset and reproduce these results yourself.{' '}
             <Link href="/results" className="text-blue-600 hover:underline">
               &larr; Back to Results Overview
             </Link>

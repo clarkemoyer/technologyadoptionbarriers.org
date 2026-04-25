@@ -1,4 +1,8 @@
-import { endsWithTerminalPunctuation, joinSegments } from '../../scripts/generate-search-index'
+import {
+  endsWithTerminalPunctuation,
+  extractStaticMetadata,
+  joinSegments,
+} from '../../scripts/generate-search-index'
 
 describe('endsWithTerminalPunctuation', () => {
   it.each([
@@ -110,5 +114,57 @@ describe('joinSegments', () => {
 
   it('does not produce leading separator when first segment is empty', () => {
     expect(joinSegments(['', '', 'Hello'])).toBe('Hello')
+  })
+})
+
+describe('extractStaticMetadata', () => {
+  it('returns robotsIndexFalse=false when there is no export const metadata block', () => {
+    const result = extractStaticMetadata('export default function Page() { return null }')
+    expect(result).toEqual({ title: null, description: null, robotsIndexFalse: false })
+  })
+
+  it('returns robotsIndexFalse=false when metadata has no robots field', () => {
+    const source = `
+      export const metadata = {
+        title: 'A Page',
+        description: 'Some description',
+      }
+    `
+    const result = extractStaticMetadata(source)
+    expect(result.robotsIndexFalse).toBe(false)
+    expect(result.title).toBe('A Page')
+    expect(result.description).toBe('Some description')
+  })
+
+  it('returns robotsIndexFalse=true when metadata declares robots: { index: false }', () => {
+    const source = `
+      export const metadata = {
+        title: 'Redirect Page',
+        description: 'Server-side redirect stub',
+        robots: { index: false, follow: false },
+      }
+    `
+    expect(extractStaticMetadata(source).robotsIndexFalse).toBe(true)
+  })
+
+  it('returns robotsIndexFalse=false when robots.index is true', () => {
+    const source = `
+      export const metadata = {
+        title: 'Normal Page',
+        robots: { index: true, follow: true },
+      }
+    `
+    expect(extractStaticMetadata(source).robotsIndexFalse).toBe(false)
+  })
+
+  it('returns robotsIndexFalse=true when metadata is typed with Metadata annotation', () => {
+    // Real page files declare `: Metadata` - make sure the regex still finds the block.
+    const source = `
+      import type { Metadata } from 'next'
+      export const metadata: Metadata = {
+        robots: { index: false },
+      }
+    `
+    expect(extractStaticMetadata(source).robotsIndexFalse).toBe(true)
   })
 })

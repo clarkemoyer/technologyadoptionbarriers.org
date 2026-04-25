@@ -376,7 +376,7 @@ const MediaPage = () => {
                   Please include your outlet, deadline, and the specific topic(s) you’re covering.
                 </p>
                 <p className="mt-3 text-sm text-gray-600">
-                  Typical response time: 1–3 business days.
+                  Typical response time: 1-3 business days.
                 </p>
                 <a
                   href="mailto:contact@technologyadoptionbarriers.org"

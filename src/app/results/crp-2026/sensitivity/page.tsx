@@ -43,9 +43,9 @@ const CrpSensitivityPage = () => {
         <section className={SECTION_CLASSES}>
           <p className={PARAGRAPH_CLASSES}>
             Sensitivity analysis tests whether findings are robust to the choice of inclusion
-            criteria. Every key metric &mdash; means, standard deviations, inter-construct
-            correlations, and reliability coefficients &mdash; is computed independently across
-            three CRP sample definitions. If a finding holds across Conservative Clean (N=
+            criteria. Every key metric - means, standard deviations, inter-construct correlations,
+            and reliability coefficients - is computed independently across three CRP sample
+            definitions. If a finding holds across Conservative Clean (N=
             {conservativeN}) and Prolific Accepted (N={prolificAcceptedN}), it is robust to
             inclusion criteria.
           </p>
@@ -274,19 +274,19 @@ const CrpSensitivityPage = () => {
               <Link href="/results/crp-2026/descriptive" className="text-blue-600 hover:underline">
                 CRP 2026 Descriptive Statistics
               </Link>{' '}
-              &mdash; Detailed means, SDs, and correlations with interpretation
+              - Detailed means, SDs, and correlations with interpretation
             </li>
             <li>
               <Link href="/results/crp-2026/reliability" className="text-blue-600 hover:underline">
                 CRP 2026 Scale Reliability
               </Link>{' '}
-              &mdash; Cronbach&rsquo;s alpha analysis with references
+              - Cronbach&rsquo;s alpha analysis with references
             </li>
             <li>
               <Link href="/results/crp-2026/sample" className="text-blue-600 hover:underline">
                 CRP 2026 Sample &amp; Demographics
               </Link>{' '}
-              &mdash; Participant demographics for CRP sample groups
+              - Participant demographics for CRP sample groups
             </li>
           </ul>
         </section>
@@ -296,7 +296,7 @@ const CrpSensitivityPage = () => {
             <Link href="/results/reproducibility" className="text-blue-600 hover:underline">
               Open Data &amp; Reproducibility
             </Link>{' '}
-            &mdash; download the dataset and reproduce these results yourself.{' '}
+            - download the dataset and reproduce these results yourself.{' '}
             <Link href="/results/crp-2026" className="text-blue-600 hover:underline">
               &larr; Back to CRP 2026 Results
             </Link>

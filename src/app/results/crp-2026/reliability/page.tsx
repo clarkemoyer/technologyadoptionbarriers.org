@@ -8,6 +8,7 @@ import {
 } from '@/lib/articleStyles'
 import Link from 'next/link'
 import sensitivityData from '@/data/crp-sensitivity-analysis.json'
+import Term from '@/components/glossary-term'
 export const metadata: Metadata = {
   title: 'CRP 2026 Scale Reliability - TABS',
   description:
@@ -54,7 +55,8 @@ const CrpReliabilityPage = () => {
 
         <section className={SECTION_CLASSES}>
           <p className={PARAGRAPH_CLASSES}>
-            Scale reliability is assessed using Cronbach&rsquo;s alpha (&alpha;), the most widely
+            Scale reliability is assessed using{' '}
+            <Term termId="cronbach-alpha">Cronbach&rsquo;s alpha</Term> (&alpha;), the most widely
             used measure of internal consistency. A coefficient of &alpha; &ge; 0.70 is generally
             considered acceptable for research purposes (Nunnally &amp; Bernstein, 1994), while
             values above 0.80 indicate good to excellent reliability.
@@ -135,7 +137,7 @@ const CrpReliabilityPage = () => {
               {fmt(getMetricValue('alpha_readiness', 'prolific_accepted'))}), while{' '}
               <strong>Maturity</strong> shows the lowest (still above{' '}
               {fmt(getMetricValue('alpha_maturity', 'conservative_clean'))}), which may reflect the
-              smaller number of items in the Maturity scale (9 vs. 18&ndash;19).
+              smaller number of items in the Maturity scale (9 vs. 18-19).
             </li>
           </ul>
           <p className={PARAGRAPH_CLASSES}>
@@ -151,7 +153,7 @@ const CrpReliabilityPage = () => {
           <ol className="list-decimal pl-5 text-sm sm:text-base text-gray-600 space-y-3 font-sans">
             <li>
               Cronbach, L. J. (1951). Coefficient alpha and the internal structure of tests.{' '}
-              <em>Psychometrika</em>, 16(3), 297&ndash;334.
+              <em>Psychometrika</em>, 16(3), 297-334.
             </li>
             <li>
               Nunnally, J. C., &amp; Bernstein, I. H. (1994). <em>Psychometric theory</em> (3rd
@@ -168,19 +170,19 @@ const CrpReliabilityPage = () => {
               <Link href="/results/crp-2026/descriptive" className="text-blue-600 hover:underline">
                 Descriptive Statistics
               </Link>{' '}
-              &mdash; means, SDs, and correlations for each construct
+              - means, SDs, and correlations for each construct
             </li>
             <li>
               <Link href="/results/crp-2026" className="text-blue-600 hover:underline">
                 CRP 2026 Overview
               </Link>{' '}
-              &mdash; frozen dataset methodology and download
+              - frozen dataset methodology and download
             </li>
             <li>
               <Link href="/results/crp-2026/data-quality" className="text-blue-600 hover:underline">
                 Data Quality Pipeline
               </Link>{' '}
-              &mdash; how the samples are defined and validated
+              - how the samples are defined and validated
             </li>
             <li>
               <Link href="/results" className="text-blue-600 hover:underline">

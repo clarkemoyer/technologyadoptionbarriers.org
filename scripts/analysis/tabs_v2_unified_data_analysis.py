@@ -28,15 +28,23 @@ JSON output schema:
     "advanced":   { "pca", "regression", "anova", "interactions" },
     "quality":    { "disposition_funnel", "missing_data", "response_quality", "distributional",
                     "construct_diagnostics", "iri_filter_bias" },
-    "validation": { ... }        // exact schema of crp-validation.json
+    "validation": {               // per-sample validation results
+      "samples": [
+        { "key": "conservative_clean", "label": "...", "n": 87,
+          "adequacy": "inadequate", "adequacy_note": "...",
+          "Barriers": {...}, "Readiness": {...}, ... },
+        ...
+      ],
+      "primary_sample": "conservative_clean"
+    }
   }
 
 Backward compatibility:
   The "sensitivity" key produces the exact same schema as sensitivity-analysis.json.
-  The "validation" key produces the exact same schema as crp-validation.json.
+  The "validation" key contains per-sample validation results with adequacy metadata.
   The pipeline can extract them with one-liners:
     python -c "import json; d=json.load(open('unified.json')); json.dump(d['sensitivity'], open('sensitivity-analysis.json','w'), indent=2)"
-    python -c "import json; d=json.load(open('unified.json')); json.dump(d['validation'], open('crp-validation.json','w'), indent=2)"
+    python -c "import json; d=json.load(open('unified.json')); json.dump(d['validation'], open('live-validation.json','w'), indent=2)"
 
 Usage:
     python tabs_v2_unified_data_analysis.py <csv_path> \\
@@ -1776,10 +1784,319 @@ def sensitivity_to_json(cuts, idx):
         for cat, _ in OTHER_ROLE_CATEGORIES_PATTERNS
     ] + [{"label": "Uncategorized", "description": "Responses that did not match any keyword pattern", "examples": ""}]
 
-    # Timestamp - consumed by 10+ results pages via utcTimestamp component
-    result["last_updated"] = datetime.utcnow().isoformat() + "Z"
+    # ------------------------------------------------------------------
+    # Extended blocks (added 2026-04-16): top-3 pick counts, item-level
+    # descriptives, construct grand means/SDs, demographic detail. These
+    # feed the /results/crp-2026/top-barriers page and validator v5.
+    #
+    # FAIL-FAST POLICY (PR #1695)
+    # ----------------------------
+    # This pipeline does NOT emit zero-count placeholder structures, empty
+    # arrays, or silently-defaulted {mean: None, n: 0} objects when the
+    # primary cut is missing or empty. If the canonical primary sample is
+    # unavailable, the pipeline raises RuntimeError and the workflow fails,
+    # preventing any new JSON from reaching the repo. The website continues
+    # rendering the last known-good snapshot until a human fixes the broken
+    # step.
+    #
+    # Rationale:
+    #   - Zero-shaped placeholders have repeatedly misled reviewers and
+    #     automated agents into thinking the pipeline "succeeded" when the
+    #     real input was broken.
+    #   - The project rule is strict transactional integrity: either every
+    #     step succeeds and we commit one atomic update, or nothing commits
+    #     and everything stays stale.
+    #
+    # Do not replace the raises below with placeholder-emit logic. See the
+    # CLAUDE.md "Fail-fast discipline" note and the PR #1695 description.
+    # ------------------------------------------------------------------
+    primary_rows = None
+    for label, rows in cuts:
+        if label == "Prolific Accepted":
+            primary_rows = rows
+            break
+    if primary_rows is None:
+        available = ", ".join(label for label, _ in cuts) if cuts else "(no cuts)"
+        raise RuntimeError(
+            "Fail-fast: primary cut 'Prolific Accepted' not found in cuts. "
+            f"Available cuts: {available}. "
+            "Refusing to emit extended blocks without the canonical primary sample. "
+            "This indicates a CSV contract regression or a cut-building bug upstream. "
+            "Do NOT work around this by adding a fallback to cuts[-1] - fix the cut builder."
+        )
+    if len(primary_rows) == 0:
+        raise RuntimeError(
+            "Fail-fast: primary cut 'Prolific Accepted' is empty (0 rows). "
+            "Refusing to emit extended blocks from a zero-row sample. "
+            "This indicates the upstream quality filter rejected every response, or "
+            "the input CSV is empty. Fix the filter or the underlying data before "
+            "re-running. Do NOT work around this by emitting zero-count placeholders."
+        )
+
+    result["top3_pick_counts"] = _build_top3_pick_counts(primary_rows, idx)
+    result["item_descriptives"] = _build_item_descriptives(primary_rows, idx)
+    result["construct_grand"] = _build_construct_grand(primary_rows, idx)
+    result["demographics_detailed"] = _build_demographics_detailed(primary_rows, idx)
+
+    # Timestamps - consumed by 10+ results pages via utcTimestamp component.
+    # extended_last_updated marks when the extended blocks were last regenerated.
+    ts = datetime.utcnow().isoformat() + "Z"
+    result["last_updated"] = ts
+    result["extended_last_updated"] = ts
 
     return result
+
+
+# ============================================================================
+# SECTION 1B: Extended block builders (top-3, item descriptives, demographics)
+# ============================================================================
+
+# Item 19 in barriers, item 18 in readiness, item 9 in maturity are IRI attention
+# checks and are excluded from substantive analysis. CLAUDE.md documents this.
+TOP3_COLS = [f"Q29-46_Top3Barriers_{i}" for i in range(1, 19)]
+
+BARRIER_ITEM_TEXT = {
+    # Exact pick-text values from Q29-46_Top3Barriers_* columns in the CRP
+    # public CSV (including trailing period). Derived from the non-empty cell
+    # values across the dataset - must match exactly so top3_pick_counts.text
+    # agrees with the source CSV label.
+    1: "Resistance to change among employees or middle management.",
+    2: "Lack of support or clear vision from top leadership (including the board, e.g., governing body, oversight committee).",
+    3: "Organizational culture that discourages risk-taking or experimentation with new technologies.",
+    4: "Insufficient skills or expertise within the workforce to utilize new technologies effectively.",
+    5: "Inadequate training programs for new technologies.",
+    6: "High cost associated with acquiring or implementing new technologies.",
+    7: "Difficulty integrating new technologies with existing legacy systems.",
+    8: "Inadequate IT infrastructure (e.g., network, storage, computing power) to support new technologies.",
+    9: "Difficulty demonstrating clear value (e.g., mission impact, public value, cost-effectiveness) for new technology investments.",
+    10: "Lack of a clear strategy or roadmap for technology adoption.",
+    11: "Insufficient governance processes for selecting and managing new technologies.",
+    12: "New technologies disrupting existing workflows or processes significantly.",
+    13: "Concerns about cybersecurity risks associated with new technologies.",
+    14: "Concerns about data privacy compliance related to new technologies.",
+    15: "Lack of trust in the reliability or performance of new technologies or vendors.",
+    16: "Uncertainty or complexity related to regulatory requirements.",
+    17: "Pressure to adopt technology due to external factors (e.g., mandates, public expectations, peer agency actions), without adequate internal readiness.",
+    18: "Difficulty finding reliable technology vendors or partners.",
+}
+
+READINESS_ITEM_TEXT = {
+    1: "Formal digital or technology strategy",
+    2: "Dedicated IT leadership role",
+    3: "Skilled in-house technology staff",
+    4: "Adequate financial resources for technology",
+    5: "Willingness to invest in new technologies",
+    6: "Data and analytics capabilities",
+    7: "Cybersecurity and risk management capabilities",
+    8: "Change management capabilities",
+    9: "Vendor and partner management capabilities",
+    10: "Digital infrastructure (cloud, network, devices)",
+    11: "Alignment between IT and business strategy",
+    12: "Cross-functional collaboration on technology",
+    13: "Employee digital skills",
+    14: "Leadership digital literacy",
+    15: "Innovation culture",
+    16: "Willingness to experiment with new technologies",
+    17: "Customer or stakeholder demand for technology",
+}
+
+MATURITY_ITEM_TEXT = {
+    1: "IT Investment & Value Mgmt",
+    2: "IT-Enabled Innovation",
+    3: "Process Mgmt & Standardization",
+    4: "Data Governance & Analytics",
+    5: "Tech Risk & Resilience",
+    6: "Strategic IT Planning",
+    7: "Workforce Capability",
+    8: "Change Leadership",
+}
+
+
+def _build_top3_pick_counts(rows, idx):
+    """Build per-barrier forced-choice pick counts from 18 TOP3 columns.
+
+    FAIL-FAST: if ANY of the 18 TOP3 columns is missing from idx, this
+    function raises ValueError. It does NOT emit zero-count entries for
+    missing columns. See the module-level fail-fast policy in
+    sensitivity_to_json() and the PR #1695 description.
+    """
+    total = len(rows)
+    missing = [col for col in TOP3_COLS if col not in idx]
+    if missing:
+        raise ValueError(
+            f"Fail-fast: TOP3 columns missing from CSV - {len(missing)} of "
+            f"{len(TOP3_COLS)} expected columns not found: {', '.join(missing)}. "
+            f"Expected columns are {TOP3_COLS[0]} through {TOP3_COLS[-1]}. "
+            f"Check that the CSV was exported with the forced-choice section intact. "
+            f"Do NOT work around this by emitting zero-count placeholder items."
+        )
+    items = []
+    for i, col in enumerate(TOP3_COLS, start=1):
+        col_idx = idx[col]
+        cnt = sum(1 for r in rows if col_idx < len(r) and str(r[col_idx]).strip() not in ("", "nan", "None"))
+        pct = round(100.0 * cnt / total, 2) if total else 0.0
+        items.append({"item": f"B{i}", "text": BARRIER_ITEM_TEXT[i], "count": cnt, "pct": pct})
+    items_sorted = sorted(items, key=lambda r: -r["count"])
+    return {"total_n": total, "items": items, "items_sorted_desc": items_sorted}
+
+
+def _build_item_descriptives(rows, idx):
+    """Build per-item mean/SD/N for barriers, readiness, maturity.
+
+    FAIL-FAST on contract violations:
+      - If ANY required scale column is missing from idx, raises ValueError.
+      - Does NOT emit {mean: None, n: 0} placeholder entries for missing
+        columns. See the module-level fail-fast policy in
+        sensitivity_to_json() and the PR #1695 description.
+
+    Data-level behavior (NOT fail-fast, intentional):
+      - If a column IS present but every respondent answered blank,
+        'Don't Know', or an unmapped value, the item entry is emitted with
+        n=0, mean=None, sd=None. This is an honest null reporting a data
+        condition, not a silent default for a broken pipeline - 'Don't Know'
+        is a valid survey response and CLAUDE.md requires it to be
+        excluded from scoring rather than coerced to a number.
+    """
+    def compute(cols, scale, labels, prefix):
+        missing = [col for col in cols if col not in idx]
+        if missing:
+            raise ValueError(
+                f"Fail-fast: {prefix} construct missing {len(missing)} of "
+                f"{len(cols)} required scale columns: {', '.join(missing)}. "
+                f"Refusing to emit partial item_descriptives for construct '{prefix}'. "
+                f"Do NOT work around this by emitting n=0 placeholder entries."
+            )
+        out = []
+        for i, col in enumerate(cols, start=1):
+            col_idx = idx[col]
+            vals = []
+            for r in rows:
+                if col_idx >= len(r):
+                    continue
+                v = str(r[col_idx]).strip()
+                if v in ("", "nan", "None"):
+                    continue
+                mapped = scale.get(v)
+                if mapped is None:
+                    continue
+                vals.append(mapped)
+            if vals:
+                m, sd = mean_sd(vals)
+                out.append({
+                    "item": f"{prefix}{i}",
+                    "text": labels[i],
+                    "mean": round(m, 4) if m is not None else None,
+                    "sd": round(sd, 4) if sd is not None else None,
+                    "n": len(vals),
+                })
+            else:
+                # Data-level null: every respondent answered blank or
+                # 'Don't Know' on this item. Emit honest null, not a fake
+                # zero. This is NOT a pipeline failure - it is legitimate
+                # data the website must be able to display as such.
+                out.append({
+                    "item": f"{prefix}{i}",
+                    "text": labels[i],
+                    "mean": None,
+                    "sd": None,
+                    "n": 0,
+                })
+        return out
+
+    return {
+        "barriers":  compute(BARRIER_COLS,  BARRIER_SCALE,  BARRIER_ITEM_TEXT,  "B"),
+        "readiness": compute(READINESS_COLS, READINESS_SCALE, READINESS_ITEM_TEXT, "R"),
+        "maturity":  compute(MATURITY_COLS, MATURITY_SCALE, MATURITY_ITEM_TEXT, "M"),
+    }
+
+
+def _build_construct_grand(rows, idx):
+    """Build grand mean/SD/N per construct from person-level means.
+
+    FAIL-FAST on contract violations:
+      - If ANY required scale column is missing from idx, raises ValueError
+        BEFORE any row processing begins. This matches the upfront-guard
+        pattern used by _build_top3_pick_counts, _build_item_descriptives,
+        and _build_demographics_detailed, so a missing column produces a
+        single descriptive error rather than a raw KeyError bubbling up
+        from _person_means_rows -> _score_item during a list comprehension.
+        See the module-level fail-fast policy in sensitivity_to_json() and
+        the PR #1695 description.
+
+    Data-level behavior (NOT fail-fast, intentional):
+      - If all columns are present but every respondent's person-mean is
+        None (all items blank / "Don't Know"), returns {mean: None, sd:
+        None, n: 0}. This is the honest-null path, the same pattern used
+        by _build_item_descriptives for all-Don't-Know items.
+    """
+    def gm(cols, scale, prefix):
+        missing = [col for col in cols if col not in idx]
+        if missing:
+            raise ValueError(
+                f"Fail-fast: {prefix} construct_grand missing {len(missing)} of "
+                f"{len(cols)} required scale columns: {', '.join(missing)}. "
+                f"Refusing to emit partial construct_grand for '{prefix}'. "
+                f"Do NOT work around this by computing over the subset present."
+            )
+        raw = _person_means_rows(rows, cols, scale, idx)
+        # Filter out None entries (respondents whose items were all missing or
+        # all "Don't Know").  Using len(raw) would overcount n and could expose
+        # {mean: None, sd: None, n: >0} when every person mean is None.
+        valid_means = [v for v in raw if v is not None]
+        if not valid_means:
+            return {"mean": None, "sd": None, "n": 0}
+        m, sd = mean_sd(valid_means)
+        return {"mean": round(m, 4) if m is not None else None,
+                "sd": round(sd, 4) if sd is not None else None,
+                "n": len(valid_means)}
+
+    return {
+        "barriers":  gm(BARRIER_COLS,  BARRIER_SCALE,  "barriers"),
+        "readiness": gm(READINESS_COLS, READINESS_SCALE, "readiness"),
+        "maturity":  gm(MATURITY_COLS, MATURITY_SCALE, "maturity"),
+    }
+
+
+def _build_demographics_detailed(rows, idx):
+    """Tabulate the four key demographic columns on the primary cut.
+
+    FAIL-FAST on contract violations:
+      - If ANY of the four required demographic columns is missing from
+        idx, raises ValueError. Does NOT return empty arrays for missing
+        columns. See the module-level fail-fast policy in
+        sensitivity_to_json() and the PR #1695 description.
+    """
+    total = len(rows)
+    required_cols = ["Q1_Role", "Q4_OrgSize", "Q5_ProfitModel", "Q2_DecisionAuth"]
+    missing = [c for c in required_cols if c not in idx]
+    if missing:
+        raise ValueError(
+            f"Fail-fast: demographics missing {len(missing)} of "
+            f"{len(required_cols)} required columns: {', '.join(missing)}. "
+            f"Refusing to emit partial demographics_detailed. "
+            f"Do NOT work around this by returning empty arrays."
+        )
+
+    def tabulate(col_name):
+        col_idx = idx[col_name]
+        counter = Counter()
+        for r in rows:
+            if col_idx < len(r):
+                v = str(r[col_idx]).strip()
+                if v not in ("", "nan", "None"):
+                    counter[v] += 1
+        # Sort by count descending, then by label ascending for ties to
+        # produce a stable, deterministic ordering across pipeline runs.
+        items_sorted = sorted(counter.items(), key=lambda kv: (-kv[1], kv[0]))
+        return [{"label": k, "count": v, "pct": round(100.0 * v / total, 2) if total else 0.0}
+                for k, v in items_sorted]
+
+    return {
+        "roles": tabulate("Q1_Role"),
+        "org_sizes": tabulate("Q4_OrgSize"),
+        "profit_models": tabulate("Q5_ProfitModel"),
+        "decision_authority": tabulate("Q2_DecisionAuth"),
+    }
 
 
 # ============================================================================
@@ -2770,10 +3087,10 @@ Examples:
     print("=" * 80)
 
     # ── Load data for pandas-based analyses ──
-    # df_clean: IRI+duration filtered (used for analysis, validation, advanced)
+    # df_clean: IRI+duration filtered (used for analysis, advanced)
     # df_full_v2: all V2 rows before quality filtering (used for quality audit)
     df_clean, df_full_v2 = load_data_pandas(args.csv_path, crp200=args.crp200)
-    df = df_clean  # primary analysis DataFrame
+    df = df_clean  # primary analysis DataFrame (used for advanced analysis)
     N = len(df)
 
     # ── Sensitivity section (raw CSV rows for 5-sample cuts) ──
@@ -2820,8 +3137,98 @@ Examples:
         if isinstance(info, dict) and "missing_pct" in info:
             print(f"  {scale_name} missing: {info['missing_pct']}%")
 
-    # ── Validation ──
-    validation_data = run_validation(df, skip=args.skip_validation, crp200=args.crp200)
+    # ── Validation (per-sample) ──
+    # Build pandas DataFrames for each named sample by matching ResponseIds
+    # from the raw-row samples to the scale-encoded pandas DataFrame.
+    # This avoids duplicating filter logic between raw-CSV and pandas paths.
+    SAMPLE_META = {
+        "conservative_clean": {"label": "Conservative Clean",
+                               "description": "Prolific APPROVED + all quality checks (IRI, duration >= 540s, reCAPTCHA, straightlining, auth)"},
+        "flexible_clean": {"label": "Flexible Clean",
+                           "description": "Prolific APPROVED + basic quality (all 3 IRIs + duration >= 480s)"},
+        "prolific_accepted": {"label": "Prolific Accepted",
+                              "description": "All deduplicated V2 rows with Prolific APPROVED status"},
+        "v2_finished": {"label": "All V2 Finished",
+                        "description": "Finished + duration >= 120s (extreme speeders excluded)"},
+        "v2_all": {"label": "All V2",
+                   "description": "All V2 responses including incomplete"},
+    }
+    # CFA parameter count for the most complex model (Barriers 4-factor: ~46 params)
+    CFA_MAX_PARAMS = 46
+
+    rid_col = idx_raw.get('ResponseId')
+    # Strip whitespace from pandas ResponseId column to match raw-row .strip()
+    if 'ResponseId' in df_full_v2.columns:
+        df_full_v2['ResponseId'] = df_full_v2['ResponseId'].astype(str).str.strip()
+    sample_dfs = {}
+    for key, rows in samples_raw.items():
+        if rid_col is not None:
+            rids = {r[rid_col].strip() for r in rows}
+            sample_dfs[key] = df_full_v2[df_full_v2['ResponseId'].isin(rids)].copy()
+        else:
+            sample_dfs[key] = df_full_v2.copy()
+
+    # Ordered sample keys (most restrictive first)
+    SAMPLE_ORDER = ["conservative_clean", "flexible_clean", "prolific_accepted",
+                    "v2_finished", "v2_all"]
+    if args.crp200:
+        # CRP mode: single sample (the full frozen dataset)
+        SAMPLE_ORDER = ["crp_200"]
+        sample_dfs["crp_200"] = df_full_v2.copy()
+        SAMPLE_META["crp_200"] = {"label": "CRP-200",
+                                  "description": "Frozen CRP dataset (N=200, tiered selection)"}
+
+    validation_samples = []
+    for sample_key in SAMPLE_ORDER:
+        sample_df = sample_dfs[sample_key]
+        meta = SAMPLE_META[sample_key]
+        n = len(sample_df)
+        ratio = round(n / CFA_MAX_PARAMS, 1) if CFA_MAX_PARAMS > 0 else 0.0
+
+        if ratio >= 10:
+            adequacy = "good"
+            adequacy_note = (f"N:parameter ratio {ratio}:1 meets the recommended 10:1 threshold "
+                             f"for stable CFA estimation.")
+        elif ratio >= 5:
+            adequacy = "adequate"
+            adequacy_note = (f"N:parameter ratio {ratio}:1 meets the 5:1 minimum but is below "
+                             f"the recommended 10:1 threshold. Results are interpretable but may "
+                             f"show instability in fit indices.")
+        elif ratio >= 3:
+            adequacy = "marginal"
+            adequacy_note = (f"N:parameter ratio {ratio}:1 is below the 5:1 minimum. CFA fit "
+                             f"indices should be interpreted with caution; convergence issues "
+                             f"and Heywood cases are possible.")
+        else:
+            adequacy = "inadequate"
+            adequacy_note = (f"N:parameter ratio {ratio}:1 is well below minimum thresholds. "
+                             f"CFA results are unreliable and provided for trend monitoring only "
+                             f"as sample size grows.")
+
+        print(f"\n{'='*70}")
+        print(f"  VALIDATION: {meta['label']} (N={n}, adequacy={adequacy})")
+        print(f"{'='*70}")
+
+        val_result = run_validation(sample_df, skip=args.skip_validation,
+                                    crp200=args.crp200)
+        # Inject sample identification and adequacy metadata
+        val_result = OrderedDict([
+            ("key", sample_key),
+            ("label", meta["label"]),
+            ("description", meta["description"]),
+            ("n", n),
+            ("n_to_param_ratio", ratio),
+            ("adequacy", adequacy),
+            ("adequacy_note", adequacy_note),
+        ] + list(val_result.items()))
+
+        validation_samples.append(val_result)
+
+    primary = args.primary_sample if not args.crp200 else "crp_200"
+    validation_data = OrderedDict([
+        ("samples", validation_samples),
+        ("primary_sample", primary),
+    ])
 
     # ── Assemble unified output ──
     unified = OrderedDict()
@@ -2829,7 +3236,7 @@ Examples:
         "n_total": N,
         "dataset": "crp200" if args.crp200 else "live",
         "timestamp": datetime.now().isoformat(),
-        "primary_sample": args.primary_sample if not args.crp200 else None,
+        "primary_sample": primary,
         "source": args.csv_path,
     }
     unified["sensitivity"] = sensitivity_data

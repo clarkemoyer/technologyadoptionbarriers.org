@@ -21,7 +21,7 @@ const OvernightShiftPage = () => {
 
         <div className="mb-8 rounded-xl border border-purple-200 bg-purple-50 p-6">
           <p className="text-sm text-purple-900 font-semibold mb-2">
-            Zotero Integration Session - April 6–7, 2026
+            Zotero Integration Session - April 6-7, 2026
           </p>
           <p className="text-sm text-purple-800">
             A real, unscripted moment from a Claude Code session that captures the multi-agent

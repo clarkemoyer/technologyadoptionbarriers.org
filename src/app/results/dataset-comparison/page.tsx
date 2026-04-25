@@ -250,10 +250,10 @@ const DatasetComparisonPage = () => {
                 <tr className="bg-gray-100">
                   <th className="text-left p-2 border-b">Result Group</th>
                   <th className="text-right p-2 border-b">&lt;100</th>
-                  <th className="text-right p-2 border-b">100–499</th>
-                  <th className="text-right p-2 border-b">500–999</th>
-                  <th className="text-right p-2 border-b">1000–4999</th>
-                  <th className="text-right p-2 border-b">5000–9999</th>
+                  <th className="text-right p-2 border-b">100-499</th>
+                  <th className="text-right p-2 border-b">500-999</th>
+                  <th className="text-right p-2 border-b">1000-4999</th>
+                  <th className="text-right p-2 border-b">5000-9999</th>
                   <th className="text-right p-2 border-b">10000+</th>
                 </tr>
               </thead>
@@ -530,19 +530,19 @@ const DatasetComparisonPage = () => {
               <Link href="/results/findings" className="text-blue-600 hover:underline">
                 Key Findings
               </Link>{' '}
-              &mdash; effect sizes, t-tests, and ANOVA per result group
+              - effect sizes, t-tests, and ANOVA per result group
             </li>
             <li>
               <Link href="/results/sensitivity" className="text-blue-600 hover:underline">
                 Sensitivity Analysis
               </Link>{' '}
-              &mdash; metric-level sensitivity across sample definitions
+              - metric-level sensitivity across sample definitions
             </li>
             <li>
               <Link href="/results/descriptive" className="text-blue-600 hover:underline">
                 Descriptive Statistics
               </Link>{' '}
-              &mdash; correlation matrices per result group
+              - correlation matrices per result group
             </li>
             <li>
               <Link href="/results" className="text-blue-600 hover:underline">

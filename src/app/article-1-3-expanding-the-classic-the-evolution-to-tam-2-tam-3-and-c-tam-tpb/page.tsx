@@ -14,7 +14,7 @@ import SeriesNavigation from '@/components/series-navigation'
 import ArticleTOC from '@/components/article-toc'
 
 export const metadata: Metadata = {
-  title: 'Article 1.3: Expanding the Classic – The Evolution to TAM 2, TAM 3, and C-TAM-TPB',
+  title: 'Article 1.3: Expanding the Classic - The Evolution to TAM 2, TAM 3, and C-TAM-TPB',
   description:
     'Exploring the evolution of the Technology Acceptance Model through TAM 2, TAM 3, and the integrated C-TAM-TPB framework, revealing how organizational context, social influences, and system design shape technology adoption.',
 }
@@ -24,7 +24,7 @@ const Article13Page = () => {
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>
-          Article 1.3: Expanding the Classic – The Evolution to TAM 2, TAM 3, and C-TAM-TPB
+          Article 1.3: Expanding the Classic - The Evolution to TAM 2, TAM 3, and C-TAM-TPB
         </h1>
 
         <section className={SECTION_CLASSES}>
@@ -50,8 +50,8 @@ const Article13Page = () => {
             perspectives that might capture additional influences.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            Between 2000 and 2008, researchers–particularly Viswanath Venkatesh and his
-            colleagues–undertook a comprehensive research program to address these gaps. The result
+            Between 2000 and 2008, researchers-particularly Viswanath Venkatesh and his
+            colleagues-undertook a comprehensive research program to address these gaps. The result
             was a series of increasingly sophisticated models that maintained TAM&apos;s core
             insights while dramatically expanding its theoretical scope. This article traces that
             evolution through three increasingly comprehensive frameworks: TAM 2, TAM 3, and the
@@ -60,7 +60,7 @@ const Article13Page = () => {
 
           <h2 className={H2_CLASSES}>TAM 2: Explaining Perceived Usefulness</h2>
           <p className={PARAGRAPH_CLASSES}>
-            In 2000, Venkatesh and Davis published TAM 2–a longitudinal study across four
+            In 2000, Venkatesh and Davis published TAM 2-a longitudinal study across four
             organizations examining what determines perceived usefulness.[2] Their central insight
             was deceptively simple: perceived usefulness does not emerge from nowhere. It is shaped
             by organizational context, system characteristics, and social influences.
@@ -79,13 +79,13 @@ const Article13Page = () => {
             research showed that this influence operates through two pathways.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            First, there is direct normative pressure–the social force itself. When important
+            First, there is direct normative pressure-the social force itself. When important
             referents advocate for system adoption, users feel obligated to comply, and this
             obligation can directly influence intentions independent of perceived usefulness,
             particularly in mandatory adoption contexts.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            Second, there is informational influence–relying on others&apos; judgments. When
+            Second, there is informational influence-relying on others&apos; judgments. When
             colleagues you trust say a system is useful, you adopt their judgment, increasing your
             own perceived usefulness. This is especially powerful when colleagues are similar to you
             and have already adopted the system.
@@ -95,7 +95,7 @@ const Article13Page = () => {
             status or image. This proved more influential than many researchers anticipated. Using a
             cutting-edge system, demonstrating technological sophistication, or being seen as an
             early adopter can enhance professional standing. When this image enhancement is salient,
-            users perceive the system as more useful–not because the system&apos;s functional
+            users perceive the system as more useful-not because the system&apos;s functional
             benefits changed, but because the status implications increase its value.
           </p>
 
@@ -123,8 +123,8 @@ const Article13Page = () => {
           <p className={PARAGRAPH_CLASSES}>
             <strong>Result Demonstrability: </strong>The ease and tangibility with which system
             benefits can be demonstrated and communicated. Some system benefits are immediately
-            visible–a spreadsheet calculation that would take hours manually completes in seconds.
-            Other benefits are diffuse or long-term–gradual improvements in data consistency across
+            visible-a spreadsheet calculation that would take hours manually completes in seconds.
+            Other benefits are diffuse or long-term-gradual improvements in data consistency across
             an organization. When benefits are clearly demonstrable, perceived usefulness increases
             substantially because users and observers directly observe the improvements.
           </p>
@@ -137,7 +137,7 @@ const Article13Page = () => {
           <p className={PARAGRAPH_CLASSES}>
             Specifically, the effect of perceived ease of use on perceived usefulness is strongest
             early in adoption and weakens substantially as experience accumulates. Early adopters
-            base usefulness judgments heavily on how easily they can master the system–if learning
+            base usefulness judgments heavily on how easily they can master the system-if learning
             is difficult, they struggle to achieve proficiency and perceive the system as less
             useful. But as users gain experience and become proficient, ease of use becomes less
             important. Their usefulness judgments shift toward actual task-technology fit and real
@@ -161,13 +161,13 @@ const Article13Page = () => {
           <h3 className={H3_CLASSES}>Anchors: Individual Capability and Control Beliefs</h3>
           <p className={PARAGRAPH_CLASSES}>
             TAM 3 identified three constructs that form the &ldquo;anchors&rdquo; for perceived ease
-            of use–foundational factors determining how easily users perceive system use:
+            of use-foundational factors determining how easily users perceive system use:
           </p>
           <p className={PARAGRAPH_CLASSES}>
             <strong>Computer Self-Efficacy: </strong>This represents individual confidence in
             one&apos;s ability to use computers effectively. Users with high computer
-            self-efficacy–those who believe they can learn computer systems, troubleshoot problems,
-            and use technology flexibly–perceive systems as easier to use. Conversely, users with
+            self-efficacy-those who believe they can learn computer systems, troubleshoot problems,
+            and use technology flexibly-perceive systems as easier to use. Conversely, users with
             low self-efficacy perceive identical systems as more difficult, more threatening, and
             more cognitively demanding.
           </p>
@@ -256,7 +256,7 @@ const Article13Page = () => {
             (TPB).[4]
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            This comparison model–sometimes called C-TAM-TPB or the Integrated TAM-TPB–combined
+            This comparison model-sometimes called C-TAM-TPB or the Integrated TAM-TPB-combined
             TAM&apos;s belief structures with TPB&apos;s recognition of behavioral control.
           </p>
 
@@ -293,7 +293,7 @@ const Article13Page = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             The answer proved nuanced. In mandatory adoption contexts, TAM elements (perceived
-            usefulness and ease of use) dominated–explaining most adoption variance. Subjective
+            usefulness and ease of use) dominated-explaining most adoption variance. Subjective
             norms still influenced intentions but less strongly than usefulness perceptions.
           </p>
           <p className={PARAGRAPH_CLASSES}>
@@ -317,19 +317,19 @@ const Article13Page = () => {
           </p>
           <p className={PARAGRAPH_CLASSES}>
             This decomposition revealed that different specific beliefs predict adoption for
-            different reasons–important insight for designing targeted interventions.
+            different reasons-important insight for designing targeted interventions.
           </p>
 
           <h2 className={H2_CLASSES}>Synthesis: What the Evolution Reveals</h2>
           <p className={PARAGRAPH_CLASSES}>
-            These three models–TAM 2, TAM 3, and C-TAM-TPB–maintained TAM&apos;s core framework
+            These three models-TAM 2, TAM 3, and C-TAM-TPB-maintained TAM&apos;s core framework
             while dramatically expanding its explanatory scope. Several patterns emerge:
           </p>
 
           <h3 className={H3_CLASSES}>The Importance of External Factors</h3>
           <p className={PARAGRAPH_CLASSES}>
             TAM suggested that user perceptions determine adoption. TAM 2 and 3 revealed that user
-            perceptions do not emerge randomly–they are shaped by organizational context, system
+            perceptions do not emerge randomly-they are shaped by organizational context, system
             design, social influences, and resource availability. This insight does not undermine
             TAM&apos;s emphasis on perceptions; it specifies what shapes them.
           </p>
@@ -355,7 +355,7 @@ const Article13Page = () => {
           <p className={PARAGRAPH_CLASSES}>
             The integrated TAM-TPB model revealed that organizational context (mandatory vs.
             voluntary) moderates which factors dominate adoption. This context-dependency extends
-            beyond that dimension–technology complexity, organizational maturity, implementation
+            beyond that dimension-technology complexity, organizational maturity, implementation
             quality, and user populations all influence which model aspects prove most salient.
           </p>
           <p className={PARAGRAPH_CLASSES}>
@@ -416,7 +416,7 @@ const Article13Page = () => {
           <h2 className={H2_CLASSES}>Conclusion: Building the Architecture</h2>
           <p className={PARAGRAPH_CLASSES}>
             The evolution from TAM to TAM 2 to TAM 3 represents theoretical architecture
-            construction. Davis provided the foundation–a parsimonious, empirically validated core
+            construction. Davis provided the foundation-a parsimonious, empirically validated core
             explaining how user perceptions drive adoption. Subsequent researchers built elaborately
             on that foundation, explaining what shapes those perceptions, how they evolve over time,
             and how they interact with organizational and social contexts.
@@ -459,8 +459,8 @@ const Article13Page = () => {
           <p className={PARAGRAPH_CLASSES}>
             The evolution from TAM to its extensions reveals that technology adoption is not a
             simple phenomenon explained by a two-factor model. It is complex, contextual, and
-            dynamic. Yet it remains predictable. Understanding the factors that shape adoption–and
-            the organizational actions that influence those factors–provides the foundation for
+            dynamic. Yet it remains predictable. Understanding the factors that shape adoption-and
+            the organizational actions that influence those factors-provides the foundation for
             effective technology implementation.
           </p>
         </section>
@@ -472,23 +472,23 @@ const Article13Page = () => {
           <ol className={REFERENCES_OL_CLASSES}>
             <li>
               Davis, F. D. (1989). Perceived usefulness, perceived ease of use, and user acceptance
-              of information technology. MIS Quarterly, 13(3), 319–340.
+              of information technology. MIS Quarterly, 13(3), 319-340.
             </li>
             <li>
               Venkatesh, V., &amp; Davis, F. D. (2000). A theoretical extension of the technology
-              acceptance model: Four longitudinal field studies. Management Science, 46(2), 186–204.
+              acceptance model: Four longitudinal field studies. Management Science, 46(2), 186-204.
             </li>
             <li>
               Venkatesh, V., &amp; Bala, H. (2008). Technology Acceptance Model 3 and a research
-              agenda on interventions. MIS Quarterly, 32(1), 157–178.
+              agenda on interventions. MIS Quarterly, 32(1), 157-178.
             </li>
             <li>
               Taylor, S., &amp; Todd, P. A. (1995). Understanding information technology usage: A
-              test of competing models. Information Systems Research, 6(2), 144–176.
+              test of competing models. Information Systems Research, 6(2), 144-176.
             </li>
             <li>
               Ajzen, I. (1991). The theory of planned behavior. Organizational Behavior and Human
-              Decision Processes, 50(2), 179–211.{' '}
+              Decision Processes, 50(2), 179-211.{' '}
               <a
                 href="https://doi.org/10.1016/0749-5978(91)90020-T"
                 target="_blank"

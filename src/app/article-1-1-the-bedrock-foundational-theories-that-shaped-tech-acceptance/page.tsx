@@ -14,7 +14,7 @@ import SeriesNavigation from '@/components/series-navigation'
 import ArticleTOC from '@/components/article-toc'
 
 export const metadata: Metadata = {
-  title: 'Article 1.1: The Bedrock – Foundational Theories That Shaped Tech Acceptance',
+  title: 'Article 1.1: The Bedrock - Foundational Theories That Shaped Tech Acceptance',
   description:
     'An overview of pre-TAM theories that laid the groundwork for technology acceptance research, including key constructs that influenced later adoption models.',
 }
@@ -24,7 +24,7 @@ const FoundationalTheoriesPage = () => {
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>
-          Article 1.1: The Bedrock – Foundational Theories That Shaped Tech Acceptance
+          Article 1.1: The Bedrock - Foundational Theories That Shaped Tech Acceptance
         </h1>
 
         <section className={SECTION_CLASSES}>
@@ -34,7 +34,7 @@ const FoundationalTheoriesPage = () => {
             a broader and more diverse set of foundational theories. These “grandparent” models,
             drawn from sociology, social psychology, and management, provided the essential
             intellectual DNA for everything that followed. To understand the evolution of adoption
-            research, we must first appreciate this bedrock–the core constructs and perspectives
+            research, we must first appreciate this bedrock-the core constructs and perspectives
             that early researchers adapted to the specific challenge of technology use.
           </p>
           <p className={PARAGRAPH_CLASSES}>
@@ -109,7 +109,7 @@ const FoundationalTheoriesPage = () => {
             Developed by Fishbein and Ajzen [2], the Theory of Reasoned Action was a landmark
             general theory in social psychology designed to explain the specifics of individual
             behavior. Its central premise is that the most immediate predictor of a person’s
-            behavior is their behavioral intention–their subjective probability that they will
+            behavior is their behavioral intention-their subjective probability that they will
             perform the behavior in question.
           </p>
           <p className={PARAGRAPH_CLASSES}>
@@ -131,7 +131,7 @@ const FoundationalTheoriesPage = () => {
             TRA’s primary contribution was its elegant causal chain: beliefs influence attitudes and
             subjective norms, which together shape intentions, which in turn lead to behavior. It
             established the critical role of intention as a mediator and provided the basic
-            two-pronged structure–personal attitude and social influence–that would become a staple
+            two-pronged structure-personal attitude and social influence-that would become a staple
             of future adoption models.
           </p>
 
@@ -151,8 +151,8 @@ const FoundationalTheoriesPage = () => {
           <p className={PARAGRAPH_CLASSES}>
             PBC influences behavior directly and indirectly by influencing behavioral intention.
             This addition was profoundly important for technology adoption research, as it formally
-            introduced the concepts of self-efficacy and facilitating conditions–barriers and
-            enablers–into the dominant theoretical model.
+            introduced the concepts of self-efficacy and facilitating conditions-barriers and
+            enablers-into the dominant theoretical model.
           </p>
 
           <h2 className={H2_CLASSES}>Social Cognitive Theory (SCT)</h2>
@@ -176,7 +176,7 @@ const FoundationalTheoriesPage = () => {
             </li>
           </ol>
           <p className={PARAGRAPH_CLASSES}>
-            A key contribution of SCT to technology adoption was its emphasis on self-efficacy–an
+            A key contribution of SCT to technology adoption was its emphasis on self-efficacy-an
             individual’s belief in their own capability to execute the actions required to achieve a
             specific goal. This concept is a more refined version of TPB’s Perceived Behavioral
             Control and became a cornerstone construct in many subsequent models.
@@ -212,7 +212,7 @@ const FoundationalTheoriesPage = () => {
             TPB, to create a more comprehensive model.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            The MPCU is significant not for its dominance–it was soon overshadowed–but for its role
+            The MPCU is significant not for its dominance-it was soon overshadowed-but for its role
             as a conceptual bridge. It demonstrated the value of integrating multiple theoretical
             perspectives and tailoring them to the specific context of computer use, setting the
             stage for the parsimonious and powerful model that would come to define the field: the

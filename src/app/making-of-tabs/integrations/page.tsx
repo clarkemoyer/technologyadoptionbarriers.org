@@ -50,7 +50,7 @@ const IntegrationsPage = () => {
             >
               <p className="font-bold text-green-900 mb-1">Prolific</p>
               <p className="text-sm text-green-800">
-                Participant recruitment, the Qualtrics–Prolific bridge, and data collection
+                Participant recruitment, the Qualtrics-Prolific bridge, and data collection
               </p>
             </Link>
             <Link
@@ -290,7 +290,7 @@ const IntegrationsPage = () => {
           <h2 className={H2_CLASSES}>Survey Flow Architecture - The Two-Branch Design</h2>
 
           <p className="mb-4">
-            The most critical piece of the Qualtrics–Prolific integration is the{' '}
+            The most critical piece of the Qualtrics-Prolific integration is the{' '}
             <strong>Survey Flow</strong> - the sequence of logic steps that Qualtrics executes for
             each respondent. The TABS survey uses a &quot;redirect lockdown&quot; pattern that
             ensures every respondent ends up at the correct destination, regardless of how they

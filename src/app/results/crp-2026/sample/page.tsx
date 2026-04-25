@@ -100,17 +100,17 @@ const CrpSamplePage = () => {
               </h3>
               <p className="text-sm text-teal-800 mb-3">
                 Self-reported by participants within the TABS survey instrument itself (questions
-                Q1&ndash;Q9). These are <strong>role-specific, organizational</strong> demographics
+                Q1-Q9). These are <strong>role-specific, organizational</strong> demographics
                 directly relevant to the research questions.
               </p>
               <ul className="text-xs text-teal-700 space-y-1 list-disc list-inside">
-                <li>Executive Role (Q1) &mdash; CIO, CTO, CEO, CFO, etc.</li>
+                <li>Executive Role (Q1) - CIO, CTO, CEO, CFO, etc.</li>
                 <li>Decision Authority (Q2)</li>
                 <li>Industry (Q3)</li>
-                <li>Organization Size (Q4) &mdash; &lt;100 to 10,000+</li>
-                <li>Profit Model (Q5) &mdash; For-Profit, Non-Profit, Government</li>
-                <li>Revenue/Budget (Q6&ndash;Q7)</li>
-                <li>Geographic Scope &amp; Scale (Q8&ndash;Q9)</li>
+                <li>Organization Size (Q4) - &lt;100 to 10,000+</li>
+                <li>Profit Model (Q5) - For-Profit, Non-Profit, Government</li>
+                <li>Revenue/Budget (Q6-Q7)</li>
+                <li>Geographic Scope &amp; Scale (Q8-Q9)</li>
               </ul>
               <p className="text-xs text-teal-600 mt-3 italic">
                 Source: Qualtrics CSV export &rarr;{' '}
@@ -163,14 +163,14 @@ const CrpSamplePage = () => {
                 <code className="bg-purple-100 px-1 rounded">
                   POST /studies/&#123;id&#125;/demographic-export/
                 </code>{' '}
-                &mdash; snapshot at time of participation
+                - snapshot at time of participation
               </p>
             </div>
           </div>
           <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
             <p className="text-sm text-amber-900">
               <strong>Important:</strong> The demographics shown below in the per-group breakdowns
-              are <strong>Survey Demographics (Qualtrics)</strong> &mdash; the organizational and
+              are <strong>Survey Demographics (Qualtrics)</strong> - the organizational and
               role-based characteristics that participants self-reported in the TABS instrument.
               Prolific Platform Demographics are available separately via the Prolific demographic
               export and are not displayed on this page to protect participant privacy.
@@ -187,7 +187,7 @@ const CrpSamplePage = () => {
               enabling independent cross-validation of self-reported data. Researchers can compare
               responses to flag discrepancies (e.g., a participant reporting &ldquo;CIO at a 10,000+
               company&rdquo; in Qualtrics but &ldquo;Student&rdquo; or &ldquo;Company Size:
-              1&ndash;10&rdquo; in Prolific).
+              1-10&rdquo; in Prolific).
             </p>
             <div className="overflow-x-auto">
               <table className="w-full text-xs border-collapse">
@@ -299,7 +299,7 @@ const CrpSamplePage = () => {
                   <td className="border border-gray-300 px-4 py-2">is any of</td>
                   <td className="border border-gray-300 px-4 py-2">United States</td>
                   <td className="border border-gray-300 px-4 py-2 text-gray-400 italic">
-                    Q8&ndash;Q9 (Geography)
+                    Q8-Q9 (Geography)
                   </td>
                 </tr>
                 <tr className="bg-gray-50">
@@ -308,7 +308,7 @@ const CrpSamplePage = () => {
                   </td>
                   <td className="border border-gray-300 px-4 py-2">is any of</td>
                   <td className="border border-gray-300 px-4 py-2">Full-Time</td>
-                  <td className="border border-gray-300 px-4 py-2 text-gray-400 italic">&mdash;</td>
+                  <td className="border border-gray-300 px-4 py-2 text-gray-400 italic">-</td>
                 </tr>
                 <tr>
                   <td className="border border-gray-300 px-4 py-2 font-semibold">Employer Type</td>
@@ -332,9 +332,7 @@ const CrpSamplePage = () => {
                 <tr className="bg-gray-50">
                   <td className="border border-gray-300 px-4 py-2 font-semibold">Company Size</td>
                   <td className="border border-gray-300 px-4 py-2">is any of</td>
-                  <td className="border border-gray-300 px-4 py-2">
-                    50&ndash;249, 250&ndash;999, 1000+
-                  </td>
+                  <td className="border border-gray-300 px-4 py-2">50-249, 250-999, 1000+</td>
                   <td className="border border-gray-300 px-4 py-2">
                     <code className="text-xs bg-teal-100 px-1 rounded">Q4_OrgSize</code>
                   </td>
@@ -419,7 +417,7 @@ const CrpSamplePage = () => {
           <h2 className={H2_CLASSES}>Survey Demographics by Result Group (Qualtrics)</h2>
           <p className={PARAGRAPH_CLASSES}>
             Each result group below shows its organizational and role-based composition as
-            self-reported by participants in the TABS survey (questions Q1&ndash;Q9). This allows
+            self-reported by participants in the TABS survey (questions Q1-Q9). This allows
             assessment of whether data cleaning differentially affects sample composition across
             executive roles, organization sizes, and sector types.
           </p>
@@ -683,11 +681,11 @@ const CrpSamplePage = () => {
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
             <p className="text-sm text-blue-900">
               <strong>Privacy Note:</strong> Survey demographics (shown above) are aggregated from
-              self-reported Qualtrics responses (Q1&ndash;Q9) and displayed as category-level counts
-              and percentages only. Prolific platform demographics (base fields: age, sex,
-              ethnicity, etc.; prescreener fields: industry, company size, occupation, etc.) are
-              collected separately and are used for cross-validation and sample balancing but are
-              not displayed on this page to protect participant privacy. No individual-level data is
+              self-reported Qualtrics responses (Q1-Q9) and displayed as category-level counts and
+              percentages only. Prolific platform demographics (base fields: age, sex, ethnicity,
+              etc.; prescreener fields: industry, company size, occupation, etc.) are collected
+              separately and are used for cross-validation and sample balancing but are not
+              displayed on this page to protect participant privacy. No individual-level data is
               displayed from either source.
             </p>
           </div>
@@ -701,19 +699,19 @@ const CrpSamplePage = () => {
               <Link href="/results/crp-2026/descriptive" className="text-blue-600 hover:underline">
                 Descriptive Statistics
               </Link>{' '}
-              &mdash; means, SDs, and correlations for each result group
+              - means, SDs, and correlations for each result group
             </li>
             <li>
               <Link href="/results/crp-2026/findings" className="text-blue-600 hover:underline">
                 Key Findings
               </Link>{' '}
-              &mdash; effect sizes and cross-tabulations per result group
+              - effect sizes and cross-tabulations per result group
             </li>
             <li>
               <Link href="/results/crp-2026/data-quality" className="text-blue-600 hover:underline">
                 Data Quality Pipeline
               </Link>{' '}
-              &mdash; how responses are validated and samples defined
+              - how responses are validated and samples defined
             </li>
             <li>
               <Link href="/results/crp-2026" className="text-blue-600 hover:underline">
