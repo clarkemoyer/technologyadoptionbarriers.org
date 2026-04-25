@@ -9,6 +9,7 @@ import {
 import Link from 'next/link'
 import sensitivityData from '@/data/sensitivity-analysis.json'
 import LastUpdated from '@/components/last-updated'
+import Term from '@/components/glossary-term'
 
 export const metadata: Metadata = {
   title: 'Scale Reliability - TABS Results',
@@ -48,7 +49,8 @@ const ReliabilityPage = () => {
 
         <section className={SECTION_CLASSES}>
           <p className={PARAGRAPH_CLASSES}>
-            Scale reliability is assessed using Cronbach&rsquo;s alpha (&alpha;), the most widely
+            Scale reliability is assessed using{' '}
+            <Term termId="cronbach-alpha">Cronbach&rsquo;s alpha</Term> (&alpha;), the most widely
             used measure of internal consistency. A coefficient of &alpha; &ge; 0.70 is generally
             considered acceptable for research purposes (Nunnally &amp; Bernstein, 1994), while
             values above 0.80 indicate good to excellent reliability.

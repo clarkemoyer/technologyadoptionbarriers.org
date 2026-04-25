@@ -4,26 +4,26 @@ import {
   ARTICLE_CLASSES,
   H1_CLASSES,
   H2_CLASSES,
+  H3_CLASSES,
   SECTION_CLASSES,
   PARAGRAPH_CLASSES,
   BODY_LIST_CLASSES,
-  REFERENCES_H2_CLASSES,
   REFERENCES_OL_CLASSES,
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
   title: 'Bibliography: Gartner Hype Cycle - Fenn (1995)',
   description:
-    'An exploration of the Gartner Hype Cycle framework developed by Jackie Fenn, a widely used consulting model for understanding technology adoption timing, maturity, and the gap between inflated expectations and realized value.',
+    'Comprehensive overview of the Gartner Hype Cycle model. Explains how emerging technologies follow a five-phase adoption pattern from initial innovation trigger through disillusionment to the productivity plateau.',
 }
 
-const GartnerHypeCyclePage = () => {
+const BibliographyArticlePage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
-        <h1 className={H1_CLASSES}>Gartner Hype Cycle - Jackie Fenn &amp; Gartner (1995)</h1>
+        <h1 className={H1_CLASSES}>Gartner Hype Cycle - Fenn (1995)</h1>
 
-        {/* Framework Identification */}
+        {/* 1. Framework Identification */}
         <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
           <h2 className={H2_CLASSES}>Framework Identification</h2>
           <div className="space-y-2">
@@ -31,463 +31,796 @@ const GartnerHypeCyclePage = () => {
               <strong>Framework Name:</strong> Gartner Hype Cycle
             </p>
             <p>
-              <strong>Authors:</strong> Jackie Fenn and Gartner
+              <strong>Framework Abbreviation:</strong> Hype Cycle
             </p>
             <p>
-              <strong>Publication Date:</strong> 1995
+              <strong>Target of Framework:</strong> Visualization of the typical progression of an
+              emerging technology through five phases, plotting Visibility against Maturity to
+              characterize movement from overenthusiasm through disillusionment to an eventual
+              understanding of the technology&rsquo;s relevance and role in a market or domain
+              (Linden and Fenn, 2003).
+            </p>
+            <p>
+              <strong>Disciplinary Origin:</strong> Market Research, Technology Analysis, Innovation
+              Management, Organizational Behavior
             </p>
           </div>
         </section>
 
-        {/* Citation Information */}
+        {/* 2. Theory Publication Information */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Theory Publication Information</h2>
+          <div className="space-y-2">
+            <p>
+              <strong>Author:</strong> Jackie Fenn (Gartner Research)
+            </p>
+            <p>
+              <strong>Formal Publication Date:</strong> 1995
+            </p>
+            <p>
+              <strong>Official Title:</strong> When to Leap on the Hype Cycle
+            </p>
+            <p>
+              <strong>Publisher:</strong> Gartner Research Note
+            </p>
+            <p>
+              <strong>Document Format:</strong> Gartner research note introducing hype cycle
+              visualization and framework
+            </p>
+            <p>
+              <strong>URL:</strong>{' '}
+              <a
+                href="https://www.gartner.com/en/research/methodologies/gartner-hype-cycle"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:underline"
+              >
+                https://www.gartner.com/en/research/methodologies/gartner-hype-cycle
+              </a>
+            </p>
+          </div>
+        </section>
+
+        {/* 3. Citation Information */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Citation Information</h2>
-          <div className="bg-blue-50 p-4 rounded border-l-4 border-blue-500">
-            <p className="text-sm font-mono">
-              Fenn, J. (1995). <em>When to leap on the hype cycle.</em> Gartner.
-            </p>
+          <div className="bg-blue-50 p-4 rounded border-l-4 border-blue-500 space-y-3">
+            <div>
+              <p className="text-xs font-bold uppercase text-blue-900 mb-1">APA (7th ed.)</p>
+              <p className="text-sm font-mono">
+                Fenn, J. (
+                <a href="#ref-fenn-1995" className="text-tabs-teal-deep hover:underline">
+                  1995
+                </a>
+                ). <em>When to leap on the hype cycle</em> (Gartner Research Note). Gartner.
+              </p>
+            </div>
+            <div>
+              <p className="text-xs font-bold uppercase text-blue-900 mb-1">
+                Chicago (Author-Date)
+              </p>
+              <p className="text-sm font-mono">
+                Fenn, Jackie. 1995. <em>When to Leap on the Hype Cycle</em>. Gartner Research Note.
+                Gartner.
+              </p>
+            </div>
           </div>
         </section>
 
+        {/* 4. Why Was the Model Created? */}
         <section className={SECTION_CLASSES}>
-          <p className={PARAGRAPH_CLASSES}>
-            The Gartner Hype Cycle, introduced by Jackie Fenn and the Gartner analyst team in 1995,
-            offers a distinctive model for understanding technology adoption timing and maturity.
-            Rather than providing a detailed framework for how organizations should adopt
-            technologies, the Hype Cycle provides a conceptual and graphical tool for assessing
-            where technologies stand in their development and adoption lifecycle. The model
-            graphically depicts technology progression through five phases: Innovation Trigger, Peak
-            of Inflated Expectations, Trough of Disillusionment, Slope of Enlightenment, and Plateau
-            of Productivity.
-          </p>
-          <p className={PARAGRAPH_CLASSES}>
-            Unlike academic models grounded in formal empirical research, the Hype Cycle is a
-            consulting tool developed through expert observation of technology markets and
-            organizational experience. Yet it has become one of the most widely used frameworks for
-            technology investment timing decisions among chief information officers and executive
-            leaders. More than 25 years after its introduction, Gartner&rsquo;s annual Hype Cycle
-            reports continue to influence technology investment decisions across industries
-            worldwide, covering hundreds of individual technologies and serving as a common language
-            for discussing technology maturity.
-          </p>
-
           <h2 className={H2_CLASSES}>Why Was the Model Created?</h2>
           <p className={PARAGRAPH_CLASSES}>
-            Jackie Fenn and Gartner developed the Hype Cycle to address a persistent problem in
-            technology adoption: the mismatch between expectations and reality. Technology vendors,
-            journalists, and enthusiasts typically generate tremendous excitement around emerging
-            technologies. The media hypes the potential. Vendors make bold claims about capabilities
-            and benefits. Executives get excited, considering adoption. But then, when
-            implementation begins, organizations encounter challenges. Technologies are more
-            difficult to implement than expected. Benefits take longer to materialize. The
-            technology doesn&rsquo;t work as promised.
+            During the early 1990s, organizations faced increasing difficulty managing technology
+            adoption decisions. New technologies emerged constantly: artificial intelligence,
+            virtual reality, the internet, mobile computing, client-server architectures, and
+            numerous other innovations. Organizations struggled to distinguish between technologies
+            representing genuine long-term opportunities versus temporary hype, fads, or premature
+            technologies lacking practical implementation capability. Marketing and vendor claims
+            promoted enthusiasm for emerging technologies without clear evidence of real-world
+            viability. Technology leaders and executives needed frameworks for timing technology
+            adoption decisions.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            Disappointed organizations abandon the technology or implement it with skepticism. Media
-            attention, which had been intensely positive, becomes intensely critical. The technology
-            is declared a failure, a hype, a waste. But what is actually happening is that the
-            technology is working through a natural maturation process. Some early-adopting
-            organizations persevere, working through implementation challenges, developing
-            expertise, and eventually achieving real benefits. These organizations become advocates.
-            Other organizations, having learned from pioneers&rsquo; experiences, adopt later with
-            better implementation practices and more realistic expectations.
+            Gartner analyst Jackie Fenn observed that emerging technologies typically followed
+            predictable adoption patterns despite media noise and marketing hype. Initial
+            announcements generated inflated expectations. Technologies promised revolutionary
+            capability change that often failed to materialize. Organizations making early adoption
+            decisions on exaggerated expectations experienced disappointment. Eventually,
+            technologies matured, real capabilities became evident, and practical applications
+            emerged. Some technologies realized their promised potential while others proved
+            commercially unviable. Organizations that understood this adoption trajectory could time
+            their adoption decisions more effectively.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            Gartner noticed this pattern repeatedly: hype cycle, disappointment, eventual adoption.
-            The pattern appeared across different technologies-artificial intelligence, virtual
-            reality, e-commerce, cloud computing-suggesting it was a fundamental feature of
-            technology adoption rather than specific to individual technologies. Fenn created the
-            Hype Cycle model to help organizations understand where specific technologies stood in
-            this maturity journey, enabling better adoption timing decisions grounded in realistic
-            assessment of maturity rather than media sentiment.
-          </p>
-          <p className={PARAGRAPH_CLASSES}>
-            Several predecessor frameworks contributed to the Hype Cycle&rsquo;s conceptual
-            development:
-          </p>
-          <ul className={BODY_LIST_CLASSES}>
-            <li>
-              <strong>Rogers&rsquo; Diffusion of Innovation (1962/1983):</strong> Rogers identified
-              that innovations follow an S-curve adoption pattern, moving from innovators through
-              early adopters, early majority, late majority, and laggards. However, Rogers&rsquo;
-              model focuses on aggregate adoption rates without examining the emotional or
-              expectation dynamics that accompany technology introduction.
-            </li>
-            <li>
-              <strong>Technology Lifecycle Models (1970s-1980s):</strong> Various technology
-              management scholars proposed lifecycle models suggesting that technologies move
-              through introduction, growth, maturity, and decline phases. These models focus on
-              market maturity and sales volume dynamics.
-            </li>
-            <li>
-              <strong>Venture Capital and Startup Cycles:</strong> The rise of venture capital and
-              technology startups created boom-and-bust cycles. Technologies would generate
-              extraordinary enthusiasm, attract massive investment, then crash when results failed
-              to materialize.
-            </li>
-            <li>
-              <strong>Gartner Observational Experience:</strong> Gartner&rsquo;s vantage point as a
-              research firm observing hundreds of organizations, vendors, and technologies across
-              decades provided empirical basis for understanding technology adoption patterns.
-            </li>
-          </ul>
-
-          <h2 className={H2_CLASSES}>Core Concepts and Definitions</h2>
-          <p className={PARAGRAPH_CLASSES}>
-            The Gartner Hype Cycle consists of five distinct phases, typically represented as a
-            graphical curve showing both visibility (how much attention a technology receives) and
-            hype (how inflated expectations are) plotted against time:
-          </p>
-          <p className={PARAGRAPH_CLASSES}>
-            <strong>Phase 1: Innovation Trigger.</strong> A technology breakthrough, product launch,
-            or significant media coverage initiates the cycle. The technology is sufficiently
-            advanced that proof-of-concept demonstrations or initial successes capture attention.
-            Early applications show promise. Venture capital or corporate investment increases.
-            Media coverage begins. Characteristics include: technology is real but very early-stage;
-            commercial viability is uncertain; implementation expertise is minimal; expected
-            benefits are highly uncertain; adoption by organizations is minimal.
-          </p>
-          <p className={PARAGRAPH_CLASSES}>
-            <strong>Phase 2: Peak of Inflated Expectations.</strong> Media hype reaches maximum.
-            Success stories of early adopters are publicized extensively. Vendors launch products;
-            venture capital funding increases. Ambitious projections about market size and growth
-            become common. Unrealistic expectations develop about what the technology can achieve
-            and how quickly. Some organizations, fearing being left behind, rush to adopt without
-            adequate planning or expertise. During the dot-com bubble (late 1990s), internet
-            companies with no viable business model attracted billions in venture funding, and
-            analysts projected that traditional retail would be displaced entirely by internet
-            shopping.
-          </p>
-          <p className={PARAGRAPH_CLASSES}>
-            <strong>Phase 3: Trough of Disillusionment.</strong> As organizations attempt to adopt
-            the technology at scale, implementation challenges emerge. Expected benefits don&rsquo;t
-            materialize as quickly or dramatically as promised. Early-adopting organizations that
-            invested heavily sometimes struggle to achieve promised benefits. Media coverage shifts
-            from enthusiastic to critical. Failed implementations are publicized. Technology is
-            declared a failure. Characteristics include: implementation challenges emerge;
-            real-world performance falls short of promises; organizations reduce investment;
-            visibility and hype both decline sharply. During the dot-com crash (2000-2002),
-            thousands of internet companies failed and media proclaimed the internet bubble burst.
-          </p>
-          <p className={PARAGRAPH_CLASSES}>
-            <strong>Phase 4: Slope of Enlightenment.</strong> As the dust settles, a clearer, more
-            realistic understanding of the technology&rsquo;s actual capabilities and proper
-            applications emerges. Organizations that persevered through the trough begin achieving
-            real benefits. They&rsquo;ve learned through experience what the technology can and
-            cannot do, developed implementation expertise, and established best practices. Adoption
-            accelerates among pragmatic organizations. By the early 2000s, survivors of the dot-com
-            crash-companies like Amazon-proved that internet retail could be profitable and
-            transformative within realistic bounds.
-          </p>
-          <p className={PARAGRAPH_CLASSES}>
-            <strong>Phase 5: Plateau of Productivity.</strong> The technology reaches mainstream
-            adoption. It becomes standard business practice. New organizations adopt not because
-            it&rsquo;s exciting or revolutionary but because it&rsquo;s necessary for competitive
-            competence. Characteristics include: technology is adopted as standard practice;
-            competitive necessity drives adoption of laggard organizations; implementation and
-            support services are widely available; innovation focus shifts to next-generation
-            technologies.
-          </p>
-
-          <h2 className={H2_CLASSES}>Internal Validity</h2>
-          <p className={PARAGRAPH_CLASSES}>
-            The Hype Cycle&rsquo;s internal validity derives from its coherence as a conceptual
-            model and from Gartner&rsquo;s extensive observational base.
-          </p>
-          <p className={PARAGRAPH_CLASSES}>
-            The model&rsquo;s five-phase structure is logically coherent: it connects the sociology
-            of technology introduction (initial excitement and hype), to organizational adoption
-            dynamics (rushed adoption, implementation failure), to technology maturation (lessons
-            learned, best practices developed), to mainstream adoption (realistic expectations,
-            competitive necessity). Each phase follows naturally from the preceding one given
-            plausible assumptions about media dynamics, organizational behavior, and technology
-            learning curves.
-          </p>
-          <p className={PARAGRAPH_CLASSES}>
-            Gartner&rsquo;s position as an analyst firm observing hundreds of organizations and
-            vendors across decades provides an unusually rich observational basis. The firm tracks
-            individual technology adoptions longitudinally, enabling comparison of early
-            expectations with later outcomes and identification of systematic patterns across
-            technology types. This observational foundation distinguishes the Hype Cycle from purely
-            theoretical models and provides grounding in actual organizational experience.
-          </p>
-          <p className={PARAGRAPH_CLASSES}>
-            The model explicitly accounts for the different timescales of different technologies:
-            some technologies move quickly through all phases; others stall in the Trough for years;
-            some never reach the Plateau. This flexibility acknowledges the diversity of technology
-            adoption trajectories without undermining the fundamental pattern.
-          </p>
-
-          <h2 className={H2_CLASSES}>External Validity</h2>
-          <p className={PARAGRAPH_CLASSES}>
-            The Hype Cycle demonstrates strong external validity through historical application and
-            predictive performance across diverse technology contexts:
-          </p>
-          <p className={PARAGRAPH_CLASSES}>
-            <strong>Historical Accuracy:</strong> Looking back at technology adoption history, the
-            Hype Cycle pattern appears repeatedly. Personal computers, cell phones, the internet,
-            cloud computing, and artificial intelligence all followed the pattern. This retroactive
-            fit suggests the model captures fundamental technology adoption dynamics rather than
-            being an artifact of a particular technology era.
-          </p>
-          <p className={PARAGRAPH_CLASSES}>
-            <strong>Consistent Application Across Technology Types:</strong> Unlike models specific
-            to particular technology types, the Hype Cycle applies across diverse
-            technologies-software, hardware, biotechnology, nanotechnology, energy technologies. The
-            pattern appears universal, suggesting it reflects fundamental aspects of how
-            technologies are introduced and adopted.
-          </p>
-          <p className={PARAGRAPH_CLASSES}>
-            <strong>Predictive Capability:</strong> While individual technologies progress through
-            phases at different speeds, the Hype Cycle successfully predicts that technologies will
-            move through phases. Organizations that maintained investment through the Trough while
-            competitors abandoned the technology often gained significant advantage.
-          </p>
-          <p className={PARAGRAPH_CLASSES}>
-            <strong>Cross-Industry Applicability:</strong> Gartner publishes Hype Cycle reports for
-            numerous industries (healthcare, financial services, security, etc.) and functional
-            domains (data and analytics, human capital management, etc.), demonstrating the
-            framework&rsquo;s applicability across organizational contexts.
-          </p>
-          <p className={PARAGRAPH_CLASSES}>
-            <strong>Anomalies and Nuances:</strong> Not all technologies follow the Hype Cycle
-            identically. Some skip the Peak; some extend the Trough; some plateau at different
-            adoption levels. But the general trajectory appears consistent across most technologies,
-            suggesting these are variations on a fundamental pattern rather than refutations of it.
-          </p>
-
-          <h2 className={H2_CLASSES}>Key Contributions</h2>
-          <p className={PARAGRAPH_CLASSES}>
-            The Gartner Hype Cycle has made several important contributions to technology adoption
-            thinking and practice:
-          </p>
-          <ul className={BODY_LIST_CLASSES}>
-            <li>
-              <strong>Simplicity and Accessibility:</strong> The Hype Cycle is graphically simple
-              and conceptually straightforward. Executives can quickly understand the model and its
-              implications, making it widely usable across organizational levels. This accessibility
-              has contributed to its extraordinary diffusion as a practical management tool.
-            </li>
-            <li>
-              <strong>Captures the Expectation-Reality Gap:</strong> The Hype Cycle captures
-              something real and important about technology adoption: the systematic gap between
-              initial expectations and actual performance. By naming this gap and showing how it
-              resolves over the maturity cycle, the model helps leaders interpret technology media
-              coverage with appropriate skepticism.
-            </li>
-            <li>
-              <strong>Enables Strategic Timing Decisions:</strong> By providing a vocabulary for
-              technology maturity positioning, the Hype Cycle enables organizations to make
-              deliberate adoption timing decisions rather than reactive ones. &ldquo;We will adopt
-              this technology when it reaches the Slope of Enlightenment&rdquo; is a defensible
-              strategic position.
-            </li>
-            <li>
-              <strong>CIO Communication Tool:</strong> The Hype Cycle provides chief information
-              officers with a shared vocabulary for explaining technology adoption decisions to
-              executive colleagues. Strategic positioning relative to maturity communicates more
-              clearly than technical explanations of system readiness.
-            </li>
-            <li>
-              <strong>Portfolio Management Framework:</strong> The Hype Cycle naturally supports
-              portfolio thinking: organizations can maintain different technologies at different
-              maturity positions simultaneously, balancing stability (Plateau technologies) with
-              innovation (Peak or Slope technologies in controlled environments).
-            </li>
-            <li>
-              <strong>Risk Assessment Aid:</strong> Position on the Hype Cycle implicitly
-              communicates implementation risk level, helping organizations calibrate their
-              investment and change management commitment to technology maturity.
-            </li>
-          </ul>
-
-          <h2 className={H2_CLASSES}>Limitations and Critiques</h2>
-          <p className={PARAGRAPH_CLASSES}>
-            Despite its widespread adoption and practical utility, the Hype Cycle framework has
-            attracted significant scholarly and practitioner criticism:
-          </p>
-          <p className={PARAGRAPH_CLASSES}>
-            <strong>Limited Empirical Foundation:</strong> The Hype Cycle was developed through
-            expert observation rather than systematic empirical research. It lacks the rigorous
-            theoretical grounding and empirical validation of academic frameworks. Critics note that
-            the framework has not been formally validated through controlled studies.
-          </p>
-          <p className={PARAGRAPH_CLASSES}>
-            <strong>Subjective Phase Placement:</strong> Determining where a technology falls on the
-            Hype Cycle is inherently subjective. Different analysts may place the same technology at
-            different phases, and the criteria for phase placement are not precisely defined. This
-            subjectivity limits the framework&rsquo;s precision as an analytical tool.
-          </p>
-          <p className={PARAGRAPH_CLASSES}>
-            <strong>Potential for Self-Fulfilling Prophecy:</strong> Because the Hype Cycle is so
-            widely used, it may itself influence technology adoption patterns. Organizations that
-            read about a technology reaching the &ldquo;Peak of Inflated Expectations&rdquo; may
-            reduce investment; those reading about the &ldquo;Slope of Enlightenment&rdquo; may
-            increase it. The model may shape the adoption dynamics it purports to describe.
-          </p>
-          <p className={PARAGRAPH_CLASSES}>
-            <strong>Oversimplification of Complex Dynamics:</strong> The five-phase model
-            necessarily simplifies complex technology adoption dynamics. Organizational, regulatory,
-            cultural, and competitive factors that shape adoption trajectories are not captured in
-            the framework&rsquo;s graphical representation.
-          </p>
-          <p className={PARAGRAPH_CLASSES}>
-            <strong>Commercial Interests:</strong> As a product of a commercial research firm, the
-            Hype Cycle serves Gartner&rsquo;s business interests as well as clients&rsquo;
-            analytical needs. This introduces potential for bias in phase placement decisions that
-            academic frameworks with peer review processes are better positioned to avoid.
-          </p>
-
-          <h2 className={H2_CLASSES}>Relevance to Technology Adoption</h2>
-          <p className={PARAGRAPH_CLASSES}>
-            The Gartner Hype Cycle directly addresses what is arguably the most practically
-            consequential question in organizational technology adoption: timing. Should we adopt
-            this technology now, wait, or skip it entirely? By providing a framework for
-            understanding technology maturity and adoption trajectories, the Hype Cycle enables more
-            informed and deliberate answers to this question.
-          </p>
-          <p className={PARAGRAPH_CLASSES}>
-            The model highlights a fundamental technology adoption barrier that other frameworks
-            often underemphasize: the expectation-reality gap. Organizations frequently encounter
-            barriers not because technologies are incapable but because initial expectations were
-            unrealistically high. When early implementation results fall short of Peak of Inflated
-            Expectations projections, organizations may abandon technologies that would have
-            delivered substantial value had they persisted through the Trough of Disillusionment
-            with realistic expectations.
-          </p>
-          <p className={PARAGRAPH_CLASSES}>
-            The Hype Cycle also illuminates why technology adoption barriers and facilitators shift
-            over the maturity lifecycle. Technologies at the Innovation Trigger face barriers of
-            uncertainty and lack of implementation expertise. Technologies at the Peak face barriers
-            of unrealistic expectations and hasty, poorly planned adoption. Technologies at the
-            Trough face barriers of organizational cynicism and withdrawal of investment.
-            Technologies at the Slope face facilitators of accumulated implementation knowledge and
-            realistic expectations. Understanding these phase-specific dynamics enables more
-            targeted approaches to overcoming adoption barriers.
-          </p>
-          <p className={PARAGRAPH_CLASSES}>
-            For organizational leaders, the Hype Cycle provides a practical heuristic: be skeptical
-            of technologies receiving maximum media attention (Peak of Inflated Expectations), and
-            remain alert for technologies being prematurely abandoned after initial disappointment
-            (Trough of Disillusionment). The organizations that gain competitive advantage from
-            technology adoption are often those that maintain disciplined investment through the
-            Trough while less patient competitors withdraw, positioning themselves to reap benefits
-            when the technology matures.
-          </p>
-          <p className={PARAGRAPH_CLASSES}>
-            <em>
-              Note: This article provides an overview based on the comprehensive literature review.
-              Readers are encouraged to consult the original publication for complete details.
-            </em>
+            Fenn developed the Gartner Hype Cycle framework to visualize technology adoption
+            trajectory through five phases. The framework helps executives understand where
+            technologies are in their adoption lifecycle and assess appropriate adoption timing.
+            Rather than viewing technology adoption as driven purely by innovation or demand, the
+            framework recognizes that technology adoption follows patterns driven by both hype
+            (technology visibility and expectations) and engineering maturity (real technical
+            capability). Understanding this dual dynamic enables more effective adoption timing.
           </p>
         </section>
 
-        <section className="pt-8 border-t border-gray-200">
-          <h2 className={REFERENCES_H2_CLASSES}>References</h2>
+        {/* 5. Core Concepts and Definitions */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Core Concepts and Definitions</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            The Gartner Hype Cycle centers on several core concepts:
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Hype:</strong> Technology visibility, expectations, and media attention. Hype
+              reflects how widely the technology is discussed, what organizational leaders expect
+              from the technology, and how prominently vendors market the technology. Hype tends to
+              increase initially then decline as reality fails to match expectations.
+            </li>
+            <li>
+              <strong>Engineering Maturity:</strong> Actual technical capability and practical
+              application of the technology. Engineering maturity reflects real technical
+              development, working implementations, and proven capability. Maturity tends to
+              increase steadily as technology developers refine implementations.
+            </li>
+            <li>
+              <strong>Technology Lifecycle:</strong> Pattern of technology adoption from initial
+              innovation through maturity. Technologies follow predictable lifecycle pattern driven
+              by both hype and maturity dynamics.
+            </li>
+            <li>
+              <strong>Technology Trigger:</strong> The initial introduction of a technology through
+              a technological breakthrough, public demonstration, press release, or other event that
+              generates significant publicity and industry interest; typically no usable products
+              exist, only research and laboratory prototypes (Linden and Fenn, 2003).
+            </li>
+            <li>
+              <strong>Peak of Inflated Expectations:</strong> Maximum hype and visibility when
+              expectations exceed actual capability. Organizations make unrealistic adoption
+              assumptions based on exaggerated expectations.
+            </li>
+            <li>
+              <strong>Trough of Disillusionment:</strong> Period when reality fails to match
+              inflated expectations. Organizations implementing early experience disappointment and
+              project failures. Media attention declines.
+            </li>
+            <li>
+              <strong>Slope of Enlightenment:</strong> Period when realistic understanding of
+              technology capability emerges. Organizations learn from early implementations.
+              Practical applications develop. Technology matures.
+            </li>
+            <li>
+              <strong>Plateau of Productivity:</strong> Technology reaches mature stable adoption
+              with practical applications proving valuable. Mainstream adoption increases as
+              technology proves useful and reliable.
+            </li>
+          </ul>
+        </section>
+
+        {/* 6. Preceding Models or Theories */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Preceding Models or Theories</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            The Gartner Hype Cycle built upon and extended several prior innovation and adoption
+            frameworks:
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>
+                Diffusion of Innovations (
+                <Link
+                  href="/bibliography-2-21-diffusion-of-innovations-organizational-rogers-1962"
+                  className="text-tabs-teal-deep hover:underline"
+                >
+                  Rogers, 1962
+                </Link>
+                ):
+              </strong>{' '}
+              Rogers&rsquo; classic model identified innovation adoption phases including early
+              adopters, early majority, late majority, and laggards. Hype cycle adapted
+              Rogers&rsquo; phase concept to technology lifecycle.
+            </li>
+            <li>
+              <strong>
+                Technology Adoption Lifecycle (
+                <a
+                  id="cite-ref-moore-1991-1"
+                  href="#ref-moore-1991"
+                  className="text-tabs-teal-deep hover:underline"
+                >
+                  Moore, 1991
+                </a>
+                ):
+              </strong>{' '}
+              Moore&rsquo;s crossing the chasm model emphasized gap between early adopters and early
+              majority in technology adoption. Hype cycle incorporates similar adoption dynamics.
+            </li>
+            <li>
+              <strong>
+                Performance S-Curve (
+                <a
+                  id="cite-ref-foster-1986-1"
+                  href="#ref-foster-1986"
+                  className="text-tabs-teal-deep hover:underline"
+                >
+                  Foster, 1986
+                </a>
+                ):
+              </strong>{' '}
+              S-curve models show how technology performance follows a pattern of slow initial
+              growth, rapid improvement, then diminishing returns. Linden and Fenn (2003) explicitly
+              position the Hype Cycle as adding a human expectations dimension to the S-curve and
+              adoption curve models.
+            </li>
+            <li>
+              <strong>Technology Maturity Curves (1980s-1990s):</strong> Earlier research examined
+              how technology maturity changes over time. Hype cycle incorporates maturity dimension
+              with visibility dimension.
+            </li>
+            <li>
+              <strong>Market Research and Analyst Perspectives (1990s):</strong> Gartner and other
+              analyst firms studied technology adoption patterns. Hype cycle formalized these
+              observations into structured framework.
+            </li>
+          </ul>
+        </section>
+
+        {/* 7. Describe The Model */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Describe The Model</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            The Gartner Hype Cycle provides visualization of technology adoption trajectory through
+            five phases tracking changes in technology Visibility and Maturity. In Linden and
+            Fenn&rsquo;s (2003) canonical figure, the hype curve plots Visibility on the vertical
+            axis and Maturity on the horizontal axis. Progression through the five phases represents
+            the typical movement of an emerging technology from overenthusiasm, through a period of
+            disillusionment, to an eventual understanding of the technology&rsquo;s relevance and
+            role in a market or domain.
+          </p>
+
+          <h3 className={H3_CLASSES}>Five Phases of the Hype Cycle</h3>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Technology Trigger:</strong> Phase 1 marks initial introduction of technology
+              through a technological breakthrough, public demonstration, press release, or other
+              event that generates significant publicity and industry interest in an emerging
+              technology. Typically no usable products exist, only research and laboratory
+              prototypes. Venture capitalists may provide some early funding just after the Trigger
+              if they expect the technology to be a fast runner (Linden and Fenn, 2003).
+            </li>
+            <li>
+              <strong>Peak of Inflated Expectations:</strong> Phase 2 represents maximum visibility
+              and hype. Media and vendor enthusiasm reach zenith. Organizations and investors expect
+              revolutionary capability transformation. Inflated expectations exceed realistic
+              capability. Stories of early successes circulate while implementation challenges
+              receive limited attention. Visibility peaks while engineering maturity still lags
+              expectations. Organizations making adoption decisions at peak often experience
+              disappointment.
+            </li>
+            <li>
+              <strong>Trough of Disillusionment:</strong> Phase 3 occurs when reality fails to match
+              inflated expectations. Early implementations encounter technical challenges, cost
+              overruns, or unmet expectations. Organizations report project failures or
+              unsatisfactory outcomes. Media coverage becomes skeptical and critical. Visibility
+              declines sharply. Vendor and organizational enthusiasm dampens. Technology appears to
+              have failed despite earlier hype.
+            </li>
+            <li>
+              <strong>Slope of Enlightenment:</strong> Phase 4 represents the learning and recovery
+              period. Organizations learn from early implementation experiences. Developers refine
+              technology improving reliability and reducing complexity. Practical applications
+              emerge solving real business problems. Media coverage becomes more balanced and
+              realistic. Technology benefits become clearer though more modest than initially
+              claimed. Visibility increases modestly. Engineering maturity increases substantially
+              as technology develops. Organizations understand realistic technology capabilities and
+              constraints.
+            </li>
+            <li>
+              <strong>Plateau of Productivity:</strong> Phase 5 represents mature stable adoption.
+              Technology has proven practical value through multiple implementations. Mainstream
+              organizations adopt the technology. Technology becomes utility rather than innovation.
+              Vendor ecosystem matures with established players and competitive offerings. Support
+              resources including training, consulting, and tools become widely available.
+              Visibility remains high but hype is replaced by practical understanding. Engineering
+              maturity is high with stable, reliable implementations. Return on investment becomes
+              evident.
+            </li>
+          </ul>
+
+          <h3 className={H3_CLASSES}>Key Framework Principles</h3>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Hype and maturity divergence:</strong> Gap between hype and maturity creates
+              risk for early adopters. Peak of expectations occurs before technology is truly
+              mature. Organizations adopting at peak face disappointment.
+            </li>
+            <li>
+              <strong>Visibility oscillation:</strong> Visibility follows non-linear pattern
+              increasing to peak then declining before rising again to plateau. Linear approaches
+              underestimate visibility decline in trough.
+            </li>
+            <li>
+              <strong>Predictable phases:</strong> Technologies follow similar phase patterns
+              despite different technologies and contexts. Phase patterns are generalizable across
+              different innovations.
+            </li>
+            <li>
+              <strong>Timing implications:</strong> Organizations should time adoption based on
+              position in cycle. Peak timing carries highest risk. Slope timing offers better
+              risk-reward balance.
+            </li>
+            <li>
+              <strong>Technology assessment:</strong> Framework helps assess which phase
+              technologies are in, guiding adoption timing decisions. Where is the technology on the
+              cycle?
+            </li>
+            <li>
+              <strong>Risk and reward tradeoff:</strong> Early adoption carries highest risk but
+              potential first-mover advantage. Later adoption carries lower risk but less
+              differentiation.
+            </li>
+          </ul>
+
+          <h3 className={H3_CLASSES}>Main Strengths</h3>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Widely known and used:</strong> Hype cycle has become most recognized
+              technology adoption framework used by executives, technology leaders, and vendors
+              worldwide. Annual Gartner cycle reports receive extensive media attention.
+            </li>
+            <li>
+              <strong>Intuitive visualization:</strong> Simple visual representation of complex
+              adoption dynamics. Non-specialists quickly understand framework concept.
+            </li>
+            <li>
+              <strong>Addresses real adoption challenges:</strong> Framework explains documented
+              patterns of inflated technology expectations followed by disappointment. Framework
+              resonates with practitioner experience.
+            </li>
+            <li>
+              <strong>Practical adoption guidance:</strong> Framework provides guidance for timing
+              adoption decisions. Different cycle positions suggest different adoption strategies.
+            </li>
+            <li>
+              <strong>Generalizable across technologies:</strong> Framework applies to diverse
+              technologies from artificial intelligence through virtual reality through cloud
+              computing. Generalizability demonstrates broad applicability.
+            </li>
+            <li>
+              <strong>Continuous validation:</strong> Annual Gartner hype cycle reports enable
+              ongoing validation as predictions can be compared to actual outcomes year to year.
+            </li>
+            <li>
+              <strong>Foundation for vendor strategy:</strong> Technology vendors use hype cycle to
+              understand market positioning and adoption timing implications.
+            </li>
+          </ul>
+
+          <h3 className={H3_CLASSES}>Main Weaknesses</h3>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Positioning subjective:</strong> Determining where specific technologies are
+              on the cycle requires judgment. Different analysts may position same technology
+              differently. Positioning changes as technology evolves.
+            </li>
+            <li>
+              <strong>Timeline uncertain:</strong> Framework does not specify how long phases last.
+              Duration varies dramatically across technologies. Some technologies progress through
+              phases in years while others require decades.
+            </li>
+            <li>
+              <strong>Not all technologies follow pattern:</strong> Some technologies bypass certain
+              phases or follow non-standard patterns. Not all innovations create hype. Some stable
+              innovations never reach peak visibility.
+            </li>
+            <li>
+              <strong>Hype quantification difficult:</strong> Framework discusses hype conceptually
+              but provides limited guidance on quantifying visibility or expectations. Measurement
+              remains somewhat subjective.
+            </li>
+            <li>
+              <strong>Context variation underspecified:</strong> Different organizational contexts
+              and industries may follow different adoption patterns. Framework provides limited
+              guidance on contextual variation.
+            </li>
+            <li>
+              <strong>Feedback loops ignored:</strong> Framework treats adoption as independent of
+              other technologies. Technology interactions and ecosystem effects are not modeled.
+            </li>
+            <li>
+              <strong>Cultural and geographic variation:</strong> Framework developed in Western
+              context. Applicability to non-Western contexts or developing economies less clear.
+            </li>
+          </ul>
+        </section>
+
+        {/* 8. Key Contributions */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Key Contributions</h2>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Formalized technology expectations dynamics:</strong> Framework articulated
+              how technology expectations diverge from engineering reality. This insight
+              fundamentally changed how technology adoption is understood.
+            </li>
+            <li>
+              <strong>Provided visual adoption model:</strong> Simple but powerful visual
+              representation of complex adoption dynamics. Visualization made complex concepts
+              accessible to non-technical executives.
+            </li>
+            <li>
+              <strong>Legitimized hype cycle terminology:</strong> Framework established vocabulary
+              including peak of inflated expectations, trough of disillusionment, slope of
+              enlightenment that became widely used.
+            </li>
+            <li>
+              <strong>Guided adoption timing decisions:</strong> Framework provided practical
+              guidance for technology adoption timing. Organizations used framework to assess
+              adoption risk and benefit.
+            </li>
+            <li>
+              <strong>Explained innovation disappointment:</strong> Framework explained why
+              technology adoptions often disappointed despite initial enthusiasm. Pattern resonated
+              with practitioner experience.
+            </li>
+            <li>
+              <strong>Foundation for analyst research:</strong> Framework became foundation for
+              Gartner and other analyst firms&rsquo; annual technology predictions and positioning
+              reports.
+            </li>
+            <li>
+              <strong>Influenced vendor strategy:</strong> Technology vendors used hype cycle
+              understanding to position technologies and time market entry.
+            </li>
+            <li>
+              <strong>Integrated innovation and adoption perspectives:</strong> Combined innovation
+              dynamics with adoption lifecycle, providing more comprehensive understanding than
+              either perspective alone.
+            </li>
+          </ul>
+        </section>
+
+        {/* 9. Internal Validity */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Internal Validity</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            The Gartner Hype Cycle demonstrates reasonable internal validity as a technology
+            adoption framework:
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Logical coherence:</strong> The argument that technology visibility and
+              expectations diverge from engineering maturity is logically sound. Explaining hype
+              dynamics through divergence of expectations from reality is persuasive.
+            </li>
+            <li>
+              <strong>Explains documented patterns:</strong> Framework explains well-documented
+              patterns of technology hype followed by disappointment. Technology bubbles from
+              dot-com era to cryptocurrency booms follow predicted patterns.
+            </li>
+            <li>
+              <strong>Accounts for variation:</strong> Framework accommodates variation in cycle
+              duration and technology outcomes. Some technologies mature quickly while others
+              progress slowly or fail entirely.
+            </li>
+            <li>
+              <strong>Consistent with adoption research:</strong> Framework incorporates insights
+              from diffusion of innovations and technology adoption lifecycle research, maintaining
+              consistency with established literature.
+            </li>
+            <li>
+              <strong>Practical validation:</strong> Framework has been repeatedly validated through
+              technology adoption outcomes. Technologies positioned in peak of hype have often
+              experienced disappointment as predicted.
+            </li>
+            <li>
+              <strong>Predictive success:</strong> Retrospective analysis shows framework
+              predictions have been reasonably accurate for identifying where technologies will
+              experience challenges.
+            </li>
+          </ul>
+        </section>
+
+        {/* 10. External Validity */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>External Validity</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            External validity considerations concern generalizability of the Hype Cycle across
+            diverse technologies and contexts:
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Applies across diverse technologies:</strong> Framework has been successfully
+              applied to artificial intelligence, virtual reality, blockchain, cloud computing,
+              internet of things, augmented reality, and numerous other technologies. Broad
+              applicability demonstrates generalizability.
+            </li>
+            <li>
+              <strong>Applies across organizational types:</strong> Framework applies to technology
+              adoption decisions in enterprises, small businesses, government, and nonprofit
+              organizations.
+            </li>
+            <li>
+              <strong>Applies across industries:</strong> Framework has been applied across
+              manufacturing, services, finance, healthcare, retail, education, and government
+              sectors.
+            </li>
+            <li>
+              <strong>Limited variation explanation:</strong> Framework provides limited guidance on
+              how context influences cycle duration or technology outcomes. Why do some technologies
+              stay at peak while others decline?
+            </li>
+            <li>
+              <strong>Technology interaction effects:</strong> Framework treats technologies
+              independently. Interactions between technologies and ecosystem effects influence
+              adoption patterns not captured by framework.
+            </li>
+            <li>
+              <strong>Geographic and cultural context:</strong> Framework developed in Western
+              context. Applicability to non-Western contexts, developing economies, or cultures with
+              different innovation orientations less clear.
+            </li>
+            <li>
+              <strong>Platform and ecosystem dependence:</strong> Technologies embedded in platform
+              ecosystems may follow different adoption patterns than standalone technologies.
+            </li>
+          </ul>
+        </section>
+
+        {/* 11. Relevance to Technology Adoption */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Relevance to Technology Adoption</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            The Gartner Hype Cycle directly addresses technology adoption by providing framework for
+            understanding where technologies are in their adoption trajectory and what adoption
+            timing implications follow from their position. Organizations can assess technologies
+            against hype cycle positioning and make informed adoption decisions. Understanding cycle
+            position guides assessment of risk-reward tradeoffs in adoption timing.
+          </p>
+
+          <h3 className={H3_CLASSES}>Barriers to Effective Technology Adoption Identified</h3>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Inflated expectations:</strong> Peak of hype generates unrealistic
+              expectations about technology capability. Organizations adopting at peak expect
+              results technology cannot deliver.
+            </li>
+            <li>
+              <strong>Inadequate implementation planning:</strong> Peak visibility does not
+              correlate with implementation readiness. Organizations may lack skills, processes, or
+              organizational readiness for technology adoption.
+            </li>
+            <li>
+              <strong>Vendor overselling:</strong> Vendors and technology proponents promote
+              exaggerated capability claims generating unrealistic expectations.
+            </li>
+            <li>
+              <strong>Lack of adoption framework:</strong> Organizations without understanding of
+              hype cycle dynamics may make poor adoption timing decisions.
+            </li>
+            <li>
+              <strong>Immature vendor ecosystem:</strong> Early adoption may encounter limited
+              vendor options, poor support, or immature tool and platform offerings.
+            </li>
+            <li>
+              <strong>Organizational pressure for early adoption:</strong> Organizational leaders or
+              external pressure may push adoption at peak despite high risk timing.
+            </li>
+            <li>
+              <strong>Inability to weather trough:</strong> Organizations implementing at peak must
+              sustain commitment through trough when technology disappoints. Lacking this patience,
+              organizations may abandon promising technology prematurely.
+            </li>
+          </ul>
+
+          <h3 className={H3_CLASSES}>Leadership Actions the Framework Prescribes</h3>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Assess technology position:</strong> Determine where technologies are on the
+              hype cycle. Peak position suggests different strategy than slope position.
+            </li>
+            <li>
+              <strong>Align adoption timing with risk tolerance:</strong> Risk-averse organizations
+              should adopt on slope or plateau. Risk-tolerant organizations may adopt at peak to
+              gain first-mover advantage.
+            </li>
+            <li>
+              <strong>Manage expectations:</strong> Ensure that organizational leaders understand
+              realistic technology capability. Resist inflated vendor claims. Communicate realistic
+              benefits and timeframes.
+            </li>
+            <li>
+              <strong>Plan for trough if adopting at peak:</strong> If adopting early, prepare
+              organization for disappointment and technical challenges. Budget time and resources
+              for learning and implementation improvement.
+            </li>
+            <li>
+              <strong>Monitor cycle position changes:</strong> Continuously monitor technology
+              progress through cycle. Adjust adoption strategy as technologies move through phases.
+            </li>
+            <li>
+              <strong>Balance risk and advantage:</strong> Weigh first-mover advantage benefits
+              against adoption risk. Consider competitive implications of adoption timing.
+            </li>
+            <li>
+              <strong>Develop vendor partnerships:</strong> For peak adoption, develop collaborative
+              relationships with vendors. Work with vendors to address implementation challenges
+              together.
+            </li>
+            <li>
+              <strong>Build organizational capability:</strong> Develop organizational skills and
+              readiness before technology adoption. Ensure adequate training and change management
+              resources.
+            </li>
+          </ul>
+        </section>
+
+        {/* 12. Following Models or Theories */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Following Models or Theories</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            The Gartner Hype Cycle spawned extensive research and extensions:
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>
+                Hype Cycle Methodology Formalization (
+                <a
+                  id="cite-ref-linden-2003-1"
+                  href="#ref-linden-2003"
+                  className="text-tabs-teal-deep hover:underline"
+                >
+                  Linden &amp; Fenn, 2003
+                </a>
+                ):
+              </strong>{' '}
+              Published the definitive methodological explanation of Hype Cycles, documenting the
+              phase definitions, time-to-maturity assessment framework, and special circumstances
+              (fast-track, long-fuse, phoenix, and ghost technologies).
+            </li>
+            <li>
+              <strong>
+                Academic Critique (
+                <a
+                  id="cite-ref-steinert-2010-1"
+                  href="#ref-steinert-2010"
+                  className="text-tabs-teal-deep hover:underline"
+                >
+                  Steinert &amp; Leifer, 2010
+                </a>
+                ):
+              </strong>{' '}
+              Scrutinized the Hype Cycle&rsquo;s empirical basis, questioning whether the framework
+              represents a testable model or a descriptive metaphor, and examining its predictive
+              validity.
+            </li>
+            <li>
+              <strong>Annual Hype Cycle Reports (Gartner, 1995-present):</strong> Gartner expanded
+              the original single Hype Cycle into dozens of domain-specific annual reports (AI,
+              cloud, security, etc.), each positioning technologies within their respective domains.
+            </li>
+          </ul>
+        </section>
+
+        {/* 13. References */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>References</h2>
           <ol className={REFERENCES_OL_CLASSES}>
-            <li>
-              Fenn, J. (1995). <em>When to leap on the hype cycle</em>. Gartner.{' '}
-              <a
-                href="https://www.gartner.com/en/research/methodologies/gartner-hype-cycle"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-600 hover:underline"
-              >
-                https://www.gartner.com/en/research/methodologies/gartner-hype-cycle
-              </a>
+            <li id="ref-fenn-1995">
+              Fenn, J. (1995). <em>When to leap on the hype cycle</em> (Gartner Research Note).
+              Gartner.
             </li>
-            <li>
-              Fenn, J., &amp; Raskino, M. (2008).{' '}
-              <em>
-                Mastering the hype cycle: How to choose the right innovation at the right time
-              </em>
-              . Harvard Business Press.
-            </li>
-            <li>
-              Rogers, E. M. (1983). <em>Diffusion of innovations</em> (3rd ed.). Free Press.
-            </li>
-            <li>
+            <li id="ref-moore-1991">
               Moore, G. A. (1991).{' '}
               <em>
-                Crossing the chasm: Marketing and selling high-tech products to mainstream customers
+                Crossing the chasm: Marketing and selling technology products to mainstream
+                customers
               </em>
-              . Harper Business.
+              . HarperBusiness.
+              <span className="text-xs ml-1">
+                <a
+                  href="#cite-ref-moore-1991-1"
+                  className="text-tabs-teal-deep hover:underline"
+                  aria-label="Back to citation 1"
+                ></a>
+              </span>
             </li>
-            <li>
-              Dedehayir, O., &amp; Steinert, M. (2016). The hype cycle model: A review and future
-              directions. <em>Technological Forecasting and Social Change</em>, 108, 28-41.{' '}
-              <a
-                href="https://doi.org/10.1016/j.techfore.2016.04.005"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-600 hover:underline"
-              >
-                https://doi.org/10.1016/j.techfore.2016.04.005
-              </a>
+            <li id="ref-linden-2003">
+              Linden, A., &amp; Fenn, J. (2003). <em>Understanding Gartner&rsquo;s hype cycles</em>{' '}
+              (Strategic Analysis Report R-20-1971). Gartner.
+              <span className="text-xs ml-1">
+                <a
+                  href="#cite-ref-linden-2003-1"
+                  className="text-tabs-teal-deep hover:underline"
+                  aria-label="Back to citation 1"
+                ></a>
+              </span>
             </li>
-            <li>
-              Gartner. (2023). <em>Gartner hype cycle research methodology</em>. Gartner.{' '}
-              <a
-                href="https://www.gartner.com/en/research/methodologies/gartner-hype-cycle"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-600 hover:underline"
-              >
-                https://www.gartner.com/en/research/methodologies/gartner-hype-cycle
-              </a>
+            <li id="ref-steinert-2010">
+              Steinert, M., &amp; Leifer, L. (2010). Scrutinizing Gartner&rsquo;s hype cycle
+              approach. <em>Proceedings of PICMET 2010</em>.
+              <span className="text-xs ml-1">
+                <a
+                  href="#cite-ref-steinert-2010-1"
+                  className="text-tabs-teal-deep hover:underline"
+                  aria-label="Back to citation 1"
+                ></a>
+              </span>
             </li>
-            <li>
-              Davis, F. D. (1989). Perceived usefulness, perceived ease of use, and user acceptance
-              of information technology. <em>MIS Quarterly</em>, 13(3), 319-340.{' '}
-              <a
-                href="https://doi.org/10.2307/249008"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-600 hover:underline"
-              >
-                https://doi.org/10.2307/249008
-              </a>
-            </li>
-            <li>
-              Venkatesh, V., Morris, M. G., Davis, G. B., &amp; Davis, F. D. (2003). User acceptance
-              of information technology: Toward a unified view. <em>MIS Quarterly</em>, 27(3),
-              425-478.{' '}
-              <a
-                href="https://doi.org/10.2307/30036540"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-600 hover:underline"
-              >
-                https://doi.org/10.2307/30036540
-              </a>
-            </li>
-            <li>
-              O&rsquo;Leary, D. E. (2008). Gartner&rsquo;s hype cycle and information system
-              research issues. <em>International Journal of Accounting Information Systems</em>,
-              9(4), 240-252.{' '}
-              <a
-                href="https://doi.org/10.1016/j.accinf.2008.09.001"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-600 hover:underline"
-              >
-                https://doi.org/10.1016/j.accinf.2008.09.001
-              </a>
+            <li id="ref-foster-1986">
+              Foster, R. N. (1986). <em>Innovation: The attacker&rsquo;s advantage</em>. Summit
+              Books.
+              <span className="text-xs ml-1">
+                <a
+                  href="#cite-ref-foster-1986-1"
+                  className="text-tabs-teal-deep hover:underline"
+                  aria-label="Back to citation 1"
+                ></a>
+              </span>
             </li>
           </ol>
         </section>
 
-        <section className="mt-12 pt-6 border-t border-gray-200">
-          <Link
-            href="/article-bibliography-comprehensive-series-bibliography"
-            className="text-blue-600 hover:text-blue-800 underline"
-          >
-            ← Back to Complete Bibliography
-          </Link>
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Further Reading</h2>
+          <ol className={REFERENCES_OL_CLASSES}>
+            <li id="ref-rogers-1983">
+              Rogers, E. M. (1983). <em>Diffusion of innovations</em> (3rd ed.). Free Press.
+            </li>
+            <li id="ref-gartner-2023">
+              Gartner. (2023). <em>Gartner hype cycle for emerging technologies</em>. Gartner
+              Research.
+            </li>
+            <li id="ref-fichman-1999">
+              Fichman, R. G., &amp; Kemerer, C. F. (1999). The assimilation of software process
+              innovations: An organizational learning perspective. <em>Management Science</em>,
+              45(10), 1345-1363.
+            </li>
+            <li id="ref-tornatzky-1990">
+              Tornatzky, L. G., &amp; Fleischer, M. (1990).{' '}
+              <em>The processes of technological innovation</em>. Lexington Books. ISBN:
+              978-0-669-20348-6
+            </li>
+            <li id="ref-venkatesh-2003">
+              Venkatesh, V., Morris, M. G., Davis, G. B., &amp; Davis, F. D. (2003). User acceptance
+              of information technology: Toward a unified view. <em>MIS Quarterly</em>, 27(3),
+              425-478. https://doi.org/10.2307/30036540
+            </li>
+          </ol>
+        </section>
+
+        {/* 14. Series Navigation */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Series Navigation</h2>
+          <div className="space-y-4">
+            <p className={PARAGRAPH_CLASSES}>
+              <Link
+                href="/bibliography-2-10-tafim-dod-1994"
+                className="text-blue-600 hover:text-blue-800 underline"
+              >
+                &larr; Previous: TAFIM (US Department of Defense, 1994)
+              </Link>
+            </p>
+            <p className={PARAGRAPH_CLASSES}>
+              <Link
+                href="/bibliography-2-12-togaf-the-open-group-1995"
+                className="text-blue-600 hover:text-blue-800 underline"
+              >
+                Next: TOGAF (The Open Group, 1995) &rarr;
+              </Link>
+            </p>
+            <p className={`${PARAGRAPH_CLASSES} mt-6`}>
+              <Link
+                href="/article-bibliography-comprehensive-series-bibliography"
+                className="text-blue-600 hover:text-blue-800 underline"
+              >
+                Back to Complete Bibliography
+              </Link>
+            </p>
+          </div>
         </section>
       </article>
     </main>
   )
 }
 
-export default GartnerHypeCyclePage
+export default BibliographyArticlePage
