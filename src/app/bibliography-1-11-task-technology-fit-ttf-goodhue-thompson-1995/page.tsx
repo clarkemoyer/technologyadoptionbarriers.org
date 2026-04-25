@@ -8,21 +8,22 @@ import {
   SECTION_CLASSES,
   PARAGRAPH_CLASSES,
   BODY_LIST_CLASSES,
+  REFERENCES_OL_CLASSES,
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
   title: 'Bibliography: Task-Technology Fit (TTF) - Goodhue & Thompson (1995)',
   description:
-    'Deep dive into Task-Technology Fit and Individual Performance by Dorothy L. Goodhue, Thomas B. Thompson (1995), exploring its foundational contributions to technology adoption research.',
+    'Deep exploration of the Task-Technology Fit model, which posits that IT system characteristics and user task requirements determine system fit, functional utilization, and individual performance.',
 }
 
 const BibliographyArticlePage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
-        <h1 className={H1_CLASSES}>Task-Technology Fit (TTF) - Goodhue & Thompson (1995)</h1>
+        <h1 className={H1_CLASSES}>Task-Technology Fit (TTF) - Goodhue &amp; Thompson (1995)</h1>
 
-        {/* Model Identification */}
+        {/* 1. Model Identification */}
         <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
           <h2 className={H2_CLASSES}>Model Identification</h2>
           <div className="space-y-2">
@@ -30,455 +31,682 @@ const BibliographyArticlePage = () => {
               <strong>Model Name:</strong> Task-Technology Fit and Individual Performance
             </p>
             <p>
-              <strong>Authors:</strong> Dorothy L. Goodhue, Thomas B. Thompson
+              <strong>Model Abbreviation:</strong> TTF Model
             </p>
             <p>
-              <strong>Publication Date:</strong> 1995
+              <strong>Target of Model:</strong> Fit Between Task Requirements and Technology
+              Capabilities
+            </p>
+            <p>
+              <strong>Disciplinary Origin:</strong> Information Systems, Organizational Behavior,
+              Human-Computer Interaction
             </p>
           </div>
         </section>
 
-        {/* Citation Information */}
+        {/* 2. Theory Publication Information */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Theory Publication Information</h2>
+          <div className="space-y-2">
+            <p>
+              <strong>Authors:</strong> Dale L. Goodhue, Ronald L. Thompson
+            </p>
+            <p>
+              <strong>Formal Publication Date:</strong> 1995
+            </p>
+            <p>
+              <strong>Official Title:</strong> Task-Technology Fit and Individual Performance
+            </p>
+            <p>
+              <strong>Journal:</strong> MIS Quarterly
+            </p>
+            <p>
+              <strong>Volume &amp; Issue:</strong> Vol. 19, No. 2
+            </p>
+            <p>
+              <strong>Pages:</strong> 213-236
+            </p>
+            <p>
+              <strong>DOI:</strong>{' '}
+              <a
+                href="https://doi.org/10.2307/249689"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:underline"
+              >
+                10.2307/249689
+              </a>
+            </p>
+          </div>
+        </section>
+
+        {/* 3. Citation Information */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Citation Information</h2>
-          <div className="bg-blue-50 p-4 rounded border-l-4 border-blue-500">
-            <p className="text-sm font-mono">
-              Goodhue, D. L., & Thompson, T. B. (1995). Task-technology fit and individual
-              performance. MIS Quarterly, 19(2), 213-236.
-            </p>
+          <div className="bg-blue-50 p-4 rounded border-l-4 border-blue-500 space-y-3">
+            <div>
+              <p className="text-xs font-bold uppercase text-blue-900 mb-1">APA (7th ed.)</p>
+              <p className="text-sm font-mono">
+                Goodhue, D. L., &amp; Thompson, R. L. (
+                <a href="#ref-goodhue-1995" className="text-tabs-teal-deep hover:underline">
+                  1995
+                </a>
+                ). Task-technology fit and individual performance. <em>MIS Quarterly</em>, 19(2),
+                213-236.
+              </p>
+            </div>
+            <div>
+              <p className="text-xs font-bold uppercase text-blue-900 mb-1">
+                Chicago (Author-Date)
+              </p>
+              <p className="text-sm font-mono">
+                Goodhue, Dale L., and Ronald L. Thompson. 1995. &ldquo;Task-Technology Fit and
+                Individual Performance.&rdquo; <em>MIS Quarterly</em> 19, no. 2: 213-236.
+              </p>
+            </div>
           </div>
         </section>
 
-        {/* Main Content */}
+        {/* 4. Why Was the Model Created? */}
         <section className={SECTION_CLASSES}>
-          <section className="mb-6">
-            <h3 className={H3_CLASSES}>Why was the model made?</h3>
-            <p className={PARAGRAPH_CLASSES}>
-              Goodhue and Thompson developed the Task-Technology Fit model to address a fundamental
-              disconnect in Information Systems research: technologies receiving strong acceptance
-              and widespread adoption sometimes failed to improve performance, while other
-              technologies not perceived as particularly useful nevertheless enhanced performance.
-              This paradox revealed that technology adoption and technology impact represent
-              distinct phenomena requiring different theoretical frameworks. The authors note that
-              “existing research has largely focused on factors that influence system use” rather
-              than examining “whether use actually impacts performance.” Prior models like Davis’s
-              TAM successfully predicted whether individuals intended to use systems but offered
-              limited insight into whether that use actually translated to performance benefits. The
-              research motivation emerged from recognizing that predicting adoption does not
-              automatically explain performance impacts.
-            </p>
-            <p className={PARAGRAPH_CLASSES}>
-              The theoretical gap was particularly acute for application systems in business
-              contexts. Organizations invested substantially in IS systems expecting performance
-              improvements. Yet some systems adopted enthusiastically yielded limited productivity
-              gains, while other systems reluctantly adopted sometimes provided substantial
-              performance value. The authors observed that “there is an assumption, often implicit,
-              that use will lead to improved performance” but questioned whether this assumption
-              reliably held. Goodhue and Thompson hypothesized that the relationship between
-              technology use and individual performance depends on the fit between task
-              characteristics and technology capabilities. Technologies well-suited to task
-              requirements would enhance performance when used, while poor-fitting technologies
-              might fail to improve performance despite adoption. This task- technology fit
-              perspective offered theoretical explanation for the disconnect between adoption and
-              performance.
-            </p>
-            <p className={PARAGRAPH_CLASSES}>
-              The authors grounded their work in contingency theory, recognizing that technology
-              impact is contingent on match between technology characteristics and task
-              requirements. Rather than asking “Is this technology adopted?” they asked “Is this
-              technology appropriately matched to the tasks it supports?” This reframing shifted
-              focus from adoption to fit. The research also responded to limitations in prior
-              models. Thompson et al.’s 1991 model successfully predicted PC utilization but left
-              unclear whether utilization actually improved performance. The authors note that “use
-              is generally considered necessary but not sufficient for performance improvements. A
-              person might use a system without it improving performance.” The model represents a
-              conceptual break from adoption-focused research toward impact-focused research.
-              Goodhue and Thompson recognized that organizations ultimately care about performance
-              impacts, not merely adoption.
-            </p>
-            <p className={PARAGRAPH_CLASSES}>
-              A technology adopted but not improving performance wastes investment. Conversely, a
-              technology improving performance even without universal adoption achieves
-              organizational objectives.
-            </p>
-          </section>
-          <section className="mb-6">
-            <h3 className={H3_CLASSES}>How was the model’s internal validity tested?</h3>
-            <p className={PARAGRAPH_CLASSES}>
-              Goodhue and Thompson employed rigorous quantitative methodology with multiple studies
-              to establish internal validity: Main Study Design The research involved 784
-              respondents from 25 organizations using a mainframe-based application called ICD
-              (Integrated Computer Dispatch). ICD supported both call centers and field operations
-              in service organizations. This single-application, multi-organization design allowed
-              examination of how fit and performance varied across different task contexts using
-              identical technology. Construct Measurement and Scale Development The researchers
-              developed comprehensive measurement scales for eight core constructs: 1.Task
-              Characteristics: Operationalized through multiple dimensions including task
-              complexity, interdependence, and information requirements. The authors developed
-              scales specifically for ICD- relevant tasks, including call handling, customer
-              information retrieval, and work scheduling. 2.Technology Characteristics: Measured
-              through dimensions including functionality, reliability, user interface quality, and
-              ease of learning.
-            </p>
-            <p className={PARAGRAPH_CLASSES}>
-              Rather than general system quality measures, the authors measured technology
-              characteristics specifically relevant to ICD performance. 3.Task-Technology Fit:
-              Operationalized through 16 items measuring the alignment between task requirements and
-              technology capabilities.
-            </p>
-            <ul className={BODY_LIST_CLASSES}>
-              <li>
-                <strong>Example items included:</strong> “ICD provides data that are accurate for
-                your tasks,” “ICD provides reports that are adequate for your needs,” and “ICD
-                supports the way you like to work.” Cronbach’s alpha = .96, demonstrating very high
-                internal consistency. 4.Utilization: Measured through frequency and intensity of
-                system use using self-report measures. Items included frequency of daily use and
-                duration of use sessions. 5.Individual Productivity: The authors used both
-                subjective and objective measures. Subjective productivity was measured through
-                three items asking individuals to rate their productivity improvement using ICD.
-                Objective productivity came from system logs measuring call handling rates, work
-                completion rates, and efficiency metrics. 6.Perceived Job Performance: Measured
-                through self-reported assessment of job performance quality and effectiveness.
-                7.Perceived System Quality: Measured through seven items assessing system
-                reliability, ease of learning, and ease of use. Alpha = .74. 8.Individual
-                Differences: The authors measured variables including age, education, experience
-                with ICD, and prior computer experience. Measurement Validity Procedures The
-                researchers conducted confirmatory factor analysis to establish measurement
-                validity: Convergent Validity: All measurement items loaded significantly on their
-                hypothesized constructs (t-values &gt; 2.0 in most cases) Discriminant Validity:
-                Constructs showed appropriately distinct patterns, with task characteristics,
-                technology characteristics, and fit emerging as separable dimensions Construct
-                Reliability: Cronbach’s alpha coefficients ranged from .74 to .96, with most
-                exceeding .80, demonstrating adequate internal consistency Structural Model Testing
-                The authors tested their proposed model using multiple approaches: Path Analysis:
-                They examined direct paths from Fit to Performance and indirect paths through
-                Utilization Regression Analysis: Multiple regression models examined how fit,
-                utilization, and system quality predicted performance Interaction Effects: They
-                tested whether task-technology fit and utilization interact to predict performance
-                (multiplicative interaction rather than additive effects) Multi-Organization
-                Comparison The 25-organization sample allowed examination of model consistency
-                across organizations with different characteristics. The authors reported path
-                coefficients and correlations separately for different organizational subgroups,
-                showing remarkable consistency across contexts. Comparative Model Testing The
-                authors tested alternative model specifications: Direct Fit Model: Fit → Performance
-                (direct effect) Indirect Model: Fit → Utilization → Performance (mediated effect)
-                Combined Model: Fit affects both Performance directly and indirectly through
-                Utilization Results strongly favored the combined model, with both direct and
-                indirect effects significant. Statistical Significance Testing Path coefficients
-                were tested for significance using t-tests and correlation analysis. The
-                relationship between Fit and Performance was highly significant (r = .67, p &lt;
-                .001), exceeding typical effect sizes in organizational research. The relationship
-                between Utilization and Performance was more modest (r = .24, p &lt; .001),
-                indicating that while use matters, fit matters more. Fit Operationalization
-                Validation The authors validated that their fit construct accurately captured fit
-                concepts
-              </li>
-              <li>
-                <strong>They conducted analyses showing that:</strong> Task characteristics
-                independently predicted performance (r = .32) Technology characteristics
-                independently predicted performance (r = .58) The fit measure (task-technology
-                alignment) predicted performance more strongly (r = .67) than either dimension alone
-                This pattern validated that fit, as a matching concept, was distinct from and more
-                powerful than individual task or technology characteristics
-              </li>
-            </ul>
-          </section>
-          <section className="mb-6">
-            <h3 className={H3_CLASSES}>How was the model’s external validity tested?</h3>
-            <p className={PARAGRAPH_CLASSES}>
-              Goodhue and Thompson implemented multiple strategies to establish external validity:
-              Multi-Organization Design: The primary external validity strategy was the
-              25-organization sample. Rather than studying a single organization as Thompson et al.
-              (1991) had, this research included diverse organizations from different industries.
-              Organizations ranged from small companies to large enterprises, from various service
-              sectors. This diversity strengthened generalization claims beyond single-organization
-              findings.
-            </p>
-            <ul className={BODY_LIST_CLASSES}>
-              <li>
-                <strong>Task Heterogeneity Within Technology:</strong> The ICD system was used for
-                substantially different tasks across organizations: Call center operations (handling
-                customer service calls, retrieving customer data) Dispatching operations (scheduling
-                field work, assigning resources) Information management (data entry, database
-                updates) Using identical technology across diverse task contexts allowed examination
-                of whether fit theory generalized. If fit theory holds, the same technology should
-                support some tasks better than others even when identical
-              </li>
-              <li>
-                <strong>Objective and Subjective Performance Measures:</strong> The research
-                employed both subjective measures (self-reported performance improvement) and
-                objective measures derived from system logs (call handling times, work completion
-                rates). Consistency between subjective and objective performance measures
-                strengthened validity. The authors report that “both subjective and objective
-                measures of productivity showed similar patterns of relationships to fit and
-                utilization.” Measurement Across Diverse User Populations: The 784-person sample
-                included: Call center operators (transaction processing users) Service
-                representatives (customer interaction and information retrieval) Managers and
-                supervisors (planning and oversight) Different user types performed different tasks,
-                creating natural variation in task characteristics and fit levels. Consistency of
-                findings across user types strengthened external validity
-              </li>
-              <li>
-                <strong>Longitudinal Considerations:</strong> While the primary study was cross-
-                sectional, the authors conducted time-lagged analysis. They measured fit,
-                utilization, and performance at multiple time points for a subsample, showing that
-                fit predicted subsequent performance even after controlling for prior performance.
-                This quasi-longitudinal approach addressed temporal precedence concerns
-              </li>
-              <li>
-                <strong>Comparison to Alternative Explanations:</strong> The authors tested whether
-                relationships could be explained by: System quality rather than fit (fit remained
-                more predictive than system quality alone) Selection bias (higher performers more
-                likely to develop fit perceptions) - longitudinal analyses controlled for this
-                Social desirability bias in performance self-reports (objective performance showed
-                similar patterns) Replication in Different Contexts: The authors conducted
-                additional analyses examining whether findings held for different organizational
-                subgroups: Large organizations (&gt; 500 employees) versus small organizations
-                Organizations with experienced users versus those with newer systems Different
-                service industries Across all subgroups, task-technology fit predicted performance
-                significantly. This consistency across contexts provides evidence that findings
-                generalize
-              </li>
-              <li>
-                <strong>Comparison to Related Concepts:</strong> The authors showed that fit (r =
-                .67 with performance) provided stronger prediction than related but distinct
-                concepts: Perceived ease of use (Davis’s PEOU construct) System quality alone
-                Utilization alone This pattern demonstrated that fit, as an organizing concept,
-                captured important variance not captured by simpler frameworks
-              </li>
-            </ul>
-          </section>
-          <section className="mb-6">
-            <h3 className={H3_CLASSES}>How is the model intended to be used in practice?</h3>
-            <p className={PARAGRAPH_CLASSES}>
-              Goodhue and Thompson provide explicit guidance for using the task- technology fit
-              framework in organizational practice: Technology Selection and Evaluation
-              Organizations should use the task-technology fit framework to guide technology
-              selection and implementation decisions. Rather than adopting systems because they are
-              popular, cutting-edge, or heavily marketed, organizations should: 1.Conduct Detailed
-              Task Analysis: Organizations should rigorously analyze what tasks need to be
-              performed, including task complexity, information requirements, interdependencies, and
-              constraints. The authors note that “understanding task requirements is the foundation
-              for assessing technology fit.” 2.Assess Technology Capabilities: Rather than relying
-              on vendor claims, organizations should carefully evaluate whether systems actually
-              provide capabilities aligned with identified task requirements. “Fit assessment
-              requires detailed evaluation of how technology features align with task
-              characteristics.” 3.Make Selection Based on Fit, Not Adoption: Organizations often
-              select technologies expecting that widespread adoption will improve performance.
-            </p>
-            <p className={PARAGRAPH_CLASSES}>
-              Goodhue and Thompson suggest that technology selection should prioritize fit over
-              perceived adoptability. “A system with strong user adoption may still fail to improve
-              performance if fit is poor. Conversely, a system with more modest adoption can
-              substantially improve performance if fit is excellent.” Implementation Planning For
-              systems with high task-technology fit, implementation strategies should maximize
-              utilization: 1.Design Systems to Enhance Utilization: When fit is strong, ensuring
-              high utilization becomes the priority. Implementation should reduce barriers to
-              use-training, support, and access. 2.Manage Expectations Realistically: For systems
-              with poor fit, managers should not expect performance improvements from increased use.
-              The authors note that “heavy utilization of poorly-fitting systems may actually reduce
-              productivity by forcing work processes through inadequate technology.” 3.Consider
-              Alternative Technologies: For tasks where no adequate technology fit exists,
-              organizations should either modify tasks to match available technology or seek
-              alternative technologies rather than implementing poor-fitting systems and expecting
-              adoption to solve the problem.
-            </p>
-            <p className={PARAGRAPH_CLASSES}>
-              Performance Improvement Strategy The model suggests that performance improvement
-              requires attention to both fit and utilization: 1.Fit-First Approach: “If poor
-              task-technology fit exists, increasing use will not improve performance and may harm
-              it by forcing workarounds and inefficient processes.” Therefore, before increasing
-              utilization, ensure fit is adequate. 2.Iterative System Improvement: If systems are
-              already implemented but provide poor fit, organizations should: Modify system
-              configuration or customization to improve fit Redesign tasks to better align with
-              system capabilities Replace systems if fit cannot be improved 3.Utilization Focus for
-              Good-Fit Systems: For systems with adequate fit, training, support, and incentive
-              programs to increase utilization will yield performance benefits. Role of Technology
-              Characteristics The model’s finding that system quality independently predicts
-              performance (beyond fit effects) suggests that organizations should: 1.Maintain System
-              Reliability: Even well-fitting systems fail to improve performance if they are
-              unreliable or difficult to use.
-            </p>
-            <p className={PARAGRAPH_CLASSES}>
-              System quality matters independently. 2.Invest in User Interfaces: Technology
-              characteristics like ease of learning influence both utilization and direct
-              performance. Investments in user interface design, training effectiveness, and support
-              quality yield performance benefits. 3.Select Reliable Systems: When multiple systems
-              offer similar fit, organizations should select those with superior reliability and
-              usability. Organizational Implications The research suggests broader organizational
-              change implications: 1.Task Redesign Options: For tasks where technology cannot
-              provide adequate fit, organizations might redesign tasks to align with technology
-              capabilities. “Task redesign represents an alternative strategy when technology cannot
-              be modified to fit tasks.” 2.Technology-Task-Human Alignment: Rather than viewing
-              technology as fixed and requiring workers to adapt, organizations should view task-
-              technology-human alignment as a system optimization problem where any of the three
-              elements can potentially be adjusted. 3.Performance Evaluation Accountability:
-              Organizations should hold technology selection and implementation decisions
-              accountable to performance improvements rather than adoption metrics.
-            </p>
-            <p className={PARAGRAPH_CLASSES}>
-              Goodhue and Thompson suggest that “organizations often evaluate IS success by adoption
-              rather than performance impact. This study suggests that performance-based evaluation
-              would be more appropriate.” Ongoing Monitoring and Adjustment The model suggests that
-              organizations should: 1.Monitor Fit Over Time: As tasks evolve, technology
-              capabilities change, and user needs shift, fit may decline. Organizations should
-              periodically reassess fit and make adjustments. 2.Track Performance Impacts:
-              Organizations should measure whether technology use actually improves performance. “If
-              technology provides strong fit but performance is not improving, investigate whether
-              other factors are limiting performance or whether fit assessment was inaccurate.”
-              3.Gather User Feedback: Regularly soliciting user feedback about system fit,
-              usefulness, and performance impacts provides early warning of fit degradation and
-              identifies opportunities for improvement.
-            </p>
-          </section>
-          <section className="mb-6">
-            <h3 className={H3_CLASSES}>What does the model measure?</h3>
-            <p className={PARAGRAPH_CLASSES}>
-              The Goodhue and Thompson model operationalizes multiple constructs across task,
-              technology, fit, use, and performance dimensions: Task Characteristics The model
-              measures task requirements through multiple dimensions: Task Complexity: Items assess
-              whether tasks are complex, involve many steps, and require integration of multiple
-              information sources Task Variety: Items measure whether tasks are diverse and require
-              different skills/approaches Task Interdependence: Items assess whether tasks depend on
-              other activities and require coordination Information Requirements: Items measure
-              whether tasks require accurate, timely, and detailed information Task Constraints:
-              Items measure time pressures and other constraints affecting task performance
-              Technology Characteristics The model measures system attributes through:
-              Functionality: Items assess whether the system includes necessary features and
-              capabilities Reliability: Items measure system availability, stability, and freedom
-              from errors User Interface Quality: Items assess ease of learning, intuitiveness, and
-              user-friendliness Data Quality: Items measure accuracy, timeliness, and completeness
-              of system data Reporting and Output: Items assess whether the system provides needed
-              reports and outputs Task-Technology Fit Goodhue and Thompson’s core construct measures
-              the alignment between tasks and technology through 16 items including: “ICD provides
-              data that are accurate for your tasks” “ICD provides reports that are adequate for
-              your needs” “ICD supports the way you like to work” “ICD provides all the information
-              you need for your job” “ICD performs all the functions you need for your job” The fit
-              construct captures perceived alignment between what the job requires and what the
-              technology provides.
-            </p>
-            <p className={PARAGRAPH_CLASSES}>
-              Cronbach’s alpha = .96, indicating very high internal consistency. Utilization/Use
-              Behavior The model measures system use through: Frequency of Use: Items assess how
-              often individuals use the system (multiple times per day, daily, weekly, etc.)
-              Intensity of Use: Items measure duration of use sessions and percentage of work time
-              spent with the system Scope of Use: Items assess which system features and functions
-              are used Individual Performance The model measures performance through multiple
-              approaches: 1.Subjective Performance: Three items asking individuals to rate their
-              productivity and job performance improvements since implementing the system. Example:
-              “My productivity has improved since I started using ICD” 2.Objective Performance: Data
-              from system logs including: Call handling time (for call center users) Work completion
-              rate (for operations users) Customer satisfaction (when available) Error rates and
-              quality metrics 3.Perceived Job Performance: Items assessing overall perception of job
-              performance quality System Quality Separate from fit, the model measures general
-              system quality through: Perceived Reliability: Items assessing whether the system is
-              dependable and stable Perceived Ease of Use: Items from Davis’s TAM construct
-              measuring learning difficulty and interaction ease User Interface Quality: Items
-              assessing whether the interface is clear and intuitive Individual
-              Differences/Moderators The model includes potential moderating variables: User
-              Experience: Experience with ICD specifically and prior computer experience User
-              Characteristics: Age, education, job role Organizational Context: Organization size,
-              industry, organizational IT maturity The comprehensive measurement approach
-              operationalizes task-technology fit as the central mechanism explaining performance,
-              while also capturing utilization as an intervening variable and system quality as an
-              independent contributor.
-            </p>
-          </section>
-          <section className="mb-6">
-            <h3 className={H3_CLASSES}>What are the main strengths of the model?</h3>
-            <p className={PARAGRAPH_CLASSES}>
-              The Task-Technology Fit model possesses several important strengths: 1.Addresses
-              Important Research Gap: The model directly addresses the disconnect between adoption
-              and performance, a critical gap in prior adoption-focused research. By focusing on
-              performance impacts rather than mere adoption, the model shifts attention to what
-              ultimately matters organizationally. 2.Strong Theoretical Grounding: The model is
-              anchored in contingency theory and fit theories from organizational psychology. This
-              theoretical foundation provides explanatory power and connects technology adoption
-              research to broader organizational theory literature. 3.Comprehensive
-              Multi-Organization Sample: The 25-organization, 784-person design provides
-              substantially stronger external validity than single-organization studies. The
-              diversity of organizations and tasks strengthens generalization claims. 4.Objective
-              and Subjective Performance Measures: The inclusion of both system-log-derived
-              objective performance measures and self- reported subjective measures strengthens
-              validity.
-            </p>
-            <p className={PARAGRAPH_CLASSES}>
-              Convergence between measurement approaches provides confidence in findings. 5.Novel
-              Fit Operationalization: Rather than treating fit as an implicit assumption, the
-              authors explicitly operationalize task-technology fit through multi-item scales. The
-              16-item fit scale with alpha = .96 provides reliable measurement of a previously
-              unmeasured construct. 6.Sophisticated Model Specification: The model examines both
-              direct effects from fit to performance and indirect effects through utilization. This
-              mechanistic complexity reveals that fit influences performance through multiple
-              pathways. 7.Disconfirmation of Adoption-Centric View: By demonstrating that
-              utilization (r = .24) predicts performance more weakly than fit (r = .67), the
-              research challenges adoption-focused frameworks and suggests theoretical reorientation
-              toward performance. 8.Practical Actionability: The model provides clear guidance for
-              organizations about technology selection, implementation, and performance management.
-            </p>
-            <p className={PARAGRAPH_CLASSES}>
-              Unlike purely descriptive models, this framework allows actionable decisions.
-              9.Distinction Between System Quality and Fit: By showing that system quality
-              independently predicts performance beyond fit effects, the model clarifies that
-              multiple pathways exist to performance improvement, preventing oversimplification.
-              10.Temporal Considerations: While primarily cross-sectional, the authors address
-              temporal concerns through time-lagged analysis, strengthening causal inference.
-              11.Alternative Explanation Testing: The authors test and rule out social desirability
-              bias, selection bias, and alternative explanations, improving confidence in findings.
-              12.Intuitive Theoretical Logic: The core insight-that technology impact depends on
-              match between tasks and capabilities-is theoretically intuitive while empirically
-              demonstrating substantial effect sizes.
-            </p>
-          </section>
-          <section className="mb-6">
-            <h3 className={H3_CLASSES}>What are the main weaknesses of the model?</h3>
-            <p className={PARAGRAPH_CLASSES}>
-              Despite significant strengths, the Task-Technology Fit model has notable limitations:
-              1.Primarily Cross-Sectional Design: The main study captures a single time point. While
-              time-lagged analyses provide some temporal evidence, true longitudinal designs would
-              strengthen causal inference. Reverse causality cannot be definitively ruled out-higher
-              performers might perceive greater fit even if fit is not objectively superior.
-              2.Single Technology System: While 25 organizations are studied, all use the same
-              technology (ICD). Generalization to whether fit theory applies to different technology
-              types (software applications, databases, communication systems, etc.) remains unclear.
-              Different technologies might have different fit requirements. 3.Service Industry
-              Context: The research is limited to service organizations using mainframe-based
-              dispatch systems. Generalization to other industries (manufacturing, finance,
-              government) and other technology types (personal computers, web applications, mobile
-              systems) is not directly established. 4.Self-Reported Performance: For many
-              performance measures, reliance on self-report raises concerns about social
-              desirability bias.
-            </p>
-            <p className={PARAGRAPH_CLASSES}>
-              While objective measures were available for some users, subjectivity pervades the
-              dependent variable. 5.Limited Attention to Moderating Variables: The model does not
-              examine how individual differences moderate relationships. For example, highly skilled
-              workers might achieve performance improvements from poorly-fitting systems through
-              workarounds, while novice workers might not. The model assumes uniform relationships
-              across users. 6.Incomplete Explanation of Utilization: The model does not
-              comprehensively explain what drives utilization decisions. Thompson et al.’s (1991)
-              factors (social influences, perceived ease of use, affect) likely influence
-              utilization but are not modeled, potentially creating specification error. 7.Fit
-              Measurement Circularity Concerns: The 16-item fit measure includes both task
-              requirements and technology capabilities. One could argue the scale conflates
-              independent variables (what technology is, what tasks are) with their fit
-              relationship, creating measurement circularity.
-            </p>
-          </section>
-          <p className="mt-8 text-sm italic text-gray-600">
-            Note: This article provides an overview based on the comprehensive literature review.
-            Readers are encouraged to consult the original publication for complete details.
+          <h2 className={H2_CLASSES}>Why Was the Model Created?</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            Goodhue and Thompson developed the Task-Technology Fit model to address a critical gap
+            in IT evaluation research. Prior models focused on user acceptance and intention to use
+            systems, but organizations needed frameworks explaining how technological capabilities
+            actually improve job performance. They recognized that a well-accepted system offering
+            poor task-technology fit delivers little performance value, while a system with
+            excellent fit even if less intuitively appealing drives substantial performance
+            improvements.
+          </p>
+          <p className={PARAGRAPH_CLASSES}>
+            The authors theorized that performance gains from IT systems depend fundamentally on
+            whether system functionalities match the characteristics, demands, and preferences of
+            the tasks users perform. A system optimally designed for one task type (e.g.,
+            transaction processing) may provide poor fit for different task requirements (e.g.,
+            analytical decision-making). Rather than viewing IT adoption as a uniform construct, TTF
+            emphasizes the contingency that proper matching of technology capabilities to task needs
+            drives performance outcomes.
+          </p>
+          <p className={PARAGRAPH_CLASSES}>
+            Building on contingency theory and job fit literature, the authors conducted empirical
+            research with 662 end-users across 26 departments in two companies, developing an
+            8-factor TTF measurement instrument. The research demonstrated that task-technology fit
+            independently predicts performance above user attitudes or technology acceptance
+            variables, highlighting fit as distinct from adoption. TTF provided managers with
+            actionable framework for technology selection, implementation, and evaluation grounded
+            in task and capability matching.
           </p>
         </section>
 
-        {/* Navigation */}
-        <section className="mt-12 pt-6 border-t border-gray-200">
-          <Link
-            href="/article-bibliography-comprehensive-series-bibliography"
-            className="text-blue-600 hover:text-blue-800 underline"
-          >
-            ← Back to Complete Bibliography
-          </Link>
+        {/* 5. Core Concepts and Definitions */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Core Concepts and Definitions</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            The Task-Technology Fit model operationalizes several related constructs and dimensions:
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Task Characteristics:</strong> The specific work activities, information
+              requirements, and performance objectives users pursue. Include task complexity,
+              variety, interdependence, and information requirements.
+            </li>
+            <li>
+              <strong>Technology Characteristics:</strong> System functionalities, data
+              availability, system performance, ease of use, and reliability. Encompass both
+              technical capabilities and user interaction quality.
+            </li>
+            <li>
+              <strong>Task-Technology Fit:</strong> The extent to which technology functionality
+              matches task requirements and preferences. High fit occurs when systems provide data,
+              analysis, and functionality needed for task execution with appropriate speed and
+              reliability.
+            </li>
+            <li>
+              <strong>Utilization (Function Fit):</strong> The extent to which users actually employ
+              system capabilities relevant to their work tasks. Reflects whether functionality is
+              actually leveraged in practice.
+            </li>
+            <li>
+              <strong>Individual Performance:</strong> User ability to accomplish job objectives,
+              complete tasks efficiently, and achieve quality outcomes. Directly measures
+              productivity and effectiveness impacts of technology use.
+            </li>
+            <li>
+              <strong>8-Factor TTF Instrument (Table 1):</strong> Quality (data currency,
+              correctness, detail level), Locatability, Authorization, Compatibility, Ease of
+              Use/Training, Production Timeliness, Systems Reliability, and Relationship with Users
+              (IS understanding, dedication, responsiveness, planning assistance).
+            </li>
+          </ul>
+        </section>
+
+        {/* 6. Preceding Models or Theories */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Preceding Models or Theories</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            Goodhue and Thompson (1995) position TTF within two complementary research streams and
+            build on several specific prior studies:
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Utilization-focus stream (attitudes and behavior):</strong> Theories of
+              attitudes and behavior grounded in Fishbein and Ajzen, Bagozzi, and Triandis
+              predicting user intentions to utilize systems.
+            </li>
+            <li>
+              <strong>
+                Technology Acceptance Model (
+                <a
+                  id="cite-ref-davis-1989-1"
+                  href="#ref-davis-1989"
+                  className="text-tabs-teal-deep hover:underline"
+                >
+                  Davis, 1989
+                </a>
+                ):
+              </strong>{' '}
+              Cited directly as a utilization-stream antecedent; TPC positions TTF as complementary
+              to, not competitive with, technology acceptance explanations.
+            </li>
+            <li>
+              <strong>Task-technology fit-focus stream (cognitive fit):</strong> Prior fit research
+              including Jarvenpaa (1989) and Vessey (1991) on data representation and cognitive fit
+              in decision-making tasks.
+            </li>
+            <li>
+              <strong>IS success framework (DeLone and McLean, 1992):</strong> The direct conceptual
+              comparator; TPC extends DeLone and McLean&rsquo;s model by elevating task-technology
+              fit to an explicit construct and clarifying the links between utilization and
+              performance impacts.
+            </li>
+            <li>
+              <strong>
+                Broader intellectual heritage: contingency thinking, diffusion of innovations (
+                <a
+                  id="cite-ref-rogers-1983-1"
+                  href="#ref-rogers-1983"
+                  className="text-tabs-teal-deep hover:underline"
+                >
+                  Rogers, 1983
+                </a>
+                ):
+              </strong>{' '}
+              Organizational contingency work (e.g., Fry and Slocum, 1984) and innovation diffusion
+              research inform the fit argument; Goodhue and Thompson (1995) do not cite Rogers
+              directly but engage adjacent literature (Cooper and Zmud, 1990; Tornatzky and Klein,
+              1982) on fit and organizational adoption.
+            </li>
+          </ul>
+        </section>
+
+        {/* 7. Describe The Model */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Describe The Model</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            Goodhue and Thompson (1995) name their integrated framework the Technology-to-
+            Performance Chain (TPC), with task-technology fit (TTF) as a core construct within it.
+            The TPC proposes that task requirements and technology characteristics jointly determine
+            task-technology fit, which influences both utilization of system functionality and the
+            performance impact of that utilization. The authors formulated three testable
+            propositions: (P1) task and technology characteristics predict TTF; (P2) TTF influences
+            utilization; and (P3) TTF adds explanatory power in predicting perceived performance
+            beyond utilization alone. High acceptance or ease of use without fit produces system use
+            unconnected to performance; high fit combined with extensive utilization produces
+            performance improvements.
+          </p>
+
+          <h3 className={H3_CLASSES}>What does the model measure?</h3>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Task analysis:</strong> Characteristics of user work including information
+              requirements, decision complexity, and task structure.
+            </li>
+            <li>
+              <strong>Technology audit:</strong> System capabilities, feature availability,
+              performance characteristics, and user interface quality.
+            </li>
+            <li>
+              <strong>Fit assessment:</strong> Eight factors capturing quality, locatability,
+              authorization, compatibility, ease of use/training, production timeliness, systems
+              reliability, and relationship with users.
+            </li>
+            <li>
+              <strong>Utilization patterns:</strong> Frequency and breadth of system feature usage
+              relevant to task requirements.
+            </li>
+            <li>
+              <strong>Performance outcomes:</strong> Objective and subjective measures of
+              productivity, decision quality, and task completion efficiency.
+            </li>
+          </ul>
+
+          <h3 className={H3_CLASSES}>Main Strengths</h3>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Performance focus:</strong> Unlike acceptance models, directly measures and
+              predicts performance outcomes rather than just adoption intentions.
+            </li>
+            <li>
+              <strong>Comprehensive fit measurement:</strong> Eight-factor instrument captures fit
+              across multiple dimensions beyond simple usefulness or ease-of-use judgments.
+            </li>
+            <li>
+              <strong>Contingency approach:</strong> Acknowledges that fit depends on specific task
+              characteristics and system capabilities, rejecting one-size-fits-all technology
+              claims.
+            </li>
+            <li>
+              <strong>Large-scale empirical validation:</strong> Tested with 662 users employing 25
+              different information technologies across 26 non-IS departments in 2 companies,
+              demonstrating robust findings across diverse contexts.
+            </li>
+            <li>
+              <strong>Distinct from acceptance:</strong> Shows fit independently predicts
+              performance beyond user attitudes or technology acceptance variables.
+            </li>
+            <li>
+              <strong>Actionable for management:</strong> Provides clear guidance: match technology
+              to tasks, measure fit, encourage utilization of fit-aligned functionality.
+            </li>
+            <li>
+              <strong>Cross-functional applicability:</strong> Tested across finance, manufacturing,
+              marketing, and other departments showing general applicability.
+            </li>
+          </ul>
+
+          <h3 className={H3_CLASSES}>Main Weaknesses</h3>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Complex measurement requirement:</strong> Eight-factor TTF instrument is
+              lengthy and demanding, requiring substantial user assessment and analysis time.
+            </li>
+            <li>
+              <strong>Performance measurement limitations:</strong> Performance outcomes are
+              difficult to isolate and attribute solely to technology; many organizational factors
+              influence productivity.
+            </li>
+            <li>
+              <strong>Static fit conceptualization:</strong> Model captures fit at single point in
+              time; does not address how fit evolves as tasks change or users gain experience.
+            </li>
+            <li>
+              <strong>Utilization-performance assumptions:</strong> Assumes greater utilization
+              always improves performance; may not hold if users waste time on unnecessary system
+              features.
+            </li>
+            <li>
+              <strong>Task characteristic assumptions:</strong> Assumes task characteristics are
+              relatively stable and well-defined; may not apply to highly ambiguous or rapidly
+              changing tasks.
+            </li>
+            <li>
+              <strong>Limited individual differences:</strong> Does not extensively examine how
+              individual skill levels or learning curves affect fit-performance relationships.
+            </li>
+            <li>
+              <strong>Cross-system generalization:</strong> Tested primarily with transaction
+              processing and decision support systems; less clear for emerging technology types.
+            </li>
+          </ul>
+        </section>
+
+        {/* 8. Key Contributions */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Key Contributions</h2>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Performance-centered IT evaluation:</strong> Shifted focus from technology
+              acceptance to actual performance impact and outcome achievement.
+            </li>
+            <li>
+              <strong>Fit as central construct:</strong> Elevated task-technology fit to primary
+              driver of IT success, distinct from general system acceptance.
+            </li>
+            <li>
+              <strong>Contingency theory application:</strong> Applied contingency theory to IT,
+              establishing that technology effectiveness depends on task-technology alignment.
+            </li>
+            <li>
+              <strong>Multidimensional fit measurement:</strong> Developed comprehensive 8-factor
+              instrument capturing fit across data quality, functionality, ease of use, and other
+              dimensions.
+            </li>
+            <li>
+              <strong>Utilization as mediator:</strong> Demonstrated that fit drives performance
+              through increased utilization of relevant system capabilities.
+            </li>
+            <li>
+              <strong>Distinction from acceptance:</strong> Provided empirical evidence that fit
+              predicts performance beyond technology acceptance variables.
+            </li>
+            <li>
+              <strong>Practical evaluation framework:</strong> Created actionable approach for
+              organizations evaluating whether technology implementations deliver value.
+            </li>
+          </ul>
+        </section>
+
+        {/* 9. Internal Validity */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Internal Validity</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            The researchers established internal validity through rigorous measurement and analysis:
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Multi-item scales:</strong> Operationalized fit, utilization, and performance
+              with multiple survey items enabling measurement error assessment.
+            </li>
+            <li>
+              <strong>Exploratory factor analysis:</strong> Used principal components factor
+              analysis with promax rotation. From 48 questions measuring 21 original TTF dimensions,
+              14 questions and 5 dimensions were dropped; the remaining 34 questions (covering 16 of
+              the 21 original dimensions) collapsed into 8 final TTF factors (Table 1).
+            </li>
+            <li>
+              <strong>Reliability testing:</strong> Reported Cronbach&rsquo;s alpha coefficients for
+              the 8 TTF factors ranging from .60 to .88 (Table 1).
+            </li>
+            <li>
+              <strong>Discriminant validity:</strong> Confirmed that fit, utilization, and
+              performance constructs are empirically distinct through correlation analysis.
+            </li>
+            <li>
+              <strong>Multiple regression analysis:</strong> Tested Proposition 1 with eight
+              regressions predicting each TTF factor from task and technology characteristics;
+              adjusted R-squared values ranged from .04 to .25 across the 8 regressions (Table 3).
+            </li>
+            <li>
+              <strong>Multiple departments:</strong> Collected data across 26 non-IS departments in
+              two companies (400 respondents from Company A, a transportation enterprise; 262 from
+              Company B, an insurance company; total n = 662) enabling consistency checks across
+              contexts.
+            </li>
+          </ul>
+        </section>
+
+        {/* 10. External Validity */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>External Validity</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            External validity claims rest on substantial but bounded empirical foundations:
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Multi-department validation:</strong> 26 non-IS departments across 2 companies
+              (transportation and insurance) provides diverse context demonstrating generalization
+              across units.
+            </li>
+            <li>
+              <strong>System diversity:</strong> 25 different major information systems (13 in
+              Company A and 12 in Company B, each used by a minimum of 5 employees) span transaction
+              processing and decision support contexts suggesting fit applies across system types.
+            </li>
+            <li>
+              <strong>Large sample size:</strong> 662 end-users provides substantial statistical
+              power and heterogeneous sample demographics.
+            </li>
+            <li>
+              <strong>Performance measurement:</strong> Both subjective user ratings and objective
+              performance measures strengthen outcome validity.
+            </li>
+            <li>
+              <strong>Emerging technology questions:</strong> Study predates mobile, cloud, and AI
+              systems; applicability to these technologies remains unclear.
+            </li>
+            <li>
+              <strong>Task type boundaries:</strong> May apply differently to highly novel,
+              ambiguous, or rapidly changing task environments.
+            </li>
+            <li>
+              <strong>Geographic and cultural scope:</strong> Single-country research may not
+              generalize across different regulatory, cultural, or industrial contexts.
+            </li>
+          </ul>
+        </section>
+
+        {/* 11. Relevance to Technology Adoption */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Relevance to Technology Adoption</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            The Task-Technology Fit model is highly relevant to technology adoption because it
+            explains why adoption alone does not guarantee success. Poor-fit systems can be adopted
+            widely but deliver minimal performance value. The model identifies adoption barriers
+            rooted in lack of task-technology alignment distinct from barriers of complexity or
+            social influence.
+          </p>
+
+          <h3 className={H3_CLASSES}>Barriers to Technology Adoption Identified</h3>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Misaligned system capabilities:</strong> Systems lacking functionality
+              required for user tasks create fundamental fit barriers preventing productive
+              adoption.
+            </li>
+            <li>
+              <strong>Data quality gaps:</strong> Systems providing inaccurate, incomplete, or
+              irrelevant information for decision-making reduce task-technology fit.
+            </li>
+            <li>
+              <strong>Automation mismatch:</strong> Systems automating wrong tasks or automating
+              tasks users prefer to control create negative fit perceptions.
+            </li>
+            <li>
+              <strong>Interface incompatibility:</strong> User interface designs poorly matched to
+              how users think about tasks create ease-of-use barriers within fit context.
+            </li>
+            <li>
+              <strong>Performance inadequacy:</strong> Systems too slow or unreliable for
+              time-sensitive tasks fail to provide adequate fit for performance requirements.
+            </li>
+            <li>
+              <strong>Insufficient flexibility:</strong> Rigid systems unable to accommodate task
+              variation reduce fit for dynamic or non-standard workflows.
+            </li>
+            <li>
+              <strong>Integration failures:</strong> Systems not integrated with other tools users
+              rely on create workflow disruption reducing overall fit.
+            </li>
+          </ul>
+
+          <h3 className={H3_CLASSES}>Leadership Actions the Model Prescribes</h3>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Conduct thorough task analysis:</strong> Before system selection, analyze
+              information requirements, decision processes, and workflow patterns of target user
+              tasks.
+            </li>
+            <li>
+              <strong>Match system capabilities to tasks:</strong> Select and configure systems
+              whose functionality closely aligns with identified task characteristics and
+              requirements.
+            </li>
+            <li>
+              <strong>Measure task-technology fit:</strong> Use comprehensive fit assessment
+              (similar to 8-factor TTF) to evaluate systems before and after implementation.
+            </li>
+            <li>
+              <strong>Optimize data quality:</strong> Ensure systems provide accurate, complete,
+              timely information needed for task execution.
+            </li>
+            <li>
+              <strong>Design for relevant functionality:</strong> Configure systems to emphasize
+              features matching task requirements; hide or minimize peripheral features.
+            </li>
+            <li>
+              <strong>Customize and integrate:</strong> Modify systems through customization and
+              integration with existing tools to improve fit to actual workflows.
+            </li>
+            <li>
+              <strong>Measure performance impact:</strong> Track whether implementations improve
+              actual task performance; if fit-driven improvements do not materialize, reassess
+              system choice.
+            </li>
+          </ul>
+        </section>
+
+        {/* 12. Following Models or Theories */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Following Models or Theories</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            The Goodhue and Thompson TTF construct has been extended and integrated into multiple
+            subsequent IT evaluation frameworks:
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>TTF-TAM integration (Dishaw and Strong, 1999):</strong> Combined TTF with the
+              Technology Acceptance Model, showing that task-technology fit complements usefulness
+              and ease-of-use perceptions in predicting system use and performance.
+            </li>
+            <li>
+              <strong>Group Support Systems TTF (Zigurs and Buckland, 1998):</strong> Extended TTF
+              to group decision-support contexts, proposing a fit profile theory matching GSS
+              capabilities to group task types.
+            </li>
+            <li>
+              <strong>UTAUT (Venkatesh, Morris, Davis, and Davis, 2003):</strong> The Unified Theory
+              of Acceptance and Use of Technology consolidated eight prior acceptance models,
+              drawing on the utilization-focus stream that TPC also builds on, though UTAUT
+              emphasizes acceptance rather than fit.
+            </li>
+            <li>
+              <strong>Fit-Viability Model extensions:</strong> Later research (e.g., mobile
+              commerce, e-learning) expanded fit to include organizational, strategic, and user
+              capability fit dimensions beyond the original 8-factor TTF instrument.
+            </li>
+            <li>
+              <strong>Individual and organizational performance frameworks:</strong> TTF has been
+              applied and reported in hundreds of downstream studies across decision support,
+              enterprise systems, mobile, and analytics domains, with the 1995 paper among the most
+              cited in MIS Quarterly.
+            </li>
+          </ul>
+        </section>
+
+        {/* 13. References */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>References</h2>
+          <ol className={REFERENCES_OL_CLASSES}>
+            <li id="ref-goodhue-1995">
+              Goodhue, D. L., &amp; Thompson, R. L. (1995). Task-technology fit and individual
+              performance. <em>MIS Quarterly</em>, 19(2), 213-236.{' '}
+              <a
+                href="https://doi.org/10.2307/249689"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:underline"
+              >
+                https://doi.org/10.2307/249689
+              </a>
+            </li>
+            <li id="ref-davis-1989">
+              Davis, F. D. (1989). Perceived usefulness, perceived ease of use, and user acceptance
+              of information technology. <em>MIS Quarterly</em>, 13(3), 319-340.
+              <span className="text-xs ml-1">
+                <a
+                  href="#cite-ref-davis-1989-1"
+                  className="text-tabs-teal-deep hover:underline"
+                  aria-label="Back to citation 1 for Davis (1989)"
+                >
+                  ↩
+                </a>
+              </span>{' '}
+              <a
+                href="https://doi.org/10.2307/249008"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:underline"
+              >
+                https://doi.org/10.2307/249008
+              </a>
+            </li>
+            <li id="ref-rogers-1983">
+              Rogers, E. M. (1983). Diffusion of innovations (3rd ed.). Free Press.
+              <span className="text-xs ml-1">
+                <a
+                  href="#cite-ref-rogers-1983-1"
+                  className="text-tabs-teal-deep hover:underline"
+                  aria-label="Back to citation 1 for Rogers (1983)"
+                >
+                  ↩
+                </a>
+              </span>
+            </li>
+          </ol>
+        </section>
+
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Further Reading</h2>
+          <ol className={REFERENCES_OL_CLASSES}>
+            <li id="ref-thompson-1991">
+              Thompson, R. L., Higgins, C. A., &amp; Howell, J. M. (1991). Personal computing:
+              Toward a conceptual model of utilization. <em>MIS Quarterly</em>, 15(1), 125-143.
+            </li>
+            <li id="ref-lawrence-1967">
+              Lawrence, P. R., &amp; Lorsch, J. W. (1967). Organization and environment: Managing
+              differentiation and integration. Harvard Business School Press.
+            </li>
+            <li id="ref-vroom-1964">
+              Vroom, V. H. (1964). Work and motivation. John Wiley &amp; Sons.
+            </li>
+            <li id="ref-taylor-1995">
+              Taylor, S., &amp; Todd, P. A. (1995). Understanding information technology usage: A
+              test of competing models. <em>Information Systems Research</em>, 6(2), 144-176.{' '}
+              <a
+                href="https://doi.org/10.1287/isre.6.2.144"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:underline"
+              >
+                https://doi.org/10.1287/isre.6.2.144
+              </a>
+            </li>
+            <li id="ref-venkatesh-2003">
+              Venkatesh, V., Morris, M. G., Davis, G. B., &amp; Davis, F. D. (2003). User acceptance
+              of information technology: Toward a unified view. <em>MIS Quarterly</em>, 27(3),
+              425-478.{' '}
+              <a
+                href="https://doi.org/10.2307/30036540"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:underline"
+              >
+                https://doi.org/10.2307/30036540
+              </a>
+            </li>
+          </ol>
+        </section>
+
+        {/* 14. Series Navigation */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Series Navigation</h2>
+          <div className="space-y-4">
+            <p className={PARAGRAPH_CLASSES}>
+              <Link
+                href="/bibliography-1-10-decomposed-tpb-taylor-todd-1995"
+                className="text-blue-600 hover:text-blue-800 underline"
+              >
+                &larr; Previous: Decomposed Theory of Planned Behavior (Taylor &amp; Todd)
+              </Link>
+            </p>
+            <p className={PARAGRAPH_CLASSES}>
+              <Link
+                href="/bibliography-1-12-technology-readiness-index-tri-parasuraman-2000"
+                className="text-blue-600 hover:text-blue-800 underline"
+              >
+                Next: Technology Readiness Index (Parasuraman) &rarr;
+              </Link>
+            </p>
+            <p className={`${PARAGRAPH_CLASSES} mt-6`}>
+              <Link
+                href="/article-bibliography-comprehensive-series-bibliography"
+                className="text-blue-600 hover:text-blue-800 underline"
+              >
+                Back to Complete Bibliography
+              </Link>
+            </p>
+          </div>
         </section>
       </article>
     </main>

@@ -4,555 +4,847 @@ import {
   ARTICLE_CLASSES,
   H1_CLASSES,
   H2_CLASSES,
+  H3_CLASSES,
   SECTION_CLASSES,
   PARAGRAPH_CLASSES,
   BODY_LIST_CLASSES,
-  BODY_OL_CLASSES,
-  REFERENCES_H2_CLASSES,
   REFERENCES_OL_CLASSES,
 } from '@/lib/articleStyles'
 
 export const metadata: Metadata = {
   title: 'Bibliography: CMMI - Capability Maturity Model Integration (Chrissis et al., 2005)',
   description:
-    'An in-depth overview of the Capability Maturity Model Integration (CMMI) framework developed by Chrissis, Konrad, and Shrum at Carnegie Mellon SEI, covering its five maturity levels, process areas, and relevance to technology adoption and organizational process improvement.',
+    'Comprehensive overview of Capability Maturity Model Integration (CMMI). Explains maturity levels, process areas, and CMMI role as foundational framework for IT process capability assessment and organizational maturity measurement.',
 }
 
-const CMMIPage = () => {
+const BibliographyArticlePage = () => {
   return (
     <main className="pt-20 sm:pt-[120px] min-h-screen bg-white">
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>
-          Capability Maturity Model Integration (CMMI) - Chrissis, Konrad &amp; Shrum (2005)
+          CMMI - Capability Maturity Model Integration (Chrissis et al., 2005)
         </h1>
 
-        {/* Framework Identification */}
+        {/* 1. Framework Identification */}
         <section className={`${SECTION_CLASSES} bg-gray-50 p-6 rounded-lg`}>
           <h2 className={H2_CLASSES}>Framework Identification</h2>
           <div className="space-y-2">
             <p>
-              <strong>Framework Name:</strong> Capability Maturity Model Integration (CMMI)
+              <strong>Framework Name:</strong> Capability Maturity Model Integration
             </p>
             <p>
-              <strong>Authors:</strong> Mary Beth Chrissis, Mike Konrad, and Sandy Shrum
+              <strong>Framework Abbreviation:</strong> CMMI
             </p>
             <p>
-              <strong>Publication Date:</strong> 2005
+              <strong>Target of Framework:</strong> Providing unified maturity assessment model
+              integrating multiple capability models to measure organizational capability across
+              development, acquisition, and services. CMMI enables organizations to assess and
+              improve process capability maturity.
+            </p>
+            <p>
+              <strong>Disciplinary Origin:</strong> Software Engineering, Systems Engineering,
+              Organizational Development, IT Governance, Process Improvement
             </p>
           </div>
         </section>
 
-        {/* Citation Information */}
+        {/* 2. Theory Publication Information */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Theory Publication Information</h2>
+          <div className="space-y-2">
+            <p>
+              <strong>Authors:</strong> Mary Beth Chrissis, Mike Konrad, Sandra Shrum (published by
+              Software Engineering Institute, Carnegie Mellon University)
+            </p>
+            <p>
+              <strong>Formal Publication Date:</strong> 2005 (Chrissis et al. textbook) / 2002 (SEI
+              CMMI v1.1 original)
+            </p>
+            <p>
+              <strong>Official Title:</strong> CMMI: Guidelines for Process Integration and Product
+              Improvement
+            </p>
+            <p>
+              <strong>Publisher:</strong> Addison-Wesley Professional
+            </p>
+            <p>
+              <strong>Document Format:</strong> Comprehensive textbook, official CMMI model
+              documents, implementation guides, and assessment resources
+            </p>
+            <p>
+              <strong>ISBN:</strong> 978-0-321-71150-2
+            </p>
+          </div>
+        </section>
+
+        {/* 3. Citation Information */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Citation Information</h2>
-          <div className="bg-blue-50 p-4 rounded border-l-4 border-blue-500">
-            <p className="text-sm font-mono">
-              Chrissis, M. B., Konrad, M., &amp; Shrum, S. (2005).{' '}
-              <em>CMMI: Guidelines for process integration and product improvement.</em>{' '}
-              Addison-Wesley Professional.
-            </p>
+          <div className="bg-blue-50 p-4 rounded border-l-4 border-blue-500 space-y-3">
+            <div>
+              <p className="text-xs font-bold uppercase text-blue-900 mb-1">APA (7th ed.)</p>
+              <p className="text-sm font-mono">
+                Chrissis, M. B., Konrad, M. D., &amp; Shrum, S. (
+                <a href="#ref-chrissis-2005" className="text-tabs-teal-deep hover:underline">
+                  2005
+                </a>
+                ). <em>CMMI: Guidelines for process integration and product improvement</em>.
+                Addison-Wesley Professional.
+              </p>
+            </div>
+            <div>
+              <p className="text-xs font-bold uppercase text-blue-900 mb-1">
+                Chicago (Author-Date)
+              </p>
+              <p className="text-sm font-mono">
+                Chrissis, Mary Beth, Mike D. Konrad, and Sandra Shrum. 2005.{' '}
+                <em>CMMI: Guidelines for Process Integration and Product Improvement</em>.
+                Addison-Wesley Professional.
+              </p>
+            </div>
           </div>
         </section>
 
+        {/* 4. Why Was the Model Created? */}
         <section className={SECTION_CLASSES}>
-          <p className={PARAGRAPH_CLASSES}>
-            Published in 2005 by Carnegie Mellon University&rsquo;s Software Engineering Institute
-            (SEI), <strong>CMMI: Guidelines for Process Integration and Product Improvement</strong>{' '}
-            by Mary Beth Chrissis, Mike Konrad, and Sandy Shrum represents a landmark achievement in
-            the field of organizational process improvement. The Capability Maturity Model
-            Integration (CMMI) unified multiple predecessor process capability models into a single,
-            coherent framework, providing organizations with a systematic methodology for improving
-            processes across software engineering, systems engineering, and integrated product
-            development. Its publication marked the maturation of decades of research and
-            practitioner experience at the SEI into a universally applicable standard.
-          </p>
-          <p className={PARAGRAPH_CLASSES}>
-            CMMI defines <strong>five maturity levels</strong> that describe an evolutionary path
-            from unpredictable, ad hoc processes at Level 1 (Initial) through the disciplined,
-            continuously improving processes of Level 5 (Optimizing). Each level builds upon the
-            previous, ensuring organizations develop a solid process foundation before advancing to
-            more sophisticated practices. This staged progression has made CMMI a powerful roadmap
-            for organizations seeking predictable quality, cost, and schedule performance across
-            complex engineering programs.
-          </p>
-          <p className={PARAGRAPH_CLASSES}>
-            Since its introduction, CMMI has been widely adopted across the defense, aerospace,
-            technology, and financial services sectors. It is recognized internationally, required
-            or preferred in many government procurement processes, and has been incorporated into
-            academic curricula for software and systems engineering programs around the world. The
-            framework&rsquo;s influence on how organizations conceive, document, and improve their
-            engineering processes cannot be overstated.
-          </p>
-
           <h2 className={H2_CLASSES}>Why Was the Model Created?</h2>
           <p className={PARAGRAPH_CLASSES}>
-            By the early 2000s, the software and systems engineering community had produced a
-            proliferation of capability models, each addressing a different domain or discipline.
-            Organizations attempting to improve across multiple dimensions found themselves managing
-            several independent frameworks simultaneously: the{' '}
-            <strong>Software CMM (SW-CMM)</strong> for software processes, the{' '}
-            <strong>Systems Engineering CMM (SE-CMM)</strong> for systems engineering, the{' '}
-            <strong>Integrated Product Development CMM (IPD-CMM)</strong> for cross-functional
-            product development, and the <strong>Software Acquisition CMM (SA-CMM)</strong> for
-            supplier management. The fragmentation of these models created enormous overhead for
-            organizations seeking holistic improvement.
+            During the 1980s and 1990s, organizations struggled with software development and system
+            engineering quality and consistency. Different organizations used different terminology
+            and approaches for capability and maturity assessment. The Software Engineering
+            Institute (SEI) at Carnegie Mellon University developed the original Capability Maturity
+            Model (CMM) for software in 1991 and subsequently created additional models for other
+            domains. However, by early 2000s, multiple separate CMM models existed (CMM-SW for
+            software, SE-CMM for systems engineering, IPD-CMM for integrated product development).
+            This model fragmentation created confusion and implementation challenges for
+            organizations operating across multiple domains.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Fragmentation and Redundancy:</strong> Organizations adopting multiple models
-            encountered redundant appraisals, inconsistent terminology across frameworks, difficulty
-            integrating improvement initiatives, and substantial management costs. Process
-            improvement teams had to translate between frameworks, reconcile conflicting guidance,
-            and coordinate separate appraisal teams-resources that could otherwise be invested in
-            genuine process improvement activities.
+            CMMI (Capability Maturity Model Integration) was created to integrate multiple existing
+            CMM models into unified, coherent framework. CMMI Version 1.1 was released by SEI in
+            2002, with the influential textbook by Chrissis, Konrad, and Shrum published in 2005
+            providing comprehensive guidance. CMMI provided single framework applicable to software
+            development, systems engineering, integrated product development, and services. CMMI
+            enabled organizations to adopt single maturity model across multiple domains rather than
+            managing multiple fragmented models.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Need for an Integrated Approach:</strong> Modern product development inherently
-            requires integration across software engineering, systems engineering, integrated
-            product development, and supplier management. Separate, siloed models created barriers
-            to genuine cross-functional process integration. A product that combines hardware and
-            software, for instance, could not be fully addressed by either SW-CMM or SE-CMM alone.
-            Organizations needed a framework that spoke to the entire product development lifecycle
-            as an integrated whole.
+            CMMI became foundational to IT process improvement globally. The framework provided
+            repeatable, structured approach to process capability assessment and improvement. CMMI
+            enabled organizations to identify process capability gaps, prioritize improvement
+            initiatives, and systematically increase organizational maturity. CMMI now stewarded by
+            ISACA following CMMI Institute acquisition. The framework remains central to IT
+            governance, quality management, and capability assessment practices worldwide.
+          </p>
+        </section>
+
+        {/* 5. Core Concepts and Definitions */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Core Concepts and Definitions</h2>
+          <p className={PARAGRAPH_CLASSES}>CMMI centers on several core concepts:</p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Capability:</strong> The range of expected results that can be achieved by
+              following a process. Process capability characterizes ability to produce expected
+              outputs consistently.
+            </li>
+            <li>
+              <strong>Maturity:</strong> The extent to which an organization has explicitly and
+              consistently deployed formally planned and controlled processes. Maturity reflects
+              organizational consistency and process discipline.
+            </li>
+            <li>
+              <strong>Process Area:</strong> A cluster of related practices that, when implemented
+              collectively, satisfy a set of goals. Process areas organize practices into logical,
+              implementable units addressing specific organizational concerns.
+            </li>
+            <li>
+              <strong>Maturity Level:</strong> A defined evolutionary plateau representing increased
+              organizational capability. Maturity levels provide roadmap for process improvement
+              progression.
+            </li>
+            <li>
+              <strong>Staged Representation:</strong> CMMI model organized into maturity levels.
+              Staged approach provides sequential, evolutionary improvement path.
+            </li>
+            <li>
+              <strong>Continuous Representation:</strong> CMMI model organized by capability levels
+              per process area. Continuous approach enables process-area-specific improvement.
+            </li>
+            <li>
+              <strong>Practice:</strong> Activities and methods recognized as contributing to
+              achievement of goals in a process area. Practices provide actionable guidance for
+              improvement.
+            </li>
+          </ul>
+        </section>
+
+        {/* 6. What Does the Model Measure? */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>What Does the Model Measure?</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            CMMI is a maturity model rather than a psychometric scale. It assesses organizational
+            process capability and maturity at the process-area and organization level, not
+            individual-level attitudes or perceptions. Core assessment concepts include:
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Capability level (continuous representation):</strong> For each process area,
+              one of six levels: Incomplete (Level 0), Performed (Level 1), Managed (Level 2),
+              Defined (Level 3), Quantitatively Managed (Level 4), and Optimizing (Level 5).
+            </li>
+            <li>
+              <strong>Maturity level (staged representation):</strong> An overall organizational
+              maturity rating (Levels 1 through 5: Initial, Managed, Defined, Quantitatively
+              Managed, Optimizing) based on achievement of specified process areas.
+            </li>
+            <li>
+              <strong>Specific and generic goals:</strong> Whether a given process area&rsquo;s
+              specific goals and the generic goals for institutionalization have been met.
+            </li>
+            <li>
+              <strong>Specific and generic practices:</strong> Presence or absence of prescribed
+              practices supporting each goal.
+            </li>
+          </ul>
+          <p className={PARAGRAPH_CLASSES}>
+            Formal appraisals (under SCAMPI-A, and more recently CMMI&rsquo;s Benchmark / Evaluation
+            / Sustainment appraisal types) assess these through document review, interviews, and
+            evidence sampling. CMMI does not publish psychometric reliability or validity
+            coefficients in the way measurement theories do.
           </p>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Business and Technical Complexity:</strong> As products grew more sophisticated,
-            organizations faced the simultaneous challenges of software engineering, hardware
-            engineering, supplier integration, and customer involvement within single programs. The
-            functional silos encouraged by separate models no longer served the needs of programs
-            where software and hardware teams had to work in lockstep from requirements through
-            delivery.
+            <strong>Source note:</strong> Claims below are drawn from the Chrissis, Konrad, and
+            Shrum textbook (CMMI-SE/SW/IPPD/SS v1.1 edition), the CMMI v1.1 and subsequent model
+            documents published by SEI/CMMI Institute/ISACA, and commonly cited secondary
+            treatments. The structural elements verified against the book&rsquo;s Table of Contents
+            include the four process area categories, the 25 process areas, capability levels 0-5,
+            maturity levels 1-5, and generic goals GG 1-5. Historical claims about precursor CMMs
+            and successor constellations, together with the year-to-year evolution narrative, are
+            drawn from secondary sources rather than direct body-text verification.
           </p>
+        </section>
+
+        {/* 7. Preceding Models or Theories */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Preceding Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Quality and Consistency Problems:</strong> Many organizations continued to
-            struggle with inconsistent product quality, schedule slippage, and cost overruns. Ad hoc
-            development approaches, limited process documentation, and reactive problem-solving
-            rather than proactive planning were common. A unified, authoritative framework with
-            clear maturity-level criteria was needed to guide organizations from reactive,
-            hero-dependent practices toward disciplined, data-driven process management.
+            CMMI built upon and integrated several prior approaches. The specific preceding models
+            listed below (CMM, SECM, CMM-SW, SE-CMM, IPD-CMM, P-CMM, TQM, ISO 9000) are drawn from
+            secondary sources rather than the Chrissis et al. TOC itself; TOC-limited, full book
+            unavailable:
           </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Capability Maturity Model (CMM), SEI (1991):</strong> Original SEI model for
+              software engineering maturity. CMM established maturity level concept and
+              process-based improvement approach.
+            </li>
+            <li>
+              <strong>Systems Engineering Capability Model (SECM, 1992):</strong> SEI model for
+              systems engineering maturity. SECM provided systems engineering perspective on
+              capability and maturity.
+            </li>
+            <li>
+              <strong>Software Engineering CMM (CMM-SW, 1993):</strong> Enhanced software CMM.
+              CMM-SW became widely adopted in software industry.
+            </li>
+            <li>
+              <strong>Systems Engineering CMM (SE-CMM, 1997):</strong> Comprehensive systems
+              engineering maturity model. SE-CMM incorporated advanced systems engineering concepts.
+            </li>
+            <li>
+              <strong>Integrated Product Development CMM (IPD-CMM, 1997):</strong> CMM for
+              integrated product development. IPD-CMM addressed cross-functional team and product
+              integration concerns.
+            </li>
+            <li>
+              <strong>People CMM (P-CMM, 1995):</strong> CMM for workforce capability. P-CMM
+              addressed human resource management and workforce maturity.
+            </li>
+            <li>
+              <strong>Total Quality Management (TQM, 1980s-1990s):</strong> Quality management
+              discipline providing foundation for continuous process improvement philosophy.
+            </li>
+            <li>
+              <strong>ISO 9000 Quality Standards:</strong> International quality standards. CMMI
+              incorporated quality management concepts from ISO standards.
+            </li>
+          </ul>
+        </section>
+
+        {/* 8. Describe The Model */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Describe The Model</h2>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Industry Leadership and Procurement Requirements:</strong> The U.S. Department
-            of Defense and major defense and aerospace clients increasingly required their suppliers
-            to demonstrate documented process capability. The fragmentation of the model landscape
-            made it difficult for suppliers to demonstrate consistent, comparable process maturity
-            across contracts. CMMI was created in part to provide a single, authoritative standard
-            against which supplier process capability could be measured and communicated.
+            CMMI provides unified maturity assessment model integrating multiple process improvement
+            domains through maturity levels and process areas describing practices and goals for
+            organizational process improvement across software development, systems engineering, and
+            services.
           </p>
 
-          <h2 className={H2_CLASSES}>Core Concepts and Definitions</h2>
+          <h3 className={H3_CLASSES}>CMMI Staged Representation - Five Maturity Levels</h3>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Level 1: Initial:</strong> Processes unpredictable, poorly controlled,
+              reactive. Success depends on individual efforts rather than established processes.
+              Organization lacks repeatable processes.
+            </li>
+            <li>
+              <strong>Level 2: Managed:</strong> Requirements managed, processes planned and
+              executed, work products monitored and controlled. Some processes institutionalized but
+              discipline variable across organization.
+            </li>
+            <li>
+              <strong>Level 3: Defined:</strong> Standard processes documented and communicated,
+              processes tailored from organizational standards, integration across functional
+              groups. Processes are proactive with preventive mechanisms.
+            </li>
+            <li>
+              <strong>Level 4: Quantitatively Managed:</strong> Processes measured and controlled,
+              quantitative objectives for quality and performance established. Statistical
+              techniques used to manage processes.
+            </li>
+            <li>
+              <strong>Level 5: Optimizing:</strong> Organization focuses on continuous process
+              improvement and innovation. Processes enable rapid adaptation to changing
+              circumstances.
+            </li>
+          </ul>
+
+          <h3 className={H3_CLASSES}>CMMI Process Areas</h3>
           <p className={PARAGRAPH_CLASSES}>
-            CMMI introduces a rich conceptual vocabulary for process improvement. At its core are
-            <strong> process areas (PAs)</strong> - clusters of related practices that, when
-            implemented collectively, achieve a set of goals important to process improvement. Each
-            process area has <strong>specific goals</strong> with associated specific practices, and{' '}
-            <strong>generic goals</strong> that apply across all process areas to institutionalize
-            and sustain improvements.
+            The CMMI-SE/SW/IPPD/SS v1.1 edition documented by Chrissis, Konrad, and Shrum organizes
+            25 process areas into four categories. For Process Management, Project Management, and
+            Support, the book further groups process areas as &quot;Fundamental&quot; or
+            &quot;Progressive&quot; to indicate prerequisite relationships among them. For
+            Engineering, the book discusses process areas under &quot;Engineering Process Areas and
+            Recursion&quot; rather than a Fundamental/Progressive split.
           </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Process Management:</strong> Organizational-level process areas addressing the
+              infrastructure needed to sustain process improvement across the enterprise.
+            </li>
+            <li>
+              <strong>Project Management:</strong> Process areas for planning, monitoring, and
+              controlling projects, including integrated product teams and supplier arrangements
+              where applicable.
+            </li>
+            <li>
+              <strong>Engineering:</strong> Process areas for the technical work of developing and
+              delivering products, spanning requirements, technical solution, product integration,
+              verification, and validation.
+            </li>
+            <li>
+              <strong>Support:</strong> Cross-cutting process areas providing infrastructure and
+              analytical capabilities that support all other process areas.
+            </li>
+          </ul>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Five Maturity Levels (Staged Representation):</strong> The staged representation
-            organizes process areas into five maturity levels, providing a prescriptive roadmap for
+            The 25 process areas in this edition span software engineering, systems engineering,
+            integrated product and process development (IPPD), and supplier sourcing disciplines.
+            Selected process areas are active only when particular disciplines are in scope for an
+            appraisal.
+          </p>
+
+          <h3 className={H3_CLASSES}>CMMI Continuous Representation - Capability Levels</h3>
+          <p className={PARAGRAPH_CLASSES}>
+            Continuous representation enables organization to target specific process areas for
             improvement:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Level 1 - Initial:</strong> Processes are unpredictable, poorly controlled,
-              and reactive. Success depends on individual heroics rather than repeatable practices.
-              Projects frequently exceed budgets and schedules.
+              <strong>Level 0: Incomplete:</strong> Process area either not performed or only
+              partially performed. Organization lacks implementation of process.
             </li>
             <li>
-              <strong>Level 2 - Managed:</strong> Projects establish basic project management
-              disciplines. Planning, requirements management, configuration management, measurement
-              and analysis, and process and product quality assurance are consistently applied at
-              the project level.
+              <strong>Level 1: Performed:</strong> Process area requirements satisfied. Process
+              produces required results but organization lacks formal process documentation and
+              discipline.
             </li>
             <li>
-              <strong>Level 3 - Defined:</strong> Standard processes are developed for the
-              organization and tailored for use on individual projects. Organizational process
-              assets - standard processes, process libraries, training materials - are maintained
-              and leveraged across projects.
+              <strong>Level 2: Managed:</strong> Process area managed at project level. Requirements
+              managed, processes planned and executed, results monitored.
             </li>
             <li>
-              <strong>Level 4 - Quantitatively Managed:</strong> Processes are measured and
-              controlled using statistical and quantitative techniques. Quantitative objectives for
-              quality and process performance are established, and statistical understanding of
-              process variation enables more precise prediction and control of outcomes.
+              <strong>Level 3: Defined:</strong> Standard process defined and tailored from
+              organizational standards. Process integrated with other processes.
             </li>
             <li>
-              <strong>Level 5 - Optimizing:</strong> Continuous process improvement is enabled
-              through incremental and innovative improvements. Organizations systematically identify
-              root causes of defects and process variation, deploy improvements organization-wide,
-              and optimize processes for competitive advantage.
+              <strong>Level 4: Quantitatively Managed:</strong> Process area managed quantitatively
+              with statistical process control. Performance targets established and managed.
+            </li>
+            <li>
+              <strong>Level 5: Optimizing:</strong> Process area optimized for continuous
+              improvement. Innovation and process optimization institutionalized.
             </li>
           </ul>
+
+          <h3 className={H3_CLASSES}>CMMI Constellations</h3>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>CMMI for Development (CMMI-DEV):</strong> Addresses software development,
+              systems engineering, and product development. Primary constellation for technology
+              organizations.
+            </li>
+            <li>
+              <strong>CMMI for Acquisition (CMMI-ACQ):</strong> Addresses management of acquisition
+              processes for outsourced development and services. Enables buyer-side capability
+              assessment.
+            </li>
+            <li>
+              <strong>CMMI for Services (CMMI-SVC):</strong> Addresses management and delivery of
+              services. Enables service organizations to assess and improve capability.
+            </li>
+          </ul>
+
+          <h3 className={H3_CLASSES}>Main Strengths</h3>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Unified framework:</strong> CMMI integrates multiple models into single
+              unified framework. Integration reduces model fragmentation and enables comprehensive
+              capability assessment.
+            </li>
+            <li>
+              <strong>Comprehensive coverage:</strong> CMMI addresses software development, systems
+              engineering, acquisition, and services. Broad applicability across technology domains.
+            </li>
+            <li>
+              <strong>Practical maturity levels:</strong> Five maturity levels provide clear
+              evolution path for organizational improvement. Levels provide measurable progression
+              framework.
+            </li>
+            <li>
+              <strong>Process area organization:</strong> Process areas organize practices into
+              logical, implementable units. Organization enables focused improvement efforts.
+            </li>
+            <li>
+              <strong>Dual representations:</strong> Staged and continuous representations enable
+              different improvement strategies. Flexibility accommodates organizational preferences.
+            </li>
+            <li>
+              <strong>Industry adoption:</strong> CMMI widely adopted in software and systems
+              engineering industries. Adoption demonstrates practical value and effectiveness.
+            </li>
+            <li>
+              <strong>Proven effectiveness:</strong> Organizations using CMMI report improved
+              quality, schedule adherence, and cost predictability. Framework delivers measurable
+              business benefits.
+            </li>
+          </ul>
+
+          <h3 className={H3_CLASSES}>Main Weaknesses</h3>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Complexity and documentation burden:</strong> CMMI requires extensive process
+              documentation and measurement infrastructure. Documentation burden increases
+              implementation time and cost.
+            </li>
+            <li>
+              <strong>Assessment cost and expertise requirement:</strong> CMMI formal assessments
+              expensive and require experienced assessors. Assessment cost creates barriers for
+              smaller organizations.
+            </li>
+            <li>
+              <strong>Heavyweight methodology perception:</strong> CMMI perceived as heavyweight
+              process framework. Perception creates resistance in agile and lean organizations.
+            </li>
+            <li>
+              <strong>Small organization applicability:</strong> CMMI implementation challenging for
+              small organizations lacking process infrastructure. Framework assumes organizational
+              scale.
+            </li>
+            <li>
+              <strong>Agile method tension:</strong> CMMI structured, plan-driven approach conflicts
+              with agile methods. Integration with agile practices remains challenging.
+            </li>
+            <li>
+              <strong>Technology evolution pacing:</strong> Technology changes faster than CMMI
+              guidance can be updated. Model guidance may become outdated relative to technology
+              advances.
+            </li>
+            <li>
+              <strong>Focus on process vs. outcomes:</strong> CMMI focus on process maturity may not
+              guarantee superior business outcomes. Process maturity does not automatically
+              translate to business success.
+            </li>
+          </ul>
+        </section>
+
+        {/* 9. Key Contributions */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Key Contributions</h2>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Unified multiple capability models:</strong> CMMI integrated CMM-SW, SE-CMM,
+              IPD-CMM, and other models. Integration eliminated model fragmentation and enabled
+              single organizational framework.
+            </li>
+            <li>
+              <strong>Extended maturity-based improvement approach:</strong> CMMI maturity levels
+              became industry standard for process improvement. Maturity concept influenced IT
+              governance and process management globally.
+            </li>
+            <li>
+              <strong>Provided comprehensive process guidance:</strong> CMMI provided detailed
+              process area descriptions and practice guidance. Guidance enabled organizations to
+              understand and implement process improvements.
+            </li>
+            <li>
+              <strong>Enabled quantitative process management:</strong> CMMI provided foundation for
+              statistical process control and quantitative management. Quantitative approach
+              improved process visibility and control.
+            </li>
+            <li>
+              <strong>Created assessment and certification industry:</strong> CMMI assessment
+              programs created professional assessment community. Assessment industry enabled
+              independent capability verification.
+            </li>
+            <li>
+              <strong>Reported process-improvement benefits:</strong> Published CMMI implementation
+              reports, many authored by SEI-affiliated practitioners or client organizations,
+              describe quality and productivity improvements. Independent, peer-reviewed evaluations
+              are limited and results vary substantially across studies.
+            </li>
+            <li>
+              <strong>Influenced government procurement requirements:</strong> US government
+              acquisition organizations adopted CMMI requirements. Government adoption drove
+              industry adoption of CMMI.
+            </li>
+            <li>
+              <strong>Provided foundation for IT governance frameworks:</strong> CMMI concepts
+              incorporated into COBIT, ITIL, and other IT governance frameworks. CMMI principles
+              became foundational to IT governance discipline.
+            </li>
+          </ul>
+        </section>
+
+        {/* 10. Internal Validity */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Internal Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
-            <strong>Process Area Categories:</strong> CMMI&rsquo;s 22 process areas are organized
-            into four categories that reflect the breadth of the framework:
+            CMMI is a prescriptive maturity model rather than an empirical theory, so it is not
+            subject to construct-validity testing in a psychometric sense. Considerations typically
+            raised about its internal consistency include:
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Process Management:</strong> Organizational Process Focus, Organizational
-              Process Definition, Organizational Training, Organizational Process Performance, and
-              Organizational Innovation and Deployment. These PAs address the organizational
-              infrastructure needed to sustain process improvement over time.
+              <strong>Logical maturity progression:</strong> The argument that maturity levels
+              represent increasing organizational capability is logically sound. Progression from
+              ad-hoc to optimized reflects increasing process discipline.
             </li>
             <li>
-              <strong>Project Management:</strong> Project Planning, Project Monitoring and Control,
-              Supplier Agreement Management, Integrated Project Management, Risk Management, and
-              Quantitative Project Management. These PAs provide the planning and oversight
-              disciplines needed to execute individual projects predictably.
+              <strong>Comprehensive process coverage:</strong> CMMI comprehensively addresses
+              multiple process domains. Comprehensive coverage addresses diverse organizational
+              concerns.
             </li>
             <li>
-              <strong>Engineering:</strong> Requirements Management, Requirements Development,
-              Technical Solution, Product Integration, Verification, and Validation. These PAs
-              address the technical work of developing and delivering high-quality products.
+              <strong>Empirically grounded:</strong> CMMI developed from analysis of high-performing
+              organizations and research on software engineering practices. Empirical grounding
+              provides credibility.
             </li>
             <li>
-              <strong>Support:</strong> Configuration Management, Process and Product Quality
-              Assurance, Measurement and Analysis, Decision Analysis and Resolution, and Causal
-              Analysis and Resolution. These PAs provide the infrastructure and analytical
-              capabilities that support all other process areas.
+              <strong>Consistent with quality principles:</strong> CMMI reflects established quality
+              management principles and continuous improvement philosophy. Consistency with proven
+              approaches improves validity.
+            </li>
+            <li>
+              <strong>Self-reported organizational benefits:</strong> Organizations reaching higher
+              maturity levels commonly report improved quality, productivity, and predictability.
+              These reports are largely self-reported or SEI-adjacent; the causal contribution of
+              CMMI itself (versus other concurrent process changes) is difficult to isolate.
+            </li>
+            <li>
+              <strong>Integrated across domains:</strong> Unified framework integrating multiple
+              domains provides coherent organizational perspective. Integration enables
+              comprehensive capability assessment.
             </li>
           </ul>
-          <p className={PARAGRAPH_CLASSES}>
-            <strong>Continuous Representation:</strong> In addition to the staged representation,
-            CMMI offers a continuous representation that assigns individual{' '}
-            <strong>capability levels</strong> (0-5) to specific process areas. This representation
-            provides flexibility for organizations that wish to improve selected process areas out
-            of the prescribed staged sequence, enabling tailored improvement strategies that align
-            with specific business priorities.
-          </p>
-          <p className={PARAGRAPH_CLASSES}>
-            <strong>SCAMPI (Standard CMMI Assessment Method for Process Improvement):</strong> The
-            appraisal methodology accompanying CMMI ensures consistent, comparable assessments
-            across organizations. SCAMPI appraisals are conducted by certified Lead Appraisers and
-            result in maturity level ratings that organizations can use to communicate process
-            capability to customers, partners, and procurement authorities.
-          </p>
+        </section>
 
-          <h2 className={H2_CLASSES}>Internal Validity</h2>
-          <p className={PARAGRAPH_CLASSES}>
-            The internal validity of CMMI rests on a rigorous development process conducted by
-            Carnegie Mellon&rsquo;s Software Engineering Institute. The framework emerged from
-            systematic analysis of four predecessor models-SW-CMM, SE-CMM, IPD-CMM, and
-            SA-CMM-examining commonalities, differences, and areas of conflict. Multidisciplinary
-            teams of process experts from software engineering, systems engineering, product
-            development, and quality management contributed to the reconciliation and synthesis of
-            these models into a coherent whole.
-          </p>
-          <p className={PARAGRAPH_CLASSES}>
-            <strong>Unified Framework Development:</strong> The integration team systematically
-            analyzed the full content of each predecessor model, identified overlapping and
-            complementary practices, reconciled conflicting concepts and terminology, and designed
-            process areas that addressed the union of concerns covered by all constituent models.
-            This work ensured that CMMI was internally consistent and did not inadvertently create
-            new contradictions or gaps.
-          </p>
-          <p className={PARAGRAPH_CLASSES}>
-            <strong>Process Area Definition:</strong> Each process area was defined through a
-            structured methodology involving analysis of best practices from predecessor models,
-            synthesis of expert practitioner experience, review of empirical process improvement
-            literature, and iterative validation with domain experts. Specific and generic goals and
-            practices were articulated with sufficient precision to enable consistent interpretation
-            across organizations and appraisal teams.
-          </p>
-          <p className={PARAGRAPH_CLASSES}>
-            <strong>Maturity Level Structure Validation:</strong> The five-level maturity structure
-            was grounded in over a decade of experience with the SW-CMM, which itself traced lineage
-            to Watts Humphrey&rsquo;s process maturity framework introduced in the late 1980s. The
-            maturity levels reflect an empirically observed progression: organizations that master
-            project-level practices (Level 2) before attempting organizational standardization
-            (Level 3) achieve more sustainable improvements than those attempting to skip levels.
-          </p>
-          <p className={PARAGRAPH_CLASSES}>
-            <strong>Dual Representation Design:</strong> The decision to include both staged and
-            continuous representations was validated through community feedback and analysis of
-            diverse organizational improvement strategies. The staged representation provides a
-            clear benchmark for procurement and communication purposes, while the continuous
-            representation accommodates organizations with legitimate reasons to prioritize specific
-            process areas over others.
-          </p>
-          <p className={PARAGRAPH_CLASSES}>
-            <strong>Appraisal Method Consistency:</strong> The SCAMPI appraisal methodology was
-            designed to ensure that maturity level ratings are comparable across organizations,
-            appraisers, and time periods. Certification requirements for Lead Appraisers, defined
-            evidence categories, and structured rating algorithms all contribute to the reliability
-            and consistency of CMMI-based assessments.
-          </p>
-
+        {/* 11. External Validity */}
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>External Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
-            CMMI&rsquo;s external validity is supported by extensive adoption evidence across
-            diverse industries, geographies, organizational sizes, and technology domains over more
-            than two decades. The predecessor SW-CMM was applied in thousands of organizations
-            globally for over a decade before CMMI was introduced, providing a substantial empirical
-            foundation for the maturity model approach.
+            External validity considerations concern generalizability of CMMI across diverse
+            organizational contexts:
           </p>
-          <p className={PARAGRAPH_CLASSES}>
-            <strong>Industry-Wide Adoption:</strong> CMMI has been adopted by software development
-            organizations, systems engineering firms, defense contractors, government agencies,
-            financial services companies, healthcare IT providers, and consulting services firms
-            across a broad range of sectors. Its applicability across these diverse domains
-            demonstrates that the framework&rsquo;s process improvement principles transcend
-            industry-specific characteristics.
-          </p>
-          <p className={PARAGRAPH_CLASSES}>
-            <strong>Global Geographic Application:</strong> CMMI adoption spans North America,
-            Europe, Asia-Pacific, and Latin America. India, in particular, has seen widespread
-            adoption among its large software services industry, where CMMI maturity ratings are
-            frequently cited as evidence of process capability in client proposals and contracts.
-            This global reach demonstrates cross-cultural applicability of the framework.
-          </p>
-          <p className={PARAGRAPH_CLASSES}>
-            <strong>Organizational Size Variety:</strong> While CMMI originated in the context of
-            large defense programs, it has been successfully applied in large multinational
-            corporations, mid-sized software firms, small software shops, and government agencies.
-            The flexibility of the framework&rsquo;s process areas and appraisal methods
-            accommodates organizations at different scales.
-          </p>
-          <p className={PARAGRAPH_CLASSES}>
-            <strong>Technology Domain Variety:</strong> CMMI has been applied across software
-            engineering, systems engineering, hardware-software integration, and service delivery
-            contexts. The framework&rsquo;s engineering process areas accommodate both pure software
-            development and complex hardware-software systems, while the service-oriented CMMI-SVC
-            extension addresses service delivery organizations.
-          </p>
-          <p className={PARAGRAPH_CLASSES}>
-            <strong>DoD Acquisition Requirements:</strong> CMMI has been required or preferred in
-            U.S. Department of Defense acquisition programs, providing a high-stakes validation of
-            its external applicability. Suppliers who achieve CMMI maturity ratings demonstrate
-            process capability in contexts where quality, schedule, and cost predictability are
-            mission-critical.
-          </p>
-          <p className={PARAGRAPH_CLASSES}>
-            <strong>Academic Recognition:</strong> CMMI is incorporated into software engineering
-            and systems engineering curricula at universities worldwide, reflecting its recognition
-            as a foundational framework in process improvement education. Its inclusion in academic
-            programs further validates its relevance and long-term importance to the field.
-          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Broad industry adoption:</strong> CMMI adopted across software, systems
+              engineering, aerospace, defense, and other industries. Adoption across industries
+              demonstrates applicability.
+            </li>
+            <li>
+              <strong>Large organization success:</strong> CMMI successfully implemented in large
+              organizations. Framework proves effective at enterprise scale.
+            </li>
+            <li>
+              <strong>Small organization challenges:</strong> CMMI implementation challenging for
+              small organizations lacking resources. Scalability to small organizations limited.
+            </li>
+            <li>
+              <strong>Cultural variation:</strong> CMMI adopted in organizations across different
+              national cultures and business cultures. Cultural adaptability demonstrated.
+            </li>
+            <li>
+              <strong>Agile method integration challenges:</strong> Organizations adopting agile
+              methods report difficulty integrating CMMI. Integration with agile practices remains
+              challenging.
+            </li>
+            <li>
+              <strong>Services sector applicability:</strong> CMMI for Services constellation
+              extended framework to services. Services sector applicability demonstrated but
+              requires specialization.
+            </li>
+            <li>
+              <strong>Startup and rapid innovation contexts:</strong> CMMI implementation challenges
+              in startup environments and rapidly innovating organizations. Framework assumes stable
+              organizational context.
+            </li>
+            <li>
+              <strong>Government procurement emphasis:</strong> CMMI driven by government
+              procurement requirements. Over-emphasis on government procurement may limit commercial
+              market adoption.
+            </li>
+          </ul>
+        </section>
 
-          <h2 className={H2_CLASSES}>Key Contributions</h2>
-          <p className={PARAGRAPH_CLASSES}>
-            CMMI&rsquo;s contributions to the fields of software engineering, systems engineering,
-            and organizational process improvement are extensive and enduring:
-          </p>
-          <p className={PARAGRAPH_CLASSES}>
-            <strong>Unified Multi-Discipline Framework:</strong> By integrating SW-CMM, SE-CMM,
-            IPD-CMM, and SA-CMM into a single coherent framework, CMMI dramatically reduced the
-            complexity and overhead of process improvement for organizations operating across
-            multiple engineering disciplines. Organizations could now pursue a single appraisal and
-            improvement program rather than managing multiple disconnected initiatives.
-          </p>
-          <p className={PARAGRAPH_CLASSES}>
-            <strong>Clear Process Improvement Roadmap:</strong> The five-level staged maturity model
-            provides organizations with a clear, sequenced roadmap for process improvement. Each
-            maturity level builds on the previous, ensuring that foundational practices are
-            established before more advanced capabilities are pursued. This structure reduces the
-            risk of organizations pursuing sophisticated practices before they have the basic
-            disciplines in place to sustain them.
-          </p>
-          <p className={PARAGRAPH_CLASSES}>
-            <strong>Explicit Process Area Structure:</strong> The articulation of 22 process areas
-            with specific goals, specific practices, generic goals, and generic practices provides
-            organizations with actionable guidance. Rather than offering vague improvement
-            principles, CMMI specifies the practices that organizations should implement and the
-            outcomes they should achieve, reducing ambiguity and enabling more consistent
-            implementation.
-          </p>
-          <p className={PARAGRAPH_CLASSES}>
-            <strong>Credible Appraisal Methodology:</strong> The SCAMPI appraisal method enables
-            consistent, comparable assessments across organizations. This comparability is essential
-            for procurement decisions, benchmarking, and communicating process capability to
-            customers. The certification requirements for Lead Appraisers further ensure the quality
-            and consistency of appraisal results.
-          </p>
-          <p className={PARAGRAPH_CLASSES}>
-            <strong>Dual Representation Flexibility:</strong> The availability of both staged and
-            continuous representations accommodates diverse organizational improvement strategies.
-            Organizations can choose the representation that best aligns with their goals-using the
-            staged representation for clear benchmark communication or the continuous representation
-            for targeted process area improvements.
-          </p>
-          <p className={PARAGRAPH_CLASSES}>
-            <strong>Support for Risk Management and Quality Improvement:</strong> By providing
-            specific process areas for Risk Management, Verification, Validation, and Causal
-            Analysis and Resolution, CMMI directly addresses the practices most closely associated
-            with reducing defects, managing uncertainty, and improving cost and schedule
-            predictability. Organizations implementing these process areas demonstrate measurable
-            improvements in product quality and delivery performance.
-          </p>
-
-          <h2 className={H2_CLASSES}>Weaknesses</h2>
-          <p className={PARAGRAPH_CLASSES}>
-            Despite its significant contributions, CMMI is not without limitations that
-            practitioners and researchers have identified over years of implementation experience:
-          </p>
-          <p className={PARAGRAPH_CLASSES}>
-            <strong>Implementation Overhead:</strong> Achieving and sustaining CMMI maturity ratings
-            requires significant organizational investment in training, process documentation,
-            measurement infrastructure, and appraisal preparation. For resource-constrained
-            organizations, particularly small businesses, the overhead of full CMMI implementation
-            can be prohibitive relative to the expected benefits.
-          </p>
-          <p className={PARAGRAPH_CLASSES}>
-            <strong>Process vs. Outcome Focus:</strong> Critics argue that CMMI&rsquo;s emphasis on
-            process documentation and compliance can, in practice, lead organizations to focus on
-            the appearance of process adherence rather than genuine process improvement. When
-            organizations implement CMMI primarily to pass appraisals rather than to improve
-            outcomes, the framework&rsquo;s benefits are substantially diminished.
-          </p>
-          <p className={PARAGRAPH_CLASSES}>
-            <strong>Cost of SCAMPI Appraisals:</strong> Formal SCAMPI appraisals are expensive,
-            requiring certified Lead Appraisers, multi-day on-site assessments, and extensive
-            evidence preparation. These costs can be a barrier for smaller organizations seeking to
-            achieve recognized maturity ratings, potentially limiting CMMI&rsquo;s accessibility
-            across the full range of organizational sizes.
-          </p>
-          <p className={PARAGRAPH_CLASSES}>
-            <strong>Context-Specific Applicability:</strong> Some CMMI process areas are better
-            suited to large programs with complex supplier networks and multi-year development
-            cycles. Smaller projects, startups, or organizations with short development cycles may
-            find that the full weight of CMMI practices exceeds what is proportionate to their scale
-            and risk profile.
-          </p>
-          <p className={PARAGRAPH_CLASSES}>
-            <strong>Limited Integration with Agile:</strong> The traditional CMMI framework was
-            designed for plan-driven development and can appear to conflict with agile development
-            approaches that prioritize flexibility, continuous delivery, and minimal documentation.
-            While CMMI+Agile guidance has been developed to address this tension, reconciling the
-            two approaches remains a challenge for many organizations.
-          </p>
-          <p className={PARAGRAPH_CLASSES}>
-            <strong>Maintenance Cost in Rapidly Changing Environments:</strong> Keeping process
-            documentation current in environments where technologies, platforms, and development
-            practices evolve rapidly is challenging. Organizations in fast-moving technology sectors
-            may find that CMMI&rsquo;s documentation requirements create friction in adapting their
-            processes to new technological paradigms.
-          </p>
-
+        {/* 12. Relevance to Technology Adoption */}
+        <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Relevance to Technology Adoption</h2>
           <p className={PARAGRAPH_CLASSES}>
-            CMMI has direct and substantial relevance to technology adoption in organizations. The
-            framework addresses the organizational process maturity that is foundational to
-            successful technology implementation. Organizations at lower maturity levels frequently
-            struggle with technology adoption because they lack the disciplined processes needed to
-            manage requirements, plan implementations, control change, measure outcomes, and sustain
-            improvements over time.
-          </p>
-          <p className={PARAGRAPH_CLASSES}>
-            <strong>Requirements Management and Technology Definition:</strong> CMMI Level 2
-            includes a Requirements Management process area that directly supports technology
-            adoption by helping organizations systematically define, document, and manage technology
-            requirements before committing to implementation. Organizations that skip rigorous
-            requirements management frequently find that adopted technologies do not meet
-            operational needs, leading to costly rework or failed adoptions.
-          </p>
-          <p className={PARAGRAPH_CLASSES}>
-            <strong>Standardized Processes and Reduced Variability:</strong> CMMI Level 3 process
-            areas-particularly Organizational Process Definition and Organizational Process
-            Focus-help organizations establish standardized implementation processes that reduce
-            variability across projects and teams. When technology adoption is governed by
-            well-defined, tailored organizational processes rather than ad hoc approaches, the
-            likelihood of consistent, successful outcomes increases substantially.
-          </p>
-          <p className={PARAGRAPH_CLASSES}>
-            <strong>Supplier Agreement Management:</strong> One of CMMI&rsquo;s Level 2 process
-            areas directly addresses technology vendor management-one of the most challenging
-            aspects of technology adoption. Formal supplier agreements, defined monitoring
-            practices, and structured acceptance criteria help organizations manage technology
-            vendors effectively and reduce adoption risks associated with supplier performance.
-          </p>
-          <p className={PARAGRAPH_CLASSES}>
-            <strong>Risk Management:</strong> The Risk Management process area (Level 3) provides a
-            systematic approach to identifying, analyzing, and mitigating technology adoption risks.
-            Organizations that apply risk management disciplines to technology adoption programs are
-            better positioned to identify and address barriers-technical, organizational, financial,
-            and cultural-before they derail implementation.
-          </p>
-          <p className={PARAGRAPH_CLASSES}>
-            <strong>Measurement and Analysis:</strong> The Measurement and Analysis process area
-            enables data-driven evaluation of technology adoption success by establishing
-            measurement objectives, defining metrics, and analyzing collected data. Organizations
-            that apply these practices to technology adoption programs can objectively assess
-            whether adopted technologies are delivering the expected benefits and identify areas
-            requiring improvement.
-          </p>
-          <p className={PARAGRAPH_CLASSES}>
-            <strong>Verification and Validation:</strong> The Verification and Validation process
-            areas ensure that adopted technologies meet their specified requirements before
-            full-scale deployment. By systematically verifying that technologies are built correctly
-            and validating that they meet operational needs, organizations reduce the risk of
-            deploying technologies that fail to perform as expected in production environments.
-          </p>
-          <p className={PARAGRAPH_CLASSES}>
-            Research and practitioner experience consistently indicate that organizations at higher
-            CMMI maturity levels demonstrate more successful technology adoption outcomes. The
-            process discipline, continuous improvement culture, and organizational learning
-            infrastructure associated with higher maturity levels provide a stable foundation for
-            managing the complexity and change inherent in significant technology adoption programs.
-            In this respect, CMMI serves not only as a process improvement framework but as an
-            organizational readiness model for successful technology adoption.
-          </p>
-          <p className={PARAGRAPH_CLASSES}>
-            <em>
-              Note: This article provides an overview based on the comprehensive literature review.
-              Readers are encouraged to consult the original publication for complete details.
-            </em>
+            CMMI addresses technology adoption by establishing that technology decisions should
+            support organizational process improvement and capability development. CMMI requires
+            organizations to assess technology against organizational process maturity needs,
+            evaluate technologies against process area requirements, and adopt technologies enabling
+            process improvement. This enables process-aligned technology adoption that strengthens
+            organizational capability rather than ad-hoc technology acquisitions.
           </p>
 
-          <h2 className={REFERENCES_H2_CLASSES}>References</h2>
+          <h3 className={H3_CLASSES}>Barriers to Process-Aligned Technology Adoption Identified</h3>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Lack of process maturity:</strong> Organizations without mature processes
+              struggle to adopt technologies effectively. Immature organizations lack foundation for
+              technology utilization.
+            </li>
+            <li>
+              <strong>Technology-first focus:</strong> Organizations emphasize technology solutions
+              without understanding process implications. Technology focus without process context
+              leads to failed implementations.
+            </li>
+            <li>
+              <strong>Inadequate change management:</strong> Technology adoption without change
+              management support fails to achieve benefits. Change management gaps reduce adoption
+              success.
+            </li>
+            <li>
+              <strong>Skill gaps:</strong> Workforce may lack skills to effectively use adopted
+              technologies. Skill gaps prevent technology value realization.
+            </li>
+            <li>
+              <strong>Process resistance:</strong> Existing processes may resist change induced by
+              new technologies. Process-technology misalignment creates organizational friction.
+            </li>
+            <li>
+              <strong>Cost and resource constraints:</strong> Process improvement and technology
+              adoption require sustained investment. Resource constraints limit improvement
+              initiatives.
+            </li>
+            <li>
+              <strong>Measurement and metrics inadequacy:</strong> Organizations unable to measure
+              technology impact on process performance. Measurement gaps prevent assessment of
+              technology value.
+            </li>
+          </ul>
+
+          <h3 className={H3_CLASSES}>Leadership Actions the Framework Prescribes</h3>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Assess current process maturity:</strong> Conduct CMMI-based assessment to
+              understand current organizational maturity. Assessment establishes baseline for
+              improvement.
+            </li>
+            <li>
+              <strong>Establish process improvement strategy:</strong> Develop strategy for process
+              maturity progression aligned with business objectives. Strategy guides technology
+              adoption decisions.
+            </li>
+            <li>
+              <strong>Define process standards:</strong> Develop organizational process standards
+              and process improvement strategy. Standards enable consistent process implementation.
+            </li>
+            <li>
+              <strong>Align technology adoption with process needs:</strong> Evaluate technologies
+              against process improvement requirements. Process alignment ensures technology
+              supports organizational goals.
+            </li>
+            <li>
+              <strong>Plan change management:</strong> Develop comprehensive change management
+              supporting technology adoption and process change. Change management increases
+              adoption success.
+            </li>
+            <li>
+              <strong>Develop workforce capability:</strong> Provide training and capability
+              development supporting process improvement and technology adoption. Workforce
+              development enables effective technology utilization.
+            </li>
+            <li>
+              <strong>Establish measurement infrastructure:</strong> Implement metrics and
+              measurement systems enabling process performance monitoring. Measurement enables
+              data-driven improvement.
+            </li>
+            <li>
+              <strong>Monitor and continuously improve:</strong> Track technology implementation
+              outcomes against process improvement objectives. Continuous monitoring enables process
+              refinement.
+            </li>
+          </ul>
+        </section>
+
+        {/* 13. Following Models or Theories */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Following Models or Theories</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            CMMI has evolved through multiple versions and is commonly discussed alongside related
+            process-improvement frameworks. The specific successor constellations (CMMI-DEV,
+            CMMI-ACQ, CMMI-SVC) and adjacent frameworks (COBIT, ITIL, ISO/IEC 15504, Lean, Agile,
+            DevOps) listed below are drawn from secondary sources rather than the Chrissis et al.
+            TOC itself; TOC-limited, full book unavailable:
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>CMMI Evolution (2002-present):</strong> CMMI evolved from version 1.1 (2002)
+              through 1.3 (2010) with ongoing updates and enhancements. Evolution reflects growing
+              maturity of model and incorporation of lessons learned.
+            </li>
+            <li>
+              <strong>COBIT (Control Objectives for Information and Related Technology):</strong> IT
+              governance framework incorporating CMMI maturity concepts. COBIT applies maturity
+              framework to IT governance and control.
+            </li>
+            <li>
+              <strong>ITIL (Information Technology Infrastructure Library):</strong> IT service
+              management framework. ITIL incorporates continuous improvement philosophy and process
+              maturity concepts.
+            </li>
+            <li>
+              <strong>ISO/IEC 15504 (Software Process Assessment):</strong> International standard
+              for software process assessment based on CMMI concepts. Standard provides
+              international process assessment framework.
+            </li>
+            <li>
+              <strong>Lean Software Development:</strong> Lean manufacturing principles applied to
+              software development. Lean approach provides alternative to CMMI&rsquo;s heavy-weight
+              process focus.
+            </li>
+            <li>
+              <strong>Agile Process Improvement:</strong> Integration of CMMI concepts with agile
+              development methods. Agile approach provides lightweight process improvement.
+            </li>
+            <li>
+              <strong>DevOps and Continuous Improvement:</strong> DevOps practices incorporating
+              CMMI process improvement principles. DevOps enables continuous delivery with process
+              discipline.
+            </li>
+          </ul>
+        </section>
+
+        {/* 14. References */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>References</h2>
           <ol className={REFERENCES_OL_CLASSES}>
-            <li>
-              Chrissis, M. B., Konrad, M., &amp; Shrum, S. (2005).{' '}
-              <em>CMMI: Guidelines for process integration and product improvement.</em>{' '}
+            <li id="ref-chrissis-2005">
+              Chrissis, M. B., Konrad, M. D., &amp; Shrum, S. (2005).{' '}
+              <em>CMMI: Guidelines for process integration and product improvement</em>.
               Addison-Wesley Professional.
-            </li>
-            <li>
-              Paulk, M. C., Weber, C. V., Curtis, B., &amp; Chrissis, M. B. (1993).{' '}
-              <em>Capability maturity model for software, Version 1.1.</em> Carnegie Mellon
-              University Software Engineering Institute.{' '}
-              <a
-                href="https://www.sei.cmu.edu/library/asset-view.cfm?assetid=11955"
-                className="text-blue-600 hover:text-blue-800 underline break-words"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                https://www.sei.cmu.edu/library/asset-view.cfm?assetid=11955
-              </a>
-            </li>
-            <li>
-              Humphrey, W. S. (1989). <em>Managing the software process.</em> Addison-Wesley.
-            </li>
-            <li>
-              CMMI Product Team. (2010). <em>CMMI for development, Version 1.3.</em> Carnegie Mellon
-              University Software Engineering Institute.
-            </li>
-            <li>
-              Chrissis, M. B., Konrad, M., &amp; Shrum, S. (2011).{' '}
-              <em>
-                CMMI for development: Guidelines for process integration and product improvement
-                (3rd ed.)
-              </em>
-              . Addison-Wesley Professional.
-            </li>
-            <li>
-              Curtis, B., Hefley, W. E., &amp; Miller, S. A. (2009).{' '}
-              <em>People capability maturity model (P-CMM) version 2.0.</em> Carnegie Mellon
-              University Software Engineering Institute.
             </li>
           </ol>
         </section>
 
-        <section className="mt-12 pt-6 border-t border-gray-200">
-          <Link
-            href="/article-bibliography-comprehensive-series-bibliography"
-            className="text-blue-600 hover:text-blue-800 underline"
-          >
-            ← Back to Complete Bibliography
-          </Link>
+        {/* 15. Further Reading */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Further Reading</h2>
+          <ol className={REFERENCES_OL_CLASSES}>
+            <li id="ref-software-2010a">
+              Software Engineering Institute. (2010). <em>CMMI for development, version 1.3</em>.
+              Carnegie Mellon University.
+            </li>
+            <li id="ref-paulk-1993">
+              Paulk, M. C., Curtis, B., Chrissis, M. B., &amp; Weber, C. V. (1993). Capability
+              Maturity Model for software, version 1.1.{' '}
+              <em>Software Engineering Institute Technical Report CMU/SEI-93-TR-024</em>.
+            </li>
+            <li id="ref-paulk-1995">
+              Paulk, M. C., Weber, C. V., Garcia, S. M., Chrissis, M. B., &amp; Bush, M. (1995). Key
+              practices of the Capability Maturity Model, version 1.1.{' '}
+              <em>Software Engineering Institute Technical Report CMU/SEI-93-TR-025</em>.
+            </li>
+            <li id="ref-humphrey-1989">
+              Humphrey, W. S. (1989). <em>Managing the software process</em>. Addison-Wesley.
+            </li>
+            <li id="ref-forrester-2007">
+              Forrester, E., Buteau, B., &amp; Shrum, S. (2007). <em>CMMI and six sigma</em>.
+              Addison-Wesley Professional.
+            </li>
+            <li id="ref-software-2010b">
+              Software Engineering Institute. (2010). <em>CMMI for services, version 1.3</em>.
+              Carnegie Mellon University.
+            </li>
+            <li id="ref-higuera-1992">
+              Higuera, R. P., &amp; Hamill, L. Y. (1992).{' '}
+              <em>Software process improvement at Hughes Aircraft</em>. IEEE Software, 9(4), 18-23.
+            </li>
+            <li id="ref-florac-2000">
+              Florac, W. A., Carleton, A. D., &amp; Barnard, J. R. (2000).{' '}
+              <em>Statistical process control: Why, when, how</em>. CrossTalk, 13(5), 2-8.
+            </li>
+            <li id="ref-bamford-1993">
+              Bamford, R. C., &amp; Deibler, W. J. (1993). Road to quality. <em>IEEE Software</em>,
+              10(6), 75-79.
+            </li>
+            <li id="ref-chrissis-2010">
+              Chrissis, M. B., Konrad, M., &amp; Shrum, S. (2010).{' '}
+              <em>CMMI for Development, 3rd Edition (v1.3)</em>.
+            </li>
+          </ol>
+        </section>
+
+        {/* 16. Series Navigation */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>Series Navigation</h2>
+          <div className="space-y-4">
+            <p className={PARAGRAPH_CLASSES}>
+              <Link
+                href="/bibliography-2-13-dodaf-dod-2003"
+                className="text-blue-600 hover:text-blue-800 underline"
+              >
+                &larr; Previous: DoDAF - US Department of Defense (2003)
+              </Link>
+            </p>
+            <p className={PARAGRAPH_CLASSES}>
+              <Link
+                href="/bibliography-2-15-it-cmf-innovation-value-institute-2016"
+                className="text-blue-600 hover:text-blue-800 underline"
+              >
+                Next: IT-CMF - Innovation Value Institute (2016) &rarr;
+              </Link>
+            </p>
+            <p className={`${PARAGRAPH_CLASSES} mt-6`}>
+              <Link
+                href="/article-bibliography-comprehensive-series-bibliography"
+                className="text-blue-600 hover:text-blue-800 underline"
+              >
+                Back to Complete Bibliography
+              </Link>
+            </p>
+          </div>
         </section>
       </article>
     </main>
   )
 }
 
-export default CMMIPage
+export default BibliographyArticlePage
