@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import { axe, toHaveNoViolations } from 'jest-axe'
 import LiveResults from '../../../src/components/tabs-page/live-results'
+import dispositionData from '../../../src/data/disposition-summary.json'
 import sensitivityData from '../../../src/data/sensitivity-analysis.json'
 
 // Extend Jest matchers
@@ -14,11 +15,12 @@ describe('LiveResults component', () => {
     expect(screen.getByText('Live Results: Top Barriers')).toBeInTheDocument()
   })
 
-  it('should display the participant count', () => {
+  it('should display the survey-completion count from the same source as the homepage Statistics callout', () => {
     render(<LiveResults />)
-    const totalN = sensitivityData.top3_pick_counts.total_n
+    const totalN = dispositionData.completionProgress.approved
     const formattedTotalN = totalN.toLocaleString()
-    expect(screen.getByText(new RegExp(formattedTotalN))).toBeInTheDocument()
+    // Exact string match — avoids false positives from locale metacharacters (e.g. "." thousands separator).
+    expect(screen.getByText(`${formattedTotalN} Surveys Completed`)).toBeInTheDocument()
   })
 
   it('should display exactly 3 barriers', () => {
@@ -68,8 +70,12 @@ describe('LiveResults component', () => {
   it('should display explanatory text about the results', () => {
     render(<LiveResults />)
 
+    // "Surveys Completed" counter is a separate status line, not part of the top-3 intro
+    expect(screen.getByText(/surveys completed/i)).toBeInTheDocument()
+    // Top-3 intro is a standalone sentence with no N reference (avoids implying the
+    // card percentages use the same denominator as the completion counter)
     expect(
-      screen.getByText(/most commonly identified technology adoption barriers/i)
+      screen.getByText(/here are the most commonly identified technology adoption barriers/i)
     ).toBeInTheDocument()
     expect(
       screen.getByText(/Explore detailed analysis, cross-tabulations, and statistical findings/i)
