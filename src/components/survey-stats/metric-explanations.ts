@@ -152,7 +152,7 @@ export const METRIC_META = {
     label: 'CLEAN',
     source: 'pipeline',
     explanation:
-      'Passed every quality check: all 3 attention checks, no straightlining, duration above threshold, reCAPTCHA fine. Auto-approved on Prolific and included in the primary analysis sample.',
+      'Passed every quality check: all 3 attention checks, no straightlining, duration above threshold, reCAPTCHA fine. Indicates a response is eligible for the standard approval path when submitted and included in the primary analysis sample.',
   },
   dispositionFlagSmeal: {
     label: 'FLAG-SMEAL',
@@ -188,7 +188,7 @@ export const METRIC_META = {
     label: 'AUTO-EXCLUDE',
     source: 'pipeline',
     explanation:
-      'Failed multiple quality gates (typically 2 or 3 attention checks, often with speed). Removed from the analysis dataset and the participant is rejected on Prolific.',
+      'Failed multiple quality gates (typically 2 or 3 attention checks, often with speed). Removed from the analysis dataset; Prolific outcome may vary and is often reviewed separately.',
   },
   dispositionIncomplete: {
     label: 'INCOMPLETE',
