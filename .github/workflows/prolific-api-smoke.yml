@@ -1,0 +1,107 @@
+name: Prolific API Smoke Test
+
+# Verifies that the Prolific API is reachable and the configured token is valid.
+# Mirrors qualtrics-api-smoke.yml - run this before changes to prolific_tools.py
+# or scripts/analysis/tabs_api.py to confirm the API contract has not changed.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  prolific-smoke:
+    name: Prolific API smoke
+    runs-on: ubuntu-latest
+    environment: prolific-prod
+
+    steps:
+      - name: Validate configuration
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [[ -z "${PROLIFIC_API_TOKEN:-}" ]]; then
+            echo "::error::Missing secret TABS_PROLIFIC_TOKEN in environment prolific-prod"
+            exit 1
+          fi
+
+          echo "Prolific API token is configured."
+        env:
+          PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
+
+      - name: Verify authenticated user (connectivity check)
+        id: whoami
+        shell: bash
+        run: |
+          set -euo pipefail
+          url="https://api.prolific.com/api/v1/users/me/"
+
+          http_code=$(curl -fsSL -o me.json -w "%{http_code}" \
+            -H "Authorization: Token ${PROLIFIC_API_TOKEN}" \
+            -H "Accept: application/json" \
+            "$url" || echo "000")
+
+          if [[ "$http_code" -lt 200 || "$http_code" -ge 300 ]]; then
+            echo "::error::Request failed (HTTP $http_code): $url"
+            head -c 2000 me.json || true
+            exit 1
+          fi
+
+          echo "::group::Authenticated user (non-sensitive fields)"
+          jq '{id, name, email: (.email // "<redacted>"), roles, datetime_created}' me.json 2>/dev/null \
+            || jq '{id, roles}' me.json 2>/dev/null \
+            || echo "(response does not contain expected fields)"
+          echo "::endgroup::"
+
+          echo "USER_ID=$(jq -r '.id // empty' me.json)" >> "$GITHUB_ENV"
+        env:
+          PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
+
+      - name: List studies (read-only check)
+        id: studies
+        shell: bash
+        run: |
+          set -euo pipefail
+          url="https://api.prolific.com/api/v1/studies/?limit=5"
+
+          http_code=$(curl -fsSL -o studies.json -w "%{http_code}" \
+            -H "Authorization: Token ${PROLIFIC_API_TOKEN}" \
+            -H "Accept: application/json" \
+            "$url" || echo "000")
+
+          if [[ "$http_code" -lt 200 || "$http_code" -ge 300 ]]; then
+            echo "::error::Request failed (HTTP $http_code): $url"
+            head -c 2000 studies.json || true
+            exit 1
+          fi
+
+          COUNT=$(jq '.results | length' studies.json 2>/dev/null || echo "unknown")
+          TOTAL=$(jq '.count // "unknown"' studies.json 2>/dev/null || echo "unknown")
+
+          echo "::group::Study list summary (first 5 of $TOTAL)"
+          jq '.results[0:5] | map({id, name: (.internal_name // .name // "<unnamed>"), status})' studies.json \
+            2>/dev/null || echo "(could not parse study list)"
+          echo "::endgroup::"
+
+          echo "STUDY_COUNT=$COUNT" >> "$GITHUB_ENV"
+          echo "TOTAL_STUDIES=$TOTAL" >> "$GITHUB_ENV"
+        env:
+          PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
+
+      - name: Write step summary
+        if: always()
+        shell: bash
+        run: |
+          {
+            echo "### Prolific API Smoke Test"
+            echo ""
+            echo "| Check | Result |"
+            echo "|-------|--------|"
+            echo "| Auth (users/me) | $([[ "${USER_ID:-}" != "" ]] && echo "✅ OK" || echo "❌ Failed") |"
+            echo "| Studies list | $([[ "${STUDY_COUNT:-}" != "" ]] && echo "✅ $STUDY_COUNT returned (of ${TOTAL_STUDIES:-?} total)" || echo "❌ Failed") |"
+          } >> "$GITHUB_STEP_SUMMARY"
