@@ -296,9 +296,9 @@ const QualtricsIntegrationPage = () => {
             The Qualtrics integration feeds live data to the website. The daily metrics workflow
             queries the Qualtrics API for response counts and question metadata, then writes the
             results to <code>src/data/qualtrics-metrics.json</code>. The Response Funnel page (
-            <a className="underline" href="/results/survey-stats">
+            <Link className="underline" href="/results/survey-stats">
               /results/survey-stats
-            </a>
+            </Link>
             ) reads this file to surface every Qualtrics-reported count alongside the Prolific and
             pipeline-level numbers.
           </p>

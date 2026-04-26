@@ -829,7 +829,6 @@ src/
 │   ├── personas.ts                            # Role-based persona utilities
 │   ├── prolific-api.ts                        # Prolific API client
 │   ├── qualtrics-api.ts                       # Qualtrics API client
-│   ├── qualtricsStats.ts                      # Qualtrics statistics utilities
 │   ├── release-notes.ts                       # Release notes utilities
 │   ├── simple-markdown.tsx                    # Markdown rendering utility
 │   ├── slugify.ts                             # URL slug generation
