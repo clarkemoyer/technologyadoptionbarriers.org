@@ -55,7 +55,11 @@ jobs:
   aggregate:
     name: Aggregate result
     needs: [qualtrics, prolific, ga, gsc, zotero]
-    if: always()
+    if: >-
+      always() && (
+        github.event_name == 'workflow_dispatch' ||
+        github.event.workflow_run.conclusion == 'success'
+      )
     runs-on: ubuntu-latest
     steps:
       - name: Summarize per-API results

@@ -41,10 +41,10 @@ jobs:
 
           if [[ "$http_code" -lt 200 || "$http_code" -ge 300 ]]; then
             echo "::error::Prolific API returned HTTP $http_code"
-            head -c 4000 me.json || true
+            echo "Request failed; response body suppressed to avoid exposing sensitive data in workflow logs."
             exit 1
           fi
 
           echo "::group::Authenticated user"
-          jq '{id, email, name, currency_code, datetime_created}' me.json
+          jq '{id}' me.json
           echo "::endgroup::"
