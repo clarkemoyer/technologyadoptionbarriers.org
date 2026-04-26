@@ -3,6 +3,11 @@ name: Google Search Console API Smoke Test
 on:
   workflow_dispatch:
   workflow_call:
+    inputs:
+      ref:
+        description: 'Git ref to checkout (default: default branch HEAD)'
+        required: false
+        type: string
 
 permissions:
   contents: read
@@ -22,6 +27,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
+        with:
+          ref: ${{ inputs.ref || github.sha }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v6
@@ -30,7 +37,7 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm ci --ignore-scripts
+        run: npm ci --omit=dev --ignore-scripts
 
       - name: Validate configuration
         shell: bash
@@ -60,7 +67,7 @@ jobs:
             const sc = google.searchconsole({ version: 'v1', auth });
             const today = new Date();
             const end = today.toISOString().slice(0, 10);
-            const startDate = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000)
+            const startDate = new Date(today.getTime() - 6 * 24 * 60 * 60 * 1000)
               .toISOString().slice(0, 10);
             const res = await sc.searchanalytics.query({
               siteUrl: process.env.GSC_SITE_URL,

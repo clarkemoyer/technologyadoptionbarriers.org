@@ -45,6 +45,4 @@ jobs:
             exit 1
           fi
 
-          echo "::group::Authenticated user"
-          jq '{id}' me.json
-          echo "::endgroup::"
+          echo "Prolific API connectivity check succeeded."

@@ -3,6 +3,11 @@ name: Google Analytics API Smoke Test
 on:
   workflow_dispatch:
   workflow_call:
+    inputs:
+      ref:
+        description: 'Git ref to checkout (default: default branch HEAD)'
+        required: false
+        type: string
 
 permissions:
   contents: read
@@ -22,6 +27,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
+        with:
+          ref: ${{ inputs.ref || github.sha }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v6
@@ -30,7 +37,7 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm ci --ignore-scripts
+        run: npm ci --omit=dev --ignore-scripts
 
       - name: Validate configuration
         shell: bash
@@ -62,7 +69,7 @@ jobs:
               : 'properties/' + process.env.GA_PROPERTY_ID;
             const [response] = await client.runReport({
               property,
-              dateRanges: [{ startDate: '1daysAgo', endDate: 'today' }],
+              dateRanges: [{ startDate: '1daysAgo', endDate: '1daysAgo' }],
               metrics: [{ name: 'activeUsers' }],
             });
             const total = response.rows?.[0]?.metricValues?.[0]?.value ?? '0';
