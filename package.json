@@ -77,9 +77,14 @@
   },
   "overrides": {
     "tmp": "^0.2.5",
-    "uuid": "^14.0.0",
+    "exceljs": {
+      "uuid": "^14.0.0"
+    },
+    "@lhci/cli": {
+      "uuid": "^14.0.0"
+    },
     "next": {
-      "postcss": "$postcss"
+      "postcss": "8.5.12"
     }
   }
 }
