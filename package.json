@@ -84,7 +84,7 @@
       "uuid": "^14.0.0"
     },
     "next": {
-      "postcss": "8.5.12"
+      "postcss": "$postcss"
     }
   }
 }
