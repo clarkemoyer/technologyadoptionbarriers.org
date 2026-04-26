@@ -125,7 +125,7 @@ The site's content architecture follows a hub-and-spoke model with three primary
 ```
 Homepage (/)
 ├── Barriers Hub (/barriers)
-│   └── Survey Stats (/barriers/survey-stats)
+│   └── Response Funnel (/results/survey-stats; legacy: /barriers/survey-stats)
 ├── Article Series Pillar
 │   ├── Branch 1: Individual Adoption Models
 │   │   ├── Branch Introduction (/article-1-branch-introduction-*)

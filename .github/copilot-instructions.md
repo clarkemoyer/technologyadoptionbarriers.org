@@ -222,7 +222,8 @@ src/
 │   ├── barriers.ts                            # Barriers data
 │   ├── impact.json                            # Impact metrics
 │   ├── persona-navigation.ts                  # Role-based navigation
-│   ├── qualtrics-metrics.json                 # Survey metrics
+│   ├── qualtrics-metrics.json                 # Qualtrics raw response counts (Response Funnel)
+│   ├── disposition-summary.json               # Prolific funnel + disposition triage (homepage + Response Funnel)
 │   ├── technology-adoption-models-series.ts   # Article series data
 │   ├── technology-adoption-teaching-series.ts # Teaching series data
 │   └── visual-gallery.ts                      # Visual gallery data

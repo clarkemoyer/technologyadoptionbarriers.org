@@ -772,7 +772,7 @@
     "url": "/making-of-tabs/ai-validity-checks/gemini-3-1-review/methodology",
     "title": "Methodology: Gemini 3.1 Review - Making of TABS",
     "description": "The methodology used by Gemini 3.1 Pro to audit the TABS content.",
-    "content": "Methodology: Gemini 3.1 Review - Making of TABS. The methodology used by Gemini 3.1 Pro to audit the TABS content. Methodology: Gemini Review To ensure thorough and unbiased audit, Gemini Pro employed systematic methodology to extract, analyze, and verify the content across the TABS repository. 1. Content Extraction The first phase involved reading the core content files directly from the source code. This included: Article Pages: Extracting the text from all src/app/article-* directories, covering both Branch Individual User Journey and Branch Organization Playbook Data Files: Analyzing src/data/barriers.ts impact.json and qualtrics-metrics.json to ensure data integrity. Bibliographies: Reviewing the comprehensive series bibliography and individual article citations. 2. Verification via P...",
+    "content": "Methodology: Gemini 3.1 Review - Making of TABS. The methodology used by Gemini 3.1 Pro to audit the TABS content. Methodology: Gemini Review To ensure thorough and unbiased audit, Gemini Pro employed systematic methodology to extract, analyze, and verify the content across the TABS repository. 1. Content Extraction The first phase involved reading the core content files directly from the source code. This included: Article Pages: Extracting the text from all src/app/article-* directories, covering both Branch Individual User Journey and Branch Organization Playbook Data Files: Analyzing src/data/barriers.ts impact.json qualtrics-metrics.json and disposition-summary.json to ensure data integrity. Bibliographies: Reviewing the comprehensive series bibliography and individual article citatio...",
     "category": "Making of TABS"
   },
   {
@@ -1170,9 +1170,9 @@
   {
     "id": "results-survey-stats",
     "url": "/results/survey-stats",
-    "title": "Survey Statistics - TABS Results",
-    "description": "Live survey metrics and response data from the Technology Adoption Barriers Survey (TABS), pulled from Qualtrics via GitHub Actions.",
-    "content": "Survey Statistics - TABS Results. Live survey metrics and response data from the Technology Adoption Barriers Survey (TABS), pulled from Qualtrics via GitHub Actions. Survey Statistics Live metrics pulled from Qualtrics via GitHub Actions.",
+    "title": "Response Funnel - TABS Results",
+    "description": "Every count the TABS daily pipeline tracks - Qualtrics raw responses, Prolific submissions, disposition triage, attention-check pass rates - with the API source and an explanation for each number.",
+    "content": "Response Funnel - TABS Results. Every count the TABS daily pipeline tracks - Qualtrics raw responses, Prolific submissions, disposition triage, attention-check pass rates - with the API source and an explanation for each number. Response Funnel From raw Qualtrics submissions to the final analysis dataset every step, every count.",
     "category": "Results"
   },
   {

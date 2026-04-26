@@ -50,7 +50,7 @@ export const resultsSeries: ResultsSeriesItem[] = [
   },
   { title: 'Dashboard', href: '/results/dashboard' },
   { title: 'Dataset Comparison', href: '/results/dataset-comparison' },
-  { title: 'Survey Statistics', href: '/results/survey-stats' },
+  { title: 'Response Funnel', href: '/results/survey-stats' },
 ]
 
 /** Flat ordered list for prev/next navigation (excludes group-only nodes) */

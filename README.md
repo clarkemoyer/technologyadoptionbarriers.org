@@ -72,7 +72,7 @@ The TABS website includes **40+ pages** organized across multiple content areas:
 - **Homepage** (`/`) - Main landing page with hero, mission, programs overview, FAQ, and team sections
 - **Get Involved** (`/get-involved`) - Participation opportunities (survey, donate, volunteer, sponsor)
 - **Barriers** (`/barriers`) - Comprehensive barriers documentation
-  - **Survey Stats** (`/barriers/survey-stats`) - Survey statistics and insights
+  - **Response Funnel** (`/results/survey-stats`, also reachable as `/barriers/survey-stats`) - Every count the daily pipeline tracks (Qualtrics raw, Prolific funnel, disposition triage) with API source for each metric
 - **Technology Adoption Models** (`/technology-adoption-models`) - Academic frameworks and models
 
 ### Article Series (17 routes)
@@ -814,7 +814,8 @@ src/
 │   ├── barriers.ts                            # Barriers data
 │   ├── impact.json                            # Impact metrics
 │   ├── persona-navigation.ts                  # Role-based navigation
-│   ├── qualtrics-metrics.json                 # Survey metrics
+│   ├── qualtrics-metrics.json                 # Qualtrics raw response counts (Response Funnel)
+│   ├── disposition-summary.json               # Prolific funnel + disposition triage (homepage + Response Funnel)
 │   ├── technology-adoption-models-series.ts   # Article series data
 │   ├── technology-adoption-teaching-series.ts # Teaching series data
 │   └── visual-gallery.ts                      # Visual gallery data
