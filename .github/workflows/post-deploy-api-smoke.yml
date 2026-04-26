@@ -18,6 +18,7 @@ jobs:
       github.event_name == 'workflow_dispatch' ||
       github.event.workflow_run.conclusion == 'success'
     uses: ./.github/workflows/qualtrics-api-smoke.yml
+    secrets: inherit
 
   prolific:
     name: Prolific smoke
@@ -25,6 +26,7 @@ jobs:
       github.event_name == 'workflow_dispatch' ||
       github.event.workflow_run.conclusion == 'success'
     uses: ./.github/workflows/prolific-api-smoke.yml
+    secrets: inherit
 
   ga:
     name: Google Analytics smoke
@@ -33,7 +35,8 @@ jobs:
       github.event.workflow_run.conclusion == 'success'
     uses: ./.github/workflows/ga-api-smoke.yml
     with:
-      ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+      ref: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || github.sha }}
+    secrets: inherit
 
   gsc:
     name: Google Search Console smoke
@@ -42,7 +45,8 @@ jobs:
       github.event.workflow_run.conclusion == 'success'
     uses: ./.github/workflows/gsc-api-smoke.yml
     with:
-      ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+      ref: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || github.sha }}
+    secrets: inherit
 
   zotero:
     name: Zotero smoke
@@ -50,6 +54,7 @@ jobs:
       github.event_name == 'workflow_dispatch' ||
       github.event.workflow_run.conclusion == 'success'
     uses: ./.github/workflows/zotero-api-smoke.yml
+    secrets: inherit
 
   aggregate:
     name: Aggregate result
