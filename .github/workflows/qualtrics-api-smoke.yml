@@ -11,6 +11,7 @@ on:
         description: 'Optional Survey ID to fetch (overrides environment var QUALTRICS_SURVEY_ID). If omitted, the workflow uses the first survey from /surveys.'
         required: false
         type: string
+  workflow_call:
 
 permissions:
   contents: read

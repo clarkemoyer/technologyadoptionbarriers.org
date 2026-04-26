@@ -1,0 +1,76 @@
+name: Google Search Console API Smoke Test
+
+on:
+  workflow_dispatch:
+  workflow_call:
+
+permissions:
+  contents: read
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  gsc-smoke:
+    name: GSC API smoke
+    runs-on: ubuntu-latest
+    environment: google-prod
+    env:
+      GOOGLE_SERVICE_ACCOUNT_EMAIL: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_EMAIL }}
+      GOOGLE_PRIVATE_KEY: ${{ secrets.GOOGLE_PRIVATE_KEY }}
+      GSC_SITE_URL: 'sc-domain:technologyadoptionbarriers.org'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --ignore-scripts
+
+      - name: Validate configuration
+        shell: bash
+        run: |
+          set -euo pipefail
+          missing=()
+          [[ -z "${GOOGLE_SERVICE_ACCOUNT_EMAIL:-}" ]] && missing+=(GOOGLE_SERVICE_ACCOUNT_EMAIL)
+          [[ -z "${GOOGLE_PRIVATE_KEY:-}" ]] && missing+=(GOOGLE_PRIVATE_KEY)
+          if [[ ${#missing[@]} -gt 0 ]]; then
+            echo "::error::Missing secrets in environment google-prod: ${missing[*]}"
+            exit 1
+          fi
+
+      - name: Query searchanalytics for last 7 days (connectivity check)
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --input-type=module -e "
+            import { google } from 'googleapis';
+            const auth = new google.auth.GoogleAuth({
+              credentials: {
+                client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
+                private_key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\\\n/g, '\n'),
+              },
+              scopes: ['https://www.googleapis.com/auth/webmasters.readonly'],
+            });
+            const sc = google.searchconsole({ version: 'v1', auth });
+            const today = new Date();
+            const end = today.toISOString().slice(0, 10);
+            const startDate = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000)
+              .toISOString().slice(0, 10);
+            const res = await sc.searchanalytics.query({
+              siteUrl: process.env.GSC_SITE_URL,
+              requestBody: {
+                startDate,
+                endDate: end,
+                dimensions: ['query'],
+                rowLimit: 1,
+              },
+            });
+            const rows = res.data.rows ?? [];
+            console.log('GSC OK site=' + process.env.GSC_SITE_URL + ' rowsReturned=' + rows.length);
+          "

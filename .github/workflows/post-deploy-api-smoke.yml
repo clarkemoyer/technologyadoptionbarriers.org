@@ -1,0 +1,94 @@
+name: Post-Deploy API Smoke
+
+on:
+  workflow_run:
+    workflows: ['Deploy to GitHub Pages']
+    types:
+      - completed
+    branches: ['main']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  qualtrics:
+    name: Qualtrics smoke
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      github.event.workflow_run.conclusion == 'success'
+    uses: ./.github/workflows/qualtrics-api-smoke.yml
+    secrets: inherit
+
+  prolific:
+    name: Prolific smoke
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      github.event.workflow_run.conclusion == 'success'
+    uses: ./.github/workflows/prolific-api-smoke.yml
+    secrets: inherit
+
+  ga:
+    name: Google Analytics smoke
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      github.event.workflow_run.conclusion == 'success'
+    uses: ./.github/workflows/ga-api-smoke.yml
+    secrets: inherit
+
+  gsc:
+    name: Google Search Console smoke
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      github.event.workflow_run.conclusion == 'success'
+    uses: ./.github/workflows/gsc-api-smoke.yml
+    secrets: inherit
+
+  zotero:
+    name: Zotero smoke
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      github.event.workflow_run.conclusion == 'success'
+    uses: ./.github/workflows/zotero-api-smoke.yml
+    secrets: inherit
+
+  aggregate:
+    name: Aggregate result
+    needs: [qualtrics, prolific, ga, gsc, zotero]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Summarize per-API results
+        shell: bash
+        run: |
+          set -euo pipefail
+          declare -A r=(
+            [qualtrics]='${{ needs.qualtrics.result }}'
+            [prolific]='${{ needs.prolific.result }}'
+            [ga]='${{ needs.ga.result }}'
+            [gsc]='${{ needs.gsc.result }}'
+            [zotero]='${{ needs.zotero.result }}'
+          )
+          {
+            echo "## Post-Deploy API Smoke results"
+            echo ""
+            echo "| API | Result |"
+            echo "| --- | --- |"
+            for k in qualtrics prolific ga gsc zotero; do
+              v="${r[$k]}"
+              icon=":x:"; [[ "$v" == "success" ]] && icon=":white_check_mark:"
+              [[ "$v" == "skipped" ]] && icon=":fast_forward:"
+              echo "| $k | $icon $v |"
+            done
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          fail=0
+          for k in qualtrics prolific ga gsc zotero; do
+            v="${r[$k]}"
+            [[ "$v" != "success" && "$v" != "skipped" ]] && fail=$((fail + 1))
+          done
+          if [[ $fail -gt 0 ]]; then
+            echo "::error::$fail API smoke job(s) did not succeed"
+            exit 1
+          fi
+          echo "All API smoke checks passed."
