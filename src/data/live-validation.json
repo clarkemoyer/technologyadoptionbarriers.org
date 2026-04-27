@@ -4,184 +4,184 @@
       "key": "conservative_clean",
       "label": "Conservative Clean",
       "description": "Prolific APPROVED + all quality checks (IRI, duration >= 540s, reCAPTCHA, straightlining, auth)",
-      "n": 104,
+      "n": 106,
       "n_to_param_ratio": 2.3,
       "adequacy": "inadequate",
       "adequacy_note": "N:parameter ratio 2.3:1 is well below minimum thresholds. CFA results are unreliable and provided for trend monitoring only as sample size grows.",
       "Barriers": {
-        "cronbach_alpha": 0.8475,
-        "cronbach_alpha_ci": [0.8004, 0.8878],
-        "n_listwise": 100,
-        "mcdonalds_omega": 0.8449,
-        "composite_reliability": 0.8449,
-        "ave": 0.2435,
-        "split_half": 0.889,
+        "cronbach_alpha": 0.8516,
+        "cronbach_alpha_ci": [0.8063, 0.8905],
+        "n_listwise": 102,
+        "mcdonalds_omega": 0.8497,
+        "composite_reliability": 0.8497,
+        "ave": 0.2493,
+        "split_half": 0.8941,
         "kmo_bartlett": {
-          "kmo_overall": 0.7761,
-          "bartlett_chi2": 484.49,
-          "bartlett_p": 4.2834434194499656e-36
+          "kmo_overall": 0.7887,
+          "bartlett_chi2": 492.57,
+          "bartlett_p": 2.610160405183369e-37
         },
         "parallel_analysis": {
           "n_factors": 1,
-          "eigenvalues_real": [5.1008, 1.5983, 1.2931, 1.1281]
+          "eigenvalues_real": [5.2009, 1.54, 1.2868, 1.1138]
         },
         "efa": {
           "construct": "Barriers",
           "n_factors": 1,
-          "variance_explained": [0.2435],
-          "total_variance": 0.2435,
+          "variance_explained": [0.2493],
+          "total_variance": 0.2493,
           "factor_correlations": null,
           "loadings": {
-            "B1": [0.5829],
-            "B2": [0.6675],
-            "B3": [0.7365],
-            "B4": [0.604],
-            "B5": [0.5062],
-            "B6": [0.4213],
-            "B7": [0.3824],
-            "B8": [0.5774],
-            "B9": [0.3903],
-            "B10": [0.6064],
-            "B11": [0.4164],
-            "B12": [0.5002],
-            "B13": [0.3297],
-            "B14": [0.352],
-            "B15": [0.4294],
-            "B16": [0.3939],
-            "B17": [0.4105],
-            "B18": [0.3057]
+            "B1": [0.5864],
+            "B2": [0.6692],
+            "B3": [0.7185],
+            "B4": [0.6188],
+            "B5": [0.5005],
+            "B6": [0.4215],
+            "B7": [0.4004],
+            "B8": [0.5902],
+            "B9": [0.4116],
+            "B10": [0.6166],
+            "B11": [0.4432],
+            "B12": [0.4904],
+            "B13": [0.3147],
+            "B14": [0.3686],
+            "B15": [0.4544],
+            "B16": [0.4004],
+            "B17": [0.4071],
+            "B18": [0.3263]
           }
         },
         "cfa": {
           "construct": "Barriers",
-          "chi2": 198.387,
+          "chi2": 189.187,
           "df": 135,
-          "chi2_p": 0.0003,
-          "cfi": 0.8299,
-          "tli": 0.8072,
-          "rmsea": 0.0689,
+          "chi2_p": 0.0015,
+          "cfi": 0.8576,
+          "tli": 0.8386,
+          "rmsea": 0.063,
           "srmr": null
         },
         "inter_item": {
-          "mean_r": 0.2316,
-          "min_r": -0.0113,
-          "max_r": 0.6669,
-          "sd_r": 0.1097
+          "mean_r": 0.2381,
+          "min_r": 0.017,
+          "max_r": 0.6637,
+          "sd_r": 0.1063
         },
-        "itc_min": 0.3,
+        "itc_min": 0.32,
         "itc_all_above_030": true
       },
       "Readiness": {
-        "cronbach_alpha": 0.8565,
-        "cronbach_alpha_ci": [0.8096, 0.8961],
-        "n_listwise": 91,
-        "mcdonalds_omega": 0.8622,
-        "composite_reliability": 0.8622,
-        "ave": 0.2805,
-        "split_half": 0.8674,
+        "cronbach_alpha": 0.8549,
+        "cronbach_alpha_ci": [0.8082, 0.8946],
+        "n_listwise": 93,
+        "mcdonalds_omega": 0.8606,
+        "composite_reliability": 0.8606,
+        "ave": 0.2775,
+        "split_half": 0.8676,
         "kmo_bartlett": {
-          "kmo_overall": 0.8069,
-          "bartlett_chi2": 477.25,
-          "bartlett_p": 1.793955561776476e-39
+          "kmo_overall": 0.8047,
+          "bartlett_chi2": 484.26,
+          "bartlett_p": 1.424419338954457e-40
         },
         "parallel_analysis": {
           "n_factors": 1,
-          "eigenvalues_real": [5.4461, 1.4716, 1.2982, 1.23]
+          "eigenvalues_real": [5.4002, 1.4797, 1.2827, 1.2675]
         },
         "efa": {
           "construct": "Readiness",
           "n_factors": 1,
-          "variance_explained": [0.2805],
-          "total_variance": 0.2805,
+          "variance_explained": [0.2775],
+          "total_variance": 0.2775,
           "factor_correlations": null,
           "loadings": {
-            "R1": [0.6531],
-            "R2": [0.4896],
-            "R3": [0.5223],
-            "R4": [0.312],
-            "R5": [0.6218],
-            "R6": [0.5287],
-            "R7": [0.6305],
-            "R8": [0.598],
-            "R9": [0.5638],
-            "R10": [0.4785],
-            "R11": [0.623],
-            "R12": [0.4179],
-            "R13": [0.6203],
-            "R14": [0.395],
-            "R15": [0.4907],
-            "R16": [0.621],
-            "R17": [0.1828]
+            "R1": [0.6529],
+            "R2": [0.4907],
+            "R3": [0.5213],
+            "R4": [0.3134],
+            "R5": [0.6112],
+            "R6": [0.5284],
+            "R7": [0.6286],
+            "R8": [0.5967],
+            "R9": [0.5558],
+            "R10": [0.475],
+            "R11": [0.6172],
+            "R12": [0.4193],
+            "R13": [0.6105],
+            "R14": [0.3969],
+            "R15": [0.4834],
+            "R16": [0.6209],
+            "R17": [0.1874]
           }
         },
         "cfa": {
           "construct": "Readiness",
-          "chi2": 184.004,
+          "chi2": 189.28,
           "df": 119,
-          "chi2_p": 0.0001,
-          "cfi": 0.8308,
-          "tli": 0.8066,
-          "rmsea": 0.0779,
+          "chi2_p": 0.0,
+          "cfi": 0.8201,
+          "tli": 0.7944,
+          "rmsea": 0.0801,
           "srmr": null
         },
         "inter_item": {
-          "mean_r": 0.2648,
-          "min_r": -0.0645,
-          "max_r": 0.5589,
-          "sd_r": 0.1225
+          "mean_r": 0.2627,
+          "min_r": -0.064,
+          "max_r": 0.5573,
+          "sd_r": 0.1209
         },
-        "itc_min": 0.18,
+        "itc_min": 0.19,
         "itc_all_above_030": false
       },
       "Maturity": {
-        "cronbach_alpha": 0.827,
-        "cronbach_alpha_ci": [0.7693, 0.8748],
-        "n_listwise": 96,
-        "mcdonalds_omega": 0.8289,
-        "composite_reliability": 0.8289,
-        "ave": 0.3856,
-        "split_half": 0.8927,
+        "cronbach_alpha": 0.8252,
+        "cronbach_alpha_ci": [0.7676, 0.873],
+        "n_listwise": 98,
+        "mcdonalds_omega": 0.8273,
+        "composite_reliability": 0.8273,
+        "ave": 0.3824,
+        "split_half": 0.8918,
         "kmo_bartlett": {
-          "kmo_overall": 0.8111,
-          "bartlett_chi2": 241.79,
-          "bartlett_p": 6.645806470489684e-36
+          "kmo_overall": 0.8133,
+          "bartlett_chi2": 239.3,
+          "bartlett_p": 2.0128178063113316e-35
         },
         "parallel_analysis": {
           "n_factors": 1,
-          "eigenvalues_real": [3.658, 1.0445, 0.8184, 0.6889]
+          "eigenvalues_real": [3.6389, 1.0223, 0.8067, 0.6812]
         },
         "efa": {
           "construct": "Maturity",
           "n_factors": 1,
-          "variance_explained": [0.3856],
-          "total_variance": 0.3856,
+          "variance_explained": [0.3824],
+          "total_variance": 0.3824,
           "factor_correlations": null,
           "loadings": {
-            "M1": [0.6701],
-            "M2": [0.6566],
-            "M3": [0.5653],
-            "M4": [0.5663],
-            "M5": [0.5478],
-            "M6": [0.8667],
-            "M7": [0.5585],
-            "M8": [0.4488]
+            "M1": [0.6682],
+            "M2": [0.6424],
+            "M3": [0.5676],
+            "M4": [0.5708],
+            "M5": [0.5435],
+            "M6": [0.8606],
+            "M7": [0.5564],
+            "M8": [0.4547]
           }
         },
         "cfa": {
           "construct": "Maturity",
-          "chi2": 38.489,
+          "chi2": 35.216,
           "df": 20,
-          "chi2_p": 0.0077,
-          "cfi": 0.9181,
-          "tli": 0.8853,
-          "rmsea": 0.0986,
+          "chi2_p": 0.019,
+          "cfi": 0.9317,
+          "tli": 0.9044,
+          "rmsea": 0.0886,
           "srmr": null
         },
         "inter_item": {
-          "mean_r": 0.3729,
-          "min_r": 0.1381,
-          "max_r": 0.6136,
-          "sd_r": 0.1116
+          "mean_r": 0.3708,
+          "min_r": 0.1573,
+          "max_r": 0.6026,
+          "sd_r": 0.1057
         },
         "itc_min": 0.43,
         "itc_all_above_030": true
@@ -189,25 +189,25 @@
       "htmt": [
         {
           "pair": "Barriers vs Readiness",
-          "htmt": 0.5987,
-          "ci_lower": 0.5639,
-          "ci_upper": 0.7882,
+          "htmt": 0.5886,
+          "ci_lower": 0.5528,
+          "ci_upper": 0.7732,
           "below_085": true,
           "below_090": true
         },
         {
           "pair": "Barriers vs Maturity",
-          "htmt": 0.3542,
-          "ci_lower": 0.3532,
-          "ci_upper": 0.5663,
+          "htmt": 0.3348,
+          "ci_lower": 0.3391,
+          "ci_upper": 0.5382,
           "below_085": true,
           "below_090": true
         },
         {
           "pair": "Readiness vs Maturity",
-          "htmt": 0.7083,
-          "ci_lower": 0.5649,
-          "ci_upper": 0.8559,
+          "htmt": 0.7085,
+          "ci_lower": 0.5692,
+          "ci_upper": 0.8518,
           "below_085": true,
           "below_090": true
         }
@@ -215,60 +215,60 @@
       "fornell_larcker": [
         {
           "pair": "Barriers vs Readiness",
-          "sqrt_ave1": 0.4935,
-          "sqrt_ave2": 0.5296,
-          "abs_r": 0.4062,
+          "sqrt_ave1": 0.4993,
+          "sqrt_ave2": 0.5268,
+          "abs_r": 0.4007,
           "pass": true
         },
         {
           "pair": "Barriers vs Maturity",
-          "sqrt_ave1": 0.4935,
-          "sqrt_ave2": 0.621,
-          "abs_r": 0.1823,
+          "sqrt_ave1": 0.4993,
+          "sqrt_ave2": 0.6184,
+          "abs_r": 0.1608,
           "pass": true
         },
         {
           "pair": "Readiness vs Maturity",
-          "sqrt_ave1": 0.5296,
-          "sqrt_ave2": 0.621,
-          "abs_r": 0.5927,
+          "sqrt_ave1": 0.5268,
+          "sqrt_ave2": 0.6184,
+          "abs_r": 0.5917,
           "pass": false
         }
       ],
       "construct_correlations": {
         "Barriers": {
           "Barriers": 1.0,
-          "Readiness": -0.4062,
-          "Maturity": -0.1823
+          "Readiness": -0.4007,
+          "Maturity": -0.1608
         },
         "Readiness": {
-          "Barriers": -0.4062,
+          "Barriers": -0.4007,
           "Readiness": 1.0,
-          "Maturity": 0.5927
+          "Maturity": 0.5917
         },
         "Maturity": {
-          "Barriers": -0.1823,
-          "Readiness": 0.5927,
+          "Barriers": -0.1608,
+          "Readiness": 0.5917,
           "Maturity": 1.0
         }
       },
       "barriers_4f_cfa": {
-        "chi2": 178.68,
+        "chi2": 171.445,
         "df": 129,
-        "chi2_p": 0.0025,
-        "cfi": 0.8667,
-        "tli": 0.8419,
-        "rmsea": 0.0624,
-        "aic": 80.43,
-        "bic": 189.84
+        "chi2_p": 0.0074,
+        "cfi": 0.8885,
+        "tli": 0.8677,
+        "rmsea": 0.0571,
+        "aic": 80.64,
+        "bic": 190.89
       },
       "factor_analysis": {
         "efa_factors": [
           {
             "name": "F1",
             "items": 18,
-            "eigenvalue": 5.1008,
-            "variance_pct": 24.3
+            "eigenvalue": 5.2009,
+            "variance_pct": 24.9
           }
         ],
         "three_groups": [
@@ -276,17 +276,17 @@
             "name": "F1a \u2014 Strategy & Culture",
             "item_ids": ["B1", "B2", "B3", "B5", "B9", "B10", "B11", "B15", "B17"],
             "items": 9,
-            "alpha": 0.7746,
-            "cr": 0.7796,
-            "ave": 0.2923
+            "alpha": 0.781,
+            "cr": 0.7852,
+            "ave": 0.2974
           },
           {
             "name": "F1b \u2014 Resources & Operations",
             "item_ids": ["B4", "B6", "B7", "B8", "B12"],
             "items": 5,
-            "alpha": 0.619,
-            "cr": 0.6236,
-            "ave": 0.2544
+            "alpha": 0.6279,
+            "cr": 0.6327,
+            "ave": 0.2619
           },
           {
             "name": "F2 \u2014 External & Compliance",
@@ -323,92 +323,92 @@
         "loadings_matrix": [
           {
             "id": "B1",
-            "f1": 0.5829,
+            "f1": 0.5864,
             "assigned": "F1"
           },
           {
             "id": "B2",
-            "f1": 0.6675,
+            "f1": 0.6692,
             "assigned": "F1"
           },
           {
             "id": "B3",
-            "f1": 0.7365,
+            "f1": 0.7185,
             "assigned": "F1"
           },
           {
             "id": "B4",
-            "f1": 0.604,
+            "f1": 0.6188,
             "assigned": "F1"
           },
           {
             "id": "B5",
-            "f1": 0.5062,
+            "f1": 0.5005,
             "assigned": "F1"
           },
           {
             "id": "B6",
-            "f1": 0.4213,
+            "f1": 0.4215,
             "assigned": "F1"
           },
           {
             "id": "B7",
-            "f1": 0.3824,
+            "f1": 0.4004,
             "assigned": "F1"
           },
           {
             "id": "B8",
-            "f1": 0.5774,
+            "f1": 0.5902,
             "assigned": "F1"
           },
           {
             "id": "B9",
-            "f1": 0.3903,
+            "f1": 0.4116,
             "assigned": "F1"
           },
           {
             "id": "B10",
-            "f1": 0.6064,
+            "f1": 0.6166,
             "assigned": "F1"
           },
           {
             "id": "B11",
-            "f1": 0.4164,
+            "f1": 0.4432,
             "assigned": "F1"
           },
           {
             "id": "B12",
-            "f1": 0.5002,
+            "f1": 0.4904,
             "assigned": "F1"
           },
           {
             "id": "B13",
-            "f1": 0.3297,
+            "f1": 0.3147,
             "assigned": "F1"
           },
           {
             "id": "B14",
-            "f1": 0.352,
+            "f1": 0.3686,
             "assigned": "F1"
           },
           {
             "id": "B15",
-            "f1": 0.4294,
+            "f1": 0.4544,
             "assigned": "F1"
           },
           {
             "id": "B16",
-            "f1": 0.3939,
+            "f1": 0.4004,
             "assigned": "F1"
           },
           {
             "id": "B17",
-            "f1": 0.4105,
+            "f1": 0.4071,
             "assigned": "F1"
           },
           {
             "id": "B18",
-            "f1": 0.3057,
+            "f1": 0.3263,
             "assigned": "F1"
           }
         ]
@@ -438,8 +438,8 @@
           "kmo_above_060": true,
           "bartlett_significant": true,
           "cfa_cfi_above_090": false,
-          "cfa_rmsea_below_008": true,
-          "pass_count": 7,
+          "cfa_rmsea_below_008": false,
+          "pass_count": 6,
           "total_criteria": 10
         },
         "Maturity": {
@@ -458,7 +458,7 @@
         }
       },
       "metadata": {
-        "n_total": 104,
+        "n_total": 106,
         "crp200_mode": false,
         "constructs": ["Barriers", "Readiness", "Maturity"],
         "n_barriers": 18,
@@ -470,187 +470,187 @@
       "key": "flexible_clean",
       "label": "Flexible Clean",
       "description": "Prolific APPROVED + basic quality (all 3 IRIs + duration >= 480s)",
-      "n": 163,
-      "n_to_param_ratio": 3.5,
+      "n": 165,
+      "n_to_param_ratio": 3.6,
       "adequacy": "marginal",
-      "adequacy_note": "N:parameter ratio 3.5:1 is below the 5:1 minimum. CFA fit indices should be interpreted with caution; convergence issues and Heywood cases are possible.",
+      "adequacy_note": "N:parameter ratio 3.6:1 is below the 5:1 minimum. CFA fit indices should be interpreted with caution; convergence issues and Heywood cases are possible.",
       "Barriers": {
-        "cronbach_alpha": 0.8702,
-        "cronbach_alpha_ci": [0.8383, 0.8982],
-        "n_listwise": 154,
-        "mcdonalds_omega": 0.8689,
-        "composite_reliability": 0.8689,
-        "ave": 0.2819,
-        "split_half": 0.9039,
+        "cronbach_alpha": 0.8722,
+        "cronbach_alpha_ci": [0.841, 0.8996],
+        "n_listwise": 156,
+        "mcdonalds_omega": 0.8711,
+        "composite_reliability": 0.8711,
+        "ave": 0.2856,
+        "split_half": 0.9067,
         "kmo_bartlett": {
-          "kmo_overall": 0.871,
-          "bartlett_chi2": 846.13,
-          "bartlett_p": 2.04240932127752e-96
+          "kmo_overall": 0.8766,
+          "bartlett_chi2": 856.4,
+          "bartlett_p": 2.979064559957339e-98
         },
         "parallel_analysis": {
           "n_factors": 2,
-          "eigenvalues_real": [5.755, 1.7943, 1.1722, 0.9846]
+          "eigenvalues_real": [5.8191, 1.7563, 1.1468, 1.0071]
         },
         "efa": {
           "construct": "Barriers",
           "n_factors": 2,
-          "variance_explained": [0.2732, 0.1098],
-          "total_variance": 0.383,
+          "variance_explained": [0.276, 0.1054],
+          "total_variance": 0.3814,
           "factor_correlations": [
-            [1.0, 0.5374],
-            [0.5374, 1.0]
+            [1.0, 0.5415],
+            [0.5415, 1.0]
           ],
           "loadings": {
-            "B1": [0.7819, -0.1915],
-            "B2": [0.6863, -0.0734],
-            "B3": [0.6852, 0.0285],
-            "B4": [0.7234, -0.0356],
-            "B5": [0.5946, 0.0247],
-            "B6": [0.5236, -0.0366],
-            "B7": [0.5287, -0.0429],
-            "B8": [0.5301, 0.1105],
-            "B9": [0.5375, -0.0495],
-            "B10": [0.7389, -0.1293],
-            "B11": [0.2744, 0.275],
-            "B12": [0.5125, 0.0924],
-            "B13": [-0.2536, 0.9298],
-            "B14": [-0.1947, 0.8715],
-            "B15": [0.4637, 0.0446],
-            "B16": [0.1182, 0.3403],
-            "B17": [0.2657, 0.2073],
-            "B18": [0.2805, 0.1684]
+            "B1": [0.7865, -0.1946],
+            "B2": [0.6862, -0.0661],
+            "B3": [0.6774, 0.022],
+            "B4": [0.7343, -0.0401],
+            "B5": [0.5917, 0.0231],
+            "B6": [0.5199, -0.0295],
+            "B7": [0.5424, -0.0506],
+            "B8": [0.5357, 0.115],
+            "B9": [0.5432, -0.0391],
+            "B10": [0.7457, -0.1307],
+            "B11": [0.2946, 0.2686],
+            "B12": [0.5057, 0.0891],
+            "B13": [-0.2287, 0.8674],
+            "B14": [-0.194, 0.8877],
+            "B15": [0.4798, 0.0381],
+            "B16": [0.1144, 0.3509],
+            "B17": [0.2642, 0.2018],
+            "B18": [0.2871, 0.1762]
           }
         },
         "cfa": {
           "construct": "Barriers",
-          "chi2": 262.61,
+          "chi2": 252.508,
           "df": 135,
           "chi2_p": 0.0,
-          "cfi": 0.8272,
-          "tli": 0.8042,
-          "rmsea": 0.0786,
+          "cfi": 0.843,
+          "tli": 0.8221,
+          "rmsea": 0.0749,
           "srmr": null
         },
         "inter_item": {
-          "mean_r": 0.2696,
-          "min_r": 0.0514,
-          "max_r": 0.6521,
-          "sd_r": 0.1137
+          "mean_r": 0.2734,
+          "min_r": 0.0646,
+          "max_r": 0.6247,
+          "sd_r": 0.1123
         },
-        "itc_min": 0.33,
+        "itc_min": 0.32,
         "itc_all_above_030": true
       },
       "Readiness": {
-        "cronbach_alpha": 0.9101,
-        "cronbach_alpha_ci": [0.8873, 0.9301],
-        "n_listwise": 145,
-        "mcdonalds_omega": 0.9124,
-        "composite_reliability": 0.9124,
-        "ave": 0.3854,
-        "split_half": 0.9035,
+        "cronbach_alpha": 0.9093,
+        "cronbach_alpha_ci": [0.8865, 0.9294],
+        "n_listwise": 147,
+        "mcdonalds_omega": 0.9116,
+        "composite_reliability": 0.9116,
+        "ave": 0.3832,
+        "split_half": 0.9036,
         "kmo_bartlett": {
-          "kmo_overall": 0.9059,
-          "bartlett_chi2": 1027.38,
-          "bartlett_p": 1.052214012074523e-136
+          "kmo_overall": 0.9045,
+          "bartlett_chi2": 1037.8,
+          "bartlett_p": 1.1285706091222373e-138
         },
         "parallel_analysis": {
           "n_factors": 1,
-          "eigenvalues_real": [7.1415, 1.1626, 1.0171, 0.9436]
+          "eigenvalues_real": [7.1053, 1.1706, 1.0381, 0.9443]
         },
         "efa": {
           "construct": "Readiness",
           "n_factors": 1,
-          "variance_explained": [0.3854],
-          "total_variance": 0.3854,
+          "variance_explained": [0.3832],
+          "total_variance": 0.3832,
           "factor_correlations": null,
           "loadings": {
-            "R1": [0.7318],
-            "R2": [0.6506],
-            "R3": [0.6705],
-            "R4": [0.4647],
-            "R5": [0.5909],
-            "R6": [0.6633],
-            "R7": [0.7075],
-            "R8": [0.587],
-            "R9": [0.6624],
-            "R10": [0.6384],
-            "R11": [0.6716],
-            "R12": [0.5166],
-            "R13": [0.6366],
-            "R14": [0.6079],
-            "R15": [0.5626],
-            "R16": [0.7175],
-            "R17": [0.3513]
+            "R1": [0.7319],
+            "R2": [0.6512],
+            "R3": [0.6696],
+            "R4": [0.4656],
+            "R5": [0.5851],
+            "R6": [0.6629],
+            "R7": [0.7062],
+            "R8": [0.5865],
+            "R9": [0.657],
+            "R10": [0.6358],
+            "R11": [0.6668],
+            "R12": [0.5168],
+            "R13": [0.6304],
+            "R14": [0.6088],
+            "R15": [0.5563],
+            "R16": [0.7173],
+            "R17": [0.3532]
           }
         },
         "cfa": {
           "construct": "Readiness",
-          "chi2": 214.517,
+          "chi2": 221.045,
           "df": 119,
           "chi2_p": 0.0,
-          "cfi": 0.8992,
-          "tli": 0.8848,
-          "rmsea": 0.0747,
+          "cfi": 0.8934,
+          "tli": 0.8782,
+          "rmsea": 0.0766,
           "srmr": null
         },
         "inter_item": {
-          "mean_r": 0.3763,
-          "min_r": 0.0898,
-          "max_r": 0.6496,
-          "sd_r": 0.101
+          "mean_r": 0.3741,
+          "min_r": 0.0895,
+          "max_r": 0.648,
+          "sd_r": 0.1008
         },
         "itc_min": 0.34,
         "itc_all_above_030": true
       },
       "Maturity": {
-        "cronbach_alpha": 0.8817,
-        "cronbach_alpha_ci": [0.8512, 0.908],
-        "n_listwise": 154,
-        "mcdonalds_omega": 0.8831,
-        "composite_reliability": 0.8831,
-        "ave": 0.4882,
-        "split_half": 0.9184,
+        "cronbach_alpha": 0.8803,
+        "cronbach_alpha_ci": [0.8496, 0.9067],
+        "n_listwise": 156,
+        "mcdonalds_omega": 0.8817,
+        "composite_reliability": 0.8817,
+        "ave": 0.4849,
+        "split_half": 0.9175,
         "kmo_bartlett": {
-          "kmo_overall": 0.893,
-          "bartlett_chi2": 534.21,
-          "bartlett_p": 5.920047660283019e-95
+          "kmo_overall": 0.8944,
+          "bartlett_chi2": 530.35,
+          "bartlett_p": 3.714998240308482e-94
         },
         "parallel_analysis": {
           "n_factors": 1,
-          "eigenvalues_real": [4.4053, 0.8247, 0.6512, 0.5659]
+          "eigenvalues_real": [4.3825, 0.8138, 0.6508, 0.5619]
         },
         "efa": {
           "construct": "Maturity",
           "n_factors": 1,
-          "variance_explained": [0.4882],
-          "total_variance": 0.4882,
+          "variance_explained": [0.4849],
+          "total_variance": 0.4849,
           "factor_correlations": null,
           "loadings": {
-            "M1": [0.7618],
-            "M2": [0.7523],
-            "M3": [0.6942],
-            "M4": [0.6316],
-            "M5": [0.6304],
-            "M6": [0.8253],
-            "M7": [0.6353],
-            "M8": [0.6297]
+            "M1": [0.76],
+            "M2": [0.7395],
+            "M3": [0.6951],
+            "M4": [0.6348],
+            "M5": [0.6274],
+            "M6": [0.8225],
+            "M7": [0.6328],
+            "M8": [0.6306]
           }
         },
         "cfa": {
           "construct": "Maturity",
-          "chi2": 42.235,
+          "chi2": 38.837,
           "df": 20,
-          "chi2_p": 0.0026,
-          "cfi": 0.9574,
-          "tli": 0.9404,
-          "rmsea": 0.0852,
+          "chi2_p": 0.007,
+          "cfi": 0.9636,
+          "tli": 0.9491,
+          "rmsea": 0.078,
           "srmr": null
         },
         "inter_item": {
-          "mean_r": 0.4838,
-          "min_r": 0.3031,
-          "max_r": 0.6668,
-          "sd_r": 0.0789
+          "mean_r": 0.4807,
+          "min_r": 0.3083,
+          "max_r": 0.6589,
+          "sd_r": 0.0759
         },
         "itc_min": 0.59,
         "itc_all_above_030": true
@@ -658,25 +658,25 @@
       "htmt": [
         {
           "pair": "Barriers vs Readiness",
-          "htmt": 0.5945,
-          "ci_lower": 0.5282,
-          "ci_upper": 0.7158,
+          "htmt": 0.5886,
+          "ci_lower": 0.5249,
+          "ci_upper": 0.7125,
           "below_085": true,
           "below_090": true
         },
         {
           "pair": "Barriers vs Maturity",
-          "htmt": 0.4566,
-          "ci_lower": 0.3806,
-          "ci_upper": 0.5918,
+          "htmt": 0.4374,
+          "ci_lower": 0.362,
+          "ci_upper": 0.5719,
           "below_085": true,
           "below_090": true
         },
         {
           "pair": "Readiness vs Maturity",
-          "htmt": 0.8321,
-          "ci_lower": 0.7324,
-          "ci_upper": 0.9091,
+          "htmt": 0.8314,
+          "ci_lower": 0.7274,
+          "ci_upper": 0.9056,
           "below_085": true,
           "below_090": true
         }
@@ -684,66 +684,66 @@
       "fornell_larcker": [
         {
           "pair": "Barriers vs Readiness",
-          "sqrt_ave1": 0.5309,
-          "sqrt_ave2": 0.6208,
-          "abs_r": 0.4147,
+          "sqrt_ave1": 0.5344,
+          "sqrt_ave2": 0.619,
+          "abs_r": 0.4129,
           "pass": true
         },
         {
           "pair": "Barriers vs Maturity",
-          "sqrt_ave1": 0.5309,
-          "sqrt_ave2": 0.6987,
-          "abs_r": 0.2982,
+          "sqrt_ave1": 0.5344,
+          "sqrt_ave2": 0.6963,
+          "abs_r": 0.2859,
           "pass": true
         },
         {
           "pair": "Readiness vs Maturity",
-          "sqrt_ave1": 0.6208,
-          "sqrt_ave2": 0.6987,
-          "abs_r": 0.7107,
+          "sqrt_ave1": 0.619,
+          "sqrt_ave2": 0.6963,
+          "abs_r": 0.7092,
           "pass": false
         }
       ],
       "construct_correlations": {
         "Barriers": {
           "Barriers": 1.0,
-          "Readiness": -0.4147,
-          "Maturity": -0.2982
+          "Readiness": -0.4129,
+          "Maturity": -0.2859
         },
         "Readiness": {
-          "Barriers": -0.4147,
+          "Barriers": -0.4129,
           "Readiness": 1.0,
-          "Maturity": 0.7107
+          "Maturity": 0.7092
         },
         "Maturity": {
-          "Barriers": -0.2982,
-          "Readiness": 0.7107,
+          "Barriers": -0.2859,
+          "Readiness": 0.7092,
           "Maturity": 1.0
         }
       },
       "barriers_4f_cfa": {
-        "chi2": 224.327,
+        "chi2": 220.677,
         "df": 129,
         "chi2_p": 0.0,
-        "cfi": 0.8709,
-        "tli": 0.8469,
-        "rmsea": 0.0695,
-        "aic": 81.09,
-        "bic": 208.64
+        "cfi": 0.8775,
+        "tli": 0.8548,
+        "rmsea": 0.0677,
+        "aic": 81.17,
+        "bic": 209.26
       },
       "factor_analysis": {
         "efa_factors": [
           {
             "name": "F1",
-            "items": 14,
-            "eigenvalue": 5.755,
-            "variance_pct": 27.3
+            "items": 15,
+            "eigenvalue": 5.8191,
+            "variance_pct": 27.6
           },
           {
             "name": "F2",
-            "items": 4,
-            "eigenvalue": 1.7943,
-            "variance_pct": 11.0
+            "items": 3,
+            "eigenvalue": 1.7563,
+            "variance_pct": 10.5
           }
         ],
         "three_groups": [
@@ -751,28 +751,28 @@
             "name": "F1a \u2014 Strategy & Culture",
             "item_ids": ["B1", "B2", "B3", "B5", "B9", "B10", "B11", "B15", "B17"],
             "items": 9,
-            "alpha": 0.8003,
-            "cr": 0.8108,
-            "ave": 0.3446
+            "alpha": 0.8042,
+            "cr": 0.8142,
+            "ave": 0.3485
           },
           {
             "name": "F1b \u2014 Resources & Operations",
             "item_ids": ["B4", "B6", "B7", "B8", "B12"],
             "items": 5,
-            "alpha": 0.698,
-            "cr": 0.7015,
-            "ave": 0.3241
+            "alpha": 0.7021,
+            "cr": 0.706,
+            "ave": 0.3293
           },
           {
             "name": "F2 \u2014 External & Compliance",
             "item_ids": ["B13", "B14", "B16", "B18"],
             "items": 4,
-            "alpha": 0.6286,
-            "cr": 0.7051,
-            "ave": 0.4421
+            "alpha": 0.6235,
+            "cr": 0.6932,
+            "ave": 0.4236
           }
         ],
-        "factor_correlation": 0.5374,
+        "factor_correlation": 0.5415,
         "barrier_names": [
           "Resistance to Change",
           "Lack of Leadership Support",
@@ -796,110 +796,110 @@
         "loadings_matrix": [
           {
             "id": "B1",
-            "f1": 0.7819,
-            "f2": -0.1915,
+            "f1": 0.7865,
+            "f2": -0.1946,
             "assigned": "F1"
           },
           {
             "id": "B2",
-            "f1": 0.6863,
-            "f2": -0.0734,
+            "f1": 0.6862,
+            "f2": -0.0661,
             "assigned": "F1"
           },
           {
             "id": "B3",
-            "f1": 0.6852,
-            "f2": 0.0285,
+            "f1": 0.6774,
+            "f2": 0.022,
             "assigned": "F1"
           },
           {
             "id": "B4",
-            "f1": 0.7234,
-            "f2": -0.0356,
+            "f1": 0.7343,
+            "f2": -0.0401,
             "assigned": "F1"
           },
           {
             "id": "B5",
-            "f1": 0.5946,
-            "f2": 0.0247,
+            "f1": 0.5917,
+            "f2": 0.0231,
             "assigned": "F1"
           },
           {
             "id": "B6",
-            "f1": 0.5236,
-            "f2": -0.0366,
+            "f1": 0.5199,
+            "f2": -0.0295,
             "assigned": "F1"
           },
           {
             "id": "B7",
-            "f1": 0.5287,
-            "f2": -0.0429,
+            "f1": 0.5424,
+            "f2": -0.0506,
             "assigned": "F1"
           },
           {
             "id": "B8",
-            "f1": 0.5301,
-            "f2": 0.1105,
+            "f1": 0.5357,
+            "f2": 0.115,
             "assigned": "F1"
           },
           {
             "id": "B9",
-            "f1": 0.5375,
-            "f2": -0.0495,
+            "f1": 0.5432,
+            "f2": -0.0391,
             "assigned": "F1"
           },
           {
             "id": "B10",
-            "f1": 0.7389,
-            "f2": -0.1293,
+            "f1": 0.7457,
+            "f2": -0.1307,
             "assigned": "F1"
           },
           {
             "id": "B11",
-            "f1": 0.2744,
-            "f2": 0.275,
-            "assigned": "F2"
+            "f1": 0.2946,
+            "f2": 0.2686,
+            "assigned": "F1"
           },
           {
             "id": "B12",
-            "f1": 0.5125,
-            "f2": 0.0924,
+            "f1": 0.5057,
+            "f2": 0.0891,
             "assigned": "F1"
           },
           {
             "id": "B13",
-            "f1": -0.2536,
-            "f2": 0.9298,
+            "f1": -0.2287,
+            "f2": 0.8674,
             "assigned": "F2"
           },
           {
             "id": "B14",
-            "f1": -0.1947,
-            "f2": 0.8715,
+            "f1": -0.194,
+            "f2": 0.8877,
             "assigned": "F2"
           },
           {
             "id": "B15",
-            "f1": 0.4637,
-            "f2": 0.0446,
+            "f1": 0.4798,
+            "f2": 0.0381,
             "assigned": "F1"
           },
           {
             "id": "B16",
-            "f1": 0.1182,
-            "f2": 0.3403,
+            "f1": 0.1144,
+            "f2": 0.3509,
             "assigned": "F2"
           },
           {
             "id": "B17",
-            "f1": 0.2657,
-            "f2": 0.2073,
+            "f1": 0.2642,
+            "f2": 0.2018,
             "assigned": "F1"
           },
           {
             "id": "B18",
-            "f1": 0.2805,
-            "f2": 0.1684,
+            "f1": 0.2871,
+            "f2": 0.1762,
             "assigned": "F1"
           }
         ]
@@ -943,13 +943,13 @@
           "kmo_above_060": true,
           "bartlett_significant": true,
           "cfa_cfi_above_090": true,
-          "cfa_rmsea_below_008": false,
-          "pass_count": 8,
+          "cfa_rmsea_below_008": true,
+          "pass_count": 9,
           "total_criteria": 10
         }
       },
       "metadata": {
-        "n_total": 163,
+        "n_total": 165,
         "crp200_mode": false,
         "constructs": ["Barriers", "Readiness", "Maturity"],
         "n_barriers": 18,
@@ -961,187 +961,187 @@
       "key": "prolific_accepted",
       "label": "Prolific Accepted",
       "description": "All deduplicated V2 rows with Prolific APPROVED status",
-      "n": 300,
-      "n_to_param_ratio": 6.5,
+      "n": 302,
+      "n_to_param_ratio": 6.6,
       "adequacy": "adequate",
-      "adequacy_note": "N:parameter ratio 6.5:1 meets the 5:1 minimum but is below the recommended 10:1 threshold. Results are interpretable but may show instability in fit indices.",
+      "adequacy_note": "N:parameter ratio 6.6:1 meets the 5:1 minimum but is below the recommended 10:1 threshold. Results are interpretable but may show instability in fit indices.",
       "Barriers": {
-        "cronbach_alpha": 0.8725,
-        "cronbach_alpha_ci": [0.8499, 0.8932],
-        "n_listwise": 283,
-        "mcdonalds_omega": 0.8727,
-        "composite_reliability": 0.8727,
-        "ave": 0.286,
-        "split_half": 0.9002,
+        "cronbach_alpha": 0.8736,
+        "cronbach_alpha_ci": [0.8512, 0.894],
+        "n_listwise": 285,
+        "mcdonalds_omega": 0.8738,
+        "composite_reliability": 0.8738,
+        "ave": 0.2881,
+        "split_half": 0.9017,
         "kmo_bartlett": {
-          "kmo_overall": 0.8853,
-          "bartlett_chi2": 1543.47,
-          "bartlett_p": 3.5796986969099155e-228
+          "kmo_overall": 0.8889,
+          "bartlett_chi2": 1554.22,
+          "bartlett_p": 2.8022987220631687e-230
         },
         "parallel_analysis": {
           "n_factors": 2,
-          "eigenvalues_real": [5.8322, 1.801, 1.0476, 1.0124]
+          "eigenvalues_real": [5.8678, 1.7809, 1.0474, 1.0021]
         },
         "efa": {
           "construct": "Barriers",
           "n_factors": 2,
-          "variance_explained": [0.2812, 0.1014],
-          "total_variance": 0.3825,
+          "variance_explained": [0.2828, 0.0992],
+          "total_variance": 0.382,
           "factor_correlations": [
-            [1.0, 0.4685],
-            [0.4685, 1.0]
+            [1.0, 0.4709],
+            [0.4709, 1.0]
           ],
           "loadings": {
-            "B1": [0.7342, -0.2108],
-            "B2": [0.718, -0.1573],
-            "B3": [0.6412, -0.0279],
-            "B4": [0.6782, -0.0254],
-            "B5": [0.6112, -0.0322],
-            "B6": [0.4729, 0.0073],
-            "B7": [0.5675, 0.0051],
-            "B8": [0.5232, 0.0598],
-            "B9": [0.5484, -0.05],
-            "B10": [0.7143, -0.0685],
-            "B11": [0.4826, 0.0782],
-            "B12": [0.5756, 0.0507],
-            "B13": [-0.2095, 0.9088],
-            "B14": [-0.1236, 0.8435],
-            "B15": [0.4178, 0.1394],
-            "B16": [0.2122, 0.3515],
-            "B17": [0.4398, 0.0967],
-            "B18": [0.3085, 0.2094]
+            "B1": [0.735, -0.209],
+            "B2": [0.7217, -0.1565],
+            "B3": [0.6414, -0.0364],
+            "B4": [0.6852, -0.0294],
+            "B5": [0.6063, -0.0274],
+            "B6": [0.4706, 0.0136],
+            "B7": [0.5721, 0.0033],
+            "B8": [0.5266, 0.0632],
+            "B9": [0.5498, -0.0418],
+            "B10": [0.7184, -0.0699],
+            "B11": [0.4907, 0.0768],
+            "B12": [0.5709, 0.0503],
+            "B13": [-0.2016, 0.8802],
+            "B14": [-0.1211, 0.8492],
+            "B15": [0.4268, 0.1363],
+            "B16": [0.208, 0.3593],
+            "B17": [0.4372, 0.0923],
+            "B18": [0.3136, 0.2083]
           }
         },
         "cfa": {
           "construct": "Barriers",
-          "chi2": 425.657,
+          "chi2": 414.924,
           "df": 135,
           "chi2_p": 0.0,
-          "cfi": 0.7974,
-          "tli": 0.7704,
-          "rmsea": 0.0874,
+          "cfi": 0.8063,
+          "tli": 0.7805,
+          "rmsea": 0.0854,
           "srmr": null
         },
         "inter_item": {
-          "mean_r": 0.2758,
-          "min_r": -0.0121,
-          "max_r": 0.6638,
-          "sd_r": 0.1067
+          "mean_r": 0.2778,
+          "min_r": -0.0044,
+          "max_r": 0.649,
+          "sd_r": 0.1064
         },
-        "itc_min": 0.29,
+        "itc_min": 0.28,
         "itc_all_above_030": false
       },
       "Readiness": {
-        "cronbach_alpha": 0.9154,
-        "cronbach_alpha_ci": [0.9, 0.9294],
-        "n_listwise": 270,
-        "mcdonalds_omega": 0.9169,
-        "composite_reliability": 0.9169,
-        "ave": 0.3964,
-        "split_half": 0.9166,
+        "cronbach_alpha": 0.915,
+        "cronbach_alpha_ci": [0.8995, 0.929],
+        "n_listwise": 272,
+        "mcdonalds_omega": 0.9165,
+        "composite_reliability": 0.9165,
+        "ave": 0.3951,
+        "split_half": 0.9167,
         "kmo_bartlett": {
-          "kmo_overall": 0.9334,
-          "bartlett_chi2": 1876.62,
-          "bartlett_p": 1.3003102077937678e-303
+          "kmo_overall": 0.9328,
+          "bartlett_chi2": 1885.62,
+          "bartlett_p": 1.9908146092981943e-305
         },
         "parallel_analysis": {
           "n_factors": 1,
-          "eigenvalues_real": [7.3294, 1.0832, 0.9739, 0.8514]
+          "eigenvalues_real": [7.3094, 1.0871, 0.9836, 0.855]
         },
         "efa": {
           "construct": "Readiness",
           "n_factors": 1,
-          "variance_explained": [0.3964],
-          "total_variance": 0.3964,
+          "variance_explained": [0.3951],
+          "total_variance": 0.3951,
           "factor_correlations": null,
           "loadings": {
             "R1": [0.6878],
-            "R2": [0.6574],
-            "R3": [0.6733],
-            "R4": [0.5137],
-            "R5": [0.5727],
-            "R6": [0.6913],
-            "R7": [0.6983],
-            "R8": [0.6542],
-            "R9": [0.6107],
-            "R10": [0.6073],
-            "R11": [0.6627],
-            "R12": [0.5918],
-            "R13": [0.636],
+            "R2": [0.6576],
+            "R3": [0.6729],
+            "R4": [0.514],
+            "R5": [0.5695],
+            "R6": [0.6911],
+            "R7": [0.6978],
+            "R8": [0.654],
+            "R9": [0.6086],
+            "R10": [0.6062],
+            "R11": [0.6599],
+            "R12": [0.5914],
+            "R13": [0.6329],
             "R14": [0.5849],
-            "R15": [0.6317],
-            "R16": [0.7164],
-            "R17": [0.4521]
+            "R15": [0.6274],
+            "R16": [0.7163],
+            "R17": [0.4526]
           }
         },
         "cfa": {
           "construct": "Readiness",
-          "chi2": 259.853,
+          "chi2": 264.748,
           "df": 119,
           "chi2_p": 0.0,
-          "cfi": 0.9215,
-          "tli": 0.9103,
-          "rmsea": 0.0663,
+          "cfi": 0.9192,
+          "tli": 0.9076,
+          "rmsea": 0.0672,
           "srmr": null
         },
         "inter_item": {
-          "mean_r": 0.3921,
-          "min_r": 0.2009,
-          "max_r": 0.59,
-          "sd_r": 0.0754
+          "mean_r": 0.3909,
+          "min_r": 0.1998,
+          "max_r": 0.5891,
+          "sd_r": 0.0755
         },
         "itc_min": 0.44,
         "itc_all_above_030": true
       },
       "Maturity": {
-        "cronbach_alpha": 0.885,
-        "cronbach_alpha_ci": [0.8635, 0.9042],
-        "n_listwise": 282,
-        "mcdonalds_omega": 0.8859,
-        "composite_reliability": 0.8859,
-        "ave": 0.494,
-        "split_half": 0.9072,
+        "cronbach_alpha": 0.8841,
+        "cronbach_alpha_ci": [0.8626, 0.9034],
+        "n_listwise": 284,
+        "mcdonalds_omega": 0.885,
+        "composite_reliability": 0.885,
+        "ave": 0.4917,
+        "split_half": 0.9067,
         "kmo_bartlett": {
-          "kmo_overall": 0.9162,
-          "bartlett_chi2": 961.06,
-          "bartlett_p": 2.4414849328995197e-184
+          "kmo_overall": 0.9183,
+          "bartlett_chi2": 955.33,
+          "bartlett_p": 3.9650549847199865e-183
         },
         "parallel_analysis": {
           "n_factors": 1,
-          "eigenvalues_real": [4.4481, 0.6954, 0.6259, 0.5861]
+          "eigenvalues_real": [4.4331, 0.692, 0.6249, 0.5838]
         },
         "efa": {
           "construct": "Maturity",
           "n_factors": 1,
-          "variance_explained": [0.494],
-          "total_variance": 0.494,
+          "variance_explained": [0.4917],
+          "total_variance": 0.4917,
           "factor_correlations": null,
           "loadings": {
-            "M1": [0.7491],
-            "M2": [0.7461],
+            "M1": [0.7479],
+            "M2": [0.7391],
             "M3": [0.6491],
-            "M4": [0.6419],
-            "M5": [0.6636],
-            "M6": [0.7921],
-            "M7": [0.7125],
-            "M8": [0.6519]
+            "M4": [0.6436],
+            "M5": [0.6614],
+            "M6": [0.7909],
+            "M7": [0.7103],
+            "M8": [0.6522]
           }
         },
         "cfa": {
           "construct": "Maturity",
-          "chi2": 38.945,
+          "chi2": 34.881,
           "df": 20,
-          "chi2_p": 0.0068,
-          "cfi": 0.98,
-          "tli": 0.972,
-          "rmsea": 0.0581,
+          "chi2_p": 0.0207,
+          "cfi": 0.9842,
+          "tli": 0.9779,
+          "rmsea": 0.0513,
           "srmr": null
         },
         "inter_item": {
-          "mean_r": 0.4909,
-          "min_r": 0.3515,
-          "max_r": 0.6196,
-          "sd_r": 0.0597
+          "mean_r": 0.4888,
+          "min_r": 0.3571,
+          "max_r": 0.6089,
+          "sd_r": 0.0577
         },
         "itc_min": 0.6,
         "itc_all_above_030": true
@@ -1149,25 +1149,25 @@
       "htmt": [
         {
           "pair": "Barriers vs Readiness",
-          "htmt": 0.4397,
-          "ci_lower": 0.3623,
-          "ci_upper": 0.567,
+          "htmt": 0.4381,
+          "ci_lower": 0.364,
+          "ci_upper": 0.5703,
           "below_085": true,
           "below_090": true
         },
         {
           "pair": "Barriers vs Maturity",
-          "htmt": 0.3901,
-          "ci_lower": 0.322,
-          "ci_upper": 0.4927,
+          "htmt": 0.3822,
+          "ci_lower": 0.3117,
+          "ci_upper": 0.4855,
           "below_085": true,
           "below_090": true
         },
         {
           "pair": "Readiness vs Maturity",
-          "htmt": 0.8266,
-          "ci_lower": 0.7582,
-          "ci_upper": 0.8838,
+          "htmt": 0.8264,
+          "ci_lower": 0.7584,
+          "ci_upper": 0.8855,
           "below_085": true,
           "below_090": true
         }
@@ -1175,23 +1175,23 @@
       "fornell_larcker": [
         {
           "pair": "Barriers vs Readiness",
-          "sqrt_ave1": 0.5348,
-          "sqrt_ave2": 0.6296,
+          "sqrt_ave1": 0.5367,
+          "sqrt_ave2": 0.6286,
           "abs_r": 0.3234,
           "pass": true
         },
         {
           "pair": "Barriers vs Maturity",
-          "sqrt_ave1": 0.5348,
-          "sqrt_ave2": 0.7029,
-          "abs_r": 0.264,
+          "sqrt_ave1": 0.5367,
+          "sqrt_ave2": 0.7012,
+          "abs_r": 0.2586,
           "pass": true
         },
         {
           "pair": "Readiness vs Maturity",
-          "sqrt_ave1": 0.6296,
-          "sqrt_ave2": 0.7029,
-          "abs_r": 0.7304,
+          "sqrt_ave1": 0.6286,
+          "sqrt_ave2": 0.7012,
+          "abs_r": 0.7297,
           "pass": false
         }
       ],
@@ -1199,42 +1199,42 @@
         "Barriers": {
           "Barriers": 1.0,
           "Readiness": -0.3234,
-          "Maturity": -0.264
+          "Maturity": -0.2586
         },
         "Readiness": {
           "Barriers": -0.3234,
           "Readiness": 1.0,
-          "Maturity": 0.7304
+          "Maturity": 0.7297
         },
         "Maturity": {
-          "Barriers": -0.264,
-          "Readiness": 0.7304,
+          "Barriers": -0.2586,
+          "Readiness": 0.7297,
           "Maturity": 1.0
         }
       },
       "barriers_4f_cfa": {
-        "chi2": 354.543,
+        "chi2": 348.909,
         "df": 129,
         "chi2_p": 0.0,
-        "cfi": 0.8428,
-        "tli": 0.8135,
-        "rmsea": 0.0787,
-        "aic": 81.49,
-        "bic": 234.6
+        "cfi": 0.8478,
+        "tli": 0.8195,
+        "rmsea": 0.0775,
+        "aic": 81.55,
+        "bic": 234.96
       },
       "factor_analysis": {
         "efa_factors": [
           {
             "name": "F1",
             "items": 15,
-            "eigenvalue": 5.8322,
-            "variance_pct": 28.1
+            "eigenvalue": 5.8678,
+            "variance_pct": 28.3
           },
           {
             "name": "F2",
             "items": 3,
-            "eigenvalue": 1.801,
-            "variance_pct": 10.1
+            "eigenvalue": 1.7809,
+            "variance_pct": 9.9
           }
         ],
         "three_groups": [
@@ -1242,28 +1242,28 @@
             "name": "F1a \u2014 Strategy & Culture",
             "item_ids": ["B1", "B2", "B3", "B5", "B9", "B10", "B11", "B15", "B17"],
             "items": 9,
-            "alpha": 0.8265,
-            "cr": 0.8305,
-            "ave": 0.3612
+            "alpha": 0.8281,
+            "cr": 0.8321,
+            "ave": 0.3636
           },
           {
             "name": "F1b \u2014 Resources & Operations",
             "item_ids": ["B4", "B6", "B7", "B8", "B12"],
             "items": 5,
-            "alpha": 0.6982,
-            "cr": 0.7008,
-            "ave": 0.3221
+            "alpha": 0.6999,
+            "cr": 0.7026,
+            "ave": 0.3243
           },
           {
             "name": "F2 \u2014 External & Compliance",
             "item_ids": ["B13", "B14", "B16", "B18"],
             "items": 4,
-            "alpha": 0.6358,
-            "cr": 0.6998,
-            "ave": 0.4262
+            "alpha": 0.6323,
+            "cr": 0.6935,
+            "ave": 0.4171
           }
         ],
-        "factor_correlation": 0.4685,
+        "factor_correlation": 0.4709,
         "barrier_names": [
           "Resistance to Change",
           "Lack of Leadership Support",
@@ -1287,110 +1287,110 @@
         "loadings_matrix": [
           {
             "id": "B1",
-            "f1": 0.7342,
-            "f2": -0.2108,
+            "f1": 0.735,
+            "f2": -0.209,
             "assigned": "F1"
           },
           {
             "id": "B2",
-            "f1": 0.718,
-            "f2": -0.1573,
+            "f1": 0.7217,
+            "f2": -0.1565,
             "assigned": "F1"
           },
           {
             "id": "B3",
-            "f1": 0.6412,
-            "f2": -0.0279,
+            "f1": 0.6414,
+            "f2": -0.0364,
             "assigned": "F1"
           },
           {
             "id": "B4",
-            "f1": 0.6782,
-            "f2": -0.0254,
+            "f1": 0.6852,
+            "f2": -0.0294,
             "assigned": "F1"
           },
           {
             "id": "B5",
-            "f1": 0.6112,
-            "f2": -0.0322,
+            "f1": 0.6063,
+            "f2": -0.0274,
             "assigned": "F1"
           },
           {
             "id": "B6",
-            "f1": 0.4729,
-            "f2": 0.0073,
+            "f1": 0.4706,
+            "f2": 0.0136,
             "assigned": "F1"
           },
           {
             "id": "B7",
-            "f1": 0.5675,
-            "f2": 0.0051,
+            "f1": 0.5721,
+            "f2": 0.0033,
             "assigned": "F1"
           },
           {
             "id": "B8",
-            "f1": 0.5232,
-            "f2": 0.0598,
+            "f1": 0.5266,
+            "f2": 0.0632,
             "assigned": "F1"
           },
           {
             "id": "B9",
-            "f1": 0.5484,
-            "f2": -0.05,
+            "f1": 0.5498,
+            "f2": -0.0418,
             "assigned": "F1"
           },
           {
             "id": "B10",
-            "f1": 0.7143,
-            "f2": -0.0685,
+            "f1": 0.7184,
+            "f2": -0.0699,
             "assigned": "F1"
           },
           {
             "id": "B11",
-            "f1": 0.4826,
-            "f2": 0.0782,
+            "f1": 0.4907,
+            "f2": 0.0768,
             "assigned": "F1"
           },
           {
             "id": "B12",
-            "f1": 0.5756,
-            "f2": 0.0507,
+            "f1": 0.5709,
+            "f2": 0.0503,
             "assigned": "F1"
           },
           {
             "id": "B13",
-            "f1": -0.2095,
-            "f2": 0.9088,
+            "f1": -0.2016,
+            "f2": 0.8802,
             "assigned": "F2"
           },
           {
             "id": "B14",
-            "f1": -0.1236,
-            "f2": 0.8435,
+            "f1": -0.1211,
+            "f2": 0.8492,
             "assigned": "F2"
           },
           {
             "id": "B15",
-            "f1": 0.4178,
-            "f2": 0.1394,
+            "f1": 0.4268,
+            "f2": 0.1363,
             "assigned": "F1"
           },
           {
             "id": "B16",
-            "f1": 0.2122,
-            "f2": 0.3515,
+            "f1": 0.208,
+            "f2": 0.3593,
             "assigned": "F2"
           },
           {
             "id": "B17",
-            "f1": 0.4398,
-            "f2": 0.0967,
+            "f1": 0.4372,
+            "f2": 0.0923,
             "assigned": "F1"
           },
           {
             "id": "B18",
-            "f1": 0.3085,
-            "f2": 0.2094,
+            "f1": 0.3136,
+            "f2": 0.2083,
             "assigned": "F1"
           }
         ]
@@ -1440,7 +1440,7 @@
         }
       },
       "metadata": {
-        "n_total": 300,
+        "n_total": 302,
         "crp200_mode": false,
         "constructs": ["Barriers", "Readiness", "Maturity"],
         "n_barriers": 18,
@@ -1452,213 +1452,213 @@
       "key": "v2_finished",
       "label": "All V2 Finished",
       "description": "Finished + duration >= 120s (extreme speeders excluded)",
-      "n": 469,
-      "n_to_param_ratio": 10.2,
+      "n": 474,
+      "n_to_param_ratio": 10.3,
       "adequacy": "good",
-      "adequacy_note": "N:parameter ratio 10.2:1 meets the recommended 10:1 threshold for stable CFA estimation.",
+      "adequacy_note": "N:parameter ratio 10.3:1 meets the recommended 10:1 threshold for stable CFA estimation.",
       "Barriers": {
-        "cronbach_alpha": 0.9008,
-        "cronbach_alpha_ci": [0.8868, 0.9137],
-        "n_listwise": 442,
-        "mcdonalds_omega": 0.9012,
-        "composite_reliability": 0.9012,
-        "ave": 0.3416,
-        "split_half": 0.9224,
+        "cronbach_alpha": 0.9021,
+        "cronbach_alpha_ci": [0.8883, 0.9148],
+        "n_listwise": 447,
+        "mcdonalds_omega": 0.9025,
+        "composite_reliability": 0.9025,
+        "ave": 0.3447,
+        "split_half": 0.9229,
         "kmo_bartlett": {
-          "kmo_overall": 0.9262,
-          "bartlett_chi2": 2871.46,
+          "kmo_overall": 0.9276,
+          "bartlett_chi2": 2933.84,
           "bartlett_p": 0.0
         },
         "parallel_analysis": {
           "n_factors": 2,
-          "eigenvalues_real": [6.7931, 1.6178, 0.9806, 0.9222]
+          "eigenvalues_real": [6.8466, 1.6097, 0.973, 0.9192]
         },
         "efa": {
           "construct": "Barriers",
           "n_factors": 2,
-          "variance_explained": [0.3174, 0.1048],
-          "total_variance": 0.4222,
+          "variance_explained": [0.3197, 0.1048],
+          "total_variance": 0.4244,
           "factor_correlations": [
-            [1.0, 0.5702],
-            [0.5702, 1.0]
+            [1.0, 0.5722],
+            [0.5722, 1.0]
           ],
           "loadings": {
-            "B1": [0.7559, -0.1844],
-            "B2": [0.7823, -0.1365],
-            "B3": [0.6878, -0.0979],
-            "B4": [0.7297, -0.0781],
-            "B5": [0.6728, -0.048],
-            "B6": [0.4983, 0.0389],
-            "B7": [0.5488, 0.064],
-            "B8": [0.5651, 0.0837],
-            "B9": [0.5923, 0.0019],
-            "B10": [0.7647, -0.059],
-            "B11": [0.5322, 0.1102],
-            "B12": [0.5569, 0.0682],
-            "B13": [-0.1697, 0.8709],
-            "B14": [-0.1344, 0.8711],
-            "B15": [0.453, 0.2024],
-            "B16": [0.2175, 0.4177],
-            "B17": [0.4797, 0.1086],
-            "B18": [0.3802, 0.1943]
+            "B1": [0.7534, -0.1808],
+            "B2": [0.7811, -0.1352],
+            "B3": [0.6865, -0.0904],
+            "B4": [0.7336, -0.0818],
+            "B5": [0.6789, -0.0548],
+            "B6": [0.4954, 0.0447],
+            "B7": [0.5525, 0.0628],
+            "B8": [0.5712, 0.0829],
+            "B9": [0.5962, 0.0016],
+            "B10": [0.7668, -0.0599],
+            "B11": [0.5377, 0.1059],
+            "B12": [0.5586, 0.0661],
+            "B13": [-0.1651, 0.8712],
+            "B14": [-0.1354, 0.8712],
+            "B15": [0.4566, 0.2023],
+            "B16": [0.221, 0.4193],
+            "B17": [0.4792, 0.1109],
+            "B18": [0.3902, 0.194]
           }
         },
         "cfa": {
           "construct": "Barriers",
-          "chi2": 567.99,
+          "chi2": 572.189,
           "df": 135,
           "chi2_p": 0.0,
-          "cfi": 0.8437,
-          "tli": 0.8229,
-          "rmsea": 0.0853,
+          "cfi": 0.8457,
+          "tli": 0.8251,
+          "rmsea": 0.0852,
           "srmr": null
         },
         "inter_item": {
-          "mean_r": 0.3359,
-          "min_r": 0.118,
-          "max_r": 0.6462,
-          "sd_r": 0.0917
+          "mean_r": 0.3391,
+          "min_r": 0.1239,
+          "max_r": 0.647,
+          "sd_r": 0.0911
         },
-        "itc_min": 0.39,
+        "itc_min": 0.4,
         "itc_all_above_030": true
       },
       "Readiness": {
-        "cronbach_alpha": 0.9307,
-        "cronbach_alpha_ci": [0.9207, 0.9399],
-        "n_listwise": 423,
-        "mcdonalds_omega": 0.9314,
-        "composite_reliability": 0.9314,
-        "ave": 0.4454,
-        "split_half": 0.9362,
+        "cronbach_alpha": 0.9313,
+        "cronbach_alpha_ci": [0.9215, 0.9405],
+        "n_listwise": 428,
+        "mcdonalds_omega": 0.932,
+        "composite_reliability": 0.932,
+        "ave": 0.4478,
+        "split_half": 0.9359,
         "kmo_bartlett": {
-          "kmo_overall": 0.9605,
-          "bartlett_chi2": 3343.45,
+          "kmo_overall": 0.9609,
+          "bartlett_chi2": 3409.9,
           "bartlett_p": 0.0
         },
         "parallel_analysis": {
           "n_factors": 1,
-          "eigenvalues_real": [8.119, 0.9483, 0.7765, 0.7598]
+          "eigenvalues_real": [8.1568, 0.943, 0.7751, 0.7518]
         },
         "efa": {
           "construct": "Readiness",
           "n_factors": 1,
-          "variance_explained": [0.4454],
-          "total_variance": 0.4454,
+          "variance_explained": [0.4478],
+          "total_variance": 0.4478,
           "factor_correlations": null,
           "loadings": {
-            "R1": [0.7274],
-            "R2": [0.6809],
-            "R3": [0.7149],
-            "R4": [0.5876],
-            "R5": [0.6043],
-            "R6": [0.6994],
-            "R7": [0.7104],
-            "R8": [0.6849],
-            "R9": [0.6584],
-            "R10": [0.6597],
-            "R11": [0.6707],
-            "R12": [0.643],
-            "R13": [0.6866],
-            "R14": [0.6267],
-            "R15": [0.6745],
-            "R16": [0.7344],
-            "R17": [0.5515]
+            "R1": [0.7275],
+            "R2": [0.6813],
+            "R3": [0.7134],
+            "R4": [0.5852],
+            "R5": [0.6063],
+            "R6": [0.6993],
+            "R7": [0.7091],
+            "R8": [0.686],
+            "R9": [0.6602],
+            "R10": [0.6625],
+            "R11": [0.6727],
+            "R12": [0.6477],
+            "R13": [0.6895],
+            "R14": [0.6296],
+            "R15": [0.6807],
+            "R16": [0.738],
+            "R17": [0.5571]
           }
         },
         "cfa": {
           "construct": "Readiness",
-          "chi2": 265.805,
+          "chi2": 268.894,
           "df": 119,
           "chi2_p": 0.0,
           "cfi": 0.9551,
-          "tli": 0.9487,
-          "rmsea": 0.0541,
+          "tli": 0.9486,
+          "rmsea": 0.0543,
           "srmr": null
         },
         "inter_item": {
-          "mean_r": 0.443,
-          "min_r": 0.285,
-          "max_r": 0.591,
-          "sd_r": 0.0583
+          "mean_r": 0.4454,
+          "min_r": 0.2908,
+          "max_r": 0.5911,
+          "sd_r": 0.0579
         },
-        "itc_min": 0.53,
+        "itc_min": 0.54,
         "itc_all_above_030": true
       },
       "Maturity": {
-        "cronbach_alpha": 0.8882,
-        "cronbach_alpha_ci": [0.8716, 0.9033],
-        "n_listwise": 439,
-        "mcdonalds_omega": 0.8886,
-        "composite_reliability": 0.8886,
-        "ave": 0.5007,
-        "split_half": 0.9116,
+        "cronbach_alpha": 0.8901,
+        "cronbach_alpha_ci": [0.8739, 0.9049],
+        "n_listwise": 443,
+        "mcdonalds_omega": 0.8905,
+        "composite_reliability": 0.8905,
+        "ave": 0.5054,
+        "split_half": 0.9132,
         "kmo_bartlett": {
-          "kmo_overall": 0.9249,
-          "bartlett_chi2": 1519.28,
-          "bartlett_p": 5.65845455245937e-303
+          "kmo_overall": 0.9257,
+          "bartlett_chi2": 1560.01,
+          "bartlett_p": 1.1461743154705e-311
         },
         "parallel_analysis": {
           "n_factors": 1,
-          "eigenvalues_real": [4.4972, 0.6429, 0.5892, 0.5487]
+          "eigenvalues_real": [4.5304, 0.6378, 0.5849, 0.5412]
         },
         "efa": {
           "construct": "Maturity",
           "n_factors": 1,
-          "variance_explained": [0.5007],
-          "total_variance": 0.5007,
+          "variance_explained": [0.5054],
+          "total_variance": 0.5054,
           "factor_correlations": null,
           "loadings": {
-            "M1": [0.7582],
-            "M2": [0.7729],
-            "M3": [0.6508],
-            "M4": [0.6726],
-            "M5": [0.6522],
-            "M6": [0.7743],
-            "M7": [0.7139],
-            "M8": [0.6504]
+            "M1": [0.7625],
+            "M2": [0.7772],
+            "M3": [0.6529],
+            "M4": [0.6768],
+            "M5": [0.6593],
+            "M6": [0.7768],
+            "M7": [0.7113],
+            "M8": [0.6554]
           }
         },
         "cfa": {
           "construct": "Maturity",
-          "chi2": 38.766,
+          "chi2": 39.571,
           "df": 20,
-          "chi2_p": 0.0071,
-          "cfi": 0.9875,
-          "tli": 0.9826,
-          "rmsea": 0.0463,
+          "chi2_p": 0.0057,
+          "cfi": 0.9874,
+          "tli": 0.9823,
+          "rmsea": 0.0471,
           "srmr": null
         },
         "inter_item": {
-          "mean_r": 0.498,
-          "min_r": 0.4047,
-          "max_r": 0.6369,
-          "sd_r": 0.0531
+          "mean_r": 0.5028,
+          "min_r": 0.4129,
+          "max_r": 0.6416,
+          "sd_r": 0.0528
         },
-        "itc_min": 0.61,
+        "itc_min": 0.62,
         "itc_all_above_030": true
       },
       "htmt": [
         {
           "pair": "Barriers vs Readiness",
-          "htmt": 0.3375,
-          "ci_lower": 0.2617,
-          "ci_upper": 0.4548,
+          "htmt": 0.3382,
+          "ci_lower": 0.2607,
+          "ci_upper": 0.453,
           "below_085": true,
           "below_090": true
         },
         {
           "pair": "Barriers vs Maturity",
-          "htmt": 0.3538,
-          "ci_lower": 0.282,
-          "ci_upper": 0.4521,
+          "htmt": 0.3589,
+          "ci_lower": 0.2874,
+          "ci_upper": 0.4572,
           "below_085": true,
           "below_090": true
         },
         {
           "pair": "Readiness vs Maturity",
-          "htmt": 0.8157,
-          "ci_lower": 0.7444,
-          "ci_upper": 0.8721,
+          "htmt": 0.8177,
+          "ci_lower": 0.7482,
+          "ci_upper": 0.8733,
           "below_085": true,
           "below_090": true
         }
@@ -1666,65 +1666,65 @@
       "fornell_larcker": [
         {
           "pair": "Barriers vs Readiness",
-          "sqrt_ave1": 0.5845,
-          "sqrt_ave2": 0.6674,
-          "abs_r": 0.274,
+          "sqrt_ave1": 0.5871,
+          "sqrt_ave2": 0.6692,
+          "abs_r": 0.2754,
           "pass": true
         },
         {
           "pair": "Barriers vs Maturity",
-          "sqrt_ave1": 0.5845,
-          "sqrt_ave2": 0.7076,
-          "abs_r": 0.2897,
+          "sqrt_ave1": 0.5871,
+          "sqrt_ave2": 0.7109,
+          "abs_r": 0.2925,
           "pass": true
         },
         {
           "pair": "Readiness vs Maturity",
-          "sqrt_ave1": 0.6674,
-          "sqrt_ave2": 0.7076,
-          "abs_r": 0.7254,
+          "sqrt_ave1": 0.6692,
+          "sqrt_ave2": 0.7109,
+          "abs_r": 0.7293,
           "pass": false
         }
       ],
       "construct_correlations": {
         "Barriers": {
           "Barriers": 1.0,
-          "Readiness": -0.274,
-          "Maturity": -0.2897
+          "Readiness": -0.2754,
+          "Maturity": -0.2925
         },
         "Readiness": {
-          "Barriers": -0.274,
+          "Barriers": -0.2754,
           "Readiness": 1.0,
-          "Maturity": 0.7254
+          "Maturity": 0.7293
         },
         "Maturity": {
-          "Barriers": -0.2897,
-          "Readiness": 0.7254,
+          "Barriers": -0.2925,
+          "Readiness": 0.7293,
           "Maturity": 1.0
         }
       },
       "barriers_4f_cfa": {
-        "chi2": 446.484,
+        "chi2": 448.2,
         "df": 129,
         "chi2_p": 0.0,
-        "cfi": 0.8854,
-        "tli": 0.8641,
-        "rmsea": 0.0747,
-        "aic": 81.98,
-        "bic": 253.81
+        "cfi": 0.8873,
+        "tli": 0.8664,
+        "rmsea": 0.0745,
+        "aic": 81.99,
+        "bic": 254.3
       },
       "factor_analysis": {
         "efa_factors": [
           {
             "name": "F1",
             "items": 15,
-            "eigenvalue": 6.7931,
-            "variance_pct": 31.7
+            "eigenvalue": 6.8466,
+            "variance_pct": 32.0
           },
           {
             "name": "F2",
             "items": 3,
-            "eigenvalue": 1.6178,
+            "eigenvalue": 1.6097,
             "variance_pct": 10.5
           }
         ],
@@ -1733,28 +1733,28 @@
             "name": "F1a \u2014 Strategy & Culture",
             "item_ids": ["B1", "B2", "B3", "B5", "B9", "B10", "B11", "B15", "B17"],
             "items": 9,
-            "alpha": 0.8583,
-            "cr": 0.8621,
-            "ave": 0.4181
+            "alpha": 0.8594,
+            "cr": 0.8631,
+            "ave": 0.4201
           },
           {
             "name": "F1b \u2014 Resources & Operations",
             "item_ids": ["B4", "B6", "B7", "B8", "B12"],
             "items": 5,
-            "alpha": 0.7154,
-            "cr": 0.7187,
-            "ave": 0.3423
+            "alpha": 0.718,
+            "cr": 0.7214,
+            "ave": 0.3454
           },
           {
             "name": "F2 \u2014 External & Compliance",
             "item_ids": ["B13", "B14", "B16", "B18"],
             "items": 4,
-            "alpha": 0.6506,
-            "cr": 0.7094,
-            "ave": 0.4324
+            "alpha": 0.6511,
+            "cr": 0.7098,
+            "ave": 0.4329
           }
         ],
-        "factor_correlation": 0.5702,
+        "factor_correlation": 0.5722,
         "barrier_names": [
           "Resistance to Change",
           "Lack of Leadership Support",
@@ -1778,110 +1778,110 @@
         "loadings_matrix": [
           {
             "id": "B1",
-            "f1": 0.7559,
-            "f2": -0.1844,
+            "f1": 0.7534,
+            "f2": -0.1808,
             "assigned": "F1"
           },
           {
             "id": "B2",
-            "f1": 0.7823,
-            "f2": -0.1365,
+            "f1": 0.7811,
+            "f2": -0.1352,
             "assigned": "F1"
           },
           {
             "id": "B3",
-            "f1": 0.6878,
-            "f2": -0.0979,
+            "f1": 0.6865,
+            "f2": -0.0904,
             "assigned": "F1"
           },
           {
             "id": "B4",
-            "f1": 0.7297,
-            "f2": -0.0781,
+            "f1": 0.7336,
+            "f2": -0.0818,
             "assigned": "F1"
           },
           {
             "id": "B5",
-            "f1": 0.6728,
-            "f2": -0.048,
+            "f1": 0.6789,
+            "f2": -0.0548,
             "assigned": "F1"
           },
           {
             "id": "B6",
-            "f1": 0.4983,
-            "f2": 0.0389,
+            "f1": 0.4954,
+            "f2": 0.0447,
             "assigned": "F1"
           },
           {
             "id": "B7",
-            "f1": 0.5488,
-            "f2": 0.064,
+            "f1": 0.5525,
+            "f2": 0.0628,
             "assigned": "F1"
           },
           {
             "id": "B8",
-            "f1": 0.5651,
-            "f2": 0.0837,
+            "f1": 0.5712,
+            "f2": 0.0829,
             "assigned": "F1"
           },
           {
             "id": "B9",
-            "f1": 0.5923,
-            "f2": 0.0019,
+            "f1": 0.5962,
+            "f2": 0.0016,
             "assigned": "F1"
           },
           {
             "id": "B10",
-            "f1": 0.7647,
-            "f2": -0.059,
+            "f1": 0.7668,
+            "f2": -0.0599,
             "assigned": "F1"
           },
           {
             "id": "B11",
-            "f1": 0.5322,
-            "f2": 0.1102,
+            "f1": 0.5377,
+            "f2": 0.1059,
             "assigned": "F1"
           },
           {
             "id": "B12",
-            "f1": 0.5569,
-            "f2": 0.0682,
+            "f1": 0.5586,
+            "f2": 0.0661,
             "assigned": "F1"
           },
           {
             "id": "B13",
-            "f1": -0.1697,
-            "f2": 0.8709,
+            "f1": -0.1651,
+            "f2": 0.8712,
             "assigned": "F2"
           },
           {
             "id": "B14",
-            "f1": -0.1344,
-            "f2": 0.8711,
+            "f1": -0.1354,
+            "f2": 0.8712,
             "assigned": "F2"
           },
           {
             "id": "B15",
-            "f1": 0.453,
-            "f2": 0.2024,
+            "f1": 0.4566,
+            "f2": 0.2023,
             "assigned": "F1"
           },
           {
             "id": "B16",
-            "f1": 0.2175,
-            "f2": 0.4177,
+            "f1": 0.221,
+            "f2": 0.4193,
             "assigned": "F2"
           },
           {
             "id": "B17",
-            "f1": 0.4797,
-            "f2": 0.1086,
+            "f1": 0.4792,
+            "f2": 0.1109,
             "assigned": "F1"
           },
           {
             "id": "B18",
-            "f1": 0.3802,
-            "f2": 0.1943,
+            "f1": 0.3902,
+            "f2": 0.194,
             "assigned": "F1"
           }
         ]
@@ -1931,7 +1931,7 @@
         }
       },
       "metadata": {
-        "n_total": 469,
+        "n_total": 474,
         "crp200_mode": false,
         "constructs": ["Barriers", "Readiness", "Maturity"],
         "n_barriers": 18,
@@ -1943,213 +1943,213 @@
       "key": "v2_all",
       "label": "All V2",
       "description": "All V2 responses including incomplete",
-      "n": 555,
-      "n_to_param_ratio": 12.1,
+      "n": 560,
+      "n_to_param_ratio": 12.2,
       "adequacy": "good",
-      "adequacy_note": "N:parameter ratio 12.1:1 meets the recommended 10:1 threshold for stable CFA estimation.",
+      "adequacy_note": "N:parameter ratio 12.2:1 meets the recommended 10:1 threshold for stable CFA estimation.",
       "Barriers": {
-        "cronbach_alpha": 0.9013,
-        "cronbach_alpha_ci": [0.8875, 0.9142],
-        "n_listwise": 448,
-        "mcdonalds_omega": 0.9017,
-        "composite_reliability": 0.9017,
-        "ave": 0.343,
-        "split_half": 0.9232,
+        "cronbach_alpha": 0.9026,
+        "cronbach_alpha_ci": [0.889, 0.9152],
+        "n_listwise": 453,
+        "mcdonalds_omega": 0.903,
+        "composite_reliability": 0.903,
+        "ave": 0.346,
+        "split_half": 0.9236,
         "kmo_bartlett": {
-          "kmo_overall": 0.9266,
-          "bartlett_chi2": 2925.13,
+          "kmo_overall": 0.9279,
+          "bartlett_chi2": 2987.07,
           "bartlett_p": 0.0
         },
         "parallel_analysis": {
           "n_factors": 2,
-          "eigenvalues_real": [6.8165, 1.6232, 0.9706, 0.9197]
+          "eigenvalues_real": [6.8685, 1.6151, 0.9632, 0.9167]
         },
         "efa": {
           "construct": "Barriers",
           "n_factors": 2,
-          "variance_explained": [0.3173, 0.1062],
-          "total_variance": 0.4235,
+          "variance_explained": [0.3195, 0.1062],
+          "total_variance": 0.4257,
           "factor_correlations": [
-            [1.0, 0.575],
-            [0.575, 1.0]
+            [1.0, 0.577],
+            [0.577, 1.0]
           ],
           "loadings": {
-            "B1": [0.7494, -0.1886],
-            "B2": [0.7835, -0.142],
-            "B3": [0.6867, -0.0879],
-            "B4": [0.7365, -0.0798],
-            "B5": [0.6795, -0.0542],
-            "B6": [0.5041, 0.0355],
-            "B7": [0.544, 0.0764],
-            "B8": [0.5612, 0.0958],
-            "B9": [0.5887, 0.0016],
-            "B10": [0.7718, -0.0703],
-            "B11": [0.5255, 0.1249],
-            "B12": [0.548, 0.0813],
-            "B13": [-0.1789, 0.8724],
-            "B14": [-0.1377, 0.8732],
-            "B15": [0.4564, 0.2044],
-            "B16": [0.2129, 0.4208],
-            "B17": [0.4803, 0.1161],
-            "B18": [0.3761, 0.1995]
+            "B1": [0.747, -0.185],
+            "B2": [0.7824, -0.1406],
+            "B3": [0.6855, -0.0806],
+            "B4": [0.7403, -0.0834],
+            "B5": [0.6854, -0.0608],
+            "B6": [0.501, 0.0414],
+            "B7": [0.5476, 0.0752],
+            "B8": [0.567, 0.0948],
+            "B9": [0.5925, 0.0014],
+            "B10": [0.7737, -0.071],
+            "B11": [0.5309, 0.1205],
+            "B12": [0.5498, 0.0791],
+            "B13": [-0.1745, 0.8729],
+            "B14": [-0.1386, 0.8733],
+            "B15": [0.4598, 0.2044],
+            "B16": [0.2164, 0.4224],
+            "B17": [0.4797, 0.1183],
+            "B18": [0.3859, 0.1993]
           }
         },
         "cfa": {
           "construct": "Barriers",
-          "chi2": 576.384,
+          "chi2": 580.343,
           "df": 135,
           "chi2_p": 0.0,
-          "cfi": 0.8437,
-          "tli": 0.8229,
-          "rmsea": 0.0855,
+          "cfi": 0.8457,
+          "tli": 0.8252,
+          "rmsea": 0.0854,
           "srmr": null
         },
         "inter_item": {
-          "mean_r": 0.3373,
-          "min_r": 0.1134,
-          "max_r": 0.6447,
-          "sd_r": 0.0917
+          "mean_r": 0.3404,
+          "min_r": 0.1193,
+          "max_r": 0.6455,
+          "sd_r": 0.0911
         },
-        "itc_min": 0.39,
+        "itc_min": 0.4,
         "itc_all_above_030": true
       },
       "Readiness": {
-        "cronbach_alpha": 0.9307,
-        "cronbach_alpha_ci": [0.9207, 0.9399],
-        "n_listwise": 423,
-        "mcdonalds_omega": 0.9314,
-        "composite_reliability": 0.9314,
-        "ave": 0.4454,
-        "split_half": 0.9362,
+        "cronbach_alpha": 0.9313,
+        "cronbach_alpha_ci": [0.9215, 0.9405],
+        "n_listwise": 428,
+        "mcdonalds_omega": 0.932,
+        "composite_reliability": 0.932,
+        "ave": 0.4478,
+        "split_half": 0.9359,
         "kmo_bartlett": {
-          "kmo_overall": 0.9605,
-          "bartlett_chi2": 3343.45,
+          "kmo_overall": 0.9609,
+          "bartlett_chi2": 3409.9,
           "bartlett_p": 0.0
         },
         "parallel_analysis": {
           "n_factors": 1,
-          "eigenvalues_real": [8.119, 0.9483, 0.7765, 0.7598]
+          "eigenvalues_real": [8.1568, 0.943, 0.7751, 0.7518]
         },
         "efa": {
           "construct": "Readiness",
           "n_factors": 1,
-          "variance_explained": [0.4454],
-          "total_variance": 0.4454,
+          "variance_explained": [0.4478],
+          "total_variance": 0.4478,
           "factor_correlations": null,
           "loadings": {
-            "R1": [0.7274],
-            "R2": [0.6809],
-            "R3": [0.7149],
-            "R4": [0.5876],
-            "R5": [0.6043],
-            "R6": [0.6994],
-            "R7": [0.7104],
-            "R8": [0.6849],
-            "R9": [0.6584],
-            "R10": [0.6597],
-            "R11": [0.6707],
-            "R12": [0.643],
-            "R13": [0.6866],
-            "R14": [0.6267],
-            "R15": [0.6745],
-            "R16": [0.7344],
-            "R17": [0.5515]
+            "R1": [0.7275],
+            "R2": [0.6813],
+            "R3": [0.7134],
+            "R4": [0.5852],
+            "R5": [0.6063],
+            "R6": [0.6993],
+            "R7": [0.7091],
+            "R8": [0.686],
+            "R9": [0.6602],
+            "R10": [0.6625],
+            "R11": [0.6727],
+            "R12": [0.6477],
+            "R13": [0.6895],
+            "R14": [0.6296],
+            "R15": [0.6807],
+            "R16": [0.738],
+            "R17": [0.5571]
           }
         },
         "cfa": {
           "construct": "Readiness",
-          "chi2": 265.805,
+          "chi2": 268.894,
           "df": 119,
           "chi2_p": 0.0,
           "cfi": 0.9551,
-          "tli": 0.9487,
-          "rmsea": 0.0541,
+          "tli": 0.9486,
+          "rmsea": 0.0543,
           "srmr": null
         },
         "inter_item": {
-          "mean_r": 0.443,
-          "min_r": 0.285,
-          "max_r": 0.591,
-          "sd_r": 0.0583
+          "mean_r": 0.4454,
+          "min_r": 0.2908,
+          "max_r": 0.5911,
+          "sd_r": 0.0579
         },
-        "itc_min": 0.53,
+        "itc_min": 0.54,
         "itc_all_above_030": true
       },
       "Maturity": {
-        "cronbach_alpha": 0.8882,
-        "cronbach_alpha_ci": [0.8716, 0.9033],
-        "n_listwise": 439,
-        "mcdonalds_omega": 0.8886,
-        "composite_reliability": 0.8886,
-        "ave": 0.5007,
-        "split_half": 0.9116,
+        "cronbach_alpha": 0.8901,
+        "cronbach_alpha_ci": [0.8739, 0.9049],
+        "n_listwise": 443,
+        "mcdonalds_omega": 0.8905,
+        "composite_reliability": 0.8905,
+        "ave": 0.5054,
+        "split_half": 0.9132,
         "kmo_bartlett": {
-          "kmo_overall": 0.9249,
-          "bartlett_chi2": 1519.28,
-          "bartlett_p": 5.65845455245937e-303
+          "kmo_overall": 0.9257,
+          "bartlett_chi2": 1560.01,
+          "bartlett_p": 1.1461743154705e-311
         },
         "parallel_analysis": {
           "n_factors": 1,
-          "eigenvalues_real": [4.4972, 0.6429, 0.5892, 0.5487]
+          "eigenvalues_real": [4.5304, 0.6378, 0.5849, 0.5412]
         },
         "efa": {
           "construct": "Maturity",
           "n_factors": 1,
-          "variance_explained": [0.5007],
-          "total_variance": 0.5007,
+          "variance_explained": [0.5054],
+          "total_variance": 0.5054,
           "factor_correlations": null,
           "loadings": {
-            "M1": [0.7582],
-            "M2": [0.7729],
-            "M3": [0.6508],
-            "M4": [0.6726],
-            "M5": [0.6522],
-            "M6": [0.7743],
-            "M7": [0.7139],
-            "M8": [0.6504]
+            "M1": [0.7625],
+            "M2": [0.7772],
+            "M3": [0.6529],
+            "M4": [0.6768],
+            "M5": [0.6593],
+            "M6": [0.7768],
+            "M7": [0.7113],
+            "M8": [0.6554]
           }
         },
         "cfa": {
           "construct": "Maturity",
-          "chi2": 38.766,
+          "chi2": 39.571,
           "df": 20,
-          "chi2_p": 0.0071,
-          "cfi": 0.9875,
-          "tli": 0.9826,
-          "rmsea": 0.0463,
+          "chi2_p": 0.0057,
+          "cfi": 0.9874,
+          "tli": 0.9823,
+          "rmsea": 0.0471,
           "srmr": null
         },
         "inter_item": {
-          "mean_r": 0.498,
-          "min_r": 0.4047,
-          "max_r": 0.6369,
-          "sd_r": 0.0531
+          "mean_r": 0.5028,
+          "min_r": 0.4129,
+          "max_r": 0.6416,
+          "sd_r": 0.0528
         },
-        "itc_min": 0.61,
+        "itc_min": 0.62,
         "itc_all_above_030": true
       },
       "htmt": [
         {
           "pair": "Barriers vs Readiness",
-          "htmt": 0.3375,
-          "ci_lower": 0.2617,
-          "ci_upper": 0.4548,
+          "htmt": 0.3382,
+          "ci_lower": 0.2607,
+          "ci_upper": 0.453,
           "below_085": true,
           "below_090": true
         },
         {
           "pair": "Barriers vs Maturity",
-          "htmt": 0.3538,
-          "ci_lower": 0.282,
-          "ci_upper": 0.4521,
+          "htmt": 0.3589,
+          "ci_lower": 0.2874,
+          "ci_upper": 0.4572,
           "below_085": true,
           "below_090": true
         },
         {
           "pair": "Readiness vs Maturity",
-          "htmt": 0.8157,
-          "ci_lower": 0.7444,
-          "ci_upper": 0.8721,
+          "htmt": 0.8177,
+          "ci_lower": 0.7482,
+          "ci_upper": 0.8733,
           "below_085": true,
           "below_090": true
         }
@@ -2157,65 +2157,65 @@
       "fornell_larcker": [
         {
           "pair": "Barriers vs Readiness",
-          "sqrt_ave1": 0.5857,
-          "sqrt_ave2": 0.6674,
-          "abs_r": 0.2736,
+          "sqrt_ave1": 0.5882,
+          "sqrt_ave2": 0.6692,
+          "abs_r": 0.2751,
           "pass": true
         },
         {
           "pair": "Barriers vs Maturity",
-          "sqrt_ave1": 0.5857,
-          "sqrt_ave2": 0.7076,
-          "abs_r": 0.2897,
+          "sqrt_ave1": 0.5882,
+          "sqrt_ave2": 0.7109,
+          "abs_r": 0.2924,
           "pass": true
         },
         {
           "pair": "Readiness vs Maturity",
-          "sqrt_ave1": 0.6674,
-          "sqrt_ave2": 0.7076,
-          "abs_r": 0.7255,
+          "sqrt_ave1": 0.6692,
+          "sqrt_ave2": 0.7109,
+          "abs_r": 0.7293,
           "pass": false
         }
       ],
       "construct_correlations": {
         "Barriers": {
           "Barriers": 1.0,
-          "Readiness": -0.2736,
-          "Maturity": -0.2897
+          "Readiness": -0.2751,
+          "Maturity": -0.2924
         },
         "Readiness": {
-          "Barriers": -0.2736,
+          "Barriers": -0.2751,
           "Readiness": 1.0,
-          "Maturity": 0.7255
+          "Maturity": 0.7293
         },
         "Maturity": {
-          "Barriers": -0.2897,
-          "Readiness": 0.7255,
+          "Barriers": -0.2924,
+          "Readiness": 0.7293,
           "Maturity": 1.0
         }
       },
       "barriers_4f_cfa": {
-        "chi2": 457.507,
+        "chi2": 458.965,
         "df": 129,
         "chi2_p": 0.0,
-        "cfi": 0.8837,
-        "tli": 0.862,
-        "rmsea": 0.0755,
-        "aic": 81.96,
-        "bic": 254.36
+        "cfi": 0.8857,
+        "tli": 0.8644,
+        "rmsea": 0.0752,
+        "aic": 81.97,
+        "bic": 254.84
       },
       "factor_analysis": {
         "efa_factors": [
           {
             "name": "F1",
             "items": 15,
-            "eigenvalue": 6.8165,
-            "variance_pct": 31.7
+            "eigenvalue": 6.8685,
+            "variance_pct": 31.9
           },
           {
             "name": "F2",
             "items": 3,
-            "eigenvalue": 1.6232,
+            "eigenvalue": 1.6151,
             "variance_pct": 10.6
           }
         ],
@@ -2224,28 +2224,28 @@
             "name": "F1a \u2014 Strategy & Culture",
             "item_ids": ["B1", "B2", "B3", "B5", "B9", "B10", "B11", "B15", "B17"],
             "items": 9,
-            "alpha": 0.8584,
-            "cr": 0.8622,
-            "ave": 0.4185
+            "alpha": 0.8595,
+            "cr": 0.8632,
+            "ave": 0.4203
           },
           {
             "name": "F1b \u2014 Resources & Operations",
             "item_ids": ["B4", "B6", "B7", "B8", "B12"],
             "items": 5,
-            "alpha": 0.7143,
-            "cr": 0.7178,
-            "ave": 0.3415
+            "alpha": 0.7167,
+            "cr": 0.7204,
+            "ave": 0.3445
           },
           {
             "name": "F2 \u2014 External & Compliance",
             "item_ids": ["B13", "B14", "B16", "B18"],
             "items": 4,
-            "alpha": 0.6545,
-            "cr": 0.7124,
-            "ave": 0.4351
+            "alpha": 0.6552,
+            "cr": 0.713,
+            "ave": 0.4357
           }
         ],
-        "factor_correlation": 0.575,
+        "factor_correlation": 0.577,
         "barrier_names": [
           "Resistance to Change",
           "Lack of Leadership Support",
@@ -2269,110 +2269,110 @@
         "loadings_matrix": [
           {
             "id": "B1",
-            "f1": 0.7494,
-            "f2": -0.1886,
+            "f1": 0.747,
+            "f2": -0.185,
             "assigned": "F1"
           },
           {
             "id": "B2",
-            "f1": 0.7835,
-            "f2": -0.142,
+            "f1": 0.7824,
+            "f2": -0.1406,
             "assigned": "F1"
           },
           {
             "id": "B3",
-            "f1": 0.6867,
-            "f2": -0.0879,
+            "f1": 0.6855,
+            "f2": -0.0806,
             "assigned": "F1"
           },
           {
             "id": "B4",
-            "f1": 0.7365,
-            "f2": -0.0798,
+            "f1": 0.7403,
+            "f2": -0.0834,
             "assigned": "F1"
           },
           {
             "id": "B5",
-            "f1": 0.6795,
-            "f2": -0.0542,
+            "f1": 0.6854,
+            "f2": -0.0608,
             "assigned": "F1"
           },
           {
             "id": "B6",
-            "f1": 0.5041,
-            "f2": 0.0355,
+            "f1": 0.501,
+            "f2": 0.0414,
             "assigned": "F1"
           },
           {
             "id": "B7",
-            "f1": 0.544,
-            "f2": 0.0764,
+            "f1": 0.5476,
+            "f2": 0.0752,
             "assigned": "F1"
           },
           {
             "id": "B8",
-            "f1": 0.5612,
-            "f2": 0.0958,
+            "f1": 0.567,
+            "f2": 0.0948,
             "assigned": "F1"
           },
           {
             "id": "B9",
-            "f1": 0.5887,
-            "f2": 0.0016,
+            "f1": 0.5925,
+            "f2": 0.0014,
             "assigned": "F1"
           },
           {
             "id": "B10",
-            "f1": 0.7718,
-            "f2": -0.0703,
+            "f1": 0.7737,
+            "f2": -0.071,
             "assigned": "F1"
           },
           {
             "id": "B11",
-            "f1": 0.5255,
-            "f2": 0.1249,
+            "f1": 0.5309,
+            "f2": 0.1205,
             "assigned": "F1"
           },
           {
             "id": "B12",
-            "f1": 0.548,
-            "f2": 0.0813,
+            "f1": 0.5498,
+            "f2": 0.0791,
             "assigned": "F1"
           },
           {
             "id": "B13",
-            "f1": -0.1789,
-            "f2": 0.8724,
+            "f1": -0.1745,
+            "f2": 0.8729,
             "assigned": "F2"
           },
           {
             "id": "B14",
-            "f1": -0.1377,
-            "f2": 0.8732,
+            "f1": -0.1386,
+            "f2": 0.8733,
             "assigned": "F2"
           },
           {
             "id": "B15",
-            "f1": 0.4564,
+            "f1": 0.4598,
             "f2": 0.2044,
             "assigned": "F1"
           },
           {
             "id": "B16",
-            "f1": 0.2129,
-            "f2": 0.4208,
+            "f1": 0.2164,
+            "f2": 0.4224,
             "assigned": "F2"
           },
           {
             "id": "B17",
-            "f1": 0.4803,
-            "f2": 0.1161,
+            "f1": 0.4797,
+            "f2": 0.1183,
             "assigned": "F1"
           },
           {
             "id": "B18",
-            "f1": 0.3761,
-            "f2": 0.1995,
+            "f1": 0.3859,
+            "f2": 0.1993,
             "assigned": "F1"
           }
         ]
@@ -2422,7 +2422,7 @@
         }
       },
       "metadata": {
-        "n_total": 555,
+        "n_total": 560,
         "crp200_mode": false,
         "constructs": ["Barriers", "Readiness", "Maturity"],
         "n_barriers": 18,
