@@ -25,7 +25,7 @@ const SEGMENT_LABELS: Record<string, string> = {
   'making-of-tabs': 'Making of TABS',
   'cmo-survey': 'CMO Survey',
   'data-quality': 'Data Quality',
-  'survey-stats': 'Survey Statistics',
+  'survey-stats': 'Response Funnel',
   'dataset-comparison': 'Dataset Comparison',
   'ai-assisted-development': 'AI-Assisted Development',
   'ai-validity-checks': 'AI Validity Checks',
