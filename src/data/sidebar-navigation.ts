@@ -264,7 +264,7 @@ function surveyToGroups(): SidebarGroup[] {
       links: [
         { title: 'All Barriers', href: '/barriers' },
         { title: 'Barrier Quotes', href: '/barriers/quotes' },
-        { title: 'Survey Statistics', href: '/barriers/survey-stats' },
+        { title: 'Response Funnel', href: '/results/survey-stats' },
       ],
     },
     {

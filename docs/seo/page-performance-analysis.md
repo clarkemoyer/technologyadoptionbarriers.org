@@ -125,7 +125,7 @@ The site's content architecture follows a hub-and-spoke model with three primary
 ```
 Homepage (/)
 ├── Barriers Hub (/barriers)
-│   └── Survey Stats (/barriers/survey-stats)
+│   └── Response Funnel (/results/survey-stats; legacy: /barriers/survey-stats)
 ├── Article Series Pillar
 │   ├── Branch 1: Individual Adoption Models
 │   │   ├── Branch Introduction (/article-1-branch-introduction-*)
@@ -584,7 +584,7 @@ This analysis feeds directly into related SEO benchmark deliverables:
 | :---------------------------- | :-------------- | ---------------: | :-------------------- |
 | `/`                           | Homepage        |              1.0 | Top 20                |
 | `/barriers`                   | Barriers hub    |              0.9 | Top 20                |
-| `/barriers/survey-stats`      | Survey data     |              0.7 | Middle tier           |
+| `/results/survey-stats`       | Survey data     |              0.7 | Middle tier           |
 | `/start`                      | Persona routing |              0.8 | Top 20                |
 | `/faq`                        | FAQ             |              0.8 | Top 20                |
 | `/get-involved`               | Engagement      |              0.8 | Top 20                |

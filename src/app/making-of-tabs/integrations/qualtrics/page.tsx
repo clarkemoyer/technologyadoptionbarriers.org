@@ -295,24 +295,32 @@ const QualtricsIntegrationPage = () => {
           <p className="mb-4">
             The Qualtrics integration feeds live data to the website. The daily metrics workflow
             queries the Qualtrics API for response counts and question metadata, then writes the
-            results to <code>src/data/qualtrics-metrics.json</code>. The homepage and media page
-            import this file to display:
+            results to <code>src/data/qualtrics-metrics.json</code>. The Response Funnel page (
+            <Link className="underline" href="/results/survey-stats">
+              /results/survey-stats
+            </Link>
+            ) reads this file to surface every Qualtrics-reported count alongside the Prolific and
+            pipeline-level numbers.
           </p>
 
           <ul className="mb-4 list-disc space-y-2 pl-6">
             <li>
-              <strong>Surveys Completed</strong> - Total response count across all distribution
-              channels
+              <strong>Generated / Auditable / Deleted</strong> - Qualtrics&apos; own response
+              counters, displayed in the Response Funnel&apos;s &quot;Top of funnel&quot; section.
             </li>
             <li>
-              <strong>Survey Questions</strong> - Actual question count fetched from the survey
-              definition API (replacing a previously hardcoded &quot;100+&quot;)
+              <strong>Survey definition</strong> - Question IDs and metadata used to display the
+              &quot;Qualtrics question IDs&quot; metric, which is intentionally distinct from the
+              participant-facing &quot;Items presented&quot; total.
             </li>
           </ul>
 
           <p className="mb-4">
-            This ensures the numbers displayed on the site always reflect the current state of the
-            survey without manual updates.
+            The headline &quot;Surveys Completed&quot; counter on the homepage and the press kit
+            comes from Prolific&apos;s approved-submission count in{' '}
+            <code>src/data/disposition-summary.json</code>, not from this Qualtrics file. Keeping
+            the two sources separate means the marketing number and the internal funnel can each
+            tell their own truth without drifting.
           </p>
         </section>
 
