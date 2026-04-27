@@ -1,0 +1,53 @@
+name: Prolific API Smoke Test
+
+on:
+  workflow_dispatch:
+  workflow_call:
+
+permissions:
+  contents: read
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  prolific-smoke:
+    name: Prolific API smoke
+    runs-on: ubuntu-latest
+    environment: prolific-prod
+    env:
+      PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
+      PROLIFIC_BASE_URL: 'https://api.prolific.com/api/v1'
+    steps:
+      - name: Validate configuration
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ -z "${PROLIFIC_API_TOKEN:-}" ]]; then
+            echo "::error::Missing secret TABS_PROLIFIC_TOKEN in environment prolific-prod"
+            exit 1
+          fi
+
+      - name: GET /users/me/ (connectivity check)
+        shell: bash
+        run: |
+          set -euo pipefail
+          url="${PROLIFIC_BASE_URL%/}/users/me/"
+
+          http_code=$(curl -sS -o me.json -w "%{http_code}" \
+            --connect-timeout 10 \
+            --max-time 30 \
+            --retry 2 \
+            --retry-delay 2 \
+            --retry-connrefused \
+            -H "Authorization: Token ${PROLIFIC_API_TOKEN}" \
+            -H "Accept: application/json" \
+            "$url")
+
+          if [[ "$http_code" -lt 200 || "$http_code" -ge 300 ]]; then
+            echo "::error::Prolific API returned HTTP $http_code"
+            echo "Request failed; response body suppressed to avoid exposing sensitive data in workflow logs."
+            exit 1
+          fi
+
+          echo "Prolific API connectivity check succeeded."

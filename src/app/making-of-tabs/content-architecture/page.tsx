@@ -153,10 +153,15 @@ const ContentArchitecturePage = () => {
               updated by the daily Google Analytics workflow
             </li>
             <li>
-              <strong>Survey metrics</strong> - statistics in{' '}
+              <strong>Survey response funnel</strong> - Qualtrics response counts in{' '}
               <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">
                 src/data/qualtrics-metrics.json
+              </code>{' '}
+              and the Prolific submission funnel in{' '}
+              <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">
+                src/data/disposition-summary.json
               </code>
+              , both surfaced on /results/survey-stats
             </li>
             <li>
               <strong>Article series</strong> - navigation ordering and metadata in{' '}
