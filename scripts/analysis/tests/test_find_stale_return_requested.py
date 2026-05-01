@@ -273,13 +273,20 @@ class TestMsgTime:
 # pin the decoder + ensure classify_submission picks up participant replies
 # that previously slipped through and got the PID flagged for rejection.
 
+# Synthetic ObjectId used across this test class.  Constructed from a
+# well-known round epoch (2026-01-01T00:00:00 UTC = 0x6955b900) plus a
+# fixed dummy suffix — clearly not a real participant or message identifier.
+_SYNTHETIC_EPOCH = datetime(2026, 1, 1, 0, 0, 0, tzinfo=timezone.utc)
+_SYNTHETIC_OID = format(int(_SYNTHETIC_EPOCH.timestamp()), "08x") + "deadbeefdeadbeef"
+
+
 class TestObjectIdFallback:
-    def test_objectid_decoder_decodes_real_message_id(self):
-        """Real Prolific message id observed in the wild decodes to its
-        actual send time. ``69ef4762...`` decodes to a Unix epoch of
-        0x69ef4762 = 1777394018 seconds = 2026-04-27T11:24:18 UTC."""
-        decoded = _objectid_time("69ef4762f0591a0ae79ea82f")
-        assert decoded == datetime(2026, 4, 27, 11, 24, 18, tzinfo=timezone.utc)
+    def test_objectid_decoder_decodes_known_epoch(self):
+        """Synthetic ObjectId constructed from a known round epoch decodes
+        back to that same epoch.  Prefix 0x6955b900 = 1767225600 seconds
+        = 2026-01-01T00:00:00 UTC."""
+        decoded = _objectid_time(_SYNTHETIC_OID)
+        assert decoded == _SYNTHETIC_EPOCH
 
     def test_objectid_decoder_returns_none_for_non_string(self):
         assert _objectid_time(None) is None
@@ -307,8 +314,8 @@ class TestObjectIdFallback:
     def test_msg_time_uses_objectid_when_timestamps_absent(self):
         """When sent_at and created_at are null/undefined, _msg_time falls
         back to the ObjectId timestamp prefix instead of returning None."""
-        m = {"sender_id": "x", "id": "69ef4762f0591a0ae79ea82f"}
-        assert _msg_time(m) == datetime(2026, 4, 27, 11, 24, 18, tzinfo=timezone.utc)
+        m = {"sender_id": "x", "id": _SYNTHETIC_OID}
+        assert _msg_time(m) == _SYNTHETIC_EPOCH
 
     def test_msg_time_prefers_explicit_sent_at_over_objectid(self):
         """sent_at is the most authoritative source; ObjectId is the last
@@ -317,7 +324,7 @@ class TestObjectIdFallback:
         m = {
             "sender_id": "x",
             "sent_at": _ts(explicit),
-            "id": "69ef4762f0591a0ae79ea82f",  # would decode to a different time
+            "id": _SYNTHETIC_OID,  # would decode to a different time
         }
         assert _msg_time(m) == explicit
 
