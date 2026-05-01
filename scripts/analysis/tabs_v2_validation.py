@@ -2295,14 +2295,14 @@ def main():
             reliability_demo = reliability_by_demo(df, BARRIER_COLS, READINESS_COLS, MATURITY_COLS, {'SMB': df['_SMB']==1, 'Enterprise': df['_SMB']==0, 'For_Profit': df['_PROFIT']==1, 'Non_Profit_or_Gov': df['_PROFIT']==0})
             power_results = power_analysis(df, smb_col='_SMB')
             tost_results = equivalence_test_smb_ent(df, {'Barriers': BARRIER_COLS, 'Readiness': READINESS_COLS, 'Maturity': MATURITY_COLS}, smb_col='_SMB')
-            bifactor_b_results = bifactor_barriers(barrier_renamed, barrier_cols_safe, BARRIER_3GROUP)
-            renamed_with_demo = barrier_renamed.copy()
-            renamed_with_demo['_SMB'] = df['_SMB'].reindex(barrier_renamed.index).values
-            multigroup_3f_results = multigroup_3f_sem(renamed_with_demo, barrier_cols_safe, BARRIER_3GROUP, group_col='_SMB')
+            bifactor_b_results = bifactor_barriers(_barrier_renamed, _barrier_cols_safe, BARRIER_3GROUP)
+            renamed_with_demo = _barrier_renamed.copy()
+            renamed_with_demo['_SMB'] = df['_SMB'].reindex(_barrier_renamed.index).values
+            multigroup_3f_results = multigroup_3f_sem(renamed_with_demo, _barrier_cols_safe, BARRIER_3GROUP, group_col='_SMB')
             dif_results = {}
             for cname, cols, names, ids in [('Barriers', BARRIER_COLS, BARRIER_NAMES, [f'B{i+1}' for i in range(len(BARRIER_NAMES))]), ('Readiness', READINESS_COLS, READINESS_NAMES, [f'R{i+1}' for i in range(len(READINESS_NAMES))]), ('Maturity', MATURITY_COLS, MATURITY_NAMES, [f'M{i+1}' for i in range(len(MATURITY_NAMES))])]:
                 dif_results[cname] = dif_irt(df, cols, names, ids, group_col='_SMB')
-            esem_results = esem_target_rotation(barrier_renamed, barrier_cols_safe, n_factors=3)
+            esem_results = esem_target_rotation(_barrier_renamed, _barrier_cols_safe, n_factors=3)
             if 'error' not in mediation_results:
                 ind = (mediation_results.get('Indirect') or {}).get('coef')
                 print(f"  Mediation B->R->M: indirect={ind}")
@@ -2311,8 +2311,8 @@ def main():
         else:
             mediation_results = std_reg = power_results = tost_results = multigroup_3f_results = dif_results = {'error': 'Q4_OrgSize not in df'}
             bootstrap_alpha_results = item_d_smb = reliability_demo = {}
-            bifactor_b_results = bifactor_barriers(barrier_renamed, barrier_cols_safe, BARRIER_3GROUP)
-            esem_results = esem_target_rotation(barrier_renamed, barrier_cols_safe, n_factors=3)
+            bifactor_b_results = bifactor_barriers(_barrier_renamed, _barrier_cols_safe, BARRIER_3GROUP)
+            esem_results = esem_target_rotation(_barrier_renamed, _barrier_cols_safe, n_factors=3)
 
 
     # -- Per-subgroup standalone validation (does each barrier subgroup hold as its own scale?) --
@@ -2414,17 +2414,17 @@ def main():
             output['barriers_3f_cross_validation'] = cv_results
             output['irt_grm'] = irt_results
             output['per_factor_regressions'] = per_factor_reg
-        output['mediation_b_r_m'] = mediation_results
-        output['standardized_subfactor_regressions'] = std_reg
-        output['bootstrap_alpha_ci'] = bootstrap_alpha_results
-        output['item_level_cohens_d_smb'] = item_d_smb
-        output['reliability_by_demo'] = reliability_demo
-        output['power_analysis'] = power_results
-        output['equivalence_test_tost_smb_ent'] = tost_results
-        output['bifactor_barriers'] = bifactor_b_results
-        output['multigroup_3f_smb_vs_ent'] = multigroup_3f_results
-        output['dif_irt_smb_vs_ent'] = dif_results
-        output['esem_3factor'] = esem_results
+            output['mediation_b_r_m'] = mediation_results
+            output['standardized_subfactor_regressions'] = std_reg
+            output['bootstrap_alpha_ci'] = bootstrap_alpha_results
+            output['item_level_cohens_d_smb'] = item_d_smb
+            output['reliability_by_demo'] = reliability_demo
+            output['power_analysis'] = power_results
+            output['equivalence_test_tost_smb_ent'] = tost_results
+            output['bifactor_barriers'] = bifactor_b_results
+            output['multigroup_3f_smb_vs_ent'] = multigroup_3f_results
+            output['dif_irt_smb_vs_ent'] = dif_results
+            output['esem_3factor'] = esem_results
         output['discriminant_validity'] = discrim
 
         # Convert any numpy types for JSON serialization
