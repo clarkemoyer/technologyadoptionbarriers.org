@@ -19,6 +19,10 @@ Analyses:
  10. Split-half reliability (Spearman-Brown)
  11. KMO and Bartlett's test of sphericity
  12. Parallel analysis for factor retention
+ 13. CFA model comparison (chi-sq diff, delta-AIC, delta-BIC) - added 2026-05-01
+ 14. Item-level Hair convergent / discriminant flags - added 2026-05-01
+ 15. Subgroup HTMT + Fornell-Larcker on F1a/F1b/F2 - added 2026-05-01
+ 16. Alpha-if-deleted summary across constructs - added 2026-05-01
 
 Usage:
     python tabs_v2_validation.py <qualtrics_csv_path> [--json output.json]
@@ -164,7 +168,7 @@ def load_and_filter(csv_path):
     # Conservative clean filter
     clean = df[(df['Duration (in seconds)'] >= MIN_DURATION_CLEAN) & df['iri_all_ok']].copy()
 
-    print(f"V2 total: {len(df)} | Clean (≥{MIN_DURATION_CLEAN}s + 3 IRIs): {len(clean)}")
+    print(f"V2 total: {len(df)} | Clean (>={MIN_DURATION_CLEAN}s + 3 IRIs): {len(clean)}")
     return clean
 
 
@@ -390,18 +394,24 @@ def run_cfa(data, model_spec, construct_name):
     try:
         mod = semopy.Model(model_spec)
         mod.fit(d)
-        # Fit indices - semopy.calc_stats() returns metrics as row index,
-        # 'Value' as the single column.  Access: fit_stats.loc[metric, 'Value'].
+        # Fit indices - semopy 2.x returns stats as *columns* with a single 'Value' row;
+        # handle both orientations so the code works regardless of version.
         fit_stats = semopy.calc_stats(mod)
-        result['chi2'] = round(float(fit_stats.loc['chi2', 'Value']), 3) if 'chi2' in fit_stats.index else None
-        result['df'] = int(fit_stats.loc['DoF', 'Value']) if 'DoF' in fit_stats.index else None
-        result['chi2_p'] = round(float(fit_stats.loc['chi2 p-value', 'Value']), 4) if 'chi2 p-value' in fit_stats.index else None
-        result['cfi'] = round(float(fit_stats.loc['CFI', 'Value']), 4) if 'CFI' in fit_stats.index else None
-        result['tli'] = round(float(fit_stats.loc['TLI', 'Value']), 4) if 'TLI' in fit_stats.index else None
-        result['rmsea'] = round(float(fit_stats.loc['RMSEA', 'Value']), 4) if 'RMSEA' in fit_stats.index else None
-        result['srmr'] = round(float(fit_stats.loc['SRMR', 'Value']), 4) if 'SRMR' in fit_stats.index else None
-        result['aic'] = round(float(fit_stats.loc['AIC', 'Value']), 2) if 'AIC' in fit_stats.index else None
-        result['bic'] = round(float(fit_stats.loc['BIC', 'Value']), 2) if 'BIC' in fit_stats.index else None
+        if 'Value' in fit_stats.index and 'CFI' not in fit_stats.index:
+            def _stat(name):
+                return float(fit_stats.loc['Value', name]) if name in fit_stats.columns else None
+        else:
+            def _stat(name):
+                return float(fit_stats.loc[name, 'Value']) if name in fit_stats.index else None
+        result['chi2'] = round(_stat('chi2'), 3) if _stat('chi2') is not None else None
+        result['df'] = int(_stat('DoF')) if _stat('DoF') is not None else None
+        result['chi2_p'] = round(_stat('chi2 p-value'), 4) if _stat('chi2 p-value') is not None else None
+        result['cfi'] = round(_stat('CFI'), 4) if _stat('CFI') is not None else None
+        result['tli'] = round(_stat('TLI'), 4) if _stat('TLI') is not None else None
+        result['rmsea'] = round(_stat('RMSEA'), 4) if _stat('RMSEA') is not None else None
+        result['srmr'] = round(_stat('SRMR'), 4) if _stat('SRMR') is not None else None
+        result['aic'] = round(_stat('AIC'), 2) if _stat('AIC') is not None else None
+        result['bic'] = round(_stat('BIC'), 2) if _stat('BIC') is not None else None
 
         # Standardized loadings (lval = item name, rval = factor name in semopy).
         # Use std_est=True so composite_reliability() receives standardized values.
@@ -769,7 +779,7 @@ def compute_discriminant_validity(df, construct_results):
     for fl in fl_results:
         status = 'PASS' if fl['passes'] else 'FAIL'
         print(f"\n  Fornell-Larcker {fl['pair']}: sqrt(AVE)={fl['sqrt_ave_1']:.4f}/{fl['sqrt_ave_2']:.4f}, "
-              f"r={fl['correlation']:.4f} → {status}")
+              f"r={fl['correlation']:.4f} -> {status}")
 
     return {
         'htmt': htmt_results,
@@ -788,8 +798,34 @@ SAFE_READINESS_COLS = [safe_col(c) for c in READINESS_COLS]
 SAFE_MATURITY_COLS = [safe_col(c) for c in MATURITY_COLS]
 
 
+# Canonical 3-group barrier decomposition (item ids B1..B18 are 1-indexed; convert to 0-index)
+# F1a Strategy & Culture: B1, B2, B3, B5, B9, B10, B11, B15, B17 (9 items)
+# F1b Resources & Operations: B4, B6, B7, B8, B12 (5 items)
+# F2  External & Compliance: B13, B14, B16, B18 (4 items)
+BARRIER_3GROUP = {
+    'F1a': [0, 1, 2, 4, 8, 9, 10, 14, 16],
+    'F1b': [3, 5, 6, 7, 11],
+    'F2':  [12, 13, 15, 17],
+}
+
+# EFA-derived 2-factor partition: F1 holds 14 items; F2 holds B13, B14, B16, B18.
+BARRIER_2GROUP = {
+    'F1': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 14, 16],
+    'F2': [12, 13, 15, 17],
+}
+
+
 def build_cfa_models():
-    """Build lavaan-style CFA model specifications using safe column names."""
+    """Build lavaan-style CFA model specifications using safe column names.
+
+    Includes:
+      - barriers_1f: single-factor Barriers
+      - barriers_2f: EFA-derived 2-factor (F1=14 items, F2=4 items)
+      - barriers_3f: canonical 3-factor decomposition (F1a/F1b/F2)
+      - barriers_4f: legacy 4-factor decomposition (BARRIER_SUBCONSTRUCTS)
+      - readiness_1f, maturity_1f: single-factor R, M
+      - joint_3construct: B + R + M with free latent correlations
+    """
     barrier_items = ' + '.join(SAFE_BARRIER_COLS)
     readiness_items = ' + '.join(SAFE_READINESS_COLS)
     maturity_items = ' + '.join(SAFE_MATURITY_COLS)
@@ -798,7 +834,20 @@ def build_cfa_models():
     readiness_cfa = f"Readiness =~ {readiness_items}"
     maturity_cfa = f"Maturity =~ {maturity_items}"
 
-    # 4-factor barriers model (from prior EFA)
+    # EFA-derived 2-factor barrier model (matches what parallel analysis returned at N=200)
+    barrier_2f = (
+        f"F1 =~ {' + '.join(SAFE_BARRIER_COLS[i] for i in BARRIER_2GROUP['F1'])}\n"
+        f"F2 =~ {' + '.join(SAFE_BARRIER_COLS[i] for i in BARRIER_2GROUP['F2'])}"
+    )
+
+    # Canonical 3-factor barrier model (F1a Strategy & Culture, F1b Resources & Ops, F2 External)
+    barrier_3f = (
+        f"F1a =~ {' + '.join(SAFE_BARRIER_COLS[i] for i in BARRIER_3GROUP['F1a'])}\n"
+        f"F1b =~ {' + '.join(SAFE_BARRIER_COLS[i] for i in BARRIER_3GROUP['F1b'])}\n"
+        f"F2 =~ {' + '.join(SAFE_BARRIER_COLS[i] for i in BARRIER_3GROUP['F2'])}"
+    )
+
+    # Legacy 4-factor barriers model
     barrier_4f = (
         f"OrgCultural =~ {' + '.join([SAFE_BARRIER_COLS[i] for i in BARRIER_SUBCONSTRUCTS['Organizational & Cultural']])}\n"
         f"Strategic =~ {' + '.join([SAFE_BARRIER_COLS[i] for i in BARRIER_SUBCONSTRUCTS['Strategic & Operational']])}\n"
@@ -806,11 +855,21 @@ def build_cfa_models():
         f"RiskTrust =~ {' + '.join([SAFE_BARRIER_COLS[i] for i in BARRIER_SUBCONSTRUCTS['Risk, Trust & External']])}"
     )
 
+    # Joint 3-construct CFA: all three constructs in one model with free latent correlations
+    joint_3construct = (
+        f"Barriers =~ {barrier_items}\n"
+        f"Readiness =~ {readiness_items}\n"
+        f"Maturity =~ {maturity_items}"
+    )
+
     return {
         'barriers_1f': barrier_cfa,
+        'barriers_2f': barrier_2f,
+        'barriers_3f': barrier_3f,
         'barriers_4f': barrier_4f,
         'readiness_1f': readiness_cfa,
         'maturity_1f': maturity_cfa,
+        'joint_3construct': joint_3construct,
     }
 
 
@@ -845,6 +904,214 @@ def rename_cols_for_cfa(df, cols):
     return renamed, col_map
 
 
+# ============================================================================
+# 13. CFA MODEL COMPARISON (chi-squared difference, delta-AIC, delta-BIC)
+# ============================================================================
+
+def compare_cfa_models(model_results):
+    """Compare a list of fitted CFA models.
+
+    model_results: list of dicts with keys: name, chi2, df, aic, bic, cfi, tli, rmsea
+    Returns a dict with summary table and pairwise nested chi-squared difference tests.
+    """
+    from scipy.stats import chi2 as chi2_dist
+    summary = []
+    for m in model_results:
+        if 'error' in m:
+            continue
+        summary.append({
+            'name': m.get('construct') or m.get('name'),
+            'df': m.get('df'),
+            'chi2': m.get('chi2'),
+            'cfi': m.get('cfi'),
+            'tli': m.get('tli'),
+            'rmsea': m.get('rmsea'),
+            'aic': m.get('aic'),
+            'bic': m.get('bic'),
+        })
+
+    pairwise = []
+    for i, r in enumerate(model_results):
+        for j, full in enumerate(model_results):
+            if i >= j or 'error' in r or 'error' in full:
+                continue
+            d_chi2 = (r.get('chi2') or 0) - (full.get('chi2') or 0)
+            d_df = (r.get('df') or 0) - (full.get('df') or 0)
+            if d_df <= 0:
+                continue
+            try:
+                p = float(1 - chi2_dist.cdf(d_chi2, d_df))
+            except Exception:
+                p = None
+            pairwise.append({
+                'restricted': r.get('construct') or r.get('name'),
+                'full': full.get('construct') or full.get('name'),
+                'd_chi2': round(d_chi2, 3),
+                'd_df': int(d_df),
+                'p': round(p, 6) if p is not None else None,
+                'd_aic': round((r.get('aic') or 0) - (full.get('aic') or 0), 3),
+                'd_bic': round((r.get('bic') or 0) - (full.get('bic') or 0), 3),
+            })
+    return {'summary': summary, 'pairwise_chi2_diff': pairwise}
+
+
+# ============================================================================
+# 14. ITEM-LEVEL CONVERGENT / DISCRIMINANT (Hair 2014 rules)
+# ============================================================================
+
+def item_level_validity(efa_loadings, item_names, item_ids,
+                        primary_pass=0.50, primary_acceptable=0.40,
+                        cross_load_threshold=0.30, gap_threshold=0.20):
+    """Apply Hair (2014/2019) item-level convergent and discriminant rules.
+
+    efa_loadings: dict mapping column name -> list of loadings (one per factor).
+    item_names: ordered list of human-readable item names.
+    item_ids: ordered list of short ids (e.g., 'B1' .. 'B18').
+
+    Convergent: primary loading >= primary_pass = PASS; >= primary_acceptable = WEAK.
+    Discriminant: secondary < cross_load_threshold OR (primary - secondary) >= gap_threshold = PASS.
+    """
+    out = []
+    cols = list(efa_loadings.keys())
+    for i, col in enumerate(cols):
+        loads = [abs(float(x)) for x in efa_loadings[col]]
+        primary = max(loads) if loads else 0.0
+        secondary = sorted(loads, reverse=True)[1] if len(loads) > 1 else 0.0
+        diff = primary - secondary
+
+        if primary >= primary_pass:
+            cv = 'PASS'
+        elif primary >= primary_acceptable:
+            cv = 'WEAK'
+        else:
+            cv = 'FAIL'
+
+        if secondary < cross_load_threshold or diff >= gap_threshold:
+            dv = 'PASS'
+        else:
+            dv = 'FAIL'
+
+        out.append({
+            'id': item_ids[i] if i < len(item_ids) else col,
+            'name': item_names[i] if i < len(item_names) else col,
+            'primary': round(primary, 4),
+            'secondary': round(secondary, 4),
+            'gap': round(diff, 4),
+            'convergent': cv,
+            'discriminant': dv,
+            'loadings': [round(float(x), 4) for x in efa_loadings[col]],
+        })
+    return out
+
+
+# ============================================================================
+# 15. SUBGROUP HTMT + FORNELL-LARCKER (treats F1a/F1b/F2 as 3 constructs)
+# ============================================================================
+
+def subgroup_discriminant(df, group_def, all_cols, group_aves):
+    """HTMT bootstrap CI + Fornell-Larcker on a 3-group barrier decomposition.
+
+    group_def: dict mapping group label -> list of 0-indexed positions in all_cols
+    all_cols: full ordered column list (e.g., SAFE_BARRIER_COLS)
+    group_aves: dict mapping group label -> AVE (precomputed from the EFA loadings)
+    """
+    sub_data = {label: df[[all_cols[i] for i in idxs]]
+                for label, idxs in group_def.items()}
+    labels = list(group_def.keys())
+
+    htmt_results = []
+    fl_results = []
+    pearson_corr = {}
+
+    means = {label: data.mean(axis=1) for label, data in sub_data.items()}
+
+    import math
+    for i, n1 in enumerate(labels):
+        for j, n2 in enumerate(labels):
+            if i >= j:
+                continue
+            d1, d2 = sub_data[n1], sub_data[n2]
+            h, (lo, hi) = htmt_bootstrap_ci(d1, d2, n_boot=2000)
+            htmt_results.append({
+                'pair': f'{n1} vs {n2}',
+                'htmt': round(float(h), 4) if h == h else None,
+                'ci_lower': round(float(lo), 4) if lo == lo else None,
+                'ci_upper': round(float(hi), 4) if hi == hi else None,
+                'pass_085': bool(h < 0.85) if h == h else None,
+                'pass_090': bool(h < 0.90) if h == h else None,
+            })
+
+            mask = means[n1].notna() & means[n2].notna()
+            r = float(means[n1][mask].corr(means[n2][mask]))
+            pearson_corr[f'{n1} vs {n2}'] = round(r, 4)
+
+            ave1 = group_aves.get(n1)
+            ave2 = group_aves.get(n2)
+            if ave1 is not None and ave2 is not None:
+                sa1 = math.sqrt(ave1)
+                sa2 = math.sqrt(ave2)
+                small = min(sa1, sa2)
+                fl_results.append({
+                    'pair': f'{n1} vs {n2}',
+                    'sqrt_ave_1': round(sa1, 4),
+                    'sqrt_ave_2': round(sa2, 4),
+                    'abs_r': round(abs(r), 4),
+                    'smaller_sqrt_ave': round(small, 4),
+                    'pass': bool(small > abs(r)),
+                })
+
+    return {
+        'htmt': htmt_results,
+        'fornell_larcker': fl_results,
+        'pearson_correlations': pearson_corr,
+        'aves_used': {k: round(v, 4) if v is not None else None for k, v in group_aves.items()},
+    }
+
+
+# ============================================================================
+# 16. ALPHA-IF-DELETED SUMMARY (counts items where deletion would raise alpha)
+# ============================================================================
+
+def alpha_if_deleted_summary(construct_results):
+    """Summarize alpha-if-deleted across constructs.
+
+    Each construct_result must have 'cronbach_alpha' and 'alpha_if_deleted' (list).
+    """
+    out = []
+    for cr in construct_results:
+        base = cr.get('cronbach_alpha')
+        items = cr.get('alpha_if_deleted', [])
+        increases = []
+        closest = None
+        closest_change = -1e9
+        for it in items:
+            change = it.get('change')
+            if change is None:
+                continue
+            if it.get('flag_increase'):
+                increases.append({
+                    'item': it.get('item'),
+                    'alpha_if_deleted': it.get('alpha_if_deleted'),
+                    'change': change,
+                })
+            if change > closest_change:
+                closest_change = change
+                closest = it
+        out.append({
+            'construct': cr.get('construct'),
+            'base_alpha': base,
+            'items_increasing_alpha_count': len(increases),
+            'items_increasing_alpha': increases,
+            'closest_call': {
+                'item': closest.get('item'),
+                'alpha_if_deleted': closest.get('alpha_if_deleted'),
+                'change': closest.get('change'),
+            } if closest else None,
+        })
+    return out
+
+
+
 def main():
     if len(sys.argv) < 2:
         print(f"Usage: {sys.argv[0]} <qualtrics_csv_path> [--json output.json] [--crp200]")
@@ -867,7 +1134,7 @@ def main():
     # Build CFA models
     cfa_models = build_cfa_models()
 
-    # ── Validate each construct ──
+    # -- Validate each construct --
     print("\n" + "=" * 70)
     print("  TABS V2 INSTRUMENT VALIDATION REPORT")
     print("=" * 70)
@@ -889,22 +1156,129 @@ def main():
 
     construct_results = [barrier_result, readiness_result, maturity_result]
 
-    # ── 4-factor barriers CFA ──
+    # -- Multi-spec barrier CFAs (1F / 2F / 3F / 4F) --
     print(f"\n{'='*70}")
-    print(f"  4-FACTOR BARRIERS CFA")
+    print(f"  BARRIER CFA MODEL COMPARISON (1F / 2F / 3F / 4F)")
     print(f"{'='*70}")
     safe_barrier_data = df[BARRIER_COLS].rename(columns={c: safe_col(c) for c in BARRIER_COLS})
+
+    # 1F result was already produced in validate_construct(); copy it here for unified comparison.
+    barrier_1f_cfa = barrier_result.get('cfa', {})
+    barrier_1f_cfa.setdefault('construct', 'Barriers_1F')
+
+    barrier_2f_cfa = run_cfa(safe_barrier_data, cfa_models['barriers_2f'], 'Barriers_2F')
+    if 'error' not in barrier_2f_cfa:
+        print(f"  2F: CFI={barrier_2f_cfa.get('cfi')}, RMSEA={barrier_2f_cfa.get('rmsea')}")
+    else:
+        print(f"  2F error: {barrier_2f_cfa['error']}")
+
+    barrier_3f_cfa = run_cfa(safe_barrier_data, cfa_models['barriers_3f'], 'Barriers_3F')
+    if 'error' not in barrier_3f_cfa:
+        print(f"  3F: CFI={barrier_3f_cfa.get('cfi')}, RMSEA={barrier_3f_cfa.get('rmsea')}")
+    else:
+        print(f"  3F error: {barrier_3f_cfa['error']}")
+
     barrier_4f_cfa = run_cfa(safe_barrier_data, cfa_models['barriers_4f'], 'Barriers_4F')
     if 'error' not in barrier_4f_cfa:
-        print(f"  CFI={barrier_4f_cfa.get('cfi')}, TLI={barrier_4f_cfa.get('tli')}, "
-              f"RMSEA={barrier_4f_cfa.get('rmsea')}, SRMR={barrier_4f_cfa.get('srmr')}")
+        print(f"  4F: CFI={barrier_4f_cfa.get('cfi')}, RMSEA={barrier_4f_cfa.get('rmsea')}")
     else:
-        print(f"  Error: {barrier_4f_cfa['error']}")
+        print(f"  4F error: {barrier_4f_cfa['error']}")
 
-    # ── Discriminant validity ──
+    barrier_model_comparison = compare_cfa_models([
+        barrier_1f_cfa, barrier_2f_cfa, barrier_3f_cfa, barrier_4f_cfa
+    ])
+
+    # -- Joint 3-construct CFA (Barriers + Readiness + Maturity in one model) --
+    print(f"\n{'='*70}")
+    print(f"  JOINT 3-CONSTRUCT CFA")
+    print(f"{'='*70}")
+    all_safe_cols = (
+        [safe_col(c) for c in BARRIER_COLS] +
+        [safe_col(c) for c in READINESS_COLS] +
+        [safe_col(c) for c in MATURITY_COLS]
+    )
+    rename_all = {c: safe_col(c) for c in BARRIER_COLS + READINESS_COLS + MATURITY_COLS}
+    joint_data = df[BARRIER_COLS + READINESS_COLS + MATURITY_COLS].rename(columns=rename_all)
+    joint_cfa = run_cfa(joint_data, cfa_models['joint_3construct'], 'Joint_3Construct')
+    if 'error' not in joint_cfa:
+        print(f"  Joint: CFI={joint_cfa.get('cfi')}, RMSEA={joint_cfa.get('rmsea')}")
+        print(f"  N (listwise): {joint_data.dropna().shape[0]}")
+    else:
+        print(f"  Joint error: {joint_cfa['error']}")
+
+    # -- Item-level Hair-style convergent + discriminant --
+    print(f"\n{'='*70}")
+    print(f"  ITEM-LEVEL HAIR TESTS (primary>=.50 PASS; cross<.30 OR gap>=.20 = DV PASS)")
+    print(f"{'='*70}")
+    barrier_efa_loads = barrier_result.get('efa', {}).get('loadings', {})
+    barrier_item_ids = [f'B{i+1}' for i in range(len(BARRIER_NAMES))]
+    item_level_barriers = item_level_validity(barrier_efa_loads, BARRIER_NAMES, barrier_item_ids)
+    cv_fail_b = sum(1 for x in item_level_barriers if x['convergent'] == 'FAIL')
+    cv_weak_b = sum(1 for x in item_level_barriers if x['convergent'] == 'WEAK')
+    dv_fail_b = sum(1 for x in item_level_barriers if x['discriminant'] == 'FAIL')
+    print(f"  Barriers: convergent FAIL={cv_fail_b}, WEAK={cv_weak_b}; discriminant FAIL={dv_fail_b}")
+
+    readiness_efa_loads = readiness_result.get('efa', {}).get('loadings', {})
+    readiness_item_ids = [f'R{i+1}' for i in range(len(READINESS_NAMES))]
+    item_level_readiness = item_level_validity(readiness_efa_loads, READINESS_NAMES, readiness_item_ids)
+    cv_fail_r = sum(1 for x in item_level_readiness if x['convergent'] == 'FAIL')
+    cv_weak_r = sum(1 for x in item_level_readiness if x['convergent'] == 'WEAK')
+    print(f"  Readiness: convergent FAIL={cv_fail_r}, WEAK={cv_weak_r}")
+
+    maturity_efa_loads = maturity_result.get('efa', {}).get('loadings', {})
+    maturity_item_ids = [f'M{i+1}' for i in range(len(MATURITY_NAMES))]
+    item_level_maturity = item_level_validity(maturity_efa_loads, MATURITY_NAMES, maturity_item_ids)
+    cv_fail_m = sum(1 for x in item_level_maturity if x['convergent'] == 'FAIL')
+    cv_weak_m = sum(1 for x in item_level_maturity if x['convergent'] == 'WEAK')
+    print(f"  Maturity: convergent FAIL={cv_fail_m}, WEAK={cv_weak_m}")
+
+    item_level = {
+        'barriers': item_level_barriers,
+        'readiness': item_level_readiness,
+        'maturity': item_level_maturity,
+    }
+
+    # -- Subgroup HTMT + Fornell-Larcker (F1a / F1b / F2) --
+    print(f"\n{'='*70}")
+    print(f"  SUBGROUP DISCRIMINANT VALIDITY (F1a / F1b / F2 as 3 constructs)")
+    print(f"{'='*70}")
+    # Compute subgroup AVE from the F1 promax loadings for F1a and F1b items, F2 loadings for F2 items.
+    barrier_loadings_matrix = barrier_result.get('efa', {}).get('loadings', {})
+    barrier_cols_list = [safe_col(c) for c in BARRIER_COLS]
+    subgroup_aves = {}
+    for grp_label, idxs in BARRIER_3GROUP.items():
+        # F1a, F1b take F1 loadings (index 0); F2 takes F2 loadings (index 1)
+        load_idx = 0 if grp_label in ('F1a', 'F1b') else 1
+        lams = []
+        for i in idxs:
+            col = barrier_cols_list[i]
+            lv = barrier_loadings_matrix.get(col)
+            if lv is not None and len(lv) > load_idx:
+                lams.append(float(lv[load_idx]))
+        subgroup_aves[grp_label] = ave_from_loadings(lams) if lams else None
+
+    barrier_subgroup_data = df[BARRIER_COLS].rename(columns={c: safe_col(c) for c in BARRIER_COLS})
+    subgroup_validity = subgroup_discriminant(
+        barrier_subgroup_data, BARRIER_3GROUP, barrier_cols_list, subgroup_aves
+    )
+    for r in subgroup_validity['htmt']:
+        verdict = 'PASS' if r['pass_085'] else 'FAIL'
+        print(f"  HTMT {r['pair']}: {r['htmt']} [{r['ci_lower']}, {r['ci_upper']}] {verdict}")
+
+    # -- Alpha-if-deleted summary --
+    print(f"\n{'='*70}")
+    print(f"  ALPHA-IF-DELETED SUMMARY")
+    print(f"{'='*70}")
+    aid_summary = alpha_if_deleted_summary(construct_results)
+    for s in aid_summary:
+        print(f"  {s['construct']}: {s['items_increasing_alpha_count']} items would raise alpha")
+        for it in s['items_increasing_alpha']:
+            print(f"    {it['item']}: alpha if deleted = {it['alpha_if_deleted']} ({it['change']:+.4f})")
+
+    # -- Standard discriminant validity (across the three top-level constructs) --
     discrim = compute_discriminant_validity(df, construct_results)
 
-    # ── Summary table ──
+    # -- Summary table --
     print(f"\n{'='*70}")
     print(f"  SUMMARY TABLE")
     print(f"{'='*70}")
@@ -925,13 +1299,20 @@ def main():
         print(f"  {cr['construct']:<12} {fmt(alpha):>7} {fmt(omega):>7} {fmt(crel):>7} "
               f"{fmt(ave):>7} {fmt(sh):>7} {fmt(kmo):>7} {str(nf):>8}")
 
-    # ── JSON output ──
+    # -- JSON output --
     if json_output:
         output = OrderedDict()
         output['validation_date'] = pd.Timestamp.now().isoformat()
         output['n_clean'] = len(df)
         output['constructs'] = construct_results
+        output['barriers_2f_cfa'] = barrier_2f_cfa
+        output['barriers_3f_cfa'] = barrier_3f_cfa
         output['barriers_4f_cfa'] = barrier_4f_cfa
+        output['barrier_model_comparison'] = barrier_model_comparison
+        output['joint_3construct_cfa'] = joint_cfa
+        output['item_level_validity'] = item_level
+        output['subgroup_discriminant_validity'] = subgroup_validity
+        output['alpha_if_deleted_summary'] = aid_summary
         output['discriminant_validity'] = discrim
 
         # Convert any numpy types for JSON serialization
