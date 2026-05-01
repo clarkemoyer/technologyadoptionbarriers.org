@@ -3795,9 +3795,19 @@ def run_validation(df, skip=False, crp200=False, primary_sample=True):
             (used by --skip-validation CLI flag).
         crp200: when True, use CRP-200 frozen-dataset code paths (single header
             CSV layout, pre-filtered rows, etc.).
-        primary_sample: when False, skip the computationally expensive per-subgroup
-            standalone validation (parallel_analysis + CFA per subgroup) to keep the
-            daily pipeline fast when run_validation() is called for multiple samples.
+        primary_sample: when False, the following expensive blocks are skipped to keep
+            the daily pipeline fast when run_validation() is called for multiple samples:
+            - per-subgroup standalone validation (parallel_analysis + CFA per subgroup)
+            - DWLS ordinal CFA per construct (cfa_dwls_estimator)
+            - bifactor R+M model (bifactor_rm)
+            - second-order barriers CFA (second_order_barriers_cfa)
+            - Mardia multivariate normality (mardia_normality)
+            - Mahalanobis outlier detection (mahalanobis_outliers)
+            - 50/50 cross-validation with Tucker congruence (barriers_3f_cross_validation)
+            - IRT graded response model (irt_grm)
+            - per-factor regressions (per_factor_regressions)
+            All skipped keys are still emitted with a {"skipped": True, "reason": ...}
+            sentinel so the output schema stays consistent across all sample tiers.
     """
     if skip:
         return {"skipped": True, "reason": "--skip-validation flag was used"}
@@ -4247,12 +4257,16 @@ def run_validation(df, skip=False, crp200=False, primary_sample=True):
     output['item_level_validity'] = item_level
     # HTMT + Fornell-Larcker treating F1a/F1b/F2 as 3 constructs
     output['subgroup_discriminant_validity'] = subgroup_validity
-    # Per-subgroup standalone validation (primary sample only; None for non-primary samples)
+    # Per-subgroup standalone validation (primary sample only; sentinel for non-primary)
     if subgroup_standalone is not None:
         output['subgroup_standalone_validation'] = subgroup_standalone
+    else:
+        output['subgroup_standalone_validation'] = {'skipped': True, 'reason': 'non-primary sample'}
     # Alpha-if-deleted summary across all three constructs
     output['alpha_if_deleted_summary'] = aid_summary
-    # Extended statistical extensions (primary sample, unconditional; added 2026-05-01)
+    # Extended statistical extensions: primary sample gets full block; non-primary gets sentinels
+    # to keep the output schema consistent across all sample tiers.
+    _skipped_sentinel = {'skipped': True, 'reason': 'non-primary sample'}
     if primary_sample:
         output['cfa_dwls_estimator'] = cfa_dwls
         output['bifactor_rm'] = bifactor_results
@@ -4262,6 +4276,15 @@ def run_validation(df, skip=False, crp200=False, primary_sample=True):
         output['barriers_3f_cross_validation'] = cv_results
         output['irt_grm'] = irt_results
         output['per_factor_regressions'] = per_factor_reg
+    else:
+        output['cfa_dwls_estimator'] = _skipped_sentinel
+        output['bifactor_rm'] = _skipped_sentinel
+        output['second_order_barriers_cfa'] = _skipped_sentinel
+        output['mardia_normality'] = _skipped_sentinel
+        output['mahalanobis_outliers'] = _skipped_sentinel
+        output['barriers_3f_cross_validation'] = _skipped_sentinel
+        output['irt_grm'] = _skipped_sentinel
+        output['per_factor_regressions'] = _skipped_sentinel
     output['mediation_b_r_m'] = mediation_results
     output['standardized_subfactor_regressions'] = std_reg
     output['bootstrap_alpha_ci'] = bootstrap_alpha_results
