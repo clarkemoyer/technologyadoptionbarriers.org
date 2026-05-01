@@ -99,6 +99,11 @@ function makingOfTabsToGroups(items: MakingOfTabsItem[]): SidebarGroup[] {
       ].includes(item.href)
     ) {
       howWeBuiltIt.push(link)
+      if (item.children) {
+        for (const child of item.children) {
+          howWeBuiltIt.push({ title: child.title, href: child.href })
+        }
+      }
     } else if (item.href.startsWith('/making-of-tabs/ai-')) {
       aiInTabs.push(link)
       if (item.children) {
