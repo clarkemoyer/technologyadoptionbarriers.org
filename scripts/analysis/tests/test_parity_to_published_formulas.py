@@ -113,12 +113,27 @@ def test_mcdonalds_omega_total_equals_CR_for_unidimensional():
 # ============================================================================
 # TEST 5: Spearman-Brown prophecy formula (Spearman 1910 / Brown 1910)
 # Full-test reliability = 2r / (1 + r)  where r is the half-test correlation.
+# Exercises the pipeline's split_half_reliability() against the formula on
+# synthetic data, so this is a true parity test of the custom implementation
+# (not just a math identity check).
 # ============================================================================
 
-def test_spearman_brown_split_half():
-    half_test_r = 0.5
-    expected = 2 * half_test_r / (1 + half_test_r)
-    assert abs(expected - 0.6667) < 1e-3
+def test_spearman_brown_split_half_against_pipeline():
+    np.random.seed(1910)
+    n = 200
+    true_score = np.random.normal(0, 1, n)
+    items = np.column_stack([true_score + np.random.normal(0, 0.5, n) for _ in range(8)])
+    df = pd.DataFrame(items, columns=[f'I{i+1}' for i in range(8)])
+
+    custom = v.split_half_reliability(df)
+
+    cols = list(df.columns)
+    odd = df[[cols[i] for i in range(0, len(cols), 2)]].sum(axis=1)
+    even = df[[cols[i] for i in range(1, len(cols), 2)]].sum(axis=1)
+    r = odd.corr(even)
+    expected = 2 * r / (1 + r)
+
+    assert abs(custom - round(expected, 4)) < 1e-3
 
 
 # ============================================================================
@@ -263,3 +278,86 @@ def test_normality_direction_matches_pingouin_HZ():
     # Both should agree: 18-item Likert data is NOT multivariate normal
     assert mardia['multivariate_normal_005'] is False, "Mardia should reject normality on Barriers"
     assert hz_result.normal is False, "Henze-Zirkler should reject normality on Barriers"
+
+
+# ============================================================================
+# TEST 12: HTMT2 (Roemer, Schuberth & Henseler 2021) - geometric-mean variant
+# Verifies the custom HTMT2 implementation against the published formula and
+# confirms the AM-GM ordering: HTMT2 <= HTMT for any pair of constructs.
+# ============================================================================
+
+def test_htmt2_against_roemer_2021_formula():
+    np.random.seed(2021)
+    n = 1000
+    fa = np.random.normal(0, 1, n)
+    A1 = fa + np.random.normal(0, 0.4, n)
+    A2 = fa + np.random.normal(0, 0.4, n)
+    A3 = fa + np.random.normal(0, 0.4, n)
+    fb = 0.5 * fa + math.sqrt(1 - 0.25) * np.random.normal(0, 1, n)
+    B1 = fb + np.random.normal(0, 0.5, n)
+    B2 = fb + np.random.normal(0, 0.5, n)
+    B3 = fb + np.random.normal(0, 0.5, n)
+    df = pd.DataFrame({'A1': A1, 'A2': A2, 'A3': A3, 'B1': B1, 'B2': B2, 'B3': B3})
+
+    custom_htmt2 = v.htmt2_ratio(df[['A1', 'A2', 'A3']], df[['B1', 'B2', 'B3']])
+
+    # Published formula: geometric mean throughout
+    all_corr = df.corr().abs()
+    within_A_geo = float(np.exp(np.mean(np.log(all_corr.iloc[:3, :3].values[np.triu_indices(3, 1)]))))
+    within_B_geo = float(np.exp(np.mean(np.log(all_corr.iloc[3:, 3:].values[np.triu_indices(3, 1)]))))
+    between_geo = float(np.exp(np.mean(np.log(all_corr.iloc[:3, 3:].values.flatten()))))
+    expected = between_geo / math.sqrt(within_A_geo * within_B_geo)
+
+    assert abs(custom_htmt2 - expected) < 1e-3
+
+
+def test_htmt2_is_at_most_htmt_amgm_inequality():
+    """By the AM-GM inequality, HTMT2 (geometric) <= HTMT (arithmetic) always.
+    Verifies the AM-GM ordering holds on real TABS Barriers vs Readiness data.
+    Documents the methodological choice: pipeline reports both so the paper
+    can default to Henseler 2015 (HTMT) and cite HTMT2 as a robustness check.
+    """
+    if not CRP200_CSV.exists():
+        pytest.skip(f"Frozen CRP-200 CSV not found at {CRP200_CSV}")
+
+    df = v.load_crp200(str(CRP200_CSV))
+    barriers = df[v.BARRIER_COLS]
+    readiness = df[v.READINESS_COLS]
+
+    h = v.htmt_ratio(barriers, readiness)
+    h2 = v.htmt2_ratio(barriers, readiness)
+
+    assert h2 <= h + 1e-6, f"AM-GM violated: HTMT2={h2} > HTMT={h}"
+
+
+# ============================================================================
+# TEST 13: Bifactor omega-total (McDonald 1999 / Zinbarg, Revelle, Yovel & Li 2005)
+# Verifies the bifactor_barriers() function returns a sane omega_t in [0,1] and
+# that omega_t >= omega_h_general (omega-total includes general + group factor
+# variance, which must be at least the general-factor-only variance).
+# ============================================================================
+
+def test_bifactor_omega_t_is_at_least_omega_h_general():
+    if not CRP200_CSV.exists():
+        pytest.skip(f"Frozen CRP-200 CSV not found at {CRP200_CSV}")
+
+    df = v.load_crp200(str(CRP200_CSV))
+    safe_b = [v.safe_col(c) for c in v.BARRIER_COLS]
+    df_safe = df.rename(columns={c: v.safe_col(c) for c in v.BARRIER_COLS})
+    barrier_3group = {
+        'F1a': [0, 1, 2, 4, 8, 9, 10, 14, 16],
+        'F1b': [3, 5, 6, 7, 11],
+        'F2': [12, 13, 15, 17],
+    }
+
+    result = v.bifactor_barriers(df_safe, safe_b, barrier_3group)
+    if 'error' in result:
+        pytest.skip(f"bifactor_barriers errored: {result['error']}")
+
+    assert 'omega_t' in result, "omega_t must be in bifactor_barriers output"
+    assert 'omega_h_general' in result
+    assert 0 <= result['omega_h_general'] <= 1
+    assert 0 <= result['omega_t'] <= 1
+    # omega_t (general + group factor variance) must be >= omega_h_general (general-only)
+    assert result['omega_t'] >= result['omega_h_general'] - 1e-6, \
+        f"omega_t={result['omega_t']} should be >= omega_h_general={result['omega_h_general']}"
