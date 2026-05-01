@@ -24,7 +24,8 @@ Analyses:
  15. Subgroup HTMT + Fornell-Larcker on F1a/F1b/F2 - added 2026-05-01
  16. Alpha-if-deleted summary across constructs - added 2026-05-01
 
-Additional advanced psychometric analyses (always run on every invocation):
+Additional advanced psychometric analyses (items 17-23 run unconditionally;
+item 24 requires --crp200 due to computational cost):
  17. DWLS ordinal CFA on each construct and multi-factor barriers models
  18. Bifactor R+M with omega-h, ECV, and PUC
  19. Second-order barriers CFA
@@ -32,6 +33,7 @@ Additional advanced psychometric analyses (always run on every invocation):
  21. 50/50 split-sample cross-validation (Tucker congruence)
  22. IRT graded response model (requires girth; degrades gracefully if missing)
  23. Per-factor regressions (sub-factor decomposition vs full-scale aggregate)
+ 24. Per-subgroup standalone validation (--crp200 only; parallel analysis + CFA per subgroup)
 
 Usage:
     python tabs_v2_validation.py <qualtrics_csv_path> [--json output.json] [--crp200]
@@ -2355,22 +2357,31 @@ def main():
     print(f"\n{'='*70}")
     print(f"  SUBGROUP DISCRIMINANT VALIDITY (F1a / F1b / F2 as 3 constructs)")
     print(f"{'='*70}")
-    # Compute subgroup AVE from the F1 promax loadings for F1a and F1b items, F2 loadings for F2 items.
-    # EFA loadings are keyed by original (unsafe) column names; use original cols for lookup.
-    barrier_loadings_matrix = barrier_result.get('efa', {}).get('loadings', {})
     barrier_col_map = {c: safe_col(c) for c in BARRIER_COLS}
     barrier_cols_list = [barrier_col_map[c] for c in BARRIER_COLS]
     subgroup_aves = {}
-    for grp_label, idxs in BARRIER_3GROUP.items():
-        # F1a, F1b take F1 loadings (index 0); F2 takes F2 loadings (index 1)
-        load_idx = 0 if grp_label in ('F1a', 'F1b') else 1
-        lams = []
-        for i in idxs:
-            original_col = BARRIER_COLS[i]
-            lv = barrier_loadings_matrix.get(original_col)
-            if lv is not None and len(lv) > load_idx:
-                lams.append(float(lv[load_idx]))
-        subgroup_aves[grp_label] = ave_from_loadings(lams) if lams else None
+    # Prefer 3F CFA standardized loadings (each item loads on its own factor F1a/F1b/F2).
+    # Fall back to 2F EFA loadings only when the 3F CFA was unavailable (semopy missing or failed).
+    cfa_3f_loads = barrier_3f_cfa.get('standardized_loadings', {}) if 'error' not in barrier_3f_cfa else {}
+    if cfa_3f_loads:
+        for grp_label, idxs in BARRIER_3GROUP.items():
+            lams = []
+            for i in idxs:
+                v = cfa_3f_loads.get(safe_col(BARRIER_COLS[i]))
+                if v is not None:
+                    lams.append(float(v))
+            subgroup_aves[grp_label] = ave_from_loadings(lams) if lams else None
+    else:
+        # Fallback: 2F EFA loadings (F1 factor for F1a/F1b items, F2 factor for F2 items)
+        barrier_loadings_matrix = barrier_result.get('efa', {}).get('loadings', {})
+        for grp_label, idxs in BARRIER_3GROUP.items():
+            load_idx = 0 if grp_label in ('F1a', 'F1b') else 1
+            lams = []
+            for i in idxs:
+                lv = barrier_loadings_matrix.get(BARRIER_COLS[i])
+                if lv is not None and len(lv) > load_idx:
+                    lams.append(float(lv[load_idx]))
+            subgroup_aves[grp_label] = ave_from_loadings(lams) if lams else None
 
     barrier_subgroup_data = df[BARRIER_COLS].rename(columns=barrier_col_map)
     subgroup_validity = subgroup_discriminant(
@@ -2381,7 +2392,7 @@ def main():
         print(f"  HTMT {r['pair']}: {r['htmt']} [{r['ci_lower']}, {r['ci_upper']}] {verdict}")
 
     # -- Extended psychometric validation: DWLS ordinal CFA, bifactor, second-order, normality, CV --
-    # Always-on; produces 28-key complete validation output for every run.
+    # Items 17-23: unconditional. subgroup_standalone_validation (item 24) is gated behind --crp200.
     cfa_dwls = {}; bifactor_results = {}; secondorder_results = {}
     mardia_results = {}; mahalanobis_results = {}; cv_results = {}
     irt_results = {}; per_factor_reg = {}
