@@ -78,20 +78,11 @@ V2_START = "2026-03-23 14:00:00"
 PROLIFIC_TEST_ID = 'R_1QK12IJpHjC3wd6'
 MIN_DURATION_CLEAN = 480
 
-BARRIER_SCALE = {
-    "Not a Barrier": 1, "Minor Barrier": 2, "Moderate Barrier": 3,
-    "Significant Barrier": 4, "Major Barrier": 5
-}
-READINESS_SCALE = {
-    "Very Low Readiness/Capability": 1, "Low Readiness/Capability": 2,
-    "Moderate Readiness/Capability": 3, "High Readiness/Capability": 4,
-    "Very High Readiness/Capability": 5
-}
-MATURITY_SCALE = {
-    "Level 1: Initial/Ad Hoc": 1, "Level 2: Developing/Repeatable": 2,
-    "Level 3: Defined/Standardized": 3, "Level 4: Managed/Quantitatively Managed": 4,
-    "Level 5: Optimizing/Innovating": 5
-}
+# Canonical Likert scale dicts and missing-value token live in scales.py so
+# this pipeline and the cross-platform encoders (Minitab, SPSS) read from a
+# single source of truth. Re-exported here so existing callers that imported
+# these names from tabs_v2_validation continue to work.
+from scales import BARRIER_SCALE, READINESS_SCALE, MATURITY_SCALE, MISSING_TOKEN  # noqa: E402,F401
 
 BARRIER_COLS = [f"Q10-28_Barriers_{i}" for i in range(1, 19)]
 BARRIER_IRI = "Q10-28_Barriers_19"

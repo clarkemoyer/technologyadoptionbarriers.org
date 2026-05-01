@@ -111,21 +111,9 @@ IRI_THRESHOLD_RELAXED = 2           # at least 2 of 3 IRIs correct
 RECAPTCHA_THRESHOLD = 0.5
 PARTIAL_STRAIGHTLINING_SD_THRESHOLD = 0.5
 
-# Scale maps
-BARRIER_SCALE = {
-    "Not a Barrier": 1, "Minor Barrier": 2, "Moderate Barrier": 3,
-    "Significant Barrier": 4, "Major Barrier": 5
-}
-READINESS_SCALE = {
-    "Very Low Readiness/Capability": 1, "Low Readiness/Capability": 2,
-    "Moderate Readiness/Capability": 3, "High Readiness/Capability": 4,
-    "Very High Readiness/Capability": 5
-}
-MATURITY_SCALE = {
-    "Level 1: Initial/Ad Hoc": 1, "Level 2: Developing/Repeatable": 2,
-    "Level 3: Defined/Standardized": 3, "Level 4: Managed/Quantitatively Managed": 4,
-    "Level 5: Optimizing/Innovating": 5
-}
+# Scale maps live in scales.py (single source of truth shared with the
+# cross-platform Minitab/SPSS encoders). Re-imported here.
+from scales import BARRIER_SCALE, READINESS_SCALE, MATURITY_SCALE  # noqa: E402,F401
 
 # Column definitions
 BARRIER_COLS = [f"Q10-28_Barriers_{i}" for i in range(1, 19)]

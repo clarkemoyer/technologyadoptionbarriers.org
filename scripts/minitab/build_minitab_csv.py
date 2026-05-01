@@ -23,6 +23,7 @@ Output: scripts/minitab/tabs_v2_crp200_minitab.csv (same N=200 as the source)
 """
 from __future__ import annotations
 
+import sys
 from pathlib import Path
 
 import numpy as np
@@ -32,41 +33,27 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 SOURCE_CSV = REPO_ROOT / "public" / "datasets" / "TABS_V2_CRP_2026_public_dataset.csv"
 OUTPUT_CSV = Path(__file__).resolve().parent / "tabs_v2_crp200_minitab.csv"
 
-BARRIER_SCALE = {
-    "Not a Barrier": 1,
-    "Minor Barrier": 2,
-    "Moderate Barrier": 3,
-    "Significant Barrier": 4,
-    "Major Barrier": 5,
-}
-READINESS_SCALE = {
-    "Very Low Readiness/Capability": 1,
-    "Low Readiness/Capability": 2,
-    "Moderate Readiness/Capability": 3,
-    "High Readiness/Capability": 4,
-    "Very High Readiness/Capability": 5,
-}
-MATURITY_SCALE = {
-    "Level 1: Initial/Ad Hoc": 1,
-    "Level 2: Developing/Repeatable": 2,
-    "Level 3: Defined/Standardized": 3,
-    "Level 4: Managed/Quantitatively Managed": 4,
-    "Level 5: Optimizing/Innovating": 5,
-}
-MISSING_TOKEN = "Don't Know"
+# Likert scales come from the canonical shared module so this encoder cannot
+# silently drift from scripts/analysis/tabs_v2_validation.py. encode_likert()
+# raises ValueError on any unknown label (fail-fast) instead of producing NaN.
+sys.path.insert(0, str(REPO_ROOT / "scripts" / "analysis"))
+from scales import (  # noqa: E402
+    BARRIER_SCALE,
+    READINESS_SCALE,
+    MATURITY_SCALE,
+    encode_likert,
+)
 
 BARRIER_COLS = [f"Q10-28_Barriers_{i}" for i in range(1, 19)]
 READINESS_COLS = [f"Q47-64_Readiness_{i}" for i in range(1, 18)]
 MATURITY_COLS = [f"Q65-73_Maturity_{i}" for i in range(1, 9)]
 
 
-def encode(value: object, scale_map: dict[str, int]) -> float:
+def encode(value: object, scale_map: dict) -> float:
+    """Wrapper that handles pandas NaN; delegates to fail-fast encode_likert()."""
     if pd.isna(value):
         return np.nan
-    s = str(value).strip()
-    if s == MISSING_TOKEN or s == "":
-        return np.nan
-    return float(scale_map.get(s, np.nan))
+    return encode_likert(value, scale_map)
 
 
 def main() -> None:
