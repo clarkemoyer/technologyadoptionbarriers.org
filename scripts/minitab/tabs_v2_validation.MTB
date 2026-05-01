@@ -105,7 +105,7 @@ Correlation 'B_mean' 'R_mean' 'M_mean'.
 NOTE
 NOTE === SMB vs Enterprise comparison on construct means ===
 NOTE Two-sample t-tests with Welch's correction (Minitab default for unequal
-NOTE variances). SMB_ENT = 1 (SMB, n~46) vs 2 (Enterprise, n~131).
+NOTE variances). SMB_ENT = 1 (SMB, n~114) vs 2 (Enterprise, n~86).
 NOTE Use the GUI for the assumption-of-equal-variance toggle if needed.
 TwoSample 'B_mean' 'SMB_ENT';
   Alternative 0.

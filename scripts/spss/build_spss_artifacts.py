@@ -186,10 +186,11 @@ def main() -> None:
     variable_labels["SMB_ENT"] = "Org size group: 1=SMB (<1000 emp), 2=Enterprise (>=1000 emp)"
 
     # Value labels (so SPSS dialogs show "Not a Barrier" / "Major Barrier" etc.)
-    barrier_values = {1.0: "Not a Barrier", 2.0: "Minor", 3.0: "Moderate",
-                      4.0: "Significant", 5.0: "Major Barrier"}
-    readiness_values = {1.0: "Very Low", 2.0: "Low", 3.0: "Moderate",
-                        4.0: "High", 5.0: "Very High Readiness"}
+    barrier_values = {1.0: "Not a Barrier", 2.0: "Minor Barrier", 3.0: "Moderate Barrier",
+                      4.0: "Significant Barrier", 5.0: "Major Barrier"}
+    readiness_values = {1.0: "Very Low Readiness/Capability", 2.0: "Low Readiness/Capability",
+                        3.0: "Moderate Readiness/Capability", 4.0: "High Readiness/Capability",
+                        5.0: "Very High Readiness/Capability"}
     maturity_values = {1.0: "L1: Initial", 2.0: "L2: Repeatable", 3.0: "L3: Defined",
                        4.0: "L4: Managed", 5.0: "L5: Optimizing"}
     smb_values = {1.0: "SMB", 2.0: "Enterprise"}

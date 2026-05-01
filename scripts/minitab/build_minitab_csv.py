@@ -107,13 +107,13 @@ def main() -> None:
 
     def org_grp(v: object) -> object:
         if pd.isna(v):
-            return ""
+            return np.nan
         s = str(v).strip()
         if s in smb_set:
             return 1
         if s in ent_set:
             return 2
-        return ""
+        return np.nan
 
     if "Q4_OrgSize" in df.columns:
         df["SMB_ENT"] = df["Q4_OrgSize"].apply(org_grp)
