@@ -1,7 +1,6 @@
-# Extra dependencies for tabs_v2_validation.py (EFA/CFA, omega, KMO/Bartlett, IRT)
+# Extra dependencies for tabs_v2_validation.py (EFA/CFA, omega, KMO/Bartlett)
 # Install with: pip install -r requirements-validation.txt
 # (requires base requirements.txt first)
 
 factor_analyzer==0.5.1
 semopy==2.3.11
-girth==0.8.0

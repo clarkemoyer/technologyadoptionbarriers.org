@@ -3446,58 +3446,61 @@ def run_validation(df, skip=False, crp200=False, primary_sample=True):
         print(f"  HTMT {r['pair']}: {r['htmt']} [{r['ci_lower']}, {r['ci_upper']}] {verdict}")
 
     # ── Linderman-grade extensions: DWLS ordinal CFA, bifactor, second-order, normality, CV ──
-    print(f"\n{'='*70}")
-    print(f"  LINDERMAN-GRADE EXTENSIONS")
-    print(f"{'='*70}")
-    barrier_cols_safe = [safe_col(c) for c in BARRIER_COLS]
-    barrier_renamed = df[BARRIER_COLS].rename(columns={c: safe_col(c) for c in BARRIER_COLS})
-    readiness_renamed = df[READINESS_COLS].rename(columns={c: safe_col(c) for c in READINESS_COLS})
-    maturity_renamed = df[MATURITY_COLS].rename(columns={c: safe_col(c) for c in MATURITY_COLS})
+    # Only run for the primary sample so daily multi-sample validation does not multiply
+    # runtime across every entry in SAMPLE_ORDER (~6+ expensive semopy fits per sample).
+    cfa_dwls = {}; bifactor_results = {}; secondorder_results = {}
+    mardia_results = {}; mahalanobis_results = {}; cv_results = {}
+    irt_results = {}; per_factor_reg = {}
+    if primary_sample:
+        print(f"\n{'='*70}")
+        print(f"  LINDERMAN-GRADE EXTENSIONS")
+        print(f"{'='*70}")
+        _barrier_cols_safe = [safe_col(c) for c in BARRIER_COLS]
+        _barrier_renamed = df[BARRIER_COLS].rename(columns={c: safe_col(c) for c in BARRIER_COLS})
+        _readiness_renamed = df[READINESS_COLS].rename(columns={c: safe_col(c) for c in READINESS_COLS})
+        _maturity_renamed = df[MATURITY_COLS].rename(columns={c: safe_col(c) for c in MATURITY_COLS})
 
-    cfa_dwls = {}
-    cfa_dwls['Barriers_1F'] = run_cfa_dwls(barrier_renamed, cfa_models['barriers_1f'], 'Barriers_1F')
-    cfa_dwls['Barriers_2F'] = run_cfa_dwls(barrier_renamed, cfa_models['barriers_2f'], 'Barriers_2F')
-    cfa_dwls['Barriers_3F'] = run_cfa_dwls(barrier_renamed, cfa_models['barriers_3f'], 'Barriers_3F')
-    cfa_dwls['Barriers_4F'] = run_cfa_dwls(barrier_renamed, cfa_models['barriers_4f'], 'Barriers_4F')
-    cfa_dwls['Readiness_1F'] = run_cfa_dwls(readiness_renamed, cfa_models['readiness_1f'], 'Readiness_1F')
-    cfa_dwls['Maturity_1F'] = run_cfa_dwls(maturity_renamed, cfa_models['maturity_1f'], 'Maturity_1F')
-    print(f"  DWLS Barriers 3F: CFI={cfa_dwls['Barriers_3F'].get('cfi')}")
+        cfa_dwls['Barriers_1F'] = run_cfa_dwls(_barrier_renamed, cfa_models['barriers_1f'], 'Barriers_1F')
+        cfa_dwls['Barriers_2F'] = run_cfa_dwls(_barrier_renamed, cfa_models['barriers_2f'], 'Barriers_2F')
+        cfa_dwls['Barriers_3F'] = run_cfa_dwls(_barrier_renamed, cfa_models['barriers_3f'], 'Barriers_3F')
+        cfa_dwls['Barriers_4F'] = run_cfa_dwls(_barrier_renamed, cfa_models['barriers_4f'], 'Barriers_4F')
+        cfa_dwls['Readiness_1F'] = run_cfa_dwls(_readiness_renamed, cfa_models['readiness_1f'], 'Readiness_1F')
+        cfa_dwls['Maturity_1F'] = run_cfa_dwls(_maturity_renamed, cfa_models['maturity_1f'], 'Maturity_1F')
+        print(f"  DWLS Barriers 3F: CFI={cfa_dwls['Barriers_3F'].get('cfi')}")
 
-    bifactor_results = bifactor_rm(df, [safe_col(c) for c in READINESS_COLS], [safe_col(c) for c in MATURITY_COLS])
-    if 'error' not in bifactor_results:
-        print(f"  Bifactor R+M: ECV={bifactor_results.get('ecv_general')}, omega_h={bifactor_results.get('omega_h_general')}")
+        bifactor_results = bifactor_rm(df, [safe_col(c) for c in READINESS_COLS], [safe_col(c) for c in MATURITY_COLS])
+        if 'error' not in bifactor_results:
+            print(f"  Bifactor R+M: ECV={bifactor_results.get('ecv_general')}, omega_h={bifactor_results.get('omega_h_general')}")
 
-    secondorder_results = second_order_barriers_cfa(barrier_renamed, barrier_cols_safe, BARRIER_3GROUP)
-    if 'error' not in secondorder_results:
-        print(f"  Second-order Barriers: CFI={secondorder_results.get('cfi')}")
+        secondorder_results = second_order_barriers_cfa(_barrier_renamed, _barrier_cols_safe, BARRIER_3GROUP)
+        if 'error' not in secondorder_results:
+            print(f"  Second-order Barriers: CFI={secondorder_results.get('cfi')}")
 
-    mardia_results = {}; mahalanobis_results = {}
-    for cname, sub in [('Barriers', barrier_renamed),
-                        ('Readiness', readiness_renamed),
-                        ('Maturity', maturity_renamed)]:
-        mardia_results[cname] = mardia_multivariate_normality(sub)
-        mahalanobis_results[cname] = mahalanobis_outliers(sub)
+        for cname, sub in [('Barriers', _barrier_renamed),
+                            ('Readiness', _readiness_renamed),
+                            ('Maturity', _maturity_renamed)]:
+            mardia_results[cname] = mardia_multivariate_normality(sub)
+            mahalanobis_results[cname] = mahalanobis_outliers(sub)
 
-    cv_results = split_sample_cv(barrier_renamed, barrier_cols_safe, BARRIER_3GROUP)
+        cv_results = split_sample_cv(_barrier_renamed, _barrier_cols_safe, BARRIER_3GROUP)
 
-    # IRT graded response models per construct
-    irt_results = {}
-    barrier_short_ids = [f'B{i+1}' for i in range(len(BARRIER_NAMES))]
-    readiness_short_ids = [f'R{i+1}' for i in range(len(READINESS_NAMES))]
-    maturity_short_ids = [f'M{i+1}' for i in range(len(MATURITY_NAMES))]
-    irt_results['Barriers'] = irt_grm(barrier_renamed, barrier_cols_safe, barrier_short_ids, BARRIER_NAMES)
-    irt_results['Readiness'] = irt_grm(readiness_renamed, [safe_col(c) for c in READINESS_COLS], readiness_short_ids, READINESS_NAMES)
-    irt_results['Maturity'] = irt_grm(maturity_renamed, [safe_col(c) for c in MATURITY_COLS], maturity_short_ids, MATURITY_NAMES)
-    if 'error' not in irt_results['Barriers']:
-        print(f"  IRT Barriers: mean discrimination={irt_results['Barriers'].get('mean_discrimination')}, "
-              f"ceiling-effect items={irt_results['Barriers'].get('ceiling_effect_count')}")
+        # IRT graded response models per construct
+        barrier_short_ids = [f'B{i+1}' for i in range(len(BARRIER_NAMES))]
+        readiness_short_ids = [f'R{i+1}' for i in range(len(READINESS_NAMES))]
+        maturity_short_ids = [f'M{i+1}' for i in range(len(MATURITY_NAMES))]
+        irt_results['Barriers'] = irt_grm(_barrier_renamed, _barrier_cols_safe, barrier_short_ids, BARRIER_NAMES)
+        irt_results['Readiness'] = irt_grm(_readiness_renamed, [safe_col(c) for c in READINESS_COLS], readiness_short_ids, READINESS_NAMES)
+        irt_results['Maturity'] = irt_grm(_maturity_renamed, [safe_col(c) for c in MATURITY_COLS], maturity_short_ids, MATURITY_NAMES)
+        if 'error' not in irt_results['Barriers']:
+            print(f"  IRT Barriers: mean discrimination={irt_results['Barriers'].get('mean_discrimination')}, "
+                  f"ceiling-effect items={irt_results['Barriers'].get('ceiling_effect_count')}")
 
-    # Per-factor regressions (sub-factor decomposition vs full-scale aggregate)
-    per_factor_reg = per_factor_regressions(df, BARRIER_COLS, READINESS_COLS, MATURITY_COLS, BARRIER_3GROUP)
-    if 'Readiness_mean' in per_factor_reg and 'error' not in per_factor_reg.get('Readiness_mean', {}):
-        rr = per_factor_reg['Readiness_mean']
-        print(f"  Per-factor Reg (Readiness): R^2 total={rr['total_scale_model']['r2']} "
-              f"-> sub-factor={rr['sub_factor_model']['r2']} (lift={rr['r2_lift_from_decomposition']})")
+        # Per-factor regressions (sub-factor decomposition vs full-scale aggregate)
+        per_factor_reg = per_factor_regressions(df, BARRIER_COLS, READINESS_COLS, MATURITY_COLS, BARRIER_3GROUP)
+        if 'Readiness_mean' in per_factor_reg and 'error' not in per_factor_reg.get('Readiness_mean', {}):
+            rr = per_factor_reg['Readiness_mean']
+            print(f"  Per-factor Reg (Readiness): R^2 total={rr['total_scale_model']['r2']} "
+                  f"-> sub-factor={rr['sub_factor_model']['r2']} (lift={rr['r2_lift_from_decomposition']})")
 
     # ── Per-subgroup standalone validation ──
     # This is computationally expensive (parallel_analysis + CFA per subgroup), so it
@@ -3714,15 +3717,16 @@ def run_validation(df, skip=False, crp200=False, primary_sample=True):
         output['subgroup_standalone_validation'] = subgroup_standalone
     # Alpha-if-deleted summary across all three constructs
     output['alpha_if_deleted_summary'] = aid_summary
-    # Linderman-grade extensions (added 2026-05-01)
-    output['cfa_dwls_estimator'] = cfa_dwls
-    output['bifactor_rm'] = bifactor_results
-    output['second_order_barriers_cfa'] = secondorder_results
-    output['mardia_normality'] = mardia_results
-    output['mahalanobis_outliers'] = mahalanobis_results
-    output['barriers_3f_cross_validation'] = cv_results
-    output['irt_grm'] = irt_results
-    output['per_factor_regressions'] = per_factor_reg
+    # Linderman-grade extensions (primary sample only; added 2026-05-01)
+    if primary_sample:
+        output['cfa_dwls_estimator'] = cfa_dwls
+        output['bifactor_rm'] = bifactor_results
+        output['second_order_barriers_cfa'] = secondorder_results
+        output['mardia_normality'] = mardia_results
+        output['mahalanobis_outliers'] = mahalanobis_results
+        output['barriers_3f_cross_validation'] = cv_results
+        output['irt_grm'] = irt_results
+        output['per_factor_regressions'] = per_factor_reg
 
     # Factor analysis summary (for EFA factors)
     barrier_efa = barrier_result.get('efa', {})
