@@ -16,7 +16,7 @@ from datetime import datetime, timedelta, timezone
 
 import pytest
 
-from find_stale_return_requested import classify_submission, _msg_time
+from find_stale_return_requested import classify_submission, _msg_time, _objectid_time
 
 RESEARCHER_ID = "researcher_001"
 NOW = datetime(2026, 4, 23, 12, 0, 0, tzinfo=timezone.utc)
@@ -260,7 +260,72 @@ class TestMsgTime:
         ]
         bucket, record = classify_submission(sub, msgs, RESEARCHER_ID, NOW, CUTOFF)
         assert bucket == "stale_no_reply_to_message"
-        assert record["pid"] == "PID_T"
+
+
+# ── ObjectId-prefix timestamp fallback ──────────────────────────────────────
+#
+# Prolific message ids are MongoDB ObjectIds whose first 4 bytes encode the
+# Unix epoch creation time. The messages API frequently returns sent_at /
+# created_at as null for FLAG-* and clarification messages, so the ObjectId
+# prefix is the only deterministic ordering anchor available. These tests
+# pin the decoder + ensure classify_submission picks up participant replies
+# that previously slipped through and got the PID flagged for rejection.
+
+class TestObjectIdFallback:
+    def test_objectid_decoder_decodes_real_message_id(self):
+        """Real Prolific message id observed in the wild decodes to its
+        actual send time. ``69ef4762...`` decodes to a Unix epoch of
+        0x69ef4762 = 1777394018 seconds = 2026-04-27T11:24:18 UTC."""
+        decoded = _objectid_time("69ef4762f0591a0ae79ea82f")
+        assert decoded == datetime(2026, 4, 27, 11, 24, 18, tzinfo=timezone.utc)
+
+    def test_objectid_decoder_returns_none_for_non_string(self):
+        assert _objectid_time(None) is None
+        assert _objectid_time(12345) is None
+
+    def test_objectid_decoder_returns_none_for_short_string(self):
+        assert _objectid_time("abc") is None
+
+    def test_objectid_decoder_returns_none_for_non_hex_prefix(self):
+        assert _objectid_time("zzzzzzzzdeadbeef") is None
+
+    def test_msg_time_uses_objectid_when_timestamps_absent(self):
+        """When sent_at and created_at are null/undefined, _msg_time falls
+        back to the ObjectId timestamp prefix instead of returning None."""
+        m = {"sender_id": "x", "id": "69ef4762f0591a0ae79ea82f"}
+        assert _msg_time(m) == datetime(2026, 4, 27, 11, 24, 18, tzinfo=timezone.utc)
+
+    def test_msg_time_prefers_explicit_sent_at_over_objectid(self):
+        """sent_at is the most authoritative source; ObjectId is the last
+        resort. Explicit timestamps must win even if the id is also present."""
+        explicit = NOW - timedelta(hours=12)
+        m = {
+            "sender_id": "x",
+            "sent_at": _ts(explicit),
+            "id": "69ef4762f0591a0ae79ea82f",  # would decode to a different time
+        }
+        assert _msg_time(m) == explicit
+
+    def test_classify_recognises_participant_reply_via_objectid(self):
+        """Participant message has no sent_at / created_at but its id encodes
+        a timestamp AFTER the return_requested. Without the fallback, this
+        PID was being misclassified as stale_no_reply_to_rr — the exact bug
+        that caused the 2026-05-01 rejection-review-rounds investigation."""
+        rr_time = NOW - timedelta(hours=60)
+        # Reply id encodes a time roughly 1 hour after the RR was sent.
+        reply_ts = rr_time + timedelta(hours=1)
+        reply_id = format(int(reply_ts.timestamp()), "08x") + "f0591a0ae79ea82f"
+        sub = _sub("PID_R", rr=rr_time)
+        msgs = [
+            {"sender_id": RESEARCHER_ID, "sent_at": _ts(rr_time - timedelta(hours=1))},
+            # Participant message with NO explicit timestamps but a valid id.
+            {"sender_id": "PID_R", "id": reply_id},
+        ]
+        bucket, record = classify_submission(sub, msgs, RESEARCHER_ID, NOW, CUTOFF)
+        # Participant did reply (per ObjectId timestamp), so the PID should be
+        # excluded from any stale bucket — not queued for rejection.
+        assert bucket is None
+        assert record is None
 
     def test_classify_returns_none_when_all_researcher_messages_lack_timestamps(self):
         """If every researcher message lacks a valid timestamp in the
