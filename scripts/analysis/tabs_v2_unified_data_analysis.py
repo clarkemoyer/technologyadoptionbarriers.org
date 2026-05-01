@@ -4195,17 +4195,6 @@ def run_validation(df, skip=False, crp200=False, primary_sample=True, linderman=
     output['multigroup_3f_smb_vs_ent'] = multigroup_3f_results
     output['dif_irt_smb_vs_ent'] = dif_results
     output['esem_3factor'] = esem_results
-    output['mediation_b_r_m'] = mediation_results
-    output['standardized_subfactor_regressions'] = std_reg
-    output['bootstrap_alpha_ci'] = bootstrap_alpha_results
-    output['item_level_cohens_d_smb'] = item_d_smb
-    output['reliability_by_demo'] = reliability_demo
-    output['power_analysis'] = power_results
-    output['equivalence_test_tost_smb_ent'] = tost_results
-    output['bifactor_barriers'] = bifactor_b_results
-    output['multigroup_3f_smb_vs_ent'] = multigroup_3f_results
-    output['dif_irt_smb_vs_ent'] = dif_results
-    output['esem_3factor'] = esem_results
 
     # Factor analysis summary (for EFA factors)
     barrier_efa = barrier_result.get('efa', {})
