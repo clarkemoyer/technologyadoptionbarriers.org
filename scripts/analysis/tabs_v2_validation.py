@@ -2362,7 +2362,11 @@ def main():
     subgroup_aves = {}
     # Prefer 3F CFA standardized loadings (each item loads on its own factor F1a/F1b/F2).
     # Fall back to 2F EFA loadings only when the 3F CFA was unavailable (semopy missing or failed).
-    cfa_3f_loads = barrier_3f_cfa.get('standardized_loadings', {}) if 'error' not in barrier_3f_cfa else {}
+    cfa_3f_loads = (
+        barrier_3f_cfa.get('standardized_loadings', {})
+        if barrier_3f_cfa and 'error' not in barrier_3f_cfa and 'standardized_loadings' in barrier_3f_cfa
+        else {}
+    )
     if cfa_3f_loads:
         for grp_label, idxs in BARRIER_3GROUP.items():
             lams = []
