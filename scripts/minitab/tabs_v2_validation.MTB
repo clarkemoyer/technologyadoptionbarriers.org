@@ -15,11 +15,15 @@ NOTE
 NOTE Minitab session-command syntax: command followed by columns, semicolon
 NOTE indicates a subcommand, period ends the statement.
 NOTE
-NOTE What this macro covers (matches the Python pipeline exactly):
+NOTE What this macro covers (for analyses Minitab supports natively):
 NOTE   - Cronbach's alpha for each construct (Item Analysis)
 NOTE   - Item-total correlations and alpha-if-deleted
 NOTE   - Inter-item correlation matrix per construct
 NOTE   - EFA (ML extraction) with parallel-analysis-recommended factor count
+NOTE     (Barriers EFA uses Varimax rotation in session commands; Minitab's session-command
+NOTE     interface does not expose Promax. Use the GUI dialog Options -> Rotation: Promax to
+NOTE     reproduce the Python pipeline's oblique Promax loadings. Unidimensional
+NOTE     constructs (R, M) are unaffected.)
 NOTE   - Construct-level Pearson correlations (Barriers x Readiness x Maturity)
 NOTE   - Mahalanobis outliers per construct
 NOTE   - SMB vs Enterprise mean comparison (2-sample t)
@@ -68,7 +72,12 @@ NOTE
 NOTE === BARRIERS - EFA (ML, 2 factors per parallel analysis) ===
 NOTE Stat -> Multivariate -> Factor Analysis
 NOTE   Variables: B1-B18, Method: Maximum likelihood, Factors: 2
-NOTE   Rotation: Varimax (or Promax via Options)
+NOTE   Rotation: Promax via Options (to match Python's oblique rotation)
+NOTE NOTE: The Python pipeline uses Promax (oblique) rotation for multi-factor EFA.
+NOTE The session command below uses Varimax (orthogonal) because Minitab's session
+NOTE interface does not expose Promax. The resulting loading matrix WILL differ from
+NOTE Python's output. For exact loading parity, use the GUI dialog: Options ->
+NOTE Rotation -> Promax (default kappa=4 matches factor_analyzer's default).
 NOTE Note: KMO and Bartlett options are in the GUI dialog (Options button);
 NOTE the session command does not expose them, so run via the menu to see
 NOTE KMO=0.851 and Bartlett chi-square=1135.51 reported alongside loadings.

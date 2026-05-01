@@ -79,8 +79,10 @@ PYTHON_MANIFEST: Sequence[tuple[str, str]] = (
     ),
     # R verification script (committee-facing artifact, optional)
     ("scripts/analysis/verify_against_R.R", "scripts/verify_against_R.R"),
-    # Validation requirements (Python deps for a clean install)
-    ("scripts/analysis/requirements-validation.txt", "requirements.txt"),
+    # NOTE: requirements.txt is NOT listed here because it is generated at
+    # build time by combining scripts/analysis/requirements.txt (base deps)
+    # with scripts/analysis/requirements-validation.txt (EFA/CFA/IRT extras)
+    # into a single installable file.  See build_one() / main() below.
 )
 
 # -----------------------------------------------------------------------------
@@ -228,7 +230,7 @@ scripts/
     test_parity_to_published_formulas.py <- 16 unit tests vs published formulas
 requirements.txt                       <- Python deps (numpy, pandas, scipy,
                                           factor_analyzer, semopy, pingouin, ...)
-README_PYTHON.md                       <- this file
+README.md                              <- this overview document
 ```
 
 ## What's covered (full analysis layer, unlike SPSS / Minitab)
@@ -283,7 +285,29 @@ BUNDLES: Sequence[tuple[str, Sequence[tuple[str, str]], str]] = (
 )
 
 
-def build_one(zip_name: str, manifest: Sequence[tuple[str, str]], readme: str) -> Path:
+def _combined_requirements() -> str:
+    """Combine base + validation requirements into a single installable file."""
+    base = (REPO_ROOT / "scripts/analysis/requirements.txt").read_text()
+    validation = (REPO_ROOT / "scripts/analysis/requirements-validation.txt").read_text()
+    return (
+        "# Combined requirements for the TABS validation pipeline\n"
+        "# Merges scripts/analysis/requirements.txt (base) and\n"
+        "# scripts/analysis/requirements-validation.txt (EFA/CFA/IRT extras).\n"
+        "# Install with: pip install -r requirements.txt\n"
+        "#\n"
+        + base.strip()
+        + "\n\n"
+        + validation.strip()
+        + "\n"
+    )
+
+
+def build_one(
+    zip_name: str,
+    manifest: Sequence[tuple[str, str]],
+    readme: str,
+    extra_strings: "dict[str, str] | None" = None,
+) -> Path:
     out_path = OUT_DIR / zip_name
     missing = [src for src, _ in manifest if not (REPO_ROOT / src).exists()]
     if missing:
@@ -295,6 +319,9 @@ def build_one(zip_name: str, manifest: Sequence[tuple[str, str]], readme: str) -
         zf.writestr("README.md", readme)
         for src_rel, dest in manifest:
             zf.write(REPO_ROOT / src_rel, arcname=dest)
+        if extra_strings:
+            for dest, content in extra_strings.items():
+                zf.writestr(dest, content)
 
     return out_path
 
@@ -302,8 +329,11 @@ def build_one(zip_name: str, manifest: Sequence[tuple[str, str]], readme: str) -
 def main() -> None:
     print("Building per-tool cross-platform verification bundles:")
     print()
+    # Extra in-memory files to inject per bundle (keyed by zip name substring).
+    python_extras = {"requirements.txt": _combined_requirements()}
     for zip_name, manifest, readme in BUNDLES:
-        out = build_one(zip_name, manifest, readme)
+        extra = python_extras if "python" in zip_name else None
+        out = build_one(zip_name, manifest, readme, extra_strings=extra)
         size_kb = out.stat().st_size / 1024
         print(f"  {zip_name:40s}  {size_kb:>8,.1f} KB")
         with zipfile.ZipFile(out) as zf:
