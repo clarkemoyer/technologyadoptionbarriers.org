@@ -205,10 +205,12 @@ def main():
                 disposition_by_pid[p] = d
 
     runway_now = datetime.now(timezone.utc)
+    total_awaiting_review = 0
     runway_evaluated = 0
     for sub in subs:
         if sub.get("status") != "AWAITING REVIEW":
             continue
+        total_awaiting_review += 1
         completed_at_raw = sub.get("completed_at") or ""
         if not completed_at_raw:
             continue
@@ -232,7 +234,12 @@ def main():
     auto_approve_runway = {
         "thresholdDays": AUTO_APPROVE_THRESHOLD_DAYS,
         "computedAt": runway_now.isoformat(),
-        "totalAwaitingReview": runway_evaluated,
+        # Total AWAITING REVIEW submissions (regardless of timestamp availability).
+        "totalAwaitingReview": total_awaiting_review,
+        # Submissions with a parseable completed_at that were placed into buckets.
+        "evaluatedCount": runway_evaluated,
+        # Submissions skipped because completed_at was absent or unparseable.
+        "skippedMissingCompletedAt": total_awaiting_review - runway_evaluated,
         "buckets": [
             {
                 "label": spec["label"],

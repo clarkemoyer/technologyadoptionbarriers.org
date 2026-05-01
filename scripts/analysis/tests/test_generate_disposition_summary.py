@@ -287,6 +287,11 @@ class TestAutoApproveRunway:
         assert runway["buckets"][-1]["label"] == "HIGH RISK"
         # highRiskCount must equal the last bucket's count for downstream consumers.
         assert runway["highRiskCount"] == runway["buckets"][-1]["count"]
+        # New fields for clarity on how many submissions were evaluated.
+        assert "totalAwaitingReview" in runway
+        assert "evaluatedCount" in runway
+        assert "skippedMissingCompletedAt" in runway
+        assert runway["evaluatedCount"] + runway["skippedMissingCompletedAt"] == runway["totalAwaitingReview"]
 
     def test_high_risk_picks_up_old_completion(self, tmp_path):
         """A submission completed 20 days ago has 1 day until auto-approve →
@@ -304,6 +309,8 @@ class TestAutoApproveRunway:
         runway = data["autoApproveRunway"]
         assert runway["highRiskCount"] == 1
         assert runway["totalAwaitingReview"] == 1
+        assert runway["evaluatedCount"] == 1
+        assert runway["skippedMissingCompletedAt"] == 0
         assert runway["highRiskByDisposition"].get("FLAG-SPEED") == 1
 
     def test_buckets_partitioned_by_runway_days(self, tmp_path):
@@ -334,15 +341,19 @@ class TestAutoApproveRunway:
         # Comfortable (>=10), Monitor (5-10), Act soon (2-5), HIGH RISK (<2)
         assert counts == [1, 1, 1, 1]
         assert runway["totalAwaitingReview"] == 4
+        assert runway["evaluatedCount"] == 4
+        assert runway["skippedMissingCompletedAt"] == 0
         assert runway["highRiskCount"] == 1
 
     def test_no_completed_at_skipped(self, tmp_path):
-        """Submissions missing completed_at are excluded -- we cannot
-        compute runway without a timestamp."""
+        """Submissions missing completed_at cannot be bucketed but still count
+        towards totalAwaitingReview; evaluatedCount stays 0."""
         subs = [
             {"participant_id": "PID_C", "status": "AWAITING REVIEW"},
         ]
         data = self._run(tmp_path, subs)
         runway = data["autoApproveRunway"]
-        assert runway["totalAwaitingReview"] == 0
+        assert runway["totalAwaitingReview"] == 1
+        assert runway["evaluatedCount"] == 0
+        assert runway["skippedMissingCompletedAt"] == 1
         assert all(b["count"] == 0 for b in runway["buckets"])

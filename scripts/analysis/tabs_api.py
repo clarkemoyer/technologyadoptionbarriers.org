@@ -398,11 +398,15 @@ def prolific_submission_statuses(study_id: str, api_token: str) -> Dict[str, str
     string. New callers should prefer ``prolific_submission_summaries``,
     which also returns timestamps used for 21-day auto-approve runway
     calculations.
+
+    Submissions without a non-empty ``participant_id`` are silently skipped
+    (consistent with ``prolific_submission_summaries``).
     """
     submissions = prolific_submissions(study_id, api_token)
     return {
-        sub.get("participant_id", ""): sub.get("status", "UNKNOWN")
+        sub["participant_id"]: sub.get("status", "UNKNOWN")
         for sub in submissions
+        if sub.get("participant_id")
     }
 
 

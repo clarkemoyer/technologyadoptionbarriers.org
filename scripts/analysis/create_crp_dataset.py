@@ -110,6 +110,11 @@ COLUMNS_TO_DROP: set[str] = {
     "Auth_LLM",
     "Auth_Bots",
     "Prolific_Status",
+    # Prolific submission timestamp anchors — pipeline-internal only.
+    # These are also caught by the PROLIFIC_DEMO_PREFIX filter in
+    # filter_columns(), but listed here explicitly so the intent is clear.
+    "Prolific_Completed_At",
+    "Prolific_Started_At",
     # Qualtrics operational fields
     "Q_RecaptchaScore",
     "Q_StraightliningCount",
