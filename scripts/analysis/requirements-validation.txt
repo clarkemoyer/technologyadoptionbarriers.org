@@ -1,7 +1,13 @@
-# Extra dependencies for tabs_v2_validation.py (EFA/CFA, omega, KMO/Bartlett, mediation)
+# Extra dependencies for tabs_v2_validation.py
+# (EFA/CFA, omega, KMO/Bartlett, mediation, IRT, DIF)
 # Install with: pip install -r requirements-validation.txt
 # (requires base requirements.txt first)
+#
+# girth and pingouin are needed for the --linderman extras (IRT, DIF, mediation).
+# Daily pipeline runs both --crp200 and live; the --linderman flag is only passed
+# on the --crp200 invocation per .github/workflows/daily-pipeline.yml.
 
 factor_analyzer==0.5.1
 semopy==2.3.11
+girth==0.8.0
 pingouin==0.6.1
