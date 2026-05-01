@@ -45,6 +45,12 @@ CSV_HEADERS = [
     "Partial_Straightlining_Flag",
     "Partial_Straightlining_Blocks",
     "Disposition",
+    # Prolific submission anchors (added by enrich_qualtrics_csv.py). Empty
+    # strings when no Prolific submission joins to this PID. Downstream
+    # consumers compute days-until-21-day-auto-approve from Prolific_Completed_At.
+    "Prolific_Status",
+    "Prolific_Completed_At",
+    "Prolific_Started_At",
 ]
 
 

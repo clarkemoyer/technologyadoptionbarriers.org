@@ -59,17 +59,53 @@ fi
 dfmt() { if [ "$1" -gt 0 ]; then printf "+%d" "$1"; elif [ "$1" -eq 0 ]; then printf "0"; else printf "%d" "$1"; fi; }
 
 # --- Triage data ---
+# Preferred source: a triage-metrics artifact written by an upstream pipeline
+# step. Currently no step publishes this artifact, so the lookup silently
+# misses on every run and the Disposition Triage table renders empty. The
+# fallback below computes the same total + breakdown directly from the
+# already-downloaded dashboard-data/disposition-summary.json so the table
+# never goes blank when dashboard data is available.
 TRIAGE_TOTAL="unknown"
 TRIAGE_BREAKDOWN=""
 [ -f "$ARTIFACTS_DIR/triage-metrics/triage-total.txt" ] && TRIAGE_TOTAL=$(cat "$ARTIFACTS_DIR/triage-metrics/triage-total.txt")
 [ -f "$ARTIFACTS_DIR/triage-metrics/triage-breakdown.txt" ] && TRIAGE_BREAKDOWN=$(cat "$ARTIFACTS_DIR/triage-metrics/triage-breakdown.txt")
+if [ "$TRIAGE_TOTAL" = "unknown" ] && [ -f "$TODAY_FILE" ]; then
+  FALLBACK=$(TODAY_FILE="$TODAY_FILE" python3 << 'PYEOF'
+import json, os
+with open(os.environ['TODAY_FILE'], encoding='utf-8') as f:
+    d = json.load(f)
+disps = d.get('dispositions') or {}
+total = sum(disps.values())
+if total == 0:
+    raise SystemExit(0)
+order = ['CLEAN', 'FLAG-SINGLE-IRI', 'FLAG-SMEAL', 'FLAG-PARTIAL-STRAIGHTLINING',
+         'FLAG-SPEED', 'FLAG-RECAPTCHA', 'AUTO-EXCLUDE', 'INCOMPLETE']
+ordered = [k for k in order if k in disps] + [k for k in disps if k not in order]
+lines = [f'__TRIAGE_TOTAL__={total}']
+for k in ordered:
+    pct = (disps[k] / total * 100) if total else 0
+    lines.append(f'| {k} | {disps[k]} | {pct:.1f}% |')
+print('\n'.join(lines))
+PYEOF
+  ) || FALLBACK=""
+  if [ -n "$FALLBACK" ]; then
+    TRIAGE_TOTAL=$(printf '%s\n' "$FALLBACK" | sed -n 's/^__TRIAGE_TOTAL__=//p')
+    TRIAGE_BREAKDOWN=$(printf '%s\n' "$FALLBACK" | grep -v '^__TRIAGE_TOTAL__=')
+  fi
+fi
 
 # --- Approve data ---
+# The grep needs to cover every result phrase approve_submissions.py emits.
+# Today's script ends successful no-op runs with "Nothing to do" (not the
+# legacy "Nothing to approve"), which the original pattern missed -- so the
+# Auto-Approve CLEAN section fell back to "No data" on every run. Pattern
+# now also matches "Nothing to do" and "are already APPROVED" so the report
+# reflects what actually happened.
 APPROVE_CLEAN_COUNT="0"
 APPROVE_RESULT="No data"
 if [ -f "$ARTIFACTS_DIR/approve-metrics/approve-output.txt" ]; then
   APPROVE_CLEAN_COUNT=$(grep "CLEAN dispositions" "$ARTIFACTS_DIR/approve-metrics/approve-output.txt" | head -1 | grep -o '[0-9]*' | head -1 || echo "0")
-  APPROVE_RESULT=$(grep "Successfully approved\|No CLEAN\|No participants with CLEAN disposition found\|Nothing to approve" "$ARTIFACTS_DIR/approve-metrics/approve-output.txt" | head -1 || echo "No data")
+  APPROVE_RESULT=$(grep -E "Successfully approved|No CLEAN|No participants with CLEAN disposition found|Nothing to approve|Nothing to do|are already APPROVED" "$ARTIFACTS_DIR/approve-metrics/approve-output.txt" | head -1 || echo "No data")
 fi
 
 # --- Reconciliation cross-reference (disposition x Prolific status) ---
@@ -131,14 +167,24 @@ for f in "$ARTIFACTS_DIR"/message-metrics-*/message-output.txt; do
       ACTIONED=$(echo "$SENT_LINE" | sed -n 's/.*already actioned): \([0-9]*\).*/\1/p')
       MESSAGED=$(echo "$SENT_LINE" | sed -n 's/.*already messaged): \([0-9]*\).*/\1/p')
       FAILED=$(echo "$SENT_LINE" | sed -n 's/.*FAILED: \([0-9]*\).*/\1/p')
-      MSG_ROWS="$MSG_ROWS
-| $DISP | ${SENT:-0} | ${ACTIONED:-0} | ${MESSAGED:-0} | ${FAILED:-0} |"
+      ROW="| $DISP | ${SENT:-0} | ${ACTIONED:-0} | ${MESSAGED:-0} | ${FAILED:-0} |"
+      if [ -z "$MSG_ROWS" ]; then
+        MSG_ROWS="$ROW"
+      else
+        MSG_ROWS="$MSG_ROWS
+$ROW"
+      fi
       TOTAL_SENT=$((TOTAL_SENT + ${SENT:-0}))
       TOTAL_FAILED=$((TOTAL_FAILED + ${FAILED:-0}))
     else
       # No participants matched this disposition - show 0/0/0/0 so it still appears in report
-      MSG_ROWS="$MSG_ROWS
-| $DISP | 0 | 0 | 0 | 0 |"
+      ROW="| $DISP | 0 | 0 | 0 | 0 |"
+      if [ -z "$MSG_ROWS" ]; then
+        MSG_ROWS="$ROW"
+      else
+        MSG_ROWS="$MSG_ROWS
+$ROW"
+      fi
     fi
   fi
 done
@@ -192,6 +238,16 @@ if ae_approved > 0:
 inc_awaiting = dbs.get('INCOMPLETE', {}).get('AWAITING REVIEW', 0)
 if inc_awaiting > 0:
     recs.append(f'| 🔵 Low | **{inc_awaiting} INCOMPLETE** awaiting review | Likely abandoned - consider requesting return |')
+
+# Priority 0 (highest): submissions in the HIGH RISK auto-approve runway bucket.
+# Prepend rather than append so it lands at the top of the recommendations
+# table when present -- it's the most time-sensitive item on the report.
+runway = d.get('autoApproveRunway') or {}
+high_risk_count = runway.get('highRiskCount', 0)
+if high_risk_count > 0:
+    by_disp = runway.get('highRiskByDisposition') or {}
+    breakdown = ', '.join(f'{c} {dp}' for dp, c in sorted(by_disp.items(), key=lambda x: -x[1])) or 'unspecified'
+    recs.insert(0, f'| 🚨 HIGH RISK | **{high_risk_count} AWAITING REVIEW** within 2 days of Prolific 21-day auto-approve | Action today ({breakdown}) |')
 
 # Summary counts
 total_awaiting = sum(r.get('AWAITING REVIEW', 0) for r in dbs.values())
@@ -312,6 +368,63 @@ $RECONCILIATION_TABLE
 "
 fi
 
+# --- Auto-Approve Runway section ---
+# Renders the per-bucket counts written into disposition-summary.json by
+# generate_disposition_summary.py. The last bucket is the HIGH RISK bucket
+# (within 2 days of Prolific's 21-day auto-approve mark). Empty when
+# disposition-summary.json is missing or has no AWAITING REVIEW rows.
+RUNWAY_SECTION=""
+if [ -f "$TODAY_FILE" ]; then
+  RUNWAY_BODY=$(TODAY_FILE="$TODAY_FILE" python3 << 'RUNWAYEOF'
+import json, os
+with open(os.environ['TODAY_FILE'], encoding='utf-8') as f:
+    d = json.load(f)
+runway = d.get('autoApproveRunway') or {}
+buckets = runway.get('buckets') or []
+total = runway.get('totalAwaitingReview', 0)
+if not buckets or total == 0:
+    raise SystemExit(0)
+
+threshold = runway.get('thresholdDays', 21)
+print(f'Prolific auto-approves any AWAITING REVIEW submission **{threshold} days** after `completed_at`. Buckets count remaining runway per submission.')
+print('')
+print('| Bucket | Days remaining | Count | Risk |')
+print('|---|---|---:|---|')
+for b in buckets:
+    label = b.get('label', '?')
+    risk = b.get('risk', 'low')
+    min_d = b.get('minDaysRemaining')
+    max_d = b.get('maxDaysRemaining')
+    if min_d is None and max_d is not None:
+        rng = f'< {max_d:g}'
+    elif min_d is not None and max_d is None:
+        rng = f'>= {min_d:g}'
+    elif min_d is not None and max_d is not None:
+        rng = f'{min_d:g} - {max_d:g}'
+    else:
+        rng = '?'
+    risk_marker = {'low': '🟢', 'moderate': '🟡', 'elevated': '🟠', 'high': '🔴 **HIGH RISK**'}.get(risk, risk)
+    bold_count = f'**{b.get("count", 0)}**' if risk == 'high' else str(b.get('count', 0))
+    print(f'| {label} | {rng} | {bold_count} | {risk_marker} |')
+print('')
+high_risk = runway.get('highRiskCount', 0)
+if high_risk > 0:
+    by_disp = runway.get('highRiskByDisposition') or {}
+    breakdown = ', '.join(f'{c} {dp}' for dp, c in sorted(by_disp.items(), key=lambda x: -x[1])) or 'unspecified'
+    noun = 'submission is' if high_risk == 1 else 'submissions are'
+    print(f'> 🚨 **{high_risk} {noun} within 2 days of auto-approval** ({breakdown}). Action today.')
+else:
+    print('> ✅ No submissions in the HIGH RISK bucket.')
+RUNWAYEOF
+  ) || RUNWAY_BODY=""
+  if [ -n "$RUNWAY_BODY" ]; then
+    RUNWAY_SECTION="## Auto-Approve Runway (21-day Prolific clock)
+
+$RUNWAY_BODY
+"
+  fi
+fi
+
 # --- Build warnings for upstream failures ---
 WARNINGS=""
 if [ "${TRIAGE_RESULT:-}" = "failure" ]; then
@@ -361,6 +474,7 @@ cat >> /tmp/report-body.md << STATUSEOF
 $TRIAGE_BREAKDOWN
 
 $RECONCILIATION_SECTION
+$RUNWAY_SECTION
 $RECOMMENDATIONS_SECTION
 $STALE_TRIAGE_SECTION_FORMATTED
 ## Auto-Approve CLEAN

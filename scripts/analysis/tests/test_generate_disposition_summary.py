@@ -248,3 +248,101 @@ class TestGenerateDispositionSummary:
         assert data["actions"]["rejected"] == 1
         assert data["actions"]["returned"] == 1
         assert data["actions"]["awaitingReview"] == 1
+
+
+class TestAutoApproveRunway:
+    """The autoApproveRunway block buckets every AWAITING REVIEW submission
+    by days remaining before Prolific's 21-day auto-approve clock fires."""
+
+    def _run(self, tmp_path, mock_subs):
+        csv_path = _write_disposition_csv(tmp_path)
+        output_path = str(tmp_path / "summary.json")
+        with patch("generate_disposition_summary.prolific_study_info", return_value=MOCK_STUDY), \
+             patch("generate_disposition_summary.prolific_submissions", return_value=mock_subs), \
+             patch("generate_disposition_summary.prolific_recent_messages", return_value=[]):
+            from generate_disposition_summary import main
+            import os
+            old_env = os.environ.copy()
+            os.environ.update({
+                "PROLIFIC_API_TOKEN": "test_token",
+                "STUDY_ID": "STUDY_1",
+                "CSV_FILE_PATH": csv_path,
+                "OUTPUT_PATH": output_path,
+            })
+            try:
+                main()
+            finally:
+                os.environ.clear()
+                os.environ.update(old_env)
+        return json.loads(Path(output_path).read_text())
+
+    def test_block_present_with_expected_shape(self, tmp_path):
+        data = self._run(tmp_path, MOCK_SUBMISSIONS)
+        assert "autoApproveRunway" in data
+        runway = data["autoApproveRunway"]
+        assert runway["thresholdDays"] == 21
+        assert isinstance(runway["buckets"], list) and len(runway["buckets"]) == 4
+        # Last bucket is the HIGH RISK bucket -- documented in the script.
+        assert runway["buckets"][-1]["risk"] == "high"
+        assert runway["buckets"][-1]["label"] == "HIGH RISK"
+        # highRiskCount must equal the last bucket's count for downstream consumers.
+        assert runway["highRiskCount"] == runway["buckets"][-1]["count"]
+
+    def test_high_risk_picks_up_old_completion(self, tmp_path):
+        """A submission completed 20 days ago has 1 day until auto-approve →
+        belongs in the HIGH RISK (<2 days) bucket."""
+        from datetime import datetime, timezone, timedelta
+        old = (datetime.now(timezone.utc) - timedelta(days=20)).isoformat()
+        subs = [
+            {
+                "participant_id": "PID_C",
+                "status": "AWAITING REVIEW",
+                "completed_at": old,
+            },
+        ]
+        data = self._run(tmp_path, subs)
+        runway = data["autoApproveRunway"]
+        assert runway["highRiskCount"] == 1
+        assert runway["totalAwaitingReview"] == 1
+        assert runway["highRiskByDisposition"].get("FLAG-SPEED") == 1
+
+    def test_buckets_partitioned_by_runway_days(self, tmp_path):
+        """Each AWAITING REVIEW submission lands in exactly one bucket."""
+        from datetime import datetime, timezone, timedelta
+        now = datetime.now(timezone.utc)
+        subs = [
+            # 1 day ago → 20 days remaining → Comfortable
+            {"participant_id": "PID_A", "status": "AWAITING REVIEW",
+             "completed_at": (now - timedelta(days=1)).isoformat()},
+            # 14 days ago → 7 days remaining → Monitor
+            {"participant_id": "PID_B", "status": "AWAITING REVIEW",
+             "completed_at": (now - timedelta(days=14)).isoformat()},
+            # 18 days ago → 3 days remaining → Act soon
+            {"participant_id": "PID_C", "status": "AWAITING REVIEW",
+             "completed_at": (now - timedelta(days=18)).isoformat()},
+            # 20 days ago → 1 day remaining → HIGH RISK
+            {"participant_id": "PID_D", "status": "AWAITING REVIEW",
+             "completed_at": (now - timedelta(days=20)).isoformat()},
+            # APPROVED is excluded from runway entirely
+            {"participant_id": "PID_E", "status": "APPROVED",
+             "completed_at": (now - timedelta(days=22)).isoformat()},
+        ]
+        data = self._run(tmp_path, subs)
+        runway = data["autoApproveRunway"]
+        counts = [b["count"] for b in runway["buckets"]]
+        # Order matches bucket_specs in generate_disposition_summary.py:
+        # Comfortable (>=10), Monitor (5-10), Act soon (2-5), HIGH RISK (<2)
+        assert counts == [1, 1, 1, 1]
+        assert runway["totalAwaitingReview"] == 4
+        assert runway["highRiskCount"] == 1
+
+    def test_no_completed_at_skipped(self, tmp_path):
+        """Submissions missing completed_at are excluded -- we cannot
+        compute runway without a timestamp."""
+        subs = [
+            {"participant_id": "PID_C", "status": "AWAITING REVIEW"},
+        ]
+        data = self._run(tmp_path, subs)
+        runway = data["autoApproveRunway"]
+        assert runway["totalAwaitingReview"] == 0
+        assert all(b["count"] == 0 for b in runway["buckets"])
