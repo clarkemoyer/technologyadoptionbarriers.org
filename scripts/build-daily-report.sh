@@ -76,15 +76,14 @@ with open(os.environ['TODAY_FILE'], encoding='utf-8') as f:
     d = json.load(f)
 disps = d.get('dispositions') or {}
 total = sum(disps.values())
-if total == 0:
-    raise SystemExit(0)
 order = ['CLEAN', 'FLAG-SINGLE-IRI', 'FLAG-SMEAL', 'FLAG-PARTIAL-STRAIGHTLINING',
          'FLAG-SPEED', 'FLAG-RECAPTCHA', 'AUTO-EXCLUDE', 'INCOMPLETE']
 ordered = [k for k in order if k in disps] + [k for k in disps if k not in order]
 lines = [f'__TRIAGE_TOTAL__={total}']
-for k in ordered:
-    pct = (disps[k] / total * 100) if total else 0
-    lines.append(f'| {k} | {disps[k]} | {pct:.1f}% |')
+if total > 0:
+    for k in ordered:
+        pct = disps[k] / total * 100
+        lines.append(f'| {k} | {disps[k]} | {pct:.1f}% |')
 print('\n'.join(lines))
 PYEOF
   ) || FALLBACK=""

@@ -371,3 +371,19 @@ class TestAutoApproveRunway:
         assert runway["evaluatedCount"] == 0
         assert runway["skippedMissingCompletedAt"] == 1
         assert all(b["count"] == 0 for b in runway["buckets"])
+
+    def test_high_risk_empty_pid_not_in_breakdown(self, tmp_path):
+        """A HIGH RISK submission with a missing/empty participant_id is
+        counted in the bucket total but NOT in highRiskByDisposition (consistent
+        with prolific_submission_statuses/summaries which also skip empty PIDs)."""
+        from datetime import datetime, timezone, timedelta
+        old = (datetime.now(timezone.utc) - timedelta(days=20)).isoformat()
+        subs = [
+            # Missing participant_id — should count in bucket, not in breakdown.
+            {"participant_id": "", "status": "AWAITING REVIEW", "completed_at": old},
+        ]
+        data = self._run(tmp_path, subs)
+        runway = data["autoApproveRunway"]
+        assert runway["highRiskCount"] == 1
+        # The breakdown should be empty (no actionable PID).
+        assert runway["highRiskByDisposition"] == {}

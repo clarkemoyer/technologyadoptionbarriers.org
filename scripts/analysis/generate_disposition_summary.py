@@ -227,8 +227,9 @@ def main():
                 bucket_counts[idx] += 1
                 if spec["risk"] == "high":
                     pid = sub.get("participant_id", "")
-                    disp = disposition_by_pid.get(pid, "UNKNOWN")
-                    high_risk_by_disposition[disp] = high_risk_by_disposition.get(disp, 0) + 1
+                    if pid:  # skip entries without a usable PID (consistent with prolific_submission_statuses/summaries)
+                        disp = disposition_by_pid.get(pid, "UNKNOWN")
+                        high_risk_by_disposition[disp] = high_risk_by_disposition.get(disp, 0) + 1
                 break
 
     auto_approve_runway = {
