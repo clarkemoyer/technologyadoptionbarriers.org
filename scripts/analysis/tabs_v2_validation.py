@@ -1237,6 +1237,275 @@ def subgroup_standalone_validation(df, group_def, all_cols, item_names_full):
 
 
 
+# ============================================================================
+# 18-22. LINDERMAN-GRADE EXTENSIONS (added 2026-05-01)
+# Adds: DWLS ordinal CFA, bifactor R+M with omega-h/ECV/PUC, second-order
+# Barriers CFA, Mardia multivariate normality, Mahalanobis outliers,
+# split-sample cross-validation with Tucker congruence.
+# ============================================================================
+
+def run_cfa_dwls(data, model_spec, construct_name):
+    """CFA using DWLS estimator (proper for ordinal Likert; WLSMV equivalent in semopy)."""
+    if not HAS_SEMOPY:
+        return {'construct': construct_name, 'error': 'semopy not installed'}
+    d = data.dropna()
+    result = {'construct': construct_name, 'n_valid': len(d), 'estimator': 'DWLS'}
+    try:
+        mod = semopy.Model(model_spec)
+        mod.fit(d, obj='DWLS')
+        fit_stats = semopy.calc_stats(mod)
+        if 'Value' in fit_stats.index and 'CFI' not in fit_stats.index:
+            def _stat(name):
+                return float(fit_stats.loc['Value', name]) if name in fit_stats.columns else None
+        else:
+            def _stat(name):
+                return float(fit_stats.loc[name, 'Value']) if name in fit_stats.index else None
+        for k_in, k_out in [('chi2','chi2'),('chi2 p-value','chi2_p'),('DoF','df'),
+                             ('CFI','cfi'),('TLI','tli'),('RMSEA','rmsea'),
+                             ('AIC','aic'),('BIC','bic')]:
+            v = _stat(k_in)
+            if v is not None:
+                result[k_out] = round(v, 4) if k_out not in ('df',) else int(v)
+            else:
+                result[k_out] = None
+    except Exception as e:
+        result['error'] = str(e)
+    return result
+
+
+def bifactor_rm(df, r_cols, m_cols):
+    """Confirmatory bifactor on combined Readiness + Maturity items.
+
+    Accepts a df that may have raw or safe column names; renames internally
+    so callers can pass either form.
+    Returns ECV, omega-t, omega-h (general + each specific), PUC, fit indices.
+    """
+    if not HAS_SEMOPY:
+        return {'error': 'semopy not installed'}
+    rm = list(r_cols) + list(m_cols)
+    # Rename df columns to safe form if needed (look up by safe-col mapping)
+    if not all(c in df.columns for c in rm):
+        rename_map = {c: safe_col(c) for c in df.columns if safe_col(c) in rm}
+        df = df.rename(columns=rename_map)
+    data = df[rm].dropna()
+    n_R = len(r_cols); n_M = len(m_cols); n = n_R + n_M
+    spec = (
+        "G =~ " + " + ".join(rm) + "\n"
+        "RS =~ " + " + ".join(r_cols) + "\n"
+        "MS =~ " + " + ".join(m_cols) + "\n"
+        "G ~~ 0*RS\nG ~~ 0*MS\nRS ~~ 0*MS"
+    )
+    try:
+        mod = semopy.Model(spec)
+        mod.fit(data, obj='DWLS')
+        st = semopy.calc_stats(mod)
+        if 'Value' in st.index and 'CFI' not in st.index:
+            def _stat(nm):
+                return float(st.loc['Value', nm]) if nm in st.columns else None
+        else:
+            def _stat(nm):
+                return float(st.loc[nm, 'Value']) if nm in st.index else None
+        insp = mod.inspect(std_est=True)
+        loads = insp[(insp['op'] == '~') & (insp['Est. Std'].notna())]
+        g_loads = loads[loads['rval']=='G']['Est. Std'].astype(float).tolist()
+        r_loads = loads[loads['rval']=='RS']['Est. Std'].astype(float).tolist()
+        m_loads = loads[loads['rval']=='MS']['Est. Std'].astype(float).tolist()
+        sum_g2 = sum(x**2 for x in g_loads)
+        sum_r2 = sum(x**2 for x in r_loads)
+        sum_m2 = sum(x**2 for x in m_loads)
+        denom = sum_g2 + sum_r2 + sum_m2 if (sum_g2 + sum_r2 + sum_m2) else 1.0
+        ecv = sum_g2 / denom
+        # omega-h, omega-h-s, omega-t
+        sum_g = sum(g_loads); sum_r = sum(r_loads); sum_m = sum(m_loads)
+        all_h2 = []
+        for i, col in enumerate(rm):
+            g = g_loads[i] if i < len(g_loads) else 0
+            if col in r_cols:
+                idx = r_cols.index(col)
+                s = r_loads[idx] if idx < len(r_loads) else 0
+            else:
+                idx = m_cols.index(col)
+                s = m_loads[idx] if idx < len(m_loads) else 0
+            all_h2.append(g**2 + s**2)
+        total_var = sum_g**2 + sum_r**2 + sum_m**2 + (n - sum(all_h2))
+        if total_var <= 0:
+            total_var = 1.0
+        omega_t = (sum_g**2 + sum_r**2 + sum_m**2) / total_var
+        omega_h_g = sum_g**2 / total_var
+        omega_h_r = sum_r**2 / total_var
+        omega_h_m = sum_m**2 / total_var
+        n_total = n * (n-1) / 2
+        puc = (n_R * n_M) / n_total if n_total else None
+        return {
+            'fit': {
+                'chi2': round(_stat('chi2'), 3) if _stat('chi2') is not None else None,
+                'df': int(_stat('DoF')) if _stat('DoF') is not None else None,
+                'cfi': round(_stat('CFI'), 4) if _stat('CFI') is not None else None,
+                'tli': round(_stat('TLI'), 4) if _stat('TLI') is not None else None,
+                'rmsea': round(_stat('RMSEA'), 4) if _stat('RMSEA') is not None else None,
+            },
+            'n_listwise': len(data),
+            'ecv_general': round(ecv, 4),
+            'ecv_r_specific': round(sum_r2/denom, 4),
+            'ecv_m_specific': round(sum_m2/denom, 4),
+            'omega_t': round(omega_t, 4),
+            'omega_h_general': round(omega_h_g, 4),
+            'omega_h_r_specific': round(omega_h_r, 4),
+            'omega_h_m_specific': round(omega_h_m, 4),
+            'puc': round(puc, 4) if puc is not None else None,
+            'g_loadings': [round(float(x), 4) for x in g_loads],
+            'r_specific_loadings': [round(float(x), 4) for x in r_loads],
+            'm_specific_loadings': [round(float(x), 4) for x in m_loads],
+            'note': 'Reise/Rodriguez interpretation: ECV>.70 + omega_h>.80 + small omega_h_s implies general factor dominates; specific subscale scores are unreliable in isolation.',
+        }
+    except Exception as e:
+        return {'error': str(e)}
+
+
+def second_order_barriers_cfa(df, barrier_cols_safe, three_group_def):
+    """Higher-order Barriers CFA: F1a, F1b, F2 -> Barriers."""
+    if not HAS_SEMOPY:
+        return {'error': 'semopy not installed'}
+    spec_lines = []
+    for label, idxs in three_group_def.items():
+        items = " + ".join(barrier_cols_safe[i] for i in idxs)
+        spec_lines.append(f"{label} =~ {items}")
+    factors = list(three_group_def.keys())
+    spec_lines.append(f"Barriers =~ {' + '.join(factors)}")
+    spec = "\n".join(spec_lines)
+    data = df[barrier_cols_safe].dropna()
+    try:
+        mod = semopy.Model(spec)
+        mod.fit(data, obj='DWLS')
+        st = semopy.calc_stats(mod)
+        if 'Value' in st.index and 'CFI' not in st.index:
+            def _stat(nm):
+                return float(st.loc['Value', nm]) if nm in st.columns else None
+        else:
+            def _stat(nm):
+                return float(st.loc[nm, 'Value']) if nm in st.index else None
+        insp = mod.inspect(std_est=True)
+        ho = insp[(insp['op']=='~') & (insp['rval']=='Barriers') & (insp['Est. Std'].notna())]
+        ho_loads = {row['lval']: round(float(row['Est. Std']), 4) for _, row in ho.iterrows()}
+        return {
+            'estimator': 'DWLS',
+            'n_listwise': len(data),
+            'chi2': round(_stat('chi2'), 3) if _stat('chi2') is not None else None,
+            'df': int(_stat('DoF')) if _stat('DoF') is not None else None,
+            'cfi': round(_stat('CFI'), 4) if _stat('CFI') is not None else None,
+            'tli': round(_stat('TLI'), 4) if _stat('TLI') is not None else None,
+            'rmsea': round(_stat('RMSEA'), 4) if _stat('RMSEA') is not None else None,
+            'higher_order_loadings': ho_loads,
+        }
+    except Exception as e:
+        return {'error': str(e)}
+
+
+def mardia_multivariate_normality(data):
+    """Mardia's test for multivariate skew + kurtosis."""
+    X = data.dropna().values
+    n, p = X.shape
+    if n < 5 or p < 2:
+        return None
+    mean = X.mean(axis=0)
+    Xc = X - mean
+    S = np.cov(Xc.T, bias=True)
+    Sinv = np.linalg.pinv(S)
+    D = Xc @ Sinv @ Xc.T
+    b1p = (D ** 3).sum() / (n ** 2)
+    b2p = float(np.diag(D ** 2).mean())
+    skew_chi2 = n * b1p / 6.0
+    skew_df = p * (p+1) * (p+2) / 6.0
+    skew_p = float(1 - stats.chi2.cdf(skew_chi2, skew_df))
+    expected_kurt = p * (p + 2)
+    kurt_z = (b2p - expected_kurt) / float(np.sqrt(8 * p * (p+2) / n))
+    kurt_p = float(2 * (1 - stats.norm.cdf(abs(kurt_z))))
+    return {
+        'n': int(n), 'p': int(p),
+        'multivariate_skewness': round(float(b1p), 4),
+        'skew_chi2': round(float(skew_chi2), 3),
+        'skew_df': float(skew_df),
+        'skew_p': round(float(skew_p), 6),
+        'multivariate_kurtosis': round(float(b2p), 4),
+        'kurt_z': round(float(kurt_z), 4),
+        'kurt_p': round(float(kurt_p), 6),
+        'multivariate_normal_005': bool(skew_p > 0.05 and kurt_p > 0.05),
+    }
+
+
+def mahalanobis_outliers(data, alpha=0.001):
+    """Count Mahalanobis^2 outliers at chi-squared p < alpha."""
+    X = data.dropna().values
+    n, p = X.shape
+    if n < 5 or p < 2:
+        return None
+    mean = X.mean(axis=0); cov = np.cov(X.T)
+    inv = np.linalg.pinv(cov)
+    diffs = X - mean
+    md_sq = np.array([d @ inv @ d for d in diffs])
+    threshold = float(stats.chi2.ppf(1 - alpha, p))
+    outlier_count = int((md_sq > threshold).sum())
+    return {
+        'n_listwise': int(n),
+        'n_items': int(p),
+        'threshold_chi2': round(threshold, 4),
+        'outlier_count': outlier_count,
+        'outlier_pct': round(100 * outlier_count / n, 2) if n else 0,
+    }
+
+
+def split_sample_cv(df, barrier_cols_safe, three_group_def, seed=42):
+    """50/50 calibration/validation split with Tucker congruence on loadings."""
+    if not HAS_SEMOPY:
+        return {'error': 'semopy not installed'}
+    spec_lines = []
+    for label, idxs in three_group_def.items():
+        items = " + ".join(barrier_cols_safe[i] for i in idxs)
+        spec_lines.append(f"{label} =~ {items}")
+    spec = "\n".join(spec_lines)
+    data = df[barrier_cols_safe].dropna().reset_index(drop=True)
+    rng = np.random.RandomState(seed)
+    idx = rng.permutation(len(data))
+    half = len(data) // 2
+    calib = data.iloc[idx[:half]]
+    valid = data.iloc[idx[half:]]
+    out = {'n_calibration': int(len(calib)), 'n_validation': int(len(valid)), 'seed': seed}
+    loads_calib = []; loads_valid = []
+    for sample_name, sample, store in [('calibration', calib, loads_calib), ('validation', valid, loads_valid)]:
+        try:
+            mod = semopy.Model(spec)
+            mod.fit(sample, obj='DWLS')
+            st = semopy.calc_stats(mod)
+            if 'Value' in st.index and 'CFI' not in st.index:
+                def _stat(nm):
+                    return float(st.loc['Value', nm]) if nm in st.columns else None
+            else:
+                def _stat(nm):
+                    return float(st.loc[nm, 'Value']) if nm in st.index else None
+            out[sample_name] = {
+                'chi2': round(_stat('chi2'), 3) if _stat('chi2') is not None else None,
+                'cfi': round(_stat('CFI'), 4) if _stat('CFI') is not None else None,
+                'tli': round(_stat('TLI'), 4) if _stat('TLI') is not None else None,
+                'rmsea': round(_stat('RMSEA'), 4) if _stat('RMSEA') is not None else None,
+            }
+            insp = mod.inspect(std_est=True)
+            L = insp[(insp['op']=='~') & (insp['Est. Std'].notna())]
+            for fact in three_group_def.keys():
+                for _, row in L[L['rval']==fact].iterrows():
+                    store.append(float(row['Est. Std']))
+        except Exception as e:
+            out[sample_name] = {'error': str(e)}
+    if len(loads_calib) == len(loads_valid) and len(loads_calib) > 0:
+        a = np.array(loads_calib); b = np.array(loads_valid)
+        denom = float(np.sqrt(a @ a) * np.sqrt(b @ b))
+        tucker = float(a @ b / denom) if denom > 0 else None
+        out['tucker_congruence'] = round(tucker, 4) if tucker is not None else None
+        out['interpretation'] = ('identical' if (tucker or 0) >= 0.95 else
+                                  'minor_differences' if (tucker or 0) >= 0.85 else 'different_structures')
+    return out
+
+
+
 def main():
     if len(sys.argv) < 2:
         print(f"Usage: {sys.argv[0]} <qualtrics_csv_path> [--json output.json] [--crp200]")
@@ -1389,7 +1658,55 @@ def main():
         verdict = 'PASS' if r['pass_085'] else 'FAIL'
         print(f"  HTMT {r['pair']}: {r['htmt']} [{r['ci_lower']}, {r['ci_upper']}] {verdict}")
 
-    # -- Per-subgroup standalone validation (does each barrier subgroup hold as its own scale?) --
+    # -- Linderman-grade extensions: DWLS ordinal CFA, bifactor, second-order, normality, CV --
+    print(f"\n{'='*70}")
+    print(f"  LINDERMAN-GRADE EXTENSIONS (DWLS, bifactor, 2nd-order, normality, CV)")
+    print(f"{'='*70}")
+    barrier_cols_safe = [safe_col(c) for c in BARRIER_COLS]
+    barrier_renamed = df[BARRIER_COLS].rename(columns={c: safe_col(c) for c in BARRIER_COLS})
+    readiness_renamed = df[READINESS_COLS].rename(columns={c: safe_col(c) for c in READINESS_COLS})
+    maturity_renamed = df[MATURITY_COLS].rename(columns={c: safe_col(c) for c in MATURITY_COLS})
+
+    # DWLS ordinal CFA on each construct + 3F barriers
+    cfa_dwls = {}
+    cfa_dwls['Barriers_1F'] = run_cfa_dwls(barrier_renamed, cfa_models['barriers_1f'], 'Barriers_1F')
+    cfa_dwls['Barriers_2F'] = run_cfa_dwls(barrier_renamed, cfa_models['barriers_2f'], 'Barriers_2F')
+    cfa_dwls['Barriers_3F'] = run_cfa_dwls(barrier_renamed, cfa_models['barriers_3f'], 'Barriers_3F')
+    cfa_dwls['Barriers_4F'] = run_cfa_dwls(barrier_renamed, cfa_models['barriers_4f'], 'Barriers_4F')
+    cfa_dwls['Readiness_1F'] = run_cfa_dwls(readiness_renamed, cfa_models['readiness_1f'], 'Readiness_1F')
+    cfa_dwls['Maturity_1F'] = run_cfa_dwls(maturity_renamed, cfa_models['maturity_1f'], 'Maturity_1F')
+    print(f"  DWLS Barriers 3F: CFI={cfa_dwls['Barriers_3F'].get('cfi')}, RMSEA={cfa_dwls['Barriers_3F'].get('rmsea')}")
+    print(f"  DWLS Readiness 1F: CFI={cfa_dwls['Readiness_1F'].get('cfi')}, RMSEA={cfa_dwls['Readiness_1F'].get('rmsea')}")
+    print(f"  DWLS Maturity 1F: CFI={cfa_dwls['Maturity_1F'].get('cfi')}, RMSEA={cfa_dwls['Maturity_1F'].get('rmsea')}")
+
+    # Bifactor R+M
+    bifactor_results = bifactor_rm(df, [safe_col(c) for c in READINESS_COLS], [safe_col(c) for c in MATURITY_COLS])
+    if 'error' not in bifactor_results:
+        print(f"  Bifactor R+M: ECV={bifactor_results.get('ecv_general')}, "
+              f"omega_h={bifactor_results.get('omega_h_general')}")
+
+    # Second-order Barriers CFA
+    secondorder_results = second_order_barriers_cfa(barrier_renamed, barrier_cols_safe, BARRIER_3GROUP)
+    if 'error' not in secondorder_results:
+        print(f"  Second-order Barriers: CFI={secondorder_results.get('cfi')}, "
+              f"RMSEA={secondorder_results.get('rmsea')}")
+
+    # Mardia + Mahalanobis on each construct
+    mardia_results = {}; mahalanobis_results = {}
+    for cname, sub in [('Barriers', barrier_renamed),
+                        ('Readiness', readiness_renamed),
+                        ('Maturity', maturity_renamed)]:
+        mardia_results[cname] = mardia_multivariate_normality(sub)
+        mahalanobis_results[cname] = mahalanobis_outliers(sub)
+    if mardia_results.get('Barriers'):
+        print(f"  Mardia (Barriers): MV-normal? {mardia_results['Barriers'].get('multivariate_normal_005')}")
+
+    # Cross-validation 50/50 split
+    cv_results = split_sample_cv(barrier_renamed, barrier_cols_safe, BARRIER_3GROUP)
+    if 'tucker_congruence' in cv_results:
+        print(f"  CV split-half: Tucker congruence = {cv_results.get('tucker_congruence')}")
+
+    # -- Per-subgroup standalone validation    # -- Per-subgroup standalone validation (does each barrier subgroup hold as its own scale?) --
     # This is computationally expensive (parallel_analysis + CFA per subgroup), so it is
     # gated behind --crp200 to keep live/continuous validation runs fast.
     if use_crp200:
@@ -1479,6 +1796,12 @@ def main():
         if subgroup_standalone is not None:
             output['subgroup_standalone_validation'] = subgroup_standalone
         output['alpha_if_deleted_summary'] = aid_summary
+        output['cfa_dwls_estimator'] = cfa_dwls
+        output['bifactor_rm'] = bifactor_results
+        output['second_order_barriers_cfa'] = secondorder_results
+        output['mardia_normality'] = mardia_results
+        output['mahalanobis_outliers'] = mahalanobis_results
+        output['barriers_3f_cross_validation'] = cv_results
         output['discriminant_validity'] = discrim
 
         # Convert any numpy types for JSON serialization
