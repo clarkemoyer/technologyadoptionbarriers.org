@@ -116,7 +116,12 @@ def _objectid_time(message_id):
     if not isinstance(message_id, str) or len(message_id) != 24:
         return None
     try:
-        int(message_id, 16)  # validate all 24 chars are hex
+        raw = bytes.fromhex(message_id)  # strict hex-only, rejects underscores
+    except ValueError:
+        return None
+    if len(raw) != 12:
+        return None
+    try:
         ts = int(message_id[:8], 16)
     except ValueError:
         return None

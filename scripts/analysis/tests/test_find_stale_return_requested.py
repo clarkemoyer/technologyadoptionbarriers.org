@@ -260,6 +260,8 @@ class TestMsgTime:
         ]
         bucket, record = classify_submission(sub, msgs, RESEARCHER_ID, NOW, CUTOFF)
         assert bucket == "stale_no_reply_to_message"
+        assert record is not None
+        assert record["pid"] == "PID_T"
 
 
 # ── ObjectId-prefix timestamp fallback ──────────────────────────────────────
@@ -300,7 +302,7 @@ class TestObjectIdFallback:
         assert _objectid_time("69ef4762f0591a0ae79ea82f0") is None
 
     def test_objectid_decoder_returns_none_for_non_hex_prefix(self):
-        assert _objectid_time("zzzzzzzzdeadbeef") is None
+        assert _objectid_time("zzzzzzzzdeadbeefdeadbeef") is None
 
     def test_msg_time_uses_objectid_when_timestamps_absent(self):
         """When sent_at and created_at are null/undefined, _msg_time falls
