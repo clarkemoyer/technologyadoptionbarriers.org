@@ -9,7 +9,7 @@
 *   Statistics Base, Regression, Advanced Statistics, Categories, Exact
 *   Tests, Missing Values, Conjoint, Custom Tables, Complex Samples,
 *   Decision Trees, Data Preparation, Forecasting, Neural Networks,
-*   Direct Marketing, Bootstrapping, Statistics Base.
+*   Direct Marketing, Bootstrapping.
 *
 *   NOT IN LICENSE: IBM SPSS Amos. CFA-based statistics (omega from CFA,
 *   composite reliability with SEs, bifactor models, second-order CFA,
