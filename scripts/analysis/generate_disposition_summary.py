@@ -247,7 +247,9 @@ def main():
                 "risk": spec["risk"],
                 # JSON cannot represent infinity; emit null for the open ends.
                 "minDaysRemaining": None if spec["min_days"] == float("-inf") else spec["min_days"],
-                "maxDaysRemaining": spec["max_days"],
+                # Exclusive upper bound: bucket contains submissions where
+                # days_remaining < maxDaysRemainingExclusive (half-open interval).
+                "maxDaysRemainingExclusive": spec["max_days"],
                 "count": count,
             }
             for spec, count in zip(bucket_specs, bucket_counts)

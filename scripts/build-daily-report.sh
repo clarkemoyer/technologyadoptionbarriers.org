@@ -404,13 +404,13 @@ for b in buckets:
     label = b.get('label', '?')
     risk = b.get('risk', 'low')
     min_d = b.get('minDaysRemaining')
-    max_d = b.get('maxDaysRemaining')
+    max_d = b.get('maxDaysRemainingExclusive')
     if min_d is None and max_d is not None:
         rng = f'< {max_d:g}'
     elif min_d is not None and max_d is None:
         rng = f'>= {min_d:g}'
     elif min_d is not None and max_d is not None:
-        rng = f'{min_d:g} - {max_d:g}'
+        rng = f'>= {min_d:g} and < {max_d:g}'
     else:
         rng = '?'
     risk_marker = {'low': '🟢', 'moderate': '🟡', 'elevated': '🟠', 'high': '🔴 **HIGH RISK**'}.get(risk, risk)

@@ -58,7 +58,7 @@ export const DispositionSummarySchema = z.object({
           label: z.string(),
           risk: z.string(),
           minDaysRemaining: z.number().nullable(),
-          maxDaysRemaining: z.number().nullable(),
+          maxDaysRemainingExclusive: z.number().nullable(),
           count: z.number().min(0),
         })
       ),
