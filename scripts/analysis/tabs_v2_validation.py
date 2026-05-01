@@ -2061,6 +2061,117 @@ def esem_target_rotation(df, cols, n_factors=3):
 
 
 
+
+# ============================================================================
+# 31. APPROXIMATE MEASUREMENT INVARIANCE (added 2026-05-01)
+# Configural via per-group fit; metric via Tucker congruence on loadings;
+# scalar via item-mean correlation + max delta. Used because formal multigroup
+# chi-squared difference tests at N<300 per group are underpowered, and
+# semopy 2.3.x's stacked-data optimizer doesn't converge with the high
+# missingness pattern that group-encoded data requires.
+#
+# Thresholds (Marsh et al. 2009; van de Vijver & Tanzer 2004):
+#   Tucker congruence >= 0.95 = strong metric invariance support
+#                      >= 0.85 = acceptable
+#   Item-mean correlation >= 0.90 = strong scalar invariance support
+#                          >= 0.80 = acceptable
+# ============================================================================
+
+def measurement_invariance_approximate(df, cols, spec, group_col, group_values=('SMB','ENT')):
+    """Compute approximate configural / metric / scalar invariance evidence.
+
+    Returns:
+        configural: per-group fit indices (CFI, TLI, RMSEA)
+        metric_approximate: Tucker's congruence on standardized loadings
+        scalar_approximate: correlation of per-group item means + max abs delta
+        verdicts at conventional thresholds
+    """
+    if not HAS_SEMOPY:
+        return {'error': 'semopy not installed'}
+    out = {'group_col': group_col, 'group_values': list(group_values)}
+    per_group = {}
+    loadings_per_group = {}
+    means_per_group = {}
+    for grp in group_values:
+        sub = df[df[group_col] == grp][cols].dropna()
+        if len(sub) < 10:
+            per_group[grp] = {'error': f'insufficient N: {len(sub)}'}
+            continue
+        try:
+            mod = semopy.Model(spec)
+            mod.fit(sub, obj='DWLS')
+            st = semopy.calc_stats(mod)
+            if 'Value' in st.index and 'CFI' not in st.index:
+                def _stat(nm):
+                    return float(st.loc['Value', nm]) if nm in st.columns else None
+            else:
+                def _stat(nm):
+                    return float(st.loc[nm, 'Value']) if nm in st.index else None
+            per_group[grp] = {
+                'n': int(len(sub)),
+                'chi2': round(_stat('chi2'), 3) if _stat('chi2') is not None else None,
+                'df': int(_stat('DoF')) if _stat('DoF') is not None else None,
+                'cfi': round(_stat('CFI'), 4) if _stat('CFI') is not None else None,
+                'tli': round(_stat('TLI'), 4) if _stat('TLI') is not None else None,
+                'rmsea': round(_stat('RMSEA'), 4) if _stat('RMSEA') is not None else None,
+            }
+            insp = mod.inspect(std_est=True)
+            loads = insp[(insp['op']=='~') & (insp['Est. Std'].notna())].copy()
+            loads['Est. Std'] = loads['Est. Std'].astype(float)
+            loadings_per_group[grp] = loads.set_index(['lval','rval'])['Est. Std']
+            means_per_group[grp] = sub.mean()
+        except Exception as e:
+            per_group[grp] = {'error': str(e)}
+    out['configural'] = per_group
+
+    # Approximate metric: Tucker's congruence on standardized loadings
+    if len(loadings_per_group) == len(group_values):
+        keys = list(loadings_per_group.keys())
+        a_idx = loadings_per_group[keys[0]].index
+        b_idx = loadings_per_group[keys[1]].index
+        common = a_idx.intersection(b_idx)
+        if len(common) >= 3:
+            a = np.array(loadings_per_group[keys[0]].loc[common].values, dtype=float)
+            b = np.array(loadings_per_group[keys[1]].loc[common].values, dtype=float)
+            denom = float(np.sqrt((a*a).sum()) * np.sqrt((b*b).sum()))
+            tc = float((a*b).sum() / denom) if denom else None
+            out['metric_approximate'] = {
+                'tucker_congruence': round(tc, 4) if tc is not None else None,
+                'n_loadings_compared': int(len(common)),
+                'support': ('strong' if tc is not None and tc >= 0.95 else
+                             'acceptable' if tc is not None and tc >= 0.85 else
+                             'weak'),
+                'note': "Tucker's congruence on standardized loadings; >=.95 strong, >=.85 acceptable.",
+            }
+        else:
+            out['metric_approximate'] = {'error': 'insufficient common loadings'}
+    else:
+        out['metric_approximate'] = {'error': 'one or more groups failed to fit'}
+
+    # Approximate scalar: item-mean correlation + max abs delta
+    if len(means_per_group) == len(group_values):
+        keys = list(means_per_group.keys())
+        common = means_per_group[keys[0]].index.intersection(means_per_group[keys[1]].index)
+        if len(common) >= 3:
+            a = means_per_group[keys[0]].loc[common]
+            b = means_per_group[keys[1]].loc[common]
+            r = float(a.corr(b))
+            mean_diff = (b - a)
+            max_abs = float(mean_diff.abs().max())
+            out['scalar_approximate'] = {
+                'item_mean_correlation': round(r, 4),
+                'max_abs_mean_diff': round(max_abs, 4),
+                'support': ('strong' if r >= 0.90 else
+                             'acceptable' if r >= 0.80 else
+                             'weak'),
+                'note': "Per-group item-mean correlation; high r implies stable item difficulty across groups.",
+            }
+        else:
+            out['scalar_approximate'] = {'error': 'insufficient common items'}
+    return out
+
+
+
 def main():
     if len(sys.argv) < 2:
         print(f"Usage: {sys.argv[0]} <qualtrics_csv_path> [--json output.json] [--crp200]")
@@ -2297,6 +2408,30 @@ def main():
         renamed_with_demo = _barrier_renamed.copy()
         renamed_with_demo['_SMB'] = df['_SMB'].reindex(_barrier_renamed.index).values
         multigroup_3f_results = multigroup_3f_sem(renamed_with_demo, _barrier_cols_safe, BARRIER_3GROUP, group_col='_SMB')
+        # Approximate measurement invariance (configural + metric + scalar)
+        if 'Q4_OrgSize' in df.columns:
+            inv_size_grp = df['Q4_OrgSize'].apply(lambda x: 'SMB' if x in ['<100','100-499','500-999'] else 'ENT' if x in ['1000-4999','5000-9999','10000+'] else None)
+            inv_df = df.copy(); inv_df['_inv_grp'] = inv_size_grp
+            inv_df = inv_df[inv_df['_inv_grp'].notna()]
+            inv_df = inv_df.rename(columns={c: safe_col(c) for c in BARRIER_COLS + READINESS_COLS + MATURITY_COLS})
+            _safe_b = [safe_col(c) for c in BARRIER_COLS]
+            _safe_r = [safe_col(c) for c in READINESS_COLS]
+            _safe_m = [safe_col(c) for c in MATURITY_COLS]
+            _spec_b3f = (
+                "F1a =~ " + " + ".join(_safe_b[i] for i in BARRIER_3GROUP['F1a']) + "\n"
+                "F1b =~ " + " + ".join(_safe_b[i] for i in BARRIER_3GROUP['F1b']) + "\n"
+                "F2 =~ "  + " + ".join(_safe_b[i] for i in BARRIER_3GROUP['F2'])
+            )
+            _spec_r1f = "Readiness =~ " + " + ".join(_safe_r)
+            _spec_m1f = "Maturity =~ " + " + ".join(_safe_m)
+            measurement_invariance = {
+                'Barriers_3F': measurement_invariance_approximate(inv_df, _safe_b, _spec_b3f, '_inv_grp'),
+                'Readiness_1F': measurement_invariance_approximate(inv_df, _safe_r, _spec_r1f, '_inv_grp'),
+                'Maturity_1F': measurement_invariance_approximate(inv_df, _safe_m, _spec_m1f, '_inv_grp'),
+            }
+        else:
+            measurement_invariance = {'error': 'Q4_OrgSize not in df'}
+
         dif_results = {}
         for cname, cols, names, ids in [('Barriers', BARRIER_COLS, BARRIER_NAMES, [f'B{i+1}' for i in range(len(BARRIER_NAMES))]), ('Readiness', READINESS_COLS, READINESS_NAMES, [f'R{i+1}' for i in range(len(READINESS_NAMES))]), ('Maturity', MATURITY_COLS, MATURITY_NAMES, [f'M{i+1}' for i in range(len(MATURITY_NAMES))])]:
             dif_results[cname] = dif_irt(df, cols, names, ids, group_col='_SMB')
@@ -2422,6 +2557,8 @@ def main():
         output['multigroup_3f_smb_vs_ent'] = multigroup_3f_results
         output['dif_irt_smb_vs_ent'] = dif_results
         output['esem_3factor'] = esem_results
+        output['measurement_invariance'] = measurement_invariance
+        output['measurement_invariance'] = measurement_invariance
         output['discriminant_validity'] = discrim
 
         # Convert any numpy types for JSON serialization
