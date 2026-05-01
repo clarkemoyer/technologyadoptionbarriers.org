@@ -286,6 +286,19 @@ class TestObjectIdFallback:
     def test_objectid_decoder_returns_none_for_short_string(self):
         assert _objectid_time("abc") is None
 
+    def test_objectid_decoder_returns_none_for_non_24_length(self):
+        """IDs >= 8 chars but not exactly 24 must be rejected.
+
+        Covers the API-format-change risk where a UUID-like id such as
+        '69ef4762-f059-1a0a-e79e-a82f' (28 chars) starts with 8 valid
+        hex chars but is not a MongoDB ObjectId."""
+        # 16 chars — long enough for the old len >= 8 guard but not 24
+        assert _objectid_time("69ef4762f0591a0a") is None
+        # 28 chars — UUID-like, starts with 8 valid hex chars
+        assert _objectid_time("69ef4762-f059-1a0a-e79e-a82f") is None
+        # 25 chars — off by one
+        assert _objectid_time("69ef4762f0591a0ae79ea82f0") is None
+
     def test_objectid_decoder_returns_none_for_non_hex_prefix(self):
         assert _objectid_time("zzzzzzzzdeadbeef") is None
 
