@@ -97,17 +97,54 @@ def _parse_iso(ts):
         return None
 
 
-def _msg_time(m):
-    """Return the best-effort timestamp for a message, or ``None`` if neither
-    ``sent_at`` nor ``created_at`` is a parseable timestamp.
+def _objectid_time(message_id):
+    """Decode the embedded Unix timestamp from a 24-char hex MongoDB ObjectId.
 
-    Prolific returns a small number of messages with both fields null or
-    malformed (observed in live data: ~4 per daily run out of ~560 subs).
-    These are typically system-generated records. Returning ``None`` lets
-    callers skip the message for ordering purposes rather than failing the
-    entire PID's classification.
+    Prolific message IDs are MongoDB ObjectIds whose first 4 bytes (8 hex
+    chars) encode the creation time as a Unix epoch. When ``sent_at`` and
+    ``created_at`` are both absent or unparseable from the messages API
+    response (observed across the bulk of FLAG-* / clarification messages,
+    not just a few system records), this gives us a deterministic fallback
+    ordering anchor — the same anchor the Prolific server itself uses
+    internally for message creation.
+
+    Reference: https://www.mongodb.com/docs/manual/reference/method/ObjectId/
+
+    Returns ``None`` for inputs that don't look like a 24-char hex string,
+    so callers can chain it after the explicit-timestamp fields.
+    """
+    if not isinstance(message_id, str) or len(message_id) < 8:
+        return None
+    try:
+        ts = int(message_id[:8], 16)
+    except ValueError:
+        return None
+    if ts <= 0:
+        return None
+    try:
+        return datetime.fromtimestamp(ts, tz=timezone.utc)
+    except (OSError, OverflowError, ValueError):
+        return None
+
+
+def _msg_time(m):
+    """Return the best-effort timestamp for a message, or ``None`` if no
+    fallback yields a parseable instant.
+
+    Resolution order (most authoritative first):
+      1. ``sent_at`` — explicit server-recorded send time
+      2. ``created_at`` — explicit server-recorded creation time
+      3. The 4-byte timestamp prefix of the message ``id`` (MongoDB
+         ObjectId convention) — used because the Prolific messages API
+         frequently returns ``sent_at`` and ``created_at`` as null/undefined
+         for participant↔researcher messages, which previously caused this
+         function to drop the message entirely. Dropping a participant
+         message is consequential: the caller treats the PID as
+         "no reply since RR" and queues it for rejection.
     """
     t = _parse_iso(m.get("sent_at")) or _parse_iso(m.get("created_at"))
+    if t is None:
+        t = _objectid_time(m.get("id"))
     return t
 
 
