@@ -1511,6 +1511,127 @@ def split_sample_cv(df, barrier_cols_safe, three_group_def, seed=42):
 
 
 
+
+# ============================================================================
+# 23. IRT GRADED RESPONSE MODEL (Samejima) - added 2026-05-01
+# Marginal MLE estimation via girth. Gracefully degrades if girth unavailable.
+# ============================================================================
+
+try:
+    from girth import grm_mml
+    HAS_GIRTH = True
+except ImportError:
+    HAS_GIRTH = False
+
+
+def irt_grm(df, cols, item_ids, item_names=None):
+    """Samejima graded response model.
+
+    Returns per-item discrimination (a) and 4 thresholds (b1..b4) for 5-point
+    Likert. Plus summary stats and ceiling-effect flags.
+    """
+    if not HAS_GIRTH:
+        return {'error': 'girth not installed'}
+    data = df[cols].dropna().astype(int).values
+    if data.shape[0] < 30 or data.shape[1] < 3:
+        return {'error': 'insufficient data for IRT (need >=30 N, >=3 items)'}
+    arr = (data - 1).T  # girth wants 0-indexed, items x persons
+    try:
+        result = grm_mml(arr)
+    except Exception as e:
+        return {'error': f'girth.grm_mml failed: {e}'}
+    disc = [float(x) for x in result['Discrimination']]
+    diff = result['Difficulty']
+    items = []
+    for i in range(len(cols)):
+        thr = [float(diff[i, j]) for j in range(diff.shape[1])]
+        # Ceiling effect: any threshold extremely low (population endorses uniformly)
+        ceiling = bool(min(thr) < -3.0) if thr else False
+        items.append({
+            'id': item_ids[i] if i < len(item_ids) else cols[i],
+            'name': item_names[i] if item_names and i < len(item_names) else (item_ids[i] if i < len(item_ids) else cols[i]),
+            'discrimination': round(disc[i], 4),
+            'thresholds': [round(x, 4) for x in thr],
+            'low_discrimination_flag': bool(disc[i] < 0.5),
+            'high_discrimination_flag': bool(disc[i] > 1.5),
+            'ceiling_effect_flag': ceiling,
+        })
+    return {
+        'n_listwise': int(data.shape[0]),
+        'n_items': int(data.shape[1]),
+        'mean_discrimination': round(sum(disc) / len(disc), 4),
+        'min_discrimination': round(min(disc), 4),
+        'max_discrimination': round(max(disc), 4),
+        'low_discrimination_count': sum(1 for d in disc if d < 0.5),
+        'high_discrimination_count': sum(1 for d in disc if d > 1.5),
+        'ceiling_effect_count': sum(1 for it in items if it['ceiling_effect_flag']),
+        'items': items,
+    }
+
+
+
+
+# ============================================================================
+# 24. PER-FACTOR REGRESSIONS (added 2026-05-01)
+# Uses statsmodels OLS to break down barrier effects by sub-factor.
+# Reveals sign-reversals masked by full-scale aggregate scores.
+# ============================================================================
+
+def per_factor_regressions(df, barrier_cols, readiness_cols, maturity_cols, three_group_def):
+    """Run regressions of construct means on barrier sub-factor means.
+
+    Returns dict with R^2, coefficients, p-values for sub-factor models on
+    Readiness and Maturity, plus a full-scale comparison. Quantifies the
+    'is the sub-factor decomposition substantively useful?' question.
+    """
+    try:
+        import statsmodels.formula.api as smf
+    except ImportError:
+        return {'error': 'statsmodels not installed'}
+    work = df.copy()
+    work['Barriers_mean'] = work[barrier_cols].mean(axis=1)
+    work['Readiness_mean'] = work[readiness_cols].mean(axis=1)
+    work['Maturity_mean'] = work[maturity_cols].mean(axis=1)
+    for label, idxs in three_group_def.items():
+        cols = [barrier_cols[i] for i in idxs]
+        work[f'{label}_mean'] = work[cols].mean(axis=1)
+    factor_cols = [f'{label}_mean' for label in three_group_def.keys()]
+
+    out = {}
+    for outcome in ['Readiness_mean', 'Maturity_mean']:
+        # Total-scale model
+        try:
+            m_total = smf.ols(f'{outcome} ~ Barriers_mean', data=work).fit()
+            # Sub-factor model
+            m_sub = smf.ols(f'{outcome} ~ ' + ' + '.join(factor_cols), data=work).fit()
+            out[outcome] = {
+                'total_scale_model': {
+                    'r2': round(float(m_total.rsquared), 4),
+                    'r2_adj': round(float(m_total.rsquared_adj), 4),
+                    'beta': round(float(m_total.params.get('Barriers_mean', 0)), 4),
+                    'p': round(float(m_total.pvalues.get('Barriers_mean', 1)), 4),
+                    'n': int(m_total.nobs),
+                },
+                'sub_factor_model': {
+                    'r2': round(float(m_sub.rsquared), 4),
+                    'r2_adj': round(float(m_sub.rsquared_adj), 4),
+                    'f': round(float(m_sub.fvalue), 3),
+                    'f_p': round(float(m_sub.f_pvalue), 6),
+                    'n': int(m_sub.nobs),
+                    'sub_factors': {col.replace('_mean',''): {
+                        'beta': round(float(m_sub.params.get(col, 0)), 4),
+                        't': round(float(m_sub.tvalues.get(col, 0)), 3),
+                        'p': round(float(m_sub.pvalues.get(col, 1)), 4),
+                    } for col in factor_cols},
+                },
+                'r2_lift_from_decomposition': round(float(m_sub.rsquared - m_total.rsquared), 4),
+            }
+        except Exception as e:
+            out[outcome] = {'error': str(e)}
+    return out
+
+
+
 def main():
     if len(sys.argv) < 2:
         print(f"Usage: {sys.argv[0]} <qualtrics_csv_path> [--json output.json] [--crp200]")
@@ -1708,6 +1829,25 @@ def main():
 
     # Cross-validation 50/50 split
     cv_results = split_sample_cv(barrier_renamed, barrier_cols_safe, BARRIER_3GROUP)
+
+    # IRT graded response models per construct
+    irt_results = {}
+    barrier_short_ids = [f'B{i+1}' for i in range(len(BARRIER_NAMES))]
+    readiness_short_ids = [f'R{i+1}' for i in range(len(READINESS_NAMES))]
+    maturity_short_ids = [f'M{i+1}' for i in range(len(MATURITY_NAMES))]
+    irt_results['Barriers'] = irt_grm(barrier_renamed, barrier_cols_safe, barrier_short_ids, BARRIER_NAMES)
+    irt_results['Readiness'] = irt_grm(readiness_renamed, [safe_col(c) for c in READINESS_COLS], readiness_short_ids, READINESS_NAMES)
+    irt_results['Maturity'] = irt_grm(maturity_renamed, [safe_col(c) for c in MATURITY_COLS], maturity_short_ids, MATURITY_NAMES)
+    if 'error' not in irt_results['Barriers']:
+        print(f"  IRT Barriers: mean discrimination={irt_results['Barriers'].get('mean_discrimination')}, "
+              f"ceiling-effect items={irt_results['Barriers'].get('ceiling_effect_count')}")
+
+    # Per-factor regressions (sub-factor decomposition vs full-scale aggregate)
+    per_factor_reg = per_factor_regressions(df, BARRIER_COLS, READINESS_COLS, MATURITY_COLS, BARRIER_3GROUP)
+    if 'Readiness_mean' in per_factor_reg and 'error' not in per_factor_reg.get('Readiness_mean', {}):
+        rr = per_factor_reg['Readiness_mean']
+        print(f"  Per-factor Reg (Readiness): R^2 total={rr['total_scale_model']['r2']} "
+              f"-> sub-factor={rr['sub_factor_model']['r2']} (lift={rr['r2_lift_from_decomposition']})")
     if 'tucker_congruence' in cv_results:
         print(f"  CV split-half: Tucker congruence = {cv_results.get('tucker_congruence')}")
 
@@ -1807,6 +1947,8 @@ def main():
         output['mardia_normality'] = mardia_results
         output['mahalanobis_outliers'] = mahalanobis_results
         output['barriers_3f_cross_validation'] = cv_results
+        output['irt_grm'] = irt_results
+        output['per_factor_regressions'] = per_factor_reg
         output['discriminant_validity'] = discrim
 
         # Convert any numpy types for JSON serialization
