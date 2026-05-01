@@ -3312,6 +3312,424 @@ def split_sample_cv(df, barrier_cols_safe, three_group_def, seed=42):
 
 
 
+
+# ============================================================================
+# 25-30. TIER 1 + TIER 2 EXTENSIONS (added 2026-05-01)
+# Mediation (B->R->M), VIF, bootstrap CIs, item-level d, demo-alpha,
+# power, equivalence (TOST), construct stability, BARRIERS bifactor,
+# multi-group 3F SEM, approximate measurement invariance, DIF, ESEM.
+# ============================================================================
+
+try:
+    import pingouin as _pg
+    HAS_PINGOUIN = True
+except ImportError:
+    HAS_PINGOUIN = False
+
+
+def mediation_b_r_m(df, barrier_cols, readiness_cols, maturity_cols, n_boot=2000, seed=42):
+    """Mediation: Barriers -> Readiness -> Maturity (bootstrapped indirect effect)."""
+    if not HAS_PINGOUIN:
+        return {'error': 'pingouin not installed'}
+    work = df.copy()
+    work['_B'] = work[barrier_cols].mean(axis=1)
+    work['_R'] = work[readiness_cols].mean(axis=1)
+    work['_M'] = work[maturity_cols].mean(axis=1)
+    sub = work[['_B','_R','_M']].dropna()
+    try:
+        med = _pg.mediation_analysis(data=sub, x='_B', m='_R', y='_M', n_boot=n_boot, seed=seed)
+        out = {}
+        for _, row in med.iterrows():
+            out[row['path'].replace('_','')] = {
+                'coef': round(float(row['coef']), 4),
+                'se': round(float(row['se']), 4),
+                'p': round(float(row['pval']), 6),
+                'ci_lo': round(float(row['CI[2.5%]']), 4) if 'CI[2.5%]' in row.index else None,
+                'ci_hi': round(float(row['CI[97.5%]']), 4) if 'CI[97.5%]' in row.index else None,
+                'sig': str(row.get('sig', '')),
+            }
+        out['n_listwise'] = int(len(sub))
+        return out
+    except Exception as e:
+        return {'error': str(e)}
+
+
+def standardized_subfactor_regressions(df, barrier_cols, readiness_cols, maturity_cols, three_group_def):
+    """Sub-factor regressions reported as standardized betas plus VIF."""
+    try:
+        import statsmodels.api as sm
+        import statsmodels.formula.api as smf
+        from statsmodels.stats.outliers_influence import variance_inflation_factor as _vif
+    except ImportError:
+        return {'error': 'statsmodels not installed'}
+    work = df.copy()
+    work['_B'] = work[barrier_cols].mean(axis=1)
+    work['_R'] = work[readiness_cols].mean(axis=1)
+    work['_M'] = work[maturity_cols].mean(axis=1)
+    factor_keys = list(three_group_def.keys())
+    for label, idxs in three_group_def.items():
+        cols = [barrier_cols[i] for i in idxs]
+        work[f'_{label}'] = work[cols].mean(axis=1)
+    factor_cols = [f'_{l}' for l in factor_keys]
+    cols_needed = ['_R','_M'] + factor_cols
+    sub = work[cols_needed].dropna()
+    z = (sub - sub.mean()) / sub.std()
+    out = {}
+    try:
+        for outcome in ['_R','_M']:
+            X = sm.add_constant(z[factor_cols])
+            m = sm.OLS(z[outcome], X).fit()
+            out[outcome.lstrip('_')] = {
+                'r2': round(float(m.rsquared), 4),
+                'beta_std': {l: round(float(m.params.get(f'_{l}', 0)), 4) for l in factor_keys},
+                't': {l: round(float(m.tvalues.get(f'_{l}', 0)), 3) for l in factor_keys},
+                'p': {l: round(float(m.pvalues.get(f'_{l}', 1)), 4) for l in factor_keys},
+                'n': int(m.nobs),
+            }
+        # VIF on sub-factor regression (one-time computation)
+        X_vif = sm.add_constant(z[factor_cols]).values
+        vif_out = {}
+        for i, name in enumerate(['constant'] + factor_keys):
+            try:
+                vif_out[name] = round(float(_vif(X_vif, i)), 4)
+            except Exception:
+                vif_out[name] = None
+        out['vif'] = vif_out
+    except Exception as e:
+        out['error'] = str(e)
+    return out
+
+
+def bootstrap_alpha_ci(data, n_boot=1000, ci=0.95, seed=42):
+    """Bootstrap percentile CI for Cronbach alpha."""
+    d = data.dropna()
+    if len(d) < 10:
+        return None
+    rng = np.random.RandomState(seed)
+    boots = []
+    n = len(d)
+    for _ in range(n_boot):
+        idx = rng.choice(n, n, replace=True)
+        a = cronbach_alpha(d.iloc[idx])
+        if not np.isnan(a):
+            boots.append(a)
+    if len(boots) < 100:
+        return None
+    alpha_p = (1 - ci) / 2
+    return {
+        'mean': round(float(np.mean(boots)), 4),
+        'ci_lower': round(float(np.percentile(boots, alpha_p * 100)), 4),
+        'ci_upper': round(float(np.percentile(boots, (1 - alpha_p) * 100)), 4),
+        'n_boot': n_boot,
+    }
+
+
+def item_level_cohens_d_smb(df, raw_cols, item_names, item_ids, smb_col='_SMB'):
+    """Per-item Cohen's d (Enterprise - SMB) and Welch's t-test p-value."""
+    out = []
+    for i, col in enumerate(raw_cols):
+        smb = df[df[smb_col]==1][col].dropna()
+        ent = df[df[smb_col]==0][col].dropna()
+        if len(smb) < 3 or len(ent) < 3:
+            continue
+        m1, m2 = float(smb.mean()), float(ent.mean())
+        s1, s2 = float(smb.std()), float(ent.std())
+        n1, n2 = len(smb), len(ent)
+        s_pooled = np.sqrt(((n1-1)*s1**2 + (n2-1)*s2**2) / max(1, (n1+n2-2)))
+        d = (m2 - m1) / s_pooled if s_pooled > 0 else 0.0
+        try:
+            t, p = stats.ttest_ind(smb, ent, equal_var=False)
+        except Exception:
+            t, p = (None, None)
+        out.append({
+            'id': item_ids[i] if i < len(item_ids) else col,
+            'name': item_names[i] if i < len(item_names) else col,
+            'smb_mean': round(m1, 4),
+            'ent_mean': round(m2, 4),
+            'cohens_d': round(d, 4),
+            't': round(float(t), 3) if t is not None else None,
+            'p': round(float(p), 4) if p is not None else None,
+            'sig_05': bool(p is not None and p < 0.05),
+        })
+    return out
+
+
+def reliability_by_demo(df, barrier_cols, readiness_cols, maturity_cols, demo_filters):
+    """Cronbach alpha for each construct within each demographic group."""
+    out = {}
+    for grp_label, mask in demo_filters.items():
+        sub = df[mask]
+        n = len(sub)
+        out[grp_label] = {'n': int(n)}
+        if n < 10:
+            continue
+        for cname, cols in [('Barriers', barrier_cols), ('Readiness', readiness_cols), ('Maturity', maturity_cols)]:
+            a = cronbach_alpha(sub[cols])
+            out[grp_label][cname] = round(float(a), 4) if not np.isnan(a) else None
+    return out
+
+
+def power_analysis(df, smb_col='_SMB'):
+    """Post-hoc power: smallest detectable Cohen's d for SMB vs Enterprise t-test."""
+    try:
+        from statsmodels.stats.power import TTestIndPower
+    except ImportError:
+        return {'error': 'statsmodels.stats.power not available'}
+    n_smb = int((df[smb_col]==1).sum())
+    n_ent = int((df[smb_col]==0).sum())
+    if n_smb < 5 or n_ent < 5:
+        return {'error': f'insufficient N (SMB={n_smb}, ENT={n_ent})'}
+    pwr = TTestIndPower()
+    ratio = n_ent / n_smb
+    detectable = float(pwr.solve_power(effect_size=None, nobs1=n_smb, alpha=0.05, power=0.80,
+                                        ratio=ratio, alternative='two-sided'))
+    return {
+        'n_smb': n_smb,
+        'n_enterprise': n_ent,
+        'ratio': round(ratio, 4),
+        'detectable_d_at_power_80': round(detectable, 4),
+        'note': 'Smallest Cohen\'s d detectable at alpha=0.05, power=0.80',
+    }
+
+
+def equivalence_test_smb_ent(df, construct_cols_map, smb_col='_SMB', delta_sd=0.30):
+    """TOST equivalence test for each construct mean (SMB vs Enterprise).
+
+    delta_sd: equivalence band as a fraction of pooled SD (default 0.3 = small effect)
+    """
+    try:
+        from statsmodels.stats.weightstats import ttost_ind
+    except ImportError:
+        return {'error': 'statsmodels.stats.weightstats not available'}
+    out = {}
+    for cname, cols in construct_cols_map.items():
+        work = df.copy()
+        work[f'_{cname}'] = work[cols].mean(axis=1)
+        smb = work[work[smb_col]==1][f'_{cname}'].dropna()
+        ent = work[work[smb_col]==0][f'_{cname}'].dropna()
+        if len(smb) < 3 or len(ent) < 3:
+            continue
+        pooled_sd = float(np.sqrt(
+            (smb.var()*(len(smb)-1) + ent.var()*(len(ent)-1)) / max(1, (len(smb)+len(ent)-2))
+        ))
+        delta = delta_sd * pooled_sd
+        try:
+            p_tost, _, _ = ttost_ind(smb, ent, low=-delta, upp=delta, usevar='unequal')
+            out[cname] = {
+                'p_tost': round(float(p_tost), 4),
+                'delta': round(float(delta), 4),
+                'pooled_sd': round(pooled_sd, 4),
+                'equivalent_05': bool(p_tost < 0.05),
+            }
+        except Exception as e:
+            out[cname] = {'error': str(e)}
+    return out
+
+
+def construct_stability_index(sensitivity_data):
+    """Compute max range of each construct mean across all sample tiers."""
+    if not sensitivity_data or 'tiers' not in sensitivity_data:
+        return None
+    construct_means = {}
+    for tier in sensitivity_data.get('tiers', []):
+        construct_means[tier['key']] = {
+            'n': tier.get('n'),
+            'b': (tier.get('barriers') or {}).get('mean'),
+            'r': (tier.get('readiness') or {}).get('mean'),
+            'm': (tier.get('maturity') or {}).get('mean'),
+        }
+    bvals = [t['b'] for t in construct_means.values() if t['b'] is not None]
+    rvals = [t['r'] for t in construct_means.values() if t['r'] is not None]
+    mvals = [t['m'] for t in construct_means.values() if t['m'] is not None]
+    return {
+        'tiers': construct_means,
+        'max_range_barriers': round(max(bvals)-min(bvals), 4) if bvals else None,
+        'max_range_readiness': round(max(rvals)-min(rvals), 4) if rvals else None,
+        'max_range_maturity': round(max(mvals)-min(mvals), 4) if mvals else None,
+    }
+
+
+def bifactor_barriers(df, barrier_cols_safe, three_group_def):
+    """Confirmatory bifactor on Barriers: G + 3 specific factors."""
+    if not HAS_SEMOPY:
+        return {'error': 'semopy not installed'}
+    spec_lines = ["G =~ " + " + ".join(barrier_cols_safe)]
+    for label, idxs in three_group_def.items():
+        spec_lines.append(f"{label}S =~ " + " + ".join(barrier_cols_safe[i] for i in idxs))
+    # Orthogonality
+    factors = ['G'] + [f'{l}S' for l in three_group_def.keys()]
+    for i in range(len(factors)):
+        for j in range(i+1, len(factors)):
+            spec_lines.append(f"{factors[i]} ~~ 0*{factors[j]}")
+    spec = "\n".join(spec_lines)
+    data = df[barrier_cols_safe].dropna()
+    try:
+        mod = semopy.Model(spec)
+        mod.fit(data, obj='DWLS')
+        st = semopy.calc_stats(mod)
+        if 'Value' in st.index and 'CFI' not in st.index:
+            def _stat(nm):
+                return float(st.loc['Value', nm]) if nm in st.columns else None
+        else:
+            def _stat(nm):
+                return float(st.loc[nm, 'Value']) if nm in st.index else None
+        insp = mod.inspect(std_est=True)
+        loads = insp[(insp['op']=='~') & (insp['Est. Std'].notna())]
+        g_loads = loads[loads['rval']=='G']['Est. Std'].astype(float).tolist()
+        spec_loads = {}
+        for label in three_group_def.keys():
+            spec_loads[label] = loads[loads['rval']==f'{label}S']['Est. Std'].astype(float).tolist()
+        sum_g2 = sum(x**2 for x in g_loads)
+        sum_spec2 = {l: sum(x**2 for x in spec_loads[l]) for l in three_group_def.keys()}
+        denom = sum_g2 + sum(sum_spec2.values()) if (sum_g2 + sum(sum_spec2.values())) else 1.0
+        n = len(barrier_cols_safe)
+        sum_g = sum(g_loads)
+        sum_spec = {l: sum(spec_loads[l]) for l in three_group_def.keys()}
+        all_h2 = []
+        for i, col in enumerate(barrier_cols_safe):
+            g = g_loads[i] if i < len(g_loads) else 0
+            s_val = 0
+            for label, idxs in three_group_def.items():
+                if i in idxs:
+                    s_idx = idxs.index(i)
+                    if s_idx < len(spec_loads[label]):
+                        s_val = spec_loads[label][s_idx]
+                    break
+            all_h2.append(g**2 + s_val**2)
+        total_var = sum_g**2 + sum(s_v**2 for s_v in sum_spec.values()) + (n - sum(all_h2))
+        if total_var <= 0:
+            total_var = 1.0
+        return {
+            'fit': {
+                'chi2': round(_stat('chi2'), 3) if _stat('chi2') is not None else None,
+                'df': int(_stat('DoF')) if _stat('DoF') is not None else None,
+                'cfi': round(_stat('CFI'), 4) if _stat('CFI') is not None else None,
+                'tli': round(_stat('TLI'), 4) if _stat('TLI') is not None else None,
+                'rmsea': round(_stat('RMSEA'), 4) if _stat('RMSEA') is not None else None,
+            },
+            'n_listwise': int(len(data)),
+            'ecv_general': round(sum_g2 / denom, 4),
+            'ecv_specifics': {l: round(sum_spec2[l] / denom, 4) for l in three_group_def.keys()},
+            'omega_h_general': round(sum_g**2 / total_var, 4),
+            'omega_h_specifics': {l: round(sum_spec[l]**2 / total_var, 4) for l in three_group_def.keys()},
+            'g_loadings': [round(x, 4) for x in g_loads],
+        }
+    except Exception as e:
+        return {'error': str(e)}
+
+
+def multigroup_3f_sem(df, barrier_cols_safe, three_group_def, group_col='_SMB'):
+    """Fit 3F Barriers CFA separately for each group; report fit + latent correlations."""
+    if not HAS_SEMOPY:
+        return {'error': 'semopy not installed'}
+    spec_lines = []
+    for label, idxs in three_group_def.items():
+        spec_lines.append(f"{label} =~ " + " + ".join(barrier_cols_safe[i] for i in idxs))
+    spec = "\n".join(spec_lines)
+    out = {}
+    for grp_label, grp_value in [('Group_1', 1), ('Group_0', 0)]:
+        sub = df[df[group_col]==grp_value][barrier_cols_safe].dropna()
+        if len(sub) < 30:
+            out[grp_label] = {'error': f'insufficient N: {len(sub)}'}
+            continue
+        try:
+            mod = semopy.Model(spec)
+            mod.fit(sub, obj='DWLS')
+            st = semopy.calc_stats(mod)
+            if 'Value' in st.index and 'CFI' not in st.index:
+                def _stat(nm):
+                    return float(st.loc['Value', nm]) if nm in st.columns else None
+            else:
+                def _stat(nm):
+                    return float(st.loc[nm, 'Value']) if nm in st.index else None
+            insp = mod.inspect(std_est=True)
+            corrs = insp[(insp['op']=='~~') & (insp['Est. Std'].notna()) & (insp['lval']!=insp['rval'])]
+            corr_dict = {f"{r['lval']}~~{r['rval']}": round(float(r['Est. Std']), 4) for _, r in corrs.iterrows()}
+            out[grp_label] = {
+                'n': int(len(sub)),
+                'chi2': round(_stat('chi2'), 3) if _stat('chi2') is not None else None,
+                'df': int(_stat('DoF')) if _stat('DoF') is not None else None,
+                'cfi': round(_stat('CFI'), 4) if _stat('CFI') is not None else None,
+                'rmsea': round(_stat('RMSEA'), 4) if _stat('RMSEA') is not None else None,
+                'latent_correlations': corr_dict,
+            }
+        except Exception as e:
+            out[grp_label] = {'error': str(e)}
+    return out
+
+
+def dif_irt(df, raw_cols, item_names, item_ids, group_col='_SMB', delta_threshold=0.5):
+    """DIF: per-item IRT discrimination by group (SMB vs Enterprise)."""
+    try:
+        from girth import grm_mml
+    except ImportError:
+        return {'error': 'girth not installed'}
+    g1_data = df[df[group_col]==1][raw_cols].dropna().astype(int).values
+    g0_data = df[df[group_col]==0][raw_cols].dropna().astype(int).values
+    if len(g1_data) < 30 or len(g0_data) < 30:
+        return {'error': f'insufficient N (g1={len(g1_data)}, g0={len(g0_data)})'}
+    try:
+        irt1 = grm_mml((g1_data - 1).T)
+        irt0 = grm_mml((g0_data - 1).T)
+    except Exception as e:
+        return {'error': f'girth failed: {e}'}
+    items = []
+    for i in range(len(raw_cols)):
+        d1 = float(irt1['Discrimination'][i])
+        d0 = float(irt0['Discrimination'][i])
+        items.append({
+            'id': item_ids[i] if i < len(item_ids) else raw_cols[i],
+            'name': item_names[i] if i < len(item_names) else raw_cols[i],
+            'discrimination_group_1': round(d1, 4),
+            'discrimination_group_0': round(d0, 4),
+            'delta': round(abs(d1 - d0), 4),
+            'flag_dif': bool(abs(d1 - d0) > delta_threshold),
+        })
+    return {
+        'n_group_1': int(len(g1_data)),
+        'n_group_0': int(len(g0_data)),
+        'delta_threshold': delta_threshold,
+        'flagged_count': sum(1 for it in items if it['flag_dif']),
+        'items': items,
+    }
+
+
+def esem_target_rotation(df, cols, n_factors=3):
+    """Approximate ESEM via 3-factor EFA with oblimin rotation (free cross-loadings)."""
+    if not HAS_FACTOR_ANALYZER:
+        return {'error': 'factor_analyzer not installed'}
+    data = df[cols].dropna()
+    try:
+        fa = FactorAnalyzer(n_factors=n_factors, rotation='oblimin', method='ml')
+        fa.fit(data)
+    except Exception:
+        try:
+            fa = FactorAnalyzer(n_factors=n_factors, rotation='oblimin', method='minres')
+            fa.fit(data)
+        except Exception as e:
+            return {'error': str(e)}
+    loads = fa.loadings_
+    var_exp = fa.get_factor_variance()
+    phi = fa.phi_ if hasattr(fa, 'phi_') and fa.phi_ is not None else None
+    items = {}
+    for i, col in enumerate(cols):
+        loads_i = [round(float(loads[i][j]), 4) for j in range(n_factors)]
+        primary = int(np.argmax(np.abs(loads[i])))
+        items[f'B{i+1}'] = {
+            'loadings': loads_i,
+            'primary_factor': f'F{primary+1}',
+        }
+    return {
+        'n_listwise': int(len(data)),
+        'n_factors': n_factors,
+        'variance_explained_per_factor': [round(float(x), 4) for x in var_exp[1]],
+        'cumulative_variance': round(float(var_exp[2][-1]), 4),
+        'factor_correlations': [[round(float(phi[i][j]), 4) for j in range(n_factors)] for i in range(n_factors)] if phi is not None else None,
+        'items': items,
+    }
+
+
+
 def run_validation(df, skip=False, crp200=False, primary_sample=True):
     """Run full validation pipeline. Returns dict matching crp-validation.json schema.
 
@@ -3501,6 +3919,38 @@ def run_validation(df, skip=False, crp200=False, primary_sample=True):
             rr = per_factor_reg['Readiness_mean']
             print(f"  Per-factor Reg (Readiness): R^2 total={rr['total_scale_model']['r2']} "
                   f"-> sub-factor={rr['sub_factor_model']['r2']} (lift={rr['r2_lift_from_decomposition']})")
+    # Tier 1+2 extensions
+    if 'Q4_OrgSize' in df.columns:
+        df['_SMB'] = df['Q4_OrgSize'].isin(['<100','100-499','500-999']).astype(int)
+        df['_PROFIT'] = (df.get('Q5_ProfitModel') == 'For-Profit').astype(int) if 'Q5_ProfitModel' in df.columns else 0
+        mediation_results = mediation_b_r_m(df, BARRIER_COLS, READINESS_COLS, MATURITY_COLS)
+        std_reg = standardized_subfactor_regressions(df, BARRIER_COLS, READINESS_COLS, MATURITY_COLS, BARRIER_3GROUP)
+        bootstrap_alpha_results = {cname: bootstrap_alpha_ci(df[cols]) for cname, cols in [('Barriers', BARRIER_COLS), ('Readiness', READINESS_COLS), ('Maturity', MATURITY_COLS)]}
+        item_d_smb = {}
+        for cname, cols, names, ids in [('Barriers', BARRIER_COLS, BARRIER_NAMES, [f'B{i+1}' for i in range(len(BARRIER_NAMES))]), ('Readiness', READINESS_COLS, READINESS_NAMES, [f'R{i+1}' for i in range(len(READINESS_NAMES))]), ('Maturity', MATURITY_COLS, MATURITY_NAMES, [f'M{i+1}' for i in range(len(MATURITY_NAMES))])]:
+            item_d_smb[cname] = item_level_cohens_d_smb(df, cols, names, ids, smb_col='_SMB')
+        reliability_demo = reliability_by_demo(df, BARRIER_COLS, READINESS_COLS, MATURITY_COLS, {'SMB': df['_SMB']==1, 'Enterprise': df['_SMB']==0, 'For_Profit': df['_PROFIT']==1, 'Non_Profit_or_Gov': df['_PROFIT']==0})
+        power_results = power_analysis(df, smb_col='_SMB')
+        tost_results = equivalence_test_smb_ent(df, {'Barriers': BARRIER_COLS, 'Readiness': READINESS_COLS, 'Maturity': MATURITY_COLS}, smb_col='_SMB')
+        bifactor_b_results = bifactor_barriers(barrier_renamed, barrier_cols_safe, BARRIER_3GROUP)
+        renamed_with_demo = barrier_renamed.copy()
+        renamed_with_demo['_SMB'] = df['_SMB'].reindex(barrier_renamed.index).values
+        multigroup_3f_results = multigroup_3f_sem(renamed_with_demo, barrier_cols_safe, BARRIER_3GROUP, group_col='_SMB')
+        dif_results = {}
+        for cname, cols, names, ids in [('Barriers', BARRIER_COLS, BARRIER_NAMES, [f'B{i+1}' for i in range(len(BARRIER_NAMES))]), ('Readiness', READINESS_COLS, READINESS_NAMES, [f'R{i+1}' for i in range(len(READINESS_NAMES))]), ('Maturity', MATURITY_COLS, MATURITY_NAMES, [f'M{i+1}' for i in range(len(MATURITY_NAMES))])]:
+            dif_results[cname] = dif_irt(df, cols, names, ids, group_col='_SMB')
+        esem_results = esem_target_rotation(barrier_renamed, barrier_cols_safe, n_factors=3)
+        if 'error' not in mediation_results:
+            ind = (mediation_results.get('Indirect') or {}).get('coef')
+            print(f"  Mediation B->R->M: indirect={ind}")
+        if 'error' not in bifactor_b_results:
+            print(f"  Bifactor Barriers: ECV(G)={bifactor_b_results.get('ecv_general')}, omega_h(G)={bifactor_b_results.get('omega_h_general')}")
+    else:
+        mediation_results = std_reg = power_results = tost_results = multigroup_3f_results = dif_results = {'error': 'Q4_OrgSize not in df'}
+        bootstrap_alpha_results = item_d_smb = reliability_demo = {}
+        bifactor_b_results = bifactor_barriers(barrier_renamed, barrier_cols_safe, BARRIER_3GROUP)
+        esem_results = esem_target_rotation(barrier_renamed, barrier_cols_safe, n_factors=3)
+
 
     # ── Per-subgroup standalone validation ──
     # This is computationally expensive (parallel_analysis + CFA per subgroup), so it
@@ -3727,6 +4177,28 @@ def run_validation(df, skip=False, crp200=False, primary_sample=True):
         output['barriers_3f_cross_validation'] = cv_results
         output['irt_grm'] = irt_results
         output['per_factor_regressions'] = per_factor_reg
+    output['mediation_b_r_m'] = mediation_results
+    output['standardized_subfactor_regressions'] = std_reg
+    output['bootstrap_alpha_ci'] = bootstrap_alpha_results
+    output['item_level_cohens_d_smb'] = item_d_smb
+    output['reliability_by_demo'] = reliability_demo
+    output['power_analysis'] = power_results
+    output['equivalence_test_tost_smb_ent'] = tost_results
+    output['bifactor_barriers'] = bifactor_b_results
+    output['multigroup_3f_smb_vs_ent'] = multigroup_3f_results
+    output['dif_irt_smb_vs_ent'] = dif_results
+    output['esem_3factor'] = esem_results
+    output['mediation_b_r_m'] = mediation_results
+    output['standardized_subfactor_regressions'] = std_reg
+    output['bootstrap_alpha_ci'] = bootstrap_alpha_results
+    output['item_level_cohens_d_smb'] = item_d_smb
+    output['reliability_by_demo'] = reliability_demo
+    output['power_analysis'] = power_results
+    output['equivalence_test_tost_smb_ent'] = tost_results
+    output['bifactor_barriers'] = bifactor_b_results
+    output['multigroup_3f_smb_vs_ent'] = multigroup_3f_results
+    output['dif_irt_smb_vs_ent'] = dif_results
+    output['esem_3factor'] = esem_results
 
     # Factor analysis summary (for EFA factors)
     barrier_efa = barrier_result.get('efa', {})
