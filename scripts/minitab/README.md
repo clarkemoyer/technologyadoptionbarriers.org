@@ -26,20 +26,20 @@ The macro intentionally does NOT generate plots, save graphs, or modify the work
 
 ## What the macro reproduces (matches Python/R to <=0.001)
 
-| Analysis                     | Minitab command                                                 | Menu path                               | Expected value                                 |
-| ---------------------------- | --------------------------------------------------------------- | --------------------------------------- | ---------------------------------------------- |
-| Cronbach's alpha (Barriers)  | `ItemAnal 'B1'-'B18'.`                                          | Stat -> Multivariate -> Item Analysis   | 0.873                                          |
-| Cronbach's alpha (Readiness) | `ItemAnal 'R1'-'R17'.`                                          | same                                    | 0.917                                          |
-| Cronbach's alpha (Maturity)  | `ItemAnal 'M1'-'M8'.`                                           | same                                    | 0.885                                          |
-| Item-total correlations      | (in Item Analysis output)                                       | same                                    | per-item ITC values                            |
-| Alpha-if-deleted             | (in Item Analysis output)                                       | same                                    | per-item alpha-if-removed                      |
-| Inter-item correlations      | `Correlation 'B1'-'B18'.`                                       | Stat -> Basic Statistics -> Correlation | full matrix                                    |
+| Analysis                     | Minitab command                                                 | Menu path                               | Expected value                                                                                                                           |
+| ---------------------------- | --------------------------------------------------------------- | --------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| Cronbach's alpha (Barriers)  | `ItemAnal 'B1'-'B18'.`                                          | Stat -> Multivariate -> Item Analysis   | 0.873                                                                                                                                    |
+| Cronbach's alpha (Readiness) | `ItemAnal 'R1'-'R17'.`                                          | same                                    | 0.917                                                                                                                                    |
+| Cronbach's alpha (Maturity)  | `ItemAnal 'M1'-'M8'.`                                           | same                                    | 0.885                                                                                                                                    |
+| Item-total correlations      | (in Item Analysis output)                                       | same                                    | per-item ITC values                                                                                                                      |
+| Alpha-if-deleted             | (in Item Analysis output)                                       | same                                    | per-item alpha-if-removed                                                                                                                |
+| Inter-item correlations      | `Correlation 'B1'-'B18'.`                                       | Stat -> Basic Statistics -> Correlation | full matrix                                                                                                                              |
 | EFA Barriers (2 factors)     | `Factor 18 'B1'-'B18'; Method ML; NFactor 2; Rotation Varimax.` | Stat -> Multivariate -> Factor Analysis | **Varimax ≠ Python Promax**: session commands don't support Promax; use GUI dialog (Options → Rotation: Promax) for exact loading parity |
-| EFA Readiness (1 factor)     | `Factor 17 'R1'-'R17'; Method ML; NFactor 1.`                   | same                                    | matches Python loadings                        |
-| EFA Maturity (1 factor)      | `Factor 8 'M1'-'M8'; Method ML; NFactor 1.`                     | same                                    | matches Python loadings                        |
-| Inter-construct correlations | `Correlation 'B_mean' 'R_mean' 'M_mean'.`                       | Stat -> Basic Statistics -> Correlation | r(B,R) ~ -0.40; r(B,M) ~ -0.33; r(R,M) ~ +0.73 |
-| 2-sample t (SMB vs ENT)      | `TwoSample 'X_mean' 'SMB_ENT'.`                                 | Stat -> Basic Statistics -> 2-Sample t  | per-construct group difference                 |
-| Mahalanobis outliers         | `Outlier 'B1'-'B18'.`                                           | Stat -> Multivariate -> Outlier Test    | largest D-squared + critical chi-squared       |
+| EFA Readiness (1 factor)     | `Factor 17 'R1'-'R17'; Method ML; NFactor 1.`                   | same                                    | matches Python loadings                                                                                                                  |
+| EFA Maturity (1 factor)      | `Factor 8 'M1'-'M8'; Method ML; NFactor 1.`                     | same                                    | matches Python loadings                                                                                                                  |
+| Inter-construct correlations | `Correlation 'B_mean' 'R_mean' 'M_mean'.`                       | Stat -> Basic Statistics -> Correlation | r(B,R) ~ -0.40; r(B,M) ~ -0.33; r(R,M) ~ +0.73                                                                                           |
+| 2-sample t (SMB vs ENT)      | `TwoSample 'X_mean' 'SMB_ENT'.`                                 | Stat -> Basic Statistics -> 2-Sample t  | per-construct group difference                                                                                                           |
+| Mahalanobis outliers         | `Outlier 'B1'-'B18'.`                                           | Stat -> Multivariate -> Outlier Test    | largest D-squared + critical chi-squared                                                                                                 |
 
 ### Important menu-only options
 
