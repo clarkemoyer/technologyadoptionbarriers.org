@@ -473,6 +473,54 @@ def htmt_ratio(data1, data2):
     return between_mean / geo if geo > 0 else np.nan
 
 
+def htmt2_ratio(data1, data2):
+    """HTMT2 (Roemer, Schuberth & Henseler 2021) - geometric-mean variant.
+
+    HTMT2 replaces the arithmetic means in HTMT (Henseler 2015) with geometric
+    means of the absolute correlations. By the AM-GM inequality, HTMT2 <= HTMT
+    always. HTMT2 is a consistent estimator of the disattenuated correlation
+    under tau-equivalence; semTools 0.5.6+ uses it as the default. Reported
+    here as a robustness check alongside the canonical HTMT (Henseler 2015).
+
+    Reference: Roemer, E., Schuberth, F., & Henseler, J. (2021). HTMT2 - an
+    improved criterion for assessing discriminant validity in structural
+    equation modeling. Industrial Management & Data Systems, 121(12).
+    """
+    combined = pd.concat([data1, data2], axis=1).dropna()
+    if len(combined) < 3:
+        return np.nan
+    d1 = combined.iloc[:, :data1.shape[1]]
+    d2 = combined.iloc[:, data1.shape[1]:]
+    p1, p2 = d1.shape[1], d2.shape[1]
+    if p1 < 2 or p2 < 2:
+        return np.nan
+    w1 = d1.corr().values
+    mask1 = ~np.eye(p1, dtype=bool)
+    abs_w1 = np.abs(w1[mask1])
+    abs_w1 = abs_w1[abs_w1 > 0]
+    if len(abs_w1) == 0:
+        return np.nan
+    within1_geo = float(np.exp(np.mean(np.log(abs_w1))))
+    w2 = d2.corr().values
+    mask2 = ~np.eye(p2, dtype=bool)
+    abs_w2 = np.abs(w2[mask2])
+    abs_w2 = abs_w2[abs_w2 > 0]
+    if len(abs_w2) == 0:
+        return np.nan
+    within2_geo = float(np.exp(np.mean(np.log(abs_w2))))
+    between = []
+    for c1 in d1.columns:
+        for c2 in d2.columns:
+            r = d1[c1].corr(d2[c2])
+            if pd.notna(r) and abs(r) > 0:
+                between.append(abs(r))
+    if len(between) == 0:
+        return np.nan
+    between_geo = float(np.exp(np.mean(np.log(between))))
+    geo_within = math.sqrt(within1_geo * within2_geo)
+    return between_geo / geo_within if geo_within > 0 else np.nan
+
+
 def htmt_bootstrap_ci(data1, data2, n_boot=2000, ci=0.95, seed=42):
     """Bootstrap CI for HTMT ratio."""
     combined = pd.concat([data1, data2], axis=1).dropna()
@@ -746,12 +794,14 @@ def compute_discriminant_validity(df, construct_results):
         d1, d2 = df[cols1], df[cols2]
         print(f"\n  {name1} vs {name2}:")
 
-        # HTMT with bootstrap CI
+        # HTMT with bootstrap CI; HTMT2 (Roemer 2021) reported as a robustness check
         h, (ci_lo, ci_hi) = htmt_bootstrap_ci(d1, d2, n_boot=2000)
-        print(f"    HTMT: {h:.4f} [{ci_lo:.4f}, {ci_hi:.4f}] {'PASS' if h < 0.85 else 'FAIL (>.85)'}")
+        h2 = htmt2_ratio(d1, d2)
+        print(f"    HTMT: {h:.4f} [{ci_lo:.4f}, {ci_hi:.4f}] HTMT2: {h2:.4f} {'PASS' if h < 0.85 else 'FAIL (>.85)'}")
         htmt_results.append({
             'pair': f"{name1}-{name2}",
             'htmt': round(h, 4),
+            'htmt2': round(float(h2), 4) if h2 == h2 else None,
             'ci_95': [ci_lo, ci_hi],
             'passes_085': h < 0.85,
             'passes_090': h < 0.90,
@@ -1062,9 +1112,11 @@ def subgroup_discriminant(df, group_def, all_cols, group_aves):
                 continue
             d1, d2 = sub_data[n1], sub_data[n2]
             h, (lo, hi) = htmt_bootstrap_ci(d1, d2, n_boot=2000)
+            h2 = htmt2_ratio(d1, d2)
             htmt_results.append({
                 'pair': f'{n1} vs {n2}',
                 'htmt': round(float(h), 4) if h == h else None,
+                'htmt2': round(float(h2), 4) if h2 == h2 else None,
                 'ci_lower': round(float(lo), 4) if lo == lo else None,
                 'ci_upper': round(float(hi), 4) if hi == hi else None,
                 'pass_085': bool(h < 0.85) if h == h else None,
@@ -1929,6 +1981,10 @@ def bifactor_barriers(df, barrier_cols_safe, three_group_def):
         total_var = sum_g**2 + sum(s_v**2 for s_v in sum_spec.values()) + (n - sum(all_h2))
         if total_var <= 0:
             total_var = 1.0
+        # omega_h_general = variance from general factor only (Zinbarg et al. 2005)
+        # omega_t = variance from general + group factors combined (McDonald 1999)
+        omega_h_general = sum_g**2 / total_var
+        omega_t = (sum_g**2 + sum(s**2 for s in sum_spec.values())) / total_var
         return {
             'fit': {
                 'chi2': round(_stat('chi2'), 3) if _stat('chi2') is not None else None,
@@ -1940,8 +1996,9 @@ def bifactor_barriers(df, barrier_cols_safe, three_group_def):
             'n_listwise': int(len(data)),
             'ecv_general': round(sum_g2 / denom, 4),
             'ecv_specifics': {l: round(sum_spec2[l] / denom, 4) for l in three_group_def.keys()},
-            'omega_h_general': round(sum_g**2 / total_var, 4),
+            'omega_h_general': round(omega_h_general, 4),
             'omega_h_specifics': {l: round(sum_spec[l]**2 / total_var, 4) for l in three_group_def.keys()},
+            'omega_t': round(omega_t, 4),
             'g_loadings': [round(x, 4) for x in g_loads],
         }
     except Exception as e:
@@ -2445,6 +2502,7 @@ def main():
         bootstrap_alpha_results = item_d_smb = reliability_demo = {}
         bifactor_b_results = bifactor_barriers(_barrier_renamed, _barrier_cols_safe, BARRIER_3GROUP)
         esem_results = esem_target_rotation(_barrier_renamed, _barrier_cols_safe, n_factors=3)
+        measurement_invariance = {'error': 'Q4_OrgSize not in df'}
 
 
     # -- Per-subgroup standalone validation (does each barrier subgroup hold as its own scale?) --
@@ -2556,7 +2614,6 @@ def main():
         output['multigroup_3f_smb_vs_ent'] = multigroup_3f_results
         output['dif_irt_smb_vs_ent'] = dif_results
         output['esem_3factor'] = esem_results
-        output['measurement_invariance'] = measurement_invariance
         output['measurement_invariance'] = measurement_invariance
         output['discriminant_validity'] = discrim
 

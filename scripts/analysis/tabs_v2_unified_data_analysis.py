@@ -1058,6 +1058,54 @@ def htmt_ratio(data1, data2):
     return between_mean / geo if geo > 0 else np.nan
 
 
+def htmt2_ratio(data1, data2):
+    """HTMT2 (Roemer, Schuberth & Henseler 2021) - geometric-mean variant.
+
+    HTMT2 replaces the arithmetic means in HTMT (Henseler 2015) with geometric
+    means of the absolute correlations. By the AM-GM inequality, HTMT2 <= HTMT
+    always. HTMT2 is a consistent estimator of the disattenuated correlation
+    under tau-equivalence; semTools 0.5.6+ uses it as the default. Reported
+    here as a robustness check alongside the canonical HTMT (Henseler 2015).
+
+    Reference: Roemer, E., Schuberth, F., & Henseler, J. (2021). HTMT2 - an
+    improved criterion for assessing discriminant validity in structural
+    equation modeling. Industrial Management & Data Systems, 121(12).
+    """
+    combined = pd.concat([data1, data2], axis=1).dropna()
+    if len(combined) < 3:
+        return np.nan
+    d1 = combined.iloc[:, :data1.shape[1]]
+    d2 = combined.iloc[:, data1.shape[1]:]
+    p1, p2 = d1.shape[1], d2.shape[1]
+    if p1 < 2 or p2 < 2:
+        return np.nan
+    w1 = d1.corr().values
+    mask1 = ~np.eye(p1, dtype=bool)
+    abs_w1 = np.abs(w1[mask1])
+    abs_w1 = abs_w1[abs_w1 > 0]
+    if len(abs_w1) == 0:
+        return np.nan
+    within1_geo = float(np.exp(np.mean(np.log(abs_w1))))
+    w2 = d2.corr().values
+    mask2 = ~np.eye(p2, dtype=bool)
+    abs_w2 = np.abs(w2[mask2])
+    abs_w2 = abs_w2[abs_w2 > 0]
+    if len(abs_w2) == 0:
+        return np.nan
+    within2_geo = float(np.exp(np.mean(np.log(abs_w2))))
+    between = []
+    for c1 in d1.columns:
+        for c2 in d2.columns:
+            r = d1[c1].corr(d2[c2])
+            if pd.notna(r) and abs(r) > 0:
+                between.append(abs(r))
+    if len(between) == 0:
+        return np.nan
+    between_geo = float(np.exp(np.mean(np.log(between))))
+    geo_within = math.sqrt(within1_geo * within2_geo)
+    return between_geo / geo_within if geo_within > 0 else np.nan
+
+
 def htmt_bootstrap_ci(data1, data2, n_boot=2000, ci=0.95, seed=42):
     """Bootstrap CI for HTMT ratio."""
     combined = pd.concat([data1, data2], axis=1).dropna()
@@ -2883,9 +2931,11 @@ def subgroup_discriminant(df, group_def, all_cols, group_aves, n_boot=2000):
                 continue
             d1, d2 = sub_data[n1], sub_data[n2]
             h, (lo, hi) = htmt_bootstrap_ci(d1, d2, n_boot=n_boot)
+            h2 = htmt2_ratio(d1, d2)
             htmt_results.append({
                 'pair': f'{n1} vs {n2}',
                 'htmt': round(float(h), 4) if h == h else None,
+                'htmt2': round(float(h2), 4) if h2 == h2 else None,
                 'ci_lower': round(float(lo), 4) if lo == lo else None,
                 'ci_upper': round(float(hi), 4) if hi == hi else None,
                 'pass_085': bool(h < 0.85) if h == h else None,
@@ -3221,10 +3271,10 @@ def mardia_multivariate_normality(data):
     b2p = float(np.diag(D ** 2).mean())
     skew_chi2 = n * b1p / 6.0
     skew_df = p * (p+1) * (p+2) / 6.0
-    skew_p = float(1 - stats.chi2.cdf(skew_chi2, skew_df))
+    skew_p = float(1 - sp.chi2.cdf(skew_chi2, skew_df))
     expected_kurt = p * (p + 2)
     kurt_z = (b2p - expected_kurt) / float(np.sqrt(8 * p * (p+2) / n))
-    kurt_p = float(2 * (1 - stats.norm.cdf(abs(kurt_z))))
+    kurt_p = float(2 * (1 - sp.norm.cdf(abs(kurt_z))))
     return {
         'n': int(n), 'p': int(p),
         'multivariate_skewness': round(float(b1p), 4),
@@ -3248,7 +3298,7 @@ def mahalanobis_outliers(data, alpha=0.001):
     inv = np.linalg.pinv(cov)
     diffs = X - mean
     md_sq = np.array([d @ inv @ d for d in diffs])
-    threshold = float(stats.chi2.ppf(1 - alpha, p))
+    threshold = float(sp.chi2.ppf(1 - alpha, p))
     outlier_count = int((md_sq > threshold).sum())
     return {
         'n_listwise': int(n),
@@ -3411,7 +3461,7 @@ def bootstrap_alpha_ci(data, n_boot=1000, ci=0.95, seed=42):
     n = len(d)
     for _ in range(n_boot):
         idx = rng.choice(n, n, replace=True)
-        a = cronbach_alpha(d.iloc[idx])
+        a = cronbach_alpha_pd(d.iloc[idx])
         if not np.isnan(a):
             boots.append(a)
     if len(boots) < 100:
@@ -3465,7 +3515,7 @@ def reliability_by_demo(df, barrier_cols, readiness_cols, maturity_cols, demo_fi
         if n < 10:
             continue
         for cname, cols in [('Barriers', barrier_cols), ('Readiness', readiness_cols), ('Maturity', maturity_cols)]:
-            a = cronbach_alpha(sub[cols])
+            a = cronbach_alpha_pd(sub[cols])
             out[grp_label][cname] = round(float(a), 4) if not np.isnan(a) else None
     return out
 
@@ -3600,6 +3650,10 @@ def bifactor_barriers(df, barrier_cols_safe, three_group_def):
         total_var = sum_g**2 + sum(s_v**2 for s_v in sum_spec.values()) + (n - sum(all_h2))
         if total_var <= 0:
             total_var = 1.0
+        # omega_h_general = variance from general factor only (Zinbarg et al. 2005)
+        # omega_t = variance from general + group factors combined (McDonald 1999)
+        omega_h_general = sum_g**2 / total_var
+        omega_t = (sum_g**2 + sum(s**2 for s in sum_spec.values())) / total_var
         return {
             'fit': {
                 'chi2': round(_stat('chi2'), 3) if _stat('chi2') is not None else None,
@@ -3611,8 +3665,9 @@ def bifactor_barriers(df, barrier_cols_safe, three_group_def):
             'n_listwise': int(len(data)),
             'ecv_general': round(sum_g2 / denom, 4),
             'ecv_specifics': {l: round(sum_spec2[l] / denom, 4) for l in three_group_def.keys()},
-            'omega_h_general': round(sum_g**2 / total_var, 4),
+            'omega_h_general': round(omega_h_general, 4),
             'omega_h_specifics': {l: round(sum_spec[l]**2 / total_var, 4) for l in three_group_def.keys()},
+            'omega_t': round(omega_t, 4),
             'g_loadings': [round(x, 4) for x in g_loads],
         }
     except Exception as e:
@@ -4041,10 +4096,13 @@ def run_validation(df, skip=False, crp200=False, primary_sample=True):
     for name1, cols1, name2, cols2 in pairs:
         d1, d2 = df[cols1], df[cols2]
         h, (ci_lo, ci_hi) = htmt_bootstrap_ci(d1, d2, n_boot=2000)
-        print(f"  {name1} vs {name2}: HTMT={h:.4f} [{ci_lo:.4f}, {ci_hi:.4f}] {'PASS' if h < 0.85 else 'FAIL'}")
+        # HTMT2 (Roemer 2021) as a robustness check; no CI to keep runtime stable
+        h2 = htmt2_ratio(d1, d2)
+        print(f"  {name1} vs {name2}: HTMT={h:.4f} [{ci_lo:.4f}, {ci_hi:.4f}] HTMT2={h2:.4f} {'PASS' if h < 0.85 else 'FAIL'}")
         htmt_results.append({
             'pair': f"{name1} vs {name2}",
             'htmt': round(h, 4),
+            'htmt2': round(float(h2), 4) if h2 == h2 else None,
             'ci_lower': ci_lo, 'ci_upper': ci_hi,
             'below_085': h < 0.85, 'below_090': h < 0.90,
         })
@@ -4215,7 +4273,6 @@ def run_validation(df, skip=False, crp200=False, primary_sample=True):
     output['multigroup_3f_smb_vs_ent'] = multigroup_3f_results
     output['dif_irt_smb_vs_ent'] = dif_results
     output['esem_3factor'] = esem_results
-    output['measurement_invariance'] = measurement_invariance
     output['measurement_invariance'] = measurement_invariance
 
     # Factor analysis summary (for EFA factors)
