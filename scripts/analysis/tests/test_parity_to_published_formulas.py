@@ -2,7 +2,7 @@
 verified against either (a) its published formula's worked example, or (b) an
 independent Python package that has its own validation history.
 
-Run with:  python -m pytest test_parity_to_published_formulas.py -v
+Run with:  pytest scripts/analysis/tests/test_parity_to_published_formulas.py -v
 
 Each test:
 1. Implements the published formula manually using only NumPy.

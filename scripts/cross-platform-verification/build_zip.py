@@ -23,7 +23,6 @@ import zipfile
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
-SCRIPTS = REPO_ROOT / "scripts"
 OUT_ZIP = Path(__file__).resolve().parent / "tabs_v2_cross_platform_verification.zip"
 
 MANIFEST = [
