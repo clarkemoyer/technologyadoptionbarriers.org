@@ -1073,8 +1073,9 @@ def subgroup_discriminant(df, group_def, all_cols, group_aves):
             })
 
             mask = means[n1].notna() & means[n2].notna()
-            r = float(means[n1][mask].corr(means[n2][mask]))
-            pearson_corr[f'{n1} vs {n2}'] = round(r, 4)
+            raw_r = means[n1][mask].corr(means[n2][mask])
+            r = None if pd.isna(raw_r) else float(raw_r)
+            pearson_corr[f'{n1} vs {n2}'] = round(r, 4) if r is not None else None
 
             ave1 = group_aves.get(n1)
             ave2 = group_aves.get(n2)
@@ -1082,13 +1083,14 @@ def subgroup_discriminant(df, group_def, all_cols, group_aves):
                 sa1 = math.sqrt(ave1)
                 sa2 = math.sqrt(ave2)
                 small = min(sa1, sa2)
+                abs_r = abs(r) if r is not None else None
                 fl_results.append({
                     'pair': f'{n1} vs {n2}',
                     'sqrt_ave_1': round(sa1, 4),
                     'sqrt_ave_2': round(sa2, 4),
-                    'abs_r': round(abs(r), 4),
+                    'abs_r': round(abs_r, 4) if abs_r is not None else None,
                     'smaller_sqrt_ave': round(small, 4),
-                    'pass': bool(small > abs(r)),
+                    'pass': bool(small > abs_r) if abs_r is not None else None,
                 })
 
     return {
