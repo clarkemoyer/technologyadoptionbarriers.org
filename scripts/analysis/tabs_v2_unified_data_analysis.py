@@ -3034,9 +3034,15 @@ def subgroup_standalone_validation(df, group_def, all_cols, item_names_full):
 def run_validation(df, skip=False, crp200=False, primary_sample=True):
     """Run full validation pipeline. Returns dict matching crp-validation.json schema.
 
-    primary_sample: when False, skip the computationally expensive per-subgroup
-        standalone validation (parallel_analysis + CFA per subgroup) to keep the
-        daily pipeline fast when run_validation() is called for multiple samples.
+    Args:
+        df: pandas DataFrame containing scale-encoded survey responses.
+        skip: when True, return immediately with a skipped sentinel dict
+            (used by --skip-validation CLI flag).
+        crp200: when True, use CRP-200 frozen-dataset code paths (single header
+            CSV layout, pre-filtered rows, etc.).
+        primary_sample: when False, skip the computationally expensive per-subgroup
+            standalone validation (parallel_analysis + CFA per subgroup) to keep the
+            daily pipeline fast when run_validation() is called for multiple samples.
     """
     if skip:
         return {"skipped": True, "reason": "--skip-validation flag was used"}
@@ -3658,14 +3664,15 @@ Examples:
             sample_dfs[key] = df_full_v2.copy()
 
     # Ordered sample keys (most restrictive first)
+    _CRP_SAMPLE_KEY = "crp_200"  # key used for the frozen CRP-200 dataset in all sample dicts
     SAMPLE_ORDER = ["conservative_clean", "flexible_clean", "prolific_accepted",
                     "v2_finished", "v2_all"]
     if args.crp200:
         # CRP mode: single sample (the full frozen dataset)
-        SAMPLE_ORDER = ["crp_200"]
-        sample_dfs["crp_200"] = df_full_v2.copy()
-        SAMPLE_META["crp_200"] = {"label": "CRP-200",
-                                  "description": "Frozen CRP dataset (N=200, tiered selection)"}
+        SAMPLE_ORDER = [_CRP_SAMPLE_KEY]
+        sample_dfs[_CRP_SAMPLE_KEY] = df_full_v2.copy()
+        SAMPLE_META[_CRP_SAMPLE_KEY] = {"label": "CRP-200",
+                                         "description": "Frozen CRP dataset (N=200, tiered selection)"}
 
     validation_samples = []
     for sample_key in SAMPLE_ORDER:
@@ -3698,7 +3705,7 @@ Examples:
         print(f"  VALIDATION: {meta['label']} (N={n}, adequacy={adequacy})")
         print(f"{'='*70}")
 
-        primary_key = "crp_200" if args.crp200 else args.primary_sample
+        primary_key = _CRP_SAMPLE_KEY if args.crp200 else args.primary_sample
         val_result = run_validation(sample_df, skip=args.skip_validation,
                                     crp200=args.crp200,
                                     primary_sample=(sample_key == primary_key))
@@ -3715,7 +3722,7 @@ Examples:
 
         validation_samples.append(val_result)
 
-    primary = args.primary_sample if not args.crp200 else "crp_200"
+    primary = args.primary_sample if not args.crp200 else _CRP_SAMPLE_KEY
     validation_data = OrderedDict([
         ("samples", validation_samples),
         ("primary_sample", primary),
