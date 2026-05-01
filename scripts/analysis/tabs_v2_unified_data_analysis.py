@@ -51,7 +51,6 @@ Usage:
       --json output.json \\
       [--crp200]                        # use pre-filtered CRP dataset (1-header CSV)
       [--skip-validation]               # skip EFA/CFA if deps not installed
-      [--linderman]                     # run Linderman-grade extensions for primary sample
       [--primary-sample conservative_clean]
 
 Author: Clarke Moyer, Penn State Smeal DBA
@@ -3045,7 +3044,7 @@ def subgroup_standalone_validation(df, group_def, all_cols, item_names_full):
 
 
 # ============================================================================
-# 18-22. LINDERMAN-GRADE EXTENSIONS (added 2026-05-01)
+# 18-22. EXTENDED STATISTICAL EXTENSIONS (added 2026-05-01)
 # Adds: DWLS ordinal CFA, bifactor R+M with omega-h/ECV/PUC, second-order
 # Barriers CFA, Mardia multivariate normality, Mahalanobis outliers,
 # split-sample cross-validation with Tucker congruence.
@@ -3733,7 +3732,7 @@ def esem_target_rotation(df, cols, n_factors=3):
 
 
 
-def run_validation(df, skip=False, crp200=False, primary_sample=True, linderman=False):
+def run_validation(df, skip=False, crp200=False, primary_sample=True):
     """Run full validation pipeline. Returns dict matching crp-validation.json schema.
 
     Args:
@@ -3745,10 +3744,6 @@ def run_validation(df, skip=False, crp200=False, primary_sample=True, linderman=
         primary_sample: when False, skip the computationally expensive per-subgroup
             standalone validation (parallel_analysis + CFA per subgroup) to keep the
             daily pipeline fast when run_validation() is called for multiple samples.
-        linderman: when True (and primary_sample is True), run the 'Linderman-grade'
-            extension analyses (DWLS CFAs, bifactor, second-order, Mardia/Mahalanobis,
-            CV, IRT GRM, per-factor regressions). Defaults to False so the daily
-            production pipeline stays fast unless --linderman is explicitly passed.
     """
     if skip:
         return {"skipped": True, "reason": "--skip-validation flag was used"}
@@ -3870,15 +3865,15 @@ def run_validation(df, skip=False, crp200=False, primary_sample=True, linderman=
         verdict = 'PASS' if r['pass_085'] else 'FAIL'
         print(f"  HTMT {r['pair']}: {r['htmt']} [{r['ci_lower']}, {r['ci_upper']}] {verdict}")
 
-    # ── Linderman-grade extensions: DWLS ordinal CFA, bifactor, second-order, normality, CV ──
-    # Only run for the primary sample AND when --linderman is explicitly passed, so the
+    # ── Extended psychometric validation: DWLS ordinal CFA, bifactor, second-order, normality, CV ──
+    # Always-on for primary samples (live + frozen); produces 28-key complete validation.
     # daily production pipeline avoids the runtime cost (~6+ expensive semopy fits per sample).
     cfa_dwls = {}; bifactor_results = {}; secondorder_results = {}
     mardia_results = {}; mahalanobis_results = {}; cv_results = {}
     irt_results = {}; per_factor_reg = {}
-    if primary_sample and linderman:
+    if primary_sample:
         print(f"\n{'='*70}")
-        print(f"  LINDERMAN-GRADE EXTENSIONS")
+        print(f"  EXTENDED PSYCHOMETRIC VALIDATION (DWLS, bifactor, 2nd-order, normality, CV, IRT)")
         print(f"{'='*70}")
         _barrier_cols_safe = [safe_col(c) for c in BARRIER_COLS]
         _barrier_renamed = df[BARRIER_COLS].rename(columns={c: safe_col(c) for c in BARRIER_COLS})
@@ -4179,8 +4174,8 @@ def run_validation(df, skip=False, crp200=False, primary_sample=True, linderman=
         output['subgroup_standalone_validation'] = subgroup_standalone
     # Alpha-if-deleted summary across all three constructs
     output['alpha_if_deleted_summary'] = aid_summary
-    # Linderman-grade extensions (primary sample + --linderman only; added 2026-05-01)
-    if primary_sample and linderman:
+    # Extended statistical extensions (primary sample, unconditional; added 2026-05-01)
+    if primary_sample:
         output['cfa_dwls_estimator'] = cfa_dwls
         output['bifactor_rm'] = bifactor_results
         output['second_order_barriers_cfa'] = secondorder_results
@@ -4513,9 +4508,6 @@ Examples:
                         help="Use pre-filtered CRP-200 dataset (1-header CSV, no re-filtering)")
     parser.add_argument("--skip-validation", action="store_true",
                         help="Skip EFA/CFA validation (if deps not installed)")
-    parser.add_argument("--linderman", action="store_true",
-                        help="Run Linderman-grade extensions (DWLS CFAs, bifactor, IRT, regressions) "
-                             "for the primary sample; off by default to keep daily runs fast")
     parser.add_argument("--primary-sample", dest="primary_sample", default="conservative_clean",
                         choices=["conservative_clean", "flexible_clean", "prolific_accepted", "v2_finished", "v2_all"],
                         help="Which sample to use for detailed analysis (default: conservative_clean)")
@@ -4654,8 +4646,7 @@ Examples:
         primary_key = _CRP_SAMPLE_KEY if args.crp200 else args.primary_sample
         val_result = run_validation(sample_df, skip=args.skip_validation,
                                     crp200=args.crp200,
-                                    primary_sample=(sample_key == primary_key),
-                                    linderman=args.linderman)
+                                    primary_sample=(sample_key == primary_key))
         # Inject sample identification and adequacy metadata
         val_result = OrderedDict([
             ("key", sample_key),
