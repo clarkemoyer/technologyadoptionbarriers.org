@@ -1176,6 +1176,8 @@ def main():
     safe_barrier_data = df[BARRIER_COLS].rename(columns={c: safe_col(c) for c in BARRIER_COLS})
 
     # 1F result was already produced in validate_construct(); copy it here for unified comparison.
+    # Copy it before relabeling so the original construct-level validation output
+    # remains unchanged while the model-comparison view uses a consistent name.
     barrier_1f_cfa = dict(barrier_result.get('cfa', {}))
     barrier_1f_cfa['construct'] = 'Barriers_1F'
 
