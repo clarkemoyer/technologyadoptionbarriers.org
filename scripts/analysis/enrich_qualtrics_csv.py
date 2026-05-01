@@ -70,6 +70,8 @@ def load_statuses(path: str) -> dict[str, dict[str, str]]:
 
     normalised: dict[str, dict[str, str]] = {}
     for pid, value in raw.items():
+        if not pid or not pid.strip():
+            continue
         if isinstance(value, dict):
             normalised[pid] = {
                 "status": value.get("status", "") or "",
