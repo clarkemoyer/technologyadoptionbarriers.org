@@ -358,6 +358,8 @@ class TestAutoApproveRunway:
         runway = data["autoApproveRunway"]
         assert data.get("highRiskCount") == runway["highRiskCount"]
         assert data.get("highRiskByDisposition") == runway["highRiskByDisposition"]
+
+    def test_no_completed_at_skipped(self, tmp_path):
         """Submissions missing completed_at cannot be bucketed but still count
         towards totalAwaitingReview; evaluatedCount stays 0."""
         subs = [
