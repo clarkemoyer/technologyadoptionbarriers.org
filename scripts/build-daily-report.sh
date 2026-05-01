@@ -89,7 +89,7 @@ PYEOF
   ) || FALLBACK=""
   if [ -n "$FALLBACK" ]; then
     TRIAGE_TOTAL=$(printf '%s\n' "$FALLBACK" | sed -n 's/^__TRIAGE_TOTAL__=//p')
-    TRIAGE_BREAKDOWN=$(printf '%s\n' "$FALLBACK" | grep -v '^__TRIAGE_TOTAL__=')
+    TRIAGE_BREAKDOWN=$(printf '%s\n' "$FALLBACK" | grep -v '^__TRIAGE_TOTAL__=' || true)
   fi
 fi
 
