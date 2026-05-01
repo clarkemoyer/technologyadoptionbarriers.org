@@ -21,7 +21,6 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
-import pyreadstat
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 SOURCE_CSV = REPO_ROOT / "public" / "datasets" / "TABS_V2_CRP_2026_public_dataset.csv"
@@ -117,6 +116,14 @@ def encode(value: object, scale_map: dict[str, int]) -> float:
 
 
 def main() -> None:
+    try:
+        import pyreadstat  # noqa: PLC0415
+    except ImportError:
+        raise SystemExit(
+            "pyreadstat is required to write .sav files.\n"
+            "Install it with:  pip install pyreadstat>=1.3"
+        )
+
     if not SOURCE_CSV.exists():
         raise SystemExit(f"Source CSV not found: {SOURCE_CSV}")
 
