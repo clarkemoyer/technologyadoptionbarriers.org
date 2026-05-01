@@ -3906,20 +3906,31 @@ def run_validation(df, skip=False, crp200=False, primary_sample=True):
     print(f"\n{'='*70}")
     print(f"  SUBGROUP DISCRIMINANT VALIDITY (F1a / F1b / F2 as 3 constructs)")
     print(f"{'='*70}")
-    # EFA loadings are keyed by original (unsafe) column names; use original cols for lookup.
-    barrier_loadings_matrix = barrier_result.get('efa', {}).get('loadings', {})
     barrier_col_map = {c: safe_col(c) for c in BARRIER_COLS}
     barrier_cols_list = [barrier_col_map[c] for c in BARRIER_COLS]
     subgroup_aves = {}
-    for grp_label, idxs in BARRIER_3GROUP.items():
-        load_idx = 0 if grp_label in ('F1a', 'F1b') else 1
-        lams = []
-        for i in idxs:
-            original_col = BARRIER_COLS[i]
-            lv = barrier_loadings_matrix.get(original_col)
-            if lv is not None and len(lv) > load_idx:
-                lams.append(float(lv[load_idx]))
-        subgroup_aves[grp_label] = ave_from_loadings(lams) if lams else None
+    # Prefer 3F CFA standardized loadings (each item loads on its own factor F1a/F1b/F2).
+    # Fall back to 2F EFA loadings only when the 3F CFA was unavailable (semopy missing or failed).
+    cfa_3f_loads = barrier_3f_cfa.get('standardized_loadings', {}) if 'error' not in barrier_3f_cfa else {}
+    if cfa_3f_loads:
+        for grp_label, idxs in BARRIER_3GROUP.items():
+            lams = []
+            for i in idxs:
+                v = cfa_3f_loads.get(safe_col(BARRIER_COLS[i]))
+                if v is not None:
+                    lams.append(float(v))
+            subgroup_aves[grp_label] = ave_from_loadings(lams) if lams else None
+    else:
+        # Fallback: 2F EFA loadings (F1 factor for F1a/F1b items, F2 factor for F2 items)
+        barrier_loadings_matrix = barrier_result.get('efa', {}).get('loadings', {})
+        for grp_label, idxs in BARRIER_3GROUP.items():
+            load_idx = 0 if grp_label in ('F1a', 'F1b') else 1
+            lams = []
+            for i in idxs:
+                lv = barrier_loadings_matrix.get(BARRIER_COLS[i])
+                if lv is not None and len(lv) > load_idx:
+                    lams.append(float(lv[load_idx]))
+            subgroup_aves[grp_label] = ave_from_loadings(lams) if lams else None
 
     subgroup_validity = subgroup_discriminant(
         safe_barrier_data, BARRIER_3GROUP, barrier_cols_list, subgroup_aves,
@@ -3930,8 +3941,11 @@ def run_validation(df, skip=False, crp200=False, primary_sample=True):
         print(f"  HTMT {r['pair']}: {r['htmt']} [{r['ci_lower']}, {r['ci_upper']}] {verdict}")
 
     # ── Extended psychometric validation: DWLS ordinal CFA, bifactor, second-order, normality, CV ──
-    # Always-on for primary samples (live + frozen); produces 28-key complete validation.
-    # daily production pipeline avoids the runtime cost (~6+ expensive semopy fits per sample).
+    # Runs for primary sample only; non-primary samples receive {"skipped": True, "reason": ...}
+    # sentinels so the output schema is identical across all sample tiers. Downstream consumers
+    # (UI components, downstream pipelines) MUST check for the skipped sentinel before rendering
+    # these values (e.g., `if (block?.skipped) return null`).
+    # The gating keeps per-sample pipeline runtime under ~30 s while still emitting all 28 keys.
     cfa_dwls = {}; bifactor_results = {}; secondorder_results = {}
     mardia_results = {}; mahalanobis_results = {}; cv_results = {}
     irt_results = {}; per_factor_reg = {}
