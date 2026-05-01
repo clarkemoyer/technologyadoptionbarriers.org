@@ -113,9 +113,10 @@ def _objectid_time(message_id):
     Returns ``None`` for inputs that don't look like a 24-char hex string,
     so callers can chain it after the explicit-timestamp fields.
     """
-    if not isinstance(message_id, str) or len(message_id) < 8:
+    if not isinstance(message_id, str) or len(message_id) != 24:
         return None
     try:
+        int(message_id, 16)  # validate all 24 chars are hex
         ts = int(message_id[:8], 16)
     except ValueError:
         return None
