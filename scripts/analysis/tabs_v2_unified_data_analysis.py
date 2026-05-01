@@ -51,6 +51,7 @@ Usage:
       --json output.json \\
       [--crp200]                        # use pre-filtered CRP dataset (1-header CSV)
       [--skip-validation]               # skip EFA/CFA if deps not installed
+      [--linderman]                     # run Linderman-grade extensions for primary sample
       [--primary-sample conservative_clean]
 
 Author: Clarke Moyer, Penn State Smeal DBA
@@ -2893,21 +2894,23 @@ def subgroup_discriminant(df, group_def, all_cols, group_aves, n_boot=2000):
                 'pass_090': bool(h < 0.90) if h == h else None,
             })
             mask = means[n1].notna() & means[n2].notna()
-            r = float(means[n1][mask].corr(means[n2][mask]))
-            pearson_corr[f'{n1} vs {n2}'] = round(r, 4)
+            raw_r = means[n1][mask].corr(means[n2][mask])
+            r = None if pd.isna(raw_r) else float(raw_r)
+            pearson_corr[f'{n1} vs {n2}'] = round(r, 4) if r is not None else None
             ave1 = group_aves.get(n1)
             ave2 = group_aves.get(n2)
             if ave1 is not None and ave2 is not None:
                 sa1 = math.sqrt(ave1)
                 sa2 = math.sqrt(ave2)
                 small = min(sa1, sa2)
+                abs_r = abs(r) if r is not None else None
                 fl_results.append({
                     'pair': f'{n1} vs {n2}',
                     'sqrt_ave_1': round(sa1, 4),
                     'sqrt_ave_2': round(sa2, 4),
-                    'abs_r': round(abs(r), 4),
+                    'abs_r': round(abs_r, 4) if abs_r is not None else None,
                     'smaller_sqrt_ave': round(small, 4),
-                    'pass': bool(small > abs(r)),
+                    'pass': bool(small > abs_r) if abs_r is not None else None,
                 })
     return {
         'htmt': htmt_results,
@@ -2993,7 +2996,7 @@ def subgroup_standalone_validation(df, group_def, all_cols, item_names_full):
             except Exception as e:
                 out['kmo_error'] = str(e)
         try:
-            n_factors_pa = parallel_analysis(data, max_factors=min(4, k))
+            n_factors_pa = parallel_analysis(data, max_factors=min(4, k), n_iter=200)
             out['parallel_analysis_factors'] = int(n_factors_pa)
         except Exception:
             out['parallel_analysis_factors'] = None
@@ -3730,7 +3733,7 @@ def esem_target_rotation(df, cols, n_factors=3):
 
 
 
-def run_validation(df, skip=False, crp200=False, primary_sample=True):
+def run_validation(df, skip=False, crp200=False, primary_sample=True, linderman=False):
     """Run full validation pipeline. Returns dict matching crp-validation.json schema.
 
     Args:
@@ -3742,6 +3745,10 @@ def run_validation(df, skip=False, crp200=False, primary_sample=True):
         primary_sample: when False, skip the computationally expensive per-subgroup
             standalone validation (parallel_analysis + CFA per subgroup) to keep the
             daily pipeline fast when run_validation() is called for multiple samples.
+        linderman: when True (and primary_sample is True), run the 'Linderman-grade'
+            extension analyses (DWLS CFAs, bifactor, second-order, Mardia/Mahalanobis,
+            CV, IRT GRM, per-factor regressions). Defaults to False so the daily
+            production pipeline stays fast unless --linderman is explicitly passed.
     """
     if skip:
         return {"skipped": True, "reason": "--skip-validation flag was used"}
@@ -3864,12 +3871,12 @@ def run_validation(df, skip=False, crp200=False, primary_sample=True):
         print(f"  HTMT {r['pair']}: {r['htmt']} [{r['ci_lower']}, {r['ci_upper']}] {verdict}")
 
     # ── Linderman-grade extensions: DWLS ordinal CFA, bifactor, second-order, normality, CV ──
-    # Only run for the primary sample so daily multi-sample validation does not multiply
-    # runtime across every entry in SAMPLE_ORDER (~6+ expensive semopy fits per sample).
+    # Only run for the primary sample AND when --linderman is explicitly passed, so the
+    # daily production pipeline avoids the runtime cost (~6+ expensive semopy fits per sample).
     cfa_dwls = {}; bifactor_results = {}; secondorder_results = {}
     mardia_results = {}; mahalanobis_results = {}; cv_results = {}
     irt_results = {}; per_factor_reg = {}
-    if primary_sample:
+    if primary_sample and linderman:
         print(f"\n{'='*70}")
         print(f"  LINDERMAN-GRADE EXTENSIONS")
         print(f"{'='*70}")
@@ -4167,8 +4174,8 @@ def run_validation(df, skip=False, crp200=False, primary_sample=True):
         output['subgroup_standalone_validation'] = subgroup_standalone
     # Alpha-if-deleted summary across all three constructs
     output['alpha_if_deleted_summary'] = aid_summary
-    # Linderman-grade extensions (primary sample only; added 2026-05-01)
-    if primary_sample:
+    # Linderman-grade extensions (primary sample + --linderman only; added 2026-05-01)
+    if primary_sample and linderman:
         output['cfa_dwls_estimator'] = cfa_dwls
         output['bifactor_rm'] = bifactor_results
         output['second_order_barriers_cfa'] = secondorder_results
@@ -4512,6 +4519,9 @@ Examples:
                         help="Use pre-filtered CRP-200 dataset (1-header CSV, no re-filtering)")
     parser.add_argument("--skip-validation", action="store_true",
                         help="Skip EFA/CFA validation (if deps not installed)")
+    parser.add_argument("--linderman", action="store_true",
+                        help="Run Linderman-grade extensions (DWLS CFAs, bifactor, IRT, regressions) "
+                             "for the primary sample; off by default to keep daily runs fast")
     parser.add_argument("--primary-sample", dest="primary_sample", default="conservative_clean",
                         choices=["conservative_clean", "flexible_clean", "prolific_accepted", "v2_finished", "v2_all"],
                         help="Which sample to use for detailed analysis (default: conservative_clean)")
@@ -4650,7 +4660,8 @@ Examples:
         primary_key = _CRP_SAMPLE_KEY if args.crp200 else args.primary_sample
         val_result = run_validation(sample_df, skip=args.skip_validation,
                                     crp200=args.crp200,
-                                    primary_sample=(sample_key == primary_key))
+                                    primary_sample=(sample_key == primary_key),
+                                    linderman=args.linderman)
         # Inject sample identification and adequacy metadata
         val_result = OrderedDict([
             ("key", sample_key),
