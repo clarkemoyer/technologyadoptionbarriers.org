@@ -2783,22 +2783,35 @@ def compare_cfa_models(model_results):
         for j, full in enumerate(model_results):
             if i >= j or 'error' in r or 'error' in full:
                 continue
-            d_chi2 = (r.get('chi2') or 0) - (full.get('chi2') or 0)
-            d_df = (r.get('df') or 0) - (full.get('df') or 0)
+            r_chi2 = r.get('chi2')
+            full_chi2 = full.get('chi2')
+            r_df = r.get('df')
+            full_df = full.get('df')
+            if r_chi2 is None or full_chi2 is None or r_df is None or full_df is None:
+                continue
+            d_chi2 = r_chi2 - full_chi2
+            d_df = r_df - full_df
             if d_df <= 0:
                 continue
             try:
                 p = float(1 - chi2_dist.cdf(d_chi2, d_df))
             except Exception:
                 p = None
+            r_aic = r.get('aic')
+            full_aic = full.get('aic')
+            d_aic = round(r_aic - full_aic, 3) if r_aic is not None and full_aic is not None else None
+            r_bic = r.get('bic')
+            full_bic = full.get('bic')
+            d_bic = round(r_bic - full_bic, 3) if r_bic is not None and full_bic is not None else None
             pairwise.append({
                 'restricted': r.get('construct') or r.get('name'),
                 'full': full.get('construct') or full.get('name'),
                 'd_chi2': round(d_chi2, 3),
                 'd_df': int(d_df),
                 'p': round(p, 6) if p is not None else None,
-                'd_aic': round((r.get('aic') or 0) - (full.get('aic') or 0), 3),
-                'd_bic': round((r.get('bic') or 0) - (full.get('bic') or 0), 3),
+                'd_aic': d_aic,
+                'd_bic': d_bic,
+                'note': 'heuristic: 1F/2F/3F/4F models have different loading patterns and may not be strictly nested',
             })
     return {'summary': summary, 'pairwise_chi2_diff': pairwise}
 
@@ -2953,8 +2966,10 @@ def run_validation(df, skip=False, crp200=False):
     safe_barrier_data = df[BARRIER_COLS].rename(columns={c: safe_col(c) for c in BARRIER_COLS})
 
     # 1F was already produced inside validate_construct(); use it for unified comparison.
-    barrier_1f_cfa = barrier_result.get('cfa', {})
-    barrier_1f_cfa.setdefault('construct', 'Barriers_1F')
+    # Copy it before relabeling so the original construct-level validation output
+    # remains unchanged while the model-comparison view uses a consistent name.
+    barrier_1f_cfa = dict(barrier_result.get('cfa', {}))
+    barrier_1f_cfa['construct'] = 'Barriers_1F'
 
     barrier_2f_cfa = run_cfa(safe_barrier_data, cfa_models['barriers_2f'], 'Barriers_2F')
     if 'error' not in barrier_2f_cfa:
@@ -3024,15 +3039,17 @@ def run_validation(df, skip=False, crp200=False):
     print(f"\n{'='*70}")
     print(f"  SUBGROUP DISCRIMINANT VALIDITY (F1a / F1b / F2 as 3 constructs)")
     print(f"{'='*70}")
+    # EFA loadings are keyed by original (unsafe) column names; use original cols for lookup.
     barrier_loadings_matrix = barrier_result.get('efa', {}).get('loadings', {})
-    barrier_cols_list = [safe_col(c) for c in BARRIER_COLS]
+    barrier_col_map = {c: safe_col(c) for c in BARRIER_COLS}
+    barrier_cols_list = [barrier_col_map[c] for c in BARRIER_COLS]
     subgroup_aves = {}
     for grp_label, idxs in BARRIER_3GROUP.items():
         load_idx = 0 if grp_label in ('F1a', 'F1b') else 1
         lams = []
         for i in idxs:
-            col = barrier_cols_list[i]
-            lv = barrier_loadings_matrix.get(col)
+            original_col = BARRIER_COLS[i]
+            lv = barrier_loadings_matrix.get(original_col)
             if lv is not None and len(lv) > load_idx:
                 lams.append(float(lv[load_idx]))
         subgroup_aves[grp_label] = ave_from_loadings(lams) if lams else None
