@@ -345,7 +345,19 @@ class TestAutoApproveRunway:
         assert runway["skippedMissingCompletedAt"] == 0
         assert runway["highRiskCount"] == 1
 
-    def test_no_completed_at_skipped(self, tmp_path):
+    def test_top_level_high_risk_aliases(self, tmp_path):
+        """highRiskCount and highRiskByDisposition are mirrored as top-level
+        fields for consumers that don't want to traverse autoApproveRunway."""
+        from datetime import datetime, timezone, timedelta
+        old = (datetime.now(timezone.utc) - timedelta(days=20)).isoformat()
+        subs = [
+            {"participant_id": "PID_C", "status": "AWAITING REVIEW", "completed_at": old},
+        ]
+        data = self._run(tmp_path, subs)
+        # Top-level aliases must mirror the nested block exactly.
+        runway = data["autoApproveRunway"]
+        assert data.get("highRiskCount") == runway["highRiskCount"]
+        assert data.get("highRiskByDisposition") == runway["highRiskByDisposition"]
         """Submissions missing completed_at cannot be bucketed but still count
         towards totalAwaitingReview; evaluatedCount stays 0."""
         subs = [

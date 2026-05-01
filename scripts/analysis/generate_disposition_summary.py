@@ -327,6 +327,10 @@ def main():
             "denominator": finished_participants,
         },
         "autoApproveRunway": auto_approve_runway,
+        # Convenience top-level aliases: consumers (daily report, dashboards)
+        # can check these without knowing the nested autoApproveRunway layout.
+        "highRiskCount": auto_approve_runway["highRiskCount"],
+        "highRiskByDisposition": auto_approve_runway["highRiskByDisposition"],
         "studyId": study_id,
         "studyName": study_name,
     }

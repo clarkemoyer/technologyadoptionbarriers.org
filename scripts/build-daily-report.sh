@@ -382,12 +382,23 @@ with open(os.environ['TODAY_FILE'], encoding='utf-8') as f:
 runway = d.get('autoApproveRunway') or {}
 buckets = runway.get('buckets') or []
 total = runway.get('totalAwaitingReview', 0)
+evaluated = runway.get('evaluatedCount', 0)
+skipped_missing_completed_at = runway.get('skippedMissingCompletedAt', 0)
 if not buckets or total == 0:
     raise SystemExit(0)
 
 threshold = runway.get('thresholdDays', 21)
 print(f'Prolific auto-approves any AWAITING REVIEW submission **{threshold} days** after `completed_at`. Buckets count remaining runway per submission.')
 print('')
+if evaluated <= 0:
+    print(f'⚠️ Runway could not be evaluated for the **{total}** AWAITING REVIEW submission(s) because no usable `completed_at` timestamps were available.')
+    if skipped_missing_completed_at:
+        print(f'- Skipped due to missing/unparseable `completed_at`: **{skipped_missing_completed_at}**')
+    raise SystemExit(0)
+
+if skipped_missing_completed_at:
+    print(f'> Evaluated **{evaluated}** of **{total}** AWAITING REVIEW submission(s); skipped **{skipped_missing_completed_at}** with missing/unparseable `completed_at`.')
+    print('')
 print('| Bucket | Days remaining | Count | Risk |')
 print('|---|---|---:|---|')
 for b in buckets:
