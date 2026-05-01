@@ -147,8 +147,10 @@ FACTOR
 
 * =====================================================================
 * INTER-CONSTRUCT CORRELATIONS (Pearson and Spearman)
-* On the construct means (B_mean / R_mean / M_mean). Expected on the
-* Python pipeline computes pairwise listwise:
+* On the construct means (B_mean / R_mean / M_mean). The Python pipeline
+* computes these correlations with pairwise complete cases (any row missing
+* either construct mean is dropped from that pair only). SPSS's CORRELATIONS
+* /MISSING=PAIRWISE matches this behavior. Expected:
 *   r(B,R) ~ -0.40, r(B,M) ~ -0.33, r(R,M) ~ +0.73
 * =====================================================================.
 
