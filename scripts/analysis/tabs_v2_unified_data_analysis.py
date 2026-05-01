@@ -2877,7 +2877,6 @@ def subgroup_discriminant(df, group_def, all_cols, group_aves, n_boot=2000):
     fl_results = []
     pearson_corr = {}
     means = {label: data.mean(axis=1, skipna=False) for label, data in sub_data.items()}
-    import math
     for i, n1 in enumerate(labels):
         for j, n2 in enumerate(labels):
             if i >= j:
