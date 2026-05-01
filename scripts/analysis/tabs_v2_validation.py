@@ -993,9 +993,6 @@ def item_level_validity(efa_loadings, item_names, item_ids,
     for i, col in enumerate(cols):
         loads = [abs(float(x)) for x in efa_loadings[col]]
         primary = max(loads) if loads else 0.0
-        secondary = sorted(loads, reverse=True)[1] if len(loads) > 1 else 0.0
-        diff = primary - secondary
-
         if primary >= primary_pass:
             cv = 'PASS'
         elif primary >= primary_acceptable:
@@ -1003,17 +1000,25 @@ def item_level_validity(efa_loadings, item_names, item_ids,
         else:
             cv = 'FAIL'
 
-        if secondary < cross_load_threshold or diff >= gap_threshold:
-            dv = 'PASS'
+        if len(loads) >= 2:
+            secondary = sorted(loads, reverse=True)[1]
+            diff = primary - secondary
+            if secondary < cross_load_threshold or diff >= gap_threshold:
+                dv = 'PASS'
+            else:
+                dv = 'FAIL'
         else:
-            dv = 'FAIL'
+            # 1-factor EFA: no secondary loading to assess; mark as not evaluated
+            secondary = None
+            diff = None
+            dv = None
 
         out.append({
             'id': item_ids[i] if i < len(item_ids) else col,
             'name': item_names[i] if i < len(item_names) else col,
             'primary': round(primary, 4),
-            'secondary': round(secondary, 4),
-            'gap': round(diff, 4),
+            'secondary': round(secondary, 4) if secondary is not None else None,
+            'gap': round(diff, 4) if diff is not None else None,
             'convergent': cv,
             'discriminant': dv,
             'loadings': [round(float(x), 4) for x in efa_loadings[col]],
@@ -1040,7 +1045,7 @@ def subgroup_discriminant(df, group_def, all_cols, group_aves):
     fl_results = []
     pearson_corr = {}
 
-    means = {label: data.mean(axis=1) for label, data in sub_data.items()}
+    means = {label: data.mean(axis=1, skipna=False) for label, data in sub_data.items()}
 
     import math
     for i, n1 in enumerate(labels):
