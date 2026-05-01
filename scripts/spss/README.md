@@ -101,14 +101,12 @@ Recommended: in the dissertation methods section, add one paragraph like:
 
 > "Cronbach's alpha, KMO, Bartlett's sphericity, exploratory factor analysis,
 > inter-construct correlations, group comparisons, and Little's MCAR test were
-> independently verified in IBM SPSS Statistics 31.0 (Statistics Base + Regression
->
-> - Bootstrapping + Missing Values modules); see `scripts/spss/`. CFA fit indices,
->   McDonald's omega, composite reliability, AVE, HTMT, HTMT2, bifactor decomposition,
->   and IRT graded response models were computed in Python (semopy 2.3) and
->   cross-validated in R (lavaan 0.6.21, semTools 0.5.8, psych 2.6.3); see
->   `scripts/analysis/`. Without IBM SPSS Amos, these CFA-based statistics are
->   not natively computable in SPSS and were therefore not re-derived there."
+> independently verified in IBM SPSS Statistics 31.0 (Statistics Base + Regression + Bootstrapping + Missing Values modules); see `scripts/spss/`. CFA fit indices,
+> McDonald's omega, composite reliability, AVE, HTMT, HTMT2, bifactor decomposition,
+> and IRT graded response models were computed in Python (semopy 2.3) and
+> cross-validated in R (lavaan 0.6.21, semTools 0.5.8, psych 2.6.3); see
+> `scripts/analysis/`. Without IBM SPSS Amos, these CFA-based statistics are
+> not natively computable in SPSS and were therefore not re-derived there."
 
 ### Manual workaround for omega, CR, AVE, Tucker congruence in SPSS
 
