@@ -125,7 +125,7 @@ def _objectid_time(message_id):
         ts = int(message_id[:8], 16)
     except ValueError:
         return None
-    if ts <= 0:
+    if ts < 0:
         return None
     try:
         return datetime.fromtimestamp(ts, tz=timezone.utc)

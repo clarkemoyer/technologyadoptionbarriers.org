@@ -311,6 +311,12 @@ class TestObjectIdFallback:
     def test_objectid_decoder_returns_none_for_non_hex_prefix(self):
         assert _objectid_time("zzzzzzzzdeadbeefdeadbeef") is None
 
+    def test_objectid_decoder_accepts_epoch_zero(self):
+        """An ObjectId whose epoch prefix is exactly 0 (1970-01-01T00:00:00 UTC)
+        is valid per the spec and must not be rejected by the guard."""
+        zero_oid = "00000000" + "deadbeefdeadbeef"
+        assert _objectid_time(zero_oid) == datetime(1970, 1, 1, 0, 0, 0, tzinfo=timezone.utc)
+
     def test_msg_time_uses_objectid_when_timestamps_absent(self):
         """When sent_at and created_at are null/undefined, _msg_time falls
         back to the ObjectId timestamp prefix instead of returning None."""
