@@ -3927,6 +3927,11 @@ def run_validation(df, skip=False, crp200=False, primary_sample=True, linderman=
             print(f"  Per-factor Reg (Readiness): R^2 total={rr['total_scale_model']['r2']} "
                   f"-> sub-factor={rr['sub_factor_model']['r2']} (lift={rr['r2_lift_from_decomposition']})")
     # Tier 1+2 extensions
+    # barrier_cols_safe / barrier_renamed are also defined in the subgroup block
+    # below, but we need them here (and in the Q4_OrgSize-absent else branch), so
+    # assign them unconditionally from the already-computed safe_barrier_data.
+    barrier_cols_safe = barrier_cols_list  # [safe_col(c) for c in BARRIER_COLS]
+    barrier_renamed = safe_barrier_data   # df[BARRIER_COLS].rename(columns={c: safe_col(c) ...})
     if 'Q4_OrgSize' in df.columns:
         df['_SMB'] = df['Q4_OrgSize'].isin(['<100','100-499','500-999']).astype(int)
         df['_PROFIT'] = (df.get('Q5_ProfitModel') == 'For-Profit').astype(int) if 'Q5_ProfitModel' in df.columns else 0
