@@ -12,7 +12,16 @@ export const makingOfTabsSeries: MakingOfTabsItem[] = [
   { title: 'Development Workflow', href: '/making-of-tabs/development-workflow' },
   { title: 'Automation Infrastructure', href: '/making-of-tabs/automation-infrastructure' },
   { title: 'Accessibility', href: '/making-of-tabs/accessibility' },
-  { title: 'Open Source', href: '/making-of-tabs/open-source' },
+  {
+    title: 'Open Source',
+    href: '/making-of-tabs/open-source',
+    children: [
+      {
+        title: 'Research Value',
+        href: '/making-of-tabs/open-source/research-value',
+      },
+    ],
+  },
   { title: 'TABS Presentation', href: '/making-of-tabs/tabs-presentation' },
   {
     title: 'AI-Assisted Development',
@@ -25,6 +34,10 @@ export const makingOfTabsSeries: MakingOfTabsItem[] = [
       {
         title: 'The Squash Merge Incident',
         href: '/making-of-tabs/ai-assisted-development/squash-merge-incident',
+      },
+      {
+        title: 'The 50-Reviewer Process',
+        href: '/making-of-tabs/ai-assisted-development/50-reviewer-process',
       },
     ],
   },

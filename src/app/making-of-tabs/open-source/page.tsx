@@ -250,6 +250,32 @@ license: Apache-2.0`}</code>
           </ul>
         </section>
 
+        {/* ── Further Reading ── */}
+        <section className="mb-12 text-gray-800">
+          <h2 className={H2_CLASSES}>Further Reading</h2>
+          <p className="mb-6">
+            This page covers the operational side of open source - license, community files, and
+            contribution workflow. The argument for why a research project publishes its
+            infrastructure (and not only its data and code) lives on a separate page:
+          </p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <Link
+              href="/making-of-tabs/open-source/research-value"
+              className="block rounded-xl border border-teal-200 bg-teal-50 p-6 hover:shadow-md transition-shadow"
+            >
+              <h3 className="text-lg font-bold text-teal-900 mb-2">
+                The Value of Open-Source Research Infrastructure
+              </h3>
+              <p className="text-sm text-teal-800">
+                Why TABS publishes its survey, deployment, and analysis infrastructure as open
+                source: transparency, reproducibility, reusability, sustainability, permanence,
+                citation, and the economics that make the approach feasible.
+              </p>
+            </Link>
+          </div>
+        </section>
+
         <section className="pt-8 border-t border-gray-200">
           <p className="text-sm text-gray-600 italic">
             Open source is not just a license - it is how we work.
