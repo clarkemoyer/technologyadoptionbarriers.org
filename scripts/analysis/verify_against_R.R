@@ -121,6 +121,19 @@ for (cname in c("Barriers", "Readiness", "Maturity")) {
   # Bifactor omega: matches Python's bifactor_barriers.omega_t (Barriers only)
   omega_bf <- psych::omega(data, plot = FALSE, fm = "ml", warnings = FALSE)
 
+  # Spearman-Brown split-half: odd-even split matching Python's split_half_reliability().
+  # Python uses items at indices 0,2,4,... (odd positions) vs 1,3,5,... (even positions),
+  # sums each half, correlates the totals, then applies the prophecy formula.
+  # R's psych::alpha average_r is NOT equivalent (it uses average inter-item r, not
+  # a split-half correlation), so we compute it directly here.
+  item_idx <- seq_along(cols)
+  odd_cols  <- cols[item_idx %% 2 == 1]
+  even_cols <- cols[item_idx %% 2 == 0]
+  odd_total  <- rowSums(data[, odd_cols,  drop = FALSE])
+  even_total <- rowSums(data[, even_cols, drop = FALSE])
+  r_half     <- cor(odd_total, even_total)
+  sb_split_half <- round(2 * r_half / (1 + r_half), 4)
+
   results[[paste0(cname, "_reliability")]] <- list(
     cronbach_alpha = round(alpha_result$total$raw_alpha, 4),
     cronbach_alpha_std = round(alpha_result$total$std.alpha, 4),
@@ -130,11 +143,11 @@ for (cname in c("Barriers", "Readiness", "Maturity")) {
     omega_1f = round(omega_1f$omega.tot, 4),
     omega_h_bifactor = round(omega_bf$omega_h, 4),
     omega_t_bifactor = round(omega_bf$omega.tot, 4),
-    spearman_brown_split_half = round(2 * alpha_result$total$average_r /
-                                      (1 + alpha_result$total$average_r), 4),
+    spearman_brown_split_half = sb_split_half,
     n = nrow(data),
     note = paste0("omega_1f matches Python's mcdonalds_omega; ",
-                  "omega_t_bifactor matches Python's bifactor_barriers.omega_t (Barriers only)")
+                  "omega_t_bifactor matches Python's bifactor_barriers.omega_t (Barriers only); ",
+                  "spearman_brown_split_half uses odd-even split matching Python's split_half_reliability()")
   )
   cat("  ", cname, ": alpha=", round(alpha_result$total$raw_alpha, 4),
       " omega_1f=", round(omega_1f$omega.tot, 4),
