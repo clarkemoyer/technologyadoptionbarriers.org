@@ -43,14 +43,14 @@ python scripts/analysis/tabs_v2_unified_data_analysis.py
 
 ## Where each new statistic surfaces on the website (no new URLs)
 
-| Output | CRP page | Live page | Section |
-|---|---|---|---|
-| `barriers_3f_cfa` | `/results/crp-2026/factor-analysis` | `/results/factor-analysis` | Level 3: 3-Group Decomposition |
-| `barrier_model_comparison` | `/results/crp-2026/validation` | `/results/validation` | Section 3: CFA |
-| `joint_3construct_cfa` | `/results/crp-2026/validation` | `/results/validation` | Section 3: CFA |
-| `item_level_validity` | `/results/crp-2026/validation` | `/results/validation` | Section 6: Item Diagnostics |
+| Output                           | CRP page                            | Live page                  | Section                           |
+| -------------------------------- | ----------------------------------- | -------------------------- | --------------------------------- |
+| `barriers_3f_cfa`                | `/results/crp-2026/factor-analysis` | `/results/factor-analysis` | Level 3: 3-Group Decomposition    |
+| `barrier_model_comparison`       | `/results/crp-2026/validation`      | `/results/validation`      | Section 3: CFA                    |
+| `joint_3construct_cfa`           | `/results/crp-2026/validation`      | `/results/validation`      | Section 3: CFA                    |
+| `item_level_validity`            | `/results/crp-2026/validation`      | `/results/validation`      | Section 6: Item Diagnostics       |
 | `subgroup_discriminant_validity` | `/results/crp-2026/factor-analysis` | `/results/factor-analysis` | Level 3 (under reliability table) |
-| `alpha_if_deleted_summary` | `/results/crp-2026/reliability` | `/results/reliability` | After alpha-by-construct table |
+| `alpha_if_deleted_summary`       | `/results/crp-2026/reliability`     | `/results/reliability`     | After alpha-by-construct table    |
 
 A follow-up PR will edit the corresponding TSX components to surface these
 keys on the existing pages.
