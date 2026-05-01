@@ -24,7 +24,7 @@ Analyses:
  15. Subgroup HTMT + Fornell-Larcker on F1a/F1b/F2 - added 2026-05-01
  16. Alpha-if-deleted summary across constructs - added 2026-05-01
 
-Additional analyses (enabled with --linderman):
+Additional advanced psychometric analyses (always run on every invocation):
  17. DWLS ordinal CFA on each construct and multi-factor barriers models
  18. Bifactor R+M with omega-h, ECV, and PUC
  19. Second-order barriers CFA
@@ -34,7 +34,7 @@ Additional analyses (enabled with --linderman):
  23. Per-factor regressions (sub-factor decomposition vs full-scale aggregate)
 
 Usage:
-    python tabs_v2_validation.py <qualtrics_csv_path> [--json output.json] [--crp200] [--linderman]
+    python tabs_v2_validation.py <qualtrics_csv_path> [--json output.json] [--crp200]
 
 Author: Clarke Moyer, Penn State Smeal DBA
 """
@@ -1254,7 +1254,7 @@ def subgroup_standalone_validation(df, group_def, all_cols, item_names_full):
 
 
 # ============================================================================
-# 18-22. LINDERMAN-GRADE EXTENSIONS (added 2026-05-01)
+# 18-22. EXTENDED STATISTICAL EXTENSIONS (added 2026-05-01)
 # Adds: DWLS ordinal CFA, bifactor R+M with omega-h/ECV/PUC, second-order
 # Barriers CFA, Mardia multivariate normality, Mahalanobis outliers,
 # split-sample cross-validation with Tucker congruence.
@@ -2063,13 +2063,12 @@ def esem_target_rotation(df, cols, n_factors=3):
 
 def main():
     if len(sys.argv) < 2:
-        print(f"Usage: {sys.argv[0]} <qualtrics_csv_path> [--json output.json] [--crp200] [--linderman]")
+        print(f"Usage: {sys.argv[0]} <qualtrics_csv_path> [--json output.json] [--crp200]")
         sys.exit(1)
 
     csv_path = sys.argv[1]
     json_output = None
     use_crp200 = '--crp200' in sys.argv
-    use_linderman = '--linderman' in sys.argv
     if '--json' in sys.argv:
         idx = sys.argv.index('--json')
         if idx + 1 < len(sys.argv) and not sys.argv[idx + 1].startswith('--'):
@@ -2214,105 +2213,104 @@ def main():
         verdict = 'PASS' if r['pass_085'] else 'FAIL'
         print(f"  HTMT {r['pair']}: {r['htmt']} [{r['ci_lower']}, {r['ci_upper']}] {verdict}")
 
-    # -- Linderman-grade extensions: DWLS ordinal CFA, bifactor, second-order, normality, CV --
-    # Gated behind --linderman to keep production validation runs fast.
+    # -- Extended psychometric validation: DWLS ordinal CFA, bifactor, second-order, normality, CV --
+    # Always-on; produces 28-key complete validation output for every run.
     cfa_dwls = {}; bifactor_results = {}; secondorder_results = {}
     mardia_results = {}; mahalanobis_results = {}; cv_results = {}
     irt_results = {}; per_factor_reg = {}
-    if use_linderman:
-        print(f"\n{'='*70}")
-        print(f"  LINDERMAN-GRADE EXTENSIONS (DWLS, bifactor, 2nd-order, normality, CV)")
-        print(f"{'='*70}")
-        _barrier_cols_safe = [safe_col(c) for c in BARRIER_COLS]
-        _barrier_renamed = df[BARRIER_COLS].rename(columns={c: safe_col(c) for c in BARRIER_COLS})
-        _readiness_renamed = df[READINESS_COLS].rename(columns={c: safe_col(c) for c in READINESS_COLS})
-        _maturity_renamed = df[MATURITY_COLS].rename(columns={c: safe_col(c) for c in MATURITY_COLS})
+    print(f"\n{'='*70}")
+    print(f"  EXTENDED PSYCHOMETRIC VALIDATION (DWLS, bifactor, 2nd-order, normality, CV, IRT)")
+    print(f"{'='*70}")
+    _barrier_cols_safe = [safe_col(c) for c in BARRIER_COLS]
+    _barrier_renamed = df[BARRIER_COLS].rename(columns={c: safe_col(c) for c in BARRIER_COLS})
+    _readiness_renamed = df[READINESS_COLS].rename(columns={c: safe_col(c) for c in READINESS_COLS})
+    _maturity_renamed = df[MATURITY_COLS].rename(columns={c: safe_col(c) for c in MATURITY_COLS})
 
-        # DWLS ordinal CFA on each construct + 3F barriers
-        cfa_dwls['Barriers_1F'] = run_cfa_dwls(_barrier_renamed, cfa_models['barriers_1f'], 'Barriers_1F')
-        cfa_dwls['Barriers_2F'] = run_cfa_dwls(_barrier_renamed, cfa_models['barriers_2f'], 'Barriers_2F')
-        cfa_dwls['Barriers_3F'] = run_cfa_dwls(_barrier_renamed, cfa_models['barriers_3f'], 'Barriers_3F')
-        cfa_dwls['Barriers_4F'] = run_cfa_dwls(_barrier_renamed, cfa_models['barriers_4f'], 'Barriers_4F')
-        cfa_dwls['Readiness_1F'] = run_cfa_dwls(_readiness_renamed, cfa_models['readiness_1f'], 'Readiness_1F')
-        cfa_dwls['Maturity_1F'] = run_cfa_dwls(_maturity_renamed, cfa_models['maturity_1f'], 'Maturity_1F')
-        print(f"  DWLS Barriers 3F: CFI={cfa_dwls['Barriers_3F'].get('cfi')}, RMSEA={cfa_dwls['Barriers_3F'].get('rmsea')}")
-        print(f"  DWLS Readiness 1F: CFI={cfa_dwls['Readiness_1F'].get('cfi')}, RMSEA={cfa_dwls['Readiness_1F'].get('rmsea')}")
-        print(f"  DWLS Maturity 1F: CFI={cfa_dwls['Maturity_1F'].get('cfi')}, RMSEA={cfa_dwls['Maturity_1F'].get('rmsea')}")
+    # DWLS ordinal CFA on each construct + 3F barriers
+    cfa_dwls['Barriers_1F'] = run_cfa_dwls(_barrier_renamed, cfa_models['barriers_1f'], 'Barriers_1F')
+    cfa_dwls['Barriers_2F'] = run_cfa_dwls(_barrier_renamed, cfa_models['barriers_2f'], 'Barriers_2F')
+    cfa_dwls['Barriers_3F'] = run_cfa_dwls(_barrier_renamed, cfa_models['barriers_3f'], 'Barriers_3F')
+    cfa_dwls['Barriers_4F'] = run_cfa_dwls(_barrier_renamed, cfa_models['barriers_4f'], 'Barriers_4F')
+    cfa_dwls['Readiness_1F'] = run_cfa_dwls(_readiness_renamed, cfa_models['readiness_1f'], 'Readiness_1F')
+    cfa_dwls['Maturity_1F'] = run_cfa_dwls(_maturity_renamed, cfa_models['maturity_1f'], 'Maturity_1F')
+    print(f"  DWLS Barriers 3F: CFI={cfa_dwls['Barriers_3F'].get('cfi')}, RMSEA={cfa_dwls['Barriers_3F'].get('rmsea')}")
+    print(f"  DWLS Readiness 1F: CFI={cfa_dwls['Readiness_1F'].get('cfi')}, RMSEA={cfa_dwls['Readiness_1F'].get('rmsea')}")
+    print(f"  DWLS Maturity 1F: CFI={cfa_dwls['Maturity_1F'].get('cfi')}, RMSEA={cfa_dwls['Maturity_1F'].get('rmsea')}")
 
-        # Bifactor R+M
-        bifactor_results = bifactor_rm(df, [safe_col(c) for c in READINESS_COLS], [safe_col(c) for c in MATURITY_COLS])
-        if 'error' not in bifactor_results:
-            print(f"  Bifactor R+M: ECV={bifactor_results.get('ecv_general')}, "
-                  f"omega_h={bifactor_results.get('omega_h_general')}")
+    # Bifactor R+M
+    bifactor_results = bifactor_rm(df, [safe_col(c) for c in READINESS_COLS], [safe_col(c) for c in MATURITY_COLS])
+    if 'error' not in bifactor_results:
+        print(f"  Bifactor R+M: ECV={bifactor_results.get('ecv_general')}, "
+              f"omega_h={bifactor_results.get('omega_h_general')}")
 
-        # Second-order Barriers CFA
-        secondorder_results = second_order_barriers_cfa(_barrier_renamed, _barrier_cols_safe, BARRIER_3GROUP)
-        if 'error' not in secondorder_results:
-            print(f"  Second-order Barriers: CFI={secondorder_results.get('cfi')}, "
-                  f"RMSEA={secondorder_results.get('rmsea')}")
+    # Second-order Barriers CFA
+    secondorder_results = second_order_barriers_cfa(_barrier_renamed, _barrier_cols_safe, BARRIER_3GROUP)
+    if 'error' not in secondorder_results:
+        print(f"  Second-order Barriers: CFI={secondorder_results.get('cfi')}, "
+              f"RMSEA={secondorder_results.get('rmsea')}")
 
-        # Mardia + Mahalanobis on each construct
-        for cname, sub in [('Barriers', _barrier_renamed),
-                            ('Readiness', _readiness_renamed),
-                            ('Maturity', _maturity_renamed)]:
-            mardia_results[cname] = mardia_multivariate_normality(sub)
-            mahalanobis_results[cname] = mahalanobis_outliers(sub)
-        if mardia_results.get('Barriers'):
-            print(f"  Mardia (Barriers): MV-normal? {mardia_results['Barriers'].get('multivariate_normal_005')}")
+    # Mardia + Mahalanobis on each construct
+    for cname, sub in [('Barriers', _barrier_renamed),
+                        ('Readiness', _readiness_renamed),
+                        ('Maturity', _maturity_renamed)]:
+        mardia_results[cname] = mardia_multivariate_normality(sub)
+        mahalanobis_results[cname] = mahalanobis_outliers(sub)
+    if mardia_results.get('Barriers'):
+        print(f"  Mardia (Barriers): MV-normal? {mardia_results['Barriers'].get('multivariate_normal_005')}")
 
-        # Cross-validation 50/50 split
-        cv_results = split_sample_cv(_barrier_renamed, _barrier_cols_safe, BARRIER_3GROUP)
+    # Cross-validation 50/50 split
+    cv_results = split_sample_cv(_barrier_renamed, _barrier_cols_safe, BARRIER_3GROUP)
 
-        # IRT graded response models per construct
-        barrier_short_ids = [f'B{i+1}' for i in range(len(BARRIER_NAMES))]
-        readiness_short_ids = [f'R{i+1}' for i in range(len(READINESS_NAMES))]
-        maturity_short_ids = [f'M{i+1}' for i in range(len(MATURITY_NAMES))]
-        irt_results['Barriers'] = irt_grm(_barrier_renamed, _barrier_cols_safe, barrier_short_ids, BARRIER_NAMES)
-        irt_results['Readiness'] = irt_grm(_readiness_renamed, [safe_col(c) for c in READINESS_COLS], readiness_short_ids, READINESS_NAMES)
-        irt_results['Maturity'] = irt_grm(_maturity_renamed, [safe_col(c) for c in MATURITY_COLS], maturity_short_ids, MATURITY_NAMES)
-        if 'error' not in irt_results['Barriers']:
-            print(f"  IRT Barriers: mean discrimination={irt_results['Barriers'].get('mean_discrimination')}, "
-                  f"ceiling-effect items={irt_results['Barriers'].get('ceiling_effect_count')}")
+    # IRT graded response models per construct
+    barrier_short_ids = [f'B{i+1}' for i in range(len(BARRIER_NAMES))]
+    readiness_short_ids = [f'R{i+1}' for i in range(len(READINESS_NAMES))]
+    maturity_short_ids = [f'M{i+1}' for i in range(len(MATURITY_NAMES))]
+    irt_results['Barriers'] = irt_grm(_barrier_renamed, _barrier_cols_safe, barrier_short_ids, BARRIER_NAMES)
+    irt_results['Readiness'] = irt_grm(_readiness_renamed, [safe_col(c) for c in READINESS_COLS], readiness_short_ids, READINESS_NAMES)
+    irt_results['Maturity'] = irt_grm(_maturity_renamed, [safe_col(c) for c in MATURITY_COLS], maturity_short_ids, MATURITY_NAMES)
+    if 'error' not in irt_results['Barriers']:
+        print(f"  IRT Barriers: mean discrimination={irt_results['Barriers'].get('mean_discrimination')}, "
+              f"ceiling-effect items={irt_results['Barriers'].get('ceiling_effect_count')}")
 
-        # Per-factor regressions (sub-factor decomposition vs full-scale aggregate)
-        per_factor_reg = per_factor_regressions(df, BARRIER_COLS, READINESS_COLS, MATURITY_COLS, BARRIER_3GROUP)
-        if 'Readiness_mean' in per_factor_reg and 'error' not in per_factor_reg.get('Readiness_mean', {}):
-            rr = per_factor_reg['Readiness_mean']
-            print(f"  Per-factor Reg (Readiness): R^2 total={rr['total_scale_model']['r2']} "
-                  f"-> sub-factor={rr['sub_factor_model']['r2']} (lift={rr['r2_lift_from_decomposition']})")
-        if 'tucker_congruence' in cv_results:
-            print(f"  CV split-half: Tucker congruence = {cv_results.get('tucker_congruence')}")
-        # Tier 1+2 extensions
-        if 'Q4_OrgSize' in df.columns:
-            df['_SMB'] = df['Q4_OrgSize'].isin(['<100','100-499','500-999']).astype(int)
-            df['_PROFIT'] = (df.get('Q5_ProfitModel') == 'For-Profit').astype(int) if 'Q5_ProfitModel' in df.columns else 0
-            mediation_results = mediation_b_r_m(df, BARRIER_COLS, READINESS_COLS, MATURITY_COLS)
-            std_reg = standardized_subfactor_regressions(df, BARRIER_COLS, READINESS_COLS, MATURITY_COLS, BARRIER_3GROUP)
-            bootstrap_alpha_results = {cname: bootstrap_alpha_ci(df[cols]) for cname, cols in [('Barriers', BARRIER_COLS), ('Readiness', READINESS_COLS), ('Maturity', MATURITY_COLS)]}
-            item_d_smb = {}
-            for cname, cols, names, ids in [('Barriers', BARRIER_COLS, BARRIER_NAMES, [f'B{i+1}' for i in range(len(BARRIER_NAMES))]), ('Readiness', READINESS_COLS, READINESS_NAMES, [f'R{i+1}' for i in range(len(READINESS_NAMES))]), ('Maturity', MATURITY_COLS, MATURITY_NAMES, [f'M{i+1}' for i in range(len(MATURITY_NAMES))])]:
-                item_d_smb[cname] = item_level_cohens_d_smb(df, cols, names, ids, smb_col='_SMB')
-            reliability_demo = reliability_by_demo(df, BARRIER_COLS, READINESS_COLS, MATURITY_COLS, {'SMB': df['_SMB']==1, 'Enterprise': df['_SMB']==0, 'For_Profit': df['_PROFIT']==1, 'Non_Profit_or_Gov': df['_PROFIT']==0})
-            power_results = power_analysis(df, smb_col='_SMB')
-            tost_results = equivalence_test_smb_ent(df, {'Barriers': BARRIER_COLS, 'Readiness': READINESS_COLS, 'Maturity': MATURITY_COLS}, smb_col='_SMB')
-            bifactor_b_results = bifactor_barriers(_barrier_renamed, _barrier_cols_safe, BARRIER_3GROUP)
-            renamed_with_demo = _barrier_renamed.copy()
-            renamed_with_demo['_SMB'] = df['_SMB'].reindex(_barrier_renamed.index).values
-            multigroup_3f_results = multigroup_3f_sem(renamed_with_demo, _barrier_cols_safe, BARRIER_3GROUP, group_col='_SMB')
-            dif_results = {}
-            for cname, cols, names, ids in [('Barriers', BARRIER_COLS, BARRIER_NAMES, [f'B{i+1}' for i in range(len(BARRIER_NAMES))]), ('Readiness', READINESS_COLS, READINESS_NAMES, [f'R{i+1}' for i in range(len(READINESS_NAMES))]), ('Maturity', MATURITY_COLS, MATURITY_NAMES, [f'M{i+1}' for i in range(len(MATURITY_NAMES))])]:
-                dif_results[cname] = dif_irt(df, cols, names, ids, group_col='_SMB')
-            esem_results = esem_target_rotation(_barrier_renamed, _barrier_cols_safe, n_factors=3)
-            if 'error' not in mediation_results:
-                ind = (mediation_results.get('Indirect') or {}).get('coef')
-                print(f"  Mediation B->R->M: indirect={ind}")
-            if 'error' not in bifactor_b_results:
-                print(f"  Bifactor Barriers: ECV(G)={bifactor_b_results.get('ecv_general')}, omega_h(G)={bifactor_b_results.get('omega_h_general')}")
-        else:
-            mediation_results = std_reg = power_results = tost_results = multigroup_3f_results = dif_results = {'error': 'Q4_OrgSize not in df'}
-            bootstrap_alpha_results = item_d_smb = reliability_demo = {}
-            bifactor_b_results = bifactor_barriers(_barrier_renamed, _barrier_cols_safe, BARRIER_3GROUP)
-            esem_results = esem_target_rotation(_barrier_renamed, _barrier_cols_safe, n_factors=3)
+    # Per-factor regressions (sub-factor decomposition vs full-scale aggregate)
+    per_factor_reg = per_factor_regressions(df, BARRIER_COLS, READINESS_COLS, MATURITY_COLS, BARRIER_3GROUP)
+    if 'Readiness_mean' in per_factor_reg and 'error' not in per_factor_reg.get('Readiness_mean', {}):
+        rr = per_factor_reg['Readiness_mean']
+        print(f"  Per-factor Reg (Readiness): R^2 total={rr['total_scale_model']['r2']} "
+              f"-> sub-factor={rr['sub_factor_model']['r2']} (lift={rr['r2_lift_from_decomposition']})")
+    if 'tucker_congruence' in cv_results:
+        print(f"  CV split-half: Tucker congruence = {cv_results.get('tucker_congruence')}")
+    # Tier 1+2 extensions
+    if 'Q4_OrgSize' in df.columns:
+        df['_SMB'] = df['Q4_OrgSize'].isin(['<100','100-499','500-999']).astype(int)
+        df['_PROFIT'] = (df.get('Q5_ProfitModel') == 'For-Profit').astype(int) if 'Q5_ProfitModel' in df.columns else 0
+        mediation_results = mediation_b_r_m(df, BARRIER_COLS, READINESS_COLS, MATURITY_COLS)
+        std_reg = standardized_subfactor_regressions(df, BARRIER_COLS, READINESS_COLS, MATURITY_COLS, BARRIER_3GROUP)
+        bootstrap_alpha_results = {cname: bootstrap_alpha_ci(df[cols]) for cname, cols in [('Barriers', BARRIER_COLS), ('Readiness', READINESS_COLS), ('Maturity', MATURITY_COLS)]}
+        item_d_smb = {}
+        for cname, cols, names, ids in [('Barriers', BARRIER_COLS, BARRIER_NAMES, [f'B{i+1}' for i in range(len(BARRIER_NAMES))]), ('Readiness', READINESS_COLS, READINESS_NAMES, [f'R{i+1}' for i in range(len(READINESS_NAMES))]), ('Maturity', MATURITY_COLS, MATURITY_NAMES, [f'M{i+1}' for i in range(len(MATURITY_NAMES))])]:
+            item_d_smb[cname] = item_level_cohens_d_smb(df, cols, names, ids, smb_col='_SMB')
+        reliability_demo = reliability_by_demo(df, BARRIER_COLS, READINESS_COLS, MATURITY_COLS, {'SMB': df['_SMB']==1, 'Enterprise': df['_SMB']==0, 'For_Profit': df['_PROFIT']==1, 'Non_Profit_or_Gov': df['_PROFIT']==0})
+        power_results = power_analysis(df, smb_col='_SMB')
+        tost_results = equivalence_test_smb_ent(df, {'Barriers': BARRIER_COLS, 'Readiness': READINESS_COLS, 'Maturity': MATURITY_COLS}, smb_col='_SMB')
+        bifactor_b_results = bifactor_barriers(_barrier_renamed, _barrier_cols_safe, BARRIER_3GROUP)
+        renamed_with_demo = _barrier_renamed.copy()
+        renamed_with_demo['_SMB'] = df['_SMB'].reindex(_barrier_renamed.index).values
+        multigroup_3f_results = multigroup_3f_sem(renamed_with_demo, _barrier_cols_safe, BARRIER_3GROUP, group_col='_SMB')
+        dif_results = {}
+        for cname, cols, names, ids in [('Barriers', BARRIER_COLS, BARRIER_NAMES, [f'B{i+1}' for i in range(len(BARRIER_NAMES))]), ('Readiness', READINESS_COLS, READINESS_NAMES, [f'R{i+1}' for i in range(len(READINESS_NAMES))]), ('Maturity', MATURITY_COLS, MATURITY_NAMES, [f'M{i+1}' for i in range(len(MATURITY_NAMES))])]:
+            dif_results[cname] = dif_irt(df, cols, names, ids, group_col='_SMB')
+        esem_results = esem_target_rotation(_barrier_renamed, _barrier_cols_safe, n_factors=3)
+        if 'error' not in mediation_results:
+            ind = (mediation_results.get('Indirect') or {}).get('coef')
+            print(f"  Mediation B->R->M: indirect={ind}")
+        if 'error' not in bifactor_b_results:
+            print(f"  Bifactor Barriers: ECV(G)={bifactor_b_results.get('ecv_general')}, omega_h(G)={bifactor_b_results.get('omega_h_general')}")
+    else:
+        mediation_results = std_reg = power_results = tost_results = multigroup_3f_results = dif_results = {'error': 'Q4_OrgSize not in df'}
+        bootstrap_alpha_results = item_d_smb = reliability_demo = {}
+        bifactor_b_results = bifactor_barriers(_barrier_renamed, _barrier_cols_safe, BARRIER_3GROUP)
+        esem_results = esem_target_rotation(_barrier_renamed, _barrier_cols_safe, n_factors=3)
 
 
     # -- Per-subgroup standalone validation (does each barrier subgroup hold as its own scale?) --
@@ -2405,26 +2403,25 @@ def main():
         if subgroup_standalone is not None:
             output['subgroup_standalone_validation'] = subgroup_standalone
         output['alpha_if_deleted_summary'] = aid_summary
-        if use_linderman:
-            output['cfa_dwls_estimator'] = cfa_dwls
-            output['bifactor_rm'] = bifactor_results
-            output['second_order_barriers_cfa'] = secondorder_results
-            output['mardia_normality'] = mardia_results
-            output['mahalanobis_outliers'] = mahalanobis_results
-            output['barriers_3f_cross_validation'] = cv_results
-            output['irt_grm'] = irt_results
-            output['per_factor_regressions'] = per_factor_reg
-            output['mediation_b_r_m'] = mediation_results
-            output['standardized_subfactor_regressions'] = std_reg
-            output['bootstrap_alpha_ci'] = bootstrap_alpha_results
-            output['item_level_cohens_d_smb'] = item_d_smb
-            output['reliability_by_demo'] = reliability_demo
-            output['power_analysis'] = power_results
-            output['equivalence_test_tost_smb_ent'] = tost_results
-            output['bifactor_barriers'] = bifactor_b_results
-            output['multigroup_3f_smb_vs_ent'] = multigroup_3f_results
-            output['dif_irt_smb_vs_ent'] = dif_results
-            output['esem_3factor'] = esem_results
+        output['cfa_dwls_estimator'] = cfa_dwls
+        output['bifactor_rm'] = bifactor_results
+        output['second_order_barriers_cfa'] = secondorder_results
+        output['mardia_normality'] = mardia_results
+        output['mahalanobis_outliers'] = mahalanobis_results
+        output['barriers_3f_cross_validation'] = cv_results
+        output['irt_grm'] = irt_results
+        output['per_factor_regressions'] = per_factor_reg
+        output['mediation_b_r_m'] = mediation_results
+        output['standardized_subfactor_regressions'] = std_reg
+        output['bootstrap_alpha_ci'] = bootstrap_alpha_results
+        output['item_level_cohens_d_smb'] = item_d_smb
+        output['reliability_by_demo'] = reliability_demo
+        output['power_analysis'] = power_results
+        output['equivalence_test_tost_smb_ent'] = tost_results
+        output['bifactor_barriers'] = bifactor_b_results
+        output['multigroup_3f_smb_vs_ent'] = multigroup_3f_results
+        output['dif_irt_smb_vs_ent'] = dif_results
+        output['esem_3factor'] = esem_results
         output['discriminant_validity'] = discrim
 
         # Convert any numpy types for JSON serialization
