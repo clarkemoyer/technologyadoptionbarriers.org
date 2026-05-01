@@ -2833,24 +2833,30 @@ def item_level_validity(efa_loadings, item_names, item_ids,
     for i, col in enumerate(cols):
         loads = [abs(float(x)) for x in efa_loadings[col]]
         primary = max(loads) if loads else 0.0
-        secondary = sorted(loads, reverse=True)[1] if len(loads) > 1 else 0.0
-        diff = primary - secondary
         if primary >= primary_pass:
             cv = 'PASS'
         elif primary >= primary_acceptable:
             cv = 'WEAK'
         else:
             cv = 'FAIL'
-        if secondary < cross_load_threshold or diff >= gap_threshold:
-            dv = 'PASS'
+        if len(loads) >= 2:
+            secondary = sorted(loads, reverse=True)[1]
+            diff = primary - secondary
+            if secondary < cross_load_threshold or diff >= gap_threshold:
+                dv = 'PASS'
+            else:
+                dv = 'FAIL'
         else:
-            dv = 'FAIL'
+            # 1-factor EFA: no secondary loading to assess; mark as not evaluated
+            secondary = None
+            diff = None
+            dv = None
         out.append({
             'id': item_ids[i] if i < len(item_ids) else col,
             'name': item_names[i] if i < len(item_names) else col,
             'primary': round(primary, 4),
-            'secondary': round(secondary, 4),
-            'gap': round(diff, 4),
+            'secondary': round(secondary, 4) if secondary is not None else None,
+            'gap': round(diff, 4) if diff is not None else None,
             'convergent': cv,
             'discriminant': dv,
             'loadings': [round(float(x), 4) for x in efa_loadings[col]],
@@ -2858,8 +2864,12 @@ def item_level_validity(efa_loadings, item_names, item_ids,
     return out
 
 
-def subgroup_discriminant(df, group_def, all_cols, group_aves):
-    """HTMT bootstrap CI + Fornell-Larcker treating group_def keys as constructs."""
+def subgroup_discriminant(df, group_def, all_cols, group_aves, n_boot=2000):
+    """HTMT bootstrap CI + Fornell-Larcker treating group_def keys as constructs.
+
+    n_boot controls HTMT bootstrap iterations; callers may pass a smaller value
+    (e.g. 500) for non-primary samples to keep daily pipeline runtime bounded.
+    """
     sub_data = {label: df[[all_cols[i] for i in idxs]]
                 for label, idxs in group_def.items()}
     labels = list(group_def.keys())
@@ -2873,7 +2883,7 @@ def subgroup_discriminant(df, group_def, all_cols, group_aves):
             if i >= j:
                 continue
             d1, d2 = sub_data[n1], sub_data[n2]
-            h, (lo, hi) = htmt_bootstrap_ci(d1, d2, n_boot=2000)
+            h, (lo, hi) = htmt_bootstrap_ci(d1, d2, n_boot=n_boot)
             htmt_results.append({
                 'pair': f'{n1} vs {n2}',
                 'htmt': round(float(h), 4) if h == h else None,
@@ -3428,7 +3438,8 @@ def run_validation(df, skip=False, crp200=False, primary_sample=True):
         subgroup_aves[grp_label] = ave_from_loadings(lams) if lams else None
 
     subgroup_validity = subgroup_discriminant(
-        safe_barrier_data, BARRIER_3GROUP, barrier_cols_list, subgroup_aves
+        safe_barrier_data, BARRIER_3GROUP, barrier_cols_list, subgroup_aves,
+        n_boot=2000 if primary_sample else 500,
     )
     for r in subgroup_validity['htmt']:
         verdict = 'PASS' if r['pass_085'] else 'FAIL'
