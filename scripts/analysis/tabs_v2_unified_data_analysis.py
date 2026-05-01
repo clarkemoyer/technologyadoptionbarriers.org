@@ -2940,6 +2940,93 @@ def alpha_if_deleted_summary(construct_results):
 
 
 
+# ============================================================================
+# 17. PER-SUBGROUP STANDALONE VALIDATION (added 2026-05-01)
+# Tests whether each barrier subgroup is internally coherent as a unidimensional
+# scale on its own - independent of the rest of the Barriers items and
+# independent of Readiness or Maturity.
+# ============================================================================
+
+def subgroup_standalone_validation(df, group_def, all_cols, item_names_full):
+    """For each subgroup, run alpha + KMO/Bartlett + parallel analysis + 1F EFA + 1F CFA."""
+    results = []
+    for label, idxs in group_def.items():
+        cols = [all_cols[i] for i in idxs]
+        item_ids = [f"B{i+1}" for i in idxs]
+        data = df[cols].dropna()
+        n, k = data.shape
+        out = {
+            'name': label,
+            'item_ids': list(item_ids),
+            'k': int(k),
+            'n_listwise': int(n),
+        }
+        # Cronbach alpha (use cronbach_alpha_pd helper that exists in this script)
+        a = cronbach_alpha_pd(data) if 'cronbach_alpha_pd' in globals() else cronbach_alpha(data)
+        out['alpha'] = round(float(a), 4) if not np.isnan(a) else None
+        if k < 3:
+            out['note'] = f"Only {k} items; CFA under-identified, EFA requires >=3 items."
+            out['verdict'] = {'overall_pass': False, 'reason': 'too_few_items'}
+            results.append(out)
+            continue
+        if HAS_FACTOR_ANALYZER:
+            try:
+                _, kmo = calculate_kmo(data)
+                out['kmo'] = round(float(kmo), 4)
+                chi2_v, p = calculate_bartlett_sphericity(data)
+                out['bartlett_chi2'] = round(float(chi2_v), 2)
+                out['bartlett_p'] = float(p)
+            except Exception as e:
+                out['kmo_error'] = str(e)
+        try:
+            n_factors_pa = parallel_analysis(data, max_factors=min(4, k))
+            out['parallel_analysis_factors'] = int(n_factors_pa)
+        except Exception:
+            out['parallel_analysis_factors'] = None
+            n_factors_pa = None
+        if HAS_FACTOR_ANALYZER:
+            try:
+                fa = FactorAnalyzer(n_factors=1, rotation=None, method='ml')
+                fa.fit(data)
+            except Exception:
+                fa = FactorAnalyzer(n_factors=1, rotation=None, method='minres')
+                fa.fit(data)
+            loads_1f = fa.loadings_.flatten().tolist()
+            out['loadings_1f'] = {item_ids[i]: round(float(loads_1f[i]), 4) for i in range(k)}
+            try:
+                var_explained = float(fa.get_factor_variance()[1][0])
+                out['variance_explained_1f'] = round(var_explained, 4)
+            except Exception:
+                out['variance_explained_1f'] = None
+            cr = composite_reliability(loads_1f)
+            ave = ave_from_loadings(loads_1f)
+            out['cr_1f'] = round(float(cr), 4) if not np.isnan(cr) else None
+            out['ave_1f'] = round(float(ave), 4) if not np.isnan(ave) else None
+        spec = "F =~ " + " + ".join(cols)
+        cfa_result = run_cfa(data, spec, label)
+        if 'error' in cfa_result:
+            out['cfa_1f'] = {'error': cfa_result['error']}
+        else:
+            out['cfa_1f'] = {kk: cfa_result.get(kk) for kk in
+                             ('chi2', 'df', 'chi2_p', 'cfi', 'tli', 'rmsea', 'aic', 'bic')}
+        cfi_v = (out.get('cfa_1f') or {}).get('cfi')
+        rmsea_v = (out.get('cfa_1f') or {}).get('rmsea')
+        out['verdict'] = {
+            'parallel_analysis_unidimensional': bool(n_factors_pa == 1) if n_factors_pa is not None else None,
+            'alpha_above_070': bool(a >= 0.70) if a == a else None,
+            'cfi_above_090': bool(cfi_v >= 0.90) if cfi_v is not None else None,
+            'rmsea_below_008': bool(rmsea_v <= 0.08) if rmsea_v is not None else None,
+        }
+        ov = (out['verdict']['parallel_analysis_unidimensional'] is True
+              and out['verdict']['alpha_above_070'] is True
+              and out['verdict']['cfi_above_090'] is True
+              and out['verdict']['rmsea_below_008'] is True)
+        out['verdict']['overall_pass'] = bool(ov)
+        results.append(out)
+    return results
+
+
+
 def run_validation(df, skip=False, crp200=False):
     """Run full validation pipeline. Returns dict matching crp-validation.json schema."""
     if skip:
@@ -3060,6 +3147,41 @@ def run_validation(df, skip=False, crp200=False):
     for r in subgroup_validity['htmt']:
         verdict = 'PASS' if r['pass_085'] else 'FAIL'
         print(f"  HTMT {r['pair']}: {r['htmt']} [{r['ci_lower']}, {r['ci_upper']}] {verdict}")
+
+    # ── Per-subgroup standalone validation ──
+    print(f"\n{'='*70}")
+    print(f"  PER-SUBGROUP STANDALONE VALIDATION (canonical 3-group F1a/F1b/F2)")
+    print(f"{'='*70}")
+    barrier_cols_safe = [safe_col(c) for c in BARRIER_COLS]
+    barrier_renamed = df[BARRIER_COLS].rename(columns={c: safe_col(c) for c in BARRIER_COLS})
+    standalone_3group = subgroup_standalone_validation(
+        barrier_renamed, BARRIER_3GROUP, barrier_cols_safe, BARRIER_NAMES
+    )
+    for r in standalone_3group:
+        cfa = r.get('cfa_1f', {}) or {}
+        v = r.get('verdict', {}) or {}
+        print(f"  {r['name']:<20} k={r['k']} N={r['n_listwise']} alpha={r.get('alpha')} "
+              f"PA={r.get('parallel_analysis_factors')} CFI={cfa.get('cfi')} RMSEA={cfa.get('rmsea')} "
+              f"PASS={v.get('overall_pass')}")
+
+    print(f"\n{'='*70}")
+    print(f"  PER-SUBGROUP STANDALONE VALIDATION (legacy 4-group BARRIER_SUBCONSTRUCTS)")
+    print(f"{'='*70}")
+    legacy_4group = {label: idxs for label, idxs in BARRIER_SUBCONSTRUCTS.items()}
+    standalone_4group = subgroup_standalone_validation(
+        barrier_renamed, legacy_4group, barrier_cols_safe, BARRIER_NAMES
+    )
+    for r in standalone_4group:
+        cfa = r.get('cfa_1f', {}) or {}
+        v = r.get('verdict', {}) or {}
+        print(f"  {r['name']:<35} k={r['k']} N={r['n_listwise']} alpha={r.get('alpha')} "
+              f"PA={r.get('parallel_analysis_factors')} CFI={cfa.get('cfi')} RMSEA={cfa.get('rmsea')} "
+              f"PASS={v.get('overall_pass')}")
+
+    subgroup_standalone = {
+        '3group_canonical': standalone_3group,
+        '4group_theoretical': standalone_4group,
+    }
 
     # ── Alpha-if-deleted summary ──
     print(f"\n{'='*70}")
@@ -3231,6 +3353,8 @@ def run_validation(df, skip=False, crp200=False):
     # HTMT + Fornell-Larcker treating F1a/F1b/F2 as 3 constructs
     output['subgroup_discriminant_validity'] = subgroup_validity
     # Alpha-if-deleted summary across all three constructs
+    # Per-subgroup standalone validation (added 2026-05-01)
+    output['subgroup_standalone_validation'] = subgroup_standalone
     output['alpha_if_deleted_summary'] = aid_summary
 
     # Factor analysis summary (for EFA factors)
