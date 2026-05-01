@@ -3911,7 +3911,11 @@ def run_validation(df, skip=False, crp200=False, primary_sample=True):
     subgroup_aves = {}
     # Prefer 3F CFA standardized loadings (each item loads on its own factor F1a/F1b/F2).
     # Fall back to 2F EFA loadings only when the 3F CFA was unavailable (semopy missing or failed).
-    cfa_3f_loads = barrier_3f_cfa.get('standardized_loadings', {}) if 'error' not in barrier_3f_cfa else {}
+    cfa_3f_loads = (
+        barrier_3f_cfa.get('standardized_loadings', {})
+        if barrier_3f_cfa and 'error' not in barrier_3f_cfa and 'standardized_loadings' in barrier_3f_cfa
+        else {}
+    )
     if cfa_3f_loads:
         for grp_label, idxs in BARRIER_3GROUP.items():
             lams = []
@@ -3944,7 +3948,7 @@ def run_validation(df, skip=False, crp200=False, primary_sample=True):
     # Runs for primary sample only; non-primary samples receive {"skipped": True, "reason": ...}
     # sentinels so the output schema is identical across all sample tiers. Downstream consumers
     # (UI components, downstream pipelines) MUST check for the skipped sentinel before rendering
-    # these values (e.g., `if (block?.skipped) return null`).
+    # these values (Python: `if results.get('skipped'): return None`).
     # The gating keeps per-sample pipeline runtime under ~30 s while still emitting all 28 keys.
     cfa_dwls = {}; bifactor_results = {}; secondorder_results = {}
     mardia_results = {}; mahalanobis_results = {}; cv_results = {}
