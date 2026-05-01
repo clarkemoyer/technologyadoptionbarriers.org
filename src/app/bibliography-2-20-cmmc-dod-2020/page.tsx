@@ -60,8 +60,9 @@ const BibliographyArticlePage = () => {
               Secretary of Defense for Acquisition &amp; Sustainment
             </p>
             <p>
-              <strong>Formal Publication Date:</strong> January 2020 (CMMC 1.0); November 2021 (CMMC
-              2.0); October 2024 (Final Rule)
+              <strong>Formal Publication Date:</strong> September 2020 (48 CFR CMMC interim final
+              rule, effective 30 November 2020); November 2021 (announcement of revised CMMC
+              Program, CMMC 2.0); October 15, 2024 (32 CFR Part 170 final rule)
             </p>
             <p>
               <strong>Current Version:</strong> CMMC 2.0 (32 CFR Part 170, effective December 16,
@@ -177,14 +178,14 @@ const BibliographyArticlePage = () => {
               (Level 2), and Expert (Level 3).
             </li>
             <li>
-              <strong>Practices:</strong> Specific cybersecurity activities that contractors must
-              implement at each maturity level, drawn primarily from NIST SP 800-171 and NIST SP
-              800-172.
+              <strong>Security Requirements:</strong> Specific cybersecurity requirements that
+              contractors must implement at each CMMC level, drawn from FAR clause 52.204-21 (Level
+              1), NIST SP 800-171 Rev 2 (Level 2), and a subset of NIST SP 800-172 (Level 3).
             </li>
             <li>
               <strong>Assessment:</strong> The verification mechanism ranging from annual
-              self-assessment (Level 1) to third-party C3PAO assessment (Level 2) to government-led
-              assessment (Level 3).
+              self-assessment (Level 1) to either self-assessment or third-party C3PAO assessment
+              (Level 2, depending on the contract) to government-led DIBCAC assessment (Level 3).
             </li>
             <li>
               <strong>CMMC Third-Party Assessment Organization (C3PAO):</strong> Accredited
@@ -197,8 +198,10 @@ const BibliographyArticlePage = () => {
               POA&amp;Ms for Level 2 assessments with specific constraints.
             </li>
             <li>
-              <strong>Defense Industrial Base (DIB):</strong> The network of over 300,000 companies
-              and subcontractors that provide products and services to the Department of Defense.
+              <strong>Defense Industrial Base (DIB):</strong> The network of over 220,000 companies
+              that process, store, or transmit Controlled Unclassified Information or Federal
+              Contract Information in support of DoD systems, networks, installations, capabilities,
+              and services.
             </li>
           </ul>
         </section>
@@ -264,26 +267,32 @@ const BibliographyArticlePage = () => {
           </p>
           <ul className={BODY_LIST_CLASSES}>
             <li>
-              <strong>Level 1 - Foundational:</strong> Requires implementation of 17 practices
-              derived from FAR 52.204-21, addressing basic safeguarding of Federal Contract
-              Information. Assessment is conducted through annual self-assessment with affirmation
-              by a senior company official. Level 1 represents the minimum cybersecurity hygiene
-              expected of all DoD contractors.
+              <strong>Level 1 - Foundational:</strong> Requires implementation of the 15 basic
+              safeguarding requirements set forth in FAR clause 52.204-21(b)(1)(i) through
+              (b)(1)(xv), addressing basic safeguarding of Federal Contract Information. Assessment
+              is conducted through annual self-assessment by the Organization Seeking Assessment
+              (OSA) with results entered into the Supplier Performance Risk System (SPRS) and annual
+              affirmation by a senior company official. Level 1 represents the minimum cybersecurity
+              hygiene expected of contractors handling FCI.
             </li>
             <li>
-              <strong>Level 2 - Advanced:</strong> Requires implementation of 110 practices aligned
-              with NIST SP 800-171 Rev 2, providing comprehensive protection for Controlled
-              Unclassified Information. Assessment requires triennial third-party evaluation by an
-              accredited C3PAO, with some contracts permitting self-assessment based on information
-              sensitivity. Level 2 represents the standard expected for contractors handling CUI.
+              <strong>Level 2 - Advanced:</strong> Requires implementation of the 110 security
+              requirements in NIST SP 800-171 Rev 2, providing comprehensive protection for
+              Controlled Unclassified Information. CMMC 2.0 provides two Level 2 assessment
+              pathways: Level 2 (Self), conducted every three years by the OSA with results entered
+              into SPRS, and Level 2 (C3PAO), conducted every three years by an accredited CMMC
+              Third-Party Assessment Organization with results entered into eMASS. The assessment
+              pathway is determined by the contract and by the sensitivity of the CUI involved.
+              Level 2 represents the standard expected for contractors handling CUI.
             </li>
             <li>
-              <strong>Level 3 - Expert:</strong> Requires implementation of 110+ practices
-              incorporating selected requirements from NIST SP 800-172 in addition to all Level 2
-              controls. Assessment is conducted by the Defense Contract Management Agency (DCMA)
-              Defense Industrial Base Cybersecurity Assessment Center (DIBCAC). Level 3 is reserved
-              for contractors handling the most sensitive CUI requiring protection against advanced
-              persistent threats.
+              <strong>Level 3 - Expert:</strong> Requires implementation of all 110 Level 2
+              requirements plus 24 additional security requirements selected from NIST SP 800-172
+              (February 2021) with DoD-approved parameters. Assessment is conducted by the Defense
+              Contract Management Agency (DCMA) Defense Industrial Base Cybersecurity Assessment
+              Center (DIBCAC) and requires a prerequisite CMMC Status of Final Level 2 (C3PAO) for
+              the same CMMC Assessment Scope. Level 3 is reserved for contractors handling the most
+              sensitive CUI requiring protection against advanced persistent threats.
             </li>
           </ul>
 

@@ -222,7 +222,60 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 6. Preceding Models or Theories */}
+        {/* 6. What Does the Model Measure? */}
+        <section className={SECTION_CLASSES}>
+          <h2 className={H2_CLASSES}>What Does the Model Measure?</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            Ram &amp; Sheth&rsquo;s Innovation Resistance is a barrier-oriented framework rather
+            than a single-scale measurement model. It identifies distinct barrier categories that
+            empirical studies operationalize through multi-item perception scales:
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Functional Barriers (three types):</strong>
+              <ul className={BODY_LIST_CLASSES}>
+                <li>
+                  <strong>Usage Barrier:</strong> Inconsistency of the innovation with existing
+                  workflows, habits, and practices.
+                </li>
+                <li>
+                  <strong>Value Barrier:</strong> Insufficient performance or price-to-value
+                  relative to available alternatives.
+                </li>
+                <li>
+                  <strong>Risk Barrier:</strong> Perceived physical, economic, functional, or social
+                  risks of adoption (commonly measured as uncertainty/risk perception scales).
+                </li>
+              </ul>
+            </li>
+            <li>
+              <strong>Psychological Barriers (two types):</strong>
+              <ul className={BODY_LIST_CLASSES}>
+                <li>
+                  <strong>Tradition Barrier:</strong> Conflict between the innovation and
+                  consumer&rsquo;s established cultural norms, traditions, or value systems.
+                </li>
+                <li>
+                  <strong>Image Barrier:</strong> Unfavorable stereotypes or associations tied to
+                  the innovation, its origin country, or its user category.
+                </li>
+              </ul>
+            </li>
+            <li>
+              <strong>Resistance Outcome:</strong> Rejection, postponement, or opposition to
+              adoption - typically measured via behavioral intention and actual non-adoption or
+              delayed adoption.
+            </li>
+          </ul>
+          <p className={PARAGRAPH_CLASSES}>
+            Ram &amp; Sheth (1989) provide the conceptual taxonomy; subsequent empirical studies
+            (including the widely cited Laukkanen line of work on mobile and internet banking
+            resistance) have operationalized each barrier through multi-item Likert scales and
+            reported reliability and validity evidence.
+          </p>
+        </section>
+
+        {/* 7. Preceding Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Preceding Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -271,7 +324,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 7. Describe The Model */}
+        {/* 8. Describe The Model */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Describe The Model</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -397,7 +450,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 8. Key Contributions */}
+        {/* 9. Key Contributions */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Key Contributions</h2>
           <ul className={BODY_LIST_CLASSES}>
@@ -441,7 +494,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 9. Internal Validity */}
+        {/* 10. Internal Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Internal Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -492,7 +545,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 10. External Validity */}
+        {/* 11. External Validity */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>External Validity</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -538,7 +591,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 11. Relevance to Technology Adoption */}
+        {/* 12. Relevance to Technology Adoption */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Relevance to Technology Adoption</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -612,7 +665,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 12. Following Models or Theories */}
+        {/* 13. Following Models or Theories */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Following Models or Theories</h2>
           <p className={PARAGRAPH_CLASSES}>
@@ -670,7 +723,7 @@ const BibliographyArticlePage = () => {
           </ul>
         </section>
 
-        {/* 13. References */}
+        {/* 14. References */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>References</h2>
           <ol className={REFERENCES_OL_CLASSES}>
@@ -706,8 +759,11 @@ const BibliographyArticlePage = () => {
           </ol>
         </section>
 
+        {/* 15. Further Reading */}
         <section className={SECTION_CLASSES}>
-          <h2 className={H2_CLASSES}>Further Reading</h2>
+          <h2 className={H2_CLASSES} id="further-reading">
+            Further Reading
+          </h2>
           <ol className={REFERENCES_OL_CLASSES}>
             <li id="ref-ajzen-1980">
               Ajzen, I., &amp; Fishbein, M. (1980).{' '}
@@ -735,7 +791,7 @@ const BibliographyArticlePage = () => {
           </ol>
         </section>
 
-        {/* 14. Series Navigation */}
+        {/* 16. Series Navigation */}
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Series Navigation</h2>
           <p className={PARAGRAPH_CLASSES}>

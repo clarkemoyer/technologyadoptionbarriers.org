@@ -1,0 +1,130 @@
+# ╔══════════════════════════════════════════════════════════════════════╗
+# ║  DESTRUCTIVE WORKFLOW: Reject submissions by PID                     ║
+# ║                                                                      ║
+# ║  Uses reject_by_pid.py to reject selected submissions whose          ║
+# ║  dispositions are explicitly handled by that script (currently       ║
+# ║  AUTO-EXCLUDE and the modelled FLAG-* variants). Commonly used for   ║
+# ║  the "stale no response to return request" bucket produced by        ║
+# ║  find_stale_return_requested.py. Unsupported dispositions will       ║
+# ║  abort the run rather than inventing an unmodelled reason.           ║
+# ║                                                                      ║
+# ║  Rejection messages and Prolific rejection categories are chosen     ║
+# ║  per-PID from the disposition CSV for supported dispositions only,   ║
+# ║  so each participant gets a reason tied to their actual flag.        ║
+# ║                                                                      ║
+# ║  SAFETY REQUIREMENTS:                                                ║
+# ║    1. Manual trigger only (workflow_dispatch)                        ║
+# ║    2. Defaults to dry-run (safe preview)                             ║
+# ║    3. Live rejection requires typing "REJECT" in confirmation field  ║
+# ║    4. PID_LIST is required — no "reject all" shortcut                ║
+# ║    5. Unknown PIDs abort the run (no guessing reasons)               ║
+# ║    6. Full audit trail in workflow logs                              ║
+# ╚══════════════════════════════════════════════════════════════════════╝
+
+name: 'DESTRUCTIVE: Reject Submissions by PID'
+
+on:
+  workflow_dispatch:
+    inputs:
+      study_id:
+        description: 'Prolific Study ID (defaults to PROLIFIC_STUDY_ID)'
+        required: false
+        type: string
+      pid_list:
+        description: 'Comma-separated PIDs to reject (required)'
+        required: true
+        type: string
+      dry_run:
+        description: 'Dry run - preview rejections without executing'
+        required: true
+        type: boolean
+        default: true
+      confirm_reject:
+        description: 'Type REJECT to confirm live rejection (required when dry_run is false)'
+        required: false
+        type: string
+        default: ''
+
+concurrency:
+  group: 'prolific-reject-submissions'
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  triage:
+    name: Export & Triage
+    runs-on: ubuntu-latest
+    environment: qualtrics-prod
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Export Qualtrics responses
+        run: python3 scripts/analysis/export_qualtrics.py
+        env:
+          QUALTRICS_API_TOKEN: ${{ secrets.QUALTRICS_API_TOKEN }}
+          QUALTRICS_BASE_URL: ${{ vars.QUALTRICS_BASE_URL }}
+          QUALTRICS_SURVEY_ID: ${{ vars.QUALTRICS_SURVEY_ID }}
+          OUTPUT_PATH: ${{ runner.temp }}/qualtrics-export.csv
+
+      - name: Run disposition triage
+        run: python3 scripts/analysis/disposition_triage.py
+        env:
+          INPUT_PATH: ${{ runner.temp }}/qualtrics-export.csv
+          OUTPUT_PATH: ${{ runner.temp }}/disposition.csv
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: disposition-csv
+          path: ${{ runner.temp }}/disposition.csv
+          retention-days: 1
+
+  reject:
+    name: 'DESTRUCTIVE: Reject by PID'
+    needs: triage
+    runs-on: ubuntu-latest
+    environment: prolific-prod
+    steps:
+      - name: 'Safety check: validate confirmation'
+        if: inputs.dry_run == false
+        env:
+          CONFIRM: ${{ inputs.confirm_reject }}
+        run: |
+          echo "================================================================"
+          echo "  DESTRUCTIVE OPERATION: Prolific Submission Rejection"
+          echo "  This will REJECT the PIDs in the provided list."
+          echo "  They will NOT be paid."
+          echo "================================================================"
+          if [ "$CONFIRM" != "REJECT" ]; then
+            echo "SAFETY STOP: You must type REJECT in the confirmation field."
+            echo "Received: '$CONFIRM'"
+            exit 1
+          fi
+          echo "Confirmation accepted: '$CONFIRM'"
+
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - uses: actions/download-artifact@v8
+        with:
+          name: disposition-csv
+          path: ${{ runner.temp }}
+
+      - name: Reject by PID
+        env:
+          PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
+          STUDY_ID: ${{ inputs.study_id || vars.PROLIFIC_STUDY_ID }}
+          CSV_FILE_PATH: ${{ runner.temp }}/disposition.csv
+          PID_LIST: ${{ inputs.pid_list }}
+          DRY_RUN: ${{ inputs.dry_run }}
+          CONFIRM_REJECT: ${{ inputs.confirm_reject }}
+        run: python3 scripts/analysis/reject_by_pid.py

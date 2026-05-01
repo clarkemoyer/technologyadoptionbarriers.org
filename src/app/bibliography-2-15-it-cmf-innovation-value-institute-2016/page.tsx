@@ -263,8 +263,9 @@ const BibliographyArticlePage = () => {
             <li>
               <strong>Managing the IT Budget:</strong> Capabilities for financial management,
               investment justification, cost optimization, and IT spending alignment with business
-              value. Includes 4 critical capabilities for budget planning, cost management, and
-              investment governance.
+              value. Includes 4 critical capabilities: Budget Management, Budget Oversight and
+              Performance Analysis, Funding and Financing, and Portfolio Planning and
+              Prioritization.
             </li>
             <li>
               <strong>Managing the IT Capability:</strong> Capabilities for IT delivery excellence
@@ -276,7 +277,8 @@ const BibliographyArticlePage = () => {
               <strong>Managing IT for Business Value:</strong> Capabilities for ensuring IT
               investments create demonstrable business value through benefit realization,
               performance management, and continuous value creation. Includes 3 critical
-              capabilities for value measurement, benefit realization, and total cost of ownership.
+              capabilities: Benefits Assessment and Realization, Portfolio Management, and Total
+              Cost of Ownership.
             </li>
           </ul>
 

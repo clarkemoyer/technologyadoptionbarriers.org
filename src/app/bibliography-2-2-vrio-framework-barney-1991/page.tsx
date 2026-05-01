@@ -36,9 +36,11 @@ const BibliographyArticlePage = () => {
             <p>
               <strong>Framework Abbreviation:</strong> VRIN (1991) / VRIO (1995, 1997). The
               abbreviation &ldquo;VRIN&rdquo; itself does not appear in Barney (1991); the paper
-              labels the four attributes as &ldquo;value, rareness, imitability, and
-              substitutability&rdquo; (p.105). &ldquo;VRIO&rdquo; was coined in Barney (1995) when
-              Organization replaced Non-substitutability as the fourth criterion.
+              labels the four attributes as &ldquo;Value, Rareness, Imperfect Imitability, and
+              Substitutability&rdquo; (Figure 2 caption, p.112), introducing them on p.105-106 as
+              (a) valuable, (b) rare, (c) imperfectly imitable, and (d) lacking strategically
+              equivalent substitutes. &ldquo;VRIO&rdquo; was coined in Barney&rsquo;s later work
+              (1995, 1997) when Organization replaced Non-substitutability as the fourth criterion.
             </p>
             <p>
               <strong>Target of Framework:</strong> Identify which firm resources have the potential

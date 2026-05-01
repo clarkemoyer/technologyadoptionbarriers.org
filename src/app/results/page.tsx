@@ -141,9 +141,9 @@ const SECONDARY_CARDS = [
     desc: 'Real-time submission statuses, approval rates, and messaging activity from Prolific.',
   },
   {
-    title: 'Survey Statistics',
+    title: 'Response Funnel',
     href: '/results/survey-stats',
-    desc: 'Live response metrics pulled from the Qualtrics survey platform.',
+    desc: 'Every count the daily pipeline tracks - Qualtrics raw responses, Prolific submissions, and disposition triage - with the API source for each.',
   },
   {
     title: 'Dataset Comparison',

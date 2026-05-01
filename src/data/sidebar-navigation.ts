@@ -83,6 +83,7 @@ function makingOfTabsToGroups(items: MakingOfTabsItem[]): SidebarGroup[] {
   const dataAnalysis: SidebarLink[] = []
   const seo: SidebarLink[] = []
   const presentations: SidebarLink[] = []
+  const mindMaps: SidebarLink[] = []
 
   for (const item of items) {
     const link: SidebarLink = { title: item.title, href: item.href }
@@ -117,6 +118,13 @@ function makingOfTabsToGroups(items: MakingOfTabsItem[]): SidebarGroup[] {
           integrations.push({ title: child.title, href: child.href })
         }
       }
+    } else if (item.href.startsWith('/making-of-tabs/mind-maps')) {
+      mindMaps.push(link)
+      if (item.children) {
+        for (const child of item.children) {
+          mindMaps.push({ title: child.title, href: child.href })
+        }
+      }
     } else if (item.href.startsWith('/making-of-tabs/seo')) {
       seo.push(link)
     } else if (item.href.startsWith('/making-of-tabs/tabs-presentation')) {
@@ -129,6 +137,7 @@ function makingOfTabsToGroups(items: MakingOfTabsItem[]): SidebarGroup[] {
     { title: 'AI in TABS', links: aiInTabs },
     { title: 'Technical Integrations', links: integrations },
     { title: 'SEO & Transparency', links: seo },
+    { title: 'Mind Maps', links: mindMaps },
     { title: 'Presentations', links: presentations },
   ].filter((g) => g.links.length > 0)
 }
@@ -255,7 +264,7 @@ function surveyToGroups(): SidebarGroup[] {
       links: [
         { title: 'All Barriers', href: '/barriers' },
         { title: 'Barrier Quotes', href: '/barriers/quotes' },
-        { title: 'Survey Statistics', href: '/barriers/survey-stats' },
+        { title: 'Response Funnel', href: '/results/survey-stats' },
       ],
     },
     {
@@ -312,7 +321,15 @@ export const sidebarSections: SidebarSection[] = [
     label: 'Home',
     icon: '🏠',
     href: '/',
-    groups: [],
+    groups: [
+      {
+        title: 'Featured Visualizations',
+        links: [
+          { title: 'Mind Maps Gallery', href: '/making-of-tabs/mind-maps' },
+          { title: 'Full Mind Map', href: '/making-of-tabs/mind-maps/full-mind-map' },
+        ],
+      },
+    ],
   },
   {
     id: 'survey',
