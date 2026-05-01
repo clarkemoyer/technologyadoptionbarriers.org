@@ -2793,6 +2793,10 @@ def compare_cfa_models(model_results):
             d_df = r_df - full_df
             if d_df <= 0:
                 continue
+            if d_chi2 <= 0:
+                # d_chi2 <= 0 can occur with non-nested models or estimation variance;
+                # skip to avoid misleading p-values (e.g., values near 1.0).
+                continue
             try:
                 p = float(1 - chi2_dist.cdf(d_chi2, d_df))
             except Exception:
@@ -2862,7 +2866,7 @@ def subgroup_discriminant(df, group_def, all_cols, group_aves):
     htmt_results = []
     fl_results = []
     pearson_corr = {}
-    means = {label: data.mean(axis=1) for label, data in sub_data.items()}
+    means = {label: data.mean(axis=1, skipna=False) for label, data in sub_data.items()}
     import math
     for i, n1 in enumerate(labels):
         for j, n2 in enumerate(labels):
@@ -3027,8 +3031,13 @@ def subgroup_standalone_validation(df, group_def, all_cols, item_names_full):
 
 
 
-def run_validation(df, skip=False, crp200=False):
-    """Run full validation pipeline. Returns dict matching crp-validation.json schema."""
+def run_validation(df, skip=False, crp200=False, primary_sample=True):
+    """Run full validation pipeline. Returns dict matching crp-validation.json schema.
+
+    primary_sample: when False, skip the computationally expensive per-subgroup
+        standalone validation (parallel_analysis + CFA per subgroup) to keep the
+        daily pipeline fast when run_validation() is called for multiple samples.
+    """
     if skip:
         return {"skipped": True, "reason": "--skip-validation flag was used"}
 
@@ -3149,39 +3158,45 @@ def run_validation(df, skip=False, crp200=False):
         print(f"  HTMT {r['pair']}: {r['htmt']} [{r['ci_lower']}, {r['ci_upper']}] {verdict}")
 
     # ── Per-subgroup standalone validation ──
-    print(f"\n{'='*70}")
-    print(f"  PER-SUBGROUP STANDALONE VALIDATION (canonical 3-group F1a/F1b/F2)")
-    print(f"{'='*70}")
-    barrier_cols_safe = [safe_col(c) for c in BARRIER_COLS]
-    barrier_renamed = df[BARRIER_COLS].rename(columns={c: safe_col(c) for c in BARRIER_COLS})
-    standalone_3group = subgroup_standalone_validation(
-        barrier_renamed, BARRIER_3GROUP, barrier_cols_safe, BARRIER_NAMES
-    )
-    for r in standalone_3group:
-        cfa = r.get('cfa_1f', {}) or {}
-        v = r.get('verdict', {}) or {}
-        print(f"  {r['name']:<20} k={r['k']} N={r['n_listwise']} alpha={r.get('alpha')} "
-              f"PA={r.get('parallel_analysis_factors')} CFI={cfa.get('cfi')} RMSEA={cfa.get('rmsea')} "
-              f"PASS={v.get('overall_pass')}")
+    # This is computationally expensive (parallel_analysis + CFA per subgroup), so it
+    # only runs for the primary sample to avoid multiplying runtime across all 5 samples
+    # in the daily pipeline.
+    if primary_sample:
+        print(f"\n{'='*70}")
+        print(f"  PER-SUBGROUP STANDALONE VALIDATION (canonical 3-group F1a/F1b/F2)")
+        print(f"{'='*70}")
+        barrier_cols_safe = [safe_col(c) for c in BARRIER_COLS]
+        barrier_renamed = df[BARRIER_COLS].rename(columns={c: safe_col(c) for c in BARRIER_COLS})
+        standalone_3group = subgroup_standalone_validation(
+            barrier_renamed, BARRIER_3GROUP, barrier_cols_safe, BARRIER_NAMES
+        )
+        for r in standalone_3group:
+            cfa = r.get('cfa_1f', {}) or {}
+            v = r.get('verdict', {}) or {}
+            print(f"  {r['name']:<20} k={r['k']} N={r['n_listwise']} alpha={r.get('alpha')} "
+                  f"PA={r.get('parallel_analysis_factors')} CFI={cfa.get('cfi')} RMSEA={cfa.get('rmsea')} "
+                  f"PASS={v.get('overall_pass')}")
 
-    print(f"\n{'='*70}")
-    print(f"  PER-SUBGROUP STANDALONE VALIDATION (legacy 4-group BARRIER_SUBCONSTRUCTS)")
-    print(f"{'='*70}")
-    legacy_4group = {label: idxs for label, idxs in BARRIER_SUBCONSTRUCTS.items()}
-    standalone_4group = subgroup_standalone_validation(
-        barrier_renamed, legacy_4group, barrier_cols_safe, BARRIER_NAMES
-    )
-    for r in standalone_4group:
-        cfa = r.get('cfa_1f', {}) or {}
-        v = r.get('verdict', {}) or {}
-        print(f"  {r['name']:<35} k={r['k']} N={r['n_listwise']} alpha={r.get('alpha')} "
-              f"PA={r.get('parallel_analysis_factors')} CFI={cfa.get('cfi')} RMSEA={cfa.get('rmsea')} "
-              f"PASS={v.get('overall_pass')}")
+        print(f"\n{'='*70}")
+        print(f"  PER-SUBGROUP STANDALONE VALIDATION (legacy 4-group BARRIER_SUBCONSTRUCTS)")
+        print(f"{'='*70}")
+        legacy_4group = {label: idxs for label, idxs in BARRIER_SUBCONSTRUCTS.items()}
+        standalone_4group = subgroup_standalone_validation(
+            barrier_renamed, legacy_4group, barrier_cols_safe, BARRIER_NAMES
+        )
+        for r in standalone_4group:
+            cfa = r.get('cfa_1f', {}) or {}
+            v = r.get('verdict', {}) or {}
+            print(f"  {r['name']:<35} k={r['k']} N={r['n_listwise']} alpha={r.get('alpha')} "
+                  f"PA={r.get('parallel_analysis_factors')} CFI={cfa.get('cfi')} RMSEA={cfa.get('rmsea')} "
+                  f"PASS={v.get('overall_pass')}")
 
-    subgroup_standalone = {
-        '3group_canonical': standalone_3group,
-        '4group_theoretical': standalone_4group,
-    }
+        subgroup_standalone = {
+            '3group_canonical': standalone_3group,
+            '4group_theoretical': standalone_4group,
+        }
+    else:
+        subgroup_standalone = None
 
     # ── Alpha-if-deleted summary ──
     print(f"\n{'='*70}")
@@ -3352,9 +3367,10 @@ def run_validation(df, skip=False, crp200=False):
     output['item_level_validity'] = item_level
     # HTMT + Fornell-Larcker treating F1a/F1b/F2 as 3 constructs
     output['subgroup_discriminant_validity'] = subgroup_validity
+    # Per-subgroup standalone validation (primary sample only; None for non-primary samples)
+    if subgroup_standalone is not None:
+        output['subgroup_standalone_validation'] = subgroup_standalone
     # Alpha-if-deleted summary across all three constructs
-    # Per-subgroup standalone validation (added 2026-05-01)
-    output['subgroup_standalone_validation'] = subgroup_standalone
     output['alpha_if_deleted_summary'] = aid_summary
 
     # Factor analysis summary (for EFA factors)
@@ -3682,8 +3698,10 @@ Examples:
         print(f"  VALIDATION: {meta['label']} (N={n}, adequacy={adequacy})")
         print(f"{'='*70}")
 
+        primary_key = "crp_200" if args.crp200 else args.primary_sample
         val_result = run_validation(sample_df, skip=args.skip_validation,
-                                    crp200=args.crp200)
+                                    crp200=args.crp200,
+                                    primary_sample=(sample_key == primary_key))
         # Inject sample identification and adequacy metadata
         val_result = OrderedDict([
             ("key", sample_key),
