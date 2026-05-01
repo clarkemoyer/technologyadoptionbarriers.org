@@ -152,9 +152,9 @@ const ResultsPage = () => {
                 textColor: 'text-emerald-800',
               },
               {
-                title: 'Survey Statistics',
+                title: 'Response Funnel',
                 href: '/results/survey-stats',
-                desc: 'Live response metrics pulled from the Qualtrics survey platform.',
+                desc: 'Every count the daily pipeline tracks — Qualtrics raw responses, Prolific submissions, disposition triage — with the API source for each.',
                 border: 'border-teal-200',
                 bg: 'bg-teal-50',
                 titleColor: 'text-teal-900',

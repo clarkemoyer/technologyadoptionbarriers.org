@@ -176,6 +176,96 @@ def main():
         print(f"  {d}: {c}")
     print()
 
+    # ── Prolific 21-day auto-approve runway ──────────────────────
+    # Every AWAITING REVIEW submission is on a 21-day clock anchored to its
+    # completed_at. Once 21 days pass, Prolific auto-approves and pays out
+    # automatically -- regardless of TABS quality flags. We bucket the
+    # remaining runway so the daily report and downstream scripts can
+    # surface "act now" pressure without re-querying the API.
+    AUTO_APPROVE_THRESHOLD_DAYS = 21
+    bucket_specs = [
+        {"label": "Comfortable", "min_days": 10.0, "max_days": None, "risk": "low"},
+        {"label": "Monitor", "min_days": 5.0, "max_days": 10.0, "risk": "moderate"},
+        {"label": "Act soon", "min_days": 2.0, "max_days": 5.0, "risk": "elevated"},
+        # Last bucket is intentionally HIGH RISK -- the report styles it
+        # accordingly. ``min_days = -inf`` catches anything already past
+        # the 21-day mark (Prolific would have already auto-approved).
+        {"label": "HIGH RISK", "min_days": float("-inf"), "max_days": 2.0, "risk": "high"},
+    ]
+    bucket_counts = [0] * len(bucket_specs)
+    high_risk_by_disposition: dict[str, int] = {}
+
+    # Need quick lookup of disposition by PID (built from the CSV rows above).
+    disposition_by_pid: dict[str, str] = {}
+    for row in rows[1:]:
+        if len(row) > max(pid_idx, disp_idx):
+            p = row[pid_idx].strip()
+            d = row[disp_idx].strip()
+            if p and d:
+                disposition_by_pid[p] = d
+
+    runway_now = datetime.now(timezone.utc)
+    total_awaiting_review = 0
+    runway_evaluated = 0
+    for sub in subs:
+        if sub.get("status") != "AWAITING REVIEW":
+            continue
+        total_awaiting_review += 1
+        completed_at_raw = sub.get("completed_at") or ""
+        if not completed_at_raw:
+            continue
+        try:
+            completed_at = datetime.fromisoformat(completed_at_raw.replace("Z", "+00:00"))
+        except (ValueError, AttributeError):
+            continue
+        days_remaining = AUTO_APPROVE_THRESHOLD_DAYS - (runway_now - completed_at).total_seconds() / 86400.0
+        runway_evaluated += 1
+        for idx, spec in enumerate(bucket_specs):
+            min_d = spec["min_days"]
+            max_d = spec["max_days"]
+            if days_remaining >= min_d and (max_d is None or days_remaining < max_d):
+                bucket_counts[idx] += 1
+                if spec["risk"] == "high":
+                    pid = sub.get("participant_id", "")
+                    if pid:  # skip entries without a usable PID (consistent with prolific_submission_statuses/summaries)
+                        disp = disposition_by_pid.get(pid, "UNKNOWN")
+                        high_risk_by_disposition[disp] = high_risk_by_disposition.get(disp, 0) + 1
+                break
+
+    auto_approve_runway = {
+        "thresholdDays": AUTO_APPROVE_THRESHOLD_DAYS,
+        "computedAt": runway_now.isoformat(),
+        # Total AWAITING REVIEW submissions (regardless of timestamp availability).
+        "totalAwaitingReview": total_awaiting_review,
+        # Submissions with a parseable completed_at that were placed into buckets.
+        "evaluatedCount": runway_evaluated,
+        # Submissions skipped because completed_at was absent or unparseable.
+        "skippedMissingCompletedAt": total_awaiting_review - runway_evaluated,
+        "buckets": [
+            {
+                "label": spec["label"],
+                "risk": spec["risk"],
+                # JSON cannot represent infinity; emit null for the open ends.
+                "minDaysRemaining": None if spec["min_days"] == float("-inf") else spec["min_days"],
+                # Exclusive upper bound: bucket contains submissions where
+                # days_remaining < maxDaysRemainingExclusive (half-open interval).
+                "maxDaysRemainingExclusive": spec["max_days"],
+                "count": count,
+            }
+            for spec, count in zip(bucket_specs, bucket_counts)
+        ],
+        # The last bucket is, by design, the HIGH RISK bucket. Surfaced as a
+        # top-level field so downstream consumers (daily report, dashboards)
+        # don't have to know the bucket layout to render the warning.
+        "highRiskCount": bucket_counts[-1],
+        "highRiskByDisposition": high_risk_by_disposition,
+    }
+    print("Auto-approve runway (21-day Prolific clock):")
+    for spec, count in zip(bucket_specs, bucket_counts):
+        marker = " <-- HIGH RISK" if spec["risk"] == "high" else ""
+        print(f"  {spec['label']}: {count}{marker}")
+    print()
+
     print("Disposition x Prolific Status cross-reference:")
     for disp, statuses in sorted(disposition_by_status.items()):
         parts = ", ".join(f"{s}:{c}" for s, c in sorted(statuses.items(), key=lambda x: -x[1]))
@@ -239,6 +329,11 @@ def main():
             "maturity": iri_rate(iri_maturity_pass),
             "denominator": finished_participants,
         },
+        "autoApproveRunway": auto_approve_runway,
+        # Convenience top-level aliases: consumers (daily report, dashboards)
+        # can check these without knowing the nested autoApproveRunway layout.
+        "highRiskCount": auto_approve_runway["highRiskCount"],
+        "highRiskByDisposition": auto_approve_runway["highRiskByDisposition"],
         "studyId": study_id,
         "studyName": study_name,
     }
