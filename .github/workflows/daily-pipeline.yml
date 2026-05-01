@@ -388,7 +388,6 @@ jobs:
           python scripts/analysis/tabs_v2_unified_data_analysis.py \
             "$CRP_CSV" \
             --crp200 \
-            --linderman \
             --json "${{ runner.temp }}/crp-unified.json"
           # Extract backward-compatible JSONs for page imports.
           # FAIL-FAST (PR #1695): hard dict lookups, not .get() defaults.
