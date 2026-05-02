@@ -47,11 +47,49 @@ class TestLoadAuthChecks:
 # ── load_statuses ────────────────────────────────────────────
 
 class TestLoadStatuses:
-    def test_basic(self, tmp_path):
+    def test_legacy_string_shape_normalised(self, tmp_path):
+        """Older statuses.json artifacts store a bare status string per PID;
+        the loader still has to accept that shape and zero-fill the
+        timestamps so downstream code can rely on a uniform dict layout."""
         from _helpers import make_json
         path = make_json(tmp_path, {"PID1": "APPROVED", "PID2": "REJECTED"})
         result = load_statuses(path)
-        assert result == {"PID1": "APPROVED", "PID2": "REJECTED"}
+        assert result == {
+            "PID1": {"status": "APPROVED", "completed_at": "", "started_at": ""},
+            "PID2": {"status": "REJECTED", "completed_at": "", "started_at": ""},
+        }
+
+    def test_summary_shape_passes_through(self, tmp_path):
+        """The current statuses.json shape carries status + completed_at +
+        started_at per PID. All three should round-trip."""
+        from _helpers import make_json
+        path = make_json(
+            tmp_path,
+            {
+                "PID1": {
+                    "status": "AWAITING REVIEW",
+                    "completed_at": "2026-04-25T12:34:56Z",
+                    "started_at": "2026-04-25T12:30:00Z",
+                },
+            },
+        )
+        result = load_statuses(path)
+        assert result["PID1"] == {
+            "status": "AWAITING REVIEW",
+            "completed_at": "2026-04-25T12:34:56Z",
+            "started_at": "2026-04-25T12:30:00Z",
+        }
+
+    def test_missing_fields_default_to_empty(self, tmp_path):
+        """Robust to partial dicts (e.g., older API responses that
+        don't include started_at)."""
+        from _helpers import make_json
+        path = make_json(tmp_path, {"PID1": {"status": "APPROVED"}})
+        assert load_statuses(path)["PID1"] == {
+            "status": "APPROVED",
+            "completed_at": "",
+            "started_at": "",
+        }
 
 
 # ── load_demographics ────────────────────────────────────────
@@ -139,6 +177,47 @@ class TestEnrich:
             reader = csv.reader(f)
             header = next(reader)
         assert "Prolific_Status" in header
+        assert "Prolific_Completed_At" in header
+        assert "Prolific_Started_At" in header
+
+    def test_statuses_with_timestamps_populates_columns(self, tmp_path):
+        """When statuses.json carries the new shape with completed_at and
+        started_at, those values land in the enriched CSV alongside the
+        status string."""
+        from _helpers import make_json
+        qualtrics_path = self._make_qualtrics(tmp_path)
+        statuses_path = make_json(
+            tmp_path,
+            {
+                "PID1": {
+                    "status": "AWAITING REVIEW",
+                    "completed_at": "2026-04-25T12:34:56Z",
+                    "started_at": "2026-04-25T12:30:00Z",
+                },
+                # PID2 absent on purpose — should yield empty cells.
+                "PID3": {
+                    "status": "APPROVED",
+                    "completed_at": "2026-04-20T08:00:00Z",
+                    "started_at": "2026-04-20T07:55:00Z",
+                },
+            },
+        )
+        output_path = str(tmp_path / "enriched.csv")
+
+        enrich(qualtrics_path, None, statuses_path, None, output_path)
+
+        with open(output_path) as f:
+            reader = csv.reader(f)
+            rows = list(reader)
+        header = rows[0]
+        completed_idx = header.index("Prolific_Completed_At")
+        started_idx = header.index("Prolific_Started_At")
+        # Skip the 3 Qualtrics header rows then check data rows.
+        data = rows[3:]
+        assert data[0][completed_idx] == "2026-04-25T12:34:56Z"
+        assert data[0][started_idx] == "2026-04-25T12:30:00Z"
+        assert data[1][completed_idx] == ""  # PID2 not in statuses
+        assert data[2][completed_idx] == "2026-04-20T08:00:00Z"
 
     def test_demographics(self, tmp_path):
         from _helpers import make_csv

@@ -10,6 +10,7 @@ import {
 import Link from 'next/link'
 import crpData from '@/data/crp-sensitivity-analysis.json'
 import { DATA_UNAVAILABLE } from '@/lib/sentinelMarker'
+import { joinItems } from '@/lib/joinItems'
 
 export const metadata: Metadata = {
   title: 'CRP 2026 Top 3 Barriers - TABS',
@@ -58,6 +59,15 @@ const meanSorted: ItemDescriptive[] = [...meanRankable].sort(
 
 const TOTAL_N: number | null = typeof top3.total_n === 'number' ? top3.total_n : null
 
+// Compute total recorded picks from the actual data so we never assume 3 × N.
+// (If any participant left a top-3 slot blank the sum will be < 3 × N.)
+const totalRecordedPicks: number = pickSorted.reduce(
+  (sum, row) => sum + (typeof row.count === 'number' ? row.count : 0),
+  0
+)
+const allPicksUsed: boolean =
+  TOTAL_N !== null && totalRecordedPicks > 0 && totalRecordedPicks === TOTAL_N * 3
+
 const pickRankOf: Record<string, number> = {}
 pickSorted.forEach((r, i) => {
   pickRankOf[r.item] = i + 1
@@ -92,14 +102,6 @@ const barWidth = (count: number, max: number): number => {
 }
 
 const signed = (n: number): string => (n > 0 ? `+${n}` : String(n))
-
-// Build a human-readable list like "B2, B5, and B8" from an array of strings.
-const joinItems = (xs: string[]): string => {
-  if (xs.length === 0) return ''
-  if (xs.length === 1) return xs[0]
-  if (xs.length === 2) return `${xs[0]} and ${xs[1]}`
-  return `${xs.slice(0, -1).join(', ')}, and ${xs[xs.length - 1]}`
-}
 
 // ---- Dynamic narrative inputs -------------------------------------------------------------------
 
@@ -179,9 +181,18 @@ const TopBarriersPage = () => {
       <article className={ARTICLE_CLASSES}>
         <h1 className={H1_CLASSES}>CRP 2026: Top 3 Barriers</h1>
 
-        <div className="mb-6">
+        <div className="mb-6 flex flex-wrap gap-2">
           <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800 border border-green-200">
             Published: April 2026
+          </span>
+          <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-100 text-gray-800 border border-gray-200">
+            N={TOTAL_N !== null ? TOTAL_N : DATA_UNAVAILABLE}
+          </span>
+          <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-amber-50 text-amber-900 border border-amber-200">
+            Picks:{' '}
+            {TOTAL_N !== null && pickSorted.length > 0
+              ? `${totalRecordedPicks}${allPicksUsed ? ` (= 3 × ${TOTAL_N})` : ''}`
+              : DATA_UNAVAILABLE}
           </span>
         </div>
 
@@ -225,6 +236,21 @@ const TopBarriersPage = () => {
 
         <section className={SECTION_CLASSES}>
           <h2 className={H2_CLASSES}>Top 10 by Pick Count</h2>
+          {dataAvailable && TOTAL_N !== null && (
+            <div className="mb-4 border border-amber-200 bg-amber-50 text-amber-900 rounded-lg p-4 text-sm">
+              <p className="font-semibold mb-1">How to read these counts</p>
+              <p>
+                Each of the {TOTAL_N} participants could pick up to three barriers, so the Pick N
+                column sums across all 18 items to {totalRecordedPicks} observed picks (maximum{' '}
+                {TOTAL_N * 3}). Any single barrier&apos;s Pick N is bounded by {TOTAL_N} (the
+                maximum, if every participant included it in their top 3), and Pick % is the share
+                of participants who included that barrier (max = 100%). The Pick N column below does
+                not add up to {TOTAL_N} because each participant can contribute more than one pick;
+                if any top-3 selections were left blank, the observed total can also be less than
+                the maximum of {TOTAL_N * 3}.
+              </p>
+            </div>
+          )}
           {topPick.length === 0 ? (
             <p className="text-sm text-gray-600 italic">No pick-count data to display.</p>
           ) : (

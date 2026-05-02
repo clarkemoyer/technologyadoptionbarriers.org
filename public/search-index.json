@@ -656,6 +656,14 @@
     "category": "Making of TABS"
   },
   {
+    "id": "making-of-tabs-ai-assisted-development-50-reviewer-process",
+    "url": "/making-of-tabs/ai-assisted-development/50-reviewer-process",
+    "title": "The 50-Reviewer Process - AI-Assisted Development - Making of TABS",
+    "description": "How the TABS Culminating Research Project (CRP) used 50 simulated expert-reviewer personas in parallel batches to surface gaps before committee submission - the design of the method, not the run-time numbers.",
+    "content": "The 50-Reviewer Process - AI-Assisted Development - Making of TABS. How the TABS Culminating Research Project (CRP) used 50 simulated expert-reviewer personas in parallel batches to surface gaps before committee submission - the design of the method, not the run-time numbers. The 50-Reviewer Process CRP Pre-Submission Review Methodology Before submitting the TABS Culminating Research Project CRP to the doctoral committee, the author used Claude to simulate fifty distinct expert-reviewer personas in parallel batches to stress-test the document. This page describes how the method was designed and run. Round-by-round counts and scores are intentionally kept out of the prose they are run-time artifacts, not part of the method. What the Method Is The 50-reviewer process is structured way to use...",
+    "category": "Making of TABS"
+  },
+  {
     "id": "making-of-tabs-ai-assisted-development-overnight-shift",
     "url": "/making-of-tabs/ai-assisted-development/overnight-shift",
     "title": "Copilot's Got the Overnight Shift - AI-Assisted Development - Making of TABS",
@@ -772,7 +780,7 @@
     "url": "/making-of-tabs/ai-validity-checks/gemini-3-1-review/methodology",
     "title": "Methodology: Gemini 3.1 Review - Making of TABS",
     "description": "The methodology used by Gemini 3.1 Pro to audit the TABS content.",
-    "content": "Methodology: Gemini 3.1 Review - Making of TABS. The methodology used by Gemini 3.1 Pro to audit the TABS content. Methodology: Gemini Review To ensure thorough and unbiased audit, Gemini Pro employed systematic methodology to extract, analyze, and verify the content across the TABS repository. 1. Content Extraction The first phase involved reading the core content files directly from the source code. This included: Article Pages: Extracting the text from all src/app/article-* directories, covering both Branch Individual User Journey and Branch Organization Playbook Data Files: Analyzing src/data/barriers.ts impact.json and qualtrics-metrics.json to ensure data integrity. Bibliographies: Reviewing the comprehensive series bibliography and individual article citations. 2. Verification via P...",
+    "content": "Methodology: Gemini 3.1 Review - Making of TABS. The methodology used by Gemini 3.1 Pro to audit the TABS content. Methodology: Gemini Review To ensure thorough and unbiased audit, Gemini Pro employed systematic methodology to extract, analyze, and verify the content across the TABS repository. 1. Content Extraction The first phase involved reading the core content files directly from the source code. This included: Article Pages: Extracting the text from all src/app/article-* directories, covering both Branch Individual User Journey and Branch Organization Playbook Data Files: Analyzing src/data/barriers.ts impact.json qualtrics-metrics.json and disposition-summary.json to ensure data integrity. Bibliographies: Reviewing the comprehensive series bibliography and individual article citatio...",
     "category": "Making of TABS"
   },
   {
@@ -960,6 +968,14 @@
     "category": "Making of TABS"
   },
   {
+    "id": "making-of-tabs-open-source-research-value",
+    "url": "/making-of-tabs/open-source/research-value",
+    "title": "The Value of Open-Source Research Infrastructure - Making of TABS",
+    "description": "Why TABS publishes its research infrastructure - not just its data - as open source: transparency, reproducibility, reusability, sustainability, permanence, citation, and the economics that make this approach feasible.",
+    "content": "The Value of Open-Source Research Infrastructure - Making of TABS. Why TABS publishes its research infrastructure - not just its data - as open source: transparency, reproducibility, reusability, sustainability, permanence, citation, and the economics that make this approach feasible. The Value of Open-Source Research Infrastructure Most academic research is open in its outputs papers, data, sometimes code but closed in the infrastructure that produced those outputs. Survey platforms, deployment scripts, analysis pipelines, and operational workflows usually stay inside the institution. TABS publishes that layer too. This page explains why, and what changes when you do. For the operational side of how the project is licensed and contributed to, see the Open Source Community page. 1. Transpa...",
+    "category": "Making of TABS"
+  },
+  {
     "id": "making-of-tabs-seo",
     "url": "/making-of-tabs/seo",
     "title": "SEO Transparency & Dashboard - Making of TABS",
@@ -995,8 +1011,8 @@
     "id": "results",
     "url": "/results",
     "title": "Results - TABS",
-    "description": "Survey results from the Technology Adoption Barriers Survey: sample demographics, descriptive statistics, scale reliability, sensitivity analysis, and open data.",
-    "content": "Results - TABS. Survey results from the Technology Adoption Barriers Survey: sample demographics, descriptive statistics, scale reliability, sensitivity analysis, and open data. Results The Technology Adoption Barriers Survey TABS collects data from organizational leaders about the barriers, readiness, and maturity factors that influence technology adoption. Every metric is computed independently across four primary result groups so researchers can choose the dataset that matches their quality requirements. All statistics are generated automatically by the daily analysis pipeline and updated every time data is collected. label: 'Total Responses', value: totalN",
+    "description": "Survey results from the Technology Adoption Barriers Survey. Start with the top 3 barriers, then walk down through key findings, descriptives, sample, quality, reliability, factor analysis, validation, and sensitivity.",
+    "content": "Results - TABS. Survey results from the Technology Adoption Barriers Survey. Start with the top 3 barriers, then walk down through key findings, descriptives, sample, quality, reliability, factor analysis, validation, and sensitivity. Across the live TABS dataset, the nine-page insight-first flow covers: Top 3 Barriers, Key Findings, Descriptive Statistics, Sample and Demographics, Data Quality, Scale Reliability, Factor Analysis, Instrument Validation, and Sensitivity Analysis. Parallel pages are available for the growing live dataset and the frozen CRP 2026 snapshot (N=200). Start with the forced-choice top 3 barriers ranking, then work down through the full analytic story.",
     "category": "Results"
   },
   {
@@ -1068,7 +1084,7 @@
     "url": "/results/crp-2026/top-barriers",
     "title": "CRP 2026 Top 3 Barriers - TABS",
     "description": "Top-3 barrier salience ranking for the TABS CRP 2026 frozen dataset (N=200). Compares forced-choice pick counts with mean-based ranking and highlights divergences between cultural and cybersecurity barriers.",
-    "content": "CRP 2026 Top 3 Barriers - TABS. Top-3 barrier salience ranking for the TABS CRP 2026 frozen dataset (N=200). Compares forced-choice pick counts with mean-based ranking and highlights divergences between cultural and cybersecurity barriers. CRP 2026: Top Barriers Published: April 2026 This page presents the forced-choice Top barriers ranking from the TABS CRP 2026 frozen dataset N= Each participant selected up to three barriers from the full list of 18. Counts below reflect the number of participants who included each barrier in their top 3. The forced-choice ranking complements the continuous Likert-based ranking shown on the Descriptive Statistics page. Comparing the two rankings surfaces which barriers rise or fall in salience when participants are forced to choose only small number of i...",
+    "content": "CRP 2026 Top 3 Barriers - TABS. Top-3 barrier salience ranking for the TABS CRP 2026 frozen dataset (N=200). Compares forced-choice pick counts with mean-based ranking and highlights divergences between cultural and cybersecurity barriers. CRP 2026: Top Barriers Published: April 2026 N= Picks: This page presents the forced-choice Top barriers ranking from the TABS CRP 2026 frozen dataset N= Each participant selected up to three barriers from the full list of 18. Counts below reflect the number of participants who included each barrier in their top 3. The forced-choice ranking complements the continuous Likert-based ranking shown on the Descriptive Statistics page. Comparing the two rankings surfaces which barriers rise or fall in salience when participants are forced to choose only small n...",
     "category": "Results"
   },
   {
@@ -1170,9 +1186,9 @@
   {
     "id": "results-survey-stats",
     "url": "/results/survey-stats",
-    "title": "Survey Statistics - TABS Results",
-    "description": "Live survey metrics and response data from the Technology Adoption Barriers Survey (TABS), pulled from Qualtrics via GitHub Actions.",
-    "content": "Survey Statistics - TABS Results. Live survey metrics and response data from the Technology Adoption Barriers Survey (TABS), pulled from Qualtrics via GitHub Actions. Survey Statistics Live metrics pulled from Qualtrics via GitHub Actions.",
+    "title": "Response Funnel - TABS Results",
+    "description": "Every count the TABS daily pipeline tracks - Qualtrics raw responses, Prolific submissions, disposition triage, attention-check pass rates - with the API source and an explanation for each number.",
+    "content": "Response Funnel - TABS Results. Every count the TABS daily pipeline tracks - Qualtrics raw responses, Prolific submissions, disposition triage, attention-check pass rates - with the API source and an explanation for each number. Response Funnel From raw Qualtrics submissions to the final analysis dataset every step, every count.",
     "category": "Results"
   },
   {
