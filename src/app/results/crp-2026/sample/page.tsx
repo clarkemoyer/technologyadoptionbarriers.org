@@ -516,7 +516,7 @@ const CrpSamplePage = () => {
                                     className="inline-block w-2 h-2 rounded-full bg-blue-500 mr-1.5"
                                     aria-hidden="true"
                                   />
-                                  Technical (CIO, CTO)
+                                  Technical (CIO, CTO, CISO + reclassified Other)
                                 </td>
                                 <td className="py-1.5 text-right font-mono">
                                   {demo.tech_vs_nontech.technical}
@@ -567,6 +567,45 @@ const CrpSamplePage = () => {
                             </Link>{' '}
                             page.
                           </p>
+                          <details className="mt-3 text-[11px] text-gray-600">
+                            <summary className="cursor-pointer font-medium text-gray-700 hover:text-blue-600">
+                              How is this classification computed? (open for details)
+                            </summary>
+                            <div className="mt-2 pl-3 border-l-2 border-blue-200 space-y-1.5">
+                              <p>
+                                <span className="font-semibold">Technical bucket</span> = the three IT-leadership C-suite titles{' '}
+                                <span className="font-mono">CIO + CTO + CISO</span> (named role count), plus any{' '}
+                                <em>Other (please specify)</em> free-text response that matches a technical-role regex
+                                (e.g.,{' '}
+                                <span className="font-mono">director of IT</span>,{' '}
+                                <span className="font-mono">VP of engineering</span>,{' '}
+                                <span className="font-mono">software architect</span>,{' '}
+                                <span className="font-mono">cybersecurity</span>).
+                              </p>
+                              <p>
+                                <span className="font-semibold">Non-Technical bucket</span> = the seven non-IT C-suite titles{' '}
+                                <span className="font-mono">CEO + CFO + COO + CHRO + CMO + CSO + CRO</span>, plus any{' '}
+                                <em>Other</em> free-text matching a non-technical regex
+                                (e.g., president, founder, finance manager), plus unmatched{' '}
+                                <em>Other</em> responses (conservative default: assigned to Non-Technical when
+                                no clear technology signal is present).
+                              </p>
+                              <p>
+                                Source: <span className="font-mono">classify_role_binary()</span> in{' '}
+                                <Link
+                                  href="https://github.com/clarkemoyer/technologyadoptionbarriers.org/blob/main/scripts/analysis/tabs_v2_unified_data_analysis.py"
+                                  className="text-blue-500 hover:underline"
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
+                                  scripts/analysis/tabs_v2_unified_data_analysis.py
+                                </Link>{' '}
+                                (TECH_TITLES, NONTECH_TITLES, _OTHER_ROLE_PATTERNS). The{' '}
+                                <em>Other Role Categories</em> table to the right shows the regex-bucket
+                                breakdown of every <em>Other</em> respondent.
+                              </p>
+                            </div>
+                          </details>
                         </div>
                       )}
 

@@ -1560,8 +1560,11 @@ def sensitivity_to_json(cuts, idx):
                 nontech_n += 1
             else:
                 other_n += 1
-                if role == 'Other':
-                    other_cats[categorize_other_role(other_text)] += 1
+            # Categorize Other free-text via regex bucket regardless of binary
+            # classification, so the Other Role Categories table is always
+            # populated when role == 'Other'. Fix for #1858.
+            if role == 'Other':
+                other_cats[categorize_other_role(other_text)] += 1
             org_sizes[r[idx['Q4_OrgSize']].strip()] += 1
             profit_models[r[idx['Q5_ProfitModel']].strip()] += 1
         return {
