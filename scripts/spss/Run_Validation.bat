@@ -108,7 +108,9 @@ if not exist "%HERE%\tabs_v2_validation.sps" (
 REM Build the combined runtime syntax file: header + absolute CD + the
 REM full contents of tabs_v2_validation.sps. Using `type ... >>` appends
 REM the main syntax verbatim, preserving its formatting and comments.
+REM Escape single quotes in the path by doubling them (SPSS standard).
 set "COMBINED=%HERE%\_run_validation.sps"
+set "HERE_FWD_ESC=%HERE_FWD:'=''%"
 > "%COMBINED%" echo * =====================================================================
 >>"%COMBINED%" echo * Auto-generated combined syntax. Prepends an absolute CD command to
 >>"%COMBINED%" echo * tabs_v2_validation.sps so SPSS finds the .sav and writes outputs to
@@ -116,9 +118,9 @@ set "COMBINED=%HERE%\_run_validation.sps"
 >>"%COMBINED%" echo * Regenerated every time Run_Validation.bat runs. Safe to delete.
 >>"%COMBINED%" echo * =====================================================================.
 >>"%COMBINED%" echo.
->>"%COMBINED%" echo CD '%HERE_FWD%'.
+>>"%COMBINED%" echo CD '%HERE_FWD_ESC%'.
 >>"%COMBINED%" echo.
->>"%COMBINED%" echo * --- Inlined from tabs_v2_validation.sps -----------------------------.
+>>"%COMBINED%" echo * --- Inlined from tabs_v2_validation.sps ----------------------------.
 >>"%COMBINED%" echo.
 type "%HERE%\tabs_v2_validation.sps" >> "%COMBINED%"
 

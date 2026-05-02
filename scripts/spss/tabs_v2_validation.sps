@@ -268,6 +268,6 @@ OUTPUT SAVE
 * The descriptive layer should match all three sources to 4 decimals.
 *
 * The accompanying Run_Validation.bat (Windows) and
-* Run_Validation.command (macOS) files in this folder run the entire
-* analysis from a single double-click and pop a Done dialog.
+* Run_Validation.command (macOS) files in this folder open SPSS with
+* the syntax preloaded; click Run -> All to execute everything.
 * =====================================================================.

@@ -108,12 +108,14 @@ same frozen N=200 dataset that drives the canonical Python and R analyses.
    - **Windows**: `Run_Validation.bat`
    - **macOS**: right-click `Run_Validation.command` -> Open (one-time
      Gatekeeper prompt). After the first run, double-click works.
-3. Wait about 60 seconds for the bootstrap blocks to complete.
-4. When you see "DONE", open `spv_export.xlsx` in this folder.
+3. SPSS opens with the syntax preloaded; click **Run → All** inside SPSS
+   (or press Ctrl+A then Ctrl+R on Windows / Cmd+A then Cmd+R on macOS).
+4. The validation runs for about 60 seconds. When SPSS finishes, open
+   `spv_export.xlsx` in this folder.
 
-The launcher locates SPSS automatically, runs the syntax in production
-mode (no GUI clicks required), and writes two result files into the
-same folder you extracted the zip to:
+The launcher locates SPSS automatically and opens SPSS with the combined
+syntax preloaded. After you click Run → All, SPSS writes two result files
+into the same folder you extracted the zip to:
 
 - `spv_export.xlsx` - all SPSS tables in Excel format
 - `Post_Run_Results.spv` - native SPSS Viewer document (open with SPSS or
@@ -146,7 +148,7 @@ Run_Validation.bat          <- Windows double-click launcher
 Run_Validation.command      <- macOS double-click launcher
 tabs_v2_crp200_spss.sav     <- SPSS native binary worksheet
 tabs_v2_crp200_spss.csv     <- same data, CSV form (for re-import elsewhere)
-tabs_v2_validation.sps      <- syntax file (auto-runs from the launcher)
+tabs_v2_validation.sps      <- syntax file (loaded into SPSS by the launcher; click Run → All)
 README_SPSS.md              <- detailed walkthrough + expected values
 README.md                   <- this file
 ```
@@ -343,6 +345,7 @@ def _add_to_zip(zf: zipfile.ZipFile, src_path: Path, dest: str) -> None:
     if dest.lower().endswith(_EXECUTABLE_EXTS):
         info = zipfile.ZipInfo.from_file(src_path, arcname=dest)
         info.external_attr = _EXECUTABLE_MODE << 16
+        info.create_system = 3  # Unix; ensures POSIX permission bits are honoured
         info.compress_type = zipfile.ZIP_DEFLATED
         with open(src_path, "rb") as f:
             zf.writestr(info, f.read())
