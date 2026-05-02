@@ -377,8 +377,11 @@ def check_number_consistency(appendix_texts):
         },
         {
             "name": "Prolific Study ID",
-            "expected": "69c17630acada6abeead2da5",
-            "pattern": r"69c17630acada6abeead2da5",
+            "expected": "[24-char hex study ID ending ...2da5]",
+            # Match any 24-char lowercase hex string ending in the known suffix.
+            # Using a suffix-only anchor avoids embedding the full ID in version
+            # control (where it could be confused with a participant PID).
+            "pattern": r"[0-9a-f]{18}ead2da5",
         },
         {
             "name": "Payment per response",
@@ -748,8 +751,10 @@ def main():
         start = max(0, match.start() - 40)
         end = min(len(a_text), match.end() + 40)
         context = a_text[start:end].replace('\n', ' ')
-        # Check if this is about the Survey Instrument capture
-        if "Survey Instrument" in context or "Capture" in context:
+        # Only flag matches that are clearly about the Survey Instrument
+        # capture; the word "Capture" alone is too generic and causes false
+        # positives for other captures mentioned in Appendix A.
+        if "Survey Instrument" in context:
             actual_si = actual_pages.get("survey_instrument")
             if isinstance(actual_si, int) and claimed != actual_si:
                 print(f"  MISMATCH: App A claims {claimed} pages for SI capture, actual is {actual_si}")

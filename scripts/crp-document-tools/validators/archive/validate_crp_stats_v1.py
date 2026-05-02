@@ -127,10 +127,14 @@ def main():
     def pearson(x, y):
         pairs = [(a,b) for a,b in zip(x,y) if a and b]
         n = len(pairs)
+        if n < 2:
+            return None
         mx = sum(a for a,b in pairs)/n
         my = sum(b for a,b in pairs)/n
         sx = math.sqrt(sum((a-mx)**2 for a,b in pairs)/(n-1))
         sy = math.sqrt(sum((b-my)**2 for a,b in pairs)/(n-1))
+        if sx == 0 or sy == 0:
+            return None
         return sum((a-mx)*(b-my) for a,b in pairs)/((n-1)*sx*sy)
 
     # Compute all stats
