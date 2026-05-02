@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 
 interface OtherRolesData {
   total: number
-  categories: Record<string, number>
+  categories: Record<string, number | string>
 }
 
 interface RoleCategoryInfo {
@@ -605,8 +605,10 @@ const CrpSamplePage = () => {
                                   scripts/analysis/tabs_v2_unified_data_analysis.py
                                 </Link>{' '}
                                 (TECH_TITLES, NONTECH_TITLES, _OTHER_ROLE_PATTERNS). The{' '}
-                                <em>Other Role Categories</em> table to the right shows the
-                                regex-bucket breakdown of every <em>Other</em> respondent.
+                                <em>Other Role Categories</em> table uses{' '}
+                                <span className="font-mono">categorize_other_role()</span> /{' '}
+                                <span className="font-mono">OTHER_ROLE_CATEGORIES_PATTERNS</span>;
+                                counts shown as &ldquo;&lt;5&rdquo; are k-anonymity suppressed.
                               </p>
                             </div>
                           </details>
