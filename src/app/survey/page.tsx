@@ -40,9 +40,9 @@ const SECTIONS = [
     description:
       'Persona pages mirror the survey back to two audiences. The Individuals view (CIO, CTO, COO, etc.) shows how each role typically scores and which barriers tend to dominate. The Organizations view does the same for SMB, Enterprise, For-Profit, Non-Profit, and Government segments.',
     links: [
-      { label: 'See Yourself overview', href: '/personas' },
-      { label: 'Individuals', href: '/personas/individuals' },
-      { label: 'Organizations', href: '/personas/organizations' },
+      { label: 'See Yourself overview', href: '/start' },
+      { label: 'Individuals', href: '/start' },
+      { label: 'Organizations', href: '/for-organizations' },
     ],
   },
   {

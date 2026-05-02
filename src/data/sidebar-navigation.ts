@@ -383,6 +383,7 @@ export function getActiveSectionId(pathname: string): string {
 
   if (p === '/') return 'home'
   if (
+    p === '/survey' ||
     p.startsWith('/barriers') ||
     p.startsWith('/start') ||
     p.startsWith('/for-organizations') ||
@@ -399,6 +400,7 @@ export function getActiveSectionId(pathname: string): string {
   if (p.startsWith('/technology-adoption-series')) return 'teaching'
   if (p.startsWith('/making-of-tabs')) return 'making-of-tabs'
   if (
+    p === '/about' ||
     [
       '/faq',
       '/media',
