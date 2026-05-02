@@ -1,0 +1,120 @@
+name: CRP Tools Smoke
+
+# Runs the offline crp-document-tools end-to-end against the bundled
+# synthetic fixture in scripts/crp-document-tools/fixtures/example_workspace/.
+# The job is the technical receipt for the reproducibility claim in the
+# subtree README: if the toolchain ever stops working from a clean checkout,
+# this workflow fails and a contributor must repair it before merging.
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/crp-document-tools/**'
+      - '.github/workflows/crp-tools-smoke.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/crp-document-tools/**'
+      - '.github/workflows/crp-tools-smoke.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  smoke:
+    name: Fixture-driven smoke
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Verify the fixture exists
+        run: |
+          set -uo pipefail
+          fixture="scripts/crp-document-tools/fixtures/example_workspace"
+          if [ ! -d "$fixture" ]; then
+            echo "::error::Fixture missing: $fixture"
+            exit 1
+          fi
+          csv="$fixture/05 TABS Survey Support/TABS Survey Data/TABS_V2_Enriched_CRP200_synthetic.csv"
+          if [ ! -f "$csv" ]; then
+            echo "::error::Synthetic CSV missing: $csv"
+            exit 1
+          fi
+          echo "Fixture present"
+
+      - name: Run compute_crp_stats_v2 against the fixture
+        run: |
+          set -uo pipefail
+          out=$(python scripts/crp-document-tools/builders/compute_crp_stats_v2.py)
+          echo "$out"
+
+          # Smoke assertions: anything that ever rendered output should still render output.
+          for marker in "V2 total: 28" "Conservative clean N: 20" "BARRIER RANKINGS" \
+                        "READINESS RANKINGS" "MATURITY RANKINGS" "CORRELATIONS" \
+                        "DEMOGRAPHICS" "DISPOSITION WATERFALL" "DONE"; do
+            if ! echo "$out" | grep -F -q "$marker"; then
+              echo "::error::compute_crp_stats_v2.py output missing marker: $marker"
+              exit 1
+            fi
+          done
+          echo "All smoke markers present."
+
+      - name: Verify the fixture rebuilds deterministically
+        run: |
+          set -uo pipefail
+          # Snapshot pre-rebuild
+          csv_before=$(sha256sum "scripts/crp-document-tools/fixtures/example_workspace/05 TABS Survey Support/TABS Survey Data/TABS_V2_Enriched_CRP200_synthetic.csv" | awk '{print $1}')
+
+          # Regenerate
+          python scripts/crp-document-tools/fixtures/build_example_workspace.py
+
+          # Verify byte-identical (modulo line endings already normalised by the writer)
+          csv_after=$(sha256sum "scripts/crp-document-tools/fixtures/example_workspace/05 TABS Survey Support/TABS Survey Data/TABS_V2_Enriched_CRP200_synthetic.csv" | awk '{print $1}')
+
+          if [ "$csv_before" != "$csv_after" ]; then
+            echo "::error::Fixture rebuild produced different bytes - the build script lost determinism."
+            echo "before=$csv_before"
+            echo "after=$csv_after"
+            exit 1
+          fi
+          echo "Fixture rebuild is deterministic (sha=$csv_after)"
+
+      - name: Verify paths.py discovery precedence
+        run: |
+          set -uo pipefail
+          python - <<'PYTEST'
+          import os, sys
+          sys.path.insert(0, "scripts/crp-document-tools")
+          from paths import find_workspace, FIXTURE_DIR, CrpWorkspaceNotFound
+
+          # 1. With nothing set, falls through to the bundled fixture.
+          os.environ.pop("CRP_WORKSPACE", None)
+          ws = find_workspace()
+          assert ws == FIXTURE_DIR, f"expected fixture fallback, got {ws}"
+
+          # 2. Explicit bad path raises (no silent fallback).
+          try:
+              find_workspace(explicit="/definitely/does/not/exist")
+              raise SystemExit("ERROR: bad explicit path did not raise")
+          except CrpWorkspaceNotFound:
+              pass
+
+          # 3. CRP_WORKSPACE set to bad path raises (no silent fallback).
+          os.environ["CRP_WORKSPACE"] = "/also/missing"
+          try:
+              find_workspace()
+              raise SystemExit("ERROR: bad env did not raise")
+          except CrpWorkspaceNotFound:
+              pass
+          os.environ.pop("CRP_WORKSPACE", None)
+
+          print("paths.py discovery precedence verified")
+          PYTEST
