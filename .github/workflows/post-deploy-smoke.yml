@@ -499,10 +499,16 @@ jobs:
           # Factor analysis page: Multi-Group + ESEM sections (Pass 2). These
           # render only when the data is present, so a PR that breaks the
           # pipeline output for these keys will trip the smoke test.
+          # Both live and CRP tracks have multigroup/ESEM data, so both are checked.
+          check_content "${SITE_URL}/results/factor-analysis" "Multi-Group Stability" "/results/factor-analysis multi-group"
+          check_content "${SITE_URL}/results/factor-analysis" "ESEM Sensitivity" "/results/factor-analysis esem"
           check_content "${SITE_URL}/results/crp-2026/factor-analysis" "Multi-Group Stability" "/results/crp-2026/factor-analysis multi-group"
           check_content "${SITE_URL}/results/crp-2026/factor-analysis" "ESEM Sensitivity" "/results/crp-2026/factor-analysis esem"
 
-          # Reliability page: bootstrap CI + alpha-if-deleted + by-demo (Pass 3)
+          # Reliability page: bootstrap CI + alpha-if-deleted (Pass 3).
+          # "Reliability by Demographic" only renders on the live track (no
+          # reliability_by_demo data in crp-validation.json), so it is asserted
+          # for /results/reliability only.
           check_content "${SITE_URL}/results/reliability" "Bootstrap Confidence" "/results/reliability bootstrap"
           check_content "${SITE_URL}/results/reliability" "Alpha if Deleted" "/results/reliability alpha-if-deleted"
           check_content "${SITE_URL}/results/reliability" "Reliability by Demographic" "/results/reliability by-demo"

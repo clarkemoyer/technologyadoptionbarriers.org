@@ -203,12 +203,16 @@ function BifactorBarriersBlock({ data }: { data: RecordOrNull }) {
       </p>
     )
   }
-  // Errored or missing: render nothing on the page. The post-deploy smoke
-  // workflow asserts the section heading is visible; if the data fails it
-  // will trip the smoke test and auto-file an issue (per the technical-not-
-  // visual policy in feedback_no_silent_fallback.md).
-  if (isErrored(data) || !data) {
-    return null
+  // Errored or missing: render an explicit data-error marker so pipeline
+  // regressions are visible on-page and not silently hidden.
+  const err = isErrored(data)
+  if (err || !data) {
+    return (
+      <p className="text-sm text-amber-800 font-sans bg-amber-50 border border-amber-200 rounded px-3 py-2">
+        Bifactor decomposition data unavailable
+        {err ? `: ${err}` : ' (key missing from pipeline output)'}.
+      </p>
+    )
   }
   const d = data as Record<string, unknown>
   const fit = (d.fit as Record<string, number | null>) ?? {}
@@ -270,9 +274,15 @@ function BifactorRMBlock({ data }: { data: RecordOrNull }) {
       </p>
     )
   }
-  // Errored or missing: render nothing - smoke test catches it.
-  if (isErrored(data) || !data) {
-    return null
+  // Errored or missing: render an explicit data-error marker.
+  const err = isErrored(data)
+  if (err || !data) {
+    return (
+      <p className="text-sm text-amber-800 font-sans bg-amber-50 border border-amber-200 rounded px-3 py-2">
+        Bifactor R+M data unavailable
+        {err ? `: ${err}` : ' (key missing from pipeline output)'}.
+      </p>
+    )
   }
   const d = data as Record<string, unknown>
   const fit = (d.fit as Record<string, number | null>) ?? {}

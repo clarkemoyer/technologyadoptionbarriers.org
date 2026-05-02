@@ -199,8 +199,11 @@ const STAGES: Stage[] = [
 function StageCard({ stage }: { stage: Stage }) {
   const c = COLOR_MAP[stage.color]
   const isExternal = stage.href.startsWith('http')
-  const Inner = (
-    <div className={`rounded-lg border-2 ${c.border} ${c.bg} overflow-hidden`}>
+  const cardClasses = `block rounded-lg border-2 ${c.border} ${c.bg} overflow-hidden
+    hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500
+    transition-shadow duration-150`
+  const inner = (
+    <>
       <div className={`${c.head} text-white px-3 py-2 flex items-baseline gap-2`}>
         <span className="font-mono font-bold text-base">Stage {stage.num}</span>
         <span className="text-xs opacity-90">- {stage.phase}</span>
@@ -219,27 +222,30 @@ function StageCard({ stage }: { stage: Stage }) {
             ))}
           </ul>
         </div>
-        <div className="mt-2 text-xs">
-          <span className="text-gray-600">Surfaced on: </span>
-          {isExternal ? (
-            <a
-              href={stage.href}
-              className="text-blue-700 hover:underline font-mono break-all"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {stage.href}
-            </a>
-          ) : (
-            <Link href={stage.href} className="text-blue-700 hover:underline font-mono">
-              {stage.href}
-            </Link>
-          )}
-        </div>
+        <p className="mt-2 text-xs text-gray-500 font-mono">
+          {isExternal ? stage.href : stage.href}
+        </p>
       </div>
-    </div>
+    </>
   )
-  return Inner
+  if (isExternal) {
+    return (
+      <a
+        href={stage.href}
+        className={cardClasses}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={`Stage ${stage.num}: ${stage.title} — opens ${stage.href}`}
+      >
+        {inner}
+      </a>
+    )
+  }
+  return (
+    <Link href={stage.href} className={cardClasses}>
+      {inner}
+    </Link>
+  )
 }
 
 function FlowConnector() {
@@ -252,8 +258,9 @@ function FlowConnector() {
 }
 
 /**
- * Vertical pipeline flow. Stage cards are clickable to navigate to the
- * results page that surfaces the stage's output.
+ * Vertical pipeline flow. Each stage card links to the results page that
+ * surfaces the stage's output, with accessible hover/focus styles. Stages
+ * without a downstream results page (data ops, commit) link to GitHub source.
  */
 export function PipelineDataFlow() {
   return (
