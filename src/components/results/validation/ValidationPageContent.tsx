@@ -203,13 +203,12 @@ function BifactorBarriersBlock({ data }: { data: RecordOrNull }) {
       </p>
     )
   }
-  const err = isErrored(data)
-  if (err || !data) {
-    return (
-      <p className="text-sm text-amber-700 font-sans">
-        Bifactor model unavailable: {err ?? 'no data'}
-      </p>
-    )
+  // Errored or missing: render nothing on the page. The post-deploy smoke
+  // workflow asserts the section heading is visible; if the data fails it
+  // will trip the smoke test and auto-file an issue (per the technical-not-
+  // visual policy in feedback_no_silent_fallback.md).
+  if (isErrored(data) || !data) {
+    return null
   }
   const d = data as Record<string, unknown>
   const fit = (d.fit as Record<string, number | null>) ?? {}
@@ -271,13 +270,9 @@ function BifactorRMBlock({ data }: { data: RecordOrNull }) {
       </p>
     )
   }
-  const err = isErrored(data)
-  if (err || !data) {
-    return (
-      <p className="text-sm text-amber-700 font-sans">
-        Bifactor R+M model unavailable: {err ?? 'no data'}
-      </p>
-    )
+  // Errored or missing: render nothing - smoke test catches it.
+  if (isErrored(data) || !data) {
+    return null
   }
   const d = data as Record<string, unknown>
   const fit = (d.fit as Record<string, number | null>) ?? {}
