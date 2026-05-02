@@ -74,6 +74,21 @@ class TestReturnRequestedPath:
         assert bucket == "stale_no_reply_to_rr"
         assert record["reasons"] == ["failed attention check"]
 
+    @pytest.mark.parametrize("field_name", ["return_requested_reasons", "request_return_reasons"])
+    def test_blank_reason_string_normalizes_to_empty_list(self, field_name):
+        """Blank reason strings should not produce an empty reason entry."""
+        rr_time = NOW - timedelta(hours=60)
+        sub = {
+            "participant_id": "PID_A3",
+            "status": "AWAITING REVIEW",
+            "return_requested": _ts(rr_time),
+            field_name: "   ",
+        }
+        msgs = [_msg(RESEARCHER_ID, rr_time - timedelta(hours=1))]
+        bucket, record = classify_submission(sub, msgs, RESEARCHER_ID, NOW, CUTOFF)
+        assert bucket == "stale_no_reply_to_rr"
+        assert record["reasons"] == []
+
     def test_in_window_rr_not_stale(self):
         """RR set <48h ago with no reply → in_window_rr (don't touch yet)."""
         rr_time = NOW - timedelta(hours=24)

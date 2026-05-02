@@ -168,10 +168,19 @@ def _return_request_reasons(sub):
     if raw is None:
         return []
     if isinstance(raw, str):
-        return [raw]
+        reason = raw.strip()
+        return [reason] if reason else []
     if isinstance(raw, (list, tuple)):
-        return [str(reason) for reason in raw if reason]
-    return [str(raw)]
+        normalized = []
+        for reason in raw:
+            if reason is None:
+                continue
+            text = reason.strip() if isinstance(reason, str) else str(reason).strip()
+            if text:
+                normalized.append(text)
+        return normalized
+    text = str(raw).strip()
+    return [text] if text else []
 
 
 def classify_submission(sub, msgs, researcher_id, now, cutoff):
