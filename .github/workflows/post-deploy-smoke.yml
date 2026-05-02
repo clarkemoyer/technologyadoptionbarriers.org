@@ -506,14 +506,14 @@ jobs:
           check_content "${SITE_URL}/results/crp-2026/factor-analysis" "ESEM Sensitivity" "/results/crp-2026/factor-analysis esem"
 
           # Reliability page: bootstrap CI + alpha-if-deleted (Pass 3).
-          # "Reliability by Demographic" only renders on the live track (no
-          # reliability_by_demo data in crp-validation.json), so it is asserted
-          # for /results/reliability only.
+          # Both live and CRP validation JSON include a populated reliability_by_demo
+          # block, so "Reliability by Demographic" is asserted on both tracks.
           check_content "${SITE_URL}/results/reliability" "Bootstrap Confidence" "/results/reliability bootstrap"
           check_content "${SITE_URL}/results/reliability" "Alpha if Deleted" "/results/reliability alpha-if-deleted"
           check_content "${SITE_URL}/results/reliability" "Reliability by Demographic" "/results/reliability by-demo"
           check_content "${SITE_URL}/results/crp-2026/reliability" "Bootstrap Confidence" "/results/crp-2026/reliability bootstrap"
           check_content "${SITE_URL}/results/crp-2026/reliability" "Alpha if Deleted" "/results/crp-2026/reliability alpha-if-deleted"
+          check_content "${SITE_URL}/results/crp-2026/reliability" "Reliability by Demographic" "/results/crp-2026/reliability by-demo"
 
           # Findings page: Inferential Extensions section (Pass 4)
           check_content "${SITE_URL}/results/findings" "Inferential Extensions" "/results/findings inferential-extensions"

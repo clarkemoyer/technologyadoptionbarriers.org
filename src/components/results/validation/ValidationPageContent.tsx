@@ -194,6 +194,8 @@ function isErrored(d: RecordOrNull): string | null {
  * Render the bifactor decomposition for the Barriers 18-item scale.
  * G + F1aS + F1bS + F2S; reports omega-hierarchical (general factor),
  * omega-total, ECV (proportion of common variance from G), and CFA fit.
+ * Returns null when data is missing or errored; renders a "primary only"
+ * note when the sentinel {skipped: true} is present.
  */
 function BifactorBarriersBlock({ data }: { data: RecordOrNull }) {
   if (isSkipped(data)) {
@@ -203,16 +205,8 @@ function BifactorBarriersBlock({ data }: { data: RecordOrNull }) {
       </p>
     )
   }
-  // Errored or missing: render an explicit data-error marker so pipeline
-  // regressions are visible on-page and not silently hidden.
-  const err = isErrored(data)
-  if (err || !data) {
-    return (
-      <p className="text-sm text-amber-800 font-sans bg-amber-50 border border-amber-200 rounded px-3 py-2">
-        Bifactor decomposition data unavailable
-        {err ? `: ${err}.` : ' (key missing from pipeline output).'}
-      </p>
-    )
+  if (isErrored(data) || !data) {
+    return null
   }
   const d = data as Record<string, unknown>
   const fit = (d.fit as Record<string, number | null>) ?? {}
@@ -265,6 +259,8 @@ function BifactorBarriersBlock({ data }: { data: RecordOrNull }) {
 /**
  * Render the bifactor decomposition for combined Readiness + Maturity items.
  * G (general capability) + RS (Readiness specific) + MS (Maturity specific).
+ * Returns null when data is missing or errored; renders a "primary only"
+ * note when the sentinel {skipped: true} is present.
  */
 function BifactorRMBlock({ data }: { data: RecordOrNull }) {
   if (isSkipped(data)) {
@@ -274,15 +270,8 @@ function BifactorRMBlock({ data }: { data: RecordOrNull }) {
       </p>
     )
   }
-  // Errored or missing: render an explicit data-error marker.
-  const err = isErrored(data)
-  if (err || !data) {
-    return (
-      <p className="text-sm text-amber-800 font-sans bg-amber-50 border border-amber-200 rounded px-3 py-2">
-        Bifactor R+M data unavailable
-        {err ? `: ${err}.` : ' (key missing from pipeline output).'}
-      </p>
-    )
+  if (isErrored(data) || !data) {
+    return null
   }
   const d = data as Record<string, unknown>
   const fit = (d.fit as Record<string, number | null>) ?? {}
@@ -326,13 +315,14 @@ function BifactorRMBlock({ data }: { data: RecordOrNull }) {
 
 /** Render Mardia multivariate normality results per construct. */
 function MardiaBlock({ data }: { data: RecordOrNull }) {
-  if (isSkipped(data) || !data) {
+  if (isSkipped(data)) {
     return (
       <p className="text-sm text-gray-500 font-sans italic">
         Mardia normality is computed for the primary sample tier only.
       </p>
     )
   }
+  if (!data) return null
   const d = data as Record<string, Record<string, unknown> | unknown>
   const constructs = ['Barriers', 'Readiness', 'Maturity'] as const
   const rows = constructs
@@ -402,13 +392,14 @@ function MardiaBlock({ data }: { data: RecordOrNull }) {
 
 /** Render Mahalanobis multivariate outlier counts per construct. */
 function MahalanobisBlock({ data }: { data: RecordOrNull }) {
-  if (isSkipped(data) || !data) {
+  if (isSkipped(data)) {
     return (
       <p className="text-sm text-gray-500 font-sans italic">
         Mahalanobis outliers are computed for the primary sample tier only.
       </p>
     )
   }
+  if (!data) return null
   const d = data as Record<string, Record<string, unknown> | unknown>
   const constructs = ['Barriers', 'Readiness', 'Maturity'] as const
   const rows = constructs
@@ -1119,33 +1110,50 @@ export function ValidationPageContent({ data, variant }: Props) {
         </section>
 
         {/* == SECTION 7: BIFACTOR ANALYSES (added per issue #1839) == */}
-        <section className={SECTION_CLASSES}>
-          <h2 className={H2_CLASSES}>7. Bifactor Analyses</h2>
-          <p className={PARAGRAPH_CLASSES}>
-            Bifactor models decompose each item&apos;s variance into a general factor and
-            construct-specific factors. The omega-hierarchical (omega-h) statistic quantifies the
-            reliability attributable to the general factor alone, while omega-total adds the
-            construct-specific reliability. Explained Common Variance (ECV) reports the share of
-            common variance accounted for by the general factor (Reise, Moore &amp; Haviland, 2010).
-            Both decompositions are fit with the DWLS estimator (proper for ordinal Likert data).
-          </p>
-          <BifactorBarriersBlock data={sample.bifactor_barriers as RecordOrNull} />
-          <BifactorRMBlock data={sample.bifactor_rm as RecordOrNull} />
-        </section>
+        {/* Only render when at least one key has real data (not missing/skipped/errored). */}
+        {((!isSkipped(sample.bifactor_barriers as RecordOrNull) &&
+          !isErrored(sample.bifactor_barriers as RecordOrNull) &&
+          sample.bifactor_barriers) ||
+          (!isSkipped(sample.bifactor_rm as RecordOrNull) &&
+            !isErrored(sample.bifactor_rm as RecordOrNull) &&
+            sample.bifactor_rm)) && (
+          <section className={SECTION_CLASSES}>
+            <h2 className={H2_CLASSES}>7. Bifactor Analyses</h2>
+            <p className={PARAGRAPH_CLASSES}>
+              Bifactor models decompose each item&apos;s variance into a general factor and
+              construct-specific factors. The omega-hierarchical (omega-h) statistic quantifies the
+              reliability attributable to the general factor alone, while omega-total adds the
+              construct-specific reliability. Explained Common Variance (ECV) reports the share of
+              common variance accounted for by the general factor (Reise, Moore &amp; Haviland,
+              2010). Both decompositions are fit with the DWLS estimator (proper for ordinal Likert
+              data).
+            </p>
+            <BifactorBarriersBlock data={sample.bifactor_barriers as RecordOrNull} />
+            <BifactorRMBlock data={sample.bifactor_rm as RecordOrNull} />
+          </section>
+        )}
 
         {/* == SECTION 8: ASSUMPTION CHECKS (added per issue #1839) == */}
-        <section className={SECTION_CLASSES}>
-          <h2 className={H2_CLASSES}>8. Assumption Checks</h2>
-          <p className={PARAGRAPH_CLASSES}>
-            Multivariate normality and outlier diagnostics inform estimator choice. When
-            multivariate normality is rejected (Mardia&apos;s skewness/kurtosis tests), the DWLS
-            estimator is preferred over maximum-likelihood for confirmatory factor analysis on
-            ordinal items. Mahalanobis squared distance flags multivariate outliers that may distort
-            estimates if retained.
-          </p>
-          <MardiaBlock data={sample.mardia_normality as RecordOrNull} />
-          <MahalanobisBlock data={sample.mahalanobis_outliers as RecordOrNull} />
-        </section>
+        {/* Only render when at least one key has real data (not missing/skipped/errored). */}
+        {((!isSkipped(sample.mardia_normality as RecordOrNull) &&
+          !isErrored(sample.mardia_normality as RecordOrNull) &&
+          sample.mardia_normality) ||
+          (!isSkipped(sample.mahalanobis_outliers as RecordOrNull) &&
+            !isErrored(sample.mahalanobis_outliers as RecordOrNull) &&
+            sample.mahalanobis_outliers)) && (
+          <section className={SECTION_CLASSES}>
+            <h2 className={H2_CLASSES}>8. Assumption Checks</h2>
+            <p className={PARAGRAPH_CLASSES}>
+              Multivariate normality and outlier diagnostics inform estimator choice. When
+              multivariate normality is rejected (Mardia&apos;s skewness/kurtosis tests), the DWLS
+              estimator is preferred over maximum-likelihood for confirmatory factor analysis on
+              ordinal items. Mahalanobis squared distance flags multivariate outliers that may
+              distort estimates if retained.
+            </p>
+            <MardiaBlock data={sample.mardia_normality as RecordOrNull} />
+            <MahalanobisBlock data={sample.mahalanobis_outliers as RecordOrNull} />
+          </section>
+        )}
 
         {/* == SECTION 9: OVERALL VERDICT == */}
         <section className={SECTION_CLASSES}>
