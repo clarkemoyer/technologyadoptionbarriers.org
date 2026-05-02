@@ -19,7 +19,8 @@ type MediationLeg = {
   p: number | null
   ci_lo: number | null
   ci_hi: number | null
-  sig: boolean | null
+  /** JSON encodes sig as "Yes"/"No" strings; boolean also accepted. */
+  sig: string | boolean | null
 }
 
 type MediationData = {
@@ -107,6 +108,16 @@ const fmtP = (v: number | null | undefined): string => {
   return v.toFixed(3)
 }
 
+/**
+ * Normalize `sig` from pipeline JSON ("Yes"/"No" strings or boolean) to
+ * boolean | null so comparison logic works regardless of encoding.
+ */
+function normSig(sig: string | boolean | null | undefined): boolean | null {
+  if (sig === true || sig === 'Yes') return true
+  if (sig === false || sig === 'No') return false
+  return null
+}
+
 const isUsable = <T extends { skipped?: boolean; error?: string }>(
   d: T | null | undefined
 ): d is T => {
@@ -122,7 +133,10 @@ function MediationBlock({ data }: { data: MediationData }) {
   const indirect = data.Indirect
   const direct = data.Direct
   const total = data.Total
-  const fullMediation = indirect?.sig === true && direct?.sig === false && total?.sig === true
+  const fullMediation =
+    normSig(indirect?.sig) === true &&
+    normSig(direct?.sig) === false &&
+    normSig(total?.sig) === true
   return (
     <div className="space-y-3">
       <div className="overflow-x-auto">
@@ -162,11 +176,11 @@ function MediationBlock({ data }: { data: MediationData }) {
                   {fmtP(leg?.p)}
                 </td>
                 <td className="border border-gray-300 px-3 py-1.5 text-center">
-                  {leg?.sig === true ? (
+                  {normSig(leg?.sig) === true ? (
                     <span className="inline-block px-2 py-0.5 rounded text-xs font-bold bg-green-100 text-green-800 border border-green-200">
                       sig
                     </span>
-                  ) : leg?.sig === false ? (
+                  ) : normSig(leg?.sig) === false ? (
                     <span className="inline-block px-2 py-0.5 rounded text-xs font-bold bg-gray-100 text-gray-600 border border-gray-200">
                       ns
                     </span>

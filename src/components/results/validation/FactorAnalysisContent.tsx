@@ -293,9 +293,6 @@ function MultiGroupTable({ data }: { data: Record<string, unknown> }) {
               CFI
             </th>
             <th scope="col" className="text-right px-3 py-2 border">
-              TLI
-            </th>
-            <th scope="col" className="text-right px-3 py-2 border">
               RMSEA
             </th>
             <th scope="col" className="text-right px-3 py-2 border">
@@ -320,10 +317,9 @@ function MultiGroupTable({ data }: { data: Record<string, unknown> }) {
                       : key}
                 </td>
                 <td className="text-right px-3 py-1.5 border font-mono">
-                  {(v.n_listwise as number) ?? (fit.n as number) ?? 'n/a'}
+                  {(v.n_listwise as number) ?? (v.n as number) ?? 'n/a'}
                 </td>
                 <td className="text-right px-3 py-1.5 border font-mono">{fmtNum(fit.cfi)}</td>
-                <td className="text-right px-3 py-1.5 border font-mono">{fmtNum(fit.tli)}</td>
                 <td className="text-right px-3 py-1.5 border font-mono">{fmtNum(fit.rmsea)}</td>
                 <td className="text-right px-3 py-1.5 border font-mono">{fmtNum(fit.chi2, 2)}</td>
                 <td className="text-right px-3 py-1.5 border font-mono">
@@ -340,9 +336,11 @@ function MultiGroupTable({ data }: { data: Record<string, unknown> }) {
 
 function CrossValidationTable({ data }: { data: Record<string, unknown> }) {
   const tucker = data.tucker_congruence as number | null | undefined
-  const splitN = data.split_n as number[] | undefined
-  const fitA = (data.fit_split_a as Record<string, unknown>) ?? {}
-  const fitB = (data.fit_split_b as Record<string, unknown>) ?? {}
+  const nCal = data.n_calibration as number | undefined
+  const nVal = data.n_validation as number | undefined
+  const cal = (data.calibration as Record<string, unknown>) ?? {}
+  const val = (data.validation as Record<string, unknown>) ?? {}
+  const interp = data.interpretation as string | undefined
   return (
     <div>
       <div className="overflow-x-auto">
@@ -359,22 +357,27 @@ function CrossValidationTable({ data }: { data: Record<string, unknown> }) {
                 CFI
               </th>
               <th scope="col" className="text-right px-3 py-2 border">
+                TLI
+              </th>
+              <th scope="col" className="text-right px-3 py-2 border">
                 RMSEA
               </th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td className="px-3 py-1.5 border font-medium">Split A</td>
-              <td className="text-right px-3 py-1.5 border font-mono">{splitN?.[0] ?? 'n/a'}</td>
-              <td className="text-right px-3 py-1.5 border font-mono">{fmtNum(fitA.cfi)}</td>
-              <td className="text-right px-3 py-1.5 border font-mono">{fmtNum(fitA.rmsea)}</td>
+              <td className="px-3 py-1.5 border font-medium">Calibration</td>
+              <td className="text-right px-3 py-1.5 border font-mono">{nCal ?? 'n/a'}</td>
+              <td className="text-right px-3 py-1.5 border font-mono">{fmtNum(cal.cfi)}</td>
+              <td className="text-right px-3 py-1.5 border font-mono">{fmtNum(cal.tli)}</td>
+              <td className="text-right px-3 py-1.5 border font-mono">{fmtNum(cal.rmsea)}</td>
             </tr>
             <tr className="bg-gray-50">
-              <td className="px-3 py-1.5 border font-medium">Split B</td>
-              <td className="text-right px-3 py-1.5 border font-mono">{splitN?.[1] ?? 'n/a'}</td>
-              <td className="text-right px-3 py-1.5 border font-mono">{fmtNum(fitB.cfi)}</td>
-              <td className="text-right px-3 py-1.5 border font-mono">{fmtNum(fitB.rmsea)}</td>
+              <td className="px-3 py-1.5 border font-medium">Validation</td>
+              <td className="text-right px-3 py-1.5 border font-mono">{nVal ?? 'n/a'}</td>
+              <td className="text-right px-3 py-1.5 border font-mono">{fmtNum(val.cfi)}</td>
+              <td className="text-right px-3 py-1.5 border font-mono">{fmtNum(val.tli)}</td>
+              <td className="text-right px-3 py-1.5 border font-mono">{fmtNum(val.rmsea)}</td>
             </tr>
           </tbody>
         </table>
@@ -398,21 +401,56 @@ function CrossValidationTable({ data }: { data: Record<string, unknown> }) {
               Dissimilar factors
             </span>
           )}
+          {interp && <span className="ml-2 text-xs text-gray-600 italic">({interp})</span>}
         </p>
       )}
     </div>
   )
 }
 
-/** Exploratory Structural Equation Modeling (ESEM) section. */
+/**
+ * Detect items whose dominant absolute loading index differs from primary_factor.
+ * primary_factor 'F1' -> index 0, 'F2' -> index 1, 'F3' -> index 2.
+ */
+function detectESEMReassignments(
+  items: Record<string, { loadings: number[]; primary_factor: string }>
+): Array<{ item: string; primary: string; dominant: string; loading: number }> {
+  const factorNames = ['F1', 'F2', 'F3']
+  return Object.entries(items).flatMap(([itemId, d]) => {
+    const loadings = d.loadings
+    if (!Array.isArray(loadings) || loadings.length === 0) return []
+    const domIdx = loadings.reduce(
+      (best, v, i) => (Math.abs(v) > Math.abs(loadings[best]) ? i : best),
+      0
+    )
+    const domFactor = factorNames[domIdx] ?? `F${domIdx + 1}`
+    if (domFactor === d.primary_factor) return []
+    return [
+      { item: itemId, primary: d.primary_factor, dominant: domFactor, loading: loadings[domIdx] },
+    ]
+  })
+}
+
+/** Exploratory Structural Equation Modeling (ESEM) section.
+ *  Renders from the actual esem_3factor JSON shape: n_listwise,
+ *  variance_explained_per_factor, factor_correlations, and per-item loadings.
+ */
 function ESEMSection({ esem }: { esem: Record<string, unknown> | undefined }) {
   if (!esem || isNonPrimary(esem)) {
     return null
   }
-  const fit = (esem.fit as Record<string, unknown>) ?? {}
-  const recs = esem.reassignments as
-    | Array<{ item: string; from: string; to: string; loading: number }>
+
+  const nListwise = esem.n_listwise as number | undefined
+  const varPerFactor = esem.variance_explained_per_factor as number[] | undefined
+  const cumVar = esem.cumulative_variance as number | undefined
+  const factorCorr = esem.factor_correlations as number[][] | undefined
+  const rawItems = esem.items as
+    | Record<string, { loadings: number[]; primary_factor: string }>
     | undefined
+
+  const reassignments = rawItems ? detectESEMReassignments(rawItems) : []
+  const factorLabels = ['F1 (Barriers)', 'F2 (Readiness)', 'F3 (Maturity)']
+
   return (
     <section className={SECTION_CLASSES}>
       <h2 className={H2_CLASSES}>
@@ -420,56 +458,101 @@ function ESEMSection({ esem }: { esem: Record<string, unknown> | undefined }) {
       </h2>
       <p className={PARAGRAPH_CLASSES}>
         ESEM (Asparouhov &amp; Muthen, 2009) sits between EFA and CFA: it estimates a target-rotated
-        factor solution with all cross-loadings free, then reports fit indices comparable to CFA.
-        Items whose dominant loading shifts under ESEM relative to the canonical 3-group assignment
-        are candidates for reassignment in future revisions.
+        factor solution with all cross-loadings free. Items whose dominant loading shifts relative
+        to the canonical 3-group assignment are candidates for reassignment in future revisions.
       </p>
-      <div className="overflow-x-auto mb-3">
-        <table className="w-full text-sm font-sans border-collapse">
-          <thead>
-            <tr className="bg-gray-100">
-              <th scope="col" className="text-left px-3 py-2 border">
-                ESEM 3-factor (oblimin)
-              </th>
-              <th scope="col" className="text-right px-3 py-2 border">
-                CFI
-              </th>
-              <th scope="col" className="text-right px-3 py-2 border">
-                TLI
-              </th>
-              <th scope="col" className="text-right px-3 py-2 border">
-                RMSEA
-              </th>
-              <th scope="col" className="text-right px-3 py-2 border">
-                chi-squared
-              </th>
-              <th scope="col" className="text-right px-3 py-2 border">
-                df
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td className="px-3 py-1.5 border font-medium">Fit indices</td>
-              <td className="text-right px-3 py-1.5 border font-mono">{fmtNum(fit.cfi)}</td>
-              <td className="text-right px-3 py-1.5 border font-mono">{fmtNum(fit.tli)}</td>
-              <td className="text-right px-3 py-1.5 border font-mono">{fmtNum(fit.rmsea)}</td>
-              <td className="text-right px-3 py-1.5 border font-mono">{fmtNum(fit.chi2, 2)}</td>
-              <td className="text-right px-3 py-1.5 border font-mono">
-                {(fit.df as number) ?? 'n/a'}
-              </td>
-            </tr>
-          </tbody>
-        </table>
+
+      {/* Summary row */}
+      <div className="flex flex-wrap gap-4 mb-4 text-sm font-sans">
+        {nListwise != null && (
+          <div className="bg-gray-50 rounded border border-gray-200 px-3 py-2">
+            <span className="text-xs text-gray-600 block">N (listwise)</span>
+            <span className="font-mono font-semibold">{nListwise}</span>
+          </div>
+        )}
+        {cumVar != null && (
+          <div className="bg-gray-50 rounded border border-gray-200 px-3 py-2">
+            <span className="text-xs text-gray-600 block">Cumulative variance</span>
+            <span className="font-mono font-semibold">{(cumVar * 100).toFixed(1)}%</span>
+          </div>
+        )}
       </div>
-      {Array.isArray(recs) && recs.length > 0 ? (
+
+      {/* Variance explained per factor */}
+      {Array.isArray(varPerFactor) && varPerFactor.length > 0 && (
+        <div className="mb-4">
+          <h3 className={H3_CLASSES}>Variance Explained per Factor</h3>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm font-sans border-collapse">
+              <thead>
+                <tr className="bg-gray-100">
+                  <th scope="col" className="text-left px-3 py-2 border">
+                    Factor
+                  </th>
+                  <th scope="col" className="text-right px-3 py-2 border">
+                    Variance Explained
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {varPerFactor.map((v, i) => (
+                  <tr key={i} className={i % 2 === 1 ? 'bg-gray-50' : ''}>
+                    <td className="px-3 py-1.5 border">{factorLabels[i] ?? `F${i + 1}`}</td>
+                    <td className="text-right px-3 py-1.5 border font-mono">
+                      {(v * 100).toFixed(1)}%
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+
+      {/* Factor correlations */}
+      {Array.isArray(factorCorr) && factorCorr.length > 0 && (
+        <div className="mb-4">
+          <h3 className={H3_CLASSES}>Factor Correlations</h3>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm font-sans border-collapse">
+              <thead>
+                <tr className="bg-gray-100">
+                  <th scope="col" className="px-3 py-2 border" />
+                  {factorCorr[0].map((_, j) => (
+                    <th key={j} scope="col" className="text-right px-3 py-2 border">
+                      {factorLabels[j] ?? `F${j + 1}`}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {factorCorr.map((row, i) => (
+                  <tr key={i} className={i % 2 === 1 ? 'bg-gray-50' : ''}>
+                    <th scope="row" className="text-left px-3 py-1.5 border font-medium">
+                      {factorLabels[i] ?? `F${i + 1}`}
+                    </th>
+                    {row.map((v, j) => (
+                      <td key={j} className="text-right px-3 py-1.5 border font-mono">
+                        {i === j ? '—' : fmtNum(v)}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+
+      {/* Reassignments */}
+      {reassignments.length > 0 ? (
         <div>
-          <h3 className={H3_CLASSES}>Suggested item reassignments (ESEM dominant loading)</h3>
+          <h3 className={H3_CLASSES}>Suggested item reassignments (dominant loading)</h3>
           <ul className="text-sm font-sans list-disc list-inside space-y-1">
-            {recs.map((r) => (
+            {reassignments.map((r) => (
               <li key={r.item}>
-                <span className="font-mono">{r.item}</span>: {r.from} -&gt; {r.to} (loading{' '}
-                <span className="font-mono">{r.loading.toFixed(3)}</span>)
+                <span className="font-mono">{r.item}</span>: {r.primary} -&gt; {r.dominant}{' '}
+                (dominant loading <span className="font-mono">{r.loading.toFixed(3)}</span>)
               </li>
             ))}
           </ul>
