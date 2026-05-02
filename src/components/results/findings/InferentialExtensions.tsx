@@ -148,12 +148,24 @@ function MediationBlock({ data }: { data: MediationData }) {
         <table className="w-full border-collapse font-sans text-sm">
           <thead>
             <tr className="bg-gray-100">
-              <th scope="col" className="border border-gray-300 px-3 py-2 text-left font-bold">Path</th>
-              <th scope="col" className="border border-gray-300 px-3 py-2 text-right font-bold">Coef</th>
-              <th scope="col" className="border border-gray-300 px-3 py-2 text-right font-bold">SE</th>
-              <th scope="col" className="border border-gray-300 px-3 py-2 text-right font-bold">95% CI</th>
-              <th scope="col" className="border border-gray-300 px-3 py-2 text-right font-bold">p</th>
-              <th scope="col" className="border border-gray-300 px-3 py-2 text-center font-bold">Sig</th>
+              <th scope="col" className="border border-gray-300 px-3 py-2 text-left font-bold">
+                Path
+              </th>
+              <th scope="col" className="border border-gray-300 px-3 py-2 text-right font-bold">
+                Coef
+              </th>
+              <th scope="col" className="border border-gray-300 px-3 py-2 text-right font-bold">
+                SE
+              </th>
+              <th scope="col" className="border border-gray-300 px-3 py-2 text-right font-bold">
+                95% CI
+              </th>
+              <th scope="col" className="border border-gray-300 px-3 py-2 text-right font-bold">
+                p
+              </th>
+              <th scope="col" className="border border-gray-300 px-3 py-2 text-center font-bold">
+                Sig
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -227,7 +239,9 @@ function PerFactorRegressionBlock({ data }: { data: PerFactorRegData }) {
       <table className="w-full border-collapse font-sans text-sm">
         <thead>
           <tr className="bg-gray-100">
-            <th scope="col" className="border border-gray-300 px-3 py-2 text-left font-bold">Outcome</th>
+            <th scope="col" className="border border-gray-300 px-3 py-2 text-left font-bold">
+              Outcome
+            </th>
             <th scope="col" className="border border-gray-300 px-3 py-2 text-right font-bold">
               R-squared (total Barriers scale)
             </th>
@@ -287,10 +301,18 @@ function StandardizedRegressionBlock({ data }: { data: StandardizedRegData }) {
           <table className="w-full border-collapse font-sans text-xs">
             <thead>
               <tr className="bg-white">
-                <th scope="col" className="border border-gray-300 px-2 py-1 text-left">Predictor</th>
-                <th scope="col" className="border border-gray-300 px-2 py-1 text-right">beta (std)</th>
-                <th scope="col" className="border border-gray-300 px-2 py-1 text-right">t</th>
-                <th scope="col" className="border border-gray-300 px-2 py-1 text-right">p</th>
+                <th scope="col" className="border border-gray-300 px-2 py-1 text-left">
+                  Predictor
+                </th>
+                <th scope="col" className="border border-gray-300 px-2 py-1 text-right">
+                  beta (std)
+                </th>
+                <th scope="col" className="border border-gray-300 px-2 py-1 text-right">
+                  t
+                </th>
+                <th scope="col" className="border border-gray-300 px-2 py-1 text-right">
+                  p
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -326,9 +348,15 @@ function StandardizedRegressionBlock({ data }: { data: StandardizedRegData }) {
           <table className="w-full border-collapse font-sans text-sm">
             <thead>
               <tr className="bg-gray-100">
-                <th scope="col" className="border border-gray-300 px-3 py-2 text-left">Predictor</th>
-                <th scope="col" className="border border-gray-300 px-3 py-2 text-right">VIF</th>
-                <th scope="col" className="border border-gray-300 px-3 py-2 text-left">Interpretation</th>
+                <th scope="col" className="border border-gray-300 px-3 py-2 text-left">
+                  Predictor
+                </th>
+                <th scope="col" className="border border-gray-300 px-3 py-2 text-right">
+                  VIF
+                </th>
+                <th scope="col" className="border border-gray-300 px-3 py-2 text-left">
+                  Interpretation
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -384,10 +412,18 @@ function TOSTBlock({ data }: { data: TOSTData }) {
       <table className="w-full border-collapse font-sans text-sm">
         <thead>
           <tr className="bg-gray-100">
-            <th scope="col" className="border border-gray-300 px-3 py-2 text-left font-bold">Construct</th>
-            <th scope="col" className="border border-gray-300 px-3 py-2 text-right font-bold">delta</th>
-            <th scope="col" className="border border-gray-300 px-3 py-2 text-right font-bold">Pooled SD</th>
-            <th scope="col" className="border border-gray-300 px-3 py-2 text-right font-bold">p-TOST</th>
+            <th scope="col" className="border border-gray-300 px-3 py-2 text-left font-bold">
+              Construct
+            </th>
+            <th scope="col" className="border border-gray-300 px-3 py-2 text-right font-bold">
+              delta
+            </th>
+            <th scope="col" className="border border-gray-300 px-3 py-2 text-right font-bold">
+              Pooled SD
+            </th>
+            <th scope="col" className="border border-gray-300 px-3 py-2 text-right font-bold">
+              p-TOST
+            </th>
             <th scope="col" className="border border-gray-300 px-3 py-2 text-center font-bold">
               Equivalent at +/- 0.30 SD
             </th>
