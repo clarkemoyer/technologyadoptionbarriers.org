@@ -288,11 +288,28 @@ def match_claims_to_pipeline(claims, stats):
 
 
 def deduplicate_claims(claims):
-    """Remove duplicate claims (same value + same context window)."""
+    """Remove duplicate claims produced by overlapping regex matches.
+
+    Two claims are considered duplicates only when they share *all* of:
+      - the same numeric value (crp_value)
+      - the same ~500-char text window (char_offset // 500)
+      - the same category and subcategory
+      - the same matched text span (crp_text)
+
+    The additional discriminators prevent distinct claims that coincidentally
+    share the same value in the same paragraph (e.g. two different metrics
+    that both equal 0.85) from being incorrectly merged.
+    """
     seen = set()
     unique = []
     for c in claims:
-        key = (c['crp_value'], c['char_offset'] // 500)  # same ~500 char window
+        key = (
+            c['crp_value'],
+            c['char_offset'] // 500,
+            c['category'],
+            c['subcategory'],
+            c['crp_text'],
+        )
         if key not in seen:
             seen.add(key)
             unique.append(c)

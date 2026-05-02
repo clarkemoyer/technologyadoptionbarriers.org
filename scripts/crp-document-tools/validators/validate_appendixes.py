@@ -48,6 +48,7 @@ from paths import (  # noqa: E402
     CrpWorkspaceNotFound,
     find_appendix_dir as _find_appendix_dir,
     find_workspace as _find_workspace_shared,
+    parse_filename_date,
 )
 
 # =============================================================================
@@ -124,19 +125,6 @@ APPENDIX_FILES = {
 # Discovery
 # =============================================================================
 
-def _parse_filename_date(filename):
-    """
-    Parse an EST timestamp embedded in a filename of the form '(M-D-YYYY HHMM EST)'.
-    Returns a comparable tuple (year, month, day, hhmm) or (0, 0, 0, 0) on failure.
-    This avoids lexicographic ordering bugs with single-digit months/days
-    (e.g. '4-9-2026' vs '4-16-2026').
-    """
-    m = re.search(r'\((\d{1,2})-(\d{1,2})-(\d{4})\s+(\d{4})\s+[A-Z]{3}\)', filename)
-    if m:
-        month, day, year, hhmm = int(m.group(1)), int(m.group(2)), int(m.group(3)), int(m.group(4))
-        return (year, month, day, hhmm)
-    return (0, 0, 0, 0)
-
 
 def discover_appendix_files():
     """Find the latest version of each appendix markdown using date-aware selection.
@@ -182,7 +170,7 @@ def discover_appendix_files():
 
     for key, paths in buckets.items():
         if paths:
-            APPENDIX_FILES[key] = max(paths, key=lambda p: _parse_filename_date(os.path.basename(p)))
+            APPENDIX_FILES[key] = max(paths, key=lambda p: parse_filename_date(os.path.basename(p)))
 
     # Warn if any required appendix was not found so the report is not misleading.
     missing = [letter for letter in ("A", "B", "C", "D") if APPENDIX_FILES[letter] is None]
@@ -263,7 +251,7 @@ def _resolve_capture_file(folder_path, base_root, ts, ext):
     candidates = glob.glob(pattern)
     if not candidates:
         return exact, ts  # path doesn't exist; preserve original for error msg
-    chosen = max(candidates, key=lambda p: _parse_filename_date(os.path.basename(p)))
+    chosen = max(candidates, key=lambda p: parse_filename_date(os.path.basename(p)))
     # Recover the timestamp string from the chosen filename
     m = re.search(r'\(([^)]+\s+(?:EST|EDT))\)\.[a-z]+$', chosen)
     return chosen, (m.group(1) if m else ts)

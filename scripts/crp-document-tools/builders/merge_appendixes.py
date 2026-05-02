@@ -132,7 +132,19 @@ def _find_appendix(prefix, appendix_dir):
             candidates = globmod.glob(os.path.join(appendix_dir, f"{letter}_*.md"))
     if not candidates:
         return None
-    return max(candidates, key=lambda f: parse_filename_date(os.path.basename(f)))
+
+    def _sort_key(p):
+        parsed = parse_filename_date(os.path.basename(p))
+        # If the filename has no embedded timestamp (year == 0), fall back to
+        # mtime so selection is deterministic rather than glob-order dependent.
+        if parsed == (0, 0, 0, 0):
+            try:
+                return (0, 0, 0, int(os.path.getmtime(p)))
+            except OSError:
+                return (0, 0, 0, 0)
+        return parsed
+
+    return max(candidates, key=_sort_key)
 
 
 # ── Helper Functions ───────────────────────────────────────────────────
