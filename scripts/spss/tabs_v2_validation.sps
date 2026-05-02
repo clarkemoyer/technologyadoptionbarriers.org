@@ -254,8 +254,8 @@ OUTPUT EXPORT
 * AUTO-SAVE THE VIEWER DOCUMENT
 * Saves the entire Viewer to Post_Run_Results.spv in the working
 * directory so the recipient has a native SPSS receipt as well as the
-* Excel export. Filename is predictable so the launcher script (.bat
-* on Windows, .command on macOS) can confirm the run finished.
+* Excel export. After the run completes, both Post_Run_Results.spv and
+* spv_export.xlsx will be present in the working directory.
 * =====================================================================.
 
 OUTPUT SAVE
