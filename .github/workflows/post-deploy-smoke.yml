@@ -659,6 +659,7 @@ jobs:
         uses: actions/github-script@v9
         with:
           script: |
+            const fs = require('fs');
             const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
             const routeFail = parseInt(process.env.ROUTE_FAIL || '0');
             const assetFail = parseInt(process.env.ASSET_FAIL || '0');
@@ -691,6 +692,99 @@ jobs:
             if (dataFail > 0) lines.push(`- **Pipeline data:** ${dataFail} page(s) missing expected data`);
             const breakdown = lines.length > 0 ? lines.join('\n') : '- See workflow run for details';
 
+            // ── Failure detail helpers ────────────────────────────────────────────────
+            // Read file safely; return [] on any error (file may not exist if step was skipped)
+            function readLines(filePath) {
+              try {
+                return fs.readFileSync(filePath, 'utf8').split('\n').filter(l => l.trim());
+              } catch {
+                return [];
+              }
+            }
+
+            // Cap the list so the issue body stays readable; append a "… and N more" note
+            const MAX_DETAIL_LINES = 30;
+            function truncate(arr) {
+              if (arr.length <= MAX_DETAIL_LINES) return arr;
+              const rest = arr.length - MAX_DETAIL_LINES;
+              return [...arr.slice(0, MAX_DETAIL_LINES), `… and ${rest} more — see the workflow run for the full list`];
+            }
+
+            // Collapsible block for plain-text "FAIL ..." lines (routes, assets)
+            function codeDetailsBlock(emoji, heading, count, failLines) {
+              if (failLines.length === 0) return '';
+              return [
+                `<details>`,
+                `<summary>${emoji} ${heading} (${count})</summary>`,
+                ``,
+                '```',
+                truncate(failLines).join('\n'),
+                '```',
+                ``,
+                `</details>`,
+              ].join('\n');
+            }
+
+            // Collapsible block for markdown-table rows (infra, redirects, data, content)
+            function tableDetailsBlock(emoji, heading, count, tableHeader, failLines) {
+              if (failLines.length === 0) return '';
+              return [
+                `<details>`,
+                `<summary>${emoji} ${heading} (${count})</summary>`,
+                ``,
+                tableHeader,
+                truncate(failLines).join('\n'),
+                ``,
+                `</details>`,
+              ].join('\n');
+            }
+
+            const detailSections = [];
+
+            // Page routes — "FAIL <status> <path> (expected <n>)" lines
+            if (routeFail > 0) {
+              const failLines = readLines('/tmp/route-results.txt').filter(l => l.startsWith('FAIL'));
+              const block = codeDetailsBlock('📄', 'Page Route Failures', routeFail, failLines);
+              if (block) detailSections.push(block);
+            }
+
+            // Static assets — same "FAIL ..." format
+            if (assetFail > 0) {
+              const failLines = readLines('/tmp/asset-results.txt').filter(l => l.startsWith('FAIL'));
+              const block = codeDetailsBlock('🖼️', 'Static Asset Failures', assetFail, failLines);
+              if (block) detailSections.push(block);
+            }
+
+            // Infrastructure — markdown table rows containing ❌
+            if (infraFail > 0) {
+              const failLines = readLines('/tmp/infra-results.txt').filter(l => l.includes('❌'));
+              const block = tableDetailsBlock('🔧', 'Infrastructure Failures', infraFail, '| Check | Result |\n|-------|--------|', failLines);
+              if (block) detailSections.push(block);
+            }
+
+            // Redirects — markdown table rows containing ❌
+            if (redirectFail > 0) {
+              const failLines = readLines('/tmp/redirect-results.txt').filter(l => l.includes('❌'));
+              const block = tableDetailsBlock('🔀', 'Redirect Failures', redirectFail, '| Old URL | Result |\n|---------|--------|', failLines);
+              if (block) detailSections.push(block);
+            }
+
+            // Pipeline data — markdown table rows containing ❌
+            if (dataFail > 0) {
+              const failLines = readLines('/tmp/data-results.txt').filter(l => l.includes('❌'));
+              const block = tableDetailsBlock('📊', 'Pipeline Data Failures', dataFail, '| Page | Result |\n|------|--------|', failLines);
+              if (block) detailSections.push(block);
+            }
+
+            // Content spot-checks — markdown table rows containing ❌
+            if (contentFail > 0) {
+              const failLines = readLines('/tmp/content-results.txt').filter(l => l.includes('❌'));
+              const block = tableDetailsBlock('📝', 'Content Spot-Check Failures', contentFail, '| Page | Result |\n|------|--------|', failLines);
+              if (block) detailSections.push(block);
+            }
+
+            const failureDetails = detailSections.filter(Boolean).join('\n\n');
+
             const title = `🚨 Production smoke test failed: ${totalFail} check(s) after deploy (${shortSha})`;
             const body = [
               `## 🚨 Production Site Issue Detected`,
@@ -701,6 +795,12 @@ jobs:
               ``,
               breakdown,
               ``,
+              ...(failureDetails ? [
+                `### Failure Details`,
+                ``,
+                failureDetails,
+                ``,
+              ] : []),
               `### Links`,
               ``,
               `- **Workflow run:** ${runUrl}`,
