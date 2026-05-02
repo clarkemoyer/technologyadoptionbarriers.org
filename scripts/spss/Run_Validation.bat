@@ -42,8 +42,10 @@ REM ====================================================================
 
 setlocal enableextensions
 
+REM %~dp0 always ends with a backslash (e.g. C:\path\ or, at a drive root, C:\).
+REM Keep the trailing backslash so the drive-root case (C:\) stays valid;
+REM all path concatenations below use %HERE%file (no extra \).
 set "HERE=%~dp0"
-if "%HERE:~-1%"=="\" set "HERE=%HERE:~0,-1%"
 set "HERE_FWD=%HERE:\=/%"
 
 cd /d "%HERE%"
@@ -97,13 +99,13 @@ if not defined SPSS_EXE (
 echo Found SPSS at: %SPSS_EXE%
 echo.
 
-if not exist "%HERE%\tabs_v2_crp200_spss.sav" (
+if not exist "%HERE%tabs_v2_crp200_spss.sav" (
   echo ERROR: tabs_v2_crp200_spss.sav not found in this folder.
   echo        Did you extract the entire zip into this folder?
   pause
   exit /b 1
 )
-if not exist "%HERE%\tabs_v2_validation.sps" (
+if not exist "%HERE%tabs_v2_validation.sps" (
   echo ERROR: tabs_v2_validation.sps not found in this folder.
   echo        Did you extract the entire zip into this folder?
   pause
@@ -114,7 +116,7 @@ REM Build the combined runtime syntax file: header + absolute CD + the
 REM full contents of tabs_v2_validation.sps. Using `type ... >>` appends
 REM the main syntax verbatim, preserving its formatting and comments.
 REM Escape single quotes in the path by doubling them (SPSS standard).
-set "COMBINED=%HERE%\_run_validation.sps"
+set "COMBINED=%HERE%_run_validation.sps"
 set "HERE_FWD_ESC=%HERE_FWD:'=''%"
 REM Escape & for safe echo (| < > are not valid in Windows file/folder names)
 set "HERE_FWD_ESC=%HERE_FWD_ESC:&=^&%"
@@ -129,7 +131,7 @@ set "HERE_FWD_ESC=%HERE_FWD_ESC:&=^&%"
 >>"%COMBINED%" echo.
 >>"%COMBINED%" echo * --- Inlined from tabs_v2_validation.sps ----------------------------.
 >>"%COMBINED%" echo.
-type "%HERE%\tabs_v2_validation.sps" >> "%COMBINED%"
+type "%HERE%tabs_v2_validation.sps" >> "%COMBINED%"
 
 echo Combined syntax generated:
 echo   %COMBINED%
