@@ -483,6 +483,36 @@ jobs:
           check_content "${SITE_URL}/results/reliability" "Cronbach" "/results/reliability"
           check_content "${SITE_URL}/results/sensitivity" "Conservative Clean" "/results/sensitivity"
 
+          # Issue #1839 - validation/factor/reliability/findings page sections
+          # added in PR #1853. These assertions guarantee the new statistical
+          # content from PR #1837's pipeline (28 new keys) actually surfaces.
+          # Each headline must be present on both the live and CRP tracks.
+          # If a check fails, the smoke workflow auto-files an issue (like
+          # #1849) so the regression gets investigated, not silently hidden.
+
+          # Validation page: bifactor + assumption-checks sections (Pass 1)
+          check_content "${SITE_URL}/results/validation" "Bifactor Analyses" "/results/validation bifactor"
+          check_content "${SITE_URL}/results/validation" "Assumption Checks" "/results/validation assumption-checks"
+          check_content "${SITE_URL}/results/crp-2026/validation" "Bifactor Analyses" "/results/crp-2026/validation bifactor"
+          check_content "${SITE_URL}/results/crp-2026/validation" "Assumption Checks" "/results/crp-2026/validation assumption-checks"
+
+          # Factor analysis page: Multi-Group + ESEM sections (Pass 2). These
+          # render only when the data is present, so a PR that breaks the
+          # pipeline output for these keys will trip the smoke test.
+          check_content "${SITE_URL}/results/crp-2026/factor-analysis" "Multi-Group Stability" "/results/crp-2026/factor-analysis multi-group"
+          check_content "${SITE_URL}/results/crp-2026/factor-analysis" "ESEM Sensitivity" "/results/crp-2026/factor-analysis esem"
+
+          # Reliability page: bootstrap CI + alpha-if-deleted + by-demo (Pass 3)
+          check_content "${SITE_URL}/results/reliability" "Bootstrap Confidence" "/results/reliability bootstrap"
+          check_content "${SITE_URL}/results/reliability" "Alpha if Deleted" "/results/reliability alpha-if-deleted"
+          check_content "${SITE_URL}/results/reliability" "Reliability by Demographic" "/results/reliability by-demo"
+          check_content "${SITE_URL}/results/crp-2026/reliability" "Bootstrap Confidence" "/results/crp-2026/reliability bootstrap"
+          check_content "${SITE_URL}/results/crp-2026/reliability" "Alpha if Deleted" "/results/crp-2026/reliability alpha-if-deleted"
+
+          # Findings page: Inferential Extensions section (Pass 4)
+          check_content "${SITE_URL}/results/findings" "Inferential Extensions" "/results/findings inferential-extensions"
+          check_content "${SITE_URL}/results/crp-2026/findings" "Inferential Extensions" "/results/crp-2026/findings inferential-extensions"
+
           # Barriers page - still functional
           check_content "${SITE_URL}/barriers" "Technology Adoption Barriers" "/barriers"
 
