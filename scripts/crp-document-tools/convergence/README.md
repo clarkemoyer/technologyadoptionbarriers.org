@@ -31,10 +31,10 @@ Outputs are written to the workspace `04 CRP Review Reports/CRP Convergence Syst
 
 ## Running
 
-Both scripts require the CRP `.docx` to be unpacked first (`unpack.py` extracts `word/document.xml`) and a local clone of the tabs-site repo.
+Both scripts require the CRP `.docx` to be unpacked first (`unpack.py` extracts `word/document.xml`) and a local clone of the tabs-site repo. All input paths must be supplied explicitly via CLI flags - neither script auto-discovers workspace locations.
 
 ```bash
-# Full check (slow, comprehensive) - auto-discovers workspace via glob
+# Full check (slow, comprehensive)
 python scripts/crp-document-tools/convergence/crp_full_convergence_check_v2_3.py \
     --crp-xml /path/to/unpacked/word/document.xml \
     --repo /tmp/tabs-site \
@@ -48,7 +48,7 @@ python scripts/crp-document-tools/convergence/crp_convergence_check.py \
     --output-dir "/path/to/04 CRP Review Reports/CRP Convergence System"
 ```
 
-With a correctly configured workspace glob the actual paths are auto-discovered from `/sessions/*/mnt/! Clarke Moyer Smeal CRP - TABS`; the `--crp-xml`, `--repo`, and `--output-dir` flags must be supplied explicitly.
+On the original author's machine the workspace root is typically under `/sessions/*/mnt/! Clarke Moyer Smeal CRP - TABS`; substitute the actual path when running locally.
 
 ## How the categories work
 

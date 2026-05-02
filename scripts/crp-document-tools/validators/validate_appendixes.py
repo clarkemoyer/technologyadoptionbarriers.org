@@ -46,20 +46,9 @@ if _SUBTREE_DIR not in sys.path:
     sys.path.insert(0, _SUBTREE_DIR)
 from paths import (  # noqa: E402
     CrpWorkspaceNotFound,
+    find_appendix_dir as _find_appendix_dir,
     find_workspace as _find_workspace_shared,
 )
-
-
-def find_workspace():
-    """Locate the CRP workspace root via the shared portable discovery.
-
-    Returns the workspace path, or None if discovery fails. Callers that
-    need the explicit error should call paths.find_workspace() directly.
-    """
-    try:
-        return _find_workspace_shared()
-    except CrpWorkspaceNotFound:
-        return None
 
 # =============================================================================
 # Configuration (resolved at runtime in main)
@@ -480,11 +469,12 @@ def main():
     parser.add_argument("--workspace", help="Path to CRP workspace root (auto-discovered if omitted)")
     args = parser.parse_args()
 
-    workspace = args.workspace or find_workspace()
-    if workspace:
-        APPENDIX_DIR = os.path.join(workspace, "02 CRP Appendixes")
-    if not APPENDIX_DIR or not os.path.isdir(APPENDIX_DIR):
-        print("ERROR: Could not locate appendix directory. Provide --workspace or set up the CRP workspace.")
+    workspace = args.workspace
+    try:
+        resolved_workspace = _find_workspace_shared(explicit=workspace if workspace else None)
+        APPENDIX_DIR = _find_appendix_dir(resolved_workspace)
+    except CrpWorkspaceNotFound as exc:
+        print(f"ERROR: {exc}")
         sys.exit(1)
 
     print("=" * 80)

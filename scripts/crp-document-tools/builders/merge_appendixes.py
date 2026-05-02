@@ -18,6 +18,7 @@ Usage:
 import argparse
 import glob as globmod
 import os
+import re
 import sys
 from datetime import datetime
 from zoneinfo import ZoneInfo
