@@ -93,6 +93,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 1,
     },
+    // Top-level nav-category landing pages (added per #1708 first-click audit)
+    {
+      url: `${baseUrl}/survey`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/about`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
     // Barriers pages
     {
       url: `${baseUrl}/barriers`,

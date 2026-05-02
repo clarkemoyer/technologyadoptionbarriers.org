@@ -345,36 +345,42 @@ export const sidebarSections: SidebarSection[] = [
     id: 'survey',
     label: 'Survey',
     icon: '📋',
+    href: '/survey',
     groups: surveyToGroups(),
   },
   {
     id: 'results',
     label: 'Results',
     icon: '📊',
+    href: '/results',
     groups: resultsToGroups(resultsSeries),
   },
   {
     id: 'models',
     label: 'Models',
     icon: '📚',
+    href: '/technology-adoption-models',
     groups: modelsToGroups(),
   },
   {
     id: 'teaching',
     label: 'Teaching',
     icon: '🎓',
+    href: '/technology-adoption-series',
     groups: teachingToGroups(),
   },
   {
     id: 'making-of-tabs',
     label: 'Making of TABS',
     icon: '🔧',
+    href: '/making-of-tabs',
     groups: makingOfTabsToGroups(makingOfTabsSeries),
   },
   {
     id: 'about',
     label: 'About',
     icon: 'ℹ️',
+    href: '/about',
     groups: aboutToGroups(),
   },
 ]
@@ -387,6 +393,7 @@ export function getActiveSectionId(pathname: string): string {
 
   if (p === '/') return 'home'
   if (
+    p === '/survey' ||
     p.startsWith('/barriers') ||
     p.startsWith('/start') ||
     p.startsWith('/for-organizations') ||
@@ -403,6 +410,7 @@ export function getActiveSectionId(pathname: string): string {
   if (p.startsWith('/technology-adoption-series')) return 'teaching'
   if (p.startsWith('/making-of-tabs')) return 'making-of-tabs'
   if (
+    p === '/about' ||
     [
       '/faq',
       '/media',
