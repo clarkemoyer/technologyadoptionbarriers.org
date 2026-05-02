@@ -29,70 +29,30 @@ OUT_DIR = Path(__file__).resolve().parent
 OUT_SAV = OUT_DIR / "tabs_v2_crp200_spss.sav"
 OUT_CSV = OUT_DIR / "tabs_v2_crp200_spss.csv"
 
-# Likert scales come from the canonical shared module so this encoder cannot
-# silently drift from scripts/analysis/tabs_v2_validation.py. encode_likert()
-# raises ValueError on any unknown label (fail-fast) instead of producing NaN.
+# Likert scales AND canonical item names come from the shared scales module
+# so this encoder cannot silently drift from scripts/analysis/tabs_v2_validation.py.
+# encode_likert() raises ValueError on any unknown label (fail-fast) instead of
+# producing NaN.
+#
+# Earlier versions of this file hardcoded its own READINESS_NAMES and
+# MATURITY_NAMES guesses ("Strategic Alignment", "Technology Selection", etc.)
+# which were entirely fictional - the real Qualtrics column subheaders are
+# IT-capability domains like "IT Investment & Value Mgmt" and "Vision/Leadership".
+# Importing from scales.py prevents that class of drift.
 sys.path.insert(0, str(REPO_ROOT / "scripts" / "analysis"))
 from scales import (  # noqa: E402
     BARRIER_SCALE,
     READINESS_SCALE,
     MATURITY_SCALE,
+    BARRIER_NAMES,
+    READINESS_NAMES,
+    MATURITY_NAMES,
     encode_likert,
 )
 
 BARRIER_COLS = [f"Q10-28_Barriers_{i}" for i in range(1, 19)]
 READINESS_COLS = [f"Q47-64_Readiness_{i}" for i in range(1, 18)]
 MATURITY_COLS = [f"Q65-73_Maturity_{i}" for i in range(1, 9)]
-
-BARRIER_NAMES = [
-    "Resistance to Change",
-    "Lack of Leadership Support",
-    "Risk-Averse Culture",
-    "Insufficient Workforce Skills",
-    "Inadequate Training",
-    "High Implementation Cost",
-    "Legacy System Integration",
-    "Inadequate IT Infrastructure",
-    "Difficulty Demonstrating Value",
-    "No Clear Strategy/Roadmap",
-    "Insufficient Governance",
-    "Workflow Disruption",
-    "Cybersecurity Concerns",
-    "Data Privacy Compliance",
-    "Lack of Trust in Tech/Vendors",
-    "Regulatory Complexity",
-    "External Pressure Without Readiness",
-    "Vendor/Partner Difficulty",
-]
-READINESS_NAMES = [
-    "Strategic Alignment",
-    "Leadership Sponsorship",
-    "Change Management Capability",
-    "Workforce Skills",
-    "Training Resources",
-    "Funding Availability",
-    "IT Infrastructure",
-    "Data Quality",
-    "Vendor Ecosystem",
-    "Governance Structure",
-    "Risk Management Process",
-    "Performance Measurement",
-    "Innovation Culture",
-    "Cross-functional Collaboration",
-    "Process Documentation",
-    "Compliance Readiness",
-    "External Partnerships",
-]
-MATURITY_NAMES = [
-    "Technology Selection",
-    "Implementation Planning",
-    "Pilot/POC Execution",
-    "Full Deployment",
-    "Adoption Measurement",
-    "Continuous Improvement",
-    "Knowledge Management",
-    "Strategic Integration",
-]
 
 
 def encode(value: object, scale_map: dict) -> float:
