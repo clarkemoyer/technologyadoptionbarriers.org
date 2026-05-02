@@ -12,6 +12,7 @@ import crpSensitivityData from '@/data/crp-sensitivity-analysis.json'
 import LastUpdated from '@/components/last-updated'
 import { DATA_UNAVAILABLE } from '@/lib/sentinelMarker'
 import { resultsSeries } from '@/data/results-series'
+import { joinItems } from '@/lib/joinItems'
 
 export const metadata: Metadata = {
   title: 'Results - TABS',
@@ -21,6 +22,20 @@ export const metadata: Metadata = {
     canonical: '/results',
   },
 }
+
+/**
+ * Static prose for the search index.
+ * The /results landing page is highly dynamic (top-3 labels, N values, etc.),
+ * so the auto-extractor produces garbled tokens.  This export is used verbatim
+ * by scripts/generate-search-index.ts instead of the auto-extracted text.
+ */
+export const SEARCH_CONTENT =
+  'Across the live TABS dataset, the nine-page insight-first flow covers: ' +
+  'Top 3 Barriers, Key Findings, Descriptive Statistics, Sample and Demographics, ' +
+  'Data Quality, Scale Reliability, Factor Analysis, Instrument Validation, and ' +
+  'Sensitivity Analysis. Parallel pages are available for the growing live dataset ' +
+  'and the frozen CRP 2026 snapshot (N=200). Start with the forced-choice top 3 ' +
+  'barriers ranking, then work down through the full analytic story.'
 
 type PickItem = { item: string; text: string; count: number; pct: number | null }
 type Top3Block = { total_n?: number; items_sorted_desc?: PickItem[] }
@@ -39,13 +54,6 @@ const crpTopThree: PickItem[] = Array.isArray(crpTop3.items_sorted_desc)
 
 const liveTotalN: number | null = typeof liveTop3.total_n === 'number' ? liveTop3.total_n : null
 const crpTotalN: number | null = typeof crpTop3.total_n === 'number' ? crpTop3.total_n : null
-
-const joinItems = (xs: string[]): string => {
-  if (xs.length === 0) return ''
-  if (xs.length === 1) return xs[0]
-  if (xs.length === 2) return `${xs[0]} and ${xs[1]}`
-  return `${xs.slice(0, -1).join(', ')}, and ${xs[xs.length - 1]}`
-}
 
 const barrierShort = (text: string): string => {
   // Strip trailing period, remove parentheticals, and keep the first sentence-like

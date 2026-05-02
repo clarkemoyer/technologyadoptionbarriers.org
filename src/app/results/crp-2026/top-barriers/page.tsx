@@ -10,6 +10,7 @@ import {
 import Link from 'next/link'
 import crpData from '@/data/crp-sensitivity-analysis.json'
 import { DATA_UNAVAILABLE } from '@/lib/sentinelMarker'
+import { joinItems } from '@/lib/joinItems'
 
 export const metadata: Metadata = {
   title: 'CRP 2026 Top 3 Barriers - TABS',
@@ -101,14 +102,6 @@ const barWidth = (count: number, max: number): number => {
 }
 
 const signed = (n: number): string => (n > 0 ? `+${n}` : String(n))
-
-// Build a human-readable list like "B2, B5, and B8" from an array of strings.
-const joinItems = (xs: string[]): string => {
-  if (xs.length === 0) return ''
-  if (xs.length === 1) return xs[0]
-  if (xs.length === 2) return `${xs[0]} and ${xs[1]}`
-  return `${xs.slice(0, -1).join(', ')}, and ${xs[xs.length - 1]}`
-}
 
 // ---- Dynamic narrative inputs -------------------------------------------------------------------
 

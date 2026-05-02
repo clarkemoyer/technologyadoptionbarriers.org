@@ -10,6 +10,7 @@ import {
 import Link from 'next/link'
 import liveData from '@/data/sensitivity-analysis.json'
 import { DATA_UNAVAILABLE } from '@/lib/sentinelMarker'
+import { joinItems } from '@/lib/joinItems'
 
 export const metadata: Metadata = {
   title: 'Top 3 Barriers (Live) - TABS',
@@ -103,13 +104,6 @@ const barWidth = (count: number, max: number): number => {
 }
 
 const signed = (n: number): string => (n > 0 ? `+${n}` : String(n))
-
-const joinItems = (xs: string[]): string => {
-  if (xs.length === 0) return ''
-  if (xs.length === 1) return xs[0]
-  if (xs.length === 2) return `${xs[0]} and ${xs[1]}`
-  return `${xs.slice(0, -1).join(', ')}, and ${xs[xs.length - 1]}`
-}
 
 const formatUpdated = (iso: string | null): string => {
   if (!iso) return DATA_UNAVAILABLE

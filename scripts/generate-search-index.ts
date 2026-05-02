@@ -214,6 +214,25 @@ export function extractStaticMetadata(source: string): {
 const PRESERVED_FILE_EXTENSIONS = 'svg|png|jpg|jpeg|gif|webp|pdf|tsx?|jsx?|json|css|html?|md|txt'
 
 /**
+ * Extracts the value of an optional `export const SEARCH_CONTENT = '...'`
+ * declaration from a page source file.  When present, this string is used
+ * verbatim as the search-index content instead of the auto-extracted visible
+ * text, which can produce garbled output on pages with dynamic JSX expressions.
+ *
+ * Usage in a page file:
+ *   export const SEARCH_CONTENT =
+ *     'Plain prose describing this page for search indexing.'
+ */
+function extractSearchContent(source: string): string | null {
+  const m = source.match(/export\s+const\s+SEARCH_CONTENT\s*=\s*(?:`([^`]*)`|'([^']*)'|"([^"]*)")/s)
+  if (!m) return null
+  // m[1] = template-literal, m[2] = single-quote, m[3] = double-quote
+  const raw = m[1] ?? m[2] ?? m[3] ?? ''
+  // Collapse newlines / excess whitespace introduced by multi-line string literals
+  return raw.replace(/\s+/g, ' ').trim() || null
+}
+
+/**
  * Best-effort extraction of visible text from a TSX file.
  *
  * Strategy: find the JSX return block, strip JSX tags / attributes / imports /
@@ -493,7 +512,7 @@ async function generateSearchIndex() {
     // Skip noindex pages (redirect stubs, etc.)
     if (robotsIndexFalse) continue
 
-    const visibleText = extractVisibleText(source)
+    const visibleText = extractSearchContent(source) ?? extractVisibleText(source)
     const segments = [title, description, visibleText]
       .map((segment) => segment?.trim())
       .filter((s): s is string => Boolean(s))
