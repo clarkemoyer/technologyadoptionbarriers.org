@@ -13,7 +13,7 @@ export const makingOfTabsSeries: MakingOfTabsItem[] = [
   { title: 'Automation Infrastructure', href: '/making-of-tabs/automation-infrastructure' },
   { title: 'Accessibility', href: '/making-of-tabs/accessibility' },
   {
-    title: 'Open Source',
+    title: 'Open Source & Community',
     href: '/making-of-tabs/open-source',
     children: [
       {

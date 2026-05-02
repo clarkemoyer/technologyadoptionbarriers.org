@@ -57,4 +57,43 @@ describe('sidebar-navigation makingOfTabsToGroups', () => {
       expect(reviewerIdx).toBe(squashIdx + 1)
     })
   })
+
+  describe('"How We Built It" group — cross-group isolation', () => {
+    const howWeBuiltItGroup = makingOfTabsSection?.groups.find((g) => g.title === 'How We Built It')
+    const allGroups = makingOfTabsSection?.groups ?? []
+
+    it('contains no links starting with /making-of-tabs/ai- (AI Validity Checks, AI-Assisted Dev belong to AI in TABS)', () => {
+      const hrefs = howWeBuiltItGroup?.links.map((l) => l.href) ?? []
+      expect(hrefs.every((h) => !h.startsWith('/making-of-tabs/ai-'))).toBe(true)
+    })
+
+    it('contains no links starting with /making-of-tabs/integrations', () => {
+      const hrefs = howWeBuiltItGroup?.links.map((l) => l.href) ?? []
+      expect(hrefs.every((h) => !h.startsWith('/making-of-tabs/integrations'))).toBe(true)
+    })
+
+    it('contains no links starting with /making-of-tabs/seo', () => {
+      const hrefs = howWeBuiltItGroup?.links.map((l) => l.href) ?? []
+      expect(hrefs.every((h) => !h.startsWith('/making-of-tabs/seo'))).toBe(true)
+    })
+
+    it('contains no links starting with /making-of-tabs/mind-maps', () => {
+      const hrefs = howWeBuiltItGroup?.links.map((l) => l.href) ?? []
+      expect(hrefs.every((h) => !h.startsWith('/making-of-tabs/mind-maps'))).toBe(true)
+    })
+
+    it('contains no links starting with /making-of-tabs/tabs-presentation', () => {
+      const hrefs = howWeBuiltItGroup?.links.map((l) => l.href) ?? []
+      expect(hrefs.every((h) => !h.startsWith('/making-of-tabs/tabs-presentation'))).toBe(true)
+    })
+
+    it('has no href that also appears in another group (no duplicates across groups)', () => {
+      const howWeBuiltItHrefs = new Set(howWeBuiltItGroup?.links.map((l) => l.href) ?? [])
+      const otherHrefs = allGroups
+        .filter((g) => g.title !== 'How We Built It')
+        .flatMap((g) => g.links.map((l) => l.href))
+      const duplicates = otherHrefs.filter((h) => howWeBuiltItHrefs.has(h))
+      expect(duplicates).toHaveLength(0)
+    })
+  })
 })
