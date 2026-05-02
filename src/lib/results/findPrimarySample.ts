@@ -10,15 +10,17 @@ export type ValidationLike = {
 }
 
 /**
- * Returns the sample object whose `key` matches `primary_sample`, or the
- * first sample if `primary_sample` is absent. Returns null when the data
- * has no samples array or the array is empty.
+ * Returns the sample object whose `key` matches `primary_sample`.
+ * Falls back to `samples[0]` only when `primary_sample` is absent.
+ * Returns `null` when:
+ *   - the data has no samples array or the array is empty
+ *   - `primary_sample` is set but no sample's `key` matches it
+ *     (this case is treated as a schema regression, not a silent fallback)
  */
 export const findPrimarySample = (data: ValidationLike): Record<string, unknown> | null => {
   if (!data || !Array.isArray(data.samples) || data.samples.length === 0) return null
   if (data.primary_sample) {
-    const match = data.samples.find((s) => s.key === data.primary_sample)
-    if (match) return match
+    return data.samples.find((s) => s.key === data.primary_sample) ?? null
   }
   return data.samples[0] ?? null
 }
