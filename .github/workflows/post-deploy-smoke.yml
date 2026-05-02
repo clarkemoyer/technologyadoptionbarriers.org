@@ -513,6 +513,12 @@ jobs:
           check_content "${SITE_URL}/results/findings" "Inferential Extensions" "/results/findings inferential-extensions"
           check_content "${SITE_URL}/results/crp-2026/findings" "Inferential Extensions" "/results/crp-2026/findings inferential-extensions"
 
+          # Data quality page: Pipeline & Data Flow diagram (Pass 5).
+          # Heading must remain present on both tracks - it is the permanent
+          # home for the defense-presentation 11-stage pipeline visualization.
+          check_content "${SITE_URL}/results/data-quality" "Pipeline and Data Flow" "/results/data-quality pipeline-flow"
+          check_content "${SITE_URL}/results/crp-2026/data-quality" "Pipeline and Data Flow" "/results/crp-2026/data-quality pipeline-flow"
+
           # Barriers page - still functional
           check_content "${SITE_URL}/barriers" "Technology Adoption Barriers" "/barriers"
 
