@@ -1,5 +1,9 @@
 import { H2_CLASSES, H3_CLASSES, PARAGRAPH_CLASSES } from '@/lib/articleStyles'
-import { DATA_UNAVAILABLE } from '@/lib/sentinelMarker'
+// Per-cell missing values render as '-' (see fmt/fmtP helpers below).
+// DATA_UNAVAILABLE sentinel is reserved for missing entire data blocks
+// (caught by the smoke test as a production incident); the
+// InferentialExtensions component uses block-level guards in the parent
+// (buildInferentialExtensionsProps) to decide whether to render at all.
 
 /**
  * "Inferential Extensions" section for /results/findings and
@@ -98,12 +102,15 @@ export type InferentialExtensionsProps = {
 }
 
 const fmt = (v: number | null | undefined, digits = 3): string => {
-  if (typeof v !== 'number' || !Number.isFinite(v)) return DATA_UNAVAILABLE
+  // Single missing scalars are normal in mediation/regression tables (some
+  // estimators don't produce bootstrap CI bounds, some lavaan-MLR outputs
+  // omit certain p-values, etc). A missing scalar gets a plain dash.
+  if (typeof v !== 'number' || !Number.isFinite(v)) return '-'
   return v.toFixed(digits)
 }
 
 const fmtP = (v: number | null | undefined): string => {
-  if (typeof v !== 'number' || !Number.isFinite(v)) return DATA_UNAVAILABLE
+  if (typeof v !== 'number' || !Number.isFinite(v)) return '-'
   if (v < 0.001) return '< .001'
   return v.toFixed(3)
 }
@@ -202,7 +209,7 @@ function MediationBlock({ data }: { data: MediationData }) {
                       ns
                     </span>
                   ) : (
-                    DATA_UNAVAILABLE
+                    '-'
                   )}
                 </td>
               </tr>
@@ -267,7 +274,7 @@ function PerFactorRegressionBlock({ data }: { data: PerFactorRegData }) {
                 <td className="border border-gray-300 px-3 py-1.5 text-right font-mono text-emerald-700 font-semibold">
                   {e.r2_lift_from_decomposition != null
                     ? `+${fmt(e.r2_lift_from_decomposition, 4)}`
-                    : DATA_UNAVAILABLE}
+                    : '-'}
                 </td>
               </tr>
             ) : null
@@ -454,7 +461,7 @@ function TOSTBlock({ data }: { data: TOSTData }) {
                       Not equivalent
                     </span>
                   ) : (
-                    DATA_UNAVAILABLE
+                    '-'
                   )}
                 </td>
               </tr>
@@ -480,13 +487,11 @@ function PowerAnalysisBlock({ data }: { data: PowerAnalysisData }) {
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-sm">
         <div>
           <div className="text-xs text-blue-800">N (SMB)</div>
-          <div className="font-mono text-blue-900 text-base">{data.n_smb ?? DATA_UNAVAILABLE}</div>
+          <div className="font-mono text-blue-900 text-base">{data.n_smb ?? '-'}</div>
         </div>
         <div>
           <div className="text-xs text-blue-800">N (Enterprise)</div>
-          <div className="font-mono text-blue-900 text-base">
-            {data.n_enterprise ?? DATA_UNAVAILABLE}
-          </div>
+          <div className="font-mono text-blue-900 text-base">{data.n_enterprise ?? '-'}</div>
         </div>
         <div>
           <div className="text-xs text-blue-800">SMB / ENT ratio</div>
