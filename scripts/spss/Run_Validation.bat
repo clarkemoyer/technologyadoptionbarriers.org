@@ -40,7 +40,7 @@ REM
 REM Tested on Windows 10 + 11. Requires SPSS Statistics 24+.
 REM ====================================================================
 
-setlocal enableextensions enabledelayedexpansion
+setlocal enableextensions
 
 set "HERE=%~dp0"
 if "%HERE:~-1%"=="\" set "HERE=%HERE:~0,-1%"
@@ -116,6 +116,8 @@ REM the main syntax verbatim, preserving its formatting and comments.
 REM Escape single quotes in the path by doubling them (SPSS standard).
 set "COMBINED=%HERE%\_run_validation.sps"
 set "HERE_FWD_ESC=%HERE_FWD:'=''%"
+REM Escape & for safe echo (| < > are not valid in Windows file/folder names)
+set "HERE_FWD_ESC=%HERE_FWD_ESC:&=^&%"
 > "%COMBINED%" echo * =====================================================================
 >>"%COMBINED%" echo * Auto-generated combined syntax. Prepends an absolute CD command to
 >>"%COMBINED%" echo * tabs_v2_validation.sps so SPSS finds the .sav and writes outputs to
