@@ -29,7 +29,7 @@ export const metadata: Metadata = {
  * so the auto-extractor produces garbled tokens.  This export is used verbatim
  * by scripts/generate-search-index.ts instead of the auto-extracted text.
  *
- * IMPORTANT: this MUST be a single string or template literal — not a
+ * IMPORTANT: this MUST be a single string or template literal - not a
  * concatenation of strings.  The extractor in generate-search-index.ts only
  * reads the first literal token after the `=` sign; a `+`-joined value will
  * be silently truncated in the search index.

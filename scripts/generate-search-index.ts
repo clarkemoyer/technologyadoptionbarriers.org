@@ -197,7 +197,7 @@ export function extractStaticMetadata(source: string): {
   const descMatch = metadataBlock.match(/(?:^|[,{]\s*)description:\s*\n?\s*(['"`])([\s\S]*?)\1/)
   if (descMatch) description = descMatch[2].replace(/\s+/g, ' ').trim()
 
-  // Detect robots: { index: false } — skip redirect stubs and noindex pages
+  // Detect robots: { index: false } - skip redirect stubs and noindex pages
   if (/robots\s*:\s*\{[^}]*\bindex\s*:\s*false\b/.test(metadataBlock)) {
     robotsIndexFalse = true
   }
@@ -226,7 +226,7 @@ const PRESERVED_FILE_EXTENSIONS = 'svg|png|jpg|jpeg|gif|webp|pdf|tsx?|jsx?|json|
  *  - SEARCH_CONTENT must be a backtick template literal (not a single- or
  *    double-quoted string).
  *  - The template literal must not contain an escaped backtick (\`).
- *  - String concatenation (e.g. `'a' + 'b'`) is NOT supported — the extractor
+ *  - String concatenation (e.g. `'a' + 'b'`) is NOT supported - the extractor
  *    captures only the first literal token after the `=` sign, so concatenated
  *    values will be silently truncated in the search index.
  */
