@@ -402,6 +402,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.5,
     },
     {
+      url: `${baseUrl}/making-of-tabs/ai-assisted-development/50-reviewer-process`,
+      lastModified: now,
+      changeFrequency: 'yearly',
+      priority: 0.5,
+    },
+    {
       url: `${baseUrl}/making-of-tabs/development-workflow`,
       lastModified: now,
       changeFrequency: 'monthly',
@@ -418,6 +424,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/making-of-tabs/open-source/research-value`,
+      lastModified: now,
+      changeFrequency: 'yearly',
+      priority: 0.5,
     },
     {
       url: `${baseUrl}/making-of-tabs/content-architecture`,
