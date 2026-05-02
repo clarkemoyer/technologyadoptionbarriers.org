@@ -16,7 +16,11 @@ from datetime import datetime, timedelta, timezone
 
 import pytest
 
-from find_stale_return_requested import classify_submission, _msg_time, _objectid_time
+from find_stale_return_requested import (
+    _msg_time,
+    _objectid_time,
+    classify_submission,
+)
 
 RESEARCHER_ID = "researcher_001"
 NOW = datetime(2026, 4, 23, 12, 0, 0, tzinfo=timezone.utc)
@@ -54,6 +58,20 @@ class TestReturnRequestedPath:
         assert record["pid"] == "PID_A"
         assert record["age_hours"] == pytest.approx(60.0, abs=0.1)
         assert record["anchor_kind"] == "return_requested"
+        assert record["reasons"] == ["failed attention check"]
+
+    def test_stale_rr_uses_request_return_reasons_fallback(self):
+        """Live submission payloads may use request_return_reasons."""
+        rr_time = NOW - timedelta(hours=60)
+        sub = {
+            "participant_id": "PID_A2",
+            "status": "AWAITING REVIEW",
+            "return_requested": _ts(rr_time),
+            "request_return_reasons": ["failed attention check"],
+        }
+        msgs = [_msg(RESEARCHER_ID, rr_time - timedelta(hours=1))]
+        bucket, record = classify_submission(sub, msgs, RESEARCHER_ID, NOW, CUTOFF)
+        assert bucket == "stale_no_reply_to_rr"
         assert record["reasons"] == ["failed attention check"]
 
     def test_in_window_rr_not_stale(self):

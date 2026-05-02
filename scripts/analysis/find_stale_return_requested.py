@@ -154,6 +154,26 @@ def _msg_time(m):
     return t
 
 
+def _return_request_reasons(sub):
+    """Return normalized request-return reasons from a submission payload.
+
+    Prolific's write endpoint uses ``request_return_reasons`` while some
+    readbacks expose ``return_requested_reasons``. Accept both shapes so the
+    daily stale-triage report keeps its Reasons column populated.
+    """
+    raw = sub.get("return_requested_reasons")
+    if raw is None:
+        raw = sub.get("request_return_reasons")
+
+    if raw is None:
+        return []
+    if isinstance(raw, str):
+        return [raw]
+    if isinstance(raw, (list, tuple)):
+        return [str(reason) for reason in raw if reason]
+    return [str(raw)]
+
+
 def classify_submission(sub, msgs, researcher_id, now, cutoff):
     """Return (bucket_name, record_dict) or (None, None) if submission
     doesn't qualify for any bucket.
@@ -185,7 +205,7 @@ def classify_submission(sub, msgs, researcher_id, now, cutoff):
             "anchor_kind": "return_requested",
             "total_messages": len(msgs),
             "researcher_messages": len(researcher_msgs),
-            "reasons": sub.get("return_requested_reasons") or [],
+            "reasons": _return_request_reasons(sub),
         }
         if rr < cutoff:
             return "stale_no_reply_to_rr", record
