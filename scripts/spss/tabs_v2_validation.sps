@@ -235,9 +235,10 @@ MVA
 
 * =====================================================================
 * AUTO-EXPORT TO EXCEL
-* Writes the entire Viewer document to spv_export.xlsx in the working
-* directory (the same folder this syntax file is in, set by CD '.' at
-* the top). Recipients can open the .xlsx in Excel, Numbers, or
+* Writes the entire Viewer document to spv_export.xlsx in the current
+* working directory. When launched via Run_Validation.bat/.command the
+* launcher prepends an absolute CD so the working directory is the
+* extracted folder. Recipients can open the .xlsx in Excel, Numbers, or
 * LibreOffice to review every analysis without needing SPSS Viewer.
 *
 * CSV format is intentionally not used here: some SPSS variants reject
