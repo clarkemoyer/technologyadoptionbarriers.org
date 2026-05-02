@@ -123,7 +123,7 @@ const ResearchValuePage = () => {
             Research artefacts have a habit of disappearing - paywalled journals, decommissioned
             university servers, vendor portals that are sunset. Hosting the platform on GitHub
             attaches it to a widely used, indexed, version-controlled host with a long history of
-            availability and an explicit archival path.
+            availability.
           </p>
           <p className="mb-6">
             The version history is itself an artefact: every change to the instrument, the analysis,
