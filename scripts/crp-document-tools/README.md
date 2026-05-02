@@ -47,11 +47,11 @@ You do **not** need to be a TABS contributor to use this method. The pattern - "
 
 Three options, in order of precedence:
 
-| Method | Example | When to use |
-|---|---|---|
-| `--workspace` flag | `python validate_crp_stats_v5.py --workspace ~/my-dissertation` | One-off run, or scripting against multiple workspaces |
-| `CRP_WORKSPACE` env var | `export CRP_WORKSPACE=~/my-dissertation` then run any script | You usually work against the same workspace |
-| Auto-discovery | `python validate_crp_stats_v5.py` | Workspace is at `~/Documents/CRP-workspace` or `~/CRP-workspace` |
+| Method                  | Example                                                         | When to use                                                      |
+| ----------------------- | --------------------------------------------------------------- | ---------------------------------------------------------------- |
+| `--workspace` flag      | `python validate_crp_stats_v5.py --workspace ~/my-dissertation` | One-off run, or scripting against multiple workspaces            |
+| `CRP_WORKSPACE` env var | `export CRP_WORKSPACE=~/my-dissertation` then run any script    | You usually work against the same workspace                      |
+| Auto-discovery          | `python validate_crp_stats_v5.py`                               | Workspace is at `~/Documents/CRP-workspace` or `~/CRP-workspace` |
 
 If none of those exist, the scripts fall back to a bundled fixture (see below) and finally to the legacy session paths the original author uses inside Claude.ai. If everything fails, you get a clear `CrpWorkspaceNotFound` error pointing back here.
 
@@ -68,14 +68,14 @@ That gives you a working end-to-end example - the script prints the same kind of
 
 ### Adapting this method to your own project
 
-To validate claims in *your* document against *your* analysis:
+To validate claims in _your_ document against _your_ analysis:
 
 1. Replace the construct definitions in `compute_crp_stats_v2.py` (`BARRIER_COLS`, `READINESS_COLS`, `MATURITY_COLS`, etc.) with your own variables.
 2. Replace the assertion catalog in `validate_crp_stats_v5.py` (the 277 hardcoded checks) with the claims your document makes.
 3. Keep the `paths.py` module as-is - the workspace discovery pattern is project-agnostic.
 4. Optional: write a `convergence/` script that reconciles your document text against your analysis output, modeled on `crp_convergence_check.py`.
 
-The point of the framework is the *pattern*, not the specific TABS scales. The pattern: a validator script that runs `python validate.py` on every commit and red-flags any drift between document and analysis is the equivalent of unit tests for prose.
+The point of the framework is the _pattern_, not the specific TABS scales. The pattern: a validator script that runs `python validate.py` on every commit and red-flags any drift between document and analysis is the equivalent of unit tests for prose.
 
 ## Folder layout
 
