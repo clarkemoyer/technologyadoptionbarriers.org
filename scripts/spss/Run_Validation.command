@@ -55,7 +55,10 @@ for candidate in \
     "/Applications/IBM SPSS Statistics 30/SPSSStatistics.app" \
     "/Applications/IBM SPSS Statistics 29/SPSSStatistics.app" \
     "/Applications/IBM SPSS Statistics 28/SPSSStatistics.app" \
-    "/Applications/IBM SPSS Statistics 27/SPSSStatistics.app"; do
+    "/Applications/IBM SPSS Statistics 27/SPSSStatistics.app" \
+    "/Applications/IBM SPSS Statistics 26/SPSSStatistics.app" \
+    "/Applications/IBM SPSS Statistics 25/SPSSStatistics.app" \
+    "/Applications/IBM SPSS Statistics 24/SPSSStatistics.app"; do
   if [ -d "$candidate" ]; then
     SPSS_APP="$candidate"
     break
@@ -93,7 +96,9 @@ done
 
 # Build the combined runtime syntax file: header + absolute CD + full
 # contents of tabs_v2_validation.sps.
+# Escape any single quotes in the path by doubling them (SPSS standard).
 COMBINED="$HERE/_run_validation.sps"
+HERE_ESCAPED="${HERE//\'/\'\'}"
 {
   echo "* ====================================================================="
   echo "* Auto-generated combined syntax. Prepends an absolute CD command to"
@@ -102,7 +107,7 @@ COMBINED="$HERE/_run_validation.sps"
   echo "* Regenerated every time Run_Validation.command runs. Safe to delete."
   echo "* =====================================================================."
   echo
-  echo "CD '$HERE'."
+  echo "CD '${HERE_ESCAPED}'."
   echo
   echo "* --- Inlined from tabs_v2_validation.sps -----------------------------."
   echo
