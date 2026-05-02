@@ -139,7 +139,19 @@ def _parse_filename_date(filename):
 
 
 def discover_appendix_files():
-    """Find the latest version of each appendix markdown using date-aware selection."""
+    """Find the latest version of each appendix markdown using date-aware selection.
+
+    Accepts two naming conventions:
+      - Long form:  ``Appendix A ...md``, ``Appendix Project Plan ...md``
+      - Short form: ``A_...md``, ``B_...md``, ``C_...md``, ``D_...md``
+
+    The fixture workspace and the subtree README use the short form; the author's
+    private workspace uses the long form. We accept both so the validator works
+    against either layout without requiring a rename.
+
+    If required appendixes (A-D) are still missing after discovery, a clear
+    warning is printed so the user knows the report is incomplete.
+    """
     global APPENDIX_FILES
     # Group candidates by appendix letter, then pick the one with the newest timestamp.
     buckets = {"A": [], "B": [], "C": [], "D": [], "Plan": []}
@@ -147,6 +159,7 @@ def discover_appendix_files():
         if not f.endswith(".md"):
             continue
         path = os.path.join(APPENDIX_DIR, f)
+        # Long form: "Appendix A ...", "Appendix B ...", etc.
         if f.startswith("Appendix A"):
             buckets["A"].append(path)
         elif f.startswith("Appendix B"):
@@ -157,10 +170,30 @@ def discover_appendix_files():
             buckets["D"].append(path)
         elif f.startswith("Appendix Project Plan"):
             buckets["Plan"].append(path)
+        # Short form: "A_...", "B_...", "C_...", "D_..."
+        elif f.startswith("A_"):
+            buckets["A"].append(path)
+        elif f.startswith("B_"):
+            buckets["B"].append(path)
+        elif f.startswith("C_"):
+            buckets["C"].append(path)
+        elif f.startswith("D_"):
+            buckets["D"].append(path)
 
     for key, paths in buckets.items():
         if paths:
             APPENDIX_FILES[key] = max(paths, key=lambda p: _parse_filename_date(os.path.basename(p)))
+
+    # Warn if any required appendix was not found so the report is not misleading.
+    missing = [letter for letter in ("A", "B", "C", "D") if APPENDIX_FILES[letter] is None]
+    if missing:
+        msg = (
+            f"WARNING: Could not find appendix markdown for: {', '.join(missing)}. "
+            "Checks for these appendixes will be skipped. "
+            "Ensure the appendix directory contains files named "
+            "'Appendix {X} ...' or '{X}_...'."
+        )
+        print(msg, file=sys.stderr)
 
 
 # =============================================================================

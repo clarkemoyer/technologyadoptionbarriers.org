@@ -112,8 +112,24 @@ def find_latest_docx(workspace):
 
 
 def _find_appendix(prefix, appendix_dir):
-    """Find the latest appendix file matching a prefix, using date-aware sorting."""
+    """Find the latest appendix file matching a prefix, using date-aware sorting.
+
+    Accepts two naming conventions for the same logical appendix:
+      - Long form:  ``Appendix {X} ...md``  (e.g. ``Appendix A TABS Survey Instrument...md``)
+      - Short form: ``{X}_...md``           (e.g. ``A_TABS_Survey_Instrument...md``)
+
+    The fixture workspace ships short-form names; the author's private workspace
+    uses long-form names. We try both so the script works without renaming files.
+    """
+    # Long-form search (e.g. "Appendix A*.md")
     candidates = globmod.glob(os.path.join(appendix_dir, f"{prefix}*.md"))
+    # Short-form search: extract the letter from "Appendix X" and try "{X}_*.md"
+    if not candidates:
+        # prefix is expected to be "Appendix A", "Appendix B", etc.
+        parts = prefix.split()
+        if len(parts) >= 2:
+            letter = parts[1]  # e.g. "A"
+            candidates = globmod.glob(os.path.join(appendix_dir, f"{letter}_*.md"))
     if not candidates:
         return None
     return max(candidates, key=lambda f: parse_filename_date(os.path.basename(f)))

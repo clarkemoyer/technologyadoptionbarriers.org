@@ -188,17 +188,17 @@ def write_appendix_stubs(appendix_dir: str) -> None:
     os.makedirs(appendix_dir, exist_ok=True)
     stubs = {
         "A_TABS_Survey_Instrument_(4-16-2026 0109 EDT).md":
-            "# Appendix A -Survey Instrument (synthetic stub)\n\n"
+            "# Appendix A - Survey Instrument (synthetic stub)\n\n"
             "This is a placeholder file shipped with the example workspace fixture. Real\n"
             "appendix content lives in the private CRP workspace.\n",
         "B_TABS_Research_Platform_(4-16-2026 0054 EDT).md":
-            "# Appendix B -Research Platform (synthetic stub)\n\n"
+            "# Appendix B - Research Platform (synthetic stub)\n\n"
             "Placeholder.\n",
         "C_Data_Analysis_and_Validation_(4-16-2026 0054 EDT).md":
-            "# Appendix C -Data Analysis and Validation (synthetic stub)\n\n"
+            "# Appendix C - Data Analysis and Validation (synthetic stub)\n\n"
             "Placeholder.\n",
         "D_Institutional_Governance_(4-16-2026 0054 EDT).md":
-            "# Appendix D -Institutional Governance (synthetic stub)\n\n"
+            "# Appendix D - Institutional Governance (synthetic stub)\n\n"
             "Placeholder.\n",
     }
     for name, content in stubs.items():

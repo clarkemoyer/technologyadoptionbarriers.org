@@ -77,7 +77,19 @@ def extract_pipeline_stats(repo_path):
     if os.path.exists(val_path):
         with open(val_path) as f:
             val = json.load(f)
-        sample = val['samples'][0]
+        # Prefer the sample identified by primary_sample; fall back to samples[0]
+        # if the key is absent (older schema or single-sample files).
+        samples = val.get('samples', [])
+        if not samples:
+            return stats
+        primary_key = val.get('primary_sample')
+        if primary_key:
+            sample = next(
+                (s for s in samples if s.get('key') == primary_key),
+                samples[0],
+            )
+        else:
+            sample = samples[0]
 
         # Reliability metrics per construct
         for construct in ['Barriers', 'Readiness', 'Maturity']:
