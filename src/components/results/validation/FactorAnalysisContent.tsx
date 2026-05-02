@@ -252,11 +252,6 @@ function MultiGroupSection({
           <MultiGroupTable data={multigroup} />
         </div>
       )}
-      {mgSkipped && (
-        <p className="text-sm text-gray-500 font-sans italic mb-4">
-          Multi-group CFA is computed for the primary sample tier only.
-        </p>
-      )}
 
       {crossVal && !cvSkipped && (
         <div>

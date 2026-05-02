@@ -13,11 +13,8 @@ import liveValidationData from '@/data/live-validation.json'
 import LastUpdated from '@/components/last-updated'
 import EffectSizeChart from '@/components/effect-size-chart'
 import { DATA_UNAVAILABLE } from '@/lib/sentinelMarker'
-import {
-  InferentialExtensions,
-  type InferentialExtensionsProps,
-} from '@/components/results/findings/InferentialExtensions'
-import { findPrimarySample, type ValidationLike } from '@/lib/results/findPrimarySample'
+import { InferentialExtensions } from '@/components/results/findings/InferentialExtensions'
+import { buildInferentialExtensionsProps } from '@/lib/results/buildInferentialExtensionsProps'
 
 export const metadata: Metadata = {
   title: 'Key Findings - TABS Results',
@@ -125,19 +122,6 @@ const dSize = (d: number | null | undefined): string => {
   if (abs < 0.5) return 'small'
   if (abs < 0.8) return 'medium'
   return 'large'
-}
-
-const buildInferentialExtensionsProps = (validation: unknown): InferentialExtensionsProps => {
-  const sample = findPrimarySample(validation as ValidationLike)
-  if (!sample) return {}
-  return {
-    mediation: sample.mediation_b_r_m as InferentialExtensionsProps['mediation'],
-    perFactorReg: sample.per_factor_regressions as InferentialExtensionsProps['perFactorReg'],
-    standardizedReg:
-      sample.standardized_subfactor_regressions as InferentialExtensionsProps['standardizedReg'],
-    tost: sample.equivalence_test_tost_smb_ent as InferentialExtensionsProps['tost'],
-    powerAnalysis: sample.power_analysis as InferentialExtensionsProps['powerAnalysis'],
-  }
 }
 
 const FindingsPage = () => {
