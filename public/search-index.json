@@ -656,6 +656,14 @@
     "category": "Making of TABS"
   },
   {
+    "id": "making-of-tabs-ai-assisted-development-50-reviewer-process",
+    "url": "/making-of-tabs/ai-assisted-development/50-reviewer-process",
+    "title": "The 50-Reviewer Process - AI-Assisted Development - Making of TABS",
+    "description": "How the TABS Culminating Research Project (CRP) used 50 simulated expert-reviewer personas in parallel batches to surface gaps before committee submission - the design of the method, not the run-time numbers.",
+    "content": "The 50-Reviewer Process - AI-Assisted Development - Making of TABS. How the TABS Culminating Research Project (CRP) used 50 simulated expert-reviewer personas in parallel batches to surface gaps before committee submission - the design of the method, not the run-time numbers. The 50-Reviewer Process CRP Pre-Submission Review Methodology Before submitting the TABS Culminating Research Project CRP to the doctoral committee, the author used Claude to simulate fifty distinct expert-reviewer personas in parallel batches to stress-test the document. This page describes how the method was designed and run. Round-by-round counts and scores are intentionally kept out of the prose they are run-time artifacts, not part of the method. What the Method Is The 50-reviewer process is structured way to use...",
+    "category": "Making of TABS"
+  },
+  {
     "id": "making-of-tabs-ai-assisted-development-overnight-shift",
     "url": "/making-of-tabs/ai-assisted-development/overnight-shift",
     "title": "Copilot's Got the Overnight Shift - AI-Assisted Development - Making of TABS",
@@ -957,6 +965,14 @@
     "title": "Open Source & Community - Making of TABS",
     "description": "Why the TABS project is open source - Apache 2.0 licensing, community health files, contribution guidelines, academic citation, and how we build in public.",
     "content": "Open Source & Community - Making of TABS. Why the TABS project is open source - Apache 2.0 licensing, community health files, contribution guidelines, academic citation, and how we build in public. Open Source Community The TABS project is fully open source. Every line of code, every design decision, and every workflow configuration is publicly visible. This is deliberate choice: research project that documents technology adoption barriers should itself be transparent example of how technology is adopted, built, and maintained. Apache License The project is licensed under the Apache License which allows: Commercial use organizations can use, modify, and distribute the code freely Modification anyone can adapt the code for their own projects Patent protection contributors grant patent licen...",
+    "category": "Making of TABS"
+  },
+  {
+    "id": "making-of-tabs-open-source-research-value",
+    "url": "/making-of-tabs/open-source/research-value",
+    "title": "The Value of Open-Source Research Infrastructure - Making of TABS",
+    "description": "Why TABS publishes its research infrastructure - not just its data - as open source: transparency, reproducibility, reusability, sustainability, permanence, citation, and the economics that make this approach feasible.",
+    "content": "The Value of Open-Source Research Infrastructure - Making of TABS. Why TABS publishes its research infrastructure - not just its data - as open source: transparency, reproducibility, reusability, sustainability, permanence, citation, and the economics that make this approach feasible. The Value of Open-Source Research Infrastructure Most academic research is open in its outputs papers, data, sometimes code but closed in the infrastructure that produced those outputs. Survey platforms, deployment scripts, analysis pipelines, and operational workflows usually stay inside the institution. TABS publishes that layer too. This page explains why, and what changes when you do. For the operational side of how the project is licensed and contributed to, see the Open Source Community page. 1. Transpa...",
     "category": "Making of TABS"
   },
   {
