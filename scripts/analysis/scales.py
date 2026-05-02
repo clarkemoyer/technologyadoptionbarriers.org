@@ -1,17 +1,22 @@
-"""Canonical Likert scale encoding for the TABS V2 instrument.
+"""Canonical TABS V2 instrument constants - single source of truth.
 
-Single source of truth for the Likert-text-to-numeric mappings used across
-the analysis pipeline (`tabs_v2_validation.py`, `tabs_v2_unified_data_analysis.py`)
-AND the cross-platform verification artifacts (`scripts/minitab/build_minitab_csv.py`,
-`scripts/spss/build_spss_artifacts.py`). All consumers should import from here
-rather than redefining their own copies.
+Hosts both:
 
-The fail-fast helper `encode_likert()` raises on unknown labels so a typo or
-upstream Qualtrics rename produces an explicit error instead of silently
-mapping to NaN.
+1. **Likert scale dicts** (BARRIER_SCALE / READINESS_SCALE / MATURITY_SCALE)
+   plus the MISSING_TOKEN string and the fail-fast `encode_likert()` helper.
+2. **Canonical item names** (BARRIER_NAMES / READINESS_NAMES / MATURITY_NAMES)
+   that match the Qualtrics column subheaders. These are the names used in
+   the dissertation tables and SPSS variable labels.
 
-If the survey ever adds a new anchor or renames an existing one, update only
-this file - every downstream encoder will pick the change up automatically.
+Used by the analysis pipeline (`tabs_v2_validation.py`,
+`tabs_v2_unified_data_analysis.py`) AND the cross-platform verification
+artifacts (`scripts/minitab/build_minitab_csv.py`, `scripts/spss/build_spss_artifacts.py`).
+
+If the survey ever adds, renames, or reorders an item or Likert anchor,
+update only this file - every downstream consumer picks the change up
+automatically. This prevents the class of bug where a generator script
+duplicates the names locally and silently drifts (which happened in PR
+#1837 before this refactor).
 """
 from __future__ import annotations
 
@@ -48,6 +53,36 @@ MATURITY_SCALE: Mapping[str, int] = {
 #: Token Qualtrics inserts when a respondent selected "Don't Know" / "N/A".
 #: Treated as missing (NaN) by every encoder.
 MISSING_TOKEN: str = "Don't Know"
+
+#: 18 Barrier item names, in survey order. Match Qualtrics column subheaders.
+BARRIER_NAMES: tuple[str, ...] = (
+    "Resistance to Change", "Lack of Leadership Support", "Risk-Averse Culture",
+    "Insufficient Workforce Skills", "Inadequate Training", "High Implementation Cost",
+    "Legacy System Integration", "Inadequate IT Infrastructure", "Difficulty Demonstrating Value",
+    "No Clear Strategy/Roadmap", "Insufficient Governance", "Workflow Disruption",
+    "Cybersecurity Concerns", "Data Privacy Compliance", "Lack of Trust in Tech/Vendors",
+    "Regulatory Complexity", "External Pressure Without Readiness", "Vendor/Partner Difficulty",
+)
+
+#: 17 Readiness item names, in survey order.
+READINESS_NAMES: tuple[str, ...] = (
+    "Vision/Leadership", "Tech-Strategy Alignment", "IT Governance Effectiveness",
+    "Culture Openness", "Innovation Support", "Technical Workforce",
+    "Training Programs", "Change Management", "IT Infrastructure",
+    "System Interoperability", "Technical Support", "Data Governance",
+    "Data Quality", "Data Analytics", "Business Process Maturity",
+    "Performance Monitoring", "Budget Adequacy",
+)
+
+#: 8 Maturity item names, in survey order. These are IT-capability domains
+#: (CMMI / IT-CMF / COBIT / DREAMY style), NOT generic adoption-lifecycle stages.
+#: PR #1682 documents the parallel concept-mapping framework grouping labels.
+MATURITY_NAMES: tuple[str, ...] = (
+    "IT Investment & Value Mgmt", "IT-Enabled Innovation",
+    "Process Mgmt & Standardization", "Data Governance & Analytics",
+    "Tech Risk & Resilience", "Strategic IT Planning",
+    "Workforce Capability", "Change Leadership",
+)
 
 
 def encode_likert(value: object, scale_map: Mapping[str, int],

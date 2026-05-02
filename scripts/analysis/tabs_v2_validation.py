@@ -95,28 +95,14 @@ IRI_BARRIER_ANSWER = "Major Barrier"
 IRI_READINESS_ANSWER = "Low Readiness/Capability"
 IRI_MATURITY_ANSWER = "Level 2: Developing/Repeatable"
 
-BARRIER_NAMES = [
-    "Resistance to Change", "Lack of Leadership Support", "Risk-Averse Culture",
-    "Insufficient Workforce Skills", "Inadequate Training", "High Implementation Cost",
-    "Legacy System Integration", "Inadequate IT Infrastructure", "Difficulty Demonstrating Value",
-    "No Clear Strategy/Roadmap", "Insufficient Governance", "Workflow Disruption",
-    "Cybersecurity Concerns", "Data Privacy Compliance", "Lack of Trust in Tech/Vendors",
-    "Regulatory Complexity", "External Pressure Without Readiness", "Vendor/Partner Difficulty"
-]
-READINESS_NAMES = [
-    "Vision/Leadership", "Tech-Strategy Alignment", "IT Governance Effectiveness",
-    "Culture Openness", "Innovation Support", "Technical Workforce",
-    "Training Programs", "Change Management", "IT Infrastructure",
-    "System Interoperability", "Technical Support", "Data Governance",
-    "Data Quality", "Data Analytics", "Business Process Maturity",
-    "Performance Monitoring", "Budget Adequacy"
-]
-MATURITY_NAMES = [
-    "IT Investment & Value Mgmt", "IT-Enabled Innovation",
-    "Process Mgmt & Standardization", "Data Governance & Analytics",
-    "Tech Risk & Resilience", "Strategic IT Planning",
-    "Workforce Capability", "Change Leadership"
-]
+# Canonical BARRIER_NAMES / READINESS_NAMES / MATURITY_NAMES live in scales.py
+# (single source of truth shared with the cross-platform Minitab/SPSS encoders).
+# Re-imported as lists here so existing list-mutation callers don't break on
+# the underlying tuples.
+from scales import BARRIER_NAMES as _BN, READINESS_NAMES as _RN, MATURITY_NAMES as _MN  # noqa: E402
+BARRIER_NAMES = list(_BN)
+READINESS_NAMES = list(_RN)
+MATURITY_NAMES = list(_MN)
 
 # Theoretical sub-construct groupings for barriers (EFA seed)
 BARRIER_SUBCONSTRUCTS = {
