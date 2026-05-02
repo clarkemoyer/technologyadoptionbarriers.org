@@ -573,22 +573,26 @@ const CrpSamplePage = () => {
                             </summary>
                             <div className="mt-2 pl-3 border-l-2 border-blue-200 space-y-1.5">
                               <p>
-                                <span className="font-semibold">Technical bucket</span> = the three IT-leadership C-suite titles{' '}
-                                <span className="font-mono">CIO + CTO + CISO</span> (named role count), plus any{' '}
-                                <em>Other (please specify)</em> free-text response that matches a technical-role regex
-                                (e.g.,{' '}
+                                <span className="font-semibold">Technical bucket</span> = the three
+                                IT-leadership C-suite titles{' '}
+                                <span className="font-mono">CIO + CTO + CISO</span> (named role
+                                count), plus any <em>Other (please specify)</em> free-text response
+                                that matches a technical-role regex (e.g.,{' '}
                                 <span className="font-mono">director of IT</span>,{' '}
                                 <span className="font-mono">VP of engineering</span>,{' '}
                                 <span className="font-mono">software architect</span>,{' '}
                                 <span className="font-mono">cybersecurity</span>).
                               </p>
                               <p>
-                                <span className="font-semibold">Non-Technical bucket</span> = the seven non-IT C-suite titles{' '}
-                                <span className="font-mono">CEO + CFO + COO + CHRO + CMO + CSO + CRO</span>, plus any{' '}
-                                <em>Other</em> free-text matching a non-technical regex
+                                <span className="font-semibold">Non-Technical bucket</span> = the
+                                seven non-IT C-suite titles{' '}
+                                <span className="font-mono">
+                                  CEO + CFO + COO + CHRO + CMO + CSO + CRO
+                                </span>
+                                , plus any <em>Other</em> free-text matching a non-technical regex
                                 (e.g., president, founder, finance manager), plus unmatched{' '}
-                                <em>Other</em> responses (conservative default: assigned to Non-Technical when
-                                no clear technology signal is present).
+                                <em>Other</em> responses (conservative default: assigned to
+                                Non-Technical when no clear technology signal is present).
                               </p>
                               <p>
                                 Source: <span className="font-mono">classify_role_binary()</span> in{' '}
@@ -601,8 +605,8 @@ const CrpSamplePage = () => {
                                   scripts/analysis/tabs_v2_unified_data_analysis.py
                                 </Link>{' '}
                                 (TECH_TITLES, NONTECH_TITLES, _OTHER_ROLE_PATTERNS). The{' '}
-                                <em>Other Role Categories</em> table to the right shows the regex-bucket
-                                breakdown of every <em>Other</em> respondent.
+                                <em>Other Role Categories</em> table to the right shows the
+                                regex-bucket breakdown of every <em>Other</em> respondent.
                               </p>
                             </div>
                           </details>
