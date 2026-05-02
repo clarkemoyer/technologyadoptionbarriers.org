@@ -198,13 +198,7 @@ function isErrored(d: RecordOrNull): string | null {
  * note when the sentinel {skipped: true} is present.
  */
 function BifactorBarriersBlock({ data }: { data: RecordOrNull }) {
-  if (isSkipped(data)) {
-    return (
-      <p className="text-sm text-gray-500 font-sans italic">
-        Bifactor decomposition is computed for the primary sample tier only.
-      </p>
-    )
-  }
+  if (isSkipped(data)) return null
   if (isErrored(data) || !data) {
     return null
   }
@@ -263,13 +257,7 @@ function BifactorBarriersBlock({ data }: { data: RecordOrNull }) {
  * note when the sentinel {skipped: true} is present.
  */
 function BifactorRMBlock({ data }: { data: RecordOrNull }) {
-  if (isSkipped(data)) {
-    return (
-      <p className="text-sm text-gray-500 font-sans italic">
-        Bifactor R+M is computed for the primary sample tier only.
-      </p>
-    )
-  }
+  if (isSkipped(data)) return null
   if (isErrored(data) || !data) {
     return null
   }
@@ -315,13 +303,7 @@ function BifactorRMBlock({ data }: { data: RecordOrNull }) {
 
 /** Render Mardia multivariate normality results per construct. */
 function MardiaBlock({ data }: { data: RecordOrNull }) {
-  if (isSkipped(data)) {
-    return (
-      <p className="text-sm text-gray-500 font-sans italic">
-        Mardia normality is computed for the primary sample tier only.
-      </p>
-    )
-  }
+  if (isSkipped(data)) return null
   if (!data) return null
   const d = data as Record<string, Record<string, unknown> | unknown>
   const constructs = ['Barriers', 'Readiness', 'Maturity'] as const
@@ -392,13 +374,7 @@ function MardiaBlock({ data }: { data: RecordOrNull }) {
 
 /** Render Mahalanobis multivariate outlier counts per construct. */
 function MahalanobisBlock({ data }: { data: RecordOrNull }) {
-  if (isSkipped(data)) {
-    return (
-      <p className="text-sm text-gray-500 font-sans italic">
-        Mahalanobis outliers are computed for the primary sample tier only.
-      </p>
-    )
-  }
+  if (isSkipped(data)) return null
   if (!data) return null
   const d = data as Record<string, Record<string, unknown> | unknown>
   const constructs = ['Barriers', 'Readiness', 'Maturity'] as const
