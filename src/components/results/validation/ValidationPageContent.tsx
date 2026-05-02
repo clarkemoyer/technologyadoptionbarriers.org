@@ -210,7 +210,7 @@ function BifactorBarriersBlock({ data }: { data: RecordOrNull }) {
     return (
       <p className="text-sm text-amber-800 font-sans bg-amber-50 border border-amber-200 rounded px-3 py-2">
         Bifactor decomposition data unavailable
-        {err ? `: ${err}` : ' (key missing from pipeline output)'}.
+        {err ? `: ${err}.` : ' (key missing from pipeline output).'}
       </p>
     )
   }
@@ -280,7 +280,7 @@ function BifactorRMBlock({ data }: { data: RecordOrNull }) {
     return (
       <p className="text-sm text-amber-800 font-sans bg-amber-50 border border-amber-200 rounded px-3 py-2">
         Bifactor R+M data unavailable
-        {err ? `: ${err}` : ' (key missing from pipeline output)'}.
+        {err ? `: ${err}.` : ' (key missing from pipeline output).'}
       </p>
     )
   }

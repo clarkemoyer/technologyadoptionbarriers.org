@@ -110,11 +110,16 @@ const fmtP = (v: number | null | undefined): string => {
 
 /**
  * Normalize `sig` from pipeline JSON ("Yes"/"No" strings or boolean) to
- * boolean | null so comparison logic works regardless of encoding.
+ * boolean | null. Case-insensitive to handle any pipeline encoding variant.
  */
 function normSig(sig: string | boolean | null | undefined): boolean | null {
-  if (sig === true || sig === 'Yes') return true
-  if (sig === false || sig === 'No') return false
+  if (sig === true) return true
+  if (sig === false) return false
+  if (typeof sig === 'string') {
+    const lower = sig.toLowerCase()
+    if (lower === 'yes') return true
+    if (lower === 'no') return false
+  }
   return null
 }
 

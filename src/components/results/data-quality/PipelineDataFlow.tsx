@@ -222,9 +222,7 @@ function StageCard({ stage }: { stage: Stage }) {
             ))}
           </ul>
         </div>
-        <p className="mt-2 text-xs text-gray-500 font-mono">
-          {isExternal ? stage.href : stage.href}
-        </p>
+        <p className="mt-2 text-xs text-gray-500 font-mono">{stage.href}</p>
       </div>
     </>
   )
