@@ -90,6 +90,12 @@ scripts/crp-document-tools/
 
 Each subfolder contains the current top-level scripts plus an `archive/` directory preserving prior versions. The latest version of each script is at the top of its subfolder; historical versions live under `archive/` for traceability and methodological evolution.
 
+## CI smoke test
+
+A fixture-driven smoke test runs in CI via `.github/workflows/crp-tools-smoke.yml` on every PR and push that touches `scripts/crp-document-tools/**`. The smoke test runs `compute_crp_stats_v2.py` and `fixtures/build_example_workspace.py` against the bundled synthetic fixture in `fixtures/example_workspace/` - no private workspace and no CRP `.docx` required.
+
+Scripts that need a real CRP `.docx` (the validators and convergence checkers) run locally only; they are not exercised by the CI smoke test.
+
 ## Runtime context
 
 These scripts assume:

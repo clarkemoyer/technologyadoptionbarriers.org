@@ -91,6 +91,8 @@ if _SUBTREE_DIR not in sys.path:
 from paths import (  # noqa: E402
     CrpWorkspaceNotFound,
     find_workspace as _find_workspace_shared,
+    find_body_docx as _find_body_docx_shared,
+    find_survey_csv as _find_survey_csv_shared,
 )
 
 
@@ -106,30 +108,32 @@ def find_workspace():
         return None
 
 def find_latest_docx(workspace):
-    """Find the latest CRP body .docx in 01 CRP Body/."""
-    body_dir = os.path.join(workspace, "01 CRP Body")
-    if not os.path.isdir(body_dir):
+    """Find the latest CRP body .docx in 01 CRP Body/.
+
+    Delegates to paths.find_body_docx() which uses (parse_filename_date, mtime)
+    for date-aware selection rather than lexicographic sort, avoiding incorrect
+    ordering with non-zero-padded timestamps such as (4-9-2026) vs (4-16-2026).
+    """
+    try:
+        return _find_body_docx_shared(workspace)
+    except CrpWorkspaceNotFound:
         return None
-    candidates = []
-    for f in os.listdir(body_dir):
-        if f.startswith("Clarke Moyer") and f.endswith(".docx") and "body" in f.lower():
-            candidates.append(os.path.join(body_dir, f))
-    if not candidates:
-        for f in os.listdir(body_dir):
-            if f.endswith(".docx") and not f.startswith("~"):
-                candidates.append(os.path.join(body_dir, f))
-    return sorted(candidates)[-1] if candidates else None
 
 def find_csv(workspace):
-    """Find the enriched N=200 CSV first, fall back to public CSV."""
-    for pattern in [
-        os.path.join(workspace, "05 TABS Survey Support", "TABS Survey Data", "*Enriched_CRP200*.csv"),
-        os.path.join(workspace, "TABS_V2_CRP_2026_public_dataset.csv"),
-        os.path.join(workspace, "05 TABS Survey Support", "TABS Survey Data", "*V2_ONLY*.csv"),
-    ]:
-        matches = glob.glob(pattern)
-        if matches:
-            return sorted(matches)[-1]
+    """Find the enriched N=200 CSV first, fall back to public CSV.
+
+    Uses paths.find_survey_csv() (mtime-based) for each glob pattern to avoid
+    lexicographic sort issues with non-zero-padded embedded timestamps.
+    """
+    for pattern in ["*Enriched_CRP200*.csv", "*V2_ONLY*.csv"]:
+        try:
+            return _find_survey_csv_shared(workspace, pattern=pattern)
+        except CrpWorkspaceNotFound:
+            pass
+    # Root-level public dataset fallback (no survey_data_dir subdir required)
+    public = os.path.join(workspace, "TABS_V2_CRP_2026_public_dataset.csv")
+    if os.path.exists(public):
+        return public
     return None
 
 def find_repo():
