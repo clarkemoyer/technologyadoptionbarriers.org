@@ -696,7 +696,7 @@ jobs:
             // Read file safely; return [] on any error (file may not exist if step was skipped)
             function readLines(filePath) {
               try {
-                return fs.readFileSync(filePath, 'utf8').split('\n').filter(l => l.length > 0);
+                return fs.readFileSync(filePath, 'utf8').split(/\r?\n/).map(l => l.trim()).filter(l => l.length > 0);
               } catch (err) {
                 core.info(`Failed to read ${filePath}: ${err.message}`);
                 return [];
@@ -773,7 +773,7 @@ jobs:
             // Pipeline data — markdown table rows containing ❌
             if (dataFail > 0) {
               const failLines = readLines('/tmp/data-results.txt').filter(l => l.includes('❌'));
-              const block = tableDetailsBlock('📊', 'Pipeline Data Failures', dataFail, '| Page | Result |\n|------|--------|', failLines);
+              const block = tableDetailsBlock('📊', 'Pipeline Data Failures', dataFail, '| Check | Result |\n|-------|--------|', failLines);
               if (block) detailSections.push(block);
             }
 
