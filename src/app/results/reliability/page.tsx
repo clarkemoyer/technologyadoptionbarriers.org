@@ -8,8 +8,13 @@ import {
 } from '@/lib/articleStyles'
 import Link from 'next/link'
 import sensitivityData from '@/data/sensitivity-analysis.json'
+import liveValidationData from '@/data/live-validation.json'
 import LastUpdated from '@/components/last-updated'
 import Term from '@/components/glossary-term'
+import {
+  ExtendedReliabilitySections,
+  type ExtendedReliabilityProps,
+} from '@/components/results/reliability/ExtendedReliabilitySections'
 
 export const metadata: Metadata = {
   title: 'Scale Reliability - TABS Results',
@@ -31,6 +36,20 @@ const fmt = (val: number | null): string => {
   return val.toFixed(4)
 }
 
+type ValidationLike = {
+  samples?: Array<Record<string, unknown>>
+  primary_sample?: string
+}
+
+const findPrimarySample = (data: ValidationLike): Record<string, unknown> | null => {
+  if (!data || !Array.isArray(data.samples) || data.samples.length === 0) return null
+  if (data.primary_sample) {
+    const match = data.samples.find((s) => s.key === data.primary_sample)
+    if (match) return match
+  }
+  return data.samples[0] ?? null
+}
+
 const ReliabilityPage = () => {
   const samples = sensitivityData.samples
   const alphaConstructs = [
@@ -38,6 +57,18 @@ const ReliabilityPage = () => {
     { name: 'Readiness', key: 'alpha_readiness' },
     { name: 'Maturity', key: 'alpha_maturity' },
   ]
+
+  // Pull the new keys (PR #1837) from live-validation.json's primary sample
+  const primarySample = findPrimarySample(liveValidationData as unknown as ValidationLike)
+  const extendedProps: ExtendedReliabilityProps = primarySample
+    ? {
+        bootstrap: primarySample.bootstrap_alpha_ci as ExtendedReliabilityProps['bootstrap'],
+        alphaIfDeleted:
+          primarySample.alpha_if_deleted_summary as ExtendedReliabilityProps['alphaIfDeleted'],
+        reliabilityByDemo:
+          primarySample.reliability_by_demo as ExtendedReliabilityProps['reliabilityByDemo'],
+      }
+    : {}
 
   return (
     <div className="pt-20 sm:pt-[120px] bg-white">
@@ -105,6 +136,9 @@ const ReliabilityPage = () => {
             </table>
           </div>
         </section>
+
+        {/* ── Extended Reliability (PR #1837 / issue #1839) ── */}
+        <ExtendedReliabilitySections {...extendedProps} />
 
         {/* ── Interpretation ── */}
         <section className="mb-12 text-gray-800">
