@@ -696,18 +696,19 @@ jobs:
             // Read file safely; return [] on any error (file may not exist if step was skipped)
             function readLines(filePath) {
               try {
-                return fs.readFileSync(filePath, 'utf8').split('\n').filter(l => l.trim());
-              } catch {
+                return fs.readFileSync(filePath, 'utf8').split('\n').filter(l => l.length > 0);
+              } catch (err) {
+                core.info(`Failed to read ${filePath}: ${err.message}`);
                 return [];
               }
             }
 
-            // Cap the list so the issue body stays readable; append a "… and N more" note
+            // Cap the list so the issue body stays readable; append an "... and N more" note
             const MAX_DETAIL_LINES = 30;
             function truncate(arr) {
               if (arr.length <= MAX_DETAIL_LINES) return arr;
               const rest = arr.length - MAX_DETAIL_LINES;
-              return [...arr.slice(0, MAX_DETAIL_LINES), `… and ${rest} more — see the workflow run for the full list`];
+              return [...arr.slice(0, MAX_DETAIL_LINES), `... and ${rest} more — see the workflow run for the full list`];
             }
 
             // Collapsible block for plain-text "FAIL ..." lines (routes, assets)
@@ -717,7 +718,7 @@ jobs:
                 `<details>`,
                 `<summary>${emoji} ${heading} (${count})</summary>`,
                 ``,
-                '```',
+                '```text',
                 truncate(failLines).join('\n'),
                 '```',
                 ``,
