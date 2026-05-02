@@ -1,3 +1,3 @@
-# Appendix D -Institutional Governance (synthetic stub)
+# Appendix D - Institutional Governance (synthetic stub)
 
 Placeholder.

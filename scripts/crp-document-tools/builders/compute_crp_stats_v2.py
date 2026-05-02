@@ -203,7 +203,16 @@ def load_survey(csv_path):
             ) from exc
         data = list(reader)
     col_idx = {h: i for i, h in enumerate(row1)}
-    missing = [c for c in REQUIRED_COLS if c not in col_idx]
+    all_required = (
+        REQUIRED_COLS
+        + BARRIER_COLS
+        + [BARRIER_IRI]
+        + READINESS_COLS
+        + [READINESS_IRI]
+        + MATURITY_COLS
+        + [MATURITY_IRI]
+    )
+    missing = [c for c in all_required if c not in col_idx]
     if missing:
         raise ValueError(
             f"CSV is missing required columns: {missing}\n"

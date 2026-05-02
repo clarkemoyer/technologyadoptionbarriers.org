@@ -405,32 +405,32 @@ def check_number_consistency(appendix_texts):
         {
             "name": "CI/CD workflow count",
             "expected": "39",
-            "pattern": r"39\s+(?:CI/CD\s+)?workflows",
+            "pattern": r"(?<!\d)39\s+(?:CI/CD\s+)?workflows",
         },
         {
             "name": "Blog article count",
             "expected": "18",
-            "pattern": r"18\s+(?:blog\s+)?articles",
+            "pattern": r"(?<!\d)18\s+(?:blog\s+)?articles",
         },
         {
             "name": "Bibliography profile count",
             "expected": "42",
-            "pattern": r"42\s+(?:annotated\s+)?(?:model\s+)?profiles",
+            "pattern": r"(?<!\d)42\s+(?:annotated\s+)?(?:model\s+)?profiles",
         },
         {
             "name": "Validation check count (CRP)",
             "expected": "277",
-            "pattern": r"277\s+(?:CRP\s+)?(?:body\s+)?checks",
+            "pattern": r"(?<!\d)277\s+(?:CRP\s+)?(?:body\s+)?checks",
         },
         {
             "name": "Median completion time",
             "expected": "691 seconds",
-            "pattern": r"691\s*(?:s(?:econds)?|sec)",
+            "pattern": r"(?<!\d)691\s*(?:s(?:econds)?|sec)",
         },
         {
             "name": "Duration threshold",
             "expected": "480 seconds",
-            "pattern": r"480\s*(?:s(?:econds)?|sec)",
+            "pattern": r"(?<!\d)480\s*(?:s(?:econds)?|sec)",
         },
     ]
 

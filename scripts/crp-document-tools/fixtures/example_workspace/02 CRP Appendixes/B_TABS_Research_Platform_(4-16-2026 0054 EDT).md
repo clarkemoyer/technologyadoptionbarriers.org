@@ -1,3 +1,3 @@
-# Appendix B -Research Platform (synthetic stub)
+# Appendix B - Research Platform (synthetic stub)
 
 Placeholder.

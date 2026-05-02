@@ -1,3 +1,3 @@
-# Appendix C -Data Analysis and Validation (synthetic stub)
+# Appendix C - Data Analysis and Validation (synthetic stub)
 
 Placeholder.
