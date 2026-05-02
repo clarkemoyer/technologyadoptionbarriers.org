@@ -39,7 +39,7 @@ const constants = {
   PROFIT_MODEL_VALUES,
   MATURITY_ITEM_NAMES,
   MATURITY_SUBCONSTRUCT_GROUPINGS,
-  _MATURITY_ITEM_NAMES_NOTE: MATURITY_ITEM_NAMES_NOTE,
+  MATURITY_ITEM_NAMES_NOTE,
   _generated: new Date().toISOString(),
   _source: 'src/lib/tabs-survey-constants.ts',
 }
