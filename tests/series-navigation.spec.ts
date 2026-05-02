@@ -22,9 +22,9 @@ test.describe('Series Navigation - Desktop Sidebar', () => {
   test('Models nav item navigates and shows accordion groups in desktop sidebar', async ({
     page,
   }) => {
-    // PR #1850 / #1708 made every top-level sidebar item a Link (was a
-    // button). Clicking now navigates to the section landing page, and the
-    // new page's sidebar auto-expands the relevant group.
+    // #1708 made every top-level sidebar item a Link (was a button). Clicking
+    // now navigates to the section landing page, and the new page's sidebar
+    // auto-expands the relevant group.
     const sidebar = page.getByRole('complementary', { name: /site navigation/i })
     const modelsLink = sidebar.getByRole('link', { name: /^Models$/i })
     await expect(modelsLink).toBeVisible({ timeout: 15000 })
@@ -77,8 +77,8 @@ test.describe('Series Navigation - Mobile Accordion', () => {
   })
 
   test('mobile Models link navigates to /technology-adoption-models', async ({ page }) => {
-    // PR #1850 / #1708: top-level items are Links now. Clicking on mobile
-    // closes the dialog and navigates to the section landing page.
+    // #1708: top-level items are Links now. Clicking on mobile closes the
+    // dialog and navigates to the section landing page.
     await openMobileMenu(page)
     const navigationDialog = page.getByRole('dialog', { name: /navigation menu/i })
     const modelsLink = navigationDialog.getByRole('link', { name: /^Models$/i })
