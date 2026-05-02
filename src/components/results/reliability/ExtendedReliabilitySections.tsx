@@ -65,13 +65,13 @@ function BootstrapCITable({ data }: { data: NonNullable<ExtendedReliabilityProps
       <table className="w-full border-collapse font-sans text-sm">
         <thead>
           <tr className="bg-gray-100">
-            <th className="border border-gray-300 px-4 py-2 text-left font-bold">Construct</th>
-            <th className="border border-gray-300 px-4 py-2 text-right font-bold">
+            <th scope="col" className="border border-gray-300 px-4 py-2 text-left font-bold">Construct</th>
+            <th scope="col" className="border border-gray-300 px-4 py-2 text-right font-bold">
               Bootstrap mean
             </th>
-            <th className="border border-gray-300 px-4 py-2 text-right font-bold">95% CI lower</th>
-            <th className="border border-gray-300 px-4 py-2 text-right font-bold">95% CI upper</th>
-            <th className="border border-gray-300 px-4 py-2 text-right font-bold">CI width</th>
+            <th scope="col" className="border border-gray-300 px-4 py-2 text-right font-bold">95% CI lower</th>
+            <th scope="col" className="border border-gray-300 px-4 py-2 text-right font-bold">95% CI upper</th>
+            <th scope="col" className="border border-gray-300 px-4 py-2 text-right font-bold">CI width</th>
           </tr>
         </thead>
         <tbody>
@@ -182,10 +182,10 @@ function ReliabilityByDemoTable({
       <table className="w-full border-collapse font-sans text-sm">
         <thead>
           <tr className="bg-gray-100">
-            <th className="border border-gray-300 px-4 py-2 text-left font-bold">Group</th>
-            <th className="border border-gray-300 px-4 py-2 text-right font-bold">N</th>
+            <th scope="col" className="border border-gray-300 px-4 py-2 text-left font-bold">Group</th>
+            <th scope="col" className="border border-gray-300 px-4 py-2 text-right font-bold">N</th>
             {CONSTRUCTS.map((c) => (
-              <th key={c} className="border border-gray-300 px-4 py-2 text-right font-bold">
+              <th key={c} scope="col" className="border border-gray-300 px-4 py-2 text-right font-bold">
                 {c}
               </th>
             ))}
