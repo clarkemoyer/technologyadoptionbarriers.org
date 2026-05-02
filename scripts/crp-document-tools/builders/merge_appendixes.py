@@ -15,21 +15,32 @@ Usage:
         --output /path/to/output.docx
 """
 
-import re
+import argparse
+import glob as globmod
 import os
 import sys
-import glob as globmod
-import argparse
 from datetime import datetime
 from zoneinfo import ZoneInfo
 
 from docx import Document
-from docx.shared import Pt, Twips
-from docx.enum.text import WD_ALIGN_PARAGRAPH, WD_BREAK
 from docx.enum.section import WD_ORIENT
 from docx.enum.table import WD_TABLE_ALIGNMENT
-from docx.oxml.ns import qn, nsdecls
+from docx.enum.text import WD_ALIGN_PARAGRAPH, WD_BREAK
 from docx.oxml import parse_xml
+from docx.oxml.ns import nsdecls, qn
+from docx.shared import Pt, Twips
+
+# Shared portable workspace discovery (replaces the old hardcoded
+# /sessions/*/... globs). See scripts/crp-document-tools/paths.py for
+# the full discovery precedence and the Quickstart-for-Researchers tour.
+_SUBTREE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if _SUBTREE_DIR not in sys.path:
+    sys.path.insert(0, _SUBTREE_DIR)
+from paths import (  # noqa: E402
+    CrpWorkspaceNotFound,
+    find_workspace as _find_workspace_shared,
+    parse_filename_date,
+)
 
 # ── Configuration constants ─────────────────────────────────────────────
 
@@ -53,24 +64,24 @@ APPENDIX_FILES = [
 # ── Workspace / path discovery ──────────────────────────────────────────
 
 def find_workspace():
-    """Find the CRP workspace root via glob-based discovery."""
-    candidates = [
-        globmod.glob("/sessions/*/mnt/! Clarke Moyer Smeal CRP - TABS"),
-        globmod.glob("/sessions/*/mnt/*Clarke*CRP*TABS*"),
-        globmod.glob("/tmp/tabs-crp-workspace"),
-    ]
-    for clist in candidates:
-        if clist:
-            return sorted(clist)[-1]
-    return None
+    """Locate the CRP workspace root via the shared portable discovery.
+
+    Returns the workspace path, or None if discovery fails. (We swallow
+    the exception so callers can supply --docx + --appendix-dir and skip
+    workspace discovery entirely.)
+    """
+    try:
+        return _find_workspace_shared()
+    except CrpWorkspaceNotFound:
+        return None
 
 
 def find_latest_docx(workspace):
-    """Find the latest CRP body .docx in 01 CRP Body/ of the workspace.
+    """Find the latest CRP body .docx in '01 CRP Body/' of the workspace.
 
-    Uses date-aware sorting on the embedded timestamp, falling back to
-    file mtime so that e.g. '4-16-2026' beats '4-9-2026' (lexicographic
-    sorting would pick 4-9 because '9' > '1').
+    Uses date-aware sorting on the (M-D-YYYY HHMM TZ) timestamp embedded
+    in the filename (DST-tolerant via paths.parse_filename_date), falling
+    back to file mtime when the filename has no embedded timestamp.
     """
     body_dir = os.path.join(workspace, "01 CRP Body")
     if not os.path.isdir(body_dir):
@@ -87,7 +98,7 @@ def find_latest_docx(workspace):
         return None
 
     def _sort_key(p):
-        parsed = _parse_filename_date(os.path.basename(p))
+        parsed = parse_filename_date(os.path.basename(p))
         # If filename has no embedded timestamp (year=0), fall back to mtime
         if parsed == (0, 0, 0, 0):
             try:
@@ -99,25 +110,12 @@ def find_latest_docx(workspace):
     return max(candidates, key=_sort_key)
 
 
-def _parse_filename_date(filename):
-    """
-    Parse an EST timestamp embedded in a filename of the form '(M-D-YYYY HHMM EST)'.
-    Returns a comparable tuple (year, month, day, hhmm) or (0, 0, 0, 0) on failure.
-    This avoids lexicographic ordering bugs with single-digit months/days.
-    """
-    m = re.search(r'\((\d{1,2})-(\d{1,2})-(\d{4})\s+(\d{4})\s+[A-Z]{3}\)', filename)
-    if m:
-        month, day, year, hhmm = int(m.group(1)), int(m.group(2)), int(m.group(3)), int(m.group(4))
-        return (year, month, day, hhmm)
-    return (0, 0, 0, 0)
-
-
 def _find_appendix(prefix, appendix_dir):
     """Find the latest appendix file matching a prefix, using date-aware sorting."""
     candidates = globmod.glob(os.path.join(appendix_dir, f"{prefix}*.md"))
     if not candidates:
         return None
-    return max(candidates, key=lambda f: _parse_filename_date(os.path.basename(f)))
+    return max(candidates, key=lambda f: parse_filename_date(os.path.basename(f)))
 
 
 # ── Helper Functions ───────────────────────────────────────────────────

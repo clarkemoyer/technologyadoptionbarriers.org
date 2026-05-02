@@ -66,7 +66,15 @@ Usage:
 If paths are not provided, the script auto-discovers them in the workspace.
 """
 
-import csv, json, math, os, re, sys, zipfile, glob, argparse
+import argparse
+import csv
+import glob
+import json
+import math
+import os
+import re
+import sys
+import zipfile
 from collections import defaultdict
 from xml.etree import ElementTree as ET
 
@@ -74,16 +82,28 @@ from xml.etree import ElementTree as ET
 # SECTION 0: PATH DISCOVERY
 # ═══════════════════════════════════════════════════════════════════════════════
 
+# Shared portable workspace discovery (replaces the old hardcoded
+# /sessions/*/... globs). See scripts/crp-document-tools/paths.py for
+# the full discovery precedence and the Quickstart-for-Researchers tour.
+_SUBTREE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if _SUBTREE_DIR not in sys.path:
+    sys.path.insert(0, _SUBTREE_DIR)
+from paths import (  # noqa: E402
+    CrpWorkspaceNotFound,
+    find_workspace as _find_workspace_shared,
+)
+
+
 def find_workspace():
-    """Find the CRP workspace root."""
-    candidates = [
-        glob.glob("/sessions/*/mnt/! Clarke Moyer Smeal CRP - TABS"),
-        glob.glob("/sessions/*/mnt/*Clarke*CRP*TABS*"),
-    ]
-    for clist in candidates:
-        if clist:
-            return sorted(clist)[-1]
-    return None
+    """Locate the CRP workspace root via the shared portable discovery.
+
+    Returns the workspace path, or None if discovery fails. Callers that
+    need the explicit error should call paths.find_workspace() directly.
+    """
+    try:
+        return _find_workspace_shared()
+    except CrpWorkspaceNotFound:
+        return None
 
 def find_latest_docx(workspace):
     """Find the latest CRP body .docx in 01 CRP Body/."""

@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 TABS CRP Appendix Validation Script
 ====================================
@@ -8,6 +9,11 @@ between appendixes.
 Usage:
     python3 validate_appendixes.py
     python3 validate_appendixes.py --workspace /path/to/CRP-workspace
+    CRP_WORKSPACE=~/Documents/CRP-workspace python3 validate_appendixes.py
+
+Workspace discovery follows the precedence in
+``scripts/crp-document-tools/paths.py``: --workspace flag > CRP_WORKSPACE
+env > ~/Documents/CRP-workspace > bundled fixture > legacy /sessions/*.
 
 Outputs a structured convergence report showing:
 - Actual page counts from PDFs vs. claimed page counts in each appendix
@@ -19,11 +25,11 @@ Outputs a structured convergence report showing:
 Requires: pypdf (pip install pypdf)
 """
 
+import argparse
+import glob
 import os
 import re
 import sys
-import glob
-import argparse
 from datetime import datetime
 
 # Try importing pypdf
@@ -33,21 +39,27 @@ except ImportError:
     print("ERROR: pypdf not installed. Run: pip install pypdf  (inside a virtualenv or with pipx)")
     sys.exit(1)
 
-# =============================================================================
-# Workspace discovery
-# =============================================================================
+# Shared portable workspace discovery (replaces the old hardcoded
+# /sessions/*/... globs). See scripts/crp-document-tools/paths.py.
+_SUBTREE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if _SUBTREE_DIR not in sys.path:
+    sys.path.insert(0, _SUBTREE_DIR)
+from paths import (  # noqa: E402
+    CrpWorkspaceNotFound,
+    find_workspace as _find_workspace_shared,
+)
+
 
 def find_workspace():
-    """Find the CRP workspace root via glob-based discovery."""
-    candidates = [
-        glob.glob("/sessions/*/mnt/! Clarke Moyer Smeal CRP - TABS"),
-        glob.glob("/sessions/*/mnt/*Clarke*CRP*TABS*"),
-        glob.glob("/tmp/tabs-crp-workspace"),
-    ]
-    for clist in candidates:
-        if clist:
-            return sorted(clist)[-1]
-    return None
+    """Locate the CRP workspace root via the shared portable discovery.
+
+    Returns the workspace path, or None if discovery fails. Callers that
+    need the explicit error should call paths.find_workspace() directly.
+    """
+    try:
+        return _find_workspace_shared()
+    except CrpWorkspaceNotFound:
+        return None
 
 # =============================================================================
 # Configuration (resolved at runtime in main)
@@ -176,13 +188,26 @@ def count_pdf_pages(pdf_path):
 
 
 def count_pdf_hyperlinks(pdf_path):
-    """Count external hyperlinks in a PDF."""
+    """Count external hyperlinks in a PDF.
+
+    Pages with no annotations are common and legitimate; pypdf may return
+    None (or another non-iterable) from ``page.get('/Annots', [])`` for
+    such pages. We guard explicitly so a no-annotations page is treated
+    as zero links rather than spuriously returning an ERROR string.
+    """
     try:
         reader = PdfReader(pdf_path)
         ext_links = 0
         for page in reader.pages:
             annots = page.get('/Annots', [])
-            for a in annots:
+            if annots is None:
+                continue
+            try:
+                annot_iter = iter(annots)
+            except TypeError:
+                # Not iterable - treat as a page with no annotations.
+                continue
+            for a in annot_iter:
                 try:
                     o = a.get_object()
                     if o.get('/Subtype') == '/Link':
