@@ -197,7 +197,7 @@ export function extractStaticMetadata(source: string): {
   const descMatch = metadataBlock.match(/(?:^|[,{]\s*)description:\s*\n?\s*(['"`])([\s\S]*?)\1/)
   if (descMatch) description = descMatch[2].replace(/\s+/g, ' ').trim()
 
-  // Detect robots: { index: false } — skip redirect stubs and noindex pages
+  // Detect robots: { index: false } - skip redirect stubs and noindex pages
   if (/robots\s*:\s*\{[^}]*\bindex\s*:\s*false\b/.test(metadataBlock)) {
     robotsIndexFalse = true
   }
@@ -212,6 +212,34 @@ export function extractStaticMetadata(source: string): {
  * Add new extensions here as needed.
  */
 const PRESERVED_FILE_EXTENSIONS = 'svg|png|jpg|jpeg|gif|webp|pdf|tsx?|jsx?|json|css|html?|md|txt'
+
+/**
+ * Extracts the value of an optional `export const SEARCH_CONTENT = \`...\``
+ * declaration from a page source file.  When present, this string is used
+ * verbatim as the search-index content instead of the auto-extracted visible
+ * text, which can produce garbled output on pages with dynamic JSX expressions.
+ *
+ * Usage in a page file:
+ *   export const SEARCH_CONTENT = `Plain prose describing this page for search indexing.`
+ *
+ * CONSTRAINTS:
+ *  - SEARCH_CONTENT must be a backtick template literal (not a single- or
+ *    double-quoted string).
+ *  - The template literal must not contain an escaped backtick (\`).
+ *  - String concatenation (e.g. `'a' + 'b'`) is NOT supported - the extractor
+ *    captures only the first literal token after the `=` sign, so concatenated
+ *    values will be silently truncated in the search index.
+ */
+function extractSearchContent(source: string): string | null {
+  // Match only backtick template literals. [^\`]* matches any character
+  // (including newlines) except a backtick, so multi-line strings are handled
+  // without needing the dotAll (/s) flag, which requires ES2018+.
+  const m = source.match(/export\s+const\s+SEARCH_CONTENT\s*=\s*`([^`]*)`/)
+  if (!m) return null
+  const raw = m[1] ?? ''
+  // Collapse newlines / excess whitespace introduced by multi-line string literals
+  return raw.replace(/\s+/g, ' ').trim() || null
+}
 
 /**
  * Best-effort extraction of visible text from a TSX file.
@@ -493,7 +521,7 @@ async function generateSearchIndex() {
     // Skip noindex pages (redirect stubs, etc.)
     if (robotsIndexFalse) continue
 
-    const visibleText = extractVisibleText(source)
+    const visibleText = extractSearchContent(source) ?? extractVisibleText(source)
     const segments = [title, description, visibleText]
       .map((segment) => segment?.trim())
       .filter((s): s is string => Boolean(s))

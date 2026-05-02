@@ -995,8 +995,8 @@
     "id": "results",
     "url": "/results",
     "title": "Results - TABS",
-    "description": "Survey results from the Technology Adoption Barriers Survey: sample demographics, descriptive statistics, scale reliability, sensitivity analysis, and open data.",
-    "content": "Results - TABS. Survey results from the Technology Adoption Barriers Survey: sample demographics, descriptive statistics, scale reliability, sensitivity analysis, and open data. Results The Technology Adoption Barriers Survey TABS collects data from organizational leaders about the barriers, readiness, and maturity factors that influence technology adoption. Every metric is computed independently across four primary result groups so researchers can choose the dataset that matches their quality requirements. All statistics are generated automatically by the daily analysis pipeline and updated every time data is collected. label: 'Total Responses', value: totalN",
+    "description": "Survey results from the Technology Adoption Barriers Survey. Start with the top 3 barriers, then walk down through key findings, descriptives, sample, quality, reliability, factor analysis, validation, and sensitivity.",
+    "content": "Results - TABS. Survey results from the Technology Adoption Barriers Survey. Start with the top 3 barriers, then walk down through key findings, descriptives, sample, quality, reliability, factor analysis, validation, and sensitivity. Across the live TABS dataset, the nine-page insight-first flow covers: Top 3 Barriers, Key Findings, Descriptive Statistics, Sample and Demographics, Data Quality, Scale Reliability, Factor Analysis, Instrument Validation, and Sensitivity Analysis. Parallel pages are available for the growing live dataset and the frozen CRP 2026 snapshot (N=200). Start with the forced-choice top 3 barriers ranking, then work down through the full analytic story.",
     "category": "Results"
   },
   {
@@ -1068,7 +1068,7 @@
     "url": "/results/crp-2026/top-barriers",
     "title": "CRP 2026 Top 3 Barriers - TABS",
     "description": "Top-3 barrier salience ranking for the TABS CRP 2026 frozen dataset (N=200). Compares forced-choice pick counts with mean-based ranking and highlights divergences between cultural and cybersecurity barriers.",
-    "content": "CRP 2026 Top 3 Barriers - TABS. Top-3 barrier salience ranking for the TABS CRP 2026 frozen dataset (N=200). Compares forced-choice pick counts with mean-based ranking and highlights divergences between cultural and cybersecurity barriers. CRP 2026: Top Barriers Published: April 2026 This page presents the forced-choice Top barriers ranking from the TABS CRP 2026 frozen dataset N= Each participant selected up to three barriers from the full list of 18. Counts below reflect the number of participants who included each barrier in their top 3. The forced-choice ranking complements the continuous Likert-based ranking shown on the Descriptive Statistics page. Comparing the two rankings surfaces which barriers rise or fall in salience when participants are forced to choose only small number of i...",
+    "content": "CRP 2026 Top 3 Barriers - TABS. Top-3 barrier salience ranking for the TABS CRP 2026 frozen dataset (N=200). Compares forced-choice pick counts with mean-based ranking and highlights divergences between cultural and cybersecurity barriers. CRP 2026: Top Barriers Published: April 2026 N= Picks: This page presents the forced-choice Top barriers ranking from the TABS CRP 2026 frozen dataset N= Each participant selected up to three barriers from the full list of 18. Counts below reflect the number of participants who included each barrier in their top 3. The forced-choice ranking complements the continuous Likert-based ranking shown on the Descriptive Statistics page. Comparing the two rankings surfaces which barriers rise or fall in salience when participants are forced to choose only small n...",
     "category": "Results"
   },
   {
