@@ -214,7 +214,7 @@ export function extractStaticMetadata(source: string): {
 const PRESERVED_FILE_EXTENSIONS = 'svg|png|jpg|jpeg|gif|webp|pdf|tsx?|jsx?|json|css|html?|md|txt'
 
 /**
- * Extracts the value of an optional `export const SEARCH_CONTENT = '...'`
+ * Extracts the value of an optional `export const SEARCH_CONTENT = \`...\``
  * declaration from a page source file.  When present, this string is used
  * verbatim as the search-index content instead of the auto-extracted visible
  * text, which can produce garbled output on pages with dynamic JSX expressions.
@@ -222,16 +222,21 @@ const PRESERVED_FILE_EXTENSIONS = 'svg|png|jpg|jpeg|gif|webp|pdf|tsx?|jsx?|json|
  * Usage in a page file:
  *   export const SEARCH_CONTENT = `Plain prose describing this page for search indexing.`
  *
- * CONSTRAINT: SEARCH_CONTENT must be a single string or template literal.
- * String concatenation (e.g. `'a' + 'b'`) is NOT supported — the extractor
- * captures only the first literal token after the `=` sign, so concatenated
- * values will be silently truncated in the search index.
+ * CONSTRAINTS:
+ *  - SEARCH_CONTENT must be a backtick template literal (not a single- or
+ *    double-quoted string).
+ *  - The template literal must not contain an escaped backtick (\`).
+ *  - String concatenation (e.g. `'a' + 'b'`) is NOT supported — the extractor
+ *    captures only the first literal token after the `=` sign, so concatenated
+ *    values will be silently truncated in the search index.
  */
 function extractSearchContent(source: string): string | null {
-  const m = source.match(/export\s+const\s+SEARCH_CONTENT\s*=\s*(?:`([^`]*)`|'([^']*)'|"([^"]*)")/s)
+  // Match only backtick template literals. [^\`]* matches any character
+  // (including newlines) except a backtick, so multi-line strings are handled
+  // without needing the dotAll (/s) flag, which requires ES2018+.
+  const m = source.match(/export\s+const\s+SEARCH_CONTENT\s*=\s*`([^`]*)`/)
   if (!m) return null
-  // m[1] = template-literal, m[2] = single-quote, m[3] = double-quote
-  const raw = m[1] ?? m[2] ?? m[3] ?? ''
+  const raw = m[1] ?? ''
   // Collapse newlines / excess whitespace introduced by multi-line string literals
   return raw.replace(/\s+/g, ' ').trim() || null
 }

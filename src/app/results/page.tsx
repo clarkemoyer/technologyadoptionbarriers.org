@@ -405,12 +405,14 @@ const ResultsPage = () => {
                   <div className="flex flex-wrap gap-2">
                     <Link
                       href={p.livePath}
+                      aria-label={`Live: ${p.title}`}
                       className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-50 text-blue-800 border border-blue-200 hover:bg-blue-100"
                     >
                       Live
                     </Link>
                     <Link
                       href={p.crpPath}
+                      aria-label={`CRP 2026: ${p.title}`}
                       className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-50 text-green-800 border border-green-200 hover:bg-green-100"
                     >
                       CRP 2026
