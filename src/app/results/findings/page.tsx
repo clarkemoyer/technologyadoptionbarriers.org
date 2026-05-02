@@ -17,6 +17,7 @@ import {
   InferentialExtensions,
   type InferentialExtensionsProps,
 } from '@/components/results/findings/InferentialExtensions'
+import { findPrimarySample, type ValidationLike } from '@/lib/results/findPrimarySample'
 
 export const metadata: Metadata = {
   title: 'Key Findings - TABS Results',
@@ -124,20 +125,6 @@ const dSize = (d: number | null | undefined): string => {
   if (abs < 0.5) return 'small'
   if (abs < 0.8) return 'medium'
   return 'large'
-}
-
-type ValidationLike = {
-  samples?: Array<Record<string, unknown>>
-  primary_sample?: string
-}
-
-const findPrimarySample = (data: ValidationLike): Record<string, unknown> | null => {
-  if (!data || !Array.isArray(data.samples) || data.samples.length === 0) return null
-  if (data.primary_sample) {
-    const match = data.samples.find((s) => s.key === data.primary_sample)
-    if (match) return match
-  }
-  return data.samples[0] ?? null
 }
 
 const buildInferentialExtensionsProps = (validation: unknown): InferentialExtensionsProps => {

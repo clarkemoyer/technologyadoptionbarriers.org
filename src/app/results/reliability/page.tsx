@@ -15,6 +15,7 @@ import {
   ExtendedReliabilitySections,
   type ExtendedReliabilityProps,
 } from '@/components/results/reliability/ExtendedReliabilitySections'
+import { findPrimarySample, type ValidationLike } from '@/lib/results/findPrimarySample'
 
 export const metadata: Metadata = {
   title: 'Scale Reliability - TABS Results',
@@ -34,20 +35,6 @@ const getMetricValue = (key: string, sample: string): number | null => {
 const fmt = (val: number | null): string => {
   if (val === null) return '-'
   return val.toFixed(4)
-}
-
-type ValidationLike = {
-  samples?: Array<Record<string, unknown>>
-  primary_sample?: string
-}
-
-const findPrimarySample = (data: ValidationLike): Record<string, unknown> | null => {
-  if (!data || !Array.isArray(data.samples) || data.samples.length === 0) return null
-  if (data.primary_sample) {
-    const match = data.samples.find((s) => s.key === data.primary_sample)
-    if (match) return match
-  }
-  return data.samples[0] ?? null
 }
 
 const ReliabilityPage = () => {

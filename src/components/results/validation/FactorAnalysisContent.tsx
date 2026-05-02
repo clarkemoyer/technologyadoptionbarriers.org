@@ -450,7 +450,7 @@ function ESEMSection({ esem }: { esem: Record<string, unknown> | undefined }) {
     | undefined
 
   const reassignments = rawItems ? detectESEMReassignments(rawItems) : []
-  const factorLabels = ['F1 (Barriers)', 'F2 (Readiness)', 'F3 (Maturity)']
+  const factorLabels = ['F1', 'F2', 'F3']
 
   return (
     <section className={SECTION_CLASSES}>
