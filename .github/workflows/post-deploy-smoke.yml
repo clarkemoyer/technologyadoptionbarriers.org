@@ -473,8 +473,10 @@ jobs:
 
           : > /tmp/content-results.txt
 
-          # Results section - verify key content renders
-          check_content "${SITE_URL}/results" "Prolific Approved" "/results overview"
+          # Results section - verify key content renders.
+          # 'Prolific Accepted' replaced 'Prolific Approved' as the hero-stat label
+          # in PR #1709 (commit 73b6e3b1, "Prolific Accepted label").
+          check_content "${SITE_URL}/results" "Prolific Accepted" "/results overview"
           check_content "${SITE_URL}/results" "Clean Sample" "/results hero stats"
           check_content "${SITE_URL}/results/data-quality" "Disposition Waterfall" "/results/data-quality"
           check_content "${SITE_URL}/results/descriptive" "Grand Mean" "/results/descriptive"
