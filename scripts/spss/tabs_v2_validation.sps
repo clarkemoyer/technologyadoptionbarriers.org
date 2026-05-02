@@ -220,10 +220,13 @@ REGRESSION
 * multiple imputation rather than listwise deletion.
 * =====================================================================.
 
+* CATEGORICAL=NONE was removed: some SPSS variants reject NONE as a
+* keyword for /CATEGORICAL. Omitting the subcommand is equivalent
+* (SPSS treats all variables as continuous by default).
+
 MVA
   VARIABLES=B1 TO B18 R1 TO R17 M1 TO M8
   /MAXCAT=25
-  /CATEGORICAL=NONE
   /MPATTERN
   /TPATTERN PERCENT=1
   /TTESTS PERCENT=5
@@ -231,9 +234,40 @@ MVA
   /EM ( TOLERANCE=0.001 CONVERGENCE=0.0001 ITERATIONS=25 ).
 
 * =====================================================================
+* AUTO-EXPORT TO EXCEL
+* Writes the entire Viewer document to spv_export.xlsx in the working
+* directory (the same folder this syntax file is in, set by CD '.' at
+* the top). Recipients can open the .xlsx in Excel, Numbers, or
+* LibreOffice to review every analysis without needing SPSS Viewer.
+*
+* CSV format is intentionally not used here: some SPSS variants reject
+* /CSV as a subcommand on OUTPUT EXPORT. XLSX works on every modern
+* SPSS Statistics license.
+* =====================================================================.
+
+OUTPUT EXPORT
+  /CONTENTS EXPORT=ALL
+  /XLSX DOCUMENTFILE='spv_export.xlsx'.
+
+* =====================================================================
+* AUTO-SAVE THE VIEWER DOCUMENT
+* Saves the entire Viewer to Post_Run_Results.spv in the working
+* directory so the recipient has a native SPSS receipt as well as the
+* Excel export. Filename is predictable so the launcher script (.bat
+* on Windows, .command on macOS) can confirm the run finished.
+* =====================================================================.
+
+OUTPUT SAVE
+  OUTFILE='Post_Run_Results.spv'.
+
+* =====================================================================
 * DONE. Compare these printed values to:
 *   - scripts/analysis/verify_against_R.R output
 *   - src/data/crp-validation.json on the matching keys
 *   - The Minitab Session window (scripts/minitab/tabs_v2_validation.MTB)
 * The descriptive layer should match all three sources to 4 decimals.
+*
+* The accompanying Run_Validation.bat (Windows) and
+* Run_Validation.command (macOS) files in this folder run the entire
+* analysis from a single double-click and pop a Done dialog.
 * =====================================================================.

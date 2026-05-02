@@ -53,6 +53,12 @@ SPSS_MANIFEST: Sequence[tuple[str, str]] = (
     ("scripts/spss/tabs_v2_crp200_spss.sav", "tabs_v2_crp200_spss.sav"),
     ("scripts/spss/tabs_v2_crp200_spss.csv", "tabs_v2_crp200_spss.csv"),
     ("scripts/spss/tabs_v2_validation.sps", "tabs_v2_validation.sps"),
+    # Double-click launchers for the recipient. The Windows .bat and the
+    # macOS .command both wrap the same SPSS production-mode invocation,
+    # so a recipient can extract the zip and immediately double-click
+    # the launcher for their OS instead of opening SPSS manually.
+    ("scripts/spss/Run_Validation.bat", "Run_Validation.bat"),
+    ("scripts/spss/Run_Validation.command", "Run_Validation.command"),
     ("scripts/spss/README.md", "README_SPSS.md"),
 )
 
@@ -95,18 +101,37 @@ This zip contains everything an SPSS user needs to independently reproduce
 the descriptive + reliability layer of the TABS validation pipeline on the
 same frozen N=200 dataset that drives the canonical Python and R analyses.
 
-## Quick start (about 2 clicks once SPSS is open)
+## Quick start - one double-click
 
-1. Unzip into any folder.
-2. Open `tabs_v2_validation.sps` in SPSS (`File -> Open -> Syntax`).
-3. `Run -> All`. Output appears in a new Viewer document.
+1. Unzip into any folder (Desktop, Documents, anywhere).
+2. Double-click the launcher for your operating system:
+   - **Windows**: `Run_Validation.bat`
+   - **macOS**: right-click `Run_Validation.command` -> Open (one-time
+     Gatekeeper prompt). After the first run, double-click works.
+3. Wait about 60 seconds for the bootstrap blocks to complete.
+4. When you see "DONE", open `spv_export.xlsx` in this folder.
+
+The launcher locates SPSS automatically, runs the syntax in production
+mode (no GUI clicks required), and writes two result files into the
+same folder you extracted the zip to:
+
+- `spv_export.xlsx` - all SPSS tables in Excel format
+- `Post_Run_Results.spv` - native SPSS Viewer document (open with SPSS or
+  the free IBM SPSS SmartReader)
+
+## Manual fallback (if the launcher cannot find SPSS)
+
+1. Open `tabs_v2_validation.sps` in SPSS (`File -> Open -> Syntax`).
+2. `Run -> All`. Output appears in a new Viewer document.
+3. The syntax automatically writes `spv_export.xlsx` and `Post_Run_Results.spv`
+   into the folder where the .sps file lives.
 
 If SPSS reports "File not found" for the .sav, set the working directory
 to the unzipped folder via `Edit -> Options -> File Locations`.
 
 ## Targeted SPSS license
 
-Built for IBM SPSS Statistics 31.0 with Statistics Base + Regression +
+Built for IBM SPSS Statistics 24+ with Statistics Base + Regression +
 Bootstrapping + Missing Values + Advanced Statistics. Without IBM SPSS
 Amos, this bundle covers the descriptive + reliability layer only - CFA
 fit indices, McDonald's omega from CFA, composite reliability with SEs,
@@ -117,10 +142,13 @@ Python pipeline (download `tabs_v2_validation_python.zip` for those).
 ## What's inside
 
 ```
-tabs_v2_crp200_spss.sav     <- SPSS native binary worksheet (open with double-click)
-tabs_v2_crp200_spss.csv     <- same data, CSV form (for sharing or re-import)
-tabs_v2_validation.sps      <- syntax file (Run -> All)
+Run_Validation.bat          <- Windows double-click launcher
+Run_Validation.command      <- macOS double-click launcher
+tabs_v2_crp200_spss.sav     <- SPSS native binary worksheet
+tabs_v2_crp200_spss.csv     <- same data, CSV form (for re-import elsewhere)
+tabs_v2_validation.sps      <- syntax file (auto-runs from the launcher)
 README_SPSS.md              <- detailed walkthrough + expected values
+README.md                   <- this file
 ```
 
 ## Three quick spot-checks that should match exactly
@@ -302,6 +330,26 @@ def _combined_requirements() -> str:
     )
 
 
+# File extensions whose executable bit must survive zipping. Without this,
+# macOS users who extract the zip cannot double-click the .command launcher
+# (Finder treats it as a plain text file because the +x bit was lost on
+# extraction). Setting external_attr to a 0o755 mode preserves the bit.
+_EXECUTABLE_EXTS = (".command", ".sh")
+_EXECUTABLE_MODE = 0o100755  # regular file + rwxr-xr-x
+
+
+def _add_to_zip(zf: zipfile.ZipFile, src_path: Path, dest: str) -> None:
+    """Write a file to the zip, preserving executable bit for .command/.sh."""
+    if dest.lower().endswith(_EXECUTABLE_EXTS):
+        info = zipfile.ZipInfo.from_file(src_path, arcname=dest)
+        info.external_attr = _EXECUTABLE_MODE << 16
+        info.compress_type = zipfile.ZIP_DEFLATED
+        with open(src_path, "rb") as f:
+            zf.writestr(info, f.read())
+    else:
+        zf.write(src_path, arcname=dest)
+
+
 def build_one(
     zip_name: str,
     manifest: Sequence[tuple[str, str]],
@@ -318,7 +366,7 @@ def build_one(
     with zipfile.ZipFile(out_path, "w", zipfile.ZIP_DEFLATED, compresslevel=9) as zf:
         zf.writestr("README.md", readme)
         for src_rel, dest in manifest:
-            zf.write(REPO_ROOT / src_rel, arcname=dest)
+            _add_to_zip(zf, REPO_ROOT / src_rel, dest)
         if extra_strings:
             for dest, content in extra_strings.items():
                 zf.writestr(dest, content)
