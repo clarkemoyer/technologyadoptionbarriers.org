@@ -44,6 +44,7 @@ const SEGMENT_LABELS: Record<string, string> = {
   'bibliography-and-citations': 'Bibliography & Citations',
   'overnight-shift': 'The Overnight Shift',
   'squash-merge-incident': 'The Squash Merge Incident',
+  '50-reviewer-process': 'The 50-Reviewer Process',
   'tabs-presentation': 'TABS Presentation',
   'factor-analysis': 'Factor Analysis',
   'baseline-audit': 'Baseline Audit',
