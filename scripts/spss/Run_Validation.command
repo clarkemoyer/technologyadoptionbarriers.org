@@ -50,7 +50,6 @@ echo
 
 SPSS_APP=""
 for candidate in \
-    "/Applications/IBM SPSS Statistics/SPSSStatistics.app" \
     "/Applications/IBM SPSS Statistics 31/SPSSStatistics.app" \
     "/Applications/IBM SPSS Statistics 30/SPSSStatistics.app" \
     "/Applications/IBM SPSS Statistics 29/SPSSStatistics.app" \
@@ -58,7 +57,8 @@ for candidate in \
     "/Applications/IBM SPSS Statistics 27/SPSSStatistics.app" \
     "/Applications/IBM SPSS Statistics 26/SPSSStatistics.app" \
     "/Applications/IBM SPSS Statistics 25/SPSSStatistics.app" \
-    "/Applications/IBM SPSS Statistics 24/SPSSStatistics.app"; do
+    "/Applications/IBM SPSS Statistics 24/SPSSStatistics.app" \
+    "/Applications/IBM SPSS Statistics/SPSSStatistics.app"; do
   if [ -d "$candidate" ]; then
     SPSS_APP="$candidate"
     break
@@ -137,7 +137,23 @@ additional outputs, or re-run individual blocks.
 
 MSG
 
-open -a "$SPSS_APP" "$COMBINED"
+if ! open -a "$SPSS_APP" "$COMBINED"; then
+  echo
+  echo "ERROR: SPSS failed to open. Possible causes:"
+  echo "  - macOS Gatekeeper quarantine: right-click Run_Validation.command and choose Open."
+  echo "  - Corrupted app bundle. Try reinstalling IBM SPSS Statistics."
+  echo "  - The .command file path contains unsupported characters."
+  echo
+  echo "To run manually:"
+  echo "  1. Launch SPSS Statistics from your Applications folder."
+  echo "  2. File > Open > Syntax > _run_validation.sps (or tabs_v2_validation.sps)."
+  echo "     Add a CD line at the top pointing to this folder if using the original file."
+  echo "  3. Run > All"
+  echo
+  echo "Press Enter to close..."
+  read -r _
+  exit 1
+fi
 
 echo
 echo "=========================================================="

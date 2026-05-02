@@ -56,7 +56,6 @@ echo.
 
 set "SPSS_EXE="
 for %%P in (
-  "%ProgramFiles%\IBM\SPSS Statistics\stats.exe"
   "%ProgramFiles%\IBM\SPSS\Statistics\31\stats.exe"
   "%ProgramFiles%\IBM\SPSS\Statistics\30\stats.exe"
   "%ProgramFiles%\IBM\SPSS\Statistics\29\stats.exe"
@@ -65,11 +64,17 @@ for %%P in (
   "%ProgramFiles%\IBM\SPSS\Statistics\26\stats.exe"
   "%ProgramFiles%\IBM\SPSS\Statistics\25\stats.exe"
   "%ProgramFiles%\IBM\SPSS\Statistics\24\stats.exe"
-  "%ProgramFiles(x86)%\IBM\SPSS Statistics\stats.exe"
   "%ProgramFiles(x86)%\IBM\SPSS\Statistics\31\stats.exe"
   "%ProgramFiles(x86)%\IBM\SPSS\Statistics\30\stats.exe"
   "%ProgramFiles(x86)%\IBM\SPSS\Statistics\29\stats.exe"
+  "%ProgramFiles(x86)%\IBM\SPSS\Statistics\28\stats.exe"
+  "%ProgramFiles(x86)%\IBM\SPSS\Statistics\27\stats.exe"
+  "%ProgramFiles(x86)%\IBM\SPSS\Statistics\26\stats.exe"
+  "%ProgramFiles(x86)%\IBM\SPSS\Statistics\25\stats.exe"
+  "%ProgramFiles(x86)%\IBM\SPSS\Statistics\24\stats.exe"
   "%LocalAppData%\Programs\IBM\SPSS Statistics\stats.exe"
+  "%ProgramFiles%\IBM\SPSS Statistics\stats.exe"
+  "%ProgramFiles(x86)%\IBM\SPSS Statistics\stats.exe"
 ) do (
   if exist %%P if not defined SPSS_EXE set "SPSS_EXE=%%~P"
 )
