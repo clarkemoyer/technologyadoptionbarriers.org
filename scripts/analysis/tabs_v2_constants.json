@@ -63,19 +63,8 @@
     "startDate": "2026-03-23 14:00:00",
     "explicitIncludeResponseId": "R_1QK12IJpHjC3wd6"
   },
-  "ORG_SIZE_VALUES": [
-    "<100",
-    "100-499",
-    "500-999",
-    "1000-4999",
-    "5000-9999",
-    "10000+"
-  ],
-  "PROFIT_MODEL_VALUES": [
-    "For-Profit",
-    "Non-Profit",
-    "Government/Public Sector"
-  ],
+  "ORG_SIZE_VALUES": ["<100", "100-499", "500-999", "1000-4999", "5000-9999", "10000+"],
+  "PROFIT_MODEL_VALUES": ["For-Profit", "Non-Profit", "Government/Public Sector"],
   "MATURITY_ITEM_NAMES": [
     "IT Investment & Value Mgmt",
     "IT-Enabled Innovation",
