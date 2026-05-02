@@ -61,6 +61,7 @@ DESCRIPTIVES VARIABLES=B1 TO B18 R1 TO R17 M1 TO M8
 * The BOOTSTRAP /SAMPLING=SIMPLE block uses the user's SPSS Bootstrapping
 * module to compute a 95% percentile CI on alpha. Output appears in a
 * second table immediately below the standard Reliability output.
+* NSAMPLES=1000 matches the Python pipeline's bootstrap_alpha_ci default.
 * =====================================================================.
 
 BOOTSTRAP /SAMPLING METHOD=SIMPLE /VARIABLES TARGET=B1 TO B18
