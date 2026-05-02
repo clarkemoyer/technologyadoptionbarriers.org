@@ -25,4 +25,26 @@ describe('making-of-tabs-series data', () => {
       expect(item.href).toBeTruthy()
     }
   })
+
+  it('includes research-value as a child of open-source and appears directly after it in the flat sequence', () => {
+    const flat = flattenMakingOfTabsSeries()
+    const openSourceIdx = flat.findIndex((i) => i.href === '/making-of-tabs/open-source')
+    const researchValueIdx = flat.findIndex(
+      (i) => i.href === '/making-of-tabs/open-source/research-value'
+    )
+    expect(openSourceIdx).toBeGreaterThan(-1)
+    expect(researchValueIdx).toBe(openSourceIdx + 1)
+  })
+
+  it('includes 50-reviewer-process as a child of ai-assisted-development and appears after squash-merge-incident', () => {
+    const flat = flattenMakingOfTabsSeries()
+    const squashIdx = flat.findIndex(
+      (i) => i.href === '/making-of-tabs/ai-assisted-development/squash-merge-incident'
+    )
+    const reviewerIdx = flat.findIndex(
+      (i) => i.href === '/making-of-tabs/ai-assisted-development/50-reviewer-process'
+    )
+    expect(squashIdx).toBeGreaterThan(-1)
+    expect(reviewerIdx).toBe(squashIdx + 1)
+  })
 })
