@@ -133,7 +133,7 @@ to the unzipped folder via `Edit -> Options -> File Locations`.
 
 ## Targeted SPSS license
 
-Built for IBM SPSS Statistics 24+ with Statistics Base + Regression +
+Tested on IBM SPSS Statistics 31.0; expected to work on 24+ with Statistics Base + Regression +
 Bootstrapping + Missing Values + Advanced Statistics. Without IBM SPSS
 Amos, this bundle covers the descriptive + reliability layer only - CFA
 fit indices, McDonald's omega from CFA, composite reliability with SEs,

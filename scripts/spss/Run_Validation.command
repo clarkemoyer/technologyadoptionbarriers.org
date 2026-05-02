@@ -97,8 +97,11 @@ done
 # Build the combined runtime syntax file: header + absolute CD + full
 # contents of tabs_v2_validation.sps.
 # Escape any single quotes in the path by doubling them (SPSS standard).
+# Use a variable for the single-quote character so the pattern in the
+# parameter expansion is unambiguous regardless of shell quoting rules.
 COMBINED="$HERE/_run_validation.sps"
-HERE_ESCAPED="${HERE//\'/\'\'}"
+_SQ="'"
+HERE_ESCAPED="${HERE//$_SQ/$_SQ$_SQ}"
 {
   echo "* ====================================================================="
   echo "* Auto-generated combined syntax. Prepends an absolute CD command to"
