@@ -16,7 +16,7 @@ export const metadata: Metadata = {
  * to the policy and meta pages, so a single template literal keeps the
  * extracted tokens meaningful.
  */
-export const SEARCH_CONTENT = `TABS, the Technology Adoption Barriers Survey, is an open-science research project conducted by Clarke Moyer at the Penn State Smeal College of Business as part of the DBA program. The site hosts the survey instrument, the rolling Prolific dataset, the frozen CRP-2026 dataset that the dissertation cites, and all analysis code. The About area covers the FAQ, media appearances, get-involved options, and the seven policy pages that govern participation, data handling, and security disclosure.`
+export const SEARCH_CONTENT = `TABS, the Technology Adoption Barriers Survey, is an open-science research project conducted by Clarke Moyer at the Penn State Smeal College of Business as part of the DBA program. The site hosts the survey instrument, the rolling Prolific dataset, the frozen CRP-2026 dataset that the dissertation cites, and all analysis code. The About area covers the FAQ, media appearances, get-involved options, and the six policy pages that govern participation, data handling, and security disclosure.`
 
 const POLICY_LINKS = [
   {

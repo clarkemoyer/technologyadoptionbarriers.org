@@ -31,12 +31,12 @@ test.describe('Teaching Series - Sidebar Navigation', () => {
     const sidebar = page.getByRole('complementary', { name: /site navigation/i })
     await expect(sidebar).toBeVisible({ timeout: NAVIGATION_TIMEOUT_MS })
 
-    // Click Teaching section
-    const teachingButton = sidebar.getByRole('button', { name: /^Teaching$/i })
-    await expect(teachingButton).toBeVisible({ timeout: NAVIGATION_TIMEOUT_MS })
-    await teachingButton.click()
+    // Teaching section is now a link (it has an href); click it to navigate
+    const teachingLink = sidebar.getByRole('link', { name: /^Teaching$/i })
+    await expect(teachingLink).toBeVisible({ timeout: NAVIGATION_TIMEOUT_MS })
+    await teachingLink.click()
 
-    // Verify accordion groups appear
+    // After navigating to the teaching landing page the sidebar auto-expands Teaching groups
     const part1Title = technologyAdoptionTeachingSeries.parts[0].title
     const part1Button = sidebar.getByRole('button', {
       name: new RegExp(escapeRegExp(part1Title), 'i'),
@@ -57,15 +57,11 @@ test.describe('Teaching Series - Sidebar Navigation', () => {
     await page.emulateMedia({ reducedMotion: 'reduce' })
 
     await seedCookieConsent(page)
-    await page.goto('/', { waitUntil: 'domcontentloaded' })
+    await page.goto('/technology-adoption-series', { waitUntil: 'domcontentloaded' })
     await assertCookieConsentSeeded(page)
 
     const navigationDialog = await openSidebar(page)
-    const teachingButton = navigationDialog.getByRole('button', { name: /^Teaching$/i })
-    await expect(teachingButton).toBeVisible({ timeout: NAVIGATION_TIMEOUT_MS })
-    await teachingButton.click()
-
-    // Verify teaching accordion groups appear
+    // Sidebar auto-activates the Teaching section; accordion groups are already visible
     const part1Title = technologyAdoptionTeachingSeries.parts[0].title
     const part1Button = navigationDialog.getByRole('button', {
       name: new RegExp(escapeRegExp(part1Title), 'i'),

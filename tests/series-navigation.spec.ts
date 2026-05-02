@@ -20,12 +20,13 @@ test.describe('Series Navigation - Desktop Sidebar', () => {
   })
 
   test('should show Models accordion groups in desktop sidebar', async ({ page }) => {
-    // Click the Models top-level item in the persistent sidebar
-    const modelsButton = page.getByRole('button', { name: /^Models$/i })
-    await expect(modelsButton).toBeVisible({ timeout: 15000 })
-    await modelsButton.click()
+    // Models top-level item is now a link (it has an href); click it to navigate
+    const sidebar = page.getByRole('complementary', { name: /site navigation/i })
+    const modelsLink = sidebar.getByRole('link', { name: /^Models$/i })
+    await expect(modelsLink).toBeVisible({ timeout: 15000 })
+    await modelsLink.click()
 
-    // Verify Series Overview accordion group appears
+    // After navigating to the models landing page the sidebar auto-expands Models groups
     const seriesOverview = page.getByRole('button', { name: /Series Overview/i })
     await expect(seriesOverview).toBeVisible({ timeout: 10000 })
 
@@ -70,28 +71,23 @@ test.describe('Series Navigation - Mobile Accordion', () => {
   })
 
   test('should open mobile menu and show accordion', async ({ page }) => {
+    // Navigate to the models landing page so the sidebar auto-activates the Models section
+    await page.goto('/technology-adoption-models', { waitUntil: 'domcontentloaded' })
     await openMobileMenu(page)
 
-    // Click Models top-level item in sidebar
-    const navigationDialog = page.getByRole('dialog', { name: /navigation menu/i })
-    const modelsButton = navigationDialog.getByRole('button', { name: /^Models$/i })
-    await expect(modelsButton).toBeVisible()
-    await modelsButton.click()
-
     // Verify accordion groups are shown in sidebar
+    const navigationDialog = page.getByRole('dialog', { name: /navigation menu/i })
     const seriesOverview = navigationDialog.getByRole('button', { name: /Series Overview/i })
     await expect(seriesOverview).toBeVisible({ timeout: 10000 })
   })
 
   test('should expand Branch 1 accordion in mobile menu', async ({ page }) => {
+    // Navigate to the models landing page so the sidebar auto-activates the Models section
+    await page.goto('/technology-adoption-models', { waitUntil: 'domcontentloaded' })
     await openMobileMenu(page)
 
-    // Click Models section
-    const navigationDialog = page.getByRole('dialog', { name: /navigation menu/i })
-    const modelsButton = navigationDialog.getByRole('button', { name: /^Models$/i })
-    await modelsButton.click()
-
     // Find and click Branch 1 accordion button (title derived from series data)
+    const navigationDialog = page.getByRole('dialog', { name: /navigation menu/i })
     const branch1ShortTitle = technologyAdoptionModelsSeries.branches[0].title.split('–')[0].trim()
     const branch1Button = navigationDialog.getByRole('button', {
       name: new RegExp(escapeRegExp(branch1ShortTitle), 'i'),
@@ -107,14 +103,12 @@ test.describe('Series Navigation - Mobile Accordion', () => {
   })
 
   test('should expand Branch 2 accordion in mobile menu', async ({ page }) => {
+    // Navigate to the models landing page so the sidebar auto-activates the Models section
+    await page.goto('/technology-adoption-models', { waitUntil: 'domcontentloaded' })
     await openMobileMenu(page)
 
-    // Click Models section
-    const navigationDialog = page.getByRole('dialog', { name: /navigation menu/i })
-    const modelsButton = navigationDialog.getByRole('button', { name: /^Models$/i })
-    await modelsButton.click()
-
     // Find and click Branch 2 accordion button (title derived from series data)
+    const navigationDialog = page.getByRole('dialog', { name: /navigation menu/i })
     const branch2ShortTitle = technologyAdoptionModelsSeries.branches[1].title.split('–')[0].trim()
     const branch2Button = navigationDialog.getByRole('button', {
       name: new RegExp(escapeRegExp(branch2ShortTitle), 'i'),

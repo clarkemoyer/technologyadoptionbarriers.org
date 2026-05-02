@@ -48,7 +48,7 @@ const SECTIONS = [
   {
     title: 'Concept Mapping',
     description:
-      'Concept maps show how the 43 survey items group into theoretical constructs synthesized from CMMI v2.0, IT-CMF, COBIT 2019, DREAMY, and the technology adoption literature. The Summary tab gives the headline grouping; the Simple and Complex tabs trade compactness for full theoretical detail.',
+      'Concept maps show how the 57 survey items group into theoretical constructs synthesized from CMMI v2.0, IT-CMF, COBIT 2019, DREAMY, and the technology adoption literature. The Summary tab gives the headline grouping; the Simple and Complex tabs trade compactness for full theoretical detail.',
     links: [
       { label: 'Summary', href: '/concept-mapping/summary' },
       { label: 'Simple Concept Map', href: '/concept-mapping/simple' },
@@ -85,7 +85,7 @@ export default function SurveyLandingPage() {
             <p className={PARAGRAPH_CLASSES}>{section.description}</p>
             <ul className="mt-3 flex flex-wrap gap-2">
               {section.links.map((link) => (
-                <li key={link.href}>
+                <li key={`${section.title}--${link.label}`}>
                   <Link
                     href={link.href}
                     className="inline-flex items-center rounded-full border border-blue-200 bg-blue-50 px-3 py-1 text-sm font-medium text-blue-800 hover:bg-blue-100"
