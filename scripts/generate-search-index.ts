@@ -220,8 +220,12 @@ const PRESERVED_FILE_EXTENSIONS = 'svg|png|jpg|jpeg|gif|webp|pdf|tsx?|jsx?|json|
  * text, which can produce garbled output on pages with dynamic JSX expressions.
  *
  * Usage in a page file:
- *   export const SEARCH_CONTENT =
- *     'Plain prose describing this page for search indexing.'
+ *   export const SEARCH_CONTENT = `Plain prose describing this page for search indexing.`
+ *
+ * CONSTRAINT: SEARCH_CONTENT must be a single string or template literal.
+ * String concatenation (e.g. `'a' + 'b'`) is NOT supported — the extractor
+ * captures only the first literal token after the `=` sign, so concatenated
+ * values will be silently truncated in the search index.
  */
 function extractSearchContent(source: string): string | null {
   const m = source.match(/export\s+const\s+SEARCH_CONTENT\s*=\s*(?:`([^`]*)`|'([^']*)'|"([^"]*)")/s)

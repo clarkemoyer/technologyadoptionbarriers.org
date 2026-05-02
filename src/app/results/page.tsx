@@ -28,14 +28,13 @@ export const metadata: Metadata = {
  * The /results landing page is highly dynamic (top-3 labels, N values, etc.),
  * so the auto-extractor produces garbled tokens.  This export is used verbatim
  * by scripts/generate-search-index.ts instead of the auto-extracted text.
+ *
+ * IMPORTANT: this MUST be a single string or template literal — not a
+ * concatenation of strings.  The extractor in generate-search-index.ts only
+ * reads the first literal token after the `=` sign; a `+`-joined value will
+ * be silently truncated in the search index.
  */
-export const SEARCH_CONTENT =
-  'Across the live TABS dataset, the nine-page insight-first flow covers: ' +
-  'Top 3 Barriers, Key Findings, Descriptive Statistics, Sample and Demographics, ' +
-  'Data Quality, Scale Reliability, Factor Analysis, Instrument Validation, and ' +
-  'Sensitivity Analysis. Parallel pages are available for the growing live dataset ' +
-  'and the frozen CRP 2026 snapshot (N=200). Start with the forced-choice top 3 ' +
-  'barriers ranking, then work down through the full analytic story.'
+export const SEARCH_CONTENT = `Across the live TABS dataset, the nine-page insight-first flow covers: Top 3 Barriers, Key Findings, Descriptive Statistics, Sample and Demographics, Data Quality, Scale Reliability, Factor Analysis, Instrument Validation, and Sensitivity Analysis. Parallel pages are available for the growing live dataset and the frozen CRP 2026 snapshot (N=200). Start with the forced-choice top 3 barriers ranking, then work down through the full analytic story.`
 
 type PickItem = { item: string; text: string; count: number; pct: number | null }
 type Top3Block = { total_n?: number; items_sorted_desc?: PickItem[] }
