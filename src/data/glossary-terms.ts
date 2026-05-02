@@ -182,4 +182,109 @@ export const glossaryTerms = [
     shortDefinition:
       'The average discrepancy between the observed and model-implied correlation matrices, standardized to a 0-1 scale. Lower values indicate the model reproduces the correlations more faithfully.',
   },
+  {
+    id: 'dwls',
+    term: 'Diagonally Weighted Least Squares (DWLS)',
+    category: 'Estimation',
+    shortDefinition:
+      'A CFA estimator designed for ordinal (Likert-type) data. Unlike maximum likelihood (ML), which assumes multivariate normality of continuous indicators, DWLS uses the polychoric correlation matrix and weights only the diagonal elements, making it robust to non-normal ordinal responses.',
+  },
+  {
+    id: 'bifactor',
+    term: 'Bifactor Model',
+    category: 'Factor Analysis',
+    shortDefinition:
+      'A factor structure in which every item loads on a single general factor and on one of several specific (group) factors simultaneously. Bifactor models test whether a scale is essentially unidimensional (one dominant general factor) while still allowing meaningful subscale variance.',
+  },
+  {
+    id: 'ecv',
+    term: 'Explained Common Variance (ECV)',
+    category: 'Factor Analysis',
+    shortDefinition:
+      'In a bifactor model, the proportion of common (modeled) variance attributable to the general factor. ECV above ~0.70 supports treating the scale as essentially unidimensional even when group factors exist.',
+  },
+  {
+    id: 'omega-h',
+    term: 'Omega-Hierarchical (ωH)',
+    category: 'Reliability',
+    shortDefinition:
+      'In a bifactor model, the proportion of total variance in scale scores attributable to the general factor alone (excluding group factors and error). Used together with ECV to evaluate whether a general factor score is interpretable on its own.',
+  },
+  {
+    id: 'tucker-congruence',
+    term: 'Tucker Congruence Coefficient',
+    category: 'Factor Analysis',
+    shortDefinition:
+      'A similarity index for factor loading patterns across groups or samples. Values above 0.95 indicate factor structures are essentially equivalent; 0.85-0.94 indicates fair similarity; below 0.85 suggests the structure differs meaningfully across groups.',
+  },
+  {
+    id: 'mardia-normality',
+    term: "Mardia's Multivariate Normality",
+    category: 'Normality',
+    shortDefinition:
+      'Tests whether a set of variables is jointly multivariate normal by examining multivariate skewness and kurtosis. Significant departures (p < .05) indicate ML-based estimators may produce biased standard errors and warrant a robust estimator like MLR or DWLS.',
+  },
+  {
+    id: 'mahalanobis',
+    term: 'Mahalanobis Distance',
+    category: 'Outliers',
+    shortDefinition:
+      'A multivariate distance measure that accounts for the covariance structure of the variables. Cases with unusually large Mahalanobis distance (typically beyond a chi-square cutoff) are flagged as multivariate outliers - they have unusual combinations of values even if no single variable is extreme.',
+  },
+  {
+    id: 'measurement-invariance',
+    term: 'Measurement Invariance (Configural / Metric / Scalar)',
+    category: 'Multi-Group',
+    shortDefinition:
+      'A hierarchy of tests for whether a scale measures the same construct across groups. Configural = same factor structure; metric = equal factor loadings (allows latent variance comparison); scalar = equal loadings AND intercepts (allows latent mean comparison). Each step adds equality constraints to the prior.',
+  },
+  {
+    id: 'esem',
+    term: 'Exploratory Structural Equation Modeling (ESEM)',
+    category: 'Factor Analysis',
+    shortDefinition:
+      'A hybrid of EFA and CFA that fits an EFA-like rotated factor structure within a confirmatory framework. Unlike strict CFA, ESEM allows small cross-loadings between factors, often producing more realistic fit when items are not perfectly simple-structured.',
+  },
+  {
+    id: 'irt-discrimination',
+    term: 'IRT Discrimination (a-parameter)',
+    category: 'Item Response Theory',
+    shortDefinition:
+      'In IRT, the slope of the item characteristic curve - how sharply the item separates respondents at different latent trait levels. Higher discrimination means a small change in the latent trait produces a large change in the probability of endorsing higher categories.',
+  },
+  {
+    id: 'grm',
+    term: 'Graded Response Model (GRM)',
+    category: 'Item Response Theory',
+    shortDefinition:
+      "Samejima's IRT model for ordinal items with three or more ordered categories (such as Likert scales). GRM estimates one discrimination parameter and a set of category-threshold parameters per item, characterizing how well each item differentiates respondents along the latent trait.",
+  },
+  {
+    id: 'vif',
+    term: 'Variance Inflation Factor (VIF)',
+    category: 'Regression',
+    shortDefinition:
+      'How much the variance of a regression coefficient is inflated due to multicollinearity with other predictors. Common cutoffs: VIF < 5 acceptable, 5-10 watch, > 10 indicates problematic multicollinearity that may destabilize coefficient estimates.',
+  },
+  {
+    id: 'tost',
+    term: 'Two One-Sided Tests (TOST) Equivalence',
+    category: 'Inference',
+    shortDefinition:
+      'A statistical procedure for testing whether two means are practically equivalent (rather than merely failing to differ). TOST flips the usual null hypothesis: equivalence is concluded when the observed difference falls entirely within a researcher-specified equivalence band.',
+  },
+  {
+    id: 'full-mediation',
+    term: 'Full vs Partial Mediation',
+    category: 'Mediation',
+    shortDefinition:
+      "Full mediation: the indirect effect of X on Y through M is significant and the direct X to Y effect is not (M fully accounts for X's influence). Partial mediation: both indirect and direct effects are significant (M explains some, but not all, of X's influence).",
+  },
+  {
+    id: 'bootstrap-ci',
+    term: 'Bootstrap Confidence Interval',
+    category: 'Inference',
+    shortDefinition:
+      'A confidence interval estimated by resampling the data with replacement many times (typically 1,000-10,000), computing the statistic in each resample, and taking percentiles of the resulting distribution. Bootstrap CIs do not assume normality and are well-suited to skewed statistics like reliability coefficients and indirect effects.',
+  },
 ] satisfies readonly GlossaryTermEntry[]
