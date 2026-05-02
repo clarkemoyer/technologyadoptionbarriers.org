@@ -28,21 +28,44 @@ file; for everything else, the recommendation is to cite the Python pipeline
 
 ## Files in this folder
 
-| File                      | What it is                                                                                                                                                                           |
-| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `tabs_v2_crp200_spss.sav` | SPSS native binary worksheet (N=200, 47 columns). Variable labels and value labels embedded so the Likert anchors and group names appear in dialogs and output without manual setup. |
-| `tabs_v2_crp200_spss.csv` | Same data as CSV (for sharing with non-SPSS users).                                                                                                                                  |
-| `tabs_v2_validation.sps`  | SPSS syntax file. Loads the .sav, runs every analysis the targeted license supports natively, and writes results to a Viewer document.                                               |
-| `build_spss_artifacts.py` | Python regenerator. Re-run if the source dataset changes.                                                                                                                            |
+| File                       | What it is                                                                                                                                                                                                    |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Run_Validation.bat`       | **Windows double-click launcher.** Locates SPSS, runs the syntax in production mode, exports to XLSX, prints Done. Recipient experience: extract zip, double-click this.                                      |
+| `Run_Validation.command`   | **macOS double-click launcher.** Same as the .bat but for Macs. Right-click -> Open the first time (Gatekeeper); double-click thereafter.                                                                     |
+| `tabs_v2_crp200_spss.sav`  | SPSS native binary worksheet (N=200, 47 columns). Variable labels and value labels embedded so the Likert anchors and group names appear in dialogs and output without manual setup.                          |
+| `tabs_v2_crp200_spss.csv`  | Same data as CSV (for sharing with non-SPSS users).                                                                                                                                                           |
+| `tabs_v2_validation.sps`   | SPSS syntax file. Loads the .sav, runs every analysis the targeted license supports natively, writes results to a Viewer document, then auto-exports to `spv_export.xlsx` and saves `Post_Run_Results.spv`.   |
+| `build_spss_artifacts.py`  | Python regenerator. Re-run if the source dataset changes.                                                                                                                                                     |
 
-## Easiest workflow (about 2 clicks once SPSS is open)
+## Easiest workflow - one double-click
+
+1. **Extract the zip** into any folder (Desktop, Documents, anywhere).
+2. **Double-click the launcher for your operating system:**
+   - **Windows**: `Run_Validation.bat`
+   - **macOS**: right-click `Run_Validation.command` -> Open (one-time
+     Gatekeeper approval). After the first run, double-click works.
+3. **Wait about 60 seconds.** A console window shows progress; SPSS runs
+   headlessly in production mode (no manual clicks).
+4. **When you see "DONE"**, the same folder now contains:
+   - `spv_export.xlsx` - all SPSS tables in Excel format (open in Excel,
+     Numbers, or LibreOffice)
+   - `Post_Run_Results.spv` - native SPSS Viewer document (open in SPSS or
+     the free IBM SPSS SmartReader)
+
+The launcher locates SPSS automatically by checking the standard install
+locations. If it cannot find SPSS (because it's installed somewhere
+unusual), it falls back to printing instructions for opening the syntax
+file manually.
+
+## Manual workflow (if you prefer the GUI, or the launcher cannot find SPSS)
 
 1. **Drop both files into the same folder** on your machine. The .sps uses
    a relative path (`CD '.'.`) so it can find the .sav as long as they are
    side-by-side and SPSS's working directory is the same folder.
 2. **Open the syntax file:** `File -> Open -> Syntax -> tabs_v2_validation.sps`.
-3. **Run -> All**. Output appears in a new Viewer window. Save it as
-   `tabs_v2_validation.spv` if you want to attach to your defense materials.
+3. **Run -> All**. Output appears in a new Viewer window. The syntax
+   automatically writes `spv_export.xlsx` and `Post_Run_Results.spv` into
+   the working directory at the end.
 
 If SPSS reports "File not found" for the .sav, change the working
 directory: `Edit -> Options -> File Locations -> Last folder used`, OR edit
