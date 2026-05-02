@@ -17,7 +17,7 @@ export const makingOfTabsSeries: MakingOfTabsItem[] = [
     href: '/making-of-tabs/open-source',
     children: [
       {
-        title: 'Research Value',
+        title: 'The Value of Open-Source Research Infrastructure',
         href: '/making-of-tabs/open-source/research-value',
       },
     ],

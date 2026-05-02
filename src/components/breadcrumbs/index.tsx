@@ -43,7 +43,7 @@ const SEGMENT_LABELS: Record<string, string> = {
   'branch-2-strategic-models': 'Strategic Models',
   'bibliography-and-citations': 'Bibliography & Citations',
   'open-source': 'Open Source & Community',
-  'research-value': 'Open-Source Research Value',
+  'research-value': 'The Value of Open-Source Research Infrastructure',
   'overnight-shift': 'The Overnight Shift',
   'squash-merge-incident': 'The Squash Merge Incident',
   '50-reviewer-process': 'The 50-Reviewer Process',
