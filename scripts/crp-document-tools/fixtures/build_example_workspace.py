@@ -168,7 +168,11 @@ def write_csv(path: str) -> None:
 
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, "w", encoding="utf-8", newline="") as f:
-        writer = csv.writer(f)
+        # lineterminator='\n' (not the csv default '\r\n') so the file is
+        # byte-identical across Windows/macOS/Linux. Without this, the CI
+        # determinism check fails because git stores LF but csv would write
+        # CRLF on a Windows-generated commit.
+        writer = csv.writer(f, lineterminator='\n')
         # Row 1: column names
         writer.writerow(ALL_COLS)
         # Row 2: question text (Qualtrics export shape)
