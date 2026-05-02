@@ -13,7 +13,7 @@ Built and tested against this combination of installed components
 | ----------------------- | ------------------------------------------------------------------------------------------------------------------------- |
 | **Statistics Base**     | Cronbach's alpha + alpha-if-deleted (Reliability), EFA + KMO + Bartlett (Factor), Pearson + Spearman correlations, T-Test |
 | **Regression**          | Mahalanobis distance (saved via REGRESSION /SAVE MAHAL)                                                                   |
-| **Bootstrapping**       | 95% bootstrap percentile CIs around Cronbach's alpha (matches Python `bootstrap_alpha_ci`)                                |
+| **Bootstrapping**       | 95% bootstrap percentile CIs around Cronbach's alpha (1000 resamples, matches Python `bootstrap_alpha_ci` default)        |
 | **Missing Values**      | Little's MCAR test + missingness pattern analysis (matches the data-quality audit in the Python pipeline)                 |
 | **Advanced Statistics** | Available for follow-up GLM / Mixed Models work, not required by the syntax in this folder                                |
 
