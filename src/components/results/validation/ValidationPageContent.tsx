@@ -194,8 +194,8 @@ function isErrored(d: RecordOrNull): string | null {
  * Render the bifactor decomposition for the Barriers 18-item scale.
  * G + F1aS + F1bS + F2S; reports omega-hierarchical (general factor),
  * omega-total, ECV (proportion of common variance from G), and CFA fit.
- * Returns null when data is missing or errored; renders a "primary only"
- * note when the sentinel {skipped: true} is present.
+ * Returns null when data is missing, errored, or the sentinel {skipped: true}
+ * is present. Regression detection is handled by the post-deploy smoke workflow.
  */
 function BifactorBarriersBlock({ data }: { data: RecordOrNull }) {
   if (isSkipped(data)) return null
@@ -253,8 +253,8 @@ function BifactorBarriersBlock({ data }: { data: RecordOrNull }) {
 /**
  * Render the bifactor decomposition for combined Readiness + Maturity items.
  * G (general capability) + RS (Readiness specific) + MS (Maturity specific).
- * Returns null when data is missing or errored; renders a "primary only"
- * note when the sentinel {skipped: true} is present.
+ * Returns null when data is missing, errored, or the sentinel {skipped: true}
+ * is present. Regression detection is handled by the post-deploy smoke workflow.
  */
 function BifactorRMBlock({ data }: { data: RecordOrNull }) {
   if (isSkipped(data)) return null
