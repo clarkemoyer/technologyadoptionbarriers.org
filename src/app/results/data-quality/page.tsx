@@ -11,6 +11,7 @@ import {
 import Link from 'next/link'
 import sensitivityData from '@/data/sensitivity-analysis.json'
 import LastUpdated from '@/components/last-updated'
+import { PipelineDataFlow } from '@/components/results/data-quality/PipelineDataFlow'
 
 export const metadata: Metadata = {
   title: 'Data Quality Pipeline - TABS Results',
@@ -80,6 +81,9 @@ const DataQualityPage = () => {
             </li>
           </ol>
         </section>
+
+        {/* ── Pipeline & Data Flow (issue #1839 - permanent diagram home) ── */}
+        <PipelineDataFlow />
 
         {/* ── Demographic Data Sources ── */}
         <section className="mb-12 text-gray-800">

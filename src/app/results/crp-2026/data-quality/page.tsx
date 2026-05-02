@@ -10,6 +10,8 @@ import {
 } from '@/lib/articleStyles'
 import Link from 'next/link'
 import sensitivityData from '@/data/crp-sensitivity-analysis.json'
+import { PipelineDataFlow } from '@/components/results/data-quality/PipelineDataFlow'
+
 export const metadata: Metadata = {
   title: 'CRP 2026 Data Quality - TABS',
   description:
@@ -86,6 +88,9 @@ const DataQualityPage = () => {
             </li>
           </ol>
         </section>
+
+        {/* ── Pipeline & Data Flow (issue #1839 - permanent diagram home) ── */}
+        <PipelineDataFlow />
 
         {/* ── Demographic Data Sources ── */}
         <section className="mb-12 text-gray-800">
