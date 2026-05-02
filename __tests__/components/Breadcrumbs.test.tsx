@@ -46,6 +46,12 @@ describe('Breadcrumbs', () => {
     expect(screen.getByText('Open Source & Community')).toBeInTheDocument()
   })
 
+  it('maps research-value to Open-Source Research Value', () => {
+    mockedUsePathname.mockReturnValue('/making-of-tabs/open-source/research-value')
+    render(<Breadcrumbs />)
+    expect(screen.getByText('Open-Source Research Value')).toBeInTheDocument()
+  })
+
   it('last item has aria-current="page"', () => {
     mockedUsePathname.mockReturnValue('/results/sensitivity')
     render(<Breadcrumbs />)
