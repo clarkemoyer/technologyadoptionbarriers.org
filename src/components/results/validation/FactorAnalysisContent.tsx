@@ -411,6 +411,7 @@ function CrossValidationTable({ data }: { data: Record<string, unknown> }) {
 /**
  * Detect items whose dominant absolute loading index differs from primary_factor.
  * primary_factor 'F1' -> index 0, 'F2' -> index 1, 'F3' -> index 2.
+ * Expects loadings to be an array of finite numbers.
  */
 function detectESEMReassignments(
   items: Record<string, { loadings: number[]; primary_factor: string }>
@@ -419,10 +420,10 @@ function detectESEMReassignments(
   return Object.entries(items).flatMap(([itemId, d]) => {
     const loadings = d.loadings
     if (!Array.isArray(loadings) || loadings.length === 0) return []
-    const domIdx = loadings.reduce(
-      (best, v, i) => (Math.abs(v) > Math.abs(loadings[best]) ? i : best),
-      0
-    )
+    const domIdx = loadings.reduce((best, v, i) => {
+      const bestAbs = Math.abs(loadings[best] ?? 0)
+      return Math.abs(v ?? 0) > bestAbs ? i : best
+    }, 0)
     const domFactor = factorNames[domIdx] ?? `F${domIdx + 1}`
     if (domFactor === d.primary_factor) return []
     return [
