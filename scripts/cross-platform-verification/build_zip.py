@@ -126,10 +126,13 @@ into the same folder you extracted the zip to:
 1. Open `tabs_v2_validation.sps` in SPSS (`File -> Open -> Syntax`).
 2. `Run -> All`. Output appears in a new Viewer document.
 3. The syntax automatically writes `spv_export.xlsx` and `Post_Run_Results.spv`
-   into the folder where the .sps file lives.
+   into the current working directory. Make sure to set the working
+   directory to the unzipped folder first (`Edit -> Options -> File
+   Locations`, or use `CD '<path>'.` at the top of the syntax).
 
-If SPSS reports "File not found" for the .sav, set the working directory
-to the unzipped folder via `Edit -> Options -> File Locations`.
+If SPSS reports "File not found" for the .sav, the working directory is
+not set to the unzipped folder — fix it via `Edit -> Options -> File
+Locations`.
 
 ## Targeted SPSS license
 
