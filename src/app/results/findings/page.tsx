@@ -9,9 +9,14 @@ import {
 } from '@/lib/articleStyles'
 import Link from 'next/link'
 import sensitivityData from '@/data/sensitivity-analysis.json'
+import liveValidationData from '@/data/live-validation.json'
 import LastUpdated from '@/components/last-updated'
 import EffectSizeChart from '@/components/effect-size-chart'
 import { DATA_UNAVAILABLE } from '@/lib/sentinelMarker'
+import {
+  InferentialExtensions,
+  type InferentialExtensionsProps,
+} from '@/components/results/findings/InferentialExtensions'
 
 export const metadata: Metadata = {
   title: 'Key Findings - TABS Results',
@@ -121,7 +126,35 @@ const dSize = (d: number | null | undefined): string => {
   return 'large'
 }
 
+type ValidationLike = {
+  samples?: Array<Record<string, unknown>>
+  primary_sample?: string
+}
+
+const findPrimarySample = (data: ValidationLike): Record<string, unknown> | null => {
+  if (!data || !Array.isArray(data.samples) || data.samples.length === 0) return null
+  if (data.primary_sample) {
+    const match = data.samples.find((s) => s.key === data.primary_sample)
+    if (match) return match
+  }
+  return data.samples[0] ?? null
+}
+
+const buildInferentialExtensionsProps = (validation: unknown): InferentialExtensionsProps => {
+  const sample = findPrimarySample(validation as ValidationLike)
+  if (!sample) return {}
+  return {
+    mediation: sample.mediation_b_r_m as InferentialExtensionsProps['mediation'],
+    perFactorReg: sample.per_factor_regressions as InferentialExtensionsProps['perFactorReg'],
+    standardizedReg:
+      sample.standardized_subfactor_regressions as InferentialExtensionsProps['standardizedReg'],
+    tost: sample.equivalence_test_tost_smb_ent as InferentialExtensionsProps['tost'],
+    powerAnalysis: sample.power_analysis as InferentialExtensionsProps['powerAnalysis'],
+  }
+}
+
 const FindingsPage = () => {
+  const inferentialExtensionsProps = buildInferentialExtensionsProps(liveValidationData)
   return (
     <div className="pt-20 sm:pt-[120px] bg-white">
       <article className={ARTICLE_CLASSES}>
@@ -654,6 +687,9 @@ const FindingsPage = () => {
             )
           })}
         </section>
+
+        {/* ── Inferential Extensions (PR #1837 / issue #1839) ── */}
+        <InferentialExtensions {...inferentialExtensionsProps} />
 
         {/* ── Completed Analyses ── */}
         <section className="mb-12 text-gray-800">
