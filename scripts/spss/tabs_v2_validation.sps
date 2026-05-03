@@ -15,16 +15,16 @@
 *   Direct Marketing, Bootstrapping.
 *
 *   NOT IN LICENSE: IBM SPSS Amos. Base SPSS Statistics has no SEM
-*   engine. Sections 14-17 of this syntax bridge that gap by calling
+*   engine. Sections 13 and 14 of this syntax bridge that gap by calling
 *   the SPSS-bundled Python 3.13 (semopy) and R 4.4.1 (lavaan) to
 *   produce CFA fit indices, omega-from-CFA, bifactor, multigroup
 *   invariance, and Mardia normality. First-run setup installs semopy
 *   from PyPI (~30 sec); subsequent runs skip the install.
 *
 * HOW TO RUN:
-*   - Easiest: double-click 0_DOUBLE_CLICK_ME_TO_START.bat (Windows) or
-*     0_DOUBLE_CLICK_ME_TO_START.command (macOS) and click Run > All in
-*     the SPSS window that opens.
+*   - Easiest: double-click 0_DOUBLE_CLICK_ME_TO_START_WINDOWS.bat (Windows)
+*     or 0_DOUBLE_CLICK_ME_TO_START_MAC.command (macOS), then click Run > All
+*     in the SPSS window that opens.
 *   - Manual: File > Open > Syntax > tabs_v2_validation.sps, then ensure
 *     SPSS's working directory is this folder, then Run > All.
 *
@@ -126,7 +126,7 @@ DESCRIPTIVES VARIABLES=B1 TO B18 R1 TO R17 M1 TO M8 B_mean R_mean M_mean
 *     normality. Consider robust estimators (DWLS in CFA, bootstrap
 *     CIs in regression).
 * Matches Python: shapiro_wilk and ks_test in normality_assessment.
-* MULTIVARIATE normality (Mardia's b1p, b2p) is in Section 16 via the
+* MULTIVARIATE normality (Mardia's b1p, b2p) is in Section 13 via the
 * Python scipy bridge; this section is univariate-only.
 * =====================================================================.
 
