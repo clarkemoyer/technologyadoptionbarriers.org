@@ -173,18 +173,21 @@ describe('ReliabilityContent — crp variant', () => {
     expect(screen.getByText(/the full CRP dataset/i)).toBeInTheDocument()
   })
 
-  it('renders CRP 2026 Overview link instead of Sensitivity Analysis', () => {
-    expect(screen.getByRole('link', { name: /CRP 2026 Overview/ })).toHaveAttribute(
-      'href',
-      '/results/crp-2026'
-    )
+  it('renders CRP 2026 Overview link instead of Sensitivity Analysis (in Related list)', () => {
+    // CRP variant: 'CRP 2026 Overview' appears once in Related list and once
+    // as the Back link, so use getAllByRole and assert at least one anchor.
+    const overviewLinks = screen.getAllByRole('link', { name: /CRP 2026 Overview/ })
+    expect(overviewLinks.length).toBeGreaterThanOrEqual(1)
+    overviewLinks.forEach((link) => {
+      expect(link).toHaveAttribute('href', '/results/crp-2026')
+    })
     expect(screen.queryByRole('link', { name: /^Sensitivity Analysis$/ })).not.toBeInTheDocument()
   })
 
-  it('back link points to /results', () => {
-    expect(screen.getByRole('link', { name: /Back to Results Overview/ })).toHaveAttribute(
+  it('back link points to /results/crp-2026 (Back to CRP 2026 Overview)', () => {
+    expect(screen.getByRole('link', { name: /Back to CRP 2026 Overview/ })).toHaveAttribute(
       'href',
-      '/results'
+      '/results/crp-2026'
     )
   })
 })

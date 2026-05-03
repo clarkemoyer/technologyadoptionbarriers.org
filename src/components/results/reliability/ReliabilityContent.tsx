@@ -38,7 +38,7 @@ export type ReliabilityVariant = 'live' | 'crp'
 interface ReliabilityContentProps {
   variant: ReliabilityVariant
   data: ReliabilityData
-  validationData: unknown
+  validationData: ValidationLike
 }
 
 const fmt = (val: number | null): string => {
@@ -125,7 +125,7 @@ const VARIANT_CONFIG: Record<ReliabilityVariant, VariantConfig> = {
         description: 'how the samples are defined and validated',
       },
     ],
-    backLink: { href: '/results', label: '← Back to Results Overview' },
+    backLink: { href: '/results/crp-2026', label: '← Back to CRP 2026 Overview' },
   },
 }
 
@@ -141,14 +141,16 @@ export const ReliabilityContent = ({ variant, data, validationData }: Reliabilit
     return metric.values[sample] ?? null
   }
 
-  const primarySample = findPrimarySample(validationData as ValidationLike)
+  const primarySample = findPrimarySample(validationData)
   const extendedProps: ExtendedReliabilityProps = primarySample
     ? {
-        bootstrap: primarySample.bootstrap_alpha_ci as ExtendedReliabilityProps['bootstrap'],
-        alphaIfDeleted:
-          primarySample.alpha_if_deleted_summary as ExtendedReliabilityProps['alphaIfDeleted'],
-        reliabilityByDemo:
-          primarySample.reliability_by_demo as ExtendedReliabilityProps['reliabilityByDemo'],
+        bootstrap: primarySample['bootstrap_alpha_ci'] as ExtendedReliabilityProps['bootstrap'],
+        alphaIfDeleted: primarySample[
+          'alpha_if_deleted_summary'
+        ] as ExtendedReliabilityProps['alphaIfDeleted'],
+        reliabilityByDemo: primarySample[
+          'reliability_by_demo'
+        ] as ExtendedReliabilityProps['reliabilityByDemo'],
       }
     : {}
 
