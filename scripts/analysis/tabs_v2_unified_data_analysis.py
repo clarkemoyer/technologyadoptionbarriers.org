@@ -3482,6 +3482,7 @@ def t_tests_smb_vs_enterprise(df, construct_cols_map, smb_col='_SMB'):
         smb_means = df[smb_mask][cols].mean(axis=1).dropna()
         ent_means = df[ent_mask][cols].mean(axis=1).dropna()
         if len(smb_means) < 3 or len(ent_means) < 3:
+            # Need n >= 3 per group to compute stable std(ddof=1) and Welch df
             constructs[cname] = {'error': 'insufficient n'}
             continue
         m_smb = float(smb_means.mean())
