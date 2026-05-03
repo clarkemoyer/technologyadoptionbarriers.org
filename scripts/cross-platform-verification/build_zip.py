@@ -160,8 +160,8 @@ the separate Python pipeline (`tabs_v2_validation_python.zip`).
 ## What's inside
 
 ```
-0_DOUBLE_CLICK_ME_TO_START_WINDOWS.bat          <- Windows double-click launcher
-0_DOUBLE_CLICK_ME_TO_START_MAC.command      <- macOS double-click launcher
+0_DOUBLE_CLICK_ME_TO_START_WINDOWS.bat  <- Windows double-click launcher
+0_DOUBLE_CLICK_ME_TO_START_MAC.command  <- macOS double-click launcher
 tabs_v2_crp200_spss.sav     <- SPSS native binary worksheet
 tabs_v2_crp200_spss.csv     <- same data, CSV form (for re-import elsewhere)
 tabs_v2_validation.sps      <- syntax file (loaded into SPSS by the launcher; click Run → All)
@@ -368,17 +368,15 @@ def _add_to_zip(zf: zipfile.ZipFile, src_path: Path, dest: str) -> None:
     dest_lower = dest.lower()
     if dest_lower.endswith(_EXECUTABLE_EXTS):
         info = zipfile.ZipInfo.from_file(src_path, arcname=dest)
-        # Derive the Unix mode from the source file, then ensure +x is set.
-        # Fallback to 0o100755 if stat is unavailable (e.g., on Windows).
-        try:
-            src_mode = src_path.stat().st_mode
-            # Set regular-file and execute bits; strip group/other write
-            # to keep permissions at 0o100755 regardless of build platform
-            # (Windows stat() commonly returns 0o666, which would produce
-            # world-writable 0o100777 if we only OR in the execute bits).
-            exec_mode = (src_mode | 0o100111) & ~0o022
-        except OSError:
-            exec_mode = _EXECUTABLE_MODE
+        # Always force 0o100755 (rwxr-xr-x) regardless of the source file's
+        # on-disk permissions.  Deriving the mode from stat() is unreliable:
+        # on Windows, stat().st_mode is typically 0o666, which when OR-ed with
+        # execute bits and masked would still leave world-write set, and on a
+        # restrictive Linux setup (e.g. 0o100700) it would omit group/other
+        # read+execute bits, producing 0o100711 instead of 0o100755.  Using a
+        # fixed constant is simpler and produces predictable results on all
+        # build platforms.
+        exec_mode = _EXECUTABLE_MODE  # 0o100755
         info.external_attr = exec_mode << 16
         # Force create_system=3 (Unix) so macOS unzippers honour the Unix
         # permission bits even when the zip is built on Windows (where
