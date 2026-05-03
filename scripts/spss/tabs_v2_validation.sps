@@ -629,6 +629,7 @@ calc_stats = None
 try:
     import numpy as np
     import pandas as pd
+    import scipy  # Mardia tests (below) require scipy.stats
     import spss
     import spssdata
     core_ok = True
@@ -637,7 +638,7 @@ try:
         semopy_ok = True
     except ImportError as exc:
         print("[NOTE] semopy not installed: " + str(exc))
-        print("       HTMT, HTMT2, and Mardia will still run (they need only numpy/scipy).")
+        print("       HTMT, HTMT2, and Mardia will still run (they need numpy/pandas/scipy).")
         print("       CFA, omega, bifactor, and multigroup CFA require semopy.")
         print("       The launcher (.bat/.command) installs semopy automatically.")
         print("       If you opened this syntax without the launcher, install:")
@@ -957,40 +958,49 @@ if (!requireNamespace("lavaan", quietly = TRUE)) {
   cat("[skip]   END PROGRAM.\n")
 } else {
   library(lavaan)
-  df <- spssdata.GetDataFromSPSS(missingValueToNA = TRUE)
-  Bvars <- paste0("B", 1:18)
-  Rvars <- paste0("R", 1:17)
-  Mvars <- paste0("M", 1:8)
-  spec_3f <- paste0(
-    "Barriers  =~ ", paste(Bvars, collapse=" + "), "\n",
-    "Readiness =~ ", paste(Rvars, collapse=" + "), "\n",
-    "Maturity  =~ ", paste(Mvars, collapse=" + ")
+  df <- tryCatch(
+    spssdata.GetDataFromSPSS(missingValueToNA = TRUE),
+    error = function(e) {
+      cat("[skip] Section 14: could not read SPSS dataset (spssdata unavailable):",
+          conditionMessage(e), "\n")
+      NULL
+    }
   )
-  if ("SMB_ENT" %in% names(df)) {
-    cat("\n--- Measurement invariance by SMB_ENT (R lavaan) ---\n")
-    tryCatch({
-      config <- cfa(spec_3f, data=df, group="SMB_ENT", missing="fiml", estimator="MLR")
-      metric <- cfa(spec_3f, data=df, group="SMB_ENT", missing="fiml",
-                     estimator="MLR", group.equal="loadings")
-      scalar <- cfa(spec_3f, data=df, group="SMB_ENT", missing="fiml",
-                     estimator="MLR", group.equal=c("loadings","intercepts"))
-      cat("Configural CFI: ", round(fitMeasures(config, "cfi"),   4),
-          "  RMSEA:", round(fitMeasures(config, "rmsea"), 4), "\n")
-      cat("Metric CFI:     ", round(fitMeasures(metric, "cfi"),   4),
-          "  (Delta-CFI:",   round(fitMeasures(config,"cfi") - fitMeasures(metric,"cfi"), 4),
-          ";  Delta-RMSEA:", round(fitMeasures(metric,"rmsea") - fitMeasures(config,"rmsea"), 4), ")\n")
-      cat("Scalar CFI:     ", round(fitMeasures(scalar, "cfi"),   4),
-          "  (Delta-CFI:",   round(fitMeasures(metric,"cfi") - fitMeasures(scalar,"cfi"), 4),
-          ";  Delta-RMSEA:", round(fitMeasures(scalar,"rmsea") - fitMeasures(metric,"rmsea"), 4), ")\n")
-    }, error = function(e) cat("Invariance test failed:", conditionMessage(e), "\n"))
-  }
-  if (requireNamespace("semTools", quietly = TRUE)) {
-    cat("\n--- McDonald omega from CFA (R semTools) ---\n")
-    library(semTools)
-    tryCatch({
-      fit_3f <- cfa(spec_3f, data=df, missing="fiml", estimator="MLR")
-      print(round(reliability(fit_3f), 4))
-    }, error = function(e) cat("omega failed:", conditionMessage(e), "\n"))
+  if (!is.null(df)) {
+    Bvars <- paste0("B", 1:18)
+    Rvars <- paste0("R", 1:17)
+    Mvars <- paste0("M", 1:8)
+    spec_3f <- paste0(
+      "Barriers  =~ ", paste(Bvars, collapse=" + "), "\n",
+      "Readiness =~ ", paste(Rvars, collapse=" + "), "\n",
+      "Maturity  =~ ", paste(Mvars, collapse=" + ")
+    )
+    if ("SMB_ENT" %in% names(df)) {
+      cat("\n--- Measurement invariance by SMB_ENT (R lavaan) ---\n")
+      tryCatch({
+        config <- cfa(spec_3f, data=df, group="SMB_ENT", missing="fiml", estimator="MLR")
+        metric <- cfa(spec_3f, data=df, group="SMB_ENT", missing="fiml",
+                       estimator="MLR", group.equal="loadings")
+        scalar <- cfa(spec_3f, data=df, group="SMB_ENT", missing="fiml",
+                       estimator="MLR", group.equal=c("loadings","intercepts"))
+        cat("Configural CFI: ", round(fitMeasures(config, "cfi"),   4),
+            "  RMSEA:", round(fitMeasures(config, "rmsea"), 4), "\n")
+        cat("Metric CFI:     ", round(fitMeasures(metric, "cfi"),   4),
+            "  (Delta-CFI:",   round(fitMeasures(config,"cfi") - fitMeasures(metric,"cfi"), 4),
+            ";  Delta-RMSEA:", round(fitMeasures(metric,"rmsea") - fitMeasures(config,"rmsea"), 4), ")\n")
+        cat("Scalar CFI:     ", round(fitMeasures(scalar, "cfi"),   4),
+            "  (Delta-CFI:",   round(fitMeasures(metric,"cfi") - fitMeasures(scalar,"cfi"), 4),
+            ";  Delta-RMSEA:", round(fitMeasures(scalar,"rmsea") - fitMeasures(metric,"rmsea"), 4), ")\n")
+      }, error = function(e) cat("Invariance test failed:", conditionMessage(e), "\n"))
+    }
+    if (requireNamespace("semTools", quietly = TRUE)) {
+      cat("\n--- McDonald omega from CFA (R semTools) ---\n")
+      library(semTools)
+      tryCatch({
+        fit_3f <- cfa(spec_3f, data=df, missing="fiml", estimator="MLR")
+        print(round(reliability(fit_3f), 4))
+      }, error = function(e) cat("omega failed:", conditionMessage(e), "\n"))
+    }
   }
 }
 cat(paste(rep("=", 70), collapse=""), "\n", sep="")
