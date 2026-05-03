@@ -19,10 +19,12 @@ Output:
     sem_companion_results.csv - same metrics as a flat key/value table
         (open in Minitab via File > Open Worksheet for cross-reference)
 
-Numerical output is bit-identical to the canonical pipeline at
-src/data/crp-validation.json because both call semopy with the same
-model specifications. Run from the launcher (.bat / .command) or
-directly:
+Numerical output matches the canonical pipeline (src/data/crp-validation.json)
+to 4 decimal places for the CFA-layer spot-check metrics (CFI, RMSEA, HTMT,
+HTMT2) because both use the same model specifications and semopy version.
+Exact bit-identity is not guaranteed across all sections or library versions
+(HTMT2 uses geometric means; Mardia uses a direct formula). Run from the
+launcher (.bat / .command) or directly:
 
     python tabs_v2_sem_companion.py \\
         --csv tabs_v2_crp200_minitab.csv \\
@@ -72,19 +74,33 @@ def _subsection(handle, title):
 
 
 def _print_fit_indices(handle, model, calc_stats, label):
+    """Emit CFA fit indices, handling both semopy DataFrame orientations.
+
+    Older semopy versions return calc_stats() as a DataFrame with metric names
+    as columns and a single 'Value' row (row-oriented).  Newer versions return
+    metric names as the index with a single 'Value' column (column-oriented).
+    This matches the dual-detection logic used in the canonical pipeline
+    (scripts/analysis/tabs_v2_validation.py).
+    """
     import numpy as np
     import pandas as pd
 
     _subsection(handle, label)
     try:
-        stats = calc_stats(model).iloc[0]
+        fit_df = calc_stats(model)
+        # Detect orientation: if 'Value' is a row index and metric names are
+        # columns, use the row-oriented accessor; otherwise use the column-
+        # oriented accessor (metric names in index, 'Value' column).
+        if "Value" in fit_df.index and "CFI" not in fit_df.index:
+            def _stat(name):
+                return float(fit_df.loc["Value", name]) if name in fit_df.columns else None
+        else:
+            def _stat(name):
+                return float(fit_df.loc[name, "Value"]) if name in fit_df.index else None
+
         for key in ("chi2", "DoF", "chi2 p-value", "CFI", "TLI", "RMSEA", "SRMR", "AGFI", "GFI"):
-            if key in stats.index:
-                val = stats[key]
-                if isinstance(val, (int, float, np.floating)) and not pd.isna(val):
-                    _emit_pair(handle, key, float(val))
-                else:
-                    _emit_pair(handle, key, None)
+            val = _stat(key)
+            _emit_pair(handle, key, val)
     except Exception as exc:
         handle["txt"].write(f"  (fit indices unavailable: {exc})\n")
 
@@ -177,7 +193,16 @@ def main(argv=None) -> int:
         items_df = df[items].dropna().astype(float)
         cor = items_df.corr().values
         abs_cor = np.abs(cor)
-        log_cor = np.log(abs_cor + 1e-9)
+
+        # HTMT2 uses geometric means (Roemer et al., 2021). To match the
+        # canonical htmt2_ratio() in tabs_v2_validation.py, filter out
+        # non-positive absolute correlations before taking log instead of
+        # adding a global epsilon that perturbs every value.
+        def _geo_mean(arr):
+            """Geometric mean of positive-only values; returns NaN if none."""
+            pos = arr[arr > 0]
+            return float(np.exp(np.mean(np.log(pos)))) if len(pos) > 0 else np.nan
+
         iB = list(range(0, 18))
         iR = list(range(18, 35))
         iM = list(range(35, 43))
@@ -191,6 +216,15 @@ def main(argv=None) -> int:
             sub = src[np.ix_(i1, i2)]
             return sub.mean()
 
+        def block_offdiag_geo(idx, src):
+            sub = src[np.ix_(idx, idx)]
+            mask = ~np.eye(len(idx), dtype=bool)
+            return _geo_mean(sub[mask])
+
+        def block_cross_geo(i1, i2, src):
+            sub = src[np.ix_(i1, i2)]
+            return _geo_mean(sub.ravel())
+
         mB = block_offdiag_mean(iB, abs_cor)
         mR = block_offdiag_mean(iR, abs_cor)
         mM = block_offdiag_mean(iM, abs_cor)
@@ -198,12 +232,12 @@ def main(argv=None) -> int:
         mBM = block_cross_mean(iB, iM, abs_cor)
         mRM = block_cross_mean(iR, iM, abs_cor)
 
-        mB2 = np.exp(block_offdiag_mean(iB, log_cor))
-        mR2 = np.exp(block_offdiag_mean(iR, log_cor))
-        mM2 = np.exp(block_offdiag_mean(iM, log_cor))
-        mBR2 = np.exp(block_cross_mean(iB, iR, log_cor))
-        mBM2 = np.exp(block_cross_mean(iB, iM, log_cor))
-        mRM2 = np.exp(block_cross_mean(iR, iM, log_cor))
+        mB2 = block_offdiag_geo(iB, abs_cor)
+        mR2 = block_offdiag_geo(iR, abs_cor)
+        mM2 = block_offdiag_geo(iM, abs_cor)
+        mBR2 = block_cross_geo(iB, iR, abs_cor)
+        mBM2 = block_cross_geo(iB, iM, abs_cor)
+        mRM2 = block_cross_geo(iR, iM, abs_cor)
 
         for pair, h, h2 in (
             ("B-R", mBR / np.sqrt(mB * mR), mBR2 / np.sqrt(mB2 * mR2)),
