@@ -341,44 +341,103 @@ class TestSplitSampleCvPerFactor:
 class TestBuildValidationRegistry:
     """Gap 6: _build_validation_registry() aggregates pass/fail counts correctly."""
 
+    # ------------------------------------------------------------------
+    # Helpers: pipeline-shaped dicts (as returned by validate_construct())
+    # ------------------------------------------------------------------
+
+    @staticmethod
+    def _good_construct(name="Readiness"):
+        """Pipeline-shaped construct result with all 10 criteria passing."""
+        return {
+            "construct": name,
+            "cronbach_alpha": 0.85,
+            "mcdonalds_omega": 0.85,
+            "composite_reliability": 0.85,
+            "ave_from_loadings": 0.60,
+            "citc_flagged_below_030": [],
+            "split_half_spearman_brown": 0.80,
+            "efa": {"kmo_model": 0.75, "bartlett_p": 0.001},
+            "cfa": {"cfi": 0.95, "rmsea": 0.05},
+        }
+
+    @staticmethod
+    def _failing_construct(name="Barriers"):
+        """Pipeline-shaped construct result with some criteria failing."""
+        # alpha FAIL (0.65), citc FAIL (2 items flagged), kmo FAIL (0.55)
+        # → 7/10 criteria pass
+        return {
+            "construct": name,
+            "cronbach_alpha": 0.65,
+            "mcdonalds_omega": 0.85,
+            "composite_reliability": 0.85,
+            "ave_from_loadings": 0.60,
+            "citc_flagged_below_030": ["B1", "B2"],
+            "split_half_spearman_brown": 0.75,
+            "efa": {"kmo_model": 0.55, "bartlett_p": 0.001},
+            "cfa": {"cfi": 0.95, "rmsea": 0.07},
+        }
+
+    # ------------------------------------------------------------------
+    # Tests
+    # ------------------------------------------------------------------
+
     def test_returns_expected_keys(self):
         mod = _import_validation()
-        construct_results = [
-            {"construct": "Barriers", "verdicts": {"pass_count": 6, "total_criteria": 9}},
-            {"construct": "Readiness", "verdicts": {"pass_count": 9, "total_criteria": 9}},
-            {"construct": "Maturity", "verdicts": {"pass_count": 9, "total_criteria": 9}},
-        ]
-        reg = mod._build_validation_registry(construct_results, last_run_utc="2026-05-03T00:00:00")
+        reg = mod._build_validation_registry(
+            [self._good_construct()], last_run_utc="2026-05-03T00:00:00"
+        )
         for key in ("total_checks", "passed", "failed", "pass_rate_pct", "categories", "last_run_utc"):
             assert key in reg, f"Missing key: {key}"
 
-    def test_totals_are_correct(self):
+    def test_pipeline_shaped_inputs_no_verdicts_key(self):
+        """Registry must work with actual validate_construct() output — no 'verdicts' sub-dict."""
         mod = _import_validation()
-        construct_results = [
-            {"construct": "Barriers", "verdicts": {"pass_count": 6, "total_criteria": 9}},
-            {"construct": "Readiness", "verdicts": {"pass_count": 9, "total_criteria": 9}},
-            {"construct": "Maturity", "verdicts": {"pass_count": 9, "total_criteria": 9}},
-        ]
-        reg = mod._build_validation_registry(construct_results, last_run_utc="2026-05-03T00:00:00")
-        assert reg["total_checks"] == 27
-        assert reg["passed"] == 24
-        assert reg["failed"] == 3
+        cr = self._good_construct("Barriers")
+        # Confirm input has NO pre-existing 'verdicts' key (the bug that was filed)
+        assert "verdicts" not in cr, "Test fixture should not have a 'verdicts' key"
+        reg = mod._build_validation_registry([cr], last_run_utc="now")
+        assert reg["total_checks"] > 0, "Expected at least one criterion to be counted"
+        assert reg["passed"] > 0, "Expected at least one criterion to pass"
 
-    def test_pass_rate_pct(self):
+    def test_all_pass_for_good_construct(self):
+        """Good construct (all thresholds met) should yield passed == total_checks."""
         mod = _import_validation()
+        reg = mod._build_validation_registry(
+            [self._good_construct()], last_run_utc="now"
+        )
+        assert reg["passed"] == reg["total_checks"]
+        assert reg["failed"] == 0
+        assert reg["pass_rate_pct"] == 100.0
+
+    def test_totals_are_correct_mixed(self):
+        """Failing construct (alpha/citc/kmo below threshold) reduces pass count."""
+        mod = _import_validation()
+        # _failing_construct: 7/10 pass; _good_construct: 10/10 pass
         construct_results = [
-            {"construct": "B", "verdicts": {"pass_count": 84, "total_criteria": 84}},
+            self._failing_construct("Barriers"),
+            self._good_construct("Readiness"),
         ]
         reg = mod._build_validation_registry(construct_results, last_run_utc="now")
-        assert reg["pass_rate_pct"] == 100.0
+        # Good: 10, Failing: 7 → passed=17, total=20, failed=3
+        assert reg["total_checks"] == 20
+        assert reg["passed"] == 17
+        assert reg["failed"] == 3
 
     def test_categories_match_construct_names(self):
         mod = _import_validation()
-        construct_results = [
-            {"construct": "Barriers", "verdicts": {"pass_count": 6, "total_criteria": 9}},
-        ]
-        reg = mod._build_validation_registry(construct_results, last_run_utc="now")
+        cr = self._good_construct("Barriers")
+        reg = mod._build_validation_registry([cr], last_run_utc="now")
         assert "Barriers" in reg["categories"]
+
+    def test_categories_contain_pass_and_total(self):
+        mod = _import_validation()
+        cr = self._good_construct("Maturity")
+        reg = mod._build_validation_registry([cr], last_run_utc="now")
+        cat = reg["categories"]["Maturity"]
+        assert "pass_count" in cat
+        assert "total_criteria" in cat
+        assert isinstance(cat["pass_count"], int)
+        assert isinstance(cat["total_criteria"], int)
 
     def test_empty_construct_results(self):
         mod = _import_validation()
@@ -387,13 +446,34 @@ class TestBuildValidationRegistry:
         assert reg["passed"] == 0
         assert reg["pass_rate_pct"] is None
 
+    def test_none_metrics_dont_inflate_total(self):
+        """When optional metrics (e.g. CFA) are absent, total_criteria stays ≤ 10."""
+        mod = _import_validation()
+        # Construct without CFA: cfa_cfi and cfa_rmsea criteria are None
+        cr = {
+            "construct": "Maturity",
+            "cronbach_alpha": 0.85,
+            "mcdonalds_omega": 0.85,
+            "composite_reliability": 0.85,
+            "ave_from_loadings": 0.60,
+            "citc_flagged_below_030": [],
+            "split_half_spearman_brown": 0.80,
+            "efa": {"kmo_model": 0.75, "bartlett_p": 0.001},
+            # No 'cfa' key
+        }
+        reg = mod._build_validation_registry([cr], last_run_utc="now")
+        cat = reg["categories"]["Maturity"]
+        # 10 criteria defined, 2 are None (no CFA) → total_criteria == 8
+        assert cat["total_criteria"] == 8
+        assert cat["pass_count"] <= cat["total_criteria"]
+
 
 # --------------------------------------------------------------------------- #
 # Gap 7 — _build_r_parity_tests()                                              #
 # --------------------------------------------------------------------------- #
 
 class TestBuildRParityTests:
-    """Gap 7: _build_r_parity_tests() returns the meta-block with count=13."""
+    """Gap 7: _build_r_parity_tests() derives count from the live parity test file."""
 
     def test_returns_expected_keys(self):
         mod = _import_validation()
@@ -401,10 +481,32 @@ class TestBuildRParityTests:
         for key in ("count", "ci_workflow", "last_run_utc", "all_passing"):
             assert key in result, f"Missing key: {key}"
 
-    def test_canonical_count_is_13(self):
+    def test_count_reflects_actual_parity_file(self):
+        """count must match the number of def test_ functions in the parity file."""
+        import re as _re
         mod = _import_validation()
         result = mod._build_r_parity_tests(last_run_utc="now")
-        assert result["count"] == 13
+        parity_file = (
+            Path(__file__).parent / "test_parity_to_published_formulas.py"
+        )
+        if parity_file.exists():
+            source = parity_file.read_text(encoding="utf-8")
+            expected = len(_re.findall(r"^def test_", source, _re.MULTILINE))
+            assert result["count"] == expected, (
+                f"count={result['count']} but file has {expected} tests; "
+                "update _build_r_parity_tests() or add/remove tests consistently"
+            )
+        else:
+            # File not found — count falls back to a non-zero integer
+            assert isinstance(result["count"], int)
+            assert result["count"] > 0
+
+    def test_count_is_positive_integer(self):
+        """count should always be a positive integer regardless of environment."""
+        mod = _import_validation()
+        result = mod._build_r_parity_tests(last_run_utc="now")
+        assert isinstance(result["count"], int)
+        assert result["count"] > 0
 
     def test_all_passing_is_none_by_default(self):
         """all_passing should start as None (populated by CI at runtime)."""

@@ -43,9 +43,11 @@ Author: Clarke Moyer, Penn State Smeal DBA
 
 import json
 import math
+import re
 import sys
 import warnings
 from collections import OrderedDict
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
@@ -2421,16 +2423,77 @@ def measurement_invariance_approximate(df, cols, spec, group_col, group_values=(
     return out
 
 
+def _eval_construct_verdicts(cr):
+    """Compute the 10 per-construct psychometric verdicts from a validate_construct() result.
+
+    ``validate_construct()`` returns the raw numbers (alpha, omega, etc.) but
+    no pre-computed verdict flags.  This helper derives the same boolean checks
+    that appear in crp-validation.json under ``verdicts/{construct}`` so that
+    ``_build_validation_registry()`` can aggregate them without requiring a
+    pre-existing 'verdicts' sub-dict inside the construct result.
+
+    Criteria (threshold sources: Hair et al. 2019; Fornell & Larcker 1981):
+        alpha_above_070, omega_above_070, cr_above_070, ave_above_050,
+        itc_all_above_030, split_half_above_070, kmo_above_060,
+        bartlett_significant, cfa_cfi_above_090, cfa_rmsea_below_008
+
+    Returns a dict with one bool (or None when the metric is unavailable) per
+    criterion plus ``pass_count`` and ``total_criteria`` integer summaries.
+    """
+    def _check(val, fn):
+        """Apply fn(val) only when val is available; return None if not."""
+        if val is None or (isinstance(val, float) and val != val):
+            return None
+        try:
+            return bool(fn(val))
+        except (TypeError, ValueError):
+            return None
+
+    a = cr.get('cronbach_alpha')
+    omega = cr.get('mcdonalds_omega')
+    comp_rel = cr.get('composite_reliability')
+    ave = cr.get('ave_from_loadings')
+    citc_flagged = cr.get('citc_flagged_below_030') or []
+    sh = cr.get('split_half_spearman_brown')
+    efa = cr.get('efa') or {}
+    kmo = efa.get('kmo_model')
+    bartlett_p = efa.get('bartlett_p')
+    cfa = cr.get('cfa') or {}
+    cfi = cfa.get('cfi')
+    rmsea = cfa.get('rmsea')
+
+    criteria = {
+        'alpha_above_070':      _check(a,          lambda v: v >= 0.70),
+        'omega_above_070':      _check(omega,       lambda v: v >= 0.70),
+        'cr_above_070':         _check(comp_rel,    lambda v: v >= 0.70),
+        'ave_above_050':        _check(ave,         lambda v: v >= 0.50),
+        'itc_all_above_030':    bool(len(citc_flagged) == 0),
+        'split_half_above_070': _check(sh,          lambda v: v >= 0.70),
+        'kmo_above_060':        _check(kmo,         lambda v: v >= 0.60),
+        'bartlett_significant': _check(bartlett_p,  lambda v: v < 0.05),
+        'cfa_cfi_above_090':    _check(cfi,         lambda v: v >= 0.90),
+        'cfa_rmsea_below_008':  _check(rmsea,       lambda v: v <= 0.08),
+    }
+    # Compute counts from the 10 criteria values before adding the summary keys.
+    pass_count = sum(1 for v in criteria.values() if v is True)
+    total_criteria = sum(1 for v in criteria.values() if v is not None)
+    return {**criteria, 'pass_count': pass_count, 'total_criteria': total_criteria}
+
+
 def _build_validation_registry(construct_results, last_run_utc=None):
     """Build the top-level validation_registry block (Gap 6).
 
-    Aggregates per-construct pass_count values into a single headline
-    "84/84 PASS" summary and stores it in the JSON so the number is always
-    traceable to the live pipeline.
+    Aggregates per-construct psychometric verdicts into a single pass/fail
+    headline so no count lives only in stdout.  Verdicts are computed on-the-fly
+    from the raw fields returned by ``validate_construct()`` via
+    ``_eval_construct_verdicts()``; a pre-existing 'verdicts' sub-dict inside
+    each construct result is *not* required.
 
     Args:
-        construct_results: list of per-construct validation dicts (each with
-            'verdicts' sub-dict carrying 'pass_count' and 'total_criteria').
+        construct_results: list of per-construct validation dicts as returned
+            by ``validate_construct()`` (fields: cronbach_alpha, mcdonalds_omega,
+            composite_reliability, ave_from_loadings, citc_flagged_below_030,
+            split_half_spearman_brown, efa, cfa, …).
         last_run_utc: ISO-8601 timestamp string, defaults to now.
 
     Returns a dict with keys:
@@ -2443,9 +2506,9 @@ def _build_validation_registry(construct_results, last_run_utc=None):
     categories = {}
     for cr in construct_results:
         cname = cr.get('construct', 'Unknown')
-        verdicts = cr.get('verdicts', {})
-        pc = int(verdicts.get('pass_count', 0))
-        tc = int(verdicts.get('total_criteria', 0))
+        verd = _eval_construct_verdicts(cr)
+        pc = verd['pass_count']
+        tc = verd['total_criteria']
         total_checks += tc
         passed += pc
         categories[cname] = {'pass_count': pc, 'total_criteria': tc}
@@ -2465,23 +2528,35 @@ def _build_r_parity_tests(ci_workflow=None, last_run_utc=None):
     """Build the r_parity_tests meta-block (Gap 7).
 
     Captures the count and status of R-vs-Python parity tests declared in
-    the GitHub Actions workflow, storing them in the JSON so the claim
-    'N parity tests' is traceable.
+    ``test_parity_to_published_formulas.py``, storing them in the JSON so the
+    claim 'N parity tests' is always traceable to a live file rather than a
+    hardcoded integer.
+
+    The count is derived at runtime by counting ``def test_`` functions in the
+    canonical parity test file.  If the file cannot be found (e.g. the script
+    is run outside the repository), the count falls back to the last known
+    value so the JSON remains valid.
 
     Args:
-        ci_workflow: path to the CI YAML, used to auto-count 'parity' steps.
+        ci_workflow: path to store in the output (informational only).
         last_run_utc: ISO-8601 timestamp string, defaults to now.
     """
     if last_run_utc is None:
         last_run_utc = pd.Timestamp.utcnow().isoformat()
-    # Canonical parity-test count from the CRP (Gap 7).
-    # Update this value whenever tests are added to or removed from the
-    # validate-analysis.yml workflow (search for "parity" in that file to
-    # enumerate active tests and keep this count in sync).
-    R_PARITY_TEST_COUNT = 13
+
+    _FALLBACK_COUNT = 13  # last known value; updated automatically below
+    parity_file = (
+        Path(__file__).parent / 'tests' / 'test_parity_to_published_formulas.py'
+    )
+    try:
+        source = parity_file.read_text(encoding='utf-8')
+        count = len(re.findall(r'^def test_', source, re.MULTILINE))
+    except (OSError, IOError):
+        count = _FALLBACK_COUNT
+
     workflow_path = ci_workflow or '.github/workflows/validate-analysis.yml'
     return {
-        'count': R_PARITY_TEST_COUNT,
+        'count': count,
         'ci_workflow': workflow_path,
         'last_run_utc': last_run_utc,
         'all_passing': None,  # populated at runtime by CI; None = not checked
