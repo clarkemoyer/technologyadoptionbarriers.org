@@ -28,26 +28,25 @@ file; for everything else, the recommendation is to cite the Python pipeline
 
 ## Files in this folder
 
-| File                      | What it is                                                                                                                                                                                                  |
-| ------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `Run_Validation.bat`      | **Windows double-click launcher.** Locates SPSS, opens SPSS with the syntax preloaded; click Run → All inside SPSS to run it. Recipient experience: extract zip, double-click this.                         |
-| `Run_Validation.command`  | **macOS double-click launcher.** Same as the .bat but for Macs. Right-click -> Open the first time (Gatekeeper); double-click thereafter.                                                                   |
-| `tabs_v2_crp200_spss.sav` | SPSS native binary worksheet (N=200, 47 columns). Variable labels and value labels embedded so the Likert anchors and group names appear in dialogs and output without manual setup.                        |
-| `tabs_v2_crp200_spss.csv` | Same data as CSV (for sharing with non-SPSS users).                                                                                                                                                         |
-| `tabs_v2_validation.sps`  | SPSS syntax file. Loads the .sav, runs every analysis the targeted license supports natively, writes results to a Viewer document, then auto-exports to `spv_export.xlsx` and saves `Post_Run_Results.spv`. |
-| `build_spss_artifacts.py` | Python regenerator. Re-run if the source dataset changes.                                                                                                                                                   |
+| File                       | What it is                                                                                                                                                                                                    |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `0_DOUBLE_CLICK_ME_TO_START.bat`       | **Windows double-click launcher.** Locates SPSS, runs the syntax in production mode, exports to XLSX, prints Done. Recipient experience: extract zip, double-click this.                                      |
+| `0_DOUBLE_CLICK_ME_TO_START.command`   | **macOS double-click launcher.** Same as the .bat but for Macs. Right-click -> Open the first time (Gatekeeper); double-click thereafter.                                                                     |
+| `tabs_v2_crp200_spss.sav`  | SPSS native binary worksheet (N=200, 47 columns). Variable labels and value labels embedded so the Likert anchors and group names appear in dialogs and output without manual setup.                          |
+| `tabs_v2_crp200_spss.csv`  | Same data as CSV (for sharing with non-SPSS users).                                                                                                                                                           |
+| `tabs_v2_validation.sps`   | SPSS syntax file. Loads the .sav, runs every analysis the targeted license supports natively, writes results to a Viewer document, then auto-exports to `spv_export.xlsx` and saves `Post_Run_Results.spv`.   |
+| `build_spss_artifacts.py`  | Python regenerator. Re-run if the source dataset changes.                                                                                                                                                     |
 
 ## Easiest workflow - one double-click
 
 1. **Extract the zip** into any folder (Desktop, Documents, anywhere).
 2. **Double-click the launcher for your operating system:**
-   - **Windows**: `Run_Validation.bat`
-   - **macOS**: right-click `Run_Validation.command` -> Open (one-time
+   - **Windows**: `0_DOUBLE_CLICK_ME_TO_START.bat`
+   - **macOS**: right-click `0_DOUBLE_CLICK_ME_TO_START.command` -> Open (one-time
      Gatekeeper approval). After the first run, double-click works.
-3. **Click Run → All inside SPSS** (or press Ctrl+A then Ctrl+R on
-   Windows / Cmd+A then Cmd+R on macOS). The validation takes about 60
-   seconds (mostly the bootstrap blocks).
-4. **When SPSS finishes**, the same folder now contains:
+3. **Wait about 60 seconds.** A console window shows progress; SPSS runs
+   headlessly in production mode (no manual clicks).
+4. **When you see "DONE"**, the same folder now contains:
    - `spv_export.xlsx` - all SPSS tables in Excel format (open in Excel,
      Numbers, or LibreOffice)
    - `Post_Run_Results.spv` - native SPSS Viewer document (open in SPSS or

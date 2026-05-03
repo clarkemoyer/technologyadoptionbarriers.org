@@ -53,12 +53,21 @@ SPSS_MANIFEST: Sequence[tuple[str, str]] = (
     ("scripts/spss/tabs_v2_crp200_spss.sav", "tabs_v2_crp200_spss.sav"),
     ("scripts/spss/tabs_v2_crp200_spss.csv", "tabs_v2_crp200_spss.csv"),
     ("scripts/spss/tabs_v2_validation.sps", "tabs_v2_validation.sps"),
-    # Double-click launchers for the recipient. The Windows .bat and the
-    # macOS .command both wrap the same SPSS production-mode invocation,
-    # so a recipient can extract the zip and immediately double-click
-    # the launcher for their OS instead of opening SPSS manually.
-    ("scripts/spss/Run_Validation.bat", "Run_Validation.bat"),
-    ("scripts/spss/Run_Validation.command", "Run_Validation.command"),
+    # Double-click launchers for the recipient. The "0_" prefix forces
+    # both Windows Explorer and macOS Finder to sort these to the top
+    # of the extracted folder, and the filename itself instructs the
+    # recipient what to do. The .bat and .command both build a combined
+    # runtime syntax file (absolute CD + main syntax) and launch SPSS
+    # interactively. Both also detect the "double-clicked from inside
+    # the zip" failure mode and print explicit unzip-first guidance.
+    (
+        "scripts/spss/0_DOUBLE_CLICK_ME_TO_START_WINDOWS.bat",
+        "0_DOUBLE_CLICK_ME_TO_START_WINDOWS.bat",
+    ),
+    (
+        "scripts/spss/0_DOUBLE_CLICK_ME_TO_START_MAC.command",
+        "0_DOUBLE_CLICK_ME_TO_START_MAC.command",
+    ),
     ("scripts/spss/README.md", "README_SPSS.md"),
 )
 
@@ -105,17 +114,15 @@ same frozen N=200 dataset that drives the canonical Python and R analyses.
 
 1. Unzip into any folder (Desktop, Documents, anywhere).
 2. Double-click the launcher for your operating system:
-   - **Windows**: `Run_Validation.bat`
-   - **macOS**: right-click `Run_Validation.command` -> Open (one-time
+   - **Windows**: `0_DOUBLE_CLICK_ME_TO_START_WINDOWS.bat`
+   - **macOS**: right-click `0_DOUBLE_CLICK_ME_TO_START_MAC.command` -> Open (one-time
      Gatekeeper prompt). After the first run, double-click works.
-3. SPSS opens with the syntax preloaded; click **Run → All** inside SPSS
-   (or press Ctrl+A then Ctrl+R on Windows / Cmd+A then Cmd+R on macOS).
-4. The validation runs for about 60 seconds. When SPSS finishes, open
-   `spv_export.xlsx` in this folder.
+3. Wait about 60 seconds for the bootstrap blocks to complete.
+4. When you see "DONE", open `spv_export.xlsx` in this folder.
 
-The launcher locates SPSS automatically and opens SPSS with the combined
-syntax preloaded. After you click Run → All, SPSS writes two result files
-into the same folder you extracted the zip to:
+The launcher locates SPSS automatically, runs the syntax in production
+mode (no GUI clicks required), and writes two result files into the
+same folder you extracted the zip to:
 
 - `spv_export.xlsx` - all SPSS tables in Excel format
 - `Post_Run_Results.spv` - native SPSS Viewer document (open with SPSS or
@@ -126,17 +133,14 @@ into the same folder you extracted the zip to:
 1. Open `tabs_v2_validation.sps` in SPSS (`File -> Open -> Syntax`).
 2. `Run -> All`. Output appears in a new Viewer document.
 3. The syntax automatically writes `spv_export.xlsx` and `Post_Run_Results.spv`
-   into the current working directory. Make sure to set the working
-   directory to the unzipped folder first (`Edit -> Options -> File
-   Locations`, or use `CD '<path>'.` at the top of the syntax).
+   into the folder where the .sps file lives.
 
-If SPSS reports "File not found" for the .sav, the working directory is
-not set to the unzipped folder — fix it via `Edit -> Options -> File
-Locations`.
+If SPSS reports "File not found" for the .sav, set the working directory
+to the unzipped folder via `Edit -> Options -> File Locations`.
 
 ## Targeted SPSS license
 
-Tested on IBM SPSS Statistics 31.0; expected to work on 24+ with Statistics Base + Regression +
+Built for IBM SPSS Statistics 24+ with Statistics Base + Regression +
 Bootstrapping + Missing Values + Advanced Statistics. Without IBM SPSS
 Amos, this bundle covers the descriptive + reliability layer only - CFA
 fit indices, McDonald's omega from CFA, composite reliability with SEs,
@@ -147,11 +151,11 @@ Python pipeline (download `tabs_v2_validation_python.zip` for those).
 ## What's inside
 
 ```
-Run_Validation.bat          <- Windows double-click launcher
-Run_Validation.command      <- macOS double-click launcher
+0_DOUBLE_CLICK_ME_TO_START_WINDOWS.bat          <- Windows double-click launcher
+0_DOUBLE_CLICK_ME_TO_START_MAC.command      <- macOS double-click launcher
 tabs_v2_crp200_spss.sav     <- SPSS native binary worksheet
 tabs_v2_crp200_spss.csv     <- same data, CSV form (for re-import elsewhere)
-tabs_v2_validation.sps      <- syntax file (loaded into SPSS by the launcher; click Run → All)
+tabs_v2_validation.sps      <- syntax file (auto-runs from the launcher)
 README_SPSS.md              <- detailed walkthrough + expected values
 README.md                   <- this file
 ```
@@ -342,16 +346,32 @@ def _combined_requirements() -> str:
 _EXECUTABLE_EXTS = (".command", ".sh")
 _EXECUTABLE_MODE = 0o100755  # regular file + rwxr-xr-x
 
+# Windows .bat files must use CRLF line endings or cmd.exe fails silently
+# on parse and the console window closes immediately. The repo may store
+# these with LF (Linux convention, git autocrlf settings), so we normalise
+# to CRLF inside the zip regardless of how they're stored on disk.
+_CRLF_EXTS = (".bat", ".cmd")
+
 
 def _add_to_zip(zf: zipfile.ZipFile, src_path: Path, dest: str) -> None:
-    """Write a file to the zip, preserving executable bit for .command/.sh."""
-    if dest.lower().endswith(_EXECUTABLE_EXTS):
+    """Write a file to the zip, preserving executable bit for .command/.sh
+    and forcing CRLF line endings for .bat / .cmd."""
+    dest_lower = dest.lower()
+    if dest_lower.endswith(_EXECUTABLE_EXTS):
         info = zipfile.ZipInfo.from_file(src_path, arcname=dest)
         info.external_attr = _EXECUTABLE_MODE << 16
-        info.create_system = 3  # Unix; ensures POSIX permission bits are honoured
         info.compress_type = zipfile.ZIP_DEFLATED
         with open(src_path, "rb") as f:
             zf.writestr(info, f.read())
+    elif dest_lower.endswith(_CRLF_EXTS):
+        info = zipfile.ZipInfo.from_file(src_path, arcname=dest)
+        info.compress_type = zipfile.ZIP_DEFLATED
+        with open(src_path, "rb") as f:
+            data = f.read()
+        # Strip any existing CR (in case file is CRLF already), then
+        # re-add CR before each LF so output is uniformly CRLF.
+        data = data.replace(b"\r\n", b"\n").replace(b"\n", b"\r\n")
+        zf.writestr(info, data)
     else:
         zf.write(src_path, arcname=dest)
 

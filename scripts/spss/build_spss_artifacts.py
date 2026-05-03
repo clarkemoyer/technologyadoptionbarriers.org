@@ -126,18 +126,22 @@ def main() -> None:
     out.to_csv(OUT_CSV, index=False, na_rep="")
     print(f"Wrote {OUT_CSV}")
 
-    # Variable labels (long descriptions for SPSS dialogs and output)
+    # Variable labels - kept short so they don't dominate chart titles
+    # and pivot table headers in the Viewer / xlsx export. The short
+    # name + Likert value labels make the variables self-documenting in
+    # context; full item text lives in the README and the canonical
+    # pipeline's BARRIER_NAMES / READINESS_NAMES / MATURITY_NAMES.
     variable_labels: dict[str, str] = {}
     for i, name in enumerate(BARRIER_NAMES, start=1):
-        variable_labels[f"B{i}"] = f"Barrier {i}: {name}"
+        variable_labels[f"B{i}"] = f"B{i}: {name}"
     for i, name in enumerate(READINESS_NAMES, start=1):
-        variable_labels[f"R{i}"] = f"Readiness {i}: {name}"
+        variable_labels[f"R{i}"] = f"R{i}: {name}"
     for i, name in enumerate(MATURITY_NAMES, start=1):
-        variable_labels[f"M{i}"] = f"Maturity {i}: {name}"
-    variable_labels["B_mean"] = "Barriers construct mean (mean of B1-B18)"
-    variable_labels["R_mean"] = "Readiness construct mean (mean of R1-R17)"
-    variable_labels["M_mean"] = "Maturity construct mean (mean of M1-M8)"
-    variable_labels["SMB_ENT"] = "Org size group: 1=SMB (<1000 emp), 2=Enterprise (>=1000 emp)"
+        variable_labels[f"M{i}"] = f"M{i}: {name}"
+    variable_labels["B_mean"] = "Barriers (mean)"
+    variable_labels["R_mean"] = "Readiness (mean)"
+    variable_labels["M_mean"] = "Maturity (mean)"
+    variable_labels["SMB_ENT"] = "Org Size Group"
 
     # Value labels (so SPSS dialogs show "Not a Barrier" / "Major Barrier" etc.)
     barrier_values = {1.0: "Not a Barrier", 2.0: "Minor Barrier", 3.0: "Moderate Barrier",
