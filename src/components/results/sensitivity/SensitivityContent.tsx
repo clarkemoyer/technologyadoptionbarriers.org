@@ -55,8 +55,11 @@ type VariantConfig = {
   sampleDefinitionsIntro: string
   constraints: React.ReactNode
   comparisonGroups: ComparisonGroup[]
+  /** Sample key whose N is interpolated into the interpretation closer. */
   interpretationCloserSampleKey: string
-  interpretationCloserPhrase: string
+  /** Renders the closer phrase including the parenthetical sample label
+   *  (e.g. "the full dataset (All V2, N=298)"). The component supplies N. */
+  renderInterpretationCloser: (n: string | number) => React.ReactNode
   relatedLinks: RelatedLink[]
   backLink: { href: string; label: string }
 }
@@ -83,7 +86,7 @@ const VARIANT_CONFIG: Record<SensitivityVariant, VariantConfig> = {
       { key: 'v2_finished', label: 'All V2 Finished' },
     ],
     interpretationCloserSampleKey: 'v2_all',
-    interpretationCloserPhrase: 'the full dataset (All V2',
+    renderInterpretationCloser: (n) => <>the full dataset (All V2, N={n})</>,
     relatedLinks: [
       {
         href: '/results/descriptive',
@@ -119,7 +122,7 @@ const VARIANT_CONFIG: Record<SensitivityVariant, VariantConfig> = {
       { key: 'prolific_accepted', label: 'Prolific Accepted' },
     ],
     interpretationCloserSampleKey: 'prolific_accepted',
-    interpretationCloserPhrase: 'the broadest CRP dataset (Prolific Accepted',
+    renderInterpretationCloser: (n) => <>the broadest CRP dataset (Prolific Accepted, N={n})</>,
     relatedLinks: [
       {
         href: '/results/crp-2026/descriptive',
@@ -386,8 +389,8 @@ export const SensitivityContent = ({ variant, data }: SensitivityContentProps) =
             These findings demonstrate that the core results of the Technology Adoption Barriers
             Survey are not artifacts of a particular data cleaning strategy. Whether using the
             strictest quality filters (Conservative Clean, N={conservativeN}) or{' '}
-            {config.interpretationCloserPhrase}, N={interpretationN}), the same substantive
-            conclusions hold.
+            {config.renderInterpretationCloser(interpretationN)}, the same substantive conclusions
+            hold.
           </p>
         </section>
 

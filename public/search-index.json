@@ -1084,7 +1084,7 @@
     "url": "/results/crp-2026/sensitivity",
     "title": "CRP 2026 Sensitivity Analysis - TABS",
     "description": "Full sensitivity analysis for the CRP 2026 Technology Adoption Barriers Survey: every metric computed across three CRP sample definitions to demonstrate robustness to inclusion criteria.",
-    "content": "CRP 2026 Sensitivity Analysis - TABS. Full sensitivity analysis for the CRP 2026 Technology Adoption Barriers Survey: every metric computed across three CRP sample definitions to demonstrate robustness to inclusion criteria.",
+    "content": "CRP 2026 Sensitivity Analysis - TABS. Full sensitivity analysis for the CRP 2026 Technology Adoption Barriers Survey: every metric computed across three CRP sample definitions to demonstrate robustness to inclusion criteria. Sensitivity analysis for the CRP 2026 frozen dataset (N=200) tests whether findings are robust to the choice of inclusion criteria. Every key metric - means, standard deviations, inter-construct correlations, and reliability coefficients - is computed independently across three nested CRP sample definitions: Conservative Clean, Flexible Clean, and Prolific Accepted. The page documents each sample definition with N values, shows the full sensitivity table with values to four decimal places, and presents a dataset comparison view of deltas from Conservative Clean to each...",
     "category": "Results"
   },
   {
@@ -1188,7 +1188,7 @@
     "url": "/results/sensitivity",
     "title": "Sensitivity Analysis - TABS Results",
     "description": "Full sensitivity analysis for the Technology Adoption Barriers Survey: every metric computed across five sample definitions to demonstrate robustness to inclusion criteria.",
-    "content": "Sensitivity Analysis - TABS Results. Full sensitivity analysis for the Technology Adoption Barriers Survey: every metric computed across five sample definitions to demonstrate robustness to inclusion criteria.",
+    "content": "Sensitivity Analysis - TABS Results. Full sensitivity analysis for the Technology Adoption Barriers Survey: every metric computed across five sample definitions to demonstrate robustness to inclusion criteria. Sensitivity analysis tests whether findings are robust to the choice of inclusion criteria. Every key metric - means, standard deviations, inter-construct correlations, and reliability coefficients - is computed independently across five nested sample definitions: Conservative Clean, Flexible Clean, Prolific Accepted, All V2 Finished, and All V2. The page documents each sample definition with N values, shows the full sensitivity table with values to four decimal places, and presents a dataset comparison view of deltas from Conservative Clean to each progressively less restrictive sam...",
     "category": "Results"
   },
   {
