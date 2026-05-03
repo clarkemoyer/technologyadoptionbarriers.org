@@ -118,7 +118,7 @@ same frozen N=200 dataset that drives the canonical Python and R analyses.
    - **macOS**: right-click `0_DOUBLE_CLICK_ME_TO_START_MAC.command` -> Open (one-time
      Gatekeeper prompt). After the first run, double-click works.
 3. SPSS opens with the syntax preloaded; click **Run → All** inside SPSS.
-4. After ~60 seconds, open `spv_export.xlsx` in this folder.
+4. After ~90 seconds, open `spv_export.xlsx` in this folder.
 
 The launcher locates SPSS automatically and opens it with the syntax
 file preloaded. Two result files are written into the same folder you
@@ -142,12 +142,20 @@ to the unzipped folder via `Edit -> Options -> File Locations`.
 
 Tested on IBM SPSS Statistics 31.0; expected to work on 24+ with
 Statistics Base, Regression, Bootstrapping, Missing Values, and
-Advanced Statistics. Without IBM SPSS
-Amos, this bundle covers the descriptive + reliability layer only - CFA
-fit indices, McDonald's omega from CFA, composite reliability with SEs,
-AVE, HTMT/HTMT2, bifactor decompositions, second-order CFA, multigroup CFA,
-measurement invariance, ESEM, IRT GRM, and Mardia normality stay in the
-Python pipeline (download `tabs_v2_validation_python.zip` for those).
+Advanced Statistics.
+
+Sections 1–12 use only built-in SPSS procedures (descriptives,
+reliability, factor analysis, correlations, MVA). Sections 13–14 extend
+the validation via embedded Python (`semopy==2.3.11`) and embedded R
+(`lavaan`/`semTools`), which the launcher pre-installs automatically:
+
+- **Section 13** (Python/semopy): CFA fit indices, McDonald's omega,
+  composite reliability, AVE, HTMT/HTMT2, Mardia multivariate normality.
+- **Section 14** (R/lavaan): multigroup CFA, configural/metric/scalar
+  measurement invariance tests.
+
+IBM SPSS Amos is **not** required. IRT GRM and bifactor/ESEM remain in
+the separate Python pipeline (`tabs_v2_validation_python.zip`).
 
 ## What's inside
 
