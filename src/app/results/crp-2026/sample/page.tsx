@@ -590,7 +590,9 @@ const CrpSamplePage = () => {
                                   CEO + CFO + COO + CHRO + CMO + CSO + CRO
                                 </span>
                                 , plus any <em>Other</em> free-text matching a non-technical regex
-                                (e.g., president, founder, finance manager), plus unmatched{' '}
+                                (e.g., <span className="font-mono">president</span>,{' '}
+                                <span className="font-mono">founder</span>,{' '}
+                                <span className="font-mono">finance manager</span>), plus unmatched{' '}
                                 <em>Other</em> responses (conservative default: assigned to
                                 Non-Technical when no clear technology signal is present).
                               </p>
