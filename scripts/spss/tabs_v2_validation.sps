@@ -784,21 +784,65 @@ if SEM_OK:
                 val = bstats[key]
                 if isinstance(val, (int, float, np.floating)) and not pd.isna(val):
                     print("  " + key.ljust(18) + " = " + ("%.4f" % val))
+        # Build per-item dict so we can compute the per-item bifactor residual
+        # 1 - g_i^2 - s_i^2 (Reise 2012, Rodriguez/Reise/Haviland 2016). Also
+        # group loadings by group factor so the denominator can sum each
+        # factor's (sum of loadings)^2 separately - the group factors are
+        # constrained orthogonal so their variance contributions add per
+        # factor, not as a pooled total.
         ins = bm.inspect(std_est=True)
-        g_loads = ins[(ins["op"] == "~") & (ins["rval"] == "G")]["Est. Std"].astype(float).values
-        g_loads = g_loads[~np.isnan(g_loads)]
-        group_loads = ins[
-            (ins["op"] == "~") & (ins["rval"].isin(["F1aS", "F1bS", "F2S"]))
-        ]["Est. Std"].astype(float).values
-        group_loads = group_loads[~np.isnan(group_loads)]
-        sum_g_sq = float(np.sum(g_loads ** 2))
-        sum_groups_sq = float(np.sum(group_loads ** 2))
-        ecv = sum_g_sq / (sum_g_sq + sum_groups_sq) if (sum_g_sq + sum_groups_sq) else float("nan")
-        sum_g = float(np.sum(g_loads))
-        sum_groups = float(np.sum(group_loads))
-        denom = sum_g ** 2 + sum_groups ** 2 + float(np.sum(1 - g_loads ** 2))
-        omega_h = (sum_g ** 2) / denom if denom else float("nan")
-        omega_total = (sum_g ** 2 + sum_groups ** 2) / denom if denom else float("nan")
+        loadings = ins[(ins["op"] == "~")][["lval", "rval", "Est. Std"]].dropna()
+        g_by_item = {}
+        s_by_item = {}
+        s_by_factor = {"F1aS": [], "F1bS": [], "F2S": []}
+        for _, row in loadings.iterrows():
+            try:
+                load = float(row["Est. Std"])
+            except (TypeError, ValueError):
+                continue
+            if np.isnan(load):
+                continue
+            if row["rval"] == "G":
+                g_by_item[row["lval"]] = load
+            elif row["rval"] in s_by_factor:
+                s_by_item[row["lval"]] = load
+                s_by_factor[row["rval"]].append(load)
+
+        # Aligned per-item arrays (g and s in matching item order).
+        items_in_model = sorted(g_by_item.keys())
+        g_arr = np.array([g_by_item[i] for i in items_in_model])
+        s_arr = np.array([s_by_item.get(i, 0.0) for i in items_in_model])
+        sum_g_sq = float((g_arr ** 2).sum())
+        sum_s_sq = float((s_arr ** 2).sum())
+
+        # Per-item residual variance = 1 - g_i^2 - s_i^2 (assumes unit-variance
+        # standardised solution; clamped at 0 to guard against negative residuals
+        # from boundary estimates). Sum across items gives the unique-variance
+        # term in the omega denominator.
+        per_item_resid = np.clip(1.0 - g_arr ** 2 - s_arr ** 2, 0.0, None)
+        sum_resid = float(per_item_resid.sum())
+
+        # General-factor variance contribution = (sum of G loadings)^2.
+        sum_g = float(g_arr.sum())
+        var_general = sum_g ** 2
+
+        # Group-factor variance: sum across factors of (sum of loadings on that
+        # factor)^2. Computing per-factor and then summing is the right form
+        # because group factors are orthogonal in a bifactor model - this is
+        # NOT the same as (sum of all group loadings)^2.
+        var_groups_per_factor = sum(
+            (sum(loads) ** 2) for loads in s_by_factor.values()
+        )
+
+        # Total composite-score variance = general + group + unique.
+        denom = var_general + var_groups_per_factor + sum_resid
+        omega_h = var_general / denom if denom else float("nan")
+        omega_total = (var_general + var_groups_per_factor) / denom if denom else float("nan")
+
+        # ECV = proportion of common variance attributable to G (item-level
+        # ratio of variances, NOT the omega-style composite ratio).
+        ecv = sum_g_sq / (sum_g_sq + sum_s_sq) if (sum_g_sq + sum_s_sq) else float("nan")
+
         print("  ECV (general)      = " + ("%.4f" % ecv) + "    (>0.70 suggests essentially unidimensional)")
         print("  omega-h (general)  = " + ("%.4f" % omega_h))
         print("  omega-total        = " + ("%.4f" % omega_total))

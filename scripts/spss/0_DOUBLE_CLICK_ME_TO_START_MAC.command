@@ -66,15 +66,20 @@ EXTRACT_MSG
   exit 1
 fi
 
-# Locate SPSS app bundle.
+# Locate SPSS app bundle. Search version-numbered paths newest-first
+# (matches the SPSS 24+ scope claimed in the README), then the generic
+# versionless path last.
 SPSS_APP=""
 for candidate in \
-    "/Applications/IBM SPSS Statistics/SPSSStatistics.app" \
     "/Applications/IBM SPSS Statistics 31/SPSSStatistics.app" \
     "/Applications/IBM SPSS Statistics 30/SPSSStatistics.app" \
     "/Applications/IBM SPSS Statistics 29/SPSSStatistics.app" \
     "/Applications/IBM SPSS Statistics 28/SPSSStatistics.app" \
-    "/Applications/IBM SPSS Statistics 27/SPSSStatistics.app"; do
+    "/Applications/IBM SPSS Statistics 27/SPSSStatistics.app" \
+    "/Applications/IBM SPSS Statistics 26/SPSSStatistics.app" \
+    "/Applications/IBM SPSS Statistics 25/SPSSStatistics.app" \
+    "/Applications/IBM SPSS Statistics 24/SPSSStatistics.app" \
+    "/Applications/IBM SPSS Statistics/SPSSStatistics.app"; do
   if [ -d "$candidate" ]; then
     SPSS_APP="$candidate"
     break
