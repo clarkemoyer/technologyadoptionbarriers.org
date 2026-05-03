@@ -414,10 +414,20 @@ def main(argv=None) -> int:
             chi_ent = _mg_stat(m_ent, "chi2")
             dof_smb = _mg_stat(m_smb, "DoF")
             dof_ent = _mg_stat(m_ent, "DoF")
-            if None in (chi_smb, chi_ent, dof_smb, dof_ent):
+            missing = [
+                name
+                for name, val in [
+                    ("chi2(SMB)", chi_smb),
+                    ("chi2(ENT)", chi_ent),
+                    ("DoF(SMB)", dof_smb),
+                    ("DoF(ENT)", dof_ent),
+                ]
+                if val is None
+            ]
+            if missing:
                 txt.write(
-                    "  Configural chi-squared / df: n/a"
-                    " (calc_stats() did not return chi2 or DoF)\n"
+                    f"  Configural chi-squared / df: n/a"
+                    f" (calc_stats() did not return: {', '.join(missing)})\n"
                 )
             else:
                 _emit_pair(

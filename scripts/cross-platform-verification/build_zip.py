@@ -376,6 +376,9 @@ def _mtime_tuple(src: Path) -> tuple:
     UTC is used so the tuple is identical regardless of the build machine's
     local timezone, keeping consecutive builds from the same sources
     bit-identical across environments.
+
+    Note: assumes file mtimes are post-Unix-epoch (1970-01-01), which is true
+    for all files in this repository on any modern filesystem.
     """
     import datetime
 
