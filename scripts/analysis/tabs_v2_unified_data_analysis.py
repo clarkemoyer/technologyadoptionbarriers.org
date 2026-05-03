@@ -981,6 +981,36 @@ def parallel_analysis(data, n_iter=1000, max_factors=6, percentile=95, seed=42):
     return max(1, n_factors)
 
 
+def _compute_srmr_fallback(observed_data, mod):
+    """Compute SRMR from observed vs. model-implied correlations.
+
+    Standardized Root Mean Square Residual (Hu & Bentler 1999).
+    Threshold: <= 0.08 acceptable, <= 0.05 good.
+    Called when semopy.calc_stats() does not emit an 'SRMR' row.
+    """
+    try:
+        d = observed_data.dropna()
+        S = d.cov().values
+        if hasattr(mod, 'mx_cov') and mod.mx_cov is not None:
+            Sigma = np.array(mod.mx_cov)
+        else:
+            return None
+        if S.shape != Sigma.shape:
+            return None
+        s_obs = np.sqrt(np.diag(S))
+        s_imp = np.sqrt(np.diag(Sigma))
+        if np.any(s_obs <= 0) or np.any(s_imp <= 0):
+            return None
+        R_obs = S / np.outer(s_obs, s_obs)
+        R_imp = Sigma / np.outer(s_imp, s_imp)
+        n = R_obs.shape[0]
+        ss = sum((R_obs[i, j] - R_imp[i, j]) ** 2
+                 for i in range(n) for j in range(i + 1))
+        return round(float(np.sqrt(ss / (n * (n + 1) / 2))), 4)
+    except Exception:
+        return None
+
+
 def run_cfa(data, model_spec, construct_name):
     """Run CFA using semopy."""
     if not HAS_SEMOPY:
@@ -1007,7 +1037,12 @@ def run_cfa(data, model_spec, construct_name):
         result['cfi'] = round(_stat('CFI'), 4) if _stat('CFI') is not None else None
         result['tli'] = round(_stat('TLI'), 4) if _stat('TLI') is not None else None
         result['rmsea'] = round(_stat('RMSEA'), 4) if _stat('RMSEA') is not None else None
-        result['srmr'] = round(_stat('SRMR'), 4) if _stat('SRMR') is not None else None
+        # SRMR: prefer calc_stats; fall back to manual computation from model-implied cov
+        srmr_from_stats = _stat('SRMR')
+        if srmr_from_stats is not None:
+            result['srmr'] = round(srmr_from_stats, 4)
+        else:
+            result['srmr'] = _compute_srmr_fallback(d, mod)
         result['aic'] = round(_stat('AIC'), 2) if _stat('AIC') is not None else None
         result['bic'] = round(_stat('BIC'), 2) if _stat('BIC') is not None else None
         est_std = mod.inspect(std_est=True)
@@ -3106,14 +3141,20 @@ def run_cfa_dwls(data, model_spec, construct_name):
         else:
             def _stat(name):
                 return float(fit_stats.loc[name, 'Value']) if name in fit_stats.index else None
-        for k_in, k_out in [('chi2','chi2'),('chi2 p-value','chi2_p'),('DoF','df'),
-                             ('CFI','cfi'),('TLI','tli'),('RMSEA','rmsea'),
-                             ('AIC','aic'),('BIC','bic')]:
+        for k_in, k_out in [('chi2', 'chi2'), ('chi2 p-value', 'chi2_p'), ('DoF', 'df'),
+                             ('CFI', 'cfi'), ('TLI', 'tli'), ('RMSEA', 'rmsea'),
+                             ('AIC', 'aic'), ('BIC', 'bic')]:
             v = _stat(k_in)
             if v is not None:
                 result[k_out] = round(v, 4) if k_out not in ('df',) else int(v)
             else:
                 result[k_out] = None
+        # SRMR: try from calc_stats first; fall back to manual computation
+        srmr_from_stats = _stat('SRMR')
+        if srmr_from_stats is not None:
+            result['srmr'] = round(srmr_from_stats, 4)
+        else:
+            result['srmr'] = _compute_srmr_fallback(d, mod)
     except Exception as e:
         result['error'] = str(e)
     return result
