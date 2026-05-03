@@ -156,23 +156,33 @@ if [ -n "$RSCRIPT" ]; then
   if "$RSCRIPT" -e "quit(status = if (requireNamespace('lavaan', quietly = TRUE)) 0 else 1)" >/dev/null 2>&1; then
     echo "OK: lavaan is already installed. Skipping install step."
   else
-    echo "lavaan is not yet installed. Installing now (~3-5 min, ~50 MB)..."
-    echo "Press Ctrl+C now to skip and continue with Python only."
+    echo "lavaan is not yet installed. It adds metric/scalar invariance tests (~3-5 min, ~50 MB)."
     echo
-    if "$RSCRIPT" -e "lib<-.libPaths()[1]; cat('Installing to:',lib,'\\n'); install.packages(c('lavaan','semTools'), repos='https://cloud.r-project.org', lib=lib, dependencies=TRUE)"; then
-      echo
-      echo "OK: lavaan + semTools installed successfully."
-    else
-      echo
-      echo "WARNING: R install failed. Section 14 will skip; Python results are still complete."
-    fi
+    read -r -p "Install lavaan and semTools now? [y/N]: " _ans_r
+    case "$_ans_r" in
+      [yY]|[yY][eE][sS])
+        if "$RSCRIPT" -e "lib<-.libPaths()[1]; cat('Installing to:',lib,'\\n'); install.packages(c('lavaan','semTools'), repos='https://cloud.r-project.org', lib=lib, dependencies=TRUE)"; then
+          echo
+          echo "OK: lavaan + semTools installed successfully."
+        else
+          echo
+          echo "WARNING: R install failed. Section 14 will skip; Python results are still complete."
+        fi
+        ;;
+      *)
+        echo "Skipping R package install. Section 14 will be skipped; Python results are still complete."
+        ;;
+    esac
   fi
   echo
 fi
 
 # Build the combined runtime syntax with absolute CD prepended.
 # Escape single quotes for SPSS string literal safety: ' -> ''
-HERE_SPS="${HERE//\'/\'\'}"
+# Use a variable for the quote character to avoid the \'→\' mis-parse inside
+# double-quoted "${...//pattern/replacement}" bash parameter expansion.
+_sq="'"
+HERE_SPS="${HERE//$_sq/$_sq$_sq}"
 COMBINED="$HERE/_run_validation.sps"
 {
   echo "* Auto-generated combined syntax. Prepends absolute CD then INSERTs"

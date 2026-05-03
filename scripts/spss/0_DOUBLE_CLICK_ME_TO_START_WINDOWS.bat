@@ -187,17 +187,21 @@ if defined RSCRIPT (
   REM and the missing case to exit 1, then test errorlevel.
   "%RSCRIPT%" -e "quit(status = if (requireNamespace('lavaan', quietly = TRUE)) 0 else 1)" 2>nul
   if errorlevel 1 (
-    echo lavaan is not yet installed. Installing now ^(~3-5 min, downloads ~50 MB^)...
-    echo Skip if you don't need metric/scalar invariance tests:
-    echo press Ctrl+C now to skip the R install and continue with Python only.
+    echo lavaan is not yet installed. It adds metric/scalar invariance tests ^(~3-5 min, ~50 MB^).
     echo.
-    "%RSCRIPT%" -e "lib<-.libPaths()[1]; cat('Installing to:',lib,'\n'); install.packages(c('lavaan','semTools'), repos='https://cloud.r-project.org', lib=lib, dependencies=TRUE)"
-    if errorlevel 1 (
+    choice /c YN /m "Install lavaan and semTools now"
+    if errorlevel 2 (
       echo.
-      echo WARNING: R install failed. Section 14 will skip; Python results are still complete.
+      echo Skipping R package install. Section 14 will be skipped; Python results are still complete.
     ) else (
-      echo.
-      echo OK: lavaan + semTools installed successfully.
+      "%RSCRIPT%" -e "lib<-.libPaths()[1]; cat('Installing to:',lib,'\n'); install.packages(c('lavaan','semTools'), repos='https://cloud.r-project.org', lib=lib, dependencies=TRUE)"
+      if errorlevel 1 (
+        echo.
+        echo WARNING: R install failed. Section 14 will skip; Python results are still complete.
+      ) else (
+        echo.
+        echo OK: lavaan + semTools installed successfully.
+      )
     )
   ) else (
     echo OK: lavaan is already installed. Skipping install step.
