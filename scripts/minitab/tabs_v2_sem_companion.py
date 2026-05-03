@@ -54,7 +54,12 @@ def _emit_pair(handle, key, value, fmt="%.4f"):
         formatted = "n/a"
     elif isinstance(value, numbers.Real):
         fv = float(value)
-        formatted = "n/a" if fv != fv else fmt % fv  # fv != fv is NaN
+        if fv != fv:  # NaN check (fv != fv is True only for NaN)
+            formatted = "n/a"
+        elif fmt == "%d":
+            formatted = "%d" % int(fv)
+        else:
+            formatted = fmt % fv
     else:
         formatted = str(value)
     handle["txt"].write(f"  {key:30s} = {formatted}\n")
@@ -145,7 +150,7 @@ def main(argv=None) -> int:
     except ImportError as exc:
         print(f"ERROR: required Python package missing: {exc}", file=sys.stderr)
         print(
-            "Install via: <python> -m pip install --user numpy pandas scipy semopy",
+            'Install via: <python> -m pip install --user numpy pandas scipy "semopy==2.3.11"',
             file=sys.stderr,
         )
         return 3
