@@ -96,9 +96,10 @@ class TestComputeSrmrFallback:
         mock_model = MagicMock()
         mock_model.mx_cov = S  # perfect fit proxy
         result = mod._compute_srmr_fallback(d, mock_model)
-        # With perfect fit the SRMR should be 0
-        assert result == 0.0 or result is not None
+        assert result is not None
         assert isinstance(result, float)
+        # Perfect fit (implied == observed) → SRMR should be ~0
+        assert abs(result) < 0.01, f"Expected near-zero SRMR for perfect fit, got {result}"
 
     def test_returns_none_when_mx_cov_missing(self, synth_df):
         mod = _import_validation()

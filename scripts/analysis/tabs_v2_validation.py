@@ -1331,8 +1331,11 @@ def _compute_srmr_fallback(observed_data, mod):
         R_obs = S / np.outer(s_obs, s_obs)
         R_imp = Sigma / np.outer(s_imp, s_imp)
         n = R_obs.shape[0]
-        ss = sum((R_obs[i, j] - R_imp[i, j]) ** 2
-                 for i in range(n) for j in range(i + 1))
+        # Vectorised lower-triangle sum (includes diagonal, which contributes 0 for
+        # correlation matrices where R[i,i]=1 for both observed and implied).
+        rows, cols_ = np.tril_indices(n)
+        residuals = R_obs[rows, cols_] - R_imp[rows, cols_]
+        ss = float(np.dot(residuals, residuals))
         return round(float(np.sqrt(ss / (n * (n + 1) / 2))), 4)
     except Exception:
         return None
@@ -1573,10 +1576,13 @@ def henze_zirkler_normality(data):
         return None
     try:
         result = pingouin.multivariate_normality(X, alpha=0.05)
-        # pingouin returns a named tuple: (hz, pval, normal)
-        hz_stat = float(result.hz)
-        pval = float(result.pval)
-        normal = bool(result.normal)
+        # pingouin 0.6.x returns a named tuple with fields (hz, pval, normal).
+        # Access defensively in case a future version renames the fields.
+        hz_stat = float(getattr(result, 'hz', None) or result[0])
+        pval = float(getattr(result, 'pval', None) if hasattr(result, 'pval')
+                     else result[1])
+        normal = bool(getattr(result, 'normal', None) if hasattr(result, 'normal')
+                      else result[2])
         return {
             'n': int(n),
             'p': int(p),

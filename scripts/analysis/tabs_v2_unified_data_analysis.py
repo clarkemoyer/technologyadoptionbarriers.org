@@ -1009,8 +1009,11 @@ def _compute_srmr_fallback(observed_data, mod):
         R_obs = S / np.outer(s_obs, s_obs)
         R_imp = Sigma / np.outer(s_imp, s_imp)
         n = R_obs.shape[0]
-        ss = sum((R_obs[i, j] - R_imp[i, j]) ** 2
-                 for i in range(n) for j in range(i + 1))
+        # Vectorised lower-triangle sum (includes diagonal, which contributes 0 for
+        # correlation matrices where R[i,i]=1 for both observed and implied).
+        rows, cols_ = np.tril_indices(n)
+        residuals = R_obs[rows, cols_] - R_imp[rows, cols_]
+        ss = float(np.dot(residuals, residuals))
         return round(float(np.sqrt(ss / (n * (n + 1) / 2))), 4)
     except Exception:
         return None
