@@ -372,8 +372,11 @@ def _add_to_zip(zf: zipfile.ZipFile, src_path: Path, dest: str) -> None:
         # Fallback to 0o100755 if stat is unavailable (e.g., on Windows).
         try:
             src_mode = src_path.stat().st_mode
-            # Ensure regular-file bit and execute bits are set.
-            exec_mode = src_mode | 0o100111
+            # Set regular-file and execute bits; strip group/other write
+            # to keep permissions at 0o100755 regardless of build platform
+            # (Windows stat() commonly returns 0o666, which would produce
+            # world-writable 0o100777 if we only OR in the execute bits).
+            exec_mode = (src_mode | 0o100111) & ~0o022
         except OSError:
             exec_mode = _EXECUTABLE_MODE
         info.external_attr = exec_mode << 16

@@ -147,10 +147,13 @@ if defined SPSS_PYTHON (
   echo Checking Python SEM packages ^(numpy, pandas, scipy, semopy^)
   echo ----------------------------------------------------------
 
-  REM Quick check: try to import semopy. If it works, skip install.
-  "%SPSS_PYTHON%" -c "import semopy" 2>nul
+  REM Quick check: try to import all required SEM packages. If they all
+  REM work, skip install. semopy==2.3.11 pulls numpy/pandas/scipy as
+  REM dependencies, so one install covers all four.
+  "%SPSS_PYTHON%" -c "import numpy, pandas, scipy, semopy" 2>nul
   if errorlevel 1 (
-    echo semopy is not yet installed. Installing now ^(~30 sec^)...
+    echo One or more SEM packages ^(numpy, pandas, scipy, semopy^) are not
+    echo yet installed. Installing now ^(~30 sec^)...
     echo.
     "%SPSS_PYTHON%" -m pip install --user --upgrade pip
     "%SPSS_PYTHON%" -m pip install --user semopy==2.3.11
@@ -160,10 +163,10 @@ if defined SPSS_PYTHON (
       echo          R fallback in Section 14 will activate if lavaan is installed.
     ) else (
       echo.
-      echo OK: semopy installed successfully.
+      echo OK: numpy, pandas, scipy, semopy installed successfully.
     )
   ) else (
-    echo OK: semopy is already installed. Skipping install step.
+    echo OK: numpy, pandas, scipy, semopy are already installed. Skipping install step.
   )
   echo.
 )
