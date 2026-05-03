@@ -28,14 +28,14 @@ file; for everything else, the recommendation is to cite the Python pipeline
 
 ## Files in this folder
 
-| File                       | What it is                                                                                                                                                                                                    |
-| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `0_DOUBLE_CLICK_ME_TO_START.bat`       | **Windows double-click launcher.** Locates SPSS, runs the syntax in production mode, exports to XLSX, prints Done. Recipient experience: extract zip, double-click this.                                      |
-| `0_DOUBLE_CLICK_ME_TO_START.command`   | **macOS double-click launcher.** Same as the .bat but for Macs. Right-click -> Open the first time (Gatekeeper); double-click thereafter.                                                                     |
-| `tabs_v2_crp200_spss.sav`  | SPSS native binary worksheet (N=200, 47 columns). Variable labels and value labels embedded so the Likert anchors and group names appear in dialogs and output without manual setup.                          |
-| `tabs_v2_crp200_spss.csv`  | Same data as CSV (for sharing with non-SPSS users).                                                                                                                                                           |
-| `tabs_v2_validation.sps`   | SPSS syntax file. Loads the .sav, runs every analysis the targeted license supports natively, writes results to a Viewer document, then auto-exports to `spv_export.xlsx` and saves `Post_Run_Results.spv`.   |
-| `build_spss_artifacts.py`  | Python regenerator. Re-run if the source dataset changes.                                                                                                                                                     |
+| File                                 | What it is                                                                                                                                                                                                  |
+| ------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `0_DOUBLE_CLICK_ME_TO_START.bat`     | **Windows double-click launcher.** Locates SPSS, runs the syntax in production mode, exports to XLSX, prints Done. Recipient experience: extract zip, double-click this.                                    |
+| `0_DOUBLE_CLICK_ME_TO_START.command` | **macOS double-click launcher.** Same as the .bat but for Macs. Right-click -> Open the first time (Gatekeeper); double-click thereafter.                                                                   |
+| `tabs_v2_crp200_spss.sav`            | SPSS native binary worksheet (N=200, 47 columns). Variable labels and value labels embedded so the Likert anchors and group names appear in dialogs and output without manual setup.                        |
+| `tabs_v2_crp200_spss.csv`            | Same data as CSV (for sharing with non-SPSS users).                                                                                                                                                         |
+| `tabs_v2_validation.sps`             | SPSS syntax file. Loads the .sav, runs every analysis the targeted license supports natively, writes results to a Viewer document, then auto-exports to `spv_export.xlsx` and saves `Post_Run_Results.spv`. |
+| `build_spss_artifacts.py`            | Python regenerator. Re-run if the source dataset changes.                                                                                                                                                   |
 
 ## Easiest workflow - one double-click
 
