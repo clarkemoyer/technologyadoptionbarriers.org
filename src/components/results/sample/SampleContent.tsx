@@ -57,7 +57,7 @@ interface SampleContentProps {
 }
 
 const pct = (count: number, total: number | null | undefined): string =>
-  total ? `${((count / total) * 100).toFixed(1)}%` : '-'
+  total && total > 0 ? `${((count / total) * 100).toFixed(1)}%` : '-'
 
 const PRIMARY_GROUPS_LIVE: GroupConfig[] = [
   { key: 'conservative_clean', label: 'Conservative Clean', color: 'border-green-500' },
@@ -223,7 +223,7 @@ export const SampleContent = ({ variant, data }: SampleContentProps) => {
                   {group.label} (N={sample?.n ?? '-'})
                 </h3>
 
-                {hasDemoData && demo ? (
+                {demo && hasDemoData ? (
                   <PerGroupDemographics demo={demo} sample={sample} config={config} />
                 ) : (
                   <p className="text-sm text-red-600 font-medium mt-2">
