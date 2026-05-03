@@ -335,7 +335,12 @@
         },
         "other_roles": {
           "total": 13,
-          "categories": {}
+          "categories": {
+            "Director": 7,
+            "Uncategorized": "<5",
+            "VP / SVP": "<5",
+            "Manager / Program Lead": "<5"
+          }
         }
       },
       "effect_sizes": {
@@ -601,8 +606,8 @@
           "total": 18,
           "categories": {
             "Director": 9,
-            "VP / SVP": "<5",
             "Uncategorized": "<5",
+            "VP / SVP": "<5",
             "Manager / Program Lead": "<5",
             "C-Suite Adjacent": "<5"
           }
@@ -2421,6 +2426,6 @@
       }
     ]
   },
-  "last_updated": "2026-05-02T10:59:44.043626Z",
-  "extended_last_updated": "2026-05-02T10:59:44.043626Z"
+  "last_updated": "2026-05-03T11:00:03.116628Z",
+  "extended_last_updated": "2026-05-03T11:00:03.116628Z"
 }
