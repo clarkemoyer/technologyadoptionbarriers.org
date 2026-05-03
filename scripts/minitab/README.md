@@ -12,15 +12,44 @@ file.
 
 | File                         | What it is                                                                                                                                                                                                                                                                  |
 | ---------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `0_DOUBLE_CLICK_ME_TO_START_WINDOWS.bat` | **Windows double-click launcher.** Locates Minitab + Python, pre-installs `semopy`, runs the SEM companion script, then opens Minitab with the worksheet preloaded. |
+| `0_DOUBLE_CLICK_ME_TO_START_MAC.command` | **macOS double-click launcher.** Same as the .bat for Macs. Right-click -> Open the first time (Gatekeeper); double-click thereafter. |
 | `tabs_v2_crp200_minitab.csv` | Pre-encoded numeric CSV (N=200, 48 columns). Likert text labels converted to integers 1-5 using the same mapping the Python pipeline uses; analysis columns renamed to short codes (B1-B18, R1-R17, M1-M8); construct means and an SMB-vs-Enterprise grouping column added. |
 | `tabs_v2_validation.MTB`     | Minitab Exec macro that runs every analysis Minitab supports natively.                                                                                                                                                                                                      |
+| `tabs_v2_sem_companion.py`   | **SEM companion script.** Runs CFA / omega / bifactor / multigroup / Mardia via `semopy` (Minitab does not support these natively). Writes `sem_companion_results.txt` and `.csv` alongside Minitab's Session output. |
 | `build_minitab_csv.py`       | Python script that regenerates the CSV from `public/datasets/TABS_V2_CRP_2026_public_dataset.csv`. Re-run if the source dataset changes.                                                                                                                                    |
 
-## Easiest workflow (5 minutes start to finish)
+## Easiest workflow - one double-click
 
-1. **Open the worksheet:** in Minitab, `File -> Open Worksheet -> tabs_v2_crp200_minitab.csv`. Minitab will read the header row and detect numeric columns automatically.
-2. **Run the macro:** `File -> Run an Exec -> tabs_v2_validation.MTB -> Run 1 time`. Output appears in the Session window.
-3. **(Optional) Read the menu paths below** if you want to run any block interactively to see the dialog options (KMO, Bartlett, rotation choice, etc.).
+1. **Extract the zip** into any folder (Desktop, Documents, anywhere).
+2. **Double-click the launcher for your operating system:**
+   - **Windows**: `0_DOUBLE_CLICK_ME_TO_START_WINDOWS.bat`
+   - **macOS**: right-click `0_DOUBLE_CLICK_ME_TO_START_MAC.command` -> Open (one-time Gatekeeper).
+3. **The launcher does the prep:**
+   - Locates Minitab + a Python interpreter (preferring SPSS-bundled Python if present, else system `python` / `python3` on PATH)
+   - Pre-installs `semopy` + dependencies (~30-90 sec, first run only)
+   - Runs `tabs_v2_sem_companion.py` which writes `sem_companion_results.txt` + `.csv`
+   - Opens Minitab with the worksheet preloaded
+4. **In Minitab**: `File -> Run an Exec -> tabs_v2_validation.MTB -> Run 1 time`. Native Minitab output appears in the Session window (~20-30 sec).
+5. **Open both result files** to see the full validation receipt:
+   - Minitab Session output (descriptive + reliability layer)
+   - `sem_companion_results.txt` (CFA / omega / bifactor / Mardia)
+
+## Manual workflow (if the launcher cannot find Minitab or Python)
+
+Minitab native analyses:
+
+1. **Open the worksheet:** in Minitab, `File -> Open Worksheet -> tabs_v2_crp200_minitab.csv`.
+2. **Run the macro:** `File -> Run an Exec -> tabs_v2_validation.MTB -> Run 1 time`.
+
+SEM companion:
+
+```bash
+python -m pip install --user numpy pandas scipy semopy
+python tabs_v2_sem_companion.py --csv tabs_v2_crp200_minitab.csv --out-dir .
+```
+
+Open `sem_companion_results.txt` (Notepad / TextEdit) or `sem_companion_results.csv` (Excel / Minitab `File -> Open Worksheet`).
 
 The macro intentionally does NOT generate plots, save graphs, or modify the worksheet. Everything goes to the Session window so you can copy results into a comparison spreadsheet.
 
