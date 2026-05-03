@@ -41,8 +41,9 @@ describe('Response Funnel page (QualtricsSurveyStats)', () => {
   it('renders Qualtrics question IDs and items presented as separate values', () => {
     render(<QualtricsSurveyStats />)
     // Use exact match: small values like 21 would otherwise substring-match
-    // larger numbers (e.g. 321 appears in audit duration_stats), making this
-    // assertion fail intermittently as the daily pipeline data drifts.
+    // larger numbers rendered by other metric cards on the page (e.g. Prolific
+    // disposition counts or Qualtrics raw-response counts that shift daily),
+    // causing this assertion to fail intermittently as pipeline data drifts.
     expect(
       screen.getByText(metricsData.questionCount.toLocaleString(), { exact: true })
     ).toBeInTheDocument()
