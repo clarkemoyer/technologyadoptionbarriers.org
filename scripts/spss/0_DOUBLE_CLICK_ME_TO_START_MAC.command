@@ -122,7 +122,7 @@ if [ -n "$SPSS_PYTHON" ]; then
     echo "semopy is not yet installed. Installing now (~30 sec)..."
     echo
     "$SPSS_PYTHON" -m pip install --user --upgrade pip
-    if "$SPSS_PYTHON" -m pip install --user semopy; then
+    if "$SPSS_PYTHON" -m pip install --user semopy==2.3.11; then
       echo
       echo "OK: semopy installed successfully."
     else
@@ -171,13 +171,15 @@ if [ -n "$RSCRIPT" ]; then
 fi
 
 # Build the combined runtime syntax with absolute CD prepended.
+# Escape single quotes for SPSS string literal safety: ' -> ''
+HERE_SPS="${HERE//\'/\'\'}"
 COMBINED="$HERE/_run_validation.sps"
 {
   echo "* Auto-generated combined syntax. Prepends absolute CD then INSERTs"
   echo "* tabs_v2_validation.sps. Regenerated each launcher run; safe to delete."
   echo "*."
   echo
-  echo "CD '$HERE'."
+  echo "CD '$HERE_SPS'."
   echo
   cat "$HERE/tabs_v2_validation.sps"
 } > "$COMBINED"
