@@ -57,6 +57,10 @@ describe('PipelineDataFlow — live variant', () => {
       '/results/reproducibility'
     )
   })
+
+  it('stage 6 output shows sensitivity-analysis.json', () => {
+    expect(screen.getByText('sensitivity-analysis.json (per-sample stats)')).toBeInTheDocument()
+  })
 })
 
 /* ── crp variant — hasCrpTwin stages rewritten ──────────────────────────── */
@@ -105,6 +109,10 @@ describe('PipelineDataFlow — crp variant', () => {
 
   it('stage 2 (no hasCrpTwin) stays at /results/survey-stats', () => {
     expect(stageLink('Export Qualtrics CSV')).toHaveAttribute('href', '/results/survey-stats')
+  })
+
+  it('stage 6 output shows crp-sensitivity-analysis.json', () => {
+    expect(screen.getByText('crp-sensitivity-analysis.json (per-sample stats)')).toBeInTheDocument()
   })
 })
 

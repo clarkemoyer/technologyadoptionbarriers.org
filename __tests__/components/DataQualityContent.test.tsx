@@ -288,3 +288,59 @@ describe('DataQualityContent — metric value formatting', () => {
     expect(screen.getAllByText('-').length).toBeGreaterThanOrEqual(3)
   })
 })
+
+/* ── Reproducibility section ──────────────────────────────────── */
+
+describe('DataQualityContent — reproducibility section', () => {
+  it('live: does NOT mention "public dataset" in reproducibility prose', () => {
+    render(<DataQualityContent variant="live" data={MOCK_DATA} />)
+    const section = screen.getByRole('heading', { name: /^reproducibility$/i }).closest('section')!
+    expect(within(section).queryByText(/public dataset/i)).not.toBeInTheDocument()
+  })
+
+  it('live: does NOT show the "Open Data & Reproducibility" button', () => {
+    render(<DataQualityContent variant="live" data={MOCK_DATA} />)
+    expect(
+      screen.queryByRole('link', { name: /open data & reproducibility/i })
+    ).not.toBeInTheDocument()
+  })
+
+  it('crp: mentions "public CRP-2026 dataset" in reproducibility prose', () => {
+    render(<DataQualityContent variant="crp" data={MOCK_DATA} />)
+    const section = screen.getByRole('heading', { name: /^reproducibility$/i }).closest('section')!
+    expect(within(section).getByText(/public crp-2026 dataset/i)).toBeInTheDocument()
+  })
+
+  it('crp: shows the "Open Data & Reproducibility" link to /results/reproducibility', () => {
+    render(<DataQualityContent variant="crp" data={MOCK_DATA} />)
+    const link = screen.getByRole('link', { name: /open data & reproducibility/i })
+    expect(link).toHaveAttribute('href', '/results/reproducibility')
+  })
+})
+
+/* ── "nested" prose accuracy ──────────────────────────────────── */
+
+describe('DataQualityContent — sample-nesting prose', () => {
+  it('live: overview bullet does NOT call samples "nested"', () => {
+    render(<DataQualityContent variant="live" data={MOCK_DATA} />)
+    // The bullet says "Five samples are computed" without "nested"
+    expect(screen.queryByText(/five nested samples/i)).not.toBeInTheDocument()
+  })
+
+  it('live: Sample Definitions intro does NOT call samples "nested"', () => {
+    render(<DataQualityContent variant="live" data={MOCK_DATA} />)
+    expect(screen.queryByText(/five nested sample definitions/i)).not.toBeInTheDocument()
+  })
+
+  it('crp: overview bullet calls samples "nested"', () => {
+    render(<DataQualityContent variant="crp" data={MOCK_DATA} />)
+    expect(screen.getByText(/three nested samples/i)).toBeInTheDocument()
+  })
+
+  it('crp: Sample Definitions intro calls samples "nested"', () => {
+    render(<DataQualityContent variant="crp" data={MOCK_DATA} />)
+    // "Three nested" appears in both the overview bullet and the Sample Definitions intro
+    const matches = screen.getAllByText(/three nested/i)
+    expect(matches.length).toBeGreaterThanOrEqual(2)
+  })
+})

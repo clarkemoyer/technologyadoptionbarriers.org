@@ -137,8 +137,8 @@ export function DataQualityContent({ variant, data }: DataQualityContentProps) {
                 </>
               ) : (
                 <>
-                  Five nested samples are computed, from most restrictive (Conservative Clean) to
-                  least (All V2)
+                  Five samples are computed, ranging from most restrictive (Conservative Clean) to
+                  least restrictive (All V2)
                 </>
               )}
             </li>
@@ -516,7 +516,7 @@ export function DataQualityContent({ variant, data }: DataQualityContentProps) {
         <section className="mb-12 text-gray-800">
           <h2 className={H2_CLASSES}>Sample Definitions</h2>
           <p className={PARAGRAPH_CLASSES}>
-            {variant === 'crp' ? 'Three' : 'Five'} nested sample definitions are used, from most to
+            {variant === 'crp' ? 'Three nested' : 'Five'} sample definitions are used, from most to
             least restrictive. The <strong>Prolific Accepted</strong> count matches the Prolific
             platform&rsquo;s &ldquo;Approved&rdquo; tab exactly. The clean samples apply additional
             quality filters on top of Prolific approval.
@@ -862,17 +862,29 @@ export function DataQualityContent({ variant, data }: DataQualityContentProps) {
         <section className="mb-12 text-gray-800">
           <h2 className={H2_CLASSES}>Reproducibility</h2>
           <p className={PARAGRAPH_CLASSES}>
-            All analysis code is open source and can be run independently against the public
-            dataset. The sensitivity analysis shown above is generated automatically by the daily
-            analysis pipeline and committed to the repository as JSON data.
+            {variant === 'crp' ? (
+              <>
+                All analysis code is open source and can be run independently against the public
+                CRP-2026 dataset. The sensitivity analysis shown above was generated from the frozen
+                dataset and is committed to the repository as JSON data.
+              </>
+            ) : (
+              <>
+                All analysis code is open source. The sensitivity analysis is generated
+                automatically by the daily analysis pipeline and committed to the repository as JSON
+                data.
+              </>
+            )}
           </p>
           <div className="flex flex-wrap gap-4 my-6">
-            <Link
-              href="/results/reproducibility"
-              className="inline-flex items-center px-5 py-2.5 bg-gray-900 text-white rounded-lg hover:bg-gray-700 transition-colors font-sans text-sm"
-            >
-              Open Data &amp; Reproducibility
-            </Link>
+            {variant === 'crp' && (
+              <Link
+                href="/results/reproducibility"
+                className="inline-flex items-center px-5 py-2.5 bg-gray-900 text-white rounded-lg hover:bg-gray-700 transition-colors font-sans text-sm"
+              >
+                Open Data &amp; Reproducibility
+              </Link>
+            )}
             <Link
               href="/results/dashboard"
               className="inline-flex items-center px-5 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-sans text-sm"

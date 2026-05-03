@@ -64,6 +64,8 @@ type Stage = {
   source: string
   description: string
   outputs: string[]
+  /** Replaces outputs when variant="crp". Use for filenames that differ between tracks. */
+  crpOutputs?: string[]
   href: string
   color: StageColor
   /** True when /results/crp-2026/<path> exists and the CRP variant should link there. */
@@ -135,6 +137,7 @@ const STAGES: Stage[] = [
     description:
       'Means, SDs, skewness, kurtosis, inter-construct correlations, top-3 forced-choice tallies. Run once per sample tier.',
     outputs: ['sensitivity-analysis.json (per-sample stats)'],
+    crpOutputs: ['crp-sensitivity-analysis.json (per-sample stats)'],
     href: '/results/descriptive',
     color: 'emerald',
     hasCrpTwin: true,
@@ -271,7 +274,13 @@ export function PipelineDataFlow({ variant = 'live' }: { variant?: 'live' | 'crp
   const stages =
     variant === 'crp'
       ? STAGES.map((s) =>
-          s.hasCrpTwin ? { ...s, href: s.href.replace('/results/', '/results/crp-2026/') } : s
+          s.hasCrpTwin
+            ? {
+                ...s,
+                href: s.href.replace('/results/', '/results/crp-2026/'),
+                ...(s.crpOutputs ? { outputs: s.crpOutputs } : {}),
+              }
+            : s
         )
       : STAGES
   return (
