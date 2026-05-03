@@ -370,8 +370,10 @@ _CRLF_EXTS = (".bat", ".cmd")
 
 
 def _add_to_zip(zf: zipfile.ZipFile, src_path: Path, dest: str) -> None:
-    """Write a file to the zip, preserving executable bit for .command/.sh
-    and forcing CRLF line endings for .bat / .cmd."""
+    """Write a file to the zip, setting a fixed 0o100755 mode for .command/.sh
+    (not derived from the source file's stat mode) and forcing CRLF line
+    endings for .bat / .cmd.  These transforms apply to all bundles built by
+    this script, not just the SPSS bundle."""
     dest_lower = dest.lower()
     if dest_lower.endswith(_EXECUTABLE_EXTS):
         info = zipfile.ZipInfo.from_file(src_path, arcname=dest)

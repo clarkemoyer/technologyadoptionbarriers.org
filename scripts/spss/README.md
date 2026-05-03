@@ -15,7 +15,7 @@ Built and tested against this combination of installed components
 | **Regression**          | Mahalanobis distance (saved via REGRESSION /SAVE MAHAL)                                                                   |
 | **Bootstrapping**       | 95% bootstrap percentile CIs around Cronbach's alpha (1000 resamples, matches Python `bootstrap_alpha_ci` default)        |
 | **Missing Values**      | Little's MCAR test + missingness pattern analysis (matches the data-quality audit in the Python pipeline)                 |
-| **Advanced Statistics** | Available for follow-up GLM / Mixed Models work, not required by the syntax in this folder                                |
+| **Advanced Statistics** | One-way MANOVA + univariate ANOVAs (`GLM … BY SMB_ENT`, Section 8: Group Comparisons)                                     |
 
 **Not in the targeted license: IBM SPSS Amos.** That is the SEM/CFA add-on,
 sold separately. Without it, SPSS cannot _natively_ compute confirmatory
