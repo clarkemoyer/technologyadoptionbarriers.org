@@ -24,8 +24,16 @@ jest.mock('@/components/last-updated', () => ({
 
 jest.mock('@/components/effect-size-chart', () => ({
   __esModule: true,
-  default: ({ data }: { data: unknown[] }) => (
-    <div data-testid="effect-size-chart" data-count={data.length} />
+  default: ({
+    data,
+  }: {
+    data: { construct: string; ci_lower: number | null; ci_upper: number | null }[]
+  }) => (
+    <div
+      data-testid="effect-size-chart"
+      data-count={data.length}
+      data-payload={JSON.stringify(data)}
+    />
   ),
 }))
 
@@ -257,15 +265,43 @@ describe('FindingsContent — accessibility', () => {
 })
 
 describe('FindingsContent — effect-size CI mapping (regression)', () => {
-  it('forwards d_ci_lower/d_ci_upper to EffectSizeChart as ci_lower/ci_upper', () => {
-    // Pre-refactor, the live page used `vals.ci_lower`/`vals.ci_upper`
-    // from a stale interface — those keys don't exist on the JSON
-    // (which uses `d_ci_lower`/`d_ci_upper`), so CI bounds were silently
-    // dropped before reaching the chart. Verify the shared component
-    // forwards the correct keys for both variants.
+  it('forwards d_ci_lower/d_ci_upper from JSON to EffectSizeChart as ci_lower/ci_upper', () => {
+    // Pre-refactor, the live page read `vals.ci_lower`/`vals.ci_upper`
+    // from a stale interface — those keys don't exist on the pipeline
+    // JSON (which uses `d_ci_lower`/`d_ci_upper`), so CI bounds were
+    // silently dropped before reaching the chart. Verify the shared
+    // component forwards the correct keys.
     render(<FindingsContent variant="live" data={MOCK_DATA} validationData={{}} />)
     const charts = screen.getAllByTestId('effect-size-chart')
     expect(charts.length).toBeGreaterThan(0)
+
+    // Read back the data prop from the first chart and assert it carries
+    // the CI bounds derived from d_ci_lower/d_ci_upper in MOCK_DATA.
+    const firstChartPayload = charts[0].getAttribute('data-payload') ?? '[]'
+    const items: { construct: string; ci_lower: number | null; ci_upper: number | null }[] =
+      JSON.parse(firstChartPayload)
+    expect(items.length).toBeGreaterThan(0)
+
+    const barriers = items.find((item) => item.construct === 'barriers')
+    expect(barriers).toBeDefined()
+    // MOCK_DATA.tech_vs_nontech.constructs.barriers has d_ci_lower=-0.51, d_ci_upper=0.49
+    expect(barriers?.ci_lower).toBe(-0.51)
+    expect(barriers?.ci_upper).toBe(0.49)
+
+    const readiness = items.find((item) => item.construct === 'readiness')
+    expect(readiness?.ci_lower).toBe(0.21)
+    expect(readiness?.ci_upper).toBe(1.17)
+  })
+
+  it('forwards d_ci_lower/d_ci_upper for the crp variant too', () => {
+    render(<FindingsContent variant="crp" data={MOCK_DATA} validationData={{}} />)
+    const charts = screen.getAllByTestId('effect-size-chart')
+    const firstChartPayload = charts[0].getAttribute('data-payload') ?? '[]'
+    const items: { construct: string; ci_lower: number | null; ci_upper: number | null }[] =
+      JSON.parse(firstChartPayload)
+    const barriers = items.find((item) => item.construct === 'barriers')
+    expect(barriers?.ci_lower).toBe(-0.51)
+    expect(barriers?.ci_upper).toBe(0.49)
   })
 })
 

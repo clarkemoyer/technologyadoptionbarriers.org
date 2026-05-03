@@ -235,6 +235,25 @@ const mapEffectChartData = (constructs: Record<string, EffectSizeConstruct>) =>
     ci_upper: vals.d_ci_upper ?? null,
   }))
 
+/**
+ * Renders the Key Findings results page for either the live (rolling
+ * Prolific) or CRP-2026 (frozen N=200) dataset, sharing all layout and
+ * computation between them.
+ *
+ * Variant-specific differences live in `VARIANT_CONFIG` so the two
+ * tracks can no longer drift on prose, table structure, or links:
+ *
+ * - `variant: 'live'` renders 4 result groups (incl. `v2_finished`),
+ *   the LastUpdated timestamp, the "Technical (CIO/CTO) vs Non-Technical"
+ *   heading, and live-track related links (incl. Dataset Comparison).
+ * - `variant: 'crp'` renders 3 nested CRP groups, a static
+ *   "Published: April 2026" badge, the simpler "Technical vs Non-Technical"
+ *   heading, and crp-track related links (incl. Data Quality Pipeline).
+ *
+ * `data` accepts the unified-pipeline JSON shape (sensitivity-analysis.json
+ * for live, crp-sensitivity-analysis.json for CRP). `validationData` is
+ * passed through to InferentialExtensions for mediation/regression/TOST.
+ */
 export const FindingsContent = ({ variant, data, validationData }: FindingsContentProps) => {
   const config = VARIANT_CONFIG[variant]
   const sampleDetails: Record<string, SampleDetail> = data.sample_details ?? {}
