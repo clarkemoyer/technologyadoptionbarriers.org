@@ -8,6 +8,14 @@
     "category": "Home"
   },
   {
+    "id": "about",
+    "url": "/about",
+    "title": "About TABS",
+    "description": "About the Technology Adoption Barriers Survey (TABS): research project, dissertation context, and the policies that govern participation, data, and contribution.",
+    "content": "About TABS. About the Technology Adoption Barriers Survey (TABS): research project, dissertation context, and the policies that govern participation, data, and contribution. TABS, the Technology Adoption Barriers Survey, is an open-science research project conducted by Clarke Moyer at the Penn State Smeal College of Business as part of the DBA program. The site hosts the survey instrument, the rolling Prolific dataset, the frozen CRP-2026 dataset that the dissertation cites, and all analysis code. The About area covers the FAQ, media appearances, get-involved options, and the six policy pages that govern participation, data handling, and security disclosure.",
+    "category": "General"
+  },
+  {
     "id": "article-1-1-the-bedrock-foundational-theories-that-shaped-tech-acceptance",
     "url": "/article-1-1-the-bedrock-foundational-theories-that-shaped-tech-acceptance",
     "title": "Article 1.1: The Bedrock - Foundational Theories That Shaped Tech Acceptance",
@@ -1028,7 +1036,7 @@
     "url": "/results/crp-2026/data-quality",
     "title": "CRP 2026 Data Quality - TABS",
     "description": "How the TABS project ensures data quality through multi-stage validation, disposition waterfall logic, and sensitivity analysis across 3 primary groups.",
-    "content": "CRP 2026 Data Quality - TABS. How the TABS project ensures data quality through multi-stage validation, disposition waterfall logic, and sensitivity analysis across 3 primary groups. CRP 2026: Data Quality Pipeline Published: April 2026 The TABS project applies multi-stage data quality pipeline to every survey response. This page documents how responses flow from collection through validation to analysis, the quality checks applied at each stage, the edge cases we discovered and resolved, and the sensitivity analysis that demonstrates our findings are robust to inclusion criteria. All statistics on page are generated automatically by the daily analysis pipeline and updated every time the pipeline runs. The numbers shown here the Prolific platform exactly. Data Flow Every survey response pa...",
+    "content": "CRP 2026 Data Quality - TABS. How the TABS project ensures data quality through multi-stage validation, disposition waterfall logic, and sensitivity analysis across 3 primary groups.",
     "category": "Results"
   },
   {
@@ -1076,7 +1084,7 @@
     "url": "/results/crp-2026/sensitivity",
     "title": "CRP 2026 Sensitivity Analysis - TABS",
     "description": "Full sensitivity analysis for the CRP 2026 Technology Adoption Barriers Survey: every metric computed across three CRP sample definitions to demonstrate robustness to inclusion criteria.",
-    "content": "CRP 2026 Sensitivity Analysis - TABS. Full sensitivity analysis for the CRP 2026 Technology Adoption Barriers Survey: every metric computed across three CRP sample definitions to demonstrate robustness to inclusion criteria. CRP 2026: Sensitivity Analysis Published: April 2026 Sensitivity analysis tests whether findings are robust to the choice of inclusion criteria. Every metric means, standard deviations, inter-construct correlations, and reliability coefficients is computed independently across three CRP sample definitions. If finding holds across Conservative Clean N= and Prolific Accepted N= it is robust to inclusion criteria. Sample Definitions The three primary result groups below are used throughout analysis. They are nested from most restrictive to least restrictive. Key Label Des...",
+    "content": "CRP 2026 Sensitivity Analysis - TABS. Full sensitivity analysis for the CRP 2026 Technology Adoption Barriers Survey: every metric computed across three CRP sample definitions to demonstrate robustness to inclusion criteria.",
     "category": "Results"
   },
   {
@@ -1084,7 +1092,7 @@
     "url": "/results/crp-2026/top-barriers",
     "title": "CRP 2026 Top 3 Barriers - TABS",
     "description": "Top-3 barrier salience ranking for the TABS CRP 2026 frozen dataset (N=200). Compares forced-choice pick counts with mean-based ranking and highlights divergences between cultural and cybersecurity barriers.",
-    "content": "CRP 2026 Top 3 Barriers - TABS. Top-3 barrier salience ranking for the TABS CRP 2026 frozen dataset (N=200). Compares forced-choice pick counts with mean-based ranking and highlights divergences between cultural and cybersecurity barriers. CRP 2026: Top Barriers Published: April 2026 N= Picks: This page presents the forced-choice Top barriers ranking from the TABS CRP 2026 frozen dataset N= Each participant selected up to three barriers from the full list of 18. Counts below reflect the number of participants who included each barrier in their top 3. The forced-choice ranking complements the continuous Likert-based ranking shown on the Descriptive Statistics page. Comparing the two rankings surfaces which barriers rise or fall in salience when participants are forced to choose only small n...",
+    "content": "CRP 2026 Top 3 Barriers - TABS. Top-3 barrier salience ranking for the TABS CRP 2026 frozen dataset (N=200). Compares forced-choice pick counts with mean-based ranking and highlights divergences between cultural and cybersecurity barriers.",
     "category": "Results"
   },
   {
@@ -1108,7 +1116,7 @@
     "url": "/results/data-quality",
     "title": "Data Quality Pipeline - TABS Results",
     "description": "How the TABS project ensures data quality through multi-stage validation, disposition waterfall logic, and sensitivity analysis across five sample definitions.",
-    "content": "Data Quality Pipeline - TABS Results. How the TABS project ensures data quality through multi-stage validation, disposition waterfall logic, and sensitivity analysis across five sample definitions. Data Quality Pipeline The TABS project applies multi-stage data quality pipeline to every survey response. This page documents how responses flow from collection through validation to analysis, the quality checks applied at each stage, the edge cases we discovered and resolved, and the sensitivity analysis that demonstrates our findings are robust to inclusion criteria. All statistics on page are generated automatically by the daily analysis pipeline and updated every time the pipeline runs. The numbers shown here the Prolific platform exactly. Data Flow Every survey response passes through pipe...",
+    "content": "Data Quality Pipeline - TABS Results. How the TABS project ensures data quality through multi-stage validation, disposition waterfall logic, and sensitivity analysis across five sample definitions.",
     "category": "Results"
   },
   {
@@ -1180,7 +1188,7 @@
     "url": "/results/sensitivity",
     "title": "Sensitivity Analysis - TABS Results",
     "description": "Full sensitivity analysis for the Technology Adoption Barriers Survey: every metric computed across five sample definitions to demonstrate robustness to inclusion criteria.",
-    "content": "Sensitivity Analysis - TABS Results. Full sensitivity analysis for the Technology Adoption Barriers Survey: every metric computed across five sample definitions to demonstrate robustness to inclusion criteria. Sensitivity Analysis Sensitivity analysis tests whether findings are robust to the choice of inclusion criteria. Every metric means, standard deviations, inter-construct correlations, and reliability coefficients is computed independently across five nested sample definitions. If finding holds across Conservative Clean N= and All V2 N= it is robust to inclusion criteria. Sample Definitions The five sample definitions below are used throughout analysis. They are nested from most restrictive to least restrictive, with the exception of Prolific Accepted and All V2 Finished, which overla...",
+    "content": "Sensitivity Analysis - TABS Results. Full sensitivity analysis for the Technology Adoption Barriers Survey: every metric computed across five sample definitions to demonstrate robustness to inclusion criteria.",
     "category": "Results"
   },
   {
@@ -1196,7 +1204,7 @@
     "url": "/results/top-barriers",
     "title": "Top 3 Barriers (Live) - TABS",
     "description": "Live forced-choice Top 3 barriers ranking from the growing TABS V2 dataset. Compares pick counts with continuous-rating means and updates daily as new responses are accepted on Prolific.",
-    "content": "Top 3 Barriers (Live) - TABS. Live forced-choice Top 3 barriers ranking from the growing TABS V2 dataset. Compares pick counts with continuous-rating means and updates daily as new responses are accepted on Prolific. Top Barriers Live Live dataset Updated: formatUpdated LAST_UPDATED",
+    "content": "Top 3 Barriers (Live) - TABS. Live forced-choice Top 3 barriers ranking from the growing TABS V2 dataset. Compares pick counts with continuous-rating means and updates daily as new responses are accepted on Prolific.",
     "category": "Results"
   },
   {
@@ -1310,6 +1318,14 @@
     "description": "As a senior leader in your organization, your perspective on technology adoption barriers is valuable. Your unique role provides insights that help build a complete picture of how different leadership positions perceive organizational challenges.",
     "content": "Other Senior Leadership Role. As a senior leader in your organization, your perspective on technology adoption barriers is valuable. Your unique role provides insights that help build a complete picture of how different leadership positions perceive organizational challenges.",
     "category": "See Yourself"
+  },
+  {
+    "id": "survey",
+    "url": "/survey",
+    "title": "Survey - TABS",
+    "description": "Overview of the Technology Adoption Barriers Survey (TABS) instrument. The 18 barriers, 17 readiness items, and 8 maturity dimensions, plus the persona explorer and concept mapping that show how the items group into theoretical constructs.",
+    "content": "Survey - TABS. Overview of the Technology Adoption Barriers Survey (TABS) instrument. The 18 barriers, 17 readiness items, and 8 maturity dimensions, plus the persona explorer and concept mapping that show how the items group into theoretical constructs. The TABS survey instrument has three top-level views: the 18-item Barriers scale (with quotes and the live response funnel), the See Yourself persona explorer that mirrors the survey back to individuals and organizations, and the Concept Mapping pages that show how items group into theoretical constructs synthesized from CMMI, IT-CMF, COBIT, DREAMY, and the technology adoption literature.",
+    "category": "General"
   },
   {
     "id": "survey-complete",
