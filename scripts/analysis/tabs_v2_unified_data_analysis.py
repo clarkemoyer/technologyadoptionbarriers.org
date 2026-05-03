@@ -66,6 +66,7 @@ import sys
 import warnings
 from collections import Counter, OrderedDict, defaultdict
 from datetime import datetime
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
@@ -3619,7 +3620,7 @@ def _build_validation_registry(construct_results, subgroup_standalone=None):
 
 def _build_r_parity_tests(ci_workflow=None):
     """R-parity test count meta-block (Gap 7)."""
-    _FALLBACK_COUNT = 13
+    _FALLBACK_COUNT = 16
     parity_file = (
         Path(__file__).parent / 'tests' / 'test_parity_to_published_formulas.py'
     )
@@ -4226,6 +4227,8 @@ def run_validation(df, skip=False, crp200=False, primary_sample=True):
     cfa_dwls = {}; bifactor_results = {}; secondorder_results = {}
     mardia_results = {}; mahalanobis_results = {}; cv_results = {}
     irt_results = {}; per_factor_reg = {}
+    hz_normality_results = {}  # Gap 2 — initialised here, populated inside primary_sample block
+    t_tests_smb_ent_results = {}  # Gap 3 — initialised here, populated inside Q4_OrgSize block
     if primary_sample:
         print(f"\n{'='*70}")
         print(f"  EXTENDED PSYCHOMETRIC VALIDATION (DWLS, bifactor, 2nd-order, normality, CV, IRT)")
@@ -4256,6 +4259,7 @@ def run_validation(df, skip=False, crp200=False, primary_sample=True):
                             ('Maturity', _maturity_renamed)]:
             mardia_results[cname] = mardia_multivariate_normality(sub)
             mahalanobis_results[cname] = mahalanobis_outliers(sub)
+            hz_normality_results[cname] = henze_zirkler_normality(sub)  # Gap 2
 
         cv_results = split_sample_cv(_barrier_renamed, _barrier_cols_safe, BARRIER_3GROUP)
 
@@ -4322,6 +4326,11 @@ def run_validation(df, skip=False, crp200=False, primary_sample=True):
         for cname, cols, names, ids in [('Barriers', BARRIER_COLS, BARRIER_NAMES, [f'B{i+1}' for i in range(len(BARRIER_NAMES))]), ('Readiness', READINESS_COLS, READINESS_NAMES, [f'R{i+1}' for i in range(len(READINESS_NAMES))]), ('Maturity', MATURITY_COLS, MATURITY_NAMES, [f'M{i+1}' for i in range(len(MATURITY_NAMES))])]:
             dif_results[cname] = dif_irt(df, cols, names, ids, group_col='_SMB')
         esem_results = esem_target_rotation(barrier_renamed, barrier_cols_safe, n_factors=3)
+        # Gap 3: construct-level SMB vs Enterprise Welch t-tests (CRP Table 22)
+        t_tests_smb_ent_results = t_tests_smb_vs_enterprise(
+            df, {'Barriers': BARRIER_COLS, 'Readiness': READINESS_COLS, 'Maturity': MATURITY_COLS},
+            smb_col='_SMB'
+        )
         if 'error' not in mediation_results:
             ind = (mediation_results.get('Indirect') or {}).get('coef')
             print(f"  Mediation B->R->M: indirect={ind}")
@@ -4383,6 +4392,13 @@ def run_validation(df, skip=False, crp200=False, primary_sample=True):
     aid_summary = alpha_if_deleted_summary(construct_results)
     for s in aid_summary:
         print(f"  {s['construct']}: {s['items_increasing_alpha_count']} items would raise alpha")
+
+    # Gap 4: Harman's single-factor CMV test (all items combined)
+    all_item_cols = BARRIER_COLS + READINESS_COLS + MATURITY_COLS
+    harman_cmv_results = harman_single_factor_cmv(df, all_item_cols)
+    if 'first_eigenvalue_pct_variance' in harman_cmv_results:
+        print(f"  Harman CMV: PC1 = {harman_cmv_results['first_eigenvalue_pct_variance']}% variance "
+              f"({'<50% OK' if harman_cmv_results.get('below_50pct') else '>=50% WARNING'})")
 
     # Discriminant validity
     print(f"\n{'='*70}")
@@ -4588,6 +4604,24 @@ def run_validation(df, skip=False, crp200=False, primary_sample=True):
     output['dif_irt_smb_vs_ent'] = dif_results
     output['esem_3factor'] = esem_results
     output['measurement_invariance'] = measurement_invariance
+
+    # Gap 2: Henze-Zirkler multivariate normality (primary sample only; mirrors mardia_normality)
+    if primary_sample:
+        output['henze_zirkler_normality'] = hz_normality_results
+    else:
+        output['henze_zirkler_normality'] = _skipped_sentinel
+    # Gap 3: construct-level SMB vs Enterprise Welch t-tests (requires Q4_OrgSize)
+    output['inferential'] = output.get('inferential') or {}
+    output['inferential']['t_tests_smb_vs_enterprise'] = t_tests_smb_ent_results
+    # Gap 4: Harman's single-factor CMV
+    output['cmv'] = {'harman_single_factor': harman_cmv_results}
+    # Gap 6: validation registry (aggregate pass/fail headline)
+    output['validation_registry'] = _build_validation_registry(
+        construct_results,
+        subgroup_standalone=subgroup_standalone,
+    )
+    # Gap 7: R parity test count meta-block
+    output['r_parity_tests'] = _build_r_parity_tests()
 
     # Factor analysis summary (for EFA factors)
     barrier_efa = barrier_result.get('efa', {})

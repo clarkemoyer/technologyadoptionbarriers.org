@@ -13,6 +13,7 @@ All tests are designed to run in the CI sandbox (pingouin, numpy, pandas,
 scipy pre-installed; semopy is optional for Gap 1/5 tests).
 """
 
+import contextlib
 import re
 import sys
 from pathlib import Path
@@ -39,6 +40,15 @@ def _import_validation():
         import tabs_v2_validation as mod  # noqa: PLC0415
         return mod
 
+
+def _import_unified():
+    """Import tabs_v2_unified_data_analysis for integration tests against production pipeline."""
+    with patch.object(sys, "argv", ["test", "/dev/null"]):
+        mname = "tabs_v2_unified_data_analysis"
+        if mname in sys.modules:
+            del sys.modules[mname]
+        import tabs_v2_unified_data_analysis as mod  # noqa: PLC0415
+        return mod
 
 try:
     import semopy as _semopy  # noqa: F401
@@ -620,3 +630,238 @@ class TestBuildRParityTests:
             last_run_utc="now"
         )
         assert result["ci_workflow"] == ".github/workflows/custom.yml"
+
+
+# --------------------------------------------------------------------------- #
+# Integration — unified pipeline (canonical crp-validation.json source)        #
+# --------------------------------------------------------------------------- #
+
+
+class TestUnifiedPipelineGapFunctions:
+    """Verify that gap helper functions exist and produce correct output in
+    tabs_v2_unified_data_analysis, which is the module that generates the
+    canonical crp-validation.json in the daily pipeline.
+
+    These tests do NOT call run_validation() (which is expensive); instead they
+    call each gap helper directly from the unified module to confirm the
+    functions are present and return the expected schema.
+    """
+
+    def test_henze_zirkler_normality_exists_in_unified(self):
+        """Gap 2 helper must be present in the unified pipeline module."""
+        mod = _import_unified()
+        assert hasattr(mod, "henze_zirkler_normality"), (
+            "henze_zirkler_normality is missing from tabs_v2_unified_data_analysis"
+        )
+
+    @requires_pingouin
+    def test_henze_zirkler_normality_returns_schema_from_unified(self):
+        """Gap 2 — unified henze_zirkler_normality() returns the expected keys."""
+        mod = _import_unified()
+        rng = np.random.default_rng(42)
+        data = pd.DataFrame(rng.standard_normal((60, 4)))
+        result = mod.henze_zirkler_normality(data)
+        for key in ("hz", "p_value", "normal"):
+            assert key in result, f"Missing key '{key}' in henze_zirkler_normality output"
+
+    def test_t_tests_smb_vs_enterprise_exists_in_unified(self):
+        """Gap 3 helper must be present in the unified pipeline module."""
+        mod = _import_unified()
+        assert hasattr(mod, "t_tests_smb_vs_enterprise"), (
+            "t_tests_smb_vs_enterprise is missing from tabs_v2_unified_data_analysis"
+        )
+
+    def test_t_tests_smb_vs_enterprise_returns_schema_from_unified(self):
+        """Gap 3 — unified t_tests_smb_vs_enterprise() returns the expected structure."""
+        mod = _import_unified()
+        rng = np.random.default_rng(42)
+        n = 80
+        df = pd.DataFrame({
+            "B1": rng.integers(1, 6, n).astype(float),
+            "B2": rng.integers(1, 6, n).astype(float),
+            "_SMB": (rng.random(n) > 0.5).astype(int),
+        })
+        result = mod.t_tests_smb_vs_enterprise(df, {"Barriers": ["B1", "B2"]}, smb_col="_SMB")
+        assert "constructs" in result
+        assert "Barriers" in result["constructs"]
+        assert "t" in result["constructs"]["Barriers"]
+
+    def test_harman_single_factor_cmv_exists_in_unified(self):
+        """Gap 4 helper must be present in the unified pipeline module."""
+        mod = _import_unified()
+        assert hasattr(mod, "harman_single_factor_cmv"), (
+            "harman_single_factor_cmv is missing from tabs_v2_unified_data_analysis"
+        )
+
+    def test_harman_single_factor_cmv_returns_schema_from_unified(self):
+        """Gap 4 — unified harman_single_factor_cmv() returns the expected keys."""
+        mod = _import_unified()
+        rng = np.random.default_rng(42)
+        n = 80
+        cols = [f"X{i}" for i in range(8)]
+        df = pd.DataFrame(rng.standard_normal((n, 8)), columns=cols)
+        result = mod.harman_single_factor_cmv(df, cols)
+        assert "first_eigenvalue_pct_variance" in result
+        assert "below_50pct" in result
+
+    def test_build_validation_registry_exists_in_unified(self):
+        """Gap 6 helper must be present in the unified pipeline module."""
+        mod = _import_unified()
+        assert hasattr(mod, "_build_validation_registry"), (
+            "_build_validation_registry is missing from tabs_v2_unified_data_analysis"
+        )
+
+    def test_build_validation_registry_from_unified_no_verdicts_key(self):
+        """Gap 6 — unified registry must derive verdicts from raw construct output,
+        not from a 'verdicts' sub-dict (which validate_construct() never adds)."""
+        mod = _import_unified()
+        # Shape matches actual validate_construct() output (no 'verdicts' key)
+        construct_result = {
+            "construct": "Barriers",
+            "cronbach_alpha": 0.85,
+            "alpha_95ci": [0.82, 0.88],
+            "n_valid_listwise": 200,
+            "mcdonalds_omega": 0.87,
+            "composite_reliability": 0.88,
+            "ave_from_loadings": 0.52,
+            "split_half_spearman_brown": 0.83,
+            "citc_flagged_below_030": [],
+            "efa": {"kmo_model": 0.85, "bartlett_p": 0.0001},
+            "cfa": {"cfi": 0.95, "rmsea": 0.05},
+        }
+        assert "verdicts" not in construct_result, (
+            "Test input must not have a 'verdicts' key — "
+            "that would make the test trivially pass the wrong way"
+        )
+        reg = mod._build_validation_registry([construct_result])
+        assert reg["total_checks"] >= 1
+        assert reg["passed"] >= 0
+        assert "pass_rate_pct" in reg
+        assert "last_run_utc" in reg
+
+    def test_build_r_parity_tests_exists_in_unified(self):
+        """Gap 7 helper must be present in the unified pipeline module."""
+        mod = _import_unified()
+        assert hasattr(mod, "_build_r_parity_tests"), (
+            "_build_r_parity_tests is missing from tabs_v2_unified_data_analysis"
+        )
+
+    def test_build_r_parity_tests_fallback_count_updated(self):
+        """Gap 7 — fallback count must equal the actual number of tests in the parity file."""
+        mod = _import_unified()
+        parity_file = Path(__file__).parent / "test_parity_to_published_formulas.py"
+        if parity_file.exists():
+            source = parity_file.read_text(encoding="utf-8")
+            expected = len(re.findall(r"^def test_", source, re.MULTILINE))
+            result = mod._build_r_parity_tests()
+            assert result["count"] == expected, (
+                f"Unified _build_r_parity_tests() returned count={result['count']} "
+                f"but parity file has {expected} tests. "
+                "Update _FALLBACK_COUNT in tabs_v2_unified_data_analysis.py."
+            )
+
+    def test_run_validation_output_contains_gap_keys(self):
+        """run_validation() output must contain all 7 gap-stat keys so that
+        crp-validation.json generated by the daily pipeline includes them.
+
+        This test uses a minimal synthetic DataFrame and mocks out all
+        expensive sub-calls so the test completes in < 1 s.
+        """
+        mod = _import_unified()
+        rng = np.random.default_rng(42)
+        n = 60
+        df_data = {}
+        for col in mod.BARRIER_COLS:
+            df_data[col] = rng.integers(1, 6, n).astype(float)
+        for col in mod.READINESS_COLS:
+            df_data[col] = rng.integers(1, 6, n).astype(float)
+        for col in mod.MATURITY_COLS:
+            df_data[col] = rng.integers(1, 6, n).astype(float)
+        df_data["Q4_OrgSize"] = rng.choice(
+            ["<100", "100-499", "1000-4999", "10000+"], n
+        )
+        df = pd.DataFrame(df_data)
+
+        # Patch the most expensive sub-calls so the test is fast
+        _dummy_cfa = {"cfi": 0.96, "rmsea": 0.04, "chi2": 10.0, "df": 5,
+                      "chi2_p": 0.05, "tli": 0.95, "srmr": 0.04}
+        _dummy_validate = {
+            "construct": "Barriers",
+            "cronbach_alpha": 0.85,
+            "alpha_95ci": [0.82, 0.88],
+            "n_valid_listwise": n,
+            "mcdonalds_omega": 0.87,
+            "composite_reliability": 0.88,
+            "ave_from_loadings": 0.52,
+            "split_half_spearman_brown": 0.83,
+            "citc_flagged_below_030": [],
+            "efa": {"kmo_model": 0.85, "bartlett_p": 1e-4, "n_factors": 1,
+                    "eigenvalues_original": [3.5], "variance_explained": {"per_factor": [0.52], "total": 0.52},
+                    "loadings": {}, "factor_correlations": None},
+            "cfa": _dummy_cfa,
+            "inter_item_correlations": {"mean": 0.4, "min": 0.2, "max": 0.6, "sd": 0.1},
+        }
+
+        def _fake_validate(df_, cols, names, label, **kw):
+            return dict(_dummy_validate, construct=label)
+
+        def _fake_run_cfa(*a, **kw):
+            return dict(_dummy_cfa)
+
+        patches = [
+            patch.object(mod, "validate_construct", side_effect=_fake_validate),
+            patch.object(mod, "run_cfa", side_effect=_fake_run_cfa),
+            patch.object(mod, "run_cfa_dwls", side_effect=_fake_run_cfa),
+            patch.object(mod, "bifactor_rm", return_value={"error": "mocked"}),
+            patch.object(mod, "second_order_barriers_cfa", return_value={"error": "mocked"}),
+            patch.object(mod, "mardia_multivariate_normality", return_value={"error": "mocked"}),
+            patch.object(mod, "mahalanobis_outliers", return_value={"error": "mocked"}),
+            patch.object(mod, "split_sample_cv", return_value={"tucker_congruence": 0.99}),
+            patch.object(mod, "irt_grm", return_value={"error": "mocked"}),
+            patch.object(mod, "per_factor_regressions", return_value={"error": "mocked"}),
+            patch.object(mod, "subgroup_standalone_validation", return_value=[]),
+            patch.object(mod, "mediation_b_r_m", return_value={"error": "mocked"}),
+            patch.object(mod, "standardized_subfactor_regressions", return_value={"error": "mocked"}),
+            patch.object(mod, "bootstrap_alpha_ci", return_value={"error": "mocked"}),
+            patch.object(mod, "item_level_cohens_d_smb", return_value={}),
+            patch.object(mod, "reliability_by_demo", return_value={}),
+            patch.object(mod, "power_analysis", return_value={"error": "mocked"}),
+            patch.object(mod, "equivalence_test_smb_ent", return_value={"error": "mocked"}),
+            patch.object(mod, "bifactor_barriers", return_value={"error": "mocked"}),
+            patch.object(mod, "multigroup_3f_sem", return_value={"error": "mocked"}),
+            patch.object(mod, "measurement_invariance_approximate", return_value={"error": "mocked"}),
+            patch.object(mod, "dif_irt", return_value={"error": "mocked"}),
+            patch.object(mod, "esem_target_rotation", return_value={"error": "mocked"}),
+            patch.object(mod, "htmt_bootstrap_ci", return_value=(0.60, (0.50, 0.70))),
+            patch.object(mod, "htmt2_ratio", return_value=0.61),
+            patch.object(mod, "subgroup_discriminant", return_value={"htmt": [], "fornell_larcker": []}),
+            patch.object(mod, "alpha_if_deleted_summary", return_value=[]),
+            patch.object(mod, "item_level_validity", return_value=[]),
+            patch.object(mod, "compare_cfa_models", return_value=[]),
+        ]
+
+        with contextlib.ExitStack() as stack:
+            for p in patches:
+                stack.enter_context(p)
+            result = mod.run_validation(df, primary_sample=True)
+
+        # Gap 2
+        assert "henze_zirkler_normality" in result, \
+            "henze_zirkler_normality missing from run_validation() output"
+        # Gap 3
+        assert "inferential" in result, "inferential missing from run_validation() output"
+        assert "t_tests_smb_vs_enterprise" in result["inferential"], \
+            "t_tests_smb_vs_enterprise missing from inferential block"
+        # Gap 4
+        assert "cmv" in result, "cmv missing from run_validation() output"
+        assert "harman_single_factor" in result["cmv"], \
+            "harman_single_factor missing from cmv block"
+        # Gap 6
+        assert "validation_registry" in result, \
+            "validation_registry missing from run_validation() output"
+        assert "total_checks" in result["validation_registry"]
+        assert "pass_rate_pct" in result["validation_registry"]
+        # Gap 7
+        assert "r_parity_tests" in result, \
+            "r_parity_tests missing from run_validation() output"
+        assert "count" in result["r_parity_tests"]
