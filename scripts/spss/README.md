@@ -13,7 +13,7 @@ Built and tested against this combination of installed components
 | ----------------------- | ------------------------------------------------------------------------------------------------------------------------- |
 | **Statistics Base**     | Cronbach's alpha + alpha-if-deleted (Reliability), EFA + KMO + Bartlett (Factor), Pearson + Spearman correlations, T-Test |
 | **Regression**          | Mahalanobis distance (saved via REGRESSION /SAVE MAHAL)                                                                   |
-| **Bootstrapping**       | 95% bootstrap percentile CIs around Cronbach's alpha (1000 resamples, matches Python `bootstrap_alpha_ci` default)        |
+| **Bootstrapping**       | 95% bootstrap percentile CIs on Pearson correlations (Section 7) and regression coefficients (Section 9); 1000 resamples. Note: Cronbach's alpha CIs are not computed via the BOOTSTRAP wrapper in this syntax (support varies by SPSS version/license); alpha CIs are computed authoritatively in the Python pipeline (`bootstrap_alpha_ci`). |
 | **Missing Values**      | Little's MCAR test + missingness pattern analysis (matches the data-quality audit in the Python pipeline)                 |
 | **Advanced Statistics** | One-way MANOVA + univariate ANOVAs (`GLM … BY SMB_ENT`, Section 8: Group Comparisons)                                     |
 
@@ -81,9 +81,9 @@ against the Python pipeline.
 | Analysis                                    | SPSS command                                                                              | Expected value (CRP-200)                                 |
 | ------------------------------------------- | ----------------------------------------------------------------------------------------- | -------------------------------------------------------- |
 | Sanity check (means + SDs)                  | `DESCRIPTIVES VARIABLES=B1 TO B18 R1 TO R17 M1 TO M8`                                     | per-item descriptives                                    |
-| Cronbach's alpha (Barriers) + bootstrap CI  | `BOOTSTRAP ... /VARIABLES TARGET=B1 TO B18 ... RELIABILITY ...`                           | alpha = 0.873; N = 192                                   |
-| Cronbach's alpha (Readiness) + bootstrap CI | same with `R1 TO R17`                                                                     | alpha = 0.917; N = 181                                   |
-| Cronbach's alpha (Maturity) + bootstrap CI  | same with `M1 TO M8`                                                                      | alpha = 0.885; N = 191                                   |
+| Cronbach's alpha (Barriers)                 | `RELIABILITY /VARIABLES=B1 TO B18 /SUMMARY=TOTAL`                                        | alpha = 0.873; N = 192                                   |
+| Cronbach's alpha (Readiness)                | same with `R1 TO R17`                                                                     | alpha = 0.917; N = 181                                   |
+| Cronbach's alpha (Maturity)                 | same with `M1 TO M8`                                                                      | alpha = 0.885; N = 191                                   |
 | Item-total correlations                     | (in Reliability output, `/SUMMARY=TOTAL`)                                                 | per-item ITC                                             |
 | Alpha-if-deleted                            | (in Reliability output, `/SUMMARY=TOTAL`)                                                 | per-item alpha-if-removed                                |
 | EFA Barriers (ML, 2 factors)                | `FACTOR /VARIABLES B1 TO B18 ... /CRITERIA FACTORS(2) /EXTRACTION ML /ROTATION PROMAX(4)` | KMO=0.851; Bartlett chi-squared=1135.51                  |

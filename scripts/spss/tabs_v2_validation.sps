@@ -595,13 +595,13 @@ MVA
 *   Common Python executable locations (use whichever matches your install):
 *     Windows - versioned layout (SPSS 29+):
 *       "C:\Program Files\IBM\SPSS Statistics\31\Python3\python.exe" ^
-*           -m pip install --user semopy
+*           -m pip install --user semopy==2.3.11
 *     Windows - non-versioned layout (older SPSS):
 *       "C:\Program Files\IBM\SPSS Statistics\Python3\python.exe" ^
-*           -m pip install --user semopy
+*           -m pip install --user semopy==2.3.11
 *     macOS (open Terminal and paste):
 *       /Applications/IBM\ SPSS\ Statistics\ 31/SPSSStatistics.app/Contents/Python3/python3 \
-*           -m pip install --user semopy
+*           -m pip install --user semopy==2.3.11
 *   If in doubt, check SPSS -> Help -> Python Integration for the exact path.
 *
 * MATCHES PYTHON KEYS (canonical pipeline in scripts/analysis/):
@@ -642,7 +642,7 @@ try:
         print("       CFA, omega, bifactor, and multigroup CFA require semopy.")
         print("       The launcher (.bat/.command) installs semopy automatically.")
         print("       If you opened this syntax without the launcher, install:")
-        print("         <SPSS install>\\Python3\\python.exe -m pip install --user semopy")
+        print("         <SPSS install>\\Python3\\python.exe -m pip install --user semopy==2.3.11")
         print("       The R fallback in Section 14 will still run.")
 except Exception as exc:
     print("[skip] Required core packages not available: " + str(exc))
