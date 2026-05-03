@@ -121,16 +121,20 @@ if [ -n "$SPSS_PYTHON" ]; then
   echo "----------------------------------------------------------"
   echo "Checking Python SEM packages (numpy, pandas, scipy, semopy)"
   echo "----------------------------------------------------------"
-  if "$SPSS_PYTHON" -c "import numpy, pandas, scipy, semopy" >/dev/null 2>&1; then
-    echo "OK: numpy, pandas, scipy, semopy are already installed. Skipping install step."
+  # Check that semopy==2.3.11 is installed at exactly the pinned version.
+  # Checking the version (not just import success) ensures reproducibility:
+  # a different semopy version can produce different CFA fit indices and
+  # omega values, causing mismatches against the canonical pipeline output.
+  if "$SPSS_PYTHON" -c "import semopy; assert semopy.__version__ == '2.3.11', 'version mismatch'" >/dev/null 2>&1; then
+    echo "OK: semopy 2.3.11 is already installed. Skipping install step."
   else
-    echo "One or more SEM packages (numpy, pandas, scipy, semopy) are not yet"
-    echo "installed. Installing now (~30 sec)..."
+    echo "semopy 2.3.11 is not installed or is at a different version."
+    echo "Installing/reinstalling now (~30 sec)..."
     echo
     "$SPSS_PYTHON" -m pip install --user --upgrade pip
     if "$SPSS_PYTHON" -m pip install --user semopy==2.3.11; then
       echo
-      echo "OK: numpy, pandas, scipy, semopy installed successfully."
+      echo "OK: semopy 2.3.11 installed successfully."
     else
       echo
       echo "WARNING: pip install failed. Section 13 (Python CFA) will skip."

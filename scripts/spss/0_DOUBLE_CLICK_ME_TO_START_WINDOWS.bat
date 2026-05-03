@@ -182,13 +182,14 @@ if defined SPSS_PYTHON (
   echo Checking Python SEM packages ^(numpy, pandas, scipy, semopy^)
   echo ----------------------------------------------------------
 
-  REM Quick check: try to import all required SEM packages. If they all
-  REM work, skip install. semopy==2.3.11 pulls numpy/pandas/scipy as
-  REM dependencies, so one install covers all four.
-  "%SPSS_PYTHON%" -c "import numpy, pandas, scipy, semopy" 2>nul
+  REM Check that semopy==2.3.11 is installed at exactly the pinned version.
+  REM Checking the version (not just import success) ensures reproducibility:
+  REM a different semopy version can produce different CFA fit indices and
+  REM omega values, causing mismatches against the canonical pipeline output.
+  "%SPSS_PYTHON%" -c "import semopy; assert semopy.__version__ == '2.3.11', 'version mismatch'" 2>nul
   if errorlevel 1 (
-    echo One or more SEM packages ^(numpy, pandas, scipy, semopy^) are not
-    echo yet installed. Installing now ^(~30 sec^)...
+    echo semopy 2.3.11 is not installed or is at a different version.
+    echo Installing/reinstalling now ^(~30 sec^)...
     echo.
     "%SPSS_PYTHON%" -m pip install --user --upgrade pip
     "%SPSS_PYTHON%" -m pip install --user semopy==2.3.11
@@ -198,10 +199,10 @@ if defined SPSS_PYTHON (
       echo          R fallback in Section 14 will activate if lavaan is installed.
     ) else (
       echo.
-      echo OK: numpy, pandas, scipy, semopy installed successfully.
+      echo OK: semopy 2.3.11 installed successfully.
     )
   ) else (
-    echo OK: numpy, pandas, scipy, semopy are already installed. Skipping install step.
+    echo OK: semopy 2.3.11 is already installed. Skipping install step.
   )
   echo.
 )
