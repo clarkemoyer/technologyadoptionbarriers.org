@@ -147,7 +147,9 @@ Advanced Statistics.
 Sections 1–12 use only built-in SPSS procedures (descriptives,
 reliability, factor analysis, correlations, MVA). Sections 13–14 extend
 the validation via embedded Python (`semopy==2.3.11`) and embedded R
-(`lavaan`/`semTools`), which the launcher pre-installs automatically:
+(`lavaan`/`semTools`): `semopy` is installed automatically on first run;
+R packages (`lavaan`, `semTools`) are optional and installed only after
+the launcher prompts for confirmation.
 
 - **Section 13** (Python/semopy): CFA fit indices, McDonald's omega,
   composite reliability, AVE, HTMT/HTMT2, **bifactor decomposition**

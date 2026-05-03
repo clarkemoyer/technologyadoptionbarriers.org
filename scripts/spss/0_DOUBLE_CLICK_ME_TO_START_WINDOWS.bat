@@ -89,28 +89,47 @@ REM ====================================================================
 REM Locate SPSS Statistics + bundled python.exe
 REM ====================================================================
 
-REM Search order: version-numbered paths newest-first, then the generic
-REM versionless paths last (those resolve to whatever IBM happens to install,
-REM which is sometimes older than the newest version-specific path on the same
-REM machine when the user has multiple SPSS versions side-by-side).
+REM Search order: version-numbered paths newest-first (each version checked
+REM under both the "IBM\SPSS Statistics\<ver>" layout – the common IBM
+REM installer default – and the "IBM\SPSS\Statistics\<ver>" layout used by
+REM some enterprise deployments), then versionless generic paths last (those
+REM resolve to whatever IBM happens to install, which is sometimes older than
+REM the newest version-specific path on the same machine when the user has
+REM multiple SPSS versions side-by-side).
 set "SPSS_DIR="
 set "SPSS_EXE="
 for %%P in (
+  "%ProgramFiles%\IBM\SPSS Statistics\31"
   "%ProgramFiles%\IBM\SPSS\Statistics\31"
+  "%ProgramFiles%\IBM\SPSS Statistics\30"
   "%ProgramFiles%\IBM\SPSS\Statistics\30"
+  "%ProgramFiles%\IBM\SPSS Statistics\29"
   "%ProgramFiles%\IBM\SPSS\Statistics\29"
+  "%ProgramFiles%\IBM\SPSS Statistics\28"
   "%ProgramFiles%\IBM\SPSS\Statistics\28"
+  "%ProgramFiles%\IBM\SPSS Statistics\27"
   "%ProgramFiles%\IBM\SPSS\Statistics\27"
+  "%ProgramFiles%\IBM\SPSS Statistics\26"
   "%ProgramFiles%\IBM\SPSS\Statistics\26"
+  "%ProgramFiles%\IBM\SPSS Statistics\25"
   "%ProgramFiles%\IBM\SPSS\Statistics\25"
+  "%ProgramFiles%\IBM\SPSS Statistics\24"
   "%ProgramFiles%\IBM\SPSS\Statistics\24"
+  "%ProgramFiles(x86)%\IBM\SPSS Statistics\31"
   "%ProgramFiles(x86)%\IBM\SPSS\Statistics\31"
+  "%ProgramFiles(x86)%\IBM\SPSS Statistics\30"
   "%ProgramFiles(x86)%\IBM\SPSS\Statistics\30"
+  "%ProgramFiles(x86)%\IBM\SPSS Statistics\29"
   "%ProgramFiles(x86)%\IBM\SPSS\Statistics\29"
+  "%ProgramFiles(x86)%\IBM\SPSS Statistics\28"
   "%ProgramFiles(x86)%\IBM\SPSS\Statistics\28"
+  "%ProgramFiles(x86)%\IBM\SPSS Statistics\27"
   "%ProgramFiles(x86)%\IBM\SPSS\Statistics\27"
+  "%ProgramFiles(x86)%\IBM\SPSS Statistics\26"
   "%ProgramFiles(x86)%\IBM\SPSS\Statistics\26"
+  "%ProgramFiles(x86)%\IBM\SPSS Statistics\25"
   "%ProgramFiles(x86)%\IBM\SPSS\Statistics\25"
+  "%ProgramFiles(x86)%\IBM\SPSS Statistics\24"
   "%ProgramFiles(x86)%\IBM\SPSS\Statistics\24"
   "%ProgramFiles%\IBM\SPSS Statistics"
   "%ProgramFiles(x86)%\IBM\SPSS Statistics"
