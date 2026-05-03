@@ -207,9 +207,9 @@ def main(argv=None) -> int:
             pos = arr[arr > 0]
             return float(np.exp(np.mean(np.log(pos)))) if len(pos) > 0 else float("nan")
 
-        iB = list(range(0, 18))
-        iR = list(range(18, 35))
-        iM = list(range(35, 43))
+        iB = list(range(0, len(B)))
+        iR = list(range(len(B), len(B) + len(R)))
+        iM = list(range(len(B) + len(R), len(B) + len(R) + len(M)))
 
         def block_offdiag_mean(idx, src):
             sub = src[np.ix_(idx, idx)]
@@ -396,10 +396,22 @@ def main(argv=None) -> int:
             m_smb.fit(smb, obj="MLW")
             m_ent = Model(spec_3f)
             m_ent.fit(ent, obj="MLW")
-            s_smb = calc_stats(m_smb).iloc[0]
-            s_ent = calc_stats(m_ent).iloc[0]
-            chi_config = float(s_smb["chi2"]) + float(s_ent["chi2"])
-            df_config = float(s_smb["DoF"]) + float(s_ent["DoF"])
+
+            def _mg_stat(model, key):
+                """Extract a scalar from calc_stats(), handling both orientations."""
+                fit_df = calc_stats(model)
+                if "Value" in fit_df.index and key not in fit_df.index:
+                    if key not in fit_df.columns:
+                        print(f"  WARNING: '{key}' not found in calc_stats() output", file=sys.stderr)
+                        return None
+                    return float(fit_df.loc["Value", key])
+                if key in fit_df.index and "Value" in fit_df.columns:
+                    return float(fit_df.loc[key, "Value"])
+                print(f"  WARNING: '{key}' not found in calc_stats() output", file=sys.stderr)
+                return None
+
+            chi_config = (_mg_stat(m_smb, "chi2") or 0.0) + (_mg_stat(m_ent, "chi2") or 0.0)
+            df_config = (_mg_stat(m_smb, "DoF") or 0.0) + (_mg_stat(m_ent, "DoF") or 0.0)
             _emit_pair(handle, "Configural chi-squared (sum)", chi_config, fmt="%.2f")
             _emit_pair(handle, "Configural df (sum)", int(df_config), fmt="%d")
             txt.write(

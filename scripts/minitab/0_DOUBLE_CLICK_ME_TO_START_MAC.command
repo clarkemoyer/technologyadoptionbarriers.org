@@ -141,7 +141,7 @@ else
     echo "semopy is not yet installed. Installing now (~30-90 sec)..."
     echo
     "$PYTHON_EXE" -m pip install --user --upgrade pip
-    if "$PYTHON_EXE" -m pip install --user numpy pandas scipy semopy; then
+    if "$PYTHON_EXE" -m pip install --user numpy pandas scipy "semopy==2.3.11"; then
       echo
       echo "OK: semopy installed successfully."
     else
@@ -150,6 +150,8 @@ else
       PYTHON_EXE=""
     fi
   fi
+  SEMOPY_VER=$("$PYTHON_EXE" -c "import semopy; print(semopy.__version__)" 2>/dev/null || echo "unknown")
+  echo "  semopy version: $SEMOPY_VER"
   echo
 fi
 

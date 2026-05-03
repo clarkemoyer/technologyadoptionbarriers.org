@@ -201,7 +201,7 @@ SEM companion:
 1. Install Python 3.10+ from https://python.org if you do not have it.
 2. From a terminal in this folder:
    ```
-   python -m pip install --user numpy pandas scipy semopy
+   python -m pip install --user numpy pandas scipy "semopy==2.3.11"
    python tabs_v2_sem_companion.py --csv tabs_v2_crp200_minitab.csv --out-dir .
    ```
 3. Open `sem_companion_results.txt` (Notepad / TextEdit) or
@@ -369,6 +369,15 @@ def _combined_requirements() -> str:
     )
 
 
+def _mtime_tuple(src: Path) -> tuple:
+    """Return a 6-tuple (Y, M, D, h, m, s) from *src*'s mtime for ZipInfo."""
+    import datetime
+
+    ts = src.stat().st_mtime
+    dt = datetime.datetime.fromtimestamp(ts)
+    return (dt.year, dt.month, dt.day, dt.hour, dt.minute, dt.second)
+
+
 def _add_to_zip(zf: zipfile.ZipFile, src: Path, arcname: str) -> None:
     """Add *src* to *zf* with correct permissions and line endings.
 
@@ -377,25 +386,40 @@ def _add_to_zip(zf: zipfile.ZipFile, src: Path, arcname: str) -> None:
       Windows (create_system=3, external_attr=0o100755<<16).
     * ``.bat`` / ``.cmd`` – line endings are normalised to CRLF so the file
       runs on all Windows versions regardless of the build platform.
-    * Everything else – packaged as-is (no special treatment).
-    """
-    data = src.read_bytes()
-    info = zipfile.ZipInfo(arcname)
-    info.compress_type = zipfile.ZIP_DEFLATED
+    * Everything else – added with ``zf.write()`` to preserve OS metadata and
+      avoid reading the whole file into memory.
 
+    Timestamps are taken from the source file's mtime so consecutive builds
+    from the same sources produce identical archives (deterministic output).
+    """
     suffix = src.suffix.lower()
+
     if suffix in (".command", ".sh"):
+        data = src.read_bytes()
+        info = zipfile.ZipInfo(arcname)
+        info.compress_type = zipfile.ZIP_DEFLATED
+        info.date_time = _mtime_tuple(src)
         info.create_system = 3  # Unix
         info.external_attr = 0o100755 << 16  # rwxr-xr-x
+        zf.writestr(info, data)
     elif suffix in (".bat", ".cmd"):
         # Normalise line endings to CRLF: first convert all existing line
         # endings (\r\n or lone \r) to bare \n, then replace every \n with
         # \r\n.  This makes the file run correctly on all Windows versions
         # regardless of the build platform's native line endings.
+        data = src.read_bytes()
         data = data.replace(b"\r\n", b"\n").replace(b"\r", b"\n").replace(b"\n", b"\r\n")
-    # For all other types, ZipInfo defaults (create_system=0, no exec bit) are fine.
-
-    zf.writestr(info, data)
+        info = zipfile.ZipInfo(arcname)
+        info.compress_type = zipfile.ZIP_DEFLATED
+        info.date_time = _mtime_tuple(src)
+        zf.writestr(info, data)
+    else:
+        # For all other files: use a ZipInfo with the mtime set explicitly so
+        # all three branches produce deterministic timestamps consistently.
+        info = zipfile.ZipInfo(arcname)
+        info.compress_type = zipfile.ZIP_DEFLATED
+        info.date_time = _mtime_tuple(src)
+        zf.writestr(info, src.read_bytes())
 
 
 def build_one(

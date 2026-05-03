@@ -187,7 +187,7 @@ if errorlevel 1 (
   echo on whether numpy/pandas/scipy are also missing^)...
   echo.
   "%PYTHON_EXE%" -m pip install --user --upgrade pip
-  "%PYTHON_EXE%" -m pip install --user numpy pandas scipy semopy
+  "%PYTHON_EXE%" -m pip install --user numpy pandas scipy "semopy==2.3.11"
   if errorlevel 1 (
     echo.
     echo WARNING: pip install failed. SEM companion will not run.
@@ -199,6 +199,8 @@ if errorlevel 1 (
 ) else (
   echo OK: semopy is already installed. Skipping install step.
 )
+for /f "delims=" %%v in ('"%PYTHON_EXE%" -c "import semopy; print(semopy.__version__)" 2^>nul') do set SEMOPY_VER=%%v
+echo   semopy version: %SEMOPY_VER%
 echo.
 
 REM ====================================================================
