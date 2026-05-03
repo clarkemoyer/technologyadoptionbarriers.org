@@ -599,7 +599,13 @@
         },
         "other_roles": {
           "total": 18,
-          "categories": {}
+          "categories": {
+            "Director": 9,
+            "VP / SVP": "<5",
+            "Uncategorized": "<5",
+            "Manager / Program Lead": "<5",
+            "C-Suite Adjacent": "<5"
+          }
         }
       },
       "effect_sizes": {
@@ -864,7 +870,14 @@
         },
         "other_roles": {
           "total": 38,
-          "categories": {}
+          "categories": {
+            "Director": 20,
+            "VP / SVP": 6,
+            "Uncategorized": 5,
+            "Manager / Program Lead": "<5",
+            "C-Suite Adjacent": "<5",
+            "Owner / Founder / President": "<5"
+          }
         }
       },
       "effect_sizes": {
@@ -1129,7 +1142,14 @@
         },
         "other_roles": {
           "total": 38,
-          "categories": {}
+          "categories": {
+            "Director": 20,
+            "VP / SVP": 6,
+            "Uncategorized": 5,
+            "Manager / Program Lead": "<5",
+            "C-Suite Adjacent": "<5",
+            "Owner / Founder / President": "<5"
+          }
         }
       },
       "effect_sizes": {
@@ -1394,7 +1414,14 @@
         },
         "other_roles": {
           "total": 38,
-          "categories": {}
+          "categories": {
+            "Director": 20,
+            "VP / SVP": 6,
+            "Uncategorized": 5,
+            "Manager / Program Lead": "<5",
+            "C-Suite Adjacent": "<5",
+            "Owner / Founder / President": "<5"
+          }
         }
       },
       "effect_sizes": {
