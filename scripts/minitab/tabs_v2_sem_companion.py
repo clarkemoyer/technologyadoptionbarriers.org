@@ -196,63 +196,67 @@ def main(argv=None) -> int:
         # 1. HTMT + HTMT2
         # -----------------------------------------------------------------
         _section(handle, "1. HTMT and HTMT2 (discriminant validity)")
-        items = B + R + M
-        items_df = df[items].dropna().astype(float)
-        cor = items_df.corr().values
-        abs_cor = np.abs(cor)
 
-        # HTMT2 uses geometric means (Roemer et al., 2021). To match the
-        # canonical htmt2_ratio() in tabs_v2_validation.py, filter out
-        # non-positive absolute correlations before taking log instead of
-        # adding a global epsilon that perturbs every value.
-        def _geo_mean(arr):
-            """Geometric mean of positive-only values; returns float NaN if none."""
-            pos = arr[arr > 0]
-            return float(np.exp(np.mean(np.log(pos)))) if len(pos) > 0 else float("nan")
+        # Each HTMT pair uses per-pair listwise deletion (only the two
+        # constructs' columns), matching the canonical htmt_ratio() /
+        # htmt2_ratio() in tabs_v2_validation.py which does
+        #   pd.concat([data1, data2], axis=1).dropna()
+        # for each pair independently. This avoids discarding rows that
+        # have data for the pair but are missing items in a third construct.
 
-        iB = list(range(0, len(B)))
-        iR = list(range(len(B), len(B) + len(R)))
-        iM = list(range(len(B) + len(R), len(B) + len(R) + len(M)))
+        def _htmt_pair(cols1, cols2):
+            """HTMT for one construct pair using per-pair listwise deletion."""
+            combined = pd.concat(
+                [df[cols1], df[cols2]], axis=1
+            ).dropna().astype(float)
+            if len(combined) < 3:
+                return float("nan"), float("nan")
+            d1 = combined.iloc[:, : len(cols1)]
+            d2 = combined.iloc[:, len(cols1) :]
+            p1, p2 = d1.shape[1], d2.shape[1]
+            if p1 < 2 or p2 < 2:
+                return float("nan"), float("nan")
 
-        def block_offdiag_mean(idx, src):
-            sub = src[np.ix_(idx, idx)]
-            n = len(idx)
-            return (sub.sum() - np.trace(sub)) / (n * n - n)
+            # Within-construct correlation blocks
+            w1 = d1.corr().values
+            mask1 = ~np.eye(p1, dtype=bool)
+            abs_w1 = np.abs(w1[mask1])
 
-        def block_cross_mean(i1, i2, src):
-            sub = src[np.ix_(i1, i2)]
-            return sub.mean()
+            w2 = d2.corr().values
+            mask2 = ~np.eye(p2, dtype=bool)
+            abs_w2 = np.abs(w2[mask2])
 
-        def block_offdiag_geo(idx, src):
-            sub = src[np.ix_(idx, idx)]
-            mask = ~np.eye(len(idx), dtype=bool)
-            return _geo_mean(sub[mask])
+            # Between-construct correlations (all cross-pairs)
+            between = [abs(d1[c1].corr(d2[c2])) for c1 in d1.columns for c2 in d2.columns]
+            between_mean = float(np.mean(between))
 
-        def block_cross_geo(i1, i2, src):
-            sub = src[np.ix_(i1, i2)]
-            return _geo_mean(sub.ravel())
+            # HTMT (arithmetic means)
+            within1_mean = float(abs_w1.mean())
+            within2_mean = float(abs_w2.mean())
+            geo_arith = np.sqrt(within1_mean * within2_mean)
+            htmt = between_mean / geo_arith if geo_arith > 0 else float("nan")
 
-        mB = block_offdiag_mean(iB, abs_cor)
-        mR = block_offdiag_mean(iR, abs_cor)
-        mM = block_offdiag_mean(iM, abs_cor)
-        mBR = block_cross_mean(iB, iR, abs_cor)
-        mBM = block_cross_mean(iB, iM, abs_cor)
-        mRM = block_cross_mean(iR, iM, abs_cor)
+            # HTMT2 (geometric means — Roemer et al. 2021)
+            abs_w1_pos = abs_w1[abs_w1 > 0]
+            abs_w2_pos = abs_w2[abs_w2 > 0]
+            if len(abs_w1_pos) == 0 or len(abs_w2_pos) == 0:
+                return htmt, float("nan")
+            within1_geo = float(np.exp(np.mean(np.log(abs_w1_pos))))
+            within2_geo = float(np.exp(np.mean(np.log(abs_w2_pos))))
 
-        mB2 = block_offdiag_geo(iB, abs_cor)
-        mR2 = block_offdiag_geo(iR, abs_cor)
-        mM2 = block_offdiag_geo(iM, abs_cor)
-        mBR2 = block_cross_geo(iB, iR, abs_cor)
-        mBM2 = block_cross_geo(iB, iM, abs_cor)
-        mRM2 = block_cross_geo(iR, iM, abs_cor)
+            between_pos = [v for v in between if pd.notna(v) and v > 0]
+            if len(between_pos) == 0:
+                return htmt, float("nan")
+            between_geo = float(np.exp(np.mean(np.log(between_pos))))
+            geo_geo = np.sqrt(within1_geo * within2_geo)
+            htmt2 = between_geo / geo_geo if geo_geo > 0 else float("nan")
 
-        for pair, h, h2 in (
-            ("B-R", mBR / np.sqrt(mB * mR), mBR2 / np.sqrt(mB2 * mR2)),
-            ("B-M", mBM / np.sqrt(mB * mM), mBM2 / np.sqrt(mB2 * mM2)),
-            ("R-M", mRM / np.sqrt(mR * mM), mRM2 / np.sqrt(mR2 * mM2)),
-        ):
-            _emit_pair(handle, f"HTMT {pair}", float(h))
-            _emit_pair(handle, f"HTMT2 {pair}", float(h2))
+            return htmt, htmt2
+
+        for pair_name, c1, c2 in (("B-R", B, R), ("B-M", B, M), ("R-M", R, M)):
+            h, h2 = _htmt_pair(c1, c2)
+            _emit_pair(handle, f"HTMT {pair_name}", h)
+            _emit_pair(handle, f"HTMT2 {pair_name}", h2)
 
         txt.write("  Henseler (2015) cutoff for distinct constructs: < 0.85\n")
 
@@ -456,7 +460,7 @@ def main(argv=None) -> int:
             n, p = X.shape
             Xc = X - X.mean(axis=0)
             S = np.cov(Xc, rowvar=False, bias=True)
-            Sinv = np.linalg.inv(S)
+            Sinv = np.linalg.pinv(S)
             D = Xc @ Sinv @ Xc.T
             b1p = float((D ** 3).sum() / (n ** 2))
             b2p = float((np.diag(D) ** 2).mean())
