@@ -131,7 +131,7 @@ const STAGES: Stage[] = [
     num: '6',
     title: 'Descriptive Analysis',
     phase: 'Phase 2.5',
-    source: 'scripts/analysis/tabs_v2_analysis.py',
+    source: 'scripts/analysis/tabs_v2_unified_data_analysis.py',
     description:
       'Means, SDs, skewness, kurtosis, inter-construct correlations, top-3 forced-choice tallies. Run once per sample tier.',
     outputs: ['sensitivity-analysis.json (per-sample stats)'],
@@ -143,7 +143,7 @@ const STAGES: Stage[] = [
     num: '7',
     title: 'Advanced Analysis',
     phase: 'Phase 2.6',
-    source: 'scripts/analysis/tabs_v2_advanced.py',
+    source: 'scripts/analysis/tabs_v2_unified_data_analysis.py',
     description:
       'Effect sizes (Cohen d), t-tests, ANOVA, regression on demographic groupings, cross-tabs. Per sample tier.',
     outputs: ['effect-size and inferential blocks in sensitivity JSON'],
@@ -171,7 +171,7 @@ const STAGES: Stage[] = [
     num: '9',
     title: 'Quality Audit',
     phase: 'Phase 2.8',
-    source: 'scripts/analysis/tabs_v2_quality_audit.py',
+    source: 'scripts/analysis/tabs_v2_unified_data_analysis.py',
     description:
       'Outlier detection (Mahalanobis, Cook distance), common-method-variance check, missing-data pattern audit. Cross-checks earlier stages.',
     outputs: ['quality block in unified analysis JSON'],

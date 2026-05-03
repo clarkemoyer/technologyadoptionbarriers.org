@@ -86,13 +86,16 @@ describe('DataQualityContent — live variant', () => {
   })
 
   it('shows all five samples in the Sample Definitions table', () => {
-    // Each label appears at least once (in the table row and/or filter-chain card heading)
-    expect(screen.getAllByText(/conservative clean/i).length).toBeGreaterThan(0)
-    expect(screen.getAllByText(/flexible clean/i).length).toBeGreaterThan(0)
-    expect(screen.getAllByText(/prolific accepted/i).length).toBeGreaterThan(0)
-    expect(screen.getAllByText(/all v2 finished/i).length).toBeGreaterThan(0)
-    // "All V2" appears as both a sample row and in prose; just confirm it's present
-    expect(screen.getAllByText(/\ball v2\b/i).length).toBeGreaterThan(0)
+    const section = screen
+      .getByRole('heading', { name: /^sample definitions$/i })
+      .closest('section')!
+    const table = section.querySelector('table')!
+    const t = within(table as HTMLElement)
+    expect(t.getByText('Conservative Clean')).toBeInTheDocument()
+    expect(t.getByText('Flexible Clean')).toBeInTheDocument()
+    expect(t.getByText('Prolific Accepted')).toBeInTheDocument()
+    expect(t.getByText('All V2 Finished')).toBeInTheDocument()
+    expect(t.getByText('All V2')).toBeInTheDocument()
   })
 
   it('uses "five" in sensitivity-analysis prose', () => {
@@ -242,14 +245,16 @@ describe('DataQualityContent — metric value formatting', () => {
         {
           key: 'n_total',
           label: 'N Total',
-          values: { conservative_clean: 78, flexible_clean: 123, prolific_accepted: 200 },
+          // Use 42 — absent from all sample n-values (78, 123, 200, 332, 390)
+          // so the assertion is not a false positive from the N column.
+          values: { conservative_clean: 42, flexible_clean: 123, prolific_accepted: 200 },
         },
       ],
     }
     render(<DataQualityContent variant="crp" data={dataWithInt} />)
-    // The integer 78 should render as "78", not "78.0000"
-    expect(screen.getAllByText('78').length).toBeGreaterThan(0)
-    expect(screen.queryByText('78.0000')).not.toBeInTheDocument()
+    // The integer 42 should render as "42", not "42.0000"
+    expect(screen.getByText('42')).toBeInTheDocument()
+    expect(screen.queryByText('42.0000')).not.toBeInTheDocument()
   })
 
   it('formats floats to 4 decimal places', () => {
