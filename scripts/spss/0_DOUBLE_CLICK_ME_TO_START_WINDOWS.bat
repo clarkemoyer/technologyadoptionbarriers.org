@@ -30,11 +30,18 @@ REM We rely on that throughout: %HERE%filename (no extra \) is intentional.
 set "HERE=%~dp0"
 set "HERE_FWD=%HERE:\=/%"
 
+REM Safe-for-echo version: ^ must be escaped first (^^), then & as ^&.
+REM Protects against folder names such as "Work & Projects" where a bare
+REM 'echo %HERE%' would be split by cmd.exe at the & character, causing
+REM display corruption and breaking the pipe into findstr below.
+set "HERE_SAFE_ECHO=%HERE:^=^^%"
+set "HERE_SAFE_ECHO=%HERE_SAFE_ECHO:&=^&%"
+
 cd /d "%HERE%"
 
 echo ==========================================================
 echo TABS V2 CRP-200 Validation - Windows launcher
-echo Working folder: %HERE%
+echo Working folder: %HERE_SAFE_ECHO%
 echo ==========================================================
 echo.
 
@@ -43,10 +50,10 @@ REM Detect "running from inside the zip" / missing siblings
 REM ====================================================================
 
 set "RUNNING_FROM_ZIP=0"
-echo %HERE% | findstr /I /C:"\Temp\Temp" >nul && set "RUNNING_FROM_ZIP=1"
-echo %HERE% | findstr /I /R "\\AppData\\Local\\Temp\\.*\.zip" >nul && set "RUNNING_FROM_ZIP=1"
-echo %HERE% | findstr /I /R "\\AppData\\Local\\Temp\\Rar\$" >nul && set "RUNNING_FROM_ZIP=1"
-echo %HERE% | findstr /I /R "\\AppData\\Local\\Temp\\7z" >nul && set "RUNNING_FROM_ZIP=1"
+echo %HERE_SAFE_ECHO% | findstr /I /C:"\Temp\Temp" >nul && set "RUNNING_FROM_ZIP=1"
+echo %HERE_SAFE_ECHO% | findstr /I /R "\\AppData\\Local\\Temp\\.*\.zip" >nul && set "RUNNING_FROM_ZIP=1"
+echo %HERE_SAFE_ECHO% | findstr /I /R "\\AppData\\Local\\Temp\\Rar\$" >nul && set "RUNNING_FROM_ZIP=1"
+echo %HERE_SAFE_ECHO% | findstr /I /R "\\AppData\\Local\\Temp\\7z" >nul && set "RUNNING_FROM_ZIP=1"
 
 if "%RUNNING_FROM_ZIP%"=="1" goto NOT_EXTRACTED
 if not exist "%HERE%tabs_v2_crp200_spss.sav" goto NOT_EXTRACTED
@@ -67,7 +74,7 @@ echo.
 echo  This .bat needs its sibling files (the .sav data, the .sps
 echo  syntax, etc.) in the same folder.
 echo.
-echo  Detected folder: %HERE%
+echo  Detected folder: %HERE_SAFE_ECHO%
 echo.
 echo  Please do this instead:
 echo.

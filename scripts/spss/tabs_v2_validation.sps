@@ -426,13 +426,11 @@ REGRESSION
   /METHOD=ENTER R_mean M_mean.
 
 * =====================================================================
-* SECTION 10 of 15: OUTLIER DETECTION (Mahalanobis, leverage, Cook's D)
+* SECTION 10 of 15: OUTLIER DETECTION (Mahalanobis, leverage)
 * ---------------------------------------------------------------------
 * What this produces (per construct):
 *   - Mahalanobis squared distance per case (saved as MAH_1, MAH_2, MAH_3)
 *   - Leverage values per case (saved as LEV_1, LEV_2, LEV_3)
-*   - Cook's distance per case (saved as COO_1, COO_2, COO_3)
-*   - Standardized DfBeta per case (saved as SDB_*)
 *   - Residuals Statistics table with Min/Max/Mean/SD for each diagnostic
 *
 * IMPLEMENTATION NOTE:
@@ -440,19 +438,21 @@ REGRESSION
 *   The dependent variable is a row index ($CASENUM via row_index)
 *   rather than the construct mean to avoid a perfect-fit warning
 *   (the construct mean is a perfect linear combo of its predictor
-*   items). Mahalanobis depends only on the predictor covariance, so
-*   the saved values are identical regardless of dependent.
+*   items). Mahalanobis and leverage depend only on the predictor
+*   covariance, so the saved values are identical regardless of DV.
+*   Cook's D is intentionally excluded: it measures influence on DV
+*   predictions and is meaningless when the DV is an arbitrary row index.
 * Matches Python keys: mahalanobis_outliers (per-construct max D-sq
 *                       and outlier counts at chi-square cutoffs)
 * =====================================================================.
 
-TITLE 'Section 10: Outlier Detection (Mahalanobis + Cook D + Leverage)'.
+TITLE 'Section 10: Outlier Detection (Mahalanobis + Leverage)'.
 
 
 COMPUTE row_index = $CASENUM.
 EXECUTE.
 
-* --- Barriers: Mahalanobis + Cook's D + Leverage ---.
+* --- Barriers: Mahalanobis + Leverage ---.
 REGRESSION
   /MISSING LISTWISE
   /STATISTICS R ANOVA
@@ -460,23 +460,23 @@ REGRESSION
   /NOORIGIN
   /DEPENDENT row_index
   /METHOD=ENTER B1 B2 B3 B4 B5 B6 B7 B8 B9 B10 B11 B12 B13 B14 B15 B16 B17 B18
-  /SAVE MAHAL LEVER COOK.
+  /SAVE MAHAL LEVER.
 
-* --- Readiness: Mahalanobis + Cook's D + Leverage ---.
+* --- Readiness: Mahalanobis + Leverage ---.
 REGRESSION
   /MISSING LISTWISE
   /STATISTICS R
   /DEPENDENT row_index
   /METHOD=ENTER R1 TO R17
-  /SAVE MAHAL LEVER COOK.
+  /SAVE MAHAL LEVER.
 
-* --- Maturity: Mahalanobis + Cook's D + Leverage ---.
+* --- Maturity: Mahalanobis + Leverage ---.
 REGRESSION
   /MISSING LISTWISE
   /STATISTICS R
   /DEPENDENT row_index
   /METHOD=ENTER M1 TO M8
-  /SAVE MAHAL LEVER COOK.
+  /SAVE MAHAL LEVER.
 
 * =====================================================================
 * SECTION 11 of 15: SUBGROUP RELIABILITY (alpha by SMB vs Enterprise)
