@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react'
 import Link from 'next/link'
 import {
   ARTICLE_CLASSES,
@@ -702,7 +703,7 @@ const CrossTabTable = ({ rows }: { rows: CrossTabRow[] }) => (
 )
 
 interface TTestTableProps {
-  title: React.ReactNode
+  title: ReactNode
   nLabels: { label: string; n: number | undefined }[]
   constructs: Record<string, InferentialConstruct>
 }
