@@ -117,12 +117,12 @@ same frozen N=200 dataset that drives the canonical Python and R analyses.
    - **Windows**: `0_DOUBLE_CLICK_ME_TO_START_WINDOWS.bat`
    - **macOS**: right-click `0_DOUBLE_CLICK_ME_TO_START_MAC.command` -> Open (one-time
      Gatekeeper prompt). After the first run, double-click works.
-3. Wait about 60 seconds for the bootstrap blocks to complete.
-4. When you see "DONE", open `spv_export.xlsx` in this folder.
+3. SPSS opens with the syntax preloaded; click **Run → All** inside SPSS.
+4. After ~60 seconds, open `spv_export.xlsx` in this folder.
 
-The launcher locates SPSS automatically, runs the syntax in production
-mode (no GUI clicks required), and writes two result files into the
-same folder you extracted the zip to:
+The launcher locates SPSS automatically and opens it with the syntax
+file preloaded. Two result files are written into the same folder you
+extracted the zip to once SPSS finishes running:
 
 - `spv_export.xlsx` - all SPSS tables in Excel format
 - `Post_Run_Results.spv` - native SPSS Viewer document (open with SPSS or
@@ -140,8 +140,9 @@ to the unzipped folder via `Edit -> Options -> File Locations`.
 
 ## Targeted SPSS license
 
-Built for IBM SPSS Statistics 24+ with Statistics Base + Regression +
-Bootstrapping + Missing Values + Advanced Statistics. Without IBM SPSS
+Tested on IBM SPSS Statistics 31.0; expected to work on 24+ with
+Statistics Base, Regression, Bootstrapping, Missing Values, and
+Advanced Statistics. Without IBM SPSS
 Amos, this bundle covers the descriptive + reliability layer only - CFA
 fit indices, McDonald's omega from CFA, composite reliability with SEs,
 AVE, HTMT/HTMT2, bifactor decompositions, second-order CFA, multigroup CFA,
@@ -155,7 +156,7 @@ Python pipeline (download `tabs_v2_validation_python.zip` for those).
 0_DOUBLE_CLICK_ME_TO_START_MAC.command      <- macOS double-click launcher
 tabs_v2_crp200_spss.sav     <- SPSS native binary worksheet
 tabs_v2_crp200_spss.csv     <- same data, CSV form (for re-import elsewhere)
-tabs_v2_validation.sps      <- syntax file (auto-runs from the launcher)
+tabs_v2_validation.sps      <- syntax file (loaded into SPSS by the launcher; click Run → All)
 README_SPSS.md              <- detailed walkthrough + expected values
 README.md                   <- this file
 ```
@@ -359,7 +360,19 @@ def _add_to_zip(zf: zipfile.ZipFile, src_path: Path, dest: str) -> None:
     dest_lower = dest.lower()
     if dest_lower.endswith(_EXECUTABLE_EXTS):
         info = zipfile.ZipInfo.from_file(src_path, arcname=dest)
-        info.external_attr = _EXECUTABLE_MODE << 16
+        # Derive the Unix mode from the source file, then ensure +x is set.
+        # Fallback to 0o100755 if stat is unavailable (e.g., on Windows).
+        try:
+            src_mode = src_path.stat().st_mode
+            # Ensure regular-file bit and execute bits are set.
+            exec_mode = src_mode | 0o100111
+        except OSError:
+            exec_mode = _EXECUTABLE_MODE
+        info.external_attr = exec_mode << 16
+        # Force create_system=3 (Unix) so macOS unzippers honour the Unix
+        # permission bits even when the zip is built on Windows (where
+        # ZipInfo.from_file() sets create_system=0 by default).
+        info.create_system = 3
         info.compress_type = zipfile.ZIP_DEFLATED
         with open(src_path, "rb") as f:
             zf.writestr(info, f.read())
