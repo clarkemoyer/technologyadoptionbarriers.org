@@ -76,10 +76,11 @@ def _subsection(handle, title):
 def _print_fit_indices(handle, model, calc_stats, label):
     """Emit CFA fit indices, handling both semopy DataFrame orientations.
 
-    Older semopy versions return calc_stats() as a DataFrame with metric names
-    as columns and a single 'Value' row (row-oriented).  Newer versions return
-    metric names as the index with a single 'Value' column (column-oriented).
-    This matches the dual-detection logic used in the canonical pipeline
+    semopy 2.x (the canonical/pinned version) returns calc_stats() as a
+    DataFrame with metric names as *columns* and a single 'Value' *row*.
+    Older versions may return metric names in the index with a 'Value' column.
+    Both orientations are detected so the code works regardless of version,
+    matching the dual-detection logic in the canonical pipeline
     (scripts/analysis/tabs_v2_validation.py).
     """
     _subsection(handle, label)
@@ -101,7 +102,7 @@ def _print_fit_indices(handle, model, calc_stats, label):
 
         for key in ("chi2", "DoF", "chi2 p-value", "CFI", "TLI", "RMSEA", "SRMR", "AGFI", "GFI"):
             val = _stat(key)
-            _emit_pair(handle, key, val)
+            _emit_pair(handle, key, val, fmt="%d" if key == "DoF" else "%.4f")
     except Exception as exc:
         handle["txt"].write(f"  (fit indices unavailable: {exc})\n")
 

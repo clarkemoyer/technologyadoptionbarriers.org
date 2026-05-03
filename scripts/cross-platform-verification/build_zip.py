@@ -379,9 +379,12 @@ def _combined_requirements() -> str:
 def _mtime_tuple(src: Path) -> tuple:
     """Return a 6-tuple (Y, M, D, h, m, s) in UTC from *src*'s mtime for ZipInfo.
 
-    UTC is used so the tuple is identical regardless of the build machine's
-    local timezone, keeping consecutive builds from the same sources
-    bit-identical across environments.
+    UTC is used so the tuple serialises to the same Y/M/D/h/m/s on any build
+    machine regardless of local timezone.  Repeated builds from the same
+    working tree (where file mtimes are unchanged) will therefore produce
+    bit-identical archives.  If files are re-cloned or re-checked-out on a
+    different machine their mtimes may differ, so cross-machine bit-identity
+    is not guaranteed unless mtimes are preserved (e.g. via git-restore-mtime).
 
     Note: assumes file mtimes are post-Unix-epoch (1970-01-01), which is true
     for all files in this repository on any modern filesystem.
