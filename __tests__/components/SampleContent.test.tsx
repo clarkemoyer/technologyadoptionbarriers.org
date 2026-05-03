@@ -105,11 +105,10 @@ describe('SampleContent — live variant', () => {
     expect(screen.getAllByText(/Conservative Clean/).length).toBeGreaterThan(0)
   })
 
-  it('uses simpler tech-bucket label "Technical (CIO, CTO)"', () => {
-    expect(screen.getAllByText(/^Technical \(CIO, CTO\)/).length).toBeGreaterThan(0)
+  it('uses full tech-bucket label including CISO + reclassified Other', () => {
     expect(
-      screen.queryByText(/Technical \(CIO, CTO, CISO \+ reclassified Other\)/)
-    ).not.toBeInTheDocument()
+      screen.getAllByText(/Technical \(CIO, CTO, CISO \+ reclassified Other\)/).length
+    ).toBeGreaterThan(0)
   })
 
   it('does NOT render the role-classification methodology details block', () => {
@@ -222,5 +221,32 @@ describe('SampleContent — missing data fallback', () => {
     const emptyData: SampleData = { ...MOCK_DATA, sample_details: {} }
     render(<SampleContent variant="live" data={emptyData} />)
     expect(screen.getAllByText(/sensitivity-analysis\.json/).length).toBeGreaterThan(0)
+  })
+})
+
+// Helper: override tech_vs_nontech.other for a single sample_detail group
+const withOther = (other: number): SampleData => ({
+  ...MOCK_DATA,
+  sample_details: {
+    conservative_clean: {
+      demographics: {
+        ...MOCK_DATA.sample_details!.conservative_clean.demographics,
+        tech_vs_nontech: { technical: 11, non_technical: 8, other },
+      },
+    },
+  },
+})
+
+describe('SampleContent — non-technical label data-awareness', () => {
+  it('shows "+ reclassified Other" suffix when other === 0', () => {
+    render(<SampleContent variant="live" data={withOther(0)} />)
+    expect(screen.getAllByText(/Non-Technical.*\+ reclassified Other/).length).toBeGreaterThan(0)
+  })
+
+  it('omits "+ reclassified Other" suffix when other > 0', () => {
+    render(<SampleContent variant="live" data={withOther(3)} />)
+    expect(screen.queryByText(/Non-Technical.*\+ reclassified Other/)).not.toBeInTheDocument()
+    // The base label (without suffix) is present
+    expect(screen.getAllByText(/Non-Technical \(CEO/).length).toBeGreaterThan(0)
   })
 })

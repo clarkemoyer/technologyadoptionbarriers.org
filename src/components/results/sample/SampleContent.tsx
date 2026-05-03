@@ -95,7 +95,7 @@ const VARIANT_CONFIG: Record<SampleVariant, VariantConfig> = {
     title: 'Sample & Demographics',
     groups: PRIMARY_GROUPS_LIVE,
     groupCountWord: 'four',
-    techLabel: 'Technical (CIO, CTO)',
+    techLabel: 'Technical (CIO, CTO, CISO + reclassified Other)',
     showRoleClassificationDetails: false,
     findingsHref: '/results/findings',
     missingDataFilename: 'sensitivity-analysis.json',
@@ -367,75 +367,86 @@ const TechBucketTable = ({
   techLabel,
   findingsHref,
   showMethodologyDetails,
-}: TechBucketTableProps) => (
-  <div className="bg-white border border-gray-200 rounded-lg p-4">
-    <h4 className="text-xs font-bold text-gray-600 uppercase mb-2">
-      Technical vs. Non-Technical Breakdown
-    </h4>
-    <table className="w-full text-xs border-collapse">
-      <thead>
-        <tr>
-          <th scope="col" className="sr-only">
-            Role Group
-          </th>
-          <th scope="col" className="sr-only">
-            Count
-          </th>
-          <th scope="col" className="sr-only">
-            Percent
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr className="border-b border-gray-200">
-          <th scope="row" className="py-1.5 pr-2 font-medium text-left">
-            <span
-              className="inline-block w-2 h-2 rounded-full bg-blue-500 mr-1.5"
-              aria-hidden="true"
-            />
-            {techLabel}
-          </th>
-          <td className="py-1.5 text-right font-mono">{breakdown.technical}</td>
-          <td className="py-1.5 pl-1 text-right text-gray-500">
-            {pct(breakdown.technical, sampleN)}
-          </td>
-        </tr>
-        <tr className="border-b border-gray-200">
-          <th scope="row" className="py-1.5 pr-2 font-medium text-left">
-            <span
-              className="inline-block w-2 h-2 rounded-full bg-emerald-500 mr-1.5"
-              aria-hidden="true"
-            />
-            Non-Technical (CEO, CFO, COO, CHRO, CMO, CSO, CRO)
-          </th>
-          <td className="py-1.5 text-right font-mono">{breakdown.non_technical}</td>
-          <td className="py-1.5 pl-1 text-right text-gray-500">
-            {pct(breakdown.non_technical, sampleN)}
-          </td>
-        </tr>
-        <tr className="border-b border-gray-200">
-          <th scope="row" className="py-1.5 pr-2 font-medium text-left">
-            <span
-              className="inline-block w-2 h-2 rounded-full bg-amber-500 mr-1.5"
-              aria-hidden="true"
-            />
-            Other (self-reported)
-          </th>
-          <td className="py-1.5 text-right font-mono">{breakdown.other}</td>
-          <td className="py-1.5 pl-1 text-right text-gray-500">{pct(breakdown.other, sampleN)}</td>
-        </tr>
-      </tbody>
-    </table>
-    <p className="text-[10px] text-gray-400 mt-2 italic">
-      Grouping used for ANOVA and effect-size comparisons on the{' '}
-      <Link href={findingsHref} className="text-blue-500 hover:underline">
-        Findings
-      </Link>{' '}
-      page.
-    </p>
-    {showMethodologyDetails && <RoleClassificationMethodology />}
-  </div>
-)
+}: TechBucketTableProps) => {
+  // When `other === 0` every self-reported "Other" response was reclassified
+  // into Technical or Non-Technical by the pipeline, so the Non-Technical
+  // bucket contains more than just the named C-suite roles.
+  const nonTechLabel =
+    breakdown.other === 0
+      ? 'Non-Technical (CEO, CFO, COO, CHRO, CMO, CSO, CRO + reclassified Other)'
+      : 'Non-Technical (CEO, CFO, COO, CHRO, CMO, CSO, CRO)'
+  return (
+    <div className="bg-white border border-gray-200 rounded-lg p-4">
+      <h4 className="text-xs font-bold text-gray-600 uppercase mb-2">
+        Technical vs. Non-Technical Breakdown
+      </h4>
+      <table className="w-full text-xs border-collapse">
+        <thead>
+          <tr>
+            <th scope="col" className="sr-only">
+              Role Group
+            </th>
+            <th scope="col" className="sr-only">
+              Count
+            </th>
+            <th scope="col" className="sr-only">
+              Percent
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr className="border-b border-gray-200">
+            <th scope="row" className="py-1.5 pr-2 font-medium text-left">
+              <span
+                className="inline-block w-2 h-2 rounded-full bg-blue-500 mr-1.5"
+                aria-hidden="true"
+              />
+              {techLabel}
+            </th>
+            <td className="py-1.5 text-right font-mono">{breakdown.technical}</td>
+            <td className="py-1.5 pl-1 text-right text-gray-500">
+              {pct(breakdown.technical, sampleN)}
+            </td>
+          </tr>
+          <tr className="border-b border-gray-200">
+            <th scope="row" className="py-1.5 pr-2 font-medium text-left">
+              <span
+                className="inline-block w-2 h-2 rounded-full bg-emerald-500 mr-1.5"
+                aria-hidden="true"
+              />
+              {nonTechLabel}
+            </th>
+            <td className="py-1.5 text-right font-mono">{breakdown.non_technical}</td>
+            <td className="py-1.5 pl-1 text-right text-gray-500">
+              {pct(breakdown.non_technical, sampleN)}
+            </td>
+          </tr>
+          <tr className="border-b border-gray-200">
+            <th scope="row" className="py-1.5 pr-2 font-medium text-left">
+              <span
+                className="inline-block w-2 h-2 rounded-full bg-amber-500 mr-1.5"
+                aria-hidden="true"
+              />
+              Other (self-reported)
+            </th>
+            <td className="py-1.5 text-right font-mono">{breakdown.other}</td>
+            <td className="py-1.5 pl-1 text-right text-gray-500">
+              {pct(breakdown.other, sampleN)}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <p className="text-[10px] text-gray-400 mt-2 italic">
+        Grouping used for ANOVA and effect-size comparisons on the{' '}
+        <Link href={findingsHref} className="text-blue-500 hover:underline">
+          Findings
+        </Link>{' '}
+        page.
+      </p>
+      {showMethodologyDetails && <RoleClassificationMethodology />}
+    </div>
+  )
+}
 
 const RoleClassificationMethodology = () => (
   <details className="mt-3 text-[11px] text-gray-600">
