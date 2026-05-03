@@ -410,10 +410,22 @@ def main(argv=None) -> int:
                 print(f"  WARNING: '{key}' not found in calc_stats() output", file=sys.stderr)
                 return None
 
-            chi_config = (_mg_stat(m_smb, "chi2") or 0.0) + (_mg_stat(m_ent, "chi2") or 0.0)
-            df_config = (_mg_stat(m_smb, "DoF") or 0.0) + (_mg_stat(m_ent, "DoF") or 0.0)
-            _emit_pair(handle, "Configural chi-squared (sum)", chi_config, fmt="%.2f")
-            _emit_pair(handle, "Configural df (sum)", int(df_config), fmt="%d")
+            chi_smb = _mg_stat(m_smb, "chi2")
+            chi_ent = _mg_stat(m_ent, "chi2")
+            dof_smb = _mg_stat(m_smb, "DoF")
+            dof_ent = _mg_stat(m_ent, "DoF")
+            if None in (chi_smb, chi_ent, dof_smb, dof_ent):
+                txt.write(
+                    "  Configural chi-squared / df: n/a"
+                    " (calc_stats() did not return chi2 or DoF)\n"
+                )
+            else:
+                _emit_pair(
+                    handle, "Configural chi-squared (sum)", chi_smb + chi_ent, fmt="%.2f"
+                )
+                _emit_pair(
+                    handle, "Configural df (sum)", int(dof_smb + dof_ent), fmt="%d"
+                )
             txt.write(
                 "  For full Delta-CFI metric/scalar invariance install R lavaan and\n"
                 "  use the SPSS bundle's Section 14, or call lavaan directly.\n"

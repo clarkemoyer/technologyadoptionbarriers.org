@@ -36,6 +36,7 @@ Usage:
 """
 from __future__ import annotations
 
+import shutil
 import zipfile
 from pathlib import Path
 from typing import Sequence
@@ -370,11 +371,16 @@ def _combined_requirements() -> str:
 
 
 def _mtime_tuple(src: Path) -> tuple:
-    """Return a 6-tuple (Y, M, D, h, m, s) from *src*'s mtime for ZipInfo."""
+    """Return a 6-tuple (Y, M, D, h, m, s) in UTC from *src*'s mtime for ZipInfo.
+
+    UTC is used so the tuple is identical regardless of the build machine's
+    local timezone, keeping consecutive builds from the same sources
+    bit-identical across environments.
+    """
     import datetime
 
     ts = src.stat().st_mtime
-    dt = datetime.datetime.fromtimestamp(ts)
+    dt = datetime.datetime.fromtimestamp(ts, tz=datetime.timezone.utc)
     return (dt.year, dt.month, dt.day, dt.hour, dt.minute, dt.second)
 
 
@@ -386,11 +392,12 @@ def _add_to_zip(zf: zipfile.ZipFile, src: Path, arcname: str) -> None:
       Windows (create_system=3, external_attr=0o100755<<16).
     * ``.bat`` / ``.cmd`` – line endings are normalised to CRLF so the file
       runs on all Windows versions regardless of the build platform.
-    * Everything else – added with ``zf.write()`` to preserve OS metadata and
-      avoid reading the whole file into memory.
+    * Everything else – streamed via ``ZipInfo.from_file`` + ``zf.open()`` to
+      avoid loading the whole file into memory; ``date_time`` is overridden
+      with the UTC mtime tuple for deterministic output.
 
-    Timestamps are taken from the source file's mtime so consecutive builds
-    from the same sources produce identical archives (deterministic output).
+    Timestamps are derived from the source file's mtime (UTC) so consecutive
+    builds from the same sources produce identical archives.
     """
     suffix = src.suffix.lower()
 
@@ -414,12 +421,15 @@ def _add_to_zip(zf: zipfile.ZipFile, src: Path, arcname: str) -> None:
         info.date_time = _mtime_tuple(src)
         zf.writestr(info, data)
     else:
-        # For all other files: use a ZipInfo with the mtime set explicitly so
-        # all three branches produce deterministic timestamps consistently.
-        info = zipfile.ZipInfo(arcname)
-        info.compress_type = zipfile.ZIP_DEFLATED
+        # For all other files: stream content via ZipInfo.from_file so the
+        # whole file is not loaded into memory, then override date_time with
+        # the UTC mtime tuple so all three branches produce deterministic
+        # timestamps consistently.
+        info = zipfile.ZipInfo.from_file(src, arcname)
         info.date_time = _mtime_tuple(src)
-        zf.writestr(info, src.read_bytes())
+        info.compress_type = zipfile.ZIP_DEFLATED
+        with open(src, "rb") as f_in, zf.open(info, "w") as f_out:
+            shutil.copyfileobj(f_in, f_out)
 
 
 def build_one(

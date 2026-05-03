@@ -197,7 +197,21 @@ if errorlevel 1 (
     echo OK: semopy installed successfully.
   )
 ) else (
-  echo OK: semopy is already installed. Skipping install step.
+  for /f "delims=" %%v in ('"%PYTHON_EXE%" -c "import semopy; print(semopy.__version__)" 2^>nul') do set SEMOPY_CUR=%%v
+  if not "%SEMOPY_CUR%"=="2.3.11" (
+    echo semopy %SEMOPY_CUR% is installed but the canonical version is 2.3.11. Reinstalling...
+    echo.
+    "%PYTHON_EXE%" -m pip install --user "semopy==2.3.11"
+    if errorlevel 1 (
+      echo.
+      echo WARNING: semopy reinstall to 2.3.11 failed. Results may differ from canonical pipeline.
+    ) else (
+      echo.
+      echo OK: semopy pinned to 2.3.11.
+    )
+  ) else (
+    echo OK: semopy %SEMOPY_CUR% is already installed ^(matches canonical version^).
+  )
 )
 for /f "delims=" %%v in ('"%PYTHON_EXE%" -c "import semopy; print(semopy.__version__)" 2^>nul') do set SEMOPY_VER=%%v
 echo   semopy version: %SEMOPY_VER%

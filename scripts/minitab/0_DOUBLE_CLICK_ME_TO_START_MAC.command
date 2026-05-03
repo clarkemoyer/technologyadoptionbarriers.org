@@ -136,7 +136,20 @@ else
   echo "Checking Python SEM packages (numpy, pandas, scipy, semopy)"
   echo "----------------------------------------------------------"
   if "$PYTHON_EXE" -c "import semopy" >/dev/null 2>&1; then
-    echo "OK: semopy is already installed. Skipping install step."
+    SEMOPY_CUR=$("$PYTHON_EXE" -c "import semopy; print(semopy.__version__)" 2>/dev/null || echo "unknown")
+    if [ "$SEMOPY_CUR" != "2.3.11" ]; then
+      echo "semopy $SEMOPY_CUR is installed but the canonical version is 2.3.11. Reinstalling..."
+      echo
+      if "$PYTHON_EXE" -m pip install --user "semopy==2.3.11"; then
+        echo
+        echo "OK: semopy pinned to 2.3.11."
+      else
+        echo
+        echo "WARNING: semopy reinstall to 2.3.11 failed. Results may differ from canonical pipeline."
+      fi
+    else
+      echo "OK: semopy $SEMOPY_CUR is already installed (matches canonical version)."
+    fi
   else
     echo "semopy is not yet installed. Installing now (~30-90 sec)..."
     echo
