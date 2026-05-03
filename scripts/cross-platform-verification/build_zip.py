@@ -362,7 +362,8 @@ def _combined_requirements() -> str:
 # File extensions whose executable bit must survive zipping. Without this,
 # macOS users who extract the zip cannot double-click the .command launcher
 # (Finder treats it as a plain text file because the +x bit was lost on
-# extraction). Setting external_attr to a 0o755 mode preserves the bit.
+# extraction). Setting external_attr to a 0o100755 mode (regular-file type
+# + rwxr-xr-x) preserves the bit.
 _EXECUTABLE_EXTS = (".command", ".sh")
 _EXECUTABLE_MODE = 0o100755  # regular file + rwxr-xr-x
 
