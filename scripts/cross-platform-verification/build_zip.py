@@ -74,6 +74,24 @@ SPSS_MANIFEST: Sequence[tuple[str, str]] = (
 MINITAB_MANIFEST: Sequence[tuple[str, str]] = (
     ("scripts/minitab/tabs_v2_crp200_minitab.csv", "tabs_v2_crp200_minitab.csv"),
     ("scripts/minitab/tabs_v2_validation.MTB", "tabs_v2_validation.MTB"),
+    # Double-click launchers. Same "0_" prefix as the SPSS bundle so they
+    # sort to the top of the extracted folder. Locate Minitab + Python,
+    # pre-install semopy, run the SEM companion script, then launch
+    # Minitab with the worksheet.
+    (
+        "scripts/minitab/0_DOUBLE_CLICK_ME_TO_START_WINDOWS.bat",
+        "0_DOUBLE_CLICK_ME_TO_START_WINDOWS.bat",
+    ),
+    (
+        "scripts/minitab/0_DOUBLE_CLICK_ME_TO_START_MAC.command",
+        "0_DOUBLE_CLICK_ME_TO_START_MAC.command",
+    ),
+    # SEM companion script: runs CFA / omega / bifactor / Mardia via
+    # semopy because Minitab does not support these natively. Output
+    # goes to sem_companion_results.txt + .csv alongside Minitab's
+    # Session window output, giving Minitab users the same defense-grade
+    # validation receipt as SPSS users.
+    ("scripts/minitab/tabs_v2_sem_companion.py", "tabs_v2_sem_companion.py"),
     ("scripts/minitab/README.md", "README_MINITAB.md"),
 )
 
@@ -199,36 +217,91 @@ paths for KMO + Bartlett (GUI-only options on the Factor Analysis dialog).
 MINITAB_README = """# TABS V2 Validation - Minitab Bundle
 
 This zip contains everything a Minitab user needs to independently reproduce
-the descriptive + reliability layer of the TABS validation pipeline on the
-same frozen N=200 dataset that drives the canonical Python and R analyses.
+the **full** TABS validation pipeline (descriptive layer in Minitab + SEM
+layer via a sibling Python script) on the same frozen N=200 dataset that
+drives the canonical Python and R analyses.
 
-## Quick start (about 3 clicks once Minitab is open)
+## Quick start - one double-click
 
 1. Unzip into any folder.
-2. `File -> Open Worksheet -> tabs_v2_crp200_minitab.csv`
-3. `File -> Run an Exec -> tabs_v2_validation.MTB -> Run 1 time`
+2. Double-click the launcher for your operating system:
+   - **Windows**: `0_DOUBLE_CLICK_ME_TO_START_WINDOWS.bat`
+   - **macOS**: right-click `0_DOUBLE_CLICK_ME_TO_START_MAC.command` -> Open
+     (one-time Gatekeeper). After the first run, double-click works.
+3. The launcher pre-installs `semopy` (~30 sec, first run only) using the
+   SPSS-bundled Python if SPSS is installed, else system Python on PATH.
+4. The launcher runs `tabs_v2_sem_companion.py` to produce
+   `sem_companion_results.txt` + `sem_companion_results.csv` in the same
+   folder - these contain CFA fit indices, McDonald's omega, AVE, HTMT/HTMT2,
+   bifactor decomposition, multigroup CFA configural baseline, and Mardia
+   multivariate normality.
+5. The launcher then opens Minitab with the worksheet preloaded.
+6. In Minitab: `File -> Run an Exec -> tabs_v2_validation.MTB`
+
+The descriptive + reliability layer (Cronbach alpha, EFA, correlations,
+Mahalanobis, t-tests) comes from Minitab's Session window output. The
+SEM-derived layer comes from the SEM companion files. Together they give
+you the same defense-grade validation receipt as the SPSS bundle, just
+produced by two cooperating processes (Minitab + Python).
 
 KMO and Bartlett's sphericity are GUI-only options on Minitab's Factor
 Analysis dialog (no session subcommand). To see them, run the Factor
 Analysis block manually from the menu and check the boxes in `Options...`.
 
-## Scope
+## Manual fallback (if the launcher cannot find Minitab or Python)
 
-Minitab covers the descriptive + reliability layer (Cronbach alpha, KMO,
-Bartlett, EFA, inter-construct correlations, 2-sample t, Mahalanobis
-outliers). It does NOT have native CFA, so McDonald's omega from CFA,
-composite reliability with SEs, AVE, HTMT/HTMT2, bifactor models,
-second-order CFA, multigroup CFA, measurement invariance, ESEM, IRT GRM,
-and Mardia normality stay in the Python pipeline (download
-`tabs_v2_validation_python.zip` for those).
+Minitab native analyses:
+1. `File -> Open Worksheet -> tabs_v2_crp200_minitab.csv`
+2. `File -> Run an Exec -> tabs_v2_validation.MTB -> Run 1 time`
+
+SEM companion:
+1. Install Python 3.10+ from https://python.org if you do not have it.
+2. From a terminal in this folder:
+   macOS / Linux:
+   ```
+   python3 -m pip install --user numpy pandas scipy "semopy==2.3.11"
+   python3 tabs_v2_sem_companion.py --csv tabs_v2_crp200_minitab.csv --out-dir .
+   ```
+   Windows (if python3 is not on PATH, try python instead):
+   ```
+   python -m pip install --user numpy pandas scipy "semopy==2.3.11"
+   python tabs_v2_sem_companion.py --csv tabs_v2_crp200_minitab.csv --out-dir .
+   ```
+3. Open `sem_companion_results.txt` (Notepad / TextEdit) or
+   `sem_companion_results.csv` (Excel / Minitab File -> Open Worksheet).
 
 ## What's inside
 
 ```
-tabs_v2_crp200_minitab.csv  <- pre-encoded numeric data (B1-B18, R1-R17, M1-M8)
-tabs_v2_validation.MTB      <- Minitab Exec macro (Run an Exec)
-README_MINITAB.md           <- detailed walkthrough + expected values
+0_DOUBLE_CLICK_ME_TO_START_WINDOWS.bat  <- Windows double-click launcher
+0_DOUBLE_CLICK_ME_TO_START_MAC.command  <- macOS double-click launcher
+tabs_v2_crp200_minitab.csv              <- pre-encoded numeric data
+tabs_v2_validation.MTB                  <- Minitab Exec macro
+tabs_v2_sem_companion.py                <- SEM analyses via semopy
+README_MINITAB.md                       <- detailed walkthrough
+README.md                               <- this file
 ```
+
+## Coverage
+
+| Statistic | Source |
+|---|---|
+| Cronbach's alpha + ITC + alpha-if-deleted | Minitab Item Analysis |
+| Inter-item correlation matrices | Minitab Correlation |
+| EFA (ML, Varimax in session, Promax via GUI dialog) | Minitab Factor Analysis |
+| Inter-construct Pearson correlations | Minitab Correlation |
+| 2-sample t (SMB vs Enterprise) | Minitab TwoSample |
+| Mahalanobis outliers per construct | Minitab Outlier Test |
+| KMO + Bartlett sphericity | Minitab Factor Analysis (GUI) |
+| HTMT + HTMT2 | SEM companion (Python semopy) |
+| Single-factor CFA + 3-factor CFA fit indices | SEM companion |
+| McDonald omega-1F + CR + AVE | SEM companion |
+| Bifactor (G + 3 group factors) -> omega-h, ECV | SEM companion |
+| Multigroup CFA configural baseline by SMB_ENT | SEM companion |
+| Mardia multivariate normality | SEM companion |
+
+For full Delta-CFI metric/scalar measurement invariance install R lavaan
+and use the SPSS bundle's Section 14 (or call lavaan directly).
 
 ## Three quick spot-checks that should match exactly
 
@@ -239,8 +312,7 @@ README_MINITAB.md           <- detailed walkthrough + expected values
 | Cronbach's alpha (Maturity, 8 items) | 0.885 |
 | Listwise N (Barriers / Readiness / Maturity) | 192 / 181 / 191 |
 
-See `README_MINITAB.md` for the complete expected-value table and the
-manual-from-EFA-loadings formulas for omega, CR, and AVE in Calc -> Calculator.
+See `README_MINITAB.md` for the complete expected-value table.
 """
 
 PYTHON_README = """# TABS V2 Validation - Python Bundle (TABS Native)
