@@ -178,7 +178,7 @@ export const ReliabilityContent = ({ variant, data, validationData }: Reliabilit
           <p className={PARAGRAPH_CLASSES}>
             All three TABS constructs demonstrate excellent internal consistency
             {config.introDatasetClause ? ` ${config.introDatasetClause}` : ''}, with every
-            Cronbach&rsquo;s alpha exceeding 0.84 across all {config.sampleCountWord} sample
+            Cronbach&rsquo;s alpha exceeding 0.82 across all {config.sampleCountWord} sample
             definitions. This indicates that the survey items within each construct are measuring
             the same underlying factor reliably, regardless of which inclusion criteria are applied.
           </p>
@@ -239,7 +239,7 @@ export const ReliabilityContent = ({ variant, data, validationData }: Reliabilit
           </p>
           <ul className="list-disc pl-5 space-y-2 mb-6 font-sans text-base">
             <li>
-              All alphas exceed <strong>0.84</strong>, well above the commonly cited 0.70 threshold,
+              All alphas exceed <strong>0.82</strong>, well above the commonly cited 0.70 threshold,
               indicating excellent internal consistency across all constructs and samples.
             </li>
             <li>
