@@ -37,39 +37,90 @@ const MOCK_DATA: DescriptiveData = {
   metrics: [
     {
       key: 'barrier_mean',
-      values: { conservative_clean: 2.86, flexible_clean: 2.85, prolific_accepted: 2.84 },
+      values: {
+        conservative_clean: 2.86,
+        flexible_clean: 2.85,
+        prolific_accepted: 2.84,
+        v2_finished: 2.83,
+        v2_all: 2.82,
+      },
     },
     {
       key: 'barrier_sd',
-      values: { conservative_clean: 0.5, flexible_clean: 0.51, prolific_accepted: 0.52 },
+      values: {
+        conservative_clean: 0.5,
+        flexible_clean: 0.51,
+        prolific_accepted: 0.52,
+        v2_finished: 0.53,
+        v2_all: 0.54,
+      },
     },
     {
       key: 'readiness_mean',
-      values: { conservative_clean: 3.1, flexible_clean: 3.05, prolific_accepted: 3.0 },
+      values: {
+        conservative_clean: 3.1,
+        flexible_clean: 3.05,
+        prolific_accepted: 3.0,
+        v2_finished: 2.99,
+        v2_all: 2.98,
+      },
     },
     {
       key: 'readiness_sd',
-      values: { conservative_clean: 0.6, flexible_clean: 0.61, prolific_accepted: 0.62 },
+      values: {
+        conservative_clean: 0.6,
+        flexible_clean: 0.61,
+        prolific_accepted: 0.62,
+        v2_finished: 0.63,
+        v2_all: 0.64,
+      },
     },
     {
       key: 'maturity_mean',
-      values: { conservative_clean: 2.5, flexible_clean: 2.55, prolific_accepted: 2.6 },
+      values: {
+        conservative_clean: 2.5,
+        flexible_clean: 2.55,
+        prolific_accepted: 2.6,
+        v2_finished: 2.61,
+        v2_all: 2.62,
+      },
     },
     {
       key: 'maturity_sd',
-      values: { conservative_clean: 0.7, flexible_clean: 0.71, prolific_accepted: 0.72 },
+      values: {
+        conservative_clean: 0.7,
+        flexible_clean: 0.71,
+        prolific_accepted: 0.72,
+        v2_finished: 0.73,
+        v2_all: 0.74,
+      },
     },
     {
       key: 'corr_br',
-      values: { conservative_clean: -0.4, flexible_clean: -0.41, prolific_accepted: -0.42 },
+      values: {
+        conservative_clean: -0.4,
+        flexible_clean: -0.41,
+        prolific_accepted: -0.42,
+        v2_finished: -0.43,
+      },
     },
     {
       key: 'corr_bm',
-      values: { conservative_clean: -0.3, flexible_clean: -0.31, prolific_accepted: -0.32 },
+      values: {
+        conservative_clean: -0.3,
+        flexible_clean: -0.31,
+        prolific_accepted: -0.32,
+        v2_finished: -0.33,
+      },
     },
     {
       key: 'corr_rm',
-      values: { conservative_clean: 0.5, flexible_clean: 0.51, prolific_accepted: 0.52 },
+      values: {
+        conservative_clean: 0.5,
+        flexible_clean: 0.51,
+        prolific_accepted: 0.52,
+        v2_finished: 0.53,
+      },
     },
   ],
 }
@@ -102,6 +153,21 @@ describe('DescriptiveContent — live variant', () => {
     expect(screen.getAllByText(/Conservative Clean \(N=113\)/).length).toBeGreaterThan(0)
     expect(screen.getAllByText(/All V2 Finished \(N=332\)/).length).toBeGreaterThan(0)
     expect(screen.getAllByText(/All V2 \(N=390\)/).length).toBeGreaterThan(0)
+  })
+
+  it('actually renders metric values for v2_finished and v2_all (live-only rows)', () => {
+    // barrier_mean: v2_finished=2.83, v2_all=2.82 → fmt to 4 places
+    expect(screen.getAllByText('2.8300').length).toBeGreaterThan(0) // v2_finished
+    expect(screen.getAllByText('2.8200').length).toBeGreaterThan(0) // v2_all
+    // readiness_mean: v2_all=2.98 → unique to live-only rows
+    expect(screen.getAllByText('2.9800').length).toBeGreaterThan(0)
+    // maturity_sd: v2_all=0.74 → unique to live-only rows
+    expect(screen.getAllByText('0.7400').length).toBeGreaterThan(0)
+  })
+
+  it('correlation matrix includes v2_finished but excludes v2_all (live correlationExcludeKeys)', () => {
+    // 4 correlation matrices × 3 diagonal cells each = 12 (was 15 if v2_all included)
+    expect(screen.getAllByText('1.0000').length).toBe(12)
   })
 
   it('renders Sensitivity Analysis link with five-sample tail', () => {
@@ -175,14 +241,40 @@ describe('DescriptiveContent — accessibility', () => {
     expect(results).toHaveNoViolations()
   })
 
-  it('column headers use scope="col"', () => {
+  it('column headers use scope="col" on every table (live)', () => {
     const { container } = render(<DescriptiveContent variant="live" data={MOCK_DATA} />)
-    expect(container.querySelectorAll('th[scope="col"]').length).toBeGreaterThan(0)
+    // Live variant rendered tables:
+    //   3 construct tables (Barriers, Readiness, Maturity) × 3 col headers each = 9
+    //   4 correlation matrices × 4 col headers each = 16
+    //   Total: 25
+    expect(container.querySelectorAll('th[scope="col"]').length).toBe(25)
   })
 
-  it('row labels use scope="row"', () => {
+  it('row labels use scope="row" on every table (live)', () => {
     const { container } = render(<DescriptiveContent variant="live" data={MOCK_DATA} />)
-    expect(container.querySelectorAll('th[scope="row"]').length).toBeGreaterThan(0)
+    // Live variant rendered row headers:
+    //   3 construct tables × 5 sample rows each = 15
+    //   4 correlation matrices × 3 construct rows each = 12
+    //   Total: 27
+    expect(container.querySelectorAll('th[scope="row"]').length).toBe(27)
+  })
+
+  it('column headers use scope="col" on every table (crp)', () => {
+    const { container } = render(<DescriptiveContent variant="crp" data={MOCK_DATA} />)
+    // CRP variant rendered tables:
+    //   3 construct tables × 3 col headers each = 9
+    //   3 correlation matrices × 4 col headers each = 12
+    //   Total: 21
+    expect(container.querySelectorAll('th[scope="col"]').length).toBe(21)
+  })
+
+  it('row labels use scope="row" on every table (crp)', () => {
+    const { container } = render(<DescriptiveContent variant="crp" data={MOCK_DATA} />)
+    // CRP variant rendered row headers:
+    //   3 construct tables × 3 sample rows each = 9
+    //   3 correlation matrices × 3 construct rows each = 9
+    //   Total: 18
+    expect(container.querySelectorAll('th[scope="row"]').length).toBe(18)
   })
 })
 

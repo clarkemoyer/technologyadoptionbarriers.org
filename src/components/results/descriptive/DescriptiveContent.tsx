@@ -76,7 +76,6 @@ type VariantConfig = {
   title: string
   metaPublished?: { wrapperClass: string; badgeClass: string; label: string }
   introValuesClause: string
-  correlationGroupsCountWord: string
   correlationGroupsTypeWord: string
   /** Sample keys to exclude from the correlation matrix section. Live
    *  excludes `v2_all` because the original page hardcoded the matrices
@@ -87,12 +86,26 @@ type VariantConfig = {
   backLink: { href: string; label: string }
 }
 
+const NUMBER_WORDS = [
+  'zero',
+  'one',
+  'two',
+  'three',
+  'four',
+  'five',
+  'six',
+  'seven',
+  'eight',
+  'nine',
+] as const
+
+const numberWord = (n: number): string => NUMBER_WORDS[n] ?? String(n)
+
 const VARIANT_CONFIG: Record<DescriptiveVariant, VariantConfig> = {
   live: {
     title: 'Descriptive Statistics',
     introValuesClause:
       'All values are computed from the daily analysis pipeline using person-level construct means.',
-    correlationGroupsCountWord: 'four',
     correlationGroupsTypeWord: 'primary result groups',
     correlationExcludeKeys: ['v2_all'],
     correlationFootnote: {
@@ -129,7 +142,6 @@ const VARIANT_CONFIG: Record<DescriptiveVariant, VariantConfig> = {
     },
     introValuesClause:
       'All values are computed from the frozen CRP 2026 dataset across three sample definitions.',
-    correlationGroupsCountWord: 'three',
     correlationGroupsTypeWord: 'CRP sample groups',
     correlationExcludeKeys: [],
     correlationFootnote: {
@@ -171,6 +183,7 @@ export const DescriptiveContent = ({ variant, data }: DescriptiveContentProps) =
   const allSamples = data.samples
   const samples =
     variant === 'crp' ? allSamples.filter((s) => CRP_SAMPLE_KEYS.includes(s.key)) : allSamples
+  const correlationSamples = samples.filter((s) => !config.correlationExcludeKeys.includes(s.key))
 
   const getMetricValue = (key: string, sample: string): number | null => {
     const metric = data.metrics.find((m) => m.key === key)
@@ -212,28 +225,26 @@ export const DescriptiveContent = ({ variant, data }: DescriptiveContentProps) =
           <h2 className={H2_CLASSES}>Inter-Construct Correlations</h2>
           <p className={PARAGRAPH_CLASSES}>
             The correlation matrices below show the Pearson correlations between construct-level
-            means, computed independently on each of the {config.correlationGroupsCountWord}{' '}
+            means, computed independently on each of the {numberWord(correlationSamples.length)}{' '}
             {config.correlationGroupsTypeWord}. Negative correlations between Barriers and the other
             constructs indicate that organizations perceiving higher barriers tend to report lower
             readiness and maturity.
           </p>
 
-          {samples
-            .filter((s) => !config.correlationExcludeKeys.includes(s.key))
-            .map((group) => {
-              const n = group.n ?? '-'
-              const br = getMetricValue('corr_br', group.key)
-              const bm = getMetricValue('corr_bm', group.key)
-              const rm = getMetricValue('corr_rm', group.key)
-              return (
-                <div key={group.key} className="mb-6">
-                  <h3 className={H3_CLASSES}>
-                    {group.label} (N={n})
-                  </h3>
-                  <CorrelationMatrix br={br} bm={bm} rm={rm} />
-                </div>
-              )
-            })}
+          {correlationSamples.map((group) => {
+            const n = group.n ?? '-'
+            const br = getMetricValue('corr_br', group.key)
+            const bm = getMetricValue('corr_bm', group.key)
+            const rm = getMetricValue('corr_rm', group.key)
+            return (
+              <div key={group.key} className="mb-6">
+                <h3 className={H3_CLASSES}>
+                  {group.label} (N={n})
+                </h3>
+                <CorrelationMatrix br={br} bm={bm} rm={rm} />
+              </div>
+            )
+          })}
 
           <p className="text-sm text-gray-500">
             Correlations are Pearson product-moment. See the{' '}
