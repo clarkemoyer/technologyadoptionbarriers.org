@@ -23,10 +23,9 @@ REM   6. Wait ~90 seconds; Viewer opens; spv_export.xlsx + .spv land here
 REM   7. Press any key in this console window to close it
 REM ====================================================================
 
-setlocal enableextensions enabledelayedexpansion
+setlocal enableextensions
 
 set "HERE=%~dp0"
-if "%HERE:~-1%"=="\" set "HERE=%HERE:~0,-1%"
 set "HERE_FWD=%HERE:\=/%"
 
 cd /d "%HERE%"
@@ -48,8 +47,8 @@ echo %HERE% | findstr /I /R "\\AppData\\Local\\Temp\\Rar\$" >nul && set "RUNNING
 echo %HERE% | findstr /I /R "\\AppData\\Local\\Temp\\7z" >nul && set "RUNNING_FROM_ZIP=1"
 
 if "%RUNNING_FROM_ZIP%"=="1" goto NOT_EXTRACTED
-if not exist "%HERE%\tabs_v2_crp200_spss.sav" goto NOT_EXTRACTED
-if not exist "%HERE%\tabs_v2_validation.sps" goto NOT_EXTRACTED
+if not exist "%HERE%tabs_v2_crp200_spss.sav" goto NOT_EXTRACTED
+if not exist "%HERE%tabs_v2_validation.sps" goto NOT_EXTRACTED
 goto FILES_OK
 
 :NOT_EXTRACTED
@@ -152,7 +151,7 @@ if defined SPSS_PYTHON (
     echo semopy is not yet installed. Installing now ^(~30 sec^)...
     echo.
     "%SPSS_PYTHON%" -m pip install --user --upgrade pip
-    "%SPSS_PYTHON%" -m pip install --user semopy
+    "%SPSS_PYTHON%" -m pip install --user semopy==2.3.11
     if errorlevel 1 (
       echo.
       echo WARNING: pip install failed. Section 13 ^(Python CFA^) will skip.
@@ -208,14 +207,18 @@ REM ====================================================================
 REM Build the combined runtime syntax with absolute CD prepended
 REM ====================================================================
 
-set "COMBINED=%HERE%\_run_validation.sps"
+set "COMBINED=%HERE%_run_validation.sps"
+REM Escape ^ first, then & (CMD metacharacter safety); escape ' -> '' (SPSS string literal safety).
+set "HERE_FWD_SPS=%HERE_FWD:^=^^%"
+set "HERE_FWD_SPS=%HERE_FWD_SPS:&=^&%"
+set "HERE_FWD_SPS=%HERE_FWD_SPS:'=''%"
 > "%COMBINED%" echo * Auto-generated combined syntax. Prepends absolute CD then INSERTs
 >>"%COMBINED%" echo * tabs_v2_validation.sps. Regenerated each launcher run; safe to delete.
 >>"%COMBINED%" echo *.
 >>"%COMBINED%" echo.
->>"%COMBINED%" echo CD '%HERE_FWD%'.
+>>"%COMBINED%" echo CD '%HERE_FWD_SPS%'.
 >>"%COMBINED%" echo.
-type "%HERE%\tabs_v2_validation.sps" >> "%COMBINED%"
+type "%HERE%tabs_v2_validation.sps" >> "%COMBINED%"
 
 echo Combined syntax generated: %COMBINED%
 echo.
