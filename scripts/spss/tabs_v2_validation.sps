@@ -588,10 +588,11 @@ MVA
 *      With Mardia 1970 chi-square + z-score significance tests
 *
 * PREREQUISITES:
-*   The semopy package must be installed in the SPSS-bundled Python
-*   site-packages. The launcher (.bat / .command) installs it BEFORE
-*   launching SPSS. If you opened the syntax manually without using
-*   the launcher, run the command below from a Command Prompt / Terminal.
+*   The semopy package must be installed via pip install --user into the
+*   SPSS-bundled Python user site-packages. The launcher (.bat / .command)
+*   installs it BEFORE launching SPSS. If you opened the syntax manually
+*   without using the launcher, run the command below from a Command
+*   Prompt / Terminal.
 *   Common Python executable locations (use whichever matches your install):
 *     Windows - versioned layout (SPSS 29+):
 *       "C:\Program Files\IBM\SPSS Statistics\31\Python3\python.exe" ^
