@@ -68,8 +68,8 @@ export function DataQualityContent({ variant, data }: DataQualityContentProps) {
   // sideways to the CRP-2026 twins; live routes link to the live equivalents.
   const xref = variant === 'crp' ? '/results/crp-2026' : '/results'
 
-  // Pipeline-script citation: live uses the unified analysis script; CRP names the same.
-  const analysisScript = 'tabs_v2_analysis.py'
+  // Pipeline-script citation: unified analysis script that generates sensitivity and validation JSONs.
+  const analysisScript = 'tabs_v2_unified_data_analysis.py'
 
   return (
     <div className="pt-20 sm:pt-[120px] bg-white">
@@ -150,7 +150,7 @@ export function DataQualityContent({ variant, data }: DataQualityContentProps) {
         </section>
 
         {/* ── Pipeline & Data Flow (issue #1839 - permanent diagram home) ── */}
-        <PipelineDataFlow />
+        <PipelineDataFlow variant={variant} />
 
         {/* ── Demographic Data Sources ── */}
         <section className="mb-12 text-gray-800">
