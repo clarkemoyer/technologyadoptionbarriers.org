@@ -344,14 +344,12 @@ CORRELATIONS
 *   - Welch's t (unequal variances) in the second row of the test table
 *   - Levene's test for homogeneity of variances
 *   - 95% CI on the mean difference per construct
-*   - Cohen's d effect sizes (computed below from the t-test output via
-*     COMPUTE; the reported d uses the pooled SD method)
 *   - One-way MANOVA on B_mean R_mean M_mean by SMB_ENT (Pillai's,
 *     Wilks' lambda, Hotelling's, Roy's largest root) - tests whether
 *     groups differ on the construct triple jointly
 *   - Univariate ANOVA per construct (post-hoc to MANOVA)
 *   - Eta-squared and partial eta-squared
-* Matches Python keys: t_test_smb_ent, cohens_d_smb_ent,
+* Matches Python keys: t_test_smb_ent,
 *                       manova_smb_ent (multivariate test statistics)
 * =====================================================================.
 

@@ -116,15 +116,16 @@ if [ -n "$SPSS_PYTHON" ]; then
   echo "----------------------------------------------------------"
   echo "Checking Python SEM packages (numpy, pandas, scipy, semopy)"
   echo "----------------------------------------------------------"
-  if "$SPSS_PYTHON" -c "import semopy" >/dev/null 2>&1; then
-    echo "OK: semopy is already installed. Skipping install step."
+  if "$SPSS_PYTHON" -c "import numpy, pandas, scipy, semopy" >/dev/null 2>&1; then
+    echo "OK: numpy, pandas, scipy, semopy are already installed. Skipping install step."
   else
-    echo "semopy is not yet installed. Installing now (~30 sec)..."
+    echo "One or more SEM packages (numpy, pandas, scipy, semopy) are not yet"
+    echo "installed. Installing now (~30 sec)..."
     echo
     "$SPSS_PYTHON" -m pip install --user --upgrade pip
     if "$SPSS_PYTHON" -m pip install --user semopy==2.3.11; then
       echo
-      echo "OK: semopy installed successfully."
+      echo "OK: numpy, pandas, scipy, semopy installed successfully."
     else
       echo
       echo "WARNING: pip install failed. Section 13 (Python CFA) will skip."
