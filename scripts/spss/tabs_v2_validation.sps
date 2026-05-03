@@ -591,9 +591,18 @@ MVA
 *   The semopy package must be installed in the SPSS-bundled Python
 *   site-packages. The launcher (.bat / .command) installs it BEFORE
 *   launching SPSS. If you opened the syntax manually without using
-*   the launcher, run this from a Windows Command Prompt first:
-*     "C:\Program Files\IBM\SPSS Statistics\Python3\python.exe" ^
-*         -m pip install --user semopy
+*   the launcher, run the command below from a Command Prompt / Terminal.
+*   Common Python executable locations (use whichever matches your install):
+*     Windows - versioned layout (SPSS 29+):
+*       "C:\Program Files\IBM\SPSS Statistics\31\Python3\python.exe" ^
+*           -m pip install --user semopy
+*     Windows - non-versioned layout (older SPSS):
+*       "C:\Program Files\IBM\SPSS Statistics\Python3\python.exe" ^
+*           -m pip install --user semopy
+*     macOS (open Terminal and paste):
+*       /Applications/IBM\ SPSS\ Statistics\ 31/SPSSStatistics.app/Contents/Python3/python3 \
+*           -m pip install --user semopy
+*   If in doubt, check SPSS -> Help -> Python Integration for the exact path.
 *
 * MATCHES PYTHON KEYS (canonical pipeline in scripts/analysis/):
 *   htmt, htmt2, cfa_*_fit, cfa_omega, composite_reliability,
@@ -612,30 +621,32 @@ print("=" * 70)
 
 import sys
 
+core_ok = False
+semopy_ok = False
+Model = None
+calc_stats = None
+
 try:
     import numpy as np
     import pandas as pd
     import spss
     import spssdata
-    SEM_OK = True
+    core_ok = True
     try:
         from semopy import Model, calc_stats
+        semopy_ok = True
     except ImportError as exc:
         print("[NOTE] semopy not installed: " + str(exc))
+        print("       HTMT, HTMT2, and Mardia will still run (they need only numpy/scipy).")
+        print("       CFA, omega, bifactor, and multigroup CFA require semopy.")
         print("       The launcher (.bat/.command) installs semopy automatically.")
         print("       If you opened this syntax without the launcher, install:")
         print("         <SPSS install>\\Python3\\python.exe -m pip install --user semopy")
         print("       The R fallback in Section 14 will still run.")
-        SEM_OK = False
-        Model = None
-        calc_stats = None
 except Exception as exc:
-    print("[skip] Required core package not available: " + str(exc))
-    SEM_OK = False
-    Model = None
-    calc_stats = None
+    print("[skip] Required core packages not available: " + str(exc))
 
-if SEM_OK:
+if core_ok:
     var_count = spss.GetVariableCount()
     var_names = [spss.GetVariableName(i) for i in range(var_count)]
     cases = list(spssdata.Spssdata(names=False).fetchall())
@@ -695,6 +706,7 @@ if SEM_OK:
         flag = "  <-- DV concern" if max(htmt[pair], htmt2[pair]) > 0.85 else ""
         print(fmt_pair.format(pair=pair, h1=htmt[pair], h2=htmt2[pair], flag=flag))
 
+if core_ok and semopy_ok:
     # 2-4. Single-factor + 3-factor CFA + omega/CR/AVE
     def fit_cfa(spec, sample, label):
         try:
@@ -872,6 +884,13 @@ if SEM_OK:
     except Exception as e:
         print("  Multigroup CFA failed: " + str(e))
 
+elif core_ok:
+    print()
+    print("[skip] semopy not available; CFA, omega, bifactor, and multigroup CFA skipped.")
+    print("       The launcher (.bat/.command) installs semopy automatically.")
+    print("       Install semopy to enable these sections (see Section 13 header for paths).")
+
+if core_ok:
     # 7. Mardia multivariate normality
     print()
     print("--- Mardia multivariate normality on (B_mean, R_mean, M_mean) ---")
@@ -915,7 +934,7 @@ END PROGRAM.
 *   END PROGRAM.
 *
 * When installed, this section adds the metric and scalar measurement-
-* invariance tests by SMB_ENT (Delta-CFI / Delta-RMSEA), which semopy
+* invariance tests by SMB_ENT (Delta-CFI and Delta-RMSEA), which semopy
 * in Section 13 only does for the configural baseline.
 *
 * When NOT installed, prints a clean skip message and continues.
@@ -955,11 +974,14 @@ if (!requireNamespace("lavaan", quietly = TRUE)) {
                      estimator="MLR", group.equal="loadings")
       scalar <- cfa(spec_3f, data=df, group="SMB_ENT", missing="fiml",
                      estimator="MLR", group.equal=c("loadings","intercepts"))
-      cat("Configural CFI:", round(fitMeasures(config, "cfi"), 4), "\n")
-      cat("Metric CFI:    ", round(fitMeasures(metric, "cfi"), 4),
-          " (Delta vs configural:", round(fitMeasures(config,"cfi") - fitMeasures(metric,"cfi"), 4), ")\n")
-      cat("Scalar CFI:    ", round(fitMeasures(scalar, "cfi"), 4),
-          " (Delta vs metric:    ", round(fitMeasures(metric,"cfi") - fitMeasures(scalar,"cfi"), 4), ")\n")
+      cat("Configural CFI: ", round(fitMeasures(config, "cfi"),   4),
+          "  RMSEA:", round(fitMeasures(config, "rmsea"), 4), "\n")
+      cat("Metric CFI:     ", round(fitMeasures(metric, "cfi"),   4),
+          "  (Delta-CFI:",   round(fitMeasures(config,"cfi") - fitMeasures(metric,"cfi"), 4),
+          ";  Delta-RMSEA:", round(fitMeasures(metric,"rmsea") - fitMeasures(config,"rmsea"), 4), ")\n")
+      cat("Scalar CFI:     ", round(fitMeasures(scalar, "cfi"),   4),
+          "  (Delta-CFI:",   round(fitMeasures(metric,"cfi") - fitMeasures(scalar,"cfi"), 4),
+          ";  Delta-RMSEA:", round(fitMeasures(scalar,"rmsea") - fitMeasures(metric,"rmsea"), 4), ")\n")
     }, error = function(e) cat("Invariance test failed:", conditionMessage(e), "\n"))
   }
   if (requireNamespace("semTools", quietly = TRUE)) {
