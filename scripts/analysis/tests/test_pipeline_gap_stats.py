@@ -384,11 +384,27 @@ class TestBuildValidationRegistry:
 
     def test_returns_expected_keys(self):
         mod = _import_validation()
-        reg = mod._build_validation_registry(
-            [self._good_construct()], last_run_utc="2026-05-03T00:00:00"
-        )
+        reg = mod._build_validation_registry([self._good_construct()])
         for key in ("total_checks", "passed", "failed", "pass_rate_pct", "categories", "last_run_utc"):
             assert key in reg, f"Missing key: {key}"
+
+    def test_last_run_utc_is_utc_iso_string(self):
+        """last_run_utc must always be a non-empty ISO-8601 string with UTC offset."""
+        from datetime import datetime
+        mod = _import_validation()
+        reg = mod._build_validation_registry([self._good_construct()])
+        ts = reg["last_run_utc"]
+        assert isinstance(ts, str), "last_run_utc must be a string"
+        assert len(ts) > 0, "last_run_utc must not be empty"
+        # Must parse as a valid ISO timestamp (includes +00:00 from pd.Timestamp.now('UTC'))
+        try:
+            datetime.fromisoformat(ts)
+        except ValueError:
+            raise AssertionError(f"last_run_utc is not a valid ISO timestamp: {ts!r}")
+        # Must indicate UTC via +00:00 suffix (not naive local time)
+        assert ts.endswith('+00:00') or ts.endswith('Z'), (
+            f"last_run_utc should be UTC (ending in '+00:00' or 'Z'), got: {ts!r}"
+        )
 
     def test_pipeline_shaped_inputs_no_verdicts_key(self):
         """Registry must work with actual validate_construct() output — no 'verdicts' sub-dict."""
@@ -396,16 +412,14 @@ class TestBuildValidationRegistry:
         cr = self._good_construct("Barriers")
         # Confirm input has NO pre-existing 'verdicts' key (the bug that was filed)
         assert "verdicts" not in cr, "Test fixture should not have a 'verdicts' key"
-        reg = mod._build_validation_registry([cr], last_run_utc="now")
+        reg = mod._build_validation_registry([cr])
         assert reg["total_checks"] > 0, "Expected at least one criterion to be counted"
         assert reg["passed"] > 0, "Expected at least one criterion to pass"
 
     def test_all_pass_for_good_construct(self):
         """Good construct (all thresholds met) should yield passed == total_checks."""
         mod = _import_validation()
-        reg = mod._build_validation_registry(
-            [self._good_construct()], last_run_utc="now"
-        )
+        reg = mod._build_validation_registry([self._good_construct()])
         assert reg["passed"] == reg["total_checks"]
         assert reg["failed"] == 0
         assert reg["pass_rate_pct"] == 100.0
@@ -418,7 +432,7 @@ class TestBuildValidationRegistry:
             self._failing_construct("Barriers"),
             self._good_construct("Readiness"),
         ]
-        reg = mod._build_validation_registry(construct_results, last_run_utc="now")
+        reg = mod._build_validation_registry(construct_results)
         # Good: 10, Failing: 7 → passed=17, total=20, failed=3
         assert reg["total_checks"] == 20
         assert reg["passed"] == 17
@@ -427,13 +441,13 @@ class TestBuildValidationRegistry:
     def test_categories_match_construct_names(self):
         mod = _import_validation()
         cr = self._good_construct("Barriers")
-        reg = mod._build_validation_registry([cr], last_run_utc="now")
+        reg = mod._build_validation_registry([cr])
         assert "Barriers" in reg["categories"]
 
     def test_categories_contain_pass_and_total(self):
         mod = _import_validation()
         cr = self._good_construct("Maturity")
-        reg = mod._build_validation_registry([cr], last_run_utc="now")
+        reg = mod._build_validation_registry([cr])
         cat = reg["categories"]["Maturity"]
         assert "pass_count" in cat
         assert "total_criteria" in cat
@@ -442,7 +456,7 @@ class TestBuildValidationRegistry:
 
     def test_empty_construct_results(self):
         mod = _import_validation()
-        reg = mod._build_validation_registry([], last_run_utc="now")
+        reg = mod._build_validation_registry([])
         assert reg["total_checks"] == 0
         assert reg["passed"] == 0
         assert reg["pass_rate_pct"] is None
@@ -462,11 +476,96 @@ class TestBuildValidationRegistry:
             "efa": {"kmo_model": 0.75, "bartlett_p": 0.001},
             # No 'cfa' key
         }
-        reg = mod._build_validation_registry([cr], last_run_utc="now")
+        reg = mod._build_validation_registry([cr])
         cat = reg["categories"]["Maturity"]
         # 10 criteria defined, 2 are None (no CFA) → total_criteria == 8
         assert cat["total_criteria"] == 8
         assert cat["pass_count"] <= cat["total_criteria"]
+
+    def test_subgroup_standalone_adds_to_total(self):
+        """Subgroup standalone verdicts must be included in total_checks."""
+        mod = _import_validation()
+        subgroup_standalone = {
+            "3group_canonical": [
+                {
+                    "name": "F1a",
+                    "verdict": {
+                        "parallel_analysis_unidimensional": True,
+                        "alpha_above_070": True,
+                        "cfi_above_090": True,
+                        "rmsea_below_008": True,
+                        "overall_pass": True,
+                    },
+                },
+                {
+                    "name": "F2",
+                    "verdict": {
+                        "parallel_analysis_unidimensional": True,
+                        "alpha_above_070": False,
+                        "cfi_above_090": True,
+                        "rmsea_below_008": True,
+                        "overall_pass": False,
+                    },
+                },
+            ]
+        }
+        # Without subgroup: 10 checks
+        reg_no_sg = mod._build_validation_registry([self._good_construct()])
+        # With subgroup: 10 + 4 + 4 = 18 checks
+        reg_with_sg = mod._build_validation_registry(
+            [self._good_construct()], subgroup_standalone=subgroup_standalone
+        )
+        assert reg_with_sg["total_checks"] == reg_no_sg["total_checks"] + 8
+        # F1a: 4/4 pass; F2: 3/4 pass → subgroup_passed = 7
+        assert reg_with_sg["passed"] == reg_no_sg["passed"] + 7
+
+    def test_subgroup_too_few_items_skipped(self):
+        """Subgroup with no boolean verdict criteria (too_few_items) must not inflate total."""
+        mod = _import_validation()
+        subgroup_standalone = {
+            "4group_theoretical": [
+                {
+                    "name": "OrgCultural",
+                    "verdict": {"overall_pass": False, "reason": "too_few_items"},
+                },
+                {
+                    "name": "Strategic",
+                    "verdict": {
+                        "parallel_analysis_unidimensional": True,
+                        "alpha_above_070": True,
+                        "cfi_above_090": True,
+                        "rmsea_below_008": True,
+                        "overall_pass": True,
+                    },
+                },
+            ]
+        }
+        reg = mod._build_validation_registry([], subgroup_standalone=subgroup_standalone)
+        # OrgCultural has no boolean criteria → skipped; Strategic has 4 → total=4
+        assert reg["total_checks"] == 4
+        assert "subgroup/4group_theoretical/OrgCultural" not in reg["categories"]
+        assert "subgroup/4group_theoretical/Strategic" in reg["categories"]
+
+    def test_subgroup_category_keys_use_namespaced_names(self):
+        """Subgroup categories must be namespaced to avoid collision with top-level construct names."""
+        mod = _import_validation()
+        subgroup_standalone = {
+            "3group_canonical": [
+                {
+                    "name": "F1a",
+                    "verdict": {
+                        "parallel_analysis_unidimensional": True,
+                        "alpha_above_070": True,
+                        "cfi_above_090": True,
+                        "rmsea_below_008": True,
+                        "overall_pass": True,
+                    },
+                }
+            ]
+        }
+        reg = mod._build_validation_registry([], subgroup_standalone=subgroup_standalone)
+        assert "subgroup/3group_canonical/F1a" in reg["categories"]
+        assert "F1a" not in reg["categories"]
 
 
 # --------------------------------------------------------------------------- #

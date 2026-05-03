@@ -2480,7 +2480,7 @@ def _eval_construct_verdicts(cr):
     return {**criteria, 'pass_count': pass_count, 'total_criteria': total_criteria}
 
 
-def _build_validation_registry(construct_results, last_run_utc=None):
+def _build_validation_registry(construct_results, subgroup_standalone=None):
     """Build the top-level validation_registry block (Gap 6).
 
     Aggregates per-construct psychometric verdicts into a single pass/fail
@@ -2489,21 +2489,31 @@ def _build_validation_registry(construct_results, last_run_utc=None):
     ``_eval_construct_verdicts()``; a pre-existing 'verdicts' sub-dict inside
     each construct result is *not* required.
 
+    Also folds in subgroup standalone validation verdicts
+    (``subgroup_standalone_validation()`` output) when provided, so the
+    registry reflects the full coverage shown in the CRP rather than only the
+    three top-level constructs (which alone cap ``total_checks`` at 30).
+
     Args:
         construct_results: list of per-construct validation dicts as returned
             by ``validate_construct()`` (fields: cronbach_alpha, mcdonalds_omega,
             composite_reliability, ave_from_loadings, citc_flagged_below_030,
             split_half_spearman_brown, efa, cfa, …).
-        last_run_utc: ISO-8601 timestamp string, defaults to now.
+        subgroup_standalone: optional dict ``{group_label: [subgroup_result, …]}``
+            as stored in ``output['subgroup_standalone_validation']`` by ``main()``.
+            Each subgroup result has a ``verdict`` sub-dict with boolean criteria
+            (``parallel_analysis_unidimensional``, ``alpha_above_070``,
+            ``cfi_above_090``, ``rmsea_below_008``).
 
     Returns a dict with keys:
         total_checks, passed, failed, pass_rate_pct, categories, last_run_utc
     """
-    if last_run_utc is None:
-        last_run_utc = pd.Timestamp.utcnow().isoformat()
+    last_run_utc = pd.Timestamp.now('UTC').isoformat()
     total_checks = 0
     passed = 0
     categories = {}
+
+    # --- Top-level constructs (Barriers, Readiness, Maturity) ---
     for cr in construct_results:
         cname = cr.get('construct', 'Unknown')
         verd = _eval_construct_verdicts(cr)
@@ -2512,6 +2522,35 @@ def _build_validation_registry(construct_results, last_run_utc=None):
         total_checks += tc
         passed += pc
         categories[cname] = {'pass_count': pc, 'total_criteria': tc}
+
+    # --- Subgroup standalone verdicts (e.g. F1a/F1b/F2, 4-factor subconstructs) ---
+    # These are the four per-subgroup criteria emitted by subgroup_standalone_validation().
+    _SUBGROUP_CRITERIA = frozenset({
+        'parallel_analysis_unidimensional',
+        'alpha_above_070',
+        'cfi_above_090',
+        'rmsea_below_008',
+    })
+    if subgroup_standalone:
+        for group_label, subgroup_list in subgroup_standalone.items():
+            for sr in (subgroup_list or []):
+                verdict = sr.get('verdict') or {}
+                # Count only the known boolean criteria; ignore 'overall_pass'
+                # (a derived summary), 'reason' (a string), and any future
+                # metadata fields not in the explicit criteria set.
+                criteria_vals = [
+                    verdict[k] for k in _SUBGROUP_CRITERIA
+                    if k in verdict and isinstance(verdict[k], bool)
+                ]
+                tc = len(criteria_vals)
+                pc = sum(1 for v in criteria_vals if v)
+                if tc == 0:
+                    continue
+                total_checks += tc
+                passed += pc
+                cat_key = f"subgroup/{group_label}/{sr.get('name', 'unknown')}"
+                categories[cat_key] = {'pass_count': pc, 'total_criteria': tc}
+
     failed = total_checks - passed
     rate = round(passed / total_checks * 100, 1) if total_checks > 0 else None
     return {
@@ -2542,7 +2581,7 @@ def _build_r_parity_tests(ci_workflow=None, last_run_utc=None):
         last_run_utc: ISO-8601 timestamp string, defaults to now.
     """
     if last_run_utc is None:
-        last_run_utc = pd.Timestamp.utcnow().isoformat()
+        last_run_utc = pd.Timestamp.now('UTC').isoformat()
 
     _FALLBACK_COUNT = 13  # last known value; updated automatically below
     parity_file = (
@@ -2959,7 +2998,7 @@ def main():
     # -- JSON output --
     if json_output:
         output = OrderedDict()
-        output['validation_date'] = pd.Timestamp.now().isoformat()
+        output['validation_date'] = pd.Timestamp.now('UTC').isoformat()
         output['n_clean'] = len(df)
         output['constructs'] = construct_results
         output['barriers_2f_cfa'] = barrier_2f_cfa
@@ -3002,7 +3041,8 @@ def main():
         output['cmv'] = {'harman_single_factor': harman_cmv_results}
         # Gap 6: validation registry (aggregate pass/fail headline)
         output['validation_registry'] = _build_validation_registry(
-            construct_results, last_run_utc=output['validation_date']
+            construct_results,
+            subgroup_standalone=subgroup_standalone,
         )
         # Gap 7: R parity test count meta-block
         output['r_parity_tests'] = _build_r_parity_tests()
