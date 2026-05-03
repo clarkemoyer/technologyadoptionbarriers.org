@@ -25,6 +25,8 @@ REM ====================================================================
 
 setlocal enableextensions
 
+REM %~dp0 always includes the trailing backslash (e.g. C:\path\to\folder\).
+REM We rely on that throughout: %HERE%filename (no extra \) is intentional.
 set "HERE=%~dp0"
 set "HERE_FWD=%HERE:\=/%"
 
@@ -209,6 +211,9 @@ REM ====================================================================
 
 set "COMBINED=%HERE%_run_validation.sps"
 REM Escape ^ first, then & (CMD metacharacter safety); escape ' -> '' (SPSS string literal safety).
+REM < > | cannot appear in NTFS paths. ! is safe because enabledelayedexpansion is off.
+REM % could appear in paths but is extremely rare; if it does, the echo would garble it,
+REM but that edge case is left for a future PowerShell-based writer if needed.
 set "HERE_FWD_SPS=%HERE_FWD:^=^^%"
 set "HERE_FWD_SPS=%HERE_FWD_SPS:&=^&%"
 set "HERE_FWD_SPS=%HERE_FWD_SPS:'=''%"
