@@ -656,13 +656,17 @@ class TestUnifiedPipelineGapFunctions:
 
     @requires_pingouin
     def test_henze_zirkler_normality_returns_schema_from_unified(self):
-        """Gap 2 — unified henze_zirkler_normality() returns the expected keys."""
+        """Gap 2 — unified henze_zirkler_normality() returns schema matching standalone."""
         mod = _import_unified()
         rng = np.random.default_rng(42)
         data = pd.DataFrame(rng.standard_normal((60, 4)))
         result = mod.henze_zirkler_normality(data)
-        for key in ("hz", "p_value", "normal"):
+        for key in ("n", "p", "hz", "p_value", "multivariate_normal_005"):
             assert key in result, f"Missing key '{key}' in henze_zirkler_normality output"
+        assert "normal" not in result, (
+            "'normal' key must not appear; use 'multivariate_normal_005' for schema parity"
+        )
+        assert isinstance(result["multivariate_normal_005"], bool)
 
     def test_t_tests_smb_vs_enterprise_exists_in_unified(self):
         """Gap 3 helper must be present in the unified pipeline module."""
@@ -672,7 +676,7 @@ class TestUnifiedPipelineGapFunctions:
         )
 
     def test_t_tests_smb_vs_enterprise_returns_schema_from_unified(self):
-        """Gap 3 — unified t_tests_smb_vs_enterprise() returns the expected structure."""
+        """Gap 3 — unified t_tests_smb_vs_enterprise() returns the full established schema."""
         mod = _import_unified()
         rng = np.random.default_rng(42)
         n = 80
@@ -682,9 +686,20 @@ class TestUnifiedPipelineGapFunctions:
             "_SMB": (rng.random(n) > 0.5).astype(int),
         })
         result = mod.t_tests_smb_vs_enterprise(df, {"Barriers": ["B1", "B2"]}, smb_col="_SMB")
+        # Top-level group counts (matching t_tests_tech_vs_nontech / t_tests_large_vs_small)
+        assert "smb_n" in result, "missing top-level smb_n"
+        assert "enterprise_n" in result, "missing top-level enterprise_n"
+        assert "cut" in result, "missing top-level cut"
         assert "constructs" in result
         assert "Barriers" in result["constructs"]
-        assert "t" in result["constructs"]["Barriers"]
+        construct = result["constructs"]["Barriers"]
+        for key in ("t", "df", "p", "cohens_d", "sig_05", "smb_mean", "enterprise_mean",
+                    "mean_diff"):
+            assert key in construct, f"Missing key '{key}' in construct result"
+        # Verify old schema keys (from the mismatched implementation) are gone
+        assert "mean_smb" not in construct, "'mean_smb' replaced by 'smb_mean'"
+        assert "mean_ent" not in construct, "'mean_ent' replaced by 'enterprise_mean'"
+        assert isinstance(construct["sig_05"], bool)
 
     def test_harman_single_factor_cmv_exists_in_unified(self):
         """Gap 4 helper must be present in the unified pipeline module."""

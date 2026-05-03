@@ -3430,61 +3430,91 @@ def split_sample_cv(df, barrier_cols_safe, three_group_def, seed=42):
 def henze_zirkler_normality(data):
     """Henze-Zirkler multivariate normality test (Gap 2).
 
-    Returns a dict with 'hz', 'p_value', 'normal' (bool), and 'n'.
-    Falls back to {'error': ...} when pingouin is unavailable or data is
-    too small (< 3 cols, < 20 rows).
+    Returns a dict matching the standalone tabs_v2_validation.py schema:
+    ``{'n', 'p', 'hz', 'p_value', 'multivariate_normal_005'}``.
+    Falls back to ``{'error': ...}`` when pingouin is unavailable or data is
+    too small (< 2 cols, < 5 rows).
     """
     if not HAS_PINGOUIN:
         return {'error': 'pingouin not installed'}
     sub = data.dropna()
-    if sub.shape[0] < 20 or sub.shape[1] < 3:
-        return {'error': 'insufficient data for Henze-Zirkler (need >=20 N, >=3 vars)'}
+    n, p = sub.shape
+    if n < 5 or p < 2:
+        return {'error': 'insufficient data for Henze-Zirkler (need >=5 N, >=2 vars)'}
     try:
         result = _pg.multivariate_normality(sub.values)
-        hz = getattr(result, 'hz', None) or (result[0] if isinstance(result, tuple) else None)
-        pval = getattr(result, 'pval', None) or (result[1] if isinstance(result, tuple) else None)
-        normal = getattr(result, 'normal', None) or (result[2] if isinstance(result, tuple) else None)
+        hz_stat = float(getattr(result, 'hz', None) or result[0])
+        pval = float(getattr(result, 'pval', None) if hasattr(result, 'pval')
+                     else result[1])
+        normal = bool(getattr(result, 'normal', None) if hasattr(result, 'normal')
+                      else result[2])
         return {
-            'hz': round(float(hz), 4) if hz is not None else None,
-            'p_value': round(float(pval), 4) if pval is not None else None,
-            'normal': bool(normal) if normal is not None else None,
-            'n': int(sub.shape[0]),
+            'n': int(n),
+            'p': int(p),
+            'hz': round(hz_stat, 4),
+            'p_value': round(pval, 6),
+            'multivariate_normal_005': normal,
         }
     except Exception as e:
         return {'error': str(e)}
 
 
 def t_tests_smb_vs_enterprise(df, construct_cols_map, smb_col='_SMB'):
-    """Construct-level Welch t-tests: SMB vs Enterprise (Gap 3).
+    """Construct-level Welch t-tests: SMB (<1000 employees) vs Enterprise (>=1000).
 
     Replicates CRP Table 22 / Slide 15.  ``construct_cols_map`` is a dict
-    ``{name: [cols]}``.  Returns a dict at key ``'constructs'`` with per-name
-    sub-dicts (mean_smb, mean_ent, t, p, cohens_d, n_smb, n_ent).
+    ``{name: [cols]}``.
+
+    Output schema matches ``tabs_v2_validation.py`` and the established
+    ``t_tests_tech_vs_nontech`` / ``t_tests_large_vs_small`` blocks:
+    top-level ``smb_n``, ``enterprise_n``, ``cut`` and per-construct
+    ``{'smb_mean', 'enterprise_mean', 'mean_diff', 't', 'df', 'p',
+    'cohens_d', 'sig_05'}``.
     """
     if smb_col not in df.columns:
         return {'error': f'{smb_col} not in df'}
     smb_mask = df[smb_col] == 1
     ent_mask = df[smb_col] == 0
-    results = {}
+    n_smb = int(smb_mask.sum())
+    n_ent = int(ent_mask.sum())
+    constructs = {}
     for cname, cols in construct_cols_map.items():
-        smb = df[smb_mask][cols].mean(axis=1).dropna()
-        ent = df[ent_mask][cols].mean(axis=1).dropna()
-        if len(smb) < 2 or len(ent) < 2:
-            results[cname] = {'error': 'insufficient n per group'}
+        smb_means = df[smb_mask][cols].mean(axis=1).dropna()
+        ent_means = df[ent_mask][cols].mean(axis=1).dropna()
+        if len(smb_means) < 3 or len(ent_means) < 3:
+            constructs[cname] = {'error': 'insufficient n'}
             continue
-        t_stat, p_val = sp.stats.ttest_ind(smb, ent, equal_var=False)
-        pooled_sd = float(np.sqrt((smb.std(ddof=1) ** 2 + ent.std(ddof=1) ** 2) / 2))
-        d = float((smb.mean() - ent.mean()) / pooled_sd) if pooled_sd > 0 else None
-        results[cname] = {
-            'mean_smb': round(float(smb.mean()), 4),
-            'mean_ent': round(float(ent.mean()), 4),
+        m_smb = float(smb_means.mean())
+        m_ent = float(ent_means.mean())
+        s_smb = float(smb_means.std(ddof=1))
+        s_ent = float(ent_means.std(ddof=1))
+        n1, n2 = len(smb_means), len(ent_means)
+        t_stat, p_val = sp.ttest_ind(smb_means.values, ent_means.values,
+                                           equal_var=False)
+        # Welch-Satterthwaite degrees of freedom
+        var1, var2 = s_smb ** 2 / n1, s_ent ** 2 / n2
+        df_welch = ((var1 + var2) ** 2 /
+                    (var1 ** 2 / max(1, n1 - 1) + var2 ** 2 / max(1, n2 - 1)))
+        # Pooled-SD Cohen's d (Enterprise - SMB)
+        s_pooled = np.sqrt(((n1 - 1) * s_smb ** 2 + (n2 - 1) * s_ent ** 2)
+                           / max(1, n1 + n2 - 2))
+        cohens_d = (m_ent - m_smb) / s_pooled if s_pooled > 0 else 0.0
+        constructs[cname] = {
+            'smb_mean': round(m_smb, 4),
+            'enterprise_mean': round(m_ent, 4),
+            'mean_diff': round(m_ent - m_smb, 4),
             't': round(float(t_stat), 4),
+            'df': round(float(df_welch), 2),
             'p': round(float(p_val), 4),
-            'cohens_d': round(d, 4) if d is not None else None,
-            'n_smb': int(len(smb)),
-            'n_ent': int(len(ent)),
+            'cohens_d': round(float(cohens_d), 4),
+            'sig_05': bool(p_val < 0.05),
         }
-    return {'constructs': results}
+    return {
+        'smb_n': n_smb,
+        'enterprise_n': n_ent,
+        'cut': 'SMB=<1000 employees, Enterprise=1000+',
+        'constructs': constructs,
+    }
 
 
 def harman_single_factor_cmv(df, all_cols):

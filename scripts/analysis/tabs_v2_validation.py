@@ -2583,7 +2583,7 @@ def _build_r_parity_tests(ci_workflow=None, last_run_utc=None):
     if last_run_utc is None:
         last_run_utc = pd.Timestamp.now('UTC').isoformat()
 
-    _FALLBACK_COUNT = 13  # last known value; updated automatically below
+    _FALLBACK_COUNT = 16  # last known value; updated automatically below
     parity_file = (
         Path(__file__).parent / 'tests' / 'test_parity_to_published_formulas.py'
     )
