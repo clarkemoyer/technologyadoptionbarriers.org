@@ -173,6 +173,7 @@ class TestHenzeZirklerNormality:
         result = mod.henze_zirkler_normality(synth_df[cols])
         assert isinstance(result["multivariate_normal_005"], bool)
 
+    @requires_pingouin
     def test_returns_none_for_tiny_data(self):
         mod = _import_validation()
         tiny = pd.DataFrame({"x": [1.0, 2.0]})
