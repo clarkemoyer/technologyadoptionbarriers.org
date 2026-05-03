@@ -45,7 +45,7 @@ file; for everything else, the recommendation is to cite the Python pipeline
    - **macOS**: right-click `0_DOUBLE_CLICK_ME_TO_START_MAC.command` → Open (one-time
      Gatekeeper approval). After the first run, double-click works.
 3. **SPSS opens with the syntax preloaded.** Click **Run → All** inside SPSS.
-4. **After ~60 seconds**, the same folder now contains:
+4. **After ~90 seconds**, the same folder now contains:
    - `spv_export.xlsx` - all SPSS tables in Excel format (open in Excel,
      Numbers, or LibreOffice)
    - `Post_Run_Results.spv` - native SPSS Viewer document (open in SPSS or
