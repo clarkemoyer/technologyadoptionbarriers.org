@@ -3366,7 +3366,12 @@ def split_sample_cv(df, barrier_cols_safe, three_group_def, seed=42):
     valid = data.iloc[idx[half:]]
     out = {'n_calibration': int(len(calib)), 'n_validation': int(len(valid)), 'seed': seed}
     loads_calib = []; loads_valid = []
-    for sample_name, sample, store in [('calibration', calib, loads_calib), ('validation', valid, loads_valid)]:
+    per_factor_loads_calib = {fact: [] for fact in three_group_def.keys()}
+    per_factor_loads_valid = {fact: [] for fact in three_group_def.keys()}
+    for sample_name, sample, store, per_factor_store in [
+        ('calibration', calib, loads_calib, per_factor_loads_calib),
+        ('validation', valid, loads_valid, per_factor_loads_valid),
+    ]:
         try:
             mod = semopy.Model(spec)
             mod.fit(sample, obj='DWLS')
@@ -3384,10 +3389,12 @@ def split_sample_cv(df, barrier_cols_safe, three_group_def, seed=42):
                 'rmsea': round(_stat('RMSEA'), 4) if _stat('RMSEA') is not None else None,
             }
             insp = mod.inspect(std_est=True)
-            L = insp[(insp['op']=='~') & (insp['Est. Std'].notna())]
+            L = insp[(insp['op'] == '~') & (insp['Est. Std'].notna())]
             for fact in three_group_def.keys():
-                for _, row in L[L['rval']==fact].iterrows():
-                    store.append(float(row['Est. Std']))
+                for _, row in L[L['rval'] == fact].iterrows():
+                    val = float(row['Est. Std'])
+                    store.append(val)
+                    per_factor_store[fact].append(val)
         except Exception as e:
             out[sample_name] = {'error': str(e)}
     if len(loads_calib) == len(loads_valid) and len(loads_calib) > 0:
@@ -3397,15 +3404,241 @@ def split_sample_cv(df, barrier_cols_safe, three_group_def, seed=42):
         out['tucker_congruence'] = round(tucker, 4) if tucker is not None else None
         out['interpretation'] = ('identical' if (tucker or 0) >= 0.95 else
                                   'minor_differences' if (tucker or 0) >= 0.85 else 'different_structures')
+        # Per-factor Tucker congruence (Gap 5)
+        per_factor = {}
+        for fact in three_group_def.keys():
+            af = per_factor_loads_calib.get(fact, [])
+            bf = per_factor_loads_valid.get(fact, [])
+            if len(af) == len(bf) and len(af) > 0:
+                av, bv = np.array(af), np.array(bf)
+                d_f = float(np.sqrt(av @ av) * np.sqrt(bv @ bv))
+                tf = float(av @ bv / d_f) if d_f > 0 else None
+                per_factor[fact] = round(tf, 4) if tf is not None else None
+            else:
+                per_factor[fact] = None
+        out['tucker_per_factor'] = per_factor
     return out
 
 
 
 
-
-
 # ============================================================================
-# 25-30. TIER 1 + TIER 2 EXTENSIONS (added 2026-05-01)
+# GAP-STAT HELPERS (Gaps 2-4, 6-7) — must match tabs_v2_validation.py
+# ============================================================================
+
+def henze_zirkler_normality(data):
+    """Henze-Zirkler multivariate normality test (Gap 2).
+
+    Returns a dict with 'hz', 'p_value', 'normal' (bool), and 'n'.
+    Falls back to {'error': ...} when pingouin is unavailable or data is
+    too small (< 3 cols, < 20 rows).
+    """
+    if not HAS_PINGOUIN:
+        return {'error': 'pingouin not installed'}
+    sub = data.dropna()
+    if sub.shape[0] < 20 or sub.shape[1] < 3:
+        return {'error': 'insufficient data for Henze-Zirkler (need >=20 N, >=3 vars)'}
+    try:
+        result = _pg.multivariate_normality(sub.values)
+        hz = getattr(result, 'hz', None) or (result[0] if isinstance(result, tuple) else None)
+        pval = getattr(result, 'pval', None) or (result[1] if isinstance(result, tuple) else None)
+        normal = getattr(result, 'normal', None) or (result[2] if isinstance(result, tuple) else None)
+        return {
+            'hz': round(float(hz), 4) if hz is not None else None,
+            'p_value': round(float(pval), 4) if pval is not None else None,
+            'normal': bool(normal) if normal is not None else None,
+            'n': int(sub.shape[0]),
+        }
+    except Exception as e:
+        return {'error': str(e)}
+
+
+def t_tests_smb_vs_enterprise(df, construct_cols_map, smb_col='_SMB'):
+    """Construct-level Welch t-tests: SMB vs Enterprise (Gap 3).
+
+    Replicates CRP Table 22 / Slide 15.  ``construct_cols_map`` is a dict
+    ``{name: [cols]}``.  Returns a dict at key ``'constructs'`` with per-name
+    sub-dicts (mean_smb, mean_ent, t, p, cohens_d, n_smb, n_ent).
+    """
+    if smb_col not in df.columns:
+        return {'error': f'{smb_col} not in df'}
+    smb_mask = df[smb_col] == 1
+    ent_mask = df[smb_col] == 0
+    results = {}
+    for cname, cols in construct_cols_map.items():
+        smb = df[smb_mask][cols].mean(axis=1).dropna()
+        ent = df[ent_mask][cols].mean(axis=1).dropna()
+        if len(smb) < 2 or len(ent) < 2:
+            results[cname] = {'error': 'insufficient n per group'}
+            continue
+        t_stat, p_val = sp.stats.ttest_ind(smb, ent, equal_var=False)
+        pooled_sd = float(np.sqrt((smb.std(ddof=1) ** 2 + ent.std(ddof=1) ** 2) / 2))
+        d = float((smb.mean() - ent.mean()) / pooled_sd) if pooled_sd > 0 else None
+        results[cname] = {
+            'mean_smb': round(float(smb.mean()), 4),
+            'mean_ent': round(float(ent.mean()), 4),
+            't': round(float(t_stat), 4),
+            'p': round(float(p_val), 4),
+            'cohens_d': round(d, 4) if d is not None else None,
+            'n_smb': int(len(smb)),
+            'n_ent': int(len(ent)),
+        }
+    return {'constructs': results}
+
+
+def harman_single_factor_cmv(df, all_cols):
+    """Harman single-factor common method variance test (Gap 4).
+
+    Runs PCA via ``np.linalg.eigvalsh`` on the standardised correlation
+    matrix (no sklearn dependency).  Zero-variance columns are replaced
+    with a small floor (1e-10) to avoid divide-by-zero.
+
+    Returns a dict with ``first_eigenvalue_pct_variance`` and ``below_50pct``
+    flag (True = no serious CMV concern).
+    """
+    try:
+        sub = df[all_cols].dropna()
+        if sub.shape[0] < 10 or sub.shape[1] < 2:
+            return {'error': 'insufficient data'}
+        std = sub.std(ddof=1)
+        std = std.where(std > 1e-10, other=1e-10)
+        Z = (sub - sub.mean()) / std
+        corr_matrix = Z.T @ Z / (sub.shape[0] - 1)
+        eigenvalues = np.linalg.eigvalsh(corr_matrix.values)
+        eigenvalues = np.sort(eigenvalues)[::-1]
+        total = float(eigenvalues.sum())
+        first_pct = round(float(eigenvalues[0]) / total * 100, 2) if total > 0 else None
+        return {
+            'first_eigenvalue': round(float(eigenvalues[0]), 4),
+            'first_eigenvalue_pct_variance': first_pct,
+            'below_50pct': (first_pct < 50) if first_pct is not None else None,
+            'n': int(sub.shape[0]),
+            'n_items': int(sub.shape[1]),
+        }
+    except Exception as e:
+        return {'error': str(e)}
+
+
+def _eval_construct_verdicts(cr):
+    """Derive the 10 psychometric verdict booleans from a validate_construct() result.
+
+    ``validate_construct()`` emits raw metrics but no pre-computed verdict
+    flags.  This helper converts those metrics to the same boolean checks
+    used in the ``verdicts`` block of crp-validation.json.
+    """
+    def _check(val, fn):
+        if val is None or (isinstance(val, float) and math.isnan(val)):
+            return None
+        try:
+            return bool(fn(val))
+        except (TypeError, ValueError):
+            return None
+
+    a = cr.get('cronbach_alpha')
+    omega = cr.get('mcdonalds_omega')
+    comp_rel = cr.get('composite_reliability')
+    ave = cr.get('ave_from_loadings')
+    citc_flagged = cr.get('citc_flagged_below_030') or []
+    sh = cr.get('split_half_spearman_brown')
+    efa = cr.get('efa') or {}
+    kmo = efa.get('kmo_model')
+    bartlett_p = efa.get('bartlett_p')
+    cfa = cr.get('cfa') or {}
+    cfi = cfa.get('cfi')
+    rmsea = cfa.get('rmsea')
+
+    criteria = {
+        'alpha_above_070':      _check(a,          lambda v: v >= 0.70),
+        'omega_above_070':      _check(omega,       lambda v: v >= 0.70),
+        'cr_above_070':         _check(comp_rel,    lambda v: v >= 0.70),
+        'ave_above_050':        _check(ave,         lambda v: v >= 0.50),
+        'itc_all_above_030':    bool(len(citc_flagged) == 0),
+        'split_half_above_070': _check(sh,          lambda v: v >= 0.70),
+        'kmo_above_060':        _check(kmo,         lambda v: v >= 0.60),
+        'bartlett_significant': _check(bartlett_p,  lambda v: v < 0.05),
+        'cfa_cfi_above_090':    _check(cfi,         lambda v: v >= 0.90),
+        'cfa_rmsea_below_008':  _check(rmsea,       lambda v: v <= 0.08),
+    }
+    pass_count = sum(1 for v in criteria.values() if v is True)
+    total_criteria = sum(1 for v in criteria.values() if v is not None)
+    return {**criteria, 'pass_count': pass_count, 'total_criteria': total_criteria}
+
+
+def _build_validation_registry(construct_results, subgroup_standalone=None):
+    """Aggregate psychometric verdicts into a pass/fail headline (Gap 6)."""
+    last_run_utc = pd.Timestamp.now('UTC').isoformat()
+    total_checks = 0
+    passed = 0
+    categories = {}
+
+    for cr in construct_results:
+        cname = cr.get('construct', 'Unknown')
+        verd = _eval_construct_verdicts(cr)
+        pc = verd['pass_count']
+        tc = verd['total_criteria']
+        total_checks += tc
+        passed += pc
+        categories[cname] = {'pass_count': pc, 'total_criteria': tc}
+
+    _SUBGROUP_CRITERIA = frozenset({
+        'parallel_analysis_unidimensional',
+        'alpha_above_070',
+        'cfi_above_090',
+        'rmsea_below_008',
+    })
+    if subgroup_standalone:
+        for group_label, subgroup_list in subgroup_standalone.items():
+            for sr in (subgroup_list or []):
+                if isinstance(sr, dict) and sr.get('skipped'):
+                    continue
+                verdict = sr.get('verdict') or {}
+                criteria_vals = [
+                    verdict[k] for k in _SUBGROUP_CRITERIA
+                    if k in verdict and isinstance(verdict[k], bool)
+                ]
+                tc = len(criteria_vals)
+                pc = sum(1 for v in criteria_vals if v)
+                if tc == 0:
+                    continue
+                total_checks += tc
+                passed += pc
+                cat_key = f"subgroup/{group_label}/{sr.get('name', 'unknown')}"
+                categories[cat_key] = {'pass_count': pc, 'total_criteria': tc}
+
+    failed = total_checks - passed
+    rate = round(passed / total_checks * 100, 1) if total_checks > 0 else None
+    return {
+        'total_checks': total_checks,
+        'passed': passed,
+        'failed': failed,
+        'pass_rate_pct': rate,
+        'categories': categories,
+        'last_run_utc': last_run_utc,
+    }
+
+
+def _build_r_parity_tests(ci_workflow=None):
+    """R-parity test count meta-block (Gap 7)."""
+    _FALLBACK_COUNT = 13
+    parity_file = (
+        Path(__file__).parent / 'tests' / 'test_parity_to_published_formulas.py'
+    )
+    try:
+        source = parity_file.read_text(encoding='utf-8')
+        count = len(re.findall(r'^def test_', source, re.MULTILINE))
+    except (OSError, IOError):
+        count = _FALLBACK_COUNT
+
+    workflow_path = ci_workflow or '.github/workflows/validate-analysis.yml'
+    return {
+        'count': count,
+        'ci_workflow': workflow_path,
+        'last_run_utc': pd.Timestamp.now('UTC').isoformat(),
+        'all_passing': None,
+    }
+
+
+
 # Mediation (B->R->M), VIF, bootstrap CIs, item-level d, demo-alpha,
 # power, equivalence (TOST), construct stability, BARRIERS bifactor,
 # multi-group 3F SEM, approximate measurement invariance, DIF, ESEM.

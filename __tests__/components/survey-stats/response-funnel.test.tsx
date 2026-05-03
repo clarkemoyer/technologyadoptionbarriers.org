@@ -40,9 +40,7 @@ describe('Response Funnel page (QualtricsSurveyStats)', () => {
 
   it('renders Qualtrics question IDs and items presented as separate values', () => {
     render(<QualtricsSurveyStats />)
-    expect(
-      screen.getByText(metricsData.questionCount.toLocaleString(), { exact: false })
-    ).toBeInTheDocument()
+    expect(screen.getByText(metricsData.questionCount.toLocaleString())).toBeInTheDocument()
     expect(screen.getByText(TOTAL_ITEMS_PRESENTED.toLocaleString())).toBeInTheDocument()
   })
 
