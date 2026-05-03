@@ -9,13 +9,13 @@ the Python and R analyses, with as few GUI clicks as possible.
 Built and tested against this combination of installed components
 (IBM SPSS Statistics 31.0):
 
-| Module                  | Used here for                                                                                                             |
-| ----------------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| **Statistics Base**     | Cronbach's alpha + alpha-if-deleted (Reliability), EFA + KMO + Bartlett (Factor), Pearson + Spearman correlations, T-Test |
-| **Regression**          | Mahalanobis distance (saved via REGRESSION /SAVE MAHAL)                                                                   |
+| Module                  | Used here for                                                                                                                                                                                                                                                                                                                                  |
+| ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Statistics Base**     | Cronbach's alpha + alpha-if-deleted (Reliability), EFA + KMO + Bartlett (Factor), Pearson + Spearman correlations, T-Test                                                                                                                                                                                                                      |
+| **Regression**          | Mahalanobis distance (saved via REGRESSION /SAVE MAHAL)                                                                                                                                                                                                                                                                                        |
 | **Bootstrapping**       | 95% bootstrap percentile CIs on Pearson correlations (Section 7) and regression coefficients (Section 9); 1000 resamples. Note: Cronbach's alpha CIs are not computed via the BOOTSTRAP wrapper in this syntax (support varies by SPSS version/license); alpha CIs are computed authoritatively in the Python pipeline (`bootstrap_alpha_ci`). |
-| **Missing Values**      | Little's MCAR test + missingness pattern analysis (matches the data-quality audit in the Python pipeline)                 |
-| **Advanced Statistics** | One-way MANOVA + univariate ANOVAs (`GLM … BY SMB_ENT`, Section 8: Group Comparisons)                                     |
+| **Missing Values**      | Little's MCAR test + missingness pattern analysis (matches the data-quality audit in the Python pipeline)                                                                                                                                                                                                                                      |
+| **Advanced Statistics** | One-way MANOVA + univariate ANOVAs (`GLM … BY SMB_ENT`, Section 8: Group Comparisons)                                                                                                                                                                                                                                                          |
 
 **Not in the targeted license: IBM SPSS Amos.** That is the SEM/CFA add-on,
 sold separately. Without it, SPSS cannot _natively_ compute confirmatory
@@ -78,24 +78,24 @@ the `CD` line at the top of the syntax file to an absolute path.
 Each block prints expected values in its header comment so you can spot-check
 against the Python pipeline.
 
-| Analysis                                    | SPSS command                                                                              | Expected value (CRP-200)                                 |
-| ------------------------------------------- | ----------------------------------------------------------------------------------------- | -------------------------------------------------------- |
-| Sanity check (means + SDs)                  | `DESCRIPTIVES VARIABLES=B1 TO B18 R1 TO R17 M1 TO M8`                                     | per-item descriptives                                    |
-| Cronbach's alpha (Barriers)                 | `RELIABILITY /VARIABLES=B1 TO B18 /SUMMARY=TOTAL`                                        | alpha = 0.873; N = 192                                   |
-| Cronbach's alpha (Readiness)                | same with `R1 TO R17`                                                                     | alpha = 0.917; N = 181                                   |
-| Cronbach's alpha (Maturity)                 | same with `M1 TO M8`                                                                      | alpha = 0.885; N = 191                                   |
-| Item-total correlations                     | (in Reliability output, `/SUMMARY=TOTAL`)                                                 | per-item ITC                                             |
-| Alpha-if-deleted                            | (in Reliability output, `/SUMMARY=TOTAL`)                                                 | per-item alpha-if-removed                                |
-| EFA Barriers (ML, 2 factors)                | `FACTOR /VARIABLES B1 TO B18 ... /CRITERIA FACTORS(2) /EXTRACTION ML /ROTATION PROMAX(4)` | KMO=0.851; Bartlett chi-squared=1135.51                  |
-| EFA Readiness (ML, 1 factor)                | same with `R1 TO R17`                                                                     | KMO=0.927; Bartlett chi-squared=1278.99                  |
-| EFA Maturity (ML, 1 factor)                 | same with `M1 TO M8`                                                                      | KMO=0.912; Bartlett chi-squared=650.13                   |
-| Inter-construct Pearson r                   | `CORRELATIONS /VARIABLES=B_mean R_mean M_mean`                                            | r(B,R) ~ -0.40; r(B,M) ~ -0.33; r(R,M) ~ +0.73           |
-| Inter-construct Spearman rho                | `NONPAR CORR /VARIABLES=B_mean R_mean M_mean /PRINT=SPEARMAN`                             | similar pattern, rank-based                              |
-| 2-sample t (SMB vs ENT) per construct       | `T-TEST GROUPS=SMB_ENT(1 2) /VARIABLES=B_mean R_mean M_mean`                              | per-construct group difference                           |
-| Mahalanobis outliers (Barriers)             | `REGRESSION /DEPENDENT B_mean /METHOD=ENTER B1 TO B18 /SAVE MAHAL`                        | max D-squared in Residuals Statistics; per-case in MAH_1 |
-| Mahalanobis outliers (Readiness)            | same with `R_mean` and `R1 TO R17`                                                        | same                                                     |
-| Mahalanobis outliers (Maturity)             | same with `M_mean` and `M1 TO M8`                                                         | same                                                     |
-| **Little's MCAR test**                      | `MVA VARIABLES=B1 TO B18 R1 TO R17 M1 TO M8 /MPATTERN /TPATTERN`                          | chi-squared, df, p; MCAR plausibility                    |
+| Analysis                              | SPSS command                                                                              | Expected value (CRP-200)                                 |
+| ------------------------------------- | ----------------------------------------------------------------------------------------- | -------------------------------------------------------- |
+| Sanity check (means + SDs)            | `DESCRIPTIVES VARIABLES=B1 TO B18 R1 TO R17 M1 TO M8`                                     | per-item descriptives                                    |
+| Cronbach's alpha (Barriers)           | `RELIABILITY /VARIABLES=B1 TO B18 /SUMMARY=TOTAL`                                         | alpha = 0.873; N = 192                                   |
+| Cronbach's alpha (Readiness)          | same with `R1 TO R17`                                                                     | alpha = 0.917; N = 181                                   |
+| Cronbach's alpha (Maturity)           | same with `M1 TO M8`                                                                      | alpha = 0.885; N = 191                                   |
+| Item-total correlations               | (in Reliability output, `/SUMMARY=TOTAL`)                                                 | per-item ITC                                             |
+| Alpha-if-deleted                      | (in Reliability output, `/SUMMARY=TOTAL`)                                                 | per-item alpha-if-removed                                |
+| EFA Barriers (ML, 2 factors)          | `FACTOR /VARIABLES B1 TO B18 ... /CRITERIA FACTORS(2) /EXTRACTION ML /ROTATION PROMAX(4)` | KMO=0.851; Bartlett chi-squared=1135.51                  |
+| EFA Readiness (ML, 1 factor)          | same with `R1 TO R17`                                                                     | KMO=0.927; Bartlett chi-squared=1278.99                  |
+| EFA Maturity (ML, 1 factor)           | same with `M1 TO M8`                                                                      | KMO=0.912; Bartlett chi-squared=650.13                   |
+| Inter-construct Pearson r             | `CORRELATIONS /VARIABLES=B_mean R_mean M_mean`                                            | r(B,R) ~ -0.40; r(B,M) ~ -0.33; r(R,M) ~ +0.73           |
+| Inter-construct Spearman rho          | `NONPAR CORR /VARIABLES=B_mean R_mean M_mean /PRINT=SPEARMAN`                             | similar pattern, rank-based                              |
+| 2-sample t (SMB vs ENT) per construct | `T-TEST GROUPS=SMB_ENT(1 2) /VARIABLES=B_mean R_mean M_mean`                              | per-construct group difference                           |
+| Mahalanobis outliers (Barriers)       | `REGRESSION /DEPENDENT B_mean /METHOD=ENTER B1 TO B18 /SAVE MAHAL`                        | max D-squared in Residuals Statistics; per-case in MAH_1 |
+| Mahalanobis outliers (Readiness)      | same with `R_mean` and `R1 TO R17`                                                        | same                                                     |
+| Mahalanobis outliers (Maturity)       | same with `M_mean` and `M1 TO M8`                                                         | same                                                     |
+| **Little's MCAR test**                | `MVA VARIABLES=B1 TO B18 R1 TO R17 M1 TO M8 /MPATTERN /TPATTERN`                          | chi-squared, df, p; MCAR plausibility                    |
 
 ## Optional add-ons (free, work with your license)
 
