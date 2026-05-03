@@ -214,7 +214,20 @@ const VARIANT_CONFIG: Record<FindingsVariant, VariantConfig> = {
   },
 }
 
-const COMPLETED_ANALYSES_LINKS = [
+const COMPLETED_ANALYSES_LINKS_LIVE = [
+  {
+    href: '/results/validation',
+    label: 'Regression Models',
+    aria: 'View completed Regression Models analysis',
+  },
+  {
+    href: '/results/factor-analysis',
+    label: 'Factor Analysis',
+    aria: 'View completed Factor Analysis results',
+  },
+]
+
+const COMPLETED_ANALYSES_LINKS_CRP = [
   {
     href: '/results/crp-2026/validation',
     label: 'Regression Models',
@@ -603,7 +616,10 @@ export const FindingsContent = ({ variant, data, validationData }: FindingsConte
               The following additional analyses have been completed:
             </p>
             <div className="flex flex-wrap justify-center gap-3">
-              {COMPLETED_ANALYSES_LINKS.map((link) => (
+              {(variant === 'crp'
+                ? COMPLETED_ANALYSES_LINKS_CRP
+                : COMPLETED_ANALYSES_LINKS_LIVE
+              ).map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}

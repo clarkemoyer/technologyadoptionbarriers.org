@@ -182,6 +182,17 @@ describe('FindingsContent — live variant', () => {
       '/results'
     )
   })
+
+  it('Completed Analyses links point to live track (/results/validation, /results/factor-analysis)', () => {
+    expect(screen.getByRole('link', { name: /Regression Models/ })).toHaveAttribute(
+      'href',
+      '/results/validation'
+    )
+    expect(screen.getByRole('link', { name: /Factor Analysis results/i })).toHaveAttribute(
+      'href',
+      '/results/factor-analysis'
+    )
+  })
 })
 
 describe('FindingsContent — crp variant', () => {
@@ -228,6 +239,17 @@ describe('FindingsContent — crp variant', () => {
     expect(screen.getByRole('link', { name: /Back to CRP 2026 Overview/ })).toHaveAttribute(
       'href',
       '/results/crp-2026'
+    )
+  })
+
+  it('Completed Analyses links point to crp-2026 track', () => {
+    expect(screen.getByRole('link', { name: /Regression Models/ })).toHaveAttribute(
+      'href',
+      '/results/crp-2026/validation'
+    )
+    expect(screen.getByRole('link', { name: /Factor Analysis results/i })).toHaveAttribute(
+      'href',
+      '/results/crp-2026/factor-analysis'
     )
   })
 })
