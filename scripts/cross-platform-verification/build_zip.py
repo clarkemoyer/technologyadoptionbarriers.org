@@ -107,8 +107,12 @@ PYTHON_MANIFEST: Sequence[tuple[str, str]] = (
 SPSS_README = """# TABS V2 Validation - SPSS Bundle
 
 This zip contains everything an SPSS user needs to independently reproduce
-the descriptive + reliability layer of the TABS validation pipeline on the
-same frozen N=200 dataset that drives the canonical Python and R analyses.
+the TABS validation pipeline on the same frozen N=200 dataset that drives
+the canonical Python and R analyses.  Sections 1–12 cover descriptives,
+reliability, factor analysis, correlations, group comparisons, and missing-
+data diagnostics using built-in SPSS procedures.  Sections 13–14 extend
+the validation with CFA, SEM, and measurement-invariance tests via embedded
+Python (semopy) and embedded R (lavaan/semTools).
 
 ## Quick start - one double-click
 
