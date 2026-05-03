@@ -369,6 +369,35 @@ def _combined_requirements() -> str:
     )
 
 
+def _add_to_zip(zf: zipfile.ZipFile, src: Path, arcname: str) -> None:
+    """Add *src* to *zf* with correct permissions and line endings.
+
+    * ``.command`` / ``.sh`` – stored as Unix-executable (rwxr-xr-x) so the
+      +x bit survives extraction on macOS/Linux even when the zip is built on
+      Windows (create_system=3, external_attr=0o100755<<16).
+    * ``.bat`` / ``.cmd`` – line endings are normalised to CRLF so the file
+      runs on all Windows versions regardless of the build platform.
+    * Everything else – packaged as-is (no special treatment).
+    """
+    data = src.read_bytes()
+    info = zipfile.ZipInfo(arcname)
+    info.compress_type = zipfile.ZIP_DEFLATED
+
+    suffix = src.suffix.lower()
+    if suffix in (".command", ".sh"):
+        info.create_system = 3  # Unix
+        info.external_attr = 0o100755 << 16  # rwxr-xr-x
+    elif suffix in (".bat", ".cmd"):
+        # Normalise line endings to CRLF: first convert all existing line
+        # endings (\r\n or lone \r) to bare \n, then replace every \n with
+        # \r\n.  This makes the file run correctly on all Windows versions
+        # regardless of the build platform's native line endings.
+        data = data.replace(b"\r\n", b"\n").replace(b"\r", b"\n").replace(b"\n", b"\r\n")
+    # For all other types, ZipInfo defaults (create_system=0, no exec bit) are fine.
+
+    zf.writestr(info, data)
+
+
 def build_one(
     zip_name: str,
     manifest: Sequence[tuple[str, str]],
@@ -385,7 +414,7 @@ def build_one(
     with zipfile.ZipFile(out_path, "w", zipfile.ZIP_DEFLATED, compresslevel=9) as zf:
         zf.writestr("README.md", readme)
         for src_rel, dest in manifest:
-            zf.write(REPO_ROOT / src_rel, arcname=dest)
+            _add_to_zip(zf, REPO_ROOT / src_rel, dest)
         if extra_strings:
             for dest, content in extra_strings.items():
                 zf.writestr(dest, content)

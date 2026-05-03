@@ -32,6 +32,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import numbers
 import sys
 from pathlib import Path
 
@@ -41,11 +42,17 @@ from pathlib import Path
 
 
 def _emit_pair(handle, key, value, fmt="%.4f"):
-    """Write '  key  = value' to text + (key, value) to csv collector."""
-    if value is None or (isinstance(value, float) and value != value):
+    """Write '  key  = value' to text + (key, value) to csv collector.
+
+    Accepts Python int/float and NumPy scalar types (numpy.float64, etc.)
+    via numbers.Real so that all numeric values are formatted with fmt and
+    NaN is rendered as 'n/a' regardless of numeric type.
+    """
+    if value is None:
         formatted = "n/a"
-    elif isinstance(value, (int, float)):
-        formatted = fmt % value
+    elif isinstance(value, numbers.Real):
+        fv = float(value)
+        formatted = "n/a" if fv != fv else fmt % fv  # fv != fv is NaN
     else:
         formatted = str(value)
     handle["txt"].write(f"  {key:30s} = {formatted}\n")
@@ -82,6 +89,21 @@ def _print_fit_indices(handle, model, calc_stats, label):
         handle["txt"].write(f"  (fit indices unavailable: {exc})\n")
 
 
+# ---------------------------------------------------------------------------
+# Column definitions (module-level so validation and analysis stay in sync)
+# ---------------------------------------------------------------------------
+
+_B_ITEMS = [f"B{i}" for i in range(1, 19)]  # Barriers items (18)
+_R_ITEMS = [f"R{i}" for i in range(1, 18)]  # Readiness items (17)
+_M_ITEMS = [f"M{i}" for i in range(1, 9)]   # Maturity items (8)
+
+REQUIRED_COLUMNS: list[str] = (
+    _B_ITEMS + _R_ITEMS + _M_ITEMS
+    + ["B_mean", "R_mean", "M_mean"]  # composite means (Mardia section)
+    + ["SMB_ENT"]                      # group variable (multigroup CFA section)
+)
+
+
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description="TABS SEM companion for Minitab users")
     parser.add_argument("--csv", required=True, help="Path to tabs_v2_crp200_minitab.csv")
@@ -116,9 +138,24 @@ def main(argv=None) -> int:
     df = pd.read_csv(csv_path)
     print(f"Loaded {csv_path.name}: {df.shape[0]} rows x {df.shape[1]} cols")
 
-    B = [f"B{i}" for i in range(1, 19)]
-    R = [f"R{i}" for i in range(1, 18)]
-    M = [f"M{i}" for i in range(1, 9)]
+    B = _B_ITEMS
+    R = _R_ITEMS
+    M = _M_ITEMS
+
+    # ------------------------------------------------------------------
+    # Upfront column validation: fail fast with a clear message rather
+    # than crashing mid-analysis with an opaque KeyError.
+    # ------------------------------------------------------------------
+    missing_cols = [c for c in REQUIRED_COLUMNS if c not in df.columns]
+    if missing_cols:
+        print(
+            "\nERROR: The following required columns are missing from the CSV:\n"
+            + "".join(f"  - {c}\n" for c in missing_cols)
+            + "\nExpected columns: B1-B18, R1-R17, M1-M8, B_mean, R_mean, M_mean, SMB_ENT\n"
+            "Please ensure you are using the correct file: tabs_v2_crp200_minitab.csv",
+            file=sys.stderr,
+        )
+        return 4
 
     with open(txt_path, "w", encoding="utf-8") as txt:
         handle = {"txt": txt, "csv_rows": [], "section": "header"}

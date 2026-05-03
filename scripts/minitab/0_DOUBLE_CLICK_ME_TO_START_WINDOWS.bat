@@ -6,16 +6,17 @@ REM What this does:
 REM   1. Confirms the zip was extracted (not double-clicked from inside).
 REM   2. Locates Minitab (mtb.exe) AND a Python interpreter (preferring
 REM      the SPSS-bundled python.exe if SPSS is also installed, then
-REM      falling back to system python on PATH).
+REM      falling back to system python on PATH, skipping Windows Store
+REM      stubs that cannot run scripts).
 REM   3. PRE-INSTALLS semopy via the located Python so the SEM companion
 REM      script (tabs_v2_sem_companion.py) can import it immediately.
 REM   4. Runs the SEM companion script - produces sem_companion_results.txt
 REM      with CFA fit indices, omega from CFA, bifactor decomposition,
 REM      multigroup CFA, and Mardia normality, since Minitab does not
 REM      have these natively.
-REM   5. Launches Minitab with tabs_v2_validation.MTB preloaded - opens
-REM      the worksheet, runs the macro, output appears in Minitab's
-REM      Session window.
+REM   5. Opens Minitab with the worksheet (tabs_v2_crp200_minitab.csv)
+REM      preloaded. You must run the macro manually inside Minitab:
+REM      File > Run an Exec > tabs_v2_validation.MTB
 REM   6. THIS CONSOLE WINDOW STAYS OPEN until the recipient presses a
 REM      key, so they can see what happened (especially install output).
 REM
@@ -24,9 +25,8 @@ REM   1. Extract the zip
 REM   2. Double-click this .bat
 REM   3. Watch the console install semopy if Python is found (~30 sec)
 REM   4. SEM companion runs (~10 sec); writes sem_companion_results.txt
-REM   5. Minitab opens with the worksheet + macro preloaded
+REM   5. Minitab opens with the worksheet preloaded
 REM   6. In Minitab: File > Run an Exec > tabs_v2_validation.MTB
-REM      (or use Run Now if the launcher already started it)
 REM   7. Open both sem_companion_results.txt and the Minitab Session
 REM      window to see the full validation receipt
 REM
@@ -146,10 +146,18 @@ for %%P in (
   if exist %%P if not defined PYTHON_EXE set "PYTHON_EXE=%%~P"
 )
 
-REM Fall back to system Python on PATH.
+REM Fall back to system Python on PATH, skipping Windows Store stubs
+REM and validating that the candidate actually runs scripts.
 if not defined PYTHON_EXE (
   for /f "delims=" %%P in ('where python 2^>nul') do (
-    if not defined PYTHON_EXE set "PYTHON_EXE=%%P"
+    if not defined PYTHON_EXE (
+      echo %%P | findstr /I "WindowsApps" >nul
+      if errorlevel 1 (
+        REM Not a Windows Store stub; verify the interpreter executes.
+        "%%P" -c "import sys; sys.exit(0)" >nul 2>&1
+        if not errorlevel 1 set "PYTHON_EXE=%%P"
+      )
+    )
   )
 )
 
