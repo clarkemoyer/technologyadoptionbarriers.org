@@ -150,12 +150,17 @@ the validation via embedded Python (`semopy==2.3.11`) and embedded R
 (`lavaan`/`semTools`), which the launcher pre-installs automatically:
 
 - **Section 13** (Python/semopy): CFA fit indices, McDonald's omega,
-  composite reliability, AVE, HTMT/HTMT2, Mardia multivariate normality.
-- **Section 14** (R/lavaan): multigroup CFA, configural/metric/scalar
-  measurement invariance tests.
+  composite reliability, AVE, HTMT/HTMT2, **bifactor decomposition**
+  (omega-h, omega-total, ECV) for the Barriers construct, Mardia
+  multivariate normality, multigroup CFA configural baseline.
+- **Section 14** (R/lavaan): metric and scalar measurement-invariance
+  Delta-CFI tests by org-size group, plus McDonald's omega cross-check
+  via semTools::reliability().
 
-IBM SPSS Amos is **not** required. IRT GRM and bifactor/ESEM remain in
-the separate Python pipeline (`tabs_v2_validation_python.zip`).
+IBM SPSS Amos is **not** required. IRT GRM, second-order CFA, and ESEM
+with target rotation remain in the separate Python pipeline
+(`tabs_v2_validation_python.zip`); semopy does not have first-class
+support for those, and the canonical pipeline already provides them.
 
 ## What's inside
 
