@@ -95,8 +95,12 @@ def _print_fit_indices(handle, model, calc_stats, label):
             def _stat(name):
                 return float(fit_df.loc["Value", name]) if name in fit_df.columns else None
         else:
+            # Column-oriented: metric names in index, 'Value' column.
+            # Guard: if 'Value' column is absent fall back gracefully.
             def _stat(name):
-                return float(fit_df.loc[name, "Value"]) if name in fit_df.index else None
+                return float(fit_df.loc[name, "Value"]) if (
+                    name in fit_df.index and "Value" in fit_df.columns
+                ) else None
 
         for key in ("chi2", "DoF", "chi2 p-value", "CFI", "TLI", "RMSEA", "SRMR", "AGFI", "GFI"):
             val = _stat(key)
@@ -199,9 +203,9 @@ def main(argv=None) -> int:
         # non-positive absolute correlations before taking log instead of
         # adding a global epsilon that perturbs every value.
         def _geo_mean(arr):
-            """Geometric mean of positive-only values; returns NaN if none."""
+            """Geometric mean of positive-only values; returns float NaN if none."""
             pos = arr[arr > 0]
-            return float(np.exp(np.mean(np.log(pos)))) if len(pos) > 0 else np.nan
+            return float(np.exp(np.mean(np.log(pos)))) if len(pos) > 0 else float("nan")
 
         iB = list(range(0, 18))
         iR = list(range(18, 35))
