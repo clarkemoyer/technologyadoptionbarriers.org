@@ -10,10 +10,13 @@
 import React from 'react'
 import { render, screen, within } from '@testing-library/react'
 import '@testing-library/jest-dom'
+import { axe, toHaveNoViolations } from 'jest-axe'
 import {
   DataQualityContent,
   type DataQualityData,
 } from '@/components/results/data-quality/DataQualityContent'
+
+expect.extend(toHaveNoViolations)
 
 /* ── Lightweight mock for PipelineDataFlow so the diagram doesn't interfere ── */
 jest.mock('@/components/results/data-quality/PipelineDataFlow', () => ({
@@ -298,11 +301,10 @@ describe('DataQualityContent — reproducibility section', () => {
     expect(within(section).queryByText(/public dataset/i)).not.toBeInTheDocument()
   })
 
-  it('live: does NOT show the "Open Data & Reproducibility" button', () => {
+  it('live: shows the "Open Data & Reproducibility" link to /results/reproducibility', () => {
     render(<DataQualityContent variant="live" data={MOCK_DATA} />)
-    expect(
-      screen.queryByRole('link', { name: /open data & reproducibility/i })
-    ).not.toBeInTheDocument()
+    const link = screen.getByRole('link', { name: /open data & reproducibility/i })
+    expect(link).toHaveAttribute('href', '/results/reproducibility')
   })
 
   it('crp: mentions "public CRP-2026 dataset" in reproducibility prose', () => {
@@ -342,5 +344,21 @@ describe('DataQualityContent — sample-nesting prose', () => {
     // "Three nested" appears in both the overview bullet and the Sample Definitions intro
     const matches = screen.getAllByText(/three nested/i)
     expect(matches.length).toBeGreaterThanOrEqual(2)
+  })
+})
+
+/* ── Accessibility ────────────────────────────────────────────── */
+
+describe('DataQualityContent — accessibility', () => {
+  it('live variant has no accessibility violations', async () => {
+    const { container } = render(<DataQualityContent variant="live" data={MOCK_DATA} />)
+    const results = await axe(container)
+    expect(results).toHaveNoViolations()
+  })
+
+  it('crp variant has no accessibility violations', async () => {
+    const { container } = render(<DataQualityContent variant="crp" data={MOCK_DATA} />)
+    const results = await axe(container)
+    expect(results).toHaveNoViolations()
   })
 })

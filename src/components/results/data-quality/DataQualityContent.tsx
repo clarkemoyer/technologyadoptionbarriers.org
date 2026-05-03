@@ -724,12 +724,16 @@ export function DataQualityContent({ variant, data }: DataQualityContentProps) {
                 <table className="w-full border-collapse font-sans text-sm">
                   <thead>
                     <tr className="bg-gray-100">
-                      <th className="border border-gray-300 px-4 py-2 text-left font-bold">
+                      <th
+                        scope="col"
+                        className="border border-gray-300 px-4 py-2 text-left font-bold"
+                      >
                         Metric
                       </th>
                       {samples.map((s) => (
                         <th
                           key={s.key}
+                          scope="col"
                           className="border border-gray-300 px-4 py-2 text-right font-bold"
                         >
                           {s.label}
@@ -742,9 +746,12 @@ export function DataQualityContent({ variant, data }: DataQualityContentProps) {
                   <tbody>
                     {data.metrics.map((metric, i) => (
                       <tr key={metric.key} className={i % 2 === 1 ? 'bg-gray-50' : ''}>
-                        <td className="border border-gray-300 px-4 py-2 font-medium">
+                        <th
+                          scope="row"
+                          className="border border-gray-300 px-4 py-2 font-medium text-left"
+                        >
                           {metric.label}
-                        </td>
+                        </th>
                         {samples.map((s) => (
                           <td
                             key={s.key}
@@ -877,14 +884,12 @@ export function DataQualityContent({ variant, data }: DataQualityContentProps) {
             )}
           </p>
           <div className="flex flex-wrap gap-4 my-6">
-            {variant === 'crp' && (
-              <Link
-                href="/results/reproducibility"
-                className="inline-flex items-center px-5 py-2.5 bg-gray-900 text-white rounded-lg hover:bg-gray-700 transition-colors font-sans text-sm"
-              >
-                Open Data &amp; Reproducibility
-              </Link>
-            )}
+            <Link
+              href="/results/reproducibility"
+              className="inline-flex items-center px-5 py-2.5 bg-gray-900 text-white rounded-lg hover:bg-gray-700 transition-colors font-sans text-sm"
+            >
+              Open Data &amp; Reproducibility
+            </Link>
             <Link
               href="/results/dashboard"
               className="inline-flex items-center px-5 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-sans text-sm"
