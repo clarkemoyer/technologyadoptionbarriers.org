@@ -82,9 +82,6 @@ def _print_fit_indices(handle, model, calc_stats, label):
     This matches the dual-detection logic used in the canonical pipeline
     (scripts/analysis/tabs_v2_validation.py).
     """
-    import numpy as np
-    import pandas as pd
-
     _subsection(handle, label)
     try:
         fit_df = calc_stats(model)

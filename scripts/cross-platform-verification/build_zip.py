@@ -201,6 +201,12 @@ Minitab native analyses:
 SEM companion:
 1. Install Python 3.10+ from https://python.org if you do not have it.
 2. From a terminal in this folder:
+   macOS / Linux:
+   ```
+   python3 -m pip install --user numpy pandas scipy "semopy==2.3.11"
+   python3 tabs_v2_sem_companion.py --csv tabs_v2_crp200_minitab.csv --out-dir .
+   ```
+   Windows (if python3 is not on PATH, try python instead):
    ```
    python -m pip install --user numpy pandas scipy "semopy==2.3.11"
    python tabs_v2_sem_companion.py --csv tabs_v2_crp200_minitab.csv --out-dir .
@@ -448,13 +454,24 @@ def build_one(
             f"Missing required artifacts for {zip_name}:\n  " + "\n  ".join(missing)
         )
 
+    # Use the build script's own UTC mtime as a deterministic timestamp for
+    # in-memory string entries (README.md, requirements.txt, etc.) that have
+    # no source file to derive a mtime from.
+    script_dt = _mtime_tuple(Path(__file__))
+
     with zipfile.ZipFile(out_path, "w", zipfile.ZIP_DEFLATED, compresslevel=9) as zf:
-        zf.writestr("README.md", readme)
+        readme_info = zipfile.ZipInfo("README.md")
+        readme_info.compress_type = zipfile.ZIP_DEFLATED
+        readme_info.date_time = script_dt
+        zf.writestr(readme_info, readme)
         for src_rel, dest in manifest:
             _add_to_zip(zf, REPO_ROOT / src_rel, dest)
         if extra_strings:
             for dest, content in extra_strings.items():
-                zf.writestr(dest, content)
+                str_info = zipfile.ZipInfo(dest)
+                str_info.compress_type = zipfile.ZIP_DEFLATED
+                str_info.date_time = script_dt
+                zf.writestr(str_info, content)
 
     return out_path
 

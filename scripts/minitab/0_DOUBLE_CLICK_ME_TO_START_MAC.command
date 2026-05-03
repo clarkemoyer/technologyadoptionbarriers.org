@@ -163,9 +163,11 @@ else
       PYTHON_EXE=""
     fi
   fi
-  SEMOPY_VER=$("$PYTHON_EXE" -c "import semopy; print(semopy.__version__)" 2>/dev/null || echo "unknown")
-  echo "  semopy version: $SEMOPY_VER"
-  echo
+  if [ -n "$PYTHON_EXE" ]; then
+    SEMOPY_VER=$("$PYTHON_EXE" -c "import semopy; print(semopy.__version__)" 2>/dev/null || echo "unknown")
+    echo "  semopy version: $SEMOPY_VER"
+    echo
+  fi
 fi
 
 # Run the SEM companion script if Python is available.

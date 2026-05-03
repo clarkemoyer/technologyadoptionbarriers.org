@@ -45,8 +45,13 @@ Minitab native analyses:
 SEM companion:
 
 ```bash
-python -m pip install --user numpy pandas scipy "semopy==2.3.11"
-python tabs_v2_sem_companion.py --csv tabs_v2_crp200_minitab.csv --out-dir .
+# macOS / Linux:
+python3 -m pip install --user numpy pandas scipy "semopy==2.3.11"
+python3 tabs_v2_sem_companion.py --csv tabs_v2_crp200_minitab.csv --out-dir .
+
+# Windows (if python3 is not on PATH, try python instead):
+# python -m pip install --user numpy pandas scipy "semopy==2.3.11"
+# python tabs_v2_sem_companion.py --csv tabs_v2_crp200_minitab.csv --out-dir .
 ```
 
 Open `sem_companion_results.txt` (Notepad / TextEdit) or `sem_companion_results.csv` (Excel / Minitab `File -> Open Worksheet`).
