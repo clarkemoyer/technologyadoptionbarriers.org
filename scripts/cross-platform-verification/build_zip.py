@@ -36,7 +36,6 @@ Usage:
 """
 from __future__ import annotations
 
-import shutil
 import zipfile
 from pathlib import Path
 from typing import Sequence
@@ -54,6 +53,21 @@ SPSS_MANIFEST: Sequence[tuple[str, str]] = (
     ("scripts/spss/tabs_v2_crp200_spss.sav", "tabs_v2_crp200_spss.sav"),
     ("scripts/spss/tabs_v2_crp200_spss.csv", "tabs_v2_crp200_spss.csv"),
     ("scripts/spss/tabs_v2_validation.sps", "tabs_v2_validation.sps"),
+    # Double-click launchers for the recipient. The "0_" prefix forces
+    # both Windows Explorer and macOS Finder to sort these to the top
+    # of the extracted folder, and the filename itself instructs the
+    # recipient what to do. The .bat and .command both build a combined
+    # runtime syntax file (absolute CD + main syntax) and launch SPSS
+    # interactively. Both also detect the "double-clicked from inside
+    # the zip" failure mode and print explicit unzip-first guidance.
+    (
+        "scripts/spss/0_DOUBLE_CLICK_ME_TO_START_WINDOWS.bat",
+        "0_DOUBLE_CLICK_ME_TO_START_WINDOWS.bat",
+    ),
+    (
+        "scripts/spss/0_DOUBLE_CLICK_ME_TO_START_MAC.command",
+        "0_DOUBLE_CLICK_ME_TO_START_MAC.command",
+    ),
     ("scripts/spss/README.md", "README_SPSS.md"),
 )
 
@@ -111,35 +125,77 @@ PYTHON_MANIFEST: Sequence[tuple[str, str]] = (
 SPSS_README = """# TABS V2 Validation - SPSS Bundle
 
 This zip contains everything an SPSS user needs to independently reproduce
-the descriptive + reliability layer of the TABS validation pipeline on the
-same frozen N=200 dataset that drives the canonical Python and R analyses.
+the TABS validation pipeline on the same frozen N=200 dataset that drives
+the canonical Python and R analyses.  Sections 1–12 cover descriptives,
+reliability, factor analysis, correlations, group comparisons, and missing-
+data diagnostics using built-in SPSS procedures.  Sections 13–14 extend
+the validation with CFA, SEM, and measurement-invariance tests via embedded
+Python (semopy) and embedded R (lavaan/semTools).
 
-## Quick start (about 2 clicks once SPSS is open)
+## Quick start - one double-click
 
-1. Unzip into any folder.
-2. Open `tabs_v2_validation.sps` in SPSS (`File -> Open -> Syntax`).
-3. `Run -> All`. Output appears in a new Viewer document.
+1. Unzip into any folder (Desktop, Documents, anywhere).
+2. Double-click the launcher for your operating system:
+   - **Windows**: `0_DOUBLE_CLICK_ME_TO_START_WINDOWS.bat`
+   - **macOS**: right-click `0_DOUBLE_CLICK_ME_TO_START_MAC.command` -> Open (one-time
+     Gatekeeper prompt). After the first run, double-click works.
+3. SPSS opens with the syntax preloaded; click **Run → All** inside SPSS.
+4. After ~90 seconds, open `spv_export.xlsx` in this folder.
+
+The launcher locates SPSS automatically and opens it with the syntax
+file preloaded. Two result files are written into the same folder you
+extracted the zip to once SPSS finishes running:
+
+- `spv_export.xlsx` - all SPSS tables in Excel format
+- `Post_Run_Results.spv` - native SPSS Viewer document (open with SPSS or
+  the free IBM SPSS SmartReader)
+
+## Manual fallback (if the launcher cannot find SPSS)
+
+1. Open `tabs_v2_validation.sps` in SPSS (`File -> Open -> Syntax`).
+2. `Run -> All`. Output appears in a new Viewer document.
+3. The syntax automatically writes `spv_export.xlsx` and `Post_Run_Results.spv`
+   into the folder where the .sps file lives.
 
 If SPSS reports "File not found" for the .sav, set the working directory
 to the unzipped folder via `Edit -> Options -> File Locations`.
 
 ## Targeted SPSS license
 
-Built for IBM SPSS Statistics 31.0 with Statistics Base + Regression +
-Bootstrapping + Missing Values + Advanced Statistics. Without IBM SPSS
-Amos, this bundle covers the descriptive + reliability layer only - CFA
-fit indices, McDonald's omega from CFA, composite reliability with SEs,
-AVE, HTMT/HTMT2, bifactor decompositions, second-order CFA, multigroup CFA,
-measurement invariance, ESEM, IRT GRM, and Mardia normality stay in the
-Python pipeline (download `tabs_v2_validation_python.zip` for those).
+Tested on IBM SPSS Statistics 31.0; expected to work on 24+ with
+Statistics Base, Regression, Bootstrapping, Missing Values, and
+Advanced Statistics.
+
+Sections 1–12 use only built-in SPSS procedures (descriptives,
+reliability, factor analysis, correlations, MVA). Sections 13–14 extend
+the validation via embedded Python (`semopy==2.3.11`) and embedded R
+(`lavaan`/`semTools`): `semopy` is installed automatically on first run;
+R packages (`lavaan`, `semTools`) are optional and installed only after
+the launcher prompts for confirmation.
+
+- **Section 13** (Python/semopy): CFA fit indices, McDonald's omega,
+  composite reliability, AVE, HTMT/HTMT2, **bifactor decomposition**
+  (omega-h, omega-total, ECV) for the Barriers construct, Mardia
+  multivariate normality, multigroup CFA configural baseline.
+- **Section 14** (R/lavaan): metric and scalar measurement-invariance
+  Delta-CFI tests by org-size group, plus McDonald's omega cross-check
+  via semTools::reliability().
+
+IBM SPSS Amos is **not** required. IRT GRM, second-order CFA, and ESEM
+with target rotation remain in the separate Python pipeline
+(`tabs_v2_validation_python.zip`); semopy does not have first-class
+support for those, and the canonical pipeline already provides them.
 
 ## What's inside
 
 ```
-tabs_v2_crp200_spss.sav     <- SPSS native binary worksheet (open with double-click)
-tabs_v2_crp200_spss.csv     <- same data, CSV form (for sharing or re-import)
-tabs_v2_validation.sps      <- syntax file (Run -> All)
+0_DOUBLE_CLICK_ME_TO_START_WINDOWS.bat  <- Windows double-click launcher
+0_DOUBLE_CLICK_ME_TO_START_MAC.command  <- macOS double-click launcher
+tabs_v2_crp200_spss.sav     <- SPSS native binary worksheet
+tabs_v2_crp200_spss.csv     <- same data, CSV form (for re-import elsewhere)
+tabs_v2_validation.sps      <- syntax file (loaded into SPSS by the launcher; click Run → All)
 README_SPSS.md              <- detailed walkthrough + expected values
+README.md                   <- this file
 ```
 
 ## Three quick spot-checks that should match exactly
@@ -256,8 +312,7 @@ and use the SPSS bundle's Section 14 (or call lavaan directly).
 | Cronbach's alpha (Maturity, 8 items) | 0.885 |
 | Listwise N (Barriers / Readiness / Maturity) | 192 / 181 / 191 |
 
-The SEM companion's CFA Maturity should report CFI = 0.981, RMSEA = 0.057,
-matching the canonical `crp-validation.json` to 4 decimals.
+See `README_MINITAB.md` for the complete expected-value table.
 """
 
 PYTHON_README = """# TABS V2 Validation - Python Bundle (TABS Native)
@@ -376,72 +431,57 @@ def _combined_requirements() -> str:
     )
 
 
-def _mtime_tuple(src: Path) -> tuple:
-    """Return a 6-tuple (Y, M, D, h, m, s) in UTC from *src*'s mtime for ZipInfo.
+# File extensions whose executable bit must survive zipping. Without this,
+# macOS users who extract the zip cannot double-click the .command launcher
+# (Finder treats it as a plain text file because the +x bit was lost on
+# extraction). Setting external_attr to a 0o100755 mode (regular-file type
+# + rwxr-xr-x) preserves the bit.
+_EXECUTABLE_EXTS = (".command", ".sh")
+_EXECUTABLE_MODE = 0o100755  # regular file + rwxr-xr-x
 
-    UTC is used so the tuple serialises to the same Y/M/D/h/m/s on any build
-    machine regardless of local timezone.  Repeated builds from the same
-    working tree (where file mtimes are unchanged) will therefore produce
-    bit-identical archives.  If files are re-cloned or re-checked-out on a
-    different machine their mtimes may differ, so cross-machine bit-identity
-    is not guaranteed unless mtimes are preserved (e.g. via git-restore-mtime).
-
-    Note: assumes file mtimes are post-Unix-epoch (1970-01-01), which is true
-    for all files in this repository on any modern filesystem.
-    """
-    import datetime
-
-    ts = src.stat().st_mtime
-    dt = datetime.datetime.fromtimestamp(ts, tz=datetime.timezone.utc)
-    return (dt.year, dt.month, dt.day, dt.hour, dt.minute, dt.second)
+# Windows .bat files must use CRLF line endings or cmd.exe fails silently
+# on parse and the console window closes immediately. The repo may store
+# these with LF (Linux convention, git autocrlf settings), so we normalise
+# to CRLF inside the zip regardless of how they're stored on disk.
+_CRLF_EXTS = (".bat", ".cmd")
 
 
-def _add_to_zip(zf: zipfile.ZipFile, src: Path, arcname: str) -> None:
-    """Add *src* to *zf* with correct permissions and line endings.
-
-    * ``.command`` / ``.sh`` – stored as Unix-executable (rwxr-xr-x) so the
-      +x bit survives extraction on macOS/Linux even when the zip is built on
-      Windows (create_system=3, external_attr=0o100755<<16).
-    * ``.bat`` / ``.cmd`` – line endings are normalised to CRLF so the file
-      runs on all Windows versions regardless of the build platform.
-    * Everything else – streamed via ``ZipInfo.from_file`` + ``zf.open()`` to
-      avoid loading the whole file into memory; ``date_time`` is overridden
-      with the UTC mtime tuple for deterministic output.
-
-    Timestamps are derived from the source file's mtime (UTC) so consecutive
-    builds from the same sources produce identical archives.
-    """
-    suffix = src.suffix.lower()
-
-    if suffix in (".command", ".sh"):
-        data = src.read_bytes()
-        info = zipfile.ZipInfo(arcname)
+def _add_to_zip(zf: zipfile.ZipFile, src_path: Path, dest: str) -> None:
+    """Write a file to the zip, setting a fixed 0o100755 mode for .command/.sh
+    (not derived from the source file's stat mode) and forcing CRLF line
+    endings for .bat / .cmd.  These transforms apply to all bundles built by
+    this script, not just the SPSS bundle."""
+    dest_lower = dest.lower()
+    if dest_lower.endswith(_EXECUTABLE_EXTS):
+        info = zipfile.ZipInfo.from_file(src_path, arcname=dest)
+        # Always force 0o100755 (rwxr-xr-x) regardless of the source file's
+        # on-disk permissions.  Deriving the mode from stat() is unreliable:
+        # on Windows, stat().st_mode is typically 0o666, which when OR-ed with
+        # execute bits and masked would still leave world-write set, and on a
+        # restrictive Linux setup (e.g. 0o100700) it would omit group/other
+        # read+execute bits, producing 0o100711 instead of 0o100755.  Using a
+        # fixed constant is simpler and produces predictable results on all
+        # build platforms.
+        exec_mode = _EXECUTABLE_MODE  # 0o100755
+        info.external_attr = exec_mode << 16
+        # Force create_system=3 (Unix) so macOS unzippers honour the Unix
+        # permission bits even when the zip is built on Windows (where
+        # ZipInfo.from_file() sets create_system=0 by default).
+        info.create_system = 3
         info.compress_type = zipfile.ZIP_DEFLATED
-        info.date_time = _mtime_tuple(src)
-        info.create_system = 3  # Unix
-        info.external_attr = 0o100755 << 16  # rwxr-xr-x
-        zf.writestr(info, data)
-    elif suffix in (".bat", ".cmd"):
-        # Normalise line endings to CRLF: first convert all existing line
-        # endings (\r\n or lone \r) to bare \n, then replace every \n with
-        # \r\n.  This makes the file run correctly on all Windows versions
-        # regardless of the build platform's native line endings.
-        data = src.read_bytes()
-        data = data.replace(b"\r\n", b"\n").replace(b"\r", b"\n").replace(b"\n", b"\r\n")
-        info = zipfile.ZipInfo(arcname)
+        with open(src_path, "rb") as f:
+            zf.writestr(info, f.read())
+    elif dest_lower.endswith(_CRLF_EXTS):
+        info = zipfile.ZipInfo.from_file(src_path, arcname=dest)
         info.compress_type = zipfile.ZIP_DEFLATED
-        info.date_time = _mtime_tuple(src)
+        with open(src_path, "rb") as f:
+            data = f.read()
+        # Strip any existing CR (in case file is CRLF already), then
+        # re-add CR before each LF so output is uniformly CRLF.
+        data = data.replace(b"\r\n", b"\n").replace(b"\n", b"\r\n")
         zf.writestr(info, data)
     else:
-        # For all other files: stream content via ZipInfo.from_file so the
-        # whole file is not loaded into memory, then override date_time with
-        # the UTC mtime tuple so all three branches produce deterministic
-        # timestamps consistently.
-        info = zipfile.ZipInfo.from_file(src, arcname)
-        info.date_time = _mtime_tuple(src)
-        info.compress_type = zipfile.ZIP_DEFLATED
-        with open(src, "rb") as f_in, zf.open(info, "w") as f_out:
-            shutil.copyfileobj(f_in, f_out)
+        zf.write(src_path, arcname=dest)
 
 
 def build_one(
@@ -457,24 +497,13 @@ def build_one(
             f"Missing required artifacts for {zip_name}:\n  " + "\n  ".join(missing)
         )
 
-    # Use the build script's own UTC mtime as a deterministic timestamp for
-    # in-memory string entries (README.md, requirements.txt, etc.) that have
-    # no source file to derive a mtime from.
-    script_dt = _mtime_tuple(Path(__file__))
-
     with zipfile.ZipFile(out_path, "w", zipfile.ZIP_DEFLATED, compresslevel=9) as zf:
-        readme_info = zipfile.ZipInfo("README.md")
-        readme_info.compress_type = zipfile.ZIP_DEFLATED
-        readme_info.date_time = script_dt
-        zf.writestr(readme_info, readme)
+        zf.writestr("README.md", readme)
         for src_rel, dest in manifest:
             _add_to_zip(zf, REPO_ROOT / src_rel, dest)
         if extra_strings:
             for dest, content in extra_strings.items():
-                str_info = zipfile.ZipInfo(dest)
-                str_info.compress_type = zipfile.ZIP_DEFLATED
-                str_info.date_time = script_dt
-                zf.writestr(str_info, content)
+                zf.writestr(dest, content)
 
     return out_path
 

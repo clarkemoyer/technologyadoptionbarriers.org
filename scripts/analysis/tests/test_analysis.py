@@ -1493,3 +1493,163 @@ class TestExtendedOutputBlocks:
             assert entry["n"] == 0
             assert entry["mean"] is None
             assert entry["sd"] is None
+
+
+# ── TestOtherRolesCategoriesRegression ──────────────────────────────────────
+
+class TestOtherRolesCategoriesRegression:
+    """Regression guard for other_roles.categories in demographics_for().
+
+    Prior to the fix in #1858, the categorize_other_role() call was placed
+    inside the ``else`` branch of the binary-classification if/else, which
+    was unreachable because classify_role_binary() never returns None for
+    role == 'Other' (it always falls through to the 'Non-Technical' default).
+    This caused other_roles.categories to always emit {} even when Other
+    respondents were present.
+
+    These tests assert:
+    1. categories is non-empty when Other rows are present.
+    2. Cells with count < 5 are emitted as the string "<5" (k-anonymity).
+    3. Cells with count >= 5 are emitted as plain integers.
+    """
+
+    @staticmethod
+    def _build_rows_with_other_roles():
+        """Return (idx, rows) for a synthetic 11-row dataset that includes:
+
+        - 2 CIO rows  (Technical, non-Other)
+        - 2 CEO rows  (Non-Technical, non-Other)
+        - 5 "Director of IT" Other rows  → categories["Director"] = 5
+        - 2 "VP of Finance" Other rows   → categories["VP / SVP"] = 2 (→ "<5")
+
+        All rows include the full column set required by sensitivity_to_json().
+        """
+        from tabs_v2_unified_data_analysis import (
+            BARRIER_COLS, READINESS_COLS, MATURITY_COLS,
+            BARRIER_IRI, READINESS_IRI, MATURITY_IRI,
+            BARRIER_ITEM_TEXT,
+        )
+
+        top3_cols = [f"Q29-46_Top3Barriers_{i}" for i in range(1, 19)]
+        demo_cols = [
+            "Q1_Role", "Q1_Role_11_TEXT",
+            "Q2_DecisionAuth", "Q4_OrgSize", "Q5_ProfitModel",
+        ]
+        other_cols = [
+            "ResponseId", "StartDate", "Duration (in seconds)", "Finished",
+            "PROLIFIC_PID", "Q_RecaptchaScore", "Q_StraightliningCount",
+            BARRIER_IRI, READINESS_IRI, MATURITY_IRI,
+        ]
+        all_cols = other_cols + demo_cols + BARRIER_COLS + READINESS_COLS + MATURITY_COLS + top3_cols
+        idx = {col: i for i, col in enumerate(all_cols)}
+        ncols = len(all_cols)
+
+        def make_row(pid, role, other_text, barrier_val, readiness_val, maturity_val):
+            row = [""] * ncols
+            row[idx["ResponseId"]] = pid
+            row[idx["StartDate"]] = "2026-01-01 10:00:00"
+            row[idx["Duration (in seconds)"]] = "600"
+            row[idx["Finished"]] = "TRUE"
+            row[idx["PROLIFIC_PID"]] = pid
+            row[idx["Q_RecaptchaScore"]] = "0.9"
+            row[idx["Q_StraightliningCount"]] = "0"
+            row[idx[BARRIER_IRI]] = "Major Barrier"
+            row[idx[READINESS_IRI]] = "Low Readiness/Capability"
+            row[idx[MATURITY_IRI]] = "Level 2: Developing/Repeatable"
+            row[idx["Q1_Role"]] = role
+            row[idx["Q1_Role_11_TEXT"]] = other_text
+            row[idx["Q2_DecisionAuth"]] = "High"
+            row[idx["Q4_OrgSize"]] = "10000+"
+            row[idx["Q5_ProfitModel"]] = "For-Profit"
+            for col in BARRIER_COLS:
+                row[idx[col]] = barrier_val
+            for col in READINESS_COLS:
+                row[idx[col]] = readiness_val
+            for col in MATURITY_COLS:
+                row[idx[col]] = maturity_val
+            row[idx["Q29-46_Top3Barriers_1"]] = BARRIER_ITEM_TEXT[1]
+            return row
+
+        rows = []
+        # 2 CIO rows (Technical, non-Other)
+        for i in range(2):
+            rows.append(make_row(
+                f"CIO_{i}", "CIO (e.g., Director of IT)", "",
+                "Major Barrier", "High Readiness/Capability",
+                "Level 3: Defined/Standardized",
+            ))
+        # 2 CEO rows (Non-Technical, non-Other)
+        for i in range(2):
+            rows.append(make_row(
+                f"CEO_{i}",
+                "CEO (e.g., Agency Director, Secretary, Administrator, City/County Manager)", "",
+                "Major Barrier", "High Readiness/Capability",
+                "Level 3: Defined/Standardized",
+            ))
+        # 5 "Director of IT" Other rows  → categories["Director"] = 5 (not suppressed)
+        for i in range(5):
+            rows.append(make_row(
+                f"DIR_{i}", "Other (please specify)", "Director of IT",
+                "Major Barrier", "High Readiness/Capability",
+                "Level 3: Defined/Standardized",
+            ))
+        # 2 "VP of Finance" Other rows  → categories["VP / SVP"] = 2 → "<5" suppressed
+        for i in range(2):
+            rows.append(make_row(
+                f"VP_{i}", "Other (please specify)", "VP of Finance",
+                "Major Barrier", "High Readiness/Capability",
+                "Level 3: Defined/Standardized",
+            ))
+        return idx, rows
+
+    def test_other_roles_categories_non_empty(self):
+        """Regression: categories must be non-empty when Other rows are present.
+
+        Prior to #1858 fix this always emitted {}.
+        """
+        from tabs_v2_unified_data_analysis import sensitivity_to_json
+
+        idx, rows = self._build_rows_with_other_roles()
+        result = sensitivity_to_json([("Prolific Accepted", rows)], idx)
+
+        demo = result["sample_details"]["prolific_accepted"]["demographics"]
+        cats = demo["other_roles"]["categories"]
+
+        assert cats, (
+            "other_roles.categories is empty even though Other rows are present; "
+            "likely the categorize_other_role() call is still inside an unreachable branch."
+        )
+
+    def test_other_roles_categories_no_suppression_for_count_gte_5(self):
+        """Cells with count >= 5 must be plain integers, not suppressed."""
+        from tabs_v2_unified_data_analysis import sensitivity_to_json
+
+        idx, rows = self._build_rows_with_other_roles()
+        result = sensitivity_to_json([("Prolific Accepted", rows)], idx)
+
+        demo = result["sample_details"]["prolific_accepted"]["demographics"]
+        cats = demo["other_roles"]["categories"]
+
+        assert "Director" in cats, f"'Director' key missing from categories: {cats}"
+        director_count = cats["Director"]
+        assert isinstance(director_count, int), (
+            f"Expected integer for Director count (5 rows), got {director_count!r}"
+        )
+        assert director_count == 5
+
+    def test_other_roles_categories_suppression_for_count_lt_5(self):
+        """Cells with count < 5 must be emitted as the string '<5'."""
+        from tabs_v2_unified_data_analysis import sensitivity_to_json
+
+        idx, rows = self._build_rows_with_other_roles()
+        result = sensitivity_to_json([("Prolific Accepted", rows)], idx)
+
+        demo = result["sample_details"]["prolific_accepted"]["demographics"]
+        cats = demo["other_roles"]["categories"]
+
+        assert "VP / SVP" in cats, f"'VP / SVP' key missing from categories: {cats}"
+        vp_count = cats["VP / SVP"]
+        assert vp_count == "<5", (
+            f"Expected '<5' for VP / SVP count (2 rows, below k-anonymity threshold), "
+            f"got {vp_count!r}"
+        )

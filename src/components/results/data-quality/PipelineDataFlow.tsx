@@ -64,8 +64,12 @@ type Stage = {
   source: string
   description: string
   outputs: string[]
+  /** Replaces outputs when variant="crp". Use for filenames that differ between tracks. */
+  crpOutputs?: string[]
   href: string
   color: StageColor
+  /** True when /results/crp-2026/<path> exists and the CRP variant should link there. */
+  hasCrpTwin?: boolean
 }
 
 const STAGES: Stage[] = [
@@ -112,6 +116,7 @@ const STAGES: Stage[] = [
     outputs: ['disposition CSV (1-day artifact)', 'disposition-summary.json'],
     href: '/results/data-quality',
     color: 'amber',
+    hasCrpTwin: true,
   },
   {
     num: '5',
@@ -128,23 +133,26 @@ const STAGES: Stage[] = [
     num: '6',
     title: 'Descriptive Analysis',
     phase: 'Phase 2.5',
-    source: 'scripts/analysis/tabs_v2_analysis.py',
+    source: 'scripts/analysis/tabs_v2_unified_data_analysis.py',
     description:
       'Means, SDs, skewness, kurtosis, inter-construct correlations, top-3 forced-choice tallies. Run once per sample tier.',
     outputs: ['sensitivity-analysis.json (per-sample stats)'],
+    crpOutputs: ['crp-sensitivity-analysis.json (per-sample stats)'],
     href: '/results/descriptive',
     color: 'emerald',
+    hasCrpTwin: true,
   },
   {
     num: '7',
     title: 'Advanced Analysis',
     phase: 'Phase 2.6',
-    source: 'scripts/analysis/tabs_v2_advanced.py',
+    source: 'scripts/analysis/tabs_v2_unified_data_analysis.py',
     description:
       'Effect sizes (Cohen d), t-tests, ANOVA, regression on demographic groupings, cross-tabs. Per sample tier.',
     outputs: ['effect-size and inferential blocks in sensitivity JSON'],
     href: '/results/findings',
     color: 'emerald',
+    hasCrpTwin: true,
   },
   {
     num: '8',
@@ -160,17 +168,19 @@ const STAGES: Stage[] = [
     ],
     href: '/results/validation',
     color: 'purple',
+    hasCrpTwin: true,
   },
   {
     num: '9',
     title: 'Quality Audit',
     phase: 'Phase 2.8',
-    source: 'scripts/analysis/tabs_v2_quality_audit.py',
+    source: 'scripts/analysis/tabs_v2_unified_data_analysis.py',
     description:
       'Outlier detection (Mahalanobis, Cook distance), common-method-variance check, missing-data pattern audit. Cross-checks earlier stages.',
     outputs: ['quality block in unified analysis JSON'],
     href: '/results/validation',
     color: 'purple',
+    hasCrpTwin: true,
   },
   {
     num: '10',
@@ -260,7 +270,19 @@ function FlowConnector() {
  * surfaces the stage's output, with accessible hover/focus styles. Stages
  * without a downstream results page (data ops, commit) link to GitHub source.
  */
-export function PipelineDataFlow() {
+export function PipelineDataFlow({ variant = 'live' }: { variant?: 'live' | 'crp' }) {
+  const stages =
+    variant === 'crp'
+      ? STAGES.map((s) =>
+          s.hasCrpTwin
+            ? {
+                ...s,
+                href: s.href.replace('/results/', '/results/crp-2026/'),
+                ...(s.crpOutputs ? { outputs: s.crpOutputs } : {}),
+              }
+            : s
+        )
+      : STAGES
   return (
     <section className="mb-12 text-gray-800">
       <h2 className={H2_CLASSES}>Pipeline and Data Flow</h2>
@@ -286,10 +308,10 @@ export function PipelineDataFlow() {
       </p>
 
       <ol className="list-none p-0 m-0">
-        {STAGES.map((stage, i) => (
+        {stages.map((stage, i) => (
           <li key={stage.num} className="block">
             <StageCard stage={stage} />
-            {i < STAGES.length - 1 && <FlowConnector />}
+            {i < stages.length - 1 && <FlowConnector />}
           </li>
         ))}
       </ol>
