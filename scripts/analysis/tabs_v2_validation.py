@@ -2442,7 +2442,7 @@ def _eval_construct_verdicts(cr):
     """
     def _check(val, fn):
         """Apply fn(val) only when val is available; return None if not."""
-        if val is None or (isinstance(val, float) and val != val):
+        if val is None or (isinstance(val, float) and math.isnan(val)):
             return None
         try:
             return bool(fn(val))

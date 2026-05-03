@@ -13,6 +13,7 @@ All tests are designed to run in the CI sandbox (pingouin, numpy, pandas,
 scipy pre-installed; semopy is optional for Gap 1/5 tests).
 """
 
+import re
 import sys
 from pathlib import Path
 from unittest.mock import MagicMock, patch
@@ -483,7 +484,6 @@ class TestBuildRParityTests:
 
     def test_count_reflects_actual_parity_file(self):
         """count must match the number of def test_ functions in the parity file."""
-        import re as _re
         mod = _import_validation()
         result = mod._build_r_parity_tests(last_run_utc="now")
         parity_file = (
@@ -491,7 +491,7 @@ class TestBuildRParityTests:
         )
         if parity_file.exists():
             source = parity_file.read_text(encoding="utf-8")
-            expected = len(_re.findall(r"^def test_", source, _re.MULTILINE))
+            expected = len(re.findall(r"^def test_", source, re.MULTILINE))
             assert result["count"] == expected, (
                 f"count={result['count']} but file has {expected} tests; "
                 "update _build_r_parity_tests() or add/remove tests consistently"

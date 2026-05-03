@@ -114,7 +114,8 @@ def _run_with_mock_stats_no_srmr(synth_data):
     )
 
     # Provide a valid mx_cov so the fallback can compute SRMR rather than returning None.
-    # Use the identity matrix as a trivial implied covariance (diagonal residuals = 0).
+    # The identity matrix is a minimal valid implied covariance for this mock; the
+    # actual SRMR value will reflect how much the observed data diverges from identity.
     n_vars = data.shape[1]
     mock_model.mx_cov = np.eye(n_vars)
 
