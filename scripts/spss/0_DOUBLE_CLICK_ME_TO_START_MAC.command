@@ -191,7 +191,7 @@ _sq="'"
 HERE_SPS="${HERE//$_sq/$_sq$_sq}"
 COMBINED="$HERE/_run_validation.sps"
 {
-  echo "* Auto-generated combined syntax. Prepends absolute CD then INSERTs"
+  echo "* Auto-generated combined syntax. Prepends absolute CD then concatenates"
   echo "* tabs_v2_validation.sps. Regenerated each launcher run; safe to delete."
   echo "*."
   echo

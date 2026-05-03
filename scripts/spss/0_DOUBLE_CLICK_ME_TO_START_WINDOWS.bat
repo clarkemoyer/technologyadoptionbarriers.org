@@ -233,7 +233,7 @@ REM but that edge case is left for a future PowerShell-based writer if needed.
 set "HERE_FWD_SPS=%HERE_FWD:^=^^%"
 set "HERE_FWD_SPS=%HERE_FWD_SPS:&=^&%"
 set "HERE_FWD_SPS=%HERE_FWD_SPS:'=''%"
-> "%COMBINED%" echo * Auto-generated combined syntax. Prepends absolute CD then INSERTs
+> "%COMBINED%" echo * Auto-generated combined syntax. Prepends absolute CD then concatenates
 >>"%COMBINED%" echo * tabs_v2_validation.sps. Regenerated each launcher run; safe to delete.
 >>"%COMBINED%" echo *.
 >>"%COMBINED%" echo.

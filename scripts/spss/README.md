@@ -18,13 +18,16 @@ Built and tested against this combination of installed components
 | **Advanced Statistics** | Available for follow-up GLM / Mixed Models work, not required by the syntax in this folder                                |
 
 **Not in the targeted license: IBM SPSS Amos.** That is the SEM/CFA add-on,
-sold separately. Without it, SPSS cannot natively compute confirmatory
+sold separately. Without it, SPSS cannot _natively_ compute confirmatory
 factor analysis, McDonald's omega from a CFA, composite reliability with
 proper standard errors, bifactor / second-order / multigroup CFA,
 measurement invariance testing, or the DWLS/WLSMV estimator for ordinal
-data. Workarounds for the omega/CR/AVE values are at the bottom of this
-file; for everything else, the recommendation is to cite the Python pipeline
-(cross-validated against R via `scripts/analysis/verify_against_R.R`).
+data. **Sections 13–14 of `tabs_v2_validation.sps` bridge this gap via
+SPSS's embedded Python (semopy 2.3.11, installed automatically by the
+launcher) for CFA, SEM, bifactor omega, Mardia normality, and HTMT/HTMT2,
+and via embedded R (lavaan + semTools, optional) for full measurement
+invariance tests and McDonald's omega.** IRT GRM, DWLS/WLSMV, ESEM, and
+Tucker congruence remain in the Python/R pipeline only.
 
 ## Files in this folder
 
@@ -113,22 +116,40 @@ one Viewer document.
 
 ### CFA-derived statistics (omega from CFA, CR with SEs, AVE, HTMT2, bifactor, second-order, multigroup CFA, measurement invariance, ESEM, IRT GRM, Mardia normality, Tucker congruence)
 
-These all require either:
+SPSS cannot compute these _natively_ (without AMOS or Mplus), but
+**Sections 13–14 of `tabs_v2_validation.sps` extend native SPSS with
+embedded Python and R to cover most of them:**
 
-- AMOS (covers ML CFA, bifactor with manual constraints, multigroup, but NOT DWLS/WLSMV, NOT HTMT2, NOT IRT GRM, NOT ESEM)
-- OR Mplus (covers everything in the Python pipeline)
-- OR the Python pipeline + R verification script already in this repo
+| Statistic / test                                | In the .sps?           | How                               |
+| ----------------------------------------------- | ---------------------- | --------------------------------- |
+| HTMT, HTMT2 (discriminant validity)             | ✓ Section 13           | Embedded Python (numpy/pandas)    |
+| CFA fit (CFI, RMSEA, SRMR, GFI, TLI, chi²)      | ✓ Section 13           | Embedded Python (semopy)          |
+| McDonald's omega, composite reliability, AVE    | ✓ Section 13           | Embedded Python (semopy)          |
+| Bifactor omega-h / omega-total / ECV            | ✓ Section 13           | Embedded Python (semopy)          |
+| Multigroup CFA configural baseline              | ✓ Section 13           | Embedded Python (semopy)          |
+| Mardia multivariate normality (skew + kurtosis) | ✓ Section 13           | Embedded Python (scipy)           |
+| Metric + scalar measurement invariance          | ✓ Section 14           | Embedded R (lavaan, optional)     |
+| McDonald's omega via semTools                   | ✓ Section 14           | Embedded R (semTools, optional)   |
+| IRT graded response model                       | ✗ Python pipeline only | mirt / semopy / R ltm             |
+| DWLS / WLSMV estimator                          | ✗ Python pipeline only | R lavaan with `estimator="WLSMV"` |
+| ESEM / Bifactor-ESEM                            | ✗ Python pipeline only | Mplus or R bifactor + rotation    |
+| Tucker congruence                               | ✗ Python pipeline only | psych::fa.congruence in R         |
 
-Recommended: in the dissertation methods section, add one paragraph like:
+For statistics still in the Python-only column, the recommendation is to cite
+the Python pipeline (cross-validated against R via `scripts/analysis/`).
+
+Recommended dissertation paragraph:
 
 > "Cronbach's alpha, KMO, Bartlett's sphericity, exploratory factor analysis,
 > inter-construct correlations, group comparisons, and Little's MCAR test were
-> independently verified in IBM SPSS Statistics 31.0 (Statistics Base + Regression + Bootstrapping + Missing Values modules); see `scripts/spss/`. CFA fit indices,
-> McDonald's omega, composite reliability, AVE, HTMT, HTMT2, bifactor decomposition,
-> and IRT graded response models were computed in Python (semopy 2.3) and
-> cross-validated in R (lavaan 0.6.21, semTools 0.5.8, psych 2.6.3); see
-> `scripts/analysis/`. Without IBM SPSS Amos, these CFA-based statistics are
-> not natively computable in SPSS and were therefore not re-derived there."
+> independently verified in IBM SPSS Statistics 31.0 (Statistics Base + Regression
+>
+> - Bootstrapping + Missing Values modules); see `scripts/spss/`. CFA fit indices,
+>   McDonald's omega, composite reliability, AVE, HTMT/HTMT2, bifactor decomposition,
+>   and Mardia normality tests were additionally computed via SPSS's embedded Python
+>   (semopy 2.3.11) and embedded R (lavaan 0.6.21, semTools 0.5.8); see
+>   `scripts/spss/tabs_v2_validation.sps`, Sections 13–14. IRT graded response
+>   models and ESEM remain in the Python pipeline only (`scripts/analysis/`)."
 
 ### Manual workaround for omega, CR, AVE, Tucker congruence in SPSS
 
