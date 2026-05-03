@@ -325,10 +325,25 @@ const DemoCountTable = ({
   <div>
     <h4 className="text-xs font-bold text-gray-600 uppercase mb-2">{title}</h4>
     <table className="w-full text-xs border-collapse">
+      <thead>
+        <tr>
+          <th scope="col" className="sr-only">
+            Category
+          </th>
+          <th scope="col" className="sr-only">
+            Count
+          </th>
+          <th scope="col" className="sr-only">
+            Percent
+          </th>
+        </tr>
+      </thead>
       <tbody>
         {Object.entries(entries).map(([k, count]) => (
           <tr key={k} className="border-b border-gray-200">
-            <td className="py-1 pr-2 font-medium">{k}</td>
+            <th scope="row" className="py-1 pr-2 font-medium text-left">
+              {k}
+            </th>
             <td className="py-1 text-right font-mono">{count}</td>
             <td className="py-1 pl-1 text-right text-gray-500">{pct(count, sampleN)}</td>
           </tr>
@@ -358,41 +373,54 @@ const TechBucketTable = ({
       Technical vs. Non-Technical Breakdown
     </h4>
     <table className="w-full text-xs border-collapse">
+      <thead>
+        <tr>
+          <th scope="col" className="sr-only">
+            Role Group
+          </th>
+          <th scope="col" className="sr-only">
+            Count
+          </th>
+          <th scope="col" className="sr-only">
+            Percent
+          </th>
+        </tr>
+      </thead>
       <tbody>
         <tr className="border-b border-gray-200">
-          <td className="py-1.5 pr-2 font-medium">
+          <th scope="row" className="py-1.5 pr-2 font-medium text-left">
             <span
               className="inline-block w-2 h-2 rounded-full bg-blue-500 mr-1.5"
               aria-hidden="true"
             />
             {techLabel}
-          </td>
+          </th>
           <td className="py-1.5 text-right font-mono">{breakdown.technical}</td>
           <td className="py-1.5 pl-1 text-right text-gray-500">
             {pct(breakdown.technical, sampleN)}
           </td>
         </tr>
         <tr className="border-b border-gray-200">
-          <td className="py-1.5 pr-2 font-medium">
+          <th scope="row" className="py-1.5 pr-2 font-medium text-left">
             <span
               className="inline-block w-2 h-2 rounded-full bg-emerald-500 mr-1.5"
               aria-hidden="true"
             />
             Non-Technical (CEO, CFO, COO, CHRO, CMO, CSO, CRO)
-          </td>
+          </th>
           <td className="py-1.5 text-right font-mono">{breakdown.non_technical}</td>
           <td className="py-1.5 pl-1 text-right text-gray-500">
             {pct(breakdown.non_technical, sampleN)}
           </td>
         </tr>
         <tr className="border-b border-gray-200">
-          <td className="py-1.5 pr-2 font-medium">
+          <th scope="row" className="py-1.5 pr-2 font-medium text-left">
             <span
               className="inline-block w-2 h-2 rounded-full bg-amber-500 mr-1.5"
               aria-hidden="true"
             />
             Other (self-reported)
-          </td>
+          </th>
           <td className="py-1.5 text-right font-mono">{breakdown.other}</td>
           <td className="py-1.5 pl-1 text-right text-gray-500">{pct(breakdown.other, sampleN)}</td>
         </tr>
@@ -462,10 +490,25 @@ const OtherRolesTable = ({ otherRoles }: { otherRoles: OtherRolesData }) => (
       protect participant privacy.
     </p>
     <table className="w-full text-xs border-collapse">
+      <thead>
+        <tr>
+          <th scope="col" className="sr-only">
+            Category
+          </th>
+          <th scope="col" className="sr-only">
+            Count
+          </th>
+          <th scope="col" className="sr-only">
+            Percent
+          </th>
+        </tr>
+      </thead>
       <tbody>
         {Object.entries(otherRoles.categories).map(([category, count]) => (
           <tr key={category} className="border-b border-gray-200">
-            <td className="py-1 pr-2 font-medium">{category}</td>
+            <th scope="row" className="py-1 pr-2 font-medium text-left">
+              {category}
+            </th>
             <td className="py-1 text-right font-mono">{count}</td>
             <td className="py-1 pl-1 text-right text-gray-500">
               {typeof count === 'number' ? pct(count, otherRoles.total) : '-'}
