@@ -17,7 +17,7 @@ import {
 
 /* ── Lightweight mock for PipelineDataFlow so the diagram doesn't interfere ── */
 jest.mock('@/components/results/data-quality/PipelineDataFlow', () => ({
-  PipelineDataFlow: ({ variant }: { variant?: string }) => (
+  PipelineDataFlow: ({ variant }: { variant?: 'live' | 'crp' }) => (
     <div data-testid="pipeline-data-flow" data-variant={variant} />
   ),
 }))
