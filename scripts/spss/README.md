@@ -142,14 +142,13 @@ Recommended dissertation paragraph:
 
 > "Cronbach's alpha, KMO, Bartlett's sphericity, exploratory factor analysis,
 > inter-construct correlations, group comparisons, and Little's MCAR test were
-> independently verified in IBM SPSS Statistics 31.0 (Statistics Base + Regression
->
-> - Bootstrapping + Missing Values modules); see `scripts/spss/`. CFA fit indices,
->   McDonald's omega, composite reliability, AVE, HTMT/HTMT2, bifactor decomposition,
->   and Mardia normality tests were additionally computed via SPSS's embedded Python
->   (semopy 2.3.11) and embedded R (lavaan 0.6.21, semTools 0.5.8); see
->   `scripts/spss/tabs_v2_validation.sps`, Sections 13–14. IRT graded response
->   models and ESEM remain in the Python pipeline only (`scripts/analysis/`)."
+> independently verified in IBM SPSS Statistics 31.0 (Statistics Base + Regression +
+> Bootstrapping + Missing Values modules); see `scripts/spss/`. CFA fit indices,
+> McDonald's omega, composite reliability, AVE, HTMT/HTMT2, bifactor decomposition,
+> and Mardia normality tests were additionally computed via SPSS's embedded Python
+> (semopy 2.3.11) and embedded R (lavaan 0.6.21, semTools 0.5.8); see
+> `scripts/spss/tabs_v2_validation.sps`, Sections 13–14. IRT graded response
+> models and ESEM remain in the Python pipeline only (`scripts/analysis/`)."
 
 ### Manual workaround for omega, CR, AVE, Tucker congruence in SPSS
 
