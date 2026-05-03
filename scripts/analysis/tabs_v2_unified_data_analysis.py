@@ -987,6 +987,11 @@ def _compute_srmr_fallback(observed_data, mod):
     Standardized Root Mean Square Residual (Hu & Bentler 1999).
     Threshold: <= 0.08 acceptable, <= 0.05 good.
     Called when semopy.calc_stats() does not emit an 'SRMR' row.
+
+    Formula: lower triangle including diagonal, denominator n*(n+1)/2.
+    Diagonal terms are always 0 for correlation matrices so this is equivalent
+    to the strict off-diagonal formula; denominator matches the verified
+    reference implementation (SRMR(Barriers 3F, DWLS) = 0.070).
     """
     try:
         d = observed_data.dropna()

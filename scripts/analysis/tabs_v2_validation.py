@@ -1306,6 +1306,13 @@ def _compute_srmr_fallback(observed_data, mod):
     Standardized Root Mean Square Residual (Hu & Bentler 1999).
     Threshold: <= 0.08 acceptable, <= 0.05 good.
     Called when semopy.calc_stats() does not emit an 'SRMR' row.
+
+    Formula: sum over the lower triangle (including diagonal) of squared
+    correlation residuals, divided by n*(n+1)/2.  For correlation matrices
+    the diagonal elements (R_obs[i,i]-R_imp[i,i]) are always 0, so this is
+    equivalent to the strict off-diagonal formula using n*(n-1)/2; the
+    denominator matches the verified reference implementation from issue #1862
+    (SRMR(Barriers 3F, DWLS) = 0.070).
     """
     try:
         d = observed_data.dropna()
@@ -1663,15 +1670,11 @@ def harman_single_factor_cmv(df, all_cols):
     if n < 5 or p < 2:
         return {'error': 'insufficient data for Harman CMV test'}
     try:
-        # Center but do NOT standardize; Harman's original uses the correlation matrix
-        from sklearn.decomposition import PCA  # lightweight; already available via factor_analyzer
-    except ImportError:
-        # Fallback: numpy SVD on correlation matrix
-        PCA = None
-    try:
         X = d.values.astype(float)
-        # Use correlation matrix (standardize each column to mean=0, sd=1)
-        X_std = (X - X.mean(axis=0)) / np.where(X.std(axis=0) > 0, X.std(axis=0), 1.0)
+        # Standardize each column to mean=0, sd=1 (correlation-matrix basis)
+        col_std = X.std(axis=0)
+        safe_std = np.maximum(col_std, 1e-10)
+        X_std = (X - X.mean(axis=0)) / safe_std
         cov_matrix = np.cov(X_std.T)
         eigenvalues = np.linalg.eigvalsh(cov_matrix)[::-1]  # descending
         total_var = float(eigenvalues.sum())
@@ -2465,7 +2468,10 @@ def _build_r_parity_tests(ci_workflow=None, last_run_utc=None):
     """
     if last_run_utc is None:
         last_run_utc = pd.Timestamp.utcnow().isoformat()
-    # Canonical count declared in the CRP; updated if CI workflow changes.
+    # Canonical parity-test count from the CRP (Gap 7).
+    # Update this value whenever tests are added to or removed from the
+    # validate-analysis.yml workflow (search for "parity" in that file to
+    # enumerate active tests and keep this count in sync).
     R_PARITY_TEST_COUNT = 13
     workflow_path = ci_workflow or '.github/workflows/validate-analysis.yml'
     return {
