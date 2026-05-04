@@ -25,7 +25,11 @@ on:
 
 permissions:
   contents: read
-  pull-requests: write
+
+env:
+  # Official GitHub flag to force Node.js 24 runtime ahead of the June 2026 mandatory deadline.
+  # Ref: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   phantom-revert-guard:
@@ -34,7 +38,7 @@ jobs:
     timeout-minutes: 5
     steps:
       - name: Checkout PR with full history
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
           ref: ${{ github.event.pull_request.head.sha }}
@@ -64,13 +68,22 @@ jobs:
             exit 0
           fi
 
+          # How far behind is the branch? Compute before any early-exit so the
+          # behind-count threshold is enforced unconditionally.
+          BEHIND_COUNT=$(git rev-list --count "$MERGE_BASE..$BASE")
+          echo "Branch is $BEHIND_COUNT commits behind $BASE_REF."
+
           # Files modified on base since the branch was forked.
           BASE_TOUCHED=$(git diff --name-only "$MERGE_BASE" "$BASE" | sort -u)
           # Files modified by this PR.
           PR_TOUCHED=$(git diff --name-only "$MERGE_BASE" HEAD | sort -u)
 
-          echo "base touched: $(echo "$BASE_TOUCHED" | wc -l) files"
-          echo "PR touched:   $(echo "$PR_TOUCHED" | wc -l) files"
+          # Use printf+sed to strip blank lines before counting so wc -l
+          # reports 0 for an empty variable instead of 1 (echo adds a newline).
+          BASE_COUNT=$(printf '%s\n' "$BASE_TOUCHED" | sed '/^$/d' | wc -l)
+          PR_COUNT=$(printf '%s\n' "$PR_TOUCHED" | sed '/^$/d' | wc -l)
+          echo "base touched: $BASE_COUNT files"
+          echo "PR touched:   $PR_COUNT files"
 
           # Phantom-revert candidates: files base modified that the PR did NOT
           # touch. If the PR were merged into main right now, those files would
@@ -80,6 +93,19 @@ jobs:
           PHANTOM_CANDIDATES=$(comm -23 <(echo "$BASE_TOUCHED") <(echo "$PR_TOUCHED") || true)
 
           if [ -z "$PHANTOM_CANDIDATES" ]; then
+            if [ "$BEHIND_COUNT" -gt 5 ]; then
+              {
+                echo "## Branch significantly behind $BASE_REF"
+                echo ""
+                echo "Branch is $BEHIND_COUNT commits behind \`$BASE_REF\` (threshold: 5)."
+                echo "No phantom-revert candidates found in untouched files, but the"
+                echo "stale branch still increases merge risk. Update the branch"
+                echo "(merge \`$BASE_REF\` in or rebase) before merging."
+              } >> "$GITHUB_STEP_SUMMARY"
+              echo "::error::Branch is $BEHIND_COUNT commits behind $BASE_REF (threshold: 5). Update the branch before merging."
+              echo "violations=true" >> "$GITHUB_OUTPUT"
+              exit 1
+            fi
             echo "No phantom-revert candidates."
             echo "violations=" >> "$GITHUB_OUTPUT"
             exit 0
@@ -108,12 +134,9 @@ jobs:
           cat /tmp/report.md >> "$GITHUB_STEP_SUMMARY"
 
           # Hard-fail only if the branch is meaningfully behind. A handful of
-          # untouched files between branch and base is normal; dozens or files
+          # untouched files between branch and base is normal; dozens of files
           # in critical paths are the symptom we caught on 2026-05-03.
-          CRITICAL_PATHS_HIT=$(echo "$PHANTOM_CANDIDATES" | grep -E '^(src/data/|src/components/|scripts/cross-platform-verification/|scripts/spss/|scripts/minitab/|.github/workflows/)' || true)
-
-          BEHIND_COUNT=$(git rev-list --count "$MERGE_BASE..$BASE")
-          echo "Branch is $BEHIND_COUNT commits behind $BASE_REF."
+          CRITICAL_PATHS_HIT=$(echo "$PHANTOM_CANDIDATES" | grep -E '^(src/data/|src/components/|scripts/cross-platform-verification/|scripts/spss/|scripts/minitab/|\.github/workflows/)' || true)
 
           if [ -n "$CRITICAL_PATHS_HIT" ] || [ "$BEHIND_COUNT" -gt 5 ]; then
             echo ""
