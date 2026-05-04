@@ -75,6 +75,9 @@ jobs:
           if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
             HEAD_SHA="${INPUT_HEAD_SHA:-${GITHUB_SHA}}"
             BASE_REF="${INPUT_BASE_REF:-${DEFAULT_BRANCH:-main}}"
+            # Strip refs/heads/ prefix so callers can pass fully-qualified refs
+            # (e.g. refs/heads/main) without later producing origin/refs/heads/main.
+            BASE_REF="${BASE_REF#refs/heads/}"
           else
             HEAD_SHA="$PR_HEAD_SHA"
             BASE_REF="$PR_BASE_REF"
@@ -100,7 +103,10 @@ jobs:
             echo "::error::Invalid base_ref: '$BASE_REF' — must match ^[a-zA-Z0-9._/-]+\$ with no '..' sequences"
             exit 1
           fi
-          git fetch origin -- "$BASE_REF"
+          # Use an explicit refspec mapping so origin/<branch> is guaranteed to
+          # exist as a remote-tracking ref even from a detached-SHA checkout.
+          # This matches the pattern used in daily-pipeline.yml.
+          git fetch origin "$BASE_REF:refs/remotes/origin/$BASE_REF"
 
       - name: Detect phantom reverts
         id: detect
@@ -111,6 +117,9 @@ jobs:
           BASE="origin/${BASE_REF}"
           # Directories considered critical: changes here that slip through a
           # stale-base merge can break the site, the analysis pipeline, or CI.
+          # Critical paths: src/data/, src/components/, scripts/analysis/,
+          # scripts/cross-platform-verification/, scripts/spss/,
+          # scripts/minitab/, .github/workflows/
           CRITICAL_PATH_RE='^(src/data/|src/components/|scripts/analysis/|scripts/cross-platform-verification/|scripts/spss/|scripts/minitab/|\.github/workflows/)'
           MERGE_BASE=$(git merge-base "$BASE" HEAD)
           PR_HEAD=$(git rev-parse HEAD)
