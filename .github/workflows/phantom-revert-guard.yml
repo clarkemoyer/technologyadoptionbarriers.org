@@ -97,10 +97,12 @@ jobs:
         run: |
           # Validate BASE_REF matches a safe ref pattern before passing to git.
           # Prevents shell injection from crafted workflow_dispatch inputs.
-          # Dots are allowed for version-style branches (e.g. fix/v1.2) but
-          # ".." sequences are explicitly blocked to prevent ref-range traversal.
-          if ! [[ "$BASE_REF" =~ ^[a-zA-Z0-9._/-]+$ ]] || [[ "$BASE_REF" == *..* ]]; then
-            echo "::error::Invalid base_ref: '$BASE_REF' — must match ^[a-zA-Z0-9._/-]+\$ with no '..' sequences"
+          # First character must be alphanumeric (rejects leading '-' which git
+          # would interpret as an option flag). Dots are allowed for version-style
+          # branches (e.g. fix/v1.2) but ".." sequences are blocked to prevent
+          # ref-range traversal.
+          if ! [[ "$BASE_REF" =~ ^[a-zA-Z0-9][a-zA-Z0-9._/-]*$ ]] || [[ "$BASE_REF" == *..* ]]; then
+            echo "::error::Invalid base_ref: '$BASE_REF' — must start with alnum and match ^[a-zA-Z0-9][a-zA-Z0-9._/-]*\$ with no '..' sequences"
             exit 1
           fi
           # Use an explicit refspec mapping so origin/<branch> is guaranteed to
@@ -168,9 +170,12 @@ jobs:
           # files (from MERGE_BASE) wins, silently reverting base's updates.
           # Use strip_blank() to avoid the stray blank line that `printf` adds for
           # empty variables, which would make comm see a phantom empty entry.
+          # Do NOT add || true here: a non-zero exit from comm (e.g. unsorted input)
+          # is a real error and should fail the step rather than silently treating
+          # it as "no candidates" and missing phantom reverts.
           PHANTOM_CANDIDATES=$(comm -23 \
             <(strip_blank "$BASE_TOUCHED") \
-            <(strip_blank "$PR_TOUCHED") || true)
+            <(strip_blank "$PR_TOUCHED"))
 
           if [ -z "$PHANTOM_CANDIDATES" ]; then
             if [ "$BEHIND_COUNT" -gt 5 ]; then
