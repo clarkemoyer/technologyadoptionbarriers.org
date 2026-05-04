@@ -5,23 +5,27 @@ name: Phantom Revert Guard
 #
 #   1. Branch B is forked from main at commit M0.
 #   2. PR P1, P2, ... merge into main between M0 and now (HEAD = M_now).
-#   3. Branch B's CI passes because it's still building against M0's tree.
-#   4. The PR's "diff vs main" looks like (B - M_now), which removes everything
-#      P1, P2, ... added in files that B doesn't touch -- a phantom revert.
+#   3. Branch B is not updated; CI still passes because it tests B merged with
+#      M_now (the virtual merge commit), which is fine as a build -- but a
+#      subsequent squash- or rebase-merge of the stale branch writes B's old
+#      file tree, silently reverting everything P1, P2, ... added to files B
+#      never touched.
+#   4. The PR's "diff vs main" shows those files as deleted/reverted.
 #
-# A regular CI run is happy because it builds B in isolation. This guard
-# explicitly compares "files modified on main since fork" against "files
-# changed by this PR" and fails if the PR appears to drop content from any
-# file that main has updated.
+# This guard explicitly compares "files modified on main since fork" against
+# "files changed by this PR" and fails when untouched-but-updated files fall
+# in critical paths or the branch is sufficiently far behind.
 #
-# Pair this guard with branch protection's "Require branches to be up to date
-# before merging". The branch-protection rule forces the PR to merge or rebase
-# main in before the merge button enables; this guard explains *why* if the
-# attempted merge would produce a phantom revert.
+# Note: this guard reruns only when a new commit is pushed to the PR branch.
+# If main advances while a PR is open and the PR author pushes nothing new,
+# the guard will not automatically rerun. For full coverage, pair this guard
+# with branch protection's "Require branches to be up to date before merging"
+# rule, which forces a fresh CI pass after updating the branch.
 
 on:
   pull_request:
     types: [opened, synchronize, reopened, ready_for_review]
+  workflow_dispatch: # Allow manual reruns when main has advanced
 
 permissions:
   contents: read
@@ -54,6 +58,9 @@ jobs:
         run: |
           set -euo pipefail
           BASE="origin/${BASE_REF}"
+          # Directories considered critical: changes here that slip through a
+          # stale-base merge can break the site, the analysis pipeline, or CI.
+          CRITICAL_PATH_RE='^(src/data/|src/components/|scripts/cross-platform-verification/|scripts/spss/|scripts/minitab/|\.github/workflows/)'
           MERGE_BASE=$(git merge-base "$BASE" HEAD)
           PR_HEAD=$(git rev-parse HEAD)
           BASE_HEAD=$(git rev-parse "$BASE")
@@ -64,6 +71,11 @@ jobs:
 
           if [ "$MERGE_BASE" = "$BASE_HEAD" ]; then
             echo "Branch is up to date with $BASE_REF -- no phantom revert possible."
+            {
+              echo "## ✅ Phantom Revert Guard: clean"
+              echo ""
+              echo "Branch is up to date with \`$BASE_REF\` — no phantom-revert risk."
+            } >> "$GITHUB_STEP_SUMMARY"
             echo "violations=" >> "$GITHUB_OUTPUT"
             exit 0
           fi
@@ -78,10 +90,14 @@ jobs:
           # Files modified by this PR.
           PR_TOUCHED=$(git diff --name-only "$MERGE_BASE" HEAD | sort -u)
 
+          # Helper: strip blank lines so wc -l and comm see 0 lines for an empty
+          # variable rather than 1 (echo/printf always emit a trailing newline).
+          strip_blank() { printf '%s\n' "$1" | sed '/^$/d'; }
+
           # Use printf+sed to strip blank lines before counting so wc -l
           # reports 0 for an empty variable instead of 1 (echo adds a newline).
-          BASE_COUNT=$(printf '%s\n' "$BASE_TOUCHED" | sed '/^$/d' | wc -l)
-          PR_COUNT=$(printf '%s\n' "$PR_TOUCHED" | sed '/^$/d' | wc -l)
+          BASE_COUNT=$(strip_blank "$BASE_TOUCHED" | wc -l)
+          PR_COUNT=$(strip_blank "$PR_TOUCHED" | wc -l)
           echo "base touched: $BASE_COUNT files"
           echo "PR touched:   $PR_COUNT files"
 
@@ -90,7 +106,11 @@ jobs:
           # *not* change -- which is correct. But if the PR is then squash- or
           # rebase-merged through a stale base, the PR's old version of those
           # files (from MERGE_BASE) wins, silently reverting base's updates.
-          PHANTOM_CANDIDATES=$(comm -23 <(echo "$BASE_TOUCHED") <(echo "$PR_TOUCHED") || true)
+          # Use strip_blank() to avoid the stray blank line that `printf` adds for
+          # empty variables, which would make comm see a phantom empty entry.
+          PHANTOM_CANDIDATES=$(comm -23 \
+            <(strip_blank "$BASE_TOUCHED") \
+            <(strip_blank "$PR_TOUCHED") || true)
 
           if [ -z "$PHANTOM_CANDIDATES" ]; then
             if [ "$BEHIND_COUNT" -gt 5 ]; then
@@ -107,6 +127,12 @@ jobs:
               exit 1
             fi
             echo "No phantom-revert candidates."
+            {
+              echo "## ✅ Phantom Revert Guard: clean"
+              echo ""
+              echo "Branch is $BEHIND_COUNT commits behind \`$BASE_REF\`."
+              echo "No phantom-revert candidates detected in critical paths."
+            } >> "$GITHUB_STEP_SUMMARY"
             echo "violations=" >> "$GITHUB_OUTPUT"
             exit 0
           fi
@@ -133,10 +159,12 @@ jobs:
           } > /tmp/report.md
           cat /tmp/report.md >> "$GITHUB_STEP_SUMMARY"
 
-          # Hard-fail only if the branch is meaningfully behind. A handful of
-          # untouched files between branch and base is normal; dozens of files
-          # in critical paths are the symptom we caught on 2026-05-03.
-          CRITICAL_PATHS_HIT=$(echo "$PHANTOM_CANDIDATES" | grep -E '^(src/data/|src/components/|scripts/cross-platform-verification/|scripts/spss/|scripts/minitab/|\.github/workflows/)' || true)
+          # Hard-fail if any phantom candidate falls in a critical path, or if the
+          # branch is more than 5 commits behind -- either condition alone is
+          # enough to flag the PR as risky. A handful of untouched files in
+          # non-critical paths with a fresh branch is acceptable; critical-path
+          # hits or a very stale branch are the symptoms we caught on 2026-05-03.
+          CRITICAL_PATHS_HIT=$(echo "$PHANTOM_CANDIDATES" | grep -E "$CRITICAL_PATH_RE" || true)
 
           if [ -n "$CRITICAL_PATHS_HIT" ] || [ "$BEHIND_COUNT" -gt 5 ]; then
             echo ""
