@@ -60,7 +60,7 @@ jobs:
           BASE="origin/${BASE_REF}"
           # Directories considered critical: changes here that slip through a
           # stale-base merge can break the site, the analysis pipeline, or CI.
-          CRITICAL_PATH_RE='^(src/data/|src/components/|scripts/cross-platform-verification/|scripts/spss/|scripts/minitab/|\.github/workflows/)'
+          CRITICAL_PATH_RE='^(src/data/|src/components/|scripts/analysis/|scripts/cross-platform-verification/|scripts/spss/|scripts/minitab/|\.github/workflows/)'
           MERGE_BASE=$(git merge-base "$BASE" HEAD)
           PR_HEAD=$(git rev-parse HEAD)
           BASE_HEAD=$(git rev-parse "$BASE")
