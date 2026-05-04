@@ -40,6 +40,12 @@ jobs:
     name: Phantom Revert Guard
     runs-on: ubuntu-latest
     timeout-minutes: 5
+    # Skip fork PRs: the PR head SHA lives in the fork's repo, so checking it
+    # out without a separate remote would fail.  Fork PRs require an explicit
+    # review from a maintainer before CI runs anyway, so this is acceptable.
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      github.event.pull_request.head.repo.full_name == github.repository
     steps:
       - name: Checkout PR with full history
         uses: actions/checkout@v6
@@ -167,8 +173,20 @@ jobs:
           CRITICAL_PATHS_HIT=$(echo "$PHANTOM_CANDIDATES" | grep -E "$CRITICAL_PATH_RE" || true)
 
           if [ -n "$CRITICAL_PATHS_HIT" ] || [ "$BEHIND_COUNT" -gt 5 ]; then
+            # Compose an accurate message reflecting which condition(s) fired.
+            FAIL_REASON=""
+            if [ -n "$CRITICAL_PATHS_HIT" ]; then
+              FAIL_REASON="has untouched updates in critical paths"
+            fi
+            if [ "$BEHIND_COUNT" -gt 5 ]; then
+              if [ -n "$FAIL_REASON" ]; then
+                FAIL_REASON="$FAIL_REASON and is $BEHIND_COUNT commits behind $BASE_REF (threshold: 5)"
+              else
+                FAIL_REASON="is $BEHIND_COUNT commits behind $BASE_REF (threshold: 5)"
+              fi
+            fi
             echo ""
-            echo "::error::Phantom-revert risk: branch is $BEHIND_COUNT commits behind $BASE_REF and has untouched updates in critical paths. Update the branch (merge $BASE_REF in or rebase) before merging."
+            echo "::error::Phantom-revert risk: branch $FAIL_REASON. Update the branch (merge $BASE_REF in or rebase) before merging."
             echo "violations=true" >> "$GITHUB_OUTPUT"
             exit 1
           fi
