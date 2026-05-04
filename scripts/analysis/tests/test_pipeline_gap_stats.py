@@ -238,7 +238,7 @@ class TestTTestsSmbVsEnterprise:
         for cname in ("Barriers", "Readiness", "Maturity"):
             c = result["constructs"][cname]
             assert "error" not in c, f"{cname} returned error: {c}"
-            for key in ("t", "df", "p", "cohens_d", "sig_05", "smb_mean", "enterprise_mean"):
+            for key in ("t", "df", "p", "cohens_d", "sig", "smb_mean", "enterprise_mean"):
                 assert key in c, f"Missing key '{key}' in {cname}"
 
     def test_p_value_in_range(self, synth_df):
@@ -693,13 +693,13 @@ class TestUnifiedPipelineGapFunctions:
         assert "constructs" in result
         assert "Barriers" in result["constructs"]
         construct = result["constructs"]["Barriers"]
-        for key in ("t", "df", "p", "cohens_d", "sig_05", "smb_mean", "enterprise_mean",
+        for key in ("t", "df", "p", "cohens_d", "sig", "smb_mean", "enterprise_mean",
                     "mean_diff"):
             assert key in construct, f"Missing key '{key}' in construct result"
         # Verify old schema keys (from the mismatched implementation) are gone
         assert "mean_smb" not in construct, "'mean_smb' replaced by 'smb_mean'"
         assert "mean_ent" not in construct, "'mean_ent' replaced by 'enterprise_mean'"
-        assert isinstance(construct["sig_05"], bool)
+        assert isinstance(construct["sig"], bool)
 
     def test_harman_single_factor_cmv_exists_in_unified(self):
         """Gap 4 helper must be present in the unified pipeline module."""
@@ -716,8 +716,13 @@ class TestUnifiedPipelineGapFunctions:
         cols = [f"X{i}" for i in range(8)]
         df = pd.DataFrame(rng.standard_normal((n, 8)), columns=cols)
         result = mod.harman_single_factor_cmv(df, cols)
-        assert "first_eigenvalue_pct_variance" in result
-        assert "below_50pct" in result
+        assert "error" not in result
+        for key in ("first_eigenvalue_pct_variance", "below_50pct", "n_listwise", "n_items_combined"):
+            assert key in result, f"Missing key '{key}' in unified harman_single_factor_cmv result"
+        # Verify old schema keys (from prior mismatched implementation) are gone
+        assert "n" not in result, "'n' should be renamed to 'n_listwise'"
+        assert "n_items" not in result, "'n_items' should be renamed to 'n_items_combined'"
+        assert "first_eigenvalue" not in result, "'first_eigenvalue' not in standalone schema"
 
     def test_build_validation_registry_exists_in_unified(self):
         """Gap 6 helper must be present in the unified pipeline module."""
@@ -880,3 +885,9 @@ class TestUnifiedPipelineGapFunctions:
         assert "r_parity_tests" in result, \
             "r_parity_tests missing from run_validation() output"
         assert "count" in result["r_parity_tests"]
+        # Gap 1 — srmr must survive _cfa_block() and appear in the canonical CFA sections
+        for cfa_key in ("barriers_2f_cfa", "barriers_3f_cfa", "barriers_4f_cfa",
+                         "joint_3construct_cfa"):
+            assert cfa_key in result, f"{cfa_key} missing from run_validation() output"
+            assert "srmr" in result[cfa_key], \
+                f"srmr missing from {cfa_key} in run_validation() output"

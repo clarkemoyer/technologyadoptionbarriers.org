@@ -1646,7 +1646,7 @@ def t_tests_smb_vs_enterprise(df, construct_cols_map, smb_col='_SMB'):
             'df': round(float(df_welch), 2),
             'p': round(float(p_val), 4),
             'cohens_d': round(float(cohens_d), 4),
-            'sig_05': bool(p_val < 0.05),
+            'sig': bool(p_val < 0.05),
         }
     return {
         'smb_n': n_smb,
@@ -2027,7 +2027,7 @@ def item_level_cohens_d_smb(df, raw_cols, item_names, item_ids, smb_col='_SMB'):
             'cohens_d': round(d, 4),
             't': round(float(t), 3) if t is not None else None,
             'p': round(float(p), 4) if p is not None else None,
-            'sig_05': bool(p is not None and p < 0.05),
+            'sig': bool(p is not None and p < 0.05),
         })
     return out
 

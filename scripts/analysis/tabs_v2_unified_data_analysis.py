@@ -3469,7 +3469,7 @@ def t_tests_smb_vs_enterprise(df, construct_cols_map, smb_col='_SMB'):
     ``t_tests_tech_vs_nontech`` / ``t_tests_large_vs_small`` blocks:
     top-level ``smb_n``, ``enterprise_n``, ``cut`` and per-construct
     ``{'smb_mean', 'enterprise_mean', 'mean_diff', 't', 'df', 'p',
-    'cohens_d', 'sig_05'}``.
+    'cohens_d', 'sig'}}``.
     """
     if smb_col not in df.columns:
         return {'error': f'{smb_col} not in df'}
@@ -3508,7 +3508,7 @@ def t_tests_smb_vs_enterprise(df, construct_cols_map, smb_col='_SMB'):
             'df': round(float(df_welch), 2),
             'p': round(float(p_val), 4),
             'cohens_d': round(float(cohens_d), 4),
-            'sig_05': bool(p_val < 0.05),
+            'sig': bool(p_val < 0.05),
         }
     return {
         'smb_n': n_smb,
@@ -3541,11 +3541,10 @@ def harman_single_factor_cmv(df, all_cols):
         total = float(eigenvalues.sum())
         first_pct = round(float(eigenvalues[0]) / total * 100, 2) if total > 0 else None
         return {
-            'first_eigenvalue': round(float(eigenvalues[0]), 4),
             'first_eigenvalue_pct_variance': first_pct,
             'below_50pct': (first_pct < 50) if first_pct is not None else None,
-            'n': int(sub.shape[0]),
-            'n_items': int(sub.shape[1]),
+            'n_listwise': int(sub.shape[0]),
+            'n_items_combined': int(sub.shape[1]),
         }
     except Exception as e:
         return {'error': str(e)}
@@ -3805,7 +3804,7 @@ def item_level_cohens_d_smb(df, raw_cols, item_names, item_ids, smb_col='_SMB'):
             'cohens_d': round(d, 4),
             't': round(float(t), 3) if t is not None else None,
             'p': round(float(p), 4) if p is not None else None,
-            'sig_05': bool(p is not None and p < 0.05),
+            'sig': bool(p is not None and p < 0.05),
         })
     return out
 
@@ -4373,6 +4372,7 @@ def run_validation(df, skip=False, crp200=False, primary_sample=True):
         bifactor_b_results = bifactor_barriers(barrier_renamed, barrier_cols_safe, BARRIER_3GROUP)
         esem_results = esem_target_rotation(barrier_renamed, barrier_cols_safe, n_factors=3)
         measurement_invariance = {'error': 'Q4_OrgSize not in df'}
+        t_tests_smb_ent_results = {'error': 'Q4_OrgSize not in df'}
 
 
     # ── Per-subgroup standalone validation ──
@@ -4569,7 +4569,7 @@ def run_validation(df, skip=False, crp200=False, primary_sample=True):
     # 4-factor barriers CFA (legacy decomposition)
     b4f_out = {}
     if 'error' not in barrier_4f_cfa:
-        for k in ['chi2', 'df', 'chi2_p', 'cfi', 'tli', 'rmsea', 'aic', 'bic']:
+        for k in ['chi2', 'df', 'chi2_p', 'cfi', 'tli', 'rmsea', 'srmr', 'aic', 'bic']:
             b4f_out[k] = barrier_4f_cfa.get(k)
     else:
         b4f_out['error'] = barrier_4f_cfa['error']
@@ -4581,7 +4581,7 @@ def run_validation(df, skip=False, crp200=False, primary_sample=True):
         if not c or 'error' in c:
             return {'error': (c or {}).get('error', 'unavailable')}
         return {k: c.get(k) for k in ['chi2', 'df', 'chi2_p', 'cfi', 'tli', 'rmsea',
-                                       'aic', 'bic', 'standardized_loadings']}
+                                       'srmr', 'aic', 'bic', 'standardized_loadings']}
 
     # 2-factor barriers CFA (matches the EFA-derived structure parallel analysis returned)
     output['barriers_2f_cfa'] = _cfa_block(barrier_2f_cfa)
