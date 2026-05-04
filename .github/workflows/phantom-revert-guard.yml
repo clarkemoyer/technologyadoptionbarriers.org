@@ -89,8 +89,18 @@ jobs:
           ref: ${{ steps.refs.outputs.head_sha }}
 
       - name: Fetch base branch
+        env:
+          BASE_REF: ${{ steps.refs.outputs.base_ref }}
         run: |
-          git fetch origin ${{ steps.refs.outputs.base_ref }}
+          # Validate BASE_REF matches a safe ref pattern before passing to git.
+          # Prevents shell injection from crafted workflow_dispatch inputs.
+          # Dots are allowed for version-style branches (e.g. fix/v1.2) but
+          # ".." sequences are explicitly blocked to prevent ref-range traversal.
+          if ! [[ "$BASE_REF" =~ ^[a-zA-Z0-9._/-]+$ ]] || [[ "$BASE_REF" == *..* ]]; then
+            echo "::error::Invalid base_ref: '$BASE_REF' — must match ^[a-zA-Z0-9._/-]+\$ with no '..' sequences"
+            exit 1
+          fi
+          git fetch origin -- "$BASE_REF"
 
       - name: Detect phantom reverts
         id: detect
