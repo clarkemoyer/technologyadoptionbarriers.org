@@ -31,7 +31,7 @@ on:
   workflow_dispatch:
     inputs:
       head_sha:
-        description: 'Head SHA or branch to analyze (defaults to HEAD of the dispatched ref)'
+        description: 'Head SHA or branch to analyze (defaults to GITHUB_SHA, the commit that triggered this run)'
         required: false
         default: ''
       base_ref:
@@ -74,7 +74,7 @@ jobs:
         run: |
           if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
             HEAD_SHA="${INPUT_HEAD_SHA:-${GITHUB_SHA}}"
-            BASE_REF="${INPUT_BASE_REF:-${DEFAULT_BRANCH}}"
+            BASE_REF="${INPUT_BASE_REF:-${DEFAULT_BRANCH:-main}}"
           else
             HEAD_SHA="$PR_HEAD_SHA"
             BASE_REF="$PR_BASE_REF"
