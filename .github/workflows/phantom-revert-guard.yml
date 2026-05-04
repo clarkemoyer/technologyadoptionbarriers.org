@@ -21,11 +21,23 @@ name: Phantom Revert Guard
 # the guard will not automatically rerun. For full coverage, pair this guard
 # with branch protection's "Require branches to be up to date before merging"
 # rule, which forces a fresh CI pass after updating the branch.
+# Manual reruns are supported via workflow_dispatch; supply head_sha and
+# base_ref inputs to analyze a specific branch (defaults: HEAD of the
+# dispatched ref, compared against the repository's default branch).
 
 on:
   pull_request:
     types: [opened, synchronize, reopened, ready_for_review]
-  workflow_dispatch: # Allow manual reruns when main has advanced
+  workflow_dispatch:
+    inputs:
+      head_sha:
+        description: 'Head SHA or branch to analyze (defaults to HEAD of the dispatched ref)'
+        required: false
+        default: ''
+      base_ref:
+        description: 'Base branch to compare against (defaults to repo default branch)'
+        required: false
+        default: ''
 
 permissions:
   contents: read
@@ -47,20 +59,43 @@ jobs:
       github.event_name == 'workflow_dispatch' ||
       github.event.pull_request.head.repo.full_name == github.repository
     steps:
+      # For workflow_dispatch, github.event.pull_request.* is undefined.
+      # Resolve head SHA and base ref from inputs (or safe defaults) here so all
+      # subsequent steps can use steps.refs.outputs.* unconditionally.
+      - name: Resolve head SHA and base ref
+        id: refs
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          PR_BASE_REF: ${{ github.event.pull_request.base.ref }}
+          INPUT_HEAD_SHA: ${{ inputs.head_sha }}
+          INPUT_BASE_REF: ${{ inputs.base_ref }}
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+        run: |
+          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+            HEAD_SHA="${INPUT_HEAD_SHA:-${GITHUB_SHA}}"
+            BASE_REF="${INPUT_BASE_REF:-${DEFAULT_BRANCH}}"
+          else
+            HEAD_SHA="$PR_HEAD_SHA"
+            BASE_REF="$PR_BASE_REF"
+          fi
+          echo "head_sha=$HEAD_SHA" >> "$GITHUB_OUTPUT"
+          echo "base_ref=$BASE_REF" >> "$GITHUB_OUTPUT"
+
       - name: Checkout PR with full history
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
-          ref: ${{ github.event.pull_request.head.sha }}
+          ref: ${{ steps.refs.outputs.head_sha }}
 
       - name: Fetch base branch
         run: |
-          git fetch origin ${{ github.event.pull_request.base.ref }}
+          git fetch origin ${{ steps.refs.outputs.base_ref }}
 
       - name: Detect phantom reverts
         id: detect
         env:
-          BASE_REF: ${{ github.event.pull_request.base.ref }}
+          BASE_REF: ${{ steps.refs.outputs.base_ref }}
         run: |
           set -euo pipefail
           BASE="origin/${BASE_REF}"
