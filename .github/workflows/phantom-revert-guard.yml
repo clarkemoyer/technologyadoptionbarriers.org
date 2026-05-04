@@ -1,0 +1,126 @@
+name: Phantom Revert Guard
+
+# Detects PRs that would silently revert work that landed on main while the PR
+# was open. The classic failure mode (we hit it twice on 2026-05-03) is:
+#
+#   1. Branch B is forked from main at commit M0.
+#   2. PR P1, P2, ... merge into main between M0 and now (HEAD = M_now).
+#   3. Branch B's CI passes because it's still building against M0's tree.
+#   4. The PR's "diff vs main" looks like (B - M_now), which removes everything
+#      P1, P2, ... added in files that B doesn't touch -- a phantom revert.
+#
+# A regular CI run is happy because it builds B in isolation. This guard
+# explicitly compares "files modified on main since fork" against "files
+# changed by this PR" and fails if the PR appears to drop content from any
+# file that main has updated.
+#
+# Pair this guard with branch protection's "Require branches to be up to date
+# before merging". The branch-protection rule forces the PR to merge or rebase
+# main in before the merge button enables; this guard explains *why* if the
+# attempted merge would produce a phantom revert.
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  phantom-revert-guard:
+    name: Phantom Revert Guard
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout PR with full history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Fetch base branch
+        run: |
+          git fetch origin ${{ github.event.pull_request.base.ref }}
+
+      - name: Detect phantom reverts
+        id: detect
+        env:
+          BASE_REF: ${{ github.event.pull_request.base.ref }}
+        run: |
+          set -euo pipefail
+          BASE="origin/${BASE_REF}"
+          MERGE_BASE=$(git merge-base "$BASE" HEAD)
+          PR_HEAD=$(git rev-parse HEAD)
+          BASE_HEAD=$(git rev-parse "$BASE")
+
+          echo "merge-base: $MERGE_BASE"
+          echo "PR head:    $PR_HEAD"
+          echo "$BASE_REF head: $BASE_HEAD"
+
+          if [ "$MERGE_BASE" = "$BASE_HEAD" ]; then
+            echo "Branch is up to date with $BASE_REF -- no phantom revert possible."
+            echo "violations=" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          # Files modified on base since the branch was forked.
+          BASE_TOUCHED=$(git diff --name-only "$MERGE_BASE" "$BASE" | sort -u)
+          # Files modified by this PR.
+          PR_TOUCHED=$(git diff --name-only "$MERGE_BASE" HEAD | sort -u)
+
+          echo "base touched: $(echo "$BASE_TOUCHED" | wc -l) files"
+          echo "PR touched:   $(echo "$PR_TOUCHED" | wc -l) files"
+
+          # Phantom-revert candidates: files base modified that the PR did NOT
+          # touch. If the PR were merged into main right now, those files would
+          # *not* change -- which is correct. But if the PR is then squash- or
+          # rebase-merged through a stale base, the PR's old version of those
+          # files (from MERGE_BASE) wins, silently reverting base's updates.
+          PHANTOM_CANDIDATES=$(comm -23 <(echo "$BASE_TOUCHED") <(echo "$PR_TOUCHED") || true)
+
+          if [ -z "$PHANTOM_CANDIDATES" ]; then
+            echo "No phantom-revert candidates."
+            echo "violations=" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          # Build a categorized report.
+          {
+            echo "## Phantom-revert candidates detected"
+            echo ""
+            echo "Files updated on \`$BASE_REF\` since this branch forked at"
+            echo "\`${MERGE_BASE:0:8}\` that this PR does **not** touch."
+            echo ""
+            echo "Right now, merging this PR is safe -- GitHub will not change"
+            echo "these files. But if the PR's branch is stale (i.e. you have"
+            echo "not pulled \`$BASE_REF\` in), some merge strategies can"
+            echo "silently revert these updates. To eliminate the risk, update"
+            echo "the branch (merge \`$BASE_REF\` in or rebase) before merging."
+            echo ""
+            echo "<details><summary>Updated files (${BASE_REF}) untouched by this PR</summary>"
+            echo ""
+            echo '```'
+            echo "$PHANTOM_CANDIDATES"
+            echo '```'
+            echo "</details>"
+          } > /tmp/report.md
+          cat /tmp/report.md >> "$GITHUB_STEP_SUMMARY"
+
+          # Hard-fail only if the branch is meaningfully behind. A handful of
+          # untouched files between branch and base is normal; dozens or files
+          # in critical paths are the symptom we caught on 2026-05-03.
+          CRITICAL_PATHS_HIT=$(echo "$PHANTOM_CANDIDATES" | grep -E '^(src/data/|src/components/|scripts/cross-platform-verification/|scripts/spss/|scripts/minitab/|.github/workflows/)' || true)
+
+          BEHIND_COUNT=$(git rev-list --count "$MERGE_BASE..$BASE")
+          echo "Branch is $BEHIND_COUNT commits behind $BASE_REF."
+
+          if [ -n "$CRITICAL_PATHS_HIT" ] || [ "$BEHIND_COUNT" -gt 5 ]; then
+            echo ""
+            echo "::error::Phantom-revert risk: branch is $BEHIND_COUNT commits behind $BASE_REF and has untouched updates in critical paths. Update the branch (merge $BASE_REF in or rebase) before merging."
+            echo "violations=true" >> "$GITHUB_OUTPUT"
+            exit 1
+          fi
+
+          echo "Phantom-revert candidates exist but branch is reasonably current ($BEHIND_COUNT commits behind, no critical paths). Allowing."
+          echo "violations=" >> "$GITHUB_OUTPUT"
