@@ -95,14 +95,24 @@ jobs:
         env:
           BASE_REF: ${{ steps.refs.outputs.base_ref }}
         run: |
-          # Validate BASE_REF matches a safe ref pattern before passing to git.
-          # Prevents shell injection from crafted workflow_dispatch inputs.
-          # First character must be alphanumeric (rejects leading '-' which git
-          # would interpret as an option flag). Dots are allowed for version-style
-          # branches (e.g. fix/v1.2) but ".." sequences are blocked to prevent
-          # ref-range traversal.
-          if ! [[ "$BASE_REF" =~ ^[a-zA-Z0-9][a-zA-Z0-9._/-]*$ ]] || [[ "$BASE_REF" == *..* ]]; then
-            echo "::error::Invalid base_ref: '$BASE_REF' — must start with alnum and match ^[a-zA-Z0-9][a-zA-Z0-9._/-]*\$ with no '..' sequences"
+          # Validate BASE_REF before passing to git. Two complementary checks:
+          # 1. Reject values starting with '-': git would interpret those as
+          #    option flags even inside a quoted refspec argument.
+          # 2. Validate the refname using git's own rules (git check-ref-format
+          #    --branch) so all legal branch names (including underscores,
+          #    hyphens inside the name, etc.) are accepted without a bespoke
+          #    regex that may inadvertently reject valid refs.
+          # 3. Block '..' sequences to prevent ref-range traversal.
+          if [[ "$BASE_REF" == -* ]]; then
+            echo "::error::Invalid base_ref: '$BASE_REF' — must not start with '-'"
+            exit 1
+          fi
+          if [[ "$BASE_REF" == *..* ]]; then
+            echo "::error::Invalid base_ref: '$BASE_REF' — must not contain '..'"
+            exit 1
+          fi
+          if ! git check-ref-format --branch "$BASE_REF" 2>/dev/null; then
+            echo "::error::Invalid base_ref: '$BASE_REF' — not a valid git branch name"
             exit 1
           fi
           # Use an explicit refspec mapping so origin/<branch> is guaranteed to
@@ -142,8 +152,8 @@ jobs:
             exit 0
           fi
 
-          # How far behind is the branch? Compute before any early-exit so the
-          # behind-count threshold is enforced unconditionally.
+          # How far behind is the branch? (Only reached when the branch is NOT
+          # already up to date — the up-to-date case exits early above.)
           BEHIND_COUNT=$(git rev-list --count "$MERGE_BASE..$BASE")
           echo "Branch is $BEHIND_COUNT commits behind $BASE_REF."
 
