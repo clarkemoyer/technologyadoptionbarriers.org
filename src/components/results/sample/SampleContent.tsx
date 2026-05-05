@@ -81,8 +81,10 @@ type VariantConfig = {
   groupCountWord: string
   techLabel: string
   /** When true, render the role-classification methodology `<details>`
-   *  block (introduced for CRP per issue #1865; live mirroring is
-   *  tracked as a follow-up). */
+   *  block. Originally introduced for CRP-2026 per issue #1858 and
+   *  mirrored to the live track per issue #1865 — both variants now
+   *  render the same disclosure so the classification logic is auditable
+   *  on every results page. */
   showRoleClassificationDetails: boolean
   findingsHref: string
   missingDataFilename: string
@@ -96,7 +98,7 @@ const VARIANT_CONFIG: Record<SampleVariant, VariantConfig> = {
     groups: PRIMARY_GROUPS_LIVE,
     groupCountWord: 'four',
     techLabel: 'Technical (CIO, CTO, CISO + reclassified Other)',
-    showRoleClassificationDetails: false,
+    showRoleClassificationDetails: true,
     findingsHref: '/results/findings',
     missingDataFilename: 'sensitivity-analysis.json',
     relatedLinks: [
