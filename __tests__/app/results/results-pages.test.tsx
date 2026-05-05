@@ -438,8 +438,10 @@ describe('Sample & Demographics Page', () => {
   it('renders Other Role Categories panel when other_roles data is present', async () => {
     const { default: Page } = await import('@/app/results/sample/page')
     render(<Page />)
-    // The conservative_clean group has other_roles.total=4 and categories set
-    expect(screen.getByText(/other.*role categories/i)).toBeInTheDocument()
+    // The conservative_clean group has other_roles.total=4 and categories set.
+    // The methodology block (now enabled for the live variant) also contains
+    // "Other Role Categories", so we expect at least one match.
+    expect(screen.getAllByText(/other.*role categories/i).length).toBeGreaterThan(0)
   })
 
   it('renders Understanding Other Roles methodology section from role_categories data', async () => {

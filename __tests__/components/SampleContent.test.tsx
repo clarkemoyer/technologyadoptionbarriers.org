@@ -111,8 +111,10 @@ describe('SampleContent — live variant', () => {
     ).toBeGreaterThan(0)
   })
 
-  it('does NOT render the role-classification methodology details block', () => {
-    expect(screen.queryByText(/How is this classification computed/i)).not.toBeInTheDocument()
+  it('renders the role-classification methodology details block', () => {
+    expect(screen.getAllByText(/How is this classification computed/i).length).toBeGreaterThan(0)
+    expect(screen.getAllByText(/Technical bucket/i).length).toBeGreaterThan(0)
+    expect(screen.getAllByText(/Non-Technical bucket/i).length).toBeGreaterThan(0)
   })
 
   it('Findings cross-reference link points to /results/findings', () => {

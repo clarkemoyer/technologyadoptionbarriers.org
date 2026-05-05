@@ -39,6 +39,7 @@ sys.path.insert(0, str(ANALYSIS_DIR))
 
 from tabs_v2_unified_data_analysis import (  # noqa: E402
     OTHER_ROLE_CATEGORIES_PATTERNS,
+    _demographics_for,
     categorize_other_role,
     classify_role_binary,
 )
@@ -284,60 +285,16 @@ def _verify_categories_dict(categories: dict, total: int) -> None:
     )
 
 
-def _simulate_demographics_other_roles(
-    rows: list[list[str]], idx: dict[str, int]
-) -> dict:
-    """Reproduce `demographics_for()`'s `other_roles` block exactly.
-
-    This mirrors the loop body in `tabs_v2_unified_data_analysis.py` so any
-    change to the production code's categorization behavior must also update
-    this reference implementation -- making it visible to reviewers when the
-    contract changes. The point of the test is the *contract*, not a literal
-    end-to-end run of the (slow) full pipeline; the contract is captured here
-    by reusing the same imported helpers (`categorize_other_role`,
-    `classify_role_binary`, etc.).
-    """
-    from collections import Counter
-    from tabs_v2_unified_data_analysis import (  # noqa: PLC0415
-        _get_other_text_from_row,
-        _get_role_from_row,
-    )
-
-    other_cats: Counter[str] = Counter()
-    other_total = 0
-    for r in rows:
-        role = _get_role_from_row(r, idx)
-        if role != "Other":
-            continue
-        other_total += 1
-        other_text = _get_other_text_from_row(r, idx)
-        # This single line is the regression-prone code path: if the
-        # production code ever tucks this categorization back inside an
-        # unreachable branch (the original #1858 bug), `other_cats` will be
-        # empty and the assertions in the calling test will fail.
-        other_cats[categorize_other_role(other_text)] += 1
-    return {
-        "total": other_total,
-        # k-anonymity suppression: counts < 5 collapse to the literal "<5".
-        "categories": {
-            cat: (ct if ct >= 5 else "<5")
-            for cat, ct in other_cats.most_common()
-        },
-    }
-
-
-def test_other_roles_categories_populated_via_helpers(tmp_path: Path) -> None:
-    """Regression test for #1858/#1859 using the production helpers directly.
+def test_other_roles_categories_populated_via_production_function(tmp_path: Path) -> None:
+    """Regression test for #1858/#1859 using the production ``_demographics_for()`` directly.
 
     Constructs a synthetic CSV with role='Other' rows that exercise multiple
-    categorize_other_role buckets, then runs the same `_get_role_from_row` /
-    `_get_other_text_from_row` / `categorize_other_role` chain that
-    `demographics_for()` runs in production. Skipping the surrounding pipeline
-    gives us a sub-second test that still exercises the exact regression-prone
-    helpers.
-
-    A complementary slow integration test that runs the full pipeline lives
-    elsewhere -- this fast helper test is the one that gates CI.
+    ``categorize_other_role`` buckets, then calls the same ``_demographics_for``
+    that ``sensitivity_to_json()``'s inner ``demographics_for`` delegates to in
+    production. If someone reintroduces the original #1858 bug inside
+    ``_demographics_for`` (e.g. moving the categorization into an unreachable
+    ``else:`` branch), this test will detect it because it runs the actual
+    production code path, not a copy of it.
     """
     if not PRODUCTION_CSV.exists():
         pytest.skip(f"{PRODUCTION_CSV} not present")
@@ -365,7 +322,8 @@ def test_other_roles_categories_populated_via_helpers(tmp_path: Path) -> None:
         loaded_rows = list(reader)
 
     idx = {h: i for i, h in enumerate(loaded_header)}
-    other_roles = _simulate_demographics_other_roles(loaded_rows, idx)
+    demo = _demographics_for(loaded_rows, idx)
+    other_roles = demo["other_roles"]
 
     # Contract assertions -- these are what regressed in #1858 and would
     # silently regress again if the categorization was made unreachable.
@@ -390,8 +348,6 @@ def test_other_roles_categories_populated_via_helpers(tmp_path: Path) -> None:
         assert other_roles["categories"][bucket] == "<5", (
             f"{bucket!r} should be k-anonymity suppressed (raw count < 5)"
         )
-
-
 
 
 def test_pattern_definitions_are_well_formed() -> None:
