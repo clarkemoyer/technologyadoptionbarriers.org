@@ -393,7 +393,7 @@ def check_number_consistency(appendix_texts):
             # Match any 24-char lowercase hex string ending in the known suffix.
             # Using a suffix-only anchor avoids embedding the full ID in version
             # control (where it could be confused with a participant PID).
-            "pattern": r"[0-9a-f]{18}ead2da5",
+            "pattern": r"[0-9a-f]{17}ead2da5",
         },
         {
             "name": "Payment per response",

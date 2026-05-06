@@ -123,7 +123,7 @@ def find_workspace(explicit: Optional[str] = None) -> str:
 
 def find_body_docx(workspace: Optional[str] = None) -> str:
     """Locate the latest CRP body .docx inside the workspace's body dir."""
-    workspace = workspace or find_workspace()
+    workspace = find_workspace(explicit=workspace)
     body_dir = os.path.join(workspace, WORKSPACE_LAYOUT["body_dir"])
     if not os.path.isdir(body_dir):
         raise CrpWorkspaceNotFound(
@@ -142,7 +142,7 @@ def find_body_docx(workspace: Optional[str] = None) -> str:
 
 def find_appendix_dir(workspace: Optional[str] = None) -> str:
     """Locate the appendix markdown directory."""
-    workspace = workspace or find_workspace()
+    workspace = find_workspace(explicit=workspace)
     appendix_dir = os.path.join(workspace, WORKSPACE_LAYOUT["appendix_dir"])
     if not os.path.isdir(appendix_dir):
         raise CrpWorkspaceNotFound(
@@ -153,7 +153,7 @@ def find_appendix_dir(workspace: Optional[str] = None) -> str:
 
 def find_survey_csv(workspace: Optional[str] = None, pattern: str = "*Enriched_CRP200*.csv") -> str:
     """Locate the latest survey CSV in the workspace's survey-data directory."""
-    workspace = workspace or find_workspace()
+    workspace = find_workspace(explicit=workspace)
     survey_dir = os.path.join(workspace, WORKSPACE_LAYOUT["survey_data_dir"])
     if not os.path.isdir(survey_dir):
         raise CrpWorkspaceNotFound(
