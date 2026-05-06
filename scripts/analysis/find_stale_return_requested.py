@@ -204,10 +204,11 @@ def _reasons_from_messages(researcher_msgs):
     for msg in researcher_msgs:
         body = msg.get("body") or ""
         for phrase, label in _DISPOSITION_SIGNATURES:
-            if phrase in body and label not in seen:
-                seen.add(label)
-                reasons.append(label)
-                break  # one label per message
+            if phrase in body:
+                if label not in seen:
+                    seen.add(label)
+                    reasons.append(label)
+                break  # stop scanning phrases for this message regardless of seen
     return reasons
 
 

@@ -486,6 +486,23 @@ class TestReasonsFromMessages:
         ]
         assert _reasons_from_messages(msgs) == ["FLAG-SPEED", "FLAG-RECAPTCHA"]
 
+    def test_repeated_speed_return_message_does_not_leak_plain_iri_label(self):
+        """Two SPEED_RETURN messages: the second must not add AUTO-EXCLUDE:IRI3_RETURN.
+
+        Without the fix, the second message matches the speed phrase first but its
+        label is already in ``seen``, so the loop continued and matched the plain
+        IRI phrase, producing a spurious AUTO-EXCLUDE:IRI3_RETURN entry.
+        """
+        speed_body = (
+            "it was completed in 3.1 minutes (below our 5-minute minimum) and all 3 "
+            "of the embedded attention check questions were answered differently"
+        )
+        msgs = [
+            {"sender_id": RESEARCHER_ID, "body": speed_body},
+            {"sender_id": RESEARCHER_ID, "body": speed_body},
+        ]
+        assert _reasons_from_messages(msgs) == ["AUTO-EXCLUDE:IRI3_SPEED_RETURN"]
+
 
 # ── Reasons populated in classify_submission records ─────────────────────────
 
