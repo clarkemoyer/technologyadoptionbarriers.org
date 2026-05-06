@@ -9,8 +9,9 @@ the real CRP workspace.
 Usage:
     python build_example_workspace.py
 
-Determinism: fixed seed, sorted column order, ASCII-only output. Re-running
-the script produces byte-identical output (modulo line endings on Windows).
+Determinism: fixed seed, sorted column order, ASCII-only output. All text
+files are opened with ``newline='\\n'`` so the fixture is byte-identical
+across Windows, macOS, and Linux. Re-running the script produces byte-identical output.
 """
 
 from __future__ import annotations
@@ -202,7 +203,7 @@ def write_appendix_stubs(appendix_dir: str) -> None:
             "Placeholder.\n",
     }
     for name, content in stubs.items():
-        with open(os.path.join(appendix_dir, name), "w", encoding="utf-8") as f:
+        with open(os.path.join(appendix_dir, name), "w", encoding="utf-8", newline='\n') as f:
             f.write(content)
     print(f"Wrote {len(stubs)} appendix stub files to {appendix_dir}")
 
@@ -210,7 +211,7 @@ def write_appendix_stubs(appendix_dir: str) -> None:
 def write_body_placeholder(body_dir: str) -> None:
     os.makedirs(body_dir, exist_ok=True)
     placeholder = os.path.join(body_dir, "README.txt")
-    with open(placeholder, "w", encoding="utf-8") as f:
+    with open(placeholder, "w", encoding="utf-8", newline='\n') as f:
         f.write(
             "Synthetic CRP body docx is not committed to the repo (binary, large).\n"
             "To build one for testing the merge_appendixes.py script:\n\n"

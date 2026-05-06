@@ -16,11 +16,13 @@ highest to lowest precedence:
      researchers who want to point all the scripts at the same root.
   3. Common user locations: ~/Documents/CRP-workspace, ~/CRP-workspace.
      Cross-platform via os.path.expanduser, so works on Windows/macOS/Linux.
-  4. Repo-relative fixture: <repo>/scripts/crp-document-tools/fixtures/
-     example_workspace, used by CI and the Quickstart-for-Researchers tour.
-  5. Legacy glob patterns: /sessions/*/mnt/... and /tmp/tabs-crp-workspace.
+  4. Legacy glob patterns: /sessions/*/mnt/... and /tmp/tabs-crp-workspace.
      Kept so the original author's existing automation keeps working
      without changes.
+  5. Repo-relative fixture: <repo>/scripts/crp-document-tools/fixtures/
+     example_workspace, used by CI and the Quickstart-for-Researchers tour.
+     Placed last so a real workspace on disk (including legacy /sessions/*
+     mounts) always takes precedence over the synthetic fixture.
 
 If everything fails, helpers raise CrpWorkspaceNotFound with a message
 that points the user at the Quickstart README. They never silently
@@ -108,9 +110,6 @@ def find_workspace(explicit: Optional[str] = None) -> str:
         if os.path.isdir(candidate):
             return candidate
 
-    if os.path.isdir(FIXTURE_DIR):
-        return FIXTURE_DIR
-
     # Collect *all* valid legacy matches, then pick the most recently modified.
     # Returning the first sorted match is non-deterministic when multiple
     # /sessions/* mounts exist; most-recent-mtime is a meaningful tie-breaker.
@@ -126,6 +125,11 @@ def find_workspace(explicit: Optional[str] = None) -> str:
     legacy_matches = [c for c in _legacy_glob_locations() if os.path.isdir(c)]
     if legacy_matches:
         return max(legacy_matches, key=_safe_mtime)
+
+    # Fixture is the last resort so any real workspace (user location or legacy
+    # /sessions/* mount) always takes precedence over the synthetic fixture.
+    if os.path.isdir(FIXTURE_DIR):
+        return FIXTURE_DIR
 
     raise CrpWorkspaceNotFound(
         "No CRP workspace found. Set CRP_WORKSPACE, pass --workspace, or "

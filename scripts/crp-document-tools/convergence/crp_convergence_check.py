@@ -359,40 +359,49 @@ def deduplicate_claims(claims):
 
 
 def classify_mismatches(claims, stats):
-    """Classify unverified claims as tier-specific, item-level, subgroup, or true mismatch."""
+    """Add heuristic hints to unverified claims.
+
+    Claims that remain UNVERIFIED after numeric matching in
+    match_claims_to_pipeline() receive a 'hint' field based on keyword
+    context.  The hint is informational only and does NOT change the
+    claim's status - only a confirmed numeric match can promote a claim
+    out of UNVERIFIED.  Keeping status unchanged prevents false-convergence
+    exits (exit 0) for claims that context keywords suggest are tier-specific
+    or item-level but whose numeric value was never actually verified against
+    a pipeline statistic.
+    """
     for claim in claims:
         if claim['status'] != 'UNVERIFIED':
             continue
         ctx = claim['context'].lower()
 
-        # Check if it's a tier-specific value
+        # Tier-specific hint
         for tier in ['conservative', 'flexible', 'prolific']:
             if tier in ctx:
-                claim['status'] = 'TIER_MATCH'
-                claim['tier'] = tier
+                claim['hint'] = 'tier_specific'
                 break
 
-        # Check for item-level indicators
-        if claim['status'] == 'UNVERIFIED':
+        # Item-level hint
+        if 'hint' not in claim:
             item_indicators = ['legacy', 'privacy', 'cybersecurity', 'workforce', 'budget',
                              'leadership', 'governance', 'vendor', 'regulatory', 'training']
             for ind in item_indicators:
                 if ind in ctx:
-                    claim['status'] = 'ITEM_LEVEL'
+                    claim['hint'] = 'item_level'
                     break
 
-        # Check for subgroup indicators
-        if claim['status'] == 'UNVERIFIED':
+        # Subgroup hint
+        if 'hint' not in claim:
             subgroup_indicators = ['iri-pass', 'iri-fail', 'smb', 'enterprise', 'subgroup',
                                  'cio', 'cto', 'coo', 'vp']
             for ind in subgroup_indicators:
                 if ind in ctx:
-                    claim['status'] = 'SUBGROUP'
+                    claim['hint'] = 'subgroup'
                     break
 
-        # Check for V1 pilot values
-        if claim['status'] == 'UNVERIFIED' and ('v1' in ctx or 'pilot' in ctx or 'n = 25' in ctx or 'n=25' in ctx):
-            claim['status'] = 'V1_PILOT'
+        # V1 pilot hint
+        if 'hint' not in claim and ('v1' in ctx or 'pilot' in ctx or 'n = 25' in ctx or 'n=25' in ctx):
+            claim['hint'] = 'v1_pilot'
 
     return claims
 
@@ -405,7 +414,7 @@ def generate_report(claims, stats, crp_version, timestamp):
         s = c['status']
         status_counts[s] = status_counts.get(s, 0) + 1
 
-    mismatches = [c for c in claims if c['status'] in ('MISMATCH', 'UNVERIFIED')]
+    unverified_claims = [c for c in claims if c['status'] == 'UNVERIFIED']
 
     lines = []
     lines.append(f"# CRP Factual Convergence Report")
@@ -423,37 +432,53 @@ def generate_report(claims, stats, crp_version, timestamp):
     status_desc = {
         'EXACT_MATCH': 'CRP value matches pipeline within 0.0005',
         'ROUNDING_OK': 'CRP rounds correctly to stated precision',
-        'TIER_MATCH': 'CRP value matches a different sample tier',
-        'ITEM_LEVEL': 'Individual item mean, not construct grand mean',
-        'SUBGROUP': 'Subgroup-specific value (IRI-pass/fail, role-based)',
-        'V1_PILOT': 'V1 pilot value (n=25), not V2 pipeline',
         'UNVERIFIED': 'Claim not matched to any pipeline value - needs review',
-        'MISMATCH': 'Value does not match any pipeline statistic',
     }
-    for status in ['EXACT_MATCH', 'ROUNDING_OK', 'TIER_MATCH', 'ITEM_LEVEL',
-                   'SUBGROUP', 'V1_PILOT', 'UNVERIFIED', 'MISMATCH']:
+    for status in ['EXACT_MATCH', 'ROUNDING_OK', 'UNVERIFIED']:
         count = status_counts.get(status, 0)
         desc = status_desc.get(status, '')
         lines.append(f"| {status} | {count} | {desc} |")
 
     lines.append(f"")
 
-    if mismatches:
-        lines.append(f"## CLAIMS REQUIRING ATTENTION ({len(mismatches)})")
+    # Hint breakdown for UNVERIFIED claims (informational; values not confirmed)
+    hint_counts = {}
+    for c in claims:
+        if c['status'] == 'UNVERIFIED' and c.get('hint'):
+            h = c['hint']
+            hint_counts[h] = hint_counts.get(h, 0) + 1
+    if hint_counts:
+        hint_desc = {
+            'tier_specific': 'Likely tier-specific (unconfirmed - value not matched to any pipeline tier)',
+            'item_level': 'Likely individual-item mean (unconfirmed - not matched to construct grand mean)',
+            'subgroup': 'Likely subgroup-specific (unconfirmed - IRI-pass/fail, role-based, etc.)',
+            'v1_pilot': 'Likely V1 pilot value n=25 (unconfirmed)',
+        }
+        lines.append(f"### Heuristic Hints for UNVERIFIED Claims (keyword-based, unconfirmed)")
         lines.append(f"")
-        lines.append(f"Includes claims with status `MISMATCH` (value contradicts pipeline) and `UNVERIFIED` (no pipeline value found to compare against).")
+        lines.append(f"| Hint | Count | Note |")
+        lines.append(f"|------|-------|------|")
+        for h, cnt in sorted(hint_counts.items()):
+            lines.append(f"| {h} | {cnt} | {hint_desc.get(h, '')} |")
         lines.append(f"")
-        for m in mismatches:
-            lines.append(f"### Claim ID {m['id']}: {m['category']}/{m['subcategory']} [{m['status']}]")
+
+    if unverified_claims:
+        lines.append(f"## CLAIMS REQUIRING ATTENTION ({len(unverified_claims)})")
+        lines.append(f"")
+        lines.append(f"Claims with status `UNVERIFIED` were not matched to any pipeline value and need manual review.")
+        lines.append(f"")
+        for m in unverified_claims:
+            hint_tag = f" [hint: {m['hint']}]" if m.get('hint') else ""
+            lines.append(f"### Claim ID {m['id']}: {m['category']}/{m['subcategory']} [{m['status']}{hint_tag}]")
             lines.append(f"- **CRP value:** {m['crp_value']}")
             lines.append(f"- **CRP text:** `{m['crp_text']}`")
             lines.append(f"- **Context:** ...{m['context']}...")
             lines.append(f"- **Char offset:** {m['char_offset']}")
             lines.append(f"")
     else:
-        lines.append(f"## No Mismatches or Unverified Claims Found")
+        lines.append(f"## No Unverified Claims Found")
         lines.append(f"")
-        lines.append(f"All extracted claims either match the pipeline or are correctly classified as tier-specific, item-level, subgroup, or V1 pilot values.")
+        lines.append(f"All extracted claims match the pipeline (exact or rounding tolerance).")
 
     lines.append(f"")
     lines.append(f"---")
@@ -544,19 +569,16 @@ def main():
         f.write(report)
     print(f"  Saved: {report_path}")
 
-    # Summary - treat both MISMATCH and UNVERIFIED as non-convergence conditions.
-    # UNVERIFIED claims were never matched to a pipeline value, so silently exiting 0
+    # Summary - treat UNVERIFIED as the non-convergence condition.
+    # UNVERIFIED claims were not matched to any pipeline value, so exiting 0
     # would give a false "all clear" even when coverage is incomplete.
-    mismatches = status_counts.get('MISMATCH', 0)
     unverified = status_counts.get('UNVERIFIED', 0)
-    if mismatches > 0:
-        print(f"\n  WARNING: {mismatches} MISMATCHES found - review convergence report!")
     if unverified > 0:
         print(f"\n  WARNING: {unverified} UNVERIFIED claims - not matched to any pipeline value!")
-    if mismatches == 0 and unverified == 0:
-        print(f"\n  All claims converge with pipeline. No mismatches or unverified claims.")
+    else:
+        print(f"\n  All claims converge with pipeline. No unverified claims.")
 
-    return 1 if (mismatches or unverified) else 0
+    return 1 if unverified else 0
 
 
 if __name__ == '__main__':
