@@ -47,7 +47,7 @@ Categories new in v5 (31-42):
 python scripts/crp-document-tools/validators/validate_crp_stats_v5.py
 
 # Workspace discovery is handled by scripts/crp-document-tools/paths.py.
-# Precedence (highest to lowest) - see paths.py for the authoritative list:
+# Precedence (highest to lowest) - see scripts/crp-document-tools/paths.py for the authoritative list:
 #   1. --workspace <path>  or  --docx <path>  (explicit CLI flags always win)
 #   2. CRP_WORKSPACE environment variable
 #   3. ~/Documents/CRP-workspace  or  ~/CRP-workspace  (common user locations)
