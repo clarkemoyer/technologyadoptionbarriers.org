@@ -114,9 +114,18 @@ def find_workspace(explicit: Optional[str] = None) -> str:
     # Collect *all* valid legacy matches, then pick the most recently modified.
     # Returning the first sorted match is non-deterministic when multiple
     # /sessions/* mounts exist; most-recent-mtime is a meaningful tie-breaker.
+    # os.path.getmtime can raise OSError if a directory disappears between the
+    # isdir() check and the stat; fall back to 0.0 so the directory is still
+    # considered rather than causing an unhandled exception.
+    def _safe_mtime(p: str) -> float:
+        try:
+            return os.path.getmtime(p)
+        except OSError:
+            return 0.0
+
     legacy_matches = [c for c in _legacy_glob_locations() if os.path.isdir(c)]
     if legacy_matches:
-        return max(legacy_matches, key=os.path.getmtime)
+        return max(legacy_matches, key=_safe_mtime)
 
     raise CrpWorkspaceNotFound(
         "No CRP workspace found. Set CRP_WORKSPACE, pass --workspace, or "

@@ -76,10 +76,6 @@ jobs:
           # single digest covering the CSV, the appendix stubs, and the body
           # README. A single-file hash would miss nondeterminism in the other
           # outputs that build_example_workspace.py generates.
-          hash_fixture() {
-            find "$1" -type f | LC_ALL=C sort | xargs sha256sum | sha256sum | awk '{print $1}'
-          }
-
           # Capture per-file hashes before and after for a useful diff on failure.
           per_file_before=$(find "$fixture" -type f | LC_ALL=C sort | xargs sha256sum)
           before=$(echo "$per_file_before" | sha256sum | awk '{print $1}')
