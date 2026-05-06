@@ -47,12 +47,13 @@ Categories new in v5 (31-42):
 python scripts/crp-document-tools/validators/validate_crp_stats_v5.py
 
 # Workspace discovery is handled by scripts/crp-document-tools/paths.py.
-# Precedence (highest to lowest):
+# Precedence (highest to lowest) - see paths.py for the authoritative list:
 #   1. --workspace <path>  or  --docx <path>  (explicit CLI flags always win)
 #   2. CRP_WORKSPACE environment variable
 #   3. ~/Documents/CRP-workspace  or  ~/CRP-workspace  (common user locations)
 #   4. scripts/crp-document-tools/fixtures/example_workspace  (CI / quickstart)
 #   5. /sessions/*/mnt/... legacy glob  (original author's session environment)
+#   6. /tmp/tabs-crp-workspace  (legacy temp location)
 # If none of these resolve, the script exits with a clear error pointing at the
 # Quickstart README rather than failing deep inside discovery logic.
 ```

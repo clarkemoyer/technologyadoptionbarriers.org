@@ -3,9 +3,11 @@
 CRP Convergence Checker v1.0 (4-16-2026)
 =========================================
 Self-contained script that:
-1. Extracts all quantitative claims from the CRP DOCX body XML
+1. Extracts quantitative claims from the CRP DOCX body XML using heuristic
+   regex patterns (covers common formats; some values with thousands separators
+   or percent signs may not be captured)
 2. Loads pipeline ground-truth from crp-validation.json and crp-sensitivity-analysis.json
-3. Cross-references every claim against pipeline values
+3. Cross-references extracted claims against pipeline values where keys align
 4. Produces a versioned claims database JSON and convergence report
 
 Usage:
@@ -79,85 +81,86 @@ def extract_pipeline_stats(repo_path):
             val = json.load(f)
         # Prefer the sample identified by primary_sample; fall back to samples[0]
         # if the key is absent (older schema or single-sample files).
+        # When samples is absent/empty, skip validation extraction but continue
+        # so crp-sensitivity-analysis.json still loads.
         samples = val.get('samples', [])
-        if not samples:
-            return stats
         primary_key = val.get('primary_sample')
-        if primary_key:
-            sample = next(
-                (s for s in samples if s.get('key') == primary_key),
-                samples[0],
-            )
-        else:
-            sample = samples[0]
-
-        # Reliability metrics per construct.
-        # crp-validation.json stores construct blocks under capitalized keys
-        # ("Barriers", "Readiness", "Maturity") with cronbach_alpha (not alpha),
-        # mcdonalds_omega (not omega_total), and kmo_bartlett.kmo_overall (not kmo).
-        # Fall back to lowercase keys so the extractor also handles any
-        # older schema versions that used lowercase.
-        for construct in ['Barriers', 'Readiness', 'Maturity']:
-            data = sample.get(construct) or sample.get(construct.lower())
-            if data:
-                stats[f'alpha_{construct}'] = data.get('cronbach_alpha') or data.get('alpha')
-                stats[f'cr_{construct}'] = data.get('composite_reliability')
-                stats[f'ave_{construct}'] = data.get('ave')
-                stats[f'omega_total_{construct}'] = (
-                    data.get('mcdonalds_omega') or data.get('omega_total')
+        if samples:
+            if primary_key:
+                sample = next(
+                    (s for s in samples if s.get('key') == primary_key),
+                    samples[0],
                 )
-                stats[f'omega_h_{construct}'] = data.get('omega_hierarchical')
-                stats[f'split_half_{construct}'] = data.get('split_half')
-                kmo_bartlett = data.get('kmo_bartlett') or {}
-                stats[f'kmo_{construct}'] = (
-                    kmo_bartlett.get('kmo_overall') if kmo_bartlett else data.get('kmo')
-                )
-                stats[f'items_{construct}'] = data.get('items')
-                # Item-total correlations
-                itc = data.get('item_total_correlations', {})
-                for item, val_itc in itc.items():
-                    stats[f'itc_{construct}_{item}'] = val_itc
+            else:
+                sample = samples[0]
 
-        # HTMT
-        for entry in sample.get('htmt', []):
-            pair = entry.get('pair', '')
-            stats[f'htmt_{pair}'] = entry.get('htmt')
+            # Reliability metrics per construct.
+            # crp-validation.json stores construct blocks under capitalized keys
+            # ("Barriers", "Readiness", "Maturity") with cronbach_alpha (not alpha),
+            # mcdonalds_omega (not omega_total), and kmo_bartlett.kmo_overall (not kmo).
+            # Fall back to lowercase keys so the extractor also handles any
+            # older schema versions that used lowercase.
+            for construct in ['Barriers', 'Readiness', 'Maturity']:
+                data = sample.get(construct) or sample.get(construct.lower())
+                if data:
+                    stats[f'alpha_{construct}'] = data.get('cronbach_alpha') or data.get('alpha')
+                    stats[f'cr_{construct}'] = data.get('composite_reliability')
+                    stats[f'ave_{construct}'] = data.get('ave')
+                    stats[f'omega_total_{construct}'] = (
+                        data.get('mcdonalds_omega') or data.get('omega_total')
+                    )
+                    stats[f'omega_h_{construct}'] = data.get('omega_hierarchical')
+                    stats[f'split_half_{construct}'] = data.get('split_half')
+                    kmo_bartlett = data.get('kmo_bartlett') or {}
+                    stats[f'kmo_{construct}'] = (
+                        kmo_bartlett.get('kmo_overall') if kmo_bartlett else data.get('kmo')
+                    )
+                    stats[f'items_{construct}'] = data.get('items')
+                    # Item-total correlations
+                    itc = data.get('item_total_correlations', {})
+                    for item, val_itc in itc.items():
+                        stats[f'itc_{construct}_{item}'] = val_itc
 
-        # Fornell-Larcker.
-        # The schema exposes sqrt_ave1, sqrt_ave2, abs_r, and pass per pair
-        # (no shared_variance field).  Extract each numeric field so CRP claims
-        # can be matched, and compute shared_variance = abs_r^2 as an extra key
-        # in case the CRP states the squared correlation directly.
-        for entry in sample.get('fornell_larcker', []):
-            pair = entry.get('pair', '')
-            for field in ('sqrt_ave1', 'sqrt_ave2', 'abs_r'):
-                val = entry.get(field)
-                if val is not None:
-                    stats[f'fl_{pair}_{field}'] = val
-            abs_r = entry.get('abs_r')
-            if abs_r is not None:
-                stats[f'fl_{pair}_shared_variance'] = round(abs_r ** 2, 6)
+            # HTMT
+            for entry in sample.get('htmt', []):
+                pair = entry.get('pair', '')
+                stats[f'htmt_{pair}'] = entry.get('htmt')
 
-        # Construct correlations
-        corr = sample.get('construct_correlations', {})
-        if isinstance(corr, dict):
-            for c1, inner in corr.items():
-                if isinstance(inner, dict):
-                    for c2, val_corr in inner.items():
-                        stats[f'corr_{c1}_{c2}'] = val_corr
+            # Fornell-Larcker.
+            # The schema exposes sqrt_ave1, sqrt_ave2, abs_r, and pass per pair
+            # (no shared_variance field).  Extract each numeric field so CRP claims
+            # can be matched, and compute shared_variance = abs_r^2 as an extra key
+            # in case the CRP states the squared correlation directly.
+            for entry in sample.get('fornell_larcker', []):
+                pair = entry.get('pair', '')
+                for field in ('sqrt_ave1', 'sqrt_ave2', 'abs_r'):
+                    val = entry.get(field)
+                    if val is not None:
+                        stats[f'fl_{pair}_{field}'] = val
+                abs_r = entry.get('abs_r')
+                if abs_r is not None:
+                    stats[f'fl_{pair}_shared_variance'] = round(abs_r ** 2, 6)
 
-        # Factor analysis
-        fa = sample.get('factor_analysis', {})
-        for i, factor in enumerate(fa.get('efa_factors', [])):
-            stats[f'efa_f{i+1}_items'] = factor.get('items')
-            stats[f'efa_f{i+1}_eigenvalue'] = factor.get('eigenvalue')
-            stats[f'efa_f{i+1}_variance_pct'] = factor.get('variance_pct')
-        for group in fa.get('three_groups', []):
-            name = group.get('name', '')
-            stats[f'group_{name}_items'] = group.get('items')
-            stats[f'group_{name}_alpha'] = group.get('alpha')
-            stats[f'group_{name}_cr'] = group.get('cr')
-            stats[f'group_{name}_ave'] = group.get('ave')
+            # Construct correlations
+            corr = sample.get('construct_correlations', {})
+            if isinstance(corr, dict):
+                for c1, inner in corr.items():
+                    if isinstance(inner, dict):
+                        for c2, val_corr in inner.items():
+                            stats[f'corr_{c1}_{c2}'] = val_corr
+
+            # Factor analysis
+            fa = sample.get('factor_analysis', {})
+            for i, factor in enumerate(fa.get('efa_factors', [])):
+                stats[f'efa_f{i+1}_items'] = factor.get('items')
+                stats[f'efa_f{i+1}_eigenvalue'] = factor.get('eigenvalue')
+                stats[f'efa_f{i+1}_variance_pct'] = factor.get('variance_pct')
+            for group in fa.get('three_groups', []):
+                name = group.get('name', '')
+                stats[f'group_{name}_items'] = group.get('items')
+                stats[f'group_{name}_alpha'] = group.get('alpha')
+                stats[f'group_{name}_cr'] = group.get('cr')
+                stats[f'group_{name}_ave'] = group.get('ave')
 
     # Load crp-sensitivity-analysis.json
     sens_path = os.path.join(repo_path, 'src/data/crp-sensitivity-analysis.json')

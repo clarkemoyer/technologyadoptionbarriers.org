@@ -4,7 +4,10 @@
 Workspace and CSV discovery follow the precedence documented in
 ``scripts/crp-document-tools/paths.py``:
 
-    --csv flag > CRP_WORKSPACE env > ~/Documents/CRP-workspace > fixture > legacy /sessions/*
+    --csv flag  >  CRP_WORKSPACE env
+    >  ~/Documents/CRP-workspace  or  ~/CRP-workspace
+    >  scripts/crp-document-tools/fixtures/example_workspace  (CI/quickstart)
+    >  /sessions/*/mnt/...  or  /tmp/tabs-crp-workspace  (legacy)
 
 If you have no real workspace yet, the bundled ``fixtures/example_workspace/``
 will satisfy the discovery so the script can demonstrate end-to-end behaviour
