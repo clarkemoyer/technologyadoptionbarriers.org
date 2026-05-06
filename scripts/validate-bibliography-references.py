@@ -8,12 +8,19 @@ This script:
 3. Reports unmatched references that need to be added to Zotero
 
 Usage:
-  python scripts/validate-bibliography-references.py          # cloud API (CI)
-  python scripts/validate-bibliography-references.py --local   # local Zotero desktop
+  python scripts/validate-bibliography-references.py                # cloud API (CI)
+  python scripts/validate-bibliography-references.py --local        # local Zotero desktop
+  python scripts/validate-bibliography-references.py --dry-run      # extract refs, skip Zotero
+  python scripts/validate-bibliography-references.py --verbose / -v # show all pages, not just warnings
 
 Environment (cloud mode):
-  ZOTERO_API_KEY   - API key
-  ZOTERO_USER_ID   - User ID (1527234)
+  ZOTERO_API_KEY          - API key
+  ZOTERO_USER_ID          - numeric user ID
+
+Environment (optional):
+  ZOTERO_COLLECTION_KEYS  - comma-separated Zotero collection keys to index
+                            (defaults to the standard bibliography collections)
+  VALIDATION_REPORT_PATH  - path for the JSON report (default: bibliography-validation-report.json)
 
 Exit codes:
   0 - All references validated
@@ -114,7 +121,7 @@ def get_zotero_client(local: bool = False):
     return zotero.Zotero(int(user_id), "user", api_key)
 
 
-def build_zotero_index(zot, collection_keys: list[str]) -> dict:
+def build_zotero_index(zot, collection_keys: list[str]) -> tuple[dict, int]:
     """Build a lookup index from Zotero items: (last_name_lower, year) -> item."""
     index = {}
     all_items = []
@@ -233,14 +240,17 @@ def main():
         _write_error_report(report_path, pages, pages_with_refs, pages_without_refs, total_refs, "Could not connect to Zotero")
         raise
 
-    # Build index from bibliography collections
-    collection_keys = [
+    # Build index from bibliography collections.
+    # Override via ZOTERO_COLLECTION_KEYS (comma-separated) for non-standard libraries.
+    _default_keys = [
         "CW5CU2Z2",  # Bibliography Branch 1
         "QRAH48GW",  # Bibliography Branch 2
         "4N7NAXWR",  # Website Citations (parent)
         "BIM6DVJ5",  # Individual Technology Adoption Models (source)
         "D3RV9FU5",  # Organizational Technology Adoption Models (source)
     ]
+    _env_keys = os.environ.get("ZOTERO_COLLECTION_KEYS", "")
+    collection_keys = [k.strip() for k in _env_keys.split(",") if k.strip()] or _default_keys
 
     print("Building Zotero reference index...")
     try:
@@ -249,6 +259,17 @@ def main():
         _write_error_report(report_path, pages, pages_with_refs, pages_without_refs, total_refs, str(e))
         print(f"ERROR building Zotero index: {e}")
         sys.exit(2)
+
+    if item_count == 0:
+        error_msg = (
+            f"No items fetched from any of the {len(collection_keys)} configured "
+            "collection(s). Verify ZOTERO_COLLECTION_KEYS or the default collection keys "
+            "are correct for this Zotero library."
+        )
+        _write_error_report(report_path, pages, pages_with_refs, pages_without_refs, total_refs, error_msg)
+        print(f"ERROR: {error_msg}")
+        sys.exit(2)
+
     print(f"  Indexed {len(zotero_index)} unique (author, year) pairs from {item_count} items")
 
     # Validate each page
