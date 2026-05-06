@@ -336,8 +336,7 @@ const GitHubIntegrationPage = () => {
             </li>
             <li>
               <strong>Qualtrics metrics update</strong> - fetches survey response counts and updates{' '}
-              <code>qualtrics-metrics.json</code>, also auto-merged. The Response Funnel page reads
-              this file alongside the Prolific disposition summary.
+              <code>qualtrics-metrics.json</code>, also auto-merged
             </li>
             <li>
               <strong>SEO Dashboard Sync</strong> - queries GSC and GA4 to update the public SEO

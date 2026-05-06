@@ -1,7 +1,6 @@
 name: Zotero API Smoke Test
 on:
   workflow_dispatch:
-  workflow_call:
 
 jobs:
   smoke:

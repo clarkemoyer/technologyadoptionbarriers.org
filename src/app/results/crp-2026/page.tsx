@@ -270,12 +270,6 @@ const CRP2026Page = () => {
               - hierarchical barrier factor structure
             </li>
             <li>
-              <Link href="/results/crp-2026/top-barriers" className="text-blue-600 hover:underline">
-                Top 3 Barriers
-              </Link>{' '}
-              - forced-choice salience ranking vs continuous-rating ranking
-            </li>
-            <li>
               <Link href="/results/crp-2026/glossary" className="text-blue-600 hover:underline">
                 Statistics Glossary
               </Link>{' '}

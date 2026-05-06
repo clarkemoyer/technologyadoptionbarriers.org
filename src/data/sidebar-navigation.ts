@@ -76,39 +76,28 @@ function resultsToGroups(items: ResultsSeriesItem[]): SidebarGroup[] {
   ]
 }
 
-/** Recursively flatten a MakingOfTabsItem and its descendants into a SidebarLink array. */
-function flattenItem(arr: SidebarLink[], item: MakingOfTabsItem): void {
-  arr.push({ title: item.title, href: item.href })
-  if (item.children) {
-    for (const child of item.children) flattenItem(arr, child)
-  }
-}
-
 function makingOfTabsToGroups(items: MakingOfTabsItem[]): SidebarGroup[] {
   const howWeBuiltIt: SidebarLink[] = []
   const aiInTabs: SidebarLink[] = []
   const integrations: SidebarLink[] = []
+  const dataAnalysis: SidebarLink[] = []
   const seo: SidebarLink[] = []
   const presentations: SidebarLink[] = []
-  const mindMaps: SidebarLink[] = []
-
-  // Prefixes that belong to named groups other than "How We Built It".
-  // Any top-level item whose href does NOT start with one of these prefixes is
-  // treated as a "How We Built It" entry and recursively expanded.  This keeps
-  // the group in sync as new pages are added without manual whitelist updates.
-  const namedGroupPrefixes = [
-    '/making-of-tabs/ai-',
-    '/making-of-tabs/integrations',
-    '/making-of-tabs/mind-maps',
-    '/making-of-tabs/seo',
-    '/making-of-tabs/tabs-presentation',
-  ]
 
   for (const item of items) {
     const link: SidebarLink = { title: item.title, href: item.href }
 
-    if (!namedGroupPrefixes.some((p) => item.href.startsWith(p))) {
-      flattenItem(howWeBuiltIt, item)
+    if (
+      [
+        '/making-of-tabs',
+        '/making-of-tabs/content-architecture',
+        '/making-of-tabs/development-workflow',
+        '/making-of-tabs/automation-infrastructure',
+        '/making-of-tabs/accessibility',
+        '/making-of-tabs/open-source',
+      ].includes(item.href)
+    ) {
+      howWeBuiltIt.push(link)
     } else if (item.href.startsWith('/making-of-tabs/ai-')) {
       aiInTabs.push(link)
       if (item.children) {
@@ -128,13 +117,6 @@ function makingOfTabsToGroups(items: MakingOfTabsItem[]): SidebarGroup[] {
           integrations.push({ title: child.title, href: child.href })
         }
       }
-    } else if (item.href.startsWith('/making-of-tabs/mind-maps')) {
-      mindMaps.push(link)
-      if (item.children) {
-        for (const child of item.children) {
-          mindMaps.push({ title: child.title, href: child.href })
-        }
-      }
     } else if (item.href.startsWith('/making-of-tabs/seo')) {
       seo.push(link)
     } else if (item.href.startsWith('/making-of-tabs/tabs-presentation')) {
@@ -147,7 +129,6 @@ function makingOfTabsToGroups(items: MakingOfTabsItem[]): SidebarGroup[] {
     { title: 'AI in TABS', links: aiInTabs },
     { title: 'Technical Integrations', links: integrations },
     { title: 'SEO & Transparency', links: seo },
-    { title: 'Mind Maps', links: mindMaps },
     { title: 'Presentations', links: presentations },
   ].filter((g) => g.links.length > 0)
 }
@@ -274,7 +255,7 @@ function surveyToGroups(): SidebarGroup[] {
       links: [
         { title: 'All Barriers', href: '/barriers' },
         { title: 'Barrier Quotes', href: '/barriers/quotes' },
-        { title: 'Response Funnel', href: '/results/survey-stats' },
+        { title: 'Survey Statistics', href: '/barriers/survey-stats' },
       ],
     },
     {
@@ -331,56 +312,42 @@ export const sidebarSections: SidebarSection[] = [
     label: 'Home',
     icon: '🏠',
     href: '/',
-    groups: [
-      {
-        title: 'Featured Visualizations',
-        links: [
-          { title: 'Mind Maps Gallery', href: '/making-of-tabs/mind-maps' },
-          { title: 'Full Mind Map', href: '/making-of-tabs/mind-maps/full-mind-map' },
-        ],
-      },
-    ],
+    groups: [],
   },
   {
     id: 'survey',
     label: 'Survey',
     icon: '📋',
-    href: '/survey',
     groups: surveyToGroups(),
   },
   {
     id: 'results',
     label: 'Results',
     icon: '📊',
-    href: '/results',
     groups: resultsToGroups(resultsSeries),
   },
   {
     id: 'models',
     label: 'Models',
     icon: '📚',
-    href: '/technology-adoption-models',
     groups: modelsToGroups(),
   },
   {
     id: 'teaching',
     label: 'Teaching',
     icon: '🎓',
-    href: '/technology-adoption-series',
     groups: teachingToGroups(),
   },
   {
     id: 'making-of-tabs',
     label: 'Making of TABS',
     icon: '🔧',
-    href: '/making-of-tabs',
     groups: makingOfTabsToGroups(makingOfTabsSeries),
   },
   {
     id: 'about',
     label: 'About',
     icon: 'ℹ️',
-    href: '/about',
     groups: aboutToGroups(),
   },
 ]
@@ -393,7 +360,6 @@ export function getActiveSectionId(pathname: string): string {
 
   if (p === '/') return 'home'
   if (
-    p === '/survey' ||
     p.startsWith('/barriers') ||
     p.startsWith('/start') ||
     p.startsWith('/for-organizations') ||
@@ -410,7 +376,6 @@ export function getActiveSectionId(pathname: string): string {
   if (p.startsWith('/technology-adoption-series')) return 'teaching'
   if (p.startsWith('/making-of-tabs')) return 'making-of-tabs'
   if (
-    p === '/about' ||
     [
       '/faq',
       '/media',

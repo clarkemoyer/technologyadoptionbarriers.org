@@ -916,61 +916,13 @@ Pipeline data has strict PII boundaries:
 | Prolific demographics       | Yes (per-participant)      | No (in-memory join)  | Ephemeral         |
 | Step summaries              | No (aggregate counts)      | No (Actions UI)      | Workflow lifetime |
 | Workflow logs               | Yes (PIDs in debug output) | No (Actions UI)      | 90 days           |
-| GitHub issue bodies         | **No (redact to last 4)**  | Yes (issue history)  | Permanent         |
-| PR descriptions             | **No (redact to last 4)**  | Yes (PR history)     | Permanent         |
-| Issue / PR comments         | **No (redact to last 4)**  | Yes                  | Permanent         |
-| Commit messages             | **No**                     | Yes                  | Permanent         |
 
 **Rules**:
 
-- Never commit PROLIFIC_PID or participant-level data to the repository.
-- **"The repository" includes GitHub issue bodies, PR descriptions, issue/PR
-  comments, commit messages, and step summaries** - anything GitHub persists
-  alongside the repo. These surfaces are permanent, enumerable via the REST
-  API, and frequently indexed. Treat them the same as `git push`.
-- Step summaries and issue bodies use aggregate counts only (no PID tables).
-- If operators need a PID list for copy/paste, put the full list in a
-  retention-capped Actions artifact and link to it from the issue. Redact
-  any PID that still has to appear inline to its last 4 characters
-  (e.g. `****f305`).
-- De-identified public dataset excludes all direct identifiers.
-- Raw demographic CSVs exist only in `${{ runner.temp }}` (ephemeral workspace).
-
-### Post-mortem: stale-triage PID leak (2026-04-23)
-
-**What happened.** The first iteration of the stale-AWAITING-REVIEW section
-added to the daily disposition report (PR #1774) rendered full PROLIFIC_PIDs
-in the issue body, plus a collapsed `<details>` block with a comma-separated
-PID list for pasting into the reject workflow. Daily report issues are
-permanent GitHub content, so this put per-participant data into a surface
-the privacy table above marked as off-limits.
-
-**Why the rule didn't fire.** The Privacy & Data Flow table listed
-"Committed to Repo?" as the dimension, and issue bodies were not explicitly
-named. I was optimising for operator convenience (paste-friendly PID list)
-and treated the issue body as an ephemeral notification rather than
-persistent repo content. The older pattern ("Step summaries use aggregate
-counts only") was the right instinct and should have transferred — issues
-are strictly more public and longer-lived than step summaries — but I did
-not make that inference.
-
-**Fix applied.** Redact inline PIDs to `****<last-4>` and keep the full
-list only in the 1-day `stale-triage` Actions artifact. A link in the
-section points operators at the artifact.
-
-**How to prevent a recurrence.**
-
-1. Before any workflow step emits to a GitHub-managed surface (issue body,
-   PR description, issue/PR comment, commit message, step summary),
-   explicitly ask: "is any per-participant datum in this output?" If yes,
-   redact or move the raw data to a retention-capped Actions artifact and
-   link to it.
-2. The rule is now in the privacy table under **"'The repository' includes
-   ..."** — future contributions that touch these surfaces must compare
-   against that line, not just the committed-file boundary.
-3. When adding a new report section, run the output shape past the privacy
-   table as a review checklist item, the same way new routes run through
-   the sitemap + canonical check.
+- Never commit PROLIFIC_PID or participant-level data to the repository
+- Step summaries use aggregate counts only (no PID tables)
+- De-identified public dataset excludes all direct identifiers
+- Raw demographic CSVs exist only in `${{ runner.temp }}` (ephemeral workspace)
 
 ## Workflow Dispatch Quick Reference
 

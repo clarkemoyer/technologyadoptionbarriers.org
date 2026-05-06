@@ -222,8 +222,7 @@ src/
 │   ├── barriers.ts                            # Barriers data
 │   ├── impact.json                            # Impact metrics
 │   ├── persona-navigation.ts                  # Role-based navigation
-│   ├── qualtrics-metrics.json                 # Qualtrics raw response counts (Response Funnel)
-│   ├── disposition-summary.json               # Prolific funnel + disposition triage (homepage + Response Funnel)
+│   ├── qualtrics-metrics.json                 # Survey metrics
 │   ├── technology-adoption-models-series.ts   # Article series data
 │   ├── technology-adoption-teaching-series.ts # Teaching series data
 │   └── visual-gallery.ts                      # Visual gallery data
@@ -237,6 +236,7 @@ src/
     ├── personas.ts                            # Role-based persona utilities
     ├── prolific-api.ts                        # Prolific API client
     ├── qualtrics-api.ts                       # Qualtrics API client
+    ├── qualtricsStats.ts                      # Qualtrics statistics utilities
     ├── release-notes.ts                       # Release notes utilities
     ├── simple-markdown.tsx                    # Markdown rendering utility
     ├── slugify.ts                             # URL slug generation

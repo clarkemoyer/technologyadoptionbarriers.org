@@ -2,12 +2,10 @@
 """
 TABS V2 Disposition Triage CLI (Python)
 
-Replacement for scripts/archive/disposition-triage.ts.
+Drop-in replacement for scripts/disposition-triage.ts.
 Reads a Qualtrics CSV export, computes dispositions using the 10-step
-waterfall, and writes a disposition CSV. The first 20 columns (through
-``Disposition``) match the archived TypeScript version; the trailing
-``Prolific_*`` columns intentionally extend that format with Prolific
-submission anchors added by enrich_qualtrics_csv.py upstream.
+waterfall, and writes a disposition CSV with the same columns and format
+as the TypeScript version.
 
 Environment variables:
   INPUT_PATH   – Path to the raw Qualtrics CSV export (required)
@@ -25,10 +23,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 from tabs_v2_data_audit import parse_csv
 
 
-# CSV column definitions. The first 20 columns (through "Disposition") match
-# scripts/archive/disposition-triage.ts. The trailing Prolific_* columns
-# intentionally extend the archived TS format — they are populated by
-# enrich_qualtrics_csv.py upstream and are not present in the TS version.
+# CSV column order matching scripts/disposition-triage.ts exactly
 CSV_HEADERS = [
     "PROLIFIC_PID",
     "Finished",
@@ -50,12 +45,6 @@ CSV_HEADERS = [
     "Partial_Straightlining_Flag",
     "Partial_Straightlining_Blocks",
     "Disposition",
-    # Prolific submission anchors (added by enrich_qualtrics_csv.py). Empty
-    # strings when no Prolific submission joins to this PID. Downstream
-    # consumers compute days-until-21-day-auto-approve from Prolific_Completed_At.
-    "Prolific_Status",
-    "Prolific_Completed_At",
-    "Prolific_Started_At",
 ]
 
 

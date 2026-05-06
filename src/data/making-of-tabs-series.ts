@@ -12,16 +12,7 @@ export const makingOfTabsSeries: MakingOfTabsItem[] = [
   { title: 'Development Workflow', href: '/making-of-tabs/development-workflow' },
   { title: 'Automation Infrastructure', href: '/making-of-tabs/automation-infrastructure' },
   { title: 'Accessibility', href: '/making-of-tabs/accessibility' },
-  {
-    title: 'Open Source & Community',
-    href: '/making-of-tabs/open-source',
-    children: [
-      {
-        title: 'The Value of Open-Source Research Infrastructure',
-        href: '/making-of-tabs/open-source/research-value',
-      },
-    ],
-  },
+  { title: 'Open Source', href: '/making-of-tabs/open-source' },
   { title: 'TABS Presentation', href: '/making-of-tabs/tabs-presentation' },
   {
     title: 'AI-Assisted Development',
@@ -34,10 +25,6 @@ export const makingOfTabsSeries: MakingOfTabsItem[] = [
       {
         title: 'The Squash Merge Incident',
         href: '/making-of-tabs/ai-assisted-development/squash-merge-incident',
-      },
-      {
-        title: 'The 50-Reviewer Process',
-        href: '/making-of-tabs/ai-assisted-development/50-reviewer-process',
       },
     ],
   },
@@ -113,44 +100,6 @@ export const makingOfTabsSeries: MakingOfTabsItem[] = [
   {
     title: 'SEO Transparency',
     href: '/making-of-tabs/seo',
-  },
-  {
-    title: 'Mind Maps',
-    href: '/making-of-tabs/mind-maps',
-    children: [
-      {
-        title: 'Full Mind Map',
-        href: '/making-of-tabs/mind-maps/full-mind-map',
-      },
-      {
-        title: 'Business Management Models',
-        href: '/making-of-tabs/mind-maps/business-management-models',
-      },
-      {
-        title: 'IT & IT Management Models',
-        href: '/making-of-tabs/mind-maps/it-management-models',
-      },
-      {
-        title: 'Enterprise & IT Architecture',
-        href: '/making-of-tabs/mind-maps/enterprise-it-architecture',
-      },
-      {
-        title: 'Project, Program & Risk Management',
-        href: '/making-of-tabs/mind-maps/project-program-risk-management',
-      },
-      {
-        title: 'Standards & Regulations',
-        href: '/making-of-tabs/mind-maps/standards-regulations',
-      },
-      {
-        title: 'TABS Project Operations',
-        href: '/making-of-tabs/mind-maps/tabs-project-operations',
-      },
-      {
-        title: 'Culminating Research Project',
-        href: '/making-of-tabs/mind-maps/culminating-research-project',
-      },
-    ],
   },
   { title: 'CMO Survey Inspiration', href: '/making-of-tabs/cmo-survey' },
 ]

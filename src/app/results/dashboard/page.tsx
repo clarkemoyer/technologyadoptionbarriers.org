@@ -4,7 +4,6 @@ import Link from 'next/link'
 import dispositionData from '@/data/disposition-summary.json'
 import sensitivityData from '@/data/sensitivity-analysis.json'
 import LastUpdated from '@/components/last-updated'
-import { formatUtcTimestamp } from '@/lib/formatUtcTimestamp'
 
 export const metadata: Metadata = {
   title: 'Prolific Dashboard - TABS Results',
@@ -714,7 +713,16 @@ const DispositionDashboardPage = () => {
 
         {/* Footer */}
         <footer className="mt-12 pt-8 border-t border-gray-200 text-sm text-gray-500">
-          <p>Last updated: {formatUtcTimestamp(d.updatedAt) ?? '—'}</p>
+          <p>
+            Last updated:{' '}
+            {new Date(d.updatedAt.replace(/\.\d{4,}/, (m: string) => m.slice(0, 4))).toLocaleString(
+              'en-US',
+              {
+                dateStyle: 'medium',
+                timeStyle: 'short',
+              }
+            )}
+          </p>
           <p className="mt-1">
             Reference: Meade &amp; Craig (2012). Identifying careless responses in survey data.{' '}
             <em>Psychological Methods</em>, 17(3), 437-455.

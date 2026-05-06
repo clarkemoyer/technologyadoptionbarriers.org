@@ -317,9 +317,6 @@ function assignCopilotToFix(repo: string, prNumber: string, comments: ReviewComm
   }
 }
 
-/** Cooldown between rounds to avoid hitting Copilot review API rate limits. */
-const ROUND_COOLDOWN_MS = 60_000
-
 function dispatchNextRound(
   repo: string,
   prNumber: string,
@@ -327,10 +324,6 @@ function dispatchNextRound(
   maxRounds: number,
   autoMerge: boolean
 ): void {
-  console.log(
-    `Cooldown: waiting ${ROUND_COOLDOWN_MS / 1000}s before dispatching round ${nextRound}/${maxRounds}...`
-  )
-  execSync(`sleep ${ROUND_COOLDOWN_MS / 1000}`, { stdio: 'inherit' })
   console.log(`Dispatching round ${nextRound}/${maxRounds}...`)
   gh(
     `workflow run copilot-review-cycle.yml -R ${repo} ` +

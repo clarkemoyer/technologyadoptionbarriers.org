@@ -4,7 +4,7 @@ import Link from 'next/link'
 export const metadata: Metadata = {
   title: 'Content Architecture - Making of TABS',
   description:
-    'How the TABS site is organized - 190+ statically generated routes, data-driven content, SEO strategy, responsive design, and the static export approach.',
+    'How the TABS site is organized - 149+ statically generated pages, data-driven content, SEO strategy, responsive design, and the static export approach.',
   alternates: {
     canonical: '/making-of-tabs/content-architecture',
   },
@@ -18,11 +18,10 @@ const ContentArchitecturePage = () => {
 
         <section className="mb-10 text-gray-800">
           <p className="mb-6">
-            What started as a single-page site has grown into 190+ statically generated routes
-            covering research articles, teaching materials, bibliography entries, results
-            dashboards, persona quick-starts, organizational resources, and project documentation.
-            This page explains how we organize that content, keep it maintainable, and ensure it
-            performs well at scale.
+            What started as a single-page site has grown into 149+ statically generated pages
+            covering research articles, teaching materials, bibliography entries, organizational
+            resources, and project documentation. This page explains how we organize that content,
+            keep it maintainable, and ensure it performs well at scale.
           </p>
         </section>
 
@@ -100,53 +99,15 @@ const ContentArchitecturePage = () => {
                   [
                     'Research Articles',
                     '16',
-                    'Two branches of original research (8 articles each, including branch introductions)',
+                    'Two branches of original research (8 articles each)',
                   ],
-                  [
-                    'Bibliography',
-                    '44',
-                    'Auto-generated citation pages: 22 individual-adoption + 21 organizational-adoption + 1 comprehensive index',
-                  ],
-                  [
-                    'Making of TABS',
-                    '51',
-                    'Architecture, integrations, AI-assisted development, mind maps, SEO, validity checks, and operational playbooks',
-                  ],
-                  [
-                    'Results & Data',
-                    '27',
-                    'Live and CRP-2026 dashboards: descriptive, reliability, factor analysis, sensitivity, findings, top barriers, glossary, and reproducibility',
-                  ],
-                  [
-                    'Technology Adoption Series',
-                    '13',
-                    'Teaching workshop pages: presentation viewer, handouts, slide tracks',
-                  ],
-                  [
-                    'Persona Quick-Starts',
-                    '12',
-                    'Index plus 11 role-specific landing pages dynamically generated under /start/[role] (CEO, CFO, CIO, CTO, CISO, COO, CMO, CSO, CHRO, CRO, Other)',
-                  ],
-                  [
-                    'Organizational Resources',
-                    '5',
-                    'Role-grouped guidance under /for-organizations',
-                  ],
-                  [
-                    'Concept Mapping & Lit Review',
-                    '5',
-                    '/concept-mapping (3) plus /lit-review-complex and /lit-review-mind-map',
-                  ],
-                  [
-                    'Policy Pages',
-                    '6',
-                    'Privacy, cookies, terms, security acknowledgements, vulnerability disclosure, contribution policy',
-                  ],
-                  [
-                    'Core Pages',
-                    '12+',
-                    'Homepage, barriers (3), about, FAQ, media, survey, survey-complete, get-involved, technology-adoption-models, tabs-presentation',
-                  ],
+                  ['Bibliography', '24', 'Auto-generated citation pages for referenced works'],
+                  ['Teaching Series', '8+', 'Presentation viewer, handouts, workshop materials'],
+                  ['Making of TABS', '10+', 'How the site is built and maintained'],
+                  ['Organizational Resources', '5', 'Role-specific guides for leaders'],
+                  ['Persona Pages', '11', 'Dynamic routing based on user role'],
+                  ['Policy Pages', '6', 'Legal and compliance documents'],
+                  ['Core Pages', '5+', 'Homepage, barriers, get involved, media, survey'],
                 ].map(([section, pages, purpose]) => (
                   <tr key={section} className="border-b border-gray-100">
                     <td className="p-3 font-medium">{section}</td>
@@ -192,15 +153,10 @@ const ContentArchitecturePage = () => {
               updated by the daily Google Analytics workflow
             </li>
             <li>
-              <strong>Survey response funnel</strong> - Qualtrics response counts in{' '}
+              <strong>Survey metrics</strong> - statistics in{' '}
               <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">
                 src/data/qualtrics-metrics.json
-              </code>{' '}
-              and the Prolific submission funnel in{' '}
-              <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">
-                src/data/disposition-summary.json
               </code>
-              , both surfaced on /results/survey-stats
             </li>
             <li>
               <strong>Article series</strong> - navigation ordering and metadata in{' '}
@@ -238,14 +194,8 @@ const ContentArchitecturePage = () => {
               Next.js Metadata API
             </li>
             <li>
-              <strong>Dynamic sitemap</strong> - generated at build time with all 190+ routes
-              (including parameterized routes such as the 11{' '}
-              <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">/start/[role]</code> persona
-              pages and the teaching-series slide pages under{' '}
-              <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">
-                /technology-adoption-series/[slide]
-              </code>
-              ), correct change frequencies, and priorities
+              <strong>Dynamic sitemap</strong> - generated at build time with all 149+ routes,
+              correct change frequencies, and priorities
             </li>
             <li>
               <strong>Robots.txt</strong> - programmatically generated to allow search engine
@@ -300,7 +250,7 @@ const ContentArchitecturePage = () => {
         <section className="mb-12 text-gray-800">
           <h2 className={H2_CLASSES}>Shared Style System</h2>
           <p className="mb-6">
-            With 16 research articles and 44 bibliography pages, visual consistency is essential.
+            With 16 research articles and 24 bibliography pages, visual consistency is essential.
             The{' '}
             <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">
               src/lib/articleStyles.ts
@@ -355,57 +305,8 @@ const ContentArchitecturePage = () => {
           </p>
         </section>
 
-        {/* ── Dynamic Routes ── */}
-        <section className="mb-12 text-gray-800">
-          <h2 className={H2_CLASSES}>Dynamic Routes (still static, but parameterized)</h2>
-          <p className="mb-6">
-            One source file can produce many statically-generated pages by pairing a Next.js dynamic
-            segment with{' '}
-            <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">generateStaticParams()</code>.
-            We currently use this in two places:
-          </p>
-          <ul className="list-disc pl-6 space-y-2 mb-6">
-            <li>
-              <Link href="/start" className="text-blue-600 underline hover:text-blue-800">
-                /start
-              </Link>{' '}
-              is a single hub page;{' '}
-              <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">/start/[role]</code> is one
-              source file that emits 11 persona-specific landing pages at build time (CEO, CFO, CIO,
-              CTO, CISO, COO, CMO, CSO, CHRO, CRO, plus a generic <em>Other</em> fallback). Each
-              persona&apos;s recommended next steps, framing, and example barriers come from{' '}
-              <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">src/lib/personas.ts</code>,
-              not from individual hand-written pages.
-            </li>
-            <li>
-              <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">
-                /technology-adoption-series/[slide]
-              </code>{' '}
-              is one source file that emits a route for every slide in the teaching series (plus
-              legacy URL aliases) at build time. The slide list is derived from{' '}
-              <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">
-                technologyAdoptionTeachingSeries.parts[].slides
-              </code>{' '}
-              in{' '}
-              <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">
-                src/data/technology-adoption-teaching-series.ts
-              </code>
-              .
-            </li>
-          </ul>
-          <p className="mb-6">
-            Together these two parameterized routes are why the route count (190+) exceeds the
-            source-file count (180+). Everything else on the site is a 1-to-1 source file to route
-            mapping. We could templatize more (e.g., bibliography entries) but currently keep them
-            as individual files so each entry can carry custom annotations alongside the
-            auto-generated citation block.
-          </p>
-        </section>
-
         <section className="pt-8 border-t border-gray-200">
-          <p className="text-sm text-gray-600 italic">
-            190+ routes from 180+ source files, zero servers, one build step.
-          </p>
+          <p className="text-sm text-gray-600 italic">149 pages, zero servers, one build step.</p>
         </section>
       </article>
     </div>

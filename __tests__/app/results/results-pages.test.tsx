@@ -307,40 +307,6 @@ const MOCK_SENSITIVITY_DATA = {
       },
     },
   },
-  top3_pick_counts: {
-    total_n: 10,
-    items_sorted_desc: [
-      { item: 'B1', text: 'Barrier one text', count: 9, pct: 90.0 },
-      { item: 'B2', text: 'Barrier two text', count: 7, pct: 70.0 },
-      { item: 'B3', text: 'Barrier three text', count: 6, pct: 60.0 },
-      { item: 'B4', text: 'Barrier four text', count: 4, pct: 40.0 },
-      { item: 'B5', text: 'Barrier five text', count: 2, pct: 20.0 },
-      { item: 'B6', text: 'Barrier six text', count: 0, pct: 0.0 },
-      { item: 'B7', text: 'Barrier seven text', count: 0, pct: 0.0 },
-      { item: 'B8', text: 'Barrier eight text', count: 0, pct: 0.0 },
-      { item: 'B9', text: 'Barrier nine text', count: 0, pct: 0.0 },
-      { item: 'B10', text: 'Barrier ten text', count: 0, pct: 0.0 },
-      { item: 'B11', text: 'Barrier eleven text', count: 0, pct: 0.0 },
-      { item: 'B12', text: 'Barrier twelve text', count: 0, pct: 0.0 },
-      { item: 'B13', text: 'Barrier thirteen text', count: 0, pct: 0.0 },
-      { item: 'B14', text: 'Barrier fourteen text', count: 0, pct: 0.0 },
-      { item: 'B15', text: 'Barrier fifteen text', count: 0, pct: 0.0 },
-      { item: 'B16', text: 'Barrier sixteen text', count: 0, pct: 0.0 },
-      { item: 'B17', text: 'Barrier seventeen text', count: 0, pct: 0.0 },
-      { item: 'B18', text: 'Barrier eighteen text', count: 0, pct: 0.0 },
-    ],
-  },
-  // sum of counts above: 9+7+6+4+2 = 28, which is < total_n * 3 = 30 (two missed picks)
-  // item_descriptives is required for dataAvailable = true in top-barriers pages
-  item_descriptives: {
-    barriers: Array.from({ length: 18 }, (_, i) => ({
-      item: `B${i + 1}`,
-      text: `Barrier ${i + 1} text`,
-      mean: 3.0 - i * 0.1,
-      sd: 0.8,
-      n: 10,
-    })),
-  },
 }
 
 const MOCK_DISPOSITION_DATA = {
@@ -378,10 +344,7 @@ describe('Results Overview', () => {
   it('renders heading', async () => {
     const { default: Page } = await import('@/app/results/page')
     render(<Page />)
-    // The redesigned landing contains multiple headings whose text matches
-    // /results/i (the h1 "Results" plus the h3 "Live Results" inside the
-    // Two-result-tracks split-path card). Narrow to the h1 to stay specific.
-    expect(screen.getByRole('heading', { level: 1, name: /^results$/i })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: /results/i })).toBeInTheDocument()
   })
 })
 
@@ -438,10 +401,8 @@ describe('Sample & Demographics Page', () => {
   it('renders Other Role Categories panel when other_roles data is present', async () => {
     const { default: Page } = await import('@/app/results/sample/page')
     render(<Page />)
-    // The conservative_clean group has other_roles.total=4 and categories set.
-    // The methodology block (now enabled for the live variant) also contains
-    // "Other Role Categories", so we expect at least one match.
-    expect(screen.getAllByText(/other.*role categories/i).length).toBeGreaterThan(0)
+    // The conservative_clean group has other_roles.total=4 and categories set
+    expect(screen.getByText(/other.*role categories/i)).toBeInTheDocument()
   })
 
   it('renders Understanding Other Roles methodology section from role_categories data', async () => {
@@ -681,34 +642,5 @@ describe('CRP 2026 Validation Page', () => {
     const { default: Page } = await import('@/app/results/crp-2026/validation/page')
     render(<Page />)
     expect(screen.getAllByRole('table').length).toBeGreaterThan(0)
-  })
-})
-
-describe('Live Top 3 Barriers — Picks chip and callout', () => {
-  it('shows observed pick total and callout when picks < 3×N (sub-max case)', async () => {
-    // Default mock has sum=28, total_n=10; allPicksUsed = false.
-    const { default: Page } = await import('@/app/results/top-barriers/page')
-    render(<Page />)
-    // Chip element renders and contains the observed total
-    const chip = screen.getByText(/^Picks:/)
-    expect(chip).toBeInTheDocument()
-    expect(chip).toHaveTextContent('28')
-    // No max-picks annotation in the chip
-    expect(chip).not.toHaveTextContent('= 3 ×')
-    // "How to read" callout is visible
-    expect(screen.getByText(/How to read these counts/i)).toBeInTheDocument()
-  })
-})
-
-describe('CRP Top 3 Barriers — Picks chip and callout', () => {
-  it('shows observed pick total and callout when picks < 3×N (sub-max case)', async () => {
-    // CRP mock inherits top3_pick_counts from MOCK_SENSITIVITY_DATA: sum=28, total_n=10.
-    const { default: Page } = await import('@/app/results/crp-2026/top-barriers/page')
-    render(<Page />)
-    const chip = screen.getByText(/^Picks:/)
-    expect(chip).toBeInTheDocument()
-    expect(chip).toHaveTextContent('28')
-    expect(chip).not.toHaveTextContent('= 3 ×')
-    expect(screen.getByText(/How to read these counts/i)).toBeInTheDocument()
   })
 })

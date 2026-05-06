@@ -392,51 +392,12 @@ def prolific_demographics_csv(
 
 
 def prolific_submission_statuses(study_id: str, api_token: str) -> Dict[str, str]:
-    """Return a dict mapping PROLIFIC_PID → submission status.
-
-    Kept for backward compatibility with callers that only need the status
-    string. New callers should prefer ``prolific_submission_summaries``,
-    which also returns timestamps used for 21-day auto-approve runway
-    calculations.
-
-    Submissions without a non-empty ``participant_id`` are silently skipped
-    (consistent with ``prolific_submission_summaries``).
-    """
+    """Return a dict mapping PROLIFIC_PID → submission status."""
     submissions = prolific_submissions(study_id, api_token)
     return {
-        sub["participant_id"]: sub.get("status", "UNKNOWN")
+        sub.get("participant_id", ""): sub.get("status", "UNKNOWN")
         for sub in submissions
-        if sub.get("participant_id")
     }
-
-
-def prolific_submission_summaries(study_id: str, api_token: str) -> Dict[str, Dict[str, str]]:
-    """Return a dict mapping PROLIFIC_PID → submission summary fields.
-
-    Each value contains the fields downstream pipeline steps need beyond
-    the status string itself:
-      - status:         submission state (APPROVED, AWAITING REVIEW, ...)
-      - completed_at:   ISO 8601 timestamp the participant submitted, or ""
-      - started_at:     ISO 8601 timestamp the participant started, or ""
-
-    ``completed_at`` is the canonical anchor for Prolific's 21-day
-    auto-approve clock: any submission still in AWAITING REVIEW longer
-    than 21 days after ``completed_at`` is auto-approved by Prolific
-    (and the participant is paid). The pipeline persists this raw
-    timestamp so consumers can compute their own "now" delta accurately.
-    """
-    submissions = prolific_submissions(study_id, api_token)
-    summaries: Dict[str, Dict[str, str]] = {}
-    for sub in submissions:
-        pid = sub.get("participant_id", "")
-        if not pid:
-            continue
-        summaries[pid] = {
-            "status": sub.get("status", "UNKNOWN") or "UNKNOWN",
-            "completed_at": sub.get("completed_at") or "",
-            "started_at": sub.get("started_at") or "",
-        }
-    return summaries
 
 
 def prolific_recent_messages(

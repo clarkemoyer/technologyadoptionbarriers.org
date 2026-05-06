@@ -12,15 +12,14 @@ export const resultsSeries: ResultsSeriesItem[] = [
     title: 'CRP 2026',
     href: '/results/crp-2026',
     children: [
-      { title: 'Top 3 Barriers', href: '/results/crp-2026/top-barriers' },
-      { title: 'Key Findings', href: '/results/crp-2026/findings' },
-      { title: 'Descriptive Statistics', href: '/results/crp-2026/descriptive' },
       { title: 'Sample & Demographics', href: '/results/crp-2026/sample' },
-      { title: 'Data Quality', href: '/results/crp-2026/data-quality' },
+      { title: 'Descriptive Statistics', href: '/results/crp-2026/descriptive' },
+      { title: 'Sensitivity Analysis', href: '/results/crp-2026/sensitivity' },
       { title: 'Scale Reliability', href: '/results/crp-2026/reliability' },
+      { title: 'Key Findings', href: '/results/crp-2026/findings' },
+      { title: 'Data Quality', href: '/results/crp-2026/data-quality' },
       { title: 'Factor Analysis', href: '/results/crp-2026/factor-analysis' },
       { title: 'Instrument Validation', href: '/results/crp-2026/validation' },
-      { title: 'Sensitivity Analysis', href: '/results/crp-2026/sensitivity' },
     ],
   },
   {
@@ -28,15 +27,14 @@ export const resultsSeries: ResultsSeriesItem[] = [
     href: '/results/full-dataset',
     isGroup: true,
     children: [
-      { title: 'Top 3 Barriers', href: '/results/top-barriers' },
-      { title: 'Key Findings', href: '/results/findings' },
-      { title: 'Descriptive Statistics', href: '/results/descriptive' },
       { title: 'Sample & Demographics', href: '/results/sample' },
-      { title: 'Data Quality', href: '/results/data-quality' },
+      { title: 'Descriptive Statistics', href: '/results/descriptive' },
       { title: 'Scale Reliability', href: '/results/reliability' },
+      { title: 'Sensitivity Analysis', href: '/results/sensitivity' },
+      { title: 'Key Findings', href: '/results/findings' },
+      { title: 'Data Quality', href: '/results/data-quality' },
       { title: 'Factor Analysis', href: '/results/factor-analysis' },
       { title: 'Instrument Validation', href: '/results/validation' },
-      { title: 'Sensitivity Analysis', href: '/results/sensitivity' },
     ],
   },
   {
@@ -50,7 +48,7 @@ export const resultsSeries: ResultsSeriesItem[] = [
   },
   { title: 'Dashboard', href: '/results/dashboard' },
   { title: 'Dataset Comparison', href: '/results/dataset-comparison' },
-  { title: 'Response Funnel', href: '/results/survey-stats' },
+  { title: 'Survey Statistics', href: '/results/survey-stats' },
 ]
 
 /** Flat ordered list for prev/next navigation (excludes group-only nodes) */

@@ -15,7 +15,6 @@ on:
           - send-custom
           - awaiting-report
           - request-return
-          - stale-return-requested
           - search-messages
           - find-url-replies
           - demographics
@@ -53,11 +52,11 @@ jobs:
           python-version: '3.12'
       # Node.js only needed for modes that still run TS (single, search-messages, request-return, awaiting-report, verify-iri)
       - uses: actions/setup-node@v6
-        if: ${{ !contains(fromJSON('["demographics","find-url-replies","all-replies","send-custom","unreject","send-thank-you","stale-return-requested"]'), inputs.mode) }}
+        if: ${{ !contains(fromJSON('["demographics","find-url-replies","all-replies","send-custom","unreject","send-thank-you"]'), inputs.mode) }}
         with:
           node-version: '20'
           cache: 'npm'
-      - if: ${{ !contains(fromJSON('["demographics","find-url-replies","all-replies","send-custom","unreject","send-thank-you","stale-return-requested"]'), inputs.mode) }}
+      - if: ${{ !contains(fromJSON('["demographics","find-url-replies","all-replies","send-custom","unreject","send-thank-you"]'), inputs.mode) }}
         run: npm ci
 
       - name: Fetch Prolific demographics
@@ -74,14 +73,6 @@ jobs:
           PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
           STUDY_ID: ${{ inputs.study_id || vars.PROLIFIC_STUDY_ID }}
         run: python3 scripts/analysis/prolific_tools.py url-replies
-
-      - name: Find stale return-requested submissions
-        if: inputs.mode == 'stale-return-requested'
-        env:
-          PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
-          STUDY_ID: ${{ inputs.study_id || vars.PROLIFIC_STUDY_ID }}
-          STALE_HOURS: '48'
-        run: python3 scripts/analysis/find_stale_return_requested.py
 
       - name: Search messages
         if: inputs.mode == 'search-messages'

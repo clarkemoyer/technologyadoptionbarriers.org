@@ -316,13 +316,6 @@ def parse_csv(csv_path: str) -> List[Dict[str, Any]]:
             auth_llm = row.get("Auth_LLM", "").strip()
             auth_bots = row.get("Auth_Bots", "").strip()
 
-            # Prolific submission anchors (populated by enrich_qualtrics_csv.py).
-            # Prolific_Completed_At drives the 21-day auto-approve runway calc
-            # for downstream consumers; empty string when no submission joined.
-            prolific_status = row.get("Prolific_Status", "").strip()
-            prolific_completed_at = row.get("Prolific_Completed_At", "").strip()
-            prolific_started_at = row.get("Prolific_Started_At", "").strip()
-
             # Build row dict
             disposition_row = {
                 "PROLIFIC_PID": pid,
@@ -343,9 +336,6 @@ def parse_csv(csv_path: str) -> List[Dict[str, Any]]:
                 "Straightlining_Flag": straightlining_flag,
                 "Partial_Straightlining_Flag": partial_flag,
                 "Partial_Straightlining_Blocks": partial_blocks,
-                "Prolific_Status": prolific_status,
-                "Prolific_Completed_At": prolific_completed_at,
-                "Prolific_Started_At": prolific_started_at,
             }
 
             # Compute disposition
