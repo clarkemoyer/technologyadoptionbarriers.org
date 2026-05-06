@@ -341,10 +341,18 @@ def main():
     _EXCLUDE_SLUGS = {
         "bibliography-1-8-personal-computing-acceptance-thompson-1991",
     }
+    repo_root = _find_repo_root()
     pages = sorted(
-        p for p in glob.glob("src/app/bibliography-*/page.tsx")
+        p for p in glob.glob(str(repo_root / "src" / "app" / "bibliography-*" / "page.tsx"))
         if os.path.basename(os.path.dirname(p)) not in _EXCLUDE_SLUGS
     )
+    if not pages:
+        print(
+            "ERROR: No bibliography pages found under "
+            f"{repo_root / 'src' / 'app' / 'bibliography-*'}. "
+            "Check that the repo root was detected correctly."
+        )
+        sys.exit(2)
     print(f"\nFound {len(pages)} bibliography pages")
 
     # Extract references from all pages
