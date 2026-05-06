@@ -1,0 +1,55 @@
+{
+  "as_of": "2026-05-06",
+  "source_question": "Q74_Feedback",
+  "source_prompt": "Open-ended feedback on the survey itself or on technology adoption barriers.",
+  "stats": {
+    "total_responses": 162,
+    "respondents_in_dataset": 200,
+    "engagement_rate_pct": 81.0,
+    "substantive_count": 53,
+    "substantive_rate_pct": 32.7,
+    "theme_distribution": {
+      "null_short": 37,
+      "positive_meta": 34,
+      "skills_training": 14,
+      "org_dynamics": 14,
+      "praise": 11,
+      "budget_cost": 10,
+      "ai_ml": 7,
+      "legacy_integration": 6,
+      "mentions_industry": 6,
+      "pace_speed": 5,
+      "survey_design": 4,
+      "vendor_third_party": 3,
+      "mentions_role": 3,
+      "security_compliance": 2,
+      "cloud": 2,
+      "survey_too_short": 1,
+      "confusion": 1,
+      "strategy_vision": 1,
+      "ask_for_more": 1
+    },
+    "length_distribution": {
+      "micro": 38,
+      "short": 29,
+      "medium": 55,
+      "long": 28,
+      "essay": 12
+    },
+    "length_bucket_definitions": {
+      "micro": "<= 10 chars (e.g. 'no', 'n/a')",
+      "short": "11-50 chars",
+      "medium": "51-200 chars",
+      "long": "201-500 chars",
+      "essay": "> 500 chars (mini-essay engagement level)"
+    }
+  },
+  "quotes": {
+    "praise": [],
+    "insight": [],
+    "critique": [],
+    "essay": []
+  },
+  "selection_method": "Quotes will be curated by the principal investigator from the full set of 162 open-ended responses. Pseudonymous IDs (P + first 6 of the Qualtrics response ID hash) replace any direct identifier. Verbatim quotes undergo a PII-risk scan (zero email/phone/URL/explicit-employer mentions detected in the source) and a manual review for sector specificity before inclusion. Edited excerpts are flagged with edited=true.",
+  "_seed": "Initial seed - no curated quotes yet. Stats are real (computed from local extraction). Run promote_q74_to_repo.py from the local curation workflow to populate quotes."
+}

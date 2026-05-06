@@ -37,6 +37,7 @@ export const resultsSeries: ResultsSeriesItem[] = [
       { title: 'Factor Analysis', href: '/results/factor-analysis' },
       { title: 'Instrument Validation', href: '/results/validation' },
       { title: 'Sensitivity Analysis', href: '/results/sensitivity' },
+      { title: 'Participant Voice', href: '/results/participant-voice' },
     ],
   },
   {
