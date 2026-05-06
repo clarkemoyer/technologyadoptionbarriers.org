@@ -52,7 +52,7 @@ def get_timestamp():
 
 
 def strip_xml_tags(xml_text):
-    """Strip all XML tags, decode common entities."""
+    """Strip all XML tags, decode common entities, normalize Unicode minus."""
     text = re.sub(r'<[^>]+>', ' ', xml_text)
     text = text.replace('&amp;', '&')
     text = text.replace('&lt;', '<')
@@ -63,13 +63,20 @@ def strip_xml_tags(xml_text):
     text = text.replace('&#x2018;', "'")
     text = text.replace('&#x2013;', '-')
     text = text.replace('&#x2014;', '-')
+    # Normalize Unicode minus (U+2212) to ASCII hyphen-minus so downstream
+    # regex character classes and float() both treat it as a sign character.
+    text = text.replace('&#x2212;', '-')   # HTML-entity form
+    text = text.replace('\u2212', '-')      # literal character form
     text = re.sub(r'\s+', ' ', text)
     return text
 
 
 def parse_num(s):
-    """Parse a number string, stripping trailing periods and common artifacts."""
-    s = s.strip().rstrip('.')
+    """Parse a number string, normalizing common CRP formatting artifacts."""
+    s = s.strip()
+    # Normalize Unicode minus (U+2212) to ASCII hyphen-minus so float() accepts it.
+    # Also strip thousands separators (1,234 -> 1234) and trailing % / period.
+    s = s.replace('\u2212', '-').replace(',', '').rstrip('%').rstrip('.')
     try:
         return float(s)
     except ValueError:
@@ -214,13 +221,16 @@ def extract_claims(crp_text):
         ('sample', 'n',
          r'[Nn]\s*=\s*(\d+)',
          None),
-        # Construct means
+        # Construct means — accept optional sign, leading-zero-omitted form
+        # (e.g., "mean = .86"), and whole-number values (e.g., "mean = 4").
         ('descriptive', 'mean',
-         r'(?:mean|average[sd]?)\s*(?:=|of|was|:)\s*(\d+\.\d+)',
+         r'(?:mean|average[sd]?)\s*(?:=|of|was|:)\s*([-]?\d*\.?\d+)',
          None),
-        # Correlations
+        # Correlations — accept leading-zero-omitted form (r = .34) and
+        # negative correlations with or without a leading digit (r = -.21).
+        # U+2212 is normalised to '-' by strip_xml_tags() before matching.
         ('correlation', 'pearson',
-         r'[Rr]\s*=\s*([-.]?\d+\.?\d*)',
+         r'[Rr]\s*=\s*([-]?(?:\d+\.?\d*|\.\d+))',
          None),
         # Variance explained
         ('factor', 'variance',
