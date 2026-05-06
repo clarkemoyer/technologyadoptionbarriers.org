@@ -83,7 +83,7 @@ const VARIANT_CONFIG: Record<ParticipantVoiceVariant, VariantConfig> = {
   live: {
     title: 'Participant Voice',
     intro:
-      'Quantitative results tell us what respondents experienced; the open-ended feedback tells us how they talk about it. The numbers below are computed from the frozen N=200 CRP dataset; future live respondents will be folded in as the dataset grows.',
+      'Quantitative results tell us what respondents experienced; the open-ended feedback tells us how they talk about it. The numbers below cover the full TABS V2 dataset and refresh as new respondents are folded in.',
     findingsHref: '/results/findings',
     sampleHref: '/results/sample',
     resultsOverviewHref: '/results',
@@ -92,7 +92,7 @@ const VARIANT_CONFIG: Record<ParticipantVoiceVariant, VariantConfig> = {
   crp: {
     title: 'CRP 2026: Participant Voice',
     intro:
-      'Quantitative results tell us what respondents experienced; the open-ended feedback tells us how they talk about it. The numbers and quotes below are derived from the frozen N=200 CRP dataset.',
+      'Quantitative results tell us what respondents experienced; the open-ended feedback tells us how they talk about it. The numbers and quotes below are derived from the frozen N=200 CRP dataset and will not change.',
     metaPublished: {
       wrapperClass: 'mb-6',
       badgeClass:

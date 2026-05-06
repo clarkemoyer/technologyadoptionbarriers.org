@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import voiceData from '@/data/participant-voice.json'
+import voiceData from '@/data/participant-voice-live.json'
 import {
   ParticipantVoiceContent,
   type ParticipantVoiceData,
