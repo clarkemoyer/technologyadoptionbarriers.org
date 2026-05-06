@@ -17,7 +17,13 @@ Usage:
         --output-dir /path/to/CRP Convergence System
 
 Requirements:
-    - CRP must be unpacked first (unpack.py)
+    - CRP body XML must be extracted from the .docx first.
+      Portable one-liner (POSIX):
+        unzip -p /path/to/CRP.docx word/document.xml > /tmp/document.xml
+      Cross-platform Python:
+        import zipfile, pathlib
+        with zipfile.ZipFile("/path/to/CRP.docx") as z:
+            pathlib.Path("/tmp/document.xml").write_bytes(z.read("word/document.xml"))
     - Repo must be cloned (git clone --depth 1 ...)
     - Python 3.9+ with json, re, os, sys, zoneinfo (stdlib only)
 

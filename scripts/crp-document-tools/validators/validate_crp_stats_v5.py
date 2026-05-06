@@ -99,13 +99,11 @@ from paths import (  # noqa: E402
 def find_workspace():
     """Locate the CRP workspace root via the shared portable discovery.
 
-    Returns the workspace path, or None if discovery fails. Callers that
-    need the explicit error should call paths.find_workspace() directly.
+    Raises CrpWorkspaceNotFound if no workspace can be found; callers in
+    main() catch this and print the actionable paths.py guidance before
+    exiting with status 1.
     """
-    try:
-        return _find_workspace_shared()
-    except CrpWorkspaceNotFound:
-        return None
+    return _find_workspace_shared()
 
 def find_latest_docx(workspace):
     """Find the latest CRP body .docx in 01 CRP Body/.
@@ -2047,8 +2045,15 @@ def main():
         except CrpWorkspaceNotFound as e:
             print(f"ERROR: {e}")
             sys.exit(1)
+    elif args.docx and args.csv:
+        # Both inputs provided explicitly; no workspace discovery needed.
+        workspace = None
     else:
-        workspace = find_workspace()
+        try:
+            workspace = find_workspace()
+        except CrpWorkspaceNotFound as e:
+            print(f"ERROR: {e}")
+            sys.exit(1)
 
     docx_path = args.docx or (find_latest_docx(workspace) if workspace else None)
     csv_path = args.csv or (find_csv(workspace) if workspace else None)
