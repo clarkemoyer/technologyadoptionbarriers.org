@@ -40,7 +40,27 @@ import json
 import os
 import re
 import sys
+from pathlib import Path
 from typing import NamedTuple
+
+
+def _find_repo_root() -> Path:
+    """Walk upward from this script's location until a .git directory is found.
+
+    Falls back to the script's grandparent (scripts/ → repo root) if no .git
+    marker is found, with a warning.
+    """
+    here = Path(__file__).resolve().parent
+    candidate = here
+    for _ in range(10):  # cap at 10 levels to avoid infinite loop on odd filesystems
+        if (candidate / ".git").exists():
+            return candidate
+        parent = candidate.parent
+        if parent == candidate:
+            break  # reached filesystem root
+        candidate = parent
+    # Fallback: assume script lives in scripts/ inside the repo root
+    return here.parent
 
 
 class PageResult(NamedTuple):
@@ -56,15 +76,18 @@ def extract_references_from_tsx(filepath: str) -> list[dict]:
     """Extract reference entries from a bibliography page's References section.
 
     Raises ValueError if the path is a symlink or its realpath resolves outside
-    the current working directory.  This guards against symlink attacks when the
-    script runs in a pull_request_target workflow with repository secrets.
+    the repository root (found by walking upward from the script's location for a
+    .git directory).  This guards against symlink attacks when the script runs in a
+    pull_request_target workflow with repository secrets, regardless of which
+    directory the caller invokes the script from.
     """
     # Symlink-attack mitigation: reject symlinks and path-escape attempts.
     if os.path.islink(filepath):
         raise ValueError(f"Refusing to read symlink: {filepath}")
-    repo_root = os.path.realpath(os.getcwd())
-    real_path = os.path.realpath(filepath)
-    if os.path.commonpath([repo_root, real_path]) != repo_root:
+    # Derive repo root by searching upward for .git (robust to script relocation).
+    repo_root = _find_repo_root()
+    real_path = Path(filepath).resolve()
+    if os.path.commonpath([str(repo_root), str(real_path)]) != str(repo_root):
         raise ValueError(
             f"Path {filepath!r} resolves to {real_path!r} which is outside "
             f"the repo root {repo_root!r} — refusing to read"
@@ -178,7 +201,9 @@ def find_collection_keys_by_name(zot, target_names: list[str]) -> list[str]:
     found = []
     for coll in all_collections:
         name = coll.get("data", {}).get("name", "")
-        key = coll.get("data", {}).get("key", "")
+        # Zotero collection objects expose the key at the top level; fall back to
+        # data.key for any non-standard responses.
+        key = coll.get("key") or coll.get("data", {}).get("key", "")
         if key and any(t.lower() in name.lower() for t in target_names):
             found.append(key)
     return found
