@@ -70,22 +70,35 @@ jobs:
       - name: Verify the fixture rebuilds deterministically
         run: |
           set -euo pipefail
-          # Snapshot pre-rebuild
-          csv_before=$(sha256sum "scripts/crp-document-tools/fixtures/example_workspace/05 TABS Survey Support/TABS Survey Data/TABS_V2_Enriched_CRP200_synthetic.csv" | awk '{print $1}')
+          fixture="scripts/crp-document-tools/fixtures/example_workspace"
+
+          # Hash every file in the fixture tree, sorted by path, to produce a
+          # single digest covering the CSV, the appendix stubs, and the body
+          # README. A single-file hash would miss nondeterminism in the other
+          # outputs that build_example_workspace.py generates.
+          hash_fixture() {
+            find "$1" -type f | LC_ALL=C sort | xargs sha256sum | sha256sum | awk '{print $1}'
+          }
+
+          # Capture per-file hashes before and after for a useful diff on failure.
+          per_file_before=$(find "$fixture" -type f | LC_ALL=C sort | xargs sha256sum)
+          before=$(echo "$per_file_before" | sha256sum | awk '{print $1}')
 
           # Regenerate
           python scripts/crp-document-tools/fixtures/build_example_workspace.py
 
-          # Verify byte-identical (modulo line endings already normalised by the writer)
-          csv_after=$(sha256sum "scripts/crp-document-tools/fixtures/example_workspace/05 TABS Survey Support/TABS Survey Data/TABS_V2_Enriched_CRP200_synthetic.csv" | awk '{print $1}')
+          per_file_after=$(find "$fixture" -type f | LC_ALL=C sort | xargs sha256sum)
+          after=$(echo "$per_file_after" | sha256sum | awk '{print $1}')
 
-          if [ "$csv_before" != "$csv_after" ]; then
+          if [ "$before" != "$after" ]; then
             echo "::error::Fixture rebuild produced different bytes - the build script lost determinism."
-            echo "before=$csv_before"
-            echo "after=$csv_after"
+            echo "Differing files:"
+            diff <(echo "$per_file_before") <(echo "$per_file_after") || true
+            echo "before=$before"
+            echo "after=$after"
             exit 1
           fi
-          echo "Fixture rebuild is deterministic (sha=$csv_after)"
+          echo "Fixture rebuild is deterministic across all generated files (digest=$after)"
 
       - name: Verify paths.py discovery precedence
         run: |

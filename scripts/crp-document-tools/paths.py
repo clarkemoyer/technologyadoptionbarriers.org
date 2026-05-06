@@ -111,9 +111,12 @@ def find_workspace(explicit: Optional[str] = None) -> str:
     if os.path.isdir(FIXTURE_DIR):
         return FIXTURE_DIR
 
-    for candidate in _legacy_glob_locations():
-        if os.path.isdir(candidate):
-            return candidate
+    # Collect *all* valid legacy matches, then pick the most recently modified.
+    # Returning the first sorted match is non-deterministic when multiple
+    # /sessions/* mounts exist; most-recent-mtime is a meaningful tie-breaker.
+    legacy_matches = [c for c in _legacy_glob_locations() if os.path.isdir(c)]
+    if legacy_matches:
+        return max(legacy_matches, key=os.path.getmtime)
 
     raise CrpWorkspaceNotFound(
         "No CRP workspace found. Set CRP_WORKSPACE, pass --workspace, or "
