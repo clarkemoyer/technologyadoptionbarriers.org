@@ -16,6 +16,9 @@ Usage:
 Environment (cloud mode):
   ZOTERO_API_KEY          - API key
   ZOTERO_USER_ID          - numeric user ID
+  ZOTERO_BASE_URL         - optional base URL override (e.g. for non-standard
+                            Zotero-compatible endpoints; defaults to pyzotero's
+                            built-in https://api.zotero.org)
 
 Environment (optional):
   ZOTERO_COLLECTION_KEYS  - comma-separated Zotero collection keys to index
@@ -72,8 +75,9 @@ def extract_references_from_tsx(filepath: str) -> list[dict]:
         if author_year:
             authors = author_year.group(1).strip().rstrip(",")
             year = author_year.group(2)
-            # Get first author last name
-            first_author = authors.split(",")[0].strip()
+            # Get first author last name; strip trailing punctuation so
+            # "Microsoft." and "The Open Group." match Zotero's name field.
+            first_author = authors.split(",")[0].strip().rstrip(".;:,")
             refs.append(
                 {
                     "first_author": first_author,
@@ -85,11 +89,15 @@ def extract_references_from_tsx(filepath: str) -> list[dict]:
         else:
             # Try to extract any year
             year_match = re.search(r"\((\d{4})\)", text)
+            # Strip trailing punctuation from fallback author extraction too
+            fallback_author = (
+                text.split(",")[0].split(".")[0].strip().rstrip(".;:,")
+                if "," in text[:40]
+                else text[:30].rstrip(".;:,")
+            )
             refs.append(
                 {
-                    "first_author": text.split(",")[0].split(".")[0].strip()
-                    if "," in text[:40]
-                    else text[:30],
+                    "first_author": fallback_author,
                     "year": year_match.group(1) if year_match else "????",
                     "authors_raw": "",
                     "full_text": text[:120],
@@ -118,7 +126,11 @@ def get_zotero_client(local: bool = False):
         print("ERROR: ZOTERO_USER_ID and ZOTERO_API_KEY must be set")
         sys.exit(2)
 
-    return zotero.Zotero(int(user_id), "user", api_key)
+    zot = zotero.Zotero(int(user_id), "user", api_key)
+    base_url = os.environ.get("ZOTERO_BASE_URL")
+    if base_url:
+        zot.endpoint = base_url.rstrip("/")
+    return zot
 
 
 def build_zotero_index(zot, collection_keys: list[str]) -> tuple[dict, int]:
@@ -147,8 +159,10 @@ def build_zotero_index(zot, collection_keys: list[str]) -> tuple[dict, int]:
         year = year_match.group(1) if year_match else ""
 
         for creator in creators:
-            # Corporate/single-field authors use "name"; personal authors use "lastName"
-            last_name = (creator.get("lastName") or creator.get("name", "")).lower()
+            # Corporate/single-field authors use "name"; personal authors use "lastName".
+            # Strip trailing punctuation to match page extraction normalization.
+            raw_name = creator.get("lastName") or creator.get("name", "")
+            last_name = raw_name.rstrip(".;:,").lower()
             if last_name and year:
                 lookup_key = (last_name, year)
                 if lookup_key not in index:
