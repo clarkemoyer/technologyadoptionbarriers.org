@@ -168,12 +168,19 @@ def extract_references_from_tsx(filepath: str) -> list[dict]:
 
 
 def get_zotero_client(local: bool = False):
-    """Get a pyzotero client configured for cloud or local access."""
+    """Get a pyzotero client configured for cloud or local access.
+
+    Raises RuntimeError with a diagnostic message when the client cannot be
+    created (missing dependency, missing environment variables, etc.).  Callers
+    should catch RuntimeError and forward the message to the JSON error report
+    so CI comments are actionable.
+    """
     try:
         from pyzotero import zotero
-    except ImportError:
-        print("ERROR: pyzotero not installed. Run: pip install pyzotero==1.11.0")
-        sys.exit(2)
+    except ImportError as exc:
+        raise RuntimeError(
+            "pyzotero not installed — run: pip install pyzotero==1.11.0"
+        ) from exc
 
     if local:
         zot = zotero.Zotero(0, "user")
@@ -182,9 +189,11 @@ def get_zotero_client(local: bool = False):
 
     user_id = os.environ.get("ZOTERO_USER_ID")
     api_key = os.environ.get("ZOTERO_API_KEY")
-    if not user_id or not api_key:
-        print("ERROR: ZOTERO_USER_ID and ZOTERO_API_KEY must be set")
-        sys.exit(2)
+    missing = [var_name for var_name, val in [("ZOTERO_USER_ID", user_id), ("ZOTERO_API_KEY", api_key)] if not val]
+    if missing:
+        raise RuntimeError(
+            f"Required environment variable(s) not set: {', '.join(missing)}"
+        )
 
     zot = zotero.Zotero(int(user_id), "user", api_key)
     base_url = os.environ.get("ZOTERO_BASE_URL")
@@ -396,10 +405,11 @@ def main():
     print(f"\nConnecting to Zotero ({'local' if local else 'cloud'})...")
     try:
         zot = get_zotero_client(local)
-    except SystemExit as exc:
-        # Write a minimal error report so CI steps that read it don't crash
-        _write_error_report(report_path, pages, pages_with_refs, pages_without_refs, total_refs, "Could not connect to Zotero")
-        raise
+    except RuntimeError as exc:
+        error_msg = f"Could not connect to Zotero: {exc}"
+        print(f"ERROR: {error_msg}")
+        _write_error_report(report_path, pages, pages_with_refs, pages_without_refs, total_refs, error_msg)
+        sys.exit(2)
 
     # Build index from bibliography collections.
     # Resolution order:
@@ -474,7 +484,16 @@ def main():
         total_possible += len(possible)
 
         if unmatched or possible or verbose:
-            print(f"{'PASS' if not unmatched else 'WARN'} {slug} ({len(refs)} refs, {len(unmatched)} unmatched, {len(possible)} possible)")
+            # Three-state label so operators can distinguish clean passes from
+            # pages that need manual verification in Zotero (fuzzy matches only)
+            # from pages with confirmed missing entries.
+            if unmatched:
+                status = "FAIL"
+            elif possible:
+                status = "WARN"
+            else:
+                status = "PASS"
+            print(f"{status} {slug} ({len(refs)} refs, {len(unmatched)} unmatched, {len(possible)} possible)")
             for ref in unmatched:
                 print(f"     NOT IN ZOTERO: [{ref['first_author']}, {ref['year']}] {ref['full_text'][:80]}")
             for ref in possible:
