@@ -1,0 +1,10 @@
+{
+  "total_pages": 0,
+  "pages_with_refs": 0,
+  "pages_without_refs": 0,
+  "total_refs": 0,
+  "matched": 0,
+  "unmatched": 0,
+  "error": "Unhandled exception: [Errno 32] Broken pipe",
+  "unmatched_details": []
+}

@@ -29,9 +29,10 @@ Environment (optional):
   VALIDATION_REPORT_PATH  - path for the JSON report (default: bibliography-validation-report.json)
 
 Exit codes:
-  0 - All references validated
-  1 - Unmatched references found (warning mode)
-  2 - Script error
+  0 - No confirmed unmatched references (fuzzy/possible matches may still need
+      manual verification in Zotero)
+  1 - Unmatched references found (non-blocking warning; CI succeeds but reports gaps)
+  2 - Script error (API failure, auth misconfiguration, unhandled exception)
 """
 
 import glob
@@ -167,16 +168,24 @@ def find_collection_keys_by_name(zot, target_names: list[str]) -> list[str]:
     return found
 
 
-def build_zotero_index(zot, collection_keys: list[str]) -> tuple[dict, int]:
+def build_zotero_index(zot, collection_keys: list[str]) -> tuple[dict, int, list[str]]:
     """Build a lookup index from Zotero items: (last_name_lower, year) -> item.
 
     Items are deduplicated by their Zotero key so that overlapping parent/child
-    collections (e.g. "Website Citations" and its sub-collections) do not cause
-    redundant API pagination or inflate the item count.
+    collections (e.g. "Website Citations" and its sub-collections) do not inflate
+    the item count.  Each collection is still fetched independently via API
+    pagination; deduplication happens client-side after retrieval.
+
+    Returns:
+        A tuple of (index, ingested_count, fetch_warnings).
+        ``fetch_warnings`` is a list of human-readable strings for any collection
+        that could not be fetched.  A non-empty list means the index may be
+        incomplete and callers should surface those warnings to the operator.
     """
     index: dict[tuple[str, str], dict] = {}
     seen_item_keys: set[str] = set()
     ingested = 0
+    fetch_warnings: list[str] = []
 
     for key in collection_keys:
         try:
@@ -215,13 +224,15 @@ def build_zotero_index(zot, collection_keys: list[str]) -> tuple[dict, int]:
                             index[lookup_key] = data
                         break  # Only index by first author
         except Exception as e:
-            print(f"  Warning: could not fetch collection {key}: {e}")
+            msg = f"could not fetch collection {key}: {e}"
+            print(f"  Warning: {msg}")
+            fetch_warnings.append(msg)
 
-    return index, ingested
+    return index, ingested, fetch_warnings
 
 
 def validate_page(
-    slug: str, refs: list[dict], zotero_index: dict
+    refs: list[dict], zotero_index: dict
 ) -> tuple[list[dict], list[dict]]:
     """Check each reference against the Zotero index.
 
@@ -356,10 +367,21 @@ def main():
 
     print("Building Zotero reference index...")
     try:
-        zotero_index, item_count = build_zotero_index(zot, collection_keys)
+        zotero_index, item_count, fetch_warnings = build_zotero_index(zot, collection_keys)
     except Exception as e:
         _write_error_report(report_path, pages, pages_with_refs, pages_without_refs, total_refs, str(e))
         print(f"ERROR building Zotero index: {e}")
+        sys.exit(2)
+
+    if fetch_warnings:
+        # Fail fast so an incomplete index never silently produces misleading results.
+        error_msg = (
+            f"{len(fetch_warnings)} collection(s) could not be fetched; "
+            "the Zotero index may be incomplete. "
+            + " | ".join(fetch_warnings)
+        )
+        _write_error_report(report_path, pages, pages_with_refs, pages_without_refs, total_refs, error_msg)
+        print(f"ERROR: {error_msg}")
         sys.exit(2)
 
     if item_count == 0:
@@ -381,7 +403,7 @@ def main():
     results = []
 
     for slug, refs in sorted(all_page_refs.items()):
-        unmatched, possible = validate_page(slug, refs, zotero_index)
+        unmatched, possible = validate_page(refs, zotero_index)
         results.append(PageResult(slug, len(refs), len(unmatched), unmatched, len(possible), possible))
         total_unmatched += len(unmatched)
         total_possible += len(possible)
