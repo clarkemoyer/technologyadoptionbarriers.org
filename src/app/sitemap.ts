@@ -151,6 +151,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
+      url: `${baseUrl}/results/participant-voice`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
       url: `${baseUrl}/results/findings`,
       lastModified: now,
       changeFrequency: 'monthly',
@@ -214,6 +220,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}/results/crp-2026/sensitivity`,
       lastModified: now,
       changeFrequency: 'yearly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/results/crp-2026/participant-voice`,
+      lastModified: now,
+      changeFrequency: 'monthly',
       priority: 0.7,
     },
     {
