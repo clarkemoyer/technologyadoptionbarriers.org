@@ -8,6 +8,7 @@ export interface MakingOfTabsItem {
 
 export const makingOfTabsSeries: MakingOfTabsItem[] = [
   { title: 'Making of TABS', href: '/making-of-tabs' },
+  { title: 'Product Walkthrough', href: '/making-of-tabs/product-walkthrough' },
   { title: 'Content Architecture', href: '/making-of-tabs/content-architecture' },
   { title: 'Development Workflow', href: '/making-of-tabs/development-workflow' },
   { title: 'Automation Infrastructure', href: '/making-of-tabs/automation-infrastructure' },
