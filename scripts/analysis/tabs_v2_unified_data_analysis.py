@@ -340,6 +340,61 @@ def _get_other_text_from_row(row, idx):
     return ''
 
 
+def _demographics_for(rows, idx):
+    """Return the demographics block for *rows* (a list of CSV data rows).
+
+    Extracted from ``sensitivity_to_json()``'s inner closure so it can be
+    imported and exercised directly in unit tests. Produces the same
+    ``other_roles.categories`` contract the pipeline publishes in
+    ``sensitivity-analysis.json``.
+    """
+    if not rows:
+        return {
+            "roles": {},
+            "org_sizes": {k: 0 for k in ALL_ORG_SIZES},
+            "profit_models": {k: 0 for k in ['For-Profit', 'Non-Profit', 'Government/Public Sector']},
+            "tech_vs_nontech": {"technical": 0, "non_technical": 0, "other": 0},
+            "other_roles": {"total": 0, "categories": {}},
+        }
+    from collections import Counter as _Counter
+    roles = _Counter()
+    tech_n = nontech_n = other_n = 0
+    other_cats: _Counter = _Counter()
+    org_sizes: _Counter = _Counter()
+    profit_models: _Counter = _Counter()
+    for r in rows:
+        role = _get_role_from_row(r, idx)
+        roles[role] += 1
+        other_text = _get_other_text_from_row(r, idx) if role == 'Other' else ''
+        binary = classify_role_binary(role, other_text)
+        if binary == 'Technical':
+            tech_n += 1
+        elif binary == 'Non-Technical':
+            nontech_n += 1
+        else:
+            other_n += 1
+        # Categorize Other free-text via regex bucket regardless of binary
+        # classification, so the Other Role Categories table is always
+        # populated when role == 'Other'. Fix for #1858.
+        if role == 'Other':
+            other_cats[categorize_other_role(other_text)] += 1
+        org_sizes[r[idx['Q4_OrgSize']].strip()] += 1
+        profit_models[r[idx['Q5_ProfitModel']].strip()] += 1
+    return {
+        "roles": dict(roles.most_common()),
+        "org_sizes": {k: org_sizes.get(k, 0) for k in ALL_ORG_SIZES},
+        "profit_models": {k: profit_models.get(k, 0) for k in ['For-Profit', 'Non-Profit', 'Government/Public Sector']},
+        "tech_vs_nontech": {"technical": tech_n, "non_technical": nontech_n, "other": other_n},
+        "other_roles": {
+            "total": sum(1 for r in rows if _get_role_from_row(r, idx) == 'Other'),
+            # k-anonymity suppression: suppress category counts below 5 to prevent
+            # re-identification in small cells (NIST SP 800-188 compliant).
+            "categories": {cat: (ct if ct >= 5 else "<5")
+                           for cat, ct in other_cats.most_common()},
+        },
+    }
+
+
 def _score_item(row, col, scale, idx):
     """Score a single response using the given scale map."""
     val = row[idx[col]].strip()
@@ -1581,49 +1636,10 @@ def sensitivity_to_json(cuts, idx):
             values[sample_key] = safe_compute(fn, rows)
         result["metrics"].append({"key": key, "label": label, "values": values})
 
-    # Demographics per sample
+    # Demographics per sample — delegate to the module-level helper so tests
+    # can import and exercise the production path directly.
     def demographics_for(rows):
-        if not rows:
-            return {"roles": {}, "org_sizes": {k: 0 for k in ALL_ORG_SIZES},
-                    "profit_models": {k: 0 for k in ['For-Profit', 'Non-Profit', 'Government/Public Sector']},
-                    "tech_vs_nontech": {"technical": 0, "non_technical": 0, "other": 0},
-                    "other_roles": {"total": 0, "categories": {}}}
-        roles = Counter()
-        tech_n = nontech_n = other_n = 0
-        other_cats = Counter()
-        org_sizes = Counter()
-        profit_models = Counter()
-        for r in rows:
-            role = _get_role_from_row(r, idx)
-            roles[role] += 1
-            other_text = _get_other_text_from_row(r, idx) if role == 'Other' else ''
-            binary = classify_role_binary(role, other_text)
-            if binary == 'Technical':
-                tech_n += 1
-            elif binary == 'Non-Technical':
-                nontech_n += 1
-            else:
-                other_n += 1
-            # Categorize Other free-text via regex bucket regardless of binary
-            # classification, so the Other Role Categories table is always
-            # populated when role == 'Other'. Fix for #1858.
-            if role == 'Other':
-                other_cats[categorize_other_role(other_text)] += 1
-            org_sizes[r[idx['Q4_OrgSize']].strip()] += 1
-            profit_models[r[idx['Q5_ProfitModel']].strip()] += 1
-        return {
-            "roles": dict(roles.most_common()),
-            "org_sizes": {k: org_sizes.get(k, 0) for k in ALL_ORG_SIZES},
-            "profit_models": {k: profit_models.get(k, 0) for k in ['For-Profit', 'Non-Profit', 'Government/Public Sector']},
-            "tech_vs_nontech": {"technical": tech_n, "non_technical": nontech_n, "other": other_n},
-            "other_roles": {
-                "total": sum(1 for r in rows if _get_role_from_row(r, idx) == 'Other'),
-                # k-anonymity suppression: suppress category counts below 5 to prevent
-                # re-identification in small cells (NIST SP 800-188 compliant).
-                "categories": {cat: (ct if ct >= 5 else "<5")
-                               for cat, ct in other_cats.most_common()},
-            },
-        }
+        return _demographics_for(rows, idx)
 
     # Effect sizes per sample
     def effect_sizes_for(rows):
