@@ -63,6 +63,38 @@ DEFAULT_RESEARCHER_ID = "68264cbfdeb62546fe6060fe"
 # with some headroom and avoids bursting).
 _API_CALL_DELAY = 0.2
 
+# Ordered (phrase, disposition_label) pairs derived from message_flagged.py
+# templates (see get_message_signature() in scripts/analysis/message_flagged.py).
+# More-specific patterns appear first so that messages containing BOTH a speed
+# phrase AND an IRI phrase (AUTO-EXCLUDE:*_SPEED_RETURN variants) are labelled
+# correctly before the plain-IRI fallback is tried.
+# When templates in message_flagged.py change, update these phrases to match.
+_DISPOSITION_SIGNATURES = [
+    # Speed + IRI compound variants (most-specific first)
+    ("(below our 5-minute minimum) and all 3", "AUTO-EXCLUDE:IRI3_SPEED_RETURN"),
+    ("(below our 5-minute minimum) and 2 of 3", "AUTO-EXCLUDE:IRI2_SPEED_RETURN"),
+    # Single-dispatch speed-IRI (unique phrase)
+    ("What is your professional background and role", "AUTO-EXCLUDE:SPEED_IRI"),
+    # Plain IRI variants (less specific; must follow the speed variants above)
+    (
+        "all 3 of the embedded attention check questions were answered differently",
+        "AUTO-EXCLUDE:IRI3_RETURN",
+    ),
+    (
+        "2 of 3 embedded attention check questions were answered differently",
+        "AUTO-EXCLUDE:IRI2_RETURN",
+    ),
+    ("1 of 3 embedded attention checks was answered differently", "FLAG-SINGLE-IRI"),
+    # FLAG dispositions (all have unique phrases)
+    ("which is faster than expected for a survey of this length", "FLAG-SPEED"),
+    ("below our benchmark of 9 minutes", "FLAG-SMEAL"),
+    ("automated authenticity checks flagged your submission", "FLAG-RECAPTCHA"),
+    (
+        "showed very little variation, which our quality checks flag",
+        "FLAG-PARTIAL-STRAIGHTLINING",
+    ),
+]
+
 
 def _require_env(name: str) -> str:
     value = os.environ.get(name)
@@ -154,6 +186,32 @@ def _msg_time(m):
     return t
 
 
+def _reasons_from_messages(researcher_msgs):
+    """Infer disposition reasons by matching researcher message bodies against
+    known TABS message-template signatures (``_DISPOSITION_SIGNATURES``).
+
+    Iterates every researcher message and checks whether any of the known
+    signature phrases appears in the body.  Each message contributes at most
+    one label (the first phrase that matches), and the returned list is
+    deduplicated while preserving first-seen order.
+
+    Returns an empty list when no message has a body that matches a known
+    template (e.g. free-form follow-up messages or messages without a
+    ``body`` field).
+    """
+    seen: set[str] = set()
+    reasons = []
+    for msg in researcher_msgs:
+        body = msg.get("body") or ""
+        for phrase, label in _DISPOSITION_SIGNATURES:
+            if phrase in body:
+                if label not in seen:
+                    seen.add(label)
+                    reasons.append(label)
+                break  # stop scanning phrases for this message regardless of seen
+    return reasons
+
+
 def _return_request_reasons(sub):
     """Return normalized request-return reasons from a submission payload.
 
@@ -214,7 +272,7 @@ def classify_submission(sub, msgs, researcher_id, now, cutoff):
             "anchor_kind": "return_requested",
             "total_messages": len(msgs),
             "researcher_messages": len(researcher_msgs),
-            "reasons": _return_request_reasons(sub),
+            "reasons": _return_request_reasons(sub) or _reasons_from_messages(researcher_msgs),
         }
         if rr < cutoff:
             return "stale_no_reply_to_rr", record
@@ -239,6 +297,7 @@ def classify_submission(sub, msgs, researcher_id, now, cutoff):
         "anchor_kind": "last_researcher_message",
         "total_messages": len(msgs),
         "researcher_messages": len(researcher_msgs),
+        "reasons": _reasons_from_messages(researcher_msgs),
     }
     if last_msg_time < cutoff:
         return "stale_no_reply_to_message", record
