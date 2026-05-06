@@ -624,8 +624,17 @@ def main():
     parser.add_argument("--output", help="Output .docx path (default: timestamped file in workspace root)")
     args = parser.parse_args()
 
-    # Resolve workspace
-    workspace = args.workspace or find_workspace()
+    # Resolve workspace - validate an explicit --workspace immediately so a
+    # typo'd path produces a clear error rather than the misleading
+    # "No CRP body DOCX found" message that would otherwise appear later.
+    if args.workspace:
+        try:
+            workspace = _find_workspace_shared(explicit=args.workspace)
+        except CrpWorkspaceNotFound as exc:
+            print(f"ERROR: {exc}")
+            sys.exit(1)
+    else:
+        workspace = find_workspace()
 
     # Resolve CRP body docx
     crp_path = args.docx

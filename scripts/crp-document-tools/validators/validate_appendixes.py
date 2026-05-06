@@ -170,7 +170,13 @@ def discover_appendix_files():
 
     for key, paths in buckets.items():
         if paths:
-            APPENDIX_FILES[key] = max(paths, key=lambda p: parse_filename_date(os.path.basename(p)))
+            # Parse the embedded timestamp first; fall back to file mtime when
+            # parse_filename_date returns (0,0,0,0) (no recognisable timestamp in
+            # the filename) so selection is deterministic regardless of listdir order.
+            APPENDIX_FILES[key] = max(
+                paths,
+                key=lambda p: (parse_filename_date(os.path.basename(p)), os.path.getmtime(p)),
+            )
 
     # Warn if any required appendix was not found so the report is not misleading.
     missing = [letter for letter in ("A", "B", "C", "D") if APPENDIX_FILES[letter] is None]
