@@ -137,7 +137,27 @@ def find_csv(workspace):
     return None
 
 def find_repo():
-    """Find the cloned repo with pipeline JSON."""
+    """Find the cloned repo with pipeline JSON.
+
+    Discovery order:
+      1. Three levels above this file (scripts/crp-document-tools/validators/
+         -> scripts/crp-document-tools/ -> scripts/ -> repo root). Works when
+         running from any directory inside the repo clone.
+      2. os.getcwd() when src/data/crp-validation.json exists there.
+      3. Legacy hard-coded /tmp/tabs-site* paths used by the original author's
+         session environment.
+    """
+    # 1. Walk up from __file__: validators/ -> crp-document-tools/ -> scripts/ -> repo root
+    _repo_from_file = os.path.abspath(
+        os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..")
+    )
+    if os.path.exists(os.path.join(_repo_from_file, "src", "data", "crp-validation.json")):
+        return _repo_from_file
+    # 2. Current working directory (e.g. user ran the script from the repo root)
+    _cwd = os.getcwd()
+    if os.path.exists(os.path.join(_cwd, "src", "data", "crp-validation.json")):
+        return _cwd
+    # 3. Legacy session paths
     for path in ["/tmp/tabs-site-val", "/tmp/tabs-site3", "/tmp/tabs-site", "/tmp/tabs-site2"]:
         val_json = os.path.join(path, "src/data/crp-validation.json")
         if os.path.exists(val_json):
@@ -2012,13 +2032,24 @@ def print_results(validator):
 
 def main():
     parser = argparse.ArgumentParser(description="TABS CRP Statistics Validator v5")
+    parser.add_argument("--workspace", help="Path to CRP workspace root (highest-priority discovery override)")
     parser.add_argument("--docx", help="Path to CRP body .docx")
     parser.add_argument("--csv", help="Path to enriched/public CSV")
     parser.add_argument("--repo", help="Path to cloned repo (for pipeline JSON)")
     args = parser.parse_args()
 
-    # Auto-discover if not provided
-    workspace = find_workspace()
+    # Resolve workspace: explicit flag is validated immediately via
+    # _find_workspace_shared(explicit=...) from paths.py; omitting --workspace
+    # falls through to the normal paths.py discovery chain.
+    if args.workspace:
+        try:
+            workspace = _find_workspace_shared(explicit=args.workspace)
+        except CrpWorkspaceNotFound as e:
+            print(f"ERROR: {e}")
+            sys.exit(1)
+    else:
+        workspace = find_workspace()
+
     docx_path = args.docx or (find_latest_docx(workspace) if workspace else None)
     csv_path = args.csv or (find_csv(workspace) if workspace else None)
     repo_path = args.repo or find_repo()
@@ -2032,6 +2063,11 @@ def main():
 
     validator = run_validation(docx_path, csv_path, repo_path)
     print_results(validator)
+    fail_count = validator.counts.get("FAIL", 0)
+    if fail_count > 0:
+        print(f"\nValidation FAILED: {fail_count} check(s) failed.")
+        sys.exit(1)
+    sys.exit(0)
 
 
 if __name__ == "__main__":
