@@ -1,0 +1,102 @@
+name: Q74 Full-Dataset Analysis
+
+# Runs the Q74 free-text analysis against the FULL Qualtrics export (not just
+# the conservative_clean N=200 frozen for the CRP). Produces:
+#   - q74-full-stats artifact (aggregate counts only, safe to read into the
+#     repo for the live Participant Voice page)
+#   - q74-full-candidates artifact (pseudonymized verbatims with PII risk
+#     flags, 1-day retention, for manual review and curation)
+#
+# The full Qualtrics CSV NEVER leaves the runner. The candidates CSV uses
+# sha256-derived pseudonyms in place of ResponseId / PROLIFIC_PID and is the
+# only artifact that contains verbatim Q74 text.
+
+on:
+  workflow_dispatch:
+    inputs:
+      survey_id:
+        description: 'Optional Survey ID (defaults to QUALTRICS_SURVEY_ID var)'
+        required: false
+        type: string
+
+concurrency:
+  group: q74-full-analysis
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  q74:
+    name: Q74 Full-Dataset Analysis
+    runs-on: ubuntu-latest
+    environment: qualtrics-prod
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Verify Qualtrics configuration
+        run: |
+          set -euo pipefail
+          if [ -z "${QUALTRICS_API_TOKEN:-}" ]; then echo "::error::QUALTRICS_API_TOKEN is not set"; exit 1; fi
+          if [ -z "${QUALTRICS_BASE_URL:-}" ]; then echo "::error::QUALTRICS_BASE_URL is not set"; exit 1; fi
+          if [ -z "${QUALTRICS_SURVEY_ID:-}" ]; then echo "::error::QUALTRICS_SURVEY_ID is not set"; exit 1; fi
+          echo "Qualtrics configuration verified."
+        env:
+          QUALTRICS_API_TOKEN: ${{ secrets.QUALTRICS_API_TOKEN }}
+          QUALTRICS_BASE_URL: ${{ vars.QUALTRICS_BASE_URL }}
+          QUALTRICS_SURVEY_ID: ${{ inputs.survey_id || vars.QUALTRICS_SURVEY_ID }}
+
+      - name: Export Qualtrics responses
+        run: python3 scripts/analysis/export_qualtrics.py
+        env:
+          QUALTRICS_API_TOKEN: ${{ secrets.QUALTRICS_API_TOKEN }}
+          QUALTRICS_BASE_URL: ${{ vars.QUALTRICS_BASE_URL }}
+          QUALTRICS_SURVEY_ID: ${{ inputs.survey_id || vars.QUALTRICS_SURVEY_ID }}
+          OUTPUT_PATH: ${{ runner.temp }}/qualtrics-responses.csv
+
+      - name: Run Q74 full-dataset analysis
+        run: python3 scripts/analysis/q74_full_analysis.py
+        env:
+          INPUT_PATH: ${{ runner.temp }}/qualtrics-responses.csv
+          STATS_OUTPUT_PATH: ${{ runner.temp }}/q74-full-stats.json
+          CANDIDATES_OUTPUT_PATH: ${{ runner.temp }}/q74-full-candidates.csv
+
+      - name: Show analysis summary
+        run: |
+          set -euo pipefail
+          STATS="${{ runner.temp }}/q74-full-stats.json"
+          {
+            echo "### Q74 Full-Dataset Analysis"
+            echo ""
+            echo '```json'
+            jq '.totals, .length_distribution, .pii_risk_distribution' "$STATS"
+            echo '```'
+            echo ""
+            echo "Top themes:"
+            echo ""
+            jq -r '.theme_distribution | .[:10] | .[] | "- \(.theme): \(.count)"' "$STATS"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload aggregate stats artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: q74-full-stats
+          path: ${{ runner.temp }}/q74-full-stats.json
+          retention-days: 7
+          if-no-files-found: error
+
+      - name: Upload pseudonymized verbatim candidates artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: q74-full-candidates
+          path: ${{ runner.temp }}/q74-full-candidates.csv
+          retention-days: 1
+          if-no-files-found: error

@@ -21,6 +21,7 @@ export const resultsSeries: ResultsSeriesItem[] = [
       { title: 'Factor Analysis', href: '/results/crp-2026/factor-analysis' },
       { title: 'Instrument Validation', href: '/results/crp-2026/validation' },
       { title: 'Sensitivity Analysis', href: '/results/crp-2026/sensitivity' },
+      { title: 'Participant Voice', href: '/results/crp-2026/participant-voice' },
     ],
   },
   {
@@ -37,6 +38,7 @@ export const resultsSeries: ResultsSeriesItem[] = [
       { title: 'Factor Analysis', href: '/results/factor-analysis' },
       { title: 'Instrument Validation', href: '/results/validation' },
       { title: 'Sensitivity Analysis', href: '/results/sensitivity' },
+      { title: 'Participant Voice', href: '/results/participant-voice' },
     ],
   },
   {
