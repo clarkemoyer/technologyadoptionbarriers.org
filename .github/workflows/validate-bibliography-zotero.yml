@@ -17,10 +17,12 @@ jobs:
     runs-on: ubuntu-latest
     environment: zotero-prod
     permissions:
+      contents: read
       pull-requests: write
+      issues: write
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup Python
         uses: actions/setup-python@v6
@@ -32,12 +34,13 @@ jobs:
 
       - name: Run bibliography-Zotero validation
         id: validate
+        continue-on-error: true
         env:
           ZOTERO_API_KEY: ${{ secrets.ZOTERO_API_KEY }}
           ZOTERO_USER_ID: ${{ vars.ZOTERO_USER_ID }}
           VALIDATION_REPORT_PATH: bibliography-validation-report.json
         run: |
-          python scripts/validate-bibliography-references.py || true
+          python scripts/validate-bibliography-references.py
           echo "report_path=bibliography-validation-report.json" >> "$GITHUB_OUTPUT"
 
       - name: Upload validation report
@@ -49,11 +52,17 @@ jobs:
 
       - name: Post PR comment with results
         if: github.event_name == 'pull_request'
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           script: |
             const fs = require('fs');
-            const report = JSON.parse(fs.readFileSync('bibliography-validation-report.json', 'utf8'));
+            let report;
+            try {
+              report = JSON.parse(fs.readFileSync('bibliography-validation-report.json', 'utf8'));
+            } catch (e) {
+              console.log('No validation report found — skipping comment');
+              return;
+            }
 
             const pct = report.total_refs > 0
               ? Math.round(report.matched * 100 / report.total_refs)

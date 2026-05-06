@@ -4,9 +4,8 @@ Validate bibliography page references against the Zotero library.
 
 This script:
 1. Extracts author-year pairs from each bibliography page's References <ol>
-2. Queries Zotero (cloud API) for matching items
+2. Queries Zotero (cloud or local API) for matching items
 3. Reports unmatched references that need to be added to Zotero
-4. Optionally checks that matched items are in the correct collection
 
 Usage:
   python scripts/validate-bibliography-references.py          # cloud API (CI)
@@ -44,9 +43,9 @@ def extract_references_from_tsx(filepath: str) -> list[dict]:
 
     ol_content = ref_match.group(1)
 
-    # Extract each <li> content
+    # Extract each <li> content (regex matches both `<li>` and `<li id="ref-...">`)
     refs = []
-    for li_match in re.finditer(r"<li>(.*?)</li>", ol_content, re.DOTALL):
+    for li_match in re.finditer(r"<li[^>]*>(.*?)</li>", ol_content, re.DOTALL):
         raw = li_match.group(1)
         # Strip JSX tags and entities
         text = re.sub(r"<[^>]+>", "", raw)
@@ -123,7 +122,7 @@ def build_zotero_index(zot, collection_keys: list[str]) -> dict:
 
     for key in collection_keys:
         try:
-            items = zot.collection_items(key, limit=100, itemType="-attachment || note")
+            items = zot.everything(zot.collection_items(key, itemType="-attachment || note"))
             all_items.extend(items)
         except Exception as e:
             print(f"  Warning: could not fetch collection {key}: {e}")
@@ -177,6 +176,10 @@ def main():
     dry_run = "--dry-run" in sys.argv
     verbose = "--verbose" in sys.argv or "-v" in sys.argv
 
+    report_path = os.environ.get(
+        "VALIDATION_REPORT_PATH", "bibliography-validation-report.json"
+    )
+
     print("=" * 60)
     print("Bibliography References vs Zotero Validation")
     print("=" * 60)
@@ -217,7 +220,12 @@ def main():
 
     # Connect to Zotero
     print(f"\nConnecting to Zotero ({'local' if local else 'cloud'})...")
-    zot = get_zotero_client(local)
+    try:
+        zot = get_zotero_client(local)
+    except SystemExit as exc:
+        # Write a minimal error report so CI steps that read it don't crash
+        _write_error_report(report_path, pages, pages_with_refs, pages_without_refs, total_refs, "Could not connect to Zotero")
+        raise
 
     # Build index from bibliography collections
     collection_keys = [
@@ -229,7 +237,12 @@ def main():
     ]
 
     print("Building Zotero reference index...")
-    zotero_index, item_count = build_zotero_index(zot, collection_keys)
+    try:
+        zotero_index, item_count = build_zotero_index(zot, collection_keys)
+    except Exception as e:
+        _write_error_report(report_path, pages, pages_with_refs, pages_without_refs, total_refs, str(e))
+        print(f"ERROR building Zotero index: {e}")
+        sys.exit(2)
     print(f"  Indexed {len(zotero_index)} unique (author, year) pairs from {item_count} items")
 
     # Validate each page
@@ -253,8 +266,9 @@ def main():
     print("SUMMARY")
     print("=" * 60)
     matched = total_refs - total_unmatched
+    pct = (matched * 100 // total_refs) if total_refs > 0 else 0
     print(f"Total references: {total_refs}")
-    print(f"Matched in Zotero: {matched} ({matched * 100 // total_refs}%)")
+    print(f"Matched in Zotero: {matched} ({pct}%)")
     print(f"Unmatched: {total_unmatched}")
     print(f"Pages checked: {len(all_page_refs)}")
 
@@ -282,9 +296,6 @@ def main():
         ],
     }
 
-    report_path = os.environ.get(
-        "VALIDATION_REPORT_PATH", "bibliography-validation-report.json"
-    )
     with open(report_path, "w") as f:
         json.dump(report, f, indent=2)
     print(f"\nReport written to {report_path}")
@@ -292,6 +303,32 @@ def main():
     # Exit with warning code if unmatched (non-blocking for now)
     if total_unmatched > 0:
         sys.exit(1)
+
+
+def _write_error_report(
+    report_path: str,
+    pages: list,
+    pages_with_refs: int,
+    pages_without_refs: int,
+    total_refs: int,
+    error: str,
+) -> None:
+    """Write a minimal error report so downstream CI steps can always read it."""
+    report = {
+        "total_pages": len(pages),
+        "pages_with_refs": pages_with_refs,
+        "pages_without_refs": pages_without_refs,
+        "total_refs": total_refs,
+        "matched": 0,
+        "unmatched": 0,
+        "error": error,
+        "unmatched_details": [],
+    }
+    try:
+        with open(report_path, "w") as f:
+            json.dump(report, f, indent=2)
+    except OSError as e:
+        print(f"Warning: could not write error report to {report_path}: {e}", file=sys.stderr)
 
 
 if __name__ == "__main__":
