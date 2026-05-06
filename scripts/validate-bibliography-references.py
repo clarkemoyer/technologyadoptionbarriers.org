@@ -273,8 +273,16 @@ def main():
     print("Bibliography References vs Zotero Validation")
     print("=" * 60)
 
-    # Find all bibliography pages
-    pages = sorted(glob.glob("src/app/bibliography-*/page.tsx"))
+    # Find all bibliography pages, excluding known redirect/orphan pages.
+    # bibliography-1-8-personal-computing-acceptance-thompson-1991 is a
+    # client-side redirect to the utilization page (#1553) and has no References.
+    _EXCLUDE_SLUGS = {
+        "bibliography-1-8-personal-computing-acceptance-thompson-1991",
+    }
+    pages = sorted(
+        p for p in glob.glob("src/app/bibliography-*/page.tsx")
+        if os.path.basename(os.path.dirname(p)) not in _EXCLUDE_SLUGS
+    )
     print(f"\nFound {len(pages)} bibliography pages")
 
     # Extract references from all pages

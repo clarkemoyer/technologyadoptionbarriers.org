@@ -13,8 +13,6 @@ on:
   pull_request_target:
     paths:
       - 'src/app/bibliography-*/page.tsx'
-      - 'scripts/validate-bibliography-references.py'
-      - '.github/workflows/validate-bibliography-zotero.yml'
   workflow_dispatch:
 
 env:
@@ -36,9 +34,13 @@ jobs:
       - name: Overlay bibliography pages from PR head
         # Fetch only content files from the PR so the trusted base-branch script
         # validates the actual PR changes.  Never overlays scripts/ or .github/.
+        #
+        # First, remove all base-branch bibliography pages so any page that was
+        # deleted or renamed in the PR doesn't remain on disk and get validated.
         if: github.event_name == 'pull_request_target'
         run: |
           git fetch origin "refs/pull/${{ github.event.pull_request.number }}/head:pr-head"
+          find src/app -maxdepth 2 -name 'page.tsx' -path '*/bibliography-*/page.tsx' -delete
           git checkout pr-head -- ':(glob)src/app/bibliography-*/page.tsx'
 
       - name: Setup Python
