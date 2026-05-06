@@ -48,7 +48,7 @@ def _find_repo_root() -> Path:
     """Walk upward from this script's location until a .git directory is found.
 
     Falls back to the script's grandparent (scripts/ → repo root) if no .git
-    marker is found, with a warning.
+    marker is found, printing a warning to stderr.
     """
     here = Path(__file__).resolve().parent
     candidate = here
@@ -59,8 +59,15 @@ def _find_repo_root() -> Path:
         if parent == candidate:
             break  # reached filesystem root
         candidate = parent
-    # Fallback: assume script lives in scripts/ inside the repo root
-    return here.parent
+    # Fallback: assume script lives in scripts/ inside the repo root.
+    # Emit a warning so callers know the .git marker wasn't found.
+    fallback = here.parent
+    print(
+        f"Warning: no .git directory found above {here}; "
+        f"assuming repo root is {fallback}",
+        file=sys.stderr,
+    )
+    return fallback
 
 
 class PageResult(NamedTuple):

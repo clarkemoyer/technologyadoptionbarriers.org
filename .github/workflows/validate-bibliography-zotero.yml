@@ -184,8 +184,18 @@ jobs:
               per_page: 100,
             });
 
-            const marker = '## Zotero Bibliography Validation';
-            const existing = comments.find(c => c.body.startsWith(marker));
+            // Prepend a hidden HTML marker so the bot can identify its own
+            // comment even if another user posts a comment that begins with
+            // the same visible heading.
+            const hiddenMarker = '<!-- zotero-bib-validation-bot -->';
+            body = hiddenMarker + '\n' + body;
+
+            // Only match comments posted by this workflow's bot account to
+            // avoid accidentally overwriting a user comment that starts with
+            // the same visible heading.
+            const existing = comments.find(
+              c => c.user.login === 'github-actions[bot]' && c.body.includes(hiddenMarker)
+            );
 
             if (existing) {
               await github.rest.issues.updateComment({
