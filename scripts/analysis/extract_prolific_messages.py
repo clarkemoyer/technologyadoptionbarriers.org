@@ -339,18 +339,20 @@ def main() -> int:
     # always inspect the unfiltered API response if a downstream filter
     # over-prunes (it has previously - the per-user endpoint returns
     # timestamps under different field names than /messages/?created_after).
+    pre_since_count = len(messages)
     with raw_path.open("w", encoding="utf-8") as f:
         json.dump(messages, f, indent=2, default=str)
-    print(f"Raw dump (pre-since): {raw_path}")
+    print(f"Raw dump (pre-since): {raw_path}  [{pre_since_count} messages]")
 
     # Optional post-fetch filter: keep only messages on or after `since`.
     # `_msg_ts` is module-level so the sort/transcript/csv code below
     # uses the same logic. If a message has no timestamp at all we KEEP
     # it (better to over-include in the local PII review file than to
-    # silently drop everything).
+    # silently drop everything). The walrus operator ensures _msg_ts() is
+    # called only once per message.
     if since:
         before = len(messages)
-        messages = [m for m in messages if not _msg_ts(m) or _msg_ts(m) >= since]
+        messages = [m for m in messages if not (ts := _msg_ts(m)) or ts >= since]
         print(
             f"After since-filter ({since}): {len(messages)} messages "
             f"(dropped {before - len(messages)})."
@@ -362,7 +364,7 @@ def main() -> int:
                 "timestamp field that needs to be added to _msg_ts()."
             )
 
-    print(f"API returned {len(messages)} messages total.")
+    print(f"Processing {len(messages)} messages (pre-since raw total: {pre_since_count}).")
 
     inbound = [m for m in messages if m.get("sender_id") != researcher_id]
     outbound = [m for m in messages if m.get("sender_id") == researcher_id]
