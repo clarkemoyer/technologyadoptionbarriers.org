@@ -40,9 +40,12 @@ describe('Response Funnel page (QualtricsSurveyStats)', () => {
 
   it('renders Qualtrics question IDs and items presented as separate values', () => {
     render(<QualtricsSurveyStats />)
-    expect(
-      screen.getByText(metricsData.questionCount.toLocaleString(), { exact: false })
-    ).toBeInTheDocument()
+    // Use exact match (the default): small values like 21 would otherwise
+    // substring-match larger numbers rendered by other metric cards on the
+    // page (e.g. Prolific disposition counts or Qualtrics raw-response counts
+    // that shift daily), causing this assertion to fail intermittently as
+    // pipeline data drifts.
+    expect(screen.getByText(metricsData.questionCount.toLocaleString())).toBeInTheDocument()
     expect(screen.getByText(TOTAL_ITEMS_PRESENTED.toLocaleString())).toBeInTheDocument()
   })
 

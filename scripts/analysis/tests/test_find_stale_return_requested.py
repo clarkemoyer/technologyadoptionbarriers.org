@@ -16,7 +16,12 @@ from datetime import datetime, timedelta, timezone
 
 import pytest
 
-from find_stale_return_requested import classify_submission, _msg_time, _objectid_time
+from find_stale_return_requested import (
+    _msg_time,
+    _objectid_time,
+    _reasons_from_messages,
+    classify_submission,
+)
 
 RESEARCHER_ID = "researcher_001"
 NOW = datetime(2026, 4, 23, 12, 0, 0, tzinfo=timezone.utc)
@@ -55,6 +60,35 @@ class TestReturnRequestedPath:
         assert record["age_hours"] == pytest.approx(60.0, abs=0.1)
         assert record["anchor_kind"] == "return_requested"
         assert record["reasons"] == ["failed attention check"]
+
+    def test_stale_rr_uses_request_return_reasons_fallback(self):
+        """Live submission payloads may use request_return_reasons."""
+        rr_time = NOW - timedelta(hours=60)
+        sub = {
+            "participant_id": "PID_A2",
+            "status": "AWAITING REVIEW",
+            "return_requested": _ts(rr_time),
+            "request_return_reasons": ["failed attention check"],
+        }
+        msgs = [_msg(RESEARCHER_ID, rr_time - timedelta(hours=1))]
+        bucket, record = classify_submission(sub, msgs, RESEARCHER_ID, NOW, CUTOFF)
+        assert bucket == "stale_no_reply_to_rr"
+        assert record["reasons"] == ["failed attention check"]
+
+    @pytest.mark.parametrize("field_name", ["return_requested_reasons", "request_return_reasons"])
+    def test_blank_reason_string_normalizes_to_empty_list(self, field_name):
+        """Blank reason strings should not produce an empty reason entry."""
+        rr_time = NOW - timedelta(hours=60)
+        sub = {
+            "participant_id": "PID_A3",
+            "status": "AWAITING REVIEW",
+            "return_requested": _ts(rr_time),
+            field_name: "   ",
+        }
+        msgs = [_msg(RESEARCHER_ID, rr_time - timedelta(hours=1))]
+        bucket, record = classify_submission(sub, msgs, RESEARCHER_ID, NOW, CUTOFF)
+        assert bucket == "stale_no_reply_to_rr"
+        assert record["reasons"] == []
 
     def test_in_window_rr_not_stale(self):
         """RR set <48h ago with no reply → in_window_rr (don't touch yet)."""
@@ -364,3 +398,177 @@ class TestObjectIdFallback:
         bucket, record = classify_submission(sub, msgs, RESEARCHER_ID, NOW, CUTOFF)
         assert bucket is None
         assert record is None
+
+
+# ── Reason inference from message bodies (_reasons_from_messages) ─────────────
+
+class TestReasonsFromMessages:
+    def test_empty_messages_returns_empty_list(self):
+        assert _reasons_from_messages([]) == []
+
+    def test_message_with_no_body_returns_empty_list(self):
+        msgs = [{"sender_id": RESEARCHER_ID, "sent_at": "2026-01-01T00:00:00Z"}]
+        assert _reasons_from_messages(msgs) == []
+
+    def test_flag_speed_signature_matches(self):
+        body = (
+            "We are reviewing your submission because it was completed in 2.1 minutes, "
+            "which is faster than expected for a survey of this length."
+        )
+        assert _reasons_from_messages([{"sender_id": RESEARCHER_ID, "body": body}]) == ["FLAG-SPEED"]
+
+    def test_flag_single_iri_signature_matches(self):
+        body = "1 of 3 embedded attention checks was answered differently than expected."
+        assert _reasons_from_messages([{"sender_id": RESEARCHER_ID, "body": body}]) == ["FLAG-SINGLE-IRI"]
+
+    def test_flag_smeal_signature_matches(self):
+        body = "your completion time of 7.5 minutes is below our benchmark of 9 minutes."
+        assert _reasons_from_messages([{"sender_id": RESEARCHER_ID, "body": body}]) == ["FLAG-SMEAL"]
+
+    def test_flag_recaptcha_signature_matches(self):
+        body = "Our automated authenticity checks flagged your submission for additional review."
+        assert _reasons_from_messages([{"sender_id": RESEARCHER_ID, "body": body}]) == ["FLAG-RECAPTCHA"]
+
+    def test_flag_partial_straightlining_matches(self):
+        body = "your responses in the Adoption section(s) showed very little variation, which our quality checks flag for review."
+        assert _reasons_from_messages([{"sender_id": RESEARCHER_ID, "body": body}]) == ["FLAG-PARTIAL-STRAIGHTLINING"]
+
+    def test_iri3_speed_return_distinguished_from_iri3_return(self):
+        """IRI3_SPEED_RETURN message contains the speed phrase; plain IRI3_RETURN does not."""
+        speed_body = (
+            "it was completed in 3.1 minutes (below our 5-minute minimum) and all 3 "
+            "of the embedded attention check questions were answered differently"
+        )
+        plain_body = (
+            "all 3 of the embedded attention check questions were answered differently"
+        )
+        assert _reasons_from_messages([{"sender_id": RESEARCHER_ID, "body": speed_body}]) == [
+            "AUTO-EXCLUDE:IRI3_SPEED_RETURN"
+        ]
+        assert _reasons_from_messages([{"sender_id": RESEARCHER_ID, "body": plain_body}]) == [
+            "AUTO-EXCLUDE:IRI3_RETURN"
+        ]
+
+    def test_iri2_speed_return_distinguished_from_iri2_return(self):
+        """IRI2_SPEED_RETURN message contains the speed phrase; plain IRI2_RETURN does not."""
+        speed_body = (
+            "it was completed in 3.1 minutes (below our 5-minute minimum) and 2 of 3 "
+            "embedded attention check questions were answered differently"
+        )
+        plain_body = "2 of 3 embedded attention check questions were answered differently"
+        assert _reasons_from_messages([{"sender_id": RESEARCHER_ID, "body": speed_body}]) == [
+            "AUTO-EXCLUDE:IRI2_SPEED_RETURN"
+        ]
+        assert _reasons_from_messages([{"sender_id": RESEARCHER_ID, "body": plain_body}]) == [
+            "AUTO-EXCLUDE:IRI2_RETURN"
+        ]
+
+    def test_auto_exclude_speed_iri_signature_matches(self):
+        body = "Could you please share: (1) What is your professional background and role?"
+        assert _reasons_from_messages([{"sender_id": RESEARCHER_ID, "body": body}]) == [
+            "AUTO-EXCLUDE:SPEED_IRI"
+        ]
+
+    def test_dedup_prevents_repeated_label_from_multiple_messages(self):
+        """Two identical messages produce only one entry in the reasons list."""
+        body = "which is faster than expected for a survey of this length"
+        msgs = [
+            {"sender_id": RESEARCHER_ID, "body": body},
+            {"sender_id": RESEARCHER_ID, "body": body},
+        ]
+        assert _reasons_from_messages(msgs) == ["FLAG-SPEED"]
+
+    def test_multiple_different_messages_produce_multiple_labels(self):
+        """Two messages with different disposition bodies both contribute a label."""
+        msgs = [
+            {"sender_id": RESEARCHER_ID, "body": "which is faster than expected for a survey of this length"},
+            {"sender_id": RESEARCHER_ID, "body": "automated authenticity checks flagged your submission"},
+        ]
+        assert _reasons_from_messages(msgs) == ["FLAG-SPEED", "FLAG-RECAPTCHA"]
+
+    def test_repeated_speed_return_message_does_not_leak_plain_iri_label(self):
+        """Two SPEED_RETURN messages: the second must not add AUTO-EXCLUDE:IRI3_RETURN.
+
+        Without the fix, the second message matches the speed phrase first but its
+        label is already in ``seen``, so the loop continued and matched the plain
+        IRI phrase, producing a spurious AUTO-EXCLUDE:IRI3_RETURN entry.
+        """
+        speed_body = (
+            "it was completed in 3.1 minutes (below our 5-minute minimum) and all 3 "
+            "of the embedded attention check questions were answered differently"
+        )
+        msgs = [
+            {"sender_id": RESEARCHER_ID, "body": speed_body},
+            {"sender_id": RESEARCHER_ID, "body": speed_body},
+        ]
+        assert _reasons_from_messages(msgs) == ["AUTO-EXCLUDE:IRI3_SPEED_RETURN"]
+
+
+# ── Reasons populated in classify_submission records ─────────────────────────
+
+class TestClassifyReasons:
+    def test_stale_msg_record_has_reasons_key(self):
+        """stale_no_reply_to_message record must include a 'reasons' key."""
+        msg_time = NOW - timedelta(hours=72)
+        sub = _sub("PID_REASONS_KEY")
+        msgs = [{"sender_id": RESEARCHER_ID, "sent_at": _ts(msg_time)}]
+        bucket, record = classify_submission(sub, msgs, RESEARCHER_ID, NOW, CUTOFF)
+        assert bucket == "stale_no_reply_to_message"
+        assert "reasons" in record
+
+    def test_stale_msg_record_reasons_populated_from_body(self):
+        """stale_no_reply_to_message record derives reasons from message body."""
+        msg_time = NOW - timedelta(hours=72)
+        body = "which is faster than expected for a survey of this length"
+        sub = _sub("PID_REASONS_BODY")
+        msgs = [{"sender_id": RESEARCHER_ID, "sent_at": _ts(msg_time), "body": body}]
+        bucket, record = classify_submission(sub, msgs, RESEARCHER_ID, NOW, CUTOFF)
+        assert bucket == "stale_no_reply_to_message"
+        assert record["reasons"] == ["FLAG-SPEED"]
+
+    def test_stale_msg_record_reasons_empty_when_no_match(self):
+        """stale_no_reply_to_message record has empty reasons when body is unrecognised."""
+        msg_time = NOW - timedelta(hours=72)
+        sub = _sub("PID_REASONS_EMPTY")
+        msgs = [{"sender_id": RESEARCHER_ID, "sent_at": _ts(msg_time)}]
+        bucket, record = classify_submission(sub, msgs, RESEARCHER_ID, NOW, CUTOFF)
+        assert bucket == "stale_no_reply_to_message"
+        assert record["reasons"] == []
+
+    def test_in_window_msg_record_has_reasons_key(self):
+        """in_window_msg record also carries a 'reasons' key."""
+        msg_time = NOW - timedelta(hours=10)
+        body = "automated authenticity checks flagged your submission"
+        sub = _sub("PID_INWINDOW_MSG")
+        msgs = [{"sender_id": RESEARCHER_ID, "sent_at": _ts(msg_time), "body": body}]
+        bucket, record = classify_submission(sub, msgs, RESEARCHER_ID, NOW, CUTOFF)
+        assert bucket == "in_window_msg"
+        assert record["reasons"] == ["FLAG-RECAPTCHA"]
+
+    def test_stale_rr_falls_back_to_message_reasons_when_submission_has_no_reasons(self):
+        """When the submission payload lacks return_requested_reasons, fall back to
+        the message body to populate the Reasons column."""
+        rr_time = NOW - timedelta(hours=60)
+        sub = {
+            "participant_id": "PID_FALLBACK",
+            "status": "AWAITING REVIEW",
+            "return_requested": _ts(rr_time),
+            # Deliberately omit return_requested_reasons / request_return_reasons
+        }
+        body = "automated authenticity checks flagged your submission"
+        msgs = [{"sender_id": RESEARCHER_ID, "sent_at": _ts(rr_time - timedelta(hours=1)), "body": body}]
+        bucket, record = classify_submission(sub, msgs, RESEARCHER_ID, NOW, CUTOFF)
+        assert bucket == "stale_no_reply_to_rr"
+        assert record["reasons"] == ["FLAG-RECAPTCHA"]
+
+    def test_stale_rr_prefers_submission_reasons_over_message_body(self):
+        """Explicit return_requested_reasons from the submission take precedence
+        over the message-body fallback."""
+        rr_time = NOW - timedelta(hours=60)
+        sub = _sub("PID_PREFER_SUB", rr=rr_time, reasons=["failed attention check"])
+        body = "which is faster than expected for a survey of this length"
+        msgs = [{"sender_id": RESEARCHER_ID, "sent_at": _ts(rr_time - timedelta(hours=1)), "body": body}]
+        bucket, record = classify_submission(sub, msgs, RESEARCHER_ID, NOW, CUTOFF)
+        assert bucket == "stale_no_reply_to_rr"
+        # Submission-level reason wins; message-body reason must NOT appear.
+        assert record["reasons"] == ["failed attention check"]

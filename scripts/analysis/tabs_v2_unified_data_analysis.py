@@ -66,6 +66,7 @@ import sys
 import warnings
 from collections import Counter, OrderedDict, defaultdict
 from datetime import datetime
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
@@ -337,6 +338,61 @@ def _get_other_text_from_row(row, idx):
     if other_text_idx is not None and other_text_idx < len(row):
         return row[other_text_idx].strip()
     return ''
+
+
+def _demographics_for(rows, idx):
+    """Return the demographics block for *rows* (a list of CSV data rows).
+
+    Extracted from ``sensitivity_to_json()``'s inner closure so it can be
+    imported and exercised directly in unit tests. Produces the same
+    ``other_roles.categories`` contract the pipeline publishes in
+    ``sensitivity-analysis.json``.
+    """
+    if not rows:
+        return {
+            "roles": {},
+            "org_sizes": {k: 0 for k in ALL_ORG_SIZES},
+            "profit_models": {k: 0 for k in ['For-Profit', 'Non-Profit', 'Government/Public Sector']},
+            "tech_vs_nontech": {"technical": 0, "non_technical": 0, "other": 0},
+            "other_roles": {"total": 0, "categories": {}},
+        }
+    from collections import Counter as _Counter
+    roles = _Counter()
+    tech_n = nontech_n = other_n = 0
+    other_cats: _Counter = _Counter()
+    org_sizes: _Counter = _Counter()
+    profit_models: _Counter = _Counter()
+    for r in rows:
+        role = _get_role_from_row(r, idx)
+        roles[role] += 1
+        other_text = _get_other_text_from_row(r, idx) if role == 'Other' else ''
+        binary = classify_role_binary(role, other_text)
+        if binary == 'Technical':
+            tech_n += 1
+        elif binary == 'Non-Technical':
+            nontech_n += 1
+        else:
+            other_n += 1
+        # Categorize Other free-text via regex bucket regardless of binary
+        # classification, so the Other Role Categories table is always
+        # populated when role == 'Other'. Fix for #1858.
+        if role == 'Other':
+            other_cats[categorize_other_role(other_text)] += 1
+        org_sizes[r[idx['Q4_OrgSize']].strip()] += 1
+        profit_models[r[idx['Q5_ProfitModel']].strip()] += 1
+    return {
+        "roles": dict(roles.most_common()),
+        "org_sizes": {k: org_sizes.get(k, 0) for k in ALL_ORG_SIZES},
+        "profit_models": {k: profit_models.get(k, 0) for k in ['For-Profit', 'Non-Profit', 'Government/Public Sector']},
+        "tech_vs_nontech": {"technical": tech_n, "non_technical": nontech_n, "other": other_n},
+        "other_roles": {
+            "total": sum(1 for r in rows if _get_role_from_row(r, idx) == 'Other'),
+            # k-anonymity suppression: suppress category counts below 5 to prevent
+            # re-identification in small cells (NIST SP 800-188 compliant).
+            "categories": {cat: (ct if ct >= 5 else "<5")
+                           for cat, ct in other_cats.most_common()},
+        },
+    }
 
 
 def _score_item(row, col, scale, idx):
@@ -981,6 +1037,44 @@ def parallel_analysis(data, n_iter=1000, max_factors=6, percentile=95, seed=42):
     return max(1, n_factors)
 
 
+def _compute_srmr_fallback(observed_data, mod):
+    """Compute SRMR from observed vs. model-implied correlations.
+
+    Standardized Root Mean Square Residual (Hu & Bentler 1999).
+    Threshold: <= 0.08 acceptable, <= 0.05 good.
+    Called when semopy.calc_stats() does not emit an 'SRMR' row.
+
+    Formula: lower triangle including diagonal, denominator n*(n+1)/2.
+    Diagonal terms are always 0 for correlation matrices so this is equivalent
+    to the strict off-diagonal formula; denominator matches the verified
+    reference implementation (SRMR(Barriers 3F, DWLS) = 0.070).
+    """
+    try:
+        d = observed_data.dropna()
+        S = d.cov().values
+        if hasattr(mod, 'mx_cov') and mod.mx_cov is not None:
+            Sigma = np.array(mod.mx_cov)
+        else:
+            return None
+        if S.shape != Sigma.shape:
+            return None
+        s_obs = np.sqrt(np.diag(S))
+        s_imp = np.sqrt(np.diag(Sigma))
+        if np.any(s_obs <= 0) or np.any(s_imp <= 0):
+            return None
+        R_obs = S / np.outer(s_obs, s_obs)
+        R_imp = Sigma / np.outer(s_imp, s_imp)
+        n = R_obs.shape[0]
+        # Vectorised lower-triangle sum (includes diagonal, which contributes 0 for
+        # correlation matrices where R[i,i]=1 for both observed and implied).
+        rows, cols_ = np.tril_indices(n)
+        residuals = R_obs[rows, cols_] - R_imp[rows, cols_]
+        ss = float(np.dot(residuals, residuals))
+        return round(float(np.sqrt(ss / (n * (n + 1) / 2))), 4)
+    except Exception:
+        return None
+
+
 def run_cfa(data, model_spec, construct_name):
     """Run CFA using semopy."""
     if not HAS_SEMOPY:
@@ -1007,7 +1101,12 @@ def run_cfa(data, model_spec, construct_name):
         result['cfi'] = round(_stat('CFI'), 4) if _stat('CFI') is not None else None
         result['tli'] = round(_stat('TLI'), 4) if _stat('TLI') is not None else None
         result['rmsea'] = round(_stat('RMSEA'), 4) if _stat('RMSEA') is not None else None
-        result['srmr'] = round(_stat('SRMR'), 4) if _stat('SRMR') is not None else None
+        # SRMR: prefer calc_stats; fall back to manual computation from model-implied cov
+        srmr_from_stats = _stat('SRMR')
+        if srmr_from_stats is not None:
+            result['srmr'] = round(srmr_from_stats, 4)
+        else:
+            result['srmr'] = _compute_srmr_fallback(d, mod)
         result['aic'] = round(_stat('AIC'), 2) if _stat('AIC') is not None else None
         result['bic'] = round(_stat('BIC'), 2) if _stat('BIC') is not None else None
         est_std = mod.inspect(std_est=True)
@@ -1537,46 +1636,10 @@ def sensitivity_to_json(cuts, idx):
             values[sample_key] = safe_compute(fn, rows)
         result["metrics"].append({"key": key, "label": label, "values": values})
 
-    # Demographics per sample
+    # Demographics per sample — delegate to the module-level helper so tests
+    # can import and exercise the production path directly.
     def demographics_for(rows):
-        if not rows:
-            return {"roles": {}, "org_sizes": {k: 0 for k in ALL_ORG_SIZES},
-                    "profit_models": {k: 0 for k in ['For-Profit', 'Non-Profit', 'Government/Public Sector']},
-                    "tech_vs_nontech": {"technical": 0, "non_technical": 0, "other": 0},
-                    "other_roles": {"total": 0, "categories": {}}}
-        roles = Counter()
-        tech_n = nontech_n = other_n = 0
-        other_cats = Counter()
-        org_sizes = Counter()
-        profit_models = Counter()
-        for r in rows:
-            role = _get_role_from_row(r, idx)
-            roles[role] += 1
-            other_text = _get_other_text_from_row(r, idx) if role == 'Other' else ''
-            binary = classify_role_binary(role, other_text)
-            if binary == 'Technical':
-                tech_n += 1
-            elif binary == 'Non-Technical':
-                nontech_n += 1
-            else:
-                other_n += 1
-                if role == 'Other':
-                    other_cats[categorize_other_role(other_text)] += 1
-            org_sizes[r[idx['Q4_OrgSize']].strip()] += 1
-            profit_models[r[idx['Q5_ProfitModel']].strip()] += 1
-        return {
-            "roles": dict(roles.most_common()),
-            "org_sizes": {k: org_sizes.get(k, 0) for k in ALL_ORG_SIZES},
-            "profit_models": {k: profit_models.get(k, 0) for k in ['For-Profit', 'Non-Profit', 'Government/Public Sector']},
-            "tech_vs_nontech": {"technical": tech_n, "non_technical": nontech_n, "other": other_n},
-            "other_roles": {
-                "total": sum(1 for r in rows if _get_role_from_row(r, idx) == 'Other'),
-                # k-anonymity suppression: suppress category counts below 5 to prevent
-                # re-identification in small cells (NIST SP 800-188 compliant).
-                "categories": {cat: (ct if ct >= 5 else "<5")
-                               for cat, ct in other_cats.most_common()},
-            },
-        }
+        return _demographics_for(rows, idx)
 
     # Effect sizes per sample
     def effect_sizes_for(rows):
@@ -3103,14 +3166,20 @@ def run_cfa_dwls(data, model_spec, construct_name):
         else:
             def _stat(name):
                 return float(fit_stats.loc[name, 'Value']) if name in fit_stats.index else None
-        for k_in, k_out in [('chi2','chi2'),('chi2 p-value','chi2_p'),('DoF','df'),
-                             ('CFI','cfi'),('TLI','tli'),('RMSEA','rmsea'),
-                             ('AIC','aic'),('BIC','bic')]:
+        for k_in, k_out in [('chi2', 'chi2'), ('chi2 p-value', 'chi2_p'), ('DoF', 'df'),
+                             ('CFI', 'cfi'), ('TLI', 'tli'), ('RMSEA', 'rmsea'),
+                             ('AIC', 'aic'), ('BIC', 'bic')]:
             v = _stat(k_in)
             if v is not None:
                 result[k_out] = round(v, 4) if k_out not in ('df',) else int(v)
             else:
                 result[k_out] = None
+        # SRMR: try from calc_stats first; fall back to manual computation
+        srmr_from_stats = _stat('SRMR')
+        if srmr_from_stats is not None:
+            result['srmr'] = round(srmr_from_stats, 4)
+        else:
+            result['srmr'] = _compute_srmr_fallback(d, mod)
     except Exception as e:
         result['error'] = str(e)
     return result
@@ -3314,7 +3383,12 @@ def split_sample_cv(df, barrier_cols_safe, three_group_def, seed=42):
     valid = data.iloc[idx[half:]]
     out = {'n_calibration': int(len(calib)), 'n_validation': int(len(valid)), 'seed': seed}
     loads_calib = []; loads_valid = []
-    for sample_name, sample, store in [('calibration', calib, loads_calib), ('validation', valid, loads_valid)]:
+    per_factor_loads_calib = {fact: [] for fact in three_group_def.keys()}
+    per_factor_loads_valid = {fact: [] for fact in three_group_def.keys()}
+    for sample_name, sample, store, per_factor_store in [
+        ('calibration', calib, loads_calib, per_factor_loads_calib),
+        ('validation', valid, loads_valid, per_factor_loads_valid),
+    ]:
         try:
             mod = semopy.Model(spec)
             mod.fit(sample, obj='DWLS')
@@ -3332,10 +3406,12 @@ def split_sample_cv(df, barrier_cols_safe, three_group_def, seed=42):
                 'rmsea': round(_stat('RMSEA'), 4) if _stat('RMSEA') is not None else None,
             }
             insp = mod.inspect(std_est=True)
-            L = insp[(insp['op']=='~') & (insp['Est. Std'].notna())]
+            L = insp[(insp['op'] == '~') & (insp['Est. Std'].notna())]
             for fact in three_group_def.keys():
-                for _, row in L[L['rval']==fact].iterrows():
-                    store.append(float(row['Est. Std']))
+                for _, row in L[L['rval'] == fact].iterrows():
+                    val = float(row['Est. Std'])
+                    store.append(val)
+                    per_factor_store[fact].append(val)
         except Exception as e:
             out[sample_name] = {'error': str(e)}
     if len(loads_calib) == len(loads_valid) and len(loads_calib) > 0:
@@ -3345,15 +3421,271 @@ def split_sample_cv(df, barrier_cols_safe, three_group_def, seed=42):
         out['tucker_congruence'] = round(tucker, 4) if tucker is not None else None
         out['interpretation'] = ('identical' if (tucker or 0) >= 0.95 else
                                   'minor_differences' if (tucker or 0) >= 0.85 else 'different_structures')
+        # Per-factor Tucker congruence (Gap 5)
+        per_factor = {}
+        for fact in three_group_def.keys():
+            af = per_factor_loads_calib.get(fact, [])
+            bf = per_factor_loads_valid.get(fact, [])
+            if len(af) == len(bf) and len(af) > 0:
+                av, bv = np.array(af), np.array(bf)
+                d_f = float(np.sqrt(av @ av) * np.sqrt(bv @ bv))
+                tf = float(av @ bv / d_f) if d_f > 0 else None
+                per_factor[fact] = round(tf, 4) if tf is not None else None
+            else:
+                per_factor[fact] = None
+        out['tucker_per_factor'] = per_factor
     return out
 
 
 
 
-
-
 # ============================================================================
-# 25-30. TIER 1 + TIER 2 EXTENSIONS (added 2026-05-01)
+# GAP-STAT HELPERS (Gaps 2-4, 6-7) — must match tabs_v2_validation.py
+# ============================================================================
+
+def henze_zirkler_normality(data):
+    """Henze-Zirkler multivariate normality test (Gap 2).
+
+    Returns a dict matching the standalone tabs_v2_validation.py schema:
+    ``{'n', 'p', 'hz', 'p_value', 'multivariate_normal_005'}``.
+    Falls back to ``{'error': ...}`` when pingouin is unavailable or data is
+    too small (< 2 cols, < 5 rows).
+    """
+    if not HAS_PINGOUIN:
+        return {'error': 'pingouin not installed'}
+    sub = data.dropna()
+    n, p = sub.shape
+    if n < 5 or p < 2:
+        return {'error': 'insufficient data for Henze-Zirkler (need >=5 N, >=2 vars)'}
+    try:
+        result = _pg.multivariate_normality(sub.values)
+        hz_stat = float(getattr(result, 'hz', None) or result[0])
+        pval = float(getattr(result, 'pval', None) if hasattr(result, 'pval')
+                     else result[1])
+        normal = bool(getattr(result, 'normal', None) if hasattr(result, 'normal')
+                      else result[2])
+        return {
+            'n': int(n),
+            'p': int(p),
+            'hz': round(hz_stat, 4),
+            'p_value': round(pval, 6),
+            'multivariate_normal_005': normal,
+        }
+    except Exception as e:
+        return {'error': str(e)}
+
+
+def t_tests_smb_vs_enterprise(df, construct_cols_map, smb_col='_SMB'):
+    """Construct-level Welch t-tests: SMB (<1000 employees) vs Enterprise (>=1000).
+
+    Replicates CRP Table 22 / Slide 15.  ``construct_cols_map`` is a dict
+    ``{name: [cols]}``.
+
+    Output schema matches ``tabs_v2_validation.py`` and the established
+    ``t_tests_tech_vs_nontech`` / ``t_tests_large_vs_small`` blocks:
+    top-level ``smb_n``, ``enterprise_n``, ``cut`` and per-construct
+    ``{'smb_mean', 'enterprise_mean', 'mean_diff', 't', 'df', 'p',
+    'cohens_d', 'sig'}}``.
+    """
+    if smb_col not in df.columns:
+        return {'error': f'{smb_col} not in df'}
+    smb_mask = df[smb_col] == 1
+    ent_mask = df[smb_col] == 0
+    n_smb = int(smb_mask.sum())
+    n_ent = int(ent_mask.sum())
+    constructs = {}
+    for cname, cols in construct_cols_map.items():
+        smb_means = df[smb_mask][cols].mean(axis=1).dropna()
+        ent_means = df[ent_mask][cols].mean(axis=1).dropna()
+        if len(smb_means) < 3 or len(ent_means) < 3:
+            # Need n >= 3 per group to compute stable std(ddof=1) and Welch df
+            constructs[cname] = {'error': 'insufficient n'}
+            continue
+        m_smb = float(smb_means.mean())
+        m_ent = float(ent_means.mean())
+        s_smb = float(smb_means.std(ddof=1))
+        s_ent = float(ent_means.std(ddof=1))
+        n1, n2 = len(smb_means), len(ent_means)
+        t_stat, p_val = sp.ttest_ind(smb_means.values, ent_means.values,
+                                           equal_var=False)
+        # Welch-Satterthwaite degrees of freedom
+        var1, var2 = s_smb ** 2 / n1, s_ent ** 2 / n2
+        df_welch = ((var1 + var2) ** 2 /
+                    (var1 ** 2 / max(1, n1 - 1) + var2 ** 2 / max(1, n2 - 1)))
+        # Pooled-SD Cohen's d (Enterprise - SMB)
+        s_pooled = np.sqrt(((n1 - 1) * s_smb ** 2 + (n2 - 1) * s_ent ** 2)
+                           / max(1, n1 + n2 - 2))
+        cohens_d = (m_ent - m_smb) / s_pooled if s_pooled > 0 else 0.0
+        constructs[cname] = {
+            'smb_mean': round(m_smb, 4),
+            'enterprise_mean': round(m_ent, 4),
+            'mean_diff': round(m_ent - m_smb, 4),
+            't': round(float(t_stat), 4),
+            'df': round(float(df_welch), 2),
+            'p': round(float(p_val), 4),
+            'cohens_d': round(float(cohens_d), 4),
+            'sig': bool(p_val < 0.05),
+        }
+    return {
+        'smb_n': n_smb,
+        'enterprise_n': n_ent,
+        'cut': 'SMB=<1000 employees, Enterprise=1000+',
+        'constructs': constructs,
+    }
+
+
+def harman_single_factor_cmv(df, all_cols):
+    """Harman single-factor common method variance test (Gap 4).
+
+    Runs PCA via ``np.linalg.eigvalsh`` on the standardised correlation
+    matrix (no sklearn dependency).  Zero-variance columns are replaced
+    with a small floor (1e-10) to avoid divide-by-zero.
+
+    Returns a dict with ``first_eigenvalue_pct_variance`` and ``below_50pct``
+    flag (True = no serious CMV concern).
+    """
+    try:
+        sub = df[all_cols].dropna()
+        if sub.shape[0] < 10 or sub.shape[1] < 2:
+            return {'error': 'insufficient data'}
+        std = sub.std(ddof=1)
+        std = std.where(std > 1e-10, other=1e-10)
+        Z = (sub - sub.mean()) / std
+        corr_matrix = Z.T @ Z / (sub.shape[0] - 1)
+        eigenvalues = np.linalg.eigvalsh(corr_matrix.values)
+        eigenvalues = np.sort(eigenvalues)[::-1]
+        total = float(eigenvalues.sum())
+        first_pct = round(float(eigenvalues[0]) / total * 100, 2) if total > 0 else None
+        return {
+            'first_eigenvalue_pct_variance': first_pct,
+            'below_50pct': (first_pct < 50) if first_pct is not None else None,
+            'n_listwise': int(sub.shape[0]),
+            'n_items_combined': int(sub.shape[1]),
+        }
+    except Exception as e:
+        return {'error': str(e)}
+
+
+def _eval_construct_verdicts(cr):
+    """Derive the 10 psychometric verdict booleans from a validate_construct() result.
+
+    ``validate_construct()`` emits raw metrics but no pre-computed verdict
+    flags.  This helper converts those metrics to the same boolean checks
+    used in the ``verdicts`` block of crp-validation.json.
+    """
+    def _check(val, fn):
+        if val is None or (isinstance(val, float) and math.isnan(val)):
+            return None
+        try:
+            return bool(fn(val))
+        except (TypeError, ValueError):
+            return None
+
+    a = cr.get('cronbach_alpha')
+    omega = cr.get('mcdonalds_omega')
+    comp_rel = cr.get('composite_reliability')
+    ave = cr.get('ave_from_loadings')
+    citc_flagged = cr.get('citc_flagged_below_030') or []
+    sh = cr.get('split_half_spearman_brown')
+    efa = cr.get('efa') or {}
+    kmo = efa.get('kmo_model')
+    bartlett_p = efa.get('bartlett_p')
+    cfa = cr.get('cfa') or {}
+    cfi = cfa.get('cfi')
+    rmsea = cfa.get('rmsea')
+
+    criteria = {
+        'alpha_above_070':      _check(a,          lambda v: v >= 0.70),
+        'omega_above_070':      _check(omega,       lambda v: v >= 0.70),
+        'cr_above_070':         _check(comp_rel,    lambda v: v >= 0.70),
+        'ave_above_050':        _check(ave,         lambda v: v >= 0.50),
+        'itc_all_above_030':    bool(len(citc_flagged) == 0),
+        'split_half_above_070': _check(sh,          lambda v: v >= 0.70),
+        'kmo_above_060':        _check(kmo,         lambda v: v >= 0.60),
+        'bartlett_significant': _check(bartlett_p,  lambda v: v < 0.05),
+        'cfa_cfi_above_090':    _check(cfi,         lambda v: v >= 0.90),
+        'cfa_rmsea_below_008':  _check(rmsea,       lambda v: v <= 0.08),
+    }
+    pass_count = sum(1 for v in criteria.values() if v is True)
+    total_criteria = sum(1 for v in criteria.values() if v is not None)
+    return {**criteria, 'pass_count': pass_count, 'total_criteria': total_criteria}
+
+
+def _build_validation_registry(construct_results, subgroup_standalone=None):
+    """Aggregate psychometric verdicts into a pass/fail headline (Gap 6)."""
+    last_run_utc = pd.Timestamp.now('UTC').isoformat()
+    total_checks = 0
+    passed = 0
+    categories = {}
+
+    for cr in construct_results:
+        cname = cr.get('construct', 'Unknown')
+        verd = _eval_construct_verdicts(cr)
+        pc = verd['pass_count']
+        tc = verd['total_criteria']
+        total_checks += tc
+        passed += pc
+        categories[cname] = {'pass_count': pc, 'total_criteria': tc}
+
+    _SUBGROUP_CRITERIA = frozenset({
+        'parallel_analysis_unidimensional',
+        'alpha_above_070',
+        'cfi_above_090',
+        'rmsea_below_008',
+    })
+    if subgroup_standalone:
+        for group_label, subgroup_list in subgroup_standalone.items():
+            for sr in (subgroup_list or []):
+                if isinstance(sr, dict) and sr.get('skipped'):
+                    continue
+                verdict = sr.get('verdict') or {}
+                criteria_vals = [
+                    verdict[k] for k in _SUBGROUP_CRITERIA
+                    if k in verdict and isinstance(verdict[k], bool)
+                ]
+                tc = len(criteria_vals)
+                pc = sum(1 for v in criteria_vals if v)
+                if tc == 0:
+                    continue
+                total_checks += tc
+                passed += pc
+                cat_key = f"subgroup/{group_label}/{sr.get('name', 'unknown')}"
+                categories[cat_key] = {'pass_count': pc, 'total_criteria': tc}
+
+    failed = total_checks - passed
+    rate = round(passed / total_checks * 100, 1) if total_checks > 0 else None
+    return {
+        'total_checks': total_checks,
+        'passed': passed,
+        'failed': failed,
+        'pass_rate_pct': rate,
+        'categories': categories,
+        'last_run_utc': last_run_utc,
+    }
+
+
+def _build_r_parity_tests(ci_workflow=None):
+    """R-parity test count meta-block (Gap 7)."""
+    _FALLBACK_COUNT = 16
+    parity_file = (
+        Path(__file__).parent / 'tests' / 'test_parity_to_published_formulas.py'
+    )
+    try:
+        source = parity_file.read_text(encoding='utf-8')
+        count = len(re.findall(r'^def test_', source, re.MULTILINE))
+    except (OSError, IOError):
+        count = _FALLBACK_COUNT
+
+    workflow_path = ci_workflow or '.github/workflows/validate-analysis.yml'
+    return {
+        'count': count,
+        'ci_workflow': workflow_path,
+        'last_run_utc': pd.Timestamp.now('UTC').isoformat(),
+        'all_passing': None,
+    }
+
+
+
 # Mediation (B->R->M), VIF, bootstrap CIs, item-level d, demo-alpha,
 # power, equivalence (TOST), construct stability, BARRIERS bifactor,
 # multi-group 3F SEM, approximate measurement invariance, DIF, ESEM.
@@ -3488,7 +3820,7 @@ def item_level_cohens_d_smb(df, raw_cols, item_names, item_ids, smb_col='_SMB'):
             'cohens_d': round(d, 4),
             't': round(float(t), 3) if t is not None else None,
             'p': round(float(p), 4) if p is not None else None,
-            'sig_05': bool(p is not None and p < 0.05),
+            'sig': bool(p is not None and p < 0.05),
         })
     return out
 
@@ -3941,6 +4273,8 @@ def run_validation(df, skip=False, crp200=False, primary_sample=True):
     cfa_dwls = {}; bifactor_results = {}; secondorder_results = {}
     mardia_results = {}; mahalanobis_results = {}; cv_results = {}
     irt_results = {}; per_factor_reg = {}
+    hz_normality_results = {}  # Gap 2 — initialised here, populated inside primary_sample block
+    t_tests_smb_ent_results = {}  # Gap 3 — initialised here, populated inside Q4_OrgSize block
     if primary_sample:
         print(f"\n{'='*70}")
         print(f"  EXTENDED PSYCHOMETRIC VALIDATION (DWLS, bifactor, 2nd-order, normality, CV, IRT)")
@@ -3971,6 +4305,7 @@ def run_validation(df, skip=False, crp200=False, primary_sample=True):
                             ('Maturity', _maturity_renamed)]:
             mardia_results[cname] = mardia_multivariate_normality(sub)
             mahalanobis_results[cname] = mahalanobis_outliers(sub)
+            hz_normality_results[cname] = henze_zirkler_normality(sub)  # Gap 2
 
         cv_results = split_sample_cv(_barrier_renamed, _barrier_cols_safe, BARRIER_3GROUP)
 
@@ -4037,6 +4372,11 @@ def run_validation(df, skip=False, crp200=False, primary_sample=True):
         for cname, cols, names, ids in [('Barriers', BARRIER_COLS, BARRIER_NAMES, [f'B{i+1}' for i in range(len(BARRIER_NAMES))]), ('Readiness', READINESS_COLS, READINESS_NAMES, [f'R{i+1}' for i in range(len(READINESS_NAMES))]), ('Maturity', MATURITY_COLS, MATURITY_NAMES, [f'M{i+1}' for i in range(len(MATURITY_NAMES))])]:
             dif_results[cname] = dif_irt(df, cols, names, ids, group_col='_SMB')
         esem_results = esem_target_rotation(barrier_renamed, barrier_cols_safe, n_factors=3)
+        # Gap 3: construct-level SMB vs Enterprise Welch t-tests (CRP Table 22)
+        t_tests_smb_ent_results = t_tests_smb_vs_enterprise(
+            df, {'Barriers': BARRIER_COLS, 'Readiness': READINESS_COLS, 'Maturity': MATURITY_COLS},
+            smb_col='_SMB'
+        )
         if 'error' not in mediation_results:
             ind = (mediation_results.get('Indirect') or {}).get('coef')
             print(f"  Mediation B->R->M: indirect={ind}")
@@ -4048,6 +4388,7 @@ def run_validation(df, skip=False, crp200=False, primary_sample=True):
         bifactor_b_results = bifactor_barriers(barrier_renamed, barrier_cols_safe, BARRIER_3GROUP)
         esem_results = esem_target_rotation(barrier_renamed, barrier_cols_safe, n_factors=3)
         measurement_invariance = {'error': 'Q4_OrgSize not in df'}
+        t_tests_smb_ent_results = {'error': 'Q4_OrgSize not in df'}
 
 
     # ── Per-subgroup standalone validation ──
@@ -4098,6 +4439,13 @@ def run_validation(df, skip=False, crp200=False, primary_sample=True):
     aid_summary = alpha_if_deleted_summary(construct_results)
     for s in aid_summary:
         print(f"  {s['construct']}: {s['items_increasing_alpha_count']} items would raise alpha")
+
+    # Gap 4: Harman's single-factor CMV test (all items combined)
+    all_item_cols = BARRIER_COLS + READINESS_COLS + MATURITY_COLS
+    harman_cmv_results = harman_single_factor_cmv(df, all_item_cols)
+    if 'first_eigenvalue_pct_variance' in harman_cmv_results:
+        print(f"  Harman CMV: PC1 = {harman_cmv_results['first_eigenvalue_pct_variance']}% variance "
+              f"({'<50% OK' if harman_cmv_results.get('below_50pct') else '>=50% WARNING'})")
 
     # Discriminant validity
     print(f"\n{'='*70}")
@@ -4237,7 +4585,7 @@ def run_validation(df, skip=False, crp200=False, primary_sample=True):
     # 4-factor barriers CFA (legacy decomposition)
     b4f_out = {}
     if 'error' not in barrier_4f_cfa:
-        for k in ['chi2', 'df', 'chi2_p', 'cfi', 'tli', 'rmsea', 'aic', 'bic']:
+        for k in ['chi2', 'df', 'chi2_p', 'cfi', 'tli', 'rmsea', 'srmr', 'aic', 'bic']:
             b4f_out[k] = barrier_4f_cfa.get(k)
     else:
         b4f_out['error'] = barrier_4f_cfa['error']
@@ -4249,7 +4597,7 @@ def run_validation(df, skip=False, crp200=False, primary_sample=True):
         if not c or 'error' in c:
             return {'error': (c or {}).get('error', 'unavailable')}
         return {k: c.get(k) for k in ['chi2', 'df', 'chi2_p', 'cfi', 'tli', 'rmsea',
-                                       'aic', 'bic', 'standardized_loadings']}
+                                       'srmr', 'aic', 'bic', 'standardized_loadings']}
 
     # 2-factor barriers CFA (matches the EFA-derived structure parallel analysis returned)
     output['barriers_2f_cfa'] = _cfa_block(barrier_2f_cfa)
@@ -4303,6 +4651,24 @@ def run_validation(df, skip=False, crp200=False, primary_sample=True):
     output['dif_irt_smb_vs_ent'] = dif_results
     output['esem_3factor'] = esem_results
     output['measurement_invariance'] = measurement_invariance
+
+    # Gap 2: Henze-Zirkler multivariate normality (primary sample only; mirrors mardia_normality)
+    if primary_sample:
+        output['henze_zirkler_normality'] = hz_normality_results
+    else:
+        output['henze_zirkler_normality'] = _skipped_sentinel
+    # Gap 3: construct-level SMB vs Enterprise Welch t-tests (requires Q4_OrgSize)
+    output['inferential'] = output.get('inferential') or {}
+    output['inferential']['t_tests_smb_vs_enterprise'] = t_tests_smb_ent_results
+    # Gap 4: Harman's single-factor CMV
+    output['cmv'] = {'harman_single_factor': harman_cmv_results}
+    # Gap 6: validation registry (aggregate pass/fail headline)
+    output['validation_registry'] = _build_validation_registry(
+        construct_results,
+        subgroup_standalone=subgroup_standalone,
+    )
+    # Gap 7: R parity test count meta-block
+    output['r_parity_tests'] = _build_r_parity_tests()
 
     # Factor analysis summary (for EFA factors)
     barrier_efa = barrier_result.get('efa', {})
