@@ -540,7 +540,7 @@ def main():
     if mismatches == 0 and unverified == 0:
         print(f"\n  All claims converge with pipeline. No mismatches or unverified claims.")
 
-    return mismatches + unverified
+    return 1 if (mismatches or unverified) else 0
 
 
 if __name__ == '__main__':

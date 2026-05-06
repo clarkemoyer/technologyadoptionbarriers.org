@@ -67,14 +67,12 @@ APPENDIX_FILES = [
 def find_workspace():
     """Locate the CRP workspace root via the shared portable discovery.
 
-    Returns the workspace path, or None if discovery fails. (We swallow
-    the exception so callers can supply --docx + --appendix-dir and skip
-    workspace discovery entirely.)
+    Returns the workspace path, or raises ``CrpWorkspaceNotFound`` when
+    discovery fails.  Callers that provide both ``--docx`` and
+    ``--appendix-dir`` can bypass workspace discovery entirely and never
+    call this function.
     """
-    try:
-        return _find_workspace_shared()
-    except CrpWorkspaceNotFound:
-        return None
+    return _find_workspace_shared()
 
 
 def find_latest_docx(workspace):
@@ -630,17 +628,26 @@ def main():
     parser.add_argument("--output", help="Output .docx path (default: timestamped file in workspace root)")
     args = parser.parse_args()
 
-    # Resolve workspace - validate an explicit --workspace immediately so a
-    # typo'd path produces a clear error rather than the misleading
-    # "No CRP body DOCX found" message that would otherwise appear later.
+    # Resolve workspace.
+    # Only skip auto-discovery when *both* --docx and --appendix-dir are
+    # supplied (workspace is then unused). In every other case, propagate
+    # CrpWorkspaceNotFound so users see the actionable paths.py error
+    # instead of a misleading "No CRP body DOCX found" later.
     if args.workspace:
         try:
             workspace = _find_workspace_shared(explicit=args.workspace)
         except CrpWorkspaceNotFound as exc:
             print(f"ERROR: {exc}")
             sys.exit(1)
+    elif args.docx and args.appendix_dir:
+        # Both overrides provided; workspace is not needed.
+        workspace = None
     else:
-        workspace = find_workspace()
+        try:
+            workspace = find_workspace()
+        except CrpWorkspaceNotFound as exc:
+            print(f"ERROR: {exc}")
+            sys.exit(1)
 
     # Resolve CRP body docx
     crp_path = args.docx

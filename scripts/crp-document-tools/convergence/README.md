@@ -39,7 +39,23 @@ Outputs are written to the workspace `04 CRP Review Reports/CRP Convergence Syst
 
 ## Running
 
-Both scripts require the CRP `.docx` to be unpacked first (`unpack.py` extracts `word/document.xml`) and a local clone of the tabs-site repo. All input paths must be supplied explicitly via CLI flags - neither script auto-discovers workspace locations.
+Both scripts require the CRP `.docx` body text to be extracted first, and a local clone of the tabs-site repo. Unpack `word/document.xml` from the `.docx` (which is a zip archive) using any of the following equivalent methods:
+
+```bash
+# Option A - unzip (POSIX)
+unzip -p /path/to/CRP-body.docx word/document.xml > /tmp/crp-document.xml
+
+# Option B - Python (cross-platform)
+python - <<'EOF'
+import zipfile, sys
+src = sys.argv[1]; dest = sys.argv[2]
+with zipfile.ZipFile(src) as z:
+    with z.open("word/document.xml") as xml_in, open(dest, "wb") as out:
+        out.write(xml_in.read())
+EOF /path/to/CRP-body.docx /tmp/crp-document.xml
+```
+
+All other input paths must be supplied explicitly via CLI flags - neither script auto-discovers workspace locations.
 
 ```bash
 # Full check (slow, comprehensive)
