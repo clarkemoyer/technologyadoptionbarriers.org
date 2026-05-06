@@ -26,7 +26,6 @@ import json
 import os
 import re
 import sys
-from typing import Optional
 
 
 def extract_references_from_tsx(filepath: str) -> list[dict]:
@@ -122,20 +121,27 @@ def build_zotero_index(zot, collection_keys: list[str]) -> dict:
 
     for key in collection_keys:
         try:
-            items = zot.everything(zot.collection_items(key, itemType="-attachment || note"))
+            # Fetch all items; filter attachments/notes client-side
+            # (the Zotero API itemType param only supports a single type or simple
+            # negation, so compound expressions like "-attachment || note" are invalid)
+            items = zot.everything(zot.collection_items(key))
             all_items.extend(items)
         except Exception as e:
             print(f"  Warning: could not fetch collection {key}: {e}")
 
     for item in all_items:
         data = item.get("data", {})
+        # Skip attachments and notes — they have no author/year to index
+        if data.get("itemType") in ("attachment", "note"):
+            continue
         creators = data.get("creators", [])
         date = data.get("date", "")
         year_match = re.search(r"(\d{4})", date)
         year = year_match.group(1) if year_match else ""
 
         for creator in creators:
-            last_name = creator.get("lastName", "").lower()
+            # Corporate/single-field authors use "name"; personal authors use "lastName"
+            last_name = (creator.get("lastName") or creator.get("name", "")).lower()
             if last_name and year:
                 lookup_key = (last_name, year)
                 if lookup_key not in index:
@@ -146,7 +152,7 @@ def build_zotero_index(zot, collection_keys: list[str]) -> dict:
 
 
 def validate_page(
-    filepath: str, refs: list[dict], zotero_index: dict
+    slug: str, refs: list[dict], zotero_index: dict
 ) -> list[dict]:
     """Check each reference against the Zotero index. Return unmatched."""
     unmatched = []
@@ -252,7 +258,6 @@ def main():
 
     for slug, refs in sorted(all_page_refs.items()):
         unmatched = validate_page(slug, refs, zotero_index)
-        status = "PASS" if not unmatched else f"WARN ({len(unmatched)} unmatched)"
         results.append((slug, len(refs), len(unmatched), unmatched))
         total_unmatched += len(unmatched)
 

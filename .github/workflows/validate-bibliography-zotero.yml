@@ -16,6 +16,11 @@ jobs:
   validate:
     runs-on: ubuntu-latest
     environment: zotero-prod
+    # Skip on forked PRs: secrets/vars from zotero-prod are unavailable on forks
+    # and GITHUB_TOKEN is read-only, so the job would fail with auth errors.
+    if: >
+      github.event_name == 'workflow_dispatch' ||
+      github.event.pull_request.head.repo.fork == false
     permissions:
       contents: read
       pull-requests: write
@@ -34,14 +39,22 @@ jobs:
 
       - name: Run bibliography-Zotero validation
         id: validate
-        continue-on-error: true
         env:
           ZOTERO_API_KEY: ${{ secrets.ZOTERO_API_KEY }}
           ZOTERO_USER_ID: ${{ vars.ZOTERO_USER_ID }}
           VALIDATION_REPORT_PATH: bibliography-validation-report.json
         run: |
+          set +e
           python scripts/validate-bibliography-references.py
+          EXIT_CODE=$?
           echo "report_path=bibliography-validation-report.json" >> "$GITHUB_OUTPUT"
+          # Exit code 1 = unmatched refs (non-blocking warning) — allow
+          # Exit code 2+ = real script error (broken env, API outage) — fail CI
+          if [ "$EXIT_CODE" -le 1 ]; then
+            exit 0
+          else
+            exit "$EXIT_CODE"
+          fi
 
       - name: Upload validation report
         uses: actions/upload-artifact@v4
@@ -69,13 +82,21 @@ jobs:
               : 0;
 
             let body = `## Zotero Bibliography Validation\n\n`;
+
+            if (report.error) {
+              body += `> ⚠️ **Validation error — Zotero results are incomplete:**\n> ${report.error}\n\n`;
+            }
+
             body += `| Metric | Value |\n|---|---|\n`;
             body += `| Pages with References | ${report.pages_with_refs} / ${report.total_pages} |\n`;
             body += `| Total references | ${report.total_refs} |\n`;
-            body += `| Matched in Zotero | ${report.matched} (${pct}%) |\n`;
-            body += `| Unmatched | ${report.unmatched} |\n\n`;
+            if (!report.error) {
+              body += `| Matched in Zotero | ${report.matched} (${pct}%) |\n`;
+              body += `| Unmatched | ${report.unmatched} |\n\n`;
+            }
+            body += '\n';
 
-            if (report.unmatched > 0 && report.unmatched_details.length > 0) {
+            if (!report.error && report.unmatched > 0 && report.unmatched_details.length > 0) {
               body += `<details><summary>${report.unmatched} references not found in Zotero (click to expand)</summary>\n\n`;
               body += `| Page | Reference |\n|---|---|\n`;
               for (const d of report.unmatched_details.slice(0, 50)) {
