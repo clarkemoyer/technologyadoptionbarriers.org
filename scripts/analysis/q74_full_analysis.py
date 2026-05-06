@@ -258,7 +258,7 @@ def main() -> int:
 
     for r in rows:
         response_id = (r.get(response_id_col) or "").strip()
-        if response_id.startswith("R_") is False and not response_id:
+        if not response_id or not response_id.startswith("R_"):
             continue
         total_responses += 1
         text = (r.get("Q74_Feedback") or "").strip()
