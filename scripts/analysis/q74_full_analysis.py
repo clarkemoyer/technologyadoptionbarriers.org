@@ -148,7 +148,7 @@ def pii_assessment(text: str) -> tuple[str, list[str]]:
     if re.search(r"\b[\w.+-]+@[\w-]+\.[a-z]{2,}\b", text, re.IGNORECASE):
         risk += 3
         flags.append("email")
-    if re.search(r"\b\d{3}[-.\s]\d{3}[-.\s]\d{4}\b|\(\d{3}\)\s*\d{3}", text):
+    if re.search(r"\b\d{3}[-.\s]\d{3}[-.\s]\d{4}\b|\(\d{3}\)\s*\d{3}[-.\s]\d{4}\b", text):
         risk += 3
         flags.append("phone")
     if re.search(r"https?://", text):
@@ -166,7 +166,10 @@ def pii_assessment(text: str) -> tuple[str, list[str]]:
     novel = [w for w in proper if w not in PII_SAFE]
     if novel:
         risk += 1
-        flags.append(f"proper_nouns:{','.join(sorted(set(novel))[:5])}")
+        # Don't include the matched words themselves - the candidates CSV
+        # already has the verbatim text, and echoing the words in the flag
+        # column duplicates the leak vector.
+        flags.append(f"proper_nouns_detected:n={len(set(novel))}")
 
     if risk >= 3:
         return ("HIGH", flags)
