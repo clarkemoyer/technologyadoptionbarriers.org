@@ -94,7 +94,7 @@ class TestStudyIdFilter:
         assert raw[0]["id"] == "m1"
 
     def test_no_study_id_returns_all_messages(self, tmp_path):
-        """When STUDY_ID is not set all messages across studies are included."""
+        """When STUDY_ID is not set, all messages across studies are included."""
         messages_by_user = {
             "p1": [
                 _make_message("m1", sender_id="p1", study_id="STUDY_A"),
@@ -220,7 +220,7 @@ class TestFailureHandling:
             patch("extract_prolific_messages.prolific_list_studies", return_value=[{"id": "STUDY_A"}]),
             patch("extract_prolific_messages.prolific_submissions", return_value=submissions),
             patch("extract_prolific_messages.prolific_user_messages", side_effect=_side_effect),
-            # Suppress sys.stdout.reconfigure() so it doesn't fail on the real fd
+            # Suppress sys.stdout/stderr.reconfigure() so it doesn't fail on the StringIO capsys fd.
             patch("sys.stdout.reconfigure", lambda **kw: None, create=True),
             patch("sys.stderr.reconfigure", lambda **kw: None, create=True),
         ):

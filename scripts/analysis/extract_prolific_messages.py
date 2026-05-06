@@ -214,6 +214,15 @@ def _resolve_path(env_var: str, default: str) -> Path:
     return Path(os.environ.get(env_var, default))
 
 
+def _redact_pid(pid: str) -> str:
+    """Return a redacted version of a Prolific participant ID for safe logging.
+
+    Keeps only the last 4 characters so errors are identifiable without
+    leaking the full 24-character PID into CI logs.
+    """
+    return ("****" + pid[-4:]) if len(pid) >= 4 else "****"
+
+
 # ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
@@ -275,15 +284,15 @@ def main() -> int:
     # progress every 25 to keep the workflow log readable.
     messages: list[dict] = []
     seen_ids: set[str] = set()
-    fetch_failures = 0
+    failed_fetch_count = 0
     for i, pid in enumerate(sorted(participant_ids), 1):
         try:
             msgs = prolific_user_messages(pid, token)
         except Exception as exc:
             # Redact the participant ID so it doesn't appear in CI logs.
-            redacted = ("****" + pid[-4:]) if len(pid) >= 4 else "****"
+            redacted = _redact_pid(pid)
             print(f"  [{i}/{len(participant_ids)}] {redacted}: ERROR {exc}")
-            fetch_failures += 1
+            failed_fetch_count += 1
             continue
         for m in msgs:
             mid = m.get("id")
@@ -294,9 +303,9 @@ def main() -> int:
         if i % 25 == 0 or i == len(participant_ids):
             print(f"  [{i}/{len(participant_ids)}] cumulative messages: {len(messages)}")
 
-    if fetch_failures:
+    if failed_fetch_count:
         print(
-            f"WARNING: {fetch_failures}/{len(participant_ids)} participant fetches "
+            f"WARNING: {failed_fetch_count}/{len(participant_ids)} participant fetches "
             "failed. The export may be incomplete."
         )
 
@@ -514,9 +523,9 @@ def main() -> int:
     print(f"Inbound: {len(inbound)} | outbound: {len(outbound)}")
     print(f"Theme matches: {dict(theme_counter)}")
     print(f"PII risk: {dict(risk_counter)}")
-    if fetch_failures:
+    if failed_fetch_count:
         print(
-            f"EXITING WITH ERROR: {fetch_failures} participant fetch(es) failed. "
+            f"EXITING WITH ERROR: {failed_fetch_count} participant fetch(es) failed. "
             "Re-run or investigate the failing participants."
         )
         return 1
