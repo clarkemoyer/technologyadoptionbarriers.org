@@ -3,37 +3,37 @@
   "source_question": "Q74_Feedback",
   "source_prompt": "Open-ended feedback on the survey itself or on technology adoption barriers.",
   "stats": {
-    "total_responses": 162,
-    "respondents_in_dataset": 200,
-    "engagement_rate_pct": 81.0,
-    "substantive_count": 53,
-    "substantive_rate_pct": 32.7,
+    "total_responses": 424,
+    "respondents_in_dataset": 630,
+    "engagement_rate_pct": 67.3,
+    "substantive_count": 129,
+    "substantive_rate_pct": 30.4,
     "theme_distribution": {
-      "positive_meta": 35,
-      "null_short": 24,
-      "skills_training": 16,
-      "org_dynamics": 14,
-      "praise": 11,
-      "budget_cost": 10,
-      "mentions_industry": 9,
-      "ai_ml": 7,
-      "legacy_integration": 6,
-      "pace_speed": 5,
+      "positive_meta": 79,
+      "null_short": 78,
+      "org_dynamics": 42,
+      "skills_training": 32,
+      "budget_cost": 28,
+      "ai_ml": 23,
+      "praise": 20,
+      "mentions_industry": 16,
+      "legacy_integration": 15,
+      "pace_speed": 14,
+      "security_compliance": 11,
+      "mentions_role": 10,
+      "vendor_third_party": 9,
+      "strategy_vision": 5,
       "survey_design": 4,
-      "mentions_role": 4,
-      "vendor_third_party": 3,
-      "cloud": 2,
-      "security_compliance": 2,
-      "strategy_vision": 1,
-      "confusion": 1,
-      "ask_for_more": 1
+      "ask_for_more": 3,
+      "confusion": 3,
+      "cloud": 2
     },
     "length_distribution": {
-      "essay": 12,
-      "long": 28,
-      "medium": 55,
-      "short": 29,
-      "micro": 38
+      "essay": 21,
+      "long": 67,
+      "medium": 140,
+      "short": 80,
+      "micro": 116
     },
     "length_bucket_definitions": {
       "micro": "<= 10 chars (e.g. 'no', 'n/a')",
@@ -213,5 +213,5 @@
       }
     ]
   },
-  "selection_method": "Quotes were curated by the principal investigator from the full set of 162 open-ended responses. Pseudonymous IDs (P + first 6 of the Qualtrics response ID hash) replace any direct identifier. Verbatim quotes underwent a PII-risk scan (zero email/phone/URL/explicit-employer mentions detected) and a manual review for sector specificity before inclusion. Edited excerpts are flagged with edited=true."
+  "selection_method": "Quotes were curated from the frozen N=200 CRP-2026 sample. The aggregate counts above reflect the full TABS V2 dataset (now N=630 responses, 424 with text), refreshed by the q74-full-analysis workflow. The curated quotes remain accurate because every CRP-200 respondent is also in the full dataset; new quotes from respondents outside the frozen sample will be added in future curation passes. Pseudonymous IDs (P + first 6 of the Qualtrics response ID hash) replace any direct identifier."
 }
