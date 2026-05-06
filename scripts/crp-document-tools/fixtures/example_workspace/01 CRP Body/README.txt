@@ -3,7 +3,7 @@ To build one for testing the merge_appendixes.py script, run the command
 from this directory (01 CRP Body/) so the file is saved here and
 merge_appendixes.py can auto-discover it:
 
-    cd /path/to/scripts/crp-document-tools/fixtures/example_workspace/"01 CRP Body"
+    cd /path/to/scripts/crp-document-tools/fixtures/example_workspace/'01 CRP Body'
     pip install python-docx
     python -c "
 import os, docx

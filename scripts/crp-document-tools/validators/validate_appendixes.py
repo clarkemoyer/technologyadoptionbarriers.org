@@ -13,8 +13,8 @@ Usage:
 
 Workspace discovery follows the precedence in
 ``scripts/crp-document-tools/paths.py``: --workspace flag > CRP_WORKSPACE
-env > ~/Documents/CRP-workspace or ~/CRP-workspace > legacy /sessions/* +
-/tmp/tabs-crp-workspace > bundled fixture (last resort).
+env > ~/Documents/CRP-workspace or ~/CRP-workspace > legacy /sessions/*
+and /tmp/tabs-crp-workspace > bundled fixture (last resort).
 
 Outputs a structured convergence report showing:
 - Actual page counts from PDFs vs. claimed page counts in each appendix
