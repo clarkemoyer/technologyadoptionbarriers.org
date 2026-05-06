@@ -239,9 +239,13 @@ const ContentArchitecturePage = () => {
             </li>
             <li>
               <strong>Dynamic sitemap</strong> - generated at build time with all 190+ routes
-              (including the 11 dynamic{' '}
+              (including parameterized routes such as the 11{' '}
               <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">/start/[role]</code> persona
-              pages), correct change frequencies, and priorities
+              pages and the teaching-series slide pages under{' '}
+              <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">
+                /technology-adoption-series/[slide]
+              </code>
+              ), correct change frequencies, and priorities
             </li>
             <li>
               <strong>Robots.txt</strong> - programmatically generated to allow search engine
@@ -358,7 +362,7 @@ const ContentArchitecturePage = () => {
             One source file can produce many statically-generated pages by pairing a Next.js dynamic
             segment with{' '}
             <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">generateStaticParams()</code>.
-            We use this in exactly one place to date:
+            We currently use this in two places:
           </p>
           <ul className="list-disc pl-6 space-y-2 mb-6">
             <li>
@@ -371,14 +375,30 @@ const ContentArchitecturePage = () => {
               CTO, CISO, COO, CMO, CSO, CHRO, CRO, plus a generic <em>Other</em> fallback). Each
               persona&apos;s recommended next steps, framing, and example barriers come from{' '}
               <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">src/lib/personas.ts</code>,
-              not from individual hand-written pages. That 1-source-to-11-pages fan-out is why the
-              route count (190+) exceeds the source-file count (180+).
+              not from individual hand-written pages.
+            </li>
+            <li>
+              <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">
+                /technology-adoption-series/[slide]
+              </code>{' '}
+              is one source file that emits a route for every slide in the teaching series (plus
+              legacy URL aliases) at build time. The slide list is derived from{' '}
+              <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">
+                technologyAdoptionTeachingSeries.parts[].slides
+              </code>{' '}
+              in{' '}
+              <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">
+                src/data/technology-adoption-teaching-series.ts
+              </code>
+              .
             </li>
           </ul>
           <p className="mb-6">
-            Everything else on the site is a 1-to-1 source file to route mapping. We could
-            templatize more (e.g., bibliography entries) but currently keep them as individual files
-            so each entry can carry custom annotations alongside the auto-generated citation block.
+            Together these two parameterized routes are why the route count (190+) exceeds the
+            source-file count (180+). Everything else on the site is a 1-to-1 source file to route
+            mapping. We could templatize more (e.g., bibliography entries) but currently keep them
+            as individual files so each entry can carry custom annotations alongside the
+            auto-generated citation block.
           </p>
         </section>
 
