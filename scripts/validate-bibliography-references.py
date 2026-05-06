@@ -22,7 +22,10 @@ Environment (cloud mode):
 
 Environment (optional):
   ZOTERO_COLLECTION_KEYS  - comma-separated Zotero collection keys to index
-                            (defaults to the standard bibliography collections)
+                            (overrides name-based and hard-coded defaults).
+                            If unset, the script resolves collections by name
+                            (looking for "Bibliography Series" / "Website Citations"),
+                            then falls back to the built-in default key list.
   VALIDATION_REPORT_PATH  - path for the JSON report (default: bibliography-validation-report.json)
 
 Exit codes:
@@ -143,10 +146,37 @@ def get_zotero_client(local: bool = False):
     return zot
 
 
+def find_collection_keys_by_name(zot, target_names: list[str]) -> list[str]:
+    """Look up Zotero collection keys by name (case-insensitive substring match).
+
+    Searches all collections in the library and returns keys whose names contain
+    any of the target strings.  Falls back to an empty list if the listing fails.
+    """
+    try:
+        all_collections = zot.all_collections()
+    except Exception as e:
+        print(f"  Warning: could not list Zotero collections: {e}")
+        return []
+
+    found = []
+    for coll in all_collections:
+        name = coll.get("data", {}).get("name", "")
+        key = coll.get("data", {}).get("key", "")
+        if key and any(t.lower() in name.lower() for t in target_names):
+            found.append(key)
+    return found
+
+
 def build_zotero_index(zot, collection_keys: list[str]) -> tuple[dict, int]:
-    """Build a lookup index from Zotero items: (last_name_lower, year) -> item."""
-    index = {}
-    all_items = []
+    """Build a lookup index from Zotero items: (last_name_lower, year) -> item.
+
+    Items are deduplicated by their Zotero key so that overlapping parent/child
+    collections (e.g. "Website Citations" and its sub-collections) do not cause
+    redundant API pagination or inflate the item count.
+    """
+    index: dict[tuple[str, str], dict] = {}
+    seen_item_keys: set[str] = set()
+    ingested = 0
 
     for key in collection_keys:
         try:
@@ -154,32 +184,40 @@ def build_zotero_index(zot, collection_keys: list[str]) -> tuple[dict, int]:
             # (the Zotero API itemType param only supports a single type or simple
             # negation, so compound expressions like "-attachment || note" are invalid)
             items = zot.everything(zot.collection_items(key))
-            all_items.extend(items)
+            for item in items:
+                data = item.get("data", {})
+                # Skip attachments and notes — they have no author/year to index.
+                # Do this before the deduplication check so seen_item_keys only
+                # tracks items that actually contribute to the index.
+                if data.get("itemType") in ("attachment", "note"):
+                    continue
+
+                # Deduplicate across overlapping parent/child collections
+                item_key = item.get("key") or data.get("key", "")
+                if item_key in seen_item_keys:
+                    continue
+                seen_item_keys.add(item_key)
+                ingested += 1
+
+                creators = data.get("creators", [])
+                date = data.get("date", "")
+                year_match = re.search(r"(\d{4})", date)
+                year = year_match.group(1) if year_match else ""
+
+                for creator in creators:
+                    # Corporate/single-field authors use "name"; personal authors use "lastName".
+                    # Strip trailing punctuation to match page extraction normalization.
+                    raw_name = creator.get("lastName") or creator.get("name", "")
+                    last_name = raw_name.rstrip(".;:,").lower()
+                    if last_name and year:
+                        lookup_key = (last_name, year)
+                        if lookup_key not in index:
+                            index[lookup_key] = data
+                        break  # Only index by first author
         except Exception as e:
             print(f"  Warning: could not fetch collection {key}: {e}")
 
-    for item in all_items:
-        data = item.get("data", {})
-        # Skip attachments and notes — they have no author/year to index
-        if data.get("itemType") in ("attachment", "note"):
-            continue
-        creators = data.get("creators", [])
-        date = data.get("date", "")
-        year_match = re.search(r"(\d{4})", date)
-        year = year_match.group(1) if year_match else ""
-
-        for creator in creators:
-            # Corporate/single-field authors use "name"; personal authors use "lastName".
-            # Strip trailing punctuation to match page extraction normalization.
-            raw_name = creator.get("lastName") or creator.get("name", "")
-            last_name = raw_name.rstrip(".;:,").lower()
-            if last_name and year:
-                lookup_key = (last_name, year)
-                if lookup_key not in index:
-                    index[lookup_key] = data
-                break  # Only index by first author
-
-    return index, len(all_items)
+    return index, ingested
 
 
 def validate_page(
@@ -279,7 +317,12 @@ def main():
         raise
 
     # Build index from bibliography collections.
-    # Override via ZOTERO_COLLECTION_KEYS (comma-separated) for non-standard libraries.
+    # Resolution order:
+    #   1. ZOTERO_COLLECTION_KEYS env var (comma-separated keys) — explicit override
+    #   2. Name-based lookup: find collections whose names contain "Bibliography Series"
+    #      or "Website Citations" — resilient to collection recreation
+    #   3. Hard-coded default keys — last resort; warns so operators know to update them
+    _default_collection_names = ["Bibliography Series", "Website Citations"]
     _default_keys = [
         "CW5CU2Z2",  # Bibliography Branch 1
         "QRAH48GW",  # Bibliography Branch 2
@@ -288,7 +331,20 @@ def main():
         "D3RV9FU5",  # Organizational Technology Adoption Models (source)
     ]
     _env_keys = os.environ.get("ZOTERO_COLLECTION_KEYS", "")
-    collection_keys = [k.strip() for k in _env_keys.split(",") if k.strip()] or _default_keys
+    if _env_keys:
+        collection_keys = [k.strip() for k in _env_keys.split(",") if k.strip()]
+        print(f"Using {len(collection_keys)} collection key(s) from ZOTERO_COLLECTION_KEYS")
+    else:
+        # Try name-based resolution first so hard-coded keys don't break when
+        # collections are recreated.
+        collection_keys = find_collection_keys_by_name(zot, _default_collection_names)
+        if collection_keys:
+            print(f"  Resolved {len(collection_keys)} collection(s) by name")
+        else:
+            # Fall back to hard-coded keys — warn so operators know to update them.
+            collection_keys = _default_keys
+            print("  Warning: name-based collection lookup returned no results; using hard-coded default keys")
+            print("  If keys have changed, set ZOTERO_COLLECTION_KEYS to override")
 
     print("Building Zotero reference index...")
     try:

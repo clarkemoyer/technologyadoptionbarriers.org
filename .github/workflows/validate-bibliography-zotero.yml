@@ -3,9 +3,14 @@ name: Validate Bibliography References vs Zotero
 # Runs on PRs touching bibliography pages and on manual dispatch.
 # Non-blocking for unmatched references (exit code 1 is allowed).
 # Real script errors (exit code 2+, e.g. API outage or auth misconfig) fail CI.
+#
+# Security: Uses pull_request_target so the trusted base-branch script runs with
+# zotero-prod secrets even on fork PRs.  Bibliography pages are overlaid from the
+# PR head; scripts/ and .github/ are always sourced from the base branch,
+# preventing a PR from injecting code that exfiltrates the Zotero API key.
 
 on:
-  pull_request:
+  pull_request_target:
     paths:
       - 'src/app/bibliography-*/page.tsx'
       - 'scripts/validate-bibliography-references.py'
@@ -19,17 +24,22 @@ jobs:
   validate:
     runs-on: ubuntu-latest
     environment: zotero-prod
-    # Skip on forked PRs: secrets/vars from zotero-prod are unavailable on forks
-    # and GITHUB_TOKEN is read-only, so the job would fail with auth errors.
-    if: >
-      github.event_name == 'workflow_dispatch' ||
-      github.event.pull_request.head.repo.fork == false
     permissions:
       contents: read
       issues: write
     steps:
-      - name: Checkout repository
+      - name: Checkout base branch (trusted scripts and workflow)
         uses: actions/checkout@v6
+        # Default ref for pull_request_target = base branch.  scripts/ and .github/
+        # always come from the trusted base, not the PR, preventing code injection.
+
+      - name: Overlay bibliography pages from PR head
+        # Fetch only content files from the PR so the trusted base-branch script
+        # validates the actual PR changes.  Never overlays scripts/ or .github/.
+        if: github.event_name == 'pull_request_target'
+        run: |
+          git fetch origin "refs/pull/${{ github.event.pull_request.number }}/head:pr-head"
+          git checkout pr-head -- src/app/bibliography-*/page.tsx
 
       - name: Setup Python
         uses: actions/setup-python@v6
@@ -68,7 +78,7 @@ jobs:
           retention-days: 30
 
       - name: Post PR comment with results
-        if: always() && github.event_name == 'pull_request'
+        if: always() && github.event_name == 'pull_request_target'
         uses: actions/github-script@v9
         with:
           script: |
