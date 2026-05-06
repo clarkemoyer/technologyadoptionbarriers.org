@@ -53,7 +53,23 @@ class PageResult(NamedTuple):
 
 
 def extract_references_from_tsx(filepath: str) -> list[dict]:
-    """Extract reference entries from a bibliography page's References section."""
+    """Extract reference entries from a bibliography page's References section.
+
+    Raises ValueError if the path is a symlink or its realpath resolves outside
+    the current working directory.  This guards against symlink attacks when the
+    script runs in a pull_request_target workflow with repository secrets.
+    """
+    # Symlink-attack mitigation: reject symlinks and path-escape attempts.
+    if os.path.islink(filepath):
+        raise ValueError(f"Refusing to read symlink: {filepath}")
+    repo_root = os.path.realpath(os.getcwd())
+    real_path = os.path.realpath(filepath)
+    if os.path.commonpath([repo_root, real_path]) != repo_root:
+        raise ValueError(
+            f"Path {filepath!r} resolves to {real_path!r} which is outside "
+            f"the repo root {repo_root!r} — refusing to read"
+        )
+
     with open(filepath, "r", encoding="utf-8") as f:
         content = f.read()
 
@@ -213,7 +229,15 @@ def build_zotero_index(zot, collection_keys: list[str]) -> tuple[dict, int, list
                 year_match = re.search(r"(\d{4})", date)
                 year = year_match.group(1) if year_match else ""
 
-                for creator in creators:
+                # Filter to 'author' creatorType so editors/translators/etc.
+                # listed first don't cause systematic false "unmatched" results.
+                # Fall back to all creators for items with no typed authors
+                # (e.g. older Zotero entries without creatorType set).
+                authors = [c for c in creators if c.get("creatorType") == "author"]
+                if not authors:
+                    authors = creators
+
+                for creator in authors:
                     # Corporate/single-field authors use "name"; personal authors use "lastName".
                     # Strip trailing punctuation to match page extraction normalization.
                     raw_name = creator.get("lastName") or creator.get("name", "")

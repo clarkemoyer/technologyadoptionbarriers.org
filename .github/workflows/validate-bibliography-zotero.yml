@@ -37,11 +37,22 @@ jobs:
         #
         # First, remove all base-branch bibliography pages so any page that was
         # deleted or renamed in the PR doesn't remain on disk and get validated.
+        #
+        # Symlink-attack mitigation: disable symlink writing in git before the
+        # overlay checkout so a malicious PR cannot place a symlink (e.g. pointing
+        # to /proc/self/environ) under src/app/bibliography-*.  After checkout,
+        # verify no symlinks exist as a belt-and-suspenders guard.
         if: github.event_name == 'pull_request_target'
         run: |
+          git config core.symlinks false
           git fetch origin "refs/pull/${{ github.event.pull_request.number }}/head:pr-head"
           find src/app -maxdepth 2 -name 'page.tsx' -path '*/bibliography-*/page.tsx' -delete
           git checkout pr-head -- ':(glob)src/app/bibliography-*/page.tsx'
+          # Belt-and-suspenders: fail if any overlaid file is still a symlink
+          if find src/app -maxdepth 2 -path '*/bibliography-*/page.tsx' -type l | grep -q .; then
+            echo "ERROR: Symlink detected under src/app/bibliography-* after overlay — aborting." >&2
+            exit 1
+          fi
 
       - name: Setup Python
         uses: actions/setup-python@v6
@@ -98,6 +109,24 @@ jobs:
               return;
             }
 
+            // Escape untrusted content before embedding in GitHub Markdown.
+            // This prevents markdown/mention injection from PR file content or
+            // exception messages (which are rendered in a pull_request_target context
+            // with elevated permissions).
+            function escMd(text) {
+              if (typeof text !== 'string') return String(text);
+              return text
+                .replace(/\r?\n/g, ' ')      // newlines → space (no multi-line injection)
+                .replace(/@/g, '&#64;')       // @mentions → HTML entity (prevents GitHub mention)
+                .replace(/</g, '&lt;')        // HTML/tag injection
+                .replace(/>/g, '&gt;')        // HTML/tag injection
+                .replace(/\|/g, '\\|')        // table cell separator
+                .replace(/\[/g, '\\[')        // link text injection
+                .replace(/\]/g, '\\]')        // link text injection
+                .replace(/\*/g, '\\*')        // bold/italic injection
+                .replace(/`/g, "'");          // backtick code injection
+            }
+
             const pct = report.total_refs > 0
               ? Math.round(report.matched * 100 / report.total_refs)
               : 0;
@@ -105,7 +134,7 @@ jobs:
             let body = `## Zotero Bibliography Validation\n\n`;
 
             if (report.error) {
-              body += `> ⚠️ **Validation error — Zotero results are incomplete:**\n> ${report.error}\n\n`;
+              body += `> ⚠️ **Validation error — Zotero results are incomplete:**\n> ${escMd(report.error)}\n\n`;
             }
 
             body += `| Metric | Value |\n|---|---|\n`;
@@ -124,7 +153,7 @@ jobs:
               body += `<details><summary>${report.possible_matches} possible matches (fuzzy year+prefix overlap — verify manually)</summary>\n\n`;
               body += `| Page | Reference |\n|---|---|\n`;
               for (const d of report.possible_match_details.slice(0, 20)) {
-                body += `| \`${d.page}\` | ${d.ref} |\n`;
+                body += `| \`${escMd(d.page)}\` | ${escMd(d.ref)} |\n`;
               }
               if (report.possible_match_details.length > 20) {
                 body += `| ... | ${report.possible_match_details.length - 20} more |\n`;
@@ -136,7 +165,7 @@ jobs:
               body += `<details><summary>${report.unmatched} references not found in Zotero (click to expand)</summary>\n\n`;
               body += `| Page | Reference |\n|---|---|\n`;
               for (const d of report.unmatched_details.slice(0, 50)) {
-                body += `| \`${d.page}\` | ${d.ref} |\n`;
+                body += `| \`${escMd(d.page)}\` | ${escMd(d.ref)} |\n`;
               }
               if (report.unmatched_details.length > 50) {
                 body += `| ... | ${report.unmatched_details.length - 50} more |\n`;
