@@ -54,7 +54,7 @@ const SECTIONS: TourSection[] = [
         title: 'Top Findings',
         url: 'https://technologyadoptionbarriers.org/results/crp-2026/findings/',
         description:
-          'The headline scientific findings: senior leaders rate cost (M=3.46), legacy-system integration (M=3.38), and cybersecurity risk (M=3.26) as the most significant adoption barriers; barriers affect maturity entirely through readiness (full mediation, indirect = -0.30, p < .001); technology leaders perceive substantially higher organizational readiness (Cohen's d = 0.61) and capability maturity (d = 0.40) than non-technology peers, but rate barriers identically. This page is the practical answer to "so what did you find?"',
+          'The headline scientific findings: senior leaders rate cost (M=3.46), legacy-system integration (M=3.38), and cybersecurity risk (M=3.26) as the most significant adoption barriers; barriers affect maturity entirely through readiness (full mediation, indirect = -0.30, p < .001); technology leaders perceive substantially higher organizational readiness (Cohen\'s d = 0.61) and capability maturity (d = 0.40) than non-technology peers, but rate barriers identically. This page is the practical answer to "so what did you find?"',
       },
       {
         num: 4,
@@ -68,7 +68,7 @@ const SECTIONS: TourSection[] = [
         title: 'Instrument Validation',
         url: 'https://technologyadoptionbarriers.org/results/crp-2026/validation/',
         description:
-          'The psychometric backbone: Cronbach's alphas (0.87, 0.92, 0.88), composite reliability, McDonald's omega, AVE, KMO, Bartlett, HTMT, Fornell-Larcker, and the three-factor barrier resolution (Strategy and Culture, Resources and Operations, External and Compliance). Anyone who needs to verify that the instrument is rigorous starts here. The page is generated from canonical JSON in the repo, so the numbers always match the analysis pipeline.',
+          "The psychometric backbone: Cronbach's alphas (0.87, 0.92, 0.88), composite reliability, McDonald's omega, AVE, KMO, Bartlett, HTMT, Fornell-Larcker, and the three-factor barrier resolution (Strategy and Culture, Resources and Operations, External and Compliance). Anyone who needs to verify that the instrument is rigorous starts here. The page is generated from canonical JSON in the repo, so the numbers always match the analysis pipeline.",
       },
       {
         num: 6,
@@ -171,7 +171,7 @@ const SECTIONS: TourSection[] = [
         title: 'Scholarly Blog Series',
         url: 'https://technologyadoptionbarriers.org/technology-adoption-series',
         description:
-          'Eighteen long-form articles in two branches (User's Journey: foundational acceptance theory; Organization's Playbook: organizational adoption frameworks) that walk a reader from TRA/TPB in 1975 through TAM, UTAUT, and modern AI-adoption frameworks. The blog grounds every TABS construct in the literature it inherits from: a practitioner can read it as a trade-press primer; a scholar can read it as a literature review with full citations.',
+          "Eighteen long-form articles in two branches (User's Journey: foundational acceptance theory; Organization's Playbook: organizational adoption frameworks) that walk a reader from TRA/TPB in 1975 through TAM, UTAUT, and modern AI-adoption frameworks. The blog grounds every TABS construct in the literature it inherits from: a practitioner can read it as a trade-press primer; a scholar can read it as a literature review with full citations.",
       },
       {
         num: 16,
@@ -192,14 +192,17 @@ const ProductWalkthroughPage = () => {
 
         <section className="mb-10 text-gray-800">
           <p className="mb-4 text-lg">
-            <strong>A guided tour of what was built, what was found, and how it stays alive.</strong>
+            <strong>
+              A guided tour of what was built, what was found, and how it stays alive.
+            </strong>
           </p>
           <p className="mb-6">
-            Sixteen URLs across the website, the GitHub repository, the Prolific recruitment platform,
-            and the Qualtrics deployment, with one paragraph each. The committee, future scholars, peer
-            reviewers, and practitioners all need a single entry point that answers{' '}
+            Sixteen URLs across the website, the GitHub repository, the Prolific recruitment
+            platform, and the Qualtrics deployment, with one paragraph each. The committee, future
+            scholars, peer reviewers, and practitioners all need a single entry point that answers{' '}
             <em>where can I see the work?</em> This page collapses those into one navigable index,
-            ordered as a narrative arc rather than a sitemap. Researcher-only URLs are clearly marked.
+            ordered as a narrative arc rather than a sitemap. Researcher-only URLs are clearly
+            marked.
           </p>
         </section>
 
@@ -243,9 +246,8 @@ const ProductWalkthroughPage = () => {
             The deliverable is <em>not</em> a static dissertation; it is a research platform. The
             dissertation explains what was studied. The website displays what was found. The GitHub
             repository proves how it was built. Prolific and Qualtrics keep new data flowing.
-            Together, these sixteen URLs are the answer to{' '}
-            <em>where can I see the work?</em> and any one of them can be opened, audited, and reused
-            without contacting the author.
+            Together, these sixteen URLs are the answer to <em>where can I see the work?</em> and
+            any one of them can be opened, audited, and reused without contacting the author.
           </p>
           <p className="text-sm text-gray-600">
             Related: see{' '}
