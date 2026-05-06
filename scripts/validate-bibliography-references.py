@@ -36,6 +36,16 @@ import json
 import os
 import re
 import sys
+from typing import NamedTuple
+
+
+class PageResult(NamedTuple):
+    slug: str
+    total: int
+    unmatched_count: int
+    unmatched: list
+    possible_count: int
+    possible: list
 
 
 def extract_references_from_tsx(filepath: str) -> list[dict]:
@@ -174,28 +184,42 @@ def build_zotero_index(zot, collection_keys: list[str]) -> tuple[dict, int]:
 
 def validate_page(
     slug: str, refs: list[dict], zotero_index: dict
-) -> list[dict]:
-    """Check each reference against the Zotero index. Return unmatched."""
+) -> tuple[list[dict], list[dict]]:
+    """Check each reference against the Zotero index.
+
+    Returns:
+        A tuple of (unmatched, possible_matches).  ``unmatched`` refs have no
+        Zotero entry at all; ``possible_matches`` have a fuzzy year+4-char
+        prefix overlap and are reported separately so callers can surface them
+        as suggestions rather than treating them as validated (which would hide
+        real gaps when different authors share the same name prefix).
+    """
     unmatched = []
+    possible_matches = []
     for ref in refs:
         first_author_lower = ref["first_author"].lower()
         year = ref["year"]
         lookup = (first_author_lower, year)
 
-        if lookup not in zotero_index:
-            # Try partial match (in case of name variants)
-            found = False
-            for (name, yr), _ in zotero_index.items():
-                if yr == year and (
-                    name.startswith(first_author_lower[:4])
-                    or first_author_lower.startswith(name[:4])
-                ):
-                    found = True
-                    break
-            if not found:
-                unmatched.append(ref)
+        if lookup in zotero_index:
+            continue  # Exact match — validated
 
-    return unmatched
+        # Check for a fuzzy year+prefix match.  Reported as "possible match"
+        # rather than treated as validated to avoid false positives.
+        found_fuzzy = False
+        for (name, yr), _ in zotero_index.items():
+            if yr == year and (
+                name.startswith(first_author_lower[:4])
+                or first_author_lower.startswith(name[:4])
+            ):
+                found_fuzzy = True
+                break
+        if found_fuzzy:
+            possible_matches.append(ref)
+        else:
+            unmatched.append(ref)
+
+    return unmatched, possible_matches
 
 
 def main():
@@ -289,26 +313,33 @@ def main():
     # Validate each page
     print("\nValidating references...\n")
     total_unmatched = 0
+    total_possible = 0
     results = []
 
     for slug, refs in sorted(all_page_refs.items()):
-        unmatched = validate_page(slug, refs, zotero_index)
-        results.append((slug, len(refs), len(unmatched), unmatched))
+        unmatched, possible = validate_page(slug, refs, zotero_index)
+        results.append(PageResult(slug, len(refs), len(unmatched), unmatched, len(possible), possible))
         total_unmatched += len(unmatched)
+        total_possible += len(possible)
 
-        if unmatched or verbose:
-            print(f"{'PASS' if not unmatched else 'WARN'} {slug} ({len(refs)} refs, {len(unmatched)} unmatched)")
+        if unmatched or possible or verbose:
+            print(f"{'PASS' if not unmatched else 'WARN'} {slug} ({len(refs)} refs, {len(unmatched)} unmatched, {len(possible)} possible)")
             for ref in unmatched:
                 print(f"     NOT IN ZOTERO: [{ref['first_author']}, {ref['year']}] {ref['full_text'][:80]}")
+            for ref in possible:
+                print(f"     POSSIBLE MATCH: [{ref['first_author']}, {ref['year']}] {ref['full_text'][:80]}")
 
     # Summary
     print("\n" + "=" * 60)
     print("SUMMARY")
     print("=" * 60)
-    matched = total_refs - total_unmatched
+    # Each ref falls into exactly one of: exact match, fuzzy/possible, unmatched.
+    # matched + total_possible + total_unmatched == total_refs
+    matched = total_refs - total_unmatched - total_possible
     pct = (matched * 100 // total_refs) if total_refs > 0 else 0
     print(f"Total references: {total_refs}")
     print(f"Matched in Zotero: {matched} ({pct}%)")
+    print(f"Possible matches (fuzzy, verify manually): {total_possible}")
     print(f"Unmatched: {total_unmatched}")
     print(f"Pages checked: {len(all_page_refs)}")
 
@@ -324,19 +355,29 @@ def main():
         "pages_without_refs": pages_without_refs,
         "total_refs": total_refs,
         "matched": matched,
+        "possible_matches": total_possible,
         "unmatched": total_unmatched,
-        "unmatched_details": [
+        "possible_match_details": [
             {
-                "page": slug,
+                "page": r.slug,
                 "ref": f"{ref['first_author']} ({ref['year']})",
                 "text": ref["full_text"][:100],
             }
-            for slug, _, _, unmatched in results
-            for ref in unmatched
+            for r in results
+            for ref in r.possible
+        ],
+        "unmatched_details": [
+            {
+                "page": r.slug,
+                "ref": f"{ref['first_author']} ({ref['year']})",
+                "text": ref["full_text"][:100],
+            }
+            for r in results
+            for ref in r.unmatched
         ],
     }
 
-    with open(report_path, "w") as f:
+    with open(report_path, "w", encoding="utf-8") as f:
         json.dump(report, f, indent=2)
     print(f"\nReport written to {report_path}")
 
@@ -365,7 +406,7 @@ def _write_error_report(
         "unmatched_details": [],
     }
     try:
-        with open(report_path, "w") as f:
+        with open(report_path, "w", encoding="utf-8") as f:
             json.dump(report, f, indent=2)
     except OSError as e:
         print(f"Warning: could not write error report to {report_path}: {e}", file=sys.stderr)

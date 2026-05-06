@@ -44,6 +44,7 @@ jobs:
         env:
           ZOTERO_API_KEY: ${{ secrets.ZOTERO_API_KEY }}
           ZOTERO_USER_ID: ${{ vars.ZOTERO_USER_ID }}
+          ZOTERO_BASE_URL: ${{ vars.ZOTERO_BASE_URL }}
           VALIDATION_REPORT_PATH: bibliography-validation-report.json
         run: |
           set +e
@@ -59,6 +60,7 @@ jobs:
           fi
 
       - name: Upload validation report
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: bibliography-validation-report
@@ -66,7 +68,7 @@ jobs:
           retention-days: 30
 
       - name: Post PR comment with results
-        if: github.event_name == 'pull_request'
+        if: always() && github.event_name == 'pull_request'
         uses: actions/github-script@v9
         with:
           script: |
@@ -94,9 +96,24 @@ jobs:
             body += `| Total references | ${report.total_refs} |\n`;
             if (!report.error) {
               body += `| Matched in Zotero | ${report.matched} (${pct}%) |\n`;
-              body += `| Unmatched | ${report.unmatched} |\n\n`;
+              if (report.possible_matches > 0) {
+                body += `| Possible matches (verify manually) | ${report.possible_matches} |\n`;
+              }
+              body += `| Unmatched | ${report.unmatched} |\n`;
             }
             body += '\n';
+
+            if (!report.error && report.possible_matches > 0 && report.possible_match_details?.length > 0) {
+              body += `<details><summary>${report.possible_matches} possible matches (fuzzy year+prefix overlap — verify manually)</summary>\n\n`;
+              body += `| Page | Reference |\n|---|---|\n`;
+              for (const d of report.possible_match_details.slice(0, 20)) {
+                body += `| \`${d.page}\` | ${d.ref} |\n`;
+              }
+              if (report.possible_match_details.length > 20) {
+                body += `| ... | ${report.possible_match_details.length - 20} more |\n`;
+              }
+              body += `\n</details>\n\n`;
+            }
 
             if (!report.error && report.unmatched > 0 && report.unmatched_details.length > 0) {
               body += `<details><summary>${report.unmatched} references not found in Zotero (click to expand)</summary>\n\n`;
