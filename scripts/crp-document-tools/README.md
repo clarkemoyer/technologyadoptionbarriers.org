@@ -53,7 +53,7 @@ Three options, in order of precedence:
 | `CRP_WORKSPACE` env var | `export CRP_WORKSPACE=~/my-dissertation` then run any script    | You usually work against the same workspace                      |
 | Auto-discovery          | `python validate_crp_stats_v5.py`                               | Workspace is at `~/Documents/CRP-workspace` or `~/CRP-workspace` |
 
-If none of those exist, the scripts fall back to a bundled fixture (see below) and finally to the legacy session paths the original author uses inside Claude.ai. If everything fails, you get a clear `CrpWorkspaceNotFound` error pointing back here.
+If none of those exist, the scripts try the legacy session paths the original author uses inside Claude.ai, and finally fall back to a bundled fixture (see below). If everything fails, you get a clear `CrpWorkspaceNotFound` error pointing back here.
 
 ### Try it without your own workspace
 

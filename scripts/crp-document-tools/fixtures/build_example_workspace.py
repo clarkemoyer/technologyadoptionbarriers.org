@@ -9,9 +9,11 @@ the real CRP workspace.
 Usage:
     python build_example_workspace.py
 
-Determinism: fixed seed, sorted column order, ASCII-only output. All text
-files are opened with ``newline='\\n'`` so the fixture is byte-identical
-across Windows, macOS, and Linux. Re-running the script produces byte-identical output.
+Determinism: fixed seed, sorted column order, ASCII-only output. Text stub
+files are opened with ``newline='\\n'``; the CSV is opened with
+``newline=''`` and written via ``csv.writer(lineterminator='\\n')`` so
+all fixture files are byte-identical across Windows, macOS, and Linux.
+Re-running the script produces byte-identical output.
 """
 
 from __future__ import annotations
