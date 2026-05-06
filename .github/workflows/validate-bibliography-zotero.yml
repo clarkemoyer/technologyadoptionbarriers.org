@@ -35,8 +35,13 @@ jobs:
         # Fetch only content files from the PR so the trusted base-branch script
         # validates the actual PR changes.  Never overlays scripts/ or .github/.
         #
-        # First, remove all base-branch bibliography pages so any page that was
-        # deleted or renamed in the PR doesn't remain on disk and get validated.
+        # Overlay strategy (avoids under-counting):
+        #   1. Remove only bibliography pages that were explicitly DELETED in this PR.
+        #      A blanket delete of all base-branch pages would cause the validator to
+        #      miss pages that exist on main but weren't touched by the PR, producing
+        #      an artificially low reference count and hiding unmatched citations.
+        #   2. Check out only pages that were ADDED or MODIFIED in the PR.
+        #      Base-branch pages not touched by the PR remain in place.
         #
         # Symlink-attack mitigation: disable symlink writing in git before the
         # overlay checkout so a malicious PR cannot place a symlink (e.g. pointing
@@ -46,8 +51,16 @@ jobs:
         run: |
           git config core.symlinks false
           git fetch origin "refs/pull/${{ github.event.pull_request.number }}/head:pr-head"
-          find src/app -maxdepth 2 -name 'page.tsx' -path '*/bibliography-*/page.tsx' -delete
-          git checkout pr-head -- ':(glob)src/app/bibliography-*/page.tsx'
+          MERGE_BASE=$(git merge-base HEAD pr-head)
+
+          # Delete only pages removed in this PR (not a blanket delete)
+          git diff --name-only --diff-filter=D "$MERGE_BASE" pr-head \
+            -- ':(glob)src/app/bibliography-*/page.tsx' | xargs -r rm -f
+
+          # Overlay added/modified pages from PR head; untouched base pages stay in place
+          git diff --name-only --diff-filter=d "$MERGE_BASE" pr-head \
+            -- ':(glob)src/app/bibliography-*/page.tsx' | xargs -r git checkout pr-head --
+
           # Belt-and-suspenders: fail if any overlaid file is still a symlink
           if find src/app -maxdepth 2 -path '*/bibliography-*/page.tsx' -type l | grep -q .; then
             echo "ERROR: Symlink detected under src/app/bibliography-* after overlay — aborting." >&2
@@ -113,9 +126,13 @@ jobs:
             // This prevents markdown/mention injection from PR file content or
             // exception messages (which are rendered in a pull_request_target context
             // with elevated permissions).
+            // & must be escaped FIRST — before any other replacement produces &-based
+            // entities — to prevent entity smuggling (e.g. "&lt;" in input becoming
+            // a real "<" tag after GitHub renders the comment).
             function escMd(text) {
               if (typeof text !== 'string') return String(text);
               return text
+                .replace(/&/g, '&amp;')       // & first: prevents entity smuggling
                 .replace(/\r?\n/g, ' ')      // newlines → space (no multi-line injection)
                 .replace(/@/g, '&#64;')       // @mentions → HTML entity (prevents GitHub mention)
                 .replace(/</g, '&lt;')        // HTML/tag injection
