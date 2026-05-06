@@ -40,7 +40,7 @@ jobs:
         #      A blanket delete of all base-branch pages would cause the validator to
         #      miss pages that exist on main but weren't touched by the PR, producing
         #      an artificially low reference count and hiding unmatched citations.
-        #   2. Check out only pages that were ADDED or MODIFIED in the PR.
+        #   2. Check out only pages that were ADDED, MODIFIED, or RENAMED in the PR.
         #      Base-branch pages not touched by the PR remain in place.
         #
         # Symlink-attack mitigation: disable symlink writing in git before the
@@ -54,12 +54,12 @@ jobs:
           MERGE_BASE=$(git merge-base HEAD pr-head)
 
           # Delete only pages removed in this PR (not a blanket delete)
-          git diff --name-only --diff-filter=D "$MERGE_BASE" pr-head \
-            -- ':(glob)src/app/bibliography-*/page.tsx' | xargs -r rm -f
+          git diff --name-only -z --diff-filter=D "$MERGE_BASE" pr-head \
+            -- ':(glob)src/app/bibliography-*/page.tsx' | xargs -r0 rm -f
 
-          # Overlay added/modified pages from PR head; untouched base pages stay in place
-          git diff --name-only --diff-filter=d "$MERGE_BASE" pr-head \
-            -- ':(glob)src/app/bibliography-*/page.tsx' | xargs -r git checkout pr-head --
+          # Overlay added/modified/renamed pages from PR head; untouched base pages stay in place
+          git diff --name-only -z --diff-filter=AMR "$MERGE_BASE" pr-head \
+            -- ':(glob)src/app/bibliography-*/page.tsx' | xargs -r0 git checkout pr-head --
 
           # Belt-and-suspenders: fail if any overlaid file is still a symlink
           if find src/app -maxdepth 2 -path '*/bibliography-*/page.tsx' -type l | grep -q .; then
