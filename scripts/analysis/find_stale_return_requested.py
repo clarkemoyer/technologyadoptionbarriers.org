@@ -63,6 +63,38 @@ DEFAULT_RESEARCHER_ID = "68264cbfdeb62546fe6060fe"
 # with some headroom and avoids bursting).
 _API_CALL_DELAY = 0.2
 
+# Ordered (phrase, disposition_label) pairs derived from message_flagged.py
+# templates (see get_message_signature() in scripts/analysis/message_flagged.py).
+# More-specific patterns appear first so that messages containing BOTH a speed
+# phrase AND an IRI phrase (AUTO-EXCLUDE:*_SPEED_RETURN variants) are labelled
+# correctly before the plain-IRI fallback is tried.
+# When templates in message_flagged.py change, update these phrases to match.
+_DISPOSITION_SIGNATURES = [
+    # Speed + IRI compound variants (most-specific first)
+    ("(below our 5-minute minimum) and all 3", "AUTO-EXCLUDE:IRI3_SPEED_RETURN"),
+    ("(below our 5-minute minimum) and 2 of 3", "AUTO-EXCLUDE:IRI2_SPEED_RETURN"),
+    # Single-dispatch speed-IRI (unique phrase)
+    ("What is your professional background and role", "AUTO-EXCLUDE:SPEED_IRI"),
+    # Plain IRI variants (less specific; must follow the speed variants above)
+    (
+        "all 3 of the embedded attention check questions were answered differently",
+        "AUTO-EXCLUDE:IRI3_RETURN",
+    ),
+    (
+        "2 of 3 embedded attention check questions were answered differently",
+        "AUTO-EXCLUDE:IRI2_RETURN",
+    ),
+    ("1 of 3 embedded attention checks was answered differently", "FLAG-SINGLE-IRI"),
+    # FLAG dispositions (all have unique phrases)
+    ("which is faster than expected for a survey of this length", "FLAG-SPEED"),
+    ("below our benchmark of 9 minutes", "FLAG-SMEAL"),
+    ("automated authenticity checks flagged your submission", "FLAG-RECAPTCHA"),
+    (
+        "showed very little variation, which our quality checks flag",
+        "FLAG-PARTIAL-STRAIGHTLINING",
+    ),
+]
+
 
 def _require_env(name: str) -> str:
     value = os.environ.get(name)
@@ -97,18 +129,116 @@ def _parse_iso(ts):
         return None
 
 
-def _msg_time(m):
-    """Return the best-effort timestamp for a message, or ``None`` if neither
-    ``sent_at`` nor ``created_at`` is a parseable timestamp.
+def _objectid_time(message_id):
+    """Decode the embedded Unix timestamp from a 24-char hex MongoDB ObjectId.
 
-    Prolific returns a small number of messages with both fields null or
-    malformed (observed in live data: ~4 per daily run out of ~560 subs).
-    These are typically system-generated records. Returning ``None`` lets
-    callers skip the message for ordering purposes rather than failing the
-    entire PID's classification.
+    Prolific message IDs are MongoDB ObjectIds whose first 4 bytes (8 hex
+    chars) encode the creation time as a Unix epoch. When ``sent_at`` and
+    ``created_at`` are both absent or unparseable from the messages API
+    response (observed across the bulk of FLAG-* / clarification messages,
+    not just a few system records), this gives us a deterministic fallback
+    ordering anchor — the same anchor the Prolific server itself uses
+    internally for message creation.
+
+    Reference: https://www.mongodb.com/docs/manual/reference/method/ObjectId/
+
+    Returns ``None`` for inputs that don't look like a 24-char hex string,
+    so callers can chain it after the explicit-timestamp fields.
+    """
+    if not isinstance(message_id, str) or len(message_id) != 24:
+        return None
+    try:
+        raw = bytes.fromhex(message_id)  # strict hex-only, rejects underscores
+    except ValueError:
+        return None
+    if len(raw) != 12:
+        return None
+    try:
+        ts = int(message_id[:8], 16)
+    except ValueError:
+        return None
+    if ts < 0:
+        return None
+    try:
+        return datetime.fromtimestamp(ts, tz=timezone.utc)
+    except (OSError, OverflowError, ValueError):
+        return None
+
+
+def _msg_time(m):
+    """Return the best-effort timestamp for a message, or ``None`` if no
+    fallback yields a parseable instant.
+
+    Resolution order (most authoritative first):
+      1. ``sent_at`` — explicit server-recorded send time
+      2. ``created_at`` — explicit server-recorded creation time
+      3. The 4-byte timestamp prefix of the message ``id`` (MongoDB
+         ObjectId convention) — used because the Prolific messages API
+         frequently returns ``sent_at`` and ``created_at`` as null/undefined
+         for participant↔researcher messages, which previously caused this
+         function to drop the message entirely. Dropping a participant
+         message is consequential: the caller treats the PID as
+         "no reply since RR" and queues it for rejection.
     """
     t = _parse_iso(m.get("sent_at")) or _parse_iso(m.get("created_at"))
+    if t is None:
+        t = _objectid_time(m.get("id"))
     return t
+
+
+def _reasons_from_messages(researcher_msgs):
+    """Infer disposition reasons by matching researcher message bodies against
+    known TABS message-template signatures (``_DISPOSITION_SIGNATURES``).
+
+    Iterates every researcher message and checks whether any of the known
+    signature phrases appears in the body.  Each message contributes at most
+    one label (the first phrase that matches), and the returned list is
+    deduplicated while preserving first-seen order.
+
+    Returns an empty list when no message has a body that matches a known
+    template (e.g. free-form follow-up messages or messages without a
+    ``body`` field).
+    """
+    seen: set[str] = set()
+    reasons = []
+    for msg in researcher_msgs:
+        body = msg.get("body") or ""
+        for phrase, label in _DISPOSITION_SIGNATURES:
+            if phrase in body:
+                if label not in seen:
+                    seen.add(label)
+                    reasons.append(label)
+                break  # stop scanning phrases for this message regardless of seen
+    return reasons
+
+
+def _return_request_reasons(sub):
+    """Return normalized request-return reasons from a submission payload.
+
+    Prolific's write endpoint uses ``request_return_reasons`` while some
+    readbacks expose ``return_requested_reasons``. Accept both shapes so the
+    daily stale-triage report keeps its Reasons column populated.
+    """
+    raw = sub.get("return_requested_reasons")
+    if raw is None:
+        raw = sub.get("request_return_reasons")
+
+    if raw is None:
+        return []
+    if isinstance(raw, str):
+        reason = raw.strip()
+        return [reason] if reason else []
+    if isinstance(raw, (list, tuple)):
+        normalized = []
+        for reason in raw:
+            if reason is None:
+                continue
+            text = reason.strip() if isinstance(reason, str) else str(reason).strip()
+            if text:
+                normalized.append(text)
+        return normalized
+    text = str(raw).strip()
+    return [text] if text else []
 
 
 def classify_submission(sub, msgs, researcher_id, now, cutoff):
@@ -142,7 +272,7 @@ def classify_submission(sub, msgs, researcher_id, now, cutoff):
             "anchor_kind": "return_requested",
             "total_messages": len(msgs),
             "researcher_messages": len(researcher_msgs),
-            "reasons": sub.get("return_requested_reasons") or [],
+            "reasons": _return_request_reasons(sub) or _reasons_from_messages(researcher_msgs),
         }
         if rr < cutoff:
             return "stale_no_reply_to_rr", record
@@ -167,6 +297,7 @@ def classify_submission(sub, msgs, researcher_id, now, cutoff):
         "anchor_kind": "last_researcher_message",
         "total_messages": len(msgs),
         "researcher_messages": len(researcher_msgs),
+        "reasons": _reasons_from_messages(researcher_msgs),
     }
     if last_msg_time < cutoff:
         return "stale_no_reply_to_message", record

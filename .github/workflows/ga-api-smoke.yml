@@ -1,0 +1,77 @@
+name: Google Analytics API Smoke Test
+
+on:
+  workflow_dispatch:
+  workflow_call:
+    inputs:
+      ref:
+        description: 'Git ref to checkout (default: default branch HEAD)'
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  ga-smoke:
+    name: GA Data API smoke
+    runs-on: ubuntu-latest
+    environment: google-prod
+    env:
+      GA_PROPERTY_ID: ${{ secrets.GA_PROPERTY_ID }}
+      GOOGLE_SERVICE_ACCOUNT_EMAIL: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_EMAIL }}
+      GOOGLE_PRIVATE_KEY: ${{ secrets.GOOGLE_PRIVATE_KEY }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ inputs.ref || github.sha }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --omit=dev --ignore-scripts
+
+      - name: Validate configuration
+        shell: bash
+        run: |
+          set -euo pipefail
+          missing=()
+          [[ -z "${GA_PROPERTY_ID:-}" ]] && missing+=(GA_PROPERTY_ID)
+          [[ -z "${GOOGLE_SERVICE_ACCOUNT_EMAIL:-}" ]] && missing+=(GOOGLE_SERVICE_ACCOUNT_EMAIL)
+          [[ -z "${GOOGLE_PRIVATE_KEY:-}" ]] && missing+=(GOOGLE_PRIVATE_KEY)
+          if [[ ${#missing[@]} -gt 0 ]]; then
+            echo "::error::Missing secrets in environment google-prod: ${missing[*]}"
+            exit 1
+          fi
+
+      - name: Run a 1-day metadata report (connectivity check)
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --input-type=module -e "
+            import { BetaAnalyticsDataClient } from '@google-analytics/data';
+            const client = new BetaAnalyticsDataClient({
+              credentials: {
+                client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
+                private_key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\\\n/g, '\n'),
+              },
+            });
+            const property = process.env.GA_PROPERTY_ID.startsWith('properties/')
+              ? process.env.GA_PROPERTY_ID
+              : 'properties/' + process.env.GA_PROPERTY_ID;
+            const [response] = await client.runReport({
+              property,
+              dateRanges: [{ startDate: '1daysAgo', endDate: '1daysAgo' }],
+              metrics: [{ name: 'activeUsers' }],
+            });
+            const total = response.rows?.[0]?.metricValues?.[0]?.value ?? '0';
+            console.log('GA OK property=' + property + ' activeUsers(last1d)=' + total);
+          "

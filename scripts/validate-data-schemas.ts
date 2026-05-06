@@ -46,6 +46,28 @@ export const DispositionSummarySchema = z.object({
   }),
   studyId: z.string().optional(),
   studyName: z.string().optional(),
+  autoApproveRunway: z
+    .object({
+      thresholdDays: z.number().min(0),
+      computedAt: z.string(),
+      totalAwaitingReview: z.number().min(0),
+      evaluatedCount: z.number().min(0),
+      skippedMissingCompletedAt: z.number().min(0),
+      buckets: z.array(
+        z.object({
+          label: z.string(),
+          risk: z.string(),
+          minDaysRemaining: z.number().nullable(),
+          maxDaysRemainingExclusive: z.number().nullable(),
+          count: z.number().min(0),
+        })
+      ),
+      highRiskCount: z.number().min(0),
+      highRiskByDisposition: z.record(z.string(), z.number().min(0)),
+    })
+    .optional(),
+  highRiskCount: z.number().min(0).optional(),
+  highRiskByDisposition: z.record(z.string(), z.number().min(0)).optional(),
 })
 
 // Schema for src/data/sensitivity-analysis.json

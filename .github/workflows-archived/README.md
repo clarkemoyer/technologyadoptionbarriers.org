@@ -21,7 +21,7 @@ mv .github/workflows-archived/<file>.yml .github/workflows/
 
 These workflows remain in `.github/workflows/` because they only **read** data and cannot modify the live survey:
 
-- `qualtrics-metrics-update.yml` - Fetches response counts, updates `src/data/qualtrics-metrics.json`
+- `qualtrics-metrics-update.yml` - Fetches Qualtrics response counts, updates `src/data/qualtrics-metrics.json` (consumed by the Response Funnel page)
 - `qualtrics-api-smoke.yml` - Connectivity check (lists surveys, fetches metadata)
 - `qualtrics-prolific-verify.yml` - Reads survey definition and verifies configuration
 - `fetch-qualtrics-questions.yml` - Fetches survey questions (read-only)

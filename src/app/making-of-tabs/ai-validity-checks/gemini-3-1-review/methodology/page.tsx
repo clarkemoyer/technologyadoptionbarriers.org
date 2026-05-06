@@ -33,8 +33,8 @@ export default function Page() {
             </li>
             <li>
               <strong>Data Files:</strong> Analyzing <code>src/data/barriers.ts</code>,{' '}
-              <code>impact.json</code>, and <code>qualtrics-metrics.json</code> to ensure data
-              integrity.
+              <code>impact.json</code>, <code>qualtrics-metrics.json</code>, and{' '}
+              <code>disposition-summary.json</code> to ensure data integrity.
             </li>
             <li>
               <strong>Bibliographies:</strong> Reviewing the comprehensive series bibliography and

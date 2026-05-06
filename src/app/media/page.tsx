@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
 import { appearances } from '@/data/appearances'
+import dispositionData from '@/data/disposition-summary.json'
 import impactData from '@/data/impact.json'
-import metricsData from '@/data/qualtrics-metrics.json'
 import { assetPath } from '@/lib/assetPath'
-import { getSurveysCompletedCount } from '@/lib/qualtricsStats'
+import { TOTAL_ITEMS_PRESENTED } from '@/lib/tabs-survey-constants'
 import { TABS_WEBSITE_QUALTRICS_SURVEY_URL } from '@/lib/tabs-survey'
 
 export const metadata: Metadata = {
@@ -20,9 +20,9 @@ export const metadata: Metadata = {
     url: 'https://technologyadoptionbarriers.org/media',
     images: [
       {
-        url: '/web-app-manifest-512x512.png',
-        width: 512,
-        height: 512,
+        url: '/Images/TABS-Logo-Full.png',
+        width: 1920,
+        height: 1920,
         alt: 'Technology Adoption Barriers Survey (TABS)',
       },
     ],
@@ -32,14 +32,16 @@ export const metadata: Metadata = {
     title: 'Media | TABS',
     description:
       'Press kit, media contact details, and project resources for the Technology Adoption Barriers Survey (TABS).',
-    images: ['/web-app-manifest-512x512.png'],
+    images: ['/Images/TABS-Logo-Full.png'],
   },
 }
 
 const MediaPage = () => {
-  const surveysCompleted = getSurveysCompletedCount(metricsData.responseCounts)
-  const pageViews = parseInt(impactData.pageViews) || 0
-  const verifiedVisitors = parseInt(impactData.verifiedVisitors) || 0
+  // Same Prolific-approved source the homepage Statistics callout uses, so the
+  // press kit and the homepage cannot disagree on the headline number.
+  const surveysCompleted = dispositionData.completionProgress.approved
+  const pageViews = parseInt(impactData.pageViews, 10) || 0
+  const verifiedVisitors = parseInt(impactData.verifiedVisitors, 10) || 0
 
   const orgLdJson = {
     '@context': 'https://schema.org',
@@ -350,7 +352,7 @@ const MediaPage = () => {
               </div>
               <div className="p-5 rounded-xl bg-orange-50 border border-orange-100">
                 <div className="text-2xl font-bold text-orange-600">
-                  {metricsData.questionCount > 0 ? metricsData.questionCount.toLocaleString() : '-'}
+                  {TOTAL_ITEMS_PRESENTED.toLocaleString()}
                 </div>
                 <div className="mt-1 text-sm text-gray-700">Survey Questions</div>
               </div>

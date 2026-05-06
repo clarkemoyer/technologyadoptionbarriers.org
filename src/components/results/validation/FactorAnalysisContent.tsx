@@ -52,6 +52,12 @@ type SampleEntry = {
     n_barriers: number
     [key: string]: unknown
   }
+  // New keys from PR #1837 (issue #1839 surfaces them on this page)
+  subgroup_discriminant_validity?: Record<string, unknown>
+  subgroup_standalone_validation?: Record<string, unknown>
+  barriers_3f_cross_validation?: Record<string, unknown>
+  multigroup_3f_smb_vs_ent?: Record<string, unknown>
+  esem_3factor?: Record<string, unknown>
 }
 
 type NormalizedData = {
@@ -203,6 +209,362 @@ const THREE_GROUP_COLORS = [
   { color: 'bg-cyan-50 border-cyan-400', headerColor: 'bg-cyan-600' },
   { color: 'bg-pink-50 border-pink-400', headerColor: 'bg-pink-600' },
 ]
+
+/* ══════════════════════════════════════════════════════════════════
+   SECTION HELPERS for Multi-Group + ESEM (added per issue #1839)
+══════════════════════════════════════════════════════════════════ */
+
+function fmtNum(v: unknown, digits = 3): string {
+  if (typeof v !== 'number' || !Number.isFinite(v)) return DATA_UNAVAILABLE
+  return v.toFixed(digits)
+}
+
+function isNonPrimary(d: Record<string, unknown> | undefined): boolean {
+  return d != null && d.skipped === true
+}
+
+/** Multi-group SEM (SMB vs Enterprise) + cross-validation Tucker congruence. */
+function MultiGroupSection({
+  multigroup,
+  crossVal,
+}: {
+  multigroup: Record<string, unknown> | undefined
+  crossVal: Record<string, unknown> | undefined
+}) {
+  const mgSkipped = isNonPrimary(multigroup)
+  const cvSkipped = isNonPrimary(crossVal)
+  if ((!multigroup || mgSkipped) && (!crossVal || cvSkipped)) {
+    return null
+  }
+  return (
+    <section className={SECTION_CLASSES}>
+      <h2 className={H2_CLASSES}>Level 4: Multi-Group Stability and Cross-Validation</h2>
+      <p className={PARAGRAPH_CLASSES}>
+        The 3-factor structure must hold across organizational subgroups (SMB vs Enterprise) and
+        across random splits of the sample to support generalization. Multi-group CFA reports
+        per-group fit; cross-validation reports Tucker congruence between independently estimated
+        factor solutions.
+      </p>
+
+      {multigroup && !mgSkipped && (
+        <div className="mb-4">
+          <h3 className={H3_CLASSES}>Multi-group 3F CFA (SMB vs Enterprise)</h3>
+          <MultiGroupTable data={multigroup} />
+        </div>
+      )}
+
+      {crossVal && !cvSkipped && (
+        <div>
+          <h3 className={H3_CLASSES}>50/50 split-half cross-validation</h3>
+          <CrossValidationTable data={crossVal} />
+          <p className="mt-2 text-xs text-gray-600 font-sans">
+            Tucker&apos;s congruence coefficient (Lorenzo-Seva &amp; ten Berge, 2006): values &ge;
+            .95 indicate factor equivalence, .85 to .95 indicate fair similarity, &lt; .85 indicate
+            dissimilar factors.
+          </p>
+        </div>
+      )}
+    </section>
+  )
+}
+
+function MultiGroupTable({ data }: { data: Record<string, unknown> }) {
+  const groups = Object.entries(data).filter(([k]) => k.startsWith('Group_'))
+  if (groups.length === 0) {
+    return <p className="text-sm text-amber-700 font-sans">No per-group fit data available.</p>
+  }
+  return (
+    <div className="overflow-x-auto">
+      <table className="w-full text-sm font-sans border-collapse">
+        <thead>
+          <tr className="bg-gray-100">
+            <th scope="col" className="text-left px-3 py-2 border">
+              Group
+            </th>
+            <th scope="col" className="text-right px-3 py-2 border">
+              N
+            </th>
+            <th scope="col" className="text-right px-3 py-2 border">
+              CFI
+            </th>
+            <th scope="col" className="text-right px-3 py-2 border">
+              RMSEA
+            </th>
+            <th scope="col" className="text-right px-3 py-2 border">
+              chi-squared
+            </th>
+            <th scope="col" className="text-right px-3 py-2 border">
+              df
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {groups.map(([key, val], i) => {
+            const v = val as Record<string, unknown>
+            const fit = (v.fit as Record<string, unknown>) ?? v
+            return (
+              <tr key={key} className={i % 2 === 1 ? 'bg-gray-50' : ''}>
+                <td className="px-3 py-1.5 border font-medium">
+                  {key === 'Group_1'
+                    ? 'SMB (n<1000)'
+                    : key === 'Group_0'
+                      ? 'Enterprise (n>=1000)'
+                      : key}
+                </td>
+                <td className="text-right px-3 py-1.5 border font-mono">
+                  {(v.n_listwise as number) ?? (v.n as number) ?? 'n/a'}
+                </td>
+                <td className="text-right px-3 py-1.5 border font-mono">{fmtNum(fit.cfi)}</td>
+                <td className="text-right px-3 py-1.5 border font-mono">{fmtNum(fit.rmsea)}</td>
+                <td className="text-right px-3 py-1.5 border font-mono">{fmtNum(fit.chi2, 2)}</td>
+                <td className="text-right px-3 py-1.5 border font-mono">
+                  {(fit.df as number) ?? 'n/a'}
+                </td>
+              </tr>
+            )
+          })}
+        </tbody>
+      </table>
+    </div>
+  )
+}
+
+function CrossValidationTable({ data }: { data: Record<string, unknown> }) {
+  const tucker = data.tucker_congruence as number | null | undefined
+  const nCal = data.n_calibration as number | undefined
+  const nVal = data.n_validation as number | undefined
+  const cal = (data.calibration as Record<string, unknown>) ?? {}
+  const val = (data.validation as Record<string, unknown>) ?? {}
+  const interp = data.interpretation as string | undefined
+  return (
+    <div>
+      <div className="overflow-x-auto">
+        <table className="w-full text-sm font-sans border-collapse">
+          <thead>
+            <tr className="bg-gray-100">
+              <th scope="col" className="text-left px-3 py-2 border">
+                Split
+              </th>
+              <th scope="col" className="text-right px-3 py-2 border">
+                N
+              </th>
+              <th scope="col" className="text-right px-3 py-2 border">
+                CFI
+              </th>
+              <th scope="col" className="text-right px-3 py-2 border">
+                TLI
+              </th>
+              <th scope="col" className="text-right px-3 py-2 border">
+                RMSEA
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td className="px-3 py-1.5 border font-medium">Calibration</td>
+              <td className="text-right px-3 py-1.5 border font-mono">{nCal ?? 'n/a'}</td>
+              <td className="text-right px-3 py-1.5 border font-mono">{fmtNum(cal.cfi)}</td>
+              <td className="text-right px-3 py-1.5 border font-mono">{fmtNum(cal.tli)}</td>
+              <td className="text-right px-3 py-1.5 border font-mono">{fmtNum(cal.rmsea)}</td>
+            </tr>
+            <tr className="bg-gray-50">
+              <td className="px-3 py-1.5 border font-medium">Validation</td>
+              <td className="text-right px-3 py-1.5 border font-mono">{nVal ?? 'n/a'}</td>
+              <td className="text-right px-3 py-1.5 border font-mono">{fmtNum(val.cfi)}</td>
+              <td className="text-right px-3 py-1.5 border font-mono">{fmtNum(val.tli)}</td>
+              <td className="text-right px-3 py-1.5 border font-mono">{fmtNum(val.rmsea)}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      {typeof tucker === 'number' && (
+        <p className="mt-2 text-base text-gray-900 font-sans">
+          Tucker&apos;s congruence:{' '}
+          <span className="font-mono font-semibold">{tucker.toFixed(3)}</span>
+          {tucker >= 0.95 && (
+            <span className="ml-2 inline-block px-2 py-0.5 rounded text-xs font-bold bg-green-100 text-green-800 border border-green-200">
+              Factor equivalence
+            </span>
+          )}
+          {tucker < 0.95 && tucker >= 0.85 && (
+            <span className="ml-2 inline-block px-2 py-0.5 rounded text-xs font-bold bg-amber-100 text-amber-800 border border-amber-200">
+              Fair similarity
+            </span>
+          )}
+          {tucker < 0.85 && (
+            <span className="ml-2 inline-block px-2 py-0.5 rounded text-xs font-bold bg-red-100 text-red-800 border border-red-200">
+              Dissimilar factors
+            </span>
+          )}
+          {interp && <span className="ml-2 text-xs text-gray-600 italic">({interp})</span>}
+        </p>
+      )}
+    </div>
+  )
+}
+
+/**
+ * Detect items whose dominant absolute loading index differs from primary_factor.
+ * primary_factor 'F1' -> index 0, 'F2' -> index 1, 'F3' -> index 2.
+ * Expects loadings to be an array of finite numbers.
+ */
+function detectESEMReassignments(
+  items: Record<string, { loadings: number[]; primary_factor: string }>
+): Array<{ item: string; primary: string; dominant: string; loading: number }> {
+  const factorNames = ['F1', 'F2', 'F3']
+  return Object.entries(items).flatMap(([itemId, d]) => {
+    const loadings = d.loadings
+    if (!Array.isArray(loadings) || loadings.length === 0) return []
+    const domIdx = loadings.reduce((best, v, i) => {
+      const bestAbs = Math.abs(loadings[best] ?? 0)
+      return Math.abs(v ?? 0) > bestAbs ? i : best
+    }, 0)
+    const domFactor = factorNames[domIdx] ?? `F${domIdx + 1}`
+    if (domFactor === d.primary_factor) return []
+    return [
+      { item: itemId, primary: d.primary_factor, dominant: domFactor, loading: loadings[domIdx] },
+    ]
+  })
+}
+
+/** Exploratory Structural Equation Modeling (ESEM) section.
+ *  Renders from the actual esem_3factor JSON shape: n_listwise,
+ *  variance_explained_per_factor, factor_correlations, and per-item loadings.
+ */
+function ESEMSection({ esem }: { esem: Record<string, unknown> | undefined }) {
+  if (!esem || isNonPrimary(esem)) {
+    return null
+  }
+
+  const nListwise = esem.n_listwise as number | undefined
+  const varPerFactor = esem.variance_explained_per_factor as number[] | undefined
+  const cumVar = esem.cumulative_variance as number | undefined
+  const factorCorr = esem.factor_correlations as number[][] | undefined
+  const rawItems = esem.items as
+    | Record<string, { loadings: number[]; primary_factor: string }>
+    | undefined
+
+  const reassignments = rawItems ? detectESEMReassignments(rawItems) : []
+  const factorLabels = ['F1', 'F2', 'F3']
+
+  return (
+    <section className={SECTION_CLASSES}>
+      <h2 className={H2_CLASSES}>
+        Level 5: ESEM Sensitivity (Exploratory Structural Equation Modeling)
+      </h2>
+      <p className={PARAGRAPH_CLASSES}>
+        ESEM (Asparouhov &amp; Muthen, 2009) sits between EFA and CFA: it estimates a target-rotated
+        factor solution with all cross-loadings free. Items whose dominant loading shifts relative
+        to the canonical 3-group assignment are candidates for reassignment in future revisions.
+      </p>
+
+      {/* Summary row */}
+      <div className="flex flex-wrap gap-4 mb-4 text-sm font-sans">
+        {nListwise != null && (
+          <div className="bg-gray-50 rounded border border-gray-200 px-3 py-2">
+            <span className="text-xs text-gray-600 block">N (listwise)</span>
+            <span className="font-mono font-semibold">{nListwise}</span>
+          </div>
+        )}
+        {cumVar != null && (
+          <div className="bg-gray-50 rounded border border-gray-200 px-3 py-2">
+            <span className="text-xs text-gray-600 block">Cumulative variance</span>
+            <span className="font-mono font-semibold">{(cumVar * 100).toFixed(1)}%</span>
+          </div>
+        )}
+      </div>
+
+      {/* Variance explained per factor */}
+      {Array.isArray(varPerFactor) && varPerFactor.length > 0 && (
+        <div className="mb-4">
+          <h3 className={H3_CLASSES}>Variance Explained per Factor</h3>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm font-sans border-collapse">
+              <thead>
+                <tr className="bg-gray-100">
+                  <th scope="col" className="text-left px-3 py-2 border">
+                    Factor
+                  </th>
+                  <th scope="col" className="text-right px-3 py-2 border">
+                    Variance Explained
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {varPerFactor.map((v, i) => (
+                  <tr key={i} className={i % 2 === 1 ? 'bg-gray-50' : ''}>
+                    <td className="px-3 py-1.5 border">{factorLabels[i] ?? `F${i + 1}`}</td>
+                    <td className="text-right px-3 py-1.5 border font-mono">
+                      {(v * 100).toFixed(1)}%
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+
+      {/* Factor correlations */}
+      {Array.isArray(factorCorr) && factorCorr.length > 0 && (
+        <div className="mb-4">
+          <h3 className={H3_CLASSES}>Factor Correlations</h3>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm font-sans border-collapse">
+              <thead>
+                <tr className="bg-gray-100">
+                  <th scope="col" className="px-3 py-2 border" />
+                  {factorCorr[0].map((_, j) => (
+                    <th key={j} scope="col" className="text-right px-3 py-2 border">
+                      {factorLabels[j] ?? `F${j + 1}`}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {factorCorr.map((row, i) => (
+                  <tr key={i} className={i % 2 === 1 ? 'bg-gray-50' : ''}>
+                    <th scope="row" className="text-left px-3 py-1.5 border font-medium">
+                      {factorLabels[i] ?? `F${i + 1}`}
+                    </th>
+                    {row.map((v, j) => (
+                      <td key={j} className="text-right px-3 py-1.5 border font-mono">
+                        {i === j ? '—' : fmtNum(v)}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+
+      {/* Reassignments */}
+      {reassignments.length > 0 ? (
+        <div>
+          <h3 className={H3_CLASSES}>Suggested item reassignments (dominant loading)</h3>
+          <ul className="text-sm font-sans list-disc list-inside space-y-1">
+            {reassignments.map((r) => (
+              <li key={r.item}>
+                <span className="font-mono">{r.item}</span>: {r.primary} -&gt; {r.dominant}{' '}
+                (dominant loading <span className="font-mono">{r.loading.toFixed(3)}</span>)
+              </li>
+            ))}
+          </ul>
+          <p className="mt-2 text-xs text-gray-600 font-sans">
+            These are exploratory suggestions, not retroactive recodings. The canonical 3-group
+            assignment in Level 3 above is preserved for the dissertation analyses.
+          </p>
+        </div>
+      ) : (
+        <p className="text-sm text-gray-600 font-sans italic">
+          No items shifted dominant loadings under ESEM relative to the canonical 3-group structure.
+        </p>
+      )}
+    </section>
+  )
+}
 
 /* ══════════════════════════════════════════════════════════════════
    MAIN COMPONENT
@@ -617,6 +979,15 @@ export function FactorAnalysisContent({ data, variant }: Props) {
             </table>
           </div>
         </section>
+
+        {/* == LEVEL 4: MULTI-GROUP CFA + CROSS-VALIDATION (added per #1839) == */}
+        <MultiGroupSection
+          multigroup={sample.multigroup_3f_smb_vs_ent as Record<string, unknown> | undefined}
+          crossVal={sample.barriers_3f_cross_validation as Record<string, unknown> | undefined}
+        />
+
+        {/* == LEVEL 5: ESEM SENSITIVITY (added per #1839) == */}
+        <ESEMSection esem={sample.esem_3factor as Record<string, unknown> | undefined} />
 
         {/* == INTERPRETATION == */}
         <section className={SECTION_CLASSES}>

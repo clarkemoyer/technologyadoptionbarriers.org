@@ -1,6 +1,14 @@
-# Extra dependencies for tabs_v2_validation.py (EFA/CFA, omega, KMO/Bartlett)
+# Extra dependencies for tabs_v2_validation.py
+# (EFA/CFA, omega, KMO/Bartlett, mediation, IRT, DIF, ESEM)
 # Install with: pip install -r requirements-validation.txt
 # (requires base requirements.txt first)
+#
+# girth and pingouin support the extended statistical validation block
+# (IRT graded response, DIF, mediation analysis). These run unconditionally
+# on every daily pipeline invocation - both live and frozen CRP-200 -
+# so the dependencies are required, not optional.
 
 factor_analyzer==0.5.1
 semopy==2.3.11
+girth==0.8.0
+pingouin==0.6.1

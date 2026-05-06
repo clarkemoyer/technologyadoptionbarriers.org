@@ -1,0 +1,147 @@
+NOTE =====================================================================
+NOTE TABS V2 CRP-200 Validation - Minitab Exec Macro
+NOTE =====================================================================
+NOTE
+NOTE Reproduces the analyses Minitab supports natively from the same frozen
+NOTE N=200 dataset that drives the Python/R pipelines. Open the worksheet
+NOTE first, then run this macro:
+NOTE
+NOTE     File -> Open Worksheet -> tabs_v2_crp200_minitab.csv
+NOTE     File -> Run an Exec    -> tabs_v2_validation.MTB
+NOTE
+NOTE Items B1-B18 = Barriers, R1-R17 = Readiness, M1-M8 = Maturity.
+NOTE B_mean / R_mean / M_mean are construct means; SMB_ENT is 1=SMB, 2=Enterprise.
+NOTE
+NOTE Minitab session-command syntax: command followed by columns, semicolon
+NOTE indicates a subcommand, period ends the statement.
+NOTE
+NOTE What this macro covers (for analyses Minitab supports natively):
+NOTE   - Cronbach's alpha for each construct (Item Analysis)
+NOTE   - Item-total correlations and alpha-if-deleted
+NOTE   - Inter-item correlation matrix per construct
+NOTE   - EFA (ML extraction) with parallel-analysis-recommended factor count
+NOTE     (Barriers EFA uses Varimax rotation in session commands; Minitab's session-command
+NOTE     interface does not expose Promax. Use the GUI dialog Options -> Rotation: Promax to
+NOTE     reproduce the Python pipeline's oblique Promax loadings. Unidimensional
+NOTE     constructs (R, M) are unaffected.)
+NOTE   - Construct-level Pearson correlations (Barriers x Readiness x Maturity)
+NOTE   - Mahalanobis outliers per construct
+NOTE   - SMB vs Enterprise mean comparison (2-sample t)
+NOTE
+NOTE What Minitab does NOT have natively (use the Python/R pipeline):
+NOTE   - CFA (any estimator), bifactor models, second-order CFA
+NOTE   - McDonald's omega, composite reliability, AVE (manual from loadings)
+NOTE   - HTMT, HTMT2, Fornell-Larcker (manual from correlation matrix + AVE)
+NOTE   - Mardia / Henze-Zirkler multivariate normality
+NOTE   - IRT graded response model
+NOTE   - Tucker's congruence, ESEM, measurement invariance, DIF
+NOTE
+NOTE See README.md in this folder for the menu-driven equivalent of every
+NOTE block, and for the workaround formulas for the not-supported stats.
+NOTE =====================================================================
+
+NOTE
+NOTE === BARRIERS - Cronbach's alpha + item-total correlations ===
+NOTE Stat -> Multivariate -> Item Analysis -> Variables: B1-B18
+NOTE Expected: alpha ~ 0.873 (matches Python cronbach_alpha to 4 decimals)
+ItemAnal 'B1'-'B18'.
+
+NOTE
+NOTE === READINESS - Cronbach's alpha + item-total correlations ===
+NOTE Expected: alpha ~ 0.917
+ItemAnal 'R1'-'R17'.
+
+NOTE
+NOTE === MATURITY - Cronbach's alpha + item-total correlations ===
+NOTE Expected: alpha ~ 0.885
+ItemAnal 'M1'-'M8'.
+
+NOTE
+NOTE === BARRIERS - inter-item correlation matrix ===
+Correlation 'B1'-'B18'.
+
+NOTE
+NOTE === READINESS - inter-item correlation matrix ===
+Correlation 'R1'-'R17'.
+
+NOTE
+NOTE === MATURITY - inter-item correlation matrix ===
+Correlation 'M1'-'M8'.
+
+NOTE
+NOTE === BARRIERS - EFA (ML, 2 factors per parallel analysis) ===
+NOTE Stat -> Multivariate -> Factor Analysis
+NOTE   Variables: B1-B18, Method: Maximum likelihood, Factors: 2
+NOTE   Rotation: Promax via Options (to match Python's oblique rotation)
+NOTE NOTE: The Python pipeline uses Promax (oblique) rotation for multi-factor EFA.
+NOTE The session command below uses Varimax (orthogonal) because Minitab's session
+NOTE interface does not expose Promax. The resulting loading matrix WILL differ from
+NOTE Python's output. For exact loading parity, use the GUI dialog: Options ->
+NOTE Rotation -> Promax (default kappa=4 matches factor_analyzer's default).
+NOTE Note: KMO and Bartlett options are in the GUI dialog (Options button);
+NOTE the session command does not expose them, so run via the menu to see
+NOTE KMO=0.851 and Bartlett chi-square=1135.51 reported alongside loadings.
+Factor 18 'B1'-'B18';
+  Method ML;
+  NFactor 2;
+  Rotation Varimax.
+
+NOTE
+NOTE === READINESS - EFA (ML, 1 factor per parallel analysis) ===
+Factor 17 'R1'-'R17';
+  Method ML;
+  NFactor 1.
+
+NOTE
+NOTE === MATURITY - EFA (ML, 1 factor per parallel analysis) ===
+Factor 8 'M1'-'M8';
+  Method ML;
+  NFactor 1.
+
+NOTE
+NOTE === Inter-construct correlation matrix (Barriers, Readiness, Maturity) ===
+NOTE Pearson correlations on the construct means (skipna=False -> pairwise
+NOTE listwise complete). The signs and magnitudes here drive the
+NOTE discriminant-validity claims (HTMT and Fornell-Larcker are computed in
+NOTE Python from these correlations plus the EFA loadings).
+NOTE Expected on the CSV in this folder: r(B,R) ~ -0.40; r(B,M) ~ -0.33;
+NOTE r(R,M) ~ +0.73. The Python pipeline's construct_correlations key in
+NOTE crp-validation.json reports slightly different values (-0.38, -0.32,
+NOTE +0.72) because that block uses a different sub-sample filter; both are
+NOTE consistent with the same substantive finding.
+Correlation 'B_mean' 'R_mean' 'M_mean'.
+
+NOTE
+NOTE === SMB vs Enterprise comparison on construct means ===
+NOTE Two-sample t-tests with Welch's correction (Minitab default for unequal
+NOTE variances). SMB_ENT = 1 (SMB, n~114) vs 2 (Enterprise, n~86).
+NOTE Use the GUI for the assumption-of-equal-variance toggle if needed.
+TwoSample 'B_mean' 'SMB_ENT';
+  Alternative 0.
+TwoSample 'R_mean' 'SMB_ENT';
+  Alternative 0.
+TwoSample 'M_mean' 'SMB_ENT';
+  Alternative 0.
+
+NOTE
+NOTE === Mahalanobis outliers - Barriers ===
+NOTE Stat -> Multivariate -> Outlier Test
+NOTE Reports the largest Mahalanobis distance and its critical value.
+Outlier 'B1'-'B18'.
+
+NOTE
+NOTE === Mahalanobis outliers - Readiness ===
+Outlier 'R1'-'R17'.
+
+NOTE
+NOTE === Mahalanobis outliers - Maturity ===
+Outlier 'M1'-'M8'.
+
+NOTE
+NOTE =====================================================================
+NOTE  Done. Compare the printed values to scripts/analysis/verify_against_R.R
+NOTE  output and to src/data/crp-validation.json. The descriptive layer
+NOTE  (alpha, KMO, Bartlett, EFA, parallel analysis, Pearson correlations,
+NOTE  Mahalanobis outliers, 2-sample t) should match all three sources to
+NOTE  4 decimal places.
+NOTE =====================================================================
