@@ -377,8 +377,7 @@ def main():
         # Fail fast so an incomplete index never silently produces misleading results.
         error_msg = (
             f"{len(fetch_warnings)} collection(s) could not be fetched; "
-            "the Zotero index may be incomplete. "
-            + " | ".join(fetch_warnings)
+            f"the Zotero index may be incomplete. {' | '.join(fetch_warnings)}"
         )
         _write_error_report(report_path, pages, pages_with_refs, pages_without_refs, total_refs, error_msg)
         print(f"ERROR: {error_msg}")
