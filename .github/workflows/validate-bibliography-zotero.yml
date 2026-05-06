@@ -57,6 +57,15 @@ jobs:
           git diff --name-only -z --diff-filter=D "$MERGE_BASE" pr-head \
             -- ':(glob)src/app/bibliography-*/page.tsx' | xargs -r0 rm -f
 
+          # Remove old paths for RENAMED pages: base-branch copy persists until
+          # explicitly deleted, which would cause double-counting.  name-status
+          # with --diff-filter=R outputs "R{score}\told\tnew" lines; awk extracts
+          # the old path (field 2) for deletion.  Bibliography paths never contain
+          # tabs or newlines so plain (non -z) output is safe to parse here.
+          git diff --name-status --diff-filter=R "$MERGE_BASE" pr-head \
+            -- ':(glob)src/app/bibliography-*/page.tsx' \
+            | awk '{print $2}' | xargs -r rm -f
+
           # Overlay added/modified/renamed pages from PR head; untouched base pages stay in place
           git diff --name-only -z --diff-filter=AMR "$MERGE_BASE" pr-head \
             -- ':(glob)src/app/bibliography-*/page.tsx' | xargs -r0 git checkout pr-head --
@@ -73,7 +82,7 @@ jobs:
           python-version: '3.12'
 
       - name: Install pyzotero
-        run: pip install pyzotero==1.11.0
+        run: python -m pip install pyzotero==1.11.0
 
       - name: Run bibliography-Zotero validation
         id: validate
