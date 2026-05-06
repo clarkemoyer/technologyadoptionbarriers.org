@@ -256,9 +256,15 @@ def main() -> int:
     long_essays = 0
     candidate_rows: list[dict[str, str]] = []
 
+    # Filter out Qualtrics metadata rows. Raw exports include two rows after
+    # the header (question text + ImportId JSON). The public dataset has them
+    # stripped. Real ResponseIds are either Qualtrics native (`R_` prefix) or
+    # 32-char hex (de-identified). Anything else is metadata noise.
+    valid_id = re.compile(r"^(R_[A-Za-z0-9]{8,}|[0-9a-f]{32})$")
+
     for r in rows:
         response_id = (r.get(response_id_col) or "").strip()
-        if not response_id or not response_id.startswith("R_"):
+        if not valid_id.match(response_id):
             continue
         total_responses += 1
         text = (r.get("Q74_Feedback") or "").strip()
