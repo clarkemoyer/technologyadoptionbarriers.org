@@ -203,6 +203,19 @@ DEFAULT_RESEARCHER_ID = "68264cbfdeb62546fe6060fe"
 DEFAULT_SINCE = "2025-01-01T00:00:00Z"
 
 
+def _msg_ts(m: dict) -> str:
+    """Return the message's ISO timestamp from whichever field Prolific
+    populated. The /messages/?created_after= endpoint uses sent_at /
+    created_at; the /messages/?user_id= endpoint we use for full-history
+    fetches uses datetime_created. Returns "" if none are present."""
+    return (
+        m.get("sent_at")
+        or m.get("created_at")
+        or m.get("datetime_created")
+        or ""
+    )
+
+
 def _require_env(name: str) -> str:
     val = os.environ.get(name)
     if not val:
@@ -322,33 +335,45 @@ def main() -> int:
             f"(dropped {before - len(messages)} from other studies)."
         )
 
-    # Optional post-fetch filter: keep only messages on or after `since`,
-    # so the operator can scope a re-run without re-pulling everything.
+    # Write the raw dump BEFORE the since filter so the operator can
+    # always inspect the unfiltered API response if a downstream filter
+    # over-prunes (it has previously - the per-user endpoint returns
+    # timestamps under different field names than /messages/?created_after).
+    with raw_path.open("w", encoding="utf-8") as f:
+        json.dump(messages, f, indent=2, default=str)
+    print(f"Raw dump (pre-since): {raw_path}")
+
+    # Optional post-fetch filter: keep only messages on or after `since`.
+    # `_msg_ts` is module-level so the sort/transcript/csv code below
+    # uses the same logic. If a message has no timestamp at all we KEEP
+    # it (better to over-include in the local PII review file than to
+    # silently drop everything).
     if since:
         before = len(messages)
-        messages = [
-            m for m in messages
-            if (m.get("sent_at") or m.get("created_at") or "") >= since
-        ]
-        print(f"After since-filter ({since}): {len(messages)} messages "
-              f"(dropped {before - len(messages)}).")
+        messages = [m for m in messages if not _msg_ts(m) or _msg_ts(m) >= since]
+        print(
+            f"After since-filter ({since}): {len(messages)} messages "
+            f"(dropped {before - len(messages)})."
+        )
+        if before > 0 and len(messages) == 0:
+            print(
+                "::warning::since-filter dropped every message. Inspect "
+                "the raw dump - the per-user endpoint may use a different "
+                "timestamp field that needs to be added to _msg_ts()."
+            )
 
     print(f"API returned {len(messages)} messages total.")
 
-    with raw_path.open("w", encoding="utf-8") as f:
-        json.dump(messages, f, indent=2, default=str)
-    print(f"Raw dump: {raw_path}")
-
     inbound = [m for m in messages if m.get("sender_id") != researcher_id]
     outbound = [m for m in messages if m.get("sender_id") == researcher_id]
-    inbound.sort(key=lambda m: m.get("sent_at") or m.get("created_at") or "")
+    inbound.sort(key=lambda m: _msg_ts(m))
 
     by_channel: dict[str, list[dict]] = defaultdict(list)
     for m in messages:
         ch = m.get("channel_id") or "unknown"
         by_channel[ch].append(m)
     for ch in by_channel:
-        by_channel[ch].sort(key=lambda m: m.get("sent_at") or m.get("created_at") or "")
+        by_channel[ch].sort(key=lambda m: _msg_ts(m))
     channels_with_inbound = sum(
         1
         for msgs in by_channel.values()
@@ -367,7 +392,7 @@ def main() -> int:
         ])
         for m in inbound:
             body = (m.get("body") or "").strip()
-            ts = (m.get("sent_at") or m.get("created_at") or "")[:19]
+            ts = (_msg_ts(m))[:19]
             pid = m.get("sender_id") or ""
             ch = m.get("channel_id") or ""
             sid = (m.get("data") or {}).get("study_id") or ""
@@ -387,7 +412,7 @@ def main() -> int:
         (ch for ch, msgs in by_channel.items()
          if any(m.get("sender_id") != researcher_id for m in msgs)),
         key=lambda ch: min(
-            (m.get("sent_at") or m.get("created_at") or "")
+            (_msg_ts(m))
             for m in by_channel[ch]
             if m.get("sender_id") != researcher_id
         ),
@@ -419,7 +444,7 @@ def main() -> int:
             f.write(f"## Channel `{ch}` -- participant `{participant_pid}`\n\n")
             for m in msgs:
                 who = "RESEARCHER" if m.get("sender_id") == researcher_id else "PARTICIPANT"
-                ts = (m.get("sent_at") or m.get("created_at") or "")[:19]
+                ts = (_msg_ts(m))[:19]
                 body = (m.get("body") or "").strip()
                 f.write(f"- **[{ts}] [{who}]** ({len(body)} chars)\n")
                 for line in body.splitlines() or [""]:
@@ -455,7 +480,7 @@ def main() -> int:
             theme_msgs.sort(key=lambda m: -(len((m.get("body") or "").strip())))
             for m in theme_msgs[:50]:
                 body = (m.get("body") or "").strip()
-                ts = (m.get("sent_at") or m.get("created_at") or "")[:19]
+                ts = (_msg_ts(m))[:19]
                 pid = m.get("sender_id") or "?"
                 risk, flags = pii_assessment(body)
                 f.write(f"### `{pid}` @ {ts} -- {len(body)} chars -- risk={risk}\n\n")
