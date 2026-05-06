@@ -218,10 +218,10 @@ def find_collection_keys_by_name(zot, target_names: list[str]) -> list[str]:
     for coll in all_collections:
         name = coll.get("data", {}).get("name", "")
         # Zotero collection objects expose the key at the top level; fall back to
-        # data.key for any non-standard responses.  Use explicit None check so
-        # that an empty-string top-level key still defers to data.key.
-        _raw_key = coll.get("key")
-        key = _raw_key if _raw_key is not None else coll.get("data", {}).get("key", "")
+        # data.key for any non-standard responses.  Treat both None and ""
+        # as missing so that an empty-string top-level key defers to data.key.
+        _raw_key = coll.get("key") or ""
+        key = _raw_key if _raw_key else coll.get("data", {}).get("key", "")
         if key and any(t.lower() in name.lower() for t in target_names):
             found.append(key)
     return found
