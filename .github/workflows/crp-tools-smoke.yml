@@ -77,13 +77,13 @@ jobs:
           # README. A single-file hash would miss nondeterminism in the other
           # outputs that build_example_workspace.py generates.
           # Capture per-file hashes before and after for a useful diff on failure.
-          per_file_before=$(find "$fixture" -type f | LC_ALL=C sort | xargs sha256sum)
+          per_file_before=$(find "$fixture" -type f -print0 | LC_ALL=C sort -z | xargs -0 sha256sum)
           before=$(echo "$per_file_before" | sha256sum | awk '{print $1}')
 
           # Regenerate
           python scripts/crp-document-tools/fixtures/build_example_workspace.py
 
-          per_file_after=$(find "$fixture" -type f | LC_ALL=C sort | xargs sha256sum)
+          per_file_after=$(find "$fixture" -type f -print0 | LC_ALL=C sort -z | xargs -0 sha256sum)
           after=$(echo "$per_file_after" | sha256sum | awk '{print $1}')
 
           if [ "$before" != "$after" ]; then

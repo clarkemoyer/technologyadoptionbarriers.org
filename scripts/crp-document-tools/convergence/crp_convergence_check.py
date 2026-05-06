@@ -91,18 +91,27 @@ def extract_pipeline_stats(repo_path):
         else:
             sample = samples[0]
 
-        # Reliability metrics per construct
+        # Reliability metrics per construct.
+        # crp-validation.json stores construct blocks under capitalized keys
+        # ("Barriers", "Readiness", "Maturity") with cronbach_alpha (not alpha),
+        # mcdonalds_omega (not omega_total), and kmo_bartlett.kmo_overall (not kmo).
+        # Fall back to lowercase keys so the extractor also handles any
+        # older schema versions that used lowercase.
         for construct in ['Barriers', 'Readiness', 'Maturity']:
-            key = construct.lower()
-            if key in sample:
-                data = sample[key]
-                stats[f'alpha_{construct}'] = data.get('alpha')
+            data = sample.get(construct) or sample.get(construct.lower())
+            if data:
+                stats[f'alpha_{construct}'] = data.get('cronbach_alpha') or data.get('alpha')
                 stats[f'cr_{construct}'] = data.get('composite_reliability')
                 stats[f'ave_{construct}'] = data.get('ave')
-                stats[f'omega_total_{construct}'] = data.get('omega_total')
+                stats[f'omega_total_{construct}'] = (
+                    data.get('mcdonalds_omega') or data.get('omega_total')
+                )
                 stats[f'omega_h_{construct}'] = data.get('omega_hierarchical')
                 stats[f'split_half_{construct}'] = data.get('split_half')
-                stats[f'kmo_{construct}'] = data.get('kmo')
+                kmo_bartlett = data.get('kmo_bartlett') or {}
+                stats[f'kmo_{construct}'] = (
+                    kmo_bartlett.get('kmo_overall') if kmo_bartlett else data.get('kmo')
+                )
                 stats[f'items_{construct}'] = data.get('items')
                 # Item-total correlations
                 itc = data.get('item_total_correlations', {})
@@ -114,10 +123,20 @@ def extract_pipeline_stats(repo_path):
             pair = entry.get('pair', '')
             stats[f'htmt_{pair}'] = entry.get('htmt')
 
-        # Fornell-Larcker
+        # Fornell-Larcker.
+        # The schema exposes sqrt_ave1, sqrt_ave2, abs_r, and pass per pair
+        # (no shared_variance field).  Extract each numeric field so CRP claims
+        # can be matched, and compute shared_variance = abs_r^2 as an extra key
+        # in case the CRP states the squared correlation directly.
         for entry in sample.get('fornell_larcker', []):
             pair = entry.get('pair', '')
-            stats[f'fl_{pair}'] = entry.get('shared_variance')
+            for field in ('sqrt_ave1', 'sqrt_ave2', 'abs_r'):
+                val = entry.get(field)
+                if val is not None:
+                    stats[f'fl_{pair}_{field}'] = val
+            abs_r = entry.get('abs_r')
+            if abs_r is not None:
+                stats[f'fl_{pair}_shared_variance'] = round(abs_r ** 2, 6)
 
         # Construct correlations
         corr = sample.get('construct_correlations', {})
