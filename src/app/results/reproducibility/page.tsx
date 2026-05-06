@@ -28,6 +28,10 @@ const GITHUB_TESTS_TREE_URL =
   'https://github.com/clarkemoyer/technologyadoptionbarriers.org/tree/main/scripts/analysis/tests'
 const GITHUB_TESTS_BLOB_BASE =
   'https://github.com/clarkemoyer/technologyadoptionbarriers.org/blob/main/scripts/analysis/tests'
+const GITHUB_RAW_BASE =
+  'https://github.com/clarkemoyer/technologyadoptionbarriers.org/raw/main/scripts/cross-platform-verification'
+const GITHUB_LAUNCHER_TREE_BASE =
+  'https://github.com/clarkemoyer/technologyadoptionbarriers.org/tree/main/scripts'
 
 const ReproducibleAnalysisPage = () => {
   return (
@@ -472,6 +476,155 @@ python tabs_v2_quality_audit.py <path_to_csv>
 # Validate defense presentation
 python ../validate-deck.py <path_to_csv> <path_to_pptx>`}</pre>
           </div>
+        </section>
+
+        {/* ── Cross-Platform Validation Kits ── */}
+        <section className="mb-12 text-gray-800">
+          <h2 className={H2_CLASSES}>Cross-Platform Validation Kits</h2>
+          <p className={PARAGRAPH_CLASSES}>
+            Three self-contained download bundles let a colleague reproduce the published statistics
+            in their preferred analysis tool without first installing Python, cloning the repo, or
+            wiring up dependencies. Each zip ships with the frozen N=200 CRP-2026 dataset, an
+            auto-extract launcher script, and the platform-native syntax/macros needed to run the
+            analyses end-to-end.
+          </p>
+          <p className={PARAGRAPH_CLASSES}>
+            <strong>Scope by platform:</strong> SPSS and Minitab cover the descriptive layer
+            (Cronbach&rsquo;s alpha, KMO, Bartlett, EFA, inter-construct correlations, group
+            comparisons, Mahalanobis outliers). The CFA-derived statistics (omega from CFA, CR with
+            standard errors, AVE, HTMT, HTMT2, bifactor, second-order, multigroup, measurement
+            invariance, ESEM, IRT GRM, Mardia normality) require an SEM package and live in the
+            Python kit, which mirrors the canonical TABS pipeline.
+          </p>
+
+          <div className="overflow-x-auto my-6">
+            <table className="w-full border-collapse font-sans text-sm">
+              <thead>
+                <tr className="bg-gray-100">
+                  <th className="border border-gray-300 px-4 py-2 text-left font-bold">Kit</th>
+                  <th className="border border-gray-300 px-4 py-2 text-left font-bold">
+                    Platform target
+                  </th>
+                  <th className="border border-gray-300 px-4 py-2 text-left font-bold">Coverage</th>
+                  <th className="border border-gray-300 px-4 py-2 text-left font-bold">Download</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className="border border-gray-300 px-4 py-2 font-mono text-xs">
+                    tabs_v2_validation_spss.zip
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2">IBM SPSS Statistics 31.0+</td>
+                  <td className="border border-gray-300 px-4 py-2">
+                    Descriptive psychometric layer
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2">
+                    <a
+                      href={`${GITHUB_RAW_BASE}/tabs_v2_validation_spss.zip`}
+                      className="text-blue-600 underline hover:text-blue-800"
+                      download
+                    >
+                      Download (~44 KB)
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td className="border border-gray-300 px-4 py-2 font-mono text-xs">
+                    tabs_v2_validation_minitab.zip
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2">Minitab 21+</td>
+                  <td className="border border-gray-300 px-4 py-2">
+                    Descriptive psychometric layer
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2">
+                    <a
+                      href={`${GITHUB_RAW_BASE}/tabs_v2_validation_minitab.zip`}
+                      className="text-blue-600 underline hover:text-blue-800"
+                      download
+                    >
+                      Download (~28 KB)
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td className="border border-gray-300 px-4 py-2 font-mono text-xs">
+                    tabs_v2_validation_python.zip
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2">
+                    Python 3.12+ (TABS-native canonical)
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2">
+                    Full pipeline including CFA, HTMT, IRT, multigroup
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2">
+                    <a
+                      href={`${GITHUB_RAW_BASE}/tabs_v2_validation_python.zip`}
+                      className="text-blue-600 underline hover:text-blue-800"
+                      download
+                    >
+                      Download (~84 KB)
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 className={H3_CLASSES}>Auto-extract launchers</h3>
+          <p className={PARAGRAPH_CLASSES}>
+            Each zip contains a one-click launcher that extracts the bundle, opens the right tool
+            (SPSS Production Facility, Minitab macro, or a Python virtualenv), and runs the
+            validation script with no manual setup beyond the platform license itself:
+          </p>
+          <ul className={BODY_LIST_CLASSES}>
+            <li>
+              <strong>Windows</strong>:{' '}
+              <code className="bg-gray-100 px-1 rounded text-xs">
+                0_DOUBLE_CLICK_ME_TO_START_WINDOWS.bat
+              </code>{' '}
+              -- right-click the zip, &ldquo;Extract All...&rdquo;, then double-click the launcher
+              inside the extracted folder.
+            </li>
+            <li>
+              <strong>macOS</strong>:{' '}
+              <code className="bg-gray-100 px-1 rounded text-xs">
+                0_DOUBLE_CLICK_ME_TO_START_MAC.command
+              </code>{' '}
+              -- double-click the zip in Finder, then double-click the .command file. macOS may ask
+              you to approve unsigned scripts the first time; the project source is public so you
+              can audit the launcher before approving.
+            </li>
+          </ul>
+          <p className={PARAGRAPH_CLASSES}>
+            The launcher source (and the platform-native syntax it runs) is browsable on GitHub:{' '}
+            <a
+              href={`${GITHUB_LAUNCHER_TREE_BASE}/spss`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 underline hover:text-blue-800"
+            >
+              SPSS launcher
+            </a>
+            {', '}
+            <a
+              href={`${GITHUB_LAUNCHER_TREE_BASE}/minitab`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 underline hover:text-blue-800"
+            >
+              Minitab launcher
+            </a>
+            {', and the bundle definitions in '}
+            <a
+              href={`${GITHUB_LAUNCHER_TREE_BASE}/cross-platform-verification/build_zip.py`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 underline hover:text-blue-800"
+            >
+              build_zip.py
+            </a>
+            .
+          </p>
         </section>
 
         {/* ── Test Data ── */}
