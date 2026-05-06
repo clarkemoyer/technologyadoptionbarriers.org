@@ -61,10 +61,10 @@ export const metadata: Metadata = {
       'TABS collects insights from organizational leaders to identify and overcome obstacles to technology adoption.',
     images: [
       {
-        url: '/web-app-manifest-512x512.png',
-        width: 512,
-        height: 512,
-        alt: 'Technology Adoption Barriers Survey',
+        url: '/Images/TABS-Logo-Full.png',
+        width: 1920,
+        height: 1920,
+        alt: 'Technology Adoption Barriers Survey (TABS) Logo',
       },
     ],
   },
@@ -74,7 +74,7 @@ export const metadata: Metadata = {
     title: "Technology Adoption Barriers Survey (TABS) | What's in your way?",
     description:
       'TABS collects insights from organizational leaders to identify and overcome obstacles to technology adoption.',
-    images: ['/web-app-manifest-512x512.png'],
+    images: ['/Images/TABS-Logo-Full.png'],
   },
   icons: {
     icon: [
