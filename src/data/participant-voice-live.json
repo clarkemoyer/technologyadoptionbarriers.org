@@ -1,0 +1,309 @@
+{
+  "as_of": "2026-05-06",
+  "source_question": "Q74_Feedback",
+  "source_prompt": "Open-ended feedback on the survey itself or on technology adoption barriers.",
+  "stats": {
+    "total_responses": 424,
+    "respondents_in_dataset": 630,
+    "engagement_rate_pct": 67.3,
+    "substantive_count": 129,
+    "substantive_rate_pct": 30.4,
+    "theme_distribution": {
+      "positive_meta": 79,
+      "null_short": 78,
+      "org_dynamics": 42,
+      "skills_training": 32,
+      "budget_cost": 28,
+      "ai_ml": 23,
+      "praise": 20,
+      "mentions_industry": 16,
+      "legacy_integration": 15,
+      "pace_speed": 14,
+      "security_compliance": 11,
+      "mentions_role": 10,
+      "vendor_third_party": 9,
+      "strategy_vision": 5,
+      "survey_design": 4,
+      "ask_for_more": 3,
+      "confusion": 3,
+      "cloud": 2
+    },
+    "length_distribution": {
+      "essay": 21,
+      "long": 67,
+      "medium": 140,
+      "short": 80,
+      "micro": 116
+    },
+    "length_bucket_definitions": {
+      "micro": "<= 10 chars (e.g. 'no', 'n/a')",
+      "short": "11-50 chars",
+      "medium": "51-200 chars",
+      "long": "201-500 chars",
+      "essay": "> 500 chars (mini-essay engagement level)"
+    }
+  },
+  "quotes": {
+    "praise": [
+      {
+        "id": "Pd672eb",
+        "text": "Great questionset!",
+        "char_count": 18,
+        "themes": ["praise"],
+        "edited": false
+      },
+      {
+        "id": "P40721f",
+        "text": "No, but thank you! :)",
+        "char_count": 21,
+        "themes": ["praise"],
+        "edited": false
+      },
+      {
+        "id": "Pd873e9",
+        "text": "It's all covered, all clear",
+        "char_count": 27,
+        "themes": ["positive_meta"],
+        "edited": false
+      }
+    ],
+    "insight": [
+      {
+        "id": "P47ca2d",
+        "text": "I think that, in general, local non-profit organizations are faced with difficult decisions when it comes to implementing new technology. When choosing between investing in direct service or investing in new tech, direct service provision almost always wins. What's more, ability to invest in new tech depends on funding specifically designated (or specifically UNdesignated) to support this purpose. That's a rare and valuable commodity.",
+        "char_count": 438,
+        "themes": ["budget_cost"],
+        "edited": false
+      },
+      {
+        "id": "Pf7b010",
+        "text": "I think the biggest hurdle we have is our business has a legacy mindset, we have been in business 75 years and adaption to change, specifically AI, has caused most C-level and Director levels to circle the wagons around their own involvement and staff, due to fear of AI replacing the knowledge worker part of the business, since we are in manufacturing and 90% of our workforce are labor roles and not office staff.",
+        "char_count": 416,
+        "themes": [
+          "ai_ml",
+          "legacy_integration",
+          "mentions_industry",
+          "mentions_role",
+          "skills_training"
+        ],
+        "edited": false
+      },
+      {
+        "id": "Pb622e6",
+        "text": "The survey was thorough and thoughtful. We struggle with just getting into the current century when it comes to IT! We've attempted two major ERP conversions and both failed and (believe it or not) we are still running green screens for our core sales system. It's tough to get funding and support to really upgrade even though it's discussed all the time.",
+        "char_count": 356,
+        "themes": ["budget_cost", "positive_meta"],
+        "edited": false
+      },
+      {
+        "id": "Pa7b35a",
+        "text": "The only area I would add is the significant importance that effective communication that is tailored to the various stakeholder groups plays.  I cannot overstate the value of communicating with each stakeholder group the information that is relevant to said group, along with progress reports tied back to return on investment.",
+        "char_count": 328,
+        "themes": ["org_dynamics"],
+        "edited": false
+      },
+      {
+        "id": "Pf0a4d4",
+        "text": "Legacy leadership is much more resistant than newer, younger member of leadership. We have the capacity to do it, but as long as legacy leadership, CEO level, is hesitant, it never goes anywhere. Part of it is age, part of it is just general stubbornness, part of it is fear.",
+        "char_count": 275,
+        "themes": ["legacy_integration", "mentions_role", "org_dynamics"],
+        "edited": false
+      },
+      {
+        "id": "Pf8d6f6",
+        "text": "The rising cost was mentioned, but it has become a significant barrier. In the time I've been in the role, our budget has increased 10-fold due to software platforms and services the business units require, and it shows no sign of slowing.",
+        "char_count": 239,
+        "themes": ["budget_cost"],
+        "edited": false
+      },
+      {
+        "id": "P151d96",
+        "text": "For our organization, it consists of IT for many different uses - Regulatory, Legal, R&D, Manufacturing, and Service.  Often a change made to optimize one use will negatively impact other uses.  This is a huge barrier for us.",
+        "char_count": 225,
+        "themes": ["mentions_industry"],
+        "edited": false
+      },
+      {
+        "id": "P2d2e86",
+        "text": "Besides the financial aspect, high turnover in leadership; every 2-3 years we have a new leader who wants to make their mark and will change a process that sometimes has not been fully implemented yet to something \"better.\"",
+        "char_count": 223,
+        "themes": ["org_dynamics"],
+        "edited": false
+      },
+      {
+        "id": "P42e7e6",
+        "text": "Our biggest challenge is in our new executive team and a lack of understanding of current systems and processes. They’ve engaged consultants who are incentivized only by cost savings not business optimization",
+        "char_count": 208,
+        "themes": ["budget_cost", "mentions_role"],
+        "edited": false
+      },
+      {
+        "id": "P7d2044",
+        "text": "We have experienced a major restructuring so I’m still impressed with how we are still implementing new technology!  We lost about 25% of our workforce and are still gettigg by it done. Great survey.",
+        "char_count": 199,
+        "themes": ["praise", "skills_training"],
+        "edited": false
+      },
+      {
+        "id": "Pbcf22a",
+        "text": "I don’t know that this address the rapidly changing landscape, particularly in regards to AI. I think that even the most “prepared” companies are still not quite ready for full AI adoption.",
+        "char_count": 189,
+        "themes": ["ai_ml"],
+        "edited": false
+      }
+    ],
+    "critique": [
+      {
+        "id": "P7b3146",
+        "text": "I think one of the biggest factors not mentioned here is organizational hierarchy or decision making.  In terms of my organization, different functions are allowed a lot of autonomy to lead their teams the way they see fit. This distributed model leads to some wins within the specific vertical but often clashes with other vertices ability to take advantage of the scale of our business. It might be interesting to ask questions or understand how someone taking this survey would describe their organizational characteristics and decision making.",
+        "char_count": 547,
+        "themes": ["survey_design"],
+        "edited": false
+      }
+    ],
+    "essay": [
+      {
+        "id": "P027331",
+        "text": "First of all, very interesting survey questions and topic areas.\n\nI think my organization might be similar to many others in the software field. We develop lots of cutting edge technology like AI in our products, however adopting the same types of things into the systems we use internally is a bit more problematic.\n\nThere is pressure to adopt more technology to achieve more organizational efficiency but we struggle to come up with ways to identify the right systems and how to measure the ROI. We have ended up with fragmented use cases of new technology that never should have been purchased without doing a proof on concept to see if it will do what we need it to organization-wide. \n\nI think more organizations are getting pressure from all different levels to integrate something with AI. The issue is many of the AI use cases haven't demonstrated consistent ROI. My particular area is AI related and we focus on very specific usage within our product. Going out and buying some new technology that says it has AI capability can be quite a leap of faith unless it is an established vendor.",
+        "char_count": 1097,
+        "themes": ["ai_ml", "positive_meta", "vendor_third_party"],
+        "edited": false
+      },
+      {
+        "id": "P044416",
+        "text": "One of our biggest barriers to implementing new technologies has to do with organizational culture as it pertains to \"generations\" across the organization. A lot of our older members of leadership get excited about and push new technology onto our workforce. Our older members tend to be management, and our younger workforce is more technical. Therefore, the younger folks tend to perceive new tech with a lot of skepticism and reticence. When leadership pushes or forces it, they become more skeptical. We need to do a better job of getting buy in from our tech savvy younger workforce, or should take their lead in terms of pursuing technology. One past issue we've had is our young technical workforce making recommendations, then older Boomer leadership being unwilling to learn it or purchase an enterprise license, even though all of the technical staff wanted it. It is an issue when management pushes less effective tools and fails to adopt useful tools, and when management thinks it knows better than the actual master's and PhD level experts on the ground floor.",
+        "char_count": 1074,
+        "themes": ["org_dynamics", "skills_training"],
+        "edited": false
+      },
+      {
+        "id": "Pb17105",
+        "text": "Many surveys overlook deeper organizational realities that strongly affect technology adoption, such as change fatigue from too many simultaneous initiatives, unclear role-specific use cases, and misalignment between incentives and desired behaviors. Factors like data quality and governance, integration challenges with legacy systems, and the presence of informal influencers can also quietly hinder success. Additionally, true readiness depends on continuous feedback loops, meaningful skill development (not just one-time training), and a culture that supports experimentation without fear. Without accounting for these human, cultural, and operational dimensions, assessments of adoption maturity often appear stronger than they actually are.",
+        "char_count": 747,
+        "themes": ["confusion", "legacy_integration", "org_dynamics", "skills_training"],
+        "edited": false
+      },
+      {
+        "id": "P6069a2",
+        "text": "One area I felt wasn't fully captured is the challenge of sector transition knowledge gaps. Specifically, when IT leaders move from highly regulated environments like healthcare into education there's a significant adjustment period where existing frameworks don't map cleanly onto the new context. HIPAA expertise doesn't automatically translate to FERPA fluency and the governance structures are quite different. I would also add that vendor ecosystems for small public tech schools are underserved. Enterprise vendors build for large universities or K-12 districts. Institutions our size often fall through the cracks, getting solutions that are either overbuilt and overpriced or too limited to meet our needs.",
+        "char_count": 714,
+        "themes": ["mentions_industry", "skills_training", "vendor_third_party"],
+        "edited": false
+      },
+      {
+        "id": "P0087c8",
+        "text": "we have an issue with middlee-management bottlenecks. Even when leadership is totaly on board and teams are actually open to trying new things, adoption can still kind of get stuck in the middle. A lot of middle managers are focused on short-term delivery and just keeping things running smoothly, so anything new can feel more like a risk than an opportunity. If the tool slows things down even a little at the start, it’s easy for them to fall back on what already works. And without really aligning incentives or giving them a sense of ownership in the change, they’re not super motivated to push it forward. That’s usually where adoption starts to plateau or lose signifcant momentum.",
+        "char_count": 688,
+        "themes": ["org_dynamics", "security_compliance"],
+        "edited": false
+      },
+      {
+        "id": "P467723",
+        "text": "I think one of the most significant barriers not fully captures if the generational tech gap within the skilled trades. In a midsized construction firm, our most experienced field leaders- who I desperately need for quality and safety- are the most resistant to digital tools. The physical environment of a construction site (think extreme weather, dust, and the need for high durability tools and hardware) remains a very practical hurdle for many technologies that are designed for controlled office environments. Adoption isn't just a matter of will in construction, it becomes a matter of whether the tech can survive a February morning on a freezing, wet jobsite in Ohio.",
+        "char_count": 676,
+        "themes": ["mentions_industry"],
+        "edited": false
+      },
+      {
+        "id": "Pc4009c",
+        "text": "I found this incredibly interesting as I work in the fintech SaaS space, where our goal is to get accounting and other types of firms to adopt technology. Evaluating this specific survey realizes that as an early company (less than 5 years old) we have a lot of work to do. Our largest barriers are that we do not have tech-minded leadership in a few key areas so priorities are not always focused on innovation and disrupts capabilities for us to streamline and adopt. We have a few key leaders - including myself - who know what and how to roll out processes and adopt technology but don't always have the talent to help us scale or think and drive along side us.",
+        "char_count": 665,
+        "themes": ["cloud", "org_dynamics", "skills_training", "strategy_vision", "survey_design"],
+        "edited": true
+      },
+      {
+        "id": "Pfdf9ca",
+        "text": "In addition to the areas covered in the survey, I believe there are several factors that significantly influence technology adoption, organizational readiness, and capability maturity that were not fully captured. One major barrier is employee mindset and resistance to change. Even when systems and processes are well-designed, adoption often fails if employees are not adequately trained, motivated, or incentivized to use new technologies. Closely related is the effectiveness of leadership in driving adoption; organizations with leaders who actively model technology use and communicate its value tend to have higher adoption rates than those where leadership is disengaged or inconsistent. Another critical factor is integration with existing systems. Technology that does not seamlessly fit into current workflows often leads to workarounds, low usage, or duplicated effort, which reduces the perceived value of the new tools. Additionally, ongoing support and maintenance capabilities are sometimes overlooked. Adoption is not just about implementation but also about continuous support, updates, and troubleshooting, which require dedicated resources and planning. Finally, organizational culture and maturity in digital literacy play a key role. Organizations that have a culture of experimentation, learning, and digital fluency among employees are better positioned to adopt and leverage technology successfully. Considering these additional dimensions, employee mindset, leadership engagement, integration, support capabilities, and digital culture,would provide a more holistic understanding of technology adoption challenges and organizational readiness.",
+        "char_count": 1669,
+        "themes": ["positive_meta", "org_dynamics", "skills_training", "legacy_integration"],
+        "edited": false
+      },
+      {
+        "id": "P9ca52d",
+        "text": "One important aspect that is often underexplored in surveys on technology adoption is the human and cultural dimension of change. Even when organizations have sufficient funding, infrastructure, and technical expertise, adoption can stall due to resistance rooted in fear of job displacement, lack of trust in new systems, or change fatigue from multiple concurrent initiatives. Leadership alignment and the ability to communicate a clear, compelling vision for why the technology matters are critical readiness factors that are sometimes underestimated.\n\nAnother key barrier is capability integration rather than capability availability. Many organizations invest in advanced tools but struggle to embed them into day-to-day workflows. This gap often stems from insufficient process redesign, unclear ownership, or lack of cross-functional coordination. Technology adoption is not just about deploying tools—it requires rethinking how teams operate, make decisions, and measure success.\n\nData readiness and governance maturity also deserve more emphasis. Organizations frequently underestimate the effort required to ensure data quality, interoperability, and compliance. Without strong data foundations, even the most sophisticated technologies (e.g., AI-driven systems) fail to deliver meaningful value.\n\nAdditionally, middle management enablement is a critical but overlooked factor. While senior leadership may champion transformation and frontline employees are expected to adapt, middle managers often lack the incentives, training, or clarity needed to translate strategy into execution. This layer can either accelerate or quietly hinder adoption.",
+        "char_count": 1656,
+        "themes": [
+          "org_dynamics",
+          "budget_cost",
+          "skills_training",
+          "strategy_vision",
+          "security_compliance",
+          "legacy_integration",
+          "ai_ml",
+          "confusion"
+        ],
+        "edited": false
+      },
+      {
+        "id": "P32b2d2",
+        "text": "Yes—one gap is the human and cultural side of adoption. Even with strong infrastructure, resistance to change, lack of trust in new systems, and insufficient leadership buy-in can slow or derail implementation. Employee mindset, incentives, and communication strategies often matter as much as the technology itself.\nAnother overlooked factor is skills readiness. Organizations may adopt new tools without ensuring staff have the training or time to use them effectively. This includes not just technical skills, but also data literacy and the ability to integrate tools into daily workflows.\nOperational alignment is also critical. Technology adoption can fail when it’s not well integrated into existing processes or when there’s no clear ownership and accountability. Cross-department coordination and change management planning are essential but sometimes underestimated.\nFinally, external factors like regulatory constraints, cybersecurity concerns, and vendor dependence can significantly influence adoption success. These elements affect both readiness and long-term sustainability but are not always fully explored in surveys.",
+        "char_count": 1134,
+        "themes": ["org_dynamics", "skills_training", "vendor_third_party", "pace_speed"],
+        "edited": false
+      },
+      {
+        "id": "Pbb5c6a",
+        "text": "For the most part I think everything has been covered in this survey. For my company in particular, our main hurdle has been getting older employees on board with new processes and technology, as they’re very comfortable and set in their ways. Many of our employees have been with the company for 20+ years. We’re primarily trying to advance our technologies and processes in order to keep up with competitors, so there’s been a learning curve and some resistance. Given the nature of our industry (primarily healthcare), we also have encountered a great deal of push back from employees and customers alike as it relates to cyber security and the handling of PII and other sensitive information. It’s just been a lot of changes all at once, so there’s been some growing pains.",
+        "char_count": 777,
+        "themes": [
+          "positive_meta",
+          "praise",
+          "org_dynamics",
+          "security_compliance",
+          "mentions_industry"
+        ],
+        "edited": false
+      },
+      {
+        "id": "Pe99753",
+        "text": "Timeliness. Our organization is large and there are multiple levels of stakeholders that have a voice in the decision to adopt new tech. Technology continues to advance at a faster and faster rate, but my organization's ability to make reasonably timed decisions on technology spend has not kept up, and there is some bureaucratic lag built into the system. Once new tech is onboarded, the integration with existing systems, ramp-up of training and testing, and final rollout take a long time, which makes us unable to act with the flexibility we would like. This unfortunately is part of the problem with a large company.",
+        "char_count": 622,
+        "themes": ["skills_training", "legacy_integration"],
+        "edited": false
+      },
+      {
+        "id": "Pbe4f7f",
+        "text": "A major gap is the difference between documented maturity and real execution, where processes exist but aren’t consistently followed in practice.\n\nAnother is middle management capacity and buy-in, which often determines whether initiatives actually succeed or stall.\n\nLegacy systems and technical debt also heavily limit what can realistically be implemented, regardless of strategy maturity.\n\nAdditionally, data trust can impact adoption—even strong analytics platforms fail if users don’t trust the outputs.\n\nFinally, change fatigue is a real barrier when organizations face too many simultaneous transformation efforts.",
+        "char_count": 622,
+        "themes": ["org_dynamics", "legacy_integration"],
+        "edited": false
+      },
+      {
+        "id": "P0d7cc3",
+        "text": "Could have been it could have been more specific in regards to the dependents were lack there are more maturity level in order to use these technologies in a systematic way as far as AI is concerned. Not much on a eye unless it was subsumed into the other questions it would have been helpful to hear some of those concerns because they are major concerns because I AI seems to be going leaps and downs if not just leaves and not even coming down in the amount of capability that it has now. Coupled with that whatever department is charge of that will pretty much steer the entire company",
+        "char_count": 589,
+        "themes": ["positive_meta", "ai_ml"],
+        "edited": false
+      },
+      {
+        "id": "P27fb43",
+        "text": "One area that could be explored more is the role of vendor ecosystems and third-party dependencies. Even when internal readiness is strong, reliance on external partners for integration, support, or compliance can introduce delays and misalignments. Additionally, while the survey touched on resistance to change, the underlying tension between innovation speed and operational stability is a recurring challenge; balancing agility with the need to keep existing systems running smoothly. These factors often shape adoption outcomes as much as the internal capabilities listed.",
+        "char_count": 577,
+        "themes": [
+          "org_dynamics",
+          "security_compliance",
+          "legacy_integration",
+          "vendor_third_party",
+          "pace_speed"
+        ],
+        "edited": false
+      },
+      {
+        "id": "P517434",
+        "text": "Working in education, funding for new tech adoptions and also data management and privacy for sensitive student information are top priorities and barriers. We have teachers who use AI, but don’t understand if the responses or guidance from AI are correct. There needs to be extensive training for use of these technologies but we literally have one day a year to meet with our special education staff.  The want to use tech to make teacher lives better is there, but the ability to have funding and time to provide appropriate training and very real barriers.",
+        "char_count": 560,
+        "themes": ["org_dynamics", "budget_cost", "skills_training", "ai_ml", "mentions_industry"],
+        "edited": false
+      },
+      {
+        "id": "P320894",
+        "text": "With a large organization such as the one that I work for, there are a lot of silo'd approaches because of the many different needs from agency to agency. However, if there was a system in place such as a online catalog or similar then I don't think you would have so many agencies trying to purchase different things. For example, there are email marketing platforms out there that can take care of the whole agency but because of slightly different needs, level or skill, and experience we end up with 10 platforms across the whole organization.",
+        "char_count": 547,
+        "themes": ["skills_training"],
+        "edited": false
+      }
+    ]
+  },
+  "selection_method": "Quotes were curated from two passes: (1) the original principal-investigator curation of the frozen N=200 CRP-2026 sample, plus (2) 10 additional essay-tier quotes drawn automatically from the full TABS V2 dataset by the q74-full-analysis workflow. Selection criteria for pass (2): PII risk = NONE, substantive content (added new ideas vs. simple affirmations), >500 characters, not already in pass (1). Pseudonymous IDs (P + first 6 of the Qualtrics response ID hash) replace any direct identifier. Note: pass (1) IDs derive from the de-identified hex response IDs while pass (2) IDs derive from the raw Qualtrics R_ IDs, so the same respondent could appear under different pseudo IDs across passes - the duplicate-detection step uses a body-prefix hash to prevent that.",
+  "full_dataset_quote_count": 10
+}

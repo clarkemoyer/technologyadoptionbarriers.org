@@ -55,6 +55,7 @@ const SEGMENT_LABELS: Record<string, string> = {
   sample: 'Sample & Demographics',
   descriptive: 'Descriptive Statistics',
   sensitivity: 'Sensitivity Analysis',
+  'participant-voice': 'Participant Voice',
   reproducibility: 'Reproducibility',
   validation: 'Instrument Validation',
   glossary: 'Statistics Glossary',
