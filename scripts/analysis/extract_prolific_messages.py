@@ -72,7 +72,11 @@ def _check_outside_repo(env_var: str, path: Path) -> None:
 
 # Re-use the project's Prolific helpers.
 sys.path.insert(0, str(REPO_ROOT / "scripts" / "analysis"))
-from tabs_api import prolific_recent_messages  # noqa: E402
+from tabs_api import (  # noqa: E402
+    prolific_list_studies,
+    prolific_submissions,
+    prolific_user_messages,
+)
 
 # ---------------------------------------------------------------------------
 # PII risk heuristics (matches q74_full_analysis.py)
@@ -240,11 +244,63 @@ def main() -> int:
         p.parent.mkdir(parents=True, exist_ok=True)
     summary_path.parent.mkdir(parents=True, exist_ok=True)
 
-    print(f"Fetching Prolific messages since {since}")
+    print(f"Fetching Prolific messages (full history per participant)")
     print(f"  study_id   = {study_id or '(all studies)'}")
     print(f"  researcher = {researcher_id}")
+    print(f"  since filter (post-fetch) = {since}")
+    print()
 
-    messages = prolific_recent_messages(since, token, study_id)
+    # The Prolific /messages/?created_after= endpoint only returns messages
+    # from the last 30 days. To capture the full history we have to fetch
+    # per-participant via /messages/?user_id=, which has no time limit.
+    # Step 1: enumerate every participant who appears in the study's
+    # submission roster.
+    if study_id:
+        study_ids = [study_id]
+    else:
+        studies = prolific_list_studies(token)
+        study_ids = [s["id"] for s in studies if s.get("id")]
+        print(f"Discovered {len(study_ids)} studies. Iterating each.")
+
+    participant_ids: set[str] = set()
+    for sid in study_ids:
+        subs = prolific_submissions(sid, token)
+        for s in subs:
+            pid = s.get("participant_id") or s.get("participant")
+            if pid:
+                participant_ids.add(pid)
+    print(f"Found {len(participant_ids)} unique participants.")
+
+    # Step 2: fetch messages per participant. ~1 API call each. Log
+    # progress every 25 to keep the workflow log readable.
+    messages: list[dict] = []
+    seen_ids: set[str] = set()
+    for i, pid in enumerate(sorted(participant_ids), 1):
+        try:
+            msgs = prolific_user_messages(pid, token)
+        except Exception as exc:
+            print(f"  [{i}/{len(participant_ids)}] {pid}: ERROR {exc}")
+            continue
+        for m in msgs:
+            mid = m.get("id")
+            if not mid or mid in seen_ids:
+                continue
+            seen_ids.add(mid)
+            messages.append(m)
+        if i % 25 == 0 or i == len(participant_ids):
+            print(f"  [{i}/{len(participant_ids)}] cumulative messages: {len(messages)}")
+
+    # Optional post-fetch filter: keep only messages on or after `since`,
+    # so the operator can scope a re-run without re-pulling everything.
+    if since:
+        before = len(messages)
+        messages = [
+            m for m in messages
+            if (m.get("sent_at") or m.get("created_at") or "") >= since
+        ]
+        print(f"After since-filter ({since}): {len(messages)} messages "
+              f"(dropped {before - len(messages)}).")
+
     print(f"API returned {len(messages)} messages total.")
 
     with raw_path.open("w", encoding="utf-8") as f:
