@@ -275,11 +275,15 @@ def main() -> int:
     # progress every 25 to keep the workflow log readable.
     messages: list[dict] = []
     seen_ids: set[str] = set()
+    fetch_failures = 0
     for i, pid in enumerate(sorted(participant_ids), 1):
         try:
             msgs = prolific_user_messages(pid, token)
         except Exception as exc:
-            print(f"  [{i}/{len(participant_ids)}] {pid}: ERROR {exc}")
+            # Redact the participant ID so it doesn't appear in CI logs.
+            redacted = ("****" + pid[-4:]) if len(pid) >= 4 else "****"
+            print(f"  [{i}/{len(participant_ids)}] {redacted}: ERROR {exc}")
+            fetch_failures += 1
             continue
         for m in msgs:
             mid = m.get("id")
@@ -289,6 +293,25 @@ def main() -> int:
             messages.append(m)
         if i % 25 == 0 or i == len(participant_ids):
             print(f"  [{i}/{len(participant_ids)}] cumulative messages: {len(messages)}")
+
+    if fetch_failures:
+        print(
+            f"WARNING: {fetch_failures}/{len(participant_ids)} participant fetches "
+            "failed. The export may be incomplete."
+        )
+
+    # Optional post-fetch study_id filter: keep only messages associated with
+    # the requested study so unrelated conversations are excluded.
+    if study_id:
+        before = len(messages)
+        messages = [
+            m for m in messages
+            if (m.get("data") or {}).get("study_id") == study_id
+        ]
+        print(
+            f"After study_id filter ({study_id}): {len(messages)} messages "
+            f"(dropped {before - len(messages)} from other studies)."
+        )
 
     # Optional post-fetch filter: keep only messages on or after `since`,
     # so the operator can scope a re-run without re-pulling everything.
@@ -491,6 +514,12 @@ def main() -> int:
     print(f"Inbound: {len(inbound)} | outbound: {len(outbound)}")
     print(f"Theme matches: {dict(theme_counter)}")
     print(f"PII risk: {dict(risk_counter)}")
+    if fetch_failures:
+        print(
+            f"EXITING WITH ERROR: {fetch_failures} participant fetch(es) failed. "
+            "Re-run or investigate the failing participants."
+        )
+        return 1
     return 0
 
 
