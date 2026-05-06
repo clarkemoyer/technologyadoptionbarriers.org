@@ -1,0 +1,26 @@
+{
+  "as_of": "2026-05-06T00:00:00Z",
+  "commit_sha": "seed",
+  "commit_count": 5280,
+  "lines_of_code": 149687,
+  "comments": 30937,
+  "blanks": 56473,
+  "total_lines": 237097,
+  "tracked_files": 829,
+  "github_workflows": 47,
+  "integrations": 8,
+  "development_phases": 5,
+  "phases_source": "CRP §3.6 Table 8 (Five-Phase TABS Product Development Process)",
+  "method": "cloc; excludes node_modules, .next, dist, build, coverage, .cache, .git, .venv, Old, playwright-report, test-results; binary and lock files excluded by extension",
+  "by_language": [
+    { "language": "TSX", "files": 274, "code": 80586, "comment": 2331, "blank": 0 },
+    { "language": "Python", "files": 80, "code": 29852, "comment": 7625, "blank": 0 },
+    { "language": "JSON", "files": 29, "code": 23000, "comment": 0, "blank": 0 },
+    { "language": "TypeScript", "files": 88, "code": 10393, "comment": 1919, "blank": 0 },
+    { "language": "Markdown", "files": 25, "code": 1379, "comment": 0, "blank": 0 },
+    { "language": "YAML", "files": 53, "code": 6772, "comment": 546, "blank": 0 },
+    { "language": "CSS", "files": 3, "code": 611, "comment": 57, "blank": 0 },
+    { "language": "Bash", "files": 2, "code": 290, "comment": 64, "blank": 0 }
+  ],
+  "_seed": "Initial values pre-workflow-run. Refreshed by .github/workflows/platform-stats.yml on push to main + weekly cron. See #1900."
+}
