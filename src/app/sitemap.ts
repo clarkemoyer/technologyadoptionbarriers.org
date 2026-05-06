@@ -223,6 +223,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     {
+      url: `${baseUrl}/results/crp-2026/participant-voice`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
       url: `${baseUrl}/results/crp-2026/findings`,
       lastModified: now,
       changeFrequency: 'yearly',
