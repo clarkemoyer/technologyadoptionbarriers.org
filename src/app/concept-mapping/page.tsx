@@ -11,7 +11,7 @@ export default function ConceptMappingPage() {
   return (
     <main className="min-h-screen bg-gray-50 flex flex-col">
       {/* Header section to match other tabs/pages stylistically */}
-      <div className="w-full pt-[80px] bg-tabs-navy py-[60px] text-white">
+      <div className="w-full bg-tabs-navy py-[60px] pt-[80px] text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl font-bold tracking-tight mb-4">Concept Map</h1>
           <p className="text-xl max-w-3xl mx-auto text-gray-300">

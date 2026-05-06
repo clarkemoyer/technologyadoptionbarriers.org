@@ -604,6 +604,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     // Concept Mapping
     {
+      url: `${baseUrl}/concept-mapping`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
       url: `${baseUrl}/concept-mapping/complex`,
       lastModified: now,
       changeFrequency: 'monthly',

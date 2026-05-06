@@ -2,7 +2,6 @@
 
 import React, { useMemo } from 'react'
 import { ReactFlow, Controls, Background, useNodesState, useEdgesState, Panel } from '@xyflow/react'
-import '@xyflow/react/dist/style.css'
 
 import { initialNodes, initialEdges } from '@/data/concept-map-data'
 import { ConceptNode } from './ConceptNode'
@@ -12,8 +11,8 @@ const nodeTypes = {
 }
 
 export default function ConceptMapTab() {
-  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes)
-  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges)
+  const [nodes, , onNodesChange] = useNodesState(initialNodes)
+  const [edges, , onEdgesChange] = useEdgesState(initialEdges)
 
   const memoizedNodeTypes = useMemo(() => nodeTypes, [])
 

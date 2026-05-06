@@ -1,6 +1,6 @@
 import React from 'react'
 import { Handle, Position } from '@xyflow/react'
-import { Category } from '@/data/concept-map-data'
+import type { Category } from '@/data/concept-map-data'
 
 interface ConceptNodeProps {
   data: {
