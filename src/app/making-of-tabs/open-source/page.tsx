@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import { ARTICLE_CLASSES, H1_CLASSES, H2_CLASSES } from '@/lib/articleStyles'
 import Link from 'next/link'
+import platformStats from '@/data/platform-stats.json'
+
 export const metadata: Metadata = {
   title: 'Open Source & Community - Making of TABS',
   description:
@@ -23,6 +25,162 @@ const OpenSourcePage = () => {
             research project that documents technology adoption barriers should itself be a
             transparent example of how technology is adopted, built, and maintained.
           </p>
+        </section>
+
+        {/* ── Platform by the Numbers ── */}
+        {/*
+          Five canonical metrics surfaced from src/data/platform-stats.json,
+          which is auto-refreshed on every push to main + weekly cron by
+          .github/workflows/platform-stats.yml. The intent is to retire the
+          hand-maintained "574K+ Lines of Code | 4,680+ Commits | 39 GitHub
+          Actions" figures that drifted across slides + CRP body and replace
+          them with one source of truth that every consumer can verify
+          against the live JSON. See #1900.
+        */}
+        <section className="mb-12 text-gray-800">
+          <h2 className={H2_CLASSES}>Platform by the Numbers</h2>
+          <p className="mb-4 text-sm text-gray-600">
+            Computed automatically by{' '}
+            <a
+              href="https://github.com/AlDanial/cloc"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 underline hover:text-blue-800"
+            >
+              cloc
+            </a>{' '}
+            on every push to <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">main</code>{' '}
+            and weekly. Last refresh:{' '}
+            <span className="font-mono">
+              {new Date(platformStats.as_of).toISOString().slice(0, 10)}
+            </span>
+            {platformStats.commit_sha !== 'seed' && (
+              <>
+                {' '}
+                (commit{' '}
+                <a
+                  href={`https://github.com/clarkemoyer/technologyadoptionbarriers.org/commit/${platformStats.commit_sha}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-mono text-blue-600 underline hover:text-blue-800"
+                >
+                  {platformStats.commit_sha.slice(0, 7)}
+                </a>
+                ).
+              </>
+            )}
+          </p>
+
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
+            {[
+              {
+                value: platformStats.commit_count.toLocaleString(),
+                label: 'Commits',
+                sub: 'git rev-list',
+              },
+              {
+                value: `${Math.round(platformStats.lines_of_code / 1000)}K+`,
+                label: 'Lines of Code',
+                sub: 'cloc, code only',
+              },
+              {
+                value: platformStats.github_workflows,
+                label: 'GitHub Actions',
+                sub: 'workflows in .github/',
+              },
+              {
+                value: platformStats.integrations,
+                label: 'Integrations',
+                sub: 'external APIs',
+              },
+              {
+                value: platformStats.development_phases,
+                label: 'Phase Development',
+                sub: 'CRP §3.6 Table 8',
+              },
+            ].map((metric) => (
+              <div
+                key={metric.label}
+                className="rounded-lg border border-gray-200 bg-gray-50 p-4 text-center"
+              >
+                <div className="text-2xl font-bold text-gray-900">{metric.value}</div>
+                <div className="mt-1 text-sm font-medium text-gray-700">{metric.label}</div>
+                <div className="mt-1 text-xs text-gray-500">{metric.sub}</div>
+              </div>
+            ))}
+          </div>
+
+          <details className="text-sm text-gray-700">
+            <summary className="cursor-pointer font-medium text-gray-900">
+              How we count (methodology + per-language breakdown)
+            </summary>
+            <div className="mt-3 space-y-3">
+              <p>
+                <strong>SLOC ({platformStats.lines_of_code.toLocaleString()})</strong> excludes
+                blank lines, comments, generated code, and vendored dependencies.{' '}
+                <strong>Total raw lines ({platformStats.total_lines.toLocaleString()})</strong>{' '}
+                includes blanks and comments across {platformStats.tracked_files.toLocaleString()}{' '}
+                files.
+              </p>
+              <p>
+                <strong>Excluded directories:</strong>{' '}
+                <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">node_modules</code>,{' '}
+                <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">.next</code>,{' '}
+                <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">dist</code>,{' '}
+                <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">build</code>,{' '}
+                <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">coverage</code>,{' '}
+                <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">.cache</code>,{' '}
+                <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">.git</code>,{' '}
+                <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">.venv</code>,{' '}
+                <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">Old</code>,{' '}
+                <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">playwright-report</code>,
+                and <code className="text-xs bg-gray-200 px-1 py-0.5 rounded">test-results</code>.
+                Lock files and binaries are excluded by extension.
+              </p>
+
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm border border-gray-200 rounded-lg">
+                  <thead>
+                    <tr className="bg-gray-50">
+                      <th className="text-left p-2 font-semibold border-b border-gray-200">
+                        Language
+                      </th>
+                      <th className="text-right p-2 font-semibold border-b border-gray-200">
+                        Files
+                      </th>
+                      <th className="text-right p-2 font-semibold border-b border-gray-200">
+                        Code
+                      </th>
+                      <th className="text-right p-2 font-semibold border-b border-gray-200">
+                        Comments
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {platformStats.by_language.map((lang) => (
+                      <tr key={lang.language} className="border-b border-gray-100">
+                        <td className="p-2 font-medium">{lang.language}</td>
+                        <td className="p-2 text-right">{lang.files.toLocaleString()}</td>
+                        <td className="p-2 text-right">{lang.code.toLocaleString()}</td>
+                        <td className="p-2 text-right">{lang.comment.toLocaleString()}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              <p>
+                Raw JSON is published at{' '}
+                <a
+                  href="/data/platform-stats.json"
+                  className="text-blue-600 underline hover:text-blue-800"
+                >
+                  /data/platform-stats.json
+                </a>{' '}
+                so any reader can verify these numbers independently.
+              </p>
+            </div>
+          </details>
         </section>
 
         {/* ── License ── */}

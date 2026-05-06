@@ -1,0 +1,147 @@
+name: Platform stats
+
+# Auto-computes the five canonical project metrics surfaced on
+# /making-of-tabs/open-source/ ("Platform by the Numbers"):
+#
+#   1. commit_count      - git rev-list --count HEAD
+#   2. lines_of_code     - cloc, code-only (excludes blanks/comments)
+#   3. github_workflows  - count of files in .github/workflows/
+#   4. integrations      - count of subdirs under src/app/making-of-tabs/integrations/
+#   5. development_phases - constant 5 (cite to CRP §3.6 Table 8)
+#
+# These figures previously lived as hand-maintained numbers on the defense
+# slides and in the CRP body and drifted out of sync as the project grew.
+# Surfacing them through a single committed JSON keeps every consumer (the
+# website, the slides, the CRP, future README badges) honest. See #1900.
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    # Weekly Monday 06:00 UTC keeps the figure fresh even if no main commit
+    # happens for a week. Off-minute scheduling avoids GHA's :00 quota crunch.
+    - cron: '7 6 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  # Pin the action runtime ahead of GitHub's June 2026 Node 20 deprecation.
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  compute:
+    name: Compute platform stats
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          # cloc only needs the working tree, but git rev-list --count requires
+          # the full history for an accurate commit total.
+          fetch-depth: 0
+
+      - name: Install cloc + jq
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cloc jq
+
+      - name: Run cloc
+        run: |
+          # Excluded directories: vendor + build artefacts + coverage + caches.
+          # Excluded extensions: lock files (regenerated, not authored) + binary
+          # assets (cloc would skip them anyway but listing them suppresses warnings).
+          cloc \
+            --exclude-dir=node_modules,.next,dist,build,coverage,.cache,Old,old,.git,.venv,playwright-report,test-results \
+            --exclude-ext=lock,svg,png,jpg,jpeg,gif,pdf,ico,woff,woff2,ttf,otf,eot,zip,sav \
+            --json \
+            --report-file=/tmp/cloc.json \
+            .
+
+      - name: Compute the five platform metrics
+        run: |
+          set -euo pipefail
+          mkdir -p src/data
+
+          COMMITS=$(git rev-list --count HEAD)
+          # Two glob patterns because GitHub Actions accepts both .yml and .yaml.
+          WORKFLOWS=$(ls .github/workflows/*.yml .github/workflows/*.yaml 2>/dev/null | wc -l)
+          INTEGRATIONS=$(ls -d src/app/making-of-tabs/integrations/*/ 2>/dev/null | wc -l)
+          CODE=$(jq '.SUM.code'    /tmp/cloc.json)
+          COMM=$(jq '.SUM.comment' /tmp/cloc.json)
+          BLANK=$(jq '.SUM.blank'  /tmp/cloc.json)
+          FILES=$(jq '.SUM.nFiles' /tmp/cloc.json)
+          TOTAL=$((CODE + COMM + BLANK))
+
+          # Per-language breakdown, sorted by code lines descending.
+          jq '. as $r
+              | [$r | keys[] | select(. != "header" and . != "SUM")
+                  | { language: .,
+                      files: $r[.].nFiles,
+                      code: $r[.].code,
+                      comment: $r[.].comment,
+                      blank: $r[.].blank }]
+              | sort_by(-.code)' /tmp/cloc.json > /tmp/by_language.json
+
+          AS_OF=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+          SHA=$(git rev-parse HEAD)
+
+          jq -n \
+            --arg as_of "$AS_OF" \
+            --arg sha "$SHA" \
+            --argjson commits "$COMMITS" \
+            --argjson code "$CODE" \
+            --argjson comm "$COMM" \
+            --argjson blank "$BLANK" \
+            --argjson total "$TOTAL" \
+            --argjson files "$FILES" \
+            --argjson workflows "$WORKFLOWS" \
+            --argjson integrations "$INTEGRATIONS" \
+            --slurpfile by_lang /tmp/by_language.json \
+            '{
+              as_of: $as_of,
+              commit_sha: $sha,
+              commit_count: $commits,
+              lines_of_code: $code,
+              comments: $comm,
+              blanks: $blank,
+              total_lines: $total,
+              tracked_files: $files,
+              github_workflows: $workflows,
+              integrations: $integrations,
+              development_phases: 5,
+              phases_source: "CRP §3.6 Table 8 (Five-Phase TABS Product Development Process)",
+              method: "cloc; excludes node_modules, .next, dist, build, coverage, .cache, .git, .venv, Old, playwright-report, test-results; binary and lock files excluded by extension",
+              by_language: $by_lang[0]
+            }' > src/data/platform-stats.json
+
+          # Also publish to public/data/ so the asset is fetchable from the live site
+          # at /data/platform-stats.json (Next.js static export serves public/* at root).
+          mkdir -p public/data
+          cp src/data/platform-stats.json public/data/platform-stats.json
+
+          echo "Refreshed platform-stats:"
+          jq '{commit_count, lines_of_code, github_workflows, integrations, total_lines, tracked_files}' src/data/platform-stats.json
+
+      - name: Open PR if changed
+        uses: ./.github/actions/format-and-pr
+        with:
+          token: ${{ secrets.COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN }}
+          files: 'src/data/platform-stats.json public/data/platform-stats.json'
+          commit-message: 'chore: refresh platform-stats.json'
+          pr-title: 'chore: refresh platform-stats.json'
+          pr-body: |
+            Auto-generated by [.github/workflows/platform-stats.yml](.github/workflows/platform-stats.yml).
+
+            Refreshes `src/data/platform-stats.json` and the public mirror at
+            `public/data/platform-stats.json` from the current `main` HEAD. See #1900
+            for the canonical-numbers rationale. Methodology: cloc with the same
+            exclusion list used by the workflow.
+
+            Reviewers: spot-check that `commit_count`, `lines_of_code`,
+            `github_workflows`, and `integrations` look directionally right
+            for what landed since the last refresh. Sudden 10x jumps or drops
+            are usually a sign of a new vendored dir slipping past the
+            exclusion list — investigate before merging.
+          branch: chore/platform-stats
