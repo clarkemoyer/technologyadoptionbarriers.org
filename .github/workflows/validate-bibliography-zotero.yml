@@ -28,6 +28,11 @@ jobs:
     steps:
       - name: Checkout base branch (trusted scripts and workflow)
         uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+        # fetch-depth: 0 ensures full history is available so that
+        # `git merge-base HEAD pr-head` (used in the overlay step) reliably
+        # finds the common ancestor even when the PR is many commits behind.
         # Default ref for pull_request_target = base branch.  scripts/ and .github/
         # always come from the trusted base, not the PR, preventing code injection.
 
