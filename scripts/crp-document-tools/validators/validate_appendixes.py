@@ -313,11 +313,15 @@ def validate_captures():
 
 def count_words(text):
     """Count words in markdown text, excluding table formatting."""
-    # Remove markdown table separators
-    text = re.sub(r'\|[-:]+\|', '', text)
+    # Drop entire table-separator lines (e.g. "| --- | :--- | ---: |")
+    # before any other processing so multi-column separators are handled.
+    lines = text.splitlines()
+    lines = [ln for ln in lines if not re.match(r'^\s*\|[\s|:*-]+\|\s*$', ln)]
+    text = '\n'.join(lines)
     # Remove URLs
     text = re.sub(r'https?://\S+', '', text)
-    # Remove markdown formatting
+    # Remove markdown formatting characters (incl. remaining pipe characters
+    # that are part of table cells, not separators)
     text = re.sub(r'[#*_|`~\[\]()]', ' ', text)
     words = text.split()
     return len(words)
@@ -351,14 +355,22 @@ def check_cross_references(appendix_texts):
             continue
         text_lower = appendix_texts[from_app].lower()
 
-        # Case-insensitive search: check "appendix X" and bare sub-reference patterns
-        patterns = [
-            f"appendix {ref_target.lower()}",
-        ]
+        # Use regex with word boundaries to avoid false positives such as
+        # "C.10" matching a search for "C.1".  The patterns use re.escape()
+        # so dots and other special characters are treated as literals.
+        ref_lower = ref_target.lower()
+        full_pattern = re.compile(
+            r'\bappendix\s+' + re.escape(ref_lower) + r'\b', re.IGNORECASE
+        )
+        patterns_re = [full_pattern]
         if "." in ref_target:
-            patterns.append(ref_target.lower())
+            # Also accept bare sub-reference (e.g. "c.1") bounded by non-word chars
+            bare_pattern = re.compile(
+                r'(?<![.\w])' + re.escape(ref_lower) + r'(?![.\w])', re.IGNORECASE
+            )
+            patterns_re.append(bare_pattern)
 
-        found = any(p in text_lower for p in patterns)
+        found = any(p.search(text_lower) for p in patterns_re)
         status = "PASS" if found else ("MISSING" if required else "OPTIONAL")
         findings.append({
             "from": from_app,

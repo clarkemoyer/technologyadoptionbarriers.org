@@ -29,7 +29,35 @@ from collections import Counter
 _SUBTREE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if _SUBTREE_DIR not in sys.path:
     sys.path.insert(0, _SUBTREE_DIR)
-from paths import CrpWorkspaceNotFound, find_survey_csv  # noqa: E402
+from paths import CrpWorkspaceNotFound, find_survey_csv, find_workspace  # noqa: E402
+
+
+def find_csv(workspace=None):
+    """Find the survey CSV using an ordered list of glob patterns.
+
+    Mirrors the strategy in ``validate_crp_stats_v5.find_csv()``:
+    1. ``*Enriched_CRP200*.csv``  -- enriched live export (most common)
+    2. ``*V2_ONLY*.csv``          -- V2-only variant
+    3. Root-level public frozen dataset (no survey_data_dir sub-dir required)
+
+    This avoids requiring ``--csv`` in common setups where only one of these
+    variants is present.
+    """
+    resolved = find_workspace(explicit=workspace)
+    for pattern in ["*Enriched_CRP200*.csv", "*V2_ONLY*.csv"]:
+        try:
+            return find_survey_csv(workspace=resolved, pattern=pattern)
+        except CrpWorkspaceNotFound:
+            pass
+    # Root-level public frozen dataset fallback
+    public = os.path.join(resolved, "TABS_V2_CRP_2026_public_dataset.csv")
+    if os.path.exists(public):
+        return public
+    raise CrpWorkspaceNotFound(
+        f"No survey CSV found in {resolved}. "
+        "Provide --csv or place a *Enriched_CRP200*.csv / *V2_ONLY*.csv / "
+        "TABS_V2_CRP_2026_public_dataset.csv in the workspace."
+    )
 
 
 # CORRECTED scale maps (from actual CSV response values)
@@ -224,7 +252,7 @@ def load_survey(csv_path):
 def main(argv=None):
     args = parse_args(argv)
     try:
-        csv_path = args.csv or find_survey_csv(workspace=args.workspace)
+        csv_path = args.csv or find_csv(workspace=args.workspace)
     except CrpWorkspaceNotFound as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
         return 1
