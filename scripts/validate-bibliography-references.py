@@ -469,4 +469,14 @@ def _write_error_report(
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except Exception as e:
+        import traceback
+
+        report_path = os.environ.get(
+            "VALIDATION_REPORT_PATH", "bibliography-validation-report.json"
+        )
+        _write_error_report(report_path, [], 0, 0, 0, f"Unhandled exception: {e}")
+        traceback.print_exc()
+        sys.exit(2)
