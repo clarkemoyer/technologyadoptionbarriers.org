@@ -38,7 +38,7 @@ from typing import Iterable, Optional
 
 
 SUBTREE_DIR = os.path.dirname(os.path.abspath(__file__))
-REPO_ROOT = os.path.dirname(os.path.dirname(SUBTREE_DIR))
+_REPO_ROOT = os.path.dirname(os.path.dirname(SUBTREE_DIR))
 FIXTURE_DIR = os.path.join(SUBTREE_DIR, "fixtures", "example_workspace")
 
 # Subdirectories the scripts expect inside a workspace. Kept here so the
@@ -134,7 +134,16 @@ def find_workspace(explicit: Optional[str] = None) -> str:
 
 
 def find_body_docx(workspace: Optional[str] = None) -> str:
-    """Locate the latest CRP body .docx inside the workspace's body dir."""
+    """Locate the latest CRP body .docx inside the workspace's body dir.
+
+    Selection order:
+    - Files with an embedded ``(M-D-YYYY HHMM TZ)`` timestamp in their
+      filename always take precedence over files without one.
+    - When multiple timestamped candidates exist, the most recent timestamp
+      wins (file mtime is a secondary tie-breaker for exact same timestamp).
+    - When *no* candidate has an embedded timestamp, file mtime is used as
+      the sole sort key.
+    """
     workspace = find_workspace(explicit=workspace)
     body_dir = os.path.join(workspace, WORKSPACE_LAYOUT["body_dir"])
     if not os.path.isdir(body_dir):

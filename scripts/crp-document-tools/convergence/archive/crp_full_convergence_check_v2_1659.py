@@ -27,7 +27,7 @@ EST = timezone(timedelta(hours=-5))
 
 def get_timestamp():
     now = datetime.now(EST)
-    return now.strftime("%-m-%-d-%Y %H%M EST")
+    return f"{now.month}-{now.day}-{now.year} {now.strftime('%H%M')} EST"
 
 def strip_xml(xml):
     text = re.sub(r'<[^>]+>', ' ', xml)

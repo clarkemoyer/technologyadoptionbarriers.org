@@ -22,7 +22,15 @@ from xml.etree import ElementTree as ET
 
 
 def find_workspace():
-    """Find the CRP workspace root (same pattern as v5)."""
+    """Find the CRP workspace root using the original /sessions/* glob patterns.
+
+    Archive note: Unlike v5 (which delegates to paths.py for broader
+    discovery), this v1 function uses hard-coded /sessions/* globs that
+    are specific to the original development environment. It will not
+    find workspaces in ~/Documents/CRP-workspace, via CRP_WORKSPACE env
+    var, or from the repo fixture. Pass --csv and --docx explicitly if
+    running outside that environment.
+    """
     candidates = [
         glob.glob("/sessions/*/mnt/! Clarke Moyer Smeal CRP - TABS"),
         glob.glob("/sessions/*/mnt/*Clarke*CRP*TABS*"),

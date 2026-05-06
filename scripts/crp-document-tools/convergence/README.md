@@ -22,12 +22,20 @@ Offline reconciliation tools that compare the CRP `.docx`, the pipeline-generate
 
 ## Output format
 
-Both current scripts produce two artifacts per run:
+The two scripts differ in how many artifacts they write per run:
 
-1. **Claims database** (`claims_database (<EST-timestamp>).json`): every quantitative claim found in each source, with location and value
-2. **Convergence report** (`convergence_report (<EST-timestamp>).md`): structured discrepancy list with recommended resolution direction
+**`crp_full_convergence_check_v2_3.py`** writes two artifacts:
 
-Outputs are written to the workspace `04 CRP Review Reports/CRP Convergence System/` folder following the project's versioning rule (new timestamped file each run, prior versions moved to `Old/`).
+1. **Claims database** (`Claims Databases/claims_database (<EST-timestamp>).json`): every quantitative claim found in each source, with location and value
+2. **Convergence report** (`Convergence Reports/convergence_report (<EST-timestamp>).md`): structured discrepancy list with recommended resolution direction
+
+**`crp_convergence_check.py`** writes three artifacts:
+
+1. **Pipeline snapshot** (`Pipeline Snapshots/pipeline_stats (<EST-timestamp>).json`): the extracted pipeline stats used for the convergence pass
+2. **Claims database** (`Claims Databases/claims_database (<EST-timestamp>).json`): every quantitative claim found in each source, with location and value
+3. **Convergence report** (`Convergence Reports/convergence_report (<EST-timestamp>).md`): structured discrepancy list with recommended resolution direction
+
+Outputs are written to the workspace `04 CRP Review Reports/CRP Convergence System/` folder. Each run produces a new timestamped file; older outputs are not moved automatically - archiving prior runs to `Old/` is a manual project convention.
 
 ## Running
 

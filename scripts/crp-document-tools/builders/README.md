@@ -37,7 +37,7 @@ python scripts/crp-document-tools/builders/compute_crp_stats_v2.py \
     --csv /path/to/survey.csv
 ```
 
-Both scripts auto-discover the CRP workspace folder via glob and output files with ET-timestamped names (EST in winter, EDT in summer) following the project's versioning rule (never overwrite, always new file with ET timestamp, move prior versions to `Old/`).
+Both scripts auto-discover the CRP workspace folder via glob and output files with ET-timestamped names (EST in winter, EDT in summer). Each run produces a new timestamped file without overwriting prior outputs; archiving older runs to `Old/` is a manual project convention.
 
 ## Dependencies
 

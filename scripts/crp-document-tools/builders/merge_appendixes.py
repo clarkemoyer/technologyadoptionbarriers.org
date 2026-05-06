@@ -80,9 +80,12 @@ def find_workspace():
 def find_latest_docx(workspace):
     """Find the latest CRP body .docx in '01 CRP Body/' of the workspace.
 
-    Uses date-aware sorting on the (M-D-YYYY HHMM TZ) timestamp embedded
-    in the filename (DST-tolerant via paths.parse_filename_date), falling
-    back to file mtime when the filename has no embedded timestamp.
+    Selection order:
+    - Files with an embedded ``(M-D-YYYY HHMM TZ)`` timestamp in their
+      filename always take precedence over files without one (sort key
+      starts with ``(year, ...)`` vs ``(0, 0, 0, ...)``).
+    - When *no* candidate has an embedded timestamp, file mtime is used
+      as the sole sort key.
     """
     body_dir = os.path.join(workspace, "01 CRP Body")
     if not os.path.isdir(body_dir):
@@ -100,7 +103,10 @@ def find_latest_docx(workspace):
 
     def _sort_key(p):
         parsed = parse_filename_date(os.path.basename(p))
-        # If filename has no embedded timestamp (year=0), fall back to mtime
+        # No embedded timestamp: use mtime as fallback sort key.
+        # Note: (0, 0, 0, mtime) will never beat a timestamped entry
+        # whose first element is a real year (>0). Mtime is only the
+        # primary selector when ALL candidates lack embedded timestamps.
         if parsed == (0, 0, 0, 0):
             try:
                 return (0, 0, 0, int(os.path.getmtime(p)))
