@@ -46,10 +46,15 @@ Categories new in v5 (31-42):
 # From this repo's root:
 python scripts/crp-document-tools/validators/validate_crp_stats_v5.py
 
-# The script auto-discovers:
-#   - The CRP workspace folder via glob
-#   - The merged CRP docx (latest by filename date)
-#   - The local clone at /tmp/tabs-site, /tmp/tabs-site-val, etc.
+# Workspace discovery is handled by scripts/crp-document-tools/paths.py.
+# Precedence (highest to lowest):
+#   1. --workspace <path>  or  --docx <path>  (explicit CLI flags always win)
+#   2. CRP_WORKSPACE environment variable
+#   3. ~/Documents/CRP-workspace  or  ~/CRP-workspace  (common user locations)
+#   4. scripts/crp-document-tools/fixtures/example_workspace  (CI / quickstart)
+#   5. /sessions/*/mnt/... legacy glob  (original author's session environment)
+# If none of these resolve, the script exits with a clear error pointing at the
+# Quickstart README rather than failing deep inside discovery logic.
 ```
 
 Exit codes: 0 if no FAIL, non-zero if any check FAILs. WARNs do not fail the run. INFO-level checks are reference numbers surfaced for reviewer awareness.

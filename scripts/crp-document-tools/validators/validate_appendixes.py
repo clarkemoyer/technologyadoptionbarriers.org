@@ -257,7 +257,13 @@ def _resolve_capture_file(folder_path, base_root, ts, ext):
     candidates = glob.glob(pattern)
     if not candidates:
         return exact, ts  # path doesn't exist; preserve original for error msg
-    chosen = max(candidates, key=lambda p: parse_filename_date(os.path.basename(p)))
+    # Use parse_filename_date as primary key; fall back to mtime when the
+    # filename lacks a parseable timestamp (returns (0,0,0,0)) so the choice
+    # is deterministic regardless of glob() ordering.
+    chosen = max(
+        candidates,
+        key=lambda p: (parse_filename_date(os.path.basename(p)), os.path.getmtime(p)),
+    )
     # Recover the timestamp string from the chosen filename
     m = re.search(r'\(([^)]+\s+(?:EST|EDT))\)\.[a-z]+$', chosen)
     return chosen, (m.group(1) if m else ts)

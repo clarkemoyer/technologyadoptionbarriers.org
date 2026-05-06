@@ -3,14 +3,18 @@
 Extracts text from the packed docx and checks every number.
 
 Archive note: This is v1, the initial release. Run with --csv and --docx to
-point at your local workspace files; the original session-specific paths have
-been removed from the code.
+point at your local workspace files. This archive version retains the original
+/sessions/* glob patterns in find_workspace() for compatibility with the
+development environment it was written in. Later versions (v2+) and the current
+v5 delegate workspace discovery to scripts/crp-document-tools/paths.py, which
+supports CLI flags, CRP_WORKSPACE env var, common user locations, the repo
+fixture, and /sessions/* legacy globs in a defined precedence.
 
 Usage:
     python validate_crp_stats_v1.py --csv /path/to/survey.csv --docx /path/to/crp.docx
 
 If --csv or --docx are omitted, the script attempts workspace discovery via
-the same glob pattern used by later validator versions.
+the /sessions/* glob patterns hard-coded in find_workspace() below.
 """
 
 import csv, math, re, zipfile, io, glob, os, sys, argparse
