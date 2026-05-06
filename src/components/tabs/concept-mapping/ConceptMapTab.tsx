@@ -11,8 +11,8 @@ const nodeTypes = {
 }
 
 export default function ConceptMapTab() {
-  const [nodes, , onNodesChange] = useNodesState(initialNodes)
-  const [edges, , onEdgesChange] = useEdgesState(initialEdges)
+  const [nodes, _setNodes, onNodesChange] = useNodesState(initialNodes)
+  const [edges, _setEdges, onEdgesChange] = useEdgesState(initialEdges)
 
   const memoizedNodeTypes = useMemo(() => nodeTypes, [])
 

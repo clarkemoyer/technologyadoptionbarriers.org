@@ -1,16 +1,15 @@
-import dispositionData from '@/data/disposition-summary.json'
 import impactData from '@/data/impact.json'
-import { TOTAL_ITEMS_PRESENTED } from '@/lib/tabs-survey-constants'
+import metricsData from '@/data/qualtrics-metrics.json'
+import { getSurveysCompletedCount } from '@/lib/qualtricsStats'
 
 /**
  * Statistics Section
  * Simple counters matching live site style
  */
 const Statistics = () => {
-  // Prolific-approved submissions from the daily disposition pipeline.
-  const surveysCompleted = dispositionData.completionProgress.approved
+  const surveysCompleted = getSurveysCompletedCount(metricsData.responseCounts)
   // Production hostname visitors (excludes localhost/CI/Playwright test traffic).
-  const verifiedVisitors = parseInt(impactData.verifiedVisitors, 10) || 0
+  const verifiedVisitors = parseInt(impactData.verifiedVisitors) || 0
 
   return (
     <section id="statistics" className="w-full py-[80px] bg-white">
@@ -33,7 +32,7 @@ const Statistics = () => {
               Survey Questions
             </h3>
             <div className="text-[60px] font-bold text-tabs-orange mb-[5px] leading-none">
-              {TOTAL_ITEMS_PRESENTED.toLocaleString()}
+              {metricsData.questionCount > 0 ? metricsData.questionCount.toLocaleString() : '56'}
             </div>
           </div>
 

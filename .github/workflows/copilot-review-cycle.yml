@@ -19,7 +19,7 @@ on:
         description: 'Maximum review rounds'
         required: false
         type: number
-        default: 7
+        default: 14
       auto_merge:
         description: 'Auto-merge PR when review passes and CI is green'
         required: false
@@ -71,6 +71,6 @@ jobs:
           GH_TOKEN: ${{ secrets.COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN }}
           PR_NUMBER: ${{ github.event.pull_request.number || github.event.inputs.pr_number }}
           ROUND: ${{ github.event.inputs.round || '1' }}
-          MAX_ROUNDS: ${{ github.event.inputs.max_rounds || '7' }}
+          MAX_ROUNDS: ${{ github.event.inputs.max_rounds || '14' }}
           AUTO_MERGE: ${{ github.event.inputs.auto_merge || 'false' }}
           REPO_NAME: ${{ github.repository }}

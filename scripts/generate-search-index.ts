@@ -127,19 +127,17 @@ export function joinSegments(segments: string[]): string {
  * metadata = { ... }` block so nested objects like `openGraph.title` are never
  * accidentally matched in place of the top-level title.
  */
-export function extractStaticMetadata(source: string): {
+function extractStaticMetadata(source: string): {
   title: string | null
   description: string | null
-  robotsIndexFalse: boolean
 } {
   let title: string | null = null
   let description: string | null = null
-  let robotsIndexFalse = false
 
   // Locate `export const metadata = {` (with optional `: TypeAnnotation`)
   const exportMatch = source.match(/export\s+const\s+metadata\s*(?::\s*[\w.]+\s*)?\s*=\s*\{/)
   if (!exportMatch || exportMatch.index === undefined) {
-    return { title, description, robotsIndexFalse }
+    return { title, description }
   }
 
   // Walk the source from the opening `{`, respecting string boundaries,
@@ -185,7 +183,7 @@ export function extractStaticMetadata(source: string): {
     }
   }
 
-  if (blockEnd === -1) return { title, description, robotsIndexFalse }
+  if (blockEnd === -1) return { title, description }
 
   const metadataBlock = source.slice(blockStart, blockEnd + 1)
 
@@ -197,48 +195,7 @@ export function extractStaticMetadata(source: string): {
   const descMatch = metadataBlock.match(/(?:^|[,{]\s*)description:\s*\n?\s*(['"`])([\s\S]*?)\1/)
   if (descMatch) description = descMatch[2].replace(/\s+/g, ' ').trim()
 
-  // Detect robots: { index: false } - skip redirect stubs and noindex pages
-  if (/robots\s*:\s*\{[^}]*\bindex\s*:\s*false\b/.test(metadataBlock)) {
-    robotsIndexFalse = true
-  }
-
-  return { title, description, robotsIndexFalse }
-}
-
-/**
- * File extensions that should be preserved when stripping JS dot-notation.
- * These appear as meaningful content in JSX text (e.g. `business-management-models.svg`)
- * and must not be erased by the generic word.word removal pass.
- * Add new extensions here as needed.
- */
-const PRESERVED_FILE_EXTENSIONS = 'svg|png|jpg|jpeg|gif|webp|pdf|tsx?|jsx?|json|css|html?|md|txt'
-
-/**
- * Extracts the value of an optional `export const SEARCH_CONTENT = \`...\``
- * declaration from a page source file.  When present, this string is used
- * verbatim as the search-index content instead of the auto-extracted visible
- * text, which can produce garbled output on pages with dynamic JSX expressions.
- *
- * Usage in a page file:
- *   export const SEARCH_CONTENT = `Plain prose describing this page for search indexing.`
- *
- * CONSTRAINTS:
- *  - SEARCH_CONTENT must be a backtick template literal (not a single- or
- *    double-quoted string).
- *  - The template literal must not contain an escaped backtick (\`).
- *  - String concatenation (e.g. `'a' + 'b'`) is NOT supported - the extractor
- *    captures only the first literal token after the `=` sign, so concatenated
- *    values will be silently truncated in the search index.
- */
-function extractSearchContent(source: string): string | null {
-  // Match only backtick template literals. [^\`]* matches any character
-  // (including newlines) except a backtick, so multi-line strings are handled
-  // without needing the dotAll (/s) flag, which requires ES2018+.
-  const m = source.match(/export\s+const\s+SEARCH_CONTENT\s*=\s*`([^`]*)`/)
-  if (!m) return null
-  const raw = m[1] ?? ''
-  // Collapse newlines / excess whitespace introduced by multi-line string literals
-  return raw.replace(/\s+/g, ' ').trim() || null
+  return { title, description }
 }
 
 /**
@@ -253,13 +210,6 @@ function extractVisibleText(source: string): string {
   const returnParenMatch = source.match(/return\s*\(\s*([\s\S]*?)\)\s*\}/)
   const returnTagMatch = !returnParenMatch ? source.match(/return\s*(<[\s\S]*?>)\s*\}/) : null
   const jsx = returnParenMatch?.[1] ?? returnTagMatch?.[1] ?? ''
-
-  // Pre-compile the dot-notation regex that preserves file extensions.
-  // Using `new RegExp` so the extensions string can be referenced by name.
-  const dotNotationRe = new RegExp(
-    String.raw`\b\w+\.(?!(?:${PRESERVED_FILE_EXTENSIONS})\b)\w+`,
-    'g'
-  )
 
   let text = jsx
     // Remove {/* comments */}
@@ -282,12 +232,11 @@ function extractVisibleText(source: string): string {
       ' '
     )
     // Remove JS method calls and dot-notation (e.g. .toFixed, val.toString, obj.prop)
-    // but NOT file extensions listed in PRESERVED_FILE_EXTENSIONS.
     .replace(
       /\.(?:toFixed|toString|indexOf|map|filter|reduce|forEach|concat|slice|join|replace|match|split|trim|push|length|includes|find|some|every|keys|values|entries)\b/g,
       ' '
     )
-    .replace(dotNotationRe, ' ')
+    .replace(/\b\w+\.\w+/g, ' ')
     // Remove residual angle-bracket fragments, parens, brackets noise
     .replace(/[<>(){}[\]]/g, ' ')
     // Remove remaining HTML entities
@@ -335,8 +284,7 @@ function extractVisibleText(source: string): string {
     'className',
     'onClick',
     'onChange',
-    // JS keywords (NB: 'from' is intentionally omitted – it appears as an English
-    // preposition in JSX text, and import statements are outside the return block)
+    // JS keywords
     'true',
     'false',
     'null',
@@ -348,11 +296,13 @@ function extractVisibleText(source: string): string {
     'function',
     'import',
     'export',
+    'from',
     'async',
     'await',
     'new',
     'this',
     // Common leaked JS identifiers
+    'map',
     'filter',
     'reduce',
     'forEach',
@@ -513,15 +463,12 @@ async function generateSearchIndex() {
     }
 
     const source = await fs.readFile(filePath, 'utf-8')
-    const { title, description, robotsIndexFalse } = extractStaticMetadata(source)
+    const { title, description } = extractStaticMetadata(source)
 
     // Skip pages without metadata (e.g. layout-only files)
     if (!title) continue
 
-    // Skip noindex pages (redirect stubs, etc.)
-    if (robotsIndexFalse) continue
-
-    const visibleText = extractSearchContent(source) ?? extractVisibleText(source)
+    const visibleText = extractVisibleText(source)
     const segments = [title, description, visibleText]
       .map((segment) => segment?.trim())
       .filter((s): s is string => Boolean(s))

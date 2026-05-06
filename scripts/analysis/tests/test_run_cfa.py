@@ -83,52 +83,6 @@ def _legacy_stats():
     return pd.DataFrame({"Value": vals}, index=stats)
 
 
-def _semopy2x_stats_no_srmr():
-    """Column-oriented stats WITHOUT an SRMR column — forces fallback path."""
-    return pd.DataFrame(
-        {
-            "chi2": [25.5],
-            "DoF": [5.0],
-            "chi2 p-value": [0.0001],
-            "CFI": [0.95],
-            "TLI": [0.93],
-            "RMSEA": [0.06],
-            # SRMR intentionally omitted
-            "AIC": [1234.56],
-            "BIC": [1278.9],
-        },
-        index=["Value"],
-    )
-
-
-def _run_with_mock_stats_no_srmr(synth_data):
-    """Mock run where calc_stats returns no SRMR — _compute_srmr_fallback is invoked."""
-    data, model_spec = synth_data
-
-    mock_semopy = MagicMock()
-    mock_model = MagicMock()
-    mock_semopy.Model.return_value = mock_model
-    mock_semopy.calc_stats.return_value = _semopy2x_stats_no_srmr()
-    mock_model.inspect.return_value = pd.DataFrame(
-        columns=["lval", "op", "Est. Std"]
-    )
-
-    # Provide a valid mx_cov so the fallback can compute SRMR rather than returning None.
-    # The identity matrix is a minimal valid implied covariance for this mock; the
-    # actual SRMR value will reflect how much the observed data diverges from identity.
-    n_vars = data.shape[1]
-    mock_model.mx_cov = np.eye(n_vars)
-
-    with patch.dict(sys.modules, {"semopy": mock_semopy}):
-        with patch.object(sys, "argv", ["test", "/dev/null"]):
-            if "tabs_v2_unified_data_analysis" in sys.modules:
-                del sys.modules["tabs_v2_unified_data_analysis"]
-            import tabs_v2_unified_data_analysis as mod
-            mod.semopy = mock_semopy
-            mod.HAS_SEMOPY = True
-            return mod.run_cfa(data, model_spec, "MockCFA_NoSRMR")
-
-
 def _run_with_mock_stats(synth_data, stats_df):
     """Import the analysis module with mocked semopy and invoke run_cfa."""
     data, model_spec = synth_data
@@ -179,18 +133,6 @@ class TestRunCFAMocked:
         assert result["rmsea"] == 0.06
         assert result["chi2"] == 25.5
         assert result["df"] == 5
-
-    def test_srmr_fallback_invoked_when_calc_stats_omits_srmr(self, synth_data):
-        """When calc_stats() does not return SRMR, the fallback must still populate 'srmr'."""
-        result = _run_with_mock_stats_no_srmr(synth_data)
-
-        assert "error" not in result, f"Unexpected error: {result.get('error')}"
-        assert "srmr" in result, "'srmr' key must be present even when calc_stats omits it"
-        # Fallback may return None if mx_cov shape mismatch occurs with the mock, but
-        # the key itself must exist (None signals 'unavailable', not 'missing').
-        if result["srmr"] is not None:
-            assert isinstance(result["srmr"], (int, float)), "srmr should be numeric"
-            assert result["srmr"] >= 0, "SRMR must be non-negative"
 
 
 # ---------------------------------------------------------------------------

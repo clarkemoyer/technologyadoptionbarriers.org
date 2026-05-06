@@ -9,9 +9,6 @@ on:
     types: [ready_for_review]
     branches: ['main']
 
-permissions:
-  actions: write
-
 env:
   # Official GitHub flag to force Node.js 24 runtime ahead of the June 2026 mandatory deadline.
   # Ref: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
@@ -29,10 +26,10 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           echo "PR #${{ github.event.pull_request.number }} marked ready for review"
-          echo "Dispatching Copilot review cycle (up to 7 rounds)..."
+          echo "Dispatching Copilot review cycle (up to 14 rounds)..."
           gh workflow run copilot-review-cycle.yml \
             -R ${{ github.repository }} \
             -f pr_number=${{ github.event.pull_request.number }} \
             -f round=1 \
-            -f max_rounds=7
+            -f max_rounds=14
           echo "Review cycle dispatched."

@@ -31,14 +31,12 @@ test.describe('Teaching Series - Sidebar Navigation', () => {
     const sidebar = page.getByRole('complementary', { name: /site navigation/i })
     await expect(sidebar).toBeVisible({ timeout: NAVIGATION_TIMEOUT_MS })
 
-    // Teaching section is now a link (it has an href); click it to navigate
-    const teachingLink = sidebar.getByRole('link', { name: /^Teaching$/i })
-    await expect(teachingLink).toBeVisible({ timeout: NAVIGATION_TIMEOUT_MS })
-    await teachingLink.click()
-    // Verify the navigation actually happened (#1708 first-click behaviour)
-    await page.waitForURL(/\/technology-adoption-series/, { timeout: NAVIGATION_TIMEOUT_MS })
+    // Click Teaching section
+    const teachingButton = sidebar.getByRole('button', { name: /^Teaching$/i })
+    await expect(teachingButton).toBeVisible({ timeout: NAVIGATION_TIMEOUT_MS })
+    await teachingButton.click()
 
-    // After navigating to the teaching landing page the sidebar auto-expands Teaching groups
+    // Verify accordion groups appear
     const part1Title = technologyAdoptionTeachingSeries.parts[0].title
     const part1Button = sidebar.getByRole('button', {
       name: new RegExp(escapeRegExp(part1Title), 'i'),
@@ -54,7 +52,7 @@ test.describe('Teaching Series - Sidebar Navigation', () => {
     ).toBeVisible({ timeout: NAVIGATION_TIMEOUT_MS })
   })
 
-  test('mobile: Teaching link navigates to /technology-adoption-series', async ({ page }) => {
+  test('mobile: teaching series is accessible from hamburger menu', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 })
     await page.emulateMedia({ reducedMotion: 'reduce' })
 
@@ -62,28 +60,12 @@ test.describe('Teaching Series - Sidebar Navigation', () => {
     await page.goto('/', { waitUntil: 'domcontentloaded' })
     await assertCookieConsentSeeded(page)
 
-    // #1708: top-level items are Links now. Clicking on mobile closes the
-    // dialog and navigates to the section landing page.
     const navigationDialog = await openSidebar(page)
-    const teachingLink = navigationDialog.getByRole('link', { name: /^Teaching$/i })
-    await expect(teachingLink).toBeVisible({ timeout: NAVIGATION_TIMEOUT_MS })
-    await teachingLink.click()
-    await page.waitForURL(/\/technology-adoption-series/, { timeout: NAVIGATION_TIMEOUT_MS })
+    const teachingButton = navigationDialog.getByRole('button', { name: /^Teaching$/i })
+    await expect(teachingButton).toBeVisible({ timeout: NAVIGATION_TIMEOUT_MS })
+    await teachingButton.click()
 
-    // Mobile dialog auto-closes on link navigation
-    await expect(navigationDialog).toBeHidden({ timeout: 5000 })
-  })
-
-  test('mobile: teaching accordion visible when reopened on Teaching page', async ({ page }) => {
-    await page.setViewportSize({ width: 390, height: 844 })
-    await page.emulateMedia({ reducedMotion: 'reduce' })
-
-    await seedCookieConsent(page)
-    await page.goto('/technology-adoption-series', { waitUntil: 'domcontentloaded' })
-    await assertCookieConsentSeeded(page)
-
-    const navigationDialog = await openSidebar(page)
-    // Sidebar auto-activates the Teaching section; accordion groups are already visible
+    // Verify teaching accordion groups appear
     const part1Title = technologyAdoptionTeachingSeries.parts[0].title
     const part1Button = navigationDialog.getByRole('button', {
       name: new RegExp(escapeRegExp(part1Title), 'i'),

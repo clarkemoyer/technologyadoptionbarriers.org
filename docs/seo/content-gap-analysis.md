@@ -317,9 +317,9 @@ The following existing pages can rank higher with specific content updates, expa
 - **Add FAQ schema** - Include 5–8 FAQs addressing common barrier questions for SERP feature capture
 - **Impact:** 5 | **Effort:** 3 | **Priority Score:** 15
 
-#### 2. `/barriers/survey-stats` - Response Funnel Page (canonical: `/results/survey-stats`)
+#### 2. `/barriers/survey-stats` - Survey Statistics Page
 
-**Current state:** Displays the full TABS response funnel — Qualtrics raw response counts, Prolific submission outcomes, TABS disposition triage, attention-check pass rates — with API source labelled per metric.
+**Current state:** Displays survey response statistics.
 **Improvement recommendations:**
 
 - **Add survey methodology section** - Describe TABS survey design, sample size, demographics, and Qualtrics/Prolific integration

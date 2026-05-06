@@ -56,36 +56,10 @@ def load_auth_checks(path: str) -> dict[str, dict[str, str]]:
     return result
 
 
-def load_statuses(path: str) -> dict[str, dict[str, str]]:
-    """Load submission summaries JSON into {PID: {status, completed_at, started_at}}.
-
-    Accepts both the legacy shape ``{PID: status_string}`` (older
-    statuses.json artifacts) and the current shape
-    ``{PID: {status, completed_at, started_at}}`` written by
-    fetch_prolific_data.py. Older shape values are normalised so callers
-    can rely on the same dict layout regardless of source.
-    """
+def load_statuses(path: str) -> dict[str, str]:
+    """Load submission statuses JSON into {PID: status}."""
     with open(path, encoding="utf-8") as f:
-        raw = json.load(f)
-
-    normalised: dict[str, dict[str, str]] = {}
-    for pid, value in raw.items():
-        if not pid or not pid.strip():
-            continue
-        if isinstance(value, dict):
-            normalised[pid] = {
-                "status": value.get("status", "") or "",
-                "completed_at": value.get("completed_at", "") or "",
-                "started_at": value.get("started_at", "") or "",
-            }
-        else:
-            # Legacy shape: bare status string, no timestamps available.
-            normalised[pid] = {
-                "status": str(value) if value is not None else "",
-                "completed_at": "",
-                "started_at": "",
-            }
-    return normalised
+        return json.load(f)
 
 
 def load_demographics(path: str) -> tuple[list[str], dict[str, dict[str, str]]]:
@@ -151,10 +125,7 @@ def enrich(
     if auth_data:
         new_cols.extend(["Auth_LLM", "Auth_Bots"])
     if status_data:
-        # Prolific_Status keeps the existing column name for backward
-        # compatibility. Prolific_Completed_At and Prolific_Started_At are
-        # the canonical anchors for 21-day auto-approve runway calculations.
-        new_cols.extend(["Prolific_Status", "Prolific_Completed_At", "Prolific_Started_At"])
+        new_cols.append("Prolific_Status")
     # Prefix Prolific demographic columns to avoid collision with Qualtrics columns
     prefixed_demo_cols = [f"Prolific_{c}" for c in demo_cols]
     new_cols.extend(prefixed_demo_cols)
@@ -178,10 +149,7 @@ def enrich(
                     row.append(auth.get("Auth_LLM", ""))
                     row.append(auth.get("Auth_Bots", ""))
                 if "Prolific_Status" in new_cols:
-                    summary = status_data.get(pid, {})
-                    row.append(summary.get("status", ""))
-                    row.append(summary.get("completed_at", ""))
-                    row.append(summary.get("started_at", ""))
+                    row.append(status_data.get(pid, ""))
                 # Append demographic values in the same order as prefixed_demo_cols
                 demo = demo_data.get(pid, {})
                 for col in demo_cols:

@@ -1,5 +1,4 @@
-import { MarkerType } from '@xyflow/react'
-import type { Edge, Node } from '@xyflow/react'
+import { MarkerType, type Edge, type Node } from '@xyflow/react'
 
 export type Category =
   | 'sociology'
