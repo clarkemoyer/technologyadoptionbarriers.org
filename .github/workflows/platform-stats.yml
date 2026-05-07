@@ -65,9 +65,12 @@ jobs:
           mkdir -p src/data
 
           COMMITS=$(git rev-list --count HEAD)
-          # Two glob patterns because GitHub Actions accepts both .yml and .yaml.
-          WORKFLOWS=$(ls .github/workflows/*.yml .github/workflows/*.yaml 2>/dev/null | wc -l)
-          INTEGRATIONS=$(ls -d src/app/making-of-tabs/integrations/*/ 2>/dev/null | wc -l)
+          # `ls A B` returns nonzero when one pattern matches nothing. Combined
+          # with `set -o pipefail` that kills the script even when 2>/dev/null
+          # hides the warning. Use `find` instead - it returns 0 for
+          # both-found and neither-found, and we count its output.
+          WORKFLOWS=$(find .github/workflows -maxdepth 1 -type f \( -name '*.yml' -o -name '*.yaml' \) | wc -l)
+          INTEGRATIONS=$(find src/app/making-of-tabs/integrations -maxdepth 1 -mindepth 1 -type d | wc -l)
           CODE=$(jq '.SUM.code'    /tmp/cloc.json)
           COMM=$(jq '.SUM.comment' /tmp/cloc.json)
           BLANK=$(jq '.SUM.blank'  /tmp/cloc.json)
