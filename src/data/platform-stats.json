@@ -1,26 +1,129 @@
 {
-  "as_of": "2026-05-06T00:00:00Z",
-  "commit_sha": "seed",
-  "commit_count": 5280,
-  "lines_of_code": 149687,
-  "comments": 30937,
-  "blanks": 56473,
-  "total_lines": 237097,
-  "tracked_files": 829,
-  "github_workflows": 47,
+  "as_of": "2026-05-07T11:56:44Z",
+  "commit_sha": "225a6a9635409d1aa8d9ea5e58f8071f5525be66",
+  "commit_count": 5321,
+  "lines_of_code": 227498,
+  "comments": 12848,
+  "blanks": 26129,
+  "total_lines": 266475,
+  "tracked_files": 782,
+  "github_workflows": 50,
   "integrations": 8,
   "development_phases": 5,
   "phases_source": "CRP §3.6 Table 8 (Five-Phase TABS Product Development Process)",
   "method": "cloc; excludes node_modules, .next, dist, build, coverage, .cache, .git, .venv, Old, playwright-report, test-results; binary and lock files excluded by extension",
   "by_language": [
-    { "language": "TSX", "files": 274, "code": 80586, "comment": 2331, "blank": 0 },
-    { "language": "Python", "files": 80, "code": 29852, "comment": 7625, "blank": 0 },
-    { "language": "JSON", "files": 29, "code": 23000, "comment": 0, "blank": 0 },
-    { "language": "TypeScript", "files": 88, "code": 10393, "comment": 1919, "blank": 0 },
-    { "language": "Markdown", "files": 25, "code": 1379, "comment": 0, "blank": 0 },
-    { "language": "YAML", "files": 53, "code": 6772, "comment": 546, "blank": 0 },
-    { "language": "CSS", "files": 3, "code": 611, "comment": 57, "blank": 0 },
-    { "language": "Bash", "files": 2, "code": 290, "comment": 64, "blank": 0 }
-  ],
-  "_seed": "Initial values pre-workflow-run. Refreshed by .github/workflows/platform-stats.yml on push to main + weekly cron. See #1900."
+    {
+      "language": "TypeScript",
+      "files": 460,
+      "code": 111928,
+      "comment": 3921,
+      "blank": 7959
+    },
+    {
+      "language": "JSON",
+      "files": 41,
+      "code": 44684,
+      "comment": 0,
+      "blank": 0
+    },
+    {
+      "language": "Python",
+      "files": 83,
+      "code": 34985,
+      "comment": 7561,
+      "blank": 6926
+    },
+    {
+      "language": "Markdown",
+      "files": 102,
+      "code": 24036,
+      "comment": 39,
+      "blank": 9554
+    },
+    {
+      "language": "YAML",
+      "files": 56,
+      "code": 6910,
+      "comment": 863,
+      "blank": 1142
+    },
+    {
+      "language": "CSV",
+      "files": 7,
+      "code": 1170,
+      "comment": 0,
+      "blank": 4
+    },
+    {
+      "language": "Scheme",
+      "files": 1,
+      "code": 936,
+      "comment": 0,
+      "blank": 108
+    },
+    {
+      "language": "CSS",
+      "files": 3,
+      "code": 759,
+      "comment": 54,
+      "blank": 109
+    },
+    {
+      "language": "Bourne Shell",
+      "files": 4,
+      "code": 583,
+      "comment": 85,
+      "blank": 95
+    },
+    {
+      "language": "DOS Batch",
+      "files": 2,
+      "code": 377,
+      "comment": 137,
+      "blank": 54
+    },
+    {
+      "language": "Bourne Again Shell",
+      "files": 2,
+      "code": 336,
+      "comment": 56,
+      "blank": 54
+    },
+    {
+      "language": "R",
+      "files": 1,
+      "code": 290,
+      "comment": 96,
+      "blank": 29
+    },
+    {
+      "language": "Text",
+      "files": 10,
+      "code": 206,
+      "comment": 0,
+      "blank": 36
+    },
+    {
+      "language": "JavaScript",
+      "files": 6,
+      "code": 182,
+      "comment": 29,
+      "blank": 26
+    },
+    {
+      "language": "PowerShell",
+      "files": 3,
+      "code": 106,
+      "comment": 7,
+      "blank": 31
+    },
+    {
+      "language": "INI",
+      "files": 1,
+      "code": 10,
+      "comment": 0,
+      "blank": 2
+    }
+  ]
 }
