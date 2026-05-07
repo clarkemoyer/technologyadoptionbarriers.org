@@ -40,7 +40,7 @@ _STUDY_ID_RE = re.compile(r"^[0-9a-f]{24}$")
 
 def _find_hex_strings(obj: object, key_path: str = "") -> list[tuple[str, str]]:
     """Recursively walk a JSON object and return (key_path, text) for every
-    string key/value containing at least one 24-char hex substring."""
+    string key/value where text contains at least one 24-char hex substring."""
     results: list[tuple[str, str]] = []
     if isinstance(obj, dict):
         for key, val in obj.items():
@@ -67,6 +67,8 @@ def _is_allowed(key_path: str, value: str) -> bool:
       - studyId / study_id values that are full 24-char lowercase hex IDs
       - The pattern "*.study.id" where value is a full 24-char lowercase hex ID
     """
+    # Never allowlist JSON keys themselves; only value fields can be exempted
+    # when they match strict machine-identifier formats.
     if key_path.endswith(" (key)"):
         return False
 
