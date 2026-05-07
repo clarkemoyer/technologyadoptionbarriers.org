@@ -1,0 +1,129 @@
+{
+  "as_of": "2026-05-07T12:13:38Z",
+  "commit_sha": "242a8f87c207486fe9a60966bef71b618b480d05",
+  "commit_count": 5329,
+  "lines_of_code": 227601,
+  "comments": 12848,
+  "blanks": 26129,
+  "total_lines": 266578,
+  "tracked_files": 782,
+  "github_workflows": 50,
+  "integrations": 8,
+  "development_phases": 5,
+  "phases_source": "CRP §3.6 Table 8 (Five-Phase TABS Product Development Process)",
+  "method": "cloc; excludes node_modules, .next, dist, build, coverage, .cache, .git, .venv, Old, playwright-report, test-results; binary and lock files excluded by extension",
+  "by_language": [
+    {
+      "language": "TypeScript",
+      "files": 460,
+      "code": 111928,
+      "comment": 3921,
+      "blank": 7959
+    },
+    {
+      "language": "JSON",
+      "files": 41,
+      "code": 44787,
+      "comment": 0,
+      "blank": 0
+    },
+    {
+      "language": "Python",
+      "files": 83,
+      "code": 34985,
+      "comment": 7561,
+      "blank": 6926
+    },
+    {
+      "language": "Markdown",
+      "files": 102,
+      "code": 24036,
+      "comment": 39,
+      "blank": 9554
+    },
+    {
+      "language": "YAML",
+      "files": 56,
+      "code": 6910,
+      "comment": 863,
+      "blank": 1142
+    },
+    {
+      "language": "CSV",
+      "files": 7,
+      "code": 1170,
+      "comment": 0,
+      "blank": 4
+    },
+    {
+      "language": "Scheme",
+      "files": 1,
+      "code": 936,
+      "comment": 0,
+      "blank": 108
+    },
+    {
+      "language": "CSS",
+      "files": 3,
+      "code": 759,
+      "comment": 54,
+      "blank": 109
+    },
+    {
+      "language": "Bourne Shell",
+      "files": 4,
+      "code": 583,
+      "comment": 85,
+      "blank": 95
+    },
+    {
+      "language": "DOS Batch",
+      "files": 2,
+      "code": 377,
+      "comment": 137,
+      "blank": 54
+    },
+    {
+      "language": "Bourne Again Shell",
+      "files": 2,
+      "code": 336,
+      "comment": 56,
+      "blank": 54
+    },
+    {
+      "language": "R",
+      "files": 1,
+      "code": 290,
+      "comment": 96,
+      "blank": 29
+    },
+    {
+      "language": "Text",
+      "files": 10,
+      "code": 206,
+      "comment": 0,
+      "blank": 36
+    },
+    {
+      "language": "JavaScript",
+      "files": 6,
+      "code": 182,
+      "comment": 29,
+      "blank": 26
+    },
+    {
+      "language": "PowerShell",
+      "files": 3,
+      "code": 106,
+      "comment": 7,
+      "blank": 31
+    },
+    {
+      "language": "INI",
+      "files": 1,
+      "code": 10,
+      "comment": 0,
+      "blank": 2
+    }
+  ]
+}

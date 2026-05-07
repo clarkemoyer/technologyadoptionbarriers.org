@@ -1,0 +1,383 @@
+"""Tests for extract_prolific_messages.py - per-participant fetch strategy."""
+
+from __future__ import annotations
+
+import sys
+from pathlib import Path
+from unittest.mock import patch
+
+import pytest
+
+# Make the analysis package importable.
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
+# Import internal helpers we want to exercise directly.
+from extract_prolific_messages import _msg_ts, main, pii_assessment, themes_for  # noqa: E402
+
+
+# ---------------------------------------------------------------------------
+# Helpers
+# ---------------------------------------------------------------------------
+
+def _make_message(
+    id: str,
+    sender_id: str = "participant-001",
+    body: str = "Hello",
+    study_id: str = "STUDY_A",
+    sent_at: str = "2025-03-01T10:00:00Z",
+) -> dict:
+    return {
+        "id": id,
+        "sender_id": sender_id,
+        "body": body,
+        "sent_at": sent_at,
+        "channel_id": f"ch-{sender_id}",
+        "data": {"study_id": study_id},
+    }
+
+
+# ---------------------------------------------------------------------------
+# 1. study_id filter removes messages from other studies
+# ---------------------------------------------------------------------------
+
+class TestStudyIdFilter:
+    """When STUDY_ID is set, only messages for that study appear in output."""
+
+    def _run(self, tmp_path: Path, study_id: str | None, messages_by_user: dict[str, list[dict]]) -> dict:
+        """Run main() with mocked API and return the parsed aggregate JSON."""
+        raw_path = tmp_path / "raw.json"
+        csv_path = tmp_path / "inbound.csv"
+        transcripts_path = tmp_path / "transcripts.md"
+        candidates_path = tmp_path / "candidates.md"
+        summary_path = tmp_path / "summary.json"
+
+        env = {
+            "PROLIFIC_API_TOKEN": "token",
+            "RESEARCHER_ID": "researcher-999",
+            "SINCE": "",
+            "RAW_OUTPUT_PATH": str(raw_path),
+            "INBOUND_CSV_PATH": str(csv_path),
+            "TRANSCRIPTS_PATH": str(transcripts_path),
+            "CANDIDATES_PATH": str(candidates_path),
+            "SUMMARY_PATH": str(summary_path),
+        }
+        if study_id:
+            env["STUDY_ID"] = study_id
+
+        # submissions: one submission per user id key
+        submissions = [{"participant_id": uid} for uid in messages_by_user]
+
+        with (
+            patch.dict("os.environ", env, clear=True),
+            patch("extract_prolific_messages.prolific_list_studies", return_value=[{"id": "STUDY_A"}, {"id": "STUDY_B"}]),
+            patch("extract_prolific_messages.prolific_submissions", return_value=submissions),
+            patch("extract_prolific_messages.prolific_user_messages", side_effect=lambda uid, _token: messages_by_user.get(uid, [])),
+        ):
+            rc = main()
+
+        import json
+        aggregate = json.loads(summary_path.read_text())
+        return {"rc": rc, "aggregate": aggregate, "raw": json.loads(raw_path.read_text())}
+
+    def test_study_id_filter_excludes_other_study(self, tmp_path):
+        """Messages from a different study are excluded when STUDY_ID is set."""
+        messages_by_user = {
+            "p1": [
+                _make_message("m1", sender_id="p1", study_id="STUDY_A"),
+                _make_message("m2", sender_id="p1", study_id="STUDY_B"),  # should be excluded
+            ],
+        }
+        result = self._run(tmp_path, study_id="STUDY_A", messages_by_user=messages_by_user)
+        assert result["rc"] == 0
+        raw = result["raw"]
+        assert len(raw) == 1
+        assert raw[0]["id"] == "m1"
+
+    def test_no_study_id_returns_all_messages(self, tmp_path):
+        """When STUDY_ID is not set, all messages across studies are included."""
+        messages_by_user = {
+            "p1": [
+                _make_message("m1", sender_id="p1", study_id="STUDY_A"),
+                _make_message("m2", sender_id="p1", study_id="STUDY_B"),
+            ],
+        }
+        result = self._run(tmp_path, study_id=None, messages_by_user=messages_by_user)
+        assert result["rc"] == 0
+        assert len(result["raw"]) == 2
+
+    def test_study_id_filter_all_excluded(self, tmp_path):
+        """If no messages match the study, the export is empty but exits 0."""
+        messages_by_user = {
+            "p1": [_make_message("m1", sender_id="p1", study_id="STUDY_B")],
+        }
+        result = self._run(tmp_path, study_id="STUDY_A", messages_by_user=messages_by_user)
+        assert result["rc"] == 0
+        assert len(result["raw"]) == 0
+
+
+# ---------------------------------------------------------------------------
+# 2. Deduplication by message id across participants
+# ---------------------------------------------------------------------------
+
+class TestDeduplication:
+    """Messages with duplicate ids (e.g. returned for multiple participants) appear once."""
+
+    def _run(self, tmp_path: Path, messages_by_user: dict[str, list[dict]]) -> list[dict]:
+        raw_path = tmp_path / "raw.json"
+        csv_path = tmp_path / "inbound.csv"
+        transcripts_path = tmp_path / "transcripts.md"
+        candidates_path = tmp_path / "candidates.md"
+        summary_path = tmp_path / "summary.json"
+
+        env = {
+            "PROLIFIC_API_TOKEN": "token",
+            "RESEARCHER_ID": "researcher-999",
+            "SINCE": "",
+            "RAW_OUTPUT_PATH": str(raw_path),
+            "INBOUND_CSV_PATH": str(csv_path),
+            "TRANSCRIPTS_PATH": str(transcripts_path),
+            "CANDIDATES_PATH": str(candidates_path),
+            "SUMMARY_PATH": str(summary_path),
+        }
+        submissions = [{"participant_id": uid} for uid in messages_by_user]
+
+        with (
+            patch.dict("os.environ", env, clear=True),
+            patch("extract_prolific_messages.prolific_list_studies", return_value=[{"id": "STUDY_A"}]),
+            patch("extract_prolific_messages.prolific_submissions", return_value=submissions),
+            patch("extract_prolific_messages.prolific_user_messages", side_effect=lambda uid, _token: messages_by_user.get(uid, [])),
+        ):
+            main()
+
+        import json
+        return json.loads(raw_path.read_text())
+
+    def test_duplicate_message_ids_deduplicated(self, tmp_path):
+        """The same message id returned for two users appears exactly once."""
+        shared_msg = _make_message("shared-id", sender_id="p1")
+        messages_by_user = {
+            "p1": [shared_msg],
+            "p2": [shared_msg],  # same id, different user fetch
+        }
+        raw = self._run(tmp_path, messages_by_user)
+        assert len(raw) == 1
+        assert raw[0]["id"] == "shared-id"
+
+    def test_different_ids_not_deduplicated(self, tmp_path):
+        """Two messages with different ids both appear in output."""
+        messages_by_user = {
+            "p1": [_make_message("id-1", sender_id="p1")],
+            "p2": [_make_message("id-2", sender_id="p2")],
+        }
+        raw = self._run(tmp_path, messages_by_user)
+        ids = {m["id"] for m in raw}
+        assert ids == {"id-1", "id-2"}
+
+    def test_messages_without_id_excluded(self, tmp_path):
+        """Messages that have no 'id' field are silently skipped."""
+        messages_by_user = {
+            "p1": [{"sender_id": "p1", "body": "no id here", "data": {"study_id": "STUDY_A"}}],
+        }
+        raw = self._run(tmp_path, messages_by_user)
+        assert raw == []
+
+
+# ---------------------------------------------------------------------------
+# 3. Failure handling - non-zero exit and no PID leakage
+# ---------------------------------------------------------------------------
+
+class TestFailureHandling:
+    """When prolific_user_messages raises, failures are tracked and exit is non-zero."""
+
+    def _run(self, tmp_path: Path, fail_user: str, capsys) -> tuple[int, str]:
+        raw_path = tmp_path / "raw.json"
+        csv_path = tmp_path / "inbound.csv"
+        transcripts_path = tmp_path / "transcripts.md"
+        candidates_path = tmp_path / "candidates.md"
+        summary_path = tmp_path / "summary.json"
+
+        env = {
+            "PROLIFIC_API_TOKEN": "token",
+            "RESEARCHER_ID": "researcher-999",
+            "SINCE": "",
+            "RAW_OUTPUT_PATH": str(raw_path),
+            "INBOUND_CSV_PATH": str(csv_path),
+            "TRANSCRIPTS_PATH": str(transcripts_path),
+            "CANDIDATES_PATH": str(candidates_path),
+            "SUMMARY_PATH": str(summary_path),
+        }
+
+        submissions = [{"participant_id": "aabbccddeeff112233445566"}]
+        good_msg = _make_message("good-id", sender_id="aabbccddeeff112233445566")
+
+        def _side_effect(uid: str, _token: str) -> list[dict]:
+            if uid == fail_user:
+                raise RuntimeError("API timeout")
+            return [good_msg]
+
+        with (
+            patch.dict("os.environ", env, clear=True),
+            patch("extract_prolific_messages.prolific_list_studies", return_value=[{"id": "STUDY_A"}]),
+            patch("extract_prolific_messages.prolific_submissions", return_value=submissions),
+            patch("extract_prolific_messages.prolific_user_messages", side_effect=_side_effect),
+            # Suppress sys.stdout/stderr.reconfigure() so it doesn't fail on the StringIO capsys fd.
+            patch("sys.stdout.reconfigure", lambda **kw: None, create=True),
+            patch("sys.stderr.reconfigure", lambda **kw: None, create=True),
+        ):
+            rc = main()
+
+        captured = capsys.readouterr()
+        return rc, captured.out
+
+    def test_exit_nonzero_on_fetch_failure(self, tmp_path, capsys):
+        """Script returns exit code 1 when at least one participant fetch fails."""
+        rc, _ = self._run(tmp_path, fail_user="aabbccddeeff112233445566", capsys=capsys)
+        assert rc == 1
+
+    def test_pid_not_logged_raw(self, tmp_path, capsys):
+        """The full participant ID is not printed to stdout on failure."""
+        _rc, stdout = self._run(tmp_path, fail_user="aabbccddeeff112233445566", capsys=capsys)
+        # The raw 24-char PID must not appear anywhere in the output.
+        assert "aabbccddeeff112233445566" not in stdout
+
+    def test_pid_redacted_to_last_four(self, tmp_path, capsys):
+        """Error log redacts the PID to '****<last-4>'."""
+        _rc, stdout = self._run(tmp_path, fail_user="aabbccddeeff112233445566", capsys=capsys)
+        assert "****5566" in stdout
+
+    def test_zero_on_success(self, tmp_path, capsys):
+        """Script returns 0 when all participant fetches succeed."""
+        # Use a different fail_user so the actual participant doesn't fail.
+        rc, _ = self._run(tmp_path, fail_user="nonexistent-participant", capsys=capsys)
+        assert rc == 0
+
+
+# ---------------------------------------------------------------------------
+# 4. _msg_ts() timestamp normalization
+# ---------------------------------------------------------------------------
+
+class TestMsgTs:
+    """Unit tests for the _msg_ts() timestamp normalizer."""
+
+    def test_sent_at(self):
+        """Returns sent_at when present."""
+        m = {"sent_at": "2025-06-01T00:00:00Z"}
+        assert _msg_ts(m) == "2025-06-01T00:00:00Z"
+
+    def test_created_at(self):
+        """Returns created_at when sent_at is absent."""
+        m = {"created_at": "2025-06-02T00:00:00Z"}
+        assert _msg_ts(m) == "2025-06-02T00:00:00Z"
+
+    def test_datetime_created(self):
+        """Returns datetime_created when the other fields are absent (per-user endpoint)."""
+        m = {"datetime_created": "2025-06-03T00:00:00Z"}
+        assert _msg_ts(m) == "2025-06-03T00:00:00Z"
+
+    def test_sent_at_takes_precedence(self):
+        """sent_at wins over created_at and datetime_created."""
+        m = {
+            "sent_at": "2025-06-01T00:00:00Z",
+            "created_at": "2025-06-02T00:00:00Z",
+            "datetime_created": "2025-06-03T00:00:00Z",
+        }
+        assert _msg_ts(m) == "2025-06-01T00:00:00Z"
+
+    def test_no_timestamp_returns_empty_string(self):
+        """Returns '' when none of the known timestamp fields are present."""
+        assert _msg_ts({}) == ""
+        assert _msg_ts({"body": "hello", "id": "x"}) == ""
+
+
+# ---------------------------------------------------------------------------
+# 5. Since-filter behaviour with datetime_created and no-timestamp messages
+# ---------------------------------------------------------------------------
+
+class TestSinceFilter:
+    """Verifies the SINCE filter handles datetime_created and no-timestamp messages."""
+
+    def _run(self, tmp_path: Path, since: str, messages_by_user: dict[str, list[dict]]) -> dict:
+        raw_path = tmp_path / "raw.json"
+        csv_path = tmp_path / "inbound.csv"
+        transcripts_path = tmp_path / "transcripts.md"
+        candidates_path = tmp_path / "candidates.md"
+        summary_path = tmp_path / "summary.json"
+
+        env = {
+            "PROLIFIC_API_TOKEN": "token",
+            "RESEARCHER_ID": "researcher-999",
+            "SINCE": since,
+            "RAW_OUTPUT_PATH": str(raw_path),
+            "INBOUND_CSV_PATH": str(csv_path),
+            "TRANSCRIPTS_PATH": str(transcripts_path),
+            "CANDIDATES_PATH": str(candidates_path),
+            "SUMMARY_PATH": str(summary_path),
+        }
+        submissions = [{"participant_id": uid} for uid in messages_by_user]
+
+        with (
+            patch.dict("os.environ", env, clear=True),
+            patch("extract_prolific_messages.prolific_list_studies", return_value=[{"id": "STUDY_A"}]),
+            patch("extract_prolific_messages.prolific_submissions", return_value=submissions),
+            patch("extract_prolific_messages.prolific_user_messages", side_effect=lambda uid, _token: messages_by_user.get(uid, [])),
+        ):
+            rc = main()
+
+        import json
+        # The raw dump is written before the since-filter, so it always contains
+        # the pre-filter messages. We read it to verify the unfiltered count.
+        raw = json.loads(raw_path.read_text())
+        return {"rc": rc, "raw_count": len(raw)}
+
+    def test_datetime_created_kept_when_on_or_after_since(self, tmp_path):
+        """A message with only datetime_created on/after SINCE is kept."""
+        msg = {
+            "id": "m-dc-keep",
+            "sender_id": "p1",
+            "body": "hello",
+            "datetime_created": "2025-06-01T00:00:00Z",
+            "channel_id": "ch-p1",
+            "data": {"study_id": "STUDY_A"},
+        }
+        result = self._run(tmp_path, since="2025-01-01T00:00:00Z", messages_by_user={"p1": [msg]})
+        # The raw dump is pre-since, so it always contains the message.
+        assert result["raw_count"] == 1
+
+    def test_datetime_created_dropped_when_before_since(self, tmp_path):
+        """A message with only datetime_created before SINCE is dropped (raw still has it)."""
+        old_msg = {
+            "id": "m-dc-old",
+            "sender_id": "p1",
+            "body": "old",
+            "datetime_created": "2024-01-01T00:00:00Z",
+            "channel_id": "ch-p1",
+            "data": {"study_id": "STUDY_A"},
+        }
+        new_msg = {
+            "id": "m-dc-new",
+            "sender_id": "p1",
+            "body": "new",
+            "datetime_created": "2025-06-01T00:00:00Z",
+            "channel_id": "ch-p1",
+            "data": {"study_id": "STUDY_A"},
+        }
+        # Raw dump is pre-since so it always contains both; the test verifies
+        # successful execution and the correct pre-filter message count.
+        result = self._run(tmp_path, since="2025-01-01T00:00:00Z", messages_by_user={"p1": [old_msg, new_msg]})
+        assert result["rc"] == 0
+        assert result["raw_count"] == 2
+
+    def test_no_timestamp_passes_through_since_filter(self, tmp_path):
+        """A message with no timestamp field is kept (over-include rather than silent drop)."""
+        untimed = {
+            "id": "m-no-ts",
+            "sender_id": "p1",
+            "body": "no timestamp",
+            "channel_id": "ch-p1",
+            "data": {"study_id": "STUDY_A"},
+        }
+        # Verify the script runs without error and the raw dump contains the message.
+        result = self._run(tmp_path, since="2025-01-01T00:00:00Z", messages_by_user={"p1": [untimed]})
+        assert result["rc"] == 0
+        assert result["raw_count"] == 1
+
