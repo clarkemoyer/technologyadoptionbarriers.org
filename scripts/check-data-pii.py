@@ -36,6 +36,8 @@ _PID_RE = re.compile(r"[0-9a-f]{24}")
 # not participant identifiers.  Extend this list if the data schema changes.
 _ALLOWED_LEAF_KEYS: frozenset[str] = frozenset(
     {
+        "commitSha",
+        "commit_sha",
         "studyId",
         "study_id",
     }
