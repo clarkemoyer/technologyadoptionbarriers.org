@@ -32,8 +32,9 @@ from pathlib import Path
 # No anchors: also catches PIDs embedded inside longer string values.
 _PID_RE = re.compile(r"[0-9a-f]{24}")
 
-# JSON key names whose *values* are known to be study-level identifiers,
-# not participant identifiers.  Extend this list if the data schema changes.
+# JSON key names whose *values* are known-safe machine identifiers
+# (e.g., study IDs or commit SHAs), not participant identifiers.
+# Extend this list if the data schema changes.
 _ALLOWED_LEAF_KEYS: frozenset[str] = frozenset(
     {
         "commitSha",
@@ -66,11 +67,11 @@ def _find_hex_strings(obj: object, key_path: str = "") -> list[tuple[str, str]]:
 
 
 def _is_allowed(key_path: str) -> bool:
-    """Return True when the key path indicates a study identifier rather than
-    a participant identifier.
+    """Return True when the key path indicates an allowlisted machine identifier
+    rather than a participant identifier.
 
     Allowed patterns:
-      - Any leaf key in _ALLOWED_LEAF_KEYS   (e.g. "studyId", "study_id")
+      - Any leaf key in _ALLOWED_LEAF_KEYS   (e.g. "studyId", "commit_sha")
       - The pattern "*.study.id"             (e.g. "study.id")
     """
     parts = key_path.replace("[", ".").replace("]", "").split(".")
