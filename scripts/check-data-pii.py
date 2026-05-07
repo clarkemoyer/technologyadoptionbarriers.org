@@ -33,7 +33,8 @@ from pathlib import Path
 _PID_RE = re.compile(r"[0-9a-f]{24}")
 
 # JSON key names whose *values* are known-safe machine identifiers
-# (e.g., study IDs or commit SHAs), not participant identifiers.
+# (e.g., study IDs or commit SHAs in commitSha/commit_sha fields),
+# not participant identifiers.
 # Extend this list if the data schema changes.
 _ALLOWED_LEAF_KEYS: frozenset[str] = frozenset(
     {
@@ -71,7 +72,7 @@ def _is_allowed(key_path: str) -> bool:
     rather than a participant identifier.
 
     Allowed patterns:
-      - Any leaf key in _ALLOWED_LEAF_KEYS   (e.g. "studyId", "commit_sha")
+      - Any leaf key in _ALLOWED_LEAF_KEYS   (e.g. "studyId", "commitSha", "commit_sha")
       - The pattern "*.study.id"             (e.g. "study.id")
     """
     parts = key_path.replace("[", ".").replace("]", "").split(".")
