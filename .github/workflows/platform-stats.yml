@@ -34,6 +34,11 @@ jobs:
   compute:
     name: Compute platform stats
     runs-on: ubuntu-latest
+    # The "Open PR if changed" step needs the COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN
+    # secret, which lives in the `copilot` environment. Without this declaration
+    # the secret resolves to "" and create-pull-request fails with
+    # "Input 'token' not supplied". Matches ga-report.yml / prettier-autofix.yml.
+    environment: copilot
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v6
