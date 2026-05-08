@@ -355,7 +355,7 @@ Seven shared content components extracted so the live and CRP-2026 results pages
 - [#1887](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/1887) — Update the image used when sharing the website from the free for charity to tabs
 - [#1861](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/1861) — Pipeline gap: 7 statistics on defense materials are not computed daily (SRMR, Henze-Zirkler, SMB t-tests, Harman CMV, per-factor Tucker, registry counts)
 - [#1858](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/1858) — Sample / Findings pages hide the Tech vs Non-Tech classification depth (CISO missing from label, free-text reclassification of Others not surfaced)
-- [#1856](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/1856) — Need more detials in the post smoke error issue
+- [#1856](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/1856) — Need more details in the post smoke error issue
 - [#1851](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/1851) — Reason column not populating in the daily report.
 - [#1708](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/1708) — Audit and redesign major nav-category first-click landing pages
 - [#1667](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/1667) — Add CRP-specific content to Making of TABS: 50-Reviewer Process and Open-Source Research Value
