@@ -1,0 +1,119 @@
+name: Create release v0.6.0
+
+# Creates a draft GitHub release for v0.6.0 the first time the release-notes
+# file lands on main. Idempotent: if the tag already exists the workflow exits
+# successfully without recreating it. The release is created as a draft so a
+# human reviews the body and taps Publish from the Releases UI / mobile app.
+#
+# This file can be safely deleted (or left in place) after v0.6.0 ships — its
+# paths trigger only ever fires for `RELEASE_NOTES_v0.6.0.md`.
+
+on:
+  push:
+    branches: ['main']
+    paths:
+      - 'RELEASE_NOTES_v0.6.0.md'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: create-release-v0.6.0
+  cancel-in-progress: false
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Verify package.json version is 0.6.0
+        id: verify
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          echo "package_version=$VERSION" >> "$GITHUB_OUTPUT"
+          if [ "$VERSION" != "0.6.0" ]; then
+            echo "::warning::package.json version is $VERSION, expected 0.6.0 — skipping release"
+            echo "should_release=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "should_release=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Verify release-notes file is present
+        if: steps.verify.outputs.should_release == 'true'
+        run: |
+          if [ ! -f "RELEASE_NOTES_v0.6.0.md" ]; then
+            echo "::error::RELEASE_NOTES_v0.6.0.md not found at HEAD"
+            exit 1
+          fi
+
+      - name: Check whether tag v0.6.0 already exists
+        if: steps.verify.outputs.should_release == 'true'
+        id: tag-check
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if git rev-parse v0.6.0 >/dev/null 2>&1; then
+            echo "Tag v0.6.0 already exists locally"
+            echo "tag_exists=true" >> "$GITHUB_OUTPUT"
+          elif gh api "repos/${{ github.repository }}/git/refs/tags/v0.6.0" --silent 2>/dev/null; then
+            echo "Tag v0.6.0 already exists on remote"
+            echo "tag_exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Tag v0.6.0 does not exist yet"
+            echo "tag_exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Check whether release v0.6.0 already exists
+        if: steps.verify.outputs.should_release == 'true' && steps.tag-check.outputs.tag_exists == 'false'
+        id: release-check
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if gh release view v0.6.0 --repo "${{ github.repository }}" --json tagName 2>/dev/null; then
+            echo "Release v0.6.0 already exists (draft or published)"
+            echo "release_exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "release_exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Create tag and draft release
+        if: steps.verify.outputs.should_release == 'true' && steps.tag-check.outputs.tag_exists == 'false' && steps.release-check.outputs.release_exists == 'false'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create v0.6.0 \
+            --repo "${{ github.repository }}" \
+            --draft \
+            --target "${{ github.sha }}" \
+            --title "v0.6.0 - Defense-Day Release: Walkthrough, Reproducibility Kits, & New Statistics" \
+            --notes-file RELEASE_NOTES_v0.6.0.md
+
+      - name: Summary
+        if: always()
+        run: |
+          {
+            echo "## Release v0.6.0"
+            echo ""
+            echo "| Check | Value |"
+            echo "| --- | --- |"
+            echo "| package.json version | ${{ steps.verify.outputs.package_version }} |"
+            echo "| should_release | ${{ steps.verify.outputs.should_release }} |"
+            echo "| tag_exists | ${{ steps.tag-check.outputs.tag_exists }} |"
+            echo "| release_exists | ${{ steps.release-check.outputs.release_exists }} |"
+            echo "| target SHA | ${{ github.sha }} |"
+            echo ""
+            if [ "${{ steps.verify.outputs.should_release }}" = "true" ] \
+              && [ "${{ steps.tag-check.outputs.tag_exists }}" = "false" ] \
+              && [ "${{ steps.release-check.outputs.release_exists }}" = "false" ]; then
+              echo "**Result:** ✅ Draft release v0.6.0 created."
+              echo ""
+              echo "Open the draft at https://github.com/${{ github.repository }}/releases and tap **Publish release** when ready."
+            else
+              echo "**Result:** ⏭️ Skipped (version mismatch, or tag/release already exists)."
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
