@@ -1,50 +1,50 @@
 {
-  "updatedAt": "2026-05-13T11:37:45.297958+00:00",
-  "last_updated": "2026-05-13T11:37:45.297961+00:00",
+  "updatedAt": "2026-05-14T11:29:12.684353+00:00",
+  "last_updated": "2026-05-14T11:29:12.684356+00:00",
   "study": {
     "id": "69c17630acada6abeead2da5",
     "name": "Technology Adoption Barriers Survey (2026)",
     "status": "ACTIVE",
     "totalAvailablePlaces": 500,
-    "placesTaken": 418,
-    "averageRewardPerHour": 4013,
+    "placesTaken": 425,
+    "averageRewardPerHour": 3994,
     "averageTimeTaken": 10,
     "reward": 700,
     "publishedAt": "2026-03-23T18:00:28.650000Z"
   },
   "completionProgress": {
     "target": 500,
-    "completed": 418,
-    "approved": 323,
-    "awaitingReview": 95,
-    "percentComplete": 83.6
+    "completed": 425,
+    "approved": 334,
+    "awaitingReview": 91,
+    "percentComplete": 85.0
   },
-  "totalResponses": 693,
-  "uniqueParticipants": 678,
+  "totalResponses": 703,
+  "uniqueParticipants": 688,
   "duplicatesRemoved": 0,
   "dispositions": {
-    "INCOMPLETE": 96,
-    "CLEAN": 121,
-    "FLAG-SMEAL": 86,
+    "INCOMPLETE": 97,
+    "CLEAN": 124,
+    "FLAG-SMEAL": 87,
     "FLAG-SPEED": 12,
-    "FLAG-PARTIAL-STRAIGHTLINING": 52,
-    "FLAG-SINGLE-IRI": 124,
-    "AUTO-EXCLUDE": 178,
-    "FLAG-RECAPTCHA": 9
+    "FLAG-PARTIAL-STRAIGHTLINING": 54,
+    "FLAG-SINGLE-IRI": 125,
+    "AUTO-EXCLUDE": 179,
+    "FLAG-RECAPTCHA": 10
   },
   "dispositionByStatus": {
     "INCOMPLETE": {
-      "RETURNED": 88,
+      "RETURNED": 89,
       "TIMED-OUT": 7,
       "APPROVED": 1
     },
     "CLEAN": {
-      "APPROVED": 119,
+      "APPROVED": 122,
       "RETURNED": 2
     },
     "FLAG-SMEAL": {
-      "APPROVED": 53,
-      "AWAITING REVIEW": 26,
+      "APPROVED": 55,
+      "AWAITING REVIEW": 25,
       "RETURNED": 7
     },
     "FLAG-SPEED": {
@@ -54,51 +54,51 @@
     },
     "FLAG-PARTIAL-STRAIGHTLINING": {
       "APPROVED": 40,
-      "AWAITING REVIEW": 12
+      "AWAITING REVIEW": 14
     },
     "FLAG-SINGLE-IRI": {
       "RETURNED": 10,
-      "APPROVED": 84,
-      "AWAITING REVIEW": 30
+      "APPROVED": 89,
+      "AWAITING REVIEW": 26
     },
     "AUTO-EXCLUDE": {
       "REJECTED": 35,
-      "APPROVED": 14,
-      "RETURNED": 109,
-      "AWAITING REVIEW": 20
+      "APPROVED": 15,
+      "RETURNED": 111,
+      "AWAITING REVIEW": 18
     },
     "FLAG-RECAPTCHA": {
       "APPROVED": 4,
-      "AWAITING REVIEW": 5
+      "AWAITING REVIEW": 6
     }
   },
   "autoExcludeBreakdown": {
     "IRI3_SPEED": 17,
-    "IRI3": 40,
+    "IRI3": 41,
     "IRI2_SPEED": 16,
     "IRI2": 85,
     "SPEED_IRI": 20
   },
   "actions": {
-    "approved": 323,
+    "approved": 334,
     "rejected": 35,
-    "returned": 233,
+    "returned": 236,
     "timedOut": 7,
-    "awaitingReview": 95,
+    "awaitingReview": 91,
     "active": 0,
     "messaged": 0
   },
   "iriPassRates": {
-    "barrier": 59.5,
-    "readiness": 68.9,
-    "maturity": 82.8,
-    "denominator": 582
+    "barrier": 59.7,
+    "readiness": 69.2,
+    "maturity": 82.9,
+    "denominator": 591
   },
   "autoApproveRunway": {
     "thresholdDays": 21,
-    "computedAt": "2026-05-13T11:37:45.297717+00:00",
-    "totalAwaitingReview": 95,
-    "evaluatedCount": 95,
+    "computedAt": "2026-05-14T11:29:12.684129+00:00",
+    "totalAwaitingReview": 91,
+    "evaluatedCount": 91,
     "skippedMissingCompletedAt": 0,
     "buckets": [
       {
@@ -106,41 +106,41 @@
         "risk": "low",
         "minDaysRemaining": 10.0,
         "maxDaysRemainingExclusive": null,
-        "count": 60
+        "count": 61
       },
       {
         "label": "Monitor",
         "risk": "moderate",
         "minDaysRemaining": 5.0,
         "maxDaysRemainingExclusive": 10.0,
-        "count": 15
+        "count": 13
       },
       {
         "label": "Act soon",
         "risk": "elevated",
         "minDaysRemaining": 2.0,
         "maxDaysRemainingExclusive": 5.0,
-        "count": 10
+        "count": 14
       },
       {
         "label": "HIGH RISK",
         "risk": "high",
         "minDaysRemaining": null,
         "maxDaysRemainingExclusive": 2.0,
-        "count": 10
+        "count": 3
       }
     ],
-    "highRiskCount": 10,
+    "highRiskCount": 3,
     "highRiskByDisposition": {
-      "FLAG-SINGLE-IRI": 6,
-      "FLAG-SMEAL": 3,
+      "FLAG-SMEAL": 1,
+      "FLAG-SINGLE-IRI": 1,
       "AUTO-EXCLUDE": 1
     }
   },
-  "highRiskCount": 10,
+  "highRiskCount": 3,
   "highRiskByDisposition": {
-    "FLAG-SINGLE-IRI": 6,
-    "FLAG-SMEAL": 3,
+    "FLAG-SMEAL": 1,
+    "FLAG-SINGLE-IRI": 1,
     "AUTO-EXCLUDE": 1
   },
   "studyId": "69c17630acada6abeead2da5",
