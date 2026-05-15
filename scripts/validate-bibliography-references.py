@@ -248,10 +248,30 @@ def build_zotero_index(zot, collection_keys: list[str]) -> tuple[dict, int, list
 
     for key in collection_keys:
         try:
-            # Fetch all items; filter attachments/notes client-side
-            # (the Zotero API itemType param only supports a single type or simple
-            # negation, so compound expressions like "-attachment || note" are invalid)
-            items = zot.everything(zot.collection_items(key))
+            # Manual start/limit pagination instead of zot.everything(). The
+            # everything() helper resolves Link: ...&start=N headers against
+            # zot.endpoint, but the local Zotero API (http://localhost:23119/api)
+            # returns Link header paths like "/api/users/0/collections/X/items?..."
+            # which when joined with the already-`/api`-suffixed endpoint produce
+            # http://localhost:23119/api/api/users/0/... and 404. Fetching items
+            # ourselves with explicit start values bypasses the Link-header path
+            # and works against both cloud and local endpoints. (Cloud Zotero
+            # uses absolute Link URLs and would also work via everything(), but
+            # using a single code path keeps the script consistent. See #1901.)
+            items: list[dict] = []
+            start = 0
+            page_size = 100
+            while True:
+                batch = zot.collection_items(key, limit=page_size, start=start)
+                if not batch:
+                    break
+                items.extend(batch)
+                if len(batch) < page_size:
+                    break
+                start += page_size
+            # Filter attachments/notes client-side (the Zotero API itemType
+            # param only supports a single type or simple negation, so
+            # compound expressions like "-attachment || note" are invalid).
             for item in items:
                 data = item.get("data", {})
                 # Skip attachments and notes — they have no author/year to index.
@@ -339,6 +359,16 @@ def validate_page(
 
 
 def main():
+    # Force utf-8 on stdout/stderr so that the verbose output of references
+    # containing em-dashes, curly quotes, accented author names, etc. does
+    # not crash on Windows (default cp1252 console codec). errors='replace'
+    # substitutes '?' for any character the destination encoding cannot
+    # represent rather than aborting partway through reporting. CI runners
+    # are utf-8 by default so this is effectively a no-op there. See #1901.
+    for stream in (sys.stdout, sys.stderr):
+        if hasattr(stream, "reconfigure"):
+            stream.reconfigure(encoding="utf-8", errors="replace")
+
     local = "--local" in sys.argv
     dry_run = "--dry-run" in sys.argv
     verbose = "--verbose" in sys.argv or "-v" in sys.argv
