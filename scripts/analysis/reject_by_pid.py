@@ -24,6 +24,10 @@ Environment variables:
   PID_LIST            - Comma-separated PIDs to reject (required)
   CONFIRM_REJECT      - Must be exactly "REJECT" for live
   DRY_RUN             - When "false" AND CONFIRM_REJECT=="REJECT", reject live
+  MAX_PER_RUN         - Optional ceiling; abort with exit 2 if PID_LIST exceeds it
+  STRICT_AWAITING     - "true" (default) aborts on any non-AWAITING PID; "false"
+                        skips them and continues (for unattended pipeline use)
+  OUTPUT_JSON_PATH    - Optional path for machine-readable results
 
 Exits non-zero if:
   - Required env vars are missing
@@ -31,8 +35,8 @@ Exits non-zero if:
     unknown PID, since we would not know how to build a fair message)
   - A disposition is not one of the explicitly-handled types (refuse to
     invent a rejection reason for disposition types we have not modelled)
-  - Any PID is not in AWAITING REVIEW status on Prolific at the time of
-    the live run (prevents mid-run errors from stale-status PIDs)
+  - PID_LIST exceeds MAX_PER_RUN (exit 2 + JSON marks ceiling_exceeded)
+  - In strict mode: any PID is not in AWAITING REVIEW status on Prolific
   - Any target PID could not be resolved to a submission ID after the live
     rejection loop (indicates a PID was silently skipped)
 """
@@ -41,8 +45,9 @@ import csv
 import json
 import os
 import sys
+from datetime import datetime, timezone
 from pathlib import Path
-from typing import Dict, List, Set, Tuple
+from typing import Dict, List, Optional, Set, Tuple
 
 sys.path.insert(0, str(Path(__file__).parent))
 
@@ -194,6 +199,12 @@ def _classify_and_build(row: Dict[str, str]) -> Tuple[str, List[str]]:
 # ── Main ─────────────────────────────────────────────────────────────────
 
 
+def _write_json(path_raw: str, payload: Dict) -> None:
+    path = Path(path_raw)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, indent=2, sort_keys=True), encoding="utf-8")
+
+
 def main() -> None:
     print("================================================================")
     print("  DESTRUCTIVE OPERATION: Reject stale PIDs by disposition")
@@ -206,6 +217,10 @@ def main() -> None:
     pid_list_raw = _require_env("PID_LIST")
     dry_run = os.environ.get("DRY_RUN", "true").strip().lower() != "false"
     confirm = os.environ.get("CONFIRM_REJECT", "").strip()
+    output_json_path = os.environ.get("OUTPUT_JSON_PATH", "").strip()
+    max_per_run_raw = os.environ.get("MAX_PER_RUN", "").strip()
+    max_per_run: Optional[int] = int(max_per_run_raw) if max_per_run_raw.isdigit() else None
+    strict_awaiting = os.environ.get("STRICT_AWAITING", "true").strip().lower() != "false"
 
     if not dry_run and confirm != "REJECT":
         print("================================================================", file=sys.stderr)
@@ -231,7 +246,33 @@ def main() -> None:
 
     print(f"Target PIDs: {len(target_pids)}")
     print(f"Mode: {'DRY RUN' if dry_run else 'LIVE REJECTION'}")
+    print(f"Ceiling (MAX_PER_RUN): {max_per_run if max_per_run is not None else 'unset (no limit)'}")
+    print(f"Strict awaiting: {strict_awaiting}")
     print()
+
+    computed_at = datetime.now(timezone.utc).isoformat()
+    base_payload: Dict = {
+        "study_id": study_id,
+        "computed_at": computed_at,
+        "input_count": len(target_pids),
+        "ceiling": max_per_run,
+        "ceiling_exceeded": False,
+        "successes": [],
+        "failures": [],
+        "skipped_non_awaiting": [],
+    }
+
+    # ── Ceiling guard ──
+    if max_per_run is not None and len(target_pids) > max_per_run:
+        print("================================================================", file=sys.stderr)
+        print(f"  CEILING EXCEEDED: {len(target_pids)} PIDs > MAX_PER_RUN={max_per_run}", file=sys.stderr)
+        print("  Refusing to act. Manual review required.", file=sys.stderr)
+        print("================================================================", file=sys.stderr)
+        base_payload["mode"] = "skipped_ceiling"
+        base_payload["ceiling_exceeded"] = True
+        if output_json_path:
+            _write_json(output_json_path, base_payload)
+        sys.exit(2)
 
     # Load CSV and index by PID
     print(f"Reading disposition CSV from {csv_path}")
@@ -301,6 +342,19 @@ def main() -> None:
         print(f"  Would reject: {len(records)} participants")
         print("  Set DRY_RUN=false and CONFIRM_REJECT=REJECT to execute")
         print("================================================================")
+        base_payload["mode"] = "dry_run"
+        base_payload["successes"] = [
+            {
+                "pid": r["pid"],
+                "submission_id": None,
+                "disposition": r["disposition"],
+                "message": r["message"],
+                "categories": r["categories"],
+            }
+            for r in records
+        ]
+        if output_json_path:
+            _write_json(output_json_path, base_payload)
         return
 
     # Verify Prolific access before touching anything
@@ -327,23 +381,33 @@ def main() -> None:
     print()
 
     # Pre-validate that every target PID is currently AWAITING REVIEW.
-    # Any other status (APPROVED, RETURNED, REJECTED, …) would cause the
-    # Prolific API to error mid-run and leave a partial/unclear outcome.
+    # In strict mode (default, manual operator workflow), abort on any
+    # non-AWAITING PID. In non-strict mode (unattended pipeline), skip
+    # non-AWAITING PIDs and continue with the rest.
     non_awaiting_pids: List[str] = []
+    actionable_records: List[Dict] = []
     for r in records:
         status = status_map.get(r["pid"], "NOT FOUND")
         if status != "AWAITING REVIEW":
             print(f"  WARNING: PID {r['pid']} has status {status!r} — expected AWAITING REVIEW", file=sys.stderr)
             non_awaiting_pids.append(r["pid"])
-    if non_awaiting_pids:
+            base_payload["skipped_non_awaiting"].append({"pid": r["pid"], "status": status})
+            continue
+        actionable_records.append(r)
+
+    if non_awaiting_pids and strict_awaiting:
         print(
             f"\nAborting: {len(non_awaiting_pids)} PID(s) are not in AWAITING REVIEW status.",
             file=sys.stderr,
         )
         print("Re-run the triage to confirm current statuses before rejecting.", file=sys.stderr)
+        if output_json_path:
+            base_payload["mode"] = "aborted_non_awaiting"
+            _write_json(output_json_path, base_payload)
         sys.exit(1)
-    print(f"  All {len(records)} PIDs confirmed AWAITING REVIEW.")
+    print(f"  {len(actionable_records)} PIDs confirmed AWAITING REVIEW; {len(non_awaiting_pids)} skipped.")
     print()
+    records = actionable_records
 
     not_found: List[str] = []
     rejected = 0
@@ -358,20 +422,36 @@ def main() -> None:
         if not sub_id:
             print(f"  WARNING: No submission found for PID {r['pid']} - skipping")
             not_found.append(r["pid"])
+            base_payload["failures"].append({"pid": r["pid"], "reason": "no submission id"})
             continue
 
         print(f"  Rejecting {r['pid']} ({r['disposition']}, submission {sub_id})...")
-        prolific_reject_submission(sub_id, r["categories"], r["message"], api_token)
-        rejected += 1
+        try:
+            prolific_reject_submission(sub_id, r["categories"], r["message"], api_token)
+            rejected += 1
+            base_payload["successes"].append({
+                "pid": r["pid"],
+                "submission_id": sub_id,
+                "disposition": r["disposition"],
+                "message": r["message"],
+                "categories": r["categories"],
+            })
+        except Exception as e:
+            print(f"    FAILED: {e}", file=sys.stderr)
+            base_payload["failures"].append({"pid": r["pid"], "reason": str(e)})
 
     print()
-    print(f"REJECTED: {rejected} | NOT FOUND: {len(not_found)}")
-    if not_found:
-        print(
-            f"Error: {len(not_found)} PID(s) could not be resolved to a submission ID and were NOT rejected: "
-            f"{', '.join(not_found)}",
-            file=sys.stderr,
-        )
+    print(f"REJECTED: {rejected} | NOT FOUND: {len(not_found)} | FAILED: {len(base_payload['failures']) - len(not_found)}")
+    base_payload["mode"] = "live"
+    if output_json_path:
+        _write_json(output_json_path, base_payload)
+    if not_found or any(f["reason"] != "no submission id" for f in base_payload["failures"]):
+        if not_found:
+            print(
+                f"Error: {len(not_found)} PID(s) could not be resolved to a submission ID and were NOT rejected: "
+                f"{', '.join(not_found)}",
+                file=sys.stderr,
+            )
         sys.exit(1)
 
 

@@ -619,6 +619,149 @@ jobs:
           path: ${{ runner.temp }}/stale-triage.json
           retention-days: 1
 
+  # ── Phase 3d: Auto-dispatch API request-return for stale-after-message PIDs ─
+  # Reads stale-triage.json's `stale_no_reply_to_message` bucket (TABS messaged
+  # > 48h ago, no participant reply, no API-level return request yet) and runs
+  # request_return_by_pid.py to dispatch /submissions/{id}/request-return/ per
+  # PID. Disposition-aware reason text per PID. Ceiling-guarded.
+  #
+  # Kill switch: vars.AUTO_REQUEST_RETURN_ENABLED (default 'true').
+  # Ceiling:     vars.AUTO_STALE_MAX_PER_RUN     (default '30').
+  auto-request-return:
+    name: 'Phase 3d: Auto-Request-Return'
+    needs: [analyze, generate-dashboard]
+    if: ${{ needs.generate-dashboard.result == 'success' && vars.AUTO_REQUEST_RETURN_ENABLED != 'false' }}
+    runs-on: ubuntu-latest
+    environment: prolific-prod
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v8
+        with:
+          name: disposition-csv
+          path: ${{ runner.temp }}
+      - uses: actions/download-artifact@v8
+        with:
+          name: stale-triage
+          path: ${{ runner.temp }}
+
+      - name: Extract stale_no_reply_to_message PIDs
+        id: pids
+        run: |
+          set -euo pipefail
+          PID_LIST=$(python3 -c "
+          import json
+          with open('${{ runner.temp }}/stale-triage.json', encoding='utf-8') as f:
+              d = json.load(f)
+          pids = [r['pid'] for r in d.get('buckets', {}).get('stale_no_reply_to_message', []) if r.get('pid')]
+          print(','.join(pids))
+          ")
+          COUNT=$(python3 -c "print(len('$PID_LIST'.split(',')) if '$PID_LIST' else 0)")
+          echo "pid_list=$PID_LIST" >> "$GITHUB_OUTPUT"
+          echo "count=$COUNT" >> "$GITHUB_OUTPUT"
+          echo "Found $COUNT PIDs in stale_no_reply_to_message bucket"
+
+      - name: Auto request-return
+        if: ${{ steps.pids.outputs.count != '0' }}
+        run: python3 scripts/analysis/request_return_by_pid.py
+        env:
+          PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
+          STUDY_ID: ${{ vars.PROLIFIC_STUDY_ID }}
+          CSV_FILE_PATH: ${{ runner.temp }}/disposition.csv
+          PID_LIST: ${{ steps.pids.outputs.pid_list }}
+          MAX_PER_RUN: ${{ vars.AUTO_STALE_MAX_PER_RUN || '30' }}
+          DRY_RUN: 'false'
+          CONFIRM_REQUEST_RETURN: 'REQUEST_RETURN'
+          OUTPUT_JSON_PATH: ${{ runner.temp }}/auto-request-return-results.json
+
+      - name: Write empty results JSON when no PIDs
+        if: ${{ steps.pids.outputs.count == '0' }}
+        run: |
+          cat > "${{ runner.temp }}/auto-request-return-results.json" <<EOF
+          {"mode": "no_action", "input_count": 0, "successes": [], "failures": [], "skipped_non_awaiting": [], "ceiling_exceeded": false}
+          EOF
+
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: auto-request-return-results
+          path: ${{ runner.temp }}/auto-request-return-results.json
+          retention-days: 7
+
+  # ── Phase 3e: Auto-reject stale-no-reply-to-return-request ───────────────
+  # Reads stale-triage.json's `stale_no_reply_to_rr` bucket (formal API
+  # request-return sent > 48h ago, no participant reply since). Prolific
+  # auto-APPROVES these after the reserve timeout, so they MUST be rejected
+  # before that window closes. Ceiling-guarded.
+  #
+  # Kill switch: vars.AUTO_REJECT_STALE_ENABLED (default 'true').
+  # Ceiling:     vars.AUTO_STALE_MAX_PER_RUN   (default '30').
+  auto-reject-stale:
+    name: 'Phase 3e: Auto-Reject-Stale-RR'
+    needs: [analyze, generate-dashboard, auto-request-return]
+    if: ${{ always() && needs.generate-dashboard.result == 'success' && vars.AUTO_REJECT_STALE_ENABLED != 'false' }}
+    runs-on: ubuntu-latest
+    environment: prolific-prod
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v8
+        with:
+          name: disposition-csv
+          path: ${{ runner.temp }}
+      - uses: actions/download-artifact@v8
+        with:
+          name: stale-triage
+          path: ${{ runner.temp }}
+
+      - name: Extract stale_no_reply_to_rr PIDs
+        id: pids
+        run: |
+          set -euo pipefail
+          PID_LIST=$(python3 -c "
+          import json
+          with open('${{ runner.temp }}/stale-triage.json', encoding='utf-8') as f:
+              d = json.load(f)
+          pids = [r['pid'] for r in d.get('buckets', {}).get('stale_no_reply_to_rr', []) if r.get('pid')]
+          print(','.join(pids))
+          ")
+          COUNT=$(python3 -c "print(len('$PID_LIST'.split(',')) if '$PID_LIST' else 0)")
+          echo "pid_list=$PID_LIST" >> "$GITHUB_OUTPUT"
+          echo "count=$COUNT" >> "$GITHUB_OUTPUT"
+          echo "Found $COUNT PIDs in stale_no_reply_to_rr bucket"
+
+      - name: Auto reject
+        if: ${{ steps.pids.outputs.count != '0' }}
+        run: python3 scripts/analysis/reject_by_pid.py
+        env:
+          PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
+          STUDY_ID: ${{ vars.PROLIFIC_STUDY_ID }}
+          CSV_FILE_PATH: ${{ runner.temp }}/disposition.csv
+          PID_LIST: ${{ steps.pids.outputs.pid_list }}
+          MAX_PER_RUN: ${{ vars.AUTO_STALE_MAX_PER_RUN || '30' }}
+          STRICT_AWAITING: 'false'
+          DRY_RUN: 'false'
+          CONFIRM_REJECT: 'REJECT'
+          OUTPUT_JSON_PATH: ${{ runner.temp }}/auto-reject-stale-results.json
+
+      - name: Write empty results JSON when no PIDs
+        if: ${{ steps.pids.outputs.count == '0' }}
+        run: |
+          cat > "${{ runner.temp }}/auto-reject-stale-results.json" <<EOF
+          {"mode": "no_action", "input_count": 0, "successes": [], "failures": [], "skipped_non_awaiting": [], "ceiling_exceeded": false}
+          EOF
+
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: auto-reject-stale-results
+          path: ${{ runner.temp }}/auto-reject-stale-results.json
+          retention-days: 7
+
   # ── Phase 4: Commit all data (single PR) ─────────────────────
   commit-results:
     name: 'Phase 4: Commit All Data'
@@ -711,7 +854,15 @@ jobs:
   # ── Phase 5: Daily report issue ──────────────────────────────
   daily-report:
     name: 'Phase 5: Daily Report'
-    needs: [analyze, approve-clean, message-flags, generate-dashboard]
+    needs:
+      [
+        analyze,
+        approve-clean,
+        message-flags,
+        generate-dashboard,
+        auto-request-return,
+        auto-reject-stale,
+      ]
     if: always()
     runs-on: ubuntu-latest
     steps:
@@ -734,4 +885,6 @@ jobs:
           APPROVE_RESULT_STATUS: ${{ needs.approve-clean.result }}
           MESSAGE_RESULT: ${{ needs.message-flags.result }}
           DASHBOARD_RESULT: ${{ needs.generate-dashboard.result }}
+          AUTO_REQUEST_RETURN_RESULT: ${{ needs.auto-request-return.result }}
+          AUTO_REJECT_STALE_RESULT: ${{ needs.auto-reject-stale.result }}
         run: bash scripts/build-daily-report.sh
