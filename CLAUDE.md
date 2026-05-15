@@ -823,7 +823,10 @@ Phase 2: Export, Enrich & Analyze     (qualtrics-prod, ~60s)
     |
     +---> Phase 3a: Auto-Approve CLEAN    (prolific-prod)
     +---> Phase 3b: Message FLAGs         (prolific-prod, 9 dispositions, sequential)
-    +---> Phase 3c: Generate Dashboard    (prolific-prod, after 3a)
+    +---> Phase 3c: Generate Dashboard    (prolific-prod, after 3a; produces stale-triage)
+    |          |
+    |          +-> Phase 3d: Auto-Request-Return  (prolific-prod, on stale_no_reply_to_message)
+    |          +-> Phase 3e: Auto-Reject-Stale-RR (prolific-prod, on stale_no_reply_to_rr, needs 3d)
     |
 Phase 4: Commit Results               (copilot env, format-and-pr action)
     |
@@ -834,7 +837,13 @@ Phase 5: Daily Report Issue           (always runs, creates GitHub issue)
 
 **Old workflows**: `analysis-pipeline.yml` and `daily-disposition-processing.yml` have schedule triggers removed and are marked REPLACED. They are kept for manual dispatch and fallback.
 
-**Artifact flow**: Disposition CSV passes between phases via GitHub Actions artifacts (1-day retention). Analysis JSON artifacts have 7-day retention.
+**Artifact flow**: Disposition CSV passes between phases via GitHub Actions artifacts (1-day retention). Analysis JSON artifacts have 7-day retention. Auto-action result JSONs (`auto-request-return-results.json`, `auto-reject-stale-results.json`) have 7-day retention.
+
+**Stale-action auto-phases (3d, 3e)**: Phase 3c emits `stale-triage.json` with four buckets. Phase 3d consumes the `stale_no_reply_to_message` bucket and dispatches Prolific API `/submissions/{id}/request-return/` per PID with disposition-aware reason text. Phase 3e consumes the `stale_no_reply_to_rr` bucket and rejects via `reject_by_pid.py` before the Prolific reserve timeout auto-approves stale submissions.
+
+- Kill switches: `vars.AUTO_REQUEST_RETURN_ENABLED`, `vars.AUTO_REJECT_STALE_ENABLED` (default true; set to `'false'` to pause).
+- Ceiling: `vars.AUTO_STALE_MAX_PER_RUN` (default 30). If a bucket exceeds the ceiling, the phase exits 2, writes `ceiling_exceeded: true` to its results JSON, and the daily report shows a MANUAL INTERVENTION NEEDED banner.
+- Live race revalidation: each PID is re-classified against current Prolific state with `_fetch_messages_with_backoff` (matching the throttling used by `find_stale_return_requested.py`) so a participant who replied between artifact creation and action is skipped, not actioned.
 
 ## Copilot Review Cycle
 
@@ -906,20 +915,23 @@ gh agent-task list
 
 Pipeline data has strict PII boundaries:
 
-| Data                        | Contains PIDs?             | Committed to Repo?   | Retention         |
-| --------------------------- | -------------------------- | -------------------- | ----------------- |
-| `sensitivity-analysis.json` | No (aggregate stats)       | Yes                  | Permanent         |
-| `data-audit.json`           | No (aggregate counts)      | Yes                  | Permanent         |
-| `disposition-summary.json`  | No (aggregate counts)      | Yes                  | Permanent         |
-| Disposition CSV             | Yes (PROLIFIC_PID)         | No (artifact only)   | 1 day             |
-| Qualtrics raw CSV           | Yes (PII fields)           | No (stays on runner) | Ephemeral         |
-| Prolific demographics       | Yes (per-participant)      | No (in-memory join)  | Ephemeral         |
-| Step summaries              | No (aggregate counts)      | No (Actions UI)      | Workflow lifetime |
-| Workflow logs               | Yes (PIDs in debug output) | No (Actions UI)      | 90 days           |
-| GitHub issue bodies         | **No (redact to last 4)**  | Yes (issue history)  | Permanent         |
-| PR descriptions             | **No (redact to last 4)**  | Yes (PR history)     | Permanent         |
-| Issue / PR comments         | **No (redact to last 4)**  | Yes                  | Permanent         |
-| Commit messages             | **No**                     | Yes                  | Permanent         |
+| Data                               | Contains PIDs?             | Committed to Repo?   | Retention         |
+| ---------------------------------- | -------------------------- | -------------------- | ----------------- |
+| `sensitivity-analysis.json`        | No (aggregate stats)       | Yes                  | Permanent         |
+| `data-audit.json`                  | No (aggregate counts)      | Yes                  | Permanent         |
+| `disposition-summary.json`         | No (aggregate counts)      | Yes                  | Permanent         |
+| Disposition CSV                    | Yes (PROLIFIC_PID)         | No (artifact only)   | 1 day             |
+| `stale-triage.json`                | Yes (PROLIFIC_PID)         | No (artifact only)   | 1 day             |
+| `auto-request-return-results.json` | Yes (PROLIFIC_PID)         | No (artifact only)   | 7 days            |
+| `auto-reject-stale-results.json`   | Yes (PROLIFIC_PID)         | No (artifact only)   | 7 days            |
+| Qualtrics raw CSV                  | Yes (PII fields)           | No (stays on runner) | Ephemeral         |
+| Prolific demographics              | Yes (per-participant)      | No (in-memory join)  | Ephemeral         |
+| Step summaries                     | No (aggregate counts)      | No (Actions UI)      | Workflow lifetime |
+| Workflow logs                      | Yes (PIDs in debug output) | No (Actions UI)      | 90 days           |
+| GitHub issue bodies                | **No (redact to last 4)**  | Yes (issue history)  | Permanent         |
+| PR descriptions                    | **No (redact to last 4)**  | Yes (PR history)     | Permanent         |
+| Issue / PR comments                | **No (redact to last 4)**  | Yes                  | Permanent         |
+| Commit messages                    | **No**                     | Yes                  | Permanent         |
 
 **Rules**:
 
@@ -996,24 +1008,27 @@ All workflows support `workflow_dispatch` for manual triggering:
 
 All Python scripts live in `scripts/analysis/`. They are the primary language for pipeline operations.
 
-| Script                            | Purpose                                         | Called By              |
-| --------------------------------- | ----------------------------------------------- | ---------------------- |
-| `fetch_prolific_data.py`          | Fetch auth checks + submission statuses         | Pipeline Phase 1       |
-| `export_qualtrics.py`             | Export survey responses to CSV                  | Pipeline Phase 2       |
-| `enrich_qualtrics_csv.py`         | Join Qualtrics CSV with Prolific data           | Pipeline Phase 2       |
-| `tabs_v2_data_audit.py`           | Disposition waterfall + CSV output              | Pipeline Phase 2       |
-| `tabs_v2_analysis.py`             | Descriptive stats, sensitivity, inferential     | Pipeline Phase 2       |
-| `tabs_v2_advanced.py`             | PCA, regression, ANOVA                          | Pipeline Phase 2       |
-| `tabs_v2_psychometrics.py`        | KMO, HTMT, Cronbach's alpha, reliability        | Pipeline Phase 2       |
-| `tabs_v2_quality_audit.py`        | Outlier detection, common method variance       | Pipeline Phase 2       |
-| `approve_submissions.py`          | Bulk approve CLEAN on Prolific                  | Pipeline Phase 3a      |
-| `message_flagged.py`              | Send personalized messages to FLAG participants | Pipeline Phase 3b      |
-| `generate_disposition_summary.py` | Dashboard JSON from live Prolific + CSV         | Pipeline Phase 3c      |
-| `disposition_triage.py`           | Standalone triage (fallback for operations)     | Disposition processing |
-| `reject_auto_exclude.py`          | Reject AUTO-EXCLUDE participants                | Manual workflow only   |
-| `reject_failed_iri.py`            | Reject failed IRI participants                  | Manual workflow only   |
-| `tabs_api.py`                     | Shared API client (Qualtrics + Prolific)        | All scripts            |
-| `prolific_tools.py`               | Prolific API utilities                          | All Prolific scripts   |
+| Script                            | Purpose                                                                                                                                   | Called By                                                                         |
+| --------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| `fetch_prolific_data.py`          | Fetch auth checks + submission statuses                                                                                                   | Pipeline Phase 1                                                                  |
+| `export_qualtrics.py`             | Export survey responses to CSV                                                                                                            | Pipeline Phase 2                                                                  |
+| `enrich_qualtrics_csv.py`         | Join Qualtrics CSV with Prolific data                                                                                                     | Pipeline Phase 2                                                                  |
+| `tabs_v2_data_audit.py`           | Disposition waterfall + CSV output                                                                                                        | Pipeline Phase 2                                                                  |
+| `tabs_v2_analysis.py`             | Descriptive stats, sensitivity, inferential                                                                                               | Pipeline Phase 2                                                                  |
+| `tabs_v2_advanced.py`             | PCA, regression, ANOVA                                                                                                                    | Pipeline Phase 2                                                                  |
+| `tabs_v2_psychometrics.py`        | KMO, HTMT, Cronbach's alpha, reliability                                                                                                  | Pipeline Phase 2                                                                  |
+| `tabs_v2_quality_audit.py`        | Outlier detection, common method variance                                                                                                 | Pipeline Phase 2                                                                  |
+| `approve_submissions.py`          | Bulk approve CLEAN on Prolific                                                                                                            | Pipeline Phase 3a                                                                 |
+| `message_flagged.py`              | Send personalized messages to FLAG participants                                                                                           | Pipeline Phase 3b                                                                 |
+| `generate_disposition_summary.py` | Dashboard JSON from live Prolific + CSV                                                                                                   | Pipeline Phase 3c                                                                 |
+| `find_stale_return_requested.py`  | Classify AWAITING REVIEW into stale-action buckets (`stale_no_reply_to_rr`, `stale_no_reply_to_message`, `in_window_rr`, `in_window_msg`) | Pipeline Phase 3c (after dashboard); shared `_fetch_messages_with_backoff` helper |
+| `request_return_by_pid.py`        | Dispatch Prolific API `/request-return/` per PID, disposition-aware reason; ceiling-guarded, JSON results                                 | Pipeline Phase 3d (and ad-hoc)                                                    |
+| `reject_by_pid.py`                | Reject AWAITING REVIEW by PID, disposition-aware; supports `MAX_PER_RUN`, `STRICT_AWAITING`, `OUTPUT_JSON_PATH`                           | Pipeline Phase 3e and manual stale-RR rejections                                  |
+| `disposition_triage.py`           | Standalone triage (fallback for operations)                                                                                               | Disposition processing                                                            |
+| `reject_auto_exclude.py`          | Reject AUTO-EXCLUDE participants                                                                                                          | Manual workflow only                                                              |
+| `reject_failed_iri.py`            | Reject failed IRI participants                                                                                                            | Manual workflow only                                                              |
+| `tabs_api.py`                     | Shared API client (Qualtrics + Prolific)                                                                                                  | All scripts                                                                       |
+| `prolific_tools.py`               | Prolific API utilities                                                                                                                    | All Prolific scripts                                                              |
 
 **Shared constants**: `tabs_v2_constants.json` (survey block definitions, item counts).
 
