@@ -14,8 +14,9 @@ name: Daily Pipeline (Analysis + Operations)
 #   Phase 4: Commit all data (analysis JSON + dashboard JSON) to repo
 #   Phase 5: Create daily report issue with deltas
 #
-# Safety: Only approves CLEAN (all checks passed) and sends review
-# messages. Does NOT reject anyone - all rejections require manual trigger.
+# Safety: Approves CLEAN, sends review messages, auto-requests return for stale
+# post-message PIDs, and auto-rejects stale post-request-return PIDs (both
+# ceiling-guarded + kill-switch controlled).
 
 on:
   schedule:

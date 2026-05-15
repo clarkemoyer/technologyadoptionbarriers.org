@@ -372,11 +372,19 @@ render_auto_phase_section() {
   local file="$ARTIFACTS_DIR/$artifact_dirname/$results_filename"
 
   if [ "$needs_result" = "skipped" ]; then
-    # Phase was disabled via kill switch — surface that, but not as an alarm.
-    eval "$section_var=\"## $title
+    # A skipped phase can mean either kill-switch disabled OR upstream prerequisite
+    # was not successful (e.g., dashboard generation failed).
+    if [ "${DASHBOARD_RESULT:-unknown}" != "success" ]; then
+      eval "$section_var=\"## $title
+
+> Skipped because upstream prerequisite was not successful (\`generate-dashboard=${DASHBOARD_RESULT:-unknown}\`).
+\""
+    else
+      eval "$section_var=\"## $title
 
 > Disabled via repository variable. Run \`gh variable list\` to inspect.
 \""
+    fi
     return
   fi
   if [ ! -f "$file" ]; then

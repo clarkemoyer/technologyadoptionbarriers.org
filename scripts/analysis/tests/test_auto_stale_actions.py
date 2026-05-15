@@ -9,7 +9,6 @@ import json
 import subprocess
 import sys
 from pathlib import Path
-from unittest.mock import patch
 
 import pytest
 
@@ -139,6 +138,25 @@ class TestRequestReturnByPidScript:
         assert payload["ceiling_exceeded"] is True
         assert payload["input_count"] == 5
         assert payload["ceiling"] == 3
+        assert payload["target_pids"] == [f"P{i}" for i in range(5)]
+
+    def test_invalid_max_per_run_fails_closed(self, tmp_path):
+        csv_path = _write_csv(tmp_path, [_row("PID_A", "FLAG-SMEAL", duration=240)])
+        result = subprocess.run(
+            [sys.executable, REQUEST_RETURN_SCRIPT],
+            env={
+                "PROLIFIC_API_TOKEN": "t",
+                "STUDY_ID": "S",
+                "CSV_FILE_PATH": csv_path,
+                "PID_LIST": "PID_A",
+                "MAX_PER_RUN": "oops",
+                "DRY_RUN": "true",
+            },
+            capture_output=True,
+            text=True,
+        )
+        assert result.returncode == 1
+        assert "invalid MAX_PER_RUN" in result.stderr
 
     def test_dry_run_writes_planned_successes(self, tmp_path):
         csv_path = _write_csv(
@@ -237,6 +255,28 @@ class TestRejectByPidNewBehavior:
         payload = json.loads(Path(json_path).read_text(encoding="utf-8"))
         assert payload["mode"] == "skipped_ceiling"
         assert payload["ceiling_exceeded"] is True
+        assert payload["target_pids"] == [f"P{i}" for i in range(5)]
+
+    def test_invalid_max_per_run_fails_closed(self, tmp_path):
+        csv_path = _write_csv(
+            tmp_path,
+            [_row("PID_A", "AUTO-EXCLUDE", iri_fail=3, duration=600)],
+        )
+        result = subprocess.run(
+            [sys.executable, REJECT_BY_PID_SCRIPT],
+            env={
+                "PROLIFIC_API_TOKEN": "t",
+                "STUDY_ID": "S",
+                "CSV_FILE_PATH": csv_path,
+                "PID_LIST": "PID_A",
+                "MAX_PER_RUN": "oops",
+                "DRY_RUN": "true",
+            },
+            capture_output=True,
+            text=True,
+        )
+        assert result.returncode == 1
+        assert "invalid MAX_PER_RUN" in result.stderr
 
     def test_dry_run_writes_plan_to_json(self, tmp_path):
         csv_path = _write_csv(
@@ -263,3 +303,128 @@ class TestRejectByPidNewBehavior:
         assert len(payload["successes"]) == 1
         assert payload["successes"][0]["pid"] == "PID_A"
         assert "FAILED_ATTENTION_CHECK" in payload["successes"][0]["categories"]
+
+
+class TestLiveRaceRevalidation:
+    def test_request_return_live_missing_pid_is_failure(self, tmp_path, monkeypatch):
+        csv_path = _write_csv(tmp_path, [_row("PID_A", "FLAG-SMEAL", duration=240)])
+        json_path = str(tmp_path / "live-result.json")
+
+        import request_return_by_pid as rr
+
+        monkeypatch.setattr(rr, "prolific_study_info", lambda *_: {"name": "Study", "status": "ACTIVE"})
+        monkeypatch.setattr(rr, "prolific_submissions", lambda *_: [])
+        monkeypatch.setattr(rr, "prolific_user_messages", lambda *_: [])
+
+        monkeypatch.setenv("PROLIFIC_API_TOKEN", "t")
+        monkeypatch.setenv("STUDY_ID", "S")
+        monkeypatch.setenv("CSV_FILE_PATH", csv_path)
+        monkeypatch.setenv("PID_LIST", "PID_A")
+        monkeypatch.setenv("DRY_RUN", "false")
+        monkeypatch.setenv("CONFIRM_REQUEST_RETURN", "REQUEST_RETURN")
+        monkeypatch.setenv("OUTPUT_JSON_PATH", json_path)
+
+        with pytest.raises(SystemExit) as exc:
+            rr.main()
+        assert exc.value.code == 1
+        payload = json.loads(Path(json_path).read_text(encoding="utf-8"))
+        assert payload["failures"][0]["pid"] == "PID_A"
+        assert "not found" in payload["failures"][0]["reason"]
+
+    def test_request_return_live_skips_when_no_longer_stale_bucket(self, tmp_path, monkeypatch):
+        csv_path = _write_csv(tmp_path, [_row("PID_A", "FLAG-SMEAL", duration=240)])
+        json_path = str(tmp_path / "live-result.json")
+        called = {"count": 0}
+
+        import request_return_by_pid as rr
+
+        monkeypatch.setattr(rr, "prolific_study_info", lambda *_: {"name": "Study", "status": "ACTIVE"})
+        monkeypatch.setattr(
+            rr,
+            "prolific_submissions",
+            lambda *_: [{"id": "SUB_1", "participant_id": "PID_A", "status": "AWAITING REVIEW"}],
+        )
+        monkeypatch.setattr(rr, "prolific_user_messages", lambda *_: [])
+        monkeypatch.setattr(rr, "classify_submission", lambda *_: ("in_window_rr", {}))
+
+        def _request_return(*_args, **_kwargs):
+            called["count"] += 1
+            return {}
+
+        monkeypatch.setattr(rr, "prolific_request_return", _request_return)
+
+        monkeypatch.setenv("PROLIFIC_API_TOKEN", "t")
+        monkeypatch.setenv("STUDY_ID", "S")
+        monkeypatch.setenv("CSV_FILE_PATH", csv_path)
+        monkeypatch.setenv("PID_LIST", "PID_A")
+        monkeypatch.setenv("DRY_RUN", "false")
+        monkeypatch.setenv("CONFIRM_REQUEST_RETURN", "REQUEST_RETURN")
+        monkeypatch.setenv("OUTPUT_JSON_PATH", json_path)
+
+        rr.main()
+        payload = json.loads(Path(json_path).read_text(encoding="utf-8"))
+        assert called["count"] == 0
+        assert payload["mode"] == "live"
+        assert payload["skipped_non_awaiting"][0]["status"] == "NO_LONGER_ELIGIBLE:in_window_rr"
+
+    def test_reject_live_missing_pid_fails_even_non_strict(self, tmp_path, monkeypatch):
+        csv_path = _write_csv(tmp_path, [_row("PID_A", "AUTO-EXCLUDE", iri_fail=3, duration=600)])
+        json_path = str(tmp_path / "reject-live-result.json")
+
+        import reject_by_pid as rbp
+
+        monkeypatch.setattr(rbp, "prolific_study_info", lambda *_: {"name": "Study", "status": "ACTIVE"})
+        monkeypatch.setattr(rbp, "prolific_submissions", lambda *_: [])
+
+        monkeypatch.setenv("PROLIFIC_API_TOKEN", "t")
+        monkeypatch.setenv("STUDY_ID", "S")
+        monkeypatch.setenv("CSV_FILE_PATH", csv_path)
+        monkeypatch.setenv("PID_LIST", "PID_A")
+        monkeypatch.setenv("DRY_RUN", "false")
+        monkeypatch.setenv("CONFIRM_REJECT", "REJECT")
+        monkeypatch.setenv("STRICT_AWAITING", "false")
+        monkeypatch.setenv("OUTPUT_JSON_PATH", json_path)
+
+        with pytest.raises(SystemExit) as exc:
+            rbp.main()
+        assert exc.value.code == 1
+        payload = json.loads(Path(json_path).read_text(encoding="utf-8"))
+        assert payload["mode"] == "aborted_missing_pid"
+        assert payload["failures"][0]["pid"] == "PID_A"
+
+    def test_reject_live_skips_when_no_longer_stale_rr_bucket(self, tmp_path, monkeypatch):
+        csv_path = _write_csv(tmp_path, [_row("PID_A", "AUTO-EXCLUDE", iri_fail=3, duration=600)])
+        json_path = str(tmp_path / "reject-live-result.json")
+        called = {"count": 0}
+
+        import reject_by_pid as rbp
+
+        monkeypatch.setattr(rbp, "prolific_study_info", lambda *_: {"name": "Study", "status": "ACTIVE"})
+        monkeypatch.setattr(
+            rbp,
+            "prolific_submissions",
+            lambda *_: [{"id": "SUB_1", "participant_id": "PID_A", "status": "AWAITING REVIEW"}],
+        )
+        monkeypatch.setattr(rbp, "prolific_user_messages", lambda *_: [])
+        monkeypatch.setattr(rbp, "classify_submission", lambda *_: ("in_window_rr", {}))
+
+        def _reject_submission(*_args, **_kwargs):
+            called["count"] += 1
+            return {}
+
+        monkeypatch.setattr(rbp, "prolific_reject_submission", _reject_submission)
+
+        monkeypatch.setenv("PROLIFIC_API_TOKEN", "t")
+        monkeypatch.setenv("STUDY_ID", "S")
+        monkeypatch.setenv("CSV_FILE_PATH", csv_path)
+        monkeypatch.setenv("PID_LIST", "PID_A")
+        monkeypatch.setenv("DRY_RUN", "false")
+        monkeypatch.setenv("CONFIRM_REJECT", "REJECT")
+        monkeypatch.setenv("STRICT_AWAITING", "false")
+        monkeypatch.setenv("OUTPUT_JSON_PATH", json_path)
+
+        rbp.main()
+        payload = json.loads(Path(json_path).read_text(encoding="utf-8"))
+        assert called["count"] == 0
+        assert payload["mode"] == "live"
+        assert payload["skipped_non_awaiting"][0]["status"] == "NO_LONGER_ELIGIBLE:in_window_rr"

@@ -45,17 +45,20 @@ import csv
 import json
 import os
 import sys
+from datetime import timedelta
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Dict, List, Optional, Set, Tuple
 
 sys.path.insert(0, str(Path(__file__).parent))
 
+from find_stale_return_requested import DEFAULT_RESEARCHER_ID, classify_submission
 from tabs_api import (
     REJECTION_CATEGORIES,
     prolific_reject_submission,
     prolific_study_info,
     prolific_submissions,
+    prolific_user_messages,
 )
 
 # Load the Smeal speed threshold from the shared constants file so this script
@@ -205,6 +208,27 @@ def _write_json(path_raw: str, payload: Dict) -> None:
     path.write_text(json.dumps(payload, indent=2, sort_keys=True), encoding="utf-8")
 
 
+def _parse_max_per_run(raw: str) -> Optional[int]:
+    value = raw.strip()
+    if not value:
+        return None
+    try:
+        parsed = int(value)
+    except ValueError:
+        print(
+            f"Error: invalid MAX_PER_RUN={raw!r}. Expected a positive integer.",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+    if parsed <= 0:
+        print(
+            f"Error: invalid MAX_PER_RUN={raw!r}. Expected a positive integer.",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+    return parsed
+
+
 def main() -> None:
     print("================================================================")
     print("  DESTRUCTIVE OPERATION: Reject stale PIDs by disposition")
@@ -218,9 +242,25 @@ def main() -> None:
     dry_run = os.environ.get("DRY_RUN", "true").strip().lower() != "false"
     confirm = os.environ.get("CONFIRM_REJECT", "").strip()
     output_json_path = os.environ.get("OUTPUT_JSON_PATH", "").strip()
-    max_per_run_raw = os.environ.get("MAX_PER_RUN", "").strip()
-    max_per_run: Optional[int] = int(max_per_run_raw) if max_per_run_raw.isdigit() else None
+    max_per_run_raw = os.environ.get("MAX_PER_RUN", "")
+    max_per_run = _parse_max_per_run(max_per_run_raw)
     strict_awaiting = os.environ.get("STRICT_AWAITING", "true").strip().lower() != "false"
+    stale_hours_raw = os.environ.get("STALE_HOURS", "48")
+    researcher_id = os.environ.get("RESEARCHER_ID", DEFAULT_RESEARCHER_ID).strip() or DEFAULT_RESEARCHER_ID
+    try:
+        stale_hours = int(stale_hours_raw)
+    except ValueError:
+        print(
+            f"Error: invalid STALE_HOURS={stale_hours_raw!r}. Expected an integer.",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+    if stale_hours <= 0:
+        print(
+            f"Error: invalid STALE_HOURS={stale_hours_raw!r}. Expected a positive integer.",
+            file=sys.stderr,
+        )
+        sys.exit(1)
 
     if not dry_run and confirm != "REJECT":
         print("================================================================", file=sys.stderr)
@@ -255,6 +295,7 @@ def main() -> None:
         "study_id": study_id,
         "computed_at": computed_at,
         "input_count": len(target_pids),
+        "target_pids": target_pids,
         "ceiling": max_per_run,
         "ceiling_exceeded": False,
         "successes": [],
@@ -370,10 +411,12 @@ def main() -> None:
     all_subs = prolific_submissions(study_id, api_token)
     pid_to_sub_id: Dict[str, str] = {}
     status_map: Dict[str, str] = {}
+    submission_by_pid: Dict[str, Dict] = {}
     for s in all_subs:
         p = s.get("participant_id", "")
         if not p:
             continue
+        submission_by_pid[p] = s
         status_map[p] = s.get("status", "UNKNOWN")
         if p in target_pid_set and s.get("id"):
             pid_to_sub_id[p] = s["id"]
@@ -385,15 +428,36 @@ def main() -> None:
     # non-AWAITING PID. In non-strict mode (unattended pipeline), skip
     # non-AWAITING PIDs and continue with the rest.
     non_awaiting_pids: List[str] = []
+    missing_live_pids: List[str] = []
     actionable_records: List[Dict] = []
     for r in records:
         status = status_map.get(r["pid"], "NOT FOUND")
+        if status == "NOT FOUND":
+            print(
+                f"  ERROR: PID {r['pid']} is not present in live study submissions",
+                file=sys.stderr,
+            )
+            missing_live_pids.append(r["pid"])
+            base_payload["failures"].append(
+                {"pid": r["pid"], "reason": "submission not found in live study"}
+            )
+            continue
         if status != "AWAITING REVIEW":
             print(f"  WARNING: PID {r['pid']} has status {status!r} — expected AWAITING REVIEW", file=sys.stderr)
             non_awaiting_pids.append(r["pid"])
             base_payload["skipped_non_awaiting"].append({"pid": r["pid"], "status": status})
             continue
         actionable_records.append(r)
+
+    if missing_live_pids:
+        print(
+            f"\nAborting: {len(missing_live_pids)} PID(s) were not found in live submissions.",
+            file=sys.stderr,
+        )
+        if output_json_path:
+            base_payload["mode"] = "aborted_missing_pid"
+            _write_json(output_json_path, base_payload)
+        sys.exit(1)
 
     if non_awaiting_pids and strict_awaiting:
         print(
@@ -408,6 +472,41 @@ def main() -> None:
     print(f"  {len(actionable_records)} PIDs confirmed AWAITING REVIEW; {len(non_awaiting_pids)} skipped.")
     print()
     records = actionable_records
+
+    stale_now = datetime.now(timezone.utc)
+    stale_cutoff = stale_now - timedelta(hours=stale_hours)
+    revalidated_records: List[Dict] = []
+    for r in records:
+        submission = submission_by_pid.get(r["pid"])
+        if submission is None:
+            base_payload["failures"].append(
+                {"pid": r["pid"], "reason": "submission payload missing after live fetch"}
+            )
+            continue
+        try:
+            messages = prolific_user_messages(r["pid"], api_token)
+            bucket, _ = classify_submission(
+                submission,
+                messages,
+                researcher_id,
+                stale_now,
+                stale_cutoff,
+            )
+        except Exception as e:
+            base_payload["failures"].append(
+                {"pid": r["pid"], "reason": f"revalidation failed: {e}"}
+            )
+            continue
+        if bucket != "stale_no_reply_to_rr":
+            status_label = f"NO_LONGER_ELIGIBLE:{bucket or 'NONE'}"
+            print(
+                f"  SKIPPING {r['pid']}: stale revalidation result {status_label}",
+                file=sys.stderr,
+            )
+            base_payload["skipped_non_awaiting"].append({"pid": r["pid"], "status": status_label})
+            continue
+        revalidated_records.append(r)
+    records = revalidated_records
 
     not_found: List[str] = []
     rejected = 0

@@ -45,16 +45,19 @@ import csv
 import json
 import os
 import sys
+from datetime import timedelta
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Dict, List, Set, Tuple
 
 sys.path.insert(0, str(Path(__file__).parent))
 
+from find_stale_return_requested import DEFAULT_RESEARCHER_ID, classify_submission
 from tabs_api import (
     prolific_request_return,
     prolific_study_info,
     prolific_submissions,
+    prolific_user_messages,
 )
 
 _CONSTANTS_PATH = Path(__file__).parent / "tabs_v2_constants.json"
@@ -172,6 +175,27 @@ def _parse_pid_list(raw: str) -> List[str]:
     return target
 
 
+def _parse_max_per_run(raw: str) -> int | None:
+    value = raw.strip()
+    if not value:
+        return None
+    try:
+        parsed = int(value)
+    except ValueError:
+        print(
+            f"Error: invalid MAX_PER_RUN={raw!r}. Expected a positive integer.",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+    if parsed <= 0:
+        print(
+            f"Error: invalid MAX_PER_RUN={raw!r}. Expected a positive integer.",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+    return parsed
+
+
 def main() -> None:
     print("================================================================")
     print("  Prolific Request-Return by PID (disposition-aware)")
@@ -185,8 +209,24 @@ def main() -> None:
     dry_run = os.environ.get("DRY_RUN", "true").strip().lower() != "false"
     confirm = os.environ.get("CONFIRM_REQUEST_RETURN", "").strip()
     output_json_path = os.environ.get("OUTPUT_JSON_PATH", "").strip()
-    max_per_run_raw = os.environ.get("MAX_PER_RUN", "").strip()
-    max_per_run: int | None = int(max_per_run_raw) if max_per_run_raw.isdigit() else None
+    max_per_run_raw = os.environ.get("MAX_PER_RUN", "")
+    max_per_run = _parse_max_per_run(max_per_run_raw)
+    stale_hours_raw = os.environ.get("STALE_HOURS", "48")
+    researcher_id = os.environ.get("RESEARCHER_ID", DEFAULT_RESEARCHER_ID).strip() or DEFAULT_RESEARCHER_ID
+    try:
+        stale_hours = int(stale_hours_raw)
+    except ValueError:
+        print(
+            f"Error: invalid STALE_HOURS={stale_hours_raw!r}. Expected an integer.",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+    if stale_hours <= 0:
+        print(
+            f"Error: invalid STALE_HOURS={stale_hours_raw!r}. Expected a positive integer.",
+            file=sys.stderr,
+        )
+        sys.exit(1)
 
     if not dry_run and confirm != "REQUEST_RETURN":
         print("================================================================", file=sys.stderr)
@@ -210,6 +250,7 @@ def main() -> None:
         "study_id": study_id,
         "computed_at": computed_at,
         "input_count": len(target_pids),
+        "target_pids": target_pids,
         "ceiling": max_per_run,
         "ceiling_exceeded": False,
         "successes": [],
@@ -302,10 +343,12 @@ def main() -> None:
     all_subs = prolific_submissions(study_id, api_token)
     pid_to_sub_id: Dict[str, str] = {}
     status_map: Dict[str, str] = {}
+    submission_by_pid: Dict[str, Dict] = {}
     for s in all_subs:
         p = s.get("participant_id", "")
         if not p:
             continue
+        submission_by_pid[p] = s
         status_map[p] = s.get("status", "UNKNOWN")
         if p in target_pid_set and s.get("id"):
             pid_to_sub_id[p] = s["id"]
@@ -313,11 +356,51 @@ def main() -> None:
     # Skip (don't error) any PID not in AWAITING REVIEW — could have been
     # actioned out-of-band since the artifact was produced.
     actionable: List[Dict] = []
+    stale_now = datetime.now(timezone.utc)
+    stale_cutoff = stale_now - timedelta(hours=stale_hours)
     for r in records:
         status = status_map.get(r["pid"], "NOT FOUND")
+        if status == "NOT FOUND":
+            print(
+                f"  FAILED {r['pid']}: not found in live study submissions",
+                file=sys.stderr,
+            )
+            base_payload["failures"].append(
+                {"pid": r["pid"], "reason": "submission not found in live study"}
+            )
+            continue
         if status != "AWAITING REVIEW":
             print(f"  SKIPPING {r['pid']}: status is {status!r}, not AWAITING REVIEW", file=sys.stderr)
             base_payload["skipped_non_awaiting"].append({"pid": r["pid"], "status": status})
+            continue
+
+        submission = submission_by_pid.get(r["pid"])
+        if submission is None:
+            base_payload["failures"].append(
+                {"pid": r["pid"], "reason": "submission payload missing after live fetch"}
+            )
+            continue
+        try:
+            messages = prolific_user_messages(r["pid"], api_token)
+            bucket, _ = classify_submission(
+                submission,
+                messages,
+                researcher_id,
+                stale_now,
+                stale_cutoff,
+            )
+        except Exception as e:
+            base_payload["failures"].append(
+                {"pid": r["pid"], "reason": f"revalidation failed: {e}"}
+            )
+            continue
+        if bucket != "stale_no_reply_to_message":
+            status_label = f"NO_LONGER_ELIGIBLE:{bucket or 'NONE'}"
+            print(
+                f"  SKIPPING {r['pid']}: stale revalidation result {status_label}",
+                file=sys.stderr,
+            )
+            base_payload["skipped_non_awaiting"].append({"pid": r["pid"], "status": status_label})
             continue
         sub_id = pid_to_sub_id.get(r["pid"])
         if not sub_id:
