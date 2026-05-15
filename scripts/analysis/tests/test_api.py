@@ -21,6 +21,7 @@ from tabs_api import (
     prolific_bulk_reject,
     prolific_send_message,
     prolific_unreject,
+    prolific_request_return,
     prolific_get_submission_ids,
     QUALTRICS_PROLIFIC_FILTER_MAP,
     PROLIFIC_AUGMENTATION_FILTERS,
@@ -421,6 +422,23 @@ class TestProlificWriteOps:
         assert "SUB_123/transition" in calls[0]["url"]
         payload = json.loads(calls[0]["body"])
         assert payload["action"] == "UNREJECT"
+
+    def test_request_return_url_and_payload(self):
+        """Verify request-return sends correct endpoint and reasons payload."""
+        calls = []
+
+        def mock_http(method, url, headers, body=None, timeout=60):
+            calls.append({"method": method, "url": url, "body": body})
+            return b"{}"
+
+        with patch("tabs_api._http", side_effect=mock_http):
+            prolific_request_return("SUB_321", ["reason A", "reason B"], "tok")
+
+        assert len(calls) == 1
+        assert calls[0]["method"] == "POST"
+        assert "SUB_321/request-return/" in calls[0]["url"]
+        payload = json.loads(calls[0]["body"])
+        assert payload["request_return_reasons"] == ["reason A", "reason B"]
 
     def test_bulk_approve_empty_response(self):
         """Write endpoints returning empty body should succeed."""

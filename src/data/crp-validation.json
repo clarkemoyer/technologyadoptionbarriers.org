@@ -85,7 +85,7 @@
         "kmo_bartlett": {
           "kmo_overall": 0.9266,
           "bartlett_chi2": 1278.99,
-          "bartlett_p": 5.5989404416016324e-185
+          "bartlett_p": 5.598940441600992e-185
         },
         "parallel_analysis": {
           "n_factors": 1,
@@ -1366,22 +1366,22 @@
         "n_listwise": 176,
         "ecv_general": 0.784,
         "ecv_r_specific": 0.1228,
-        "ecv_m_specific": 0.0932,
+        "ecv_m_specific": 0.0933,
         "omega_t": 0.9471,
         "omega_h_general": 0.8507,
         "omega_h_r_specific": 0.0661,
         "omega_h_m_specific": 0.0303,
         "puc": 0.4533,
         "g_loadings": [
-          0.5858, 0.6297, 0.6633, 0.4459, 0.4922, 0.6563, 0.6376, 0.5369, 0.5677, 0.5953, 0.5572,
-          0.6452, 0.4902, 0.5715, 0.5345, 0.6516, 0.565, 0.5863, 0.6667, 0.5171, 0.6179, 0.5799,
+          0.5859, 0.6297, 0.6633, 0.4459, 0.4922, 0.6563, 0.6376, 0.5368, 0.5677, 0.5952, 0.5573,
+          0.6452, 0.4902, 0.5715, 0.5345, 0.6517, 0.565, 0.5863, 0.6667, 0.5171, 0.6179, 0.5799,
           0.7088, 0.6969, 0.6182
         ],
         "r_specific_loadings": [
-          0.4497, 0.2744, 0.1088, 0.4225, 0.4558, 0.2185, 0.2453, 0.3315, 0.1302, 0.1559, 0.3272,
-          -0.0104, 0.3741, 0.1612, 0.3715, 0.199, -0.0845
+          0.4496, 0.2744, 0.1087, 0.4225, 0.4559, 0.2183, 0.2453, 0.3316, 0.1302, 0.1561, 0.3271,
+          -0.0104, 0.374, 0.1611, 0.3715, 0.1989, -0.0845
         ],
-        "m_specific_loadings": [0.5244, 0.377, 0.3824, 0.3146, 0.4216, 0.3619, 0.2107, 0.2044],
+        "m_specific_loadings": [0.5244, 0.3771, 0.3826, 0.3147, 0.4216, 0.362, 0.2108, 0.2044],
         "note": "Reise/Rodriguez interpretation: ECV>.70 + omega_h>.80 + small omega_h_s implies general factor dominates; specific subscale scores are unreliable in isolation."
       },
       "second_order_barriers_cfa": {
@@ -2615,7 +2615,7 @@
           "latent_correlations": {
             "F1a~~F1b": 0.9468,
             "F1a~~F2": 0.2515,
-            "F1b~~F2": 0.4012
+            "F2~~F1b": 0.4012
           }
         },
         "Group_0": {
@@ -2627,7 +2627,7 @@
           "latent_correlations": {
             "F1a~~F1b": 0.7667,
             "F1a~~F2": 0.7336,
-            "F1b~~F2": 0.6862
+            "F2~~F1b": 0.6862
           }
         }
       },
@@ -3303,12 +3303,12 @@
             "total_criteria": 4
           }
         },
-        "last_run_utc": "2026-05-12T11:30:28.181226+00:00"
+        "last_run_utc": "2026-05-15T14:06:10.512569+00:00"
       },
       "r_parity_tests": {
         "count": 16,
         "ci_workflow": ".github/workflows/validate-analysis.yml",
-        "last_run_utc": "2026-05-12T11:30:28.181641+00:00",
+        "last_run_utc": "2026-05-15T14:06:10.513075+00:00",
         "all_passing": null
       },
       "factor_analysis": {
