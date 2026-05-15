@@ -159,13 +159,13 @@ const AutomationInfrastructurePage = () => {
                   [
                     '3d',
                     'Auto-Request-Return',
-                    'Dispatches Prolific API request-return per PID in the stale-no-reply-to-message bucket (TABS messaged >48h ago, no participant reply). Disposition-aware reason text. Ceiling-guarded at 30/run; kill-switchable via repo variable',
+                    'Dispatches Prolific API request-return per PID in the stale_no_reply_to_message bucket (TABS messaged >48h ago, no participant reply). Disposition-aware reason text. Ceiling-guarded at 30/run; kill-switchable via repo variable',
                     'prolific-prod',
                   ],
                   [
                     '3e',
                     'Auto-Reject-Stale-RR',
-                    'Rejects PIDs in the stale-no-reply-to-rr bucket (formal API request-return >48h ago, no reply) before the Prolific reserve timeout auto-approves them. Same ceiling + kill switch as 3d',
+                    'Rejects PIDs in the stale_no_reply_to_rr bucket (formal API request-return >48h ago, no reply) before the Prolific reserve timeout auto-approves them. Same ceiling + kill switch as 3d',
                     'prolific-prod',
                   ],
                   [
