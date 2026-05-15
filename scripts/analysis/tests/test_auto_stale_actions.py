@@ -1,0 +1,434 @@
+"""Tests for the auto-stale-actions pipeline scripts.
+
+Covers request_return_by_pid.py (new) and the ceiling-guard + JSON-output
+behavior added to reject_by_pid.py for unattended pipeline use.
+"""
+
+import csv
+import json
+import subprocess
+import sys
+from pathlib import Path
+
+import pytest
+
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
+SCRIPTS_DIR = Path(__file__).parent.parent
+REQUEST_RETURN_SCRIPT = str(SCRIPTS_DIR / "request_return_by_pid.py")
+REJECT_BY_PID_SCRIPT = str(SCRIPTS_DIR / "reject_by_pid.py")
+
+_CSV_HEADERS = [
+    "PROLIFIC_PID",
+    "Duration_Seconds",
+    "IRI_Barrier_Pass",
+    "IRI_Readiness_Pass",
+    "IRI_Maturity_Pass",
+    "IRI_Pass_Count",
+    "IRI_Fail_Count",
+    "Speed_Flag",
+    "Disposition",
+]
+
+
+def _write_csv(tmp_path, rows, filename="disposition.csv"):
+    path = str(tmp_path / filename)
+    with open(path, "w", newline="", encoding="utf-8") as f:
+        writer = csv.writer(f)
+        writer.writerow(_CSV_HEADERS)
+        for row in rows:
+            writer.writerow(row)
+    return path
+
+
+def _row(pid, disposition, iri_fail=0, speed_flag=0, duration=600):
+    return [pid, str(duration), "1", "1", "1", "3", str(iri_fail), str(speed_flag), disposition]
+
+
+# ── request_return_by_pid.py: pure reason builders ─────────────────────
+
+
+class TestRequestReturnReasonBuilders:
+    def test_auto_exclude_iri3_no_speed(self):
+        from request_return_by_pid import _reason_auto_exclude
+        reason = _reason_auto_exclude(duration=600, iri_fail=3, speed_flag=0)
+        assert "3 of 3" in reason
+        assert "minute" not in reason  # no speed clause
+
+    def test_auto_exclude_iri2_with_speed(self):
+        from request_return_by_pid import _reason_auto_exclude
+        reason = _reason_auto_exclude(duration=120, iri_fail=2, speed_flag=1)
+        assert "2.0 minutes" in reason
+        assert "2 of 3" in reason
+
+    def test_flag_smeal_mentions_duration(self):
+        from request_return_by_pid import SMEAL_BENCHMARK_MAX, _reason_flag_smeal
+
+        reason = _reason_flag_smeal(duration=240)
+        assert "4.0 minutes" in reason
+        assert f"{SMEAL_BENCHMARK_MAX:.0f}-minute benchmark" in reason
+
+    def test_flag_single_iri(self):
+        from request_return_by_pid import _reason_flag_single_iri
+        assert "1 of 3" in _reason_flag_single_iri()
+
+    def test_flag_partial_straightlining(self):
+        from request_return_by_pid import _reason_flag_partial_straightlining
+        assert "identical-response" in _reason_flag_partial_straightlining()
+
+    def test_flag_recaptcha(self):
+        from request_return_by_pid import _reason_flag_recaptcha
+        assert "reCAPTCHA" in _reason_flag_recaptcha()
+
+    def test_classify_unknown_disposition_raises(self):
+        from request_return_by_pid import _classify_and_build
+        with pytest.raises(ValueError):
+            _classify_and_build({
+                "PROLIFIC_PID": "X",
+                "Disposition": "UNKNOWN-WAT",
+                "IRI_Fail_Count": "0",
+                "Speed_Flag": "0",
+                "Duration_Seconds": "600",
+            })
+
+
+# ── request_return_by_pid.py: subprocess-driven behavior ──────────────
+
+
+class TestRequestReturnByPidScript:
+    def test_safety_stop_requires_exact_confirmation(self, tmp_path):
+        csv_path = _write_csv(tmp_path, [_row("PID_A", "FLAG-SMEAL", duration=240)])
+        result = subprocess.run(
+            [sys.executable, REQUEST_RETURN_SCRIPT],
+            env={
+                "PROLIFIC_API_TOKEN": "t",
+                "STUDY_ID": "S",
+                "CSV_FILE_PATH": csv_path,
+                "PID_LIST": "PID_A",
+                "DRY_RUN": "false",
+                "CONFIRM_REQUEST_RETURN": "REJECT",  # wrong token
+            },
+            capture_output=True,
+            text=True,
+        )
+        assert result.returncode == 1
+        assert "SAFETY STOP" in result.stderr
+
+    def test_ceiling_exceeded_writes_skipped_json_and_exits_2(self, tmp_path):
+        csv_path = _write_csv(
+            tmp_path,
+            [_row(f"P{i}", "FLAG-SMEAL", duration=240) for i in range(5)],
+        )
+        json_path = str(tmp_path / "result.json")
+        result = subprocess.run(
+            [sys.executable, REQUEST_RETURN_SCRIPT],
+            env={
+                "PROLIFIC_API_TOKEN": "t",
+                "STUDY_ID": "S",
+                "CSV_FILE_PATH": csv_path,
+                "PID_LIST": ",".join(f"P{i}" for i in range(5)),
+                "MAX_PER_RUN": "3",
+                "DRY_RUN": "true",
+                "OUTPUT_JSON_PATH": json_path,
+            },
+            capture_output=True,
+            text=True,
+        )
+        assert result.returncode == 2
+        assert "CEILING EXCEEDED" in result.stderr
+        payload = json.loads(Path(json_path).read_text(encoding="utf-8"))
+        assert payload["mode"] == "skipped_ceiling"
+        assert payload["ceiling_exceeded"] is True
+        assert payload["input_count"] == 5
+        assert payload["ceiling"] == 3
+        assert payload["target_pids"] == [f"P{i}" for i in range(5)]
+
+    def test_invalid_max_per_run_fails_closed(self, tmp_path):
+        csv_path = _write_csv(tmp_path, [_row("PID_A", "FLAG-SMEAL", duration=240)])
+        result = subprocess.run(
+            [sys.executable, REQUEST_RETURN_SCRIPT],
+            env={
+                "PROLIFIC_API_TOKEN": "t",
+                "STUDY_ID": "S",
+                "CSV_FILE_PATH": csv_path,
+                "PID_LIST": "PID_A",
+                "MAX_PER_RUN": "oops",
+                "DRY_RUN": "true",
+            },
+            capture_output=True,
+            text=True,
+        )
+        assert result.returncode == 1
+        assert "invalid MAX_PER_RUN" in result.stderr
+
+    def test_dry_run_writes_planned_successes(self, tmp_path):
+        csv_path = _write_csv(
+            tmp_path,
+            [
+                _row("PID_A", "AUTO-EXCLUDE", iri_fail=3, duration=600),
+                _row("PID_B", "FLAG-SMEAL", duration=240),
+            ],
+        )
+        json_path = str(tmp_path / "result.json")
+        result = subprocess.run(
+            [sys.executable, REQUEST_RETURN_SCRIPT],
+            env={
+                "PROLIFIC_API_TOKEN": "t",
+                "STUDY_ID": "S",
+                "CSV_FILE_PATH": csv_path,
+                "PID_LIST": "PID_A,PID_B",
+                "DRY_RUN": "true",
+                "OUTPUT_JSON_PATH": json_path,
+            },
+            capture_output=True,
+            text=True,
+        )
+        assert result.returncode == 0, result.stderr
+        payload = json.loads(Path(json_path).read_text(encoding="utf-8"))
+        assert payload["mode"] == "dry_run"
+        assert len(payload["successes"]) == 2
+        pids = {s["pid"] for s in payload["successes"]}
+        assert pids == {"PID_A", "PID_B"}
+        # Reasons differ per disposition
+        reasons = {s["disposition"]: s["reason"] for s in payload["successes"]}
+        assert "3 of 3" in reasons["AUTO-EXCLUDE"]
+        assert "4.0 minutes" in reasons["FLAG-SMEAL"]
+
+    def test_unknown_pid_aborts(self, tmp_path):
+        csv_path = _write_csv(tmp_path, [_row("PID_A", "FLAG-SMEAL", duration=240)])
+        result = subprocess.run(
+            [sys.executable, REQUEST_RETURN_SCRIPT],
+            env={
+                "PROLIFIC_API_TOKEN": "t",
+                "STUDY_ID": "S",
+                "CSV_FILE_PATH": csv_path,
+                "PID_LIST": "PID_A,PID_NOT_IN_CSV",
+                "DRY_RUN": "true",
+            },
+            capture_output=True,
+            text=True,
+        )
+        assert result.returncode == 1
+        assert "PID_NOT_IN_CSV" in result.stderr
+
+    def test_unmodelled_disposition_aborts(self, tmp_path):
+        csv_path = _write_csv(tmp_path, [_row("PID_A", "WAT-NEW-DISPOSITION")])
+        result = subprocess.run(
+            [sys.executable, REQUEST_RETURN_SCRIPT],
+            env={
+                "PROLIFIC_API_TOKEN": "t",
+                "STUDY_ID": "S",
+                "CSV_FILE_PATH": csv_path,
+                "PID_LIST": "PID_A",
+                "DRY_RUN": "true",
+            },
+            capture_output=True,
+            text=True,
+        )
+        assert result.returncode == 1
+        assert "Unhandled disposition" in result.stderr
+
+
+# ── reject_by_pid.py: new ceiling + JSON output behavior ───────────────
+
+
+class TestRejectByPidNewBehavior:
+    def test_ceiling_exceeded_writes_skipped_json_and_exits_2(self, tmp_path):
+        csv_path = _write_csv(
+            tmp_path,
+            [_row(f"P{i}", "AUTO-EXCLUDE", iri_fail=3, duration=600) for i in range(5)],
+        )
+        json_path = str(tmp_path / "reject-result.json")
+        result = subprocess.run(
+            [sys.executable, REJECT_BY_PID_SCRIPT],
+            env={
+                "PROLIFIC_API_TOKEN": "t",
+                "STUDY_ID": "S",
+                "CSV_FILE_PATH": csv_path,
+                "PID_LIST": ",".join(f"P{i}" for i in range(5)),
+                "MAX_PER_RUN": "3",
+                "DRY_RUN": "true",
+                "OUTPUT_JSON_PATH": json_path,
+            },
+            capture_output=True,
+            text=True,
+        )
+        assert result.returncode == 2, result.stderr
+        assert "CEILING EXCEEDED" in result.stderr
+        payload = json.loads(Path(json_path).read_text(encoding="utf-8"))
+        assert payload["mode"] == "skipped_ceiling"
+        assert payload["ceiling_exceeded"] is True
+        assert payload["target_pids"] == [f"P{i}" for i in range(5)]
+
+    def test_invalid_max_per_run_fails_closed(self, tmp_path):
+        csv_path = _write_csv(
+            tmp_path,
+            [_row("PID_A", "AUTO-EXCLUDE", iri_fail=3, duration=600)],
+        )
+        result = subprocess.run(
+            [sys.executable, REJECT_BY_PID_SCRIPT],
+            env={
+                "PROLIFIC_API_TOKEN": "t",
+                "STUDY_ID": "S",
+                "CSV_FILE_PATH": csv_path,
+                "PID_LIST": "PID_A",
+                "MAX_PER_RUN": "oops",
+                "DRY_RUN": "true",
+            },
+            capture_output=True,
+            text=True,
+        )
+        assert result.returncode == 1
+        assert "invalid MAX_PER_RUN" in result.stderr
+
+    def test_dry_run_writes_plan_to_json(self, tmp_path):
+        csv_path = _write_csv(
+            tmp_path,
+            [_row("PID_A", "AUTO-EXCLUDE", iri_fail=3, duration=600)],
+        )
+        json_path = str(tmp_path / "reject-result.json")
+        result = subprocess.run(
+            [sys.executable, REJECT_BY_PID_SCRIPT],
+            env={
+                "PROLIFIC_API_TOKEN": "t",
+                "STUDY_ID": "S",
+                "CSV_FILE_PATH": csv_path,
+                "PID_LIST": "PID_A",
+                "DRY_RUN": "true",
+                "OUTPUT_JSON_PATH": json_path,
+            },
+            capture_output=True,
+            text=True,
+        )
+        assert result.returncode == 0, result.stderr
+        payload = json.loads(Path(json_path).read_text(encoding="utf-8"))
+        assert payload["mode"] == "dry_run"
+        assert len(payload["successes"]) == 1
+        assert payload["successes"][0]["pid"] == "PID_A"
+        assert "FAILED_ATTENTION_CHECK" in payload["successes"][0]["categories"]
+
+
+class TestLiveRaceRevalidation:
+    def test_request_return_live_missing_pid_is_failure(self, tmp_path, monkeypatch):
+        csv_path = _write_csv(tmp_path, [_row("PID_A", "FLAG-SMEAL", duration=240)])
+        json_path = str(tmp_path / "live-result.json")
+
+        import request_return_by_pid as rr
+
+        monkeypatch.setattr(rr, "prolific_study_info", lambda *_: {"name": "Study", "status": "ACTIVE"})
+        monkeypatch.setattr(rr, "prolific_submissions", lambda *_: [])
+        monkeypatch.setattr(rr, "_fetch_messages_with_backoff", lambda *_: ([], None))
+
+        monkeypatch.setenv("PROLIFIC_API_TOKEN", "t")
+        monkeypatch.setenv("STUDY_ID", "S")
+        monkeypatch.setenv("CSV_FILE_PATH", csv_path)
+        monkeypatch.setenv("PID_LIST", "PID_A")
+        monkeypatch.setenv("DRY_RUN", "false")
+        monkeypatch.setenv("CONFIRM_REQUEST_RETURN", "REQUEST_RETURN")
+        monkeypatch.setenv("OUTPUT_JSON_PATH", json_path)
+
+        with pytest.raises(SystemExit) as exc:
+            rr.main()
+        assert exc.value.code == 1
+        payload = json.loads(Path(json_path).read_text(encoding="utf-8"))
+        assert payload["failures"][0]["pid"] == "PID_A"
+        assert "not found" in payload["failures"][0]["reason"]
+
+    def test_request_return_live_skips_when_no_longer_stale_bucket(self, tmp_path, monkeypatch):
+        csv_path = _write_csv(tmp_path, [_row("PID_A", "FLAG-SMEAL", duration=240)])
+        json_path = str(tmp_path / "live-result.json")
+        called = {"count": 0}
+
+        import request_return_by_pid as rr
+
+        monkeypatch.setattr(rr, "prolific_study_info", lambda *_: {"name": "Study", "status": "ACTIVE"})
+        monkeypatch.setattr(
+            rr,
+            "prolific_submissions",
+            lambda *_: [{"id": "SUB_1", "participant_id": "PID_A", "status": "AWAITING REVIEW"}],
+        )
+        monkeypatch.setattr(rr, "_fetch_messages_with_backoff", lambda *_: ([], None))
+        monkeypatch.setattr(rr, "classify_submission", lambda *_: ("in_window_rr", {}))
+
+        def _request_return(*_args, **_kwargs):
+            called["count"] += 1
+            return {}
+
+        monkeypatch.setattr(rr, "prolific_request_return", _request_return)
+
+        monkeypatch.setenv("PROLIFIC_API_TOKEN", "t")
+        monkeypatch.setenv("STUDY_ID", "S")
+        monkeypatch.setenv("CSV_FILE_PATH", csv_path)
+        monkeypatch.setenv("PID_LIST", "PID_A")
+        monkeypatch.setenv("DRY_RUN", "false")
+        monkeypatch.setenv("CONFIRM_REQUEST_RETURN", "REQUEST_RETURN")
+        monkeypatch.setenv("OUTPUT_JSON_PATH", json_path)
+
+        rr.main()
+        payload = json.loads(Path(json_path).read_text(encoding="utf-8"))
+        assert called["count"] == 0
+        assert payload["mode"] == "live"
+        assert payload["skipped_non_awaiting"][0]["status"] == "NO_LONGER_ELIGIBLE:in_window_rr"
+
+    def test_reject_live_missing_pid_fails_even_non_strict(self, tmp_path, monkeypatch):
+        csv_path = _write_csv(tmp_path, [_row("PID_A", "AUTO-EXCLUDE", iri_fail=3, duration=600)])
+        json_path = str(tmp_path / "reject-live-result.json")
+
+        import reject_by_pid as rbp
+
+        monkeypatch.setattr(rbp, "prolific_study_info", lambda *_: {"name": "Study", "status": "ACTIVE"})
+        monkeypatch.setattr(rbp, "prolific_submissions", lambda *_: [])
+
+        monkeypatch.setenv("PROLIFIC_API_TOKEN", "t")
+        monkeypatch.setenv("STUDY_ID", "S")
+        monkeypatch.setenv("CSV_FILE_PATH", csv_path)
+        monkeypatch.setenv("PID_LIST", "PID_A")
+        monkeypatch.setenv("DRY_RUN", "false")
+        monkeypatch.setenv("CONFIRM_REJECT", "REJECT")
+        monkeypatch.setenv("STRICT_AWAITING", "false")
+        monkeypatch.setenv("OUTPUT_JSON_PATH", json_path)
+
+        with pytest.raises(SystemExit) as exc:
+            rbp.main()
+        assert exc.value.code == 1
+        payload = json.loads(Path(json_path).read_text(encoding="utf-8"))
+        assert payload["mode"] == "aborted_missing_pid"
+        assert payload["failures"][0]["pid"] == "PID_A"
+
+    def test_reject_live_skips_when_no_longer_stale_rr_bucket(self, tmp_path, monkeypatch):
+        csv_path = _write_csv(tmp_path, [_row("PID_A", "AUTO-EXCLUDE", iri_fail=3, duration=600)])
+        json_path = str(tmp_path / "reject-live-result.json")
+        called = {"count": 0}
+
+        import reject_by_pid as rbp
+
+        monkeypatch.setattr(rbp, "prolific_study_info", lambda *_: {"name": "Study", "status": "ACTIVE"})
+        monkeypatch.setattr(
+            rbp,
+            "prolific_submissions",
+            lambda *_: [{"id": "SUB_1", "participant_id": "PID_A", "status": "AWAITING REVIEW"}],
+        )
+        monkeypatch.setattr(rbp, "_fetch_messages_with_backoff", lambda *_: ([], None))
+        monkeypatch.setattr(rbp, "_API_CALL_DELAY", 0)
+        monkeypatch.setattr(rbp, "classify_submission", lambda *_: ("in_window_rr", {}))
+
+        def _reject_submission(*_args, **_kwargs):
+            called["count"] += 1
+            return {}
+
+        monkeypatch.setattr(rbp, "prolific_reject_submission", _reject_submission)
+
+        monkeypatch.setenv("PROLIFIC_API_TOKEN", "t")
+        monkeypatch.setenv("STUDY_ID", "S")
+        monkeypatch.setenv("CSV_FILE_PATH", csv_path)
+        monkeypatch.setenv("PID_LIST", "PID_A")
+        monkeypatch.setenv("DRY_RUN", "false")
+        monkeypatch.setenv("CONFIRM_REJECT", "REJECT")
+        monkeypatch.setenv("STRICT_AWAITING", "false")
+        monkeypatch.setenv("OUTPUT_JSON_PATH", json_path)
+
+        rbp.main()
+        payload = json.loads(Path(json_path).read_text(encoding="utf-8"))
+        assert called["count"] == 0
+        assert payload["mode"] == "live"
+        assert payload["skipped_non_awaiting"][0]["status"] == "NO_LONGER_ELIGIBLE:in_window_rr"
