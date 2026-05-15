@@ -45,6 +45,7 @@ import csv
 import json
 import os
 import sys
+import time
 from datetime import timedelta
 from datetime import datetime, timezone
 from pathlib import Path
@@ -52,13 +53,17 @@ from typing import Dict, List, Optional, Set, Tuple
 
 sys.path.insert(0, str(Path(__file__).parent))
 
-from find_stale_return_requested import DEFAULT_RESEARCHER_ID, classify_submission
+from find_stale_return_requested import (
+    DEFAULT_RESEARCHER_ID,
+    _API_CALL_DELAY,
+    _fetch_messages_with_backoff,
+    classify_submission,
+)
 from tabs_api import (
     REJECTION_CATEGORIES,
     prolific_reject_submission,
     prolific_study_info,
     prolific_submissions,
-    prolific_user_messages,
 )
 
 # Load the Smeal speed threshold from the shared constants file so this script
@@ -476,7 +481,7 @@ def main() -> None:
     stale_now = datetime.now(timezone.utc)
     stale_cutoff = stale_now - timedelta(hours=stale_hours)
     revalidated_records: List[Dict] = []
-    for r in records:
+    for idx, r in enumerate(records):
         submission = submission_by_pid.get(r["pid"])
         if submission is None:
             base_payload["failures"].append(
@@ -484,7 +489,11 @@ def main() -> None:
             )
             continue
         try:
-            messages = prolific_user_messages(r["pid"], api_token)
+            if idx > 0:
+                time.sleep(_API_CALL_DELAY)
+            messages, err = _fetch_messages_with_backoff(r["pid"], api_token)
+            if messages is None:
+                raise RuntimeError(f"message fetch failed: {err}")
             bucket, _ = classify_submission(
                 submission,
                 messages,

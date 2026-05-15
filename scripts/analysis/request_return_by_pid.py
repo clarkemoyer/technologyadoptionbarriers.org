@@ -63,7 +63,9 @@ from tabs_api import (
 _CONSTANTS_PATH = Path(__file__).parent / "tabs_v2_constants.json"
 _CONSTANTS = json.loads(_CONSTANTS_PATH.read_text(encoding="utf-8")) if _CONSTANTS_PATH.exists() else {}
 _SMEAL_SECONDS = _CONSTANTS.get("DURATION_THRESHOLDS", {}).get("smealBenchmarkMin", 300)
+_SMEAL_MAX_SECONDS = _CONSTANTS.get("DURATION_THRESHOLDS", {}).get("smealBenchmarkMax", 540)
 SMEAL_BENCHMARK_MIN: float = _SMEAL_SECONDS / 60
+SMEAL_BENCHMARK_MAX: float = _SMEAL_MAX_SECONDS / 60
 
 
 def _require_env(name: str) -> str:
@@ -109,7 +111,7 @@ def _reason_flag_single_iri() -> str:
 def _reason_flag_smeal(duration: int) -> str:
     return (
         f"Quality review: completion time of {_fmt_minutes(duration)} minutes is well "
-        f"below the typical {SMEAL_BENCHMARK_MIN:.0f}-minute benchmark for reading every item carefully."
+        f"below the typical {SMEAL_BENCHMARK_MAX:.0f}-minute benchmark for reading every item carefully."
     )
 
 

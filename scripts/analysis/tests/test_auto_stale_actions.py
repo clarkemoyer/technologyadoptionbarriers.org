@@ -62,8 +62,11 @@ class TestRequestReturnReasonBuilders:
         assert "2 of 3" in reason
 
     def test_flag_smeal_mentions_duration(self):
-        from request_return_by_pid import _reason_flag_smeal
-        assert "4.0 minutes" in _reason_flag_smeal(duration=240)
+        from request_return_by_pid import SMEAL_BENCHMARK_MAX, _reason_flag_smeal
+
+        reason = _reason_flag_smeal(duration=240)
+        assert "4.0 minutes" in reason
+        assert f"{SMEAL_BENCHMARK_MAX:.0f}-minute benchmark" in reason
 
     def test_flag_single_iri(self):
         from request_return_by_pid import _reason_flag_single_iri
@@ -405,7 +408,8 @@ class TestLiveRaceRevalidation:
             "prolific_submissions",
             lambda *_: [{"id": "SUB_1", "participant_id": "PID_A", "status": "AWAITING REVIEW"}],
         )
-        monkeypatch.setattr(rbp, "prolific_user_messages", lambda *_: [])
+        monkeypatch.setattr(rbp, "_fetch_messages_with_backoff", lambda *_: ([], None))
+        monkeypatch.setattr(rbp, "_API_CALL_DELAY", 0)
         monkeypatch.setattr(rbp, "classify_submission", lambda *_: ("in_window_rr", {}))
 
         def _reject_submission(*_args, **_kwargs):

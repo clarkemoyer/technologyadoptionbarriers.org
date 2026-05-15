@@ -324,13 +324,21 @@ print(f'**Stale no response to return request:** {len(rr)} | **Stale no response
 print('')
 fmt_bucket(
     f'Stale no response to return request ({len(rr)})',
-    'Prolific auto-APPROVES after the reserve timeout. Reject these.',
+    (
+        'Prolific auto-APPROVES after the reserve timeout. '
+        'These are stale reject candidates; confirm the Auto-Reject-Stale-RR section below '
+        'before taking any manual action to avoid duplicate processing.'
+    ),
     rr,
     f'All return-requested submissions are still within the {hours}h window or have participant replies. No rejections needed right now.',
 )
 fmt_bucket(
     f'Stale no response to TABS message ({len(mm)})',
-    f'Messaged > {hours}h ago with no API-level return request yet. Dispatch request-return for these.',
+    (
+        f'Messaged > {hours}h ago with no API-level return request yet. '
+        'These are request-return candidates; confirm the Auto-Request-Return section below '
+        'before taking any manual action to avoid duplicate processing.'
+    ),
     mm,
     'No untreated stale messages. Messaging pipeline is caught up.',
 )
