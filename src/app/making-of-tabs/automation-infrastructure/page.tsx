@@ -153,7 +153,19 @@ const AutomationInfrastructurePage = () => {
                   [
                     '3c',
                     'Dashboard',
-                    'Generates disposition-summary.json with live Prolific counts cross-referenced against the analysis sample Ns',
+                    'Generates disposition-summary.json with live Prolific counts cross-referenced against the analysis sample Ns, plus stale-triage.json with four AWAITING REVIEW buckets',
+                    'prolific-prod',
+                  ],
+                  [
+                    '3d',
+                    'Auto-Request-Return',
+                    'Dispatches Prolific API request-return per PID in the stale-no-reply-to-message bucket (TABS messaged >48h ago, no participant reply). Disposition-aware reason text. Ceiling-guarded at 30/run; kill-switchable via repo variable',
+                    'prolific-prod',
+                  ],
+                  [
+                    '3e',
+                    'Auto-Reject-Stale-RR',
+                    'Rejects PIDs in the stale-no-reply-to-rr bucket (formal API request-return >48h ago, no reply) before the Prolific reserve timeout auto-approves them. Same ceiling + kill switch as 3d',
                     'prolific-prod',
                   ],
                   [
@@ -207,6 +219,19 @@ const AutomationInfrastructurePage = () => {
                   ['data-audit.json', 'No (aggregate counts)', 'Yes', 'Permanent'],
                   ['disposition-summary.json', 'No (aggregate counts)', 'Yes', 'Permanent'],
                   ['Disposition CSV', 'Yes (PROLIFIC_PID)', 'No (artifact only)', '1 day'],
+                  ['stale-triage.json', 'Yes (PROLIFIC_PID)', 'No (artifact only)', '1 day'],
+                  [
+                    'auto-request-return-results.json',
+                    'Yes (PROLIFIC_PID)',
+                    'No (artifact only)',
+                    '7 days',
+                  ],
+                  [
+                    'auto-reject-stale-results.json',
+                    'Yes (PROLIFIC_PID)',
+                    'No (artifact only)',
+                    '7 days',
+                  ],
                   ['Qualtrics raw CSV', 'Yes (PII fields)', 'No (stays on runner)', 'Ephemeral'],
                   [
                     'Prolific demographics',
