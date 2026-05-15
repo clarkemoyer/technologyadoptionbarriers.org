@@ -317,7 +317,7 @@ class TestLiveRaceRevalidation:
 
         monkeypatch.setattr(rr, "prolific_study_info", lambda *_: {"name": "Study", "status": "ACTIVE"})
         monkeypatch.setattr(rr, "prolific_submissions", lambda *_: [])
-        monkeypatch.setattr(rr, "prolific_user_messages", lambda *_: [])
+        monkeypatch.setattr(rr, "_fetch_messages_with_backoff", lambda *_: ([], None))
 
         monkeypatch.setenv("PROLIFIC_API_TOKEN", "t")
         monkeypatch.setenv("STUDY_ID", "S")
@@ -347,7 +347,7 @@ class TestLiveRaceRevalidation:
             "prolific_submissions",
             lambda *_: [{"id": "SUB_1", "participant_id": "PID_A", "status": "AWAITING REVIEW"}],
         )
-        monkeypatch.setattr(rr, "prolific_user_messages", lambda *_: [])
+        monkeypatch.setattr(rr, "_fetch_messages_with_backoff", lambda *_: ([], None))
         monkeypatch.setattr(rr, "classify_submission", lambda *_: ("in_window_rr", {}))
 
         def _request_return(*_args, **_kwargs):

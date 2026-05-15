@@ -45,19 +45,24 @@ import csv
 import json
 import os
 import sys
+import time
 from datetime import timedelta
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Dict, List, Set, Tuple
+from typing import Dict, List, Optional, Set, Tuple
 
 sys.path.insert(0, str(Path(__file__).parent))
 
-from find_stale_return_requested import DEFAULT_RESEARCHER_ID, classify_submission
+from find_stale_return_requested import (
+    DEFAULT_RESEARCHER_ID,
+    _API_CALL_DELAY,
+    _fetch_messages_with_backoff,
+    classify_submission,
+)
 from tabs_api import (
     prolific_request_return,
     prolific_study_info,
     prolific_submissions,
-    prolific_user_messages,
 )
 
 _CONSTANTS_PATH = Path(__file__).parent / "tabs_v2_constants.json"
@@ -177,7 +182,7 @@ def _parse_pid_list(raw: str) -> List[str]:
     return target
 
 
-def _parse_max_per_run(raw: str) -> int | None:
+def _parse_max_per_run(raw: str) -> Optional[int]:
     value = raw.strip()
     if not value:
         return None
@@ -360,6 +365,7 @@ def main() -> None:
     actionable: List[Dict] = []
     stale_now = datetime.now(timezone.utc)
     stale_cutoff = stale_now - timedelta(hours=stale_hours)
+    revalidation_idx = 0
     for r in records:
         status = status_map.get(r["pid"], "NOT FOUND")
         if status == "NOT FOUND":
@@ -383,7 +389,12 @@ def main() -> None:
             )
             continue
         try:
-            messages = prolific_user_messages(r["pid"], api_token)
+            if revalidation_idx > 0:
+                time.sleep(_API_CALL_DELAY)
+            revalidation_idx += 1
+            messages, err = _fetch_messages_with_backoff(r["pid"], api_token)
+            if messages is None:
+                raise RuntimeError(f"message fetch failed: {err}")
             bucket, _ = classify_submission(
                 submission,
                 messages,
