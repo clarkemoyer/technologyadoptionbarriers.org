@@ -324,13 +324,21 @@ print(f'**Stale no response to return request:** {len(rr)} | **Stale no response
 print('')
 fmt_bucket(
     f'Stale no response to return request ({len(rr)})',
-    'Prolific auto-APPROVES after the reserve timeout. Reject these.',
+    (
+        'Prolific auto-APPROVES after the reserve timeout. '
+        'These are stale reject candidates; confirm the Auto-Reject-Stale-RR section below '
+        'before taking any manual action to avoid duplicate processing.'
+    ),
     rr,
     f'All return-requested submissions are still within the {hours}h window or have participant replies. No rejections needed right now.',
 )
 fmt_bucket(
     f'Stale no response to TABS message ({len(mm)})',
-    f'Messaged > {hours}h ago with no API-level return request yet. Dispatch request-return for these.',
+    (
+        f'Messaged > {hours}h ago with no API-level return request yet. '
+        'These are request-return candidates; confirm the Auto-Request-Return section below '
+        'before taking any manual action to avoid duplicate processing.'
+    ),
     mm,
     'No untreated stale messages. Messaging pipeline is caught up.',
 )
@@ -355,6 +363,163 @@ fi
 STALE_TRIAGE_SECTION_FORMATTED=""
 if [ -n "$STALE_TRIAGE_SECTION" ]; then
   STALE_TRIAGE_SECTION_FORMATTED="$STALE_TRIAGE_SECTION
+"
+fi
+
+# --- Auto-Request-Return + Auto-Reject-Stale results (Phase 3d/3e) ---
+# Renders a section per phase, including ceiling-exceeded banner when hit.
+# Per privacy rules in CLAUDE.md, PIDs are redacted to last 4 inline;
+# operators get the full list from the 7-day retention artifact.
+render_auto_phase_section() {
+  local title="$1"
+  local artifact_dirname="$2"
+  local results_filename="$3"
+  local op_verb="$4"   # "Requested return" or "Rejected"
+  local needs_result="$5"
+  local section_var="$6"
+  local file="$ARTIFACTS_DIR/$artifact_dirname/$results_filename"
+
+  if [ "$needs_result" = "skipped" ]; then
+    # A skipped phase can mean either kill-switch disabled OR upstream prerequisite
+    # was not successful (e.g., dashboard generation failed).
+    if [ "${DASHBOARD_RESULT:-unknown}" != "success" ]; then
+      eval "$section_var=\"## $title
+
+> Skipped because upstream prerequisite was not successful (\`generate-dashboard=${DASHBOARD_RESULT:-unknown}\`).
+\""
+    else
+      eval "$section_var=\"## $title
+
+> Disabled via repository variable. Run \`gh variable list\` to inspect.
+\""
+    fi
+    return
+  fi
+  if [ ! -f "$file" ]; then
+    eval "$section_var=\"## $title
+
+> ⚠️ Results artifact not found at \\\`$file\\\`. Either the phase did not run or its artifact upload failed.
+\""
+    return
+  fi
+
+  local rendered
+  if rendered=$(RESULTS_FILE="$file" OP_VERB="$op_verb" TITLE="$title" PYTHONIOENCODING=utf-8 python3 << 'PHASEEOF'
+import json, os, sys
+
+
+def render():
+    with open(os.environ['RESULTS_FILE'], encoding='utf-8') as f:
+        d = json.load(f)
+    mode = d.get('mode', 'unknown')
+    successes = d.get('successes', [])
+    failures = d.get('failures', [])
+    skipped = d.get('skipped_non_awaiting', [])
+    ceiling = d.get('ceiling')
+    op = os.environ['OP_VERB']
+
+    out = []
+    out.append(f"## {os.environ['TITLE']}")
+    out.append('')
+
+    if d.get('ceiling_exceeded'):
+        out.append(
+            f'> 🚨 **MANUAL INTERVENTION NEEDED** — bucket size {d.get("input_count")} '
+            f'exceeds ceiling ({ceiling}). No action taken. Review the upstream stale-triage '
+            f'artifact and act manually.'
+        )
+        out.append('')
+        return '\n'.join(out)
+
+    if mode == 'no_action':
+        out.append('No PIDs in the bucket. Nothing to do.')
+        out.append('')
+        return '\n'.join(out)
+
+    if mode == 'dry_run':
+        out.append(
+            f'> Shadow mode (DRY_RUN=true). The {len(successes)} listed PIDs would be actioned on live mode.'
+        )
+        out.append('')
+
+    out.append(f'- **{op}:** {len(successes)}')
+    out.append(f'- **Failed:** {len(failures)}')
+    out.append(f'- **Skipped (not AWAITING REVIEW):** {len(skipped)}')
+    if ceiling is not None:
+        out.append(f'- **Ceiling (MAX_PER_RUN):** {ceiling}')
+    out.append('')
+
+    if successes:
+        out.append(f'<details><summary>{op} PIDs ({len(successes)})</summary>')
+        out.append('')
+        out.append('| PID | Disposition |')
+        out.append('|---|---|')
+        for s in successes:
+            pid = s.get('pid', '')
+            pid_redacted = ('****' + pid[-4:]) if pid else '(no PID)'
+            disp = (s.get('disposition') or '').replace('|', r'\|')
+            out.append(f'| `{pid_redacted}` | {disp} |')
+        out.append('')
+        out.append('*Full PID list is in the workflow artifact (operators only).*')
+        out.append('')
+        out.append('</details>')
+        out.append('')
+
+    if failures:
+        out.append(f'<details><summary>⚠️ Failed PIDs ({len(failures)})</summary>')
+        out.append('')
+        out.append('| PID | Reason |')
+        out.append('|---|---|')
+        for s in failures:
+            pid = s.get('pid', '')
+            pid_redacted = ('****' + pid[-4:]) if pid else '(no PID)'
+            reason = (s.get('reason') or '').replace('|', r'\|')[:120]
+            out.append(f'| `{pid_redacted}` | {reason} |')
+        out.append('')
+        out.append('</details>')
+        out.append('')
+
+    return '\n'.join(out)
+
+
+sys.stdout.write(render())
+PHASEEOF
+  ); then
+    eval "$section_var=\"\$rendered\""
+  else
+    eval "$section_var=\"## $title
+
+> ⚠️ Could not render section (results JSON may be malformed). Check the workflow log.
+\""
+  fi
+}
+
+AUTO_RR_SECTION=""
+render_auto_phase_section \
+  "Auto-Request-Return (Phase 3d)" \
+  "auto-request-return-results" \
+  "auto-request-return-results.json" \
+  "Requested return" \
+  "${AUTO_REQUEST_RETURN_RESULT:-unknown}" \
+  AUTO_RR_SECTION
+
+AUTO_REJECT_SECTION=""
+render_auto_phase_section \
+  "Auto-Reject-Stale-RR (Phase 3e)" \
+  "auto-reject-stale-results" \
+  "auto-reject-stale-results.json" \
+  "Rejected" \
+  "${AUTO_REJECT_STALE_RESULT:-unknown}" \
+  AUTO_REJECT_SECTION
+
+AUTO_RR_SECTION_FORMATTED=""
+if [ -n "$AUTO_RR_SECTION" ]; then
+  AUTO_RR_SECTION_FORMATTED="$AUTO_RR_SECTION
+"
+fi
+AUTO_REJECT_SECTION_FORMATTED=""
+if [ -n "$AUTO_REJECT_SECTION" ]; then
+  AUTO_REJECT_SECTION_FORMATTED="$AUTO_REJECT_SECTION
 "
 fi
 
@@ -487,6 +652,8 @@ $RECONCILIATION_SECTION
 $RUNWAY_SECTION
 $RECOMMENDATIONS_SECTION
 $STALE_TRIAGE_SECTION_FORMATTED
+$AUTO_RR_SECTION_FORMATTED
+$AUTO_REJECT_SECTION_FORMATTED
 ## Auto-Approve CLEAN
 
 - **CLEAN dispositions:** $APPROVE_CLEAN_COUNT
@@ -509,6 +676,8 @@ $MSG_ROWS
 | Auto-Approve CLEAN | ${APPROVE_RESULT_STATUS:-unknown} |
 | Message FLAG Participants | ${MESSAGE_RESULT:-unknown} |
 | Generate Dashboard | ${DASHBOARD_RESULT:-unknown} |
+| Auto-Request-Return (3d) | ${AUTO_REQUEST_RETURN_RESULT:-unknown} |
+| Auto-Reject-Stale-RR (3e) | ${AUTO_REJECT_STALE_RESULT:-unknown} |
 
 ---
 **Workflow run:** [View full logs]($RUN_URL)
@@ -530,12 +699,15 @@ CRITICAL_FINDINGS=false
 [ "${APPROVE_RESULT_STATUS:-}" = "failure" ] && CRITICAL_FINDINGS=true
 [ "${MESSAGE_RESULT:-}" = "failure" ] && CRITICAL_FINDINGS=true
 [ "${DASHBOARD_RESULT:-}" = "failure" ] && CRITICAL_FINDINGS=true
+[ "${AUTO_REQUEST_RETURN_RESULT:-}" = "failure" ] && CRITICAL_FINDINGS=true
+[ "${AUTO_REJECT_STALE_RESULT:-}" = "failure" ] && CRITICAL_FINDINGS=true
 [ "$HAS_DASHBOARD" = false ] && CRITICAL_FINDINGS=true
 echo "$RECOMMENDATIONS" | grep -qE "🔴|🟡|🟠" && CRITICAL_FINDINGS=true
 [ "$DELTA_REJECTED" -gt 0 ] && CRITICAL_FINDINGS=true
 [ "$DELTA_RETURNED" -gt 0 ] && CRITICAL_FINDINGS=true
 [ "$TODAY_AWAITING" -gt 0 ] && CRITICAL_FINDINGS=true
 [ "$TOTAL_FAILED" -gt 0 ] && CRITICAL_FINDINGS=true
+echo "$AUTO_RR_SECTION_FORMATTED $AUTO_REJECT_SECTION_FORMATTED" | grep -q "MANUAL INTERVENTION NEEDED" && CRITICAL_FINDINGS=true
 
 # --- Create issue ---
 TITLE="Daily Disposition Report -- $DATE"
