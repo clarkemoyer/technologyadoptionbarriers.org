@@ -769,7 +769,7 @@ jobs:
   # an aggregate summary plus an inbound-participant CSV. Phase 5 reads
   # the inbound CSV to compute the "Replies to Consider" report section
   # (count of AWAITING REVIEW PIDs that have replied to TABS messages).
-  # PII-bearing CSV is 1-day artifact retention to match the disposition
+  # PII-bearing exports are 1-day artifact retention to match the disposition
   # CSV privacy treatment. Aggregate summary is committable (7-day).
   # Runs in parallel with other Phase 3 jobs; gates only on Phase 2.
   export-messages:
@@ -808,6 +808,30 @@ jobs:
         with:
           name: prolific-messages-inbound-csv
           path: ${{ runner.temp }}/participant_messages.csv
+          retention-days: 1
+          if-no-files-found: warn
+
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: prolific-messages-raw-json
+          path: ${{ runner.temp }}/all_messages_raw.json
+          retention-days: 1
+          if-no-files-found: warn
+
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: prolific-messages-transcripts-md
+          path: ${{ runner.temp }}/participant_messages.md
+          retention-days: 1
+          if-no-files-found: warn
+
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: prolific-messages-candidates-md
+          path: ${{ runner.temp }}/candidates_to_review.md
           retention-days: 1
           if-no-files-found: warn
 
