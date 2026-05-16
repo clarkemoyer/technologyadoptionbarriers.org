@@ -264,7 +264,6 @@ def get_message_signatures(disposition: str) -> tuple[str, ...]:
         ),
         "FLAG-RECAPTCHA": (
             "reCAPTCHA verification on your session triggered additional review",
-            "reCAPTCHA bot-detection score",
             "automated authenticity checks flagged your submission",
         ),
         "FLAG-PARTIAL-STRAIGHTLINING": (
