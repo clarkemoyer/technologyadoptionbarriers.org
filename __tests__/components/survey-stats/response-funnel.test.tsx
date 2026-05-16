@@ -40,15 +40,22 @@ describe('Response Funnel page (QualtricsSurveyStats)', () => {
 
   it('renders Qualtrics question IDs and items presented as separate values', () => {
     render(<QualtricsSurveyStats />)
+    const getMetricCard = (name: RegExp) => {
+      const heading = screen.getByRole('heading', { name, level: 4 })
+      const card = heading.parentElement?.parentElement
+
+      if (!(card instanceof HTMLElement)) {
+        throw new Error(`Expected metric card container for heading ${name.toString()}`)
+      }
+
+      return card
+    }
+
     // Scope to each MetricCard by its label heading. Plain getByText collides
     // whenever a daily-pipeline value (e.g. a disposition count) happens to
     // match the items-presented instrument constant.
-    const questionIdsCard = screen
-      .getByRole('heading', { name: /Qualtrics question IDs/i })
-      .closest('.rounded-lg') as HTMLElement
-    const itemsPresentedCard = screen
-      .getByRole('heading', { name: /^Items presented$/i })
-      .closest('.rounded-lg') as HTMLElement
+    const questionIdsCard = getMetricCard(/Qualtrics question IDs/i)
+    const itemsPresentedCard = getMetricCard(/^Items presented$/i)
     expect(
       within(questionIdsCard).getByText(metricsData.questionCount.toLocaleString())
     ).toBeInTheDocument()
