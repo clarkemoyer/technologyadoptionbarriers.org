@@ -105,4 +105,7 @@ jobs:
         with:
           name: bulk-approve-results
           path: ${{ runner.temp }}/bulk-approve-results.json
-          retention-days: 7
+          # 1-day retention: contains full PIDs (approved, deferred, failed).
+          # Matches the privacy treatment of disposition-csv and the
+          # reply-action-recommendations source artifact.
+          retention-days: 1
