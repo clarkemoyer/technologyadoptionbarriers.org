@@ -161,8 +161,10 @@ def main() -> int:
     result: dict = {
         "mode": "dry_run" if dry_run else "live",
         "input_count": len(pids),
+        "eligible_target_count": 0,
         "ceiling": max_per_run,
         "ceiling_exceeded": False,
+        "skipped_ceiling": [],
         "approved": [],
         "skipped_non_awaiting": [],
         "thank_you_sent": [],
@@ -175,15 +177,6 @@ def main() -> int:
         print("No PIDs provided. Nothing to do.")
         _write_results(output_path, result)
         return 0
-
-    if len(pids) > max_per_run:
-        result["ceiling_exceeded"] = True
-        print(
-            f"::error::Ceiling exceeded: {len(pids)} PIDs > {max_per_run} ceiling. Aborting.",
-            file=sys.stderr,
-        )
-        _write_results(output_path, result)
-        return 1
 
     if not dry_run:
         confirm = os.environ.get("CONFIRM_APPROVE", "")
@@ -215,6 +208,18 @@ def main() -> int:
         print(f"DRY RUN - would target {len(targets)} currently AWAITING REVIEW PIDs")
     print(f"  AWAITING REVIEW (will approve): {len(targets)}")
     print(f"  Skipped (other status): {len(result['skipped_non_awaiting'])}")
+    result["eligible_target_count"] = len(targets)
+
+    if len(targets) > max_per_run:
+        overflow = targets[max_per_run:]
+        targets = targets[:max_per_run]
+        result["ceiling_exceeded"] = True
+        result["skipped_ceiling"] = [{"pid": pid, "status": "AWAITING REVIEW"} for pid in overflow]
+        print(
+            f"  Ceiling applied: processing first {len(targets)} eligible PIDs; "
+            f"{len(overflow)} additional eligible PIDs were skipped by MAX_PER_RUN",
+            file=sys.stderr,
+        )
 
     if not targets:
         print("No eligible PIDs to approve.")
@@ -275,6 +280,7 @@ def main() -> int:
         f"Done. Approved: {len(result['approved'])} | "
         f"Thank-yous sent: {len(result['thank_you_sent'])} | "
         f"Skipped (non-awaiting): {len(result['skipped_non_awaiting'])} | "
+        f"Skipped (ceiling): {len(result['skipped_ceiling'])} | "
         f"Thank-you dedup skips: {len(result['thank_you_skipped_dedup'])} | "
         f"Thank-you failures: {len(result['thank_you_failed'])}"
     )

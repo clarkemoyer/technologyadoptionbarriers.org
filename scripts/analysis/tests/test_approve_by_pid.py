@@ -98,3 +98,41 @@ def test_live_thank_you_uses_backoff_then_succeeds(monkeypatch, tmp_path):
     assert payload["thank_you_failed"] == []
     assert attempts == {"fetch": 2, "send": 2}
     assert 2 in sleep_calls
+
+
+def test_ceiling_applies_to_filtered_targets_not_input(monkeypatch, tmp_path):
+    monkeypatch.setattr(
+        "approve_by_pid.prolific_study_info",
+        lambda *_: {"name": "Study", "status": "ACTIVE"},
+    )
+    monkeypatch.setattr(
+        "approve_by_pid.prolific_submission_statuses",
+        lambda *_: {
+            "aaaaaaaaaaaaaaaaaaaaaaa1": "AWAITING REVIEW",
+            "bbbbbbbbbbbbbbbbbbbbbbb2": "AWAITING REVIEW",
+            "ccccccccccccccccccccccc3": "AWAITING REVIEW",
+        },
+    )
+    monkeypatch.setattr("approve_by_pid.prolific_bulk_approve", lambda *_: None)
+    monkeypatch.setattr("approve_by_pid.prolific_user_messages", lambda *_: [])
+    monkeypatch.setattr("approve_by_pid.prolific_send_message", lambda *_: None)
+    monkeypatch.setattr("approve_by_pid.time.sleep", lambda *_: None)
+
+    monkeypatch.setattr(
+        "approve_by_pid.os.environ",
+        _base_env(
+            tmp_path,
+            PID_LIST="aaaaaaaaaaaaaaaaaaaaaaa1,bbbbbbbbbbbbbbbbbbbbbbb2,ccccccccccccccccccccccc3",
+            MAX_PER_RUN="2",
+            DRY_RUN="true",
+        ),
+    )
+    rc = main()
+
+    assert rc == 0
+    payload = json.loads((tmp_path / "result.json").read_text())
+    assert payload["input_count"] == 3
+    assert payload["eligible_target_count"] == 3
+    assert payload["ceiling_exceeded"] is True
+    assert payload["approved"] == ["aaaaaaaaaaaaaaaaaaaaaaa1", "bbbbbbbbbbbbbbbbbbbbbbb2"]
+    assert payload["skipped_ceiling"] == [{"pid": "ccccccccccccccccccccccc3", "status": "AWAITING REVIEW"}]

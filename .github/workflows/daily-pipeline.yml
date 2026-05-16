@@ -807,6 +807,15 @@ jobs:
       - uses: actions/upload-artifact@v7
         if: always()
         with:
+          # Compatibility alias for existing references that used the plural form.
+          name: prolific-messages-aggregate-summary
+          path: ${{ runner.temp }}/aggregate-summary.json
+          retention-days: 7
+          if-no-files-found: warn
+
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
           name: prolific-messages-inbound-csv
           path: ${{ runner.temp }}/participant_messages.csv
           retention-days: 1
