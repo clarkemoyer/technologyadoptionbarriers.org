@@ -148,8 +148,10 @@ def main() -> int:
         "auto_approve_eligible": [],
         "human_review_questions": [],
         "human_review_high_tier": [],
+        "no_reply_high_tier": [],
         "no_reply": [],
     }
+    multi_reply_pids: list[dict] = []
     for row in awaiting_rows:
         pid = row["PROLIFIC_PID"].strip()
         replies = replies_by_pid.get(pid, [])
@@ -163,13 +165,20 @@ def main() -> int:
             "reply_theme_counts": reply_theme_counts(replies),
         }
         if not replies:
-            buckets["no_reply"].append(entry)
-        elif is_high_rejection_tier(row):
-            buckets["human_review_high_tier"].append(entry)
+            # High-tier no-reply gets a separate bucket so bulk-reject can target it
+            # without affecting lower-tier PIDs still in the auto-cycle.
+            if is_high_rejection_tier(row):
+                buckets["no_reply_high_tier"].append(entry)
+            else:
+                buckets["no_reply"].append(entry)
         elif reply_has_question(replies):
             buckets["human_review_questions"].append(entry)
+        elif is_high_rejection_tier(row):
+            buckets["human_review_high_tier"].append(entry)
         else:
             buckets["auto_approve_eligible"].append(entry)
+        if len(replies) >= 2:
+            multi_reply_pids.append({"pid": pid, "reply_count": len(replies), "disposition": entry["disposition"]})
 
     bucket_counts = {k: len(v) for k, v in buckets.items()}
 
@@ -191,6 +200,8 @@ def main() -> int:
         "bucket_counts": bucket_counts,
         "breakdown": breakdown,
         "buckets": buckets,
+        "multi_reply_count": len(multi_reply_pids),
+        "multi_reply_pids": multi_reply_pids,
     }
     Path(output_path).write_text(json.dumps(out, indent=2))
     print(f"Classified {len(awaiting_rows)} AWAITING REVIEW PIDs:")
