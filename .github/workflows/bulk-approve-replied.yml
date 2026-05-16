@@ -9,7 +9,8 @@ name: Bulk Approve Replied Submissions
 # artifact and extracts the PID list from the appropriate bucket.
 #
 # Safety:
-#   - Default is dry-run. Live execution requires `dry_run: false`.
+#   - Default is dry-run (read-only API checks only; no approvals/messages).
+#     Live execution requires `dry_run: false`.
 #   - approve_by_pid.py enforces CONFIRM_APPROVE=APPROVE on live runs.
 #   - MAX_PER_RUN ceiling defaults to 30 (overridable per-run).
 #   - Skips any PID whose Prolific status is no longer AWAITING REVIEW.
@@ -22,7 +23,7 @@ on:
         required: true
         type: string
       dry_run:
-        description: 'Dry run only (no API calls). Set to false to approve live.'
+        description: 'Dry run preview (read-only API checks; no approve/message writes). Set false to approve live.'
         required: false
         type: boolean
         default: true
