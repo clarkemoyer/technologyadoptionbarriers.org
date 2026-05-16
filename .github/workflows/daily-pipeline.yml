@@ -798,6 +798,7 @@ jobs:
       - uses: actions/upload-artifact@v7
         if: always()
         with:
+          # Keep singular name to match prolific-message-export.yml.
           name: prolific-message-aggregate-summary
           path: ${{ runner.temp }}/aggregate-summary.json
           retention-days: 7
