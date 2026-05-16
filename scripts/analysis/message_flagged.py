@@ -245,21 +245,53 @@ def build_flag_message(record: dict) -> str:
     return ""
 
 
-def get_message_signature(disposition: str) -> str:
-    """Return a unique phrase from each disposition's message template for dedup."""
+def get_message_signatures(disposition: str) -> tuple[str, ...]:
+    """Return dedupe signature phrase(s) for a disposition.
+
+    For most dispositions, this is a single stable phrase. For
+    FLAG-RECAPTCHA, keep legacy phrases to avoid re-messaging participants
+    who were contacted before template wording changes.
+    """
     signatures = {
-        "FLAG-SPEED": "which is faster than expected for a survey of this length",
-        "FLAG-SINGLE-IRI": "1 of 3 embedded attention checks was answered differently",
-        "FLAG-SMEAL": "below our benchmark of 9 minutes",
-        "FLAG-RECAPTCHA": "reCAPTCHA verification on your session triggered additional review",
-        "FLAG-PARTIAL-STRAIGHTLINING": "showed very little variation, which our quality checks flag",
-        "AUTO-EXCLUDE:SPEED_IRI": "What is your professional background and role",
-        "AUTO-EXCLUDE:IRI2_RETURN": "2 of 3 embedded attention check questions were answered differently",
-        "AUTO-EXCLUDE:IRI3_RETURN": "all 3 of the embedded attention check questions were answered differently",
-        "AUTO-EXCLUDE:IRI3_SPEED_RETURN": "all 3 of the embedded attention check questions were answered differently",
-        "AUTO-EXCLUDE:IRI2_SPEED_RETURN": "2 of 3 embedded attention check questions were answered differently",
+        "FLAG-SPEED": (
+            "which is faster than expected for a survey of this length",
+        ),
+        "FLAG-SINGLE-IRI": (
+            "1 of 3 embedded attention checks was answered differently",
+        ),
+        "FLAG-SMEAL": (
+            "below our benchmark of 9 minutes",
+        ),
+        "FLAG-RECAPTCHA": (
+            "reCAPTCHA verification on your session triggered additional review",
+            "reCAPTCHA bot-detection score",
+            "automated authenticity checks flagged your submission",
+        ),
+        "FLAG-PARTIAL-STRAIGHTLINING": (
+            "showed very little variation, which our quality checks flag",
+        ),
+        "AUTO-EXCLUDE:SPEED_IRI": (
+            "What is your professional background and role",
+        ),
+        "AUTO-EXCLUDE:IRI2_RETURN": (
+            "2 of 3 embedded attention check questions were answered differently",
+        ),
+        "AUTO-EXCLUDE:IRI3_RETURN": (
+            "all 3 of the embedded attention check questions were answered differently",
+        ),
+        "AUTO-EXCLUDE:IRI3_SPEED_RETURN": (
+            "all 3 of the embedded attention check questions were answered differently",
+        ),
+        "AUTO-EXCLUDE:IRI2_SPEED_RETURN": (
+            "2 of 3 embedded attention check questions were answered differently",
+        ),
     }
-    return signatures.get(disposition, "")
+    return signatures.get(disposition, ("",))
+
+
+def get_message_signature(disposition: str) -> str:
+    """Backward-compatible single-signature accessor."""
+    return get_message_signatures(disposition)[0]
 
 
 def _append_step_summary(content: str) -> None:
@@ -455,8 +487,11 @@ def main():
                     m for m in existing
                     if (m.get("data") or {}).get("study_id") == study_id
                 ]
-                signature = get_message_signature(r["disposition"])
-                already_sent = any(signature in (m.get("body") or "") for m in study_msgs)
+                signatures = [s for s in get_message_signatures(r["disposition"]) if s]
+                already_sent = any(
+                    any(signature in (m.get("body") or "") for signature in signatures)
+                    for m in study_msgs
+                )
                 if already_sent:
                     skipped_messaged += 1
                     print(f"  SKIPPED {r['pid']} - already received this {r['disposition']} message")

@@ -766,9 +766,10 @@ jobs:
 
   # ── Phase 3f: Export Prolific messages (inbound replies) ─────
   # Pulls every Prolific message in the TABS V2 study channel and writes
-  # an aggregate summary plus an inbound-participant CSV. Phase 5 reads
-  # the inbound CSV to compute the "Replies to Consider" report section
-  # (count of AWAITING REVIEW PIDs that have replied to TABS messages).
+  # aggregate + inbound-reply artifacts for reporting, plus raw/transcript/
+  # candidate artifacts for operator review. Phase 5 reads the inbound CSV
+  # to compute the "Replies to Consider" report section (count of
+  # AWAITING REVIEW PIDs that have replied to TABS messages).
   # PII-bearing exports are 1-day artifact retention to match the disposition
   # CSV privacy treatment. Aggregate summary is committable (7-day).
   # Runs in parallel with other Phase 3 jobs; gates only on Phase 2.
@@ -814,7 +815,7 @@ jobs:
       - uses: actions/upload-artifact@v7
         if: always()
         with:
-          name: prolific-messages-raw-json
+          name: prolific-messages-raw
           path: ${{ runner.temp }}/all_messages_raw.json
           retention-days: 1
           if-no-files-found: warn
@@ -822,7 +823,7 @@ jobs:
       - uses: actions/upload-artifact@v7
         if: always()
         with:
-          name: prolific-messages-transcripts-md
+          name: prolific-messages-transcripts
           path: ${{ runner.temp }}/participant_messages.md
           retention-days: 1
           if-no-files-found: warn
@@ -830,7 +831,7 @@ jobs:
       - uses: actions/upload-artifact@v7
         if: always()
         with:
-          name: prolific-messages-candidates-md
+          name: prolific-messages-candidates
           path: ${{ runner.temp }}/candidates_to_review.md
           retention-days: 1
           if-no-files-found: warn

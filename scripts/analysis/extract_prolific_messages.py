@@ -37,6 +37,7 @@ import json
 import os
 import re
 import sys
+import time
 from collections import Counter, defaultdict
 from pathlib import Path
 from typing import Iterable
@@ -201,6 +202,43 @@ def themes_for(text: str) -> list[str]:
 
 DEFAULT_RESEARCHER_ID = "68264cbfdeb62546fe6060fe"
 DEFAULT_SINCE = "2025-01-01T00:00:00Z"
+_API_CALL_DELAY = 0.2
+_MAX_FETCH_RETRIES = 3
+
+
+def _looks_transient_error(exc: Exception) -> bool:
+    text = str(exc).lower()
+    return (
+        "http 429" in text
+        or "http 500" in text
+        or "http 502" in text
+        or "http 503" in text
+        or "http 504" in text
+        or "timed out" in text
+        or "temporar" in text
+        or "rate limit" in text
+    )
+
+
+def _fetch_messages_with_backoff(pid: str, token: str) -> list[dict]:
+    """Fetch per-participant messages with retry/backoff for transient failures."""
+    last_exc: Exception | None = None
+    for attempt in range(_MAX_FETCH_RETRIES):
+        try:
+            if attempt > 0:
+                wait = min(2 ** attempt, 30)
+                print(
+                    f"    retry {attempt}/{_MAX_FETCH_RETRIES - 1} for {_redact_pid(pid)} in {wait}s",
+                    file=sys.stderr,
+                )
+                time.sleep(wait)
+            return prolific_user_messages(pid, token)
+        except Exception as exc:
+            last_exc = exc
+            if not _looks_transient_error(exc):
+                break
+    assert last_exc is not None
+    raise last_exc
 
 
 def _msg_ts(m: dict) -> str:
@@ -300,7 +338,9 @@ def main() -> int:
     failed_fetch_count = 0
     for i, pid in enumerate(sorted(participant_ids), 1):
         try:
-            msgs = prolific_user_messages(pid, token)
+            if i > 1:
+                time.sleep(_API_CALL_DELAY)
+            msgs = _fetch_messages_with_backoff(pid, token)
         except Exception as exc:
             # Redact the participant ID so it doesn't appear in CI logs.
             redacted = _redact_pid(pid)

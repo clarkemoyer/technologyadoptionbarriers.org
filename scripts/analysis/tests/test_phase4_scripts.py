@@ -191,10 +191,13 @@ class TestMessageFlagged:
         assert "return it voluntarily" in msg
 
     def test_get_message_signature(self):
-        from message_flagged import get_message_signature
+        from message_flagged import get_message_signature, get_message_signatures
         assert "faster than expected" in get_message_signature("FLAG-SPEED")
         assert "benchmark of 9 minutes" in get_message_signature("FLAG-SMEAL")
         assert get_message_signature("UNKNOWN") == ""
+        recaptcha = get_message_signatures("FLAG-RECAPTCHA")
+        assert any("triggered additional review" in s for s in recaptcha)
+        assert any("automated authenticity checks flagged your submission" in s for s in recaptcha)
 
     def test_valid_dispositions(self):
         from message_flagged import VALID_DISPOSITIONS, build_flag_message
