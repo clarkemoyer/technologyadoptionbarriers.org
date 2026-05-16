@@ -32,54 +32,59 @@ from pathlib import Path
 # No anchors: also catches PIDs embedded inside longer string values.
 _PID_RE = re.compile(r"[0-9a-f]{24}")
 
-# JSON key names whose *values* are known to be study-level identifiers,
-# not participant identifiers.  Extend this list if the data schema changes.
-_ALLOWED_LEAF_KEYS: frozenset[str] = frozenset(
-    {
-        "studyId",
-        "study_id",
-    }
-)
+_COMMIT_SHA_LEAF_KEYS: frozenset[str] = frozenset({"commitSha", "commit_sha"})
+_STUDY_ID_LEAF_KEYS: frozenset[str] = frozenset({"studyId", "study_id"})
+_COMMIT_SHA_RE = re.compile(r"^[0-9a-f]{40}$")
+_STUDY_ID_RE = re.compile(r"^[0-9a-f]{24}$")
 
 
 def _find_hex_strings(obj: object, key_path: str = "") -> list[tuple[str, str]]:
-    """Recursively walk a JSON object and return (key_path, match) for every
-    24-char hex substring found in any string key or string value."""
+    """Recursively walk a JSON object and return (key_path, full_string) for every
+    string key/value where full_string contains at least one 24-char hex substring."""
     results: list[tuple[str, str]] = []
     if isinstance(obj, dict):
         for key, val in obj.items():
             child = f"{key_path}.{key}" if key_path else key
             # Check the key itself for embedded PIDs
-            if isinstance(key, str):
-                for m in _PID_RE.finditer(key):
-                    results.append((f"{child} (key)", m.group()))
+            if isinstance(key, str) and _PID_RE.search(key):
+                results.append((f"{child} (key)", key))
             results.extend(_find_hex_strings(val, child))
     elif isinstance(obj, list):
         for i, item in enumerate(obj):
             results.extend(_find_hex_strings(item, f"{key_path}[{i}]"))
     elif isinstance(obj, str):
-        for m in _PID_RE.finditer(obj):
-            results.append((key_path, m.group()))
+        if _PID_RE.search(obj):
+            results.append((key_path, obj))
     return results
 
 
-def _is_allowed(key_path: str) -> bool:
-    """Return True when the key path indicates a study identifier rather than
-    a participant identifier.
+def _is_allowed(key_path: str, value: str) -> bool:
+    """Return True when the key path indicates an allowlisted machine identifier
+    rather than a participant identifier.
 
     Allowed patterns:
-      - Any leaf key in _ALLOWED_LEAF_KEYS   (e.g. "studyId", "study_id")
-      - The pattern "*.study.id"             (e.g. "study.id")
+      - commitSha / commit_sha values that are full 40-char lowercase Git SHAs
+      - studyId / study_id values that are full 24-char lowercase hex IDs
+      - The pattern "*.study.id" where value is a full 24-char lowercase hex ID
     """
+    # Never allowlist JSON keys themselves: keys should not contain participant
+    # identifiers by design. Only values can be exempted when they match strict
+    # machine-identifier formats.
+    if key_path.endswith(" (key)"):
+        return False
+
     parts = key_path.replace("[", ".").replace("]", "").split(".")
     leaf = parts[-1]
 
-    if leaf in _ALLOWED_LEAF_KEYS:
-        return True
+    if leaf in _COMMIT_SHA_LEAF_KEYS:
+        return _COMMIT_SHA_RE.fullmatch(value) is not None
+
+    if leaf in _STUDY_ID_LEAF_KEYS:
+        return _STUDY_ID_RE.fullmatch(value) is not None
 
     # study.id  - value nested inside a dict keyed "study", under key "id"
     if leaf == "id" and len(parts) >= 2 and parts[-2] == "study":
-        return True
+        return _STUDY_ID_RE.fullmatch(value) is not None
 
     return False
 
@@ -99,7 +104,7 @@ def check_file(path: Path) -> tuple[list[dict], bool]:
 
     violations: list[dict] = []
     for key_path, value in _find_hex_strings(data):
-        if _is_allowed(key_path):
+        if _is_allowed(key_path, value):
             continue
         # Do not echo any PID characters into logs or workflow summaries.
         violations.append({"file": str(path), "key": key_path, "value": "***"})
