@@ -50,10 +50,10 @@ describe('Response Funnel page (QualtricsSurveyStats)', () => {
       .getByRole('heading', { name: /^Items presented$/i })
       .closest('.rounded-lg') as HTMLElement
     expect(
-      within(questionIdsCard).getByText(metricsData.questionCount.toLocaleString()),
+      within(questionIdsCard).getByText(metricsData.questionCount.toLocaleString())
     ).toBeInTheDocument()
     expect(
-      within(itemsPresentedCard).getByText(TOTAL_ITEMS_PRESENTED.toLocaleString()),
+      within(itemsPresentedCard).getByText(TOTAL_ITEMS_PRESENTED.toLocaleString())
     ).toBeInTheDocument()
   })
 
