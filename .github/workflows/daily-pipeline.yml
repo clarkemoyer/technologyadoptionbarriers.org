@@ -532,6 +532,7 @@ jobs:
           - FLAG-SMEAL
           - FLAG-PARTIAL-STRAIGHTLINING
           - FLAG-SPEED
+          - FLAG-RECAPTCHA
           - AUTO-EXCLUDE:IRI3_SPEED_RETURN
           - AUTO-EXCLUDE:IRI3_RETURN
           - AUTO-EXCLUDE:IRI2_SPEED_RETURN
@@ -763,6 +764,53 @@ jobs:
           path: ${{ runner.temp }}/auto-reject-stale-results.json
           retention-days: 7
 
+  # ── Phase 3f: Export Prolific messages (inbound replies) ─────
+  # Pulls every Prolific message in the TABS V2 study channel and writes
+  # an aggregate summary plus an inbound-participant CSV. Phase 5 reads
+  # the inbound CSV to compute the "Replies to Consider" report section
+  # (count of AWAITING REVIEW PIDs that have replied to TABS messages).
+  # PII-bearing CSV is 1-day artifact retention to match the disposition
+  # CSV privacy treatment. Aggregate summary is committable (7-day).
+  # Runs in parallel with other Phase 3 jobs; gates only on Phase 2.
+  export-messages:
+    name: 'Phase 3f: Export Prolific Messages'
+    needs: analyze
+    runs-on: ubuntu-latest
+    environment: prolific-prod
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Extract Prolific messages
+        run: python3 scripts/analysis/extract_prolific_messages.py
+        env:
+          PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
+          STUDY_ID: ${{ vars.PROLIFIC_STUDY_ID }}
+          SINCE: '2025-01-01T00:00:00Z'
+          RAW_OUTPUT_PATH: ${{ runner.temp }}/all_messages_raw.json
+          INBOUND_CSV_PATH: ${{ runner.temp }}/participant_messages.csv
+          TRANSCRIPTS_PATH: ${{ runner.temp }}/participant_messages.md
+          CANDIDATES_PATH: ${{ runner.temp }}/candidates_to_review.md
+          SUMMARY_PATH: ${{ runner.temp }}/aggregate-summary.json
+
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: prolific-messages-aggregate-summary
+          path: ${{ runner.temp }}/aggregate-summary.json
+          retention-days: 7
+          if-no-files-found: warn
+
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: prolific-messages-inbound-csv
+          path: ${{ runner.temp }}/participant_messages.csv
+          retention-days: 1
+          if-no-files-found: warn
+
   # ── Phase 4: Commit all data (single PR) ─────────────────────
   commit-results:
     name: 'Phase 4: Commit All Data'
@@ -863,6 +911,7 @@ jobs:
         generate-dashboard,
         auto-request-return,
         auto-reject-stale,
+        export-messages,
       ]
     if: always()
     runs-on: ubuntu-latest
