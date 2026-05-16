@@ -978,16 +978,16 @@ echo "$AUTO_RR_SECTION_FORMATTED $AUTO_REJECT_SECTION_FORMATTED" | grep -q "MANU
 HIGH_RISK_PREFIX=""
 HIGH_RISK_LABEL=""
 if [ "$HIGH_RISK_COUNT" -gt 0 ]; then
-  HIGH_RISK_PREFIX="\U0001F6A8 HIGH RISK ($HIGH_RISK_COUNT) - "
+  # Use the literal U+1F6A8 (rocket) character directly. bash's printf %b
+  # interprets \uNNNN but NOT \UNNNNNNNN, so the \U escape would have left
+  # the title with a literal "\U0001F6A8" string.
+  HIGH_RISK_PREFIX="🚨 HIGH RISK ($HIGH_RISK_COUNT) - "
   HIGH_RISK_LABEL=",urgent"
   # Prepend an @-mention so GitHub Mobile fires a push notification.
   printf '@clarkemoyer - **%d submission(s) within 2 days of Prolific 21-day auto-approve.** Action today.\n\n' "$HIGH_RISK_COUNT" \
     | cat - /tmp/report-body.md > /tmp/report-body.md.new
   mv /tmp/report-body.md.new /tmp/report-body.md
 fi
-
-# Decode the \U escape in the prefix (printf handles it).
-HIGH_RISK_PREFIX=$(printf '%b' "$HIGH_RISK_PREFIX")
 
 TITLE="${HIGH_RISK_PREFIX}Daily Disposition Report -- $DATE"
 LABELS="documentation${HIGH_RISK_LABEL}"
