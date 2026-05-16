@@ -942,7 +942,12 @@ jobs:
         with:
           name: reply-action-recommendations
           path: ${{ runner.temp }}/reply-action-recommendations.json
-          retention-days: 7
+          # 1-day retention: this JSON contains full participant IDs from
+          # the AWAITING REVIEW queue, so it matches the privacy treatment
+          # of disposition-csv and other PID-bearing intermediate artifacts.
+          # The bulk-approve/bulk-reject dispatch workflows must run within
+          # 24h of the source daily-pipeline run.
+          retention-days: 1
           if-no-files-found: warn
 
       - name: Build and create daily report issue
