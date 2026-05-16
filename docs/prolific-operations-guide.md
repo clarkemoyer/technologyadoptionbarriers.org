@@ -20,31 +20,31 @@ Anything outside the routine cycle — single-PID approves/rejects, custom messa
 
 ## Quick lookup: "I want to..."
 
-| Goal | Workflow | Mode / Inputs |
-|---|---|---|
-| Approve one PID | `check-participant.yml` | `mode=approve`, `pid=<id>` |
-| Approve N PIDs from today's report's auto-eligible bucket | `bulk-approve-replied.yml` | `source_run_id=<daily-pipeline run>`, `dry_run=false`, `max_per_run=60` |
-| Approve all CLEAN PIDs from a CSV | `prolific-approve-submissions.yml` | `csv_content=<csv>` or `csv_file_path=<path>` |
-| Reject one or more PIDs | `prolific-reject-by-pid.yml` | `pid_list=<csv>`, `dry_run=false`, `confirm_reject=REJECT` |
-| Reject the daily report's high-tier-no-reply bucket | `bulk-reject-high-tier-no-reply.yml` | `source_run_id=<run>`, `dry_run=false`, `max_per_run=10` |
-| Reject all AUTO-EXCLUDE | `prolific-reject-auto-exclude.yml` | (full destructive — read inputs carefully) |
-| Reject all failed-IRI | `prolific-reject-failed-iri.yml` | (full destructive — read inputs carefully) |
-| Send a custom one-off message to one PID | `check-participant.yml` | `mode=send-custom`, `pid=<id>`, `message=<text>` |
-| Send the standard FLAG message to one or more PIDs | `prolific-message-flagged.yml` | `disposition_filter=<one of the 10>`, `pid_list=<csv or empty>`, `dry_run=false` |
-| Send a thank-you to specific PIDs | `check-participant.yml` | `mode=send-thank-you`, `pid=<id>` |
-| Request return on one PID | `check-participant.yml` | `mode=request-return`, `pid=<id>` |
-| Unreject one or more PIDs | `check-participant.yml` | `mode=unreject`, `pid=<comma-separated>` |
-| Inspect one PID's submission + messages | `check-participant.yml` | `mode=single`, `pid=<id>` |
-| List every participant who has replied | `check-participant.yml` | `mode=all-replies` |
-| Export every Prolific message (both directions) | `prolific-message-export.yml` | (since: ISO date, study: optional) |
-| Search every message body for a term | `check-participant.yml` | `mode=search-messages`, `message=<term>` |
-| Find replies that contain a URL | `check-participant.yml` | `mode=find-url-replies` |
-| Find stale return-request candidates | `check-participant.yml` | `mode=stale-return-requested` |
-| Build the operator-style "awaiting review" report | `check-participant.yml` | `mode=awaiting-report` |
-| Verify a PID's IRI answers against Qualtrics | `check-participant.yml` | `mode=single`, `pid=<id>` (the verify-iri job auto-runs) |
-| Pull demographics from Prolific | `check-participant.yml` | `mode=demographics` |
-| Smoke-test the Prolific API token | `prolific-api-smoke.yml` | (no inputs) |
-| Run the daily pipeline ad-hoc | `daily-pipeline.yml` | (no required inputs; runs the full chain) |
+| Goal                                                      | Workflow                             | Mode / Inputs                                                                                     |
+| --------------------------------------------------------- | ------------------------------------ | ------------------------------------------------------------------------------------------------- |
+| Approve one PID                                           | `check-participant.yml`              | `mode=approve`, `pid=<id>`, `dry_run=true` (flip to `false` + `confirm_approve=APPROVE` for live) |
+| Approve N PIDs from today's report's auto-eligible bucket | `bulk-approve-replied.yml`           | `source_run_id=<daily-pipeline run>`, `dry_run=true` (flip to `false` for live), `max_per_run=60` |
+| Approve all CLEAN PIDs from a CSV                         | `prolific-approve-submissions.yml`   | `csv_content=<csv>` or `csv_file_path=<path>`                                                     |
+| Reject one or more PIDs                                   | `prolific-reject-by-pid.yml`         | `pid_list=<csv>`, `dry_run=false`, `confirm_reject=REJECT`                                        |
+| Reject the daily report's high-tier-no-reply bucket       | `bulk-reject-high-tier-no-reply.yml` | `source_run_id=<run>`, `dry_run=true` (flip to `false` for live), `max_per_run=10`                |
+| Reject all AUTO-EXCLUDE                                   | `prolific-reject-auto-exclude.yml`   | (full destructive — read inputs carefully)                                                        |
+| Reject all failed-IRI                                     | `prolific-reject-failed-iri.yml`     | (full destructive — read inputs carefully)                                                        |
+| Send a custom one-off message to one PID                  | `check-participant.yml`              | `mode=send-custom`, `pid=<id>`, `message=<text>`                                                  |
+| Send the standard FLAG message to one or more PIDs        | `prolific-message-flagged.yml`       | `disposition_filter=<one of the 10>`, `pid_list=<csv or empty>`, `dry_run=false`                  |
+| Send a thank-you to specific PIDs                         | `check-participant.yml`              | `mode=send-thank-you`, `pid=<id>`                                                                 |
+| Request return on one PID                                 | `check-participant.yml`              | `mode=request-return`, `pid=<id>`                                                                 |
+| Unreject one or more PIDs                                 | `check-participant.yml`              | `mode=unreject`, `pid=<comma-separated>`                                                          |
+| Inspect one PID's submission + messages                   | `check-participant.yml`              | `mode=single`, `pid=<id>`                                                                         |
+| List every participant who has replied                    | `check-participant.yml`              | `mode=all-replies`                                                                                |
+| Export every Prolific message (both directions)           | `prolific-message-export.yml`        | (since: ISO date, study: optional)                                                                |
+| Search every message body for a term                      | `check-participant.yml`              | `mode=search-messages`, `message=<term>`                                                          |
+| Find replies that contain a URL                           | `check-participant.yml`              | `mode=find-url-replies`                                                                           |
+| Find stale return-request candidates                      | `check-participant.yml`              | `mode=stale-return-requested`                                                                     |
+| Build the operator-style "awaiting review" report         | `check-participant.yml`              | `mode=awaiting-report`                                                                            |
+| Verify a PID's IRI answers against Qualtrics              | `check-participant.yml`              | `mode=single`, `pid=<id>` (the verify-iri job auto-runs)                                          |
+| Pull demographics from Prolific                           | `check-participant.yml`              | `mode=demographics`                                                                               |
+| Smoke-test the Prolific API token                         | `prolific-api-smoke.yml`             | (no inputs)                                                                                       |
+| Run the daily pipeline ad-hoc                             | `daily-pipeline.yml`                 | (no required inputs; runs the full chain)                                                         |
 
 ## Workflow inventory
 
@@ -66,7 +66,7 @@ Anything outside the routine cycle — single-PID approves/rejects, custom messa
 
 ### Per-PID / per-submission actions
 
-- **`check-participant.yml`** — Swiss army knife for single-PID actions (modes listed in the table above). Always safe to use; each mode has its own guardrails.
+- **`check-participant.yml`** — Swiss army knife for single-PID actions (modes listed in the table above). It includes both read-only and destructive modes; use destructive ones carefully and follow the per-mode guardrails (for example, `mode=approve` now defaults to dry-run and requires typed confirmation for live approval).
 
 - **`bulk-approve-replied.yml`** — Approves PIDs from the daily-pipeline `reply-action-recommendations` artifact's `auto_approve_eligible` bucket. Defaults to dry-run; live requires `dry_run=false`. Internally calls `approve_by_pid.py` which now does one Prolific API call per PID (partial failures don't abort).
 
@@ -86,7 +86,7 @@ Anything outside the routine cycle — single-PID approves/rejects, custom messa
   - `prolific-message-aggregate-summary` (committable, 7-day retention) — totals, themes, PII risk distribution
   - `prolific-messages-inbound-csv` (PII-bearing, 1-day retention) — full reply bodies for operator inspection
   - `prolific-messages-raw`, `prolific-messages-transcripts`, `prolific-messages-candidates` — full audit / curation
-  
+
   The daily pipeline also runs this in Phase 3f; ad-hoc dispatch is for backfill or rebuild.
 
 ### Health / smoke
@@ -103,34 +103,34 @@ All under `scripts/analysis/`. Each is invoked by one or more workflows; check t
 
 ### Approve / reject
 
-| Script | Used by | Behavior |
-|---|---|---|
-| `approve_submissions.py` | `prolific-approve-submissions.yml`, Phase 3a | CSV → CLEAN rows → bulk-approve API call → thank-you per PID |
-| `approve_by_pid.py` | `bulk-approve-replied.yml`, `check-participant.yml` (mode=approve) | PID_LIST env → one bulk-approve call per PID (resilient to partial failure) → thank-you per PID |
-| `reject_by_pid.py` | `prolific-reject-by-pid.yml`, `bulk-reject-high-tier-no-reply.yml` | PID_LIST env + disposition CSV → per-submission rejection with auto-generated reasons per disposition |
-| `reject_auto_exclude.py` | `prolific-reject-auto-exclude.yml` | Older bulk path; superseded by `reject_by_pid.py` |
-| `reject_failed_iri.py` | `prolific-reject-failed-iri.yml` | Older bulk path; superseded |
-| `unreject_submissions.py` | `check-participant.yml` (mode=unreject) | Reverses a rejection via the transition endpoint |
-| `request_return_by_pid.py` | Phase 3d | PID_LIST env → POST /submissions/{id}/request-return/ with disposition-specific reason text |
+| Script                     | Used by                                                            | Behavior                                                                                              |
+| -------------------------- | ------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------- |
+| `approve_submissions.py`   | `prolific-approve-submissions.yml`, Phase 3a                       | CSV → CLEAN rows → bulk-approve API call → thank-you per PID                                          |
+| `approve_by_pid.py`        | `bulk-approve-replied.yml`, `check-participant.yml` (mode=approve) | PID_LIST env → one bulk-approve call per PID (resilient to partial failure) → thank-you per PID       |
+| `reject_by_pid.py`         | `prolific-reject-by-pid.yml`, `bulk-reject-high-tier-no-reply.yml` | PID_LIST env + disposition CSV → per-submission rejection with auto-generated reasons per disposition |
+| `reject_auto_exclude.py`   | `prolific-reject-auto-exclude.yml`                                 | Older bulk path; superseded by `reject_by_pid.py`                                                     |
+| `reject_failed_iri.py`     | `prolific-reject-failed-iri.yml`                                   | Older bulk path; superseded                                                                           |
+| `unreject_submissions.py`  | `check-participant.yml` (mode=unreject)                            | Reverses a rejection via the transition endpoint                                                      |
+| `request_return_by_pid.py` | Phase 3d                                                           | PID_LIST env → POST /submissions/{id}/request-return/ with disposition-specific reason text           |
 
 ### Messaging
 
-| Script | Used by | Behavior |
-|---|---|---|
-| `message_flagged.py` | Phase 3b matrix, `prolific-message-flagged.yml` | DISPOSITION_FILTER env + CSV → looks up PIDs matching that disposition (with sub-type matching for AUTO-EXCLUDE) → sends the disposition-specific template message. Dedup-aware (signature phrase per template). |
-| `send_custom_message.py` | `check-participant.yml` (mode=send-custom) | PID + MESSAGE env → sends a single arbitrary message. No dedup; will resend if invoked twice. |
-| `send_thank_you.py` | `check-participant.yml` (mode=send-thank-you) | PID_LIST env → sends the standard thank-you template, dedup-aware |
-| `extract_prolific_messages.py` | Phase 3f, `prolific-message-export.yml` | Pulls every message in the study channel; emits the inbound-CSV + aggregate summary + transcripts + candidates files |
+| Script                         | Used by                                         | Behavior                                                                                                                                                                                                         |
+| ------------------------------ | ----------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `message_flagged.py`           | Phase 3b matrix, `prolific-message-flagged.yml` | DISPOSITION_FILTER env + CSV → looks up PIDs matching that disposition (with sub-type matching for AUTO-EXCLUDE) → sends the disposition-specific template message. Dedup-aware (signature phrase per template). |
+| `send_custom_message.py`       | `check-participant.yml` (mode=send-custom)      | PID + MESSAGE env → sends a single arbitrary message. No dedup; will resend if invoked twice.                                                                                                                    |
+| `send_thank_you.py`            | `check-participant.yml` (mode=send-thank-you)   | PID_LIST env → sends the standard thank-you template, dedup-aware                                                                                                                                                |
+| `extract_prolific_messages.py` | Phase 3f, `prolific-message-export.yml`         | Pulls every message in the study channel; emits the inbound-CSV + aggregate summary + transcripts + candidates files                                                                                             |
 
 ### Analysis / classification (drive the operator UI)
 
-| Script | Used by | Behavior |
-|---|---|---|
-| `fetch_prolific_data.py` | Phase 1 | Auth checks + submission statuses → CSV + JSON |
-| `find_stale_return_requested.py` | Phase 3c | Phase 3d/3e bucket extraction (stale messages, stale return-requests) |
-| `classify_replies_for_action.py` | Phase 5 | Cross-references inbound CSV with disposition CSV → 5 action buckets (`auto_approve_eligible`, `human_review_questions`, `human_review_high_tier`, `no_reply_high_tier`, `no_reply`) plus `multi_reply_count`. Uses `?` presence in reply body to detect real questions. |
-| `prolific_tools.py` | `check-participant.yml` modes (`all-replies`, `find-url-replies`, `demographics`, `replied-pids`, `collect`) | Multi-subcommand utility for ad-hoc Prolific inspection |
-| `tabs_api.py` | All of the above | Low-level Prolific + Qualtrics API client. Single source of truth for endpoint URLs and request shapes. |
+| Script                           | Used by                                                                                                      | Behavior                                                                                                                                                                                                                                                                 |
+| -------------------------------- | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `fetch_prolific_data.py`         | Phase 1                                                                                                      | Auth checks + submission statuses → CSV + JSON                                                                                                                                                                                                                           |
+| `find_stale_return_requested.py` | Phase 3c                                                                                                     | Phase 3d/3e bucket extraction (stale messages, stale return-requests)                                                                                                                                                                                                    |
+| `classify_replies_for_action.py` | Phase 5                                                                                                      | Cross-references inbound CSV with disposition CSV → 5 action buckets (`auto_approve_eligible`, `human_review_questions`, `human_review_high_tier`, `no_reply_high_tier`, `no_reply`) plus `multi_reply_count`. Uses `?` presence in reply body to detect real questions. |
+| `prolific_tools.py`              | `check-participant.yml` modes (`all-replies`, `find-url-replies`, `demographics`, `replied-pids`, `collect`) | Multi-subcommand utility for ad-hoc Prolific inspection                                                                                                                                                                                                                  |
+| `tabs_api.py`                    | All of the above                                                                                             | Low-level Prolific + Qualtrics API client. Single source of truth for endpoint URLs and request shapes.                                                                                                                                                                  |
 
 ## Safety conventions
 

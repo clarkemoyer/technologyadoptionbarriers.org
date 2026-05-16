@@ -17,7 +17,7 @@ name: Bulk Reject High-Tier No-Reply
 # Safety:
 #   - Default is dry-run. Live execution requires `dry_run: false`.
 #   - reject_by_pid.py enforces CONFIRM_REJECT=REJECT on live runs.
-#   - MAX_PER_RUN ceiling defaults to 30 (overridable per-run).
+#   - MAX_PER_RUN ceiling defaults to 10 (overridable per-run).
 #   - reject_by_pid.py skips any PID whose status is no longer AWAITING REVIEW
 #     (so re-runs are idempotent; if Phase 3e already rejected a PID, it skips).
 
@@ -34,10 +34,10 @@ on:
         type: boolean
         default: true
       max_per_run:
-        description: 'Ceiling override (default 30)'
+        description: 'Ceiling override (default 10)'
         required: false
         type: string
-        default: '30'
+        default: '10'
 
 concurrency:
   group: bulk-reject-high-tier-no-reply

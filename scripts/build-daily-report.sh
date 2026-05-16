@@ -77,8 +77,9 @@ if [ "$HAS_DASHBOARD" = true ]; then
              TODAY_AWAITING="$TODAY_AWAITING" DELTA_REJECTED="$DELTA_REJECTED" \
              DELTA_RETURNED="$DELTA_RETURNED" \
              python3 << 'PYEOF'
-import datetime as _dt
-import os
+ import datetime as _dt
+ import math as _math
+ import os
 
 target = int(os.environ['N500_TARGET'])
 today_approved = int(os.environ['TODAY_APPROVED'])
@@ -98,7 +99,7 @@ elif delta_approved <= 0:
 else:
     remaining = target - today_approved
     days = remaining / delta_approved
-    eta = today + _dt.timedelta(days=round(days))
+    eta = today + _dt.timedelta(days=_math.ceil(days))
     print(f"FORECAST=**N={target} ETA:** {eta:%Y-%m-%d} "
           f"(~{days:.1f} days at current +{delta_approved}/day rate, {remaining} more approvals needed)")
 
@@ -727,7 +728,7 @@ else:
     print(f'gh workflow run bulk-approve-replied.yml \\')
     print(f'  --repo {repo} \\')
     print(f'  -F source_run_id={run_id} \\')
-    print(f'  -F dry_run=false \\')
+    print(f'  -F dry_run=true \\')
     print(f'  -F max_per_run=30')
     print('```')
     print('')
@@ -824,7 +825,7 @@ else:
     print(f'  --repo {repo} \\')
     print(f'  -F source_run_id={run_id} \\')
     print(f'  -F dry_run=true \\')
-    print(f'  -F max_per_run=30')
+    print(f'  -F max_per_run=10')
     print('```')
     print('')
     print('Default is dry-run. Skips any PID that has already moved out of AWAITING REVIEW (idempotent re-runs).')
