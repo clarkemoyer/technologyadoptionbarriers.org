@@ -604,13 +604,13 @@ fi
 # Cross-references inbound participant replies against AWAITING REVIEW PIDs
 # from the disposition CSV. Surfaces the operator-actionable count: how many
 # replies are sitting in the queue, broken down by disposition and theme.
-# Renders nothing if the inbound CSV is missing (export-messages skipped/failed).
+# Renders a warning section if the inbound CSV is missing (export-messages skipped/failed).
 REPLIES_SECTION=""
 INBOUND_CSV_FILE="$ARTIFACTS_DIR/prolific-messages-inbound-csv/participant_messages.csv"
 DISPOSITION_CSV_FILE="$ARTIFACTS_DIR/disposition-csv/disposition.csv"
 if [ -f "$INBOUND_CSV_FILE" ] && [ -f "$DISPOSITION_CSV_FILE" ]; then
   if REPLIES_BODY=$(INBOUND_CSV="$INBOUND_CSV_FILE" DISPOSITION_CSV="$DISPOSITION_CSV_FILE" PYTHONIOENCODING=utf-8 python3 << 'REPLIESEOF'
-import csv, os
+import csv, os, re
 from collections import Counter, defaultdict
 
 inbound_path = os.environ['INBOUND_CSV']
@@ -653,7 +653,7 @@ else:
                 continue
             seen = set()
             for r in replies_by_pid[a['pid']]:
-                for t in (r.get('themes') or '').split('|'):
+                for t in re.split(r'[;|]', (r.get('themes') or '')):
                     t = t.strip()
                     if t and t not in seen:
                         theme_counter[t] += 1
