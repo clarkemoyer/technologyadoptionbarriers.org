@@ -58,6 +58,66 @@ fi
 
 dfmt() { if [ "$1" -gt 0 ]; then printf "+%d" "$1"; elif [ "$1" -eq 0 ]; then printf "0"; else printf "%d" "$1"; fi; }
 
+# --- HIGH RISK count (drives title prefix and @-mention) ---
+HIGH_RISK_COUNT=0
+if [ -f "$TODAY_FILE" ]; then
+  HIGH_RISK_COUNT=$(python3 -c "import json; d=json.load(open('$TODAY_FILE')); print(d.get('highRiskCount', 0))" 2>/dev/null || echo 0)
+fi
+
+# --- N=500 forecast + queue resolution rate (computed from today's deltas) ---
+# Forecast: at today's net-approval rate (DELTA_APPROVED), how many days until
+# TODAY_APPROVED reaches 500? Queue clear: at today's net-resolution rate
+# (approved+returned+rejected+timed_out delta), how many days to clear the
+# current AWAITING REVIEW queue? Both stay quiet (empty string) when we have
+# no signal (delta=0, no dashboard data, or already past target).
+N500_FORECAST_LINE=""
+QUEUE_RESOLUTION_LINE=""
+if [ "$HAS_DASHBOARD" = true ]; then
+  FORECAST=$(N500_TARGET=500 TODAY_APPROVED="$TODAY_APPROVED" DELTA_APPROVED="$DELTA_APPROVED" \
+             TODAY_AWAITING="$TODAY_AWAITING" DELTA_REJECTED="$DELTA_REJECTED" \
+             DELTA_RETURNED="$DELTA_RETURNED" DELTA_TIMED="0" \
+             python3 << 'PYEOF'
+import datetime as _dt
+import os
+
+target = int(os.environ['N500_TARGET'])
+today_approved = int(os.environ['TODAY_APPROVED'])
+delta_approved = int(os.environ['DELTA_APPROVED'])
+awaiting = int(os.environ['TODAY_AWAITING'])
+delta_rejected = int(os.environ['DELTA_REJECTED'])
+delta_returned = int(os.environ['DELTA_RETURNED'])
+
+today = _dt.date.today()
+
+if today_approved >= target:
+    print(f"FORECAST=\\U0001F389 **N={target} reached!** ({today_approved} approved)")
+elif delta_approved <= 0:
+    remaining = target - today_approved
+    print(f"FORECAST=**N={target} ETA:** approval rate stalled at +{delta_approved}/day; "
+          f"{remaining} more approvals needed")
+else:
+    remaining = target - today_approved
+    days = remaining / delta_approved
+    eta = today + _dt.timedelta(days=round(days))
+    print(f"FORECAST=**N={target} ETA:** {eta:%Y-%m-%d} "
+          f"(~{days:.1f} days at current +{delta_approved}/day rate, {remaining} more approvals needed)")
+
+resolution_delta = delta_approved + delta_returned + delta_rejected
+if awaiting <= 0:
+    print("RESOLUTION=")
+elif resolution_delta <= 0:
+    print(f"RESOLUTION=**Queue resolution:** 0 today; {awaiting} AWAITING REVIEW (cycle stalled)")
+else:
+    days = awaiting / resolution_delta
+    print(f"RESOLUTION=**Queue resolution:** +{resolution_delta} today "
+          f"(approved +{delta_approved}, returned +{delta_returned}, rejected +{delta_rejected}); "
+          f"~{days:.1f} days to clear {awaiting} AWAITING REVIEW at this rate")
+PYEOF
+  ) || FORECAST=""
+  N500_FORECAST_LINE=$(printf '%s\n' "$FORECAST" | sed -n 's/^FORECAST=//p')
+  QUEUE_RESOLUTION_LINE=$(printf '%s\n' "$FORECAST" | sed -n 's/^RESOLUTION=//p')
+fi
+
 # --- Triage data ---
 # Preferred source: a triage-metrics artifact written by an upstream pipeline
 # step. Currently no step publishes this artifact, so the lookup silently
@@ -625,10 +685,14 @@ run_id = os.environ.get('RUN_ID', '<this-run-id>') or '<this-run-id>'
 repo = os.environ.get('REPO', 'clarkemoyer/technologyadoptionbarriers.org')
 
 with_replies = counts['auto_approve_eligible'] + counts['human_review_questions'] + counts['human_review_high_tier']
-no_reply = counts['no_reply']
+no_reply_total = counts.get('no_reply', 0) + counts.get('no_reply_high_tier', 0)
+multi_reply = d.get('multi_reply_count', 0)
 
 print(f'**{with_replies} of {total} awaiting-review submissions have participant replies.** '
-      f'{no_reply} have not yet replied and will continue through the auto-cycle (message > 48h > request-return > 48h > reject).')
+      f'{no_reply_total} have not yet replied and continue through the auto-cycle (message > 48h > request-return > 48h > reject).')
+if multi_reply > 0:
+    print('')
+    print(f'> ⚠ **{multi_reply} participant(s) have replied 2+ times.** Multi-reply usually means the first response did not resolve their concern. Review their threads in the `prolific-messages-inbound-csv` artifact before approving.')
 print('')
 
 # --- 1. Auto-Approve eligible ---
@@ -663,7 +727,7 @@ else:
     print(f'gh workflow run bulk-approve-replied.yml \\')
     print(f'  --repo {repo} \\')
     print(f'  -F source_run_id={run_id} \\')
-    print(f'  -F dry_run=true \\')
+    print(f'  -F dry_run=false \\')
     print(f'  -F max_per_run=30')
     print('```')
     print('')
@@ -725,6 +789,45 @@ else:
             print(f'| {disp} | {n} | {iri} | {flag_label} |')
     print('')
     print('Action paths: (a) read replies on Prolific, then approve manually, or (b) use `reject_by_pid.py` for those you decide to reject.')
+print('')
+
+# --- 4. Bulk-reject candidates (high tier, no reply) ---
+n_nr_high = counts.get('no_reply_high_tier', 0)
+print(f'### \U0001F534 Recommended for Bulk-Reject ({n_nr_high})')
+print('')
+if n_nr_high == 0:
+    print('No high-tier no-reply PIDs today. The auto-cycle (Phase 3d/3e) will handle anyone still in flight.')
+else:
+    print('High rejection tier (3+ IRI fails, or 2 IRI fails + speed/partial-straightlining) AND no reply to any TABS message. '
+          'The auto-cycle will eventually reject these after the message > 48h > RR > 48h cycle (~4 days); this lets you fast-track when the queue grows.')
+    print('')
+    bd = breakdown.get('no_reply_high_tier', {})
+    if bd.get('by_disposition'):
+        print('| Disposition | Count | IRI fails / other flags |')
+        print('|---|---:|---|')
+        from collections import Counter as _C2
+        grouped = _C2()
+        for entry in d['buckets']['no_reply_high_tier']:
+            key = (entry['disposition'], entry['iri_fail'], entry['speed_flag'], entry['partial_straightlining_flag'])
+            grouped[key] += 1
+        for (disp, iri, spd, psl), n in grouped.most_common():
+            flags = []
+            if spd: flags.append('speed')
+            if psl: flags.append('partial-straightlining')
+            flag_label = ', '.join(flags) if flags else '(IRI only)'
+            print(f'| {disp} | {n} | {iri} IRI fails / {flag_label} |')
+    print('')
+    print('**To bulk-reject these PIDs** (rejection reasons are auto-generated per PID from the disposition CSV):')
+    print('')
+    print('```')
+    print(f'gh workflow run bulk-reject-high-tier-no-reply.yml \\')
+    print(f'  --repo {repo} \\')
+    print(f'  -F source_run_id={run_id} \\')
+    print(f'  -F dry_run=false \\')
+    print(f'  -F max_per_run=30')
+    print('```')
+    print('')
+    print('Default is dry-run. Skips any PID that has already moved out of AWAITING REVIEW (idempotent re-runs).')
 print('')
 
 print(f'_Recommendations computed from `prolific-messages-inbound-csv` and `disposition-csv` artifacts. Full PID list is in the `reply-action-recommendations` workflow artifact (7-day retention)._')
@@ -792,6 +895,10 @@ cat >> /tmp/report-body.md << STATUSEOF
 | **Rejected** | $TODAY_REJECTED | $(dfmt $DELTA_REJECTED) |
 | **Timed Out** | $TODAY_TIMED | -- |
 | **Prolific Total** | $PROLIFIC_TOTAL | -- |
+
+$N500_FORECAST_LINE
+
+$QUEUE_RESOLUTION_LINE
 
 ## Disposition Triage
 
@@ -864,8 +971,25 @@ echo "$RECOMMENDATIONS" | grep -qE "🔴|🟡|🟠" && CRITICAL_FINDINGS=true
 echo "$AUTO_RR_SECTION_FORMATTED $AUTO_REJECT_SECTION_FORMATTED" | grep -q "MANUAL INTERVENTION NEEDED" && CRITICAL_FINDINGS=true
 
 # --- Create issue ---
-TITLE="Daily Disposition Report -- $DATE"
-LABELS="documentation"
+# HIGH_RISK_COUNT > 0 means submissions are within 2 days of Prolific auto-approve.
+# Surface this via a title prefix + an @-mention prepended to the body so the
+# GitHub mobile app pushes a notification on @-mentions of the repo owner.
+HIGH_RISK_PREFIX=""
+HIGH_RISK_LABEL=""
+if [ "$HIGH_RISK_COUNT" -gt 0 ]; then
+  HIGH_RISK_PREFIX="\U0001F6A8 HIGH RISK ($HIGH_RISK_COUNT) - "
+  HIGH_RISK_LABEL=",urgent"
+  # Prepend an @-mention so GitHub Mobile fires a push notification.
+  printf '@clarkemoyer - **%d submission(s) within 2 days of Prolific 21-day auto-approve.** Action today.\n\n' "$HIGH_RISK_COUNT" \
+    | cat - /tmp/report-body.md > /tmp/report-body.md.new
+  mv /tmp/report-body.md.new /tmp/report-body.md
+fi
+
+# Decode the \U escape in the prefix (printf handles it).
+HIGH_RISK_PREFIX=$(printf '%b' "$HIGH_RISK_PREFIX")
+
+TITLE="${HIGH_RISK_PREFIX}Daily Disposition Report -- $DATE"
+LABELS="documentation${HIGH_RISK_LABEL}"
 if [ "$CRITICAL_FINDINGS" = false ]; then
   LABELS="$LABELS,auto-close-eligible"
 fi
