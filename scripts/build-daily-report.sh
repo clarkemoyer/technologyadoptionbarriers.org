@@ -666,7 +666,7 @@ else:
 print('')
 print(f'**Total participants who have ever replied** (since 2025-01-01): {len(replies_by_pid)} unique. '
       f'See the `prolific-messages-inbound-csv` workflow artifact (1-day retention) for full bodies, '
-      f'and `prolific-messages-aggregate-summary` (7-day) for theme/PII distributions.')
+      f'and `prolific-message-aggregate-summary` (7-day) for theme/PII distributions.')
 REPLIESEOF
   ); then
     REPLIES_SECTION="## 🟡 Replies to Consider
@@ -683,6 +683,11 @@ elif [ ! -f "$INBOUND_CSV_FILE" ]; then
   REPLIES_SECTION="## 🟡 Replies to Consider
 
 > ⚠️ Replies data unavailable — \`prolific-messages-inbound-csv\` artifact was not found at \`$INBOUND_CSV_FILE\`. The Phase 3f export-messages job may have failed or been skipped.
+"
+elif [ ! -f "$DISPOSITION_CSV_FILE" ]; then
+  REPLIES_SECTION="## 🟡 Replies to Consider
+
+> ⚠️ Replies data unavailable — \`disposition-csv\` artifact was not found at \`$DISPOSITION_CSV_FILE\`. The upstream export-and-triage job may have failed or been skipped.
 "
 fi
 

@@ -798,7 +798,7 @@ jobs:
       - uses: actions/upload-artifact@v7
         if: always()
         with:
-          name: prolific-messages-aggregate-summary
+          name: prolific-message-aggregate-summary
           path: ${{ runner.temp }}/aggregate-summary.json
           retention-days: 7
           if-no-files-found: warn
