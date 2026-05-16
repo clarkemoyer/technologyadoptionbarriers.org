@@ -951,7 +951,7 @@ jobs:
         with:
           name: reply-action-recommendations
           path: ${{ runner.temp }}/reply-action-recommendations.json
-          retention-days: 7
+          retention-days: 1
           if-no-files-found: warn
 
       - name: Build and create daily report issue

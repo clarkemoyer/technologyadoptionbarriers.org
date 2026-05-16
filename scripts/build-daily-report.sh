@@ -659,7 +659,7 @@ else:
     print('')
     print('**To bulk-approve these PIDs** (the workflow downloads the recommendations artifact from this run):')
     print('')
-    suggested_max_per_run = max(1, n_aa)
+    suggested_max_per_run = min(30, max(1, n_aa))
     print('```')
     print(f'gh workflow run bulk-approve-replied.yml \\')
     print(f'  --repo {repo} \\')
@@ -669,7 +669,7 @@ else:
     print('```')
     print('')
     if n_aa > 30:
-        print(f'_Note: {n_aa} PIDs are currently auto-approve eligible; the suggested command sets `max_per_run={n_aa}` so one run can process the full bucket._')
+        print(f'_Note: {n_aa} PIDs are currently auto-approve eligible. Keep `max_per_run=30` (safety default) and rerun the workflow in batches until the bucket is cleared._')
         print('')
     print('Default is dry-run; pass `-F dry_run=false` to approve live (and a thank-you message is sent to each).')
 print('')
@@ -731,7 +731,7 @@ else:
     print('Action paths: (a) read replies on Prolific, then approve manually, or (b) use `reject_by_pid.py` for those you decide to reject.')
 print('')
 
-print(f'_Recommendations computed from `prolific-messages-inbound-csv` and `disposition-csv` artifacts. Full PID list is in the `reply-action-recommendations` workflow artifact (7-day retention)._')
+print(f'_Recommendations computed from `prolific-messages-inbound-csv` and `disposition-csv` artifacts. Full PID list is in the `reply-action-recommendations` workflow artifact._')
 REPLIESEOF
   ); then
     REPLIES_SECTION="## 🟡 Replies to Consider
