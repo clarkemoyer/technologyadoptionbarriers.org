@@ -36,8 +36,6 @@ env:
   # Official GitHub flag to force Node.js 24 runtime ahead of the June 2026 mandatory deadline.
   # Ref: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-  # Shared lower-bound timestamp for Phase 3f Prolific message exports.
-  PHASE3F_MESSAGE_SINCE: '2025-01-01T00:00:00Z'
 
 jobs:
   # ── Phase 1: Fetch Prolific data ─────────────────────────────
@@ -768,11 +766,10 @@ jobs:
 
   # ── Phase 3f: Export Prolific messages (inbound replies) ─────
   # Pulls every Prolific message in the TABS V2 study channel and writes
-  # aggregate + inbound-reply artifacts for reporting, plus raw/transcript/
-  # candidate artifacts for operator review. Phase 5 reads the inbound CSV
-  # to compute the "Replies to Consider" report section (count of
-  # AWAITING REVIEW PIDs that have replied to TABS messages).
-  # PII-bearing exports are 1-day artifact retention to match the disposition
+  # an aggregate summary plus an inbound-participant CSV. Phase 5 reads
+  # the inbound CSV to compute the "Replies to Consider" report section
+  # (count of AWAITING REVIEW PIDs that have replied to TABS messages).
+  # PII-bearing CSV is 1-day artifact retention to match the disposition
   # CSV privacy treatment. Aggregate summary is committable (7-day).
   # Runs in parallel with other Phase 3 jobs; gates only on Phase 2.
   export-messages:
@@ -791,7 +788,7 @@ jobs:
         env:
           PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
           STUDY_ID: ${{ vars.PROLIFIC_STUDY_ID }}
-          SINCE: ${{ env.PHASE3F_MESSAGE_SINCE }}
+          SINCE: '2025-01-01T00:00:00Z'
           RAW_OUTPUT_PATH: ${{ runner.temp }}/all_messages_raw.json
           INBOUND_CSV_PATH: ${{ runner.temp }}/participant_messages.csv
           TRANSCRIPTS_PATH: ${{ runner.temp }}/participant_messages.md
@@ -801,7 +798,7 @@ jobs:
       - uses: actions/upload-artifact@v7
         if: always()
         with:
-          name: prolific-message-aggregate-summary
+          name: prolific-messages-aggregate-summary
           path: ${{ runner.temp }}/aggregate-summary.json
           retention-days: 7
           if-no-files-found: warn
@@ -811,30 +808,6 @@ jobs:
         with:
           name: prolific-messages-inbound-csv
           path: ${{ runner.temp }}/participant_messages.csv
-          retention-days: 1
-          if-no-files-found: warn
-
-      - uses: actions/upload-artifact@v7
-        if: always()
-        with:
-          name: prolific-messages-raw
-          path: ${{ runner.temp }}/all_messages_raw.json
-          retention-days: 1
-          if-no-files-found: warn
-
-      - uses: actions/upload-artifact@v7
-        if: always()
-        with:
-          name: prolific-messages-transcripts
-          path: ${{ runner.temp }}/participant_messages.md
-          retention-days: 1
-          if-no-files-found: warn
-
-      - uses: actions/upload-artifact@v7
-        if: always()
-        with:
-          name: prolific-messages-candidates
-          path: ${{ runner.temp }}/candidates_to_review.md
           retention-days: 1
           if-no-files-found: warn
 
@@ -952,18 +925,36 @@ jobs:
           path: ${{ runner.temp }}/artifacts
         continue-on-error: true
 
+      # Build the reply-action recommendations JSON before the report runs.
+      # Renders nothing in the report when Phase 3f's inbound CSV is missing.
+      - name: Classify replies for action
+        if: always()
+        continue-on-error: true
+        run: python3 scripts/analysis/classify_replies_for_action.py
+        env:
+          INBOUND_CSV: ${{ runner.temp }}/artifacts/prolific-messages-inbound-csv/participant_messages.csv
+          DISPOSITION_CSV: ${{ runner.temp }}/artifacts/disposition-csv/disposition.csv
+          OUTPUT_JSON_PATH: ${{ runner.temp }}/reply-action-recommendations.json
+
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: reply-action-recommendations
+          path: ${{ runner.temp }}/reply-action-recommendations.json
+          retention-days: 7
+          if-no-files-found: warn
+
       - name: Build and create daily report issue
         env:
           GH_TOKEN: ${{ github.token }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
           ARTIFACTS_DIR: ${{ runner.temp }}/artifacts
+          RECOMMENDATIONS_JSON: ${{ runner.temp }}/reply-action-recommendations.json
           PREV_FILE: src/data/disposition-summary.json
           TRIAGE_RESULT: ${{ needs.analyze.result }}
           APPROVE_RESULT_STATUS: ${{ needs.approve-clean.result }}
           MESSAGE_RESULT: ${{ needs.message-flags.result }}
-          EXPORT_MESSAGES_RESULT: ${{ needs.export-messages.result }}
           DASHBOARD_RESULT: ${{ needs.generate-dashboard.result }}
           AUTO_REQUEST_RETURN_RESULT: ${{ needs.auto-request-return.result }}
           AUTO_REJECT_STALE_RESULT: ${{ needs.auto-reject-stale.result }}
-          MESSAGE_EXPORT_SINCE: ${{ env.PHASE3F_MESSAGE_SINCE }}
         run: bash scripts/build-daily-report.sh
