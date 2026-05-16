@@ -68,8 +68,10 @@ fi
 # Forecast: at today's net-approval rate (DELTA_APPROVED), how many days until
 # TODAY_APPROVED reaches 500? Queue clear: at today's net-resolution rate
 # (approved+returned+rejected delta), how many days to clear the
-# current AWAITING REVIEW queue? Both stay quiet (empty string) when we have
-# no signal (delta=0, no dashboard data, or already past target).
+# current AWAITING REVIEW queue? The lines stay empty only when dashboard data
+# is missing; otherwise zero/negative deltas render the stalled-rate/stalled-cycle
+# messages below, and the N=500 line switches to the reached message once we are
+# already past target.
 N500_FORECAST_LINE=""
 QUEUE_RESOLUTION_LINE=""
 if [ "$HAS_DASHBOARD" = true ]; then

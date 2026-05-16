@@ -160,7 +160,7 @@ This index provides a comprehensive guide to all documentation in the TABS repos
   - Safety conventions (dry-run defaults, CONFIRM_REJECT, MAX_PER_RUN ceilings)
   - Tokens, environments, and kill-switch variables
 - Client Library: `src/lib/prolific-api.ts`
-- Workflows: `.github/workflows/prolific.yml`, `daily-pipeline.yml`, `check-participant.yml`, `prolific-message-flagged.yml`, `prolific-reject-by-pid.yml`, `bulk-approve-replied.yml`, `bulk-reject-high-tier-no-reply.yml`, `prolific-message-export.yml`
+- Workflows: `.github/workflows/prolific.yml`, `.github/workflows/daily-pipeline.yml`, `.github/workflows/check-participant.yml`, `.github/workflows/prolific-message-flagged.yml`, `.github/workflows/prolific-reject-by-pid.yml`, `.github/workflows/bulk-approve-replied.yml`, `.github/workflows/bulk-reject-high-tier-no-reply.yml`, `.github/workflows/prolific-message-export.yml`
 
 **Google Analytics Data API v1:**
 
