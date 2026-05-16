@@ -5,5 +5,19 @@
     "impressions": 38500,
     "clicks": 2180,
     "averagePosition": 28.4
+  },
+  {
+    "date": "2026-05-15T20:15:22.755Z",
+    "sessions": 182748,
+    "impressions": 31589,
+    "clicks": 59,
+    "averagePosition": 8.6
+  },
+  {
+    "date": "2026-05-16T09:34:04.871Z",
+    "sessions": 149534,
+    "impressions": 31059,
+    "clicks": 59,
+    "averagePosition": 8.6
   }
 ]

@@ -1,23 +1,23 @@
 {
-  "generatedAt": "2026-03-23T12:52:28.828Z",
-  "dashboardSyncedAt": "2026-03-30T09:33:52.057Z",
+  "generatedAt": "2026-05-16T09:34:04.871Z",
+  "dashboardSyncedAt": "2026-05-16T09:34:04.871Z",
   "dateRange": {
-    "startDate": "2026-02-23",
-    "endDate": "2026-03-23"
+    "startDate": "2026-04-18",
+    "endDate": "2026-05-16"
   },
   "overview": {
-    "organicSessions": 4250,
-    "organicSessionsChange": 12.3,
-    "totalImpressions": 38500,
-    "totalImpressionsChange": 8.7,
-    "totalClicks": 2180,
-    "totalClicksChange": 15.1,
-    "averageCTR": 5.66,
+    "organicSessions": 149534,
+    "organicSessionsChange": -33214,
+    "totalImpressions": 31059,
+    "totalImpressionsChange": -530,
+    "totalClicks": 59,
+    "totalClicksChange": 0,
+    "averageCTR": 0.19,
     "averageCTRUnit": "percent",
-    "averageCTRChange": 0.31,
+    "averageCTRChange": 0,
     "averageCTRChangeUnit": "percentagePoints",
-    "averagePosition": 28.4,
-    "averagePositionChange": -3.2,
+    "averagePosition": 8.6,
+    "averagePositionChange": 0,
     "domainAuthority": 12,
     "domainAuthorityChange": 2,
     "indexedPages": 47,
@@ -28,93 +28,93 @@
   "topKeywords": [
     {
       "keyword": "technology adoption barriers",
-      "position": 8,
-      "previousPosition": 12,
-      "volume": 720,
-      "clicks": 185,
-      "impressions": 4200,
-      "ctr": 4.4
+      "position": 4.3,
+      "previousPosition": null,
+      "volume": 0,
+      "clicks": 1,
+      "impressions": 28,
+      "ctr": 3.6
+    },
+    {
+      "keyword": "technology adoption framework",
+      "position": 10.3,
+      "previousPosition": null,
+      "volume": 0,
+      "clicks": 1,
+      "impressions": 6,
+      "ctr": 16.7
     },
     {
       "keyword": "technology adoption models",
-      "position": 14,
-      "previousPosition": 18,
-      "volume": 1300,
-      "clicks": 142,
-      "impressions": 5800,
-      "ctr": 2.4
+      "position": 11.4,
+      "previousPosition": null,
+      "volume": 0,
+      "clicks": 1,
+      "impressions": 34,
+      "ctr": 2.9
     },
     {
-      "keyword": "UTAUT model explained",
+      "keyword": "toe framework tornatzky and fleischer 1990",
       "position": 6,
-      "previousPosition": 9,
-      "volume": 480,
-      "clicks": 128,
-      "impressions": 2100,
-      "ctr": 6.1
+      "previousPosition": null,
+      "volume": 0,
+      "clicks": 1,
+      "impressions": 5,
+      "ctr": 20
     },
     {
-      "keyword": "TAM technology acceptance model",
-      "position": 11,
-      "previousPosition": 15,
-      "volume": 880,
-      "clicks": 95,
-      "impressions": 3400,
-      "ctr": 2.8
+      "keyword": "\"10.1147/sj.321.0004\"",
+      "position": 9.8,
+      "previousPosition": null,
+      "volume": 0,
+      "clicks": 0,
+      "impressions": 63,
+      "ctr": 0
     },
     {
-      "keyword": "barriers to technology adoption in organizations",
-      "position": 5,
-      "previousPosition": 7,
-      "volume": 390,
-      "clicks": 87,
-      "impressions": 1500,
-      "ctr": 5.8
-    },
-    {
-      "keyword": "diffusion of innovations theory",
-      "position": 18,
-      "previousPosition": 22,
-      "volume": 1100,
-      "clicks": 62,
-      "impressions": 4600,
-      "ctr": 1.3
-    },
-    {
-      "keyword": "technology readiness index",
+      "keyword": "\"10.1287/mnsc.46.2.186.11926\"",
       "position": 9,
-      "previousPosition": 14,
-      "volume": 590,
-      "clicks": 58,
-      "impressions": 1800,
-      "ctr": 3.2
+      "previousPosition": null,
+      "volume": 0,
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": 0
     },
     {
-      "keyword": "digital transformation barriers",
-      "position": 22,
-      "previousPosition": 28,
-      "volume": 1600,
-      "clicks": 45,
-      "impressions": 6200,
-      "ctr": 0.7
+      "keyword": "\"10.2307/30036540\"",
+      "position": 9.7,
+      "previousPosition": null,
+      "volume": 0,
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0
     },
     {
-      "keyword": "organizational technology adoption",
-      "position": 7,
-      "previousPosition": 10,
-      "volume": 320,
-      "clicks": 42,
-      "impressions": 980,
-      "ctr": 4.3
+      "keyword": "\"10.2307/41410412\"",
+      "position": 9.6,
+      "previousPosition": null,
+      "volume": 0,
+      "clicks": 0,
+      "impressions": 8,
+      "ctr": 0
     },
     {
-      "keyword": "technology adoption survey",
-      "position": 4,
-      "previousPosition": 6,
-      "volume": 260,
-      "clicks": 38,
-      "impressions": 680,
-      "ctr": 5.6
+      "keyword": "\"qualtrics\" -site:reddit.com -site:twitter.com -site:x.com -site:wykop.pl -site:tripadvisor.com -site:youtube.com -site:yelp.com -site:booking.com -site:facebook.com -site:instagram.com -site:tiktok.com",
+      "position": 10,
+      "previousPosition": null,
+      "volume": 0,
+      "clicks": 0,
+      "impressions": 1,
+      "ctr": 0
+    },
+    {
+      "keyword": "\"sct\" \"albert bandura\" \"the 1980s\" \"bandura\" \"1986\" or \"unlike behaviorist approaches that focus solely on the environment and\" or \"the student may watch and mentally rehearse before demonstrating their\"",
+      "position": 5.9,
+      "previousPosition": null,
+      "volume": 0,
+      "clicks": 0,
+      "impressions": 377,
+      "ctr": 0
     }
   ],
   "topPages": [
