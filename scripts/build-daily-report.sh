@@ -77,9 +77,12 @@ if [ "$HAS_DASHBOARD" = true ]; then
              TODAY_AWAITING="$TODAY_AWAITING" DELTA_REJECTED="$DELTA_REJECTED" \
              DELTA_RETURNED="$DELTA_RETURNED" \
              python3 << 'PYEOF'
- import datetime as _dt
- import math as _math
- import os
+import datetime as _dt
+import math as _math
+import os
+
+def fmt_signed(n: int) -> str:
+    return f"{n:+d}"
 
 target = int(os.environ['N500_TARGET'])
 today_approved = int(os.environ['TODAY_APPROVED'])
@@ -94,14 +97,14 @@ if today_approved >= target:
     print(f"FORECAST=\U0001F389 **N={target} reached!** ({today_approved} approved)")
 elif delta_approved <= 0:
     remaining = target - today_approved
-    print(f"FORECAST=**N={target} ETA:** approval rate stalled at +{delta_approved}/day; "
+    print(f"FORECAST=**N={target} ETA:** approval rate stalled at {fmt_signed(delta_approved)}/day; "
           f"{remaining} more approvals needed")
 else:
     remaining = target - today_approved
     days = remaining / delta_approved
     eta = today + _dt.timedelta(days=_math.ceil(days))
     print(f"FORECAST=**N={target} ETA:** {eta:%Y-%m-%d} "
-          f"(~{days:.1f} days at current +{delta_approved}/day rate, {remaining} more approvals needed)")
+          f"(~{days:.1f} days at current {fmt_signed(delta_approved)}/day rate, {remaining} more approvals needed)")
 
 resolution_delta = delta_approved + delta_returned + delta_rejected
 if awaiting <= 0:
@@ -110,8 +113,8 @@ elif resolution_delta <= 0:
     print(f"RESOLUTION=**Queue resolution:** 0 today; {awaiting} AWAITING REVIEW (cycle stalled)")
 else:
     days = awaiting / resolution_delta
-    print(f"RESOLUTION=**Queue resolution:** +{resolution_delta} today "
-          f"(approved +{delta_approved}, returned +{delta_returned}, rejected +{delta_rejected}); "
+    print(f"RESOLUTION=**Queue resolution:** {fmt_signed(resolution_delta)} today "
+          f"(approved {fmt_signed(delta_approved)}, returned {fmt_signed(delta_returned)}, rejected {fmt_signed(delta_rejected)}); "
           f"~{days:.1f} days to clear {awaiting} AWAITING REVIEW at this rate")
 PYEOF
   ) || FORECAST=""
@@ -828,10 +831,22 @@ else:
     print(f'  -F max_per_run=10')
     print('```')
     print('')
-    print('Default is dry-run. Skips any PID that has already moved out of AWAITING REVIEW (idempotent re-runs).')
+    print('**Live run (requires typed confirmation):**')
+    print('')
+    print('```')
+    print(f'gh workflow run bulk-reject-high-tier-no-reply.yml \\')
+    print(f'  --repo {repo} \\')
+    print(f'  -F source_run_id={run_id} \\')
+    print(f'  -F dry_run=false \\')
+    print(f'  -F confirm_reject=REJECT \\')
+    print(f'  -F max_per_run=10')
+    print('```')
+    print('')
+    print('Default is dry-run.')
+    print('Skips any PID that has already moved out of AWAITING REVIEW (idempotent re-runs).')
 print('')
 
-print(f'_Recommendations computed from `prolific-messages-inbound-csv` and `disposition-csv` artifacts. Full PID list is in the `reply-action-recommendations` workflow artifact (7-day retention)._')
+print(f'_Recommendations computed from `prolific-messages-inbound-csv` and `disposition-csv` artifacts. Full PID list is in the `reply-action-recommendations` workflow artifact (1-day retention)._')
 REPLIESEOF
   ); then
     REPLIES_SECTION="## 🟡 Replies to Consider
@@ -978,7 +993,7 @@ echo "$AUTO_RR_SECTION_FORMATTED $AUTO_REJECT_SECTION_FORMATTED" | grep -q "MANU
 HIGH_RISK_PREFIX=""
 HIGH_RISK_LABEL=""
 if [ "$HIGH_RISK_COUNT" -gt 0 ]; then
-  # Use the literal U+1F6A8 (rocket) character directly. bash's printf %b
+  # Use the literal U+1F6A8 (siren/police light) character directly. bash's printf %b
   # interprets \uNNNN but NOT \UNNNNNNNN, so the \U escape would have left
   # the title with a literal "\U0001F6A8" string.
   HIGH_RISK_PREFIX="🚨 HIGH RISK ($HIGH_RISK_COUNT) - "

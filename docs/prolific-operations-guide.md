@@ -20,31 +20,31 @@ Anything outside the routine cycle — single-PID approves/rejects, custom messa
 
 ## Quick lookup: "I want to..."
 
-| Goal                                                      | Workflow                             | Mode / Inputs                                                                                     |
-| --------------------------------------------------------- | ------------------------------------ | ------------------------------------------------------------------------------------------------- |
-| Approve one PID                                           | `check-participant.yml`              | `mode=approve`, `pid=<id>`, `dry_run=true` (flip to `false` + `confirm_approve=APPROVE` for live) |
-| Approve N PIDs from today's report's auto-eligible bucket | `bulk-approve-replied.yml`           | `source_run_id=<daily-pipeline run>`, `dry_run=true` (flip to `false` for live), `max_per_run=60` |
-| Approve all CLEAN PIDs from a CSV                         | `prolific-approve-submissions.yml`   | `csv_content=<csv>` or `csv_file_path=<path>`                                                     |
-| Reject one or more PIDs                                   | `prolific-reject-by-pid.yml`         | `pid_list=<csv>`, `dry_run=false`, `confirm_reject=REJECT`                                        |
-| Reject the daily report's high-tier-no-reply bucket       | `bulk-reject-high-tier-no-reply.yml` | `source_run_id=<run>`, `dry_run=true` (flip to `false` for live), `max_per_run=10`                |
-| Reject all AUTO-EXCLUDE                                   | `prolific-reject-auto-exclude.yml`   | (full destructive — read inputs carefully)                                                        |
-| Reject all failed-IRI                                     | `prolific-reject-failed-iri.yml`     | (full destructive — read inputs carefully)                                                        |
-| Send a custom one-off message to one PID                  | `check-participant.yml`              | `mode=send-custom`, `pid=<id>`, `message=<text>`                                                  |
-| Send the standard FLAG message to one or more PIDs        | `prolific-message-flagged.yml`       | `disposition_filter=<one of the 10>`, `pid_list=<csv or empty>`, `dry_run=false`                  |
-| Send a thank-you to specific PIDs                         | `check-participant.yml`              | `mode=send-thank-you`, `pid=<id>`                                                                 |
-| Request return on one PID                                 | `check-participant.yml`              | `mode=request-return`, `pid=<id>`                                                                 |
-| Unreject one or more PIDs                                 | `check-participant.yml`              | `mode=unreject`, `pid=<comma-separated>`                                                          |
-| Inspect one PID's submission + messages                   | `check-participant.yml`              | `mode=single`, `pid=<id>`                                                                         |
-| List every participant who has replied                    | `check-participant.yml`              | `mode=all-replies`                                                                                |
-| Export every Prolific message (both directions)           | `prolific-message-export.yml`        | (since: ISO date, study: optional)                                                                |
-| Search every message body for a term                      | `check-participant.yml`              | `mode=search-messages`, `message=<term>`                                                          |
-| Find replies that contain a URL                           | `check-participant.yml`              | `mode=find-url-replies`                                                                           |
-| Find stale return-request candidates                      | `check-participant.yml`              | `mode=stale-return-requested`                                                                     |
-| Build the operator-style "awaiting review" report         | `check-participant.yml`              | `mode=awaiting-report`                                                                            |
-| Verify a PID's IRI answers against Qualtrics              | `check-participant.yml`              | `mode=single`, `pid=<id>` (the verify-iri job auto-runs)                                          |
-| Pull demographics from Prolific                           | `check-participant.yml`              | `mode=demographics`                                                                               |
-| Smoke-test the Prolific API token                         | `prolific-api-smoke.yml`             | (no inputs)                                                                                       |
-| Run the daily pipeline ad-hoc                             | `daily-pipeline.yml`                 | (no required inputs; runs the full chain)                                                         |
+| Goal                                                      | Workflow                             | Mode / Inputs                                                                                                |
+| --------------------------------------------------------- | ------------------------------------ | ------------------------------------------------------------------------------------------------------------ |
+| Approve one PID                                           | `check-participant.yml`              | `mode=approve`, `pid=<id>`, `dry_run=true` (flip to `false` + `confirm_approve=APPROVE` for live)            |
+| Approve N PIDs from today's report's auto-eligible bucket | `bulk-approve-replied.yml`           | `source_run_id=<daily-pipeline run>`, `dry_run=true` (flip to `false` for live), `max_per_run=30`            |
+| Approve all CLEAN PIDs from a CSV                         | `prolific-approve-submissions.yml`   | `csv_content=<csv>` or `csv_file_path=<path>`                                                                |
+| Reject one or more PIDs                                   | `prolific-reject-by-pid.yml`         | `pid_list=<csv>`, `dry_run=false`, `confirm_reject=REJECT`                                                   |
+| Reject the daily report's high-tier-no-reply bucket       | `bulk-reject-high-tier-no-reply.yml` | `source_run_id=<run>`, `dry_run=true` (flip to `false` + `confirm_reject=REJECT` for live), `max_per_run=10` |
+| Reject all AUTO-EXCLUDE                                   | `prolific-reject-auto-exclude.yml`   | (full destructive — read inputs carefully)                                                                   |
+| Reject all failed-IRI                                     | `prolific-reject-failed-iri.yml`     | (full destructive — read inputs carefully)                                                                   |
+| Send a custom one-off message to one PID                  | `check-participant.yml`              | `mode=send-custom`, `pid=<id>`, `message=<text>`                                                             |
+| Send the standard FLAG message to one or more PIDs        | `prolific-message-flagged.yml`       | `disposition_filter=<one of the 10>`, `pid_list=<csv or empty>`, `dry_run=false`                             |
+| Send a thank-you to specific PIDs                         | `check-participant.yml`              | `mode=send-thank-you`, `pid=<id>`                                                                            |
+| Request return on one PID                                 | `check-participant.yml`              | `mode=request-return`, `pid=<id>`                                                                            |
+| Unreject one or more PIDs                                 | `check-participant.yml`              | `mode=unreject`, `pid=<comma-separated>`                                                                     |
+| Inspect one PID's submission + messages                   | `check-participant.yml`              | `mode=single`, `pid=<id>`                                                                                    |
+| List every participant who has replied                    | `check-participant.yml`              | `mode=all-replies`                                                                                           |
+| Export every Prolific message (both directions)           | `prolific-message-export.yml`        | (since: ISO date, study: optional)                                                                           |
+| Search every message body for a term                      | `check-participant.yml`              | `mode=search-messages`, `message=<term>`                                                                     |
+| Find replies that contain a URL                           | `check-participant.yml`              | `mode=find-url-replies`                                                                                      |
+| Find stale return-request candidates                      | `check-participant.yml`              | `mode=stale-return-requested`                                                                                |
+| Build the operator-style "awaiting review" report         | `check-participant.yml`              | `mode=awaiting-report`                                                                                       |
+| Verify a PID's IRI answers against Qualtrics              | `check-participant.yml`              | `mode=single`, `pid=<id>` (the verify-iri job auto-runs)                                                     |
+| Pull demographics from Prolific                           | `check-participant.yml`              | `mode=demographics`                                                                                          |
+| Smoke-test the Prolific API token                         | `prolific-api-smoke.yml`             | (no inputs)                                                                                                  |
+| Run the daily pipeline ad-hoc                             | `daily-pipeline.yml`                 | (no required inputs; runs the full chain)                                                                    |
 
 ## Workflow inventory
 
@@ -70,7 +70,7 @@ Anything outside the routine cycle — single-PID approves/rejects, custom messa
 
 - **`bulk-approve-replied.yml`** — Approves PIDs from the daily-pipeline `reply-action-recommendations` artifact's `auto_approve_eligible` bucket. Defaults to dry-run; live requires `dry_run=false`. Internally calls `approve_by_pid.py` which now does one Prolific API call per PID (partial failures don't abort).
 
-- **`bulk-reject-high-tier-no-reply.yml`** — Rejects PIDs from the same artifact's `no_reply_high_tier` bucket. Same safety pattern (dry-run default, CONFIRM_REJECT required for live). Internally calls `reject_by_pid.py` (already per-submission).
+- **`bulk-reject-high-tier-no-reply.yml`** — Rejects PIDs from the same artifact's `no_reply_high_tier` bucket. Same safety pattern (dry-run default, `confirm_reject=REJECT` required for live). Uses `STRICT_AWAITING=false` so re-runs skip any PID already actioned elsewhere and remain idempotent.
 
 - **`prolific-reject-by-pid.yml`** — General single-PID-or-list rejection. Re-runs Qualtrics triage first to ensure rejection reasons are computed from current disposition data. Live requires typing "REJECT" in the confirm input.
 
@@ -138,9 +138,9 @@ Every destructive workflow follows the same pattern. If you're adding a new one,
 
 1. **Default to dry-run.** `dry_run: boolean (default true)`.
 2. **Confirmation typing.** Live destructive actions require typing `REJECT` (or analogous) into a separate input. The script enforces this server-side.
-3. **`MAX_PER_RUN` ceiling.** Default 30. Workflow can override per-dispatch. Script aborts if PID_LIST exceeds ceiling.
+3. **`MAX_PER_RUN` ceiling.** Workflow defaults are conservative and workflow-specific (for example 30 for bulk-approve, 10 for bulk-reject). Scripts enforce the ceiling, but behavior can differ by script: `reject_by_pid.py` aborts over-ceiling lists, while `approve_by_pid.py` truncates eligible targets after status filtering and records deferred PIDs in its JSON output.
 4. **Status check before action.** Per-PID status verification — skip if no longer AWAITING REVIEW. Makes re-runs idempotent.
-5. **Audit JSON output.** Every script writes a structured results JSON listing PIDs touched and per-PID outcome. Workflow uploads as 7-day artifact.
+5. **Audit JSON output.** Every script writes a structured results JSON listing PIDs touched and per-PID outcome. PID-bearing workflow artifacts in this area are retained for 1 day, not 7, to match the privacy policy for intermediate participant data.
 
 ## Daily Disposition Report → workflow dispatch
 

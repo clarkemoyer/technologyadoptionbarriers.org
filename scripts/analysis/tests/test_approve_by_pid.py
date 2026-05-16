@@ -207,6 +207,9 @@ class TestLiveApprove:
         assert pid_c in result["approved"]
         failed_pids = [f["pid"] for f in result["failures"]]
         assert pid_b in failed_pids
+        sent_pids = set(result["thank_you_sent"]) | set(result["thank_you_skipped_dedup"])
+        assert pid_b not in sent_pids
+        assert patch_api["send"].call_count == 2
 
     def test_thank_you_dedup_skips_already_thanked(self, fake_env, patch_api, monkeypatch):
         pid_a = _pid("a")

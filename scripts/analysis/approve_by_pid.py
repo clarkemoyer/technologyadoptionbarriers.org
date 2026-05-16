@@ -232,7 +232,9 @@ def main() -> int:
         result["approved"] = list(targets)
     else:
         print(f"Approving {len(targets)} submissions (one API call per PID)...")
-        for pid in targets:
+        for idx, pid in enumerate(targets):
+            if idx > 0:
+                time.sleep(_API_CALL_DELAY)
             try:
                 prolific_bulk_approve(study_id, [pid], api_token)
                 result["approved"].append(pid)
@@ -242,12 +244,13 @@ def main() -> int:
                 print(f"  FAILED {_redact_pid(pid)}: {err}", file=sys.stderr)
                 result["failures"].append({"pid": pid, "error": err})
 
+    approved_pids = list(result["approved"])
     if dry_run:
-        print(f"DRY RUN - thank-you messages would be sent to {len(targets)} PIDs")
-        result["thank_you_sent"] = list(targets)
+        print(f"DRY RUN - thank-you messages would be sent to {len(approved_pids)} PIDs")
+        result["thank_you_sent"] = list(approved_pids)
     else:
         print("\nSending thank-you messages...")
-        for idx, pid in enumerate(targets):
+        for idx, pid in enumerate(approved_pids):
             if idx > 0:
                 time.sleep(_API_CALL_DELAY)
             try:
