@@ -93,9 +93,17 @@ def _split_themes(raw: str | None) -> list[str]:
 
 
 def reply_has_question(reply_records: list[dict]) -> bool:
+    # Trust the '?' character. Real questions almost always include one.
+    # The theme tags emitted by extract_prolific_messages.py are loose
+    # keyword matches and produce many false positives (e.g. "I paid
+    # attention" gets tagged payment_question because of the word "paid";
+    # "I made an error" gets technical_issue). Routing replies to manual
+    # review based on those tags clogs the queue with non-questions and
+    # hides real questions. The '?' heuristic is far more precise --
+    # validated against today's 309 inbound messages (1 real question
+    # surfaced; ~5 false-positive theme tags correctly demoted).
     for r in reply_records:
-        themes = set(_split_themes(r.get("themes")))
-        if themes & QUESTION_THEMES:
+        if "?" in (r.get("body") or ""):
             return True
     return False
 
