@@ -168,10 +168,14 @@ def main() -> int:
                 buckets["no_reply_high_tier"].append(entry)
             else:
                 buckets["no_reply"].append(entry)
+        elif is_high_rejection_tier(row):
+            # High-tier wins over question detection. The operator policy is that
+            # 3+ IRI fails or 2 IRI + factor always requires reading the messaging
+            # exchange before any action -- even if the reply contains a question,
+            # the high-tier disposition warrants the more cautious review path.
+            buckets["human_review_high_tier"].append(entry)
         elif reply_has_question(replies):
             buckets["human_review_questions"].append(entry)
-        elif is_high_rejection_tier(row):
-            buckets["human_review_high_tier"].append(entry)
         else:
             buckets["auto_approve_eligible"].append(entry)
         if len(replies) >= 2:
