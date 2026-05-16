@@ -5,8 +5,7 @@ set -euo pipefail
 # Reads artifacts from previous workflow steps and creates a GitHub issue.
 #
 # Required env vars: GH_TOKEN, RUN_URL, ARTIFACTS_DIR, PREV_FILE
-# Optional: TRIAGE_RESULT, APPROVE_RESULT_STATUS, MESSAGE_RESULT, DASHBOARD_RESULT,
-#           EXPORT_MESSAGES_RESULT, MESSAGE_EXPORT_SINCE
+# Optional: TRIAGE_RESULT, APPROVE_RESULT_STATUS, MESSAGE_RESULT, DASHBOARD_RESULT
 
 # Validate required env vars
 for var in GH_TOKEN RUN_URL; do
@@ -601,74 +600,134 @@ $RUNWAY_BODY
   fi
 fi
 
-# --- Replies to Consider section (Phase 3f export-messages output) ---
-# Cross-references inbound participant replies against AWAITING REVIEW PIDs
-# from the disposition CSV. Surfaces the operator-actionable count: how many
-# replies are sitting in the queue, broken down by disposition and theme.
-# Renders a warning section if the inbound CSV is missing (export-messages skipped/failed).
+# --- Replies to Consider section ---
+# Reads the reply-action-recommendations JSON produced by Phase 5's
+# classify_replies_for_action.py step. Renders three sub-sections that
+# match the operator policy:
+#   1. Auto-Approve eligible (acknowledgment replies, lower rejection tier)
+#   2. Human Review - replies with questions (read each reply, decide)
+#   3. Human Review - high rejection tier (3+ IRI fails, or 2 + factor)
+# A bulk-approve dispatch hint is included for the first bucket so the
+# operator can action the recommendations directly.
 REPLIES_SECTION=""
-INBOUND_CSV_FILE="$ARTIFACTS_DIR/prolific-messages-inbound-csv/participant_messages.csv"
-DISPOSITION_CSV_FILE="$ARTIFACTS_DIR/disposition-csv/disposition.csv"
-if [ -f "$INBOUND_CSV_FILE" ] && [ -f "$DISPOSITION_CSV_FILE" ]; then
-  if REPLIES_BODY=$(INBOUND_CSV="$INBOUND_CSV_FILE" DISPOSITION_CSV="$DISPOSITION_CSV_FILE" PYTHONIOENCODING=utf-8 python3 << 'REPLIESEOF'
-import csv, os, re
-from collections import Counter, defaultdict
+REPLIES_JSON="${RECOMMENDATIONS_JSON:-$ARTIFACTS_DIR/reply-action-recommendations/reply-action-recommendations.json}"
+if [ -f "$REPLIES_JSON" ]; then
+  if REPLIES_BODY=$(REPLIES_JSON="$REPLIES_JSON" RUN_ID="${GITHUB_RUN_ID:-}" REPO="${GITHUB_REPOSITORY:-clarkemoyer/technologyadoptionbarriers.org}" PYTHONIOENCODING=utf-8 python3 << 'REPLIESEOF'
+import json, os
 
-inbound_path = os.environ['INBOUND_CSV']
-disposition_path = os.environ['DISPOSITION_CSV']
+with open(os.environ['REPLIES_JSON']) as f:
+    d = json.load(f)
 
-# Per-PID reply records (one PID can have multiple replies).
-replies_by_pid = defaultdict(list)
-with open(inbound_path, encoding='utf-8-sig', newline='') as f:
-    for r in csv.DictReader(f):
-        pid = (r.get('participant_id') or '').strip()
-        if pid:
-            replies_by_pid[pid].append(r)
+total = d['total_awaiting']
+counts = d['bucket_counts']
+breakdown = d['breakdown']
+run_id = os.environ.get('RUN_ID', '<this-run-id>') or '<this-run-id>'
+repo = os.environ.get('REPO', 'clarkemoyer/technologyadoptionbarriers.org')
 
-# AWAITING REVIEW PIDs from the disposition CSV.
-awaiting = []
-with open(disposition_path, encoding='utf-8-sig', newline='') as f:
-    for row in csv.DictReader(f):
-        if row.get('Prolific_Status') != 'AWAITING REVIEW':
-            continue
-        pid = (row.get('PROLIFIC_PID') or '').strip()
-        if not pid:
-            continue
-        awaiting.append({'pid': pid, 'disposition': (row.get('Disposition') or '').strip()})
+with_replies = counts['auto_approve_eligible'] + counts['human_review_questions'] + counts['human_review_high_tier']
+no_reply = counts['no_reply']
 
-total_awaiting = len(awaiting)
-with_replies = [a for a in awaiting if replies_by_pid.get(a['pid'])]
-
-print(f'**{len(with_replies)} of {total_awaiting} awaiting-review submissions have participant replies** — read each reply on Prolific, then approve or reject.')
+print(f'**{with_replies} of {total} awaiting-review submissions have participant replies.** '
+      f'{no_reply} have not yet replied and will continue through the auto-cycle (message > 48h > request-return > 48h > reject).')
 print('')
-if not with_replies:
-    print('No replies awaiting review action today.')
+
+# --- 1. Auto-Approve eligible ---
+n_aa = counts['auto_approve_eligible']
+print(f'### \U0001F7E2 Recommended for Auto-Approve ({n_aa})')
+print('')
+if n_aa == 0:
+    print('No PIDs eligible for auto-approve today.')
 else:
-    by_disp = Counter(a['disposition'] for a in with_replies)
-    print('| Disposition | Awaiting w/ Replies | Top Reply Themes |')
-    print('|---|---:|---|')
-    for disp, n in sorted(by_disp.items(), key=lambda x: -x[1]):
-        theme_counter = Counter()
-        for a in with_replies:
-            if a['disposition'] != disp:
-                continue
-            seen = set()
-            for r in replies_by_pid[a['pid']]:
-                for t in re.split(r'[;|]', (r.get('themes') or '')):
-                    t = t.strip()
-                    if t and t not in seen:
-                        theme_counter[t] += 1
-                        seen.add(t)
-        if theme_counter:
-            top = ', '.join(f'{c} {t}' for t, c in theme_counter.most_common(3))
-        else:
-            top = '(no theme tags)'
-        print(f'| {disp} | {n} | {top} |')
+    print('Lower rejection tier + reply received with no question themes. The AI judges these as sufficient to approve.')
+    print('')
+    bd = breakdown['auto_approve_eligible']
+    if bd['by_disposition']:
+        print('| Disposition | Count | Top reply themes |')
+        print('|---|---:|---|')
+        # Per-disposition reply theme summary derived from the per-PID counts.
+        # We aggregate from the bucket entries themselves to keep this section self-contained.
+        per_disp_themes = {}
+        for entry in d['buckets']['auto_approve_eligible']:
+            t = per_disp_themes.setdefault(entry['disposition'], {})
+            for theme, n in entry['reply_theme_counts'].items():
+                t[theme] = t.get(theme, 0) + n
+        for disp, count in bd['by_disposition'].items():
+            themes = per_disp_themes.get(disp, {})
+            top = sorted(themes.items(), key=lambda kv: -kv[1])[:3]
+            label = ', '.join(f'{c} {t}' for t, c in top) if top else '(no theme tags)'
+            print(f'| {disp} | {count} | {label} |')
+    print('')
+    print('**To bulk-approve these PIDs** (the workflow downloads the recommendations artifact from this run):')
+    print('')
+    print('```')
+    print(f'gh workflow run bulk-approve-replied.yml \\')
+    print(f'  --repo {repo} \\')
+    print(f'  -F source_run_id={run_id} \\')
+    print(f'  -F dry_run=false \\')
+    print(f'  -F max_per_run=30')
+    print('```')
+    print('')
+    print('Default is dry-run; pass `-F dry_run=false` to approve live (and a thank-you message is sent to each).')
 print('')
-since_label = os.environ.get('MESSAGE_EXPORT_SINCE', 'unknown')
-print(f'**Total participants who have ever replied** (since {since_label}): {len(replies_by_pid)} unique. '
-      f'See the `prolific-messages-inbound-csv` workflow artifact (1-day retention) for full bodies, '
-      f'and `prolific-message-aggregate-summary` (7-day) for theme/PII distributions.')
+
+# --- 2. Human review (questions) ---
+n_q = counts['human_review_questions']
+print(f'### \U0001F534 Human Review - Reply Contains a Question ({n_q})')
+print('')
+if n_q == 0:
+    print('No replies contain question or dispute themes today.')
+else:
+    print('The participant asked us something. Read each reply and decide approve/reject.')
+    print('')
+    bd = breakdown['human_review_questions']
+    if bd['by_disposition']:
+        print('| Disposition | Count | Reply themes |')
+        print('|---|---:|---|')
+        per_disp_themes = {}
+        for entry in d['buckets']['human_review_questions']:
+            t = per_disp_themes.setdefault(entry['disposition'], {})
+            for theme, n in entry['reply_theme_counts'].items():
+                t[theme] = t.get(theme, 0) + n
+        for disp, count in bd['by_disposition'].items():
+            themes = per_disp_themes.get(disp, {})
+            top = sorted(themes.items(), key=lambda kv: -kv[1])[:5]
+            label = ', '.join(f'{c} {t}' for t, c in top) if top else '(no theme tags)'
+            print(f'| {disp} | {count} | {label} |')
+    print('')
+    print('Reply bodies are in the `prolific-messages-inbound-csv` artifact (1-day retention) or on each participant\'s Prolific submission page.')
+print('')
+
+# --- 3. Human review (high tier) ---
+n_h = counts['human_review_high_tier']
+print(f'### \U0001F7E1 Human Review - High Rejection Tier ({n_h})')
+print('')
+if n_h == 0:
+    print('No high-tier replies awaiting human review today.')
+else:
+    print('Disposition is in the high rejection tier (3+ IRI fails, or 2 IRI fails plus another quality factor like speed or partial straightlining). '
+          'Read the messaging exchange before deciding — the AI does not auto-approve these even with acknowledgment replies.')
+    print('')
+    bd = breakdown['human_review_high_tier']
+    if bd['by_disposition']:
+        print('| Disposition | Count | IRI fails | Other flags |')
+        print('|---|---:|---|---|')
+        # Group by (disposition, iri_fail signature) for context
+        from collections import Counter as _C
+        grouped = _C()
+        for entry in d['buckets']['human_review_high_tier']:
+            key = (entry['disposition'], entry['iri_fail'], entry['speed_flag'], entry['partial_straightlining_flag'])
+            grouped[key] += 1
+        for (disp, iri, spd, psl), n in grouped.most_common():
+            flags = []
+            if spd: flags.append('speed')
+            if psl: flags.append('partial-straightlining')
+            flag_label = ', '.join(flags) if flags else '(none)'
+            print(f'| {disp} | {n} | {iri} | {flag_label} |')
+    print('')
+    print('Action paths: (a) read replies on Prolific, then approve manually, or (b) use `reject_by_pid.py` for those you decide to reject.')
+print('')
+
+print(f'_Recommendations computed from `prolific-messages-inbound-csv` and `disposition-csv` artifacts. Full PID list is in the `reply-action-recommendations` workflow artifact (7-day retention)._')
 REPLIESEOF
   ); then
     REPLIES_SECTION="## 🟡 Replies to Consider
@@ -678,18 +737,13 @@ $REPLIES_BODY
   else
     REPLIES_SECTION="## 🟡 Replies to Consider
 
-> ⚠️ Could not render replies section (Python error). Check the \`prolific-messages-inbound-csv\` artifact and the daily-report job logs.
+> ⚠️ Could not render replies section (classifier output read failed). Check the daily-report job logs.
 "
   fi
-elif [ ! -f "$INBOUND_CSV_FILE" ]; then
+else
   REPLIES_SECTION="## 🟡 Replies to Consider
 
-> ⚠️ Replies data unavailable — \`prolific-messages-inbound-csv\` artifact was not found at \`$INBOUND_CSV_FILE\`. The Phase 3f export-messages job may have failed or been skipped.
-"
-elif [ ! -f "$DISPOSITION_CSV_FILE" ]; then
-  REPLIES_SECTION="## 🟡 Replies to Consider
-
-> ⚠️ Replies data unavailable — \`disposition-csv\` artifact was not found at \`$DISPOSITION_CSV_FILE\`. The upstream export-and-triage job may have failed or been skipped.
+> ⚠️ Replies recommendations unavailable — \`$REPLIES_JSON\` not found. The classify-replies step in Phase 5 may have failed (commonly because the Phase 3f export-messages artifact was missing).
 "
 fi
 
@@ -712,10 +766,6 @@ fi
 if [ "${MESSAGE_RESULT:-}" = "failure" ]; then
   WARNINGS="$WARNINGS
 > ⚠️ **Messaging failed** - some FLAG participants may not have been contacted."
-fi
-if [ "${EXPORT_MESSAGES_RESULT:-}" = "failure" ]; then
-  WARNINGS="$WARNINGS
-> ⚠️ **Export messages failed** - replies coverage may be incomplete for this report."
 fi
 if [ "${DASHBOARD_RESULT:-}" = "failure" ] || [ "$HAS_DASHBOARD" = false ]; then
   WARNINGS="$WARNINGS
@@ -779,7 +829,6 @@ $MSG_ROWS
 | Export and Triage | ${TRIAGE_RESULT:-unknown} |
 | Auto-Approve CLEAN | ${APPROVE_RESULT_STATUS:-unknown} |
 | Message FLAG Participants | ${MESSAGE_RESULT:-unknown} |
-| Export Messages (3f) | ${EXPORT_MESSAGES_RESULT:-unknown} |
 | Generate Dashboard | ${DASHBOARD_RESULT:-unknown} |
 | Auto-Request-Return (3d) | ${AUTO_REQUEST_RETURN_RESULT:-unknown} |
 | Auto-Reject-Stale-RR (3e) | ${AUTO_REJECT_STALE_RESULT:-unknown} |
@@ -803,7 +852,6 @@ CRITICAL_FINDINGS=false
 [ "${TRIAGE_RESULT:-}" = "failure" ] && CRITICAL_FINDINGS=true
 [ "${APPROVE_RESULT_STATUS:-}" = "failure" ] && CRITICAL_FINDINGS=true
 [ "${MESSAGE_RESULT:-}" = "failure" ] && CRITICAL_FINDINGS=true
-[ "${EXPORT_MESSAGES_RESULT:-}" = "failure" ] && CRITICAL_FINDINGS=true
 [ "${DASHBOARD_RESULT:-}" = "failure" ] && CRITICAL_FINDINGS=true
 [ "${AUTO_REQUEST_RETURN_RESULT:-}" = "failure" ] && CRITICAL_FINDINGS=true
 [ "${AUTO_REJECT_STALE_RESULT:-}" = "failure" ] && CRITICAL_FINDINGS=true
