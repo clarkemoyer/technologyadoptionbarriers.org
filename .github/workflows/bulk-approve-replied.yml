@@ -105,4 +105,4 @@ jobs:
         with:
           name: bulk-approve-results
           path: ${{ runner.temp }}/bulk-approve-results.json
-          retention-days: 7
+          retention-days: 1
