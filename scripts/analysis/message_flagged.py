@@ -137,8 +137,10 @@ def build_flag_message(record: dict) -> str:
     if disposition == "FLAG-RECAPTCHA":
         return (
             "Hi, thank you for participating in our Technology Adoption Barriers Survey. "
-            "Our automated authenticity checks flagged your submission for additional review. "
-            "This does not necessarily mean there is an issue \u2014 false positives can occur. "
+            "We are reviewing your submission because our reCAPTCHA bot-detection score "
+            "for your session was below the threshold we use to confirm human completion. "
+            "False positives can occur \u2014 for example, with VPNs, browser extensions, "
+            "or unusual network conditions. "
             "Could you confirm that you personally completed this survey? "
             "We want to treat all participants fairly. "
             "Please reply within 48 hours."
@@ -249,7 +251,7 @@ def get_message_signature(disposition: str) -> str:
         "FLAG-SPEED": "which is faster than expected for a survey of this length",
         "FLAG-SINGLE-IRI": "1 of 3 embedded attention checks was answered differently",
         "FLAG-SMEAL": "below our benchmark of 9 minutes",
-        "FLAG-RECAPTCHA": "automated authenticity checks flagged your submission",
+        "FLAG-RECAPTCHA": "reCAPTCHA bot-detection score for your session was below the threshold",
         "FLAG-PARTIAL-STRAIGHTLINING": "showed very little variation, which our quality checks flag",
         "AUTO-EXCLUDE:SPEED_IRI": "What is your professional background and role",
         "AUTO-EXCLUDE:IRI2_RETURN": "2 of 3 embedded attention check questions were answered differently",
