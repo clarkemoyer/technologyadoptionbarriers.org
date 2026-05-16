@@ -90,7 +90,7 @@ delta_returned = int(os.environ['DELTA_RETURNED'])
 today = _dt.date.today()
 
 if today_approved >= target:
-    print(f"FORECAST=\\U0001F389 **N={target} reached!** ({today_approved} approved)")
+    print(f"FORECAST=\U0001F389 **N={target} reached!** ({today_approved} approved)")
 elif delta_approved <= 0:
     remaining = target - today_approved
     print(f"FORECAST=**N={target} ETA:** approval rate stalled at +{delta_approved}/day; "
@@ -823,7 +823,7 @@ else:
     print(f'gh workflow run bulk-reject-high-tier-no-reply.yml \\')
     print(f'  --repo {repo} \\')
     print(f'  -F source_run_id={run_id} \\')
-    print(f'  -F dry_run=false \\')
+    print(f'  -F dry_run=true \\')
     print(f'  -F max_per_run=30')
     print('```')
     print('')

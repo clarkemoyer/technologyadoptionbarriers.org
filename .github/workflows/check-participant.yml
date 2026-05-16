@@ -22,7 +22,7 @@ on:
           - demographics
         default: 'single'
       pid:
-        description: 'Prolific Participant ID (required for single/send-custom mode)'
+        description: 'Prolific Participant ID(s): required for single, send-custom, and approve modes. Use one PID for single/send-custom; use a comma-separated PID list for approve.'
         required: false
         type: string
       message:

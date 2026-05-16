@@ -48,17 +48,6 @@ from collections import Counter, defaultdict
 from pathlib import Path
 
 
-QUESTION_THEMES = frozenset(
-    {
-        "question_about_study",
-        "contact_request",
-        "rejection_dispute",
-        "payment_question",
-        "technical_issue",
-    }
-)
-
-
 def _safe_int(value: object) -> int:
     if value is None:
         return 0
