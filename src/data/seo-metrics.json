@@ -1,23 +1,23 @@
 {
-  "generatedAt": "2026-05-15T20:15:22.755Z",
-  "dashboardSyncedAt": "2026-05-15T20:15:22.755Z",
+  "generatedAt": "2026-05-16T09:34:04.871Z",
+  "dashboardSyncedAt": "2026-05-16T09:34:04.871Z",
   "dateRange": {
-    "startDate": "2026-04-17",
-    "endDate": "2026-05-15"
+    "startDate": "2026-04-18",
+    "endDate": "2026-05-16"
   },
   "overview": {
-    "organicSessions": 182748,
-    "organicSessionsChange": 178498,
-    "totalImpressions": 31589,
-    "totalImpressionsChange": -6911,
+    "organicSessions": 149534,
+    "organicSessionsChange": -33214,
+    "totalImpressions": 31059,
+    "totalImpressionsChange": -530,
     "totalClicks": 59,
-    "totalClicksChange": -2121,
+    "totalClicksChange": 0,
     "averageCTR": 0.19,
     "averageCTRUnit": "percent",
-    "averageCTRChange": -5.47,
+    "averageCTRChange": 0,
     "averageCTRChangeUnit": "percentagePoints",
     "averagePosition": 8.6,
-    "averagePositionChange": -19.8,
+    "averagePositionChange": 0,
     "domainAuthority": 12,
     "domainAuthorityChange": 2,
     "indexedPages": 47,
@@ -28,12 +28,12 @@
   "topKeywords": [
     {
       "keyword": "technology adoption barriers",
-      "position": 4.4,
+      "position": 4.3,
       "previousPosition": null,
       "volume": 0,
       "clicks": 1,
-      "impressions": 29,
-      "ctr": 3.4
+      "impressions": 28,
+      "ctr": 3.6
     },
     {
       "keyword": "technology adoption framework",
@@ -50,7 +50,7 @@
       "previousPosition": null,
       "volume": 0,
       "clicks": 1,
-      "impressions": 35,
+      "impressions": 34,
       "ctr": 2.9
     },
     {
@@ -68,7 +68,7 @@
       "previousPosition": null,
       "volume": 0,
       "clicks": 0,
-      "impressions": 64,
+      "impressions": 63,
       "ctr": 0
     },
     {
@@ -109,11 +109,11 @@
     },
     {
       "keyword": "\"sct\" \"albert bandura\" \"the 1980s\" \"bandura\" \"1986\" or \"unlike behaviorist approaches that focus solely on the environment and\" or \"the student may watch and mentally rehearse before demonstrating their\"",
-      "position": 6,
+      "position": 5.9,
       "previousPosition": null,
       "volume": 0,
       "clicks": 0,
-      "impressions": 419,
+      "impressions": 377,
       "ctr": 0
     }
   ],
