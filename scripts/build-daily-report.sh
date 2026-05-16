@@ -600,6 +600,98 @@ $RUNWAY_BODY
   fi
 fi
 
+# --- Replies to Consider section (Phase 3f export-messages output) ---
+# Cross-references inbound participant replies against AWAITING REVIEW PIDs
+# from the disposition CSV. Surfaces the operator-actionable count: how many
+# replies are sitting in the queue, broken down by disposition and theme.
+# Renders nothing if the inbound CSV is missing (export-messages skipped/failed).
+REPLIES_SECTION=""
+INBOUND_CSV_FILE="$ARTIFACTS_DIR/prolific-messages-inbound-csv/participant_messages.csv"
+DISPOSITION_CSV_FILE="$ARTIFACTS_DIR/disposition-csv/disposition.csv"
+if [ -f "$INBOUND_CSV_FILE" ] && [ -f "$DISPOSITION_CSV_FILE" ]; then
+  if REPLIES_BODY=$(INBOUND_CSV="$INBOUND_CSV_FILE" DISPOSITION_CSV="$DISPOSITION_CSV_FILE" PYTHONIOENCODING=utf-8 python3 << 'REPLIESEOF'
+import csv, os
+from collections import Counter, defaultdict
+
+inbound_path = os.environ['INBOUND_CSV']
+disposition_path = os.environ['DISPOSITION_CSV']
+
+# Per-PID reply records (one PID can have multiple replies).
+replies_by_pid = defaultdict(list)
+with open(inbound_path, encoding='utf-8-sig', newline='') as f:
+    for r in csv.DictReader(f):
+        pid = (r.get('participant_id') or '').strip()
+        if pid:
+            replies_by_pid[pid].append(r)
+
+# AWAITING REVIEW PIDs from the disposition CSV.
+awaiting = []
+with open(disposition_path, encoding='utf-8-sig', newline='') as f:
+    for row in csv.DictReader(f):
+        if row.get('Prolific_Status') != 'AWAITING REVIEW':
+            continue
+        pid = (row.get('PROLIFIC_PID') or '').strip()
+        if not pid:
+            continue
+        awaiting.append({'pid': pid, 'disposition': (row.get('Disposition') or '').strip()})
+
+total_awaiting = len(awaiting)
+with_replies = [a for a in awaiting if replies_by_pid.get(a['pid'])]
+
+print(f'**{len(with_replies)} of {total_awaiting} awaiting-review submissions have participant replies** — read each reply on Prolific, then approve or reject.')
+print('')
+if not with_replies:
+    print('No replies awaiting review action today.')
+else:
+    by_disp = Counter(a['disposition'] for a in with_replies)
+    print('| Disposition | Awaiting w/ Replies | Top Reply Themes |')
+    print('|---|---:|---|')
+    for disp, n in sorted(by_disp.items(), key=lambda x: -x[1]):
+        theme_counter = Counter()
+        for a in with_replies:
+            if a['disposition'] != disp:
+                continue
+            seen = set()
+            for r in replies_by_pid[a['pid']]:
+                for t in (r.get('themes') or '').split('|'):
+                    t = t.strip()
+                    if t and t not in seen:
+                        theme_counter[t] += 1
+                        seen.add(t)
+        if theme_counter:
+            top = ', '.join(f'{c} {t}' for t, c in theme_counter.most_common(3))
+        else:
+            top = '(no theme tags)'
+        print(f'| {disp} | {n} | {top} |')
+print('')
+print(f'**Total participants who have ever replied** (since 2025-01-01): {len(replies_by_pid)} unique. '
+      f'See the `prolific-messages-inbound-csv` workflow artifact (1-day retention) for full bodies, '
+      f'and `prolific-messages-aggregate-summary` (7-day) for theme/PII distributions.')
+REPLIESEOF
+  ); then
+    REPLIES_SECTION="## 🟡 Replies to Consider
+
+$REPLIES_BODY
+"
+  else
+    REPLIES_SECTION="## 🟡 Replies to Consider
+
+> ⚠️ Could not render replies section (Python error). Check the \`prolific-messages-inbound-csv\` artifact and the daily-report job logs.
+"
+  fi
+elif [ ! -f "$INBOUND_CSV_FILE" ]; then
+  REPLIES_SECTION="## 🟡 Replies to Consider
+
+> ⚠️ Replies data unavailable — \`prolific-messages-inbound-csv\` artifact was not found at \`$INBOUND_CSV_FILE\`. The Phase 3f export-messages job may have failed or been skipped.
+"
+fi
+
+REPLIES_SECTION_FORMATTED=""
+if [ -n "$REPLIES_SECTION" ]; then
+  REPLIES_SECTION_FORMATTED="$REPLIES_SECTION
+"
+fi
+
 # --- Build warnings for upstream failures ---
 WARNINGS=""
 if [ "${TRIAGE_RESULT:-}" = "failure" ]; then
@@ -650,6 +742,7 @@ $TRIAGE_BREAKDOWN
 
 $RECONCILIATION_SECTION
 $RUNWAY_SECTION
+$REPLIES_SECTION_FORMATTED
 $RECOMMENDATIONS_SECTION
 $STALE_TRIAGE_SECTION_FORMATTED
 $AUTO_RR_SECTION_FORMATTED
