@@ -68,7 +68,7 @@ jobs:
           name: reply-action-recommendations
           path: ${{ runner.temp }}/recs
           run-id: ${{ inputs.source_run_id }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ github.token }}
 
       - name: Download disposition CSV
         uses: actions/download-artifact@v8
@@ -76,7 +76,7 @@ jobs:
           name: disposition-csv
           path: ${{ runner.temp }}/disp
           run-id: ${{ inputs.source_run_id }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ github.token }}
 
       - name: Extract no_reply_high_tier PIDs
         id: extract
@@ -126,4 +126,7 @@ jobs:
         with:
           name: bulk-reject-results
           path: ${{ runner.temp }}/bulk-reject-results.json
-          retention-days: 7
+          # 1-day retention: contains full PIDs (rejected, skipped, failed).
+          # Matches the privacy treatment of disposition-csv and the
+          # reply-action-recommendations source artifact.
+          retention-days: 1
