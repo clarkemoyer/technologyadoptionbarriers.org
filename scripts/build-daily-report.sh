@@ -663,7 +663,7 @@ else:
     print(f'gh workflow run bulk-approve-replied.yml \\')
     print(f'  --repo {repo} \\')
     print(f'  -F source_run_id={run_id} \\')
-    print(f'  -F dry_run=false \\')
+    print(f'  -F dry_run=true \\')
     print(f'  -F max_per_run=30')
     print('```')
     print('')

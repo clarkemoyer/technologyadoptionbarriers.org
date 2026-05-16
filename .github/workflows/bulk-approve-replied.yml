@@ -61,7 +61,7 @@ jobs:
           name: reply-action-recommendations
           path: ${{ runner.temp }}/recs
           run-id: ${{ inputs.source_run_id }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ github.token }}
 
       - name: Extract auto_approve_eligible PIDs
         id: extract

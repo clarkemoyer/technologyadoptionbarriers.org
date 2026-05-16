@@ -164,10 +164,10 @@ def main() -> int:
         }
         if not replies:
             buckets["no_reply"].append(entry)
-        elif reply_has_question(replies):
-            buckets["human_review_questions"].append(entry)
         elif is_high_rejection_tier(row):
             buckets["human_review_high_tier"].append(entry)
+        elif reply_has_question(replies):
+            buckets["human_review_questions"].append(entry)
         else:
             buckets["auto_approve_eligible"].append(entry)
 

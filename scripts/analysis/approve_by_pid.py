@@ -26,6 +26,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import sys
 from pathlib import Path
 
@@ -48,6 +49,7 @@ THANK_YOU_MESSAGE = (
 )
 SIGNATURE = "After reviewing your reply, your submission has been approved"
 DEFAULT_MAX_PER_RUN = 30
+PID_RE = re.compile(r"\b[0-9a-fA-F]{24}\b")
 
 
 def _require_env(name: str) -> str:
@@ -77,6 +79,16 @@ def _write_results(path: str | None, payload: dict) -> None:
         return
     Path(path).write_text(json.dumps(payload, indent=2))
     print(f"Results: {path}")
+
+
+def _redact_pid(pid: str) -> str:
+    if len(pid) <= 4:
+        return pid
+    return f"****{pid[-4:]}"
+
+
+def _sanitize_log_text(text: str) -> str:
+    return PID_RE.sub(lambda m: _redact_pid(m.group(0)), text)
 
 
 def main() -> int:
@@ -157,7 +169,7 @@ def main() -> int:
             if st == "AWAITING REVIEW":
                 targets.append(pid)
             else:
-                print(f"  SKIP {pid} - status is {st}, not AWAITING REVIEW")
+                print(f"  SKIP {_redact_pid(pid)} - status is {st}, not AWAITING REVIEW")
                 result["skipped_non_awaiting"].append({"pid": pid, "status": st})
 
         print(f"  AWAITING REVIEW (will approve): {len(targets)}")
@@ -179,7 +191,7 @@ def main() -> int:
             result["approved"] = list(targets)
             print(f"  Approved: {len(targets)}")
         except Exception as exc:
-            err = str(exc)
+            err = _sanitize_log_text(str(exc))
             print(f"::error::Bulk approve failed: {err}", file=sys.stderr)
             result["bulk_approve_error"] = err
             _write_results(output_path, result)
@@ -200,15 +212,15 @@ def main() -> int:
                     for m in existing
                 )
                 if already:
-                    print(f"  SKIP {pid} - already received this thank-you")
+                    print(f"  SKIP {_redact_pid(pid)} - already received this thank-you")
                     result["thank_you_skipped_dedup"].append(pid)
                     continue
                 prolific_send_message(study_id, pid, THANK_YOU_MESSAGE, api_token)
-                print(f"  SENT thank-you to {pid}")
+                print(f"  SENT thank-you to {_redact_pid(pid)}")
                 result["thank_you_sent"].append(pid)
             except Exception as exc:
-                err = str(exc)
-                print(f"  FAILED thank-you to {pid}: {err}", file=sys.stderr)
+                err = _sanitize_log_text(str(exc))
+                print(f"  FAILED thank-you to {_redact_pid(pid)}: {err}", file=sys.stderr)
                 result["thank_you_failed"].append({"pid": pid, "error": err})
 
     print()
