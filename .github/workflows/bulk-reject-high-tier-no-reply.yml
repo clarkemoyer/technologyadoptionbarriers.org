@@ -87,13 +87,17 @@ jobs:
             echo "::error::Recommendations file not found at $REC"
             exit 1
           fi
-          PID_LIST=$(python3 -c "
+          PID_LIST=$(REC="$REC" python3 <<'PY'
           import json
-          with open('$REC') as f:
+          import os
+
+          with open(os.environ["REC"], encoding="utf-8") as f:
               d = json.load(f)
-          pids = [e['pid'] for e in d['buckets']['no_reply_high_tier']]
-          print(','.join(pids))
-          ")
+
+          pids = [entry["pid"] for entry in d["buckets"]["no_reply_high_tier"]]
+          print(",".join(pids))
+          PY
+          )
           if [ -z "$PID_LIST" ]; then
             COUNT=0
           else

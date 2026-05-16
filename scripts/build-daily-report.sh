@@ -67,7 +67,7 @@ fi
 # --- N=500 forecast + queue resolution rate (computed from today's deltas) ---
 # Forecast: at today's net-approval rate (DELTA_APPROVED), how many days until
 # TODAY_APPROVED reaches 500? Queue clear: at today's net-resolution rate
-# (approved+returned+rejected+timed_out delta), how many days to clear the
+# (approved+returned+rejected delta), how many days to clear the
 # current AWAITING REVIEW queue? Both stay quiet (empty string) when we have
 # no signal (delta=0, no dashboard data, or already past target).
 N500_FORECAST_LINE=""
@@ -75,7 +75,7 @@ QUEUE_RESOLUTION_LINE=""
 if [ "$HAS_DASHBOARD" = true ]; then
   FORECAST=$(N500_TARGET=500 TODAY_APPROVED="$TODAY_APPROVED" DELTA_APPROVED="$DELTA_APPROVED" \
              TODAY_AWAITING="$TODAY_AWAITING" DELTA_REJECTED="$DELTA_REJECTED" \
-             DELTA_RETURNED="$DELTA_RETURNED" DELTA_TIMED="0" \
+             DELTA_RETURNED="$DELTA_RETURNED" \
              python3 << 'PYEOF'
 import datetime as _dt
 import os
