@@ -13,6 +13,7 @@ on:
           - send-thank-you
           - unreject
           - send-custom
+          - approve
           - awaiting-report
           - request-return
           - stale-return-requested
@@ -183,6 +184,17 @@ jobs:
           MESSAGE: ${{ inputs.message }}
           DRY_RUN: 'false'
         run: python3 scripts/analysis/send_custom_message.py
+
+      - name: Approve PID(s)
+        if: inputs.mode == 'approve'
+        env:
+          PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
+          STUDY_ID: ${{ inputs.study_id || vars.PROLIFIC_STUDY_ID }}
+          PID_LIST: ${{ inputs.pid }}
+          DRY_RUN: 'false'
+          CONFIRM_APPROVE: 'APPROVE'
+          MAX_PER_RUN: '30'
+        run: python3 scripts/analysis/approve_by_pid.py
 
       - name: Unreject submissions
         if: inputs.mode == 'unreject'
