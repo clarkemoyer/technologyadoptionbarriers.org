@@ -5,7 +5,8 @@ set -euo pipefail
 # Reads artifacts from previous workflow steps and creates a GitHub issue.
 #
 # Required env vars: GH_TOKEN, RUN_URL, ARTIFACTS_DIR, PREV_FILE
-# Optional: TRIAGE_RESULT, APPROVE_RESULT_STATUS, MESSAGE_RESULT, DASHBOARD_RESULT
+# Optional: TRIAGE_RESULT, APPROVE_RESULT_STATUS, MESSAGE_RESULT, DASHBOARD_RESULT,
+#           EXPORT_MESSAGES_RESULT, MESSAGE_EXPORT_SINCE
 
 # Validate required env vars
 for var in GH_TOKEN RUN_URL; do
@@ -664,7 +665,8 @@ else:
             top = '(no theme tags)'
         print(f'| {disp} | {n} | {top} |')
 print('')
-print(f'**Total participants who have ever replied** (since 2025-01-01): {len(replies_by_pid)} unique. '
+since_label = os.environ.get('MESSAGE_EXPORT_SINCE', 'unknown')
+print(f'**Total participants who have ever replied** (since {since_label}): {len(replies_by_pid)} unique. '
       f'See the `prolific-messages-inbound-csv` workflow artifact (1-day retention) for full bodies, '
       f'and `prolific-message-aggregate-summary` (7-day) for theme/PII distributions.')
 REPLIESEOF
@@ -710,6 +712,10 @@ fi
 if [ "${MESSAGE_RESULT:-}" = "failure" ]; then
   WARNINGS="$WARNINGS
 > ⚠️ **Messaging failed** - some FLAG participants may not have been contacted."
+fi
+if [ "${EXPORT_MESSAGES_RESULT:-}" = "failure" ]; then
+  WARNINGS="$WARNINGS
+> ⚠️ **Export messages failed** - replies coverage may be incomplete for this report."
 fi
 if [ "${DASHBOARD_RESULT:-}" = "failure" ] || [ "$HAS_DASHBOARD" = false ]; then
   WARNINGS="$WARNINGS
@@ -773,6 +779,7 @@ $MSG_ROWS
 | Export and Triage | ${TRIAGE_RESULT:-unknown} |
 | Auto-Approve CLEAN | ${APPROVE_RESULT_STATUS:-unknown} |
 | Message FLAG Participants | ${MESSAGE_RESULT:-unknown} |
+| Export Messages (3f) | ${EXPORT_MESSAGES_RESULT:-unknown} |
 | Generate Dashboard | ${DASHBOARD_RESULT:-unknown} |
 | Auto-Request-Return (3d) | ${AUTO_REQUEST_RETURN_RESULT:-unknown} |
 | Auto-Reject-Stale-RR (3e) | ${AUTO_REJECT_STALE_RESULT:-unknown} |
@@ -796,6 +803,7 @@ CRITICAL_FINDINGS=false
 [ "${TRIAGE_RESULT:-}" = "failure" ] && CRITICAL_FINDINGS=true
 [ "${APPROVE_RESULT_STATUS:-}" = "failure" ] && CRITICAL_FINDINGS=true
 [ "${MESSAGE_RESULT:-}" = "failure" ] && CRITICAL_FINDINGS=true
+[ "${EXPORT_MESSAGES_RESULT:-}" = "failure" ] && CRITICAL_FINDINGS=true
 [ "${DASHBOARD_RESULT:-}" = "failure" ] && CRITICAL_FINDINGS=true
 [ "${AUTO_REQUEST_RETURN_RESULT:-}" = "failure" ] && CRITICAL_FINDINGS=true
 [ "${AUTO_REJECT_STALE_RESULT:-}" = "failure" ] && CRITICAL_FINDINGS=true

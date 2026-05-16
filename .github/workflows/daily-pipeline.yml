@@ -36,6 +36,8 @@ env:
   # Official GitHub flag to force Node.js 24 runtime ahead of the June 2026 mandatory deadline.
   # Ref: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+  # Shared lower-bound timestamp for Phase 3f Prolific message exports.
+  PHASE3F_MESSAGE_SINCE: '2025-01-01T00:00:00Z'
 
 jobs:
   # ── Phase 1: Fetch Prolific data ─────────────────────────────
@@ -789,7 +791,7 @@ jobs:
         env:
           PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
           STUDY_ID: ${{ vars.PROLIFIC_STUDY_ID }}
-          SINCE: '2025-01-01T00:00:00Z'
+          SINCE: ${{ env.PHASE3F_MESSAGE_SINCE }}
           RAW_OUTPUT_PATH: ${{ runner.temp }}/all_messages_raw.json
           INBOUND_CSV_PATH: ${{ runner.temp }}/participant_messages.csv
           TRANSCRIPTS_PATH: ${{ runner.temp }}/participant_messages.md
@@ -959,7 +961,9 @@ jobs:
           TRIAGE_RESULT: ${{ needs.analyze.result }}
           APPROVE_RESULT_STATUS: ${{ needs.approve-clean.result }}
           MESSAGE_RESULT: ${{ needs.message-flags.result }}
+          EXPORT_MESSAGES_RESULT: ${{ needs.export-messages.result }}
           DASHBOARD_RESULT: ${{ needs.generate-dashboard.result }}
           AUTO_REQUEST_RETURN_RESULT: ${{ needs.auto-request-return.result }}
           AUTO_REJECT_STALE_RESULT: ${{ needs.auto-reject-stale.result }}
+          MESSAGE_EXPORT_SINCE: ${{ env.PHASE3F_MESSAGE_SINCE }}
         run: bash scripts/build-daily-report.sh
