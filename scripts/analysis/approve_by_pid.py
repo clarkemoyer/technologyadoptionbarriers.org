@@ -163,6 +163,7 @@ def main() -> int:
         "input_count": len(pids),
         "ceiling": max_per_run,
         "ceiling_exceeded": False,
+        "deferred_over_ceiling": [],
         "approved": [],
         "skipped_non_awaiting": [],
         "thank_you_sent": [],
@@ -176,15 +177,6 @@ def main() -> int:
         print("No PIDs provided. Nothing to do.")
         _write_results(output_path, result)
         return 0
-
-    if len(pids) > max_per_run:
-        result["ceiling_exceeded"] = True
-        print(
-            f"::error::Ceiling exceeded: {len(pids)} PIDs > {max_per_run} ceiling. Aborting.",
-            file=sys.stderr,
-        )
-        _write_results(output_path, result)
-        return 1
 
     if not dry_run:
         confirm = os.environ.get("CONFIRM_APPROVE", "")
@@ -215,6 +207,20 @@ def main() -> int:
         print(f"DRY RUN - would target {len(targets)} currently AWAITING REVIEW PIDs")
     print(f"  AWAITING REVIEW (will approve): {len(targets)}")
     print(f"  Skipped (other status): {len(result['skipped_non_awaiting'])}")
+
+    # Apply ceiling AFTER status filtering: an input PID that has already moved
+    # out of AWAITING REVIEW shouldn't count against the ceiling. Truncate the
+    # eligible target list rather than aborting -- partial progress is more
+    # useful than no progress when a large bucket is dispatched.
+    if len(targets) > max_per_run:
+        result["ceiling_exceeded"] = True
+        deferred = targets[max_per_run:]
+        result["deferred_over_ceiling"] = list(deferred)
+        targets = targets[:max_per_run]
+        print(
+            f"::warning::Eligible targets ({len(targets) + len(deferred)}) exceed ceiling "
+            f"{max_per_run}; processing first {len(targets)} and deferring {len(deferred)}."
+        )
 
     if not targets:
         print("No eligible PIDs to approve.")
