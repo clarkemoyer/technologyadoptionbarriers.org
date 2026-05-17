@@ -61,14 +61,7 @@ dfmt() { if [ "$1" -gt 0 ]; then printf "+%d" "$1"; elif [ "$1" -eq 0 ]; then pr
 # --- HIGH RISK count (drives title prefix and @-mention) ---
 HIGH_RISK_COUNT=0
 if [ -f "$TODAY_FILE" ]; then
-  HIGH_RISK_COUNT=$(python3 -c "import json
-from pathlib import Path
-try:
-    d = json.loads(Path('$TODAY_FILE').read_text(encoding='utf-8'))
-    raw = d.get('highRiskCount', 0)
-    print(int(raw))
-except (FileNotFoundError, json.JSONDecodeError, TypeError, ValueError):
-    print(0)" 2>/dev/null || echo 0)
+  HIGH_RISK_COUNT=$(python3 -c "import json; d=json.load(open('$TODAY_FILE')); print(d.get('highRiskCount', 0))" 2>/dev/null || echo 0)
 fi
 
 # --- N=500 forecast + queue resolution rate (computed from today's deltas) ---
@@ -701,8 +694,26 @@ with_replies = counts['auto_approve_eligible'] + counts['human_review_questions'
 no_reply_total = counts.get('no_reply', 0) + counts.get('no_reply_high_tier', 0)
 multi_reply = d.get('multi_reply_count', 0)
 
+# Auto-cycle health: the no_reply bucket flows through Phase 3d/3e
+# (auto-request-return then auto-reject after the 48h+48h cycle). If
+# either phase was skipped or failed in this run, those PIDs are NOT
+# being escalated and will accumulate. Surface this so the operator
+# does not assume the auto-cycle is handling them.
+auto_rr_result = os.environ.get('AUTO_REQUEST_RETURN_RESULT', 'unknown')
+auto_rj_result = os.environ.get('AUTO_REJECT_STALE_RESULT', 'unknown')
+auto_cycle_healthy = auto_rr_result == 'success' and auto_rj_result == 'success'
+
+if auto_cycle_healthy:
+    cycle_note = ' continue through the auto-cycle (message > 48h > request-return > 48h > reject).'
+else:
+    cycle_note = (
+        f' would normally continue through the auto-cycle, but **Phase 3d auto-request-return '
+        f'({auto_rr_result})** and/or **Phase 3e auto-reject-stale ({auto_rj_result})** did not '
+        f'succeed in this run -- those PIDs are not being escalated until the auto-cycle is healthy.'
+    )
+
 print(f'**{with_replies} of {total} awaiting-review submissions have participant replies.** '
-      f'{no_reply_total} have not yet replied and continue through the auto-cycle (message > 48h > request-return > 48h > reject).')
+      f'{no_reply_total} have not yet replied and{cycle_note}')
 if multi_reply > 0:
     print('')
     print(f'> ⚠ **{multi_reply} participant(s) have replied 2+ times.** Multi-reply usually means the first response did not resolve their concern. Review their threads in the `prolific-messages-inbound-csv` artifact before approving.')
@@ -964,6 +975,7 @@ $MSG_ROWS
 | Generate Dashboard | ${DASHBOARD_RESULT:-unknown} |
 | Auto-Request-Return (3d) | ${AUTO_REQUEST_RETURN_RESULT:-unknown} |
 | Auto-Reject-Stale-RR (3e) | ${AUTO_REJECT_STALE_RESULT:-unknown} |
+| Export Prolific Messages (3f) | ${EXPORT_MESSAGES_RESULT:-unknown} |
 
 ---
 **Workflow run:** [View full logs]($RUN_URL)
