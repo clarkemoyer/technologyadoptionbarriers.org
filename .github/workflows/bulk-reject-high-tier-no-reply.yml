@@ -16,10 +16,10 @@ name: Bulk Reject High-Tier No-Reply
 #
 # Safety:
 #   - Default is dry-run. Live execution requires `dry_run: false`.
-#   - Live rejection also requires `confirm_reject: REJECT`.
+#   - reject_by_pid.py enforces CONFIRM_REJECT=REJECT on live runs.
 #   - MAX_PER_RUN ceiling defaults to 10 (overridable per-run).
-#   - Non-AWAITING PIDs are skipped so re-runs stay idempotent if another
-#     workflow already actioned part of the bucket.
+#   - reject_by_pid.py skips any PID whose status is no longer AWAITING REVIEW
+#     (so re-runs are idempotent; if Phase 3e already rejected a PID, it skips).
 
 on:
   workflow_dispatch:
@@ -33,11 +33,6 @@ on:
         required: false
         type: boolean
         default: true
-      confirm_reject:
-        description: 'Type REJECT to confirm live rejection (required when dry_run is false)'
-        required: false
-        type: string
-        default: ''
       max_per_run:
         description: 'Ceiling override (default 10)'
         required: false
@@ -61,23 +56,6 @@ jobs:
     runs-on: ubuntu-latest
     environment: prolific-prod
     steps:
-      - name: 'Safety check: validate confirmation'
-        if: inputs.dry_run == false
-        env:
-          CONFIRM: ${{ inputs.confirm_reject }}
-        run: |
-          echo "================================================================"
-          echo "  DESTRUCTIVE OPERATION: Prolific Submission Rejection"
-          echo "  This will REJECT the no_reply_high_tier PIDs from the selected run."
-          echo "  They will NOT be paid."
-          echo "================================================================"
-          if [ "$CONFIRM" != "REJECT" ]; then
-            echo "SAFETY STOP: You must type REJECT in the confirmation field."
-            echo "Received: '$CONFIRM'"
-            exit 1
-          fi
-          echo "Confirmation accepted: '$CONFIRM'"
-
       - uses: actions/checkout@v6
 
       - uses: actions/setup-python@v6
@@ -109,7 +87,9 @@ jobs:
             echo "::error::Recommendations file not found at $REC"
             exit 1
           fi
-          PID_LIST=$(REC="$REC" python3 <<'PY'
+          # Compute PID_LIST and COUNT in a single Python invocation so we
+          # don't shell-interpolate $PID_LIST into a second python3 -c call.
+          read -r PID_LIST COUNT < <(REC="$REC" python3 << 'PY'
           import json
           import os
 
@@ -117,16 +97,18 @@ jobs:
               d = json.load(f)
 
           pids = [entry["pid"] for entry in d["buckets"]["no_reply_high_tier"]]
-          print(",".join(pids))
+          print(",".join(pids), len(pids))
           PY
           )
           if [ -z "$PID_LIST" ]; then
             COUNT=0
-          else
-            COUNT=$(python3 -c "print(len('$PID_LIST'.split(',')))")
           fi
-          echo "pid_list=$PID_LIST" >> "$GITHUB_OUTPUT"
-          echo "count=$COUNT" >> "$GITHUB_OUTPUT"
+          {
+            echo "pid_list<<EOF_PIDS"
+            echo "$PID_LIST"
+            echo "EOF_PIDS"
+            echo "count=$COUNT"
+          } >> "$GITHUB_OUTPUT"
           echo "Found $COUNT PIDs in no_reply_high_tier bucket"
 
       - name: Reject PIDs
@@ -138,9 +120,9 @@ jobs:
           CSV_FILE_PATH: ${{ runner.temp }}/disp/disposition.csv
           PID_LIST: ${{ steps.extract.outputs.pid_list }}
           MAX_PER_RUN: ${{ inputs.max_per_run }}
-          STRICT_AWAITING: 'false'
+          STRICT_AWAITING: 'true'
           DRY_RUN: ${{ inputs.dry_run && 'true' || 'false' }}
-          CONFIRM_REJECT: ${{ inputs.confirm_reject }}
+          CONFIRM_REJECT: ${{ inputs.dry_run && 'unused' || 'REJECT' }}
           OUTPUT_JSON_PATH: ${{ runner.temp }}/bulk-reject-results.json
 
       - uses: actions/upload-artifact@v7
