@@ -34,6 +34,11 @@ on:
         description: 'Approve mode only: required for live approve runs. Type APPROVE exactly when dry_run=false.'
         required: false
         type: string
+      max_per_run:
+        description: 'Approve mode only: per-run ceiling override (default 30). approve_by_pid.py truncates eligible targets above this count.'
+        required: false
+        type: string
+        default: '30'
       message:
         description: 'Custom message body (required for send-custom mode)'
         required: false
@@ -202,7 +207,7 @@ jobs:
           PID_LIST: ${{ inputs.pid }}
           DRY_RUN: ${{ inputs.dry_run && 'true' || 'false' }}
           CONFIRM_APPROVE: ${{ inputs.confirm_approve }}
-          MAX_PER_RUN: '30'
+          MAX_PER_RUN: ${{ inputs.max_per_run }}
         run: python3 scripts/analysis/approve_by_pid.py
 
       - name: Unreject submissions
