@@ -325,3 +325,87 @@ class TestMultiReply:
             ],
         )
         assert result["multi_reply_count"] == 0
+
+
+# ---------------------------------------------------------------------------
+# Bucket entry schema — these fields are consumed by the daily report
+# (build-daily-report.sh) and by the bulk-action workflows. Locking them in
+# so a future refactor of the entry dict can't silently break downstream.
+# ---------------------------------------------------------------------------
+
+
+class TestBucketEntrySchema:
+    REQUIRED_FIELDS = {
+        "pid",
+        "disposition",
+        "iri_fail",
+        "speed_flag",
+        "partial_straightlining_flag",
+        "reply_count",
+        "reply_theme_counts",
+    }
+
+    def test_no_reply_high_tier_entry_has_required_fields(self, tmp_path):
+        result = _run(
+            tmp_path,
+            [
+                {
+                    "PROLIFIC_PID": "JJJJ000000000000000000001",
+                    "IRI_Fail_Count": "3",
+                    "Speed_Flag": "0",
+                    "Partial_Straightlining_Flag": "0",
+                    "Disposition": "AUTO-EXCLUDE",
+                    "Prolific_Status": "AWAITING REVIEW",
+                }
+            ],
+            [],
+        )
+        entries = result["buckets"]["no_reply_high_tier"]
+        assert len(entries) == 1
+        missing = self.REQUIRED_FIELDS - set(entries[0].keys())
+        assert not missing, f"missing fields in no_reply_high_tier entry: {missing}"
+
+    def test_auto_approve_eligible_entry_has_required_fields(self, tmp_path):
+        result = _run(
+            tmp_path,
+            [
+                {
+                    "PROLIFIC_PID": "KKKK000000000000000000001",
+                    "IRI_Fail_Count": "1",
+                    "Disposition": "FLAG-SINGLE-IRI",
+                    "Prolific_Status": "AWAITING REVIEW",
+                }
+            ],
+            [
+                {"participant_id": "KKKK000000000000000000001", "body": "I read carefully.", "themes": ""},
+            ],
+        )
+        entries = result["buckets"]["auto_approve_eligible"]
+        assert len(entries) == 1
+        missing = self.REQUIRED_FIELDS - set(entries[0].keys())
+        assert not missing, f"missing fields in auto_approve_eligible entry: {missing}"
+
+    def test_human_review_high_tier_entry_has_required_fields(self, tmp_path):
+        # The build-daily-report.sh "high tier" sub-section groups entries by
+        # (disposition, iri_fail, speed_flag, partial_straightlining_flag).
+        # If any of those keys is missing, the grouping raises KeyError.
+        result = _run(
+            tmp_path,
+            [
+                {
+                    "PROLIFIC_PID": "LLLL000000000000000000001",
+                    "IRI_Fail_Count": "2",
+                    "Speed_Flag": "1",
+                    "Partial_Straightlining_Flag": "0",
+                    "Disposition": "AUTO-EXCLUDE",
+                    "Prolific_Status": "AWAITING REVIEW",
+                }
+            ],
+            [
+                {"participant_id": "LLLL000000000000000000001", "body": "I was tired.", "themes": ""},
+            ],
+        )
+        entries = result["buckets"]["human_review_high_tier"]
+        assert len(entries) == 1
+        missing = self.REQUIRED_FIELDS - set(entries[0].keys())
+        assert not missing, f"missing fields in human_review_high_tier entry: {missing}"
