@@ -161,16 +161,16 @@ def main() -> int:
     result: dict = {
         "mode": "dry_run" if dry_run else "live",
         "input_count": len(pids),
-        "eligible_target_count": 0,
         "ceiling": max_per_run,
         "ceiling_exceeded": False,
-        "skipped_ceiling": [],
+        "deferred_over_ceiling": [],
         "approved": [],
         "skipped_non_awaiting": [],
         "thank_you_sent": [],
         "thank_you_skipped_dedup": [],
         "thank_you_failed": [],
         "bulk_approve_error": None,
+        "failures": [],
     }
 
     if not pids:
@@ -187,7 +187,6 @@ def main() -> int:
             )
             sys.exit(1)
 
-    # Resolve target PIDs (skip those not AWAITING REVIEW), including dry-run previews.
     print(f"Verifying study {study_id}...")
     study = prolific_study_info(study_id, api_token)
     print(f"  Study: {study.get('name', '?')} (status: {study.get('status', '?')})")
@@ -195,7 +194,7 @@ def main() -> int:
     print("Fetching current submission statuses...")
     statuses = prolific_submission_statuses(study_id, api_token)
 
-    targets = []
+    targets: list[str] = []
     for pid in pids:
         st = statuses.get(pid, "UNKNOWN")
         if st == "AWAITING REVIEW":
@@ -208,17 +207,19 @@ def main() -> int:
         print(f"DRY RUN - would target {len(targets)} currently AWAITING REVIEW PIDs")
     print(f"  AWAITING REVIEW (will approve): {len(targets)}")
     print(f"  Skipped (other status): {len(result['skipped_non_awaiting'])}")
-    result["eligible_target_count"] = len(targets)
 
+    # Apply ceiling AFTER status filtering: an input PID that has already moved
+    # out of AWAITING REVIEW shouldn't count against the ceiling. Truncate the
+    # eligible target list rather than aborting -- partial progress is more
+    # useful than no progress when a large bucket is dispatched.
     if len(targets) > max_per_run:
-        overflow = targets[max_per_run:]
-        targets = targets[:max_per_run]
         result["ceiling_exceeded"] = True
-        result["skipped_ceiling"] = [{"pid": pid, "status": "AWAITING REVIEW"} for pid in overflow]
+        deferred = targets[max_per_run:]
+        result["deferred_over_ceiling"] = list(deferred)
+        targets = targets[:max_per_run]
         print(
-            f"  Ceiling applied: processing first {len(targets)} eligible PIDs; "
-            f"{len(overflow)} additional eligible PIDs were skipped by MAX_PER_RUN",
-            file=sys.stderr,
+            f"::warning::Eligible targets ({len(targets) + len(deferred)}) exceed ceiling "
+            f"{max_per_run}; processing first {len(targets)} and deferring {len(deferred)}."
         )
 
     if not targets:
@@ -226,30 +227,30 @@ def main() -> int:
         _write_results(output_path, result)
         return 0
 
-    # Bulk approve.
     if dry_run:
         print(f"DRY RUN - {len(targets)} would be approved")
         result["approved"] = list(targets)
     else:
-        print(f"Approving {len(targets)} submissions...")
-        try:
-            prolific_bulk_approve(study_id, targets, api_token)
-            result["approved"] = list(targets)
-            print(f"  Approved: {len(targets)}")
-        except Exception as exc:
-            err = _sanitize_log_text(str(exc))
-            print(f"::error::Bulk approve failed: {err}", file=sys.stderr)
-            result["bulk_approve_error"] = err
-            _write_results(output_path, result)
-            return 1
+        print(f"Approving {len(targets)} submissions (one API call per PID)...")
+        for idx, pid in enumerate(targets):
+            if idx > 0:
+                time.sleep(_API_CALL_DELAY)
+            try:
+                prolific_bulk_approve(study_id, [pid], api_token)
+                result["approved"].append(pid)
+                print(f"  APPROVED {_redact_pid(pid)}")
+            except Exception as exc:
+                err = _sanitize_log_text(str(exc))
+                print(f"  FAILED {_redact_pid(pid)}: {err}", file=sys.stderr)
+                result["failures"].append({"pid": pid, "error": err})
 
-    # Thank-you messages.
+    approved_pids = list(result["approved"])
     if dry_run:
-        print(f"DRY RUN - thank-you messages would be sent to {len(targets)} PIDs")
-        result["thank_you_sent"] = list(targets)
+        print(f"DRY RUN - thank-you messages would be sent to {len(approved_pids)} PIDs")
+        result["thank_you_sent"] = list(approved_pids)
     else:
         print("\nSending thank-you messages...")
-        for idx, pid in enumerate(targets):
+        for idx, pid in enumerate(approved_pids):
             if idx > 0:
                 time.sleep(_API_CALL_DELAY)
             try:
@@ -280,7 +281,6 @@ def main() -> int:
         f"Done. Approved: {len(result['approved'])} | "
         f"Thank-yous sent: {len(result['thank_you_sent'])} | "
         f"Skipped (non-awaiting): {len(result['skipped_non_awaiting'])} | "
-        f"Skipped (ceiling): {len(result['skipped_ceiling'])} | "
         f"Thank-you dedup skips: {len(result['thank_you_skipped_dedup'])} | "
         f"Thank-you failures: {len(result['thank_you_failed'])}"
     )
