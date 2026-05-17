@@ -58,6 +58,79 @@ fi
 
 dfmt() { if [ "$1" -gt 0 ]; then printf "+%d" "$1"; elif [ "$1" -eq 0 ]; then printf "0"; else printf "%d" "$1"; fi; }
 
+# --- HIGH RISK count (drives title prefix and @-mention) ---
+HIGH_RISK_COUNT=0
+if [ -f "$TODAY_FILE" ]; then
+  HIGH_RISK_COUNT=$(python3 -c "import json; d=json.load(open('$TODAY_FILE')); print(d.get('highRiskCount', 0))" 2>/dev/null || echo 0)
+fi
+
+# --- N=500 forecast + queue resolution rate (computed from today's deltas) ---
+# Forecast: at today's net-approval rate (DELTA_APPROVED), how many days until
+# TODAY_APPROVED reaches 500? Queue clear: at today's net-resolution rate
+# (approved+returned+rejected delta), how many days to clear the
+# current AWAITING REVIEW queue? The lines stay empty only when dashboard data
+# is missing; otherwise zero/negative deltas render the stalled-rate/stalled-cycle
+# messages below, and the N=500 line switches to the reached message once we are
+# already past target.
+N500_FORECAST_LINE=""
+QUEUE_RESOLUTION_LINE=""
+if [ "$HAS_DASHBOARD" = true ]; then
+  FORECAST=$(N500_TARGET=500 TODAY_APPROVED="$TODAY_APPROVED" DELTA_APPROVED="$DELTA_APPROVED" \
+             TODAY_AWAITING="$TODAY_AWAITING" DELTA_REJECTED="$DELTA_REJECTED" \
+             DELTA_RETURNED="$DELTA_RETURNED" \
+             python3 << 'PYEOF'
+import datetime as _dt
+import math as _math
+import os
+
+def fmt_signed(n: int) -> str:
+    return f"{n:+d}"
+
+target = int(os.environ['N500_TARGET'])
+today_approved = int(os.environ['TODAY_APPROVED'])
+delta_approved = int(os.environ['DELTA_APPROVED'])
+awaiting = int(os.environ['TODAY_AWAITING'])
+delta_rejected = int(os.environ['DELTA_REJECTED'])
+delta_returned = int(os.environ['DELTA_RETURNED'])
+
+today = _dt.date.today()
+
+if today_approved >= target:
+    print(f"FORECAST=\U0001F389 **N={target} reached!** ({today_approved} approved)")
+elif delta_approved <= 0:
+    remaining = target - today_approved
+    print(f"FORECAST=**N={target} ETA:** approval rate stalled at {fmt_signed(delta_approved)}/day; "
+          f"{remaining} more approvals needed")
+else:
+    remaining = target - today_approved
+    days = remaining / delta_approved
+    eta = today + _dt.timedelta(days=_math.ceil(days))
+    print(f"FORECAST=**N={target} ETA:** {eta:%Y-%m-%d} "
+          f"(~{days:.1f} days at current {fmt_signed(delta_approved)}/day rate, {remaining} more approvals needed)")
+
+resolution_delta = delta_approved + delta_returned + delta_rejected
+if awaiting <= 0:
+    print("RESOLUTION=")
+elif resolution_delta <= 0:
+    print(f"RESOLUTION=**Queue resolution:** 0 today; {awaiting} AWAITING REVIEW (cycle stalled)")
+else:
+    days = awaiting / resolution_delta
+    print(f"RESOLUTION=**Queue resolution:** {fmt_signed(resolution_delta)} today "
+          f"(approved {fmt_signed(delta_approved)}, returned {fmt_signed(delta_returned)}, rejected {fmt_signed(delta_rejected)}); "
+          f"~{days:.1f} days to clear {awaiting} AWAITING REVIEW at this rate")
+PYEOF
+  ) || {
+    # Most plausible failures here: dashboard JSON missing a key (e.g.
+    # 'approvedDelta' renamed upstream) or non-numeric env var. Emit a
+    # workflow warning so the operator knows the forecast lines went blank
+    # for a real reason, not because the day is calm.
+    echo "::warning::N=500 forecast / queue resolution computation failed; check dashboard JSON schema" >&2
+    FORECAST=""
+  }
+  N500_FORECAST_LINE=$(printf '%s\n' "$FORECAST" | sed -n 's/^FORECAST=//p')
+  QUEUE_RESOLUTION_LINE=$(printf '%s\n' "$FORECAST" | sed -n 's/^RESOLUTION=//p')
+fi
+
 # --- Triage data ---
 # Preferred source: a triage-metrics artifact written by an upstream pipeline
 # step. Currently no step publishes this artifact, so the lookup silently
@@ -625,10 +698,32 @@ run_id = os.environ.get('RUN_ID', '<this-run-id>') or '<this-run-id>'
 repo = os.environ.get('REPO', 'clarkemoyer/technologyadoptionbarriers.org')
 
 with_replies = counts['auto_approve_eligible'] + counts['human_review_questions'] + counts['human_review_high_tier']
-no_reply = counts['no_reply']
+no_reply_total = counts.get('no_reply', 0) + counts.get('no_reply_high_tier', 0)
+multi_reply = d.get('multi_reply_count', 0)
+
+# Auto-cycle health: the no_reply bucket flows through Phase 3d/3e
+# (auto-request-return then auto-reject after the 48h+48h cycle). If
+# either phase was skipped or failed in this run, those PIDs are NOT
+# being escalated and will accumulate. Surface this so the operator
+# does not assume the auto-cycle is handling them.
+auto_rr_result = os.environ.get('AUTO_REQUEST_RETURN_RESULT', 'unknown')
+auto_rj_result = os.environ.get('AUTO_REJECT_STALE_RESULT', 'unknown')
+auto_cycle_healthy = auto_rr_result == 'success' and auto_rj_result == 'success'
+
+if auto_cycle_healthy:
+    cycle_note = ' continue through the auto-cycle (message > 48h > request-return > 48h > reject).'
+else:
+    cycle_note = (
+        f' would normally continue through the auto-cycle, but **Phase 3d auto-request-return '
+        f'({auto_rr_result})** and/or **Phase 3e auto-reject-stale ({auto_rj_result})** did not '
+        f'succeed in this run -- those PIDs are not being escalated until the auto-cycle is healthy.'
+    )
 
 print(f'**{with_replies} of {total} awaiting-review submissions have participant replies.** '
-      f'{no_reply} have not yet replied and will continue through the auto-cycle (message > 48h > request-return > 48h > reject).')
+      f'{no_reply_total} have not yet replied and{cycle_note}')
+if multi_reply > 0:
+    print('')
+    print(f'> ⚠ **{multi_reply} participant(s) have replied 2+ times.** Multi-reply usually means the first response did not resolve their concern. Review their threads in the `prolific-messages-inbound-csv` artifact before approving.')
 print('')
 
 # --- 1. Auto-Approve eligible ---
@@ -659,18 +754,14 @@ else:
     print('')
     print('**To bulk-approve these PIDs** (the workflow downloads the recommendations artifact from this run):')
     print('')
-    suggested_max_per_run = min(30, max(1, n_aa))
     print('```')
     print(f'gh workflow run bulk-approve-replied.yml \\')
     print(f'  --repo {repo} \\')
     print(f'  -F source_run_id={run_id} \\')
     print(f'  -F dry_run=true \\')
-    print(f'  -F max_per_run={suggested_max_per_run}')
+    print(f'  -F max_per_run=30')
     print('```')
     print('')
-    if n_aa > 30:
-        print(f'_Note: {n_aa} PIDs are currently auto-approve eligible. Keep `max_per_run=30` (safety default) and rerun the workflow in batches until the bucket is cleared._')
-        print('')
     print('Default is dry-run; pass `-F dry_run=false` to approve live (and a thank-you message is sent to each).')
 print('')
 
@@ -731,7 +822,58 @@ else:
     print('Action paths: (a) read replies on Prolific, then approve manually, or (b) use `reject_by_pid.py` for those you decide to reject.')
 print('')
 
-print(f'_Recommendations computed from `prolific-messages-inbound-csv` and `disposition-csv` artifacts. Full PID list is in the `reply-action-recommendations` workflow artifact._')
+# --- 4. Bulk-reject candidates (high tier, no reply) ---
+n_nr_high = counts.get('no_reply_high_tier', 0)
+print(f'### \U0001F534 Recommended for Bulk-Reject ({n_nr_high})')
+print('')
+if n_nr_high == 0:
+    print('No high-tier no-reply PIDs today. The auto-cycle (Phase 3d/3e) will handle anyone still in flight.')
+else:
+    print('High rejection tier (3+ IRI fails, or 2 IRI fails + speed/partial-straightlining) AND no reply to any TABS message. '
+          'The auto-cycle will eventually reject these after the message > 48h > RR > 48h cycle (~4 days); this lets you fast-track when the queue grows.')
+    print('')
+    bd = breakdown.get('no_reply_high_tier', {})
+    if bd.get('by_disposition'):
+        print('| Disposition | Count | IRI fails / other flags |')
+        print('|---|---:|---|')
+        from collections import Counter as _C2
+        grouped = _C2()
+        for entry in d['buckets']['no_reply_high_tier']:
+            key = (entry['disposition'], entry['iri_fail'], entry['speed_flag'], entry['partial_straightlining_flag'])
+            grouped[key] += 1
+        for (disp, iri, spd, psl), n in grouped.most_common():
+            flags = []
+            if spd: flags.append('speed')
+            if psl: flags.append('partial-straightlining')
+            flag_label = ', '.join(flags) if flags else '(IRI only)'
+            print(f'| {disp} | {n} | {iri} IRI fails / {flag_label} |')
+    print('')
+    print('**To bulk-reject these PIDs** (rejection reasons are auto-generated per PID from the disposition CSV):')
+    print('')
+    print('```')
+    print(f'gh workflow run bulk-reject-high-tier-no-reply.yml \\')
+    print(f'  --repo {repo} \\')
+    print(f'  -F source_run_id={run_id} \\')
+    print(f'  -F dry_run=true \\')
+    print(f'  -F max_per_run=10')
+    print('```')
+    print('')
+    print('**Live run (requires typed confirmation):**')
+    print('')
+    print('```')
+    print(f'gh workflow run bulk-reject-high-tier-no-reply.yml \\')
+    print(f'  --repo {repo} \\')
+    print(f'  -F source_run_id={run_id} \\')
+    print(f'  -F dry_run=false \\')
+    print(f'  -F confirm_reject=REJECT \\')
+    print(f'  -F max_per_run=10')
+    print('```')
+    print('')
+    print('Default is dry-run.')
+    print('Skips any PID that has already moved out of AWAITING REVIEW (idempotent re-runs).')
+print('')
+
+print(f'_Recommendations computed from `prolific-messages-inbound-csv` and `disposition-csv` artifacts. Full PID list is in the `reply-action-recommendations` workflow artifact (1-day retention)._')
 REPLIESEOF
   ); then
     REPLIES_SECTION="## 🟡 Replies to Consider
@@ -797,6 +939,10 @@ cat >> /tmp/report-body.md << STATUSEOF
 | **Timed Out** | $TODAY_TIMED | -- |
 | **Prolific Total** | $PROLIFIC_TOTAL | -- |
 
+$N500_FORECAST_LINE
+
+$QUEUE_RESOLUTION_LINE
+
 ## Disposition Triage
 
 **Total triaged responses:** $TRIAGE_TOTAL ($(dfmt $DELTA_TOTAL) change in Prolific submissions)
@@ -836,6 +982,7 @@ $MSG_ROWS
 | Generate Dashboard | ${DASHBOARD_RESULT:-unknown} |
 | Auto-Request-Return (3d) | ${AUTO_REQUEST_RETURN_RESULT:-unknown} |
 | Auto-Reject-Stale-RR (3e) | ${AUTO_REJECT_STALE_RESULT:-unknown} |
+| Export Prolific Messages (3f) | ${EXPORT_MESSAGES_RESULT:-unknown} |
 
 ---
 **Workflow run:** [View full logs]($RUN_URL)
@@ -868,8 +1015,25 @@ echo "$RECOMMENDATIONS" | grep -qE "🔴|🟡|🟠" && CRITICAL_FINDINGS=true
 echo "$AUTO_RR_SECTION_FORMATTED $AUTO_REJECT_SECTION_FORMATTED" | grep -q "MANUAL INTERVENTION NEEDED" && CRITICAL_FINDINGS=true
 
 # --- Create issue ---
-TITLE="Daily Disposition Report -- $DATE"
-LABELS="documentation"
+# HIGH_RISK_COUNT > 0 means submissions are within 2 days of Prolific auto-approve.
+# Surface this via a title prefix + an @-mention prepended to the body so the
+# GitHub mobile app pushes a notification on @-mentions of the repo owner.
+HIGH_RISK_PREFIX=""
+HIGH_RISK_LABEL=""
+if [ "$HIGH_RISK_COUNT" -gt 0 ]; then
+  # Use the literal U+1F6A8 (siren/police light) character directly. bash's printf %b
+  # interprets \uNNNN but NOT \UNNNNNNNN, so the \U escape would have left
+  # the title with a literal "\U0001F6A8" string.
+  HIGH_RISK_PREFIX="🚨 HIGH RISK ($HIGH_RISK_COUNT) - "
+  HIGH_RISK_LABEL=",urgent"
+  # Prepend an @-mention so GitHub Mobile fires a push notification.
+  printf '@clarkemoyer - **%d submission(s) within 2 days of Prolific 21-day auto-approve.** Action today.\n\n' "$HIGH_RISK_COUNT" \
+    | cat - /tmp/report-body.md > /tmp/report-body.md.new
+  mv /tmp/report-body.md.new /tmp/report-body.md
+fi
+
+TITLE="${HIGH_RISK_PREFIX}Daily Disposition Report -- $DATE"
+LABELS="documentation${HIGH_RISK_LABEL}"
 if [ "$CRITICAL_FINDINGS" = false ]; then
   LABELS="$LABELS,auto-close-eligible"
 fi

@@ -154,8 +154,13 @@ This index provides a comprehensive guide to all documentation in the TABS repos
   - Qualtrics ↔ Prolific setup
   - Annual survey rollover process
   - Security and troubleshooting
+- **[docs/prolific-operations-guide.md](./docs/prolific-operations-guide.md)** - **Operations reference for participant actions**
+  - "I want to X → use workflow Y" lookup table for approve / reject / message / inspect
+  - Full inventory of every Prolific-touching workflow and script
+  - Safety conventions (dry-run defaults, CONFIRM_REJECT, MAX_PER_RUN ceilings)
+  - Tokens, environments, and kill-switch variables
 - Client Library: `src/lib/prolific-api.ts`
-- Workflow: `.github/workflows/prolific.yml`
+- Workflows: `.github/workflows/prolific.yml`, `.github/workflows/daily-pipeline.yml`, `.github/workflows/check-participant.yml`, `.github/workflows/prolific-message-flagged.yml`, `.github/workflows/prolific-reject-by-pid.yml`, `.github/workflows/bulk-approve-replied.yml`, `.github/workflows/bulk-reject-high-tier-no-reply.yml`, `.github/workflows/prolific-message-export.yml`
 
 **Google Analytics Data API v1:**
 

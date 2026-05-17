@@ -48,17 +48,6 @@ from collections import Counter, defaultdict
 from pathlib import Path
 
 
-QUESTION_THEMES = frozenset(
-    {
-        "question_about_study",
-        "contact_request",
-        "rejection_dispute",
-        "payment_question",
-        "technical_issue",
-    }
-)
-
-
 def _safe_int(value: object) -> int:
     if value is None:
         return 0
@@ -93,9 +82,17 @@ def _split_themes(raw: str | None) -> list[str]:
 
 
 def reply_has_question(reply_records: list[dict]) -> bool:
+    # Trust the '?' character. Real questions almost always include one.
+    # The theme tags emitted by extract_prolific_messages.py are loose
+    # keyword matches and produce many false positives (e.g. "I paid
+    # attention" gets tagged payment_question because of the word "paid";
+    # "I made an error" gets technical_issue). Routing replies to manual
+    # review based on those tags clogs the queue with non-questions and
+    # hides real questions. The '?' heuristic is far more precise --
+    # validated against today's 309 inbound messages (1 real question
+    # surfaced; ~5 false-positive theme tags correctly demoted).
     for r in reply_records:
-        themes = set(_split_themes(r.get("themes")))
-        if themes & QUESTION_THEMES:
+        if "?" in (r.get("body") or ""):
             return True
     return False
 
@@ -136,20 +133,58 @@ def main() -> int:
                 replies_by_pid[pid].append(r)
 
     awaiting_rows: list[dict] = []
+    total_rows = 0
+    saw_pid_column = False
+    saw_status_column = False
     with open(disp_path, encoding="utf-8-sig", newline="") as f:
-        for row in csv.DictReader(f):
+        reader = csv.DictReader(f)
+        for row in reader:
+            total_rows += 1
+            if "PROLIFIC_PID" in row:
+                saw_pid_column = True
+            if "Prolific_Status" in row:
+                saw_status_column = True
             if row.get("Prolific_Status") != "AWAITING REVIEW":
                 continue
             pid = (row.get("PROLIFIC_PID") or "").strip()
             if pid:
                 awaiting_rows.append(row)
 
+    # Sanity check: if the CSV has rows but our column lookups returned
+    # nothing, the schema has probably changed and we're silently producing
+    # empty buckets. Emit a workflow warning so the daily report job surfaces
+    # it instead of shipping a blank Replies-to-Consider section without
+    # explanation. Use the GitHub Actions warning format so it shows up in
+    # the job summary.
+    if total_rows > 0 and not awaiting_rows:
+        missing = []
+        if not saw_pid_column:
+            missing.append("PROLIFIC_PID")
+        if not saw_status_column:
+            missing.append("Prolific_Status")
+        if missing:
+            print(
+                f"::warning::disposition CSV had {total_rows} row(s) but missing column(s) "
+                f"{missing!r}; produced no AWAITING REVIEW classifications. Did the disposition "
+                "CSV schema change?",
+                file=sys.stderr,
+            )
+        else:
+            print(
+                f"::warning::disposition CSV had {total_rows} row(s) but none had "
+                "Prolific_Status='AWAITING REVIEW'; produced no classifications. Either the "
+                "queue is empty or upstream filtering changed.",
+                file=sys.stderr,
+            )
+
     buckets: dict[str, list[dict]] = {
         "auto_approve_eligible": [],
         "human_review_questions": [],
         "human_review_high_tier": [],
+        "no_reply_high_tier": [],
         "no_reply": [],
     }
+    multi_reply_pids: list[dict] = []
     for row in awaiting_rows:
         pid = row["PROLIFIC_PID"].strip()
         replies = replies_by_pid.get(pid, [])
@@ -163,13 +198,24 @@ def main() -> int:
             "reply_theme_counts": reply_theme_counts(replies),
         }
         if not replies:
-            buckets["no_reply"].append(entry)
+            # High-tier no-reply gets a separate bucket so bulk-reject can target it
+            # without affecting lower-tier PIDs still in the auto-cycle.
+            if is_high_rejection_tier(row):
+                buckets["no_reply_high_tier"].append(entry)
+            else:
+                buckets["no_reply"].append(entry)
         elif is_high_rejection_tier(row):
+            # High-tier wins over question detection. The operator policy is that
+            # 3+ IRI fails or 2 IRI + factor always requires reading the messaging
+            # exchange before any action -- even if the reply contains a question,
+            # the high-tier disposition warrants the more cautious review path.
             buckets["human_review_high_tier"].append(entry)
         elif reply_has_question(replies):
             buckets["human_review_questions"].append(entry)
         else:
             buckets["auto_approve_eligible"].append(entry)
+        if len(replies) >= 2:
+            multi_reply_pids.append({"pid": pid, "reply_count": len(replies), "disposition": entry["disposition"]})
 
     bucket_counts = {k: len(v) for k, v in buckets.items()}
 
@@ -191,6 +237,8 @@ def main() -> int:
         "bucket_counts": bucket_counts,
         "breakdown": breakdown,
         "buckets": buckets,
+        "multi_reply_count": len(multi_reply_pids),
+        "multi_reply_pids": multi_reply_pids,
     }
     Path(output_path).write_text(json.dumps(out, indent=2))
     print(f"Classified {len(awaiting_rows)} AWAITING REVIEW PIDs:")
