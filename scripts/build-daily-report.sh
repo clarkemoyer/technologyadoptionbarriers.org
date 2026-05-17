@@ -119,7 +119,14 @@ else:
           f"(approved {fmt_signed(delta_approved)}, returned {fmt_signed(delta_returned)}, rejected {fmt_signed(delta_rejected)}); "
           f"~{days:.1f} days to clear {awaiting} AWAITING REVIEW at this rate")
 PYEOF
-  ) || FORECAST=""
+  ) || {
+    # Most plausible failures here: dashboard JSON missing a key (e.g.
+    # 'approvedDelta' renamed upstream) or non-numeric env var. Emit a
+    # workflow warning so the operator knows the forecast lines went blank
+    # for a real reason, not because the day is calm.
+    echo "::warning::N=500 forecast / queue resolution computation failed; check dashboard JSON schema" >&2
+    FORECAST=""
+  }
   N500_FORECAST_LINE=$(printf '%s\n' "$FORECAST" | sed -n 's/^FORECAST=//p')
   QUEUE_RESOLUTION_LINE=$(printf '%s\n' "$FORECAST" | sed -n 's/^RESOLUTION=//p')
 fi
