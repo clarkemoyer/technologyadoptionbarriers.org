@@ -133,13 +133,49 @@ def main() -> int:
                 replies_by_pid[pid].append(r)
 
     awaiting_rows: list[dict] = []
+    total_rows = 0
+    saw_pid_column = False
+    saw_status_column = False
     with open(disp_path, encoding="utf-8-sig", newline="") as f:
-        for row in csv.DictReader(f):
+        reader = csv.DictReader(f)
+        for row in reader:
+            total_rows += 1
+            if "PROLIFIC_PID" in row:
+                saw_pid_column = True
+            if "Prolific_Status" in row:
+                saw_status_column = True
             if row.get("Prolific_Status") != "AWAITING REVIEW":
                 continue
             pid = (row.get("PROLIFIC_PID") or "").strip()
             if pid:
                 awaiting_rows.append(row)
+
+    # Sanity check: if the CSV has rows but our column lookups returned
+    # nothing, the schema has probably changed and we're silently producing
+    # empty buckets. Emit a workflow warning so the daily report job surfaces
+    # it instead of shipping a blank Replies-to-Consider section without
+    # explanation. Use the GitHub Actions warning format so it shows up in
+    # the job summary.
+    if total_rows > 0 and not awaiting_rows:
+        missing = []
+        if not saw_pid_column:
+            missing.append("PROLIFIC_PID")
+        if not saw_status_column:
+            missing.append("Prolific_Status")
+        if missing:
+            print(
+                f"::warning::disposition CSV had {total_rows} row(s) but missing column(s) "
+                f"{missing!r}; produced no AWAITING REVIEW classifications. Did the disposition "
+                "CSV schema change?",
+                file=sys.stderr,
+            )
+        else:
+            print(
+                f"::warning::disposition CSV had {total_rows} row(s) but none had "
+                "Prolific_Status='AWAITING REVIEW'; produced no classifications. Either the "
+                "queue is empty or upstream filtering changed.",
+                file=sys.stderr,
+            )
 
     buckets: dict[str, list[dict]] = {
         "auto_approve_eligible": [],
