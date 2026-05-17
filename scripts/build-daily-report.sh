@@ -61,7 +61,14 @@ dfmt() { if [ "$1" -gt 0 ]; then printf "+%d" "$1"; elif [ "$1" -eq 0 ]; then pr
 # --- HIGH RISK count (drives title prefix and @-mention) ---
 HIGH_RISK_COUNT=0
 if [ -f "$TODAY_FILE" ]; then
-  HIGH_RISK_COUNT=$(python3 -c "import json; d=json.load(open('$TODAY_FILE')); print(d.get('highRiskCount', 0))" 2>/dev/null || echo 0)
+  HIGH_RISK_COUNT=$(python3 -c "import json
+from pathlib import Path
+try:
+    d = json.loads(Path('$TODAY_FILE').read_text(encoding='utf-8'))
+    raw = d.get('highRiskCount', 0)
+    print(int(raw))
+except (FileNotFoundError, json.JSONDecodeError, TypeError, ValueError):
+    print(0)" 2>/dev/null || echo 0)
 fi
 
 # --- N=500 forecast + queue resolution rate (computed from today's deltas) ---

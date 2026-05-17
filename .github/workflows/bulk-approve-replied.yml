@@ -72,30 +72,25 @@ jobs:
             echo "::error::Recommendations file not found at $REC"
             exit 1
           fi
-          # Use a heredoc (matches bulk-reject-high-tier-no-reply.yml) so we
-          # don't embed the artifact path inside a Python string literal -- and
-          # so we compute COUNT inside the same Python process instead of
-          # passing $PID_LIST through a second shell-string interpolation.
-          read -r PID_LIST COUNT < <(REC="$REC" python3 << 'PY'
+          # Write outputs directly so empty PID lists don't get misparsed by
+          # shell word-splitting (Python prints " 0" for empty list/count pairs).
+          REC="$REC" GITHUB_OUTPUT="$GITHUB_OUTPUT" python3 << 'PY'
           import json
           import os
+          from pathlib import Path
 
           with open(os.environ["REC"], encoding="utf-8") as f:
               d = json.load(f)
 
           pids = [entry["pid"] for entry in d["buckets"]["auto_approve_eligible"]]
-          print(",".join(pids), len(pids))
+          out = Path(os.environ["GITHUB_OUTPUT"])
+          with out.open("a", encoding="utf-8") as fh:
+              fh.write("pid_list<<EOF_PIDS\n")
+              fh.write(",".join(pids) + "\n")
+              fh.write("EOF_PIDS\n")
+              fh.write(f"count={len(pids)}\n")
           PY
-          )
-          if [ -z "$PID_LIST" ]; then
-            COUNT=0
-          fi
-          {
-            echo "pid_list<<EOF_PIDS"
-            echo "$PID_LIST"
-            echo "EOF_PIDS"
-            echo "count=$COUNT"
-          } >> "$GITHUB_OUTPUT"
+          COUNT="$(python3 -c "import json; print(len(json.load(open('$REC', encoding='utf-8'))['buckets']['auto_approve_eligible']))")"
           echo "Found $COUNT PIDs in auto_approve_eligible bucket"
 
       - name: Approve PIDs
