@@ -927,11 +927,22 @@ jobs:
         continue-on-error: true
 
       # Build the reply-action recommendations JSON before the report runs.
+      # Phase 5 checks out ref:main for safety; this script lands on main only
+      # after PR #2638 + #2692 are merged. The file-existence guard handles
+      # the rollout window where one PR has merged but the other has not.
+      # Once both PRs are on main the guard is a no-op but stays as a safety
+      # check against accidental script deletion.
       # Renders nothing in the report when Phase 3f's inbound CSV is missing.
       - name: Classify replies for action
         if: always()
         continue-on-error: true
-        run: python3 scripts/analysis/classify_replies_for_action.py
+        run: |
+          set -euo pipefail
+          if [ ! -f scripts/analysis/classify_replies_for_action.py ]; then
+            echo "::warning::classify_replies_for_action.py not present on main; skipping recommendations step (likely mid-rollout of PR #2638)"
+            exit 0
+          fi
+          python3 scripts/analysis/classify_replies_for_action.py
         env:
           INBOUND_CSV: ${{ runner.temp }}/artifacts/prolific-messages-inbound-csv/participant_messages.csv
           DISPOSITION_CSV: ${{ runner.temp }}/artifacts/disposition-csv/disposition.csv
