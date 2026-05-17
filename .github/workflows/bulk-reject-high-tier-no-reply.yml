@@ -97,6 +97,7 @@ jobs:
           REC="$REC" GITHUB_OUTPUT="$GITHUB_OUTPUT" python3 << 'PY'
           import json
           import os
+          import sys
           from pathlib import Path
 
           with open(os.environ["REC"], encoding="utf-8") as f:
@@ -109,9 +110,11 @@ jobs:
               fh.write(",".join(pids) + "\n")
               fh.write("EOF_PIDS\n")
               fh.write(f"count={len(pids)}\n")
+          # Diagnostic to stdout. Done inside the same Python process so
+          # set -euo pipefail can't kill the Extract step from a follow-up
+          # shell invocation just to compute the count.
+          print(f"Found {len(pids)} PIDs in no_reply_high_tier bucket", file=sys.stderr)
           PY
-          COUNT="$(python3 -c "import json; print(len(json.load(open('$REC', encoding='utf-8'))['buckets']['no_reply_high_tier']))")"
-          echo "Found $COUNT PIDs in no_reply_high_tier bucket"
 
       - name: Safety check for live reject
         if: ${{ inputs.dry_run == false }}
@@ -122,7 +125,10 @@ jobs:
           fi
 
       - name: Reject PIDs
-        if: ${{ steps.extract.outputs.count != '0' }}
+        # Guard with extract.conclusion: if Extract failed (e.g. recommendations
+        # artifact missing), count is unset and "" != '0' would otherwise let
+        # Reject run with an empty PID_LIST.
+        if: ${{ steps.extract.conclusion == 'success' && steps.extract.outputs.count != '0' }}
         run: python3 scripts/analysis/reject_by_pid.py
         env:
           PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
@@ -136,7 +142,7 @@ jobs:
           OUTPUT_JSON_PATH: ${{ runner.temp }}/bulk-reject-results.json
 
       - uses: actions/upload-artifact@v7
-        if: ${{ always() && steps.extract.outputs.count != '0' }}
+        if: ${{ always() && steps.extract.conclusion == 'success' && steps.extract.outputs.count != '0' }}
         with:
           name: bulk-reject-results
           path: ${{ runner.temp }}/bulk-reject-results.json
