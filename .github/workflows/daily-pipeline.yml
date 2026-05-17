@@ -974,4 +974,5 @@ jobs:
           DASHBOARD_RESULT: ${{ needs.generate-dashboard.result }}
           AUTO_REQUEST_RETURN_RESULT: ${{ needs.auto-request-return.result }}
           AUTO_REJECT_STALE_RESULT: ${{ needs.auto-reject-stale.result }}
+          EXPORT_MESSAGES_RESULT: ${{ needs.export-messages.result }}
         run: bash scripts/build-daily-report.sh
