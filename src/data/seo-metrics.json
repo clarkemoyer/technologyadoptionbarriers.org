@@ -1,20 +1,20 @@
 {
-  "generatedAt": "2026-05-16T09:34:04.871Z",
-  "dashboardSyncedAt": "2026-05-16T09:34:04.871Z",
+  "generatedAt": "2026-05-17T09:35:53.868Z",
+  "dashboardSyncedAt": "2026-05-17T09:35:53.868Z",
   "dateRange": {
-    "startDate": "2026-04-18",
-    "endDate": "2026-05-16"
+    "startDate": "2026-04-19",
+    "endDate": "2026-05-17"
   },
   "overview": {
-    "organicSessions": 149534,
-    "organicSessionsChange": -33214,
-    "totalImpressions": 31059,
-    "totalImpressionsChange": -530,
-    "totalClicks": 59,
-    "totalClicksChange": 0,
-    "averageCTR": 0.19,
+    "organicSessions": 141534,
+    "organicSessionsChange": -8000,
+    "totalImpressions": 35636,
+    "totalImpressionsChange": 4577,
+    "totalClicks": 74,
+    "totalClicksChange": 15,
+    "averageCTR": 0.21,
     "averageCTRUnit": "percent",
-    "averageCTRChange": 0,
+    "averageCTRChange": 0.02,
     "averageCTRChangeUnit": "percentagePoints",
     "averagePosition": 8.6,
     "averagePositionChange": 0,
@@ -27,13 +27,31 @@
   },
   "topKeywords": [
     {
+      "keyword": "toe framework tornatzky and fleischer 1990",
+      "position": 6.4,
+      "previousPosition": null,
+      "volume": 0,
+      "clicks": 2,
+      "impressions": 8,
+      "ctr": 25
+    },
+    {
+      "keyword": "technology acceptance model 2",
+      "position": 9.6,
+      "previousPosition": null,
+      "volume": 0,
+      "clicks": 1,
+      "impressions": 7,
+      "ctr": 14.3
+    },
+    {
       "keyword": "technology adoption barriers",
       "position": 4.3,
       "previousPosition": null,
       "volume": 0,
       "clicks": 1,
-      "impressions": 28,
-      "ctr": 3.6
+      "impressions": 29,
+      "ctr": 3.4
     },
     {
       "keyword": "technology adoption framework",
@@ -46,25 +64,16 @@
     },
     {
       "keyword": "technology adoption models",
-      "position": 11.4,
+      "position": 11.3,
       "previousPosition": null,
       "volume": 0,
       "clicks": 1,
-      "impressions": 34,
+      "impressions": 35,
       "ctr": 2.9
     },
     {
-      "keyword": "toe framework tornatzky and fleischer 1990",
-      "position": 6,
-      "previousPosition": null,
-      "volume": 0,
-      "clicks": 1,
-      "impressions": 5,
-      "ctr": 20
-    },
-    {
       "keyword": "\"10.1147/sj.321.0004\"",
-      "position": 9.8,
+      "position": 9.9,
       "previousPosition": null,
       "volume": 0,
       "clicks": 0,
@@ -82,38 +91,29 @@
     },
     {
       "keyword": "\"10.2307/30036540\"",
-      "position": 9.7,
+      "position": 9.8,
       "previousPosition": null,
       "volume": 0,
       "clicks": 0,
-      "impressions": 3,
+      "impressions": 5,
       "ctr": 0
     },
     {
       "keyword": "\"10.2307/41410412\"",
-      "position": 9.6,
+      "position": 9.5,
       "previousPosition": null,
       "volume": 0,
       "clicks": 0,
-      "impressions": 8,
+      "impressions": 11,
       "ctr": 0
     },
     {
-      "keyword": "\"qualtrics\" -site:reddit.com -site:twitter.com -site:x.com -site:wykop.pl -site:tripadvisor.com -site:youtube.com -site:yelp.com -site:booking.com -site:facebook.com -site:instagram.com -site:tiktok.com",
-      "position": 10,
+      "keyword": "\"performance expectancy\" utaut venkatesh 2003",
+      "position": 11,
       "previousPosition": null,
       "volume": 0,
       "clicks": 0,
-      "impressions": 1,
-      "ctr": 0
-    },
-    {
-      "keyword": "\"sct\" \"albert bandura\" \"the 1980s\" \"bandura\" \"1986\" or \"unlike behaviorist approaches that focus solely on the environment and\" or \"the student may watch and mentally rehearse before demonstrating their\"",
-      "position": 5.9,
-      "previousPosition": null,
-      "volume": 0,
-      "clicks": 0,
-      "impressions": 377,
+      "impressions": 3,
       "ctr": 0
     }
   ],
