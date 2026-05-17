@@ -600,6 +600,163 @@ $RUNWAY_BODY
   fi
 fi
 
+# --- Replies to Consider section ---
+# Reads the reply-action-recommendations JSON produced by Phase 5's
+# classify_replies_for_action.py step. Renders three sub-sections that
+# match the operator policy:
+#   1. Auto-Approve eligible (acknowledgment replies, lower rejection tier)
+#   2. Human Review - replies with questions (read each reply, decide)
+#   3. Human Review - high rejection tier (3+ IRI fails, or 2 + factor)
+# A bulk-approve dispatch hint is included for the first bucket so the
+# operator can action the recommendations directly.
+REPLIES_SECTION=""
+REPLIES_JSON="${RECOMMENDATIONS_JSON:-$ARTIFACTS_DIR/reply-action-recommendations/reply-action-recommendations.json}"
+if [ -f "$REPLIES_JSON" ]; then
+  if REPLIES_BODY=$(REPLIES_JSON="$REPLIES_JSON" RUN_ID="${GITHUB_RUN_ID:-}" REPO="${GITHUB_REPOSITORY:-clarkemoyer/technologyadoptionbarriers.org}" PYTHONIOENCODING=utf-8 python3 << 'REPLIESEOF'
+import json, os
+
+with open(os.environ['REPLIES_JSON']) as f:
+    d = json.load(f)
+
+total = d['total_awaiting']
+counts = d['bucket_counts']
+breakdown = d['breakdown']
+run_id = os.environ.get('RUN_ID', '<this-run-id>') or '<this-run-id>'
+repo = os.environ.get('REPO', 'clarkemoyer/technologyadoptionbarriers.org')
+
+with_replies = counts['auto_approve_eligible'] + counts['human_review_questions'] + counts['human_review_high_tier']
+no_reply = counts['no_reply']
+
+print(f'**{with_replies} of {total} awaiting-review submissions have participant replies.** '
+      f'{no_reply} have not yet replied and will continue through the auto-cycle (message > 48h > request-return > 48h > reject).')
+print('')
+
+# --- 1. Auto-Approve eligible ---
+n_aa = counts['auto_approve_eligible']
+print(f'### \U0001F7E2 Recommended for Auto-Approve ({n_aa})')
+print('')
+if n_aa == 0:
+    print('No PIDs eligible for auto-approve today.')
+else:
+    print('Lower rejection tier + reply received with no question themes. The AI judges these as sufficient to approve.')
+    print('')
+    bd = breakdown['auto_approve_eligible']
+    if bd['by_disposition']:
+        print('| Disposition | Count | Top reply themes |')
+        print('|---|---:|---|')
+        # Per-disposition reply theme summary derived from the per-PID counts.
+        # We aggregate from the bucket entries themselves to keep this section self-contained.
+        per_disp_themes = {}
+        for entry in d['buckets']['auto_approve_eligible']:
+            t = per_disp_themes.setdefault(entry['disposition'], {})
+            for theme, n in entry['reply_theme_counts'].items():
+                t[theme] = t.get(theme, 0) + n
+        for disp, count in bd['by_disposition'].items():
+            themes = per_disp_themes.get(disp, {})
+            top = sorted(themes.items(), key=lambda kv: -kv[1])[:3]
+            label = ', '.join(f'{c} {t}' for t, c in top) if top else '(no theme tags)'
+            print(f'| {disp} | {count} | {label} |')
+    print('')
+    print('**To bulk-approve these PIDs** (the workflow downloads the recommendations artifact from this run):')
+    print('')
+    suggested_max_per_run = min(30, max(1, n_aa))
+    print('```')
+    print(f'gh workflow run bulk-approve-replied.yml \\')
+    print(f'  --repo {repo} \\')
+    print(f'  -F source_run_id={run_id} \\')
+    print(f'  -F dry_run=true \\')
+    print(f'  -F max_per_run={suggested_max_per_run}')
+    print('```')
+    print('')
+    if n_aa > 30:
+        print(f'_Note: {n_aa} PIDs are currently auto-approve eligible. Keep `max_per_run=30` (safety default) and rerun the workflow in batches until the bucket is cleared._')
+        print('')
+    print('Default is dry-run; pass `-F dry_run=false` to approve live (and a thank-you message is sent to each).')
+print('')
+
+# --- 2. Human review (questions) ---
+n_q = counts['human_review_questions']
+print(f'### \U0001F534 Human Review - Reply Contains a Question ({n_q})')
+print('')
+if n_q == 0:
+    print('No replies contain question or dispute themes today.')
+else:
+    print('The participant asked us something. Read each reply and decide approve/reject.')
+    print('')
+    bd = breakdown['human_review_questions']
+    if bd['by_disposition']:
+        print('| Disposition | Count | Reply themes |')
+        print('|---|---:|---|')
+        per_disp_themes = {}
+        for entry in d['buckets']['human_review_questions']:
+            t = per_disp_themes.setdefault(entry['disposition'], {})
+            for theme, n in entry['reply_theme_counts'].items():
+                t[theme] = t.get(theme, 0) + n
+        for disp, count in bd['by_disposition'].items():
+            themes = per_disp_themes.get(disp, {})
+            top = sorted(themes.items(), key=lambda kv: -kv[1])[:5]
+            label = ', '.join(f'{c} {t}' for t, c in top) if top else '(no theme tags)'
+            print(f'| {disp} | {count} | {label} |')
+    print('')
+    print('Reply bodies are in the `prolific-messages-inbound-csv` artifact (1-day retention) or on each participant\'s Prolific submission page.')
+print('')
+
+# --- 3. Human review (high tier) ---
+n_h = counts['human_review_high_tier']
+print(f'### \U0001F7E1 Human Review - High Rejection Tier ({n_h})')
+print('')
+if n_h == 0:
+    print('No high-tier replies awaiting human review today.')
+else:
+    print('Disposition is in the high rejection tier (3+ IRI fails, or 2 IRI fails plus another quality factor like speed or partial straightlining). '
+          'Read the messaging exchange before deciding — the AI does not auto-approve these even with acknowledgment replies.')
+    print('')
+    bd = breakdown['human_review_high_tier']
+    if bd['by_disposition']:
+        print('| Disposition | Count | IRI fails | Other flags |')
+        print('|---|---:|---|---|')
+        # Group by (disposition, iri_fail signature) for context
+        from collections import Counter as _C
+        grouped = _C()
+        for entry in d['buckets']['human_review_high_tier']:
+            key = (entry['disposition'], entry['iri_fail'], entry['speed_flag'], entry['partial_straightlining_flag'])
+            grouped[key] += 1
+        for (disp, iri, spd, psl), n in grouped.most_common():
+            flags = []
+            if spd: flags.append('speed')
+            if psl: flags.append('partial-straightlining')
+            flag_label = ', '.join(flags) if flags else '(none)'
+            print(f'| {disp} | {n} | {iri} | {flag_label} |')
+    print('')
+    print('Action paths: (a) read replies on Prolific, then approve manually, or (b) use `reject_by_pid.py` for those you decide to reject.')
+print('')
+
+print(f'_Recommendations computed from `prolific-messages-inbound-csv` and `disposition-csv` artifacts. Full PID list is in the `reply-action-recommendations` workflow artifact._')
+REPLIESEOF
+  ); then
+    REPLIES_SECTION="## 🟡 Replies to Consider
+
+$REPLIES_BODY
+"
+  else
+    REPLIES_SECTION="## 🟡 Replies to Consider
+
+> ⚠️ Could not render replies section (classifier output read failed). Check the daily-report job logs.
+"
+  fi
+else
+  REPLIES_SECTION="## 🟡 Replies to Consider
+
+> ⚠️ Replies recommendations unavailable — \`$REPLIES_JSON\` not found. The classify-replies step in Phase 5 may have failed (commonly because the Phase 3f export-messages artifact was missing).
+"
+fi
+
+REPLIES_SECTION_FORMATTED=""
+if [ -n "$REPLIES_SECTION" ]; then
+  REPLIES_SECTION_FORMATTED="$REPLIES_SECTION
+"
+fi
+
 # --- Build warnings for upstream failures ---
 WARNINGS=""
 if [ "${TRIAGE_RESULT:-}" = "failure" ]; then
@@ -650,6 +807,7 @@ $TRIAGE_BREAKDOWN
 
 $RECONCILIATION_SECTION
 $RUNWAY_SECTION
+$REPLIES_SECTION_FORMATTED
 $RECOMMENDATIONS_SECTION
 $STALE_TRIAGE_SECTION_FORMATTED
 $AUTO_RR_SECTION_FORMATTED

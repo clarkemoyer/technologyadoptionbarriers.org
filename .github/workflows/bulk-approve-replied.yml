@@ -1,0 +1,109 @@
+name: Bulk Approve Replied Submissions
+
+# Approves the set of AWAITING REVIEW PIDs classified as
+# `auto_approve_eligible` by the daily-pipeline classifier
+# (scripts/analysis/classify_replies_for_action.py).
+#
+# The operator never sees or types PIDs. Inputs are a source daily-pipeline
+# run ID; this workflow downloads that run's `reply-action-recommendations`
+# artifact and extracts the PID list from the appropriate bucket.
+#
+# Safety:
+#   - Default is dry-run (read-only API checks only; no approvals/messages).
+#     Live execution requires `dry_run: false`.
+#   - approve_by_pid.py enforces CONFIRM_APPROVE=APPROVE on live runs.
+#   - MAX_PER_RUN ceiling defaults to 30 (overridable per-run).
+#   - Skips any PID whose Prolific status is no longer AWAITING REVIEW.
+
+on:
+  workflow_dispatch:
+    inputs:
+      source_run_id:
+        description: 'Daily-pipeline run ID that produced reply-action-recommendations'
+        required: true
+        type: string
+      dry_run:
+        description: 'Dry run preview (read-only API checks; no approve/message writes). Set false to approve live.'
+        required: false
+        type: boolean
+        default: true
+      max_per_run:
+        description: 'Ceiling override (default 30)'
+        required: false
+        type: string
+        default: '30'
+
+concurrency:
+  group: bulk-approve-replied
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  actions: read
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  approve:
+    name: Bulk Approve (auto_approve_eligible)
+    runs-on: ubuntu-latest
+    environment: prolific-prod
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Download recommendations artifact
+        uses: actions/download-artifact@v8
+        with:
+          name: reply-action-recommendations
+          path: ${{ runner.temp }}/recs
+          run-id: ${{ inputs.source_run_id }}
+          github-token: ${{ github.token }}
+
+      - name: Extract auto_approve_eligible PIDs
+        id: extract
+        run: |
+          set -euo pipefail
+          REC="${{ runner.temp }}/recs/reply-action-recommendations.json"
+          if [ ! -f "$REC" ]; then
+            echo "::error::Recommendations file not found at $REC"
+            exit 1
+          fi
+          PID_LIST=$(python3 -c "
+          import json
+          with open('$REC') as f:
+              d = json.load(f)
+          pids = [e['pid'] for e in d['buckets']['auto_approve_eligible']]
+          print(','.join(pids))
+          ")
+          if [ -z "$PID_LIST" ]; then
+            COUNT=0
+          else
+            COUNT=$(python3 -c "print(len('$PID_LIST'.split(',')))")
+          fi
+          echo "pid_list=$PID_LIST" >> "$GITHUB_OUTPUT"
+          echo "count=$COUNT" >> "$GITHUB_OUTPUT"
+          echo "Found $COUNT PIDs in auto_approve_eligible bucket"
+
+      - name: Approve PIDs
+        if: ${{ steps.extract.outputs.count != '0' }}
+        run: python3 scripts/analysis/approve_by_pid.py
+        env:
+          PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
+          STUDY_ID: ${{ vars.PROLIFIC_STUDY_ID }}
+          PID_LIST: ${{ steps.extract.outputs.pid_list }}
+          MAX_PER_RUN: ${{ inputs.max_per_run }}
+          DRY_RUN: ${{ inputs.dry_run && 'true' || 'false' }}
+          CONFIRM_APPROVE: ${{ inputs.dry_run && 'unused' || 'APPROVE' }}
+          OUTPUT_JSON_PATH: ${{ runner.temp }}/bulk-approve-results.json
+
+      - uses: actions/upload-artifact@v7
+        if: ${{ always() && steps.extract.outputs.count != '0' }}
+        with:
+          name: bulk-approve-results
+          path: ${{ runner.temp }}/bulk-approve-results.json
+          retention-days: 1
