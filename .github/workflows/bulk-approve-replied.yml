@@ -72,20 +72,30 @@ jobs:
             echo "::error::Recommendations file not found at $REC"
             exit 1
           fi
-          PID_LIST=$(python3 -c "
+          # Use a heredoc (matches bulk-reject-high-tier-no-reply.yml) so we
+          # don't embed the artifact path inside a Python string literal -- and
+          # so we compute COUNT inside the same Python process instead of
+          # passing $PID_LIST through a second shell-string interpolation.
+          read -r PID_LIST COUNT < <(REC="$REC" python3 << 'PY'
           import json
-          with open('$REC') as f:
+          import os
+
+          with open(os.environ["REC"], encoding="utf-8") as f:
               d = json.load(f)
-          pids = [e['pid'] for e in d['buckets']['auto_approve_eligible']]
-          print(','.join(pids))
-          ")
+
+          pids = [entry["pid"] for entry in d["buckets"]["auto_approve_eligible"]]
+          print(",".join(pids), len(pids))
+          PY
+          )
           if [ -z "$PID_LIST" ]; then
             COUNT=0
-          else
-            COUNT=$(python3 -c "print(len('$PID_LIST'.split(',')))")
           fi
-          echo "pid_list=$PID_LIST" >> "$GITHUB_OUTPUT"
-          echo "count=$COUNT" >> "$GITHUB_OUTPUT"
+          {
+            echo "pid_list<<EOF_PIDS"
+            echo "$PID_LIST"
+            echo "EOF_PIDS"
+            echo "count=$COUNT"
+          } >> "$GITHUB_OUTPUT"
           echo "Found $COUNT PIDs in auto_approve_eligible bucket"
 
       - name: Approve PIDs
