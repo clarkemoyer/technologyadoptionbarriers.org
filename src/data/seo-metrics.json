@@ -1,23 +1,23 @@
 {
-  "generatedAt": "2026-05-17T09:35:53.868Z",
-  "dashboardSyncedAt": "2026-05-17T09:35:53.868Z",
+  "generatedAt": "2026-05-18T10:30:09.011Z",
+  "dashboardSyncedAt": "2026-05-18T10:30:09.011Z",
   "dateRange": {
-    "startDate": "2026-04-19",
-    "endDate": "2026-05-17"
+    "startDate": "2026-04-20",
+    "endDate": "2026-05-18"
   },
   "overview": {
-    "organicSessions": 141534,
-    "organicSessionsChange": -8000,
-    "totalImpressions": 35636,
-    "totalImpressionsChange": 4577,
-    "totalClicks": 74,
-    "totalClicksChange": 15,
-    "averageCTR": 0.21,
+    "organicSessions": 141913,
+    "organicSessionsChange": 379,
+    "totalImpressions": 37207,
+    "totalImpressionsChange": 1571,
+    "totalClicks": 84,
+    "totalClicksChange": 10,
+    "averageCTR": 0.23,
     "averageCTRUnit": "percent",
     "averageCTRChange": 0.02,
     "averageCTRChangeUnit": "percentagePoints",
-    "averagePosition": 8.6,
-    "averagePositionChange": 0,
+    "averagePosition": 8.5,
+    "averagePositionChange": -0.1,
     "domainAuthority": 12,
     "domainAuthorityChange": 2,
     "indexedPages": 47,
@@ -28,21 +28,21 @@
   "topKeywords": [
     {
       "keyword": "toe framework tornatzky and fleischer 1990",
-      "position": 6.4,
+      "position": 6.5,
       "previousPosition": null,
       "volume": 0,
-      "clicks": 2,
-      "impressions": 8,
-      "ctr": 25
+      "clicks": 3,
+      "impressions": 11,
+      "ctr": 27.3
     },
     {
       "keyword": "technology acceptance model 2",
-      "position": 9.6,
+      "position": 11.2,
       "previousPosition": null,
       "volume": 0,
       "clicks": 1,
-      "impressions": 7,
-      "ctr": 14.3
+      "impressions": 9,
+      "ctr": 11.1
     },
     {
       "keyword": "technology adoption barriers",
@@ -64,12 +64,21 @@
     },
     {
       "keyword": "technology adoption models",
-      "position": 11.3,
+      "position": 11.4,
       "previousPosition": null,
       "volume": 0,
       "clicks": 1,
-      "impressions": 35,
+      "impressions": 34,
       "ctr": 2.9
+    },
+    {
+      "keyword": "\"10.1111/j.1540-5915.2008.00192.x\"",
+      "position": 6,
+      "previousPosition": null,
+      "volume": 0,
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": 0
     },
     {
       "keyword": "\"10.1147/sj.321.0004\"",
@@ -91,29 +100,20 @@
     },
     {
       "keyword": "\"10.2307/30036540\"",
-      "position": 9.8,
+      "position": 9.9,
       "previousPosition": null,
       "volume": 0,
       "clicks": 0,
-      "impressions": 5,
+      "impressions": 12,
       "ctr": 0
     },
     {
       "keyword": "\"10.2307/41410412\"",
-      "position": 9.5,
+      "position": 9.6,
       "previousPosition": null,
       "volume": 0,
       "clicks": 0,
-      "impressions": 11,
-      "ctr": 0
-    },
-    {
-      "keyword": "\"performance expectancy\" utaut venkatesh 2003",
-      "position": 11,
-      "previousPosition": null,
-      "volume": 0,
-      "clicks": 0,
-      "impressions": 3,
+      "impressions": 14,
       "ctr": 0
     }
   ],
