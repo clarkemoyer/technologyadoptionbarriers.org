@@ -28,7 +28,7 @@
   "dependencies": {
     "@google-analytics/data": "^5.2.1",
     "exceljs": "^4.4.0",
-    "framer-motion": "^12.38.0",
+    "framer-motion": "^12.39.0",
     "googleapis": "^171.4.0",
     "lightningcss": "^1.32.0",
     "lucide-react": "^1.16.0",
