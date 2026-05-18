@@ -1,51 +1,52 @@
 {
-  "updatedAt": "2026-05-17T11:08:26.358647+00:00",
-  "last_updated": "2026-05-17T11:08:26.358650+00:00",
+  "updatedAt": "2026-05-18T11:59:19.419516+00:00",
+  "last_updated": "2026-05-18T11:59:19.419521+00:00",
   "study": {
     "id": "69c17630acada6abeead2da5",
     "name": "Technology Adoption Barriers Survey (2026)",
     "status": "ACTIVE",
     "totalAvailablePlaces": 500,
-    "placesTaken": 433,
-    "averageRewardPerHour": 3950,
+    "placesTaken": 430,
+    "averageRewardPerHour": 3938,
     "averageTimeTaken": 10,
     "reward": 700,
     "publishedAt": "2026-03-23T18:00:28.650000Z"
   },
   "completionProgress": {
     "target": 500,
-    "completed": 433,
-    "approved": 376,
-    "awaitingReview": 57,
-    "percentComplete": 86.6
+    "completed": 430,
+    "approved": 379,
+    "awaitingReview": 51,
+    "percentComplete": 86.0
   },
-  "totalResponses": 725,
-  "uniqueParticipants": 710,
+  "totalResponses": 737,
+  "uniqueParticipants": 723,
   "duplicatesRemoved": 0,
   "dispositions": {
-    "INCOMPLETE": 100,
-    "CLEAN": 129,
-    "FLAG-SMEAL": 89,
+    "INCOMPLETE": 102,
+    "CLEAN": 132,
+    "FLAG-SMEAL": 92,
     "FLAG-SPEED": 13,
-    "FLAG-PARTIAL-STRAIGHTLINING": 58,
-    "FLAG-SINGLE-IRI": 128,
-    "AUTO-EXCLUDE": 183,
+    "FLAG-PARTIAL-STRAIGHTLINING": 59,
+    "FLAG-SINGLE-IRI": 129,
+    "AUTO-EXCLUDE": 186,
     "FLAG-RECAPTCHA": 10
   },
   "dispositionByStatus": {
     "INCOMPLETE": {
-      "RETURNED": 92,
+      "RETURNED": 94,
       "TIMED-OUT": 7,
       "APPROVED": 1
     },
     "CLEAN": {
-      "APPROVED": 127,
+      "APPROVED": 130,
       "RETURNED": 2
     },
     "FLAG-SMEAL": {
       "APPROVED": 67,
-      "AWAITING REVIEW": 14,
-      "RETURNED": 8
+      "REJECTED": 3,
+      "RETURNED": 8,
+      "AWAITING REVIEW": 14
     },
     "FLAG-SPEED": {
       "RETURNED": 3,
@@ -54,18 +55,20 @@
     },
     "FLAG-PARTIAL-STRAIGHTLINING": {
       "APPROVED": 46,
-      "AWAITING REVIEW": 12
+      "AWAITING REVIEW": 11,
+      "REJECTED": 2
     },
     "FLAG-SINGLE-IRI": {
       "RETURNED": 13,
       "APPROVED": 103,
-      "AWAITING REVIEW": 12
+      "REJECTED": 3,
+      "AWAITING REVIEW": 10
     },
     "AUTO-EXCLUDE": {
-      "REJECTED": 37,
+      "REJECTED": 41,
       "APPROVED": 19,
-      "RETURNED": 115,
-      "AWAITING REVIEW": 12
+      "RETURNED": 117,
+      "AWAITING REVIEW": 9
     },
     "FLAG-RECAPTCHA": {
       "APPROVED": 4,
@@ -75,30 +78,30 @@
   "autoExcludeBreakdown": {
     "IRI3_SPEED": 17,
     "IRI3": 41,
-    "IRI2_SPEED": 17,
+    "IRI2_SPEED": 20,
     "IRI2": 88,
     "SPEED_IRI": 20
   },
   "actions": {
-    "approved": 376,
-    "rejected": 37,
-    "returned": 247,
-    "timedOut": 8,
-    "awaitingReview": 57,
+    "approved": 379,
+    "rejected": 49,
+    "returned": 249,
+    "timedOut": 9,
+    "awaitingReview": 51,
     "active": 0,
     "messaged": 0
   },
   "iriPassRates": {
-    "barrier": 60.2,
-    "readiness": 69.5,
-    "maturity": 83.1,
-    "denominator": 610
+    "barrier": 60.4,
+    "readiness": 69.6,
+    "maturity": 83.3,
+    "denominator": 621
   },
   "autoApproveRunway": {
     "thresholdDays": 21,
-    "computedAt": "2026-05-17T11:08:26.358482+00:00",
-    "totalAwaitingReview": 57,
-    "evaluatedCount": 57,
+    "computedAt": "2026-05-18T11:59:19.419348+00:00",
+    "totalAwaitingReview": 51,
+    "evaluatedCount": 51,
     "skippedMissingCompletedAt": 0,
     "buckets": [
       {
@@ -106,21 +109,21 @@
         "risk": "low",
         "minDaysRemaining": 10.0,
         "maxDaysRemainingExclusive": null,
-        "count": 39
+        "count": 37
       },
       {
         "label": "Monitor",
         "risk": "moderate",
         "minDaysRemaining": 5.0,
         "maxDaysRemainingExclusive": 10.0,
-        "count": 15
+        "count": 10
       },
       {
         "label": "Act soon",
         "risk": "elevated",
         "minDaysRemaining": 2.0,
         "maxDaysRemainingExclusive": 5.0,
-        "count": 3
+        "count": 4
       },
       {
         "label": "HIGH RISK",
