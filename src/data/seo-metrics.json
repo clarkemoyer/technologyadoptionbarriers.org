@@ -1,23 +1,23 @@
 {
-  "generatedAt": "2026-05-18T10:30:09.011Z",
-  "dashboardSyncedAt": "2026-05-18T10:30:09.011Z",
+  "generatedAt": "2026-05-19T10:19:06.200Z",
+  "dashboardSyncedAt": "2026-05-19T10:19:06.200Z",
   "dateRange": {
-    "startDate": "2026-04-20",
-    "endDate": "2026-05-18"
+    "startDate": "2026-04-21",
+    "endDate": "2026-05-19"
   },
   "overview": {
-    "organicSessions": 141913,
-    "organicSessionsChange": 379,
-    "totalImpressions": 37207,
-    "totalImpressionsChange": 1571,
-    "totalClicks": 84,
-    "totalClicksChange": 10,
-    "averageCTR": 0.23,
+    "organicSessions": 143878,
+    "organicSessionsChange": 1965,
+    "totalImpressions": 39072,
+    "totalImpressionsChange": 1865,
+    "totalClicks": 93,
+    "totalClicksChange": 9,
+    "averageCTR": 0.24,
     "averageCTRUnit": "percent",
-    "averageCTRChange": 0.02,
+    "averageCTRChange": 0.01,
     "averageCTRChangeUnit": "percentagePoints",
     "averagePosition": 8.5,
-    "averagePositionChange": -0.1,
+    "averagePositionChange": 0,
     "domainAuthority": 12,
     "domainAuthorityChange": 2,
     "indexedPages": 47,
@@ -28,12 +28,21 @@
   "topKeywords": [
     {
       "keyword": "toe framework tornatzky and fleischer 1990",
-      "position": 6.5,
+      "position": 6.8,
       "previousPosition": null,
       "volume": 0,
       "clicks": 3,
-      "impressions": 11,
-      "ctr": 27.3
+      "impressions": 13,
+      "ctr": 23.1
+    },
+    {
+      "keyword": "tornatzky and fleischer 1990 toe framework",
+      "position": 6.5,
+      "previousPosition": null,
+      "volume": 0,
+      "clicks": 2,
+      "impressions": 4,
+      "ctr": 50
     },
     {
       "keyword": "technology acceptance model 2",
@@ -64,7 +73,7 @@
     },
     {
       "keyword": "technology adoption models",
-      "position": 11.4,
+      "position": 11,
       "previousPosition": null,
       "volume": 0,
       "clicks": 1,
@@ -86,7 +95,7 @@
       "previousPosition": null,
       "volume": 0,
       "clicks": 0,
-      "impressions": 63,
+      "impressions": 58,
       "ctr": 0
     },
     {
@@ -105,15 +114,6 @@
       "volume": 0,
       "clicks": 0,
       "impressions": 12,
-      "ctr": 0
-    },
-    {
-      "keyword": "\"10.2307/41410412\"",
-      "position": 9.6,
-      "previousPosition": null,
-      "volume": 0,
-      "clicks": 0,
-      "impressions": 14,
       "ctr": 0
     }
   ],
