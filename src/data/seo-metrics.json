@@ -1,23 +1,23 @@
 {
-  "generatedAt": "2026-05-20T10:09:49.089Z",
-  "dashboardSyncedAt": "2026-05-20T10:09:49.089Z",
+  "generatedAt": "2026-05-21T10:17:47.280Z",
+  "dashboardSyncedAt": "2026-05-21T10:17:47.280Z",
   "dateRange": {
-    "startDate": "2026-04-22",
-    "endDate": "2026-05-20"
+    "startDate": "2026-04-23",
+    "endDate": "2026-05-21"
   },
   "overview": {
-    "organicSessions": 144141,
-    "organicSessionsChange": 263,
-    "totalImpressions": 40352,
-    "totalImpressionsChange": 1280,
-    "totalClicks": 93,
-    "totalClicksChange": 0,
-    "averageCTR": 0.23,
+    "organicSessions": 143395,
+    "organicSessionsChange": -746,
+    "totalImpressions": 41952,
+    "totalImpressionsChange": 1600,
+    "totalClicks": 91,
+    "totalClicksChange": -2,
+    "averageCTR": 0.22,
     "averageCTRUnit": "percent",
     "averageCTRChange": -0.01,
     "averageCTRChangeUnit": "percentagePoints",
-    "averagePosition": 8.5,
-    "averagePositionChange": 0,
+    "averagePosition": 8.6,
+    "averagePositionChange": 0.1,
     "domainAuthority": 12,
     "domainAuthorityChange": 2,
     "indexedPages": 47,
@@ -32,8 +32,8 @@
       "previousPosition": null,
       "volume": 0,
       "clicks": 3,
-      "impressions": 14,
-      "ctr": 21.4
+      "impressions": 15,
+      "ctr": 20
     },
     {
       "keyword": "tornatzky and fleischer 1990 toe framework",
@@ -46,12 +46,12 @@
     },
     {
       "keyword": "technology acceptance model 2",
-      "position": 10.8,
+      "position": 10.2,
       "previousPosition": null,
       "volume": 0,
       "clicks": 1,
-      "impressions": 11,
-      "ctr": 9.1
+      "impressions": 13,
+      "ctr": 7.7
     },
     {
       "keyword": "technology adoption barriers",
@@ -64,30 +64,39 @@
     },
     {
       "keyword": "technology adoption framework",
-      "position": 10.5,
+      "position": 10,
       "previousPosition": null,
       "volume": 0,
       "clicks": 1,
-      "impressions": 4,
-      "ctr": 25
-    },
-    {
-      "keyword": "technology adoption models",
-      "position": 11.2,
-      "previousPosition": null,
-      "volume": 0,
-      "clicks": 1,
-      "impressions": 35,
-      "ctr": 2.9
+      "impressions": 3,
+      "ctr": 33.3
     },
     {
       "keyword": "toe framework (tornatzky and fleischer 1990)",
-      "position": 7.1,
+      "position": 7.2,
       "previousPosition": null,
       "volume": 0,
       "clicks": 1,
-      "impressions": 16,
-      "ctr": 6.3
+      "impressions": 17,
+      "ctr": 5.9
+    },
+    {
+      "keyword": "toe framework tornatzky and fleischer 1990 pdf",
+      "position": 8.7,
+      "previousPosition": null,
+      "volume": 0,
+      "clicks": 1,
+      "impressions": 10,
+      "ctr": 10
+    },
+    {
+      "keyword": "tornatzky & fleischer, 1990",
+      "position": 8.5,
+      "previousPosition": null,
+      "volume": 0,
+      "clicks": 1,
+      "impressions": 10,
+      "ctr": 10
     },
     {
       "keyword": "\"10.1111/j.1540-5915.2008.00192.x\"",
@@ -105,15 +114,6 @@
       "volume": 0,
       "clicks": 0,
       "impressions": 56,
-      "ctr": 0
-    },
-    {
-      "keyword": "\"10.1287/mnsc.46.2.186.11926\"",
-      "position": 9,
-      "previousPosition": null,
-      "volume": 0,
-      "clicks": 0,
-      "impressions": 2,
       "ctr": 0
     }
   ],
