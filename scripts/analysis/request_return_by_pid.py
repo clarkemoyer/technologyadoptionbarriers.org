@@ -21,6 +21,11 @@ Environment variables:
   DRY_RUN                     - When "false" AND CONFIRM_REQUEST_RETURN matches, live
   MAX_PER_RUN                 - Optional ceiling; abort if PID_LIST exceeds it
   OUTPUT_JSON_PATH            - Optional path for machine-readable results
+  BYPASS_STALE_GATE           - When "true", skip the stale_no_reply_to_message
+                                bucket check on live runs. Use only for ad-hoc
+                                operator decisions on PIDs that have replied
+                                but where the operator has already judged the
+                                reply insufficient. Default "false".
 
 Exit codes:
   0 - success (live or dry run completed)
@@ -216,6 +221,7 @@ def main() -> None:
     dry_run = os.environ.get("DRY_RUN", "true").strip().lower() != "false"
     confirm = os.environ.get("CONFIRM_REQUEST_RETURN", "").strip()
     output_json_path = os.environ.get("OUTPUT_JSON_PATH", "").strip()
+    bypass_stale_gate = os.environ.get("BYPASS_STALE_GATE", "false").strip().lower() == "true"
     max_per_run_raw = os.environ.get("MAX_PER_RUN", "")
     max_per_run = _parse_max_per_run(max_per_run_raw)
     stale_hours_raw = os.environ.get("STALE_HOURS", "48")
@@ -250,6 +256,8 @@ def main() -> None:
     print(f"Target PIDs: {len(target_pids)}")
     print(f"Mode: {'DRY RUN' if dry_run else 'LIVE REQUEST-RETURN'}")
     print(f"Ceiling (MAX_PER_RUN): {max_per_run if max_per_run is not None else 'unset (no limit)'}")
+    if bypass_stale_gate:
+        print("BYPASS_STALE_GATE=true - will NOT enforce stale_no_reply_to_message bucket gate")
     print()
 
     computed_at = datetime.now(timezone.utc).isoformat()
@@ -407,7 +415,7 @@ def main() -> None:
                 {"pid": r["pid"], "reason": f"revalidation failed: {e}"}
             )
             continue
-        if bucket != "stale_no_reply_to_message":
+        if bucket != "stale_no_reply_to_message" and not bypass_stale_gate:
             status_label = f"NO_LONGER_ELIGIBLE:{bucket or 'NONE'}"
             print(
                 f"  SKIPPING {r['pid']}: stale revalidation result {status_label}",
@@ -415,6 +423,11 @@ def main() -> None:
             )
             base_payload["skipped_non_awaiting"].append({"pid": r["pid"], "status": status_label})
             continue
+        if bucket != "stale_no_reply_to_message" and bypass_stale_gate:
+            print(
+                f"  BYPASS_STALE_GATE: {r['pid']} bucket={bucket or 'NONE'} - proceeding anyway",
+                file=sys.stderr,
+            )
         sub_id = pid_to_sub_id.get(r["pid"])
         if not sub_id:
             base_payload["failures"].append({"pid": r["pid"], "reason": "no submission id"})
