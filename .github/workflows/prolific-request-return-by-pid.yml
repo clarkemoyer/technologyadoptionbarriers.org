@@ -52,6 +52,11 @@ on:
         required: false
         type: string
         default: '30'
+      bypass_stale_gate:
+        description: 'Bypass the stale_no_reply_to_message bucket gate. Use only for ad-hoc operator decisions on PIDs that have replied but where the reply is insufficient.'
+        required: false
+        type: boolean
+        default: false
 
 concurrency:
   group: 'prolific-request-return-submissions'
@@ -136,6 +141,7 @@ jobs:
           MAX_PER_RUN: ${{ inputs.max_per_run }}
           DRY_RUN: ${{ inputs.dry_run }}
           CONFIRM_REQUEST_RETURN: ${{ inputs.confirm_request_return }}
+          BYPASS_STALE_GATE: ${{ inputs.bypass_stale_gate }}
           OUTPUT_JSON_PATH: ${{ runner.temp }}/request-return-by-pid-results.json
         run: python3 scripts/analysis/request_return_by_pid.py
 
