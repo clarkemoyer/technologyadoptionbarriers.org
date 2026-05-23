@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import { type ReactNode, useMemo } from 'react'
 import Link from 'next/link'
 import {
   ARTICLE_CLASSES,
@@ -273,6 +273,8 @@ export const FindingsContent = ({ variant, data, validationData }: FindingsConte
   const sampleDetails: Record<string, SampleDetail> = data.sample_details ?? {}
   const inferentialExtensionsProps = buildInferentialExtensionsProps(validationData)
 
+  const samplesByKey = useMemo(() => new Map(data.samples.map((s) => [s.key, s])), [data.samples])
+
   return (
     <div className="pt-20 sm:pt-[120px] bg-white">
       <article className={ARTICLE_CLASSES}>
@@ -302,7 +304,7 @@ export const FindingsContent = ({ variant, data, validationData }: FindingsConte
           </p>
 
           {config.groups.map((group) => {
-            const sample = data.samples.find((s) => s.key === group.key)
+            const sample = samplesByKey.get(group.key)
             const details = sampleDetails[group.key]
             const effects = details?.effect_sizes
             const techVsNontech = effects?.['tech_vs_nontech']
@@ -488,7 +490,7 @@ export const FindingsContent = ({ variant, data, validationData }: FindingsConte
           </p>
 
           {config.groups.map((group) => {
-            const sample = data.samples.find((s) => s.key === group.key)
+            const sample = samplesByKey.get(group.key)
             const details = sampleDetails[group.key]
             const ct = details?.cross_tabs
             const hasData =
