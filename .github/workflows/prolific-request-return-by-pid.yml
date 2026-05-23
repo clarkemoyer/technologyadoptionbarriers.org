@@ -1,0 +1,155 @@
+# ╔══════════════════════════════════════════════════════════════════════╗
+# ║  PROLIFIC ACTION WORKFLOW: Request return by explicit PID list       ║
+# ║                                                                      ║
+# ║  Wraps request_return_by_pid.py for ad-hoc invocation. The same      ║
+# ║  engine powers daily-pipeline Phase 3d, but Phase 3d is hardwired    ║
+# ║  to consume the `stale_no_reply_to_message` bucket from stale-       ║
+# ║  triage.json. This workflow exposes the engine for one-off cases     ║
+# ║  where an operator wants to request return on a specific PID with    ║
+# ║  the same disposition-aware reason text Phase 3d would use.          ║
+# ║                                                                      ║
+# ║  The participant sees a per-disposition reason on Prolific:          ║
+# ║    AUTO-EXCLUDE w/ IRI fails → "Quality review: N of 3 embedded      ║
+# ║                                  attention checks were answered      ║
+# ║                                  differently than instructed"        ║
+# ║    FLAG-SMEAL                 → speed-framed reason                  ║
+# ║    FLAG-SINGLE-IRI, etc.      → disposition-specific text            ║
+# ║                                                                      ║
+# ║  SAFETY REQUIREMENTS:                                                ║
+# ║    1. Manual trigger only (workflow_dispatch)                        ║
+# ║    2. Defaults to dry-run                                            ║
+# ║    3. Live run requires CONFIRM_REQUEST_RETURN=REQUEST_RETURN        ║
+# ║    4. PID_LIST is required                                           ║
+# ║    5. Aborts on unmodelled dispositions (no guessed reasons)         ║
+# ║    6. Skips any PID no longer AWAITING REVIEW                        ║
+# ╚══════════════════════════════════════════════════════════════════════╝
+
+name: 'Prolific: Request Return by PID'
+
+on:
+  workflow_dispatch:
+    inputs:
+      study_id:
+        description: 'Prolific Study ID (defaults to PROLIFIC_STUDY_ID)'
+        required: false
+        type: string
+      pid_list:
+        description: 'Comma-separated PIDs to request return for (required)'
+        required: true
+        type: string
+      dry_run:
+        description: 'Dry run - preview without calling Prolific'
+        required: true
+        type: boolean
+        default: true
+      confirm_request_return:
+        description: 'Type REQUEST_RETURN to confirm live execution (required when dry_run is false)'
+        required: false
+        type: string
+        default: ''
+      max_per_run:
+        description: 'Ceiling override (default 30)'
+        required: false
+        type: string
+        default: '30'
+      bypass_stale_gate:
+        description: 'Bypass the stale_no_reply_to_message bucket gate. Use only for ad-hoc operator decisions on PIDs that have replied but where the reply is insufficient.'
+        required: false
+        type: boolean
+        default: false
+
+concurrency:
+  group: 'prolific-request-return-submissions'
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  triage:
+    name: Export & Triage
+    runs-on: ubuntu-latest
+    environment: qualtrics-prod
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Export Qualtrics responses
+        run: python3 scripts/analysis/export_qualtrics.py
+        env:
+          QUALTRICS_API_TOKEN: ${{ secrets.QUALTRICS_API_TOKEN }}
+          QUALTRICS_BASE_URL: ${{ vars.QUALTRICS_BASE_URL }}
+          QUALTRICS_SURVEY_ID: ${{ vars.QUALTRICS_SURVEY_ID }}
+          OUTPUT_PATH: ${{ runner.temp }}/qualtrics-export.csv
+
+      - name: Run disposition triage
+        run: python3 scripts/analysis/disposition_triage.py
+        env:
+          INPUT_PATH: ${{ runner.temp }}/qualtrics-export.csv
+          OUTPUT_PATH: ${{ runner.temp }}/disposition.csv
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: disposition-csv
+          path: ${{ runner.temp }}/disposition.csv
+          retention-days: 1
+
+  request-return:
+    name: 'Request Return by PID'
+    needs: triage
+    runs-on: ubuntu-latest
+    environment: prolific-prod
+    steps:
+      - name: 'Safety check: validate confirmation'
+        if: inputs.dry_run == false
+        env:
+          CONFIRM: ${{ inputs.confirm_request_return }}
+        run: |
+          echo "================================================================"
+          echo "  Prolific Request Return (live)"
+          echo "  This will dispatch /submissions/{id}/request-return/ per PID."
+          echo "  Participants will receive a disposition-aware reason."
+          echo "================================================================"
+          if [ "$CONFIRM" != "REQUEST_RETURN" ]; then
+            echo "SAFETY STOP: You must type REQUEST_RETURN in the confirmation field."
+            echo "Received: '$CONFIRM'"
+            exit 1
+          fi
+          echo "Confirmation accepted: '$CONFIRM'"
+
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - uses: actions/download-artifact@v8
+        with:
+          name: disposition-csv
+          path: ${{ runner.temp }}
+
+      - name: Request return by PID
+        env:
+          PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
+          STUDY_ID: ${{ inputs.study_id || vars.PROLIFIC_STUDY_ID }}
+          CSV_FILE_PATH: ${{ runner.temp }}/disposition.csv
+          PID_LIST: ${{ inputs.pid_list }}
+          MAX_PER_RUN: ${{ inputs.max_per_run }}
+          DRY_RUN: ${{ inputs.dry_run }}
+          CONFIRM_REQUEST_RETURN: ${{ inputs.confirm_request_return }}
+          BYPASS_STALE_GATE: ${{ inputs.bypass_stale_gate }}
+          OUTPUT_JSON_PATH: ${{ runner.temp }}/request-return-by-pid-results.json
+        run: python3 scripts/analysis/request_return_by_pid.py
+
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: request-return-by-pid-results
+          path: ${{ runner.temp }}/request-return-by-pid-results.json
+          # 1-day retention: contains full PIDs (successes, failures, skips).
+          # Matches privacy treatment of auto-request-return-results.
+          retention-days: 1

@@ -429,6 +429,10 @@ class TestReasonsFromMessages:
         body = "Our automated authenticity checks flagged your submission for additional review."
         assert _reasons_from_messages([{"sender_id": RESEARCHER_ID, "body": body}]) == ["FLAG-RECAPTCHA"]
 
+    def test_flag_recaptcha_new_signature_matches(self):
+        body = "reCAPTCHA verification on your session triggered additional review in our quality checks."
+        assert _reasons_from_messages([{"sender_id": RESEARCHER_ID, "body": body}]) == ["FLAG-RECAPTCHA"]
+
     def test_flag_partial_straightlining_matches(self):
         body = "your responses in the Adoption section(s) showed very little variation, which our quality checks flag for review."
         assert _reasons_from_messages([{"sender_id": RESEARCHER_ID, "body": body}]) == ["FLAG-PARTIAL-STRAIGHTLINING"]

@@ -1,13 +1,13 @@
 {
-  "as_of": "2026-05-10T12:30:09Z",
-  "commit_sha": "a904d19131e153fc89c60d38f6f6e5746b0d5ee6",
-  "commit_count": 5879,
-  "lines_of_code": 227599,
-  "comments": 12848,
-  "blanks": 26129,
-  "total_lines": 266576,
-  "tracked_files": 782,
-  "github_workflows": 50,
+  "as_of": "2026-05-18T07:43:54Z",
+  "commit_sha": "c414a1bb3835b1cad537bec0f9ea0e7ecdd64c07",
+  "commit_count": 7050,
+  "lines_of_code": 230632,
+  "comments": 13236,
+  "blanks": 26608,
+  "total_lines": 270476,
+  "tracked_files": 791,
+  "github_workflows": 52,
   "integrations": 8,
   "development_phases": 5,
   "phases_source": "CRP §3.6 Table 8 (Five-Phase TABS Product Development Process)",
@@ -16,37 +16,37 @@
     {
       "language": "TypeScript",
       "files": 460,
-      "code": 111928,
-      "comment": 3921,
-      "blank": 7959
+      "code": 111967,
+      "comment": 3919,
+      "blank": 7962
     },
     {
       "language": "JSON",
       "files": 41,
-      "code": 44785,
+      "code": 44915,
       "comment": 0,
       "blank": 0
     },
     {
       "language": "Python",
-      "files": 83,
-      "code": 34985,
-      "comment": 7561,
-      "blank": 6926
+      "files": 89,
+      "code": 36913,
+      "comment": 7801,
+      "blank": 7261
     },
     {
       "language": "Markdown",
-      "files": 102,
-      "code": 24036,
+      "files": 103,
+      "code": 24172,
       "comment": 39,
-      "blank": 9554
+      "blank": 9602
     },
     {
       "language": "YAML",
-      "files": 56,
-      "code": 6910,
-      "comment": 863,
-      "blank": 1142
+      "files": 58,
+      "code": 7311,
+      "comment": 966,
+      "blank": 1187
     },
     {
       "language": "CSV",
@@ -54,6 +54,13 @@
       "code": 1170,
       "comment": 0,
       "blank": 4
+    },
+    {
+      "language": "Bourne Shell",
+      "files": 4,
+      "code": 982,
+      "comment": 132,
+      "blank": 143
     },
     {
       "language": "Scheme",
@@ -68,13 +75,6 @@
       "code": 759,
       "comment": 54,
       "blank": 109
-    },
-    {
-      "language": "Bourne Shell",
-      "files": 4,
-      "code": 583,
-      "comment": 85,
-      "blank": 95
     },
     {
       "language": "DOS Batch",

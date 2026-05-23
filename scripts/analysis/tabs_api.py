@@ -532,6 +532,22 @@ def prolific_send_message(
     return _json_request("POST", url, headers, body, allow_empty=True)
 
 
+def prolific_request_return(
+    submission_id: str, reasons: List[str], api_token: str
+) -> Dict:
+    """Request that a participant return their submission.
+
+    Uses the dedicated /request-return/ endpoint (not /transition/). Sets
+    `return_requested` on the submission while leaving status AWAITING REVIEW;
+    Prolific notifies the participant. After the reserve timeout Prolific
+    auto-APPROVES if no participant action, so callers must follow up.
+    """
+    headers = {**_prolific_headers(api_token), "Content-Type": "application/json"}
+    url = f"{_PROLIFIC_BASE}/submissions/{submission_id}/request-return/"
+    body = {"request_return_reasons": reasons}
+    return _json_request("POST", url, headers, body, allow_empty=True)
+
+
 def prolific_unreject(submission_id: str, api_token: str) -> Dict:
     """Transition a submission from REJECTED → AWAITING REVIEW."""
     headers = {**_prolific_headers(api_token), "Content-Type": "application/json"}

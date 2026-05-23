@@ -88,6 +88,7 @@ _DISPOSITION_SIGNATURES = [
     # FLAG dispositions (all have unique phrases)
     ("which is faster than expected for a survey of this length", "FLAG-SPEED"),
     ("below our benchmark of 9 minutes", "FLAG-SMEAL"),
+    ("reCAPTCHA verification on your session triggered additional review", "FLAG-RECAPTCHA"),
     ("automated authenticity checks flagged your submission", "FLAG-RECAPTCHA"),
     (
         "showed very little variation, which our quality checks flag",

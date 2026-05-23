@@ -5,5 +5,61 @@
     "impressions": 38500,
     "clicks": 2180,
     "averagePosition": 28.4
+  },
+  {
+    "date": "2026-05-15T20:15:22.755Z",
+    "sessions": 182748,
+    "impressions": 31589,
+    "clicks": 59,
+    "averagePosition": 8.6
+  },
+  {
+    "date": "2026-05-16T09:34:04.871Z",
+    "sessions": 149534,
+    "impressions": 31059,
+    "clicks": 59,
+    "averagePosition": 8.6
+  },
+  {
+    "date": "2026-05-17T09:35:53.868Z",
+    "sessions": 141534,
+    "impressions": 35636,
+    "clicks": 74,
+    "averagePosition": 8.6
+  },
+  {
+    "date": "2026-05-18T10:30:09.011Z",
+    "sessions": 141913,
+    "impressions": 37207,
+    "clicks": 84,
+    "averagePosition": 8.5
+  },
+  {
+    "date": "2026-05-19T10:19:06.200Z",
+    "sessions": 143878,
+    "impressions": 39072,
+    "clicks": 93,
+    "averagePosition": 8.5
+  },
+  {
+    "date": "2026-05-20T10:09:49.089Z",
+    "sessions": 144141,
+    "impressions": 40352,
+    "clicks": 93,
+    "averagePosition": 8.5
+  },
+  {
+    "date": "2026-05-21T10:17:47.280Z",
+    "sessions": 143395,
+    "impressions": 41952,
+    "clicks": 91,
+    "averagePosition": 8.6
+  },
+  {
+    "date": "2026-05-22T10:07:14.857Z",
+    "sessions": 136946,
+    "impressions": 43455,
+    "clicks": 99,
+    "averagePosition": 8.6
   }
 ]

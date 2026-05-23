@@ -15,8 +15,16 @@ name: Platform stats
 # website, the slides, the CRP, future README badges) honest. See #1900.
 
 on:
-  push:
-    branches: [main]
+  # push: main trigger removed 2026-05-17 — it created a self-feeding loop.
+  # The workflow writes three monotonically/always-changing fields to the
+  # output JSON (commit_count, commit_sha, as_of). Each push to main fired
+  # the workflow, which opened an auto-merging PR with those changes, which
+  # was itself a push to main, which fired the workflow again. ~80 chore PRs
+  # per day at steady state, ~360/day under recent merge activity, with all
+  # of them effectively no-ops apart from the timestamp/SHA/count fields.
+  # The weekly cron below keeps the figure honest; operators can also
+  # dispatch on demand after a meaningful code change.
+  # See issue #1900 for the original rationale.
   schedule:
     # Weekly Monday 06:00 UTC keeps the figure fresh even if no main commit
     # happens for a week. Off-minute scheduling avoids GHA's :00 quota crunch.
