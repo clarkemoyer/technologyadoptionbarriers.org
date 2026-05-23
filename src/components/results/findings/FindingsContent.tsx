@@ -97,17 +97,6 @@ interface FindingsContentProps {
   validationData: unknown
 }
 
-const samplesByKeyCache = new WeakMap<FindingsData['samples'], Map<string, Sample>>()
-
-const getSamplesByKey = (samples: FindingsData['samples']): Map<string, Sample> => {
-  const cached = samplesByKeyCache.get(samples)
-  if (cached) return cached
-
-  const computed = new Map(samples.map((sample) => [sample.key, sample]))
-  samplesByKeyCache.set(samples, computed)
-  return computed
-}
-
 const fmt = (val: number | null | undefined, decimals: number = 2): string => {
   if (val === null || val === undefined) return '-'
   const prefix = val > 0 ? '+' : ''
@@ -284,7 +273,7 @@ export const FindingsContent = ({ variant, data, validationData }: FindingsConte
   const sampleDetails: Record<string, SampleDetail> = data.sample_details ?? {}
   const inferentialExtensionsProps = buildInferentialExtensionsProps(validationData)
 
-  const samplesByKey = getSamplesByKey(data.samples)
+  const samplesByKey = new Map(data.samples.map((sample) => [sample.key, sample]))
 
   return (
     <div className="pt-20 sm:pt-[120px] bg-white">
