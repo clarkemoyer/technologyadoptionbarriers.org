@@ -1,20 +1,20 @@
 {
-  "generatedAt": "2026-05-22T10:07:14.857Z",
-  "dashboardSyncedAt": "2026-05-22T10:07:14.857Z",
+  "generatedAt": "2026-05-23T09:36:15.484Z",
+  "dashboardSyncedAt": "2026-05-23T09:36:15.484Z",
   "dateRange": {
-    "startDate": "2026-04-24",
-    "endDate": "2026-05-22"
+    "startDate": "2026-04-25",
+    "endDate": "2026-05-23"
   },
   "overview": {
-    "organicSessions": 136946,
-    "organicSessionsChange": -6449,
-    "totalImpressions": 43455,
-    "totalImpressionsChange": 1503,
-    "totalClicks": 99,
-    "totalClicksChange": 8,
+    "organicSessions": 136694,
+    "organicSessionsChange": -252,
+    "totalImpressions": 44811,
+    "totalImpressionsChange": 1356,
+    "totalClicks": 104,
+    "totalClicksChange": 5,
     "averageCTR": 0.23,
     "averageCTRUnit": "percent",
-    "averageCTRChange": 0.01,
+    "averageCTRChange": 0,
     "averageCTRChangeUnit": "percentagePoints",
     "averagePosition": 8.6,
     "averagePositionChange": 0,
@@ -28,12 +28,12 @@
   "topKeywords": [
     {
       "keyword": "toe framework tornatzky and fleischer 1990",
-      "position": 6.7,
+      "position": 7,
       "previousPosition": null,
       "volume": 0,
       "clicks": 3,
-      "impressions": 15,
-      "ctr": 20
+      "impressions": 19,
+      "ctr": 15.8
     },
     {
       "keyword": "tornatzky and fleischer 1990 toe framework",
@@ -45,13 +45,22 @@
       "ctr": 28.6
     },
     {
-      "keyword": "technology acceptance model 2",
-      "position": 10.4,
+      "keyword": "prolific dashboard",
+      "position": 9.7,
       "previousPosition": null,
       "volume": 0,
       "clicks": 1,
-      "impressions": 15,
-      "ctr": 6.7
+      "impressions": 50,
+      "ctr": 2
+    },
+    {
+      "keyword": "technology acceptance model 2",
+      "position": 9.9,
+      "previousPosition": null,
+      "volume": 0,
+      "clicks": 1,
+      "impressions": 17,
+      "ctr": 5.9
     },
     {
       "keyword": "technology acceptance model 3 and a research agenda on interventions",
@@ -59,17 +68,17 @@
       "previousPosition": null,
       "volume": 0,
       "clicks": 1,
-      "impressions": 30,
-      "ctr": 3.3
+      "impressions": 33,
+      "ctr": 3
     },
     {
       "keyword": "technology adoption barriers",
-      "position": 4.3,
+      "position": 4.2,
       "previousPosition": null,
       "volume": 0,
       "clicks": 1,
-      "impressions": 29,
-      "ctr": 3.4
+      "impressions": 28,
+      "ctr": 3.6
     },
     {
       "keyword": "technology adoption framework",
@@ -100,21 +109,12 @@
     },
     {
       "keyword": "tornatzky & fleischer, 1990",
-      "position": 8.7,
+      "position": 8.8,
       "previousPosition": null,
       "volume": 0,
       "clicks": 1,
-      "impressions": 14,
-      "ctr": 7.1
-    },
-    {
-      "keyword": "\"10.1111/j.1540-5915.2008.00192.x\"",
-      "position": 6,
-      "previousPosition": null,
-      "volume": 0,
-      "clicks": 0,
-      "impressions": 3,
-      "ctr": 0
+      "impressions": 15,
+      "ctr": 6.7
     }
   ],
   "topPages": [
