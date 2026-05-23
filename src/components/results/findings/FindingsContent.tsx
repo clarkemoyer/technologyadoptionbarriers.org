@@ -1,4 +1,4 @@
-import { type ReactNode, useMemo } from 'react'
+import type { ReactNode } from 'react'
 import Link from 'next/link'
 import {
   ARTICLE_CLASSES,
@@ -273,7 +273,7 @@ export const FindingsContent = ({ variant, data, validationData }: FindingsConte
   const sampleDetails: Record<string, SampleDetail> = data.sample_details ?? {}
   const inferentialExtensionsProps = buildInferentialExtensionsProps(validationData)
 
-  const samplesByKey = useMemo(() => new Map(data.samples.map((s) => [s.key, s])), [data.samples])
+  const samplesByKey = new Map(data.samples.map((s) => [s.key, s]))
 
   return (
     <div className="pt-20 sm:pt-[120px] bg-white">
