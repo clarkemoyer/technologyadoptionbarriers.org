@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-05-23T09:36:15.484Z",
-  "dashboardSyncedAt": "2026-05-23T09:36:15.484Z",
+  "generatedAt": "2026-05-24T09:39:00.279Z",
+  "dashboardSyncedAt": "2026-05-24T09:39:00.279Z",
   "dateRange": {
-    "startDate": "2026-04-25",
-    "endDate": "2026-05-23"
+    "startDate": "2026-04-26",
+    "endDate": "2026-05-24"
   },
   "overview": {
-    "organicSessions": 136694,
-    "organicSessionsChange": -252,
-    "totalImpressions": 44811,
-    "totalImpressionsChange": 1356,
-    "totalClicks": 104,
-    "totalClicksChange": 5,
+    "organicSessions": 133142,
+    "organicSessionsChange": -3552,
+    "totalImpressions": 43769,
+    "totalImpressionsChange": -1042,
+    "totalClicks": 101,
+    "totalClicksChange": -3,
     "averageCTR": 0.23,
     "averageCTRUnit": "percent",
     "averageCTRChange": 0,
@@ -50,8 +50,8 @@
       "previousPosition": null,
       "volume": 0,
       "clicks": 1,
-      "impressions": 50,
-      "ctr": 2
+      "impressions": 48,
+      "ctr": 2.1
     },
     {
       "keyword": "technology acceptance model 2",
@@ -73,21 +73,21 @@
     },
     {
       "keyword": "technology adoption barriers",
-      "position": 4.2,
+      "position": 4,
       "previousPosition": null,
       "volume": 0,
       "clicks": 1,
-      "impressions": 28,
-      "ctr": 3.6
+      "impressions": 27,
+      "ctr": 3.7
     },
     {
       "keyword": "technology adoption framework",
-      "position": 10,
+      "position": 7.5,
       "previousPosition": null,
       "volume": 0,
       "clicks": 1,
-      "impressions": 3,
-      "ctr": 33.3
+      "impressions": 2,
+      "ctr": 50
     },
     {
       "keyword": "toe framework (tornatzky and fleischer 1990)",
