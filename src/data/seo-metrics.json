@@ -1,23 +1,23 @@
 {
-  "generatedAt": "2026-05-25T10:34:28.468Z",
-  "dashboardSyncedAt": "2026-05-25T10:34:28.468Z",
+  "generatedAt": "2026-05-26T10:25:34.632Z",
+  "dashboardSyncedAt": "2026-05-26T10:25:34.632Z",
   "dateRange": {
-    "startDate": "2026-04-27",
-    "endDate": "2026-05-25"
+    "startDate": "2026-04-28",
+    "endDate": "2026-05-26"
   },
   "overview": {
-    "organicSessions": 135023,
-    "organicSessionsChange": 1881,
-    "totalImpressions": 46833,
-    "totalImpressionsChange": 3064,
-    "totalClicks": 104,
+    "organicSessions": 131331,
+    "organicSessionsChange": -3692,
+    "totalImpressions": 47796,
+    "totalImpressionsChange": 963,
+    "totalClicks": 107,
     "totalClicksChange": 3,
     "averageCTR": 0.22,
     "averageCTRUnit": "percent",
-    "averageCTRChange": -0.01,
+    "averageCTRChange": 0,
     "averageCTRChangeUnit": "percentagePoints",
-    "averagePosition": 8.6,
-    "averagePositionChange": 0,
+    "averagePosition": 8.7,
+    "averagePositionChange": 0.1,
     "domainAuthority": 12,
     "domainAuthorityChange": 2,
     "indexedPages": 47,
@@ -46,12 +46,12 @@
     },
     {
       "keyword": "prolific dashboard",
-      "position": 9.6,
+      "position": 9.5,
       "previousPosition": null,
       "volume": 0,
       "clicks": 1,
-      "impressions": 46,
-      "ctr": 2.2
+      "impressions": 44,
+      "ctr": 2.3
     },
     {
       "keyword": "technology acceptance model 2",
@@ -64,21 +64,21 @@
     },
     {
       "keyword": "technology acceptance model 3 and a research agenda on interventions",
-      "position": 11.1,
+      "position": 11,
       "previousPosition": null,
       "volume": 0,
       "clicks": 1,
-      "impressions": 38,
-      "ctr": 2.6
+      "impressions": 41,
+      "ctr": 2.4
     },
     {
       "keyword": "technology adoption barriers",
-      "position": 4,
+      "position": 4.1,
       "previousPosition": null,
       "volume": 0,
       "clicks": 1,
-      "impressions": 27,
-      "ctr": 3.7
+      "impressions": 28,
+      "ctr": 3.6
     },
     {
       "keyword": "technology adoption framework",
@@ -91,30 +91,30 @@
     },
     {
       "keyword": "toe framework (tornatzky and fleischer 1990)",
-      "position": 7.4,
+      "position": 7.6,
       "previousPosition": null,
       "volume": 0,
       "clicks": 1,
-      "impressions": 23,
-      "ctr": 4.3
+      "impressions": 26,
+      "ctr": 3.8
     },
     {
       "keyword": "toe framework tornatzky and fleischer 1990 pdf",
-      "position": 8.9,
+      "position": 8.8,
       "previousPosition": null,
       "volume": 0,
       "clicks": 1,
-      "impressions": 12,
-      "ctr": 8.3
+      "impressions": 13,
+      "ctr": 7.7
     },
     {
       "keyword": "tornatzky & fleischer, 1990",
-      "position": 8.9,
+      "position": 8.8,
       "previousPosition": null,
       "volume": 0,
       "clicks": 1,
-      "impressions": 18,
-      "ctr": 5.6
+      "impressions": 19,
+      "ctr": 5.3
     }
   ],
   "topPages": [
