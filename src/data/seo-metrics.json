@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-05-28T10:28:17.646Z",
-  "dashboardSyncedAt": "2026-05-28T10:28:17.646Z",
+  "generatedAt": "2026-05-29T10:21:41.285Z",
+  "dashboardSyncedAt": "2026-05-29T10:21:41.285Z",
   "dateRange": {
-    "startDate": "2026-04-30",
-    "endDate": "2026-05-28"
+    "startDate": "2026-05-01",
+    "endDate": "2026-05-29"
   },
   "overview": {
-    "organicSessions": 131654,
-    "organicSessionsChange": 324,
-    "totalImpressions": 49412,
-    "totalImpressionsChange": 527,
+    "organicSessions": 132870,
+    "organicSessionsChange": 1216,
+    "totalImpressions": 49674,
+    "totalImpressionsChange": 262,
     "totalClicks": 111,
-    "totalClicksChange": 4,
+    "totalClicksChange": 0,
     "averageCTR": 0.22,
     "averageCTRUnit": "percent",
     "averageCTRChange": 0,
@@ -32,8 +32,8 @@
       "previousPosition": null,
       "volume": 0,
       "clicks": 3,
-      "impressions": 22,
-      "ctr": 13.6
+      "impressions": 24,
+      "ctr": 12.5
     },
     {
       "keyword": "toe framework tornatzky and fleischer 1990 pdf",
@@ -41,8 +41,8 @@
       "previousPosition": null,
       "volume": 0,
       "clicks": 2,
-      "impressions": 15,
-      "ctr": 13.3
+      "impressions": 18,
+      "ctr": 11.1
     },
     {
       "keyword": "tornatzky & fleischer (1990)",
@@ -68,8 +68,8 @@
       "previousPosition": null,
       "volume": 0,
       "clicks": 1,
-      "impressions": 53,
-      "ctr": 1.9
+      "impressions": 50,
+      "ctr": 2
     },
     {
       "keyword": "technology acceptance model 2",
@@ -86,8 +86,8 @@
       "previousPosition": null,
       "volume": 0,
       "clicks": 1,
-      "impressions": 43,
-      "ctr": 2.3
+      "impressions": 47,
+      "ctr": 2.1
     },
     {
       "keyword": "technology adoption barriers",
@@ -109,12 +109,12 @@
     },
     {
       "keyword": "toe framework (tornatzky and fleischer 1990)",
-      "position": 7.5,
+      "position": 7.2,
       "previousPosition": null,
       "volume": 0,
       "clicks": 1,
-      "impressions": 33,
-      "ctr": 3
+      "impressions": 37,
+      "ctr": 2.7
     }
   ],
   "topPages": [
