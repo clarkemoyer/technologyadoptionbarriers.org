@@ -1,23 +1,23 @@
 {
-  "generatedAt": "2026-05-30T09:38:35.266Z",
-  "dashboardSyncedAt": "2026-05-30T09:38:35.266Z",
+  "generatedAt": "2026-05-31T09:53:57.223Z",
+  "dashboardSyncedAt": "2026-05-31T09:53:57.223Z",
   "dateRange": {
-    "startDate": "2026-05-02",
-    "endDate": "2026-05-30"
+    "startDate": "2026-05-03",
+    "endDate": "2026-05-31"
   },
   "overview": {
-    "organicSessions": 128841,
-    "organicSessionsChange": -4029,
-    "totalImpressions": 49914,
-    "totalImpressionsChange": 240,
-    "totalClicks": 111,
-    "totalClicksChange": 0,
-    "averageCTR": 0.22,
+    "organicSessions": 123176,
+    "organicSessionsChange": -5665,
+    "totalImpressions": 50299,
+    "totalImpressionsChange": 385,
+    "totalClicks": 115,
+    "totalClicksChange": 4,
+    "averageCTR": 0.23,
     "averageCTRUnit": "percent",
-    "averageCTRChange": 0,
+    "averageCTRChange": 0.01,
     "averageCTRChangeUnit": "percentagePoints",
     "averagePosition": 8.8,
-    "averagePositionChange": 0.1,
+    "averagePositionChange": 0,
     "domainAuthority": 12,
     "domainAuthorityChange": 2,
     "indexedPages": 47,
@@ -28,21 +28,21 @@
   "topKeywords": [
     {
       "keyword": "toe framework tornatzky and fleischer 1990",
-      "position": 7.5,
+      "position": 7.6,
       "previousPosition": null,
       "volume": 0,
-      "clicks": 3,
-      "impressions": 24,
-      "ctr": 12.5
+      "clicks": 4,
+      "impressions": 25,
+      "ctr": 16
     },
     {
       "keyword": "toe framework tornatzky and fleischer 1990 pdf",
-      "position": 8.4,
+      "position": 8.6,
       "previousPosition": null,
       "volume": 0,
-      "clicks": 2,
-      "impressions": 18,
-      "ctr": 11.1
+      "clicks": 3,
+      "impressions": 20,
+      "ctr": 15
     },
     {
       "keyword": "tornatzky & fleischer (1990)",
@@ -59,8 +59,8 @@
       "previousPosition": null,
       "volume": 0,
       "clicks": 2,
-      "impressions": 9,
-      "ctr": 22.2
+      "impressions": 10,
+      "ctr": 20
     },
     {
       "keyword": "prolific dashboard",
@@ -86,8 +86,8 @@
       "previousPosition": null,
       "volume": 0,
       "clicks": 1,
-      "impressions": 52,
-      "ctr": 1.9
+      "impressions": 55,
+      "ctr": 1.8
     },
     {
       "keyword": "technology adoption barriers",
@@ -113,8 +113,8 @@
       "previousPosition": null,
       "volume": 0,
       "clicks": 1,
-      "impressions": 39,
-      "ctr": 2.6
+      "impressions": 40,
+      "ctr": 2.5
     }
   ],
   "topPages": [
