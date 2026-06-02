@@ -1,23 +1,23 @@
 {
-  "generatedAt": "2026-06-01T10:46:22.693Z",
-  "dashboardSyncedAt": "2026-06-01T10:46:22.693Z",
+  "generatedAt": "2026-06-02T10:34:45.094Z",
+  "dashboardSyncedAt": "2026-06-02T10:34:45.094Z",
   "dateRange": {
-    "startDate": "2026-05-04",
-    "endDate": "2026-06-01"
+    "startDate": "2026-05-05",
+    "endDate": "2026-06-02"
   },
   "overview": {
-    "organicSessions": 114391,
-    "organicSessionsChange": -8785,
-    "totalImpressions": 50665,
-    "totalImpressionsChange": 366,
-    "totalClicks": 115,
-    "totalClicksChange": 0,
+    "organicSessions": 115670,
+    "organicSessionsChange": 1279,
+    "totalImpressions": 51435,
+    "totalImpressionsChange": 770,
+    "totalClicks": 118,
+    "totalClicksChange": 3,
     "averageCTR": 0.23,
     "averageCTRUnit": "percent",
     "averageCTRChange": 0,
     "averageCTRChangeUnit": "percentagePoints",
     "averagePosition": 8.7,
-    "averagePositionChange": -0.1,
+    "averagePositionChange": 0,
     "domainAuthority": 12,
     "domainAuthorityChange": 2,
     "indexedPages": 47,
@@ -28,12 +28,12 @@
   "topKeywords": [
     {
       "keyword": "toe framework tornatzky and fleischer 1990",
-      "position": 7.6,
+      "position": 7.3,
       "previousPosition": null,
       "volume": 0,
-      "clicks": 4,
-      "impressions": 25,
-      "ctr": 16
+      "clicks": 5,
+      "impressions": 28,
+      "ctr": 17.9
     },
     {
       "keyword": "toe framework tornatzky and fleischer 1990 pdf",
@@ -68,17 +68,17 @@
       "previousPosition": null,
       "volume": 0,
       "clicks": 1,
-      "impressions": 47,
-      "ctr": 2.1
+      "impressions": 46,
+      "ctr": 2.2
     },
     {
       "keyword": "technology acceptance model 2",
-      "position": 10.1,
+      "position": 10.3,
       "previousPosition": null,
       "volume": 0,
       "clicks": 1,
-      "impressions": 23,
-      "ctr": 4.3
+      "impressions": 24,
+      "ctr": 4.2
     },
     {
       "keyword": "technology acceptance model 3 and a research agenda on interventions",
@@ -86,26 +86,17 @@
       "previousPosition": null,
       "volume": 0,
       "clicks": 1,
-      "impressions": 55,
+      "impressions": 56,
       "ctr": 1.8
     },
     {
       "keyword": "technology adoption barriers",
-      "position": 4.2,
+      "position": 4.1,
       "previousPosition": null,
       "volume": 0,
       "clicks": 1,
-      "impressions": 29,
-      "ctr": 3.4
-    },
-    {
-      "keyword": "technology adoption framework",
-      "position": 7.5,
-      "previousPosition": null,
-      "volume": 0,
-      "clicks": 1,
-      "impressions": 2,
-      "ctr": 50
+      "impressions": 28,
+      "ctr": 3.6
     },
     {
       "keyword": "toe framework (tornatzky and fleischer 1990)",
@@ -113,8 +104,17 @@
       "previousPosition": null,
       "volume": 0,
       "clicks": 1,
-      "impressions": 42,
-      "ctr": 2.4
+      "impressions": 43,
+      "ctr": 2.3
+    },
+    {
+      "keyword": "tornatzky & fleischer, 1990",
+      "position": 8.5,
+      "previousPosition": null,
+      "volume": 0,
+      "clicks": 1,
+      "impressions": 28,
+      "ctr": 3.6
     }
   ],
   "topPages": [
