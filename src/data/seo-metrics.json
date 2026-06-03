@@ -1,23 +1,23 @@
 {
-  "generatedAt": "2026-06-02T10:34:45.094Z",
-  "dashboardSyncedAt": "2026-06-02T10:34:45.094Z",
+  "generatedAt": "2026-06-03T10:35:41.651Z",
+  "dashboardSyncedAt": "2026-06-03T10:35:41.651Z",
   "dateRange": {
-    "startDate": "2026-05-05",
-    "endDate": "2026-06-02"
+    "startDate": "2026-05-06",
+    "endDate": "2026-06-03"
   },
   "overview": {
-    "organicSessions": 115670,
-    "organicSessionsChange": 1279,
-    "totalImpressions": 51435,
-    "totalImpressionsChange": 770,
-    "totalClicks": 118,
-    "totalClicksChange": 3,
+    "organicSessions": 111213,
+    "organicSessionsChange": -4457,
+    "totalImpressions": 52198,
+    "totalImpressionsChange": 763,
+    "totalClicks": 122,
+    "totalClicksChange": 4,
     "averageCTR": 0.23,
     "averageCTRUnit": "percent",
     "averageCTRChange": 0,
     "averageCTRChangeUnit": "percentagePoints",
-    "averagePosition": 8.7,
-    "averagePositionChange": 0,
+    "averagePosition": 8.6,
+    "averagePositionChange": -0.1,
     "domainAuthority": 12,
     "domainAuthorityChange": 2,
     "indexedPages": 47,
@@ -40,9 +40,9 @@
       "position": 8.6,
       "previousPosition": null,
       "volume": 0,
-      "clicks": 3,
-      "impressions": 20,
-      "ctr": 15
+      "clicks": 4,
+      "impressions": 21,
+      "ctr": 19
     },
     {
       "keyword": "tornatzky & fleischer (1990)",
@@ -50,8 +50,8 @@
       "previousPosition": null,
       "volume": 0,
       "clicks": 2,
-      "impressions": 21,
-      "ctr": 9.5
+      "impressions": 23,
+      "ctr": 8.7
     },
     {
       "keyword": "tornatzky and fleischer 1990 toe framework",
@@ -64,21 +64,21 @@
     },
     {
       "keyword": "prolific dashboard",
-      "position": 9.1,
+      "position": 9,
       "previousPosition": null,
       "volume": 0,
       "clicks": 1,
-      "impressions": 46,
-      "ctr": 2.2
+      "impressions": 47,
+      "ctr": 2.1
     },
     {
       "keyword": "technology acceptance model 2",
-      "position": 10.3,
+      "position": 9.9,
       "previousPosition": null,
       "volume": 0,
       "clicks": 1,
-      "impressions": 24,
-      "ctr": 4.2
+      "impressions": 25,
+      "ctr": 4
     },
     {
       "keyword": "technology acceptance model 3 and a research agenda on interventions",
@@ -86,7 +86,7 @@
       "previousPosition": null,
       "volume": 0,
       "clicks": 1,
-      "impressions": 56,
+      "impressions": 57,
       "ctr": 1.8
     },
     {
@@ -100,12 +100,12 @@
     },
     {
       "keyword": "toe framework (tornatzky and fleischer 1990)",
-      "position": 7.2,
+      "position": 7.4,
       "previousPosition": null,
       "volume": 0,
       "clicks": 1,
-      "impressions": 43,
-      "ctr": 2.3
+      "impressions": 51,
+      "ctr": 2
     },
     {
       "keyword": "tornatzky & fleischer, 1990",
