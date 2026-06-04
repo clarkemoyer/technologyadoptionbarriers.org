@@ -1,23 +1,23 @@
 {
-  "generatedAt": "2026-06-03T10:35:41.651Z",
-  "dashboardSyncedAt": "2026-06-03T10:35:41.651Z",
+  "generatedAt": "2026-06-04T10:19:51.456Z",
+  "dashboardSyncedAt": "2026-06-04T10:19:51.456Z",
   "dateRange": {
-    "startDate": "2026-05-06",
-    "endDate": "2026-06-03"
+    "startDate": "2026-05-07",
+    "endDate": "2026-06-04"
   },
   "overview": {
-    "organicSessions": 111213,
-    "organicSessionsChange": -4457,
-    "totalImpressions": 52198,
-    "totalImpressionsChange": 763,
-    "totalClicks": 122,
-    "totalClicksChange": 4,
+    "organicSessions": 101591,
+    "organicSessionsChange": -9622,
+    "totalImpressions": 50974,
+    "totalImpressionsChange": -1224,
+    "totalClicks": 119,
+    "totalClicksChange": -3,
     "averageCTR": 0.23,
     "averageCTRUnit": "percent",
     "averageCTRChange": 0,
     "averageCTRChangeUnit": "percentagePoints",
     "averagePosition": 8.6,
-    "averagePositionChange": -0.1,
+    "averagePositionChange": 0,
     "domainAuthority": 12,
     "domainAuthorityChange": 2,
     "indexedPages": 47,
@@ -64,12 +64,12 @@
     },
     {
       "keyword": "prolific dashboard",
-      "position": 9,
+      "position": 8.9,
       "previousPosition": null,
       "volume": 0,
       "clicks": 1,
-      "impressions": 47,
-      "ctr": 2.1
+      "impressions": 44,
+      "ctr": 2.3
     },
     {
       "keyword": "technology acceptance model 2",
