@@ -1,20 +1,20 @@
 {
-  "generatedAt": "2026-06-05T10:23:28.001Z",
-  "dashboardSyncedAt": "2026-06-05T10:23:28.001Z",
+  "generatedAt": "2026-06-06T09:43:02.816Z",
+  "dashboardSyncedAt": "2026-06-06T09:43:02.816Z",
   "dateRange": {
-    "startDate": "2026-05-08",
-    "endDate": "2026-06-05"
+    "startDate": "2026-05-09",
+    "endDate": "2026-06-06"
   },
   "overview": {
     "organicSessions": 100372,
-    "organicSessionsChange": -1219,
-    "totalImpressions": 49852,
-    "totalImpressionsChange": -1122,
+    "organicSessionsChange": 0,
+    "totalImpressions": 48668,
+    "totalImpressionsChange": -1184,
     "totalClicks": 118,
-    "totalClicksChange": -1,
+    "totalClicksChange": 0,
     "averageCTR": 0.24,
     "averageCTRUnit": "percent",
-    "averageCTRChange": 0.01,
+    "averageCTRChange": 0,
     "averageCTRChangeUnit": "percentagePoints",
     "averagePosition": 8.6,
     "averagePositionChange": 0,
@@ -64,12 +64,12 @@
     },
     {
       "keyword": "prolific dashboard",
-      "position": 8.8,
+      "position": 8.6,
       "previousPosition": null,
       "volume": 0,
       "clicks": 1,
-      "impressions": 40,
-      "ctr": 2.5
+      "impressions": 36,
+      "ctr": 2.8
     },
     {
       "keyword": "technology acceptance model 2",
@@ -91,12 +91,12 @@
     },
     {
       "keyword": "technology adoption barriers",
-      "position": 4.3,
+      "position": 4.9,
       "previousPosition": null,
       "volume": 0,
       "clicks": 1,
-      "impressions": 24,
-      "ctr": 4.2
+      "impressions": 14,
+      "ctr": 7.1
     },
     {
       "keyword": "toe framework (tornatzky and fleischer 1990)",
