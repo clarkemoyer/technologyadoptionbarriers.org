@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-06-09T10:16:22.485Z",
-  "dashboardSyncedAt": "2026-06-09T10:16:22.485Z",
+  "generatedAt": "2026-06-10T10:27:21.457Z",
+  "dashboardSyncedAt": "2026-06-10T10:27:21.457Z",
   "dateRange": {
-    "startDate": "2026-05-12",
-    "endDate": "2026-06-09"
+    "startDate": "2026-05-13",
+    "endDate": "2026-06-10"
   },
   "overview": {
-    "organicSessions": 96834,
-    "organicSessionsChange": -3012,
-    "totalImpressions": 54006,
-    "totalImpressionsChange": -477,
-    "totalClicks": 142,
-    "totalClicksChange": 3,
+    "organicSessions": 93408,
+    "organicSessionsChange": -3426,
+    "totalImpressions": 51685,
+    "totalImpressionsChange": -2321,
+    "totalClicks": 136,
+    "totalClicksChange": -6,
     "averageCTR": 0.26,
     "averageCTRUnit": "percent",
     "averageCTRChange": 0,
@@ -28,12 +28,12 @@
   "topKeywords": [
     {
       "keyword": "toe framework tornatzky and fleischer 1990",
-      "position": 7.3,
+      "position": 7.4,
       "previousPosition": null,
       "volume": 0,
-      "clicks": 6,
-      "impressions": 38,
-      "ctr": 15.8
+      "clicks": 5,
+      "impressions": 37,
+      "ctr": 13.5
     },
     {
       "keyword": "toe framework tornatzky and fleischer 1990 pdf",
@@ -59,8 +59,8 @@
       "previousPosition": null,
       "volume": 0,
       "clicks": 2,
-      "impressions": 40,
-      "ctr": 5
+      "impressions": 39,
+      "ctr": 5.1
     },
     {
       "keyword": "tornatzky and fleischer 1990 toe framework",
@@ -73,12 +73,12 @@
     },
     {
       "keyword": "prolific dashboard",
-      "position": 8.7,
+      "position": 8.8,
       "previousPosition": null,
       "volume": 0,
       "clicks": 1,
-      "impressions": 42,
-      "ctr": 2.4
+      "impressions": 40,
+      "ctr": 2.5
     },
     {
       "keyword": "technology acceptance model 2",
@@ -104,17 +104,17 @@
       "previousPosition": null,
       "volume": 0,
       "clicks": 1,
-      "impressions": 66,
+      "impressions": 65,
       "ctr": 1.5
     },
     {
       "keyword": "tornatzky & fleischer 1990",
-      "position": 9.1,
+      "position": 8.9,
       "previousPosition": null,
       "volume": 0,
       "clicks": 1,
-      "impressions": 14,
-      "ctr": 7.1
+      "impressions": 13,
+      "ctr": 7.7
     }
   ],
   "topPages": [
