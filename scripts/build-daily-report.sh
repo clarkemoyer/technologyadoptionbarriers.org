@@ -1038,10 +1038,41 @@ if [ "$CRITICAL_FINDINGS" = false ]; then
   LABELS="$LABELS,auto-close-eligible"
 fi
 
-ISSUE_URL=$(gh issue create \
+# Ensure every label we are about to apply exists. A missing label otherwise
+# makes `gh issue create --label` fail and kills the whole report job -- and it
+# fails precisely on the most important reports: the `urgent` label is only
+# applied when HIGH_RISK_COUNT > 0, so a missing `urgent` label took down the
+# high-risk report (the one that also fires the @-mention push notification).
+# Create-if-missing is idempotent and safe to run every day.
+ensure_label() {
+  local name="$1" color="$2" desc="$3"
+  if ! gh label list --limit 200 --json name --jq '.[].name' | grep -qxF "$name"; then
+    echo "Label '$name' missing; creating it."
+    gh label create "$name" --color "$color" --description "$desc" 2>/dev/null \
+      || echo "::warning::could not create label '$name'; report will fall back to no labels"
+  fi
+}
+ensure_label "documentation" "0075ca" "Daily disposition report"
+ensure_label "auto-close-eligible" "c5def5" "Report eligible for auto-close after 24h with no critical findings"
+# `auto-closed` is applied later when sweeping old eligible reports closed.
+ensure_label "auto-closed" "ededed" "Daily report auto-closed after 24h with no critical findings"
+if [ "$HIGH_RISK_COUNT" -gt 0 ]; then
+  ensure_label "urgent" "b60205" "Submissions within 2 days of Prolific 21-day auto-approve"
+fi
+
+# Create the report issue. If labeling still fails for any reason (e.g. a label
+# was deleted between the ensure step and now, or label-create was denied),
+# retry without labels so the report -- the actual deliverable -- still posts.
+if ! ISSUE_URL=$(gh issue create \
   --title "$TITLE" \
   --body-file /tmp/report-body.md \
-  --label "$LABELS")
+  --label "$LABELS" 2>/tmp/issue-create.err); then
+  echo "::warning::issue create with labels '$LABELS' failed: $(cat /tmp/issue-create.err)"
+  echo "::warning::retrying without labels so the report still posts"
+  ISSUE_URL=$(gh issue create \
+    --title "$TITLE" \
+    --body-file /tmp/report-body.md)
+fi
 
 echo "Daily report issue created: $TITLE ($ISSUE_URL)"
 
