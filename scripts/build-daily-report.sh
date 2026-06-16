@@ -1044,12 +1044,18 @@ fi
 # applied when HIGH_RISK_COUNT > 0, so a missing `urgent` label took down the
 # high-risk report (the one that also fires the @-mention push notification).
 # Create-if-missing is idempotent and safe to run every day.
+# Fetch the existing labels once rather than calling the API per label, to avoid
+# redundant requests / rate-limiting (one list call instead of up to four).
+EXISTING_LABELS=$(gh label list --limit 500 --json name --jq '.[].name' 2>/dev/null || echo "")
 ensure_label() {
   local name="$1" color="$2" desc="$3"
-  if ! gh label list --limit 200 --json name --jq '.[].name' | grep -qxF "$name"; then
+  if ! printf '%s\n' "$EXISTING_LABELS" | grep -qxF "$name"; then
     echo "Label '$name' missing; creating it."
-    gh label create "$name" --color "$color" --description "$desc" 2>/dev/null \
-      || echo "::warning::could not create label '$name'; report will fall back to no labels"
+    if gh label create "$name" --color "$color" --description "$desc" 2>/dev/null; then
+      EXISTING_LABELS="$EXISTING_LABELS"$'\n'"$name"
+    else
+      echo "::warning::could not create label '$name'; report will fall back to no labels"
+    fi
   fi
 }
 ensure_label "documentation" "0075ca" "Daily disposition report"
