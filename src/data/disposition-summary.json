@@ -1,26 +1,26 @@
 {
-  "updatedAt": "2026-06-16T19:28:26.722093+00:00",
-  "last_updated": "2026-06-16T19:28:26.722100+00:00",
+  "updatedAt": "2026-06-17T12:16:08.884045+00:00",
+  "last_updated": "2026-06-17T12:16:08.884050+00:00",
   "study": {
     "id": "69c17630acada6abeead2da5",
     "name": "Technology Adoption Barriers Survey (2026)",
     "status": "ACTIVE",
     "totalAvailablePlaces": 500,
-    "placesTaken": 466,
-    "averageRewardPerHour": 3925,
+    "placesTaken": 467,
+    "averageRewardPerHour": 3919,
     "averageTimeTaken": 10,
     "reward": 700,
     "publishedAt": "2026-03-23T18:00:28.650000Z"
   },
   "completionProgress": {
     "target": 500,
-    "completed": 466,
+    "completed": 467,
     "approved": 460,
-    "awaitingReview": 6,
-    "percentComplete": 93.2
+    "awaitingReview": 7,
+    "percentComplete": 93.4
   },
-  "totalResponses": 840,
-  "uniqueParticipants": 830,
+  "totalResponses": 841,
+  "uniqueParticipants": 831,
   "duplicatesRemoved": 0,
   "dispositions": {
     "INCOMPLETE": 112,
@@ -29,7 +29,7 @@
     "FLAG-SPEED": 14,
     "FLAG-PARTIAL-STRAIGHTLINING": 64,
     "FLAG-SINGLE-IRI": 153,
-    "AUTO-EXCLUDE": 216,
+    "AUTO-EXCLUDE": 217,
     "FLAG-RECAPTCHA": 17,
     "FLAG-STRAIGHTLINING": 1
   },
@@ -66,7 +66,7 @@
       "REJECTED": 42,
       "APPROVED": 19,
       "RETURNED": 152,
-      "AWAITING REVIEW": 3
+      "AWAITING REVIEW": 4
     },
     "FLAG-RECAPTCHA": {
       "APPROVED": 11,
@@ -78,7 +78,7 @@
   },
   "autoExcludeBreakdown": {
     "IRI3_SPEED": 23,
-    "IRI3": 50,
+    "IRI3": 51,
     "IRI2_SPEED": 22,
     "IRI2": 101,
     "SPEED_IRI": 20
@@ -88,21 +88,21 @@
     "rejected": 43,
     "returned": 322,
     "timedOut": 9,
-    "awaitingReview": 6,
+    "awaitingReview": 7,
     "active": 0,
     "messaged": 0
   },
   "iriPassRates": {
-    "barrier": 59.9,
-    "readiness": 68.9,
-    "maturity": 82.3,
-    "denominator": 718
+    "barrier": 59.8,
+    "readiness": 68.8,
+    "maturity": 82.2,
+    "denominator": 719
   },
   "autoApproveRunway": {
     "thresholdDays": 21,
-    "computedAt": "2026-06-16T19:28:26.721973+00:00",
-    "totalAwaitingReview": 6,
-    "evaluatedCount": 6,
+    "computedAt": "2026-06-17T12:16:08.883915+00:00",
+    "totalAwaitingReview": 7,
+    "evaluatedCount": 7,
     "skippedMissingCompletedAt": 0,
     "buckets": [
       {
@@ -110,7 +110,7 @@
         "risk": "low",
         "minDaysRemaining": 10.0,
         "maxDaysRemainingExclusive": null,
-        "count": 3
+        "count": 4
       },
       {
         "label": "Monitor",
