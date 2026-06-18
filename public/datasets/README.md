@@ -64,9 +64,9 @@ License text: https://creativecommons.org/licenses/by/4.0/
 
 ### 2.2 Recommended Citation
 
-Moyer, C. (2026). _Technology Adoption Barriers Survey (TABS): CRP 2026
-public dataset (N=200)_ [Data set]. Penn State ScholarSphere.
-https://scholarsphere.psu.edu/resources/cc6df3e4-17d3-4594-86f6-48a433cde962
+Moyer, C. (2026). _Technology Adoption Barriers Survey (TABS) 2026 CRP
+Initial Dataset_ [Data set]. Penn State ScholarSphere.
+https://doi.org/10.26207/k064-f485
 
 ### 2.3 Related Publications
 
@@ -119,6 +119,8 @@ recommended use. There are no other files in this deposit.
 - 2026-04: Initial deposit. Snapshot frozen at N=200; not expected to
   change. Any future revisions will receive a new ScholarSphere version
   identifier and will be noted here.
+- 2026-06: Published to Penn State ScholarSphere with a persistent DOI:
+  https://doi.org/10.26207/k064-f485 (cite via the DOI; see section 2.2).
 
 ---
 
