@@ -64,7 +64,7 @@ License text: https://creativecommons.org/licenses/by/4.0/
 
 ### 2.2 Recommended Citation
 
-Moyer, C. (2026). _Technology Adoption Barriers Survey (TABS) 2026 CRP
+Moyer, Clarke (2026). _Technology Adoption Barriers Survey (TABS) 2026 CRP
 Initial Dataset_ [Data set]. Penn State ScholarSphere.
 https://doi.org/10.26207/k064-f485
 
