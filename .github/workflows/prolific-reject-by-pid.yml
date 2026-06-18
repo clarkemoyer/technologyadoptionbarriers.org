@@ -47,8 +47,8 @@ on:
       stale_hours:
         description: 'Override the post-return-request staleness threshold in hours (default 48). Lower it for a deliberate human-decision reject of items already past the real return window but whose Prolific return_requested timestamp is recent.'
         required: false
-        type: string
-        default: '48'
+        type: number
+        default: 48
 
 concurrency:
   group: 'prolific-reject-submissions'
@@ -132,5 +132,5 @@ jobs:
           PID_LIST: ${{ inputs.pid_list }}
           DRY_RUN: ${{ inputs.dry_run }}
           CONFIRM_REJECT: ${{ inputs.confirm_reject }}
-          STALE_HOURS: ${{ inputs.stale_hours }}
+          STALE_HOURS: ${{ inputs.stale_hours || 48 }}
         run: python3 scripts/analysis/reject_by_pid.py
