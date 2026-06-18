@@ -132,7 +132,8 @@ recommended use. There are no other files in this deposit.
 - **Delimiter:** comma; values containing commas, quotes, or newlines are
   double-quoted per RFC 4180. Free-text feedback (`Q74_Feedback`) may
   contain embedded newlines within a quoted cell.
-- **Missing data convention:** empty string (`""`). The Top-3 barrier
+- **Missing data convention:** empty field (i.e., consecutive commas in
+  the raw CSV, with no value between the delimiters). The Top-3 barrier
   block (`Q29-46_Top3Barriers_*`) is sparse by design: each respondent
   fills only three of the eighteen items, so most cells are empty.
 
@@ -144,8 +145,8 @@ recommended use. There are no other files in this deposit.
 | Respondent profile            | `Q1_Role`, `Q1_Role_11_TEXT`, `Q2_DecisionAuth`, `Q3_Industry`, `Q3_Industry_26_TEXT`, `Q4_OrgSize`, `Q5_ProfitModel`, `Q6_RevenueBudget`, `Q7_PersonalBudget`, `Q8_GeoScope`, `Q9_GeoScale` | Self-reported role, decision authority, industry, organization size, profit/non-profit status, budget bands, and geographic scope. Free-text "Other (please specify)" responses in `_TEXT` columns have been PII-scanned. |
 | Barriers block (Q10-28)       | `Q10-28_Barriers_1` through `Q10-28_Barriers_19`                                                                                                                                             | Eighteen barrier items + one IRI attention check at item 19 (expected answer: "Major Barrier"). Five-point ordered scale: Not a Barrier / Minor Barrier / Moderate Barrier / Significant Barrier / Major Barrier.         |
 | Top-3 barriers block (Q29-46) | `Q29-46_Top3Barriers_1` through `Q29-46_Top3Barriers_18`                                                                                                                                     | Forced-choice "Top 3" selection from the same eighteen barrier items. Three cells per row are populated with the chosen barrier's verbatim text; the remaining fifteen are empty.                                         |
-| Readiness block (Q47-64)      | `Q47-64_Readiness_1` through `Q47-64_Readiness_18`                                                                                                                                           | Seventeen readiness items + one IRI attention check at item 18 (expected answer: "Low Readiness/Capability"). Six-point scale: Very Low / Low / Moderate / High / Very High / Don't Know.                                 |
-| Maturity block (Q65-73)       | `Q65-73_Maturity_1` through `Q65-73_Maturity_9`                                                                                                                                              | Eight maturity items + one IRI attention check at item 9 (expected answer: "Level 2: Developing/Repeatable"). Five-level CMMI-style scale: Level 1 Initial/Ad Hoc through Level 5 Optimizing/Innovating.                  |
+| Readiness block (Q47-64)      | `Q47-64_Readiness_1` through `Q47-64_Readiness_18`                                                                                                                                           | Seventeen readiness items + one IRI attention check at item 18 (expected answer: "Low Readiness/Capability"). Six-point scale: Very Low Readiness/Capability / Low Readiness/Capability / Moderate Readiness/Capability / High Readiness/Capability / Very High Readiness/Capability / Don't Know.                                 |
+| Maturity block (Q65-73)       | `Q65-73_Maturity_1` through `Q65-73_Maturity_9`                                                                                                                                              | Eight maturity items + one IRI attention check at item 9 (expected answer: "Level 2: Developing/Repeatable"). Five-level CMMI-style scale: Level 1 Initial/Ad Hoc through Level 5 Optimizing/Innovating; "Don't Know" is also a valid response option and is treated as missing in scoring.                  |
 | Open feedback                 | `Q74_Feedback`                                                                                                                                                                               | Free-text comment field. PII-scanned at the row level; any flagged content was reviewed and redacted prior to release.                                                                                                    |
 | Quality signals (Qualtrics)   | `Q_RecaptchaStatus`, `Q_RecaptchaError`, `Q_DuplicateRespondentStatus`                                                                                                                       | Subset of Qualtrics fraud / quality signals retained for transparency. Numeric reCAPTCHA score and other operational fields are excluded (see section 4.1.4).                                                             |
 | Prolific session pointers     | `STUDY_ID`, `SESSION_ID`, `SOURCE`, `COMPLETE_URL`                                                                                                                                           | Qualtrics-recorded URL parameters identifying the Prolific study/session that referred each response. These contain no participant PII.                                                                                   |
@@ -166,18 +167,21 @@ Summary of the main ordered scales (as they appear verbatim in the CSV):
 
 - **Barriers (5-point):** Not a Barrier (1), Minor Barrier (2), Moderate
   Barrier (3), Significant Barrier (4), Major Barrier (5).
-- **Readiness (6-point, with non-answer):** Very Low / Low / Moderate /
-  High / Very High / Don't Know. "Don't Know" is treated as missing in
-  analysis; the other five are coded 1-5.
-- **Maturity (5-level CMMI-style):** Level 1: Initial/Ad Hoc through
-  Level 5: Optimizing/Innovating.
+- **Readiness (6-point, with non-answer):** Very Low Readiness/Capability /
+  Low Readiness/Capability / Moderate Readiness/Capability / High
+  Readiness/Capability / Very High Readiness/Capability / Don't Know.
+  "Don't Know" is treated as missing in analysis; the other five are coded 1-5.
+- **Maturity (5-level CMMI-style, with non-answer):** Level 1: Initial/Ad Hoc
+  through Level 5: Optimizing/Innovating; "Don't Know" is also a valid
+  response option and is treated as missing in scoring.
 
 #### 4.1.3 Missing Data Codes
 
-- Empty string (`""`) denotes missing or not-applicable.
-- "Don't Know" in the readiness block is a substantive response option but
-  is treated as missing in the reported barrier / readiness / maturity
-  composite scores.
+- Empty field (i.e., consecutive commas in the raw CSV, with no value
+  between the delimiters) denotes missing or not-applicable.
+- "Don't Know" in the readiness and maturity blocks is a substantive
+  response option but is treated as missing in the reported barrier /
+  readiness / maturity composite scores.
 - Top-3 barrier block (`Q29-46_Top3Barriers_*`): exactly three of the
   eighteen cells per row carry text; the others are empty by design.
 
