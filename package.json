@@ -76,7 +76,7 @@
     "typescript": "^6.0.3"
   },
   "overrides": {
-    "tmp": "^0.2.5",
+    "tmp": "^0.2.7",
     "exceljs": {
       "uuid": "^14.0.0"
     },
