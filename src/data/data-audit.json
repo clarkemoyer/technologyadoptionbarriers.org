@@ -2,22 +2,22 @@
   "disposition_counts": {
     "INCOMPLETE": 112,
     "CLEAN": 150,
-    "FLAG-SMEAL": 105,
+    "FLAG-SMEAL": 106,
     "FLAG-SPEED": 14,
     "FLAG-PARTIAL-STRAIGHTLINING": 65,
-    "FLAG-SINGLE-IRI": 154,
-    "AUTO-EXCLUDE": 218,
+    "FLAG-SINGLE-IRI": 155,
+    "AUTO-EXCLUDE": 220,
     "FLAG-RECAPTCHA": 17,
     "FLAG-STRAIGHTLINING": 1
   },
   "iri_pass_rates": {
-    "barrier": 0.5239234449760766,
-    "readiness": 0.6004784688995215,
-    "maturity": 0.7129186602870813
+    "barrier": 0.5226190476190476,
+    "readiness": 0.6,
+    "maturity": 0.7142857142857143
   },
   "duration_stats": {
-    "mean": 635.2129186602871,
-    "median": 534,
+    "mean": 634.8523809523809,
+    "median": 533,
     "q25": 341,
     "q75": 780,
     "min": 2,
@@ -28,8 +28,8 @@
     "partial_flagged": 251
   },
   "sample_sizes": {
-    "total": 836,
-    "complete": 724,
+    "total": 840,
+    "complete": 728,
     "clean": 150
   },
   "waterfall_steps": [
@@ -54,44 +54,44 @@
     {
       "step": 3,
       "name": "AUTO-EXCLUDE",
-      "count": 218,
-      "cumulative_excluded": 330
+      "count": 220,
+      "cumulative_excluded": 332
     },
     {
       "step": 4,
       "name": "FLAG-SPEED",
       "count": 14,
-      "cumulative_excluded": 344
+      "cumulative_excluded": 346
     },
     {
       "step": 5,
       "name": "FLAG-SINGLE-IRI",
-      "count": 154,
-      "cumulative_excluded": 498
+      "count": 155,
+      "cumulative_excluded": 501
     },
     {
       "step": 6,
       "name": "FLAG-SMEAL",
-      "count": 105,
-      "cumulative_excluded": 603
+      "count": 106,
+      "cumulative_excluded": 607
     },
     {
       "step": 7,
       "name": "FLAG-RECAPTCHA",
       "count": 17,
-      "cumulative_excluded": 620
+      "cumulative_excluded": 624
     },
     {
       "step": 8,
       "name": "FLAG-STRAIGHTLINING",
       "count": 1,
-      "cumulative_excluded": 621
+      "cumulative_excluded": 625
     },
     {
       "step": 9,
       "name": "FLAG-PARTIAL-STRAIGHTLINING",
       "count": 65,
-      "cumulative_excluded": 686
+      "cumulative_excluded": 690
     },
     {
       "step": 10,
