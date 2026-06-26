@@ -250,5 +250,54 @@
     "impressions": 49579,
     "clicks": 149,
     "averagePosition": 8.5
+  },
+  {
+    "date": "2026-06-19T10:32:52.340Z",
+    "sessions": 94197,
+    "impressions": 49172,
+    "clicks": 146,
+    "averagePosition": 8.5
+  },
+  {
+    "date": "2026-06-20T10:03:04.315Z",
+    "sessions": 90402,
+    "impressions": 48384,
+    "clicks": 146,
+    "averagePosition": 8.6
+  },
+  {
+    "date": "2026-06-21T10:16:29.423Z",
+    "sessions": 90085,
+    "impressions": 47702,
+    "clicks": 147,
+    "averagePosition": 8.6
+  },
+  {
+    "date": "2026-06-22T10:56:22.626Z",
+    "sessions": 91109,
+    "impressions": 46760,
+    "clicks": 143,
+    "averagePosition": 8.6
+  },
+  {
+    "date": "2026-06-23T10:17:29.935Z",
+    "sessions": 90205,
+    "impressions": 46221,
+    "clicks": 145,
+    "averagePosition": 8.7
+  },
+  {
+    "date": "2026-06-24T10:06:36.337Z",
+    "sessions": 91386,
+    "impressions": 46219,
+    "clicks": 149,
+    "averagePosition": 8.6
+  },
+  {
+    "date": "2026-06-25T10:05:20.538Z",
+    "sessions": 91632,
+    "impressions": 46272,
+    "clicks": 156,
+    "averagePosition": 8.6
   }
 ]
