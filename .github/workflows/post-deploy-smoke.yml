@@ -44,7 +44,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           # On workflow_run, checkout the exact commit that was deployed
           # to avoid false failures from newer commits adding routes
