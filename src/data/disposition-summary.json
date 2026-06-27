@@ -1,12 +1,12 @@
 {
-  "updatedAt": "2026-06-26T11:47:39.645035+00:00",
-  "last_updated": "2026-06-26T11:47:39.645041+00:00",
+  "updatedAt": "2026-06-27T11:20:03.045440+00:00",
+  "last_updated": "2026-06-27T11:20:03.045446+00:00",
   "study": {
     "id": "69c17630acada6abeead2da5",
     "name": "Technology Adoption Barriers Survey (2026)",
     "status": "ACTIVE",
     "totalAvailablePlaces": 500,
-    "placesTaken": 469,
+    "placesTaken": 471,
     "averageRewardPerHour": 3919,
     "averageTimeTaken": 10,
     "reward": 700,
@@ -14,28 +14,28 @@
   },
   "completionProgress": {
     "target": 500,
-    "completed": 469,
+    "completed": 471,
     "approved": 465,
-    "awaitingReview": 4,
-    "percentComplete": 93.8
+    "awaitingReview": 6,
+    "percentComplete": 94.2
   },
-  "totalResponses": 855,
-  "uniqueParticipants": 843,
+  "totalResponses": 857,
+  "uniqueParticipants": 846,
   "duplicatesRemoved": 0,
   "dispositions": {
-    "INCOMPLETE": 112,
+    "INCOMPLETE": 113,
     "CLEAN": 151,
     "FLAG-SMEAL": 106,
     "FLAG-SPEED": 15,
     "FLAG-PARTIAL-STRAIGHTLINING": 65,
-    "FLAG-SINGLE-IRI": 155,
-    "AUTO-EXCLUDE": 221,
+    "FLAG-SINGLE-IRI": 156,
+    "AUTO-EXCLUDE": 222,
     "FLAG-RECAPTCHA": 17,
     "FLAG-STRAIGHTLINING": 1
   },
   "dispositionByStatus": {
     "INCOMPLETE": {
-      "RETURNED": 102,
+      "RETURNED": 103,
       "TIMED-OUT": 9,
       "APPROVED": 1
     },
@@ -61,13 +61,13 @@
       "RETURNED": 24,
       "APPROVED": 127,
       "REJECTED": 3,
-      "AWAITING REVIEW": 1
+      "AWAITING REVIEW": 2
     },
     "AUTO-EXCLUDE": {
       "REJECTED": 45,
       "APPROVED": 19,
       "RETURNED": 155,
-      "AWAITING REVIEW": 2
+      "AWAITING REVIEW": 3
     },
     "FLAG-RECAPTCHA": {
       "APPROVED": 11,
@@ -79,7 +79,7 @@
   },
   "autoExcludeBreakdown": {
     "IRI3_SPEED": 25,
-    "IRI3": 51,
+    "IRI3": 52,
     "IRI2_SPEED": 22,
     "IRI2": 103,
     "SPEED_IRI": 20
@@ -89,21 +89,21 @@
     "rejected": 49,
     "returned": 328,
     "timedOut": 9,
-    "awaitingReview": 4,
+    "awaitingReview": 6,
     "active": 0,
     "messaged": 0
   },
   "iriPassRates": {
     "barrier": 59.6,
     "readiness": 68.8,
-    "maturity": 82.2,
-    "denominator": 731
+    "maturity": 82.0,
+    "denominator": 733
   },
   "autoApproveRunway": {
     "thresholdDays": 21,
-    "computedAt": "2026-06-26T11:47:39.644921+00:00",
-    "totalAwaitingReview": 4,
-    "evaluatedCount": 4,
+    "computedAt": "2026-06-27T11:20:03.045329+00:00",
+    "totalAwaitingReview": 6,
+    "evaluatedCount": 6,
     "skippedMissingCompletedAt": 0,
     "buckets": [
       {
@@ -111,7 +111,7 @@
         "risk": "low",
         "minDaysRemaining": 10.0,
         "maxDaysRemainingExclusive": null,
-        "count": 4
+        "count": 6
       },
       {
         "label": "Monitor",
