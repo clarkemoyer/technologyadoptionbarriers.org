@@ -612,7 +612,14 @@ jobs:
         env:
           PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
           STUDY_ID: ${{ vars.PROLIFIC_STUDY_ID }}
+          # Reject (return-request -> reject) window: kept at the full 48h so
+          # participants always have 48h after a formal return request.
           STALE_HOURS: '48'
+          # Request-return (message -> request-return) window: shorter so the
+          # formal request-return fires sooner. Tunable via repo variable
+          # REQUEST_RETURN_STALE_HOURS (default 24); set it to 48 to restore the
+          # original single-window cadence.
+          MESSAGE_STALE_HOURS: ${{ vars.REQUEST_RETURN_STALE_HOURS || '24' }}
           OUTPUT_JSON_PATH: ${{ runner.temp }}/stale-triage.json
 
       - uses: actions/upload-artifact@v7
@@ -623,7 +630,8 @@ jobs:
 
   # ── Phase 3d: Auto-dispatch API request-return for stale-after-message PIDs ─
   # Reads stale-triage.json's `stale_no_reply_to_message` bucket (TABS messaged
-  # > 48h ago, no participant reply, no API-level return request yet) and runs
+  # > MESSAGE_STALE_HOURS ago — default 24h via REQUEST_RETURN_STALE_HOURS — no
+  # participant reply, no API-level return request yet) and runs
   # request_return_by_pid.py to dispatch /submissions/{id}/request-return/ per
   # PID. Disposition-aware reason text per PID. Ceiling-guarded.
   #
@@ -674,6 +682,10 @@ jobs:
           CSV_FILE_PATH: ${{ runner.temp }}/disposition.csv
           PID_LIST: ${{ steps.pids.outputs.pid_list }}
           MAX_PER_RUN: ${{ vars.AUTO_STALE_MAX_PER_RUN || '30' }}
+          # Revalidation windows MUST match the stale-triage step above so a PID
+          # selected at the shorter message window is not re-skipped here.
+          STALE_HOURS: '48'
+          MESSAGE_STALE_HOURS: ${{ vars.REQUEST_RETURN_STALE_HOURS || '24' }}
           DRY_RUN: 'false'
           CONFIRM_REQUEST_RETURN: 'REQUEST_RETURN'
           OUTPUT_JSON_PATH: ${{ runner.temp }}/auto-request-return-results.json

@@ -21,6 +21,14 @@ Environment variables:
   DRY_RUN                     - When "false" AND CONFIRM_REQUEST_RETURN matches, live
   MAX_PER_RUN                 - Optional ceiling; abort if PID_LIST exceeds it
   OUTPUT_JSON_PATH            - Optional path for machine-readable results
+  STALE_HOURS                 - Age threshold (hours) for the return-request ->
+                                reject window used during revalidation
+                                (default 48).
+  MESSAGE_STALE_HOURS         - Age threshold (hours) for the message ->
+                                request-return window used during revalidation.
+                                Defaults to STALE_HOURS. Must match the value the
+                                stale-triage step used so a PID that qualified at
+                                the shorter message window is not re-skipped here.
   BYPASS_STALE_GATE           - When "true", skip the stale_no_reply_to_message
                                 bucket check on live runs. Use only for ad-hoc
                                 operator decisions on PIDs that have replied
@@ -240,6 +248,27 @@ def main() -> None:
             file=sys.stderr,
         )
         sys.exit(1)
+    # Message -> request-return window for revalidation. Defaults to STALE_HOURS
+    # so unset behaviour is unchanged; the daily pipeline sets it lower to match
+    # the stale-triage step that selected these PIDs.
+    message_stale_hours_raw = os.environ.get("MESSAGE_STALE_HOURS", "").strip()
+    if message_stale_hours_raw:
+        try:
+            message_stale_hours = int(message_stale_hours_raw)
+        except ValueError:
+            print(
+                f"Error: invalid MESSAGE_STALE_HOURS={message_stale_hours_raw!r}. Expected an integer.",
+                file=sys.stderr,
+            )
+            sys.exit(1)
+        if message_stale_hours <= 0:
+            print(
+                f"Error: invalid MESSAGE_STALE_HOURS={message_stale_hours_raw!r}. Expected a positive integer.",
+                file=sys.stderr,
+            )
+            sys.exit(1)
+    else:
+        message_stale_hours = stale_hours
 
     if not dry_run and confirm != "REQUEST_RETURN":
         print("================================================================", file=sys.stderr)
@@ -373,6 +402,7 @@ def main() -> None:
     actionable: List[Dict] = []
     stale_now = datetime.now(timezone.utc)
     stale_cutoff = stale_now - timedelta(hours=stale_hours)
+    stale_msg_cutoff = stale_now - timedelta(hours=message_stale_hours)
     revalidation_idx = 0
     for r in records:
         status = status_map.get(r["pid"], "NOT FOUND")
@@ -409,6 +439,7 @@ def main() -> None:
                 researcher_id,
                 stale_now,
                 stale_cutoff,
+                stale_msg_cutoff,
             )
         except Exception as e:
             base_payload["failures"].append(
