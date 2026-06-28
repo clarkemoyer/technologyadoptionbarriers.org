@@ -36,7 +36,15 @@ assumed to have no reply.
 Environment variables:
   PROLIFIC_API_TOKEN  - Prolific API token (required)
   STUDY_ID            - Prolific study ID (required)
-  STALE_HOURS         - Age threshold in hours (default: 48)
+  STALE_HOURS         - Age threshold in hours for the return-request -> reject
+                        transition, i.e. the `stale_no_reply_to_rr` bucket
+                        (default: 48).
+  MESSAGE_STALE_HOURS - Age threshold in hours for the message -> request-return
+                        transition, i.e. the `stale_no_reply_to_message` bucket.
+                        Defaults to STALE_HOURS when unset, so the single-window
+                        behaviour is preserved. The daily pipeline sets this
+                        lower than STALE_HOURS so the formal request-return fires
+                        sooner while the reject window stays a full STALE_HOURS.
   RESEARCHER_ID       - Prolific researcher user id (optional, has default)
   OUTPUT_JSON_PATH    - Optional path to write a machine-readable summary
                         that downstream workflow steps can consume.
@@ -119,6 +127,36 @@ def _parse_stale_hours() -> int:
             file=sys.stderr,
         )
         raise SystemExit(2)
+
+
+def _parse_message_stale_hours(default: int) -> int:
+    """Return the message -> request-return threshold in hours.
+
+    Defaults to ``default`` (the STALE_HOURS value) when MESSAGE_STALE_HOURS is
+    unset or blank, so leaving it unconfigured preserves the original
+    single-window behaviour where the message and return-request transitions
+    shared one cutoff.
+    """
+    raw = os.environ.get("MESSAGE_STALE_HOURS")
+    if raw is None or raw.strip() == "":
+        return default
+    try:
+        value = int(raw.strip())
+    except (TypeError, ValueError):
+        print(
+            f"Invalid MESSAGE_STALE_HOURS value: {raw!r}. "
+            "Expected an integer number of hours, e.g. 24.",
+            file=sys.stderr,
+        )
+        raise SystemExit(2)
+    if value <= 0:
+        print(
+            f"Invalid MESSAGE_STALE_HOURS value: {raw!r}. "
+            "Expected a positive integer number of hours.",
+            file=sys.stderr,
+        )
+        raise SystemExit(2)
+    return value
 
 
 def _parse_iso(ts):
@@ -242,15 +280,24 @@ def _return_request_reasons(sub):
     return [text] if text else []
 
 
-def classify_submission(sub, msgs, researcher_id, now, cutoff):
+def classify_submission(sub, msgs, researcher_id, now, cutoff, msg_cutoff=None):
     """Return (bucket_name, record_dict) or (None, None) if submission
     doesn't qualify for any bucket.
+
+    ``cutoff`` gates the return-requested -> reject transition
+    (``stale_no_reply_to_rr``). ``msg_cutoff`` gates the message ->
+    request-return transition (``stale_no_reply_to_message``); when omitted it
+    defaults to ``cutoff`` so existing callers keep their single-window
+    behaviour. The daily pipeline passes an earlier ``msg_cutoff`` so the formal
+    request-return fires sooner than the (longer) reject window.
 
     Messages with no valid timestamp are silently skipped when ordering
     against an anchor (return_requested or last researcher message). Since
     we cannot prove such a message was sent *after* our anchor, treating
     it as not-after is safe for reject/request-return classification.
     """
+    if msg_cutoff is None:
+        msg_cutoff = cutoff
     pid = sub.get("participant_id", "")
     if not pid or sub.get("status") != "AWAITING REVIEW":
         return None, None
@@ -300,7 +347,7 @@ def classify_submission(sub, msgs, researcher_id, now, cutoff):
         "researcher_messages": len(researcher_msgs),
         "reasons": _reasons_from_messages(researcher_msgs),
     }
-    if last_msg_time < cutoff:
+    if last_msg_time < msg_cutoff:
         return "stale_no_reply_to_message", record
     return "in_window_msg", record
 
@@ -346,14 +393,17 @@ def main():
     api_token = _require_env("PROLIFIC_API_TOKEN")
     study_id = _require_env("STUDY_ID")
     stale_hours = _parse_stale_hours()
+    message_stale_hours = _parse_message_stale_hours(stale_hours)
     researcher_id = os.environ.get("RESEARCHER_ID", DEFAULT_RESEARCHER_ID)
     output_json = os.environ.get("OUTPUT_JSON_PATH")
 
     now = datetime.now(timezone.utc)
     cutoff = now - timedelta(hours=stale_hours)
+    msg_cutoff = now - timedelta(hours=message_stale_hours)
 
     print(f"Study: {study_id}")
-    print(f"Stale threshold: {stale_hours}h (cutoff: {cutoff.isoformat()})")
+    print(f"Reject (RR) threshold: {stale_hours}h (cutoff: {cutoff.isoformat()})")
+    print(f"Request-return (message) threshold: {message_stale_hours}h (cutoff: {msg_cutoff.isoformat()})")
     print()
 
     subs = prolific_submissions(study_id, api_token)
@@ -399,7 +449,7 @@ def main():
             fetch_errors.append({"pid": pid, "error": err})
             continue
         try:
-            bucket, record = classify_submission(sub, msgs, researcher_id, now, cutoff)
+            bucket, record = classify_submission(sub, msgs, researcher_id, now, cutoff, msg_cutoff)
         except ValueError as exc:
             print(
                 f"  Error: classification failed for {pid}: {exc}",
@@ -415,7 +465,7 @@ def main():
         buckets["stale_no_reply_to_rr"],
     )
     _print_bucket(
-        f"STALE_NO_REPLY_TO_MESSAGE (>{stale_hours}h since last msg, no RR yet → request-return)",
+        f"STALE_NO_REPLY_TO_MESSAGE (>{message_stale_hours}h since last msg, no RR yet → request-return)",
         buckets["stale_no_reply_to_message"],
     )
     _print_bucket(
@@ -423,7 +473,7 @@ def main():
         buckets["in_window_rr"],
     )
     _print_bucket(
-        f"IN_WINDOW / MSG (≤{stale_hours}h since last msg, no RR yet)",
+        f"IN_WINDOW / MSG (≤{message_stale_hours}h since last msg, no RR yet)",
         buckets["in_window_msg"],
     )
 
@@ -452,6 +502,7 @@ def main():
             "study_id": study_id,
             "computed_at": now.isoformat(),
             "stale_hours": stale_hours,
+            "message_stale_hours": message_stale_hours,
             "counts": {k: len(v) for k, v in buckets.items()},
             "fetch_errors": len(fetch_errors),
             "fetch_error_details": fetch_errors,
