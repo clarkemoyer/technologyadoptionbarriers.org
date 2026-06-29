@@ -41,13 +41,7 @@ export type StudyStatus = 'UNPUBLISHED' | 'ACTIVE' | 'SCHEDULED' | 'COMPLETED' |
  * Submission status types
  */
 export type SubmissionStatus =
-  | 'RESERVED'
-  | 'ACTIVE'
-  | 'AWAITING REVIEW'
-  | 'APPROVED'
-  | 'REJECTED'
-  | 'RETURNED'
-  | 'TIMED-OUT'
+  'RESERVED' | 'ACTIVE' | 'AWAITING REVIEW' | 'APPROVED' | 'REJECTED' | 'RETURNED' | 'TIMED-OUT'
 
 /**
  * Represents a Prolific study
