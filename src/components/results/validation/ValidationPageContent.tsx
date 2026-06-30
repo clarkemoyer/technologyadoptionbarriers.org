@@ -527,8 +527,7 @@ export function ValidationPageContent({ data, variant }: Props) {
         label: 'CFA CFI \u2265 .90',
         vals: getVals((c) => {
           const cfa = (sample[c] as Record<string, unknown>)?.cfa as
-            | Record<string, number | null>
-            | undefined
+            Record<string, number | null> | undefined
           return cfa?.cfi != null ? verdicts[c].cfa_cfi_above_090 : null
         }),
       },
@@ -536,8 +535,7 @@ export function ValidationPageContent({ data, variant }: Props) {
         label: 'CFA RMSEA \u2264 .08',
         vals: getVals((c) => {
           const cfa = (sample[c] as Record<string, unknown>)?.cfa as
-            | Record<string, number | null>
-            | undefined
+            Record<string, number | null> | undefined
           if (cfa?.rmsea == null) return null
           return verdicts[c].cfa_rmsea_below_008 ?? cfa.rmsea <= 0.08
         }),

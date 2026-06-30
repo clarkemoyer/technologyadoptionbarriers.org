@@ -3,10 +3,7 @@ export type Barrier = {
   name: string
   description: string
   category:
-    | 'organizational-cultural'
-    | 'resource-skill'
-    | 'strategic-operational'
-    | 'risk-trust-external'
+    'organizational-cultural' | 'resource-skill' | 'strategic-operational' | 'risk-trust-external'
   examples?: string[]
 }
 
