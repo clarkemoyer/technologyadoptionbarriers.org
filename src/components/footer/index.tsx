@@ -298,7 +298,11 @@ const Footer: React.FC = () => {
                     className="text-gray-400 hover:text-tabs-teal-bright transition-colors"
                   >
                     {link.name}
-                    {link.isExternal && <span className="ml-1 text-[10px]">↗</span>}
+                    {link.isExternal && (
+                      <span aria-hidden="true" className="ml-1 text-[10px]">
+                        ↗
+                      </span>
+                    )}
                   </Link>
                 </li>
               ))}
