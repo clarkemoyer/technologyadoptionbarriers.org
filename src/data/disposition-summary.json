@@ -1,12 +1,12 @@
 {
-  "updatedAt": "2026-06-29T12:27:54.589766+00:00",
-  "last_updated": "2026-06-29T12:27:54.589773+00:00",
+  "updatedAt": "2026-06-30T11:48:24.063259+00:00",
+  "last_updated": "2026-06-30T11:48:24.063266+00:00",
   "study": {
     "id": "69c17630acada6abeead2da5",
     "name": "Technology Adoption Barriers Survey (2026)",
     "status": "ACTIVE",
     "totalAvailablePlaces": 500,
-    "placesTaken": 472,
+    "placesTaken": 474,
     "averageRewardPerHour": 3907,
     "averageTimeTaken": 10,
     "reward": 700,
@@ -14,17 +14,17 @@
   },
   "completionProgress": {
     "target": 500,
-    "completed": 472,
-    "approved": 467,
+    "completed": 474,
+    "approved": 469,
     "awaitingReview": 5,
-    "percentComplete": 94.4
+    "percentComplete": 94.8
   },
-  "totalResponses": 859,
-  "uniqueParticipants": 848,
+  "totalResponses": 861,
+  "uniqueParticipants": 850,
   "duplicatesRemoved": 0,
   "dispositions": {
     "INCOMPLETE": 113,
-    "CLEAN": 153,
+    "CLEAN": 155,
     "FLAG-SMEAL": 106,
     "FLAG-SPEED": 15,
     "FLAG-PARTIAL-STRAIGHTLINING": 65,
@@ -40,7 +40,7 @@
       "APPROVED": 1
     },
     "CLEAN": {
-      "APPROVED": 151,
+      "APPROVED": 153,
       "RETURNED": 2
     },
     "FLAG-SMEAL": {
@@ -85,7 +85,7 @@
     "SPEED_IRI": 20
   },
   "actions": {
-    "approved": 467,
+    "approved": 469,
     "rejected": 50,
     "returned": 328,
     "timedOut": 9,
@@ -94,14 +94,14 @@
     "messaged": 0
   },
   "iriPassRates": {
-    "barrier": 59.7,
-    "readiness": 68.8,
-    "maturity": 82.0,
-    "denominator": 735
+    "barrier": 59.8,
+    "readiness": 68.9,
+    "maturity": 82.1,
+    "denominator": 737
   },
   "autoApproveRunway": {
     "thresholdDays": 21,
-    "computedAt": "2026-06-29T12:27:54.589648+00:00",
+    "computedAt": "2026-06-30T11:48:24.063123+00:00",
     "totalAwaitingReview": 5,
     "evaluatedCount": 5,
     "skippedMissingCompletedAt": 0,
