@@ -25,7 +25,7 @@ const Footer: React.FC = () => {
     },
   ]
 
-  const policyLinks: { name: string; href: string; external?: boolean }[] = [
+  const policyLinks: { name: string; href: string; isExternal?: boolean }[] = [
     { name: 'Cookie Policy', href: '/cookie-policy' },
     { name: 'Privacy Policy', href: '/privacy-policy' },
     { name: 'Terms of Service', href: '/terms-of-service' },
@@ -35,7 +35,7 @@ const Footer: React.FC = () => {
     {
       name: 'Report an Issue',
       href: 'https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues',
-      external: true,
+      isExternal: true,
     },
   ]
 
@@ -293,11 +293,12 @@ const Footer: React.FC = () => {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    target={link.external ? '_blank' : undefined}
-                    rel={link.external ? 'noopener noreferrer' : undefined}
+                    target={link.isExternal ? '_blank' : undefined}
+                    rel={link.isExternal ? 'noopener noreferrer' : undefined}
                     className="text-gray-400 hover:text-tabs-teal-bright transition-colors"
                   >
                     {link.name}
+                    {link.isExternal && <span className="ml-1 text-[10px]">↗</span>}
                   </Link>
                 </li>
               ))}
