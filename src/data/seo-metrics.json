@@ -1,23 +1,23 @@
 {
-  "generatedAt": "2026-06-28T10:01:30.372Z",
-  "dashboardSyncedAt": "2026-06-28T10:01:30.372Z",
+  "generatedAt": "2026-06-29T10:37:03.304Z",
+  "dashboardSyncedAt": "2026-06-29T10:37:03.304Z",
   "dateRange": {
-    "startDate": "2026-05-31",
-    "endDate": "2026-06-28"
+    "startDate": "2026-06-01",
+    "endDate": "2026-06-29"
   },
   "overview": {
-    "organicSessions": 96325,
-    "organicSessionsChange": 1852,
-    "totalImpressions": 46524,
-    "totalImpressionsChange": 171,
-    "totalClicks": 169,
-    "totalClicksChange": 5,
-    "averageCTR": 0.36,
+    "organicSessions": 99809,
+    "organicSessionsChange": 3484,
+    "totalImpressions": 46072,
+    "totalImpressionsChange": -452,
+    "totalClicks": 172,
+    "totalClicksChange": 3,
+    "averageCTR": 0.37,
     "averageCTRUnit": "percent",
     "averageCTRChange": 0.01,
     "averageCTRChangeUnit": "percentagePoints",
     "averagePosition": 8.7,
-    "averagePositionChange": 0.1,
+    "averagePositionChange": 0,
     "domainAuthority": 12,
     "domainAuthorityChange": 2,
     "indexedPages": 47,
@@ -28,7 +28,7 @@
   "topKeywords": [
     {
       "keyword": "toe framework (tornatzky and fleischer 1990)",
-      "position": 7.6,
+      "position": 7.5,
       "previousPosition": null,
       "volume": 0,
       "clicks": 4,
@@ -41,8 +41,8 @@
       "previousPosition": null,
       "volume": 0,
       "clicks": 3,
-      "impressions": 41,
-      "ctr": 7.3
+      "impressions": 40,
+      "ctr": 7.5
     },
     {
       "keyword": "tornatzky & fleischer, 1990",
@@ -50,8 +50,8 @@
       "previousPosition": null,
       "volume": 0,
       "clicks": 3,
-      "impressions": 41,
-      "ctr": 7.3
+      "impressions": 42,
+      "ctr": 7.1
     },
     {
       "keyword": "toe framework tornatzky and fleischer 1990 pdf",
@@ -64,30 +64,30 @@
     },
     {
       "keyword": "tam 3",
-      "position": 8.9,
-      "previousPosition": null,
-      "volume": 0,
-      "clicks": 1,
-      "impressions": 35,
-      "ctr": 2.9
-    },
-    {
-      "keyword": "tam3",
-      "position": 7.7,
-      "previousPosition": null,
-      "volume": 0,
-      "clicks": 1,
-      "impressions": 88,
-      "ctr": 1.1
-    },
-    {
-      "keyword": "tornatzky & fleischer 1990",
       "position": 8.4,
       "previousPosition": null,
       "volume": 0,
       "clicks": 1,
-      "impressions": 14,
-      "ctr": 7.1
+      "impressions": 33,
+      "ctr": 3
+    },
+    {
+      "keyword": "tam3",
+      "position": 7.9,
+      "previousPosition": null,
+      "volume": 0,
+      "clicks": 1,
+      "impressions": 85,
+      "ctr": 1.2
+    },
+    {
+      "keyword": "tornatzky & fleischer 1990",
+      "position": 8.3,
+      "previousPosition": null,
+      "volume": 0,
+      "clicks": 1,
+      "impressions": 11,
+      "ctr": 9.1
     },
     {
       "keyword": "tornatzky and fleischer 1990",
@@ -113,8 +113,8 @@
       "previousPosition": null,
       "volume": 0,
       "clicks": 1,
-      "impressions": 17,
-      "ctr": 5.9
+      "impressions": 16,
+      "ctr": 6.3
     }
   ],
   "topPages": [
