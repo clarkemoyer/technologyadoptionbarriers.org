@@ -53,7 +53,7 @@ jobs:
         # sets output: 'export', images.unoptimized, basePath, etc.
 
       - name: Restore Next.js cache
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: |
             .next/cache
