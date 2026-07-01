@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-06-30T10:14:26.051Z",
-  "dashboardSyncedAt": "2026-06-30T10:14:26.051Z",
+  "generatedAt": "2026-07-01T10:22:25.671Z",
+  "dashboardSyncedAt": "2026-07-01T10:22:25.671Z",
   "dateRange": {
-    "startDate": "2026-06-02",
-    "endDate": "2026-06-30"
+    "startDate": "2026-06-03",
+    "endDate": "2026-07-01"
   },
   "overview": {
-    "organicSessions": 97951,
-    "organicSessionsChange": -1858,
-    "totalImpressions": 45883,
-    "totalImpressionsChange": -189,
-    "totalClicks": 173,
-    "totalClicksChange": 1,
-    "averageCTR": 0.38,
+    "organicSessions": 102213,
+    "organicSessionsChange": 4262,
+    "totalImpressions": 45607,
+    "totalImpressionsChange": -276,
+    "totalClicks": 178,
+    "totalClicksChange": 5,
+    "averageCTR": 0.39,
     "averageCTRUnit": "percent",
     "averageCTRChange": 0.01,
     "averageCTRChangeUnit": "percentagePoints",
@@ -28,51 +28,33 @@
   "topKeywords": [
     {
       "keyword": "toe framework (tornatzky and fleischer 1990)",
-      "position": 7.4,
+      "position": 7.5,
       "previousPosition": null,
       "volume": 0,
       "clicks": 4,
-      "impressions": 64,
-      "ctr": 6.3
+      "impressions": 60,
+      "ctr": 6.7
     },
     {
       "keyword": "toe framework tornatzky and fleischer 1990",
-      "position": 7.7,
+      "position": 7.9,
       "previousPosition": null,
       "volume": 0,
       "clicks": 3,
-      "impressions": 39,
-      "ctr": 7.7
+      "impressions": 38,
+      "ctr": 7.9
     },
     {
       "keyword": "tornatzky & fleischer, 1990",
       "position": 7.1,
       "previousPosition": null,
       "volume": 0,
-      "clicks": 3,
+      "clicks": 2,
       "impressions": 45,
-      "ctr": 6.7
+      "ctr": 4.4
     },
     {
       "keyword": "tam 3",
-      "position": 8.7,
-      "previousPosition": null,
-      "volume": 0,
-      "clicks": 1,
-      "impressions": 30,
-      "ctr": 3.3
-    },
-    {
-      "keyword": "tam3",
-      "position": 7.9,
-      "previousPosition": null,
-      "volume": 0,
-      "clicks": 1,
-      "impressions": 82,
-      "ctr": 1.2
-    },
-    {
-      "keyword": "toe framework tornatzky and fleischer 1990 pdf",
       "position": 8.1,
       "previousPosition": null,
       "volume": 0,
@@ -81,13 +63,49 @@
       "ctr": 3.4
     },
     {
-      "keyword": "tornatzky & fleischer 1990",
-      "position": 8.3,
+      "keyword": "tam3",
+      "position": 8,
       "previousPosition": null,
       "volume": 0,
       "clicks": 1,
-      "impressions": 11,
-      "ctr": 9.1
+      "impressions": 83,
+      "ctr": 1.2
+    },
+    {
+      "keyword": "toe framework tornatzky and fleischer 1990 pdf",
+      "position": 8.1,
+      "previousPosition": null,
+      "volume": 0,
+      "clicks": 1,
+      "impressions": 28,
+      "ctr": 3.6
+    },
+    {
+      "keyword": "tornatzky & fleischer (1990)",
+      "position": 7.4,
+      "previousPosition": null,
+      "volume": 0,
+      "clicks": 1,
+      "impressions": 24,
+      "ctr": 4.2
+    },
+    {
+      "keyword": "tornatzky & fleischer 1990",
+      "position": 7.9,
+      "previousPosition": null,
+      "volume": 0,
+      "clicks": 1,
+      "impressions": 13,
+      "ctr": 7.7
+    },
+    {
+      "keyword": "tornatzky and fleischer (1990)",
+      "position": 7.4,
+      "previousPosition": null,
+      "volume": 0,
+      "clicks": 1,
+      "impressions": 33,
+      "ctr": 3
     },
     {
       "keyword": "tornatzky and fleischer 1990",
@@ -97,24 +115,6 @@
       "clicks": 1,
       "impressions": 11,
       "ctr": 9.1
-    },
-    {
-      "keyword": "tornatzky, l. g., & fleischer, m. (1990). the processes of technological innovation.",
-      "position": 14,
-      "previousPosition": null,
-      "volume": 0,
-      "clicks": 1,
-      "impressions": 1,
-      "ctr": 100
-    },
-    {
-      "keyword": "venkatesh & davis (2000)",
-      "position": 8.9,
-      "previousPosition": null,
-      "volume": 0,
-      "clicks": 1,
-      "impressions": 16,
-      "ctr": 6.3
     }
   ],
   "topPages": [
