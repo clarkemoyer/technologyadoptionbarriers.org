@@ -26,7 +26,7 @@ jobs:
       GSC_SITE_URL: 'sc-domain:technologyadoptionbarriers.org'
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           ref: ${{ inputs.ref || github.sha }}
 

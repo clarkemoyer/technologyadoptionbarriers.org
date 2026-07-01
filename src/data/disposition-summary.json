@@ -1,108 +1,109 @@
 {
-  "updatedAt": "2026-05-22T21:25:37.830533+00:00",
-  "last_updated": "2026-05-22T21:25:37.830536+00:00",
+  "updatedAt": "2026-07-01T11:54:42.666498+00:00",
+  "last_updated": "2026-07-01T11:54:42.666505+00:00",
   "study": {
     "id": "69c17630acada6abeead2da5",
     "name": "Technology Adoption Barriers Survey (2026)",
     "status": "ACTIVE",
     "totalAvailablePlaces": 500,
-    "placesTaken": 435,
-    "averageRewardPerHour": 3938,
+    "placesTaken": 474,
+    "averageRewardPerHour": 3907,
     "averageTimeTaken": 10,
     "reward": 700,
     "publishedAt": "2026-03-23T18:00:28.650000Z"
   },
   "completionProgress": {
     "target": 500,
-    "completed": 434,
-    "approved": 423,
-    "awaitingReview": 11,
-    "percentComplete": 86.8
+    "completed": 474,
+    "approved": 470,
+    "awaitingReview": 4,
+    "percentComplete": 94.8
   },
-  "totalResponses": 761,
-  "uniqueParticipants": 747,
+  "totalResponses": 866,
+  "uniqueParticipants": 856,
   "duplicatesRemoved": 0,
   "dispositions": {
-    "INCOMPLETE": 104,
-    "CLEAN": 135,
-    "FLAG-SMEAL": 96,
-    "FLAG-SPEED": 13,
-    "FLAG-PARTIAL-STRAIGHTLINING": 61,
-    "FLAG-SINGLE-IRI": 135,
-    "AUTO-EXCLUDE": 190,
-    "FLAG-RECAPTCHA": 12,
+    "INCOMPLETE": 114,
+    "CLEAN": 156,
+    "FLAG-SMEAL": 108,
+    "FLAG-SPEED": 15,
+    "FLAG-PARTIAL-STRAIGHTLINING": 65,
+    "FLAG-SINGLE-IRI": 157,
+    "AUTO-EXCLUDE": 223,
+    "FLAG-RECAPTCHA": 17,
     "FLAG-STRAIGHTLINING": 1
   },
   "dispositionByStatus": {
     "INCOMPLETE": {
-      "RETURNED": 96,
-      "TIMED-OUT": 7,
+      "RETURNED": 104,
+      "TIMED-OUT": 9,
       "APPROVED": 1
     },
     "CLEAN": {
-      "APPROVED": 133,
+      "APPROVED": 154,
       "RETURNED": 2
     },
     "FLAG-SMEAL": {
-      "APPROVED": 84,
-      "RETURNED": 12
+      "APPROVED": 92,
+      "RETURNED": 13,
+      "AWAITING REVIEW": 2,
+      "REJECTED": 1
     },
     "FLAG-SPEED": {
-      "RETURNED": 3,
+      "RETURNED": 5,
       "APPROVED": 10
     },
     "FLAG-PARTIAL-STRAIGHTLINING": {
-      "APPROVED": 53,
-      "AWAITING REVIEW": 3,
-      "RETURNED": 5
+      "APPROVED": 56,
+      "RETURNED": 9
     },
     "FLAG-SINGLE-IRI": {
-      "RETURNED": 18,
-      "APPROVED": 115,
-      "AWAITING REVIEW": 2
+      "RETURNED": 26,
+      "APPROVED": 127,
+      "REJECTED": 3,
+      "AWAITING REVIEW": 1
     },
     "AUTO-EXCLUDE": {
-      "REJECTED": 41,
+      "REJECTED": 48,
       "APPROVED": 19,
-      "RETURNED": 124,
-      "AWAITING REVIEW": 6
+      "RETURNED": 155,
+      "AWAITING REVIEW": 1
     },
     "FLAG-RECAPTCHA": {
-      "APPROVED": 8,
-      "RETURNED": 2,
-      "REJECTED": 2
+      "APPROVED": 11,
+      "RETURNED": 6
     },
     "FLAG-STRAIGHTLINING": {
       "RETURNED": 1
     }
   },
   "autoExcludeBreakdown": {
-    "IRI3_SPEED": 18,
-    "IRI3": 43,
-    "IRI2_SPEED": 20,
-    "IRI2": 89,
+    "IRI3_SPEED": 25,
+    "IRI3": 53,
+    "IRI2_SPEED": 22,
+    "IRI2": 103,
     "SPEED_IRI": 20
   },
   "actions": {
-    "approved": 423,
-    "rejected": 43,
-    "returned": 274,
+    "approved": 470,
+    "rejected": 52,
+    "returned": 331,
     "timedOut": 9,
-    "awaitingReview": 11,
-    "active": 1,
+    "awaitingReview": 4,
+    "active": 0,
     "messaged": 0
   },
   "iriPassRates": {
-    "barrier": 60.5,
-    "readiness": 69.7,
-    "maturity": 83.4,
-    "denominator": 643
+    "barrier": 59.8,
+    "readiness": 69.0,
+    "maturity": 82.1,
+    "denominator": 742
   },
   "autoApproveRunway": {
     "thresholdDays": 21,
-    "computedAt": "2026-05-22T21:25:37.830413+00:00",
-    "totalAwaitingReview": 11,
-    "evaluatedCount": 11,
+    "computedAt": "2026-07-01T11:54:42.666372+00:00",
+    "totalAwaitingReview": 4,
+    "evaluatedCount": 4,
     "skippedMissingCompletedAt": 0,
     "buckets": [
       {
@@ -110,21 +111,21 @@
         "risk": "low",
         "minDaysRemaining": 10.0,
         "maxDaysRemainingExclusive": null,
-        "count": 9
+        "count": 4
       },
       {
         "label": "Monitor",
         "risk": "moderate",
         "minDaysRemaining": 5.0,
         "maxDaysRemainingExclusive": 10.0,
-        "count": 1
+        "count": 0
       },
       {
         "label": "Act soon",
         "risk": "elevated",
         "minDaysRemaining": 2.0,
         "maxDaysRemainingExclusive": 5.0,
-        "count": 1
+        "count": 0
       },
       {
         "label": "HIGH RISK",

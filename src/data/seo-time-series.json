@@ -61,5 +61,285 @@
     "impressions": 43455,
     "clicks": 99,
     "averagePosition": 8.6
+  },
+  {
+    "date": "2026-05-23T09:36:15.484Z",
+    "sessions": 136694,
+    "impressions": 44811,
+    "clicks": 104,
+    "averagePosition": 8.6
+  },
+  {
+    "date": "2026-05-24T09:39:00.279Z",
+    "sessions": 133142,
+    "impressions": 43769,
+    "clicks": 101,
+    "averagePosition": 8.6
+  },
+  {
+    "date": "2026-05-25T10:34:28.468Z",
+    "sessions": 135023,
+    "impressions": 46833,
+    "clicks": 104,
+    "averagePosition": 8.6
+  },
+  {
+    "date": "2026-05-26T10:25:34.632Z",
+    "sessions": 131331,
+    "impressions": 47796,
+    "clicks": 107,
+    "averagePosition": 8.7
+  },
+  {
+    "date": "2026-05-27T10:25:59.892Z",
+    "sessions": 131330,
+    "impressions": 48885,
+    "clicks": 107,
+    "averagePosition": 8.7
+  },
+  {
+    "date": "2026-05-28T10:28:17.646Z",
+    "sessions": 131654,
+    "impressions": 49412,
+    "clicks": 111,
+    "averagePosition": 8.7
+  },
+  {
+    "date": "2026-05-29T10:21:41.285Z",
+    "sessions": 132870,
+    "impressions": 49674,
+    "clicks": 111,
+    "averagePosition": 8.7
+  },
+  {
+    "date": "2026-05-30T09:38:35.266Z",
+    "sessions": 128841,
+    "impressions": 49914,
+    "clicks": 111,
+    "averagePosition": 8.8
+  },
+  {
+    "date": "2026-05-31T09:53:57.223Z",
+    "sessions": 123176,
+    "impressions": 50299,
+    "clicks": 115,
+    "averagePosition": 8.8
+  },
+  {
+    "date": "2026-06-01T10:46:22.693Z",
+    "sessions": 114391,
+    "impressions": 50665,
+    "clicks": 115,
+    "averagePosition": 8.7
+  },
+  {
+    "date": "2026-06-02T10:34:45.094Z",
+    "sessions": 115670,
+    "impressions": 51435,
+    "clicks": 118,
+    "averagePosition": 8.7
+  },
+  {
+    "date": "2026-06-03T10:35:41.651Z",
+    "sessions": 111213,
+    "impressions": 52198,
+    "clicks": 122,
+    "averagePosition": 8.6
+  },
+  {
+    "date": "2026-06-04T10:19:51.456Z",
+    "sessions": 101591,
+    "impressions": 50974,
+    "clicks": 119,
+    "averagePosition": 8.6
+  },
+  {
+    "date": "2026-06-05T10:23:28.001Z",
+    "sessions": 100372,
+    "impressions": 49852,
+    "clicks": 118,
+    "averagePosition": 8.6
+  },
+  {
+    "date": "2026-06-06T09:43:02.816Z",
+    "sessions": 100372,
+    "impressions": 48668,
+    "clicks": 118,
+    "averagePosition": 8.6
+  },
+  {
+    "date": "2026-06-07T10:02:03.542Z",
+    "sessions": 99254,
+    "impressions": 51472,
+    "clicks": 125,
+    "averagePosition": 8.6
+  },
+  {
+    "date": "2026-06-08T10:37:24.263Z",
+    "sessions": 99846,
+    "impressions": 54483,
+    "clicks": 139,
+    "averagePosition": 8.6
+  },
+  {
+    "date": "2026-06-09T10:16:22.485Z",
+    "sessions": 96834,
+    "impressions": 54006,
+    "clicks": 142,
+    "averagePosition": 8.6
+  },
+  {
+    "date": "2026-06-10T10:27:21.457Z",
+    "sessions": 93408,
+    "impressions": 51685,
+    "clicks": 136,
+    "averagePosition": 8.6
+  },
+  {
+    "date": "2026-06-11T10:33:16.828Z",
+    "sessions": 92520,
+    "impressions": 51484,
+    "clicks": 141,
+    "averagePosition": 8.6
+  },
+  {
+    "date": "2026-06-12T10:32:28.481Z",
+    "sessions": 91001,
+    "impressions": 52934,
+    "clicks": 153,
+    "averagePosition": 8.5
+  },
+  {
+    "date": "2026-06-13T10:01:19.008Z",
+    "sessions": 87195,
+    "impressions": 52570,
+    "clicks": 151,
+    "averagePosition": 8.5
+  },
+  {
+    "date": "2026-06-14T10:11:46.727Z",
+    "sessions": 85139,
+    "impressions": 52207,
+    "clicks": 153,
+    "averagePosition": 8.5
+  },
+  {
+    "date": "2026-06-15T11:05:41.356Z",
+    "sessions": 84741,
+    "impressions": 51455,
+    "clicks": 147,
+    "averagePosition": 8.5
+  },
+  {
+    "date": "2026-06-16T10:38:13.463Z",
+    "sessions": 85197,
+    "impressions": 50834,
+    "clicks": 149,
+    "averagePosition": 8.5
+  },
+  {
+    "date": "2026-06-17T10:34:55.231Z",
+    "sessions": 87292,
+    "impressions": 50113,
+    "clicks": 153,
+    "averagePosition": 8.5
+  },
+  {
+    "date": "2026-06-18T10:32:41.162Z",
+    "sessions": 87876,
+    "impressions": 49579,
+    "clicks": 149,
+    "averagePosition": 8.5
+  },
+  {
+    "date": "2026-06-19T10:32:52.340Z",
+    "sessions": 94197,
+    "impressions": 49172,
+    "clicks": 146,
+    "averagePosition": 8.5
+  },
+  {
+    "date": "2026-06-20T10:03:04.315Z",
+    "sessions": 90402,
+    "impressions": 48384,
+    "clicks": 146,
+    "averagePosition": 8.6
+  },
+  {
+    "date": "2026-06-21T10:16:29.423Z",
+    "sessions": 90085,
+    "impressions": 47702,
+    "clicks": 147,
+    "averagePosition": 8.6
+  },
+  {
+    "date": "2026-06-22T10:56:22.626Z",
+    "sessions": 91109,
+    "impressions": 46760,
+    "clicks": 143,
+    "averagePosition": 8.6
+  },
+  {
+    "date": "2026-06-23T10:17:29.935Z",
+    "sessions": 90205,
+    "impressions": 46221,
+    "clicks": 145,
+    "averagePosition": 8.7
+  },
+  {
+    "date": "2026-06-24T10:06:36.337Z",
+    "sessions": 91386,
+    "impressions": 46219,
+    "clicks": 149,
+    "averagePosition": 8.6
+  },
+  {
+    "date": "2026-06-25T10:05:20.538Z",
+    "sessions": 91632,
+    "impressions": 46272,
+    "clicks": 156,
+    "averagePosition": 8.6
+  },
+  {
+    "date": "2026-06-26T10:06:38.486Z",
+    "sessions": 91906,
+    "impressions": 46247,
+    "clicks": 162,
+    "averagePosition": 8.6
+  },
+  {
+    "date": "2026-06-27T09:44:38.460Z",
+    "sessions": 94473,
+    "impressions": 46353,
+    "clicks": 164,
+    "averagePosition": 8.6
+  },
+  {
+    "date": "2026-06-28T10:01:30.372Z",
+    "sessions": 96325,
+    "impressions": 46524,
+    "clicks": 169,
+    "averagePosition": 8.7
+  },
+  {
+    "date": "2026-06-29T10:37:03.304Z",
+    "sessions": 99809,
+    "impressions": 46072,
+    "clicks": 172,
+    "averagePosition": 8.7
+  },
+  {
+    "date": "2026-06-30T10:14:26.051Z",
+    "sessions": 97951,
+    "impressions": 45883,
+    "clicks": 173,
+    "averagePosition": 8.7
+  },
+  {
+    "date": "2026-07-01T10:22:25.671Z",
+    "sessions": 102213,
+    "impressions": 45607,
+    "clicks": 178,
+    "averagePosition": 8.7
   }
 ]

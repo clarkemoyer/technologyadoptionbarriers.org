@@ -441,8 +441,7 @@ function ESEMSection({ esem }: { esem: Record<string, unknown> | undefined }) {
   const cumVar = esem.cumulative_variance as number | undefined
   const factorCorr = esem.factor_correlations as number[][] | undefined
   const rawItems = esem.items as
-    | Record<string, { loadings: number[]; primary_factor: string }>
-    | undefined
+    Record<string, { loadings: number[]; primary_factor: string }> | undefined
 
   const reassignments = rawItems ? detectESEMReassignments(rawItems) : []
   const factorLabels = ['F1', 'F2', 'F3']

@@ -19,13 +19,7 @@ import './presentation.css'
 // ── Types ────────────────────────────────────────────────────────────
 
 type FrameType =
-  | 'deck-title'
-  | 'section'
-  | 'slide-title'
-  | 'content'
-  | 'content-visual'
-  | 'visual'
-  | 'statement'
+  'deck-title' | 'section' | 'slide-title' | 'content' | 'content-visual' | 'visual' | 'statement'
 export type PresentationMode = 'hd' | '4k'
 export type SectionMap = Record<number, { label: string; title: string; count: string }>
 

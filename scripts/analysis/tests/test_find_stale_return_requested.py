@@ -244,6 +244,63 @@ class TestCustomThreshold:
         assert bucket_48 == "in_window_rr"
 
 
+# ── Split message vs reject threshold (msg_cutoff) ───────────────────────────
+
+class TestSplitMessageThreshold:
+    """The message->request-return window (msg_cutoff) is independent of the
+    return-request->reject window (cutoff)."""
+
+    def test_message_branch_uses_msg_cutoff_when_provided(self):
+        """A message 30h old is stale at a 24h msg_cutoff but in-window at 48h,
+        while the reject cutoff stays at 48h."""
+        msg_time = NOW - timedelta(hours=30)
+        sub = _sub("PID_SPLIT_1")
+        msgs = [_msg(RESEARCHER_ID, msg_time)]
+        reject_cutoff = NOW - timedelta(hours=48)
+
+        bucket_24, _ = classify_submission(
+            sub, msgs, RESEARCHER_ID, NOW, reject_cutoff, NOW - timedelta(hours=24)
+        )
+        assert bucket_24 == "stale_no_reply_to_message"
+
+        bucket_48, _ = classify_submission(
+            sub, msgs, RESEARCHER_ID, NOW, reject_cutoff, NOW - timedelta(hours=48)
+        )
+        assert bucket_48 == "in_window_msg"
+
+    def test_msg_cutoff_defaults_to_cutoff_when_omitted(self):
+        """Omitting msg_cutoff reproduces the original single-window behaviour."""
+        msg_time = NOW - timedelta(hours=30)
+        sub = _sub("PID_SPLIT_2")
+        msgs = [_msg(RESEARCHER_ID, msg_time)]
+
+        # 48h single window → in window
+        bucket_a, _ = classify_submission(sub, msgs, RESEARCHER_ID, NOW, NOW - timedelta(hours=48))
+        assert bucket_a == "in_window_msg"
+        # 24h single window → stale
+        bucket_b, _ = classify_submission(sub, msgs, RESEARCHER_ID, NOW, NOW - timedelta(hours=24))
+        assert bucket_b == "stale_no_reply_to_message"
+
+    def test_rr_branch_ignores_msg_cutoff(self):
+        """The return-requested (reject) branch keys off cutoff only; a shorter
+        msg_cutoff must never make an in-window RR look stale."""
+        rr_time = NOW - timedelta(hours=30)
+        sub = _sub("PID_SPLIT_3", rr=rr_time)
+        msgs = []
+
+        # Reject window 48h → in window even though msg_cutoff is a tight 24h.
+        bucket_a, _ = classify_submission(
+            sub, msgs, RESEARCHER_ID, NOW, NOW - timedelta(hours=48), NOW - timedelta(hours=24)
+        )
+        assert bucket_a == "in_window_rr"
+
+        # Reject window 24h → stale regardless of a longer 48h msg_cutoff.
+        bucket_b, _ = classify_submission(
+            sub, msgs, RESEARCHER_ID, NOW, NOW - timedelta(hours=24), NOW - timedelta(hours=48)
+        )
+        assert bucket_b == "stale_no_reply_to_rr"
+
+
 # ── _msg_time sentinel behaviour ─────────────────────────────────────────────
 
 class TestMsgTime:

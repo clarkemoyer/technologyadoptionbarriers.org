@@ -52,7 +52,7 @@ const ReproducibleAnalysisPage = () => {
           <p className={PARAGRAPH_CLASSES}>
             The dataset is archived at{' '}
             <a
-              href="https://scholarsphere.psu.edu/resources/cc6df3e4-17d3-4594-86f6-48a433cde962"
+              href="https://doi.org/10.26207/k064-f485"
               target="_blank"
               rel="noopener noreferrer"
               className="text-blue-600 underline hover:text-blue-800"
@@ -890,7 +890,7 @@ python ../validate-deck.py <path_to_csv> <path_to_pptx>`}</pre>
               View Test Suite
             </a>
             <a
-              href="https://scholarsphere.psu.edu/resources/cc6df3e4-17d3-4594-86f6-48a433cde962"
+              href="https://doi.org/10.26207/k064-f485"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center px-5 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-sans text-sm"

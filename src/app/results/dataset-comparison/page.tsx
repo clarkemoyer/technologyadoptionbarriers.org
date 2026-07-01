@@ -447,8 +447,7 @@ const DatasetComparisonPage = () => {
                     <td className="p-2 border-b capitalize">{construct}</td>
                     {PRIMARY_GROUPS.map((group) => {
                       const details = sampleDetails?.[group.key] as
-                        | Record<string, unknown>
-                        | undefined
+                        Record<string, unknown> | undefined
                       const es = details?.effect_sizes as Record<string, unknown> | undefined
                       const tvn = es?.tech_vs_nontech as Record<string, unknown> | undefined
                       const constructs = tvn?.constructs as Record<string, unknown> | undefined
@@ -484,8 +483,7 @@ const DatasetComparisonPage = () => {
                     <td className="p-2 border-b capitalize">{construct}</td>
                     {PRIMARY_GROUPS.map((group) => {
                       const details = sampleDetails?.[group.key] as
-                        | Record<string, unknown>
-                        | undefined
+                        Record<string, unknown> | undefined
                       const es = details?.effect_sizes as Record<string, unknown> | undefined
                       const lvs = es?.large_vs_small as Record<string, unknown> | undefined
                       const constructs = lvs?.constructs as Record<string, unknown> | undefined

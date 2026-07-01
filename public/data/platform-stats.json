@@ -1,13 +1,13 @@
 {
-  "as_of": "2026-05-18T07:43:54Z",
-  "commit_sha": "c414a1bb3835b1cad537bec0f9ea0e7ecdd64c07",
-  "commit_count": 7050,
-  "lines_of_code": 230632,
-  "comments": 13236,
-  "blanks": 26608,
-  "total_lines": 270476,
-  "tracked_files": 791,
-  "github_workflows": 52,
+  "as_of": "2026-06-29T08:05:46Z",
+  "commit_sha": "e79b06fac909587d259127532464cb25aec712ac",
+  "commit_count": 7358,
+  "lines_of_code": 232106,
+  "comments": 13392,
+  "blanks": 26802,
+  "total_lines": 272300,
+  "tracked_files": 797,
+  "github_workflows": 54,
   "integrations": 8,
   "development_phases": 5,
   "phases_source": "CRP §3.6 Table 8 (Five-Phase TABS Product Development Process)",
@@ -15,38 +15,38 @@
   "by_language": [
     {
       "language": "TypeScript",
-      "files": 460,
-      "code": 111967,
-      "comment": 3919,
-      "blank": 7962
+      "files": 462,
+      "code": 112082,
+      "comment": 3957,
+      "blank": 7979
     },
     {
       "language": "JSON",
       "files": 41,
-      "code": 44915,
+      "code": 45325,
       "comment": 0,
       "blank": 0
     },
     {
       "language": "Python",
       "files": 89,
-      "code": 36913,
-      "comment": 7801,
-      "blank": 7261
+      "code": 37002,
+      "comment": 7849,
+      "blank": 7276
     },
     {
       "language": "Markdown",
-      "files": 103,
-      "code": 24172,
+      "files": 105,
+      "code": 24809,
       "comment": 39,
-      "blank": 9602
+      "blank": 9740
     },
     {
       "language": "YAML",
-      "files": 58,
-      "code": 7311,
-      "comment": 966,
-      "blank": 1187
+      "files": 60,
+      "code": 7510,
+      "comment": 1024,
+      "blank": 1210
     },
     {
       "language": "CSV",
@@ -58,9 +58,9 @@
     {
       "language": "Bourne Shell",
       "files": 4,
-      "code": 982,
-      "comment": 132,
-      "blank": 143
+      "code": 1006,
+      "comment": 144,
+      "blank": 144
     },
     {
       "language": "Scheme",
