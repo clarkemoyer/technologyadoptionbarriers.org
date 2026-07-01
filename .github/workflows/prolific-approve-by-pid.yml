@@ -1,0 +1,107 @@
+# ╔══════════════════════════════════════════════════════════════════════╗
+# ║  PROLIFIC ACTION WORKFLOW: Approve submissions by explicit PID list  ║
+# ║                                                                      ║
+# ║  Uses approve_by_pid.py to approve a caller-supplied list of         ║
+# ║  AWAITING REVIEW submissions, sending a thank-you message to each    ║
+# ║  participant (deduped by signature). Companion to                    ║
+# ║  prolific-reject-by-pid.yml for the cases where bulk-approve-        ║
+# ║  replied.yml's bucket extraction is not flexible enough — for        ║
+# ║  example when an operator needs to exclude a specific borderline     ║
+# ║  PID from the auto_approve_eligible bucket, or include PIDs from     ║
+# ║  the human_review_questions bucket after reading the replies.        ║
+# ║                                                                      ║
+# ║  SAFETY REQUIREMENTS:                                                ║
+# ║    1. Manual trigger only (workflow_dispatch)                        ║
+# ║    2. Defaults to dry-run                                            ║
+# ║    3. Live approval requires typing "APPROVE" in confirmation field  ║
+# ║    4. PID_LIST is required — no "approve all" shortcut               ║
+# ║    5. MAX_PER_RUN ceiling defaults to 30                             ║
+# ║    6. Skips any PID whose Prolific status is no longer AWAITING      ║
+# ╚══════════════════════════════════════════════════════════════════════╝
+
+name: 'Prolific: Approve Submissions by PID'
+
+on:
+  workflow_dispatch:
+    inputs:
+      study_id:
+        description: 'Prolific Study ID (defaults to PROLIFIC_STUDY_ID)'
+        required: false
+        type: string
+      pid_list:
+        description: 'Comma-separated PIDs to approve (required)'
+        required: true
+        type: string
+      dry_run:
+        description: 'Dry run - preview approvals without executing'
+        required: true
+        type: boolean
+        default: true
+      confirm_approve:
+        description: 'Type APPROVE to confirm live approval (required when dry_run is false)'
+        required: false
+        type: string
+        default: ''
+      max_per_run:
+        description: 'Ceiling override (default 30)'
+        required: false
+        type: string
+        default: '30'
+
+concurrency:
+  group: 'prolific-approve-submissions'
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  approve:
+    name: 'Approve by PID'
+    runs-on: ubuntu-latest
+    environment: prolific-prod
+    steps:
+      - name: 'Safety check: validate confirmation'
+        if: inputs.dry_run == false
+        env:
+          CONFIRM: ${{ inputs.confirm_approve }}
+        run: |
+          echo "================================================================"
+          echo "  Prolific Submission Approval (live)"
+          echo "  This will APPROVE the PIDs in the provided list and send a"
+          echo "  thank-you message to each participant."
+          echo "================================================================"
+          if [ "$CONFIRM" != "APPROVE" ]; then
+            echo "SAFETY STOP: You must type APPROVE in the confirmation field."
+            echo "Received: '$CONFIRM'"
+            exit 1
+          fi
+          echo "Confirmation accepted: '$CONFIRM'"
+
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Approve by PID
+        env:
+          PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
+          STUDY_ID: ${{ inputs.study_id || vars.PROLIFIC_STUDY_ID }}
+          PID_LIST: ${{ inputs.pid_list }}
+          MAX_PER_RUN: ${{ inputs.max_per_run }}
+          DRY_RUN: ${{ inputs.dry_run }}
+          CONFIRM_APPROVE: ${{ inputs.confirm_approve }}
+          OUTPUT_JSON_PATH: ${{ runner.temp }}/approve-by-pid-results.json
+        run: python3 scripts/analysis/approve_by_pid.py
+
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: approve-by-pid-results
+          path: ${{ runner.temp }}/approve-by-pid-results.json
+          # 1-day retention: contains full PIDs (approved, deferred, failed).
+          # Matches privacy treatment of bulk-approve-results.
+          retention-days: 1

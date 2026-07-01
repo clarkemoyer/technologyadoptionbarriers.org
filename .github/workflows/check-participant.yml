@@ -13,6 +13,7 @@ on:
           - send-thank-you
           - unreject
           - send-custom
+          - approve
           - awaiting-report
           - request-return
           - stale-return-requested
@@ -21,9 +22,23 @@ on:
           - demographics
         default: 'single'
       pid:
-        description: 'Prolific Participant ID (required for single/send-custom mode)'
+        description: 'Prolific Participant ID(s): required for single, send-custom, and approve modes. Use one PID for single/send-custom; use a comma-separated PID list for approve.'
         required: false
         type: string
+      dry_run:
+        description: 'Approve mode only: keep as true to preview AWAITING REVIEW targets without approving. Set false for a live approve run.'
+        required: false
+        type: boolean
+        default: true
+      confirm_approve:
+        description: 'Approve mode only: required for live approve runs. Type APPROVE exactly when dry_run=false.'
+        required: false
+        type: string
+      max_per_run:
+        description: 'Approve mode only: per-run ceiling override (default 30). approve_by_pid.py truncates eligible targets above this count.'
+        required: false
+        type: string
+        default: '30'
       message:
         description: 'Custom message body (required for send-custom mode)'
         required: false
@@ -47,7 +62,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: prolific-prod
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
@@ -184,6 +199,17 @@ jobs:
           DRY_RUN: 'false'
         run: python3 scripts/analysis/send_custom_message.py
 
+      - name: Approve PID(s)
+        if: inputs.mode == 'approve'
+        env:
+          PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
+          STUDY_ID: ${{ inputs.study_id || vars.PROLIFIC_STUDY_ID }}
+          PID_LIST: ${{ inputs.pid }}
+          DRY_RUN: ${{ inputs.dry_run && 'true' || 'false' }}
+          CONFIRM_APPROVE: ${{ inputs.confirm_approve }}
+          MAX_PER_RUN: ${{ inputs.max_per_run }}
+        run: python3 scripts/analysis/approve_by_pid.py
+
       - name: Unreject submissions
         if: inputs.mode == 'unreject'
         env:
@@ -283,7 +309,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: qualtrics-prod
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
@@ -312,7 +338,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: prolific-prod
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v6
         with:
           node-version: '20'
@@ -335,7 +361,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: qualtrics-prod
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v6
         with:
           node-version: '20'

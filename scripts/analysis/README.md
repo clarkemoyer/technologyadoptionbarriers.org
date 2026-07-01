@@ -2,7 +2,7 @@
 
 ## Overview
 
-These scripts reproduce all statistical analyses reported in the Technology Adoption Barriers Survey (TABS) Culminating Research Project (CRP). They are designed to be run against the TABS V2 dataset available at [ScholarSphere](https://scholarsphere.psu.edu/resources/cc6df3e4-17d3-4594-86f6-48a433cde962) or other comparable Qualtrics CSV exports.
+These scripts reproduce all statistical analyses reported in the Technology Adoption Barriers Survey (TABS) Culminating Research Project (CRP). They are designed to be run against the TABS V2 dataset available at [ScholarSphere](https://doi.org/10.26207/k064-f485) or other comparable Qualtrics CSV exports.
 
 This reproducibility pipeline ensures transparency and enables independent verification of every statistic reported in the CRP (Chapters I-IV), the defense presentation, and the Comprehensive Analysis Report (Appendix M).
 
@@ -12,7 +12,7 @@ This reproducibility pipeline ensures transparency and enables independent verif
 - **Project**: Technology Adoption Barriers Survey (TABS): Culminating Research Project
 - **Defense**: May 7, 2026
 - **Repository**: [github.com/clarkemoyer/technologyadoptionbarriers.org](https://github.com/clarkemoyer/technologyadoptionbarriers.org)
-- **Data**: Publicly available at [ScholarSphere](https://scholarsphere.psu.edu/resources/cc6df3e4-17d3-4594-86f6-48a433cde962)
+- **Data**: Publicly available at [ScholarSphere](https://doi.org/10.26207/k064-f485)
 
 ## Requirements
 
@@ -432,7 +432,7 @@ All scripts are distributed under **CC-BY-4.0** (Creative Commons Attribution 4.
 
 If you use these scripts in published research, please cite:
 
-> Moyer, C. (2026). _Technology Adoption Barriers Survey (TABS): Reproducible Analysis Scripts_. Penn State University. https://scholarsphere.psu.edu/resources/cc6df3e4-17d3-4594-86f6-48a433cde962
+> Moyer, C. (2026). _Technology Adoption Barriers Survey (TABS): Reproducible Analysis Scripts_. Penn State University. https://doi.org/10.26207/k064-f485
 
 ## Contact
 

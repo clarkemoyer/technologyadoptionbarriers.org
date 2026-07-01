@@ -436,6 +436,18 @@ const AIAssistedDevelopmentPage = () => {
                 mistakes, and the safeguards we built afterward.
               </p>
             </Link>
+
+            <Link
+              href="/making-of-tabs/ai-assisted-development/50-reviewer-process"
+              className="block rounded-xl border border-teal-200 bg-teal-50 p-6 hover:shadow-md transition-shadow"
+            >
+              <h3 className="text-lg font-bold text-teal-900 mb-2">The 50-Reviewer Process</h3>
+              <p className="text-sm text-teal-800">
+                How fifty simulated expert-reviewer personas were designed, batched, aggregated, and
+                triaged to stress-test the CRP before committee submission. The method, not the
+                run-time numbers.
+              </p>
+            </Link>
           </div>
         </section>
 

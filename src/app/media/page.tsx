@@ -20,9 +20,9 @@ export const metadata: Metadata = {
     url: 'https://technologyadoptionbarriers.org/media',
     images: [
       {
-        url: '/web-app-manifest-512x512.png',
-        width: 512,
-        height: 512,
+        url: '/Images/TABS-Logo-Full.png',
+        width: 1920,
+        height: 1920,
         alt: 'Technology Adoption Barriers Survey (TABS)',
       },
     ],
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     title: 'Media | TABS',
     description:
       'Press kit, media contact details, and project resources for the Technology Adoption Barriers Survey (TABS).',
-    images: ['/web-app-manifest-512x512.png'],
+    images: ['/Images/TABS-Logo-Full.png'],
   },
 }
 

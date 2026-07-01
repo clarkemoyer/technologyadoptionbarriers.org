@@ -11,8 +11,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 
 type QualtricsAuth =
-  | { kind: 'api-token'; apiToken: string }
-  | { kind: 'oauth-bearer'; accessToken: string }
+  { kind: 'api-token'; apiToken: string } | { kind: 'oauth-bearer'; accessToken: string }
 
 function parseBoolEnv(name: string): boolean {
   const raw = (process.env[name] || '').trim().toLowerCase()

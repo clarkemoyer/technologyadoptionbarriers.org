@@ -173,7 +173,7 @@ const CRP2026Page = () => {
             </p>
             <div className="flex flex-wrap gap-4 my-4">
               <a
-                href="https://scholarsphere.psu.edu/resources/cc6df3e4-17d3-4594-86f6-48a433cde962"
+                href="https://doi.org/10.26207/k064-f485"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 transition-colors font-sans text-base font-medium shadow-sm"
@@ -229,14 +229,9 @@ const CRP2026Page = () => {
             <p className="mb-2 font-medium">APA Format (Dataset):</p>
             <p className="text-gray-700 italic">
               Moyer, C. (2026).{' '}
-              <em>
-                Technology Adoption Barriers Survey (TABS): CRP 2026 public dataset (N=
-                {d(CRP_SAMPLE_SIZE)})
-              </em>{' '}
-              [Data set]. Penn State ScholarSphere.{' '}
-              <span className="not-italic">
-                https://scholarsphere.psu.edu/resources/cc6df3e4-17d3-4594-86f6-48a433cde962
-              </span>
+              <em>Technology Adoption Barriers Survey (TABS) 2026 CRP Initial Dataset</em> [Data
+              set]. Penn State ScholarSphere.{' '}
+              <span className="not-italic">https://doi.org/10.26207/k064-f485</span>
             </p>
           </div>
           <div className="bg-gray-50 border border-gray-200 rounded-lg p-6 font-sans text-sm mt-4">

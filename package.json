@@ -1,6 +1,6 @@
 {
   "name": "technologyadoptionbarriers-org",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
@@ -26,56 +26,65 @@
     "validate:data": "tsx scripts/validate-data-schemas.ts"
   },
   "dependencies": {
-    "@google-analytics/data": "^5.2.1",
+    "@google-analytics/data": "^6.0.0",
     "exceljs": "^4.4.0",
-    "framer-motion": "^12.38.0",
-    "googleapis": "^171.4.0",
+    "framer-motion": "^12.42.0",
+    "googleapis": "^173.0.0",
     "lightningcss": "^1.32.0",
-    "lucide-react": "^1.7.0",
-    "next": "^16.2.3",
-    "nodemailer": "^8.0.5",
-    "postcss": "^8.5.8",
-    "react": "19.2.4",
-    "react-dom": "19.2.4",
+    "lucide-react": "^1.22.0",
+    "next": "^16.2.9",
+    "nodemailer": "^9.0.1",
+    "postcss": "^8.5.16",
+    "react": "19.2.7",
+    "react-dom": "19.2.7",
     "react-icons": "^5.6.0",
     "react-zoom-pan-pinch": "^4.0.3",
-    "recharts": "^3.8.1",
-    "zod": "^4.3.6"
+    "recharts": "^3.9.0",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
-    "@axe-core/react": "^4.11.1",
-    "@commitlint/cli": "^20.5.0",
-    "@commitlint/config-conventional": "^20.5.0",
+    "@axe-core/react": "^4.12.1",
+    "@commitlint/cli": "^21.1.0",
+    "@commitlint/config-conventional": "^21.0.2",
     "@eslint/eslintrc": "^3.3.5",
     "@lhci/cli": "^0.15.1",
-    "@playwright/test": "^1.58.2",
-    "@tailwindcss/postcss": "^4.2.2",
+    "@playwright/test": "^1.61.1",
+    "@tailwindcss/postcss": "^4.3.1",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@types/jest": "^30.0.0",
     "@types/jest-axe": "^3.5.9",
-    "@types/node": "^25",
-    "@types/nodemailer": "^8.0.0",
+    "@types/node": "^26",
+    "@types/nodemailer": "^8.0.1",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "cross-env": "^10.1.0",
     "eslint": "^9.39.4",
-    "eslint-config-next": "16.2.1",
+    "eslint-config-next": "16.2.9",
     "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-prettier": "^5.5.5",
+    "eslint-plugin-prettier": "^5.5.6",
     "ffmpeg-static": "^5.3.0",
     "husky": "^9.1.7",
-    "jest": "^30.3.0",
+    "jest": "^30.4.2",
     "jest-axe": "^10.0.0",
-    "jest-environment-jsdom": "^30.3.0",
+    "jest-environment-jsdom": "^30.4.1",
     "linkinator": "^7.6.1",
-    "prettier": "^3.8.1",
+    "prettier": "^3.9.1",
     "tailwindcss": "^4.1.12",
-    "tsx": "^4.21.0",
-    "typescript": "^6.0.2"
+    "tsx": "^4.22.4",
+    "typescript": "^6.0.3"
   },
   "overrides": {
-    "tmp": "^0.2.5"
+    "tmp": "^0.2.7",
+    "exceljs": {
+      "uuid": "^14.0.0"
+    },
+    "@lhci/cli": {
+      "uuid": "^14.0.0"
+    },
+    "next": {
+      "postcss": "$postcss"
+    }
   }
 }

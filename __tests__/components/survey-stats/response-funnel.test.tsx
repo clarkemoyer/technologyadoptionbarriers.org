@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, screen } from '@testing-library/react'
+import { render, screen, within } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import { axe, toHaveNoViolations } from 'jest-axe'
 import QualtricsSurveyStats from '../../../src/components/survey-stats/qualtrics-survey-stats'
@@ -40,10 +40,28 @@ describe('Response Funnel page (QualtricsSurveyStats)', () => {
 
   it('renders Qualtrics question IDs and items presented as separate values', () => {
     render(<QualtricsSurveyStats />)
+    const getMetricCard = (name: RegExp) => {
+      const heading = screen.getByRole('heading', { name, level: 4 })
+      const card = heading.parentElement?.parentElement
+
+      if (!(card instanceof HTMLElement)) {
+        throw new Error(`Expected metric card container for heading ${name.toString()}`)
+      }
+
+      return card
+    }
+
+    // Scope to each MetricCard by its label heading. Plain getByText collides
+    // whenever a daily-pipeline value (e.g. a disposition count) happens to
+    // match the items-presented instrument constant.
+    const questionIdsCard = getMetricCard(/Qualtrics question IDs/i)
+    const itemsPresentedCard = getMetricCard(/^Items presented$/i)
     expect(
-      screen.getByText(metricsData.questionCount.toLocaleString(), { exact: false })
+      within(questionIdsCard).getByText(metricsData.questionCount.toLocaleString())
     ).toBeInTheDocument()
-    expect(screen.getByText(TOTAL_ITEMS_PRESENTED.toLocaleString())).toBeInTheDocument()
+    expect(
+      within(itemsPresentedCard).getByText(TOTAL_ITEMS_PRESENTED.toLocaleString())
+    ).toBeInTheDocument()
   })
 
   it('labels each metric card with its API source via badge text', () => {

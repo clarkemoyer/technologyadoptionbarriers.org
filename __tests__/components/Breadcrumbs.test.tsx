@@ -34,6 +34,24 @@ describe('Breadcrumbs', () => {
     expect(screen.getByText('Making of TABS')).toBeInTheDocument()
   })
 
+  it('maps 50-reviewer-process to The 50-Reviewer Process', () => {
+    mockedUsePathname.mockReturnValue('/making-of-tabs/ai-assisted-development/50-reviewer-process')
+    render(<Breadcrumbs />)
+    expect(screen.getByText('The 50-Reviewer Process')).toBeInTheDocument()
+  })
+
+  it('maps open-source to Open Source & Community', () => {
+    mockedUsePathname.mockReturnValue('/making-of-tabs/open-source/research-value')
+    render(<Breadcrumbs />)
+    expect(screen.getByText('Open Source & Community')).toBeInTheDocument()
+  })
+
+  it('maps research-value to The Value of Open-Source Research Infrastructure', () => {
+    mockedUsePathname.mockReturnValue('/making-of-tabs/open-source/research-value')
+    render(<Breadcrumbs />)
+    expect(screen.getByText('The Value of Open-Source Research Infrastructure')).toBeInTheDocument()
+  })
+
   it('last item has aria-current="page"', () => {
     mockedUsePathname.mockReturnValue('/results/sensitivity')
     render(<Breadcrumbs />)

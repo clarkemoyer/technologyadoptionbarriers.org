@@ -93,6 +93,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 1,
     },
+    // Top-level nav-category landing pages (added per #1708 first-click audit)
+    {
+      url: `${baseUrl}/survey`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/about`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
     // Barriers pages
     {
       url: `${baseUrl}/barriers`,
@@ -136,6 +149,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: 'weekly',
       priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/results/participant-voice`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.7,
     },
     {
       url: `${baseUrl}/results/findings`,
@@ -201,6 +220,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}/results/crp-2026/sensitivity`,
       lastModified: now,
       changeFrequency: 'yearly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/results/crp-2026/participant-voice`,
+      lastModified: now,
+      changeFrequency: 'monthly',
       priority: 0.7,
     },
     {
@@ -402,6 +427,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.5,
     },
     {
+      url: `${baseUrl}/making-of-tabs/ai-assisted-development/50-reviewer-process`,
+      lastModified: now,
+      changeFrequency: 'yearly',
+      priority: 0.5,
+    },
+    {
       url: `${baseUrl}/making-of-tabs/development-workflow`,
       lastModified: now,
       changeFrequency: 'monthly',
@@ -418,6 +449,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/making-of-tabs/open-source/research-value`,
+      lastModified: now,
+      changeFrequency: 'yearly',
+      priority: 0.5,
     },
     {
       url: `${baseUrl}/making-of-tabs/content-architecture`,

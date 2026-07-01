@@ -1,0 +1,127 @@
+name: Prolific Message Export
+
+# Pulls every Prolific message in or near the TABS V2 study channel (both
+# directions) and uploads PII-bearing artifacts the operator can download
+# locally for redaction review. Aggregate counts are also produced as a
+# committable JSON artifact (no bodies, no PIDs).
+#
+# Privacy treatment:
+#   - all_messages_raw, participant_messages, transcripts, candidates:
+#     1-day artifact retention (matches the daily disposition CSV).
+#   - aggregate-summary: 7-day retention. Safe to copy into the repo as a
+#     follow-up if useful for impact reporting.
+#
+# This workflow is workflow_dispatch only and runs in prolific-prod, which
+# already holds the TABS_PROLIFIC_TOKEN secret used by the daily pipeline.
+
+on:
+  workflow_dispatch:
+    inputs:
+      study_id:
+        description: 'Optional Study ID (defaults to PROLIFIC_STUDY_ID var; leave blank for all studies)'
+        required: false
+        type: string
+      since:
+        description: 'ISO 8601 cutoff (defaults to 2025-01-01T00:00:00Z)'
+        required: false
+        type: string
+        default: '2025-01-01T00:00:00Z'
+
+concurrency:
+  group: prolific-message-export
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  export:
+    name: Export Prolific Messages
+    runs-on: ubuntu-latest
+    environment: prolific-prod
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Verify Prolific configuration
+        run: |
+          set -euo pipefail
+          if [ -z "${PROLIFIC_API_TOKEN:-}" ]; then echo "::error::PROLIFIC_API_TOKEN is not set"; exit 1; fi
+          echo "Prolific configuration verified."
+        env:
+          PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
+
+      - name: Run Prolific message extraction
+        run: python3 scripts/analysis/extract_prolific_messages.py
+        env:
+          PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
+          STUDY_ID: ${{ inputs.study_id || vars.PROLIFIC_STUDY_ID }}
+          SINCE: ${{ inputs.since }}
+          RAW_OUTPUT_PATH: ${{ runner.temp }}/all_messages_raw.json
+          INBOUND_CSV_PATH: ${{ runner.temp }}/participant_messages.csv
+          TRANSCRIPTS_PATH: ${{ runner.temp }}/participant_messages.md
+          CANDIDATES_PATH: ${{ runner.temp }}/candidates_to_review.md
+          SUMMARY_PATH: ${{ runner.temp }}/aggregate-summary.json
+
+      - name: Show aggregate summary
+        run: |
+          set -euo pipefail
+          SUMMARY="${{ runner.temp }}/aggregate-summary.json"
+          {
+            echo "### Prolific Message Export"
+            echo ""
+            echo '```json'
+            jq '.totals, .length_distribution, .pii_risk_distribution' "$SUMMARY"
+            echo '```'
+            echo ""
+            echo "Theme matches:"
+            echo ""
+            jq -r '.theme_distribution | .[] | "- \(.theme): \(.count)"' "$SUMMARY"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload aggregate summary artifact (committable)
+        uses: actions/upload-artifact@v7
+        with:
+          name: prolific-message-aggregate-summary
+          path: ${{ runner.temp }}/aggregate-summary.json
+          retention-days: 7
+          if-no-files-found: error
+
+      - name: Upload raw messages artifact (PII; 1 day)
+        uses: actions/upload-artifact@v7
+        with:
+          name: prolific-messages-raw
+          path: ${{ runner.temp }}/all_messages_raw.json
+          retention-days: 1
+          if-no-files-found: error
+
+      - name: Upload inbound CSV artifact (PII; 1 day)
+        uses: actions/upload-artifact@v7
+        with:
+          name: prolific-messages-inbound-csv
+          path: ${{ runner.temp }}/participant_messages.csv
+          retention-days: 1
+          if-no-files-found: error
+
+      - name: Upload transcripts artifact (PII; 1 day)
+        uses: actions/upload-artifact@v7
+        with:
+          name: prolific-messages-transcripts
+          path: ${{ runner.temp }}/participant_messages.md
+          retention-days: 1
+          if-no-files-found: error
+
+      - name: Upload candidates artifact (PII; 1 day)
+        uses: actions/upload-artifact@v7
+        with:
+          name: prolific-messages-candidates
+          path: ${{ runner.temp }}/candidates_to_review.md
+          retention-days: 1
+          if-no-files-found: error

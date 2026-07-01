@@ -215,10 +215,14 @@ class TestCrossValidation:
         assert "Triaged" in result.stdout
         assert Path(output_csv).exists()
 
-        # Verify CSV headers match TS format exactly
+        # Verify CSV headers. The first 20 columns (through "Disposition") match
+        # the archived scripts/archive/disposition-triage.ts format. The trailing
+        # Prolific_* columns extend the Python format with Prolific submission
+        # anchors populated by enrich_qualtrics_csv.py so downstream consumers
+        # can compute 21-day auto-approve runway from Prolific_Completed_At.
         with open(output_csv) as f:
             header = f.readline().strip()
-        expected = "PROLIFIC_PID,Finished,Duration_Seconds,Auth_LLM,Auth_Bots,Auth_Flag,IRI_Barrier_Pass,IRI_Readiness_Pass,IRI_Maturity_Pass,IRI_Pass_Count,IRI_Fail_Count,Speed_Flag,Smeal_Benchmark_Flag,reCAPTCHA_Score,reCAPTCHA_Flag,Straightlining_Count,Straightlining_Flag,Partial_Straightlining_Flag,Partial_Straightlining_Blocks,Disposition"
+        expected = "PROLIFIC_PID,Finished,Duration_Seconds,Auth_LLM,Auth_Bots,Auth_Flag,IRI_Barrier_Pass,IRI_Readiness_Pass,IRI_Maturity_Pass,IRI_Pass_Count,IRI_Fail_Count,Speed_Flag,Smeal_Benchmark_Flag,reCAPTCHA_Score,reCAPTCHA_Flag,Straightlining_Count,Straightlining_Flag,Partial_Straightlining_Flag,Partial_Straightlining_Blocks,Disposition,Prolific_Status,Prolific_Completed_At,Prolific_Started_At"
         assert header == expected, f"Header mismatch:\n  Got:      {header}\n  Expected: {expected}"
 
         # Verify integer floats don't have trailing .0

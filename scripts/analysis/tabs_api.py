@@ -392,12 +392,51 @@ def prolific_demographics_csv(
 
 
 def prolific_submission_statuses(study_id: str, api_token: str) -> Dict[str, str]:
-    """Return a dict mapping PROLIFIC_PID → submission status."""
+    """Return a dict mapping PROLIFIC_PID → submission status.
+
+    Kept for backward compatibility with callers that only need the status
+    string. New callers should prefer ``prolific_submission_summaries``,
+    which also returns timestamps used for 21-day auto-approve runway
+    calculations.
+
+    Submissions without a non-empty ``participant_id`` are silently skipped
+    (consistent with ``prolific_submission_summaries``).
+    """
     submissions = prolific_submissions(study_id, api_token)
     return {
-        sub.get("participant_id", ""): sub.get("status", "UNKNOWN")
+        sub["participant_id"]: sub.get("status", "UNKNOWN")
         for sub in submissions
+        if sub.get("participant_id")
     }
+
+
+def prolific_submission_summaries(study_id: str, api_token: str) -> Dict[str, Dict[str, str]]:
+    """Return a dict mapping PROLIFIC_PID → submission summary fields.
+
+    Each value contains the fields downstream pipeline steps need beyond
+    the status string itself:
+      - status:         submission state (APPROVED, AWAITING REVIEW, ...)
+      - completed_at:   ISO 8601 timestamp the participant submitted, or ""
+      - started_at:     ISO 8601 timestamp the participant started, or ""
+
+    ``completed_at`` is the canonical anchor for Prolific's 21-day
+    auto-approve clock: any submission still in AWAITING REVIEW longer
+    than 21 days after ``completed_at`` is auto-approved by Prolific
+    (and the participant is paid). The pipeline persists this raw
+    timestamp so consumers can compute their own "now" delta accurately.
+    """
+    submissions = prolific_submissions(study_id, api_token)
+    summaries: Dict[str, Dict[str, str]] = {}
+    for sub in submissions:
+        pid = sub.get("participant_id", "")
+        if not pid:
+            continue
+        summaries[pid] = {
+            "status": sub.get("status", "UNKNOWN") or "UNKNOWN",
+            "completed_at": sub.get("completed_at") or "",
+            "started_at": sub.get("started_at") or "",
+        }
+    return summaries
 
 
 def prolific_recent_messages(
@@ -490,6 +529,22 @@ def prolific_send_message(
     headers = {**_prolific_headers(api_token), "Content-Type": "application/json"}
     url = f"{_PROLIFIC_BASE}/messages/"
     body = {"recipient_id": recipient_id, "body": message_body, "study_id": study_id}
+    return _json_request("POST", url, headers, body, allow_empty=True)
+
+
+def prolific_request_return(
+    submission_id: str, reasons: List[str], api_token: str
+) -> Dict:
+    """Request that a participant return their submission.
+
+    Uses the dedicated /request-return/ endpoint (not /transition/). Sets
+    `return_requested` on the submission while leaving status AWAITING REVIEW;
+    Prolific notifies the participant. After the reserve timeout Prolific
+    auto-APPROVES if no participant action, so callers must follow up.
+    """
+    headers = {**_prolific_headers(api_token), "Content-Type": "application/json"}
+    url = f"{_PROLIFIC_BASE}/submissions/{submission_id}/request-return/"
+    body = {"request_return_reasons": reasons}
     return _json_request("POST", url, headers, body, allow_empty=True)
 
 

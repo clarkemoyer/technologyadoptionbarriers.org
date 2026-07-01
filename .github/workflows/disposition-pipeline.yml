@@ -37,7 +37,7 @@ jobs:
     environment: qualtrics-prod
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - uses: actions/setup-python@v6
         with:
@@ -87,7 +87,7 @@ jobs:
           echo "Study ID: $STUDY_ID"
 
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Setup Node.js
         uses: actions/setup-node@v6

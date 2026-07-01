@@ -1,0 +1,245 @@
+name: Validate Bibliography References vs Zotero
+
+# Runs on PRs touching bibliography pages and on manual dispatch.
+# Non-blocking for unmatched references (exit code 1 is allowed).
+# Real script errors (exit code 2+, e.g. API outage or auth misconfig) fail CI.
+#
+# Security: Uses pull_request_target so the trusted base-branch script runs with
+# zotero-prod secrets even on fork PRs.  Bibliography pages are overlaid from the
+# PR head; scripts/ and .github/ are always sourced from the base branch,
+# preventing a PR from injecting code that exfiltrates the Zotero API key.
+
+on:
+  pull_request_target:
+    paths:
+      - 'src/app/bibliography-*/page.tsx'
+  workflow_dispatch:
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    environment: zotero-prod
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - name: Checkout base branch (trusted scripts and workflow)
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+        # fetch-depth: 0 ensures full history is available so that
+        # `git merge-base HEAD pr-head` (used in the overlay step) reliably
+        # finds the common ancestor even when the PR is many commits behind.
+        # Default ref for pull_request_target = base branch.  scripts/ and .github/
+        # always come from the trusted base, not the PR, preventing code injection.
+
+      - name: Overlay bibliography pages from PR head
+        # Fetch only content files from the PR so the trusted base-branch script
+        # validates the actual PR changes.  Never overlays scripts/ or .github/.
+        #
+        # Overlay strategy (avoids under-counting):
+        #   1. Remove only bibliography pages that were explicitly DELETED in this PR.
+        #      A blanket delete of all base-branch pages would cause the validator to
+        #      miss pages that exist on main but weren't touched by the PR, producing
+        #      an artificially low reference count and hiding unmatched citations.
+        #   2. Check out only pages that were ADDED, MODIFIED, or RENAMED in the PR.
+        #      Base-branch pages not touched by the PR remain in place.
+        #
+        # Symlink-attack mitigation: disable symlink writing in git before the
+        # overlay checkout so a malicious PR cannot place a symlink (e.g. pointing
+        # to /proc/self/environ) under src/app/bibliography-*.  After checkout,
+        # verify no symlinks exist as a belt-and-suspenders guard.
+        if: github.event_name == 'pull_request_target'
+        run: |
+          git config core.symlinks false
+          git fetch origin "refs/pull/${{ github.event.pull_request.number }}/head:pr-head"
+          MERGE_BASE=$(git merge-base HEAD pr-head)
+
+          # Delete only pages removed in this PR (not a blanket delete)
+          git diff --name-only -z --diff-filter=D "$MERGE_BASE" pr-head \
+            -- ':(glob)src/app/bibliography-*/page.tsx' | xargs -r0 rm -f
+
+          # Remove old paths for RENAMED pages: base-branch copy persists until
+          # explicitly deleted, which would cause double-counting.  name-status
+          # with --diff-filter=R outputs "R{score}\told\tnew" lines; awk extracts
+          # the old path (field 2) for deletion.  Bibliography paths never contain
+          # tabs or newlines so plain (non -z) output is safe to parse here.
+          git diff --name-status --diff-filter=R "$MERGE_BASE" pr-head \
+            -- ':(glob)src/app/bibliography-*/page.tsx' \
+            | awk '{print $2}' | xargs -r rm -f
+
+          # Overlay added/modified/renamed pages from PR head; untouched base pages stay in place
+          git diff --name-only -z --diff-filter=AMR "$MERGE_BASE" pr-head \
+            -- ':(glob)src/app/bibliography-*/page.tsx' | xargs -r0 git checkout pr-head --
+
+          # Belt-and-suspenders: fail if any overlaid file is still a symlink
+          if find src/app -maxdepth 2 -path '*/bibliography-*/page.tsx' -type l | grep -q .; then
+            echo "ERROR: Symlink detected under src/app/bibliography-* after overlay — aborting." >&2
+            exit 1
+          fi
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Install pyzotero
+        run: python -m pip install pyzotero==1.11.0
+
+      - name: Run bibliography-Zotero validation
+        id: validate
+        env:
+          ZOTERO_API_KEY: ${{ secrets.ZOTERO_API_KEY }}
+          ZOTERO_USER_ID: ${{ vars.ZOTERO_USER_ID }}
+          ZOTERO_BASE_URL: ${{ vars.ZOTERO_BASE_URL }}
+          VALIDATION_REPORT_PATH: bibliography-validation-report.json
+        run: |
+          set +e
+          python scripts/validate-bibliography-references.py
+          EXIT_CODE=$?
+          echo "report_path=bibliography-validation-report.json" >> "$GITHUB_OUTPUT"
+          # Exit code 1 = unmatched refs (non-blocking warning) — allowed ONLY if
+          # the script wrote a report; Python also exits 1 for unhandled exceptions,
+          # so treat exit-1-without-report as a real error.
+          # Exit code 2+ = real script error (broken env, API outage) — fail CI.
+          if [ "$EXIT_CODE" -eq 1 ] && [ ! -f bibliography-validation-report.json ]; then
+            echo "ERROR: Script exited 1 without writing a report (likely unhandled exception)" >&2
+            exit 2
+          elif [ "$EXIT_CODE" -le 1 ]; then
+            exit 0
+          else
+            exit "$EXIT_CODE"
+          fi
+
+      - name: Upload validation report
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: bibliography-validation-report
+          path: bibliography-validation-report.json
+          retention-days: 30
+
+      - name: Post PR comment with results
+        if: always() && github.event_name == 'pull_request_target'
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const fs = require('fs');
+            let report;
+            try {
+              report = JSON.parse(fs.readFileSync('bibliography-validation-report.json', 'utf8'));
+            } catch (e) {
+              console.log('No validation report found — skipping comment');
+              return;
+            }
+
+            // Escape untrusted content before embedding in GitHub Markdown.
+            // This prevents markdown/mention injection from PR file content or
+            // exception messages (which are rendered in a pull_request_target context
+            // with elevated permissions).
+            // & must be escaped FIRST — before any other replacement produces &-based
+            // entities — to prevent entity smuggling (e.g. "&lt;" in input becoming
+            // a real "<" tag after GitHub renders the comment).
+            function escMd(text) {
+              if (typeof text !== 'string') return String(text);
+              return text
+                .replace(/&/g, '&amp;')       // & first: prevents entity smuggling
+                .replace(/\r?\n/g, ' ')      // newlines → space (no multi-line injection)
+                .replace(/@/g, '&#64;')       // @mentions → HTML entity (prevents GitHub mention)
+                .replace(/</g, '&lt;')        // HTML/tag injection
+                .replace(/>/g, '&gt;')        // HTML/tag injection
+                .replace(/\|/g, '\\|')        // table cell separator
+                .replace(/\[/g, '\\[')        // link text injection
+                .replace(/\]/g, '\\]')        // link text injection
+                .replace(/\*/g, '\\*')        // bold/italic injection
+                .replace(/`/g, "'");          // backtick code injection
+            }
+
+            const pct = report.total_refs > 0
+              ? Math.round(report.matched * 100 / report.total_refs)
+              : 0;
+
+            let body = `## Zotero Bibliography Validation\n\n`;
+
+            if (report.error) {
+              body += `> ⚠️ **Validation error — Zotero results are incomplete:**\n> ${escMd(report.error)}\n\n`;
+            }
+
+            body += `| Metric | Value |\n|---|---|\n`;
+            body += `| Pages with References | ${report.pages_with_refs} / ${report.total_pages} |\n`;
+            body += `| Total references | ${report.total_refs} |\n`;
+            if (!report.error) {
+              body += `| Matched in Zotero | ${report.matched} (${pct}%) |\n`;
+              if (report.possible_matches > 0) {
+                body += `| Possible matches (verify manually) | ${report.possible_matches} |\n`;
+              }
+              body += `| Unmatched | ${report.unmatched} |\n`;
+            }
+            body += '\n';
+
+            if (!report.error && report.possible_matches > 0 && report.possible_match_details?.length > 0) {
+              body += `<details><summary>${report.possible_matches} possible matches (fuzzy year+prefix overlap — verify manually)</summary>\n\n`;
+              body += `| Page | Reference |\n|---|---|\n`;
+              for (const d of report.possible_match_details.slice(0, 20)) {
+                body += `| \`${escMd(d.page)}\` | ${escMd(d.ref)} |\n`;
+              }
+              if (report.possible_match_details.length > 20) {
+                body += `| ... | ${report.possible_match_details.length - 20} more |\n`;
+              }
+              body += `\n</details>\n\n`;
+            }
+
+            if (!report.error && report.unmatched > 0 && report.unmatched_details.length > 0) {
+              body += `<details><summary>${report.unmatched} references not found in Zotero (click to expand)</summary>\n\n`;
+              body += `| Page | Reference |\n|---|---|\n`;
+              for (const d of report.unmatched_details.slice(0, 50)) {
+                body += `| \`${escMd(d.page)}\` | ${escMd(d.ref)} |\n`;
+              }
+              if (report.unmatched_details.length > 50) {
+                body += `| ... | ${report.unmatched_details.length - 50} more |\n`;
+              }
+              body += `\n</details>\n\n`;
+            }
+
+            body += `> Per [#1553](https://github.com/${context.repo.owner}/${context.repo.repo}/issues/1553): all references must exist in Zotero and use APA 7th format.\n`;
+
+            // Find and update existing comment or create new.
+            // Paginate to handle PRs with more than 30 comments.
+            const comments = await github.paginate(github.rest.issues.listComments, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              per_page: 100,
+            });
+
+            // Prepend a hidden HTML marker so the bot can identify its own
+            // comment even if another user posts a comment that begins with
+            // the same visible heading.
+            const hiddenMarker = '<!-- zotero-bib-validation-bot -->';
+            body = hiddenMarker + '\n' + body;
+
+            // Only match comments posted by this workflow's bot account to
+            // avoid accidentally overwriting a user comment that starts with
+            // the same visible heading.
+            const existing = comments.find(
+              c => c.user.login === 'github-actions[bot]' && c.body.includes(hiddenMarker)
+            );
+
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body,
+              });
+            }

@@ -192,3 +192,60 @@ export const MATURITY_ITEM_NAMES = [
   'Workforce Capability',
   'Change Leadership',
 ] as const
+
+/* ------------------------------------------------------------------ */
+/*  Maturity Sub-construct Groupings (concept mapping framework)       */
+/* ------------------------------------------------------------------ */
+
+/**
+ * Maps each maturity dimension (D1-D8) to its canonical survey item name
+ * and concept-mapping grouping label. The `item` field matches the
+ * corresponding entry in MATURITY_ITEM_NAMES exactly so lookups can be
+ * joined deterministically. The `itemCode` stores the survey dimension
+ * identifier (D1-D8).
+ *
+ * Grouping labels synthesize related capability domains across CMMI v2.0,
+ * IT-CMF, COBIT 2019, and DREAMY. For D1-D5 the canonical names and
+ * grouping labels are closely aligned; for D6-D8 the grouping labels are
+ * broader (e.g. "Strategy & Architecture" encompasses both strategic
+ * planning and enterprise architecture maturity).
+ */
+type MaturityItemCode = 'D1' | 'D2' | 'D3' | 'D4' | 'D5' | 'D6' | 'D7' | 'D8'
+type MaturitySubconstructGrouping = {
+  itemCode: MaturityItemCode
+  item: (typeof MATURITY_ITEM_NAMES)[number]
+  grouping: string
+}
+
+export const MATURITY_SUBCONSTRUCT_GROUPINGS = [
+  { itemCode: 'D1', item: 'IT Investment & Value Mgmt', grouping: 'Investment & Value Management' },
+  {
+    itemCode: 'D2',
+    item: 'IT-Enabled Innovation',
+    grouping: 'Innovation & Digital Transformation',
+  },
+  {
+    itemCode: 'D3',
+    item: 'Process Mgmt & Standardization',
+    grouping: 'Process & Quality Management',
+  },
+  {
+    itemCode: 'D4',
+    item: 'Data Governance & Analytics',
+    grouping: 'Data & Information Management',
+  },
+  { itemCode: 'D5', item: 'Tech Risk & Resilience', grouping: 'Risk, Security & Compliance' },
+  { itemCode: 'D6', item: 'Strategic IT Planning', grouping: 'Strategy & Architecture' },
+  { itemCode: 'D7', item: 'Workforce Capability', grouping: 'Workforce & Talent' },
+  { itemCode: 'D8', item: 'Change Leadership', grouping: 'Change & Adoption Leadership' },
+] as const satisfies readonly MaturitySubconstructGrouping[]
+
+export const MATURITY_ITEM_NAMES_NOTE =
+  `MATURITY_ITEM_NAMES contains the canonical survey item names as they appear in the Qualtrics ` +
+  `CSV column subheaders. MATURITY_SUBCONSTRUCT_GROUPINGS uses the same canonical names in its ` +
+  `item field so entries can be joined deterministically to MATURITY_ITEM_NAMES, while itemCode ` +
+  `stores the survey dimension identifier (D1-D8). The grouping labels synthesize related ` +
+  `capability domains across CMMI v2.0, IT-CMF, COBIT 2019, and DREAMY into unified conceptual ` +
+  `categories. For items D1-D5, the canonical names and grouping labels are closely aligned. ` +
+  `For D6-D8, the grouping labels are broader (e.g., 'Strategy & Architecture' encompasses both ` +
+  `strategic planning and enterprise architecture maturity).`

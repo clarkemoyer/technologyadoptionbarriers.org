@@ -21,6 +21,7 @@ from tabs_api import (
     prolific_bulk_reject,
     prolific_send_message,
     prolific_unreject,
+    prolific_request_return,
     prolific_get_submission_ids,
     QUALTRICS_PROLIFIC_FILTER_MAP,
     PROLIFIC_AUGMENTATION_FILTERS,
@@ -211,6 +212,60 @@ class TestProlificStatuses:
             "PID3": "AWAITING REVIEW",
         }
 
+    def test_status_mapping_skips_missing_pid(self):
+        """Submissions without a participant_id are skipped (no empty-string key)."""
+        mock_submissions = [
+            {"participant_id": "PID1", "status": "APPROVED"},
+            # missing participant_id — should be silently excluded
+            {"status": "REJECTED"},
+            # empty string participant_id — should also be excluded
+            {"participant_id": "", "status": "AWAITING REVIEW"},
+        ]
+
+        with patch("tabs_api.prolific_submissions", return_value=mock_submissions):
+            result = prolific_submission_statuses("study1", "token")
+
+        assert result == {"PID1": "APPROVED"}
+        assert "" not in result
+
+    def test_summaries_include_timestamps(self):
+        """prolific_submission_summaries returns the per-PID dict shape that
+        carries completed_at and started_at -- needed for the 21-day
+        auto-approve runway computation downstream."""
+        from tabs_api import prolific_submission_summaries
+
+        mock_submissions = [
+            {
+                "participant_id": "PID1",
+                "status": "APPROVED",
+                "completed_at": "2026-04-25T12:34:56Z",
+                "started_at": "2026-04-25T12:30:00Z",
+            },
+            {
+                "participant_id": "PID2",
+                "status": "AWAITING REVIEW",
+                # missing completed_at / started_at — should yield empty strings
+            },
+            # rows with no participant_id are skipped
+            {"status": "REJECTED"},
+        ]
+
+        with patch("tabs_api.prolific_submissions", return_value=mock_submissions):
+            result = prolific_submission_summaries("study1", "token")
+
+        assert result == {
+            "PID1": {
+                "status": "APPROVED",
+                "completed_at": "2026-04-25T12:34:56Z",
+                "started_at": "2026-04-25T12:30:00Z",
+            },
+            "PID2": {
+                "status": "AWAITING REVIEW",
+                "completed_at": "",
+                "started_at": "",
+            },
+        }
+
 
 # ── Prolific demographics (mocked) ──────────────────────────
 
@@ -367,6 +422,23 @@ class TestProlificWriteOps:
         assert "SUB_123/transition" in calls[0]["url"]
         payload = json.loads(calls[0]["body"])
         assert payload["action"] == "UNREJECT"
+
+    def test_request_return_url_and_payload(self):
+        """Verify request-return sends correct endpoint and reasons payload."""
+        calls = []
+
+        def mock_http(method, url, headers, body=None, timeout=60):
+            calls.append({"method": method, "url": url, "body": body})
+            return b"{}"
+
+        with patch("tabs_api._http", side_effect=mock_http):
+            prolific_request_return("SUB_321", ["reason A", "reason B"], "tok")
+
+        assert len(calls) == 1
+        assert calls[0]["method"] == "POST"
+        assert "SUB_321/request-return/" in calls[0]["url"]
+        payload = json.loads(calls[0]["body"])
+        assert payload["request_return_reasons"] == ["reason A", "reason B"]
 
     def test_bulk_approve_empty_response(self):
         """Write endpoints returning empty body should succeed."""

@@ -44,7 +44,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           # On workflow_run, checkout the exact commit that was deployed
           # to avoid false failures from newer commits adding routes
@@ -473,13 +473,57 @@ jobs:
 
           : > /tmp/content-results.txt
 
-          # Results section - verify key content renders
-          check_content "${SITE_URL}/results" "Prolific Approved" "/results overview"
+          # Results section - verify key content renders.
+          # 'Prolific Accepted' replaced 'Prolific Approved' as the hero-stat label
+          # in PR #1709 (commit 73b6e3b1, "Prolific Accepted label").
+          check_content "${SITE_URL}/results" "Prolific Accepted" "/results overview"
           check_content "${SITE_URL}/results" "Clean Sample" "/results hero stats"
           check_content "${SITE_URL}/results/data-quality" "Disposition Waterfall" "/results/data-quality"
           check_content "${SITE_URL}/results/descriptive" "Grand Mean" "/results/descriptive"
           check_content "${SITE_URL}/results/reliability" "Cronbach" "/results/reliability"
           check_content "${SITE_URL}/results/sensitivity" "Conservative Clean" "/results/sensitivity"
+
+          # Issue #1839 - validation/factor/reliability/findings page sections
+          # added in PR #1853. These assertions guarantee the new statistical
+          # content from PR #1837's pipeline (28 new keys) actually surfaces.
+          # Each headline must be present on both the live and CRP tracks.
+          # If a check fails, the smoke workflow auto-files an issue (like
+          # #1849) so the regression gets investigated, not silently hidden.
+
+          # Validation page: bifactor + assumption-checks sections (Pass 1)
+          check_content "${SITE_URL}/results/validation" "Bifactor Analyses" "/results/validation bifactor"
+          check_content "${SITE_URL}/results/validation" "Assumption Checks" "/results/validation assumption-checks"
+          check_content "${SITE_URL}/results/crp-2026/validation" "Bifactor Analyses" "/results/crp-2026/validation bifactor"
+          check_content "${SITE_URL}/results/crp-2026/validation" "Assumption Checks" "/results/crp-2026/validation assumption-checks"
+
+          # Factor analysis page: Multi-Group + ESEM sections (Pass 2). These
+          # render only when the data is present, so a PR that breaks the
+          # pipeline output for these keys will trip the smoke test.
+          # Both live and CRP tracks have multigroup/ESEM data, so both are checked.
+          check_content "${SITE_URL}/results/factor-analysis" "Multi-Group Stability" "/results/factor-analysis multi-group"
+          check_content "${SITE_URL}/results/factor-analysis" "ESEM Sensitivity" "/results/factor-analysis esem"
+          check_content "${SITE_URL}/results/crp-2026/factor-analysis" "Multi-Group Stability" "/results/crp-2026/factor-analysis multi-group"
+          check_content "${SITE_URL}/results/crp-2026/factor-analysis" "ESEM Sensitivity" "/results/crp-2026/factor-analysis esem"
+
+          # Reliability page: bootstrap CI + alpha-if-deleted (Pass 3).
+          # Both live and CRP validation JSON include a populated reliability_by_demo
+          # block, so "Reliability by Demographic" is asserted on both tracks.
+          check_content "${SITE_URL}/results/reliability" "Bootstrap Confidence" "/results/reliability bootstrap"
+          check_content "${SITE_URL}/results/reliability" "Alpha if Deleted" "/results/reliability alpha-if-deleted"
+          check_content "${SITE_URL}/results/reliability" "Reliability by Demographic" "/results/reliability by-demo"
+          check_content "${SITE_URL}/results/crp-2026/reliability" "Bootstrap Confidence" "/results/crp-2026/reliability bootstrap"
+          check_content "${SITE_URL}/results/crp-2026/reliability" "Alpha if Deleted" "/results/crp-2026/reliability alpha-if-deleted"
+          check_content "${SITE_URL}/results/crp-2026/reliability" "Reliability by Demographic" "/results/crp-2026/reliability by-demo"
+
+          # Findings page: Inferential Extensions section (Pass 4)
+          check_content "${SITE_URL}/results/findings" "Inferential Extensions" "/results/findings inferential-extensions"
+          check_content "${SITE_URL}/results/crp-2026/findings" "Inferential Extensions" "/results/crp-2026/findings inferential-extensions"
+
+          # Data quality page: Pipeline & Data Flow diagram (Pass 5).
+          # Heading must remain present on both tracks - it is the permanent
+          # home for the defense-presentation 11-stage pipeline visualization.
+          check_content "${SITE_URL}/results/data-quality" "Pipeline and Data Flow" "/results/data-quality pipeline-flow"
+          check_content "${SITE_URL}/results/crp-2026/data-quality" "Pipeline and Data Flow" "/results/crp-2026/data-quality pipeline-flow"
 
           # Barriers page - still functional
           check_content "${SITE_URL}/barriers" "Technology Adoption Barriers" "/barriers"
@@ -604,8 +648,8 @@ jobs:
             # ── Data freshness ──
             echo "## 📊 Pipeline Data Validation"
             echo ""
-            echo "| File | Result |"
-            echo "|------|--------|"
+            echo "| Check | Result |"
+            echo "|-------|--------|"
             if [ -f /tmp/data-results.txt ]; then
               cat /tmp/data-results.txt
             fi
@@ -654,9 +698,10 @@ jobs:
 
       - name: Create production incident issue
         if: always() && steps.verdict.outcome == 'failure'
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         with:
           script: |
+            const fs = require('fs');
             const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
             const routeFail = parseInt(process.env.ROUTE_FAIL || '0');
             const assetFail = parseInt(process.env.ASSET_FAIL || '0');
@@ -689,6 +734,100 @@ jobs:
             if (dataFail > 0) lines.push(`- **Pipeline data:** ${dataFail} page(s) missing expected data`);
             const breakdown = lines.length > 0 ? lines.join('\n') : '- See workflow run for details';
 
+            // ── Failure detail helpers ────────────────────────────────────────────────
+            // Read file safely; return [] on any error (file may not exist if step was skipped)
+            function readLines(filePath) {
+              try {
+                return fs.readFileSync(filePath, 'utf8').split(/\r?\n/).map(l => l.trim()).filter(l => l.length > 0);
+              } catch (err) {
+                core.info(`Failed to read ${filePath}: ${err.message}`);
+                return [];
+              }
+            }
+
+            // Cap the list so the issue body stays readable; append an "... and N more" note
+            const MAX_DETAIL_LINES = 30;
+            function truncate(arr) {
+              if (arr.length <= MAX_DETAIL_LINES) return arr;
+              const rest = arr.length - MAX_DETAIL_LINES;
+              return [...arr.slice(0, MAX_DETAIL_LINES), `... and ${rest} more — see the workflow run for the full list`];
+            }
+
+            // Collapsible block for plain-text "FAIL ..." lines (routes, assets)
+            function codeDetailsBlock(emoji, heading, count, failLines) {
+              if (failLines.length === 0) return '';
+              return [
+                `<details>`,
+                `<summary>${emoji} ${heading} (${count})</summary>`,
+                ``,
+                '```text',
+                truncate(failLines).join('\n'),
+                '```',
+                ``,
+                `</details>`,
+              ].join('\n');
+            }
+
+            // Collapsible block for markdown-table rows (infra, redirects, data, content)
+            function tableDetailsBlock(emoji, heading, count, tableHeader, failLines) {
+              if (failLines.length === 0) return '';
+              return [
+                `<details>`,
+                `<summary>${emoji} ${heading} (${count})</summary>`,
+                ``,
+                tableHeader,
+                truncate(failLines).join('\n'),
+                ``,
+                `</details>`,
+              ].join('\n');
+            }
+
+            const detailSections = [];
+
+            // Page routes — "FAIL <status> <path> (expected <n>)" lines
+            if (routeFail > 0) {
+              const failLines = readLines('/tmp/route-results.txt').filter(l => l.startsWith('FAIL'));
+              const block = codeDetailsBlock('📄', 'Page Route Failures', routeFail, failLines);
+              if (block) detailSections.push(block);
+            }
+
+            // Static assets — same "FAIL ..." format
+            if (assetFail > 0) {
+              const failLines = readLines('/tmp/asset-results.txt').filter(l => l.startsWith('FAIL'));
+              const block = codeDetailsBlock('🖼️', 'Static Asset Failures', assetFail, failLines);
+              if (block) detailSections.push(block);
+            }
+
+            // Infrastructure — markdown table rows containing ❌
+            if (infraFail > 0) {
+              const failLines = readLines('/tmp/infra-results.txt').filter(l => l.includes('❌'));
+              const block = tableDetailsBlock('🔧', 'Infrastructure Failures', infraFail, '| Check | Result |\n|-------|--------|', failLines);
+              if (block) detailSections.push(block);
+            }
+
+            // Redirects — markdown table rows containing ❌
+            if (redirectFail > 0) {
+              const failLines = readLines('/tmp/redirect-results.txt').filter(l => l.includes('❌'));
+              const block = tableDetailsBlock('🔀', 'Redirect Failures', redirectFail, '| Old URL | Result |\n|---------|--------|', failLines);
+              if (block) detailSections.push(block);
+            }
+
+            // Pipeline data — markdown table rows containing ❌
+            if (dataFail > 0) {
+              const failLines = readLines('/tmp/data-results.txt').filter(l => l.includes('❌'));
+              const block = tableDetailsBlock('📊', 'Pipeline Data Failures', dataFail, '| Check | Result |\n|-------|--------|', failLines);
+              if (block) detailSections.push(block);
+            }
+
+            // Content spot-checks — markdown table rows containing ❌
+            if (contentFail > 0) {
+              const failLines = readLines('/tmp/content-results.txt').filter(l => l.includes('❌'));
+              const block = tableDetailsBlock('📝', 'Content Spot-Check Failures', contentFail, '| Page | Result |\n|------|--------|', failLines);
+              if (block) detailSections.push(block);
+            }
+
+            const failureDetails = detailSections.filter(Boolean).join('\n\n');
+
             const title = `🚨 Production smoke test failed: ${totalFail} check(s) after deploy (${shortSha})`;
             const body = [
               `## 🚨 Production Site Issue Detected`,
@@ -699,6 +838,12 @@ jobs:
               ``,
               breakdown,
               ``,
+              ...(failureDetails ? [
+                `### Failure Details`,
+                ``,
+                failureDetails,
+                ``,
+              ] : []),
               `### Links`,
               ``,
               `- **Workflow run:** ${runUrl}`,
@@ -747,7 +892,7 @@ jobs:
 
       - name: Set commit status (failure)
         if: always() && (steps.verdict.outcome == 'failure' || failure())
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         with:
           script: |
             const sha = context.eventName === 'workflow_run'
@@ -770,7 +915,7 @@ jobs:
 
       - name: Set commit status (success)
         if: always() && steps.verdict.outcome == 'success' && !failure()
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         with:
           script: |
             const sha = context.eventName === 'workflow_run'

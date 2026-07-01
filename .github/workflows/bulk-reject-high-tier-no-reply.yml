@@ -1,0 +1,152 @@
+name: Bulk Reject High-Tier No-Reply
+
+# Rejects the AWAITING REVIEW PIDs classified as `no_reply_high_tier` by the
+# daily-pipeline classifier. These are PIDs that:
+#   1. Are in the high rejection tier (3+ IRI fails, or 2 IRI fails plus
+#      another quality factor like speed or partial straightlining), AND
+#   2. Have NOT replied to any TABS message.
+#
+# The auto-cycle (Phase 3d/3e) will eventually reject these after ~4 days
+# (48h to RR + 48h to auto-reject). This workflow lets you fast-track that
+# cleanup when the high-tier no-reply queue grows.
+#
+# The operator never sees or types PIDs. Input is a source daily-pipeline
+# run ID; the workflow downloads that run's `reply-action-recommendations`
+# artifact and `disposition-csv` artifact (for per-PID rejection reasons).
+#
+# Safety:
+#   - Default is dry-run. Live execution requires `dry_run: false`.
+#   - Live execution also requires `confirm_reject: REJECT`.
+#   - MAX_PER_RUN ceiling defaults to 10 (overridable per-run).
+#   - reject_by_pid.py skips any PID whose status is no longer AWAITING REVIEW
+#     (so re-runs are idempotent; if Phase 3e already rejected a PID, it skips).
+
+on:
+  workflow_dispatch:
+    inputs:
+      source_run_id:
+        description: 'Daily-pipeline run ID that produced reply-action-recommendations'
+        required: true
+        type: string
+      dry_run:
+        description: 'Dry run only (no API calls). Set to false to reject live.'
+        required: false
+        type: boolean
+        default: true
+      confirm_reject:
+        description: 'Type REJECT to allow a live run when dry_run is false'
+        required: false
+        type: string
+        default: ''
+      max_per_run:
+        description: 'Ceiling override (default 10)'
+        required: false
+        type: string
+        default: '10'
+
+concurrency:
+  group: bulk-reject-high-tier-no-reply
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  actions: read
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  reject:
+    name: Bulk Reject (no_reply_high_tier)
+    runs-on: ubuntu-latest
+    environment: prolific-prod
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Download recommendations artifact
+        uses: actions/download-artifact@v8
+        with:
+          name: reply-action-recommendations
+          path: ${{ runner.temp }}/recs
+          run-id: ${{ inputs.source_run_id }}
+          github-token: ${{ github.token }}
+
+      - name: Download disposition CSV
+        uses: actions/download-artifact@v8
+        with:
+          name: disposition-csv
+          path: ${{ runner.temp }}/disp
+          run-id: ${{ inputs.source_run_id }}
+          github-token: ${{ github.token }}
+
+      - name: Extract no_reply_high_tier PIDs
+        id: extract
+        run: |
+          set -euo pipefail
+          REC="${{ runner.temp }}/recs/reply-action-recommendations.json"
+          if [ ! -f "$REC" ]; then
+            echo "::error::Recommendations file not found at $REC"
+            exit 1
+          fi
+          # Write outputs directly so empty PID lists don't get misparsed by
+          # shell word-splitting (Python prints " 0" for empty list/count pairs).
+          REC="$REC" GITHUB_OUTPUT="$GITHUB_OUTPUT" python3 << 'PY'
+          import json
+          import os
+          import sys
+          from pathlib import Path
+
+          with open(os.environ["REC"], encoding="utf-8") as f:
+              d = json.load(f)
+
+          pids = [entry["pid"] for entry in d["buckets"]["no_reply_high_tier"]]
+          out = Path(os.environ["GITHUB_OUTPUT"])
+          with out.open("a", encoding="utf-8") as fh:
+              fh.write("pid_list<<EOF_PIDS\n")
+              fh.write(",".join(pids) + "\n")
+              fh.write("EOF_PIDS\n")
+              fh.write(f"count={len(pids)}\n")
+          # Diagnostic to stdout. Done inside the same Python process so
+          # set -euo pipefail can't kill the Extract step from a follow-up
+          # shell invocation just to compute the count.
+          print(f"Found {len(pids)} PIDs in no_reply_high_tier bucket", file=sys.stderr)
+          PY
+
+      - name: Safety check for live reject
+        if: ${{ inputs.dry_run == false }}
+        run: |
+          if [ "${{ inputs.confirm_reject }}" != "REJECT" ]; then
+            echo "::error::Live reject requires confirm_reject=REJECT."
+            exit 1
+          fi
+
+      - name: Reject PIDs
+        # Guard with extract.conclusion: if Extract failed (e.g. recommendations
+        # artifact missing), count is unset and "" != '0' would otherwise let
+        # Reject run with an empty PID_LIST.
+        if: ${{ steps.extract.conclusion == 'success' && steps.extract.outputs.count != '0' }}
+        run: python3 scripts/analysis/reject_by_pid.py
+        env:
+          PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
+          STUDY_ID: ${{ vars.PROLIFIC_STUDY_ID }}
+          CSV_FILE_PATH: ${{ runner.temp }}/disp/disposition.csv
+          PID_LIST: ${{ steps.extract.outputs.pid_list }}
+          MAX_PER_RUN: ${{ inputs.max_per_run }}
+          STRICT_AWAITING: 'false'
+          DRY_RUN: ${{ inputs.dry_run && 'true' || 'false' }}
+          CONFIRM_REJECT: ${{ inputs.confirm_reject }}
+          OUTPUT_JSON_PATH: ${{ runner.temp }}/bulk-reject-results.json
+
+      - uses: actions/upload-artifact@v7
+        if: ${{ always() && steps.extract.conclusion == 'success' && steps.extract.outputs.count != '0' }}
+        with:
+          name: bulk-reject-results
+          path: ${{ runner.temp }}/bulk-reject-results.json
+          # 1-day retention: contains full PIDs (rejected, skipped, failed).
+          # Matches the privacy treatment of disposition-csv and the
+          # reply-action-recommendations source artifact.
+          retention-days: 1
