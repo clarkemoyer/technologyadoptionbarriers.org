@@ -24,6 +24,29 @@ PIDs with no reply at all go into a `no_reply` bucket. Those continue
 through the existing auto-cycle (message > 48h > request-return > 48h >
 reject), which runs in Phases 3b/3d/3e.
 
+High-tier no-reply PIDs are split further using the Phase 3c stale-triage
+buckets (issue #3012). `reject_by_pid.py` revalidates every PID against
+live Prolific state and only rejects bucket `stale_no_reply_to_rr`, so
+recommending anything else for bulk-reject produces a guaranteed no-op
+(e.g. a PID the same pipeline run just messaged is `in_window_msg` and
+gets skipped). To keep the report's recommendation and the executor's
+guard in agreement:
+
+  no_reply_high_tier
+    High tier, no reply, AND stale-triage bucket `stale_no_reply_to_rr`.
+    These are genuinely bulk-reject-eligible right now.
+
+  no_reply_high_tier_in_window
+    High tier, no reply, but still inside the message/RR reply window
+    (or not yet messaged / not yet return-requested). NOT bulk-reject-
+    eligible; the auto-cycle is handling them. Each entry carries the
+    stale-triage bucket and an `earliest_eligible_at` estimate.
+
+When STALE_TRIAGE_JSON is not provided (or unreadable) the split cannot
+be computed and all high-tier no-reply PIDs land in `no_reply_high_tier`
+(legacy behavior); the output flags `stale_triage_available: false` so
+the report can caveat the recommendation.
+
 High rejection tier definition (operator policy):
   - iri_fail >= 3, OR
   - iri_fail == 2 AND (speed_flag == 1 OR partial_straightlining_flag == 1)
@@ -31,6 +54,7 @@ High rejection tier definition (operator policy):
 Environment variables:
   INBOUND_CSV          - participant_messages.csv (Phase 3f artifact)
   DISPOSITION_CSV      - disposition.csv (Phase 2 artifact)
+  STALE_TRIAGE_JSON    - stale-triage.json (Phase 3c artifact, optional)
   OUTPUT_JSON_PATH     - where to write the classification JSON
 
 Exit codes:
@@ -45,6 +69,7 @@ import json
 import os
 import sys
 from collections import Counter, defaultdict
+from datetime import datetime, timedelta
 from pathlib import Path
 
 
@@ -97,6 +122,73 @@ def reply_has_question(reply_records: list[dict]) -> bool:
     return False
 
 
+def load_stale_triage(path: str | None) -> dict | None:
+    """Load Phase 3c's stale-triage.json and index records by PID.
+
+    Returns None when the file is absent or unreadable — callers fall back
+    to legacy (unsplit) behavior. Returns a dict:
+      {"by_pid": {pid: (bucket_name, record)}, "stale_hours": float,
+       "message_stale_hours": float}
+    """
+    if not path:
+        return None
+    p = Path(path)
+    if not p.is_file():
+        return None
+    try:
+        data = json.loads(p.read_text(encoding="utf-8"))
+        by_pid: dict[str, tuple[str, dict]] = {}
+        for bucket_name, records in (data.get("buckets") or {}).items():
+            for rec in records or []:
+                pid = (rec.get("pid") or "").strip()
+                if pid:
+                    by_pid[pid] = (bucket_name, rec)
+        return {
+            "by_pid": by_pid,
+            "stale_hours": float(data.get("stale_hours") or 48),
+            "message_stale_hours": float(
+                data.get("message_stale_hours") or data.get("stale_hours") or 48
+            ),
+        }
+    except (OSError, ValueError, TypeError) as e:
+        print(f"::warning::could not read STALE_TRIAGE_JSON at {path}: {e}", file=sys.stderr)
+        return None
+
+
+def _earliest_eligible_at(
+    stale_bucket: str | None, record: dict | None, stale_hours: float, message_stale_hours: float
+) -> str | None:
+    """Estimate when an in-window high-tier PID becomes bulk-reject-eligible.
+
+    Mirrors the auto-cycle stages in find_stale_return_requested.py:
+      in_window_rr             -> anchor + stale_hours (reject window on the RR)
+      stale_no_reply_to_message-> RR is imminent (Phase 3d), then + stale_hours
+      in_window_msg            -> anchor + message_stale_hours (msg window)
+                                  + stale_hours (subsequent RR window)
+    Unknown/absent bucket (never messaged, fetch error) -> None.
+    """
+    if not stale_bucket or record is None:
+        return None
+    anchor_raw = record.get("anchor")
+    try:
+        anchor = datetime.fromisoformat(anchor_raw) if anchor_raw else None
+    except (ValueError, TypeError):
+        anchor = None
+    if anchor is None:
+        return None
+    if stale_bucket == "in_window_rr":
+        return (anchor + timedelta(hours=stale_hours)).isoformat()
+    if stale_bucket == "stale_no_reply_to_message":
+        # Phase 3d sends the return request this run; the reject window
+        # starts from that RR, which we approximate as "now-ish" = anchor
+        # + message window already elapsed. Use anchor + msg + reject hours
+        # as a conservative estimate.
+        return (anchor + timedelta(hours=message_stale_hours + stale_hours)).isoformat()
+    if stale_bucket == "in_window_msg":
+        return (anchor + timedelta(hours=message_stale_hours + stale_hours)).isoformat()
+    return None
+
+
 def reply_theme_counts(reply_records: list[dict]) -> dict[str, int]:
     counter: Counter[str] = Counter()
     for r in reply_records:
@@ -112,6 +204,7 @@ def main() -> int:
     inbound_path = os.environ.get("INBOUND_CSV")
     disp_path = os.environ.get("DISPOSITION_CSV")
     output_path = os.environ.get("OUTPUT_JSON_PATH")
+    stale_triage = load_stale_triage(os.environ.get("STALE_TRIAGE_JSON"))
     if not inbound_path or not disp_path or not output_path:
         print(
             "Error: INBOUND_CSV, DISPOSITION_CSV, and OUTPUT_JSON_PATH are required",
@@ -182,6 +275,7 @@ def main() -> int:
         "human_review_questions": [],
         "human_review_high_tier": [],
         "no_reply_high_tier": [],
+        "no_reply_high_tier_in_window": [],
         "no_reply": [],
     }
     multi_reply_pids: list[dict] = []
@@ -201,7 +295,24 @@ def main() -> int:
             # High-tier no-reply gets a separate bucket so bulk-reject can target it
             # without affecting lower-tier PIDs still in the auto-cycle.
             if is_high_rejection_tier(row):
-                buckets["no_reply_high_tier"].append(entry)
+                if stale_triage is None:
+                    # Legacy behavior: no stale-triage data, can't split.
+                    buckets["no_reply_high_tier"].append(entry)
+                else:
+                    stale_bucket, stale_rec = stale_triage["by_pid"].get(pid, (None, None))
+                    entry["stale_bucket"] = stale_bucket or "(not classified)"
+                    if stale_bucket == "stale_no_reply_to_rr":
+                        # The only bucket reject_by_pid.py will actually
+                        # reject — genuinely bulk-reject-eligible (#3012).
+                        buckets["no_reply_high_tier"].append(entry)
+                    else:
+                        entry["earliest_eligible_at"] = _earliest_eligible_at(
+                            stale_bucket,
+                            stale_rec,
+                            stale_triage["stale_hours"],
+                            stale_triage["message_stale_hours"],
+                        )
+                        buckets["no_reply_high_tier_in_window"].append(entry)
             else:
                 buckets["no_reply"].append(entry)
         elif is_high_rejection_tier(row):
@@ -239,6 +350,7 @@ def main() -> int:
         "buckets": buckets,
         "multi_reply_count": len(multi_reply_pids),
         "multi_reply_pids": multi_reply_pids,
+        "stale_triage_available": stale_triage is not None,
     }
     Path(output_path).write_text(json.dumps(out, indent=2))
     print(f"Classified {len(awaiting_rows)} AWAITING REVIEW PIDs:")

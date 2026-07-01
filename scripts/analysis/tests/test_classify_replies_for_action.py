@@ -47,7 +47,36 @@ def _write_inbound_csv(tmp_path: Path, rows: list[dict]) -> str:
     return path
 
 
-def _run(tmp_path: Path, disp_rows: list[dict], inbound_rows: list[dict]) -> dict:
+def _write_stale_triage_json(tmp_path: Path, buckets: dict[str, list[dict]]) -> str:
+    """Write a minimal stale-triage.json matching find_stale_return_requested.py's schema."""
+    path = str(tmp_path / "stale-triage.json")
+    all_buckets = {
+        "stale_no_reply_to_rr": [],
+        "stale_no_reply_to_message": [],
+        "in_window_rr": [],
+        "in_window_msg": [],
+    }
+    all_buckets.update(buckets)
+    payload = {
+        "study_id": "test-study",
+        "computed_at": "2026-07-01T12:00:00+00:00",
+        "stale_hours": 48,
+        "message_stale_hours": 48,
+        "counts": {k: len(v) for k, v in all_buckets.items()},
+        "fetch_errors": 0,
+        "fetch_error_details": [],
+        "buckets": all_buckets,
+    }
+    Path(path).write_text(json.dumps(payload), encoding="utf-8")
+    return path
+
+
+def _run(
+    tmp_path: Path,
+    disp_rows: list[dict],
+    inbound_rows: list[dict],
+    stale_triage_path: str | None = None,
+) -> dict:
     disp = _write_disposition_csv(tmp_path, disp_rows)
     inbound = _write_inbound_csv(tmp_path, inbound_rows)
     output = str(tmp_path / "out.json")
@@ -57,6 +86,8 @@ def _run(tmp_path: Path, disp_rows: list[dict], inbound_rows: list[dict]) -> dic
         "OUTPUT_JSON_PATH": output,
         "PYTHONPATH": str(Path(__file__).parent.parent),
     }
+    if stale_triage_path is not None:
+        env["STALE_TRIAGE_JSON"] = stale_triage_path
     proc = subprocess.run(
         [sys.executable, SCRIPT],
         env=env,
@@ -283,6 +314,141 @@ class TestBucketAssignment:
             [],
         )
         assert result["total_awaiting"] == 0
+
+
+# ---------------------------------------------------------------------------
+# Stale-triage split of high-tier no-reply PIDs (issue #3012)
+#
+# reject_by_pid.py's live revalidation only rejects bucket
+# stale_no_reply_to_rr, so the recommendation must not include PIDs the
+# same pipeline run just messaged (in_window_msg) or return-requested
+# (in_window_rr) — those produce guaranteed no-op reject dispatches.
+# ---------------------------------------------------------------------------
+
+HIGH_TIER_ROW = {
+    "PROLIFIC_PID": "MMMM000000000000000000001",
+    "IRI_Fail_Count": "3",
+    "Speed_Flag": "0",
+    "Partial_Straightlining_Flag": "0",
+    "Disposition": "AUTO-EXCLUDE",
+    "Prolific_Status": "AWAITING REVIEW",
+}
+
+
+class TestStaleTriageSplit:
+    def test_stale_rr_pid_is_bulk_reject_eligible(self, tmp_path):
+        st = _write_stale_triage_json(
+            tmp_path,
+            {
+                "stale_no_reply_to_rr": [
+                    {"pid": HIGH_TIER_ROW["PROLIFIC_PID"], "age_hours": 72.0, "anchor": "2026-06-28T10:00:00+00:00", "anchor_kind": "return_requested"}
+                ]
+            },
+        )
+        result = _run(tmp_path, [HIGH_TIER_ROW], [], stale_triage_path=st)
+        assert result["bucket_counts"]["no_reply_high_tier"] == 1
+        assert result["bucket_counts"]["no_reply_high_tier_in_window"] == 0
+        assert result["stale_triage_available"] is True
+        assert result["buckets"]["no_reply_high_tier"][0]["stale_bucket"] == "stale_no_reply_to_rr"
+
+    def test_in_window_msg_pid_not_recommended(self, tmp_path):
+        # The #3012 repro: pipeline messaged the PID hours ago, then the
+        # same run's report recommended bulk-reject. The reject script
+        # skips it (NO_LONGER_ELIGIBLE:in_window_msg); the recommendation
+        # must agree and route it to the in-window bucket instead.
+        st = _write_stale_triage_json(
+            tmp_path,
+            {
+                "in_window_msg": [
+                    {"pid": HIGH_TIER_ROW["PROLIFIC_PID"], "age_hours": 4.0, "anchor": "2026-07-01T08:00:00+00:00", "anchor_kind": "last_researcher_message"}
+                ]
+            },
+        )
+        result = _run(tmp_path, [HIGH_TIER_ROW], [], stale_triage_path=st)
+        assert result["bucket_counts"]["no_reply_high_tier"] == 0
+        assert result["bucket_counts"]["no_reply_high_tier_in_window"] == 1
+        entry = result["buckets"]["no_reply_high_tier_in_window"][0]
+        assert entry["stale_bucket"] == "in_window_msg"
+        # anchor + message_stale_hours (48) + stale_hours (48) = 2026-07-05T08:00
+        assert entry["earliest_eligible_at"].startswith("2026-07-05T08:00")
+
+    def test_in_window_rr_pid_not_recommended(self, tmp_path):
+        st = _write_stale_triage_json(
+            tmp_path,
+            {
+                "in_window_rr": [
+                    {"pid": HIGH_TIER_ROW["PROLIFIC_PID"], "age_hours": 12.0, "anchor": "2026-07-01T00:00:00+00:00", "anchor_kind": "return_requested"}
+                ]
+            },
+        )
+        result = _run(tmp_path, [HIGH_TIER_ROW], [], stale_triage_path=st)
+        assert result["bucket_counts"]["no_reply_high_tier"] == 0
+        entry = result["buckets"]["no_reply_high_tier_in_window"][0]
+        assert entry["stale_bucket"] == "in_window_rr"
+        # anchor + stale_hours (48) = 2026-07-03T00:00
+        assert entry["earliest_eligible_at"].startswith("2026-07-03T00:00")
+
+    def test_unclassified_pid_not_recommended(self, tmp_path):
+        # PID absent from every stale-triage bucket (e.g. never messaged,
+        # or the message fetch errored). Not provably rejectable -> in-window
+        # bucket with no eligibility estimate.
+        st = _write_stale_triage_json(tmp_path, {})
+        result = _run(tmp_path, [HIGH_TIER_ROW], [], stale_triage_path=st)
+        assert result["bucket_counts"]["no_reply_high_tier"] == 0
+        entry = result["buckets"]["no_reply_high_tier_in_window"][0]
+        assert entry["stale_bucket"] == "(not classified)"
+        assert entry["earliest_eligible_at"] is None
+
+    def test_missing_stale_triage_file_keeps_legacy_behavior(self, tmp_path):
+        result = _run(
+            tmp_path,
+            [HIGH_TIER_ROW],
+            [],
+            stale_triage_path=str(tmp_path / "does-not-exist.json"),
+        )
+        assert result["bucket_counts"]["no_reply_high_tier"] == 1
+        assert result["bucket_counts"]["no_reply_high_tier_in_window"] == 0
+        assert result["stale_triage_available"] is False
+
+    def test_env_var_unset_keeps_legacy_behavior(self, tmp_path):
+        result = _run(tmp_path, [HIGH_TIER_ROW], [])
+        assert result["bucket_counts"]["no_reply_high_tier"] == 1
+        assert result["stale_triage_available"] is False
+
+    def test_low_tier_no_reply_unaffected_by_stale_triage(self, tmp_path):
+        low = dict(HIGH_TIER_ROW, IRI_Fail_Count="1", Disposition="FLAG-SINGLE-IRI")
+        st = _write_stale_triage_json(
+            tmp_path,
+            {
+                "in_window_msg": [
+                    {"pid": low["PROLIFIC_PID"], "age_hours": 4.0, "anchor": "2026-07-01T08:00:00+00:00", "anchor_kind": "last_researcher_message"}
+                ]
+            },
+        )
+        result = _run(tmp_path, [low], [], stale_triage_path=st)
+        assert result["bucket_counts"]["no_reply"] == 1
+        assert result["bucket_counts"]["no_reply_high_tier_in_window"] == 0
+
+    def test_replied_pids_unaffected_by_stale_triage(self, tmp_path):
+        # A high-tier PID WITH a reply goes to human_review_high_tier
+        # regardless of its stale-triage bucket.
+        st = _write_stale_triage_json(
+            tmp_path,
+            {
+                "stale_no_reply_to_rr": [
+                    {"pid": HIGH_TIER_ROW["PROLIFIC_PID"], "age_hours": 72.0, "anchor": "2026-06-28T10:00:00+00:00", "anchor_kind": "return_requested"}
+                ]
+            },
+        )
+        result = _run(
+            tmp_path,
+            [HIGH_TIER_ROW],
+            [{"participant_id": HIGH_TIER_ROW["PROLIFIC_PID"], "body": "I was tired.", "themes": ""}],
+            stale_triage_path=st,
+        )
+        assert result["bucket_counts"]["human_review_high_tier"] == 1
+        assert result["bucket_counts"]["no_reply_high_tier"] == 0
+        assert result["bucket_counts"]["no_reply_high_tier_in_window"] == 0
 
 
 # ---------------------------------------------------------------------------
