@@ -388,6 +388,35 @@ class TestStaleTriageSplit:
         # anchor + stale_hours (48) = 2026-07-03T00:00
         assert entry["earliest_eligible_at"].startswith("2026-07-03T00:00")
 
+    def test_stale_no_reply_to_message_pid_not_recommended_and_estimate_uses_age_hours(
+        self, tmp_path
+    ):
+        # Regression for the _earliest_eligible_at() underestimate bug:
+        # when age_hours (72) > message_stale_hours (48), Phase 3d sends the
+        # RR now (≈ anchor + 72h), so eligibility = anchor + 72 + 48 = anchor + 120h.
+        # The old formula (anchor + msg + reject = anchor + 96h) was 24h too early.
+        st = _write_stale_triage_json(
+            tmp_path,
+            {
+                "stale_no_reply_to_message": [
+                    {
+                        "pid": HIGH_TIER_ROW["PROLIFIC_PID"],
+                        "age_hours": 72.0,
+                        "anchor": "2026-06-29T12:00:00+00:00",
+                        "anchor_kind": "last_researcher_message",
+                    }
+                ]
+            },
+        )
+        result = _run(tmp_path, [HIGH_TIER_ROW], [], stale_triage_path=st)
+        assert result["bucket_counts"]["no_reply_high_tier"] == 0
+        assert result["bucket_counts"]["no_reply_high_tier_in_window"] == 1
+        entry = result["buckets"]["no_reply_high_tier_in_window"][0]
+        assert entry["stale_bucket"] == "stale_no_reply_to_message"
+        # anchor + age_hours (72) + stale_hours (48) = 2026-07-04T12:00
+        # (NOT anchor + message_stale_hours (48) + stale_hours (48) = 2026-07-03T12:00)
+        assert entry["earliest_eligible_at"].startswith("2026-07-04T12:00")
+
     def test_unclassified_pid_not_recommended(self, tmp_path):
         # PID absent from every stale-triage bucket (e.g. never messaged,
         # or the message fetch errored). Not provably rejectable -> in-window

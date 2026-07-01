@@ -179,11 +179,14 @@ def _earliest_eligible_at(
     if stale_bucket == "in_window_rr":
         return (anchor + timedelta(hours=stale_hours)).isoformat()
     if stale_bucket == "stale_no_reply_to_message":
-        # Phase 3d sends the return request this run; the reject window
-        # starts from that RR, which we approximate as "now-ish" = anchor
-        # + message window already elapsed. Use anchor + msg + reject hours
-        # as a conservative estimate.
-        return (anchor + timedelta(hours=message_stale_hours + stale_hours)).isoformat()
+        # Phase 3d sends the return request this run; the RR anchor is
+        # approximately now (≈ anchor + age_hours).  Using message_stale_hours
+        # as the offset underestimates eligibility whenever the message is
+        # older than the message window (age_hours > message_stale_hours),
+        # which is the common case for this bucket.  age_hours reflects the
+        # actual elapsed time, so the estimate is anchor + age_hours + stale_hours.
+        age_hours = float(record.get("age_hours") or message_stale_hours)
+        return (anchor + timedelta(hours=age_hours + stale_hours)).isoformat()
     if stale_bucket == "in_window_msg":
         return (anchor + timedelta(hours=message_stale_hours + stale_hours)).isoformat()
     return None
