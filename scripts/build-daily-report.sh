@@ -922,7 +922,12 @@ if n_nr_window > 0:
             print(f'| {disp} | {n} | {stage_label} | {est_label} |')
     print('')
 
-print(f'_Recommendations computed from `prolific-messages-inbound-csv`, `disposition-csv`, and `stale-triage` artifacts. Full PID list is in the `reply-action-recommendations` workflow artifact (1-day retention)._')
+artifact_sources = (
+    '`prolific-messages-inbound-csv`, `disposition-csv`, and `stale-triage`'
+    if stale_triage_available
+    else '`prolific-messages-inbound-csv`, `disposition-csv`'
+)
+print(f"_Recommendations computed from {artifact_sources} artifacts. Full PID list is in the `reply-action-recommendations` workflow artifact (1-day retention)._")
 REPLIESEOF
   ); then
     REPLIES_SECTION="## 🟡 Replies to Consider
