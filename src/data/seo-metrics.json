@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-07-02T10:03:32.209Z",
-  "dashboardSyncedAt": "2026-07-02T10:03:32.209Z",
+  "generatedAt": "2026-07-03T11:29:44.166Z",
+  "dashboardSyncedAt": "2026-07-03T11:29:44.166Z",
   "dateRange": {
-    "startDate": "2026-06-04",
-    "endDate": "2026-07-02"
+    "startDate": "2026-06-05",
+    "endDate": "2026-07-03"
   },
   "overview": {
-    "organicSessions": 103975,
-    "organicSessionsChange": 1762,
-    "totalImpressions": 45137,
-    "totalImpressionsChange": -470,
-    "totalClicks": 182,
-    "totalClicksChange": 4,
-    "averageCTR": 0.4,
+    "organicSessions": 100571,
+    "organicSessionsChange": -3404,
+    "totalImpressions": 45129,
+    "totalImpressionsChange": -8,
+    "totalClicks": 183,
+    "totalClicksChange": 1,
+    "averageCTR": 0.41,
     "averageCTRUnit": "percent",
     "averageCTRChange": 0.01,
     "averageCTRChangeUnit": "percentagePoints",
@@ -28,12 +28,12 @@
   "topKeywords": [
     {
       "keyword": "toe framework (tornatzky and fleischer 1990)",
-      "position": 7.5,
+      "position": 7.3,
       "previousPosition": null,
       "volume": 0,
-      "clicks": 4,
-      "impressions": 63,
-      "ctr": 6.3
+      "clicks": 5,
+      "impressions": 64,
+      "ctr": 7.8
     },
     {
       "keyword": "toe framework tornatzky and fleischer 1990",
@@ -50,25 +50,25 @@
       "previousPosition": null,
       "volume": 0,
       "clicks": 2,
-      "impressions": 47,
+      "impressions": 46,
       "ctr": 4.3
     },
     {
       "keyword": "tam 3",
-      "position": 7.8,
+      "position": 7.9,
       "previousPosition": null,
       "volume": 0,
       "clicks": 1,
-      "impressions": 33,
-      "ctr": 3
+      "impressions": 34,
+      "ctr": 2.9
     },
     {
       "keyword": "tam3",
-      "position": 8.1,
+      "position": 8,
       "previousPosition": null,
       "volume": 0,
       "clicks": 1,
-      "impressions": 84,
+      "impressions": 85,
       "ctr": 1.2
     },
     {
@@ -82,12 +82,12 @@
     },
     {
       "keyword": "tornatzky & fleischer (1990)",
-      "position": 7.3,
+      "position": 7.2,
       "previousPosition": null,
       "volume": 0,
       "clicks": 1,
-      "impressions": 25,
-      "ctr": 4
+      "impressions": 27,
+      "ctr": 3.7
     },
     {
       "keyword": "tornatzky & fleischer 1990",
@@ -100,12 +100,12 @@
     },
     {
       "keyword": "tornatzky and fleischer (1990)",
-      "position": 7.2,
+      "position": 7.3,
       "previousPosition": null,
       "volume": 0,
       "clicks": 1,
-      "impressions": 36,
-      "ctr": 2.8
+      "impressions": 38,
+      "ctr": 2.6
     },
     {
       "keyword": "tornatzky and fleischer 1990",
