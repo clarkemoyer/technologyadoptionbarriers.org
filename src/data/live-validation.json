@@ -19,7 +19,7 @@
         "kmo_bartlett": {
           "kmo_overall": 0.8603,
           "bartlett_chi2": 709.59,
-          "bartlett_p": 1.6076925216319296e-72
+          "bartlett_p": 1.6076925216320218e-72
         },
         "parallel_analysis": {
           "n_factors": 1,
@@ -1354,31 +1354,31 @@
       },
       "bifactor_rm": {
         "fit": {
-          "chi2": 172.215,
+          "chi2": 172.204,
           "df": 250,
           "cfi": 1.0291,
           "tli": 1.0349,
           "rmsea": 0.0
         },
         "n_listwise": 128,
-        "ecv_general": 0.6997,
-        "ecv_r_specific": 0.1228,
-        "ecv_m_specific": 0.1775,
+        "ecv_general": 0.7,
+        "ecv_r_specific": 0.1223,
+        "ecv_m_specific": 0.1776,
         "omega_t": 0.9136,
-        "omega_h_general": 0.8223,
-        "omega_h_r_specific": 0.0273,
-        "omega_h_m_specific": 0.064,
+        "omega_h_general": 0.8229,
+        "omega_h_r_specific": 0.0266,
+        "omega_h_m_specific": 0.0641,
         "puc": 0.4533,
         "g_loadings": [
-          0.5628, 0.5146, 0.3857, 0.4522, 0.5289, 0.4701, 0.6737, 0.6207, 0.5473, 0.5344, 0.4694,
-          0.3868, 0.5757, 0.4753, 0.4697, 0.5646, 0.5222, 0.5405, 0.5684, 0.3787, 0.3459, 0.1888,
-          0.5512, 0.5438, 0.4559
+          0.5627, 0.5146, 0.3868, 0.452, 0.5291, 0.4707, 0.674, 0.621, 0.548, 0.5344, 0.4711,
+          0.3874, 0.5764, 0.4751, 0.47, 0.5653, 0.5226, 0.5401, 0.5679, 0.3785, 0.3457, 0.1888,
+          0.5508, 0.5434, 0.4555
         ],
         "r_specific_loadings": [
-          0.0004, -0.0644, -0.595, 0.0495, -0.0333, -0.1813, -0.1039, -0.0685, -0.1966, 0.0315,
-          -0.5735, -0.2281, -0.2594, 0.055, -0.1553, -0.2626, 0.3401
+          0.0005, -0.0641, -0.5968, 0.0502, -0.0317, -0.1797, -0.1025, -0.0666, -0.1945, 0.033,
+          -0.5688, -0.2265, -0.2574, 0.0558, -0.1548, -0.26, 0.3458
         ],
-        "m_specific_loadings": [0.3526, 0.3363, 0.4551, 0.562, 0.597, 0.5686, 0.3183, 0.2489],
+        "m_specific_loadings": [0.3533, 0.337, 0.4552, 0.5619, 0.5965, 0.5691, 0.3188, 0.2496],
         "note": "Reise/Rodriguez interpretation: ECV>.70 + omega_h>.80 + small omega_h_s implies general factor dominates; specific subscale scores are unreliable in isolation."
       },
       "second_order_barriers_cfa": {
@@ -2577,29 +2577,29 @@
       },
       "bifactor_barriers": {
         "fit": {
-          "chi2": 66.312,
+          "chi2": 66.32,
           "df": 117,
           "cfi": 1.0321,
           "tli": 1.042,
           "rmsea": 0.0
         },
         "n_listwise": 142,
-        "ecv_general": 0.6563,
+        "ecv_general": 0.6574,
         "ecv_specifics": {
           "F1a": 0.1227,
-          "F1b": 0.0737,
-          "F2": 0.1472
+          "F1b": 0.0729,
+          "F2": 0.147
         },
-        "omega_h_general": 0.7965,
+        "omega_h_general": 0.7966,
         "omega_h_specifics": {
-          "F1a": 0.0506,
-          "F1b": 0.0156,
+          "F1a": 0.0504,
+          "F1b": 0.0157,
           "F2": 0.0247
         },
-        "omega_t": 0.8875,
+        "omega_t": 0.8873,
         "g_loadings": [
-          0.5516, 0.4785, 0.573, 0.7011, 0.6345, 0.3527, 0.4927, 0.5796, 0.3804, 0.553, 0.508,
-          0.4685, 0.3466, 0.3941, 0.5143, 0.4776, 0.4427, 0.4168
+          0.5518, 0.4787, 0.5732, 0.7005, 0.6347, 0.3521, 0.4925, 0.5793, 0.3807, 0.5533, 0.5082,
+          0.4684, 0.3465, 0.3941, 0.5146, 0.4776, 0.4428, 0.4168
         ]
       },
       "multigroup_3f_smb_vs_ent": {
@@ -2610,9 +2610,9 @@
           "cfi": 1.0432,
           "rmsea": 0.0,
           "latent_correlations": {
-            "F1b~~F1a": 0.9968,
-            "F2~~F1a": 0.6741,
-            "F2~~F1b": 0.792
+            "F1a~~F1b": 0.9968,
+            "F1a~~F2": 0.6741,
+            "F1b~~F2": 0.792
           }
         },
         "Group_0": {
@@ -2622,9 +2622,9 @@
           "cfi": 1.0249,
           "rmsea": 0.0,
           "latent_correlations": {
-            "F1b~~F1a": 0.6355,
-            "F2~~F1a": 0.666,
-            "F2~~F1b": 0.6595
+            "F1a~~F1b": 0.6355,
+            "F1a~~F2": 0.666,
+            "F1b~~F2": 0.6595
           }
         }
       },
@@ -3300,12 +3300,12 @@
             "total_criteria": 4
           }
         },
-        "last_run_utc": "2026-07-04T11:52:04.562763+00:00"
+        "last_run_utc": "2026-07-05T11:53:38.425643+00:00"
       },
       "r_parity_tests": {
         "count": 16,
         "ci_workflow": ".github/workflows/validate-analysis.yml",
-        "last_run_utc": "2026-07-04T11:52:04.563268+00:00",
+        "last_run_utc": "2026-07-05T11:53:38.426046+00:00",
         "all_passing": null
       },
       "factor_analysis": {
@@ -3531,7 +3531,7 @@
         "kmo_bartlett": {
           "kmo_overall": 0.8984,
           "bartlett_chi2": 1352.03,
-          "bartlett_p": 6.156579378880695e-191
+          "bartlett_p": 6.156579378881045e-191
         },
         "parallel_analysis": {
           "n_factors": 2,
@@ -3597,7 +3597,7 @@
         "kmo_bartlett": {
           "kmo_overall": 0.9137,
           "bartlett_chi2": 1519.42,
-          "bartlett_p": 3.49327403786245e-232
+          "bartlett_p": 3.493274037861654e-232
         },
         "parallel_analysis": {
           "n_factors": 1,
@@ -5169,29 +5169,29 @@
       },
       "bifactor_barriers": {
         "fit": {
-          "chi2": 85.058,
+          "chi2": 85.045,
           "df": 117,
           "cfi": 1.0095,
           "tli": 1.0125,
           "rmsea": 0.0
         },
         "n_listwise": 230,
-        "ecv_general": 0.6626,
+        "ecv_general": 0.652,
         "ecv_specifics": {
-          "F1a": 0.1181,
-          "F1b": 0.0752,
-          "F2": 0.1441
+          "F1a": 0.1159,
+          "F1b": 0.0903,
+          "F2": 0.1418
         },
-        "omega_h_general": 0.8342,
+        "omega_h_general": 0.8345,
         "omega_h_specifics": {
-          "F1a": 0.0305,
-          "F1b": 0.0138,
+          "F1a": 0.0303,
+          "F1b": 0.0149,
           "F2": 0.0298
         },
-        "omega_t": 0.9083,
+        "omega_t": 0.9095,
         "g_loadings": [
-          0.6225, 0.5049, 0.6181, 0.7321, 0.671, 0.4636, 0.5443, 0.6072, 0.5221, 0.6166, 0.5067,
-          0.5122, 0.3078, 0.3617, 0.5815, 0.404, 0.4984, 0.4826
+          0.6232, 0.5052, 0.6182, 0.7313, 0.671, 0.4649, 0.5428, 0.6079, 0.5222, 0.6168, 0.5067,
+          0.5129, 0.3078, 0.3616, 0.5815, 0.404, 0.4983, 0.4825
         ]
       },
       "multigroup_3f_smb_vs_ent": {
@@ -5202,9 +5202,9 @@
           "cfi": 1.009,
           "rmsea": 0.0,
           "latent_correlations": {
-            "F1b~~F1a": 0.9922,
-            "F2~~F1a": 0.6066,
-            "F2~~F1b": 0.6456
+            "F1a~~F1b": 0.9922,
+            "F1a~~F2": 0.6066,
+            "F1b~~F2": 0.6456
           }
         },
         "Group_0": {
@@ -5214,9 +5214,9 @@
           "cfi": 1.0138,
           "rmsea": 0.0,
           "latent_correlations": {
-            "F1b~~F1a": 0.7923,
-            "F2~~F1a": 0.7572,
-            "F2~~F1b": 0.6855
+            "F1a~~F1b": 0.7923,
+            "F1a~~F2": 0.7572,
+            "F1b~~F2": 0.6855
           }
         }
       },
@@ -5849,12 +5849,12 @@
             "total_criteria": 10
           }
         },
-        "last_run_utc": "2026-07-04T11:53:53.264243+00:00"
+        "last_run_utc": "2026-07-05T11:55:01.688306+00:00"
       },
       "r_parity_tests": {
         "count": 16,
         "ci_workflow": ".github/workflows/validate-analysis.yml",
-        "last_run_utc": "2026-07-04T11:53:53.264613+00:00",
+        "last_run_utc": "2026-07-05T11:55:01.688631+00:00",
         "all_passing": null
       },
       "factor_analysis": {
@@ -6230,7 +6230,7 @@
         "kmo_bartlett": {
           "kmo_overall": 0.9182,
           "bartlett_chi2": 1428.88,
-          "bartlett_p": 1.0897556157870502e-283
+          "bartlett_p": 1.0897556157871744e-283
         },
         "parallel_analysis": {
           "n_factors": 1,
@@ -6428,7 +6428,7 @@
           "Q10_28_Barriers_1": 0.5968,
           "Q10_28_Barriers_2": 0.6436,
           "Q10_28_Barriers_3": 0.6266,
-          "Q10_28_Barriers_4": 0.7025,
+          "Q10_28_Barriers_4": 0.7024,
           "Q10_28_Barriers_5": 0.6277,
           "Q10_28_Barriers_6": 0.5144,
           "Q10_28_Barriers_7": 0.611,
@@ -6451,11 +6451,11 @@
           "Q47_64_Readiness_6": 0.6634,
           "Q47_64_Readiness_7": 0.6835,
           "Q47_64_Readiness_8": 0.6611,
-          "Q47_64_Readiness_9": 0.6052,
+          "Q47_64_Readiness_9": 0.6053,
           "Q47_64_Readiness_10": 0.5735,
-          "Q47_64_Readiness_11": 0.6155,
+          "Q47_64_Readiness_11": 0.6156,
           "Q47_64_Readiness_12": 0.5822,
-          "Q47_64_Readiness_13": 0.6297,
+          "Q47_64_Readiness_13": 0.6298,
           "Q47_64_Readiness_14": 0.5899,
           "Q47_64_Readiness_15": 0.5815,
           "Q47_64_Readiness_16": 0.6803,
@@ -6465,7 +6465,7 @@
           "Q65_73_Maturity_3": 0.6513,
           "Q65_73_Maturity_4": 0.6605,
           "Q65_73_Maturity_5": 0.6315,
-          "Q65_73_Maturity_6": 0.7936,
+          "Q65_73_Maturity_6": 0.7935,
           "Q65_73_Maturity_7": 0.6846,
           "Q65_73_Maturity_8": 0.6504
         }
@@ -7767,9 +7767,9 @@
           "cfi": 0.9847,
           "rmsea": 0.0428,
           "latent_correlations": {
-            "F1b~~F1a": 0.9664,
-            "F2~~F1a": 0.5629,
-            "F2~~F1b": 0.6162
+            "F1a~~F1b": 0.9664,
+            "F1a~~F2": 0.5629,
+            "F1b~~F2": 0.6162
           }
         },
         "Group_0": {
@@ -7779,9 +7779,9 @@
           "cfi": 1.0017,
           "rmsea": 0.0,
           "latent_correlations": {
-            "F1b~~F1a": 0.8,
-            "F2~~F1a": 0.7126,
-            "F2~~F1b": 0.7056
+            "F1a~~F1b": 0.8,
+            "F1a~~F2": 0.7126,
+            "F1b~~F2": 0.7056
           }
         }
       },
@@ -8414,12 +8414,12 @@
             "total_criteria": 10
           }
         },
-        "last_run_utc": "2026-07-04T11:55:48.099200+00:00"
+        "last_run_utc": "2026-07-05T11:56:28.965556+00:00"
       },
       "r_parity_tests": {
         "count": 16,
         "ci_workflow": ".github/workflows/validate-analysis.yml",
-        "last_run_utc": "2026-07-04T11:55:48.099566+00:00",
+        "last_run_utc": "2026-07-05T11:56:28.965864+00:00",
         "all_passing": null
       },
       "factor_analysis": {
@@ -10299,20 +10299,20 @@
       },
       "bifactor_barriers": {
         "fit": {
-          "chi2": 160.568,
+          "chi2": 160.577,
           "df": 117,
           "cfi": 0.9967,
           "tli": 0.9957,
           "rmsea": 0.0233
         },
         "n_listwise": 689,
-        "ecv_general": 0.7414,
+        "ecv_general": 0.7413,
         "ecv_specifics": {
           "F1a": 0.0631,
           "F1b": 0.0634,
-          "F2": 0.1321
+          "F2": 0.1322
         },
-        "omega_h_general": 0.8728,
+        "omega_h_general": 0.8727,
         "omega_h_specifics": {
           "F1a": 0.0149,
           "F1b": 0.0104,
@@ -10320,8 +10320,8 @@
         },
         "omega_t": 0.9235,
         "g_loadings": [
-          0.6216, 0.598, 0.6025, 0.6852, 0.681, 0.5221, 0.5652, 0.6187, 0.5897, 0.6897, 0.6228,
-          0.5804, 0.3977, 0.4025, 0.6124, 0.5035, 0.6026, 0.5796
+          0.6216, 0.5979, 0.6024, 0.6852, 0.6809, 0.5222, 0.5652, 0.6187, 0.5896, 0.6897, 0.6228,
+          0.5803, 0.3977, 0.4025, 0.6124, 0.5035, 0.6026, 0.5797
         ]
       },
       "multigroup_3f_smb_vs_ent": {
@@ -10332,9 +10332,9 @@
           "cfi": 0.9882,
           "rmsea": 0.0431,
           "latent_correlations": {
-            "F1b~~F1a": 0.9263,
-            "F2~~F1a": 0.7045,
-            "F2~~F1b": 0.7213
+            "F1a~~F1b": 0.9263,
+            "F1a~~F2": 0.7045,
+            "F1b~~F2": 0.7213
           }
         },
         "Group_0": {
@@ -10344,9 +10344,9 @@
           "cfi": 0.9975,
           "rmsea": 0.0184,
           "latent_correlations": {
-            "F1b~~F1a": 0.8788,
-            "F2~~F1a": 0.7749,
-            "F2~~F1b": 0.7763
+            "F1a~~F1b": 0.8788,
+            "F1a~~F2": 0.7749,
+            "F1b~~F2": 0.7763
           }
         }
       },
@@ -10658,7 +10658,7 @@
               "name": "IT Investment & Value Mgmt",
               "discrimination_group_1": 2.256,
               "discrimination_group_0": 2.1927,
-              "delta": 0.0633,
+              "delta": 0.0634,
               "flag_dif": false
             },
             {
@@ -10979,12 +10979,12 @@
             "total_criteria": 10
           }
         },
-        "last_run_utc": "2026-07-04T11:57:47.551737+00:00"
+        "last_run_utc": "2026-07-05T11:58:00.557863+00:00"
       },
       "r_parity_tests": {
         "count": 16,
         "ci_workflow": ".github/workflows/validate-analysis.yml",
-        "last_run_utc": "2026-07-04T11:57:47.552120+00:00",
+        "last_run_utc": "2026-07-05T11:58:00.558164+00:00",
         "all_passing": null
       },
       "factor_analysis": {
@@ -12864,7 +12864,7 @@
       },
       "bifactor_barriers": {
         "fit": {
-          "chi2": 170.938,
+          "chi2": 170.945,
           "df": 117,
           "cfi": 0.996,
           "tli": 0.9948,
@@ -12873,20 +12873,20 @@
         "n_listwise": 700,
         "ecv_general": 0.7561,
         "ecv_specifics": {
-          "F1a": 0.0489,
-          "F1b": 0.061,
-          "F2": 0.134
+          "F1a": 0.0491,
+          "F1b": 0.0607,
+          "F2": 0.1341
         },
-        "omega_h_general": 0.8804,
+        "omega_h_general": 0.8803,
         "omega_h_specifics": {
-          "F1a": 0.0062,
+          "F1a": 0.0063,
           "F1b": 0.0104,
           "F2": 0.0258
         },
         "omega_t": 0.9228,
         "g_loadings": [
-          0.6074, 0.6242, 0.6213, 0.6803, 0.6826, 0.5181, 0.5653, 0.6187, 0.5881, 0.7058, 0.6305,
-          0.5794, 0.3919, 0.4025, 0.6159, 0.499, 0.6142, 0.5747
+          0.6075, 0.6239, 0.6211, 0.6803, 0.6827, 0.5182, 0.5655, 0.6188, 0.5879, 0.7057, 0.6303,
+          0.5795, 0.3919, 0.4026, 0.6158, 0.499, 0.6141, 0.5747
         ]
       },
       "multigroup_3f_smb_vs_ent": {
@@ -12897,9 +12897,9 @@
           "cfi": 0.9882,
           "rmsea": 0.0431,
           "latent_correlations": {
-            "F1b~~F1a": 0.9278,
-            "F2~~F1a": 0.7026,
-            "F2~~F1b": 0.7234
+            "F1a~~F1b": 0.9278,
+            "F1a~~F2": 0.7026,
+            "F1b~~F2": 0.7234
           }
         },
         "Group_0": {
@@ -12909,9 +12909,9 @@
           "cfi": 0.9965,
           "rmsea": 0.0215,
           "latent_correlations": {
-            "F1b~~F1a": 0.8785,
-            "F2~~F1a": 0.7742,
-            "F2~~F1b": 0.7804
+            "F1a~~F1b": 0.8785,
+            "F1a~~F2": 0.7742,
+            "F1b~~F2": 0.7804
           }
         }
       },
@@ -13223,7 +13223,7 @@
               "name": "IT Investment & Value Mgmt",
               "discrimination_group_1": 2.256,
               "discrimination_group_0": 2.1927,
-              "delta": 0.0633,
+              "delta": 0.0634,
               "flag_dif": false
             },
             {
@@ -13313,7 +13313,7 @@
             "primary_factor": "F1"
           },
           "B5": {
-            "loadings": [0.618, 0.1109, -0.042],
+            "loadings": [0.618, 0.1109, -0.0421],
             "primary_factor": "F1"
           },
           "B6": {
@@ -13544,12 +13544,12 @@
             "total_criteria": 10
           }
         },
-        "last_run_utc": "2026-07-04T11:59:47.349025+00:00"
+        "last_run_utc": "2026-07-05T11:59:31.835042+00:00"
       },
       "r_parity_tests": {
         "count": 16,
         "ci_workflow": ".github/workflows/validate-analysis.yml",
-        "last_run_utc": "2026-07-04T11:59:47.349382+00:00",
+        "last_run_utc": "2026-07-05T11:59:31.835350+00:00",
         "all_passing": null
       },
       "factor_analysis": {
