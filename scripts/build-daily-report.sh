@@ -458,12 +458,12 @@ render_auto_phase_section() {
     if [ "${DASHBOARD_RESULT:-unknown}" != "success" ]; then
       eval "$section_var=\"## $title
 
-> Skipped because upstream prerequisite was not successful (\`generate-dashboard=${DASHBOARD_RESULT:-unknown}\`).
+> Skipped because upstream prerequisite was not successful (\\\`generate-dashboard=${DASHBOARD_RESULT:-unknown}\\\`).
 \""
     else
       eval "$section_var=\"## $title
 
-> Disabled via repository variable. Run \`gh variable list\` to inspect.
+> Disabled via repository variable. Run \\\`gh variable list\\\` to inspect.
 \""
     fi
     return
