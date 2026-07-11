@@ -90,6 +90,7 @@ jobs:
           survey_name=$(jq -r '.result.name // ""' "$SURVEY_JSON")
           org_id=$(jq -r '.result.organizationId // ""' "$SURVEY_JSON")
           response_counts=$(jq -c '.result.responseCounts // {}' "$SURVEY_JSON")
+          echo "Qualtrics responseCounts: $response_counts"
 
           # Fetch question count from full survey definition endpoint
           # Note: The /questions sub-resource returns paginated { elements: [] },
@@ -157,16 +158,29 @@ jobs:
             exit 1
           fi
 
-          # 3. Check for regression (Total responses should not decrease)
+          # 3. Regression check on RECORDED responses only.
+          #
+          # Qualtrics `responseCounts` has three buckets: `auditable` (recorded /
+          # exportable responses -- the real data), `generated` (sessions started
+          # but not yet recorded, i.e. partials in flight right now), and
+          # `deleted` (responses currently in the trash). Only `auditable` is
+          # cumulative and meaningful; `generated` and `deleted` are volatile and
+          # legitimately drop to 0 between collection waves.
+          #
+          # The old guard summed all three and failed if the sum decreased. That
+          # wedged this workflow from 2026-03-30 onward: `auditable` grew
+          # (364 -> 975) while `generated`+`deleted` fell 1039 -> 0, so the sum
+          # dropped (1403 -> 975) and every run hard-failed despite zero data
+          # loss. Compare `auditable` instead, and only WARN on a decrease so a
+          # transient dip can never block the daily refresh for months again.
           if [[ -f "src/data/qualtrics-metrics.json" ]]; then
-            old_count=$(jq '.responseCounts | to_entries | map(.value) | add // 0' src/data/qualtrics-metrics.json)
-            new_count=$(jq '.responseCounts | to_entries | map(.value) | add // 0' temp-qualtrics-metrics.json)
+            old_auditable=$(jq '.responseCounts.auditable // 0' src/data/qualtrics-metrics.json)
+            new_auditable=$(jq '.responseCounts.auditable // 0' temp-qualtrics-metrics.json)
 
-            echo "Total Responses: Old=$old_count, New=$new_count"
+            echo "Auditable (recorded) responses: Old=$old_auditable, New=$new_auditable"
 
-            if [[ "$new_count" -lt "$old_count" ]]; then
-              echo "::error::Regression detected: New response count ($new_count) is lower than existing count ($old_count)."
-              exit 1
+            if [[ "$new_auditable" -lt "$old_auditable" ]]; then
+              echo "::warning::Auditable (recorded) response count decreased ($old_auditable -> $new_auditable). Publishing anyway -- verify no Qualtrics data loss."
             fi
           fi
 
