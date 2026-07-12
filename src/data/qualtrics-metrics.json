@@ -1,5 +1,5 @@
 {
-  "collectedAt": "2026-03-30T04:18:32Z",
+  "collectedAt": "2026-07-12T06:13:50Z",
   "baseUrl": "https://yul1.qualtrics.com",
   "survey": {
     "id": "SV_bkMopd73A8fzfwO",
@@ -8,22 +8,22 @@
   },
   "questionCount": 21,
   "responseCounts": {
-    "auditable": 364,
-    "generated": 501,
-    "deleted": 538
+    "auditable": 976,
+    "generated": 0,
+    "deleted": 0
   },
   "metrics": [
     {
       "metric": "auditable",
-      "value": 364
+      "value": 976
     },
     {
       "metric": "deleted",
-      "value": 538
+      "value": 0
     },
     {
       "metric": "generated",
-      "value": 501
+      "value": 0
     }
   ]
 }
