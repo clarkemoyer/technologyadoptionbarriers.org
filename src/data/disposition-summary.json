@@ -1,12 +1,12 @@
 {
-  "updatedAt": "2026-07-11T11:48:17.543145+00:00",
-  "last_updated": "2026-07-11T11:48:17.543149+00:00",
+  "updatedAt": "2026-07-12T11:53:05.986820+00:00",
+  "last_updated": "2026-07-12T11:53:05.986825+00:00",
   "study": {
     "id": "69c17630acada6abeead2da5",
     "name": "Technology Adoption Barriers Survey (2026)",
     "status": "ACTIVE",
     "totalAvailablePlaces": 500,
-    "placesTaken": 475,
+    "placesTaken": 476,
     "averageRewardPerHour": 3907,
     "averageTimeTaken": 10,
     "reward": 700,
@@ -14,13 +14,13 @@
   },
   "completionProgress": {
     "target": 500,
-    "completed": 475,
+    "completed": 476,
     "approved": 473,
-    "awaitingReview": 2,
-    "percentComplete": 95.0
+    "awaitingReview": 3,
+    "percentComplete": 95.2
   },
-  "totalResponses": 870,
-  "uniqueParticipants": 859,
+  "totalResponses": 871,
+  "uniqueParticipants": 860,
   "duplicatesRemoved": 0,
   "dispositions": {
     "INCOMPLETE": 114,
@@ -28,7 +28,7 @@
     "FLAG-SMEAL": 109,
     "FLAG-SPEED": 15,
     "FLAG-PARTIAL-STRAIGHTLINING": 65,
-    "FLAG-SINGLE-IRI": 157,
+    "FLAG-SINGLE-IRI": 158,
     "AUTO-EXCLUDE": 224,
     "FLAG-RECAPTCHA": 17,
     "FLAG-STRAIGHTLINING": 1
@@ -60,7 +60,8 @@
     "FLAG-SINGLE-IRI": {
       "RETURNED": 26,
       "APPROVED": 128,
-      "REJECTED": 3
+      "REJECTED": 3,
+      "AWAITING REVIEW": 1
     },
     "AUTO-EXCLUDE": {
       "REJECTED": 49,
@@ -88,21 +89,21 @@
     "rejected": 54,
     "returned": 332,
     "timedOut": 9,
-    "awaitingReview": 2,
+    "awaitingReview": 3,
     "active": 0,
     "messaged": 0
   },
   "iriPassRates": {
-    "barrier": 59.9,
+    "barrier": 59.8,
     "readiness": 69.0,
     "maturity": 82.0,
-    "denominator": 745
+    "denominator": 746
   },
   "autoApproveRunway": {
     "thresholdDays": 21,
-    "computedAt": "2026-07-11T11:48:17.543011+00:00",
-    "totalAwaitingReview": 2,
-    "evaluatedCount": 2,
+    "computedAt": "2026-07-12T11:53:05.986719+00:00",
+    "totalAwaitingReview": 3,
+    "evaluatedCount": 3,
     "skippedMissingCompletedAt": 0,
     "buckets": [
       {
@@ -110,7 +111,7 @@
         "risk": "low",
         "minDaysRemaining": 10.0,
         "maxDaysRemainingExclusive": null,
-        "count": 2
+        "count": 3
       },
       {
         "label": "Monitor",
