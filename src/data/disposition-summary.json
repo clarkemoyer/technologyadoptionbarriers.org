@@ -1,12 +1,12 @@
 {
-  "updatedAt": "2026-07-13T12:58:42.497539+00:00",
-  "last_updated": "2026-07-13T12:58:42.497546+00:00",
+  "updatedAt": "2026-07-14T12:10:21.547158+00:00",
+  "last_updated": "2026-07-14T12:10:21.547161+00:00",
   "study": {
     "id": "69c17630acada6abeead2da5",
     "name": "Technology Adoption Barriers Survey (2026)",
     "status": "ACTIVE",
     "totalAvailablePlaces": 500,
-    "placesTaken": 476,
+    "placesTaken": 474,
     "averageRewardPerHour": 3907,
     "averageTimeTaken": 10,
     "reward": 700,
@@ -14,10 +14,10 @@
   },
   "completionProgress": {
     "target": 500,
-    "completed": 476,
+    "completed": 474,
     "approved": 473,
-    "awaitingReview": 3,
-    "percentComplete": 95.2
+    "awaitingReview": 1,
+    "percentComplete": 94.8
   },
   "totalResponses": 871,
   "uniqueParticipants": 860,
@@ -46,8 +46,7 @@
     "FLAG-SMEAL": {
       "APPROVED": 93,
       "RETURNED": 13,
-      "REJECTED": 2,
-      "AWAITING REVIEW": 1
+      "REJECTED": 3
     },
     "FLAG-SPEED": {
       "RETURNED": 5,
@@ -66,8 +65,7 @@
     "AUTO-EXCLUDE": {
       "REJECTED": 49,
       "APPROVED": 19,
-      "RETURNED": 155,
-      "AWAITING REVIEW": 1
+      "RETURNED": 156
     },
     "FLAG-RECAPTCHA": {
       "APPROVED": 11,
@@ -86,10 +84,10 @@
   },
   "actions": {
     "approved": 473,
-    "rejected": 54,
-    "returned": 332,
+    "rejected": 55,
+    "returned": 333,
     "timedOut": 9,
-    "awaitingReview": 3,
+    "awaitingReview": 1,
     "active": 0,
     "messaged": 0
   },
@@ -101,9 +99,9 @@
   },
   "autoApproveRunway": {
     "thresholdDays": 21,
-    "computedAt": "2026-07-13T12:58:42.497419+00:00",
-    "totalAwaitingReview": 3,
-    "evaluatedCount": 3,
+    "computedAt": "2026-07-14T12:10:21.547034+00:00",
+    "totalAwaitingReview": 1,
+    "evaluatedCount": 1,
     "skippedMissingCompletedAt": 0,
     "buckets": [
       {
@@ -111,7 +109,7 @@
         "risk": "low",
         "minDaysRemaining": 10.0,
         "maxDaysRemainingExclusive": null,
-        "count": 3
+        "count": 1
       },
       {
         "label": "Monitor",
