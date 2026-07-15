@@ -1,6 +1,6 @@
 {
   "disposition_counts": {
-    "INCOMPLETE": 114,
+    "INCOMPLETE": 115,
     "CLEAN": 157,
     "FLAG-SMEAL": 109,
     "FLAG-SPEED": 15,
@@ -11,15 +11,15 @@
     "FLAG-STRAIGHTLINING": 1
   },
   "iri_pass_rates": {
-    "barrier": 0.5244186046511627,
-    "readiness": 0.6023255813953489,
-    "maturity": 0.7127906976744186
+    "barrier": 0.5238095238095238,
+    "readiness": 0.6016260162601627,
+    "maturity": 0.7119628339140535
   },
   "duration_stats": {
-    "mean": 639.2883720930232,
-    "median": 533,
+    "mean": 639.0952380952381,
+    "median": 532,
     "q25": 341,
-    "q75": 783,
+    "q75": 782,
     "min": 2,
     "max": 5935
   },
@@ -28,7 +28,7 @@
     "partial_flagged": 255
   },
   "sample_sizes": {
-    "total": 860,
+    "total": 861,
     "complete": 746,
     "clean": 157
   },
@@ -36,62 +36,62 @@
     {
       "step": 0,
       "name": "INCOMPLETE",
-      "count": 114,
-      "cumulative_excluded": 114
+      "count": 115,
+      "cumulative_excluded": 115
     },
     {
       "step": 1,
       "name": "FLAG-AUTH-FAIL",
       "count": 0,
-      "cumulative_excluded": 114
+      "cumulative_excluded": 115
     },
     {
       "step": 2,
       "name": "FLAG-AUTH-MIXED",
       "count": 0,
-      "cumulative_excluded": 114
+      "cumulative_excluded": 115
     },
     {
       "step": 3,
       "name": "AUTO-EXCLUDE",
       "count": 224,
-      "cumulative_excluded": 338
+      "cumulative_excluded": 339
     },
     {
       "step": 4,
       "name": "FLAG-SPEED",
       "count": 15,
-      "cumulative_excluded": 353
+      "cumulative_excluded": 354
     },
     {
       "step": 5,
       "name": "FLAG-SINGLE-IRI",
       "count": 158,
-      "cumulative_excluded": 511
+      "cumulative_excluded": 512
     },
     {
       "step": 6,
       "name": "FLAG-SMEAL",
       "count": 109,
-      "cumulative_excluded": 620
+      "cumulative_excluded": 621
     },
     {
       "step": 7,
       "name": "FLAG-RECAPTCHA",
       "count": 17,
-      "cumulative_excluded": 637
+      "cumulative_excluded": 638
     },
     {
       "step": 8,
       "name": "FLAG-STRAIGHTLINING",
       "count": 1,
-      "cumulative_excluded": 638
+      "cumulative_excluded": 639
     },
     {
       "step": 9,
       "name": "FLAG-PARTIAL-STRAIGHTLINING",
       "count": 65,
-      "cumulative_excluded": 703
+      "cumulative_excluded": 704
     },
     {
       "step": 10,
