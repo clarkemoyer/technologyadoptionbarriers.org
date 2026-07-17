@@ -1,22 +1,22 @@
 {
-  "generatedAt": "2026-07-16T10:56:02.842Z",
-  "dashboardSyncedAt": "2026-07-16T10:56:02.842Z",
+  "generatedAt": "2026-07-17T10:43:52.804Z",
+  "dashboardSyncedAt": "2026-07-17T10:43:52.804Z",
   "dateRange": {
-    "startDate": "2026-06-18",
-    "endDate": "2026-07-16"
+    "startDate": "2026-06-19",
+    "endDate": "2026-07-17"
   },
   "overview": {
-    "organicSessions": 98744,
-    "organicSessionsChange": 553,
-    "totalImpressions": 38778,
-    "totalImpressionsChange": -463,
-    "totalClicks": 200,
-    "totalClicksChange": 5,
-    "averageCTR": 0.52,
+    "organicSessions": 93506,
+    "organicSessionsChange": -5238,
+    "totalImpressions": 38872,
+    "totalImpressionsChange": 94,
+    "totalClicks": 212,
+    "totalClicksChange": 12,
+    "averageCTR": 0.55,
     "averageCTRUnit": "percent",
-    "averageCTRChange": 0.02,
+    "averageCTRChange": 0.03,
     "averageCTRChangeUnit": "percentagePoints",
-    "averagePosition": 8.4,
+    "averagePosition": 8.3,
     "averagePositionChange": -0.1,
     "domainAuthority": 12,
     "domainAuthorityChange": 2,
@@ -28,7 +28,7 @@
   "topKeywords": [
     {
       "keyword": "toe framework (tornatzky and fleischer 1990)",
-      "position": 6.7,
+      "position": 6.6,
       "previousPosition": null,
       "volume": 0,
       "clicks": 6,
@@ -37,25 +37,34 @@
     },
     {
       "keyword": "tornatzky and fleischer (1990)",
-      "position": 6.2,
+      "position": 6,
       "previousPosition": null,
       "volume": 0,
-      "clicks": 5,
-      "impressions": 44,
-      "ctr": 11.4
+      "clicks": 6,
+      "impressions": 46,
+      "ctr": 13
     },
     {
       "keyword": "tornatzky & fleischer, 1990",
       "position": 6,
       "previousPosition": null,
       "volume": 0,
-      "clicks": 3,
+      "clicks": 4,
       "impressions": 43,
-      "ctr": 7
+      "ctr": 9.3
+    },
+    {
+      "keyword": "technology readiness index (tri): a multiple-item scale to measure readiness to embrace new technologies",
+      "position": 8.5,
+      "previousPosition": null,
+      "volume": 0,
+      "clicks": 2,
+      "impressions": 35,
+      "ctr": 5.7
     },
     {
       "keyword": "toe framework tornatzky and fleischer 1990",
-      "position": 7.2,
+      "position": 6.7,
       "previousPosition": null,
       "volume": 0,
       "clicks": 2,
@@ -63,58 +72,49 @@
       "ctr": 6.5
     },
     {
-      "keyword": "tornatzky",
+      "keyword": "toe framework tornatzky and fleischer 1990 pdf",
       "position": 6.6,
+      "previousPosition": null,
+      "volume": 0,
+      "clicks": 2,
+      "impressions": 32,
+      "ctr": 6.3
+    },
+    {
+      "keyword": "tornatzky",
+      "position": 6.7,
+      "previousPosition": null,
+      "volume": 0,
+      "clicks": 2,
+      "impressions": 10,
+      "ctr": 20
+    },
+    {
+      "keyword": "tornatzky & fleischer (1990)",
+      "position": 6.2,
+      "previousPosition": null,
+      "volume": 0,
+      "clicks": 2,
+      "impressions": 30,
+      "ctr": 6.7
+    },
+    {
+      "keyword": "tornatzky and fleischer 1990 toe framework",
+      "position": 5.2,
+      "previousPosition": null,
+      "volume": 0,
+      "clicks": 2,
+      "impressions": 21,
+      "ctr": 9.5
+    },
+    {
+      "keyword": "tornatzky, l. g., & fleischer, m. (1990). the processes of technological innovation. lexington books.",
+      "position": 13.9,
       "previousPosition": null,
       "volume": 0,
       "clicks": 2,
       "impressions": 9,
       "ctr": 22.2
-    },
-    {
-      "keyword": "tornatzky and fleischer 1990 toe framework",
-      "position": 5.4,
-      "previousPosition": null,
-      "volume": 0,
-      "clicks": 2,
-      "impressions": 22,
-      "ctr": 9.1
-    },
-    {
-      "keyword": "parasuraman 2000",
-      "position": 8.9,
-      "previousPosition": null,
-      "volume": 0,
-      "clicks": 1,
-      "impressions": 7,
-      "ctr": 14.3
-    },
-    {
-      "keyword": "tam2",
-      "position": 8.7,
-      "previousPosition": null,
-      "volume": 0,
-      "clicks": 1,
-      "impressions": 45,
-      "ctr": 2.2
-    },
-    {
-      "keyword": "technology adoption barriers",
-      "position": 7,
-      "previousPosition": null,
-      "volume": 0,
-      "clicks": 1,
-      "impressions": 1,
-      "ctr": 100
-    },
-    {
-      "keyword": "technology readiness index (tri): a multiple-item scale to measure readiness to embrace new technologies",
-      "position": 8.5,
-      "previousPosition": null,
-      "volume": 0,
-      "clicks": 1,
-      "impressions": 33,
-      "ctr": 3
     }
   ],
   "topPages": [
