@@ -1,20 +1,20 @@
 {
-  "generatedAt": "2026-07-21T09:51:02.136Z",
-  "dashboardSyncedAt": "2026-07-21T09:51:02.136Z",
+  "generatedAt": "2026-07-22T09:49:57.915Z",
+  "dashboardSyncedAt": "2026-07-22T09:49:57.915Z",
   "dateRange": {
-    "startDate": "2026-06-23",
-    "endDate": "2026-07-21"
+    "startDate": "2026-06-24",
+    "endDate": "2026-07-22"
   },
   "overview": {
-    "organicSessions": 98509,
-    "organicSessionsChange": 2512,
-    "totalImpressions": 37305,
-    "totalImpressionsChange": -895,
-    "totalClicks": 245,
-    "totalClicksChange": 1,
+    "organicSessions": 100469,
+    "organicSessionsChange": 1960,
+    "totalImpressions": 35713,
+    "totalImpressionsChange": -1592,
+    "totalClicks": 236,
+    "totalClicksChange": -9,
     "averageCTR": 0.66,
     "averageCTRUnit": "percent",
-    "averageCTRChange": 0.02,
+    "averageCTRChange": 0,
     "averageCTRChangeUnit": "percentagePoints",
     "averagePosition": 8.1,
     "averagePositionChange": 0,
@@ -32,26 +32,26 @@
       "previousPosition": null,
       "volume": 0,
       "clicks": 8,
-      "impressions": 49,
-      "ctr": 16.3
+      "impressions": 48,
+      "ctr": 16.7
     },
     {
       "keyword": "toe framework (tornatzky and fleischer 1990)",
       "position": 5.9,
       "previousPosition": null,
       "volume": 0,
-      "clicks": 6,
-      "impressions": 64,
-      "ctr": 9.4
+      "clicks": 5,
+      "impressions": 62,
+      "ctr": 8.1
     },
     {
       "keyword": "toe framework tornatzky and fleischer 1990 pdf",
-      "position": 6.1,
+      "position": 6,
       "previousPosition": null,
       "volume": 0,
       "clicks": 5,
-      "impressions": 35,
-      "ctr": 14.3
+      "impressions": 34,
+      "ctr": 14.7
     },
     {
       "keyword": "technology readiness index (tri): a multiple-item scale to measure readiness to embrace new technologies",
@@ -86,8 +86,8 @@
       "previousPosition": null,
       "volume": 0,
       "clicks": 2,
-      "impressions": 29,
-      "ctr": 6.9
+      "impressions": 28,
+      "ctr": 7.1
     },
     {
       "keyword": "tornatzky",
