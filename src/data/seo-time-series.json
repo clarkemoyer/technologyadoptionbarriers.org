@@ -488,5 +488,12 @@
     "impressions": 35713,
     "clicks": 236,
     "averagePosition": 8.1
+  },
+  {
+    "date": "2026-07-23T09:49:44.966Z",
+    "sessions": 99690,
+    "impressions": 35447,
+    "clicks": 241,
+    "averagePosition": 8
   }
 ]
