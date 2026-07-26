@@ -2610,9 +2610,9 @@
           "cfi": 1.0431,
           "rmsea": 0.0,
           "latent_correlations": {
+            "F1a~~F2": 0.6621,
             "F1b~~F1a": 0.9957,
-            "F2~~F1a": 0.6621,
-            "F2~~F1b": 0.7986
+            "F1b~~F2": 0.7986
           }
         },
         "Group_0": {
@@ -2622,9 +2622,9 @@
           "cfi": 1.0249,
           "rmsea": 0.0,
           "latent_correlations": {
+            "F1a~~F2": 0.666,
             "F1b~~F1a": 0.6355,
-            "F2~~F1a": 0.666,
-            "F2~~F1b": 0.6595
+            "F1b~~F2": 0.6595
           }
         }
       },
@@ -3300,12 +3300,12 @@
             "total_criteria": 4
           }
         },
-        "last_run_utc": "2026-07-25T10:58:13.827905+00:00"
+        "last_run_utc": "2026-07-26T11:03:04.386793+00:00"
       },
       "r_parity_tests": {
         "count": 16,
         "ci_workflow": ".github/workflows/validate-analysis.yml",
-        "last_run_utc": "2026-07-25T10:58:13.828390+00:00",
+        "last_run_utc": "2026-07-26T11:03:04.387234+00:00",
         "all_passing": null
       },
       "factor_analysis": {
@@ -5202,9 +5202,9 @@
           "cfi": 1.0094,
           "rmsea": 0.0,
           "latent_correlations": {
+            "F1a~~F2": 0.5996,
             "F1b~~F1a": 0.9933,
-            "F2~~F1a": 0.5996,
-            "F2~~F1b": 0.648
+            "F1b~~F2": 0.648
           }
         },
         "Group_0": {
@@ -5214,9 +5214,9 @@
           "cfi": 1.0138,
           "rmsea": 0.0,
           "latent_correlations": {
+            "F1a~~F2": 0.7572,
             "F1b~~F1a": 0.7923,
-            "F2~~F1a": 0.7572,
-            "F2~~F1b": 0.6855
+            "F1b~~F2": 0.6855
           }
         }
       },
@@ -5849,12 +5849,12 @@
             "total_criteria": 10
           }
         },
-        "last_run_utc": "2026-07-25T11:00:52.496752+00:00"
+        "last_run_utc": "2026-07-26T11:05:40.008611+00:00"
       },
       "r_parity_tests": {
         "count": 16,
         "ci_workflow": ".github/workflows/validate-analysis.yml",
-        "last_run_utc": "2026-07-25T11:00:52.497103+00:00",
+        "last_run_utc": "2026-07-26T11:05:40.008909+00:00",
         "all_passing": null
       },
       "factor_analysis": {
@@ -6425,48 +6425,48 @@
         "aic": 167.03,
         "bic": 522.5,
         "standardized_loadings": {
-          "Q10_28_Barriers_1": 0.5877,
-          "Q10_28_Barriers_2": 0.6463,
-          "Q10_28_Barriers_3": 0.6283,
+          "Q10_28_Barriers_1": 0.5876,
+          "Q10_28_Barriers_2": 0.6462,
+          "Q10_28_Barriers_3": 0.6282,
           "Q10_28_Barriers_4": 0.7015,
           "Q10_28_Barriers_5": 0.626,
           "Q10_28_Barriers_6": 0.5132,
           "Q10_28_Barriers_7": 0.607,
           "Q10_28_Barriers_8": 0.5856,
           "Q10_28_Barriers_9": 0.5528,
-          "Q10_28_Barriers_10": 0.6854,
+          "Q10_28_Barriers_10": 0.6853,
           "Q10_28_Barriers_11": 0.5618,
           "Q10_28_Barriers_12": 0.5517,
-          "Q10_28_Barriers_13": 0.3486,
-          "Q10_28_Barriers_14": 0.3773,
-          "Q10_28_Barriers_15": 0.5388,
+          "Q10_28_Barriers_13": 0.3487,
+          "Q10_28_Barriers_14": 0.3774,
+          "Q10_28_Barriers_15": 0.5387,
           "Q10_28_Barriers_16": 0.4342,
           "Q10_28_Barriers_17": 0.5295,
           "Q10_28_Barriers_18": 0.4961,
-          "Q47_64_Readiness_1": 0.6736,
-          "Q47_64_Readiness_2": 0.6131,
-          "Q47_64_Readiness_3": 0.6506,
-          "Q47_64_Readiness_4": 0.5331,
+          "Q47_64_Readiness_1": 0.6735,
+          "Q47_64_Readiness_2": 0.6133,
+          "Q47_64_Readiness_3": 0.6507,
+          "Q47_64_Readiness_4": 0.5332,
           "Q47_64_Readiness_5": 0.5547,
-          "Q47_64_Readiness_6": 0.6585,
+          "Q47_64_Readiness_6": 0.6586,
           "Q47_64_Readiness_7": 0.6868,
-          "Q47_64_Readiness_8": 0.6652,
-          "Q47_64_Readiness_9": 0.607,
-          "Q47_64_Readiness_10": 0.5752,
-          "Q47_64_Readiness_11": 0.612,
-          "Q47_64_Readiness_12": 0.5702,
-          "Q47_64_Readiness_13": 0.6197,
-          "Q47_64_Readiness_14": 0.5872,
+          "Q47_64_Readiness_8": 0.6654,
+          "Q47_64_Readiness_9": 0.6071,
+          "Q47_64_Readiness_10": 0.5754,
+          "Q47_64_Readiness_11": 0.6122,
+          "Q47_64_Readiness_12": 0.5704,
+          "Q47_64_Readiness_13": 0.6198,
+          "Q47_64_Readiness_14": 0.5874,
           "Q47_64_Readiness_15": 0.5864,
-          "Q47_64_Readiness_16": 0.6764,
-          "Q47_64_Readiness_17": 0.47,
-          "Q65_73_Maturity_1": 0.7427,
+          "Q47_64_Readiness_16": 0.6765,
+          "Q47_64_Readiness_17": 0.4701,
+          "Q65_73_Maturity_1": 0.743,
           "Q65_73_Maturity_2": 0.7555,
-          "Q65_73_Maturity_3": 0.655,
+          "Q65_73_Maturity_3": 0.6551,
           "Q65_73_Maturity_4": 0.6532,
-          "Q65_73_Maturity_5": 0.6315,
-          "Q65_73_Maturity_6": 0.7884,
-          "Q65_73_Maturity_7": 0.6898,
+          "Q65_73_Maturity_5": 0.6314,
+          "Q65_73_Maturity_6": 0.7885,
+          "Q65_73_Maturity_7": 0.6899,
           "Q65_73_Maturity_8": 0.6466
         }
       },
@@ -7767,9 +7767,9 @@
           "cfi": 0.9838,
           "rmsea": 0.0439,
           "latent_correlations": {
+            "F1a~~F2": 0.5518,
             "F1b~~F1a": 0.9666,
-            "F2~~F1a": 0.5518,
-            "F2~~F1b": 0.6169
+            "F1b~~F2": 0.6169
           }
         },
         "Group_0": {
@@ -7779,9 +7779,9 @@
           "cfi": 1.0003,
           "rmsea": 0.0,
           "latent_correlations": {
+            "F1a~~F2": 0.715,
             "F1b~~F1a": 0.8022,
-            "F2~~F1a": 0.715,
-            "F2~~F1b": 0.7049
+            "F1b~~F2": 0.7049
           }
         }
       },
@@ -8414,12 +8414,12 @@
             "total_criteria": 10
           }
         },
-        "last_run_utc": "2026-07-25T11:03:37.139650+00:00"
+        "last_run_utc": "2026-07-26T11:08:22.133408+00:00"
       },
       "r_parity_tests": {
         "count": 16,
         "ci_workflow": ".github/workflows/validate-analysis.yml",
-        "last_run_utc": "2026-07-25T11:03:37.139990+00:00",
+        "last_run_utc": "2026-07-26T11:08:22.133720+00:00",
         "all_passing": null
       },
       "factor_analysis": {
@@ -10332,9 +10332,9 @@
           "cfi": 0.9881,
           "rmsea": 0.0433,
           "latent_correlations": {
+            "F1a~~F2": 0.7056,
             "F1b~~F1a": 0.9273,
-            "F2~~F1a": 0.7056,
-            "F2~~F1b": 0.727
+            "F1b~~F2": 0.727
           }
         },
         "Group_0": {
@@ -10344,9 +10344,9 @@
           "cfi": 0.9969,
           "rmsea": 0.0204,
           "latent_correlations": {
+            "F1a~~F2": 0.771,
             "F1b~~F1a": 0.8819,
-            "F2~~F1a": 0.771,
-            "F2~~F1b": 0.7611
+            "F1b~~F2": 0.7611
           }
         }
       },
@@ -10979,12 +10979,12 @@
             "total_criteria": 10
           }
         },
-        "last_run_utc": "2026-07-25T11:06:27.578075+00:00"
+        "last_run_utc": "2026-07-26T11:11:09.709081+00:00"
       },
       "r_parity_tests": {
         "count": 16,
         "ci_workflow": ".github/workflows/validate-analysis.yml",
-        "last_run_utc": "2026-07-25T11:06:27.578407+00:00",
+        "last_run_utc": "2026-07-26T11:11:09.709398+00:00",
         "all_passing": null
       },
       "factor_analysis": {
@@ -12897,9 +12897,9 @@
           "cfi": 0.9876,
           "rmsea": 0.0439,
           "latent_correlations": {
+            "F1a~~F2": 0.7047,
             "F1b~~F1a": 0.9302,
-            "F2~~F1a": 0.7047,
-            "F2~~F1b": 0.7302
+            "F1b~~F2": 0.7302
           }
         },
         "Group_0": {
@@ -12909,9 +12909,9 @@
           "cfi": 0.996,
           "rmsea": 0.0231,
           "latent_correlations": {
+            "F1a~~F2": 0.7701,
             "F1b~~F1a": 0.8816,
-            "F2~~F1a": 0.7701,
-            "F2~~F1b": 0.7651
+            "F1b~~F2": 0.7651
           }
         }
       },
@@ -13544,12 +13544,12 @@
             "total_criteria": 10
           }
         },
-        "last_run_utc": "2026-07-25T11:09:17.390237+00:00"
+        "last_run_utc": "2026-07-26T11:13:55.751278+00:00"
       },
       "r_parity_tests": {
         "count": 16,
         "ci_workflow": ".github/workflows/validate-analysis.yml",
-        "last_run_utc": "2026-07-25T11:09:17.390576+00:00",
+        "last_run_utc": "2026-07-26T11:13:55.751572+00:00",
         "all_passing": null
       },
       "factor_analysis": {
