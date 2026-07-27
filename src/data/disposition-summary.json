@@ -1,12 +1,12 @@
 {
-  "updatedAt": "2026-07-26T11:19:36.771077+00:00",
-  "last_updated": "2026-07-26T11:19:36.771081+00:00",
+  "updatedAt": "2026-07-27T11:52:29.271169+00:00",
+  "last_updated": "2026-07-27T11:52:29.271175+00:00",
   "study": {
     "id": "69c17630acada6abeead2da5",
     "name": "Technology Adoption Barriers Survey (2026)",
     "status": "ACTIVE",
     "totalAvailablePlaces": 500,
-    "placesTaken": 478,
+    "placesTaken": 479,
     "averageRewardPerHour": 3907,
     "averageTimeTaken": 10,
     "reward": 700,
@@ -14,13 +14,13 @@
   },
   "completionProgress": {
     "target": 500,
-    "completed": 478,
+    "completed": 479,
     "approved": 476,
-    "awaitingReview": 2,
-    "percentComplete": 95.6
+    "awaitingReview": 3,
+    "percentComplete": 95.8
   },
-  "totalResponses": 877,
-  "uniqueParticipants": 867,
+  "totalResponses": 878,
+  "uniqueParticipants": 868,
   "duplicatesRemoved": 0,
   "dispositions": {
     "INCOMPLETE": 115,
@@ -28,7 +28,7 @@
     "FLAG-SMEAL": 111,
     "FLAG-SPEED": 15,
     "FLAG-PARTIAL-STRAIGHTLINING": 65,
-    "FLAG-SINGLE-IRI": 158,
+    "FLAG-SINGLE-IRI": 159,
     "AUTO-EXCLUDE": 226,
     "FLAG-RECAPTCHA": 17,
     "FLAG-STRAIGHTLINING": 1
@@ -60,7 +60,8 @@
     "FLAG-SINGLE-IRI": {
       "RETURNED": 26,
       "APPROVED": 129,
-      "REJECTED": 3
+      "REJECTED": 3,
+      "AWAITING REVIEW": 1
     },
     "AUTO-EXCLUDE": {
       "REJECTED": 50,
@@ -87,21 +88,21 @@
     "rejected": 56,
     "returned": 334,
     "timedOut": 9,
-    "awaitingReview": 2,
+    "awaitingReview": 3,
     "active": 0,
     "messaged": 0
   },
   "iriPassRates": {
-    "barrier": 59.8,
-    "readiness": 69.0,
+    "barrier": 59.9,
+    "readiness": 68.9,
     "maturity": 82.2,
-    "denominator": 752
+    "denominator": 753
   },
   "autoApproveRunway": {
     "thresholdDays": 21,
-    "computedAt": "2026-07-26T11:19:36.770958+00:00",
-    "totalAwaitingReview": 2,
-    "evaluatedCount": 2,
+    "computedAt": "2026-07-27T11:52:29.271043+00:00",
+    "totalAwaitingReview": 3,
+    "evaluatedCount": 3,
     "skippedMissingCompletedAt": 0,
     "buckets": [
       {
@@ -109,7 +110,7 @@
         "risk": "low",
         "minDaysRemaining": 10.0,
         "maxDaysRemainingExclusive": null,
-        "count": 2
+        "count": 3
       },
       {
         "label": "Monitor",
