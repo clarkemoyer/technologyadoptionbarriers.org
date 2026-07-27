@@ -1,20 +1,20 @@
 {
-  "generatedAt": "2026-07-26T09:41:47.849Z",
-  "dashboardSyncedAt": "2026-07-26T09:41:47.849Z",
+  "generatedAt": "2026-07-27T10:19:56.925Z",
+  "dashboardSyncedAt": "2026-07-27T10:19:56.925Z",
   "dateRange": {
-    "startDate": "2026-06-28",
-    "endDate": "2026-07-26"
+    "startDate": "2026-06-29",
+    "endDate": "2026-07-27"
   },
   "overview": {
-    "organicSessions": 99772,
-    "organicSessionsChange": 1703,
-    "totalImpressions": 33392,
-    "totalImpressionsChange": -478,
-    "totalClicks": 259,
-    "totalClicksChange": 9,
-    "averageCTR": 0.78,
+    "organicSessions": 101036,
+    "organicSessionsChange": 1264,
+    "totalImpressions": 33690,
+    "totalImpressionsChange": 298,
+    "totalClicks": 265,
+    "totalClicksChange": 6,
+    "averageCTR": 0.79,
     "averageCTRUnit": "percent",
-    "averageCTRChange": 0.04,
+    "averageCTRChange": 0.01,
     "averageCTRChangeUnit": "percentagePoints",
     "averagePosition": 7.9,
     "averagePositionChange": 0,
@@ -28,57 +28,57 @@
   "topKeywords": [
     {
       "keyword": "tornatzky and fleischer (1990)",
-      "position": 5.6,
+      "position": 5.5,
       "previousPosition": null,
       "volume": 0,
       "clicks": 8,
-      "impressions": 49,
-      "ctr": 16.3
-    },
-    {
-      "keyword": "technology readiness index (tri): a multiple-item scale to measure readiness to embrace new technologies",
-      "position": 8,
-      "previousPosition": null,
-      "volume": 0,
-      "clicks": 5,
-      "impressions": 35,
-      "ctr": 14.3
-    },
-    {
-      "keyword": "toe framework tornatzky and fleischer 1990 pdf",
-      "position": 5.8,
-      "previousPosition": null,
-      "volume": 0,
-      "clicks": 5,
-      "impressions": 33,
-      "ctr": 15.2
+      "impressions": 51,
+      "ctr": 15.7
     },
     {
       "keyword": "toe framework (tornatzky and fleischer 1990)",
-      "position": 5.9,
+      "position": 5.8,
       "previousPosition": null,
       "volume": 0,
-      "clicks": 4,
-      "impressions": 54,
-      "ctr": 7.4
+      "clicks": 6,
+      "impressions": 53,
+      "ctr": 11.3
     },
     {
-      "keyword": "tornatzky & fleischer, 1990",
+      "keyword": "technology readiness index (tri): a multiple-item scale to measure readiness to embrace new technologies",
+      "position": 7.9,
+      "previousPosition": null,
+      "volume": 0,
+      "clicks": 5,
+      "impressions": 32,
+      "ctr": 15.6
+    },
+    {
+      "keyword": "toe framework tornatzky and fleischer 1990 pdf",
       "position": 5.7,
       "previousPosition": null,
       "volume": 0,
+      "clicks": 5,
+      "impressions": 34,
+      "ctr": 14.7
+    },
+    {
+      "keyword": "tornatzky & fleischer, 1990",
+      "position": 5.6,
+      "previousPosition": null,
+      "volume": 0,
       "clicks": 4,
-      "impressions": 41,
-      "ctr": 9.8
+      "impressions": 39,
+      "ctr": 10.3
     },
     {
       "keyword": "tornatzky and fleischer 1990 toe framework",
-      "position": 4.5,
+      "position": 4.4,
       "previousPosition": null,
       "volume": 0,
       "clicks": 3,
-      "impressions": 23,
-      "ctr": 13
+      "impressions": 27,
+      "ctr": 11.1
     },
     {
       "keyword": "parasuraman 2000",
@@ -86,17 +86,17 @@
       "previousPosition": null,
       "volume": 0,
       "clicks": 2,
-      "impressions": 14,
-      "ctr": 14.3
+      "impressions": 16,
+      "ctr": 12.5
     },
     {
       "keyword": "tornatzky",
-      "position": 8.1,
+      "position": 8.2,
       "previousPosition": null,
       "volume": 0,
       "clicks": 2,
-      "impressions": 11,
-      "ctr": 18.2
+      "impressions": 12,
+      "ctr": 16.7
     },
     {
       "keyword": "tornatzky & fleischer (1990)",
@@ -109,12 +109,12 @@
     },
     {
       "keyword": "tornatzky, l. g., & fleischer, m. (1990). the processes of technological innovation. lexington books.",
-      "position": 13.7,
+      "position": 13.2,
       "previousPosition": null,
       "volume": 0,
       "clicks": 2,
-      "impressions": 10,
-      "ctr": 20
+      "impressions": 9,
+      "ctr": 22.2
     }
   ],
   "topPages": [
