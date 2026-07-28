@@ -67,7 +67,7 @@ jobs:
         with:
           python-version: '3.12'
       # Node.js only needed for modes that still run TS (single, search-messages, request-return, awaiting-report, verify-iri)
-      - uses: actions/setup-node@v6
+      - uses: actions/setup-node@v7
         if: ${{ !contains(fromJSON('["demographics","find-url-replies","all-replies","send-custom","unreject","send-thank-you","stale-return-requested"]'), inputs.mode) }}
         with:
           node-version: '20'
@@ -339,7 +339,7 @@ jobs:
     environment: prolific-prod
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/setup-node@v6
+      - uses: actions/setup-node@v7
         with:
           node-version: '20'
           cache: 'npm'
@@ -362,7 +362,7 @@ jobs:
     environment: qualtrics-prod
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/setup-node@v6
+      - uses: actions/setup-node@v7
         with:
           node-version: '20'
           cache: 'npm'
