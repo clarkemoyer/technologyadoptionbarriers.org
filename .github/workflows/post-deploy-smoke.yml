@@ -243,11 +243,15 @@ jobs:
           set -uo pipefail
           INFRA_FAIL=0
 
-          # Helper: check URL status with label
+          # Helper: check URL status with label (retry once, as check-url.sh does)
           check() {
             local label="$1" url="$2" expected="$3"
             local status
             status=$(curl -s -o /dev/null -w '%{http_code}' -L --max-time 15 "$url" 2>/dev/null || echo "000")
+            if [ "$status" != "$expected" ]; then
+              sleep 3
+              status=$(curl -s -o /dev/null -w '%{http_code}' -L --max-time 15 "$url" 2>/dev/null || echo "000")
+            fi
             if [ "$status" = "$expected" ]; then
               echo "| $label | ✅ $status |" >> /tmp/infra-results.txt
             else
@@ -318,25 +322,42 @@ jobs:
           REDIRECT_FAIL=0
 
           # Helper: verify redirect via HTTP 3xx OR static stub page (JS/link)
+          #
+          # Both fetches retry once on miss, matching check-url.sh/check-asset.sh.
+          # Without the retry a single dropped request opened a production
+          # incident (#3140) for a redirect that was never actually broken.
           check_redirect() {
             local old_url="$1" expected_path="$2" label="$3"
-            local final_url page_html
+            local final_url page_html attempt
 
-            # Try HTTP redirect first
-            final_url=$(curl -s -o /dev/null -w '%{url_effective}' -L --max-time 15 "$old_url" 2>/dev/null || echo "")
-            if echo "$final_url" | grep -F -q "$expected_path"; then
-              echo "| $label | ✅ HTTP redirect → $expected_path |" >> /tmp/redirect-results.txt
-              return
-            fi
+            for attempt in 1 2; do
+              [ "$attempt" -eq 2 ] && sleep 3
 
-            # Fall back to checking whether the stub page contains the expected path
-            page_html=$(curl -sL --max-time 15 "$old_url" 2>/dev/null || echo "")
-            if echo "$page_html" | grep -F -q -- "$expected_path"; then
-              echo "| $label | ✅ Stub page → $expected_path |" >> /tmp/redirect-results.txt
+              # Try HTTP redirect first
+              final_url=$(curl -s -o /dev/null -w '%{url_effective}' -L --max-time 15 "$old_url" 2>/dev/null || echo "")
+              if echo "$final_url" | grep -F -q "$expected_path"; then
+                echo "| $label | ✅ HTTP redirect → $expected_path |" >> /tmp/redirect-results.txt
+                return
+              fi
+
+              # Fall back to checking whether the stub page contains the expected path.
+              # ClientRedirect stubs redirect in JS, so curl never lands on the
+              # destination — in practice every entry below passes via this branch.
+              page_html=$(curl -sL --max-time 15 "$old_url" 2>/dev/null || echo "")
+              if echo "$page_html" | grep -F -q -- "$expected_path"; then
+                echo "| $label | ✅ Stub page → $expected_path |" >> /tmp/redirect-results.txt
+                return
+              fi
+            done
+
+            # Distinguish an empty fetch (transient) from a served page that is
+            # genuinely missing the path (real regression) so triage is quick.
+            if [ -z "$page_html" ]; then
+              echo "| $label | ❌ empty response after retry → ${final_url:-timeout} (expected $expected_path) |" >> /tmp/redirect-results.txt
             else
               echo "| $label | ❌ → ${final_url:-timeout} (expected $expected_path) |" >> /tmp/redirect-results.txt
-              REDIRECT_FAIL=$((REDIRECT_FAIL + 1))
             fi
+            REDIRECT_FAIL=$((REDIRECT_FAIL + 1))
           }
 
           : > /tmp/redirect-results.txt
