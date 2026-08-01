@@ -6,30 +6,30 @@
     "FLAG-SPEED": 15,
     "FLAG-PARTIAL-STRAIGHTLINING": 65,
     "FLAG-SINGLE-IRI": 159,
-    "AUTO-EXCLUDE": 226,
+    "AUTO-EXCLUDE": 227,
     "FLAG-RECAPTCHA": 17,
     "FLAG-STRAIGHTLINING": 1
   },
   "iri_pass_rates": {
-    "barrier": 0.5253456221198156,
-    "readiness": 0.6013824884792627,
-    "maturity": 0.7142857142857143
+    "barrier": 0.5247410817031071,
+    "readiness": 0.6006904487917146,
+    "maturity": 0.714614499424626
   },
   "duration_stats": {
-    "mean": 638.7396313364055,
-    "median": 534,
+    "mean": 638.5949367088608,
+    "median": 533,
     "q25": 344,
-    "q75": 782,
+    "q75": 781,
     "min": 2,
     "max": 5935
   },
   "straightlining_stats": {
     "full_block_flagged": 28,
-    "partial_flagged": 255
+    "partial_flagged": 256
   },
   "sample_sizes": {
-    "total": 868,
-    "complete": 753,
+    "total": 869,
+    "complete": 754,
     "clean": 159
   },
   "waterfall_steps": [
@@ -54,44 +54,44 @@
     {
       "step": 3,
       "name": "AUTO-EXCLUDE",
-      "count": 226,
-      "cumulative_excluded": 341
+      "count": 227,
+      "cumulative_excluded": 342
     },
     {
       "step": 4,
       "name": "FLAG-SPEED",
       "count": 15,
-      "cumulative_excluded": 356
+      "cumulative_excluded": 357
     },
     {
       "step": 5,
       "name": "FLAG-SINGLE-IRI",
       "count": 159,
-      "cumulative_excluded": 515
+      "cumulative_excluded": 516
     },
     {
       "step": 6,
       "name": "FLAG-SMEAL",
       "count": 111,
-      "cumulative_excluded": 626
+      "cumulative_excluded": 627
     },
     {
       "step": 7,
       "name": "FLAG-RECAPTCHA",
       "count": 17,
-      "cumulative_excluded": 643
+      "cumulative_excluded": 644
     },
     {
       "step": 8,
       "name": "FLAG-STRAIGHTLINING",
       "count": 1,
-      "cumulative_excluded": 644
+      "cumulative_excluded": 645
     },
     {
       "step": 9,
       "name": "FLAG-PARTIAL-STRAIGHTLINING",
       "count": 65,
-      "cumulative_excluded": 709
+      "cumulative_excluded": 710
     },
     {
       "step": 10,
