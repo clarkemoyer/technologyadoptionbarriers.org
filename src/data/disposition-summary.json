@@ -1,12 +1,12 @@
 {
-  "updatedAt": "2026-07-31T11:31:29.615022+00:00",
-  "last_updated": "2026-07-31T11:31:29.615026+00:00",
+  "updatedAt": "2026-08-01T11:09:48.556619+00:00",
+  "last_updated": "2026-08-01T11:09:48.556624+00:00",
   "study": {
     "id": "69c17630acada6abeead2da5",
     "name": "Technology Adoption Barriers Survey (2026)",
     "status": "ACTIVE",
     "totalAvailablePlaces": 500,
-    "placesTaken": 479,
+    "placesTaken": 480,
     "averageRewardPerHour": 3907,
     "averageTimeTaken": 10,
     "reward": 700,
@@ -14,13 +14,13 @@
   },
   "completionProgress": {
     "target": 500,
-    "completed": 479,
+    "completed": 480,
     "approved": 479,
-    "awaitingReview": 0,
-    "percentComplete": 95.8
+    "awaitingReview": 1,
+    "percentComplete": 96.0
   },
-  "totalResponses": 879,
-  "uniqueParticipants": 868,
+  "totalResponses": 880,
+  "uniqueParticipants": 869,
   "duplicatesRemoved": 0,
   "dispositions": {
     "INCOMPLETE": 115,
@@ -29,7 +29,7 @@
     "FLAG-SPEED": 15,
     "FLAG-PARTIAL-STRAIGHTLINING": 65,
     "FLAG-SINGLE-IRI": 159,
-    "AUTO-EXCLUDE": 226,
+    "AUTO-EXCLUDE": 227,
     "FLAG-RECAPTCHA": 17,
     "FLAG-STRAIGHTLINING": 1
   },
@@ -62,7 +62,8 @@
     "AUTO-EXCLUDE": {
       "REJECTED": 50,
       "APPROVED": 19,
-      "RETURNED": 157
+      "RETURNED": 157,
+      "AWAITING REVIEW": 1
     },
     "FLAG-RECAPTCHA": {
       "APPROVED": 11,
@@ -76,7 +77,7 @@
     "IRI3_SPEED": 25,
     "IRI3": 54,
     "IRI2_SPEED": 22,
-    "IRI2": 105,
+    "IRI2": 106,
     "SPEED_IRI": 20
   },
   "actions": {
@@ -84,21 +85,21 @@
     "rejected": 50,
     "returned": 341,
     "timedOut": 9,
-    "awaitingReview": 0,
+    "awaitingReview": 1,
     "active": 0,
     "messaged": 0
   },
   "iriPassRates": {
-    "barrier": 59.9,
-    "readiness": 68.9,
+    "barrier": 59.8,
+    "readiness": 68.8,
     "maturity": 82.2,
-    "denominator": 753
+    "denominator": 754
   },
   "autoApproveRunway": {
     "thresholdDays": 21,
-    "computedAt": "2026-07-31T11:31:29.614922+00:00",
-    "totalAwaitingReview": 0,
-    "evaluatedCount": 0,
+    "computedAt": "2026-08-01T11:09:48.556523+00:00",
+    "totalAwaitingReview": 1,
+    "evaluatedCount": 1,
     "skippedMissingCompletedAt": 0,
     "buckets": [
       {
@@ -106,7 +107,7 @@
         "risk": "low",
         "minDaysRemaining": 10.0,
         "maxDaysRemainingExclusive": null,
-        "count": 0
+        "count": 1
       },
       {
         "label": "Monitor",
