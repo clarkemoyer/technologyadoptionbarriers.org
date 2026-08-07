@@ -2610,8 +2610,8 @@
           "cfi": 1.0431,
           "rmsea": 0.0,
           "latent_correlations": {
-            "F1a~~F1b": 0.9957,
             "F1a~~F2": 0.6621,
+            "F1b~~F1a": 0.9957,
             "F1b~~F2": 0.7986
           }
         },
@@ -2622,8 +2622,8 @@
           "cfi": 1.0249,
           "rmsea": 0.0,
           "latent_correlations": {
-            "F1a~~F1b": 0.6355,
             "F1a~~F2": 0.666,
+            "F1b~~F1a": 0.6355,
             "F1b~~F2": 0.6595
           }
         }
@@ -3300,12 +3300,12 @@
             "total_criteria": 4
           }
         },
-        "last_run_utc": "2026-08-06T11:19:20.047369+00:00"
+        "last_run_utc": "2026-08-07T10:49:00.825568+00:00"
       },
       "r_parity_tests": {
         "count": 16,
         "ci_workflow": ".github/workflows/validate-analysis.yml",
-        "last_run_utc": "2026-08-06T11:19:20.047765+00:00",
+        "last_run_utc": "2026-08-07T10:49:00.825987+00:00",
         "all_passing": null
       },
       "factor_analysis": {
@@ -5196,8 +5196,8 @@
           "cfi": 1.0073,
           "rmsea": 0.0,
           "latent_correlations": {
-            "F1a~~F1b": 0.9973,
             "F1a~~F2": 0.6088,
+            "F1b~~F1a": 0.9973,
             "F1b~~F2": 0.6593
           }
         },
@@ -5208,8 +5208,8 @@
           "cfi": 1.0153,
           "rmsea": 0.0,
           "latent_correlations": {
-            "F1a~~F1b": 0.7942,
             "F1a~~F2": 0.7359,
+            "F1b~~F1a": 0.7942,
             "F1b~~F2": 0.6112
           }
         }
@@ -5843,12 +5843,12 @@
             "total_criteria": 10
           }
         },
-        "last_run_utc": "2026-08-06T11:21:54.002959+00:00"
+        "last_run_utc": "2026-08-07T10:51:32.415191+00:00"
       },
       "r_parity_tests": {
         "count": 16,
         "ci_workflow": ".github/workflows/validate-analysis.yml",
-        "last_run_utc": "2026-08-06T11:21:54.003289+00:00",
+        "last_run_utc": "2026-08-07T10:51:32.415522+00:00",
         "all_passing": null
       },
       "factor_analysis": {
@@ -7761,8 +7761,8 @@
           "cfi": 0.9832,
           "rmsea": 0.0446,
           "latent_correlations": {
-            "F1a~~F1b": 0.9685,
             "F1a~~F2": 0.5559,
+            "F1b~~F1a": 0.9685,
             "F1b~~F2": 0.6228
           }
         },
@@ -7773,8 +7773,8 @@
           "cfi": 1.0005,
           "rmsea": 0.0,
           "latent_correlations": {
-            "F1a~~F1b": 0.8046,
             "F1a~~F2": 0.701,
+            "F1b~~F1a": 0.8046,
             "F1b~~F2": 0.6696
           }
         }
@@ -8408,12 +8408,12 @@
             "total_criteria": 10
           }
         },
-        "last_run_utc": "2026-08-06T11:24:33.960539+00:00"
+        "last_run_utc": "2026-08-07T10:54:09.558617+00:00"
       },
       "r_parity_tests": {
         "count": 16,
         "ci_workflow": ".github/workflows/validate-analysis.yml",
-        "last_run_utc": "2026-08-06T11:24:33.960841+00:00",
+        "last_run_utc": "2026-08-07T10:54:09.558919+00:00",
         "all_passing": null
       },
       "factor_analysis": {
@@ -10326,8 +10326,8 @@
           "cfi": 0.9885,
           "rmsea": 0.0427,
           "latent_correlations": {
-            "F1a~~F1b": 0.9276,
             "F1a~~F2": 0.707,
+            "F1b~~F1a": 0.9276,
             "F1b~~F2": 0.7291
           }
         },
@@ -10338,8 +10338,8 @@
           "cfi": 0.9968,
           "rmsea": 0.0207,
           "latent_correlations": {
-            "F1a~~F1b": 0.8827,
             "F1a~~F2": 0.7711,
+            "F1b~~F1a": 0.8827,
             "F1b~~F2": 0.7598
           }
         }
@@ -10973,12 +10973,12 @@
             "total_criteria": 10
           }
         },
-        "last_run_utc": "2026-08-06T11:27:18.398457+00:00"
+        "last_run_utc": "2026-08-07T10:56:51.170985+00:00"
       },
       "r_parity_tests": {
         "count": 16,
         "ci_workflow": ".github/workflows/validate-analysis.yml",
-        "last_run_utc": "2026-08-06T11:27:18.398759+00:00",
+        "last_run_utc": "2026-08-07T10:56:51.171286+00:00",
         "all_passing": null
       },
       "factor_analysis": {
@@ -12891,8 +12891,8 @@
           "cfi": 0.9881,
           "rmsea": 0.0434,
           "latent_correlations": {
-            "F1a~~F1b": 0.9305,
             "F1a~~F2": 0.7061,
+            "F1b~~F1a": 0.9305,
             "F1b~~F2": 0.7323
           }
         },
@@ -12903,8 +12903,8 @@
           "cfi": 0.9959,
           "rmsea": 0.0233,
           "latent_correlations": {
-            "F1a~~F1b": 0.8824,
             "F1a~~F2": 0.7703,
+            "F1b~~F1a": 0.8824,
             "F1b~~F2": 0.7639
           }
         }
@@ -13538,12 +13538,12 @@
             "total_criteria": 10
           }
         },
-        "last_run_utc": "2026-08-06T11:30:03.994827+00:00"
+        "last_run_utc": "2026-08-07T10:59:32.641711+00:00"
       },
       "r_parity_tests": {
         "count": 16,
         "ci_workflow": ".github/workflows/validate-analysis.yml",
-        "last_run_utc": "2026-08-06T11:30:03.995132+00:00",
+        "last_run_utc": "2026-08-07T10:59:32.642011+00:00",
         "all_passing": null
       },
       "factor_analysis": {
