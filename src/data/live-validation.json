@@ -2612,7 +2612,7 @@
           "latent_correlations": {
             "F1a~~F1b": 0.9957,
             "F1a~~F2": 0.6621,
-            "F1b~~F2": 0.7986
+            "F2~~F1b": 0.7986
           }
         },
         "Group_0": {
@@ -2624,7 +2624,7 @@
           "latent_correlations": {
             "F1a~~F1b": 0.6355,
             "F1a~~F2": 0.666,
-            "F1b~~F2": 0.6595
+            "F2~~F1b": 0.6595
           }
         }
       },
@@ -3300,12 +3300,12 @@
             "total_criteria": 4
           }
         },
-        "last_run_utc": "2026-08-09T10:46:13.731486+00:00"
+        "last_run_utc": "2026-08-10T10:52:33.665770+00:00"
       },
       "r_parity_tests": {
         "count": 16,
         "ci_workflow": ".github/workflows/validate-analysis.yml",
-        "last_run_utc": "2026-08-09T10:46:13.731938+00:00",
+        "last_run_utc": "2026-08-10T10:52:33.666271+00:00",
         "all_passing": null
       },
       "factor_analysis": {
@@ -5198,7 +5198,7 @@
           "latent_correlations": {
             "F1a~~F1b": 0.9973,
             "F1a~~F2": 0.6088,
-            "F1b~~F2": 0.6593
+            "F2~~F1b": 0.6593
           }
         },
         "Group_0": {
@@ -5210,7 +5210,7 @@
           "latent_correlations": {
             "F1a~~F1b": 0.7942,
             "F1a~~F2": 0.7359,
-            "F1b~~F2": 0.6112
+            "F2~~F1b": 0.6112
           }
         }
       },
@@ -5843,12 +5843,12 @@
             "total_criteria": 10
           }
         },
-        "last_run_utc": "2026-08-09T10:48:46.267911+00:00"
+        "last_run_utc": "2026-08-10T10:54:21.757198+00:00"
       },
       "r_parity_tests": {
         "count": 16,
         "ci_workflow": ".github/workflows/validate-analysis.yml",
-        "last_run_utc": "2026-08-09T10:48:46.268228+00:00",
+        "last_run_utc": "2026-08-10T10:54:21.757569+00:00",
         "all_passing": null
       },
       "factor_analysis": {
@@ -6419,7 +6419,7 @@
         "aic": 166.94,
         "bic": 523.07,
         "standardized_loadings": {
-          "Q10_28_Barriers_1": 0.5868,
+          "Q10_28_Barriers_1": 0.5867,
           "Q10_28_Barriers_2": 0.6318,
           "Q10_28_Barriers_3": 0.6298,
           "Q10_28_Barriers_4": 0.7034,
@@ -6431,9 +6431,9 @@
           "Q10_28_Barriers_10": 0.6778,
           "Q10_28_Barriers_11": 0.5656,
           "Q10_28_Barriers_12": 0.5551,
-          "Q10_28_Barriers_13": 0.356,
+          "Q10_28_Barriers_13": 0.3559,
           "Q10_28_Barriers_14": 0.3822,
-          "Q10_28_Barriers_15": 0.535,
+          "Q10_28_Barriers_15": 0.5349,
           "Q10_28_Barriers_16": 0.4331,
           "Q10_28_Barriers_17": 0.5254,
           "Q10_28_Barriers_18": 0.4962,
@@ -6442,26 +6442,26 @@
           "Q47_64_Readiness_3": 0.6536,
           "Q47_64_Readiness_4": 0.5212,
           "Q47_64_Readiness_5": 0.5569,
-          "Q47_64_Readiness_6": 0.6596,
+          "Q47_64_Readiness_6": 0.6595,
           "Q47_64_Readiness_7": 0.6865,
           "Q47_64_Readiness_8": 0.6693,
-          "Q47_64_Readiness_9": 0.6103,
+          "Q47_64_Readiness_9": 0.6102,
           "Q47_64_Readiness_10": 0.5706,
           "Q47_64_Readiness_11": 0.6105,
-          "Q47_64_Readiness_12": 0.5706,
+          "Q47_64_Readiness_12": 0.5705,
           "Q47_64_Readiness_13": 0.6178,
           "Q47_64_Readiness_14": 0.5894,
           "Q47_64_Readiness_15": 0.576,
           "Q47_64_Readiness_16": 0.6811,
           "Q47_64_Readiness_17": 0.4731,
-          "Q65_73_Maturity_1": 0.7465,
+          "Q65_73_Maturity_1": 0.7466,
           "Q65_73_Maturity_2": 0.7581,
-          "Q65_73_Maturity_3": 0.6553,
+          "Q65_73_Maturity_3": 0.6552,
           "Q65_73_Maturity_4": 0.6567,
-          "Q65_73_Maturity_5": 0.6246,
+          "Q65_73_Maturity_5": 0.6247,
           "Q65_73_Maturity_6": 0.7895,
-          "Q65_73_Maturity_7": 0.686,
-          "Q65_73_Maturity_8": 0.6489
+          "Q65_73_Maturity_7": 0.6861,
+          "Q65_73_Maturity_8": 0.649
         }
       },
       "barrier_model_comparison": {
@@ -7763,7 +7763,7 @@
           "latent_correlations": {
             "F1a~~F1b": 0.9685,
             "F1a~~F2": 0.5559,
-            "F1b~~F2": 0.6228
+            "F2~~F1b": 0.6228
           }
         },
         "Group_0": {
@@ -7775,7 +7775,7 @@
           "latent_correlations": {
             "F1a~~F1b": 0.8046,
             "F1a~~F2": 0.701,
-            "F1b~~F2": 0.6696
+            "F2~~F1b": 0.6696
           }
         }
       },
@@ -8408,12 +8408,12 @@
             "total_criteria": 10
           }
         },
-        "last_run_utc": "2026-08-09T10:51:24.828116+00:00"
+        "last_run_utc": "2026-08-10T10:56:15.167291+00:00"
       },
       "r_parity_tests": {
         "count": 16,
         "ci_workflow": ".github/workflows/validate-analysis.yml",
-        "last_run_utc": "2026-08-09T10:51:24.828432+00:00",
+        "last_run_utc": "2026-08-10T10:56:15.167657+00:00",
         "all_passing": null
       },
       "factor_analysis": {
@@ -10328,7 +10328,7 @@
           "latent_correlations": {
             "F1a~~F1b": 0.9264,
             "F1a~~F2": 0.7027,
-            "F1b~~F2": 0.7275
+            "F2~~F1b": 0.7275
           }
         },
         "Group_0": {
@@ -10340,7 +10340,7 @@
           "latent_correlations": {
             "F1a~~F1b": 0.8827,
             "F1a~~F2": 0.7711,
-            "F1b~~F2": 0.7598
+            "F2~~F1b": 0.7598
           }
         }
       },
@@ -10973,12 +10973,12 @@
             "total_criteria": 10
           }
         },
-        "last_run_utc": "2026-08-09T10:54:10.289182+00:00"
+        "last_run_utc": "2026-08-10T10:58:14.108617+00:00"
       },
       "r_parity_tests": {
         "count": 16,
         "ci_workflow": ".github/workflows/validate-analysis.yml",
-        "last_run_utc": "2026-08-09T10:54:10.289490+00:00",
+        "last_run_utc": "2026-08-10T10:58:14.108968+00:00",
         "all_passing": null
       },
       "factor_analysis": {
@@ -12893,7 +12893,7 @@
           "latent_correlations": {
             "F1a~~F1b": 0.9294,
             "F1a~~F2": 0.7018,
-            "F1b~~F2": 0.7307
+            "F2~~F1b": 0.7307
           }
         },
         "Group_0": {
@@ -12905,7 +12905,7 @@
           "latent_correlations": {
             "F1a~~F1b": 0.8824,
             "F1a~~F2": 0.7703,
-            "F1b~~F2": 0.7639
+            "F2~~F1b": 0.7639
           }
         }
       },
@@ -13538,12 +13538,12 @@
             "total_criteria": 10
           }
         },
-        "last_run_utc": "2026-08-09T10:56:52.460323+00:00"
+        "last_run_utc": "2026-08-10T11:00:13.114867+00:00"
       },
       "r_parity_tests": {
         "count": 16,
         "ci_workflow": ".github/workflows/validate-analysis.yml",
-        "last_run_utc": "2026-08-09T10:56:52.460630+00:00",
+        "last_run_utc": "2026-08-10T11:00:13.115245+00:00",
         "all_passing": null
       },
       "factor_analysis": {
