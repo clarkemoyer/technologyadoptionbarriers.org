@@ -1,20 +1,20 @@
 {
-  "generatedAt": "2026-08-12T09:26:45.488Z",
-  "dashboardSyncedAt": "2026-08-12T09:26:45.488Z",
+  "generatedAt": "2026-08-13T09:26:57.076Z",
+  "dashboardSyncedAt": "2026-08-13T09:26:57.076Z",
   "dateRange": {
-    "startDate": "2026-07-15",
-    "endDate": "2026-08-12"
+    "startDate": "2026-07-16",
+    "endDate": "2026-08-13"
   },
   "overview": {
-    "organicSessions": 115836,
-    "organicSessionsChange": -2365,
-    "totalImpressions": 35435,
-    "totalImpressionsChange": -1478,
-    "totalClicks": 327,
-    "totalClicksChange": -8,
-    "averageCTR": 0.92,
+    "organicSessions": 115594,
+    "organicSessionsChange": -242,
+    "totalImpressions": 38328,
+    "totalImpressionsChange": 2893,
+    "totalClicks": 332,
+    "totalClicksChange": 5,
+    "averageCTR": 0.87,
     "averageCTRUnit": "percent",
-    "averageCTRChange": 0.01,
+    "averageCTRChange": -0.05,
     "averageCTRChangeUnit": "percentagePoints",
     "averagePosition": 8.7,
     "averagePositionChange": 0,
@@ -28,16 +28,16 @@
   "topKeywords": [
     {
       "keyword": "toe framework (tornatzky and fleischer 1990)",
-      "position": 3.9,
+      "position": 3.8,
       "previousPosition": null,
       "volume": 0,
-      "clicks": 14,
-      "impressions": 63,
-      "ctr": 22.2
+      "clicks": 15,
+      "impressions": 64,
+      "ctr": 23.4
     },
     {
       "keyword": "toe framework tornatzky and fleischer 1990 pdf",
-      "position": 4.4,
+      "position": 4.3,
       "previousPosition": null,
       "volume": 0,
       "clicks": 9,
@@ -46,21 +46,12 @@
     },
     {
       "keyword": "tornatzky and fleischer (1990)",
-      "position": 4.9,
+      "position": 4.8,
       "previousPosition": null,
       "volume": 0,
-      "clicks": 8,
-      "impressions": 48,
-      "ctr": 16.7
-    },
-    {
-      "keyword": "technology readiness index (tri): a multiple-item scale to measure readiness to embrace new technologies",
-      "position": 8,
-      "previousPosition": null,
-      "volume": 0,
-      "clicks": 5,
-      "impressions": 47,
-      "ctr": 10.6
+      "clicks": 7,
+      "impressions": 52,
+      "ctr": 13.5
     },
     {
       "keyword": "toe framework tornatzky and fleischer 1990",
@@ -68,16 +59,34 @@
       "previousPosition": null,
       "volume": 0,
       "clicks": 5,
-      "impressions": 37,
-      "ctr": 13.5
+      "impressions": 35,
+      "ctr": 14.3
+    },
+    {
+      "keyword": "technology readiness index (tri): a multiple-item scale to measure readiness to embrace new technologies",
+      "position": 7.9,
+      "previousPosition": null,
+      "volume": 0,
+      "clicks": 4,
+      "impressions": 46,
+      "ctr": 8.7
     },
     {
       "keyword": "tornatzky & fleischer, 1990",
       "position": 5.1,
       "previousPosition": null,
       "volume": 0,
-      "clicks": 5,
-      "impressions": 35,
+      "clicks": 4,
+      "impressions": 37,
+      "ctr": 10.8
+    },
+    {
+      "keyword": "tornatzky and fleischer 1990 toe framework",
+      "position": 3.6,
+      "previousPosition": null,
+      "volume": 0,
+      "clicks": 3,
+      "impressions": 21,
       "ctr": 14.3
     },
     {
@@ -86,8 +95,8 @@
       "previousPosition": null,
       "volume": 0,
       "clicks": 2,
-      "impressions": 23,
-      "ctr": 8.7
+      "impressions": 24,
+      "ctr": 8.3
     },
     {
       "keyword": "tam3",
@@ -95,26 +104,17 @@
       "previousPosition": null,
       "volume": 0,
       "clicks": 2,
-      "impressions": 214,
+      "impressions": 232,
       "ctr": 0.9
     },
     {
       "keyword": "technology readiness index (tri)",
-      "position": 7.1,
+      "position": 7,
       "previousPosition": null,
       "volume": 0,
       "clicks": 2,
-      "impressions": 22,
-      "ctr": 9.1
-    },
-    {
-      "keyword": "tornatzky & fleischer (1990)",
-      "position": 4.8,
-      "previousPosition": null,
-      "volume": 0,
-      "clicks": 2,
-      "impressions": 44,
-      "ctr": 4.5
+      "impressions": 23,
+      "ctr": 8.7
     }
   ],
   "topPages": [
