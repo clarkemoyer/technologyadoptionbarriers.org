@@ -1,12 +1,12 @@
 {
-  "updatedAt": "2026-08-12T11:06:36.849213+00:00",
-  "last_updated": "2026-08-12T11:06:36.849217+00:00",
+  "updatedAt": "2026-08-13T11:02:06.141679+00:00",
+  "last_updated": "2026-08-13T11:02:06.141685+00:00",
   "study": {
     "id": "69c17630acada6abeead2da5",
     "name": "Technology Adoption Barriers Survey (2026)",
     "status": "ACTIVE",
     "totalAvailablePlaces": 500,
-    "placesTaken": 481,
+    "placesTaken": 482,
     "averageRewardPerHour": 3907,
     "averageTimeTaken": 10,
     "reward": 700,
@@ -14,18 +14,18 @@
   },
   "completionProgress": {
     "target": 500,
-    "completed": 481,
+    "completed": 482,
     "approved": 479,
-    "awaitingReview": 2,
-    "percentComplete": 96.2
+    "awaitingReview": 3,
+    "percentComplete": 96.4
   },
-  "totalResponses": 884,
-  "uniqueParticipants": 873,
+  "totalResponses": 885,
+  "uniqueParticipants": 874,
   "duplicatesRemoved": 0,
   "dispositions": {
     "INCOMPLETE": 115,
     "CLEAN": 159,
-    "FLAG-SMEAL": 111,
+    "FLAG-SMEAL": 112,
     "FLAG-SPEED": 15,
     "FLAG-PARTIAL-STRAIGHTLINING": 66,
     "FLAG-SINGLE-IRI": 160,
@@ -45,7 +45,8 @@
     },
     "FLAG-SMEAL": {
       "APPROVED": 95,
-      "RETURNED": 16
+      "RETURNED": 16,
+      "AWAITING REVIEW": 1
     },
     "FLAG-SPEED": {
       "RETURNED": 5,
@@ -87,7 +88,7 @@
     "rejected": 51,
     "returned": 343,
     "timedOut": 9,
-    "awaitingReview": 2,
+    "awaitingReview": 3,
     "active": 0,
     "messaged": 0
   },
@@ -95,13 +96,13 @@
     "barrier": 59.8,
     "readiness": 68.9,
     "maturity": 82.2,
-    "denominator": 758
+    "denominator": 759
   },
   "autoApproveRunway": {
     "thresholdDays": 21,
-    "computedAt": "2026-08-12T11:06:36.849101+00:00",
-    "totalAwaitingReview": 2,
-    "evaluatedCount": 2,
+    "computedAt": "2026-08-13T11:02:06.141515+00:00",
+    "totalAwaitingReview": 3,
+    "evaluatedCount": 3,
     "skippedMissingCompletedAt": 0,
     "buckets": [
       {
@@ -109,7 +110,7 @@
         "risk": "low",
         "minDaysRemaining": 10.0,
         "maxDaysRemainingExclusive": null,
-        "count": 2
+        "count": 3
       },
       {
         "label": "Monitor",
