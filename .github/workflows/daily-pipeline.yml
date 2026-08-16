@@ -958,6 +958,10 @@ jobs:
         env:
           INBOUND_CSV: ${{ runner.temp }}/artifacts/prolific-messages-inbound-csv/participant_messages.csv
           DISPOSITION_CSV: ${{ runner.temp }}/artifacts/disposition-csv/disposition.csv
+          # Optional (#3012): lets the classifier exclude high-tier no-reply
+          # PIDs still inside the message/RR window from the bulk-reject
+          # recommendation. Missing file -> legacy unsplit behavior.
+          STALE_TRIAGE_JSON: ${{ runner.temp }}/artifacts/stale-triage/stale-triage.json
           OUTPUT_JSON_PATH: ${{ runner.temp }}/reply-action-recommendations.json
 
       - uses: actions/upload-artifact@v7
