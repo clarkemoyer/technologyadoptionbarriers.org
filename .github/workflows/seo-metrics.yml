@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: write
+  id-token: write # Required for OIDC token exchange with Google Cloud
 
 env:
   # Official GitHub flag to force Node.js 24 runtime ahead of the June 2026 mandatory deadline.
@@ -22,6 +23,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v7
 
+      - name: Authenticate to Google Cloud (OIDC)
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
@@ -34,16 +41,12 @@ jobs:
       - name: Collect SEO keywords
         run: npx tsx scripts/collect-seo-keywords.ts
         env:
-          GOOGLE_SERVICE_ACCOUNT_EMAIL: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_EMAIL }}
-          GOOGLE_PRIVATE_KEY: ${{ secrets.GOOGLE_PRIVATE_KEY }}
           GA_PROPERTY_ID: ${{ secrets.GA_PROPERTY_ID }}
           GSC_SITE_URL: 'sc-domain:technologyadoptionbarriers.org'
 
       - name: Collect page SEO metrics
         run: npx tsx scripts/collect-page-seo-metrics.ts
         env:
-          GOOGLE_SERVICE_ACCOUNT_EMAIL: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_EMAIL }}
-          GOOGLE_PRIVATE_KEY: ${{ secrets.GOOGLE_PRIVATE_KEY }}
           GA_PROPERTY_ID: ${{ secrets.GA_PROPERTY_ID }}
           GSC_SITE_URL: 'sc-domain:technologyadoptionbarriers.org'
 

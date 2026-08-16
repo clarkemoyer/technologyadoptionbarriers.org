@@ -28,25 +28,34 @@ export class GoogleSearchConsoleClient {
   private siteUrl: string
 
   constructor() {
-    const email = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL
-    const privateKey = process.env.GOOGLE_PRIVATE_KEY
-      ? process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n')
-      : undefined
+    // Prefer OIDC / Application Default Credentials when GOOGLE_APPLICATION_CREDENTIALS is set
+    // (injected by the google-github-actions/auth action in CI).
+    // Fall back to explicit service-account key for local development.
+    const useADC = !!process.env.GOOGLE_APPLICATION_CREDENTIALS
+    const email = useADC ? undefined : process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL
+    const privateKey =
+      useADC || !process.env.GOOGLE_PRIVATE_KEY
+        ? undefined
+        : process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n')
     const siteUrl = process.env.GSC_SITE_URL
 
-    if (!email || !privateKey) {
+    if (!useADC && (!email || !privateKey)) {
       console.warn('Google Search Console credentials not fully configured. API calls will fail.')
     }
 
     this.siteUrl = siteUrl || 'sc-domain:technologyadoptionbarriers.org'
 
-    const auth = new google.auth.GoogleAuth({
-      credentials: {
-        client_email: email,
-        private_key: privateKey,
-      },
-      scopes: ['https://www.googleapis.com/auth/webmasters.readonly'],
-    })
+    const auth = useADC
+      ? new google.auth.GoogleAuth({
+          scopes: ['https://www.googleapis.com/auth/webmasters.readonly'],
+        })
+      : new google.auth.GoogleAuth({
+          credentials: {
+            client_email: email,
+            private_key: privateKey,
+          },
+          scopes: ['https://www.googleapis.com/auth/webmasters.readonly'],
+        })
 
     this.client = google.searchconsole({ version: 'v1', auth })
   }

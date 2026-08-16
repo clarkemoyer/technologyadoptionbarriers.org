@@ -17,23 +17,33 @@ export class GoogleAnalyticsClient {
   private propertyId: string
 
   constructor() {
-    const email = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL
-    const privateKey = process.env.GOOGLE_PRIVATE_KEY
-      ? process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n')
-      : undefined
     const propertyId = process.env.GA_PROPERTY_ID
+    // Prefer OIDC / Application Default Credentials when GOOGLE_APPLICATION_CREDENTIALS is set
+    // (injected by the google-github-actions/auth action in CI).
+    // Fall back to explicit service-account key for local development.
+    const useADC = !!process.env.GOOGLE_APPLICATION_CREDENTIALS
+    const email = useADC ? undefined : process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL
+    const privateKey =
+      useADC || !process.env.GOOGLE_PRIVATE_KEY
+        ? undefined
+        : process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n')
 
-    if (!email || !privateKey || !propertyId) {
+    if (!propertyId) {
+      console.warn('GA_PROPERTY_ID not configured. API calls will fail.')
+    }
+    if (!useADC && (!email || !privateKey)) {
       console.warn('Google Analytics credentials not fully configured. API calls will fail.')
     }
 
     this.propertyId = propertyId || ''
-    this.client = new BetaAnalyticsDataClient({
-      credentials: {
-        client_email: email,
-        private_key: privateKey,
-      },
-    })
+    this.client = useADC
+      ? new BetaAnalyticsDataClient()
+      : new BetaAnalyticsDataClient({
+          credentials: {
+            client_email: email,
+            private_key: privateKey,
+          },
+        })
   }
 
   /**
