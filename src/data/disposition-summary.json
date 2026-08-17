@@ -1,12 +1,12 @@
 {
-  "updatedAt": "2026-08-16T10:49:29.009278+00:00",
-  "last_updated": "2026-08-16T10:49:29.009282+00:00",
+  "updatedAt": "2026-08-17T10:56:19.806640+00:00",
+  "last_updated": "2026-08-17T10:56:19.806644+00:00",
   "study": {
     "id": "69c17630acada6abeead2da5",
     "name": "Technology Adoption Barriers Survey (2026)",
     "status": "ACTIVE",
     "totalAvailablePlaces": 500,
-    "placesTaken": 484,
+    "placesTaken": 483,
     "averageRewardPerHour": 3907,
     "averageTimeTaken": 10,
     "reward": 700,
@@ -14,10 +14,10 @@
   },
   "completionProgress": {
     "target": 500,
-    "completed": 484,
+    "completed": 483,
     "approved": 480,
-    "awaitingReview": 4,
-    "percentComplete": 96.8
+    "awaitingReview": 3,
+    "percentComplete": 96.6
   },
   "totalResponses": 888,
   "uniqueParticipants": 877,
@@ -64,8 +64,8 @@
     "AUTO-EXCLUDE": {
       "REJECTED": 50,
       "APPROVED": 19,
-      "RETURNED": 159,
-      "AWAITING REVIEW": 2
+      "RETURNED": 160,
+      "AWAITING REVIEW": 1
     },
     "FLAG-RECAPTCHA": {
       "REJECTED": 1,
@@ -86,9 +86,9 @@
   "actions": {
     "approved": 480,
     "rejected": 51,
-    "returned": 344,
+    "returned": 345,
     "timedOut": 9,
-    "awaitingReview": 4,
+    "awaitingReview": 3,
     "active": 0,
     "messaged": 0
   },
@@ -100,9 +100,9 @@
   },
   "autoApproveRunway": {
     "thresholdDays": 21,
-    "computedAt": "2026-08-16T10:49:29.009153+00:00",
-    "totalAwaitingReview": 4,
-    "evaluatedCount": 4,
+    "computedAt": "2026-08-17T10:56:19.806523+00:00",
+    "totalAwaitingReview": 3,
+    "evaluatedCount": 3,
     "skippedMissingCompletedAt": 0,
     "buckets": [
       {
@@ -110,7 +110,7 @@
         "risk": "low",
         "minDaysRemaining": 10.0,
         "maxDaysRemainingExclusive": null,
-        "count": 4
+        "count": 3
       },
       {
         "label": "Monitor",
