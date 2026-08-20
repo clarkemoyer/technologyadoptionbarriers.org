@@ -1,12 +1,12 @@
 {
-  "updatedAt": "2026-08-19T10:52:35.010019+00:00",
-  "last_updated": "2026-08-19T10:52:35.010022+00:00",
+  "updatedAt": "2026-08-20T11:00:12.653530+00:00",
+  "last_updated": "2026-08-20T11:00:12.653533+00:00",
   "study": {
     "id": "69c17630acada6abeead2da5",
     "name": "Technology Adoption Barriers Survey (2026)",
     "status": "ACTIVE",
     "totalAvailablePlaces": 500,
-    "placesTaken": 483,
+    "placesTaken": 482,
     "averageRewardPerHour": 3907,
     "averageTimeTaken": 10,
     "reward": 700,
@@ -14,10 +14,10 @@
   },
   "completionProgress": {
     "target": 500,
-    "completed": 483,
+    "completed": 482,
     "approved": 480,
-    "awaitingReview": 3,
-    "percentComplete": 96.6
+    "awaitingReview": 2,
+    "percentComplete": 96.4
   },
   "totalResponses": 888,
   "uniqueParticipants": 877,
@@ -46,7 +46,7 @@
     "FLAG-SMEAL": {
       "APPROVED": 95,
       "RETURNED": 16,
-      "AWAITING REVIEW": 1
+      "REJECTED": 1
     },
     "FLAG-SPEED": {
       "RETURNED": 5,
@@ -85,10 +85,10 @@
   },
   "actions": {
     "approved": 480,
-    "rejected": 51,
+    "rejected": 52,
     "returned": 345,
     "timedOut": 9,
-    "awaitingReview": 3,
+    "awaitingReview": 2,
     "active": 0,
     "messaged": 0
   },
@@ -100,9 +100,9 @@
   },
   "autoApproveRunway": {
     "thresholdDays": 21,
-    "computedAt": "2026-08-19T10:52:35.009799+00:00",
-    "totalAwaitingReview": 3,
-    "evaluatedCount": 3,
+    "computedAt": "2026-08-20T11:00:12.653406+00:00",
+    "totalAwaitingReview": 2,
+    "evaluatedCount": 2,
     "skippedMissingCompletedAt": 0,
     "buckets": [
       {
@@ -110,14 +110,14 @@
         "risk": "low",
         "minDaysRemaining": 10.0,
         "maxDaysRemainingExclusive": null,
-        "count": 3
+        "count": 1
       },
       {
         "label": "Monitor",
         "risk": "moderate",
         "minDaysRemaining": 5.0,
         "maxDaysRemainingExclusive": 10.0,
-        "count": 0
+        "count": 1
       },
       {
         "label": "Act soon",
