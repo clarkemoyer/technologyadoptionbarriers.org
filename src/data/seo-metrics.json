@@ -1,23 +1,23 @@
 {
-  "generatedAt": "2026-08-20T09:11:43.721Z",
-  "dashboardSyncedAt": "2026-08-20T09:11:43.721Z",
+  "generatedAt": "2026-08-21T09:14:00.017Z",
+  "dashboardSyncedAt": "2026-08-21T09:14:00.017Z",
   "dateRange": {
-    "startDate": "2026-07-23",
-    "endDate": "2026-08-20"
+    "startDate": "2026-07-24",
+    "endDate": "2026-08-21"
   },
   "overview": {
-    "organicSessions": 110756,
-    "organicSessionsChange": -316,
-    "totalImpressions": 45238,
-    "totalImpressionsChange": 3402,
-    "totalClicks": 317,
-    "totalClicksChange": 11,
-    "averageCTR": 0.7,
+    "organicSessions": 110777,
+    "organicSessionsChange": 21,
+    "totalImpressions": 44397,
+    "totalImpressionsChange": -841,
+    "totalClicks": 302,
+    "totalClicksChange": -15,
+    "averageCTR": 0.68,
     "averageCTRUnit": "percent",
-    "averageCTRChange": -0.03,
+    "averageCTRChange": -0.02,
     "averageCTRChangeUnit": "percentagePoints",
     "averagePosition": 8.5,
-    "averagePositionChange": -0.1,
+    "averagePositionChange": 0,
     "domainAuthority": 12,
     "domainAuthorityChange": 2,
     "indexedPages": 47,
@@ -50,8 +50,8 @@
       "previousPosition": null,
       "volume": 0,
       "clicks": 6,
-      "impressions": 34,
-      "ctr": 17.6
+      "impressions": 33,
+      "ctr": 18.2
     },
     {
       "keyword": "tornatzky and fleischer (1990)",
@@ -59,8 +59,8 @@
       "previousPosition": null,
       "volume": 0,
       "clicks": 6,
-      "impressions": 51,
-      "ctr": 11.8
+      "impressions": 49,
+      "ctr": 12.2
     },
     {
       "keyword": "tornatzky & fleischer 1990 toe framework",
@@ -90,31 +90,31 @@
       "ctr": 16.7
     },
     {
-      "keyword": "parasuraman 2000",
-      "position": 7.7,
-      "previousPosition": null,
-      "volume": 0,
-      "clicks": 2,
-      "impressions": 23,
-      "ctr": 8.7
-    },
-    {
-      "keyword": "technology readiness index (tri)",
-      "position": 6.2,
-      "previousPosition": null,
-      "volume": 0,
-      "clicks": 2,
-      "impressions": 21,
-      "ctr": 9.5
-    },
-    {
       "keyword": "tornatzky & fleischer (1990)",
-      "position": 5,
+      "position": 4.9,
       "previousPosition": null,
       "volume": 0,
       "clicks": 2,
-      "impressions": 33,
-      "ctr": 6.1
+      "impressions": 32,
+      "ctr": 6.3
+    },
+    {
+      "keyword": "unified theory of acceptance and use of technology utaut venkatesh 2003",
+      "position": 10.7,
+      "previousPosition": null,
+      "volume": 0,
+      "clicks": 2,
+      "impressions": 3,
+      "ctr": 66.7
+    },
+    {
+      "keyword": "goodhue & thompson (1995)",
+      "position": 8,
+      "previousPosition": null,
+      "volume": 0,
+      "clicks": 1,
+      "impressions": 1,
+      "ctr": 100
     }
   ],
   "topPages": [
