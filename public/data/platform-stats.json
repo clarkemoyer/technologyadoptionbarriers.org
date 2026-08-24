@@ -1,11 +1,11 @@
 {
-  "as_of": "2026-08-17T06:19:33Z",
-  "commit_sha": "ea99c35fa326b773330a7a5cc41801fbca75526c",
-  "commit_count": 7758,
-  "lines_of_code": 232519,
+  "as_of": "2026-08-24T06:22:53Z",
+  "commit_sha": "beeecf631e50a57c97e87a028af18f72ff1c5255",
+  "commit_count": 7816,
+  "lines_of_code": 232568,
   "comments": 13415,
   "blanks": 26820,
-  "total_lines": 272754,
+  "total_lines": 272803,
   "tracked_files": 798,
   "github_workflows": 54,
   "integrations": 8,
@@ -23,7 +23,7 @@
     {
       "language": "JSON",
       "files": 41,
-      "code": 45684,
+      "code": 45733,
       "comment": 0,
       "blank": 0
     },
