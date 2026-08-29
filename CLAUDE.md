@@ -367,15 +367,17 @@ When you push to a PR, GitHub Actions runs:
 If you can't use the composite action, add these steps before any commit-creating action:
 
 ```yaml
+- name: Setup pnpm
+  uses: pnpm/action-setup@v6
 - name: Setup Node.js
   uses: actions/setup-node@v6
   with:
     node-version: '20'
-    cache: 'npm'
+    cache: 'pnpm'
 - name: Install dependencies
   run: pnpm install --frozen-lockfile --ignore-scripts
 - name: Format files
-  run: npx prettier --write <files>
+  run: pnpm exec prettier --write <files>
 ```
 
 **Safety net**: The `prettier-autofix.yml` workflow monitors CI failures and auto-pushes formatting fixes to PR branches if Prettier is the cause.
