@@ -110,7 +110,7 @@ import { assetPath } from "@/lib/assetPath";
 
 ```bash
 pnpm test                    # Run all unit tests
-pnpm test -- --coverage      # With coverage report
+pnpm test --coverage      # With coverage report
 ```
 
 - Location: `__tests__/` directory

@@ -576,8 +576,8 @@ pnpm run test:e2e      # E2E tests (requires build)
 **Individual test files:**
 
 ```bash
-pnpm test -- Header                    # Specific test
-pnpm run test:e2e -- tests/logo.spec.ts  # Specific E2E test
+pnpm test Header                    # Specific test
+pnpm run test:e2e tests/logo.spec.ts  # Specific E2E test
 ```
 
 **Watch mode (for development):**

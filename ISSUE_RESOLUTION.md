@@ -78,10 +78,9 @@ PORT=3001 pnpm run dev
 **Permission errors**:
 
 ```bash
-# Don't use sudo with npm
-# Fix npm permissions instead
-npm config set prefix ~/.npm-global
-export PATH=~/.npm-global/bin:$PATH
+# Don't use sudo with pnpm
+# pnpm puts global binaries under its own user-writable home
+pnpm setup   # configures PNPM_HOME and adds it to PATH
 ```
 
 **Network timeouts**:
@@ -631,10 +630,10 @@ touch src/components/MyComponent/index.tsx
 
 ```bash
 # Unit test
-pnpm test -- __tests__/components/Header.test.tsx
+pnpm test __tests__/components/Header.test.tsx
 
 # E2E test
-pnpm run test:e2e -- tests/logo.spec.ts
+pnpm run test:e2e tests/logo.spec.ts
 ```
 
 ### How do I update dependencies?
@@ -644,7 +643,7 @@ pnpm run test:e2e -- tests/logo.spec.ts
 pnpm outdated
 
 # Update specific package
-npm update package-name
+pnpm update package-name
 
 # Update all to latest
 pnpm update
@@ -674,10 +673,10 @@ pnpm install
 pnpm run test:watch
 
 # Run with verbose output
-pnpm test -- --verbose
+pnpm test --verbose
 
 # Run specific test
-pnpm test -- -t "test name"
+pnpm test -t "test name"
 
 # Debug in VS Code
 # Add breakpoint and run Debug Jest Tests
