@@ -47,7 +47,7 @@ jobs:
     environment: prolific-prod
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/setup-python@v6
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
 
@@ -78,7 +78,7 @@ jobs:
     environment: qualtrics-prod
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/setup-python@v6
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
 
@@ -492,7 +492,7 @@ jobs:
     environment: prolific-prod
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/setup-python@v6
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
       - uses: actions/download-artifact@v8
@@ -540,7 +540,7 @@ jobs:
           - AUTO-EXCLUDE:SPEED_IRI
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/setup-python@v6
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
       - uses: actions/download-artifact@v8
@@ -582,7 +582,7 @@ jobs:
     environment: prolific-prod
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/setup-python@v6
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
       - uses: actions/download-artifact@v8
@@ -645,7 +645,7 @@ jobs:
     environment: prolific-prod
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/setup-python@v6
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
       - uses: actions/download-artifact@v8
@@ -720,7 +720,7 @@ jobs:
     environment: prolific-prod
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/setup-python@v6
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
       - uses: actions/download-artifact@v8
@@ -791,7 +791,7 @@ jobs:
     environment: prolific-prod
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/setup-python@v6
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
 
