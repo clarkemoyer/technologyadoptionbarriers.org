@@ -1,0 +1,75 @@
+name: Zotero Website Citations Sync
+
+# Scans every DOI referenced on the TABS website and syncs matching Zotero
+# items into a "Website Citations" collection hierarchy. Reports DOIs that
+# don't yet have a corresponding Zotero entry.
+#
+# Runs:
+#   • Weekly on Sunday at 06:00 UTC (keeps collection fresh after edits)
+#   • On-demand via workflow_dispatch (for immediate syncs after new pages)
+#
+# Required secrets/vars in the "zotero-prod" GitHub environment:
+#   ZOTERO_API_KEY       — Zotero API key with read/write access to the library
+#   ZOTERO_LIBRARY_ID    — Numeric user or group library ID
+#   ZOTERO_LIBRARY_TYPE  — "user" or "group" (variable, defaults to "user")
+
+on:
+  schedule:
+    - cron: '0 6 * * 0' # Sundays at 06:00 UTC
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run (scan + match only, no Zotero writes)'
+        required: false
+        default: 'false'
+        type: choice
+        options:
+          - 'false'
+          - 'true'
+
+permissions:
+  contents: read
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  zotero-sync:
+    name: Sync Website Citations to Zotero
+    runs-on: ubuntu-latest
+    environment: zotero-prod
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install -r scripts/zotero-requirements.txt
+
+      - name: Run Zotero website citations sync
+        env:
+          ZOTERO_API_KEY: ${{ secrets.ZOTERO_API_KEY }}
+          ZOTERO_LIBRARY_ID: ${{ secrets.ZOTERO_LIBRARY_ID }}
+          ZOTERO_LIBRARY_TYPE: ${{ vars.ZOTERO_LIBRARY_TYPE }}
+          ZOTERO_DRY_RUN: ${{ inputs.dry_run || 'false' }}
+          REPO_ROOT: ${{ github.workspace }}
+        run: python3 scripts/zotero_website_sync.py
+        # A non-zero exit means unmatched DOIs were found; treat as a warning
+        # (continue-on-error: true) so the step summary is always published.
+        continue-on-error: true
+        id: sync
+
+      - name: Fail if unmatched DOIs found
+        # Surface the exit code from the sync step as a real failure so the
+        # workflow shows red and notifications fire, while still allowing the
+        # step summary above to have been written.
+        if: steps.sync.outcome == 'failure'
+        run: |
+          echo "::error::Unmatched DOIs found — see the step summary for details."
+          echo "Add Zotero entries for the listed DOIs and re-run this workflow."
+          exit 1
