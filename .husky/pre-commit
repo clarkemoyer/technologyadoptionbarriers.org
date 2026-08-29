@@ -6,7 +6,7 @@ if ! git diff --cached --quiet; then
   echo "🔧 Running prettier to format code..."
   
   # Run prettier on all files (formats entire repository)
-  npm run format || {
+  pnpm run format || {
     echo "❌ Failed to run prettier. Please check your installation."
     exit 1
   }
@@ -21,7 +21,7 @@ if ! git diff --cached --quiet; then
 fi
 
 # Run linting
-npm run lint || {
+pnpm run lint || {
   echo "❌ Linting errors detected. Please fix the errors and try again."
   exit 1
 }

@@ -22,17 +22,20 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v7
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
           node-version: '20'
-          cache: 'npm'
+          cache: 'pnpm'
 
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
       - name: Collect SEO keywords
-        run: npx tsx scripts/collect-seo-keywords.ts
+        run: pnpm exec tsx scripts/collect-seo-keywords.ts
         env:
           GOOGLE_SERVICE_ACCOUNT_EMAIL: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_EMAIL }}
           GOOGLE_PRIVATE_KEY: ${{ secrets.GOOGLE_PRIVATE_KEY }}
@@ -40,7 +43,7 @@ jobs:
           GSC_SITE_URL: 'sc-domain:technologyadoptionbarriers.org'
 
       - name: Collect page SEO metrics
-        run: npx tsx scripts/collect-page-seo-metrics.ts
+        run: pnpm exec tsx scripts/collect-page-seo-metrics.ts
         env:
           GOOGLE_SERVICE_ACCOUNT_EMAIL: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_EMAIL }}
           GOOGLE_PRIVATE_KEY: ${{ secrets.GOOGLE_PRIVATE_KEY }}
@@ -56,7 +59,7 @@ jobs:
 
       - name: Send email report
         if: success()
-        run: npx tsx scripts/send-report-email.ts
+        run: pnpm exec tsx scripts/send-report-email.ts
         env:
           GOOGLE_PROJECT_OWNER_EMAIL: ${{ secrets.GOOGLE_PROJECT_OWNER_EMAIL }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}

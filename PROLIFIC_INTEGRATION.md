@@ -161,7 +161,7 @@ The workflow file (`.github/workflows/prolific.yml`) automates data collection f
 
 1. **Checkout repository** - Get latest code
 2. **Setup Node.js** - Install Node.js 20 with npm caching
-3. **Install dependencies** - Run `npm ci`
+3. **Install dependencies** - Run `pnpm install --frozen-lockfile`
 4. **Verify API token** - Check that `TABS_PROLIFIC_TOKEN` is configured
 5. **Run data collection** - Execute API queries and display results
 6. **Summary** - Add success/failure summary to workflow run

@@ -76,10 +76,10 @@ git clone https://github.com/clarkemoyer/technologyadoptionbarriers.org.git
 cd technologyadoptionbarriers.org
 
 # Install dependencies (takes ~15 seconds)
-npm install
+pnpm install
 
 # Start development server (takes ~1 second)
-npm run dev
+pnpm run dev
 ```
 
 Open http://localhost:3000 - you should see the TABS homepage! 🎉
@@ -90,16 +90,16 @@ Run the test suite to ensure everything works:
 
 ```bash
 # Format check
-npm run format:check
+pnpm run format:check
 
 # Lint
-npm run lint
+pnpm run lint
 
 # Unit tests
-npm test
+pnpm test
 
 # Build
-npm run build
+pnpm run build
 ```
 
 All checks should pass (16 warnings are expected and documented).
@@ -496,11 +496,11 @@ We welcome contributions in several areas:
 4. **Test locally**
 
    ```bash
-   npm run format    # Auto-fix formatting
-   npm run lint      # Check for errors
-   npm test          # Run unit tests
-   npm run build     # Build site
-   npm run test:e2e  # Run E2E tests
+   pnpm run format    # Auto-fix formatting
+   pnpm run lint      # Check for errors
+   pnpm test          # Run unit tests
+   pnpm run build     # Build site
+   pnpm run test:e2e  # Run E2E tests
    ```
 
 5. **Commit with conventional commits**
@@ -569,27 +569,27 @@ We welcome contributions in several areas:
 **All tests:**
 
 ```bash
-npm test              # Unit tests
-npm run test:e2e      # E2E tests (requires build)
+pnpm test              # Unit tests
+pnpm run test:e2e      # E2E tests (requires build)
 ```
 
 **Individual test files:**
 
 ```bash
-npm test -- Header                    # Specific test
-npm run test:e2e -- tests/logo.spec.ts  # Specific E2E test
+pnpm test Header                    # Specific test
+pnpm run test:e2e tests/logo.spec.ts  # Specific E2E test
 ```
 
 **Watch mode (for development):**
 
 ```bash
-npm run test:watch    # Unit tests re-run on changes
+pnpm run test:watch    # Unit tests re-run on changes
 ```
 
 **Coverage:**
 
 ```bash
-npm run test:coverage  # Generate coverage report
+pnpm run test:coverage  # Generate coverage report
 ```
 
 ### Writing Tests
@@ -651,10 +651,10 @@ Before submitting PR:
 
 **Pre-submission checklist:**
 
-- [ ] All tests pass (`npm test` + `npm run test:e2e`)
-- [ ] Code is formatted (`npm run format`)
-- [ ] No linting errors (`npm run lint`)
-- [ ] Build succeeds (`npm run build`)
+- [ ] All tests pass (`pnpm test` + `pnpm run test:e2e`)
+- [ ] Code is formatted (`pnpm run format`)
+- [ ] No linting errors (`pnpm run lint`)
+- [ ] Build succeeds (`pnpm run build`)
 - [ ] Changes are documented (README, comments, etc.)
 - [ ] Commit messages follow conventional commits
 - [ ] Branch is up to date with main
@@ -817,19 +817,19 @@ git push origin --delete feat/your-feature-name
 
 ```bash
 # Clear cache and reinstall
-rm -rf .next node_modules package-lock.json
-npm install
-npm run build
+rm -rf .next node_modules pnpm-lock.yaml
+pnpm install
+pnpm run build
 ```
 
 **Tests fail:**
 
 ```bash
 # Reinstall Playwright browsers
-npx playwright install --with-deps chromium
+pnpm exec playwright install --with-deps chromium
 
 # Run tests
-npm run test:e2e
+pnpm run test:e2e
 ```
 
 **Git issues:**

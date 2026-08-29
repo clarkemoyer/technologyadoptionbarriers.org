@@ -15,29 +15,29 @@ The `CI - Build and Test` workflow (specifically `Build Next.js site`) failed co
 
 **Characteristics:**
 
-- **Local Build (`npm run build`)**: ✅ Passed.
+- **Local Build (`pnpm run build`)**: ✅ Passed.
 - **PR Checks**: ✅ Passed.
 - **Hotfix Branch**: ✅ Passed.
 - **Main Branch**: ❌ Failed immediately after merge.
 - **Logs**: Opaque. No stack trace or specific error message pointing to code.
 
 **Root Cause:**
-This was a **Lockfile/Dependency Drift** issue. The `package-lock.json` and `node_modules` in the CI environment (specifically how `npm ci` restored them) had drifted or corrupted in a way that caused the Next.js/Turbopack binary to crash silently. This often happens when `package-lock.json` is generated on different OS platforms or npm versions without strict synchronization.
+This was a **Lockfile/Dependency Drift** issue. The `pnpm-lock.yaml` and `node_modules` in the CI environment (specifically how `pnpm install --frozen-lockfile` restored them) had drifted or corrupted in a way that caused the Next.js/Turbopack binary to crash silently. This often happens when `pnpm-lock.yaml` is generated on different OS platforms or npm versions without strict synchronization.
 
 **Resolution:**
 The fix required a "scorched earth" regeneration of the lockfile:
 
 ```bash
 # 1. Delete existing artifacts
-rm package-lock.json
+rm pnpm-lock.yaml
 rm -r node_modules
 
 # 2. Clean install to regenerate lockfile
-npm install
+pnpm install
 
 # 3. Commit and Push
-git add package-lock.json
-git commit -m "chore: regenerate package-lock.json"
+git add pnpm-lock.yaml
+git commit -m "chore: regenerate pnpm-lock.yaml"
 git push origin main
 ```
 

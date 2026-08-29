@@ -186,7 +186,7 @@ retake - causing Prolific Accepted to undercount by 1.
 pip install -r scripts/analysis/requirements.txt
 
 # Node.js 20+ (for TS operations scripts and website)
-npm ci
+pnpm install --frozen-lockfile
 ```
 
 ### Run Analysis on Test Data
@@ -224,7 +224,7 @@ python -m pytest scripts/analysis/tests/ -v
 python -m pytest scripts/analysis/tests/ --cov=scripts/analysis --cov-report=term-missing
 
 # JS tests (341 tests)
-npm test
+pnpm test
 ```
 
 ### Prolific Read-Only Operations

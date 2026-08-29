@@ -135,7 +135,7 @@ This creates:
 ### Unit Tests
 
 ```bash
-npm test -- __tests__/lib/search.test.ts
+pnpm test __tests__/lib/search.test.ts
 ```
 
 Covers:
@@ -148,7 +148,7 @@ Covers:
 ### E2E Tests
 
 ```bash
-npm run test:e2e -- tests/full-site-search.spec.ts
+pnpm run test:e2e tests/full-site-search.spec.ts
 ```
 
 Covers:

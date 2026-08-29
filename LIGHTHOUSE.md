@@ -183,13 +183,11 @@ For local testing, you can use the checked-in `lighthouserc.json` file which con
 
 ```bash
 # Build the site
-npm run build
+pnpm run build
 
-# Install Lighthouse CI globally (if not already installed)
-npm install -g @lhci/cli
-
-# Run Lighthouse CI
-lhci autorun
+# @lhci/cli is a devDependency — run the locally installed copy
+# (a global install would also require PNPM_HOME on PATH)
+pnpm exec lhci autorun
 ```
 
 ### Running on Specific Pages
@@ -199,7 +197,7 @@ To audit specific pages only:
 ```bash
 # Edit lighthouserc.json to include only the pages you want
 # Then run
-lhci autorun
+pnpm exec lhci autorun
 ```
 
 ### Using Chrome DevTools
@@ -351,8 +349,8 @@ identify image.webp
 Before making image optimizations, run Lighthouse to establish a baseline:
 
 ```bash
-npm run build
-lhci autorun
+pnpm run build
+pnpm exec lhci autorun
 ```
 
 Check the "Opportunities" section in the report for:
@@ -520,7 +518,7 @@ The Lighthouse CI is integrated into the deployment pipeline with the following 
    - Format check with Prettier
    - Linting with ESLint
    - Unit tests run with Jest
-   - Site is built with `npm run build`
+   - Site is built with `pnpm run build`
    - E2E tests run with Playwright
 
 2. **Deploy Workflow** (deploy.yml)

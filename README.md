@@ -345,13 +345,13 @@ Content such as FAQs, Team Members, and Testimonials is stored as JSON files in 
 1. Install dependencies
 
 ```bash
-npm install
+pnpm install
 ```
 
 2. Run the dev server
 
 ```bash
-npm run dev
+pnpm run dev
 ```
 
 Visit http://localhost:3000
@@ -364,15 +364,15 @@ This project includes automated tests to ensure quality and consistency.
 
 ```bash
 # Build the site first
-npm run build
+pnpm run build
 
 # Install Playwright browsers (first time only)
-npx playwright install chromium
+pnpm exec playwright install chromium
 
 # Run tests
-npm test              # Headless mode
-npm run test:headed   # With browser visible
-npm run test:ui       # Interactive UI mode
+pnpm test              # Headless mode
+pnpm run test:headed   # With browser visible
+pnpm run test:ui       # Interactive UI mode
 ```
 
 ### Current Test Coverage
@@ -394,7 +394,7 @@ npm run test:ui       # Interactive UI mode
 **Test Configuration** (`playwright.config.ts`)
 
 - Uses system Chromium browser to avoid network download issues
-- Runs against built static site (`npm run preview`)
+- Runs against built static site (`pnpm run preview`)
 - Retries failed tests 2x in CI, 0x locally
 - Collects traces on first retry for debugging
 
@@ -410,7 +410,7 @@ Tests run automatically on every push to main via GitHub Actions before deployme
 
 As of website release v0.3.0 (a Git tag / GitHub Release, separate from the `package.json` version), all previously-acceptable warnings (`@next/next/no-img-element` and React Hooks warnings from deleted legacy components) have been resolved by removing the legacy code.
 
-**Running `npm run lint` should produce a clean output.** If new warnings appear, fix them before pushing.
+**Running `pnpm run lint` should produce a clean output.** If new warnings appear, fix them before pushing.
 
 **For technical debt tracking:** See [TECHNICAL_DEBT.md](./TECHNICAL_DEBT.md) for documentation of technical debt items, security vulnerabilities, and future refactoring plans.
 
@@ -442,14 +442,14 @@ As of website release v0.3.0 (a Git tag / GitHub Release, separate from the `pac
 - ✅ Runs on push to main, pull requests, and weekly schedule
 - 📊 View results in repository Security → Code scanning alerts
 
-**npm audit**
+**pnpm audit**
 
 - All dependencies are checked for security vulnerabilities
-- Run `npm audit` locally to check for known security issues
+- Run `pnpm audit` locally to check for known security issues
 - ⚠️ **Known Issues**: As of December 2025, there are 4 low severity vulnerabilities
   - Low: tmp package vulnerabilities affecting Lighthouse CI dev dependency only
   - Impact: Limited to development environment, does not affect production site
-  - Fix available via `npm audit fix --force` (may involve breaking changes)
+  - Fix available via `pnpm audit --fix` (may involve breaking changes)
   - These are being monitored and will be addressed through regular Dependabot updates
   - See [TECHNICAL_DEBT.md](./TECHNICAL_DEBT.md) for tracking and prioritization
   - See [SECURITY.md](./SECURITY.md) for detailed information and mitigation steps
@@ -464,7 +464,7 @@ The project uses separate workflows for better separation of concerns:
 
 - ✅ Runs on all pull requests and pushes
 - ✅ Node.js 20 setup
-- ✅ Dependency installation (`npm ci`)
+- ✅ Dependency installation (`pnpm install --frozen-lockfile`)
 - ✅ Code formatting check (Prettier)
 - ✅ Linting (ESLint)
 - ✅ Unit tests (Jest)
@@ -478,7 +478,7 @@ The project uses separate workflows for better separation of concerns:
 - ✅ Runs only after CI workflow completes successfully
 - ✅ Ensures all tests pass before deployment
 - ✅ Node.js 20 setup
-- ✅ Dependency installation (`npm ci`)
+- ✅ Dependency installation (`pnpm install --frozen-lockfile`)
 - ✅ Next.js build with GitHub Pages basePath
 - ✅ Static site artifact upload
 - ✅ Deployment to GitHub Pages
@@ -536,7 +536,7 @@ The following enhancements could further improve the test suite:
 - **Increased Test Coverage**: Target 25-50% coverage for critical components
 - **TypeScript Strict Mode**: Enable additional strict flags
 - **Import Organization**: Add eslint-plugin-import for import sorting
-- **npm audit**: Add automated npm audit checks to CI with failure threshold
+- **pnpm audit**: Add automated pnpm audit checks to CI with failure threshold
 
 #### Build Quality Gates
 
@@ -648,7 +648,7 @@ Both platforms provide identical workflows:
 
 3. **Configure Build Settings**
    - Framework preset: Select "Next.js (Static HTML Export)"
-   - Build command: `npm run build`
+   - Build command: `pnpm run build`
    - Build output directory: `out`
    - Environment variables: Leave `NEXT_PUBLIC_BASE_PATH` unset
      - GitHub Pages with a custom domain deploys to root, no basePath needed
@@ -680,7 +680,7 @@ If you prefer Vercel:
 3. Import this repository
 4. Configure:
    - Framework Preset: Next.js
-   - Build Command: `npm run build`
+   - Build Command: `pnpm run build`
    - Output Directory: `out`
    - Leave `NEXT_PUBLIC_BASE_PATH` unset
 5. Deploy
@@ -883,8 +883,8 @@ The site is configured for static export and deployed to GitHub Pages:
 **Local preview of production build:**
 
 ```bash
-npm run build    # Build static site
-npm run preview  # Preview at http://localhost:3000
+pnpm run build    # Build static site
+pnpm run preview  # Preview at http://localhost:3000
 ```
 
 **Note:** The build process uses `output: "export"` in `next.config.ts` for static site generation compatible with GitHub Pages.

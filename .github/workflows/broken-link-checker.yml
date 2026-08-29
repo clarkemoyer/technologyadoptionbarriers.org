@@ -21,19 +21,21 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
+      - uses: pnpm/action-setup@v6
+
       - uses: actions/setup-node@v6
         with:
           node-version: '20'
-          cache: 'npm'
+          cache: 'pnpm'
 
-      - run: npm ci
+      - run: pnpm install --frozen-lockfile
 
       - name: Build site
-        run: npm run build
+        run: pnpm run build
 
       - name: Start local server
         run: |
-          npx serve out -l 3000 &
+          pnpm exec serve out -l 3000 &
           sleep 3
 
       - name: Check internal links via sitemap

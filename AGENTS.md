@@ -29,11 +29,11 @@ This document provides instructions for IDE-integrated AI coding agents working 
 ### Pre-Commit Checklist (Run in Order)
 
 ```bash
-npm run format      # Fix formatting (CI enforces this)
-npm run lint        # Fix errors; warnings are acceptable
-npm test            # Run Jest unit tests + accessibility checks
-npm run build       # Ensure static export succeeds
-npm run test:e2e    # Run Playwright E2E tests
+pnpm run format      # Fix formatting (CI enforces this)
+pnpm run lint        # Fix errors; warnings are acceptable
+pnpm test            # Run Jest unit tests + accessibility checks
+pnpm run build       # Ensure static export succeeds
+pnpm run test:e2e    # Run Playwright E2E tests
 ```
 
 **CRITICAL**: Always run these commands before pushing to avoid CI failures.
@@ -109,8 +109,8 @@ import { assetPath } from "@/lib/assetPath";
 ### Unit Tests (Jest)
 
 ```bash
-npm test                    # Run all unit tests
-npm test -- --coverage      # With coverage report
+pnpm test                    # Run all unit tests
+pnpm test --coverage      # With coverage report
 ```
 
 - Location: `__tests__/` directory
@@ -120,14 +120,14 @@ npm test -- --coverage      # With coverage report
 ### E2E Tests (Playwright)
 
 ```bash
-npm run build              # Build first (required)
-npm run test:e2e           # Run E2E tests
-npm run test:headed        # Run with visible browser
-npm run test:ui            # Interactive UI mode
+pnpm run build              # Build first (required)
+pnpm run test:e2e           # Run E2E tests
+pnpm run test:headed        # Run with visible browser
+pnpm run test:ui            # Interactive UI mode
 ```
 
 - Location: `tests/` directory
-- Tests run against production build (`npm run preview`)
+- Tests run against production build (`pnpm run preview`)
 - Critical paths: logo rendering, navigation, image loading
 
 ### Accessibility Testing
@@ -144,7 +144,7 @@ npm run test:ui            # Interactive UI mode
 ### Linting
 
 ```bash
-npm run lint               # Check for errors
+pnpm run lint               # Check for errors
 ```
 
 **Expected warnings (acceptable):**
@@ -157,11 +157,11 @@ npm run lint               # Check for errors
 ### Formatting
 
 ```bash
-npm run format             # Auto-fix formatting
-npm run format:check       # Check only (used in CI)
+pnpm run format             # Auto-fix formatting
+pnpm run format:check       # Check only (used in CI)
 ```
 
-CI enforces `format:check` - always run `npm run format` before pushing.
+CI enforces `format:check` - always run `pnpm run format` before pushing.
 
 ## GitHub Pages Deployment
 
@@ -175,16 +175,16 @@ CI enforces `format:check` - always run `npm run format` before pushing.
 The site uses `NEXT_PUBLIC_BASE_PATH` environment variable:
 
 - **Production**: Set in GitHub Actions workflow
-- **Local testing**: `NEXT_PUBLIC_BASE_PATH='' npm run test:e2e`
+- **Local testing**: `NEXT_PUBLIC_BASE_PATH='' pnpm run test:e2e`
 - **Images**: Always use `assetPath()` helper (see above)
 
 ### Deployment Workflow
 
 Automatic deployment on push to `main` via `.github/workflows/deploy.yml`:
 
-1. Install dependencies (`npm ci`)
+1. Install dependencies (`pnpm install --frozen-lockfile`)
 2. Set `NEXT_PUBLIC_BASE_PATH` for GitHub Pages
-3. Build static site (`npm run build`)
+3. Build static site (`pnpm run build`)
 4. Run Playwright tests
 5. Deploy from `./out` directory
 
@@ -192,7 +192,7 @@ Automatic deployment on push to `main` via `.github/workflows/deploy.yml`:
 
 ### Google Fonts Build Limitation
 
-- **Issue**: `npm run build` may fail with "ENOTFOUND fonts.googleapis.com" on restricted networks
+- **Issue**: `pnpm run build` may fail with "ENOTFOUND fonts.googleapis.com" on restricted networks
 - **Files**: Font imports in `src/lib/fonts.ts`
 - **Impact**: Fonts may need to be disabled in restricted environments
 
@@ -281,7 +281,7 @@ These are build artifacts from local development or agent work sessions. If your
 
 **IDE agents (VS Code, Antigravity) have access to terminal/CLI** that cloud-based agents don't:
 
-- Run npm scripts: `npm run dev`, `npm test`, `npm run build`
+- Run npm scripts: `pnpm run dev`, `pnpm test`, `pnpm run build`
 - Execute git commands: `git status`, `git diff`, `git log`
 - Run TypeScript scripts: `npx tsx scripts/collect-prolific-data.ts`
 - Test API connectivity: `curl` commands for Qualtrics/Prolific

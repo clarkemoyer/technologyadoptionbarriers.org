@@ -738,7 +738,7 @@ All external APIs use GitHub environment secrets for secure credential managemen
 1. **Install dependencies:**
 
    ```bash
-   npm install
+   pnpm install
    ```
 
 2. **Set environment variables:**
