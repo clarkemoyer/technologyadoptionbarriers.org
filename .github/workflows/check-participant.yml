@@ -71,9 +71,9 @@ jobs:
         if: ${{ !contains(fromJSON('["demographics","find-url-replies","all-replies","send-custom","unreject","send-thank-you","stale-return-requested"]'), inputs.mode) }}
         with:
           node-version: '20'
-          cache: 'npm'
+          cache: 'pnpm'
       - if: ${{ !contains(fromJSON('["demographics","find-url-replies","all-replies","send-custom","unreject","send-thank-you","stale-return-requested"]'), inputs.mode) }}
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
       - name: Fetch Prolific demographics
         if: inputs.mode == 'demographics'
@@ -105,7 +105,7 @@ jobs:
           STUDY_ID: ${{ inputs.study_id || vars.PROLIFIC_STUDY_ID }}
           SEARCH_TERM: ${{ inputs.message }}
         run: |
-          npx --no-install tsx -e "
+          pnpm exec tsx -e "
           import { listStudySubmissions } from './src/lib/prolific-api';
           async function main() {
             const token = process.env.PROLIFIC_API_TOKEN!;
@@ -144,7 +144,7 @@ jobs:
           STUDY_ID: ${{ inputs.study_id || vars.PROLIFIC_STUDY_ID }}
           PID: ${{ inputs.pid }}
         run: |
-          npx --no-install tsx -e "
+          pnpm exec tsx -e "
           import { listStudySubmissions } from './src/lib/prolific-api';
           async function main() {
             const token = process.env.PROLIFIC_API_TOKEN!;
@@ -256,7 +256,7 @@ jobs:
           STUDY_ID: ${{ inputs.study_id || vars.PROLIFIC_STUDY_ID }}
           PID: ${{ inputs.pid }}
         run: |
-          npx --no-install tsx -e "
+          pnpm exec tsx -e "
           import { listStudySubmissions, listUserMessages } from './src/lib/prolific-api';
           async function main() {
             const token = process.env.PROLIFIC_API_TOKEN!;
@@ -342,8 +342,8 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: '20'
-          cache: 'npm'
-      - run: npm ci
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
       - uses: actions/download-artifact@v8
         with:
           name: disposition-csv
@@ -353,7 +353,7 @@ jobs:
           PROLIFIC_API_TOKEN: ${{ secrets.TABS_PROLIFIC_TOKEN }}
           STUDY_ID: ${{ inputs.study_id || vars.PROLIFIC_STUDY_ID }}
           CSV_FILE_PATH: ${{ runner.temp }}/disposition.csv
-        run: npx --no-install tsx scripts/awaiting-review-report.ts
+        run: pnpm exec tsx scripts/awaiting-review-report.ts
 
   verify-iri:
     name: Verify IRI Answers
@@ -365,12 +365,12 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: '20'
-          cache: 'npm'
-      - run: npm ci
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
       - name: Verify IRI answers from Qualtrics
         env:
           QUALTRICS_API_TOKEN: ${{ secrets.QUALTRICS_API_TOKEN }}
           QUALTRICS_BASE_URL: ${{ vars.QUALTRICS_BASE_URL }}
           QUALTRICS_SURVEY_ID: ${{ vars.QUALTRICS_SURVEY_ID }}
           PID: ${{ inputs.pid }}
-        run: npx --no-install tsx scripts/verify-iri-answers.ts
+        run: pnpm exec tsx scripts/verify-iri-answers.ts

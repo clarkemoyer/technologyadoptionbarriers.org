@@ -92,7 +92,7 @@ Runs on all pull requests and pushes to main:
 
 1. **Checkout code**: Retrieves the latest code from the repository
 2. **Setup Node.js**: Installs Node.js 20.x
-3. **Install dependencies**: Runs `npm ci` for a clean installation
+3. **Install dependencies**: Runs `pnpm install --frozen-lockfile` for a clean installation
 4. **Check formatting**: Runs Prettier format check
 5. **Run linting**: Executes ESLint to catch code issues
 6. **Run unit tests**: Executes Jest tests to verify code quality
@@ -112,7 +112,7 @@ The actual steps performed by the deploy workflow are:
 2. **Setup Node.js**: Installs Node.js 20.x
 3. **Setup Pages**: Configures GitHub Pages settings
 4. **Restore Next.js cache**: Restores build cache for faster builds
-5. **Install dependencies**: Runs `npm ci` for a clean installation
+5. **Install dependencies**: Runs `pnpm install --frozen-lockfile` for a clean installation
 6. **Build site**: Runs `next build` with basePath for GitHub Pages
 7. **Upload artifact**: Packages the `./out` directory
 8. **Deploy to GitHub Pages**: Publishes the site to GitHub Pages (separate job)
@@ -170,27 +170,27 @@ While automated deployment is recommended, you can also deploy manually if neede
 2. **Install dependencies**:
 
    ```bash
-   npm install
+   pnpm install
    ```
 
 3. **Run tests** to ensure everything works:
 
    ```bash
-   npm run lint
-   npm test
-   npm run test:e2e
+   pnpm run lint
+   pnpm test
+   pnpm run test:e2e
    ```
 
 4. **Build the site** for production:
 
    ```bash
-   npm run build
+   pnpm run build
    ```
 
 5. **Verify the build**:
 
    ```bash
-   npm run preview
+   pnpm run preview
    # Visit http://localhost:3000 to test
    ```
 
@@ -205,8 +205,8 @@ While automated deployment is recommended, you can also deploy manually if neede
 The production build deploys to the apex domain with no basePath:
 
 ```bash
-npm run build
-npm run preview
+pnpm run build
+pnpm run preview
 ```
 
 The site will be built for the root path, making all assets available at `/`.
@@ -273,7 +273,7 @@ Environment variables are set in the workflow file:
 
 ```yaml
 - name: Build with Next.js
-  run: npm run build
+  run: pnpm run build
   env:
     NEXT_PUBLIC_BASE_PATH: ''
 ```
@@ -338,9 +338,9 @@ NEXT_PUBLIC_CLARITY_PROJECT_ID=
 
 1. Run locally to reproduce:
    ```bash
-   npm run lint
-   npm test
-   npm run build
+   pnpm run lint
+   pnpm test
+   pnpm run build
    ```
 2. Fix any errors reported
 3. Commit and push fixes
@@ -391,10 +391,10 @@ To test the built site locally:
 
 ```bash
 # Build for production (apex domain)
-npm run build
+pnpm run build
 
 # Serve the built site
-npm run preview
+pnpm run preview
 
 # Open http://localhost:3000 in your browser
 ```
@@ -463,9 +463,9 @@ For critical issues requiring immediate rollback:
 
 Before merging to main (which triggers deployment):
 
-- [ ] All tests pass locally (`npm test` and `npm run test:e2e`)
-- [ ] Linting passes (`npm run lint`)
-- [ ] Build succeeds (`npm run build`)
+- [ ] All tests pass locally (`pnpm test` and `pnpm run test:e2e`)
+- [ ] Linting passes (`pnpm run lint`)
+- [ ] Build succeeds (`pnpm run build`)
 - [ ] Manual testing completed on localhost
 - [ ] Screenshots taken for UI changes
 - [ ] Documentation updated

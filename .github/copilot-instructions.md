@@ -15,24 +15,24 @@
 
 ### Local dev + pre-push checks
 
-- Install: `npm install`
-- Dev: `npm run dev`
-- Format (fix before pushing): `npm run format` (CI enforces `npm run format:check`).
-- Lint: `npm run lint` (some warnings are acceptable; don’t introduce new errors).
-- Unit tests: `npm test` (Jest, see `__tests__/`).
-- Build: `npm run build` (writes `out/`).
-- Preview: `npm run preview` (serves `out/` on port 3000).
-- E2E: `npm run test:e2e` (Playwright runs against `npm run preview`; see `playwright.config.ts`).
+- Install: `pnpm install`
+- Dev: `pnpm run dev`
+- Format (fix before pushing): `pnpm run format` (CI enforces `pnpm run format:check`).
+- Lint: `pnpm run lint` (some warnings are acceptable; don’t introduce new errors).
+- Unit tests: `pnpm test` (Jest, see `__tests__/`).
+- Build: `pnpm run build` (writes `out/`).
+- Preview: `pnpm run preview` (serves `out/` on port 3000).
+- E2E: `pnpm run test:e2e` (Playwright runs against `pnpm run preview`; see `playwright.config.ts`).
 
 ### Prevent common CI breaks (do this before pushing / merge-queue)
 
 - Run in this order:
-  1. `npm run format` (avoids CI `format:check` failures)
-  2. `npm run lint` (fix errors; don’t add new ones)
-  3. `npm test` (includes `jest-axe` accessibility checks; ARIA/name issues fail here - see `__tests__/components/*.test.tsx`)
-  4. `npm run build` (static export must succeed)
-  5. `npm run test:e2e` (Playwright runs against `npm run preview`)
-- If you’re working with a GitHub Pages basePath locally, match CI by running E2E with an empty basePath: `NEXT_PUBLIC_BASE_PATH='' npm run test:e2e`.
+  1. `pnpm run format` (avoids CI `format:check` failures)
+  2. `pnpm run lint` (fix errors; don’t add new ones)
+  3. `pnpm test` (includes `jest-axe` accessibility checks; ARIA/name issues fail here - see `__tests__/components/*.test.tsx`)
+  4. `pnpm run build` (static export must succeed)
+  5. `pnpm run test:e2e` (Playwright runs against `pnpm run preview`)
+- If you’re working with a GitHub Pages basePath locally, match CI by running E2E with an empty basePath: `NEXT_PUBLIC_BASE_PATH='' pnpm run test:e2e`.
 - When Copilot review flags ARIA/a11y issues, fix them immediately (typical fixes: `aria-label` on icon-only buttons, correct `role`/focus handling in dialogs, descriptive `alt` text). PR template has an Accessibility checklist in `.github/PULL_REQUEST_TEMPLATE.md`.
 
 ### GitHub Pages basePath + assets
@@ -49,13 +49,13 @@
 
 ### Known constraint: restricted network builds
 
-- `next/font/google` is used (`src/lib/fonts.ts`); restricted networks can break `npm run build` if `fonts.googleapis.com` is blocked.
+- `next/font/google` is used (`src/lib/fonts.ts`); restricted networks can break `pnpm run build` if `fonts.googleapis.com` is blocked.
 
 ### Intentional “inactive” feature
 
 # Preview built site
 
-npm run preview
+pnpm run preview
 
 # Visit http://localhost:3000
 
@@ -80,19 +80,19 @@ npm run preview
 
 ```bash
 # Build the site first
-npm run build
+pnpm run build
 
 # Install Playwright browsers (first time only)
-npx playwright install chromium
+pnpm exec playwright install chromium
 
 # Run all tests
-npm test
+pnpm test
 
 # Run tests in headed mode (to see browser)
-npm run test:headed
+pnpm run test:headed
 
 # Run tests with UI
-npm run test:ui
+pnpm run test:ui
 ````
 
 **Test Suites:**
@@ -105,13 +105,13 @@ To test the GitHub Pages deployment locally with basePath:
 
 ```bash
 # Build with basePath for GitHub Pages
-NEXT_PUBLIC_BASE_PATH=/<your-repo> npm run build
+NEXT_PUBLIC_BASE_PATH=/<your-repo> pnpm run build
 
 # Preview the site
-npm run preview
+pnpm run preview
 
 # Run tests (in another terminal)
-npm test
+pnpm test
 ```
 
 ### Pre-Commit Validation
@@ -119,8 +119,8 @@ npm test
 **ALWAYS run before committing changes:**
 
 ```bash
-npm run lint  # Fix any errors, warnings about img tags are expected
-npm test     # Run automated tests (requires build first)
+pnpm run lint  # Fix any errors, warnings about img tags are expected
+pnpm test     # Run automated tests (requires build first)
 ```
 
 ## Application Architecture
@@ -334,7 +334,7 @@ import { assetPath } from "../lib/assetPath";
 The site auto-deploys to GitHub Pages via `.github/workflows/deploy.yml` when pushed to main branch:
 
 1. Node.js 20 setup
-2. `npm ci` for clean install
+2. `pnpm install --frozen-lockfile` for clean install
 3. `NEXT_PUBLIC_BASE_PATH=/<repo-name>` is set for GitHub Pages deployment
 4. `next build` builds the site with proper basePath
 5. Playwright tests run to validate the build
@@ -349,7 +349,7 @@ The site auto-deploys to GitHub Pages via `.github/workflows/deploy.yml` when pu
 
 ### Google Fonts Build Failure
 
-- **Issue**: `npm run build` fails with "ENOTFOUND fonts.googleapis.com"
+- **Issue**: `pnpm run build` fails with "ENOTFOUND fonts.googleapis.com"
 - **Cause**: Network restrictions prevent Google Fonts access
 - **Workaround**: Temporarily comment out font imports in `src/app/layout.tsx`
 - **Files affected**: Lines 2, 9-12, 73 in `src/app/layout.tsx`
@@ -360,7 +360,7 @@ The project currently passes ESLint with **0 errors and 0 warnings**.
 
 As of v0.3.0, all previously-acceptable warnings (stale `@next/next/no-img-element` and React Hooks warnings from deleted FFC-era components) have been resolved by removing the legacy code.
 
-**Running `npm run lint` should produce a clean output.** If new warnings appear, fix them before pushing.
+**Running `pnpm run lint` should produce a clean output.** If new warnings appear, fix them before pushing.
 
 ## GitHub Community Health Files
 
@@ -416,26 +416,26 @@ When updating documentation:
 ```bash
 # Repository setup
 node --version        # Verify Node.js 20.x
-npm install          # 17 seconds
+pnpm install          # 17 seconds
 
 # Development
-npm run dev          # http://localhost:3000 (1 second startup)
-npm run lint         # 2 seconds, should be clean (0 warnings)
+pnpm run dev          # http://localhost:3000 (1 second startup)
+pnpm run lint         # 2 seconds, should be clean (0 warnings)
 
 # Testing
-npm test             # Run Jest unit tests (124 tests, 17 suites)
-npm run build        # Build first (required for E2E tests)
-npm run test:e2e     # Run Playwright E2E tests
-npm run test:e2e:headed  # Run Playwright in headed mode
-npm run test:e2e:ui      # Run Playwright with UI
+pnpm test             # Run Jest unit tests (124 tests, 17 suites)
+pnpm run build        # Build first (required for E2E tests)
+pnpm run test:e2e     # Run Playwright E2E tests
+pnpm run test:e2e:headed  # Run Playwright in headed mode
+pnpm run test:e2e:ui      # Run Playwright with UI
 
 # Production (requires font workaround)
-npm run build        # 20 seconds when fonts disabled
-npm run preview      # http://localhost:3000
+pnpm run build        # 20 seconds when fonts disabled
+pnpm run preview      # http://localhost:3000
 
 # Test GitHub Pages deployment locally
-NEXT_PUBLIC_BASE_PATH=/<your-repo> npm run build
-npm run preview      # Test with basePath
+NEXT_PUBLIC_BASE_PATH=/<your-repo> pnpm run build
+pnpm run preview      # Test with basePath
 
 # File structure overview
 ls -la src/app/      # Main application code
@@ -449,7 +449,7 @@ ls -la .github/      # GitHub workflows and configs
 ### Build Failures
 
 1. **Google Fonts error**: Apply font workaround in `layout.tsx`
-2. **TypeScript errors**: Run `npm run lint` to identify issues
+2. **TypeScript errors**: Run `pnpm run lint` to identify issues
 3. **Network timeouts**: Increase timeout values as specified above
 
 ### Development Server Issues

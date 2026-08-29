@@ -77,7 +77,7 @@ Three custom fonts are loaded via Next.js font optimization:
 
 ```bash
 # Development server
-npm run dev
+pnpm run dev
 
 # Navigate to http://localhost:3000/tabs-presentation
 ```
@@ -86,10 +86,10 @@ npm run dev
 
 ```bash
 # Production build
-npm run build
+pnpm run build
 
 # Preview production build
-npm run preview
+pnpm run preview
 
 # Navigate to http://localhost:3000/tabs-presentation
 ```

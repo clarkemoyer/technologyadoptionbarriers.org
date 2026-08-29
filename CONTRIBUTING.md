@@ -394,7 +394,7 @@ Starting your contribution journey with a fresh review:
 4. **Install dependencies**:
 
    ```bash
-   npm install
+   pnpm install
    ```
 
    **Note:** This command also sets up Git hooks (via Husky) that will automatically format your code before commits.
@@ -402,7 +402,7 @@ Starting your contribution journey with a fresh review:
 5. **Start the development server**:
 
    ```bash
-   npm run dev
+   pnpm run dev
    ```
 
    Visit http://localhost:3000 to see the site running locally.
@@ -413,16 +413,16 @@ Run the following commands to ensure everything is working:
 
 ```bash
 # Run linting
-npm run lint
+pnpm run lint
 
 # Run unit tests
-npm test
+pnpm test
 
 # Build the project
-npm run build
+pnpm run build
 
 # Run E2E tests (requires build first)
-npm run test:e2e
+pnpm run test:e2e
 ```
 
 ---
@@ -456,10 +456,10 @@ Branch naming conventions:
 2. **Test your changes** locally:
 
    ```bash
-   npm run lint        # Check for linting errors
-   npm test           # Run unit tests
-   npm run build      # Ensure it builds successfully
-   npm run test:e2e   # Run E2E tests
+   pnpm run lint        # Check for linting errors
+   pnpm test           # Run unit tests
+   pnpm run build      # Ensure it builds successfully
+   pnpm run test:e2e   # Run E2E tests
    ```
 
 3. **Commit your changes** with clear, descriptive messages (see [Commit Message Guidelines](#commit-message-guidelines))
@@ -477,9 +477,9 @@ Before submitting a pull request:
 1. **Run all tests**:
 
    ```bash
-   npm test              # Unit tests
-   npm run test:coverage # Check test coverage
-   npm run test:e2e     # E2E tests
+   pnpm test              # Unit tests
+   pnpm run test:coverage # Check test coverage
+   pnpm run test:e2e     # E2E tests
    ```
 
 2. **Test manually**:
@@ -490,8 +490,8 @@ Before submitting a pull request:
 
 3. **Verify the build**:
    ```bash
-   npm run build
-   npm run preview
+   pnpm run build
+   pnpm run preview
    ```
 
 ---
@@ -676,13 +676,13 @@ git commit -m "feat: implement user authentication
 ```bash
 # The pre-commit hook will have already formatted your code
 # You only need to fix linting errors if they occur
-npm run lint
+pnpm run lint
 
 # To bypass hooks (NOT RECOMMENDED - only for emergencies)
 git commit --no-verify -m "your message"
 ```
 
-**Note**: Husky git hooks are automatically installed when you run `npm install`.
+**Note**: Husky git hooks are automatically installed when you run `pnpm install`.
 
 ---
 
@@ -693,9 +693,9 @@ git commit --no-verify -m "your message"
 1. **Ensure all tests pass**:
 
    ```bash
-   npm run lint
-   npm test
-   npm run test:e2e
+   pnpm run lint
+   pnpm test
+   pnpm run test:e2e
    ```
 
 2. **Update documentation** if needed:
@@ -706,8 +706,8 @@ git commit --no-verify -m "your message"
 3. **Verify the build works**:
 
    ```bash
-   npm run build
-   npm run preview
+   pnpm run build
+   pnpm run preview
    ```
 
 4. **Commit all changes** with proper commit messages

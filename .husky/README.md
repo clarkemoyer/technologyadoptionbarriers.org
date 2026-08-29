@@ -11,7 +11,7 @@ This directory contains Git hooks managed by [Husky](https://typicode.github.io/
 **What it does**:
 
 1. **Identifies the list of staged files using `git diff`** before formatting (including renamed files)
-2. **Runs Prettier** via `npm run format` (which executes `prettier --write .`) to auto-format **all files in the repository** according to `.prettierrc.json`
+2. **Runs Prettier** via `pnpm run format` (which executes `prettier --write .`) to auto-format **all files in the repository** according to `.prettierrc.json`
 3. **Re-stages only the files that were originally staged** before formatting (so your commit contents stay scoped to what you staged)
 4. **Runs ESLint** to check for code quality issues
 5. **Blocks the commit** if linting errors are found
@@ -74,7 +74,7 @@ git commit -m "docs: update README with deployment instructions"
 Git hooks are automatically installed when you run:
 
 ```bash
-npm install
+pnpm install
 ```
 
 This triggers the `prepare` script in `package.json`, which runs `husky` to set up the hooks.
@@ -95,7 +95,7 @@ If git hooks aren't running:
 2. **Reinstall hooks**:
 
    ```bash
-   npm run prepare
+   pnpm run prepare
    ```
 
 3. **Check file permissions**:
@@ -125,10 +125,10 @@ Bypassing hooks means:
 
 While git hooks provide local enforcement, the CI pipeline also enforces these standards:
 
-1. **Formatting check** (`npm run format:check`) in `.github/workflows/ci.yml`
-2. **Linting** (`npm run lint`) in CI
-3. **Tests** (`npm test`) in CI
-4. **Build verification** (`npm run build`) in CI
+1. **Formatting check** (`pnpm run format:check`) in `.github/workflows/ci.yml`
+2. **Linting** (`pnpm run lint`) in CI
+3. **Tests** (`pnpm test`) in CI
+4. **Build verification** (`pnpm run build`) in CI
 
 The pre-commit hook ensures code is formatted before it even reaches CI, saving time and CI minutes.
 

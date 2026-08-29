@@ -37,31 +37,34 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v7
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
           node-version: '20'
-          cache: 'npm'
+          cache: 'pnpm'
 
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
       - name: Check formatting
-        run: npm run format:check
+        run: pnpm run format:check
 
       - name: Run linting
-        run: npm run lint
+        run: pnpm run lint
 
       - name: Validate data schemas
-        run: npm run validate:data
+        run: pnpm run validate:data
 
       - name: Run unit tests
-        run: npm test
+        run: pnpm test
         env:
           CI: true
 
       - name: Build Next.js site
-        run: npm run build
+        run: pnpm run build
         env:
           NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID: ${{ vars.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID }}
         # Note: Do NOT set NEXT_PUBLIC_BASE_PATH here
@@ -100,14 +103,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v7
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
           node-version: '20'
-          cache: 'npm'
+          cache: 'pnpm'
 
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
       - name: Download built site
         uses: actions/download-artifact@v8
@@ -116,7 +122,7 @@ jobs:
           path: out/
 
       - name: Install Playwright browsers
-        run: npx playwright install --with-deps chromium
+        run: pnpm exec playwright install --with-deps chromium
 
       - name: Diagnostic - base path env
         run: |
@@ -124,7 +130,7 @@ jobs:
           echo "CI=${CI:-<unset>}"
 
       - name: Run E2E tests (sharded)
-        run: npm run test:e2e -- --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }} --workers=1 --reporter=line,html
+        run: pnpm run test:e2e -- --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }} --workers=1 --reporter=line,html
         env:
           CI: true
           # Keep Playwright baseURL consistent with the build job (which does not set basePath)

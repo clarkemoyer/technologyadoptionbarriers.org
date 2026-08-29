@@ -390,7 +390,7 @@ After content migration:
 - [ ] **Links:** Test all internal and external links
 - [ ] **Images:** Verify all images display correctly
 - [ ] **Responsive Design:** Test on mobile, tablet, and desktop
-- [ ] **Accessibility:** Run accessibility audit (npm test)
+- [ ] **Accessibility:** Run accessibility audit (pnpm test)
 - [ ] **Performance:** Run Lighthouse audit
 - [ ] **SEO:** Verify metadata, titles, descriptions
 - [ ] **Cross-browser:** Test on Chrome, Firefox, Safari, Edge

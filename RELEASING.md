@@ -17,7 +17,7 @@ It leaves the narrative sections (Main Summary, User Facing Changes, etc.) as pl
 Generate notes for a patch release since the last tag:
 
 ```bash
-npm run release:notes -- --from v0.2.0 --tag v0.2.1 --issue 159 --out tmp_release_notes_v0.2.1_generated.md
+pnpm run release:notes -- --from v0.2.0 --tag v0.2.1 --issue 159 --out tmp_release_notes_v0.2.1_generated.md
 ```
 
 Then edit `tmp_release_notes_v0.2.1_generated.md` to fill in:

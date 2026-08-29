@@ -27,8 +27,8 @@ jobs:
             Instructions:
             - Follow the project CLAUDE.md conventions
             - Use kebab-case for folders, assetPath() for images
-            - Run npm run format before committing
-            - Run npm run lint and fix errors
+            - Run pnpm run format before committing
+            - Run pnpm run lint and fix errors
             - Use conventional commit messages (feat:, fix:, docs:, chore:)
             - Create a PR targeting main
           jules_api_key: ${{ secrets.GOOGLE_JULES_API_KEY }}

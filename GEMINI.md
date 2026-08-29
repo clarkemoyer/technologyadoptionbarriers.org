@@ -34,11 +34,11 @@ Apply these strengths to make meaningful contributions!
 Run these commands **in this exact order** before every commit:
 
 ```bash
-npm run format      # Fix code formatting automatically
-npm run lint        # Check for code errors
-npm test            # Run unit tests + accessibility checks
-npm run build       # Build the static site
-npm run test:e2e    # Run end-to-end tests
+pnpm run format      # Fix code formatting automatically
+pnpm run lint        # Check for code errors
+pnpm test            # Run unit tests + accessibility checks
+pnpm run build       # Build the static site
+pnpm run test:e2e    # Run end-to-end tests
 ```
 
 If **any** of these fail, fix the issue before pushing. CI will reject your PR otherwise.
@@ -100,10 +100,10 @@ All changes go through Pull Requests with automated code review:
 # Clone and install
 git clone https://github.com/clarkemoyer/technologyadoptionbarriers.org.git
 cd technologyadoptionbarriers.org
-npm install
+pnpm install
 
 # Start development server
-npm run dev
+pnpm run dev
 # Visit http://localhost:3000
 ```
 
@@ -299,7 +299,7 @@ The project uses **jest-axe** to catch accessibility issues. Common problems and
 
 ### Issue 1: Expected ESLint Warnings
 
-When you run `npm run lint`, you'll see warnings like:
+When you run `pnpm run lint`, you'll see warnings like:
 
 ```
 ⚠ @next/next/no-img-element (6 warnings)
@@ -316,7 +316,7 @@ When you run `npm run lint`, you'll see warnings like:
 
 ### Issue 2: Google Fonts Build Failures
 
-On restricted networks, `npm run build` might fail with:
+On restricted networks, `pnpm run build` might fail with:
 
 ```
 ENOTFOUND fonts.googleapis.com
@@ -378,16 +378,16 @@ test: add E2E tests for donation flow
 
 When you push, GitHub Actions automatically runs:
 
-| Check              | Command                | Must Pass?           |
-| ------------------ | ---------------------- | -------------------- |
-| Formatting         | `npm run format:check` | ✅ Yes               |
-| Linting            | `npm run lint`         | ✅ Yes (errors only) |
-| Unit Tests         | `npm test`             | ✅ Yes               |
-| Build              | `npm run build`        | ✅ Yes               |
-| E2E Tests          | `npm run test:e2e`     | ✅ Yes               |
-| Security Scan      | CodeQL                 | ✅ Yes               |
-| Performance        | Lighthouse             | ⚠️ Advisory          |
-| **Copilot Review** | Automatic              | ⚠️ Address comments  |
+| Check              | Command                 | Must Pass?           |
+| ------------------ | ----------------------- | -------------------- |
+| Formatting         | `pnpm run format:check` | ✅ Yes               |
+| Linting            | `pnpm run lint`         | ✅ Yes (errors only) |
+| Unit Tests         | `pnpm test`             | ✅ Yes               |
+| Build              | `pnpm run build`        | ✅ Yes               |
+| E2E Tests          | `pnpm run test:e2e`     | ✅ Yes               |
+| Security Scan      | CodeQL                  | ✅ Yes               |
+| Performance        | Lighthouse              | ⚠️ Advisory          |
+| **Copilot Review** | Automatic               | ⚠️ Address comments  |
 
 **All checks must pass and reviews must be addressed** before your PR can merge.
 
@@ -410,9 +410,9 @@ When you push, GitHub Actions automatically runs:
 **Automatic deployment** on merge to `main`:
 
 1. GitHub Actions triggers `.github/workflows/deploy.yml`
-2. Installs dependencies with `npm ci`
+2. Installs dependencies with `pnpm install --frozen-lockfile`
 3. Sets `NEXT_PUBLIC_BASE_PATH` for GitHub Pages
-4. Builds static site with `npm run build`
+4. Builds static site with `pnpm run build`
 5. Runs Playwright tests to validate build
 6. Deploys `./out` directory to GitHub Pages
 7. Site updates at both:
@@ -428,7 +428,7 @@ No manual intervention needed!
 Check build output for large dependencies:
 
 ```bash
-npm run build
+pnpm run build
 # Look for "First Load JS" sizes in output
 ```
 
@@ -461,7 +461,7 @@ Before submitting a PR with UI changes:
 - [ ] Color contrast meets WCAG AA (4.5:1 for text)
 - [ ] Keyboard navigation works (test with Tab key)
 - [ ] Screen reader compatible (test with NVDA/VoiceOver if possible)
-- [ ] No accessibility violations in `npm test`
+- [ ] No accessibility violations in `pnpm test`
 
 ## Helpful Resources
 
@@ -504,11 +504,11 @@ Before submitting a PR with UI changes:
 
 ### Before Committing
 
-- [ ] `npm run format` - ✅ Auto-fix formatting
-- [ ] `npm run lint` - ✅ Fix any new errors
-- [ ] `npm test` - ✅ All tests pass (including jest-axe)
-- [ ] `npm run build` - ✅ Static export succeeds
-- [ ] `npm run test:e2e` - ✅ E2E tests pass
+- [ ] `pnpm run format` - ✅ Auto-fix formatting
+- [ ] `pnpm run lint` - ✅ Fix any new errors
+- [ ] `pnpm test` - ✅ All tests pass (including jest-axe)
+- [ ] `pnpm run build` - ✅ Static export succeeds
+- [ ] `pnpm run test:e2e` - ✅ E2E tests pass
 - [ ] Review your git diff - ✅ Changes look correct
 
 ### Opening Your PR
@@ -572,9 +572,9 @@ Before submitting a PR with UI changes:
 
 ```bash
 # Development commands
-npm run dev              # Start dev server, see live output
-npm test                 # Run tests with detailed results
-npm run build            # Build and check for issues
+pnpm run dev              # Start dev server, see live output
+pnpm test                 # Run tests with detailed results
+pnpm run build            # Build and check for issues
 
 # Git commands
 git status               # Check what changed
@@ -872,14 +872,14 @@ Questions or feedback on these instructions? Open an issue or contact the mainta
 **Quick command reference:**
 
 ```bash
-npm install          # Install dependencies
-npm run dev          # Start dev server (http://localhost:3000)
-npm run format       # Fix formatting
-npm run lint         # Check for errors
-npm test             # Run unit tests
-npm run build        # Build static site
-npm run test:e2e     # Run E2E tests
-npm run preview      # Preview production build
+pnpm install          # Install dependencies
+pnpm run dev          # Start dev server (http://localhost:3000)
+pnpm run format       # Fix formatting
+pnpm run lint         # Check for errors
+pnpm test             # Run unit tests
+pnpm run build        # Build static site
+pnpm run test:e2e     # Run E2E tests
+pnpm run preview      # Preview production build
 ```
 
 Ready to contribute? Create a branch and start coding! 🚀

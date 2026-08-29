@@ -32,11 +32,11 @@ Leverage these strengths when working on TABS!
 **Run these in order before every commit:**
 
 ```bash
-npm run format      # Auto-fix formatting (Prettier)
-npm run lint        # Check for errors (some warnings OK)
-npm test            # Unit tests + accessibility (jest-axe)
-npm run build       # Ensure static export works
-npm run test:e2e    # Playwright E2E tests
+pnpm run format      # Auto-fix formatting (Prettier)
+pnpm run lint        # Check for errors (some warnings OK)
+pnpm test            # Unit tests + accessibility (jest-axe)
+pnpm run build       # Ensure static export works
+pnpm run test:e2e    # Playwright E2E tests
 ```
 
 **If any of these fail**, fix the issues before pushing. CI will reject PRs that don't pass these checks.
@@ -283,7 +283,7 @@ You'll see these warnings - **they're acceptable**:
 
 ### 2. Google Fonts Network Issue
 
-On restricted networks, `npm run build` may fail with:
+On restricted networks, `pnpm run build` may fail with:
 
 ```
 ENOTFOUND fonts.googleapis.com
@@ -306,16 +306,16 @@ Because we use `output: 'export'`:
 
 **During development:**
 
-1. `npm run format` - Auto-fix formatting
-2. `npm run lint` - Check for new errors
-3. `npm test` - Run unit tests (fast feedback)
+1. `pnpm run format` - Auto-fix formatting
+2. `pnpm run lint` - Check for new errors
+3. `pnpm test` - Run unit tests (fast feedback)
 
-**Before committing:** 4. `npm run build` - Ensure static export works 5. `npm run test:e2e` - Full E2E validation
+**Before committing:** 4. `pnpm run build` - Ensure static export works 5. `pnpm run test:e2e` - Full E2E validation
 
 **GitHub Pages basePath testing:**
 
 ```bash
-NEXT_PUBLIC_BASE_PATH='' npm run test:e2e
+NEXT_PUBLIC_BASE_PATH='' pnpm run test:e2e
 ```
 
 This tests the empty basePath scenario (custom domain deployment).
@@ -324,7 +324,7 @@ This tests the empty basePath scenario (custom domain deployment).
 
 When reviewing your own code before committing:
 
-1. **Accessibility**: Run `npm test` - jest-axe will catch ARIA issues
+1. **Accessibility**: Run `pnpm test` - jest-axe will catch ARIA issues
 2. **TypeScript**: No `any` types unless absolutely necessary
 3. **Mobile-first**: Check responsive design at different breakpoints
 4. **Naming**: All folders use kebab-case (not camelCase or PascalCase)
@@ -335,11 +335,11 @@ When reviewing your own code before committing:
 
 When you push to a PR, GitHub Actions runs:
 
-1. **Format check**: `npm run format:check` (must pass)
-2. **Lint**: `npm run lint` (errors must be fixed)
-3. **Unit tests**: `npm test` (including jest-axe)
-4. **Build**: `npm run build` (must succeed)
-5. **E2E tests**: `npm run test:e2e` (must pass)
+1. **Format check**: `pnpm run format:check` (must pass)
+2. **Lint**: `pnpm run lint` (errors must be fixed)
+3. **Unit tests**: `pnpm test` (including jest-axe)
+4. **Build**: `pnpm run build` (must succeed)
+5. **E2E tests**: `pnpm run test:e2e` (must pass)
 6. **CodeQL**: Security scanning
 7. **Lighthouse**: Performance monitoring
 8. **Copilot Code Review**: Automatically triggered when PR is marked ready for review
@@ -373,7 +373,7 @@ If you can't use the composite action, add these steps before any commit-creatin
     node-version: '20'
     cache: 'npm'
 - name: Install dependencies
-  run: npm ci --ignore-scripts
+  run: pnpm install --frozen-lockfile --ignore-scripts
 - name: Format files
   run: npx prettier --write <files>
 ```
@@ -509,9 +509,9 @@ As an IDE-integrated agent, **you have terminal/CLI access** that cloud agents d
 
 ```bash
 # Development workflow
-npm run dev              # Start dev server
-npm test                 # Run tests with output
-npm run build            # Build and see detailed output
+pnpm run dev              # Start dev server
+pnpm test                 # Run tests with output
+pnpm run build            # Build and see detailed output
 
 # Git operations
 git status               # Check working tree
@@ -1081,7 +1081,7 @@ Project-level hooks in `.claude/settings.json`:
 | ------------- | ------------- | --------------------------------- |
 | `PostToolUse` | `Write\|Edit` | Auto-run Prettier on edited files |
 
-Hooks run automatically - no approval needed. They ensure formatting compliance without manual `npm run format`.
+Hooks run automatically - no approval needed. They ensure formatting compliance without manual `pnpm run format`.
 
 ### Available Hook Events
 
@@ -1218,11 +1218,11 @@ While coding:
 
 Before committing:
 
-- [ ] Run `npm run format`
-- [ ] Run `npm run lint` (fix errors)
-- [ ] Run `npm test` (all pass, including accessibility)
-- [ ] Run `npm run build` (succeeds)
-- [ ] Run `npm run test:e2e` (all pass)
+- [ ] Run `pnpm run format`
+- [ ] Run `pnpm run lint` (fix errors)
+- [ ] Run `pnpm test` (all pass, including accessibility)
+- [ ] Run `pnpm run build` (succeeds)
+- [ ] Run `pnpm run test:e2e` (all pass)
 - [ ] Review your own changes in git diff
 
 When opening PR:

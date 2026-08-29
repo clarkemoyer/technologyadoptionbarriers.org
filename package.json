@@ -2,11 +2,12 @@
   "name": "technologyadoptionbarriers-org",
   "version": "0.6.0",
   "private": true,
+  "packageManager": "pnpm@10.34.5",
   "scripts": {
     "dev": "next dev --turbopack",
     "prebuild": "tsx scripts/generate-search-index.ts",
     "build": "cross-env NODE_OPTIONS=\"--max-old-space-size=4096\" next build",
-    "preview": "npx serve out -l 3000",
+    "preview": "pnpm exec serve out -l 3000",
     "lint": "eslint",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
@@ -32,7 +33,7 @@
     "googleapis": "^173.0.0",
     "lightningcss": "^1.32.0",
     "lucide-react": "^1.22.0",
-    "next": "^16.2.9",
+    "next": "~16.2.11",
     "nodemailer": "^9.0.1",
     "postcss": "^8.5.16",
     "react": "19.2.7",
@@ -71,20 +72,22 @@
     "jest-environment-jsdom": "^30.4.1",
     "linkinator": "^7.6.1",
     "prettier": "^3.9.1",
+    "serve": "^14.2.6",
     "tailwindcss": "^4.1.12",
     "tsx": "^4.22.4",
     "typescript": "^6.0.3"
   },
-  "overrides": {
-    "tmp": "^0.2.7",
-    "exceljs": {
-      "uuid": "^14.0.0"
-    },
-    "@lhci/cli": {
-      "uuid": "^14.0.0"
-    },
-    "next": {
-      "postcss": "$postcss"
+  "pnpm": {
+    "overrides": {
+      "tmp": "^0.2.7",
+      "exceljs>uuid": "^14.0.0",
+      "@lhci/cli>uuid": "^14.0.0",
+      "next>postcss": "$postcss",
+      "nanoid@<3.3.18": "^3.3.18",
+      "postcss@<8.5.18": ">=8.5.18",
+      "sharp": "^0.35.3",
+      "protobufjs@<7.6.1": "^7.6.1",
+      "brace-expansion@5": ">=5.0.9"
     }
   }
 }

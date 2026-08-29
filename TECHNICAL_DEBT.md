@@ -31,7 +31,7 @@ This document tracks technical debt items that:
 - Require monitoring and eventual resolution
 - Are acceptable tradeoffs for now but not ideal long-term
 
-**Current Technical Debt Count:** 0 ESLint warnings + 41 npm audit vulnerabilities (dev-only, see below)
+**Current Technical Debt Count:** 0 ESLint warnings + 41 pnpm audit vulnerabilities (dev-only, see below)
 
 **Recent Progress:**
 
@@ -45,7 +45,7 @@ This document tracks technical debt items that:
 
 ### Summary
 
-As of v0.3.1, the project produces **0 ESLint errors and 0 warnings**. Running `npm run lint` outputs a clean result.
+As of v0.3.1, the project produces **0 ESLint errors and 0 warnings**. Running `pnpm run lint` outputs a clean result.
 
 ### Previously Resolved Issues
 
@@ -73,7 +73,7 @@ The project uses `<img>` tags with the `assetPath()` helper instead of Next.js `
 
 ### Current Status (February 2026)
 
-The project has **41 vulnerabilities** (5 moderate, 36 high) identified by `npm audit`. All are in **development-only dependencies** - none affect the production static site.
+The project has **41 vulnerabilities** (5 moderate, 36 high) identified by `pnpm audit`. All are in **development-only dependencies** - none affect the production static site.
 
 #### 1. ESLint / TypeScript-ESLint Dependency Chain (36 high, 5 moderate)
 
@@ -88,13 +88,13 @@ The project has **41 vulnerabilities** (5 moderate, 36 high) identified by `npm 
 **Impact:**
 
 - **Development only** - these packages are dev dependencies (linting, testing)
-- **No production impact** - not included in `npm run build` output
+- **No production impact** - not included in `pnpm run build` output
 - **Limited risk** - ReDoS requires crafted input patterns, not user-facing
 
 **Available Fixes:**
 
-- `npm audit fix` resolves `@isaacs/brace-expansion` safely
-- `npm audit fix --force` would downgrade `eslint` to 4.x (breaking - not viable)
+- `pnpm audit fix` resolves `@isaacs/brace-expansion` safely
+- `pnpm audit fix --force` would downgrade `eslint` to 4.x (breaking - not viable)
 - Wait for `eslint-config-next` and `typescript-eslint` to update their dependency ranges
 
 **Current Decision:** Monitor via Dependabot. The ESLint ecosystem will resolve these as packages adopt `ajv` 8.18+ and `minimatch` 10.2.1+.
@@ -131,16 +131,16 @@ The project has **41 vulnerabilities** (5 moderate, 36 high) identified by `npm 
 
 ```bash
 # Check for vulnerabilities
-npm audit
+pnpm audit
 
 # View details
-npm audit --json
+pnpm audit --json
 
 # Attempt automatic fix (use with caution)
-npm audit fix
+pnpm audit fix
 
 # Fix including breaking changes (test thoroughly first!)
-npm audit fix --force
+pnpm audit fix --force
 ```
 
 **Response Protocol:**
@@ -197,7 +197,7 @@ These are internal code quality improvements that don't affect user experience:
 
 - **TypeScript Strict Mode**: Enable additional strict flags for better type safety
 - **Import Organization**: Add eslint-plugin-import for consistent import sorting
-- **npm audit CI Integration**: Add automated npm audit checks with failure threshold
+- **pnpm audit CI Integration**: Add automated pnpm audit checks with failure threshold
 
 **Priority:** Low  
 **Impact:** Improves code maintainability and catches bugs earlier
@@ -353,7 +353,7 @@ These architectural patterns are not needed for this static site:
 **Immediate (Next Sprint):**
 
 - [ ] Monitor ESLint/ajv/minimatch vulnerability chain for upstream fixes
-- [ ] Run `npm audit fix` to resolve `@isaacs/brace-expansion` safely
+- [ ] Run `pnpm audit fix` to resolve `@isaacs/brace-expansion` safely
 - [ ] Re-enable ImpactCounter component or replace with static rendering
 
 **Short Term (Next Quarter):**
