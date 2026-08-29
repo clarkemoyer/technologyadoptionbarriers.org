@@ -31,7 +31,7 @@ This document tracks technical debt items that:
 - Require monitoring and eventual resolution
 - Are acceptable tradeoffs for now but not ideal long-term
 
-**Current Technical Debt Count:** 0 ESLint warnings + 41 pnpm audit vulnerabilities (dev-only, see below)
+**Current Technical Debt Count:** 0 ESLint warnings + 41 audit vulnerabilities (dev-only, measured with `npm audit` before the pnpm migration; see below)
 
 **Recent Progress:**
 
@@ -73,7 +73,7 @@ The project uses `<img>` tags with the `assetPath()` helper instead of Next.js `
 
 ### Current Status (February 2026)
 
-The project has **41 vulnerabilities** (5 moderate, 36 high) identified by `pnpm audit`. All are in **development-only dependencies** - none affect the production static site.
+The project has **41 vulnerabilities** (5 moderate, 36 high) identified by `npm audit` at the time of this snapshot (the repo has since migrated to pnpm; re-measure with `pnpm audit`). All are in **development-only dependencies** - none affect the production static site.
 
 #### 1. ESLint / TypeScript-ESLint Dependency Chain (36 high, 5 moderate)
 

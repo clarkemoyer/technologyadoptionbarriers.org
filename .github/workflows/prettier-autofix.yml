@@ -10,7 +10,7 @@ name: Prettier Auto-fix
 # - pnpm install --frozen-lockfile --ignore-scripts prevents npm lifecycle scripts (preinstall,
 #   postinstall, etc.) from running during install. Note that pnpm exec prettier
 #   still executes code from the dependency versions defined by the PR
-#   branch's package-lock.json - this is acceptable because the same-repo
+#   branch's pnpm-lock.yaml - this is acceptable because the same-repo
 #   check limits exposure to branches within the repository.
 
 on:
