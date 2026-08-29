@@ -197,7 +197,7 @@ To audit specific pages only:
 ```bash
 # Edit lighthouserc.json to include only the pages you want
 # Then run
-lhci autorun
+pnpm exec lhci autorun
 ```
 
 ### Using Chrome DevTools
@@ -350,7 +350,7 @@ Before making image optimizations, run Lighthouse to establish a baseline:
 
 ```bash
 pnpm run build
-lhci autorun
+pnpm exec lhci autorun
 ```
 
 Check the "Opportunities" section in the report for:
