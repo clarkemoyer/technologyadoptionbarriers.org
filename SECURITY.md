@@ -452,11 +452,12 @@ pnpm audit
 # View detailed vulnerability information
 pnpm audit --json
 
-# Automatically fix vulnerabilities (use with caution)
-pnpm audit fix
+# Automatically add overrides for vulnerable versions (use with caution;
+# pnpm has no --force mode — --fix writes overrides to package.json)
+pnpm audit --fix
 
-# Fix including breaking changes (⚠️ WARNING: Test thoroughly in development first!)
-pnpm audit fix --force
+# Review the added overrides, then apply them
+pnpm install
 ```
 
 **Important**: Always test security updates thoroughly before deploying to production:

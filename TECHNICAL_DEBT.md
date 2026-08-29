@@ -93,8 +93,8 @@ The project has **41 vulnerabilities** (5 moderate, 36 high) identified by `npm 
 
 **Available Fixes:**
 
-- `pnpm audit fix` resolves `@isaacs/brace-expansion` safely
-- `pnpm audit fix --force` would downgrade `eslint` to 4.x (breaking - not viable)
+- `pnpm audit --fix` resolves `@isaacs/brace-expansion` safely
+- `pnpm audit --fix` would downgrade `eslint` to 4.x (breaking - not viable)
 - Wait for `eslint-config-next` and `typescript-eslint` to update their dependency ranges
 
 **Current Decision:** Monitor via Dependabot. The ESLint ecosystem will resolve these as packages adopt `ajv` 8.18+ and `minimatch` 10.2.1+.
@@ -136,11 +136,11 @@ pnpm audit
 # View details
 pnpm audit --json
 
-# Attempt automatic fix (use with caution)
-pnpm audit fix
+# Attempt automatic fix — writes overrides to package.json (use with caution)
+pnpm audit --fix
 
-# Fix including breaking changes (test thoroughly first!)
-pnpm audit fix --force
+# Review the added overrides, then apply them
+pnpm install
 ```
 
 **Response Protocol:**
@@ -353,7 +353,7 @@ These architectural patterns are not needed for this static site:
 **Immediate (Next Sprint):**
 
 - [ ] Monitor ESLint/ajv/minimatch vulnerability chain for upstream fixes
-- [ ] Run `pnpm audit fix` to resolve `@isaacs/brace-expansion` safely
+- [ ] Run `pnpm audit --fix` to resolve `@isaacs/brace-expansion` safely
 - [ ] Re-enable ImpactCounter component or replace with static rendering
 
 **Short Term (Next Quarter):**

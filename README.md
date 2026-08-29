@@ -449,7 +449,7 @@ As of website release v0.3.0 (a Git tag / GitHub Release, separate from the `pac
 - ⚠️ **Known Issues**: As of December 2025, there are 4 low severity vulnerabilities
   - Low: tmp package vulnerabilities affecting Lighthouse CI dev dependency only
   - Impact: Limited to development environment, does not affect production site
-  - Fix available via `pnpm audit fix --force` (may involve breaking changes)
+  - Fix available via `pnpm audit --fix` (may involve breaking changes)
   - These are being monitored and will be addressed through regular Dependabot updates
   - See [TECHNICAL_DEBT.md](./TECHNICAL_DEBT.md) for tracking and prioritization
   - See [SECURITY.md](./SECURITY.md) for detailed information and mitigation steps
