@@ -130,7 +130,7 @@ jobs:
           echo "CI=${CI:-<unset>}"
 
       - name: Run E2E tests (sharded)
-        run: pnpm run test:e2e -- --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }} --workers=1 --reporter=line,html
+        run: pnpm run test:e2e --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }} --workers=1 --reporter=line,html
         env:
           CI: true
           # Keep Playwright baseURL consistent with the build job (which does not set basePath)

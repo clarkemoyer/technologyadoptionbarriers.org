@@ -185,11 +185,9 @@ For local testing, you can use the checked-in `lighthouserc.json` file which con
 # Build the site
 pnpm run build
 
-# Install Lighthouse CI globally (if not already installed)
-pnpm add -g @lhci/cli
-
-# Run Lighthouse CI
-lhci autorun
+# @lhci/cli is a devDependency — run the locally installed copy
+# (a global install would also require PNPM_HOME on PATH)
+pnpm exec lhci autorun
 ```
 
 ### Running on Specific Pages
