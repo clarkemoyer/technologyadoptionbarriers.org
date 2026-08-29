@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-08-28T14:44:36.932930+00:00",
-  "last_updated": "2026-08-28T14:44:36.932934+00:00",
+  "updatedAt": "2026-08-29T10:46:19.057834+00:00",
+  "last_updated": "2026-08-29T10:46:19.057836+00:00",
   "study": {
     "id": "69c17630acada6abeead2da5",
     "name": "Technology Adoption Barriers Survey (2026)",
@@ -15,8 +15,8 @@
   "completionProgress": {
     "target": 500,
     "completed": 483,
-    "approved": 480,
-    "awaitingReview": 3,
+    "approved": 481,
+    "awaitingReview": 2,
     "percentComplete": 96.6
   },
   "totalResponses": 893,
@@ -54,9 +54,9 @@
       "APPROVED": 10
     },
     "FLAG-PARTIAL-STRAIGHTLINING": {
-      "APPROVED": 56,
+      "APPROVED": 57,
       "RETURNED": 9,
-      "AWAITING REVIEW": 2
+      "AWAITING REVIEW": 1
     },
     "FLAG-SINGLE-IRI": {
       "RETURNED": 30,
@@ -84,11 +84,11 @@
     "SPEED_IRI": 20
   },
   "actions": {
-    "approved": 480,
+    "approved": 481,
     "rejected": 54,
     "returned": 346,
     "timedOut": 10,
-    "awaitingReview": 3,
+    "awaitingReview": 2,
     "active": 0,
     "messaged": 0
   },
@@ -100,9 +100,9 @@
   },
   "autoApproveRunway": {
     "thresholdDays": 21,
-    "computedAt": "2026-08-28T14:44:36.932780+00:00",
-    "totalAwaitingReview": 3,
-    "evaluatedCount": 3,
+    "computedAt": "2026-08-29T10:46:19.057704+00:00",
+    "totalAwaitingReview": 2,
+    "evaluatedCount": 2,
     "skippedMissingCompletedAt": 0,
     "buckets": [
       {
@@ -131,18 +131,14 @@
         "risk": "high",
         "minDaysRemaining": null,
         "maxDaysRemainingExclusive": 2.0,
-        "count": 1
+        "count": 0
       }
     ],
-    "highRiskCount": 1,
-    "highRiskByDisposition": {
-      "FLAG-PARTIAL-STRAIGHTLINING": 1
-    }
+    "highRiskCount": 0,
+    "highRiskByDisposition": {}
   },
-  "highRiskCount": 1,
-  "highRiskByDisposition": {
-    "FLAG-PARTIAL-STRAIGHTLINING": 1
-  },
+  "highRiskCount": 0,
+  "highRiskByDisposition": {},
   "studyId": "69c17630acada6abeead2da5",
   "studyName": "Technology Adoption Barriers Survey (2026)"
 }
