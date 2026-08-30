@@ -1,23 +1,23 @@
 {
-  "generatedAt": "2026-08-29T09:08:49.111Z",
-  "dashboardSyncedAt": "2026-08-29T09:08:49.111Z",
+  "generatedAt": "2026-08-30T09:08:50.203Z",
+  "dashboardSyncedAt": "2026-08-30T09:08:50.203Z",
   "dateRange": {
-    "startDate": "2026-08-01",
-    "endDate": "2026-08-29"
+    "startDate": "2026-08-02",
+    "endDate": "2026-08-30"
   },
   "overview": {
-    "organicSessions": 109279,
-    "organicSessionsChange": -497,
-    "totalImpressions": 46629,
-    "totalImpressionsChange": -1225,
-    "totalClicks": 336,
-    "totalClicksChange": -15,
+    "organicSessions": 111104,
+    "organicSessionsChange": 1825,
+    "totalImpressions": 47407,
+    "totalImpressionsChange": 778,
+    "totalClicks": 342,
+    "totalClicksChange": 6,
     "averageCTR": 0.72,
     "averageCTRUnit": "percent",
-    "averageCTRChange": -0.01,
+    "averageCTRChange": 0,
     "averageCTRChangeUnit": "percentagePoints",
-    "averagePosition": 8.2,
-    "averagePositionChange": 0,
+    "averagePosition": 8.1,
+    "averagePositionChange": -0.1,
     "domainAuthority": 12,
     "domainAuthorityChange": 2,
     "indexedPages": 47,
@@ -32,8 +32,8 @@
       "previousPosition": null,
       "volume": 0,
       "clicks": 10,
-      "impressions": 48,
-      "ctr": 20.8
+      "impressions": 47,
+      "ctr": 21.3
     },
     {
       "keyword": "toe framework tornatzky and fleischer 1990",
@@ -41,17 +41,17 @@
       "previousPosition": null,
       "volume": 0,
       "clicks": 9,
-      "impressions": 40,
-      "ctr": 22.5
+      "impressions": 41,
+      "ctr": 22
     },
     {
       "keyword": "toe framework tornatzky and fleischer 1990 pdf",
-      "position": 4.1,
+      "position": 4,
       "previousPosition": null,
       "volume": 0,
       "clicks": 8,
-      "impressions": 27,
-      "ctr": 29.6
+      "impressions": 26,
+      "ctr": 30.8
     },
     {
       "keyword": "tornatzky and fleischer (1990)",
@@ -59,17 +59,17 @@
       "previousPosition": null,
       "volume": 0,
       "clicks": 7,
-      "impressions": 48,
-      "ctr": 14.6
+      "impressions": 50,
+      "ctr": 14
     },
     {
       "keyword": "tornatzky & fleischer, 1990",
-      "position": 4.8,
+      "position": 4.7,
       "previousPosition": null,
       "volume": 0,
       "clicks": 6,
-      "impressions": 29,
-      "ctr": 20.7
+      "impressions": 27,
+      "ctr": 22.2
     },
     {
       "keyword": "tornatzky and fleischer 1990 toe framework",
@@ -91,12 +91,12 @@
     },
     {
       "keyword": "tam 3",
-      "position": 6.8,
+      "position": 6.6,
       "previousPosition": null,
       "volume": 0,
       "clicks": 3,
-      "impressions": 60,
-      "ctr": 5
+      "impressions": 59,
+      "ctr": 5.1
     },
     {
       "keyword": "tornatzky & fleischer (1990)",
@@ -108,13 +108,13 @@
       "ctr": 12
     },
     {
-      "keyword": "unified theory of acceptance and use of technology utaut venkatesh 2003",
-      "position": 10.7,
+      "keyword": "toe framework",
+      "position": 8.5,
       "previousPosition": null,
       "volume": 0,
       "clicks": 2,
-      "impressions": 3,
-      "ctr": 66.7
+      "impressions": 117,
+      "ctr": 1.7
     }
   ],
   "topPages": [
