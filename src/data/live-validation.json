@@ -2610,8 +2610,8 @@
           "cfi": 1.0428,
           "rmsea": 0.0,
           "latent_correlations": {
+            "F1a~~F1b": 0.9888,
             "F1a~~F2": 0.6575,
-            "F1b~~F1a": 0.9888,
             "F1b~~F2": 0.7996
           }
         },
@@ -2622,8 +2622,8 @@
           "cfi": 1.0249,
           "rmsea": 0.0,
           "latent_correlations": {
+            "F1a~~F1b": 0.6355,
             "F1a~~F2": 0.666,
-            "F1b~~F1a": 0.6355,
             "F1b~~F2": 0.6595
           }
         }
@@ -3300,12 +3300,12 @@
             "total_criteria": 4
           }
         },
-        "last_run_utc": "2026-08-30T10:34:22.815490+00:00"
+        "last_run_utc": "2026-08-31T10:35:13.287069+00:00"
       },
       "r_parity_tests": {
         "count": 16,
         "ci_workflow": ".github/workflows/validate-analysis.yml",
-        "last_run_utc": "2026-08-30T10:34:22.815914+00:00",
+        "last_run_utc": "2026-08-31T10:35:13.287500+00:00",
         "all_passing": null
       },
       "factor_analysis": {
@@ -5196,8 +5196,8 @@
           "cfi": 1.005,
           "rmsea": 0.0,
           "latent_correlations": {
+            "F1a~~F1b": 0.9862,
             "F1a~~F2": 0.6006,
-            "F1b~~F1a": 0.9862,
             "F1b~~F2": 0.6638
           }
         },
@@ -5208,8 +5208,8 @@
           "cfi": 1.0153,
           "rmsea": 0.0,
           "latent_correlations": {
+            "F1a~~F1b": 0.7942,
             "F1a~~F2": 0.7359,
-            "F1b~~F1a": 0.7942,
             "F1b~~F2": 0.6112
           }
         }
@@ -5843,12 +5843,12 @@
             "total_criteria": 10
           }
         },
-        "last_run_utc": "2026-08-30T10:36:24.370053+00:00"
+        "last_run_utc": "2026-08-31T10:36:42.765618+00:00"
       },
       "r_parity_tests": {
         "count": 16,
         "ci_workflow": ".github/workflows/validate-analysis.yml",
-        "last_run_utc": "2026-08-30T10:36:24.370400+00:00",
+        "last_run_utc": "2026-08-31T10:36:42.765928+00:00",
         "all_passing": null
       },
       "factor_analysis": {
@@ -6438,7 +6438,7 @@
           "Q10_28_Barriers_17": 0.5251,
           "Q10_28_Barriers_18": 0.4964,
           "Q47_64_Readiness_1": 0.6765,
-          "Q47_64_Readiness_2": 0.6153,
+          "Q47_64_Readiness_2": 0.6152,
           "Q47_64_Readiness_3": 0.654,
           "Q47_64_Readiness_4": 0.5189,
           "Q47_64_Readiness_5": 0.5543,
@@ -6454,9 +6454,9 @@
           "Q47_64_Readiness_15": 0.5771,
           "Q47_64_Readiness_16": 0.6793,
           "Q47_64_Readiness_17": 0.4727,
-          "Q65_73_Maturity_1": 0.7492,
+          "Q65_73_Maturity_1": 0.7491,
           "Q65_73_Maturity_2": 0.7575,
-          "Q65_73_Maturity_3": 0.6565,
+          "Q65_73_Maturity_3": 0.6564,
           "Q65_73_Maturity_4": 0.6586,
           "Q65_73_Maturity_5": 0.629,
           "Q65_73_Maturity_6": 0.7919,
@@ -7761,8 +7761,8 @@
           "cfi": 0.9815,
           "rmsea": 0.0466,
           "latent_correlations": {
+            "F1a~~F1b": 0.9628,
             "F1a~~F2": 0.5519,
-            "F1b~~F1a": 0.9628,
             "F1b~~F2": 0.6245
           }
         },
@@ -7773,8 +7773,8 @@
           "cfi": 1.0005,
           "rmsea": 0.0,
           "latent_correlations": {
+            "F1a~~F1b": 0.8046,
             "F1a~~F2": 0.701,
-            "F1b~~F1a": 0.8046,
             "F1b~~F2": 0.6696
           }
         }
@@ -8408,12 +8408,12 @@
             "total_criteria": 10
           }
         },
-        "last_run_utc": "2026-08-30T10:38:30.145697+00:00"
+        "last_run_utc": "2026-08-31T10:38:15.666069+00:00"
       },
       "r_parity_tests": {
         "count": 16,
         "ci_workflow": ".github/workflows/validate-analysis.yml",
-        "last_run_utc": "2026-08-30T10:38:30.145998+00:00",
+        "last_run_utc": "2026-08-31T10:38:15.666388+00:00",
         "all_passing": null
       },
       "factor_analysis": {
@@ -8984,49 +8984,49 @@
         "aic": 170.07,
         "bic": 567.83,
         "standardized_loadings": {
-          "Q10_28_Barriers_1": 0.6084,
-          "Q10_28_Barriers_2": 0.6438,
-          "Q10_28_Barriers_3": 0.6366,
-          "Q10_28_Barriers_4": 0.6976,
-          "Q10_28_Barriers_5": 0.6617,
+          "Q10_28_Barriers_1": 0.6085,
+          "Q10_28_Barriers_2": 0.6439,
+          "Q10_28_Barriers_3": 0.6367,
+          "Q10_28_Barriers_4": 0.6977,
+          "Q10_28_Barriers_5": 0.6618,
           "Q10_28_Barriers_6": 0.5376,
           "Q10_28_Barriers_7": 0.5863,
           "Q10_28_Barriers_8": 0.6203,
           "Q10_28_Barriers_9": 0.6265,
           "Q10_28_Barriers_10": 0.7107,
-          "Q10_28_Barriers_11": 0.6109,
+          "Q10_28_Barriers_11": 0.611,
           "Q10_28_Barriers_12": 0.575,
-          "Q10_28_Barriers_13": 0.4403,
-          "Q10_28_Barriers_14": 0.4534,
+          "Q10_28_Barriers_13": 0.4401,
+          "Q10_28_Barriers_14": 0.4532,
           "Q10_28_Barriers_15": 0.5983,
           "Q10_28_Barriers_16": 0.5079,
           "Q10_28_Barriers_17": 0.5834,
           "Q10_28_Barriers_18": 0.5621,
-          "Q47_64_Readiness_1": 0.6966,
+          "Q47_64_Readiness_1": 0.6965,
           "Q47_64_Readiness_2": 0.6505,
-          "Q47_64_Readiness_3": 0.6894,
-          "Q47_64_Readiness_4": 0.5794,
-          "Q47_64_Readiness_5": 0.5914,
-          "Q47_64_Readiness_6": 0.6738,
-          "Q47_64_Readiness_7": 0.7126,
+          "Q47_64_Readiness_3": 0.6893,
+          "Q47_64_Readiness_4": 0.5793,
+          "Q47_64_Readiness_5": 0.5913,
+          "Q47_64_Readiness_6": 0.6737,
+          "Q47_64_Readiness_7": 0.7125,
           "Q47_64_Readiness_8": 0.6832,
-          "Q47_64_Readiness_9": 0.6698,
-          "Q47_64_Readiness_10": 0.641,
-          "Q47_64_Readiness_11": 0.6375,
-          "Q47_64_Readiness_12": 0.6397,
-          "Q47_64_Readiness_13": 0.6888,
-          "Q47_64_Readiness_14": 0.6429,
-          "Q47_64_Readiness_15": 0.6683,
-          "Q47_64_Readiness_16": 0.7054,
+          "Q47_64_Readiness_9": 0.6697,
+          "Q47_64_Readiness_10": 0.6409,
+          "Q47_64_Readiness_11": 0.6374,
+          "Q47_64_Readiness_12": 0.6396,
+          "Q47_64_Readiness_13": 0.6887,
+          "Q47_64_Readiness_14": 0.6428,
+          "Q47_64_Readiness_15": 0.6682,
+          "Q47_64_Readiness_16": 0.7053,
           "Q47_64_Readiness_17": 0.5438,
-          "Q65_73_Maturity_1": 0.7518,
+          "Q65_73_Maturity_1": 0.7517,
           "Q65_73_Maturity_2": 0.7864,
           "Q65_73_Maturity_3": 0.6851,
           "Q65_73_Maturity_4": 0.6758,
-          "Q65_73_Maturity_5": 0.6575,
+          "Q65_73_Maturity_5": 0.6574,
           "Q65_73_Maturity_6": 0.777,
-          "Q65_73_Maturity_7": 0.7091,
-          "Q65_73_Maturity_8": 0.6808
+          "Q65_73_Maturity_7": 0.709,
+          "Q65_73_Maturity_8": 0.6807
         }
       },
       "barrier_model_comparison": {
@@ -10326,8 +10326,8 @@
           "cfi": 0.987,
           "rmsea": 0.0451,
           "latent_correlations": {
+            "F1a~~F1b": 0.9249,
             "F1a~~F2": 0.7033,
-            "F1b~~F1a": 0.9249,
             "F1b~~F2": 0.7286
           }
         },
@@ -10338,8 +10338,8 @@
           "cfi": 0.9962,
           "rmsea": 0.0225,
           "latent_correlations": {
+            "F1a~~F1b": 0.8829,
             "F1a~~F2": 0.7709,
-            "F1b~~F1a": 0.8829,
             "F1b~~F2": 0.7611
           }
         }
@@ -10973,12 +10973,12 @@
             "total_criteria": 10
           }
         },
-        "last_run_utc": "2026-08-30T10:40:40.782758+00:00"
+        "last_run_utc": "2026-08-31T10:39:52.638919+00:00"
       },
       "r_parity_tests": {
         "count": 16,
         "ci_workflow": ".github/workflows/validate-analysis.yml",
-        "last_run_utc": "2026-08-30T10:40:40.783071+00:00",
+        "last_run_utc": "2026-08-31T10:39:52.639247+00:00",
         "all_passing": null
       },
       "factor_analysis": {
@@ -11549,49 +11549,49 @@
         "aic": 170.07,
         "bic": 567.83,
         "standardized_loadings": {
-          "Q10_28_Barriers_1": 0.6084,
-          "Q10_28_Barriers_2": 0.6438,
-          "Q10_28_Barriers_3": 0.6366,
-          "Q10_28_Barriers_4": 0.6976,
-          "Q10_28_Barriers_5": 0.6617,
+          "Q10_28_Barriers_1": 0.6085,
+          "Q10_28_Barriers_2": 0.6439,
+          "Q10_28_Barriers_3": 0.6367,
+          "Q10_28_Barriers_4": 0.6977,
+          "Q10_28_Barriers_5": 0.6618,
           "Q10_28_Barriers_6": 0.5376,
           "Q10_28_Barriers_7": 0.5863,
           "Q10_28_Barriers_8": 0.6203,
           "Q10_28_Barriers_9": 0.6265,
           "Q10_28_Barriers_10": 0.7107,
-          "Q10_28_Barriers_11": 0.6109,
+          "Q10_28_Barriers_11": 0.611,
           "Q10_28_Barriers_12": 0.575,
-          "Q10_28_Barriers_13": 0.4403,
-          "Q10_28_Barriers_14": 0.4534,
+          "Q10_28_Barriers_13": 0.4401,
+          "Q10_28_Barriers_14": 0.4532,
           "Q10_28_Barriers_15": 0.5983,
           "Q10_28_Barriers_16": 0.5079,
           "Q10_28_Barriers_17": 0.5834,
           "Q10_28_Barriers_18": 0.5621,
-          "Q47_64_Readiness_1": 0.6966,
+          "Q47_64_Readiness_1": 0.6965,
           "Q47_64_Readiness_2": 0.6505,
-          "Q47_64_Readiness_3": 0.6894,
-          "Q47_64_Readiness_4": 0.5794,
-          "Q47_64_Readiness_5": 0.5914,
-          "Q47_64_Readiness_6": 0.6738,
-          "Q47_64_Readiness_7": 0.7126,
+          "Q47_64_Readiness_3": 0.6893,
+          "Q47_64_Readiness_4": 0.5793,
+          "Q47_64_Readiness_5": 0.5913,
+          "Q47_64_Readiness_6": 0.6737,
+          "Q47_64_Readiness_7": 0.7125,
           "Q47_64_Readiness_8": 0.6832,
-          "Q47_64_Readiness_9": 0.6698,
-          "Q47_64_Readiness_10": 0.641,
-          "Q47_64_Readiness_11": 0.6375,
-          "Q47_64_Readiness_12": 0.6397,
-          "Q47_64_Readiness_13": 0.6888,
-          "Q47_64_Readiness_14": 0.6429,
-          "Q47_64_Readiness_15": 0.6683,
-          "Q47_64_Readiness_16": 0.7054,
+          "Q47_64_Readiness_9": 0.6697,
+          "Q47_64_Readiness_10": 0.6409,
+          "Q47_64_Readiness_11": 0.6374,
+          "Q47_64_Readiness_12": 0.6396,
+          "Q47_64_Readiness_13": 0.6887,
+          "Q47_64_Readiness_14": 0.6428,
+          "Q47_64_Readiness_15": 0.6682,
+          "Q47_64_Readiness_16": 0.7053,
           "Q47_64_Readiness_17": 0.5438,
-          "Q65_73_Maturity_1": 0.7518,
+          "Q65_73_Maturity_1": 0.7517,
           "Q65_73_Maturity_2": 0.7864,
           "Q65_73_Maturity_3": 0.6851,
           "Q65_73_Maturity_4": 0.6758,
-          "Q65_73_Maturity_5": 0.6575,
+          "Q65_73_Maturity_5": 0.6574,
           "Q65_73_Maturity_6": 0.777,
-          "Q65_73_Maturity_7": 0.7091,
-          "Q65_73_Maturity_8": 0.6808
+          "Q65_73_Maturity_7": 0.709,
+          "Q65_73_Maturity_8": 0.6807
         }
       },
       "barrier_model_comparison": {
@@ -12891,8 +12891,8 @@
           "cfi": 0.9866,
           "rmsea": 0.0457,
           "latent_correlations": {
+            "F1a~~F1b": 0.9279,
             "F1a~~F2": 0.7024,
-            "F1b~~F1a": 0.9279,
             "F1b~~F2": 0.7318
           }
         },
@@ -12903,8 +12903,8 @@
           "cfi": 0.9954,
           "rmsea": 0.0249,
           "latent_correlations": {
+            "F1a~~F1b": 0.8827,
             "F1a~~F2": 0.7701,
-            "F1b~~F1a": 0.8827,
             "F1b~~F2": 0.7652
           }
         }
@@ -13538,12 +13538,12 @@
             "total_criteria": 10
           }
         },
-        "last_run_utc": "2026-08-30T10:42:51.791254+00:00"
+        "last_run_utc": "2026-08-31T10:41:29.846533+00:00"
       },
       "r_parity_tests": {
         "count": 16,
         "ci_workflow": ".github/workflows/validate-analysis.yml",
-        "last_run_utc": "2026-08-30T10:42:51.791553+00:00",
+        "last_run_utc": "2026-08-31T10:41:29.846836+00:00",
         "all_passing": null
       },
       "factor_analysis": {
