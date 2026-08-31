@@ -1,12 +1,12 @@
 {
-  "as_of": "2026-08-24T06:22:53Z",
-  "commit_sha": "beeecf631e50a57c97e87a028af18f72ff1c5255",
-  "commit_count": 7816,
-  "lines_of_code": 232568,
-  "comments": 13415,
-  "blanks": 26820,
-  "total_lines": 272803,
-  "tracked_files": 798,
+  "as_of": "2026-08-31T06:44:39Z",
+  "commit_sha": "801240745eefced6d33a7e98b45abe39c98cc9ee",
+  "commit_count": 7883,
+  "lines_of_code": 224226,
+  "comments": 13430,
+  "blanks": 29268,
+  "total_lines": 266924,
+  "tracked_files": 799,
   "github_workflows": 54,
   "integrations": 8,
   "development_phases": 5,
@@ -21,13 +21,6 @@
       "blank": 7995
     },
     {
-      "language": "JSON",
-      "files": 41,
-      "code": 45733,
-      "comment": 0,
-      "blank": 0
-    },
-    {
       "language": "Python",
       "files": 89,
       "code": 37002,
@@ -35,18 +28,25 @@
       "blank": 7276
     },
     {
+      "language": "JSON",
+      "files": 40,
+      "code": 28674,
+      "comment": 0,
+      "blank": 0
+    },
+    {
       "language": "Markdown",
       "files": 105,
-      "code": 24809,
+      "code": 24810,
       "comment": 39,
-      "blank": 9740
+      "blank": 9739
     },
     {
       "language": "YAML",
-      "files": 60,
-      "code": 7521,
-      "comment": 1046,
-      "blank": 1212
+      "files": 62,
+      "code": 16237,
+      "comment": 1061,
+      "blank": 3661
     },
     {
       "language": "CSV",
