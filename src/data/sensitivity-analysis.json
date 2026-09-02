@@ -28,7 +28,7 @@
       "key": "v2_all",
       "label": "All V2",
       "description": "All V2 responses including incomplete",
-      "n": 882
+      "n": 883
     }
   ],
   "metrics": [
@@ -1396,7 +1396,7 @@
     "v2_all": {
       "demographics": {
         "roles": {
-          "Other": 154,
+          "Other": 155,
           "CEO": 132,
           "CIO": 106,
           "Unknown": 95,
@@ -1415,23 +1415,23 @@
           "500-999": 124,
           "1000-4999": 139,
           "5000-9999": 63,
-          "10000+": 95
+          "10000+": 96
         },
         "profit_models": {
-          "For-Profit": 581,
+          "For-Profit": 582,
           "Non-Profit": 121,
           "Government/Public Sector": 85
         },
         "tech_vs_nontech": {
           "technical": 192,
-          "non_technical": 595,
+          "non_technical": 596,
           "other": 95
         },
         "other_roles": {
-          "total": 154,
+          "total": 155,
           "categories": {
             "Director": 61,
-            "Uncategorized": 28,
+            "Uncategorized": 29,
             "VP / SVP": 26,
             "Manager / Program Lead": 13,
             "Owner / Founder / President": 12,
@@ -1443,7 +1443,7 @@
       "effect_sizes": {
         "tech_vs_nontech": {
           "tech_n": 192,
-          "nontech_n": 595,
+          "nontech_n": 596,
           "constructs": {
             "barriers": {
               "tech_mean": 2.8562,
@@ -1481,7 +1481,7 @@
           }
         },
         "large_vs_small": {
-          "large_n": 158,
+          "large_n": 159,
           "small_medium_n": 724,
           "constructs": {
             "barriers": {
@@ -1520,7 +1520,7 @@
           },
           {
             "group": "Non-Technical",
-            "n": 595,
+            "n": 596,
             "barrier_mean": 2.9001,
             "readiness_mean": 3.1193,
             "maturity_mean": 3.1549
@@ -1550,7 +1550,7 @@
           },
           {
             "group": "Large (5000+)",
-            "n": 158,
+            "n": 159,
             "barrier_mean": 2.907,
             "readiness_mean": 3.2322,
             "maturity_mean": 3.3241
@@ -1560,7 +1560,7 @@
       "inferential": {
         "t_tests_tech_vs_nontech": {
           "tech_n": 192,
-          "nontech_n": 595,
+          "nontech_n": 596,
           "constructs": {
             "barriers": {
               "t": -0.6545,
@@ -1589,7 +1589,7 @@
           }
         },
         "t_tests_large_vs_small": {
-          "large_n": 158,
+          "large_n": 159,
           "small_medium_n": 724,
           "constructs": {
             "barriers": {
@@ -1620,7 +1620,7 @@
         },
         "anova_by_role": {
           "groups": ["Technical", "Non-Technical", "Unclassified"],
-          "group_ns": [192, 595, 95],
+          "group_ns": [192, 596, 95],
           "constructs": {
             "barriers": {
               "f": 0.4543,
@@ -1647,7 +1647,7 @@
         },
         "anova_by_org_size": {
           "groups": ["Small (<500)", "Medium (500-4999)", "Large (5000+)"],
-          "group_ns": [366, 263, 158],
+          "group_ns": [366, 263, 159],
           "constructs": {
             "barriers": {
               "f": 3.0192,
@@ -2444,6 +2444,6 @@
       }
     ]
   },
-  "last_updated": "2026-09-01T10:35:22.735194Z",
-  "extended_last_updated": "2026-09-01T10:35:22.735194Z"
+  "last_updated": "2026-09-02T10:34:31.855346Z",
+  "extended_last_updated": "2026-09-02T10:34:31.855346Z"
 }

@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-01T10:54:03.880768+00:00",
-  "last_updated": "2026-09-01T10:54:03.880770+00:00",
+  "updatedAt": "2026-09-02T10:53:26.433496+00:00",
+  "last_updated": "2026-09-02T10:53:26.433499+00:00",
   "study": {
     "id": "69c17630acada6abeead2da5",
     "name": "Technology Adoption Barriers Survey (2026)",
@@ -20,10 +20,10 @@
     "percentComplete": 96.6
   },
   "totalResponses": 894,
-  "uniqueParticipants": 882,
+  "uniqueParticipants": 883,
   "duplicatesRemoved": 0,
   "dispositions": {
-    "INCOMPLETE": 115,
+    "INCOMPLETE": 116,
     "CLEAN": 160,
     "FLAG-SMEAL": 113,
     "FLAG-SPEED": 15,
@@ -36,7 +36,7 @@
   "dispositionByStatus": {
     "INCOMPLETE": {
       "RETURNED": 105,
-      "TIMED-OUT": 9,
+      "TIMED-OUT": 10,
       "APPROVED": 1
     },
     "CLEAN": {
@@ -45,8 +45,8 @@
     },
     "FLAG-SMEAL": {
       "APPROVED": 95,
-      "RETURNED": 16,
-      "REJECTED": 2
+      "RETURNED": 17,
+      "REJECTED": 1
     },
     "FLAG-SPEED": {
       "RETURNED": 5,
@@ -85,8 +85,8 @@
   },
   "actions": {
     "approved": 481,
-    "rejected": 55,
-    "returned": 346,
+    "rejected": 54,
+    "returned": 347,
     "timedOut": 10,
     "awaitingReview": 2,
     "active": 0,
@@ -100,7 +100,7 @@
   },
   "autoApproveRunway": {
     "thresholdDays": 21,
-    "computedAt": "2026-09-01T10:54:03.880643+00:00",
+    "computedAt": "2026-09-02T10:53:26.433381+00:00",
     "totalAwaitingReview": 2,
     "evaluatedCount": 2,
     "skippedMissingCompletedAt": 0,
