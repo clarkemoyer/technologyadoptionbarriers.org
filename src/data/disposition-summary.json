@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-05T10:45:59.830746+00:00",
-  "last_updated": "2026-09-05T10:45:59.830750+00:00",
+  "updatedAt": "2026-09-06T10:51:26.876641+00:00",
+  "last_updated": "2026-09-06T10:51:26.876645+00:00",
   "study": {
     "id": "69c17630acada6abeead2da5",
     "name": "Technology Adoption Barriers Survey (2026)",
@@ -19,13 +19,13 @@
     "awaitingReview": 8,
     "percentComplete": 97.8
   },
-  "totalResponses": 903,
-  "uniqueParticipants": 890,
+  "totalResponses": 904,
+  "uniqueParticipants": 891,
   "duplicatesRemoved": 0,
   "dispositions": {
     "INCOMPLETE": 116,
     "CLEAN": 160,
-    "FLAG-SMEAL": 114,
+    "FLAG-SMEAL": 115,
     "FLAG-SPEED": 15,
     "FLAG-PARTIAL-STRAIGHTLINING": 68,
     "FLAG-SINGLE-IRI": 163,
@@ -47,7 +47,7 @@
       "APPROVED": 95,
       "RETURNED": 17,
       "REJECTED": 1,
-      "AWAITING REVIEW": 1
+      "AWAITING REVIEW": 2
     },
     "FLAG-SPEED": {
       "RETURNED": 5,
@@ -66,8 +66,8 @@
     "AUTO-EXCLUDE": {
       "REJECTED": 52,
       "APPROVED": 19,
-      "RETURNED": 162,
-      "AWAITING REVIEW": 2
+      "RETURNED": 163,
+      "AWAITING REVIEW": 1
     },
     "FLAG-RECAPTCHA": {
       "REJECTED": 1,
@@ -88,21 +88,21 @@
   "actions": {
     "approved": 481,
     "rejected": 54,
-    "returned": 350,
+    "returned": 351,
     "timedOut": 10,
     "awaitingReview": 8,
     "active": 0,
     "messaged": 0
   },
   "iriPassRates": {
-    "barrier": 59.3,
+    "barrier": 59.4,
     "readiness": 68.9,
     "maturity": 81.8,
-    "denominator": 774
+    "denominator": 775
   },
   "autoApproveRunway": {
     "thresholdDays": 21,
-    "computedAt": "2026-09-05T10:45:59.830616+00:00",
+    "computedAt": "2026-09-06T10:51:26.876472+00:00",
     "totalAwaitingReview": 8,
     "evaluatedCount": 8,
     "skippedMissingCompletedAt": 0,
