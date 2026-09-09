@@ -1,7 +1,7 @@
 {
   "disposition_counts": {
     "INCOMPLETE": 116,
-    "CLEAN": 160,
+    "CLEAN": 161,
     "FLAG-SMEAL": 117,
     "FLAG-SPEED": 15,
     "FLAG-PARTIAL-STRAIGHTLINING": 68,
@@ -11,15 +11,15 @@
     "FLAG-STRAIGHTLINING": 1
   },
   "iri_pass_rates": {
-    "barrier": 0.5212053571428571,
-    "readiness": 0.6015625,
-    "maturity": 0.7120535714285714
+    "barrier": 0.5217391304347826,
+    "readiness": 0.6020066889632107,
+    "maturity": 0.7123745819397993
   },
   "duration_stats": {
-    "mean": 634.9051339285714,
+    "mean": 634.9944258639911,
     "median": 530,
     "q25": 341,
-    "q75": 781,
+    "q75": 780,
     "min": 2,
     "max": 5935
   },
@@ -28,9 +28,9 @@
     "partial_flagged": 265
   },
   "sample_sizes": {
-    "total": 896,
-    "complete": 780,
-    "clean": 160
+    "total": 897,
+    "complete": 781,
+    "clean": 161
   },
   "waterfall_steps": [
     {
@@ -96,8 +96,8 @@
     {
       "step": 10,
       "name": "CLEAN",
-      "count": 160,
-      "cumulative_excluded": 160
+      "count": 161,
+      "cumulative_excluded": 161
     }
   ]
 }
