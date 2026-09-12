@@ -6,18 +6,18 @@
     "FLAG-SPEED": 15,
     "FLAG-PARTIAL-STRAIGHTLINING": 68,
     "FLAG-SINGLE-IRI": 163,
-    "AUTO-EXCLUDE": 238,
+    "AUTO-EXCLUDE": 240,
     "FLAG-RECAPTCHA": 18,
     "FLAG-STRAIGHTLINING": 1
   },
   "iri_pass_rates": {
-    "barrier": 0.5211581291759465,
-    "readiness": 0.6013363028953229,
-    "maturity": 0.7115812917594655
+    "barrier": 0.5211111111111111,
+    "readiness": 0.6,
+    "maturity": 0.7122222222222222
   },
   "duration_stats": {
-    "mean": 634.2928730512249,
-    "median": 530,
+    "mean": 633.6177777777777,
+    "median": 529,
     "q25": 341,
     "q75": 780,
     "min": 2,
@@ -25,11 +25,11 @@
   },
   "straightlining_stats": {
     "full_block_flagged": 29,
-    "partial_flagged": 265
+    "partial_flagged": 267
   },
   "sample_sizes": {
-    "total": 898,
-    "complete": 781,
+    "total": 900,
+    "complete": 783,
     "clean": 161
   },
   "waterfall_steps": [
@@ -54,44 +54,44 @@
     {
       "step": 3,
       "name": "AUTO-EXCLUDE",
-      "count": 238,
-      "cumulative_excluded": 355
+      "count": 240,
+      "cumulative_excluded": 357
     },
     {
       "step": 4,
       "name": "FLAG-SPEED",
       "count": 15,
-      "cumulative_excluded": 370
+      "cumulative_excluded": 372
     },
     {
       "step": 5,
       "name": "FLAG-SINGLE-IRI",
       "count": 163,
-      "cumulative_excluded": 533
+      "cumulative_excluded": 535
     },
     {
       "step": 6,
       "name": "FLAG-SMEAL",
       "count": 117,
-      "cumulative_excluded": 650
+      "cumulative_excluded": 652
     },
     {
       "step": 7,
       "name": "FLAG-RECAPTCHA",
       "count": 18,
-      "cumulative_excluded": 668
+      "cumulative_excluded": 670
     },
     {
       "step": 8,
       "name": "FLAG-STRAIGHTLINING",
       "count": 1,
-      "cumulative_excluded": 669
+      "cumulative_excluded": 671
     },
     {
       "step": 9,
       "name": "FLAG-PARTIAL-STRAIGHTLINING",
       "count": 68,
-      "cumulative_excluded": 737
+      "cumulative_excluded": 739
     },
     {
       "step": 10,
