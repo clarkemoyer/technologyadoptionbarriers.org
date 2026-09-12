@@ -698,7 +698,11 @@ run_id = os.environ.get('RUN_ID', '<this-run-id>') or '<this-run-id>'
 repo = os.environ.get('REPO', 'clarkemoyer/technologyadoptionbarriers.org')
 
 with_replies = counts['auto_approve_eligible'] + counts['human_review_questions'] + counts['human_review_high_tier']
-no_reply_total = counts.get('no_reply', 0) + counts.get('no_reply_high_tier', 0)
+no_reply_total = (
+    counts.get('no_reply', 0)
+    + counts.get('no_reply_high_tier', 0)
+    + counts.get('no_reply_high_tier_in_window', 0)
+)
 multi_reply = d.get('multi_reply_count', 0)
 
 # Auto-cycle health: the no_reply bucket flows through Phase 3d/3e
@@ -823,15 +827,28 @@ else:
 print('')
 
 # --- 4. Bulk-reject candidates (high tier, no reply) ---
+# Split per issue #3012: only PIDs whose stale-triage bucket is
+# stale_no_reply_to_rr are recommended — that is the only bucket
+# reject_by_pid.py's live revalidation will actually reject. High-tier
+# no-reply PIDs still inside the message/RR window are shown separately
+# so the operator knows why they are not actionable yet.
 n_nr_high = counts.get('no_reply_high_tier', 0)
+n_nr_window = counts.get('no_reply_high_tier_in_window', 0)
+stale_triage_available = d.get('stale_triage_available', False)
 print(f'### \U0001F534 Recommended for Bulk-Reject ({n_nr_high})')
 print('')
 if n_nr_high == 0:
-    print('No high-tier no-reply PIDs today. The auto-cycle (Phase 3d/3e) will handle anyone still in flight.')
+    print('No bulk-reject-eligible high-tier no-reply PIDs today. The auto-cycle (Phase 3d/3e) will handle anyone still in flight.')
 else:
-    print('High rejection tier (3+ IRI fails, or 2 IRI fails + speed/partial-straightlining) AND no reply to any TABS message. '
-          'The auto-cycle will eventually reject these after the message > 48h > RR > 48h cycle (~4 days); this lets you fast-track when the queue grows.')
+    print('High rejection tier (3+ IRI fails, or 2 IRI fails + speed/partial-straightlining), no reply to any TABS message, '
+          'AND past the return-request reply window (stale-triage bucket `stale_no_reply_to_rr` — the only bucket the reject '
+          'script will action). This lets you fast-track when the queue grows.')
     print('')
+    if not stale_triage_available:
+        print('> ⚠️ Stale-triage data was unavailable for this run, so the in-window filter could not be applied. '
+              'Some of these PIDs may still be inside the 48h message/RR window; the reject script will skip those '
+              '(`NO_LONGER_ELIGIBLE`) rather than reject them.')
+        print('')
     bd = breakdown.get('no_reply_high_tier', {})
     if bd.get('by_disposition'):
         print('| Disposition | Count | IRI fails / other flags |')
@@ -873,7 +890,44 @@ else:
     print('Skips any PID that has already moved out of AWAITING REVIEW (idempotent re-runs).')
 print('')
 
-print(f'_Recommendations computed from `prolific-messages-inbound-csv` and `disposition-csv` artifacts. Full PID list is in the `reply-action-recommendations` workflow artifact (1-day retention)._')
+# --- 4b. High-tier no-reply still inside the reply window (#3012) ---
+if n_nr_window > 0:
+    noun = 'PID is' if n_nr_window == 1 else 'PIDs are'
+    print(f'\U0001F552 **{n_nr_window} additional high-tier no-reply {noun} still inside the message/RR reply window** '
+          f'— not bulk-reject-eligible yet; the auto-cycle (Phase 3d/3e) is handling them.')
+    print('')
+    entries = d['buckets'].get('no_reply_high_tier_in_window', [])
+    if entries:
+        print('| Disposition | Count | Stage | Earliest eligible (est.) |')
+        print('|---|---:|---|---|')
+        from collections import Counter as _C3
+        grouped3 = _C3()
+        earliest_by_key = {}
+        stage_labels = {
+            'in_window_msg': 'messaged < 48h ago',
+            'in_window_rr': 'return-requested < 48h ago',
+            'stale_no_reply_to_message': 'RR being sent (Phase 3d)',
+            '(not classified)': 'not yet messaged / unclassified',
+        }
+        for entry in entries:
+            key = (entry['disposition'], entry.get('stale_bucket', '(not classified)'))
+            grouped3[key] += 1
+            est = entry.get('earliest_eligible_at')
+            if est and (key not in earliest_by_key or est < earliest_by_key[key]):
+                earliest_by_key[key] = est
+        for (disp, stage), n in grouped3.most_common():
+            stage_label = stage_labels.get(stage, stage)
+            est = earliest_by_key.get((disp, stage))
+            est_label = est[:10] if est else '—'
+            print(f'| {disp} | {n} | {stage_label} | {est_label} |')
+    print('')
+
+artifact_sources = (
+    '`prolific-messages-inbound-csv`, `disposition-csv`, and `stale-triage`'
+    if stale_triage_available
+    else '`prolific-messages-inbound-csv`, `disposition-csv`'
+)
+print(f"_Recommendations computed from {artifact_sources} artifacts. Full PID list is in the `reply-action-recommendations` workflow artifact (1-day retention)._")
 REPLIESEOF
   ); then
     REPLIES_SECTION="## 🟡 Replies to Consider
