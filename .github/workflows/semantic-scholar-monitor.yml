@@ -1,0 +1,116 @@
+name: Semantic Scholar Monitor
+
+# Monthly monitor for new academic papers citing TABS core references.
+#
+# Workflow:
+#   1. Connect to the Zotero library (zotero-prod environment) and extract
+#      DOIs from the configured collection (e.g. "Website Citations" or
+#      "Smeal Dissertation").
+#   2. Query the Semantic Scholar API for:
+#        - New papers citing each core reference (get_citations)
+#        - Related / recommended papers (find_related)
+#   3. Filter results by publication date, minimum citation count, and
+#      whether the paper is already in the Zotero library.
+#   4. Post a report as a GitHub issue with actionable links.
+#
+# Required GitHub environment (zotero-prod):
+#   Secrets : ZOTERO_API_KEY, ZOTERO_LIBRARY_ID
+#   Vars    : ZOTERO_LIBRARY_TYPE (user|group), ZOTERO_COLLECTION (name)
+#
+# Optional secrets/vars:
+#   S2_API_KEY  — Semantic Scholar API key for higher rate limits
+
+on:
+  schedule:
+    # 1st of every month at 09:00 UTC
+    - cron: '0 9 1 * *'
+  workflow_dispatch:
+    inputs:
+      days_back:
+        description: 'Days to look back for new papers'
+        required: false
+        default: '90'
+      min_citations:
+        description: 'Minimum citation count to include (0 = all)'
+        required: false
+        default: '0'
+      top_n_refs:
+        description: 'Maximum number of core references to query'
+        required: false
+        default: '25'
+      collection:
+        description: 'Zotero collection name (blank = use env var / all items)'
+        required: false
+        default: ''
+
+permissions:
+  contents: read
+  issues: write
+
+env:
+  # Official GitHub flag to force Node.js 24 runtime ahead of the June 2026
+  # mandatory deadline.
+  # Ref: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  monitor:
+    name: Query Semantic Scholar
+    runs-on: ubuntu-latest
+    environment: zotero-prod
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Install Python dependencies
+        run: pip install pyzotero
+
+      - name: Run Semantic Scholar monitor
+        id: monitor
+        env:
+          ZOTERO_API_KEY: ${{ secrets.ZOTERO_API_KEY }}
+          ZOTERO_LIBRARY_ID: ${{ secrets.ZOTERO_LIBRARY_ID }}
+          ZOTERO_LIBRARY_TYPE: ${{ vars.ZOTERO_LIBRARY_TYPE }}
+          # Prefer workflow_dispatch input; fall back to env var; then blank (= all items)
+          ZOTERO_COLLECTION: ${{ inputs.collection || vars.ZOTERO_COLLECTION || '' }}
+          DAYS_BACK: ${{ inputs.days_back || '90' }}
+          MIN_CITATIONS: ${{ inputs.min_citations || '0' }}
+          TOP_N_REFS: ${{ inputs.top_n_refs || '25' }}
+          S2_API_KEY: ${{ secrets.S2_API_KEY }}
+          REPORT_OUTPUT: ${{ runner.temp }}/ss-report.md
+        run: python3 scripts/analysis/semantic_scholar_monitor.py
+
+      - name: Upload report as artifact
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: semantic-scholar-report
+          path: ${{ runner.temp }}/ss-report.md
+          retention-days: 30
+
+      - name: Create GitHub issue with report
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPORT_FILE: ${{ runner.temp }}/ss-report.md
+          DAYS_BACK: ${{ inputs.days_back || '90' }}
+        run: |
+          if [ ! -f "$REPORT_FILE" ]; then
+            echo "No report file found — skipping issue creation"
+            exit 0
+          fi
+
+          MONTH_YEAR=$(date -u +'%B %Y')
+          TITLE="Semantic Scholar Monitor — ${MONTH_YEAR}"
+
+          gh issue create \
+            --title "$TITLE" \
+            --body-file "$REPORT_FILE" \
+            --label "documentation"
+
+          echo "Issue created: $TITLE"
