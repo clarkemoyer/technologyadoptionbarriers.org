@@ -1,0 +1,70 @@
+name: Copilot Review Cycle (v2 - agent-task)
+
+# Manual-dispatch only so the gh agent-task create path can be validated
+# on a test PR before replacing the production copilot-review-cycle.yml.
+on:
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: 'PR number to review'
+        required: true
+        type: string
+      round:
+        description: 'Current review round (1-indexed)'
+        required: false
+        type: number
+        default: 1
+      max_rounds:
+        description: 'Maximum review rounds'
+        required: false
+        type: number
+        default: 14
+      auto_merge:
+        description: 'Auto-merge PR when review passes and CI is green'
+        required: false
+        type: boolean
+        default: false
+
+concurrency:
+  group: copilot-review-v2-${{ github.event.inputs.pr_number }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+env:
+  # Official GitHub flag to force Node.js 24 runtime ahead of the June 2026 mandatory deadline.
+  # Ref: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  review-cycle:
+    name: Review Round (v2) ${{ github.event.inputs.round || '1' }}/${{ github.event.inputs.max_rounds || '14' }}
+    runs-on: ubuntu-latest
+    environment: copilot
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Copilot review cycle (v2 - agent-task)
+        run: npx tsx scripts/copilot-review-cycle-v2.ts
+        timeout-minutes: 75
+        env:
+          GH_TOKEN: ${{ secrets.COPILOT_MCP_GITHUB_PERSONAL_ACCESS_TOKEN }}
+          PR_NUMBER: ${{ github.event.inputs.pr_number }}
+          ROUND: ${{ github.event.inputs.round || '1' }}
+          MAX_ROUNDS: ${{ github.event.inputs.max_rounds || '14' }}
+          AUTO_MERGE: ${{ github.event.inputs.auto_merge || 'false' }}
+          REPO_NAME: ${{ github.repository }}
