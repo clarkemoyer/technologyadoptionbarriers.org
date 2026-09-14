@@ -1,23 +1,23 @@
 {
-  "generatedAt": "2026-09-12T09:09:09.064Z",
-  "dashboardSyncedAt": "2026-09-12T09:09:09.064Z",
+  "generatedAt": "2026-09-14T09:13:12.642Z",
+  "dashboardSyncedAt": "2026-09-14T09:13:12.642Z",
   "dateRange": {
-    "startDate": "2026-08-15",
-    "endDate": "2026-09-12"
+    "startDate": "2026-08-17",
+    "endDate": "2026-09-14"
   },
   "overview": {
-    "organicSessions": 112220,
-    "organicSessionsChange": 2013,
-    "totalImpressions": 49480,
-    "totalImpressionsChange": 431,
-    "totalClicks": 446,
-    "totalClicksChange": 22,
-    "averageCTR": 0.9,
+    "organicSessions": 114740,
+    "organicSessionsChange": 2520,
+    "totalImpressions": 49921,
+    "totalImpressionsChange": 441,
+    "totalClicks": 475,
+    "totalClicksChange": 29,
+    "averageCTR": 0.95,
     "averageCTRUnit": "percent",
-    "averageCTRChange": 0.04,
+    "averageCTRChange": 0.05,
     "averageCTRChangeUnit": "percentagePoints",
-    "averagePosition": 7.6,
-    "averagePositionChange": 0,
+    "averagePosition": 7.5,
+    "averagePositionChange": -0.1,
     "domainAuthority": 12,
     "domainAuthorityChange": 2,
     "indexedPages": 47,
@@ -32,89 +32,89 @@
       "previousPosition": null,
       "volume": 0,
       "clicks": 13,
-      "impressions": 43,
-      "ctr": 30.2
+      "impressions": 45,
+      "ctr": 28.9
     },
     {
       "keyword": "toe framework (tornatzky and fleischer 1990)",
       "position": 2.6,
       "previousPosition": null,
       "volume": 0,
-      "clicks": 9,
-      "impressions": 47,
-      "ctr": 19.1
+      "clicks": 10,
+      "impressions": 51,
+      "ctr": 19.6
     },
     {
       "keyword": "tornatzky & fleischer, 1990",
-      "position": 4.3,
+      "position": 4.2,
       "previousPosition": null,
       "volume": 0,
-      "clicks": 6,
-      "impressions": 32,
-      "ctr": 18.8
+      "clicks": 7,
+      "impressions": 35,
+      "ctr": 20
     },
     {
       "keyword": "tornatzky and fleischer (1990)",
-      "position": 4.1,
+      "position": 3.9,
       "previousPosition": null,
       "volume": 0,
       "clicks": 6,
-      "impressions": 38,
-      "ctr": 15.8
+      "impressions": 41,
+      "ctr": 14.6
     },
     {
       "keyword": "tornatzky and fleischer 1990 toe framework",
       "position": 2.7,
       "previousPosition": null,
       "volume": 0,
-      "clicks": 4,
-      "impressions": 10,
-      "ctr": 40
+      "clicks": 5,
+      "impressions": 12,
+      "ctr": 41.7
     },
     {
       "keyword": "toe framework tornatzky and fleischer 1990 pdf",
-      "position": 3,
+      "position": 2.8,
+      "previousPosition": null,
+      "volume": 0,
+      "clicks": 4,
+      "impressions": 17,
+      "ctr": 23.5
+    },
+    {
+      "keyword": "technology readiness index",
+      "position": 2.9,
       "previousPosition": null,
       "volume": 0,
       "clicks": 3,
-      "impressions": 18,
-      "ctr": 16.7
+      "impressions": 34,
+      "ctr": 8.8
+    },
+    {
+      "keyword": "toe framework",
+      "position": 8.4,
+      "previousPosition": null,
+      "volume": 0,
+      "clicks": 3,
+      "impressions": 453,
+      "ctr": 0.7
     },
     {
       "keyword": "tornatzky & fleischer 1990 toe framework",
-      "position": 3.3,
+      "position": 3.2,
       "previousPosition": null,
       "volume": 0,
       "clicks": 3,
-      "impressions": 14,
-      "ctr": 21.4
+      "impressions": 11,
+      "ctr": 27.3
     },
     {
       "keyword": "tornatzky, l. g., & fleischer, m. (1990). the processes of technological innovation. lexington books.",
-      "position": 9.6,
+      "position": 9.3,
       "previousPosition": null,
       "volume": 0,
       "clicks": 3,
-      "impressions": 20,
-      "ctr": 15
-    },
-    {
-      "keyword": "tam 3",
-      "position": 6.5,
-      "previousPosition": null,
-      "volume": 0,
-      "clicks": 2,
-      "impressions": 82,
-      "ctr": 2.4
-    },
-    {
-      "keyword": "technology organisation environment framework",
-      "position": 10.1,
-      "previousPosition": null,
-      "volume": 0,
-      "clicks": 2,
-      "impressions": 30,
-      "ctr": 6.7
+      "impressions": 28,
+      "ctr": 10.7
     }
   ],
   "topPages": [
