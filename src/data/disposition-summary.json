@@ -1,12 +1,12 @@
 {
-  "updatedAt": "2026-09-14T10:43:58.064880+00:00",
-  "last_updated": "2026-09-14T10:43:58.064883+00:00",
+  "updatedAt": "2026-09-15T10:54:12.919392+00:00",
+  "last_updated": "2026-09-15T10:54:12.919395+00:00",
   "study": {
     "id": "69c17630acada6abeead2da5",
     "name": "Technology Adoption Barriers Survey (2026)",
     "status": "ACTIVE",
     "totalAvailablePlaces": 500,
-    "placesTaken": 491,
+    "placesTaken": 492,
     "averageRewardPerHour": 3907,
     "averageTimeTaken": 10,
     "reward": 700,
@@ -14,18 +14,18 @@
   },
   "completionProgress": {
     "target": 500,
-    "completed": 491,
+    "completed": 492,
     "approved": 483,
-    "awaitingReview": 8,
-    "percentComplete": 98.2
+    "awaitingReview": 9,
+    "percentComplete": 98.4
   },
-  "totalResponses": 913,
-  "uniqueParticipants": 900,
+  "totalResponses": 914,
+  "uniqueParticipants": 901,
   "duplicatesRemoved": 0,
   "dispositions": {
     "INCOMPLETE": 117,
     "CLEAN": 161,
-    "FLAG-SMEAL": 117,
+    "FLAG-SMEAL": 118,
     "FLAG-SPEED": 15,
     "FLAG-PARTIAL-STRAIGHTLINING": 68,
     "FLAG-SINGLE-IRI": 163,
@@ -46,7 +46,7 @@
     "FLAG-SMEAL": {
       "APPROVED": 95,
       "RETURNED": 17,
-      "AWAITING REVIEW": 2,
+      "AWAITING REVIEW": 3,
       "REJECTED": 3
     },
     "FLAG-SPEED": {
@@ -90,21 +90,21 @@
     "rejected": 58,
     "returned": 354,
     "timedOut": 10,
-    "awaitingReview": 8,
+    "awaitingReview": 9,
     "active": 0,
     "messaged": 0
   },
   "iriPassRates": {
     "barrier": 59.3,
     "readiness": 68.6,
-    "maturity": 81.7,
-    "denominator": 783
+    "maturity": 81.8,
+    "denominator": 784
   },
   "autoApproveRunway": {
     "thresholdDays": 21,
-    "computedAt": "2026-09-14T10:43:58.064745+00:00",
-    "totalAwaitingReview": 8,
-    "evaluatedCount": 8,
+    "computedAt": "2026-09-15T10:54:12.919269+00:00",
+    "totalAwaitingReview": 9,
+    "evaluatedCount": 9,
     "skippedMissingCompletedAt": 0,
     "buckets": [
       {
@@ -126,7 +126,7 @@
         "risk": "elevated",
         "minDaysRemaining": 2.0,
         "maxDaysRemainingExclusive": 5.0,
-        "count": 0
+        "count": 1
       },
       {
         "label": "HIGH RISK",
