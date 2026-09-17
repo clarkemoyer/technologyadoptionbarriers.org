@@ -1,12 +1,5 @@
 [
   {
-    "date": "2026-06-03T10:35:41.651Z",
-    "sessions": 111213,
-    "impressions": 52198,
-    "clicks": 122,
-    "averagePosition": 8.6
-  },
-  {
     "date": "2026-06-04T10:19:51.456Z",
     "sessions": 101591,
     "impressions": 50974,
@@ -725,6 +718,13 @@
     "sessions": 112458,
     "impressions": 50641,
     "clicks": 490,
+    "averagePosition": 7.4
+  },
+  {
+    "date": "2026-09-17T09:10:52.610Z",
+    "sessions": 113418,
+    "impressions": 51303,
+    "clicks": 506,
     "averagePosition": 7.4
   }
 ]
