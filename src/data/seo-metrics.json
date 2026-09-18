@@ -1,20 +1,20 @@
 {
-  "generatedAt": "2026-09-17T09:10:52.610Z",
-  "dashboardSyncedAt": "2026-09-17T09:10:52.610Z",
+  "generatedAt": "2026-09-18T09:09:55.719Z",
+  "dashboardSyncedAt": "2026-09-18T09:09:55.719Z",
   "dateRange": {
-    "startDate": "2026-08-20",
-    "endDate": "2026-09-17"
+    "startDate": "2026-08-21",
+    "endDate": "2026-09-18"
   },
   "overview": {
-    "organicSessions": 113418,
-    "organicSessionsChange": 960,
-    "totalImpressions": 51303,
-    "totalImpressionsChange": 662,
-    "totalClicks": 506,
-    "totalClicksChange": 16,
-    "averageCTR": 0.99,
+    "organicSessions": 113068,
+    "organicSessionsChange": -350,
+    "totalImpressions": 52658,
+    "totalImpressionsChange": 1355,
+    "totalClicks": 512,
+    "totalClicksChange": 6,
+    "averageCTR": 0.97,
     "averageCTRUnit": "percent",
-    "averageCTRChange": 0.02,
+    "averageCTRChange": -0.02,
     "averageCTRChangeUnit": "percentagePoints",
     "averagePosition": 7.4,
     "averagePositionChange": 0,
@@ -28,7 +28,7 @@
   "topKeywords": [
     {
       "keyword": "toe framework (tornatzky and fleischer 1990)",
-      "position": 2.7,
+      "position": 2.6,
       "previousPosition": null,
       "volume": 0,
       "clicks": 14,
@@ -40,27 +40,18 @@
       "position": 2.3,
       "previousPosition": null,
       "volume": 0,
-      "clicks": 13,
-      "impressions": 50,
-      "ctr": 26
+      "clicks": 14,
+      "impressions": 51,
+      "ctr": 27.5
     },
     {
-      "keyword": "tornatzky and fleischer (1990)",
-      "position": 3.8,
+      "keyword": "toe framework",
+      "position": 8.3,
       "previousPosition": null,
       "volume": 0,
-      "clicks": 6,
-      "impressions": 38,
-      "ctr": 15.8
-    },
-    {
-      "keyword": "tornatzky and fleischer 1990 toe framework",
-      "position": 2.8,
-      "previousPosition": null,
-      "volume": 0,
-      "clicks": 6,
-      "impressions": 14,
-      "ctr": 42.9
+      "clicks": 5,
+      "impressions": 590,
+      "ctr": 0.8
     },
     {
       "keyword": "tornatzky & fleischer, 1990",
@@ -68,30 +59,39 @@
       "previousPosition": null,
       "volume": 0,
       "clicks": 5,
+      "impressions": 39,
+      "ctr": 12.8
+    },
+    {
+      "keyword": "tornatzky and fleischer (1990)",
+      "position": 3.8,
+      "previousPosition": null,
+      "volume": 0,
+      "clicks": 5,
       "impressions": 37,
       "ctr": 13.5
     },
     {
-      "keyword": "toe framework",
-      "position": 8.3,
+      "keyword": "tornatzky and fleischer 1990 toe framework",
+      "position": 2.8,
       "previousPosition": null,
       "volume": 0,
-      "clicks": 4,
-      "impressions": 543,
-      "ctr": 0.7
+      "clicks": 5,
+      "impressions": 13,
+      "ctr": 38.5
     },
     {
       "keyword": "tornatzky, l. g., & fleischer, m. (1990). the processes of technological innovation. lexington books.",
-      "position": 8.8,
+      "position": 8.7,
       "previousPosition": null,
       "volume": 0,
       "clicks": 4,
-      "impressions": 36,
-      "ctr": 11.1
+      "impressions": 38,
+      "ctr": 10.5
     },
     {
       "keyword": "technology readiness index",
-      "position": 2.8,
+      "position": 2.5,
       "previousPosition": null,
       "volume": 0,
       "clicks": 3,
@@ -104,8 +104,8 @@
       "previousPosition": null,
       "volume": 0,
       "clicks": 3,
-      "impressions": 16,
-      "ctr": 18.8
+      "impressions": 17,
+      "ctr": 17.6
     },
     {
       "keyword": "tornatzky & fleischer (1990)",
@@ -113,8 +113,8 @@
       "previousPosition": null,
       "volume": 0,
       "clicks": 3,
-      "impressions": 30,
-      "ctr": 10
+      "impressions": 28,
+      "ctr": 10.7
     }
   ],
   "topPages": [
