@@ -16,19 +16,19 @@
       "key": "prolific_accepted",
       "label": "Prolific Accepted",
       "description": "All deduplicated V2 rows with Prolific APPROVED status",
-      "n": 484
+      "n": 485
     },
     {
       "key": "v2_finished",
       "label": "All V2 Finished",
       "description": "Finished + duration >= 120s (extreme speeders excluded)",
-      "n": 786
+      "n": 787
     },
     {
       "key": "v2_all",
       "label": "All V2",
       "description": "All V2 responses including incomplete",
-      "n": 903
+      "n": 904
     }
   ],
   "metrics": [
@@ -38,9 +38,9 @@
       "values": {
         "conservative_clean": 2.8768,
         "flexible_clean": 2.8833,
-        "prolific_accepted": 2.8864,
-        "v2_finished": 2.8911,
-        "v2_all": 2.8923
+        "prolific_accepted": 2.8854,
+        "v2_finished": 2.8909,
+        "v2_all": 2.8921
       }
     },
     {
@@ -49,9 +49,9 @@
       "values": {
         "conservative_clean": 0.6664,
         "flexible_clean": 0.7242,
-        "prolific_accepted": 0.7214,
-        "v2_finished": 0.7783,
-        "v2_all": 0.7775
+        "prolific_accepted": 0.721,
+        "v2_finished": 0.7778,
+        "v2_all": 0.777
       }
     },
     {
@@ -60,9 +60,9 @@
       "values": {
         "conservative_clean": 3.0465,
         "flexible_clean": 3.0772,
-        "prolific_accepted": 3.1034,
-        "v2_finished": 3.2121,
-        "v2_all": 3.2117
+        "prolific_accepted": 3.1007,
+        "v2_finished": 3.2115,
+        "v2_all": 3.2111
       }
     },
     {
@@ -71,9 +71,9 @@
       "values": {
         "conservative_clean": 0.5928,
         "flexible_clean": 0.6696,
-        "prolific_accepted": 0.6559,
-        "v2_finished": 0.7225,
-        "v2_all": 0.7208
+        "prolific_accepted": 0.658,
+        "v2_finished": 0.7223,
+        "v2_all": 0.7206
       }
     },
     {
@@ -82,9 +82,9 @@
       "values": {
         "conservative_clean": 3.0761,
         "flexible_clean": 3.0771,
-        "prolific_accepted": 3.1257,
-        "v2_finished": 3.2276,
-        "v2_all": 3.2277
+        "prolific_accepted": 3.1254,
+        "v2_finished": 3.2268,
+        "v2_all": 3.2269
       }
     },
     {
@@ -93,9 +93,9 @@
       "values": {
         "conservative_clean": 0.7061,
         "flexible_clean": 0.8202,
-        "prolific_accepted": 0.792,
-        "v2_finished": 0.8115,
-        "v2_all": 0.811
+        "prolific_accepted": 0.7912,
+        "v2_finished": 0.8113,
+        "v2_all": 0.8108
       }
     },
     {
@@ -104,9 +104,9 @@
       "values": {
         "conservative_clean": -0.384,
         "flexible_clean": -0.4275,
-        "prolific_accepted": -0.3228,
-        "v2_finished": -0.2519,
-        "v2_all": -0.2511
+        "prolific_accepted": -0.3184,
+        "v2_finished": -0.2517,
+        "v2_all": -0.2509
       }
     },
     {
@@ -115,9 +115,9 @@
       "values": {
         "conservative_clean": -0.1488,
         "flexible_clean": -0.2707,
-        "prolific_accepted": -0.234,
-        "v2_finished": -0.2224,
-        "v2_all": -0.2224
+        "prolific_accepted": -0.2336,
+        "v2_finished": -0.2222,
+        "v2_all": -0.2222
       }
     },
     {
@@ -126,9 +126,9 @@
       "values": {
         "conservative_clean": 0.5719,
         "flexible_clean": 0.7002,
-        "prolific_accepted": 0.7174,
-        "v2_finished": 0.7206,
-        "v2_all": 0.7206
+        "prolific_accepted": 0.715,
+        "v2_finished": 0.7208,
+        "v2_all": 0.7208
       }
     },
     {
@@ -137,9 +137,9 @@
       "values": {
         "conservative_clean": 0.8662,
         "flexible_clean": 0.8848,
-        "prolific_accepted": 0.8859,
-        "v2_finished": 0.9059,
-        "v2_all": 0.9056
+        "prolific_accepted": 0.8857,
+        "v2_finished": 0.9057,
+        "v2_all": 0.9054
       }
     },
     {
@@ -148,9 +148,9 @@
       "values": {
         "conservative_clean": 0.8682,
         "flexible_clean": 0.91,
-        "prolific_accepted": 0.91,
-        "v2_finished": 0.9261,
-        "v2_all": 0.9261
+        "prolific_accepted": 0.9107,
+        "v2_finished": 0.926,
+        "v2_all": 0.926
       }
     },
     {
@@ -160,8 +160,8 @@
         "conservative_clean": 0.8202,
         "flexible_clean": 0.8858,
         "prolific_accepted": 0.8802,
-        "v2_finished": 0.8898,
-        "v2_all": 0.8898
+        "v2_finished": 0.8895,
+        "v2_all": 0.8895
       }
     }
   ],
@@ -851,7 +851,7 @@
       "demographics": {
         "roles": {
           "Other": 107,
-          "CEO": 69,
+          "CEO": 70,
           "CIO": 62,
           "COO": 57,
           "CSO": 37,
@@ -864,20 +864,20 @@
         },
         "org_sizes": {
           "<100": 86,
-          "100-499": 143,
+          "100-499": 144,
           "500-999": 71,
           "1000-4999": 86,
           "5000-9999": 40,
           "10000+": 58
         },
         "profit_models": {
-          "For-Profit": 346,
+          "For-Profit": 347,
           "Non-Profit": 82,
           "Government/Public Sector": 56
         },
         "tech_vs_nontech": {
           "technical": 106,
-          "non_technical": 378,
+          "non_technical": 379,
           "other": 0
         },
         "other_roles": {
@@ -896,68 +896,68 @@
       "effect_sizes": {
         "tech_vs_nontech": {
           "tech_n": 106,
-          "nontech_n": 378,
+          "nontech_n": 379,
           "constructs": {
             "barriers": {
               "tech_mean": 2.8746,
               "tech_mean_ci_lower": 2.7316,
               "tech_mean_ci_upper": 3.0177,
-              "nontech_mean": 2.8897,
-              "nontech_mean_ci_lower": 2.8173,
-              "nontech_mean_ci_upper": 2.9622,
-              "d": -0.0209,
-              "d_ci_lower": -0.2283,
-              "d_ci_upper": 0.1998
+              "nontech_mean": 2.8884,
+              "nontech_mean_ci_lower": 2.8161,
+              "nontech_mean_ci_upper": 2.9607,
+              "d": -0.0191,
+              "d_ci_lower": -0.2282,
+              "d_ci_upper": 0.201
             },
             "readiness": {
               "tech_mean": 3.3877,
               "tech_mean_ci_lower": 3.27,
               "tech_mean_ci_upper": 3.5054,
-              "nontech_mean": 3.0237,
-              "nontech_mean_ci_lower": 2.9583,
-              "nontech_mean_ci_upper": 3.0891,
-              "d": 0.5696,
-              "d_ci_lower": 0.3576,
-              "d_ci_upper": 0.7909
+              "nontech_mean": 3.0204,
+              "nontech_mean_ci_lower": 2.9548,
+              "nontech_mean_ci_upper": 3.0859,
+              "d": 0.5731,
+              "d_ci_lower": 0.3596,
+              "d_ci_upper": 0.7872
             },
             "maturity": {
               "tech_mean": 3.332,
               "tech_mean_ci_lower": 3.1841,
               "tech_mean_ci_upper": 3.4799,
-              "nontech_mean": 3.0678,
+              "nontech_mean": 3.0676,
               "nontech_mean_ci_lower": 2.9879,
-              "nontech_mean_ci_upper": 3.1477,
-              "d": 0.3365,
-              "d_ci_lower": 0.1209,
-              "d_ci_upper": 0.5525
+              "nontech_mean_ci_upper": 3.1473,
+              "d": 0.337,
+              "d_ci_lower": 0.1231,
+              "d_ci_upper": 0.5415
             }
           }
         },
         "large_vs_small": {
           "large_n": 98,
-          "small_medium_n": 386,
+          "small_medium_n": 387,
           "constructs": {
             "barriers": {
               "large_mean": 2.931,
               "large_mean_ci_lower": 2.7938,
               "large_mean_ci_upper": 3.0682,
-              "small_medium_mean": 2.8751,
-              "small_medium_mean_ci_lower": 2.8019,
-              "small_medium_mean_ci_upper": 2.9483,
-              "d": 0.0774,
-              "d_ci_lower": -0.1453,
-              "d_ci_upper": 0.2811
+              "small_medium_mean": 2.8738,
+              "small_medium_mean_ci_lower": 2.8008,
+              "small_medium_mean_ci_upper": 2.9468,
+              "d": 0.0792,
+              "d_ci_lower": -0.142,
+              "d_ci_upper": 0.2884
             },
             "readiness": {
               "large_mean": 3.0981,
               "large_mean_ci_lower": 2.9572,
               "large_mean_ci_upper": 3.239,
-              "small_medium_mean": 3.1048,
-              "small_medium_mean_ci_lower": 3.0403,
-              "small_medium_mean_ci_upper": 3.1693,
-              "d": -0.0102,
-              "d_ci_lower": -0.2377,
-              "d_ci_upper": 0.2377
+              "small_medium_mean": 3.1013,
+              "small_medium_mean_ci_lower": 3.0367,
+              "small_medium_mean_ci_upper": 3.166,
+              "d": -0.005,
+              "d_ci_lower": -0.2441,
+              "d_ci_upper": 0.24
             }
           }
         }
@@ -973,19 +973,19 @@
           },
           {
             "group": "Non-Technical",
-            "n": 378,
-            "barrier_mean": 2.8897,
-            "readiness_mean": 3.0237,
-            "maturity_mean": 3.0678
+            "n": 379,
+            "barrier_mean": 2.8884,
+            "readiness_mean": 3.0204,
+            "maturity_mean": 3.0676
           }
         ],
         "by_org_size": [
           {
             "group": "Small (<500)",
-            "n": 229,
-            "barrier_mean": 2.8274,
-            "readiness_mean": 3.0657,
-            "maturity_mean": 3.0056
+            "n": 230,
+            "barrier_mean": 2.8255,
+            "readiness_mean": 3.06,
+            "maturity_mean": 3.0055
           },
           {
             "group": "Medium (500-4999)",
@@ -1006,114 +1006,114 @@
       "inferential": {
         "t_tests_tech_vs_nontech": {
           "tech_n": 106,
-          "nontech_n": 378,
+          "nontech_n": 379,
           "constructs": {
             "barriers": {
-              "t": -0.1862,
-              "p": 0.8525,
-              "df": 163.8,
-              "mean_diff_ci_lower": -0.175,
-              "mean_diff_ci_upper": 0.1449,
+              "t": -0.17,
+              "p": 0.8653,
+              "df": 163.56,
+              "mean_diff_ci_lower": -0.1737,
+              "mean_diff_ci_upper": 0.1461,
               "sig": false
             },
             "readiness": {
-              "t": 5.3494,
+              "t": 5.3952,
               "p": 0.0,
-              "df": 176.4,
-              "mean_diff_ci_lower": 0.2297,
-              "mean_diff_ci_upper": 0.4983,
+              "df": 176.76,
+              "mean_diff_ci_lower": 0.233,
+              "mean_diff_ci_upper": 0.5017,
               "sig": true
             },
             "maturity": {
-              "t": 3.1105,
+              "t": 3.1145,
               "p": 0.0022,
-              "df": 172.33,
-              "mean_diff_ci_lower": 0.0965,
-              "mean_diff_ci_upper": 0.4318,
+              "df": 171.97,
+              "mean_diff_ci_lower": 0.0968,
+              "mean_diff_ci_upper": 0.4319,
               "sig": true
             }
           }
         },
         "t_tests_large_vs_small": {
           "large_n": 98,
-          "small_medium_n": 386,
+          "small_medium_n": 387,
           "constructs": {
             "barriers": {
-              "t": 0.7116,
-              "p": 0.4778,
-              "df": 158.01,
-              "mean_diff_ci_lower": -0.0992,
-              "mean_diff_ci_upper": 0.2109,
+              "t": 0.7279,
+              "p": 0.4677,
+              "df": 157.76,
+              "mean_diff_ci_lower": -0.0979,
+              "mean_diff_ci_upper": 0.2121,
               "sig": false
             },
             "readiness": {
-              "t": -0.086,
-              "p": 0.9316,
-              "df": 141.2,
-              "mean_diff_ci_lower": -0.1613,
-              "mean_diff_ci_upper": 0.1479,
+              "t": -0.0417,
+              "p": 0.9668,
+              "df": 141.48,
+              "mean_diff_ci_lower": -0.158,
+              "mean_diff_ci_upper": 0.1514,
               "sig": false
             },
             "maturity": {
-              "t": 1.5814,
-              "p": 0.116,
-              "df": 141.81,
-              "mean_diff_ci_lower": -0.0371,
-              "mean_diff_ci_upper": 0.3338,
+              "t": 1.5848,
+              "p": 0.1152,
+              "df": 141.57,
+              "mean_diff_ci_lower": -0.0368,
+              "mean_diff_ci_upper": 0.3339,
               "sig": false
             }
           }
         },
         "anova_by_role": {
           "groups": ["Technical", "Non-Technical"],
-          "group_ns": [106, 378],
+          "group_ns": [106, 379],
           "constructs": {
             "barriers": {
-              "f": 0.0361,
-              "p": 0.8493,
+              "f": 0.0301,
+              "p": 0.8623,
               "df_between": 1,
-              "df_within": 482,
+              "df_within": 483,
               "sig": false
             },
             "readiness": {
-              "f": 26.8624,
+              "f": 27.209,
               "p": 0.0,
               "df_between": 1,
-              "df_within": 482,
+              "df_within": 483,
               "sig": true
             },
             "maturity": {
-              "f": 9.3721,
+              "f": 9.4095,
               "p": 0.0023,
               "df_between": 1,
-              "df_within": 482,
+              "df_within": 483,
               "sig": true
             }
           }
         },
         "anova_by_org_size": {
           "groups": ["Small (<500)", "Medium (500-4999)", "Large (5000+)"],
-          "group_ns": [229, 157, 98],
+          "group_ns": [230, 157, 98],
           "constructs": {
             "barriers": {
-              "f": 1.4697,
-              "p": 0.231,
+              "f": 1.5252,
+              "p": 0.2186,
               "df_between": 2,
-              "df_within": 481,
+              "df_within": 482,
               "sig": false
             },
             "readiness": {
-              "f": 1.0052,
-              "p": 0.3667,
+              "f": 1.1185,
+              "p": 0.3276,
               "df_between": 2,
-              "df_within": 481,
+              "df_within": 482,
               "sig": false
             },
             "maturity": {
-              "f": 5.0966,
-              "p": 0.0065,
+              "f": 5.12,
+              "p": 0.0063,
               "df_between": 2,
-              "df_within": 481,
+              "df_within": 482,
               "sig": true
             }
           }
@@ -1123,7 +1123,7 @@
     "v2_finished": {
       "demographics": {
         "roles": {
-          "Other": 151,
+          "Other": 152,
           "CEO": 139,
           "CIO": 103,
           "COO": 80,
@@ -1140,25 +1140,25 @@
           "100-499": 227,
           "500-999": 123,
           "1000-4999": 142,
-          "5000-9999": 62,
+          "5000-9999": 63,
           "10000+": 98
         },
         "profit_models": {
           "For-Profit": 581,
           "Non-Profit": 119,
-          "Government/Public Sector": 86
+          "Government/Public Sector": 87
         },
         "tech_vs_nontech": {
           "technical": 188,
-          "non_technical": 598,
+          "non_technical": 599,
           "other": 0
         },
         "other_roles": {
-          "total": 151,
+          "total": 152,
           "categories": {
             "Director": 58,
             "VP / SVP": 28,
-            "Uncategorized": 25,
+            "Uncategorized": 26,
             "Manager / Program Lead": 14,
             "Owner / Founder / President": 12,
             "C-Suite Adjacent": 11,
@@ -1169,68 +1169,68 @@
       "effect_sizes": {
         "tech_vs_nontech": {
           "tech_n": 188,
-          "nontech_n": 598,
+          "nontech_n": 599,
           "constructs": {
             "barriers": {
               "tech_mean": 2.8509,
               "tech_mean_ci_lower": 2.7331,
               "tech_mean_ci_upper": 2.9688,
-              "nontech_mean": 2.9036,
-              "nontech_mean_ci_lower": 2.842,
-              "nontech_mean_ci_upper": 2.9652,
-              "d": -0.0677,
-              "d_ci_lower": -0.2298,
-              "d_ci_upper": 0.0974
+              "nontech_mean": 2.9034,
+              "nontech_mean_ci_lower": 2.8419,
+              "nontech_mean_ci_upper": 2.9649,
+              "d": -0.0674,
+              "d_ci_lower": -0.2362,
+              "d_ci_upper": 0.1086
             },
             "readiness": {
               "tech_mean": 3.4621,
               "tech_mean_ci_lower": 3.3641,
               "tech_mean_ci_upper": 3.5601,
-              "nontech_mean": 3.1336,
-              "nontech_mean_ci_lower": 3.0757,
-              "nontech_mean_ci_upper": 3.1914,
-              "d": 0.4632,
-              "d_ci_lower": 0.2967,
-              "d_ci_upper": 0.628
+              "nontech_mean": 3.1328,
+              "nontech_mean_ci_lower": 3.0751,
+              "nontech_mean_ci_upper": 3.1906,
+              "d": 0.4644,
+              "d_ci_lower": 0.301,
+              "d_ci_upper": 0.6338
             },
             "maturity": {
               "tech_mean": 3.4348,
               "tech_mean_ci_lower": 3.322,
               "tech_mean_ci_upper": 3.5477,
-              "nontech_mean": 3.1624,
-              "nontech_mean_ci_lower": 3.0972,
-              "nontech_mean_ci_upper": 3.2277,
-              "d": 0.339,
-              "d_ci_lower": 0.1781,
-              "d_ci_upper": 0.5032
+              "nontech_mean": 3.1615,
+              "nontech_mean_ci_lower": 3.0964,
+              "nontech_mean_ci_upper": 3.2267,
+              "d": 0.3402,
+              "d_ci_lower": 0.1771,
+              "d_ci_upper": 0.5051
             }
           }
         },
         "large_vs_small": {
-          "large_n": 160,
+          "large_n": 161,
           "small_medium_n": 626,
           "constructs": {
             "barriers": {
-              "large_mean": 2.8979,
+              "large_mean": 2.8972,
               "large_mean_ci_lower": 2.7775,
-              "large_mean_ci_upper": 3.0184,
+              "large_mean_ci_upper": 3.0169,
               "small_medium_mean": 2.8893,
               "small_medium_mean_ci_lower": 2.8279,
               "small_medium_mean_ci_upper": 2.9507,
-              "d": 0.0111,
-              "d_ci_lower": -0.1587,
-              "d_ci_upper": 0.1789
+              "d": 0.0102,
+              "d_ci_lower": -0.158,
+              "d_ci_upper": 0.1728
             },
             "readiness": {
-              "large_mean": 3.2489,
-              "large_mean_ci_lower": 3.1311,
-              "large_mean_ci_upper": 3.3667,
+              "large_mean": 3.2455,
+              "large_mean_ci_lower": 3.1283,
+              "large_mean_ci_upper": 3.3628,
               "small_medium_mean": 3.2027,
               "small_medium_mean_ci_lower": 3.1464,
               "small_medium_mean_ci_upper": 3.2589,
-              "d": 0.0639,
-              "d_ci_lower": -0.1072,
-              "d_ci_upper": 0.2418
+              "d": 0.0593,
+              "d_ci_lower": -0.115,
+              "d_ci_upper": 0.2374
             }
           }
         }
@@ -1246,10 +1246,10 @@
           },
           {
             "group": "Non-Technical",
-            "n": 598,
-            "barrier_mean": 2.9036,
-            "readiness_mean": 3.1336,
-            "maturity_mean": 3.1624
+            "n": 599,
+            "barrier_mean": 2.9034,
+            "readiness_mean": 3.1328,
+            "maturity_mean": 3.1615
           }
         ],
         "by_org_size": [
@@ -1269,124 +1269,124 @@
           },
           {
             "group": "Large (5000+)",
-            "n": 160,
-            "barrier_mean": 2.8979,
-            "readiness_mean": 3.2489,
-            "maturity_mean": 3.3416
+            "n": 161,
+            "barrier_mean": 2.8972,
+            "readiness_mean": 3.2455,
+            "maturity_mean": 3.3371
           }
         ]
       },
       "inferential": {
         "t_tests_tech_vs_nontech": {
           "tech_n": 188,
-          "nontech_n": 598,
+          "nontech_n": 599,
           "constructs": {
             "barriers": {
-              "t": -0.7808,
-              "p": 0.4356,
-              "df": 295.6,
-              "mean_diff_ci_lower": -0.1854,
-              "mean_diff_ci_upper": 0.0801,
+              "t": -0.7779,
+              "p": 0.4372,
+              "df": 295.23,
+              "mean_diff_ci_lower": -0.1852,
+              "mean_diff_ci_upper": 0.0803,
               "sig": false
             },
             "readiness": {
-              "t": 5.6879,
+              "t": 5.7024,
               "p": 0.0,
-              "df": 327.01,
-              "mean_diff_ci_lower": 0.2149,
-              "mean_diff_ci_upper": 0.4421,
+              "df": 326.63,
+              "mean_diff_ci_lower": 0.2157,
+              "mean_diff_ci_upper": 0.4428,
               "sig": true
             },
             "maturity": {
-              "t": 4.1186,
+              "t": 4.1336,
               "p": 0.0,
-              "df": 321.2,
-              "mean_diff_ci_lower": 0.1423,
-              "mean_diff_ci_upper": 0.4026,
+              "df": 320.85,
+              "mean_diff_ci_lower": 0.1432,
+              "mean_diff_ci_upper": 0.4034,
               "sig": true
             }
           }
         },
         "t_tests_large_vs_small": {
-          "large_n": 160,
+          "large_n": 161,
           "small_medium_n": 626,
           "constructs": {
             "barriers": {
-              "t": 0.1264,
-              "p": 0.8995,
-              "df": 249.08,
-              "mean_diff_ci_lower": -0.1263,
-              "mean_diff_ci_upper": 0.1436,
+              "t": 0.1161,
+              "p": 0.9077,
+              "df": 251.81,
+              "mean_diff_ci_lower": -0.1264,
+              "mean_diff_ci_upper": 0.1422,
               "sig": false
             },
             "readiness": {
-              "t": 0.6984,
-              "p": 0.4856,
-              "df": 237.56,
-              "mean_diff_ci_lower": -0.0841,
-              "mean_diff_ci_upper": 0.1766,
+              "t": 0.6499,
+              "p": 0.5164,
+              "df": 239.81,
+              "mean_diff_ci_lower": -0.087,
+              "mean_diff_ci_upper": 0.1727,
               "sig": false
             },
             "maturity": {
-              "t": 1.9494,
-              "p": 0.0524,
-              "df": 239.93,
-              "mean_diff_ci_lower": -0.0015,
-              "mean_diff_ci_upper": 0.2882,
+              "t": 1.8949,
+              "p": 0.0593,
+              "df": 242.1,
+              "mean_diff_ci_lower": -0.0055,
+              "mean_diff_ci_upper": 0.2833,
               "sig": false
             }
           }
         },
         "anova_by_role": {
           "groups": ["Technical", "Non-Technical"],
-          "group_ns": [188, 598],
+          "group_ns": [188, 599],
           "constructs": {
             "barriers": {
-              "f": 0.652,
-              "p": 0.4197,
+              "f": 0.6478,
+              "p": 0.4211,
               "df_between": 1,
-              "df_within": 782,
+              "df_within": 783,
               "sig": false
             },
             "readiness": {
-              "f": 30.5247,
+              "f": 30.6955,
               "p": 0.0,
               "df_between": 1,
-              "df_within": 780,
+              "df_within": 781,
               "sig": true
             },
             "maturity": {
-              "f": 16.348,
+              "f": 16.4747,
               "p": 0.0001,
               "df_between": 1,
-              "df_within": 780,
+              "df_within": 781,
               "sig": true
             }
           }
         },
         "anova_by_org_size": {
           "groups": ["Small (<500)", "Medium (500-4999)", "Large (5000+)"],
-          "group_ns": [361, 265, 160],
+          "group_ns": [361, 265, 161],
           "constructs": {
             "barriers": {
-              "f": 3.3602,
-              "p": 0.0352,
+              "f": 3.3631,
+              "p": 0.0351,
               "df_between": 2,
-              "df_within": 781,
+              "df_within": 782,
               "sig": true
             },
             "readiness": {
-              "f": 6.2391,
+              "f": 6.2065,
               "p": 0.0021,
               "df_between": 2,
-              "df_within": 779,
+              "df_within": 780,
               "sig": true
             },
             "maturity": {
-              "f": 14.7282,
+              "f": 14.6158,
               "p": 0.0,
               "df_between": 2,
-              "df_within": 779,
+              "df_within": 780,
               "sig": true
             }
           }
@@ -1396,7 +1396,7 @@
     "v2_all": {
       "demographics": {
         "roles": {
-          "Other": 158,
+          "Other": 159,
           "CEO": 141,
           "CIO": 106,
           "Unknown": 96,
@@ -1414,24 +1414,24 @@
           "100-499": 234,
           "500-999": 127,
           "1000-4999": 143,
-          "5000-9999": 64,
+          "5000-9999": 65,
           "10000+": 101
         },
         "profit_models": {
           "For-Profit": 599,
           "Non-Profit": 122,
-          "Government/Public Sector": 86
+          "Government/Public Sector": 87
         },
         "tech_vs_nontech": {
           "technical": 193,
-          "non_technical": 614,
+          "non_technical": 615,
           "other": 96
         },
         "other_roles": {
-          "total": 158,
+          "total": 159,
           "categories": {
             "Director": 61,
-            "Uncategorized": 29,
+            "Uncategorized": 30,
             "VP / SVP": 28,
             "Manager / Program Lead": 14,
             "Owner / Founder / President": 12,
@@ -1443,68 +1443,68 @@
       "effect_sizes": {
         "tech_vs_nontech": {
           "tech_n": 193,
-          "nontech_n": 614,
+          "nontech_n": 615,
           "constructs": {
             "barriers": {
               "tech_mean": 2.8558,
               "tech_mean_ci_lower": 2.7399,
               "tech_mean_ci_upper": 2.9718,
-              "nontech_mean": 2.9038,
-              "nontech_mean_ci_lower": 2.8426,
-              "nontech_mean_ci_upper": 2.965,
-              "d": -0.0617,
-              "d_ci_lower": -0.2296,
-              "d_ci_upper": 0.0981
+              "nontech_mean": 2.9036,
+              "nontech_mean_ci_lower": 2.8425,
+              "nontech_mean_ci_upper": 2.9647,
+              "d": -0.0615,
+              "d_ci_lower": -0.227,
+              "d_ci_upper": 0.1082
             },
             "readiness": {
               "tech_mean": 3.4606,
               "tech_mean_ci_lower": 3.3631,
               "tech_mean_ci_upper": 3.5582,
-              "nontech_mean": 3.1335,
-              "nontech_mean_ci_lower": 3.0759,
-              "nontech_mean_ci_upper": 3.1911,
-              "d": 0.4623,
-              "d_ci_lower": 0.3042,
-              "d_ci_upper": 0.6281
+              "nontech_mean": 3.1328,
+              "nontech_mean_ci_lower": 3.0753,
+              "nontech_mean_ci_upper": 3.1903,
+              "d": 0.4635,
+              "d_ci_lower": 0.3053,
+              "d_ci_upper": 0.625
             },
             "maturity": {
               "tech_mean": 3.4348,
               "tech_mean_ci_lower": 3.322,
               "tech_mean_ci_upper": 3.5477,
-              "nontech_mean": 3.1627,
-              "nontech_mean_ci_lower": 3.0976,
-              "nontech_mean_ci_upper": 3.2278,
-              "d": 0.3388,
-              "d_ci_lower": 0.1762,
-              "d_ci_upper": 0.5007
+              "nontech_mean": 3.1618,
+              "nontech_mean_ci_lower": 3.0968,
+              "nontech_mean_ci_upper": 3.2269,
+              "d": 0.3401,
+              "d_ci_lower": 0.1765,
+              "d_ci_upper": 0.5047
             }
           }
         },
         "large_vs_small": {
-          "large_n": 165,
+          "large_n": 166,
           "small_medium_n": 738,
           "constructs": {
             "barriers": {
-              "large_mean": 2.9101,
-              "large_mean_ci_lower": 2.791,
-              "large_mean_ci_upper": 3.0291,
+              "large_mean": 2.9092,
+              "large_mean_ci_lower": 2.7909,
+              "large_mean_ci_upper": 3.0275,
               "small_medium_mean": 2.8877,
               "small_medium_mean_ci_lower": 2.8268,
               "small_medium_mean_ci_upper": 2.9486,
-              "d": 0.0287,
-              "d_ci_lower": -0.1459,
-              "d_ci_upper": 0.2097
+              "d": 0.0277,
+              "d_ci_lower": -0.1405,
+              "d_ci_upper": 0.203
             },
             "readiness": {
-              "large_mean": 3.2489,
-              "large_mean_ci_lower": 3.1311,
-              "large_mean_ci_upper": 3.3667,
+              "large_mean": 3.2455,
+              "large_mean_ci_lower": 3.1283,
+              "large_mean_ci_upper": 3.3628,
               "small_medium_mean": 3.2023,
               "small_medium_mean_ci_lower": 3.1463,
               "small_medium_mean_ci_upper": 3.2582,
-              "d": 0.0647,
-              "d_ci_lower": -0.1061,
-              "d_ci_upper": 0.2493
+              "d": 0.06,
+              "d_ci_lower": -0.1202,
+              "d_ci_upper": 0.2416
             }
           }
         }
@@ -1520,10 +1520,10 @@
           },
           {
             "group": "Non-Technical",
-            "n": 614,
-            "barrier_mean": 2.9038,
-            "readiness_mean": 3.1335,
-            "maturity_mean": 3.1627
+            "n": 615,
+            "barrier_mean": 2.9036,
+            "readiness_mean": 3.1328,
+            "maturity_mean": 3.1618
           },
           {
             "group": "Unclassified",
@@ -1550,124 +1550,124 @@
           },
           {
             "group": "Large (5000+)",
-            "n": 165,
-            "barrier_mean": 2.9101,
-            "readiness_mean": 3.2489,
-            "maturity_mean": 3.3416
+            "n": 166,
+            "barrier_mean": 2.9092,
+            "readiness_mean": 3.2455,
+            "maturity_mean": 3.3371
           }
         ]
       },
       "inferential": {
         "t_tests_tech_vs_nontech": {
           "tech_n": 193,
-          "nontech_n": 614,
+          "nontech_n": 615,
           "constructs": {
             "barriers": {
-              "t": -0.7212,
-              "p": 0.4713,
-              "df": 304.26,
-              "mean_diff_ci_lower": -0.1789,
-              "mean_diff_ci_upper": 0.0829,
+              "t": -0.7183,
+              "p": 0.4731,
+              "df": 303.88,
+              "mean_diff_ci_lower": -0.1786,
+              "mean_diff_ci_upper": 0.0831,
               "sig": false
             },
             "readiness": {
-              "t": 5.6914,
+              "t": 5.7058,
               "p": 0.0,
-              "df": 328.79,
-              "mean_diff_ci_lower": 0.214,
-              "mean_diff_ci_upper": 0.4402,
+              "df": 328.41,
+              "mean_diff_ci_lower": 0.2148,
+              "mean_diff_ci_upper": 0.4409,
               "sig": true
             },
             "maturity": {
-              "t": 4.116,
+              "t": 4.131,
               "p": 0.0,
-              "df": 320.76,
-              "mean_diff_ci_lower": 0.1421,
-              "mean_diff_ci_upper": 0.4022,
+              "df": 320.42,
+              "mean_diff_ci_lower": 0.143,
+              "mean_diff_ci_upper": 0.4031,
               "sig": true
             }
           }
         },
         "t_tests_large_vs_small": {
-          "large_n": 165,
+          "large_n": 166,
           "small_medium_n": 738,
           "constructs": {
             "barriers": {
-              "t": 0.3297,
-              "p": 0.7419,
-              "df": 254.5,
-              "mean_diff_ci_lower": -0.1111,
-              "mean_diff_ci_upper": 0.1558,
+              "t": 0.3194,
+              "p": 0.7497,
+              "df": 257.24,
+              "mean_diff_ci_lower": -0.1113,
+              "mean_diff_ci_upper": 0.1544,
               "sig": false
             },
             "readiness": {
-              "t": 0.7054,
-              "p": 0.4813,
-              "df": 236.57,
-              "mean_diff_ci_lower": -0.0836,
-              "mean_diff_ci_upper": 0.1768,
+              "t": 0.6568,
+              "p": 0.5119,
+              "df": 238.8,
+              "mean_diff_ci_lower": -0.0865,
+              "mean_diff_ci_upper": 0.173,
               "sig": false
             },
             "maturity": {
-              "t": 1.947,
-              "p": 0.0527,
-              "df": 239.67,
-              "mean_diff_ci_lower": -0.0017,
-              "mean_diff_ci_upper": 0.288,
+              "t": 1.8925,
+              "p": 0.0596,
+              "df": 241.83,
+              "mean_diff_ci_lower": -0.0057,
+              "mean_diff_ci_upper": 0.283,
               "sig": false
             }
           }
         },
         "anova_by_role": {
           "groups": ["Technical", "Non-Technical", "Unclassified"],
-          "group_ns": [193, 614, 96],
+          "group_ns": [193, 615, 96],
           "constructs": {
             "barriers": {
-              "f": 0.5526,
-              "p": 0.4575,
+              "f": 0.5487,
+              "p": 0.4591,
               "df_between": 1,
-              "df_within": 794,
+              "df_within": 795,
               "sig": false
             },
             "readiness": {
-              "f": 30.5645,
+              "f": 30.7351,
               "p": 0.0,
               "df_between": 1,
-              "df_within": 784,
+              "df_within": 785,
               "sig": true
             },
             "maturity": {
-              "f": 16.3401,
+              "f": 16.4667,
               "p": 0.0001,
               "df_between": 1,
-              "df_within": 781,
+              "df_within": 782,
               "sig": true
             }
           }
         },
         "anova_by_org_size": {
           "groups": ["Small (<500)", "Medium (500-4999)", "Large (5000+)"],
-          "group_ns": [372, 270, 165],
+          "group_ns": [372, 270, 166],
           "constructs": {
             "barriers": {
-              "f": 2.8869,
+              "f": 2.8868,
               "p": 0.0563,
               "df_between": 2,
-              "df_within": 793,
+              "df_within": 794,
               "sig": false
             },
             "readiness": {
-              "f": 6.3077,
-              "p": 0.0019,
+              "f": 6.2746,
+              "p": 0.002,
               "df_between": 2,
-              "df_within": 783,
+              "df_within": 784,
               "sig": true
             },
             "maturity": {
-              "f": 14.7536,
+              "f": 14.6412,
               "p": 0.0,
               "df_between": 2,
-              "df_within": 780,
+              "df_within": 781,
               "sig": true
             }
           }
@@ -1678,22 +1678,22 @@
   "filter_bias_analysis": {
     "role": {
       "ok": true,
-      "chi2": 2.28,
-      "p_value": 0.5155,
+      "chi2": 2.27,
+      "p_value": 0.5183,
       "df": 3,
       "error": null
     },
     "organization_size": {
       "ok": true,
-      "chi2": 6.01,
-      "p_value": 0.9796,
+      "chi2": 6.08,
+      "p_value": 0.9783,
       "df": 15,
       "error": null
     },
     "profit_model": {
       "ok": true,
-      "chi2": 4.18,
-      "p_value": 0.6526,
+      "chi2": 3.98,
+      "p_value": 0.6792,
       "df": 6,
       "error": null
     },
@@ -1711,14 +1711,14 @@
           "Government/Public Sector": 36
         },
         "Prolific Accepted": {
-          "For-Profit": 346,
+          "For-Profit": 347,
           "Non-Profit": 82,
           "Government/Public Sector": 56
         },
         "All V2 Finished": {
           "For-Profit": 581,
           "Non-Profit": 119,
-          "Government/Public Sector": 86
+          "Government/Public Sector": 87
         }
       }
     }
@@ -1761,115 +1761,115 @@
     }
   ],
   "top3_pick_counts": {
-    "total_n": 484,
+    "total_n": 485,
     "items": [
       {
         "item": "B1",
         "text": "Resistance to change among employees or middle management.",
         "count": 112,
-        "pct": 23.14
+        "pct": 23.09
       },
       {
         "item": "B2",
         "text": "Lack of support or clear vision from top leadership (including the board, e.g., governing body, oversight committee).",
         "count": 60,
-        "pct": 12.4
+        "pct": 12.37
       },
       {
         "item": "B3",
         "text": "Organizational culture that discourages risk-taking or experimentation with new technologies.",
         "count": 35,
-        "pct": 7.23
+        "pct": 7.22
       },
       {
         "item": "B4",
         "text": "Insufficient skills or expertise within the workforce to utilize new technologies effectively.",
-        "count": 78,
-        "pct": 16.12
+        "count": 79,
+        "pct": 16.29
       },
       {
         "item": "B5",
         "text": "Inadequate training programs for new technologies.",
-        "count": 42,
-        "pct": 8.68
+        "count": 43,
+        "pct": 8.87
       },
       {
         "item": "B6",
         "text": "High cost associated with acquiring or implementing new technologies.",
         "count": 200,
-        "pct": 41.32
+        "pct": 41.24
       },
       {
         "item": "B7",
         "text": "Difficulty integrating new technologies with existing legacy systems.",
         "count": 165,
-        "pct": 34.09
+        "pct": 34.02
       },
       {
         "item": "B8",
         "text": "Inadequate IT infrastructure (e.g., network, storage, computing power) to support new technologies.",
         "count": 67,
-        "pct": 13.84
+        "pct": 13.81
       },
       {
         "item": "B9",
         "text": "Difficulty demonstrating clear value (e.g., mission impact, public value, cost-effectiveness) for new technology investments.",
         "count": 71,
-        "pct": 14.67
+        "pct": 14.64
       },
       {
         "item": "B10",
         "text": "Lack of a clear strategy or roadmap for technology adoption.",
-        "count": 71,
-        "pct": 14.67
+        "count": 72,
+        "pct": 14.85
       },
       {
         "item": "B11",
         "text": "Insufficient governance processes for selecting and managing new technologies.",
         "count": 16,
-        "pct": 3.31
+        "pct": 3.3
       },
       {
         "item": "B12",
         "text": "New technologies disrupting existing workflows or processes significantly.",
         "count": 95,
-        "pct": 19.63
+        "pct": 19.59
       },
       {
         "item": "B13",
         "text": "Concerns about cybersecurity risks associated with new technologies.",
         "count": 131,
-        "pct": 27.07
+        "pct": 27.01
       },
       {
         "item": "B14",
         "text": "Concerns about data privacy compliance related to new technologies.",
         "count": 119,
-        "pct": 24.59
+        "pct": 24.54
       },
       {
         "item": "B15",
         "text": "Lack of trust in the reliability or performance of new technologies or vendors.",
         "count": 49,
-        "pct": 10.12
+        "pct": 10.1
       },
       {
         "item": "B16",
         "text": "Uncertainty or complexity related to regulatory requirements.",
         "count": 51,
-        "pct": 10.54
+        "pct": 10.52
       },
       {
         "item": "B17",
         "text": "Pressure to adopt technology due to external factors (e.g., mandates, public expectations, peer agency actions), without adequate internal readiness.",
         "count": 46,
-        "pct": 9.5
+        "pct": 9.48
       },
       {
         "item": "B18",
         "text": "Difficulty finding reliable technology vendors or partners.",
         "count": 44,
-        "pct": 9.09
+        "pct": 9.07
       }
     ],
     "items_sorted_desc": [
@@ -1877,109 +1877,109 @@
         "item": "B6",
         "text": "High cost associated with acquiring or implementing new technologies.",
         "count": 200,
-        "pct": 41.32
+        "pct": 41.24
       },
       {
         "item": "B7",
         "text": "Difficulty integrating new technologies with existing legacy systems.",
         "count": 165,
-        "pct": 34.09
+        "pct": 34.02
       },
       {
         "item": "B13",
         "text": "Concerns about cybersecurity risks associated with new technologies.",
         "count": 131,
-        "pct": 27.07
+        "pct": 27.01
       },
       {
         "item": "B14",
         "text": "Concerns about data privacy compliance related to new technologies.",
         "count": 119,
-        "pct": 24.59
+        "pct": 24.54
       },
       {
         "item": "B1",
         "text": "Resistance to change among employees or middle management.",
         "count": 112,
-        "pct": 23.14
+        "pct": 23.09
       },
       {
         "item": "B12",
         "text": "New technologies disrupting existing workflows or processes significantly.",
         "count": 95,
-        "pct": 19.63
+        "pct": 19.59
       },
       {
         "item": "B4",
         "text": "Insufficient skills or expertise within the workforce to utilize new technologies effectively.",
-        "count": 78,
-        "pct": 16.12
+        "count": 79,
+        "pct": 16.29
+      },
+      {
+        "item": "B10",
+        "text": "Lack of a clear strategy or roadmap for technology adoption.",
+        "count": 72,
+        "pct": 14.85
       },
       {
         "item": "B9",
         "text": "Difficulty demonstrating clear value (e.g., mission impact, public value, cost-effectiveness) for new technology investments.",
         "count": 71,
-        "pct": 14.67
-      },
-      {
-        "item": "B10",
-        "text": "Lack of a clear strategy or roadmap for technology adoption.",
-        "count": 71,
-        "pct": 14.67
+        "pct": 14.64
       },
       {
         "item": "B8",
         "text": "Inadequate IT infrastructure (e.g., network, storage, computing power) to support new technologies.",
         "count": 67,
-        "pct": 13.84
+        "pct": 13.81
       },
       {
         "item": "B2",
         "text": "Lack of support or clear vision from top leadership (including the board, e.g., governing body, oversight committee).",
         "count": 60,
-        "pct": 12.4
+        "pct": 12.37
       },
       {
         "item": "B16",
         "text": "Uncertainty or complexity related to regulatory requirements.",
         "count": 51,
-        "pct": 10.54
+        "pct": 10.52
       },
       {
         "item": "B15",
         "text": "Lack of trust in the reliability or performance of new technologies or vendors.",
         "count": 49,
-        "pct": 10.12
+        "pct": 10.1
       },
       {
         "item": "B17",
         "text": "Pressure to adopt technology due to external factors (e.g., mandates, public expectations, peer agency actions), without adequate internal readiness.",
         "count": 46,
-        "pct": 9.5
+        "pct": 9.48
       },
       {
         "item": "B18",
         "text": "Difficulty finding reliable technology vendors or partners.",
         "count": 44,
-        "pct": 9.09
+        "pct": 9.07
       },
       {
         "item": "B5",
         "text": "Inadequate training programs for new technologies.",
-        "count": 42,
-        "pct": 8.68
+        "count": 43,
+        "pct": 8.87
       },
       {
         "item": "B3",
         "text": "Organizational culture that discourages risk-taking or experimentation with new technologies.",
         "count": 35,
-        "pct": 7.23
+        "pct": 7.22
       },
       {
         "item": "B11",
         "text": "Insufficient governance processes for selecting and managing new technologies.",
         "count": 16,
-        "pct": 3.31
+        "pct": 3.3
       }
     ]
   },
@@ -1988,325 +1988,325 @@
       {
         "item": "B1",
         "text": "Resistance to change among employees or middle management.",
-        "mean": 3.0708,
-        "sd": 1.2692,
-        "n": 480
+        "mean": 3.0728,
+        "sd": 1.2686,
+        "n": 481
       },
       {
         "item": "B2",
         "text": "Lack of support or clear vision from top leadership (including the board, e.g., governing body, oversight committee).",
-        "mean": 2.6083,
-        "sd": 1.3214,
-        "n": 480
+        "mean": 2.6091,
+        "sd": 1.3201,
+        "n": 481
       },
       {
         "item": "B3",
         "text": "Organizational culture that discourages risk-taking or experimentation with new technologies.",
-        "mean": 2.499,
-        "sd": 1.3364,
-        "n": 479
+        "mean": 2.4958,
+        "sd": 1.3368,
+        "n": 480
       },
       {
         "item": "B4",
         "text": "Insufficient skills or expertise within the workforce to utilize new technologies effectively.",
-        "mean": 2.9502,
-        "sd": 1.2259,
-        "n": 482
+        "mean": 2.9462,
+        "sd": 1.2278,
+        "n": 483
       },
       {
         "item": "B5",
         "text": "Inadequate training programs for new technologies.",
-        "mean": 2.842,
-        "sd": 1.1867,
-        "n": 481
+        "mean": 2.8423,
+        "sd": 1.1855,
+        "n": 482
       },
       {
         "item": "B6",
         "text": "High cost associated with acquiring or implementing new technologies.",
-        "mean": 3.6499,
-        "sd": 1.1491,
-        "n": 477
+        "mean": 3.6485,
+        "sd": 1.1483,
+        "n": 478
       },
       {
         "item": "B7",
         "text": "Difficulty integrating new technologies with existing legacy systems.",
-        "mean": 3.3946,
-        "sd": 1.1931,
-        "n": 479
+        "mean": 3.3937,
+        "sd": 1.192,
+        "n": 480
       },
       {
         "item": "B8",
         "text": "Inadequate IT infrastructure (e.g., network, storage, computing power) to support new technologies.",
-        "mean": 2.6904,
-        "sd": 1.2773,
-        "n": 478
+        "mean": 2.6868,
+        "sd": 1.2783,
+        "n": 479
       },
       {
         "item": "B9",
         "text": "Difficulty demonstrating clear value (e.g., mission impact, public value, cost-effectiveness) for new technology investments.",
-        "mean": 2.8125,
-        "sd": 1.1641,
-        "n": 480
+        "mean": 2.8087,
+        "sd": 1.1658,
+        "n": 481
       },
       {
         "item": "B10",
         "text": "Lack of a clear strategy or roadmap for technology adoption.",
-        "mean": 2.8669,
-        "sd": 1.2158,
-        "n": 481
+        "mean": 2.8631,
+        "sd": 1.2175,
+        "n": 482
       },
       {
         "item": "B11",
         "text": "Insufficient governance processes for selecting and managing new technologies.",
-        "mean": 2.4589,
-        "sd": 1.151,
-        "n": 475
+        "mean": 2.4601,
+        "sd": 1.15,
+        "n": 476
       },
       {
         "item": "B12",
         "text": "New technologies disrupting existing workflows or processes significantly.",
-        "mean": 2.925,
-        "sd": 1.2117,
-        "n": 480
+        "mean": 2.9252,
+        "sd": 1.2105,
+        "n": 481
       },
       {
         "item": "B13",
         "text": "Concerns about cybersecurity risks associated with new technologies.",
-        "mean": 3.2589,
-        "sd": 1.2475,
-        "n": 479
+        "mean": 3.2583,
+        "sd": 1.2463,
+        "n": 480
       },
       {
         "item": "B14",
         "text": "Concerns about data privacy compliance related to new technologies.",
-        "mean": 3.1858,
-        "sd": 1.2827,
-        "n": 479
+        "mean": 3.1812,
+        "sd": 1.2852,
+        "n": 480
       },
       {
         "item": "B15",
         "text": "Lack of trust in the reliability or performance of new technologies or vendors.",
-        "mean": 2.7495,
-        "sd": 1.1259,
-        "n": 479
+        "mean": 2.75,
+        "sd": 1.1248,
+        "n": 480
       },
       {
         "item": "B16",
         "text": "Uncertainty or complexity related to regulatory requirements.",
-        "mean": 2.761,
-        "sd": 1.2675,
-        "n": 477
+        "mean": 2.7615,
+        "sd": 1.2662,
+        "n": 478
       },
       {
         "item": "B17",
         "text": "Pressure to adopt technology due to external factors (e.g., mandates, public expectations, peer agency actions), without adequate internal readiness.",
-        "mean": 2.7469,
-        "sd": 1.2526,
-        "n": 478
+        "mean": 2.7474,
+        "sd": 1.2513,
+        "n": 479
       },
       {
         "item": "B18",
         "text": "Difficulty finding reliable technology vendors or partners.",
-        "mean": 2.4337,
-        "sd": 1.1698,
-        "n": 475
+        "mean": 2.4349,
+        "sd": 1.1689,
+        "n": 476
       }
     ],
     "readiness": [
       {
         "item": "R1",
         "text": "Formal digital or technology strategy",
-        "mean": 3.1746,
-        "sd": 1.0872,
-        "n": 481
+        "mean": 3.1701,
+        "sd": 1.0905,
+        "n": 482
       },
       {
         "item": "R2",
         "text": "Dedicated IT leadership role",
-        "mean": 3.3354,
-        "sd": 1.0222,
-        "n": 483
+        "mean": 3.3326,
+        "sd": 1.023,
+        "n": 484
       },
       {
         "item": "R3",
         "text": "Skilled in-house technology staff",
-        "mean": 3.0983,
-        "sd": 0.9962,
-        "n": 468
+        "mean": 3.0959,
+        "sd": 0.9964,
+        "n": 469
       },
       {
         "item": "R4",
         "text": "Adequate financial resources for technology",
-        "mean": 3.1708,
-        "sd": 1.1395,
-        "n": 480
+        "mean": 3.1684,
+        "sd": 1.1396,
+        "n": 481
       },
       {
         "item": "R5",
         "text": "Willingness to invest in new technologies",
-        "mean": 3.4398,
-        "sd": 1.0445,
-        "n": 482
+        "mean": 3.4348,
+        "sd": 1.0493,
+        "n": 483
       },
       {
         "item": "R6",
         "text": "Data and analytics capabilities",
-        "mean": 3.0437,
-        "sd": 1.0449,
-        "n": 481
+        "mean": 3.0394,
+        "sd": 1.048,
+        "n": 482
       },
       {
         "item": "R7",
         "text": "Cybersecurity and risk management capabilities",
-        "mean": 2.9066,
-        "sd": 1.0445,
-        "n": 482
+        "mean": 2.9048,
+        "sd": 1.0443,
+        "n": 483
       },
       {
         "item": "R8",
         "text": "Change management capabilities",
-        "mean": 2.9811,
-        "sd": 0.9425,
-        "n": 477
+        "mean": 2.9791,
+        "sd": 0.9426,
+        "n": 478
       },
       {
         "item": "R9",
         "text": "Vendor and partner management capabilities",
-        "mean": 3.1734,
-        "sd": 1.0454,
-        "n": 473
+        "mean": 3.1709,
+        "sd": 1.0456,
+        "n": 474
       },
       {
         "item": "R10",
         "text": "Digital infrastructure (cloud, network, devices)",
-        "mean": 2.7521,
-        "sd": 1.0088,
-        "n": 480
+        "mean": 2.7505,
+        "sd": 1.0084,
+        "n": 481
       },
       {
         "item": "R11",
         "text": "Alignment between IT and business strategy",
-        "mean": 3.1863,
-        "sd": 1.0616,
-        "n": 483
+        "mean": 3.1839,
+        "sd": 1.0619,
+        "n": 484
       },
       {
         "item": "R12",
         "text": "Cross-functional collaboration on technology",
-        "mean": 3.032,
+        "mean": 3.0298,
         "sd": 1.0133,
-        "n": 469
+        "n": 470
       },
       {
         "item": "R13",
         "text": "Employee digital skills",
-        "mean": 3.0725,
-        "sd": 1.0248,
-        "n": 469
+        "mean": 3.0702,
+        "sd": 1.0249,
+        "n": 470
       },
       {
         "item": "R14",
         "text": "Leadership digital literacy",
-        "mean": 3.295,
-        "sd": 1.0983,
-        "n": 478
+        "mean": 3.2923,
+        "sd": 1.0988,
+        "n": 479
       },
       {
         "item": "R15",
         "text": "Innovation culture",
-        "mean": 3.0992,
-        "sd": 0.9314,
-        "n": 474
+        "mean": 3.0947,
+        "sd": 0.9354,
+        "n": 475
       },
       {
         "item": "R16",
         "text": "Willingness to experiment with new technologies",
-        "mean": 3.0355,
-        "sd": 0.9445,
-        "n": 479
+        "mean": 3.0333,
+        "sd": 0.9447,
+        "n": 480
       },
       {
         "item": "R17",
         "text": "Customer or stakeholder demand for technology",
-        "mean": 2.9938,
-        "sd": 1.1152,
-        "n": 481
+        "mean": 2.9917,
+        "sd": 1.115,
+        "n": 482
       }
     ],
     "maturity": [
       {
         "item": "M1",
         "text": "IT Investment & Value Mgmt",
-        "mean": 3.1242,
-        "sd": 1.0531,
-        "n": 475
+        "mean": 3.1239,
+        "sd": 1.052,
+        "n": 476
       },
       {
         "item": "M2",
         "text": "IT-Enabled Innovation",
-        "mean": 3.0665,
-        "sd": 1.1253,
-        "n": 481
+        "mean": 3.0664,
+        "sd": 1.1242,
+        "n": 482
       },
       {
         "item": "M3",
         "text": "Process Mgmt & Standardization",
-        "mean": 3.1879,
-        "sd": 0.9475,
-        "n": 479
+        "mean": 3.1875,
+        "sd": 0.9465,
+        "n": 480
       },
       {
         "item": "M4",
         "text": "Data Governance & Analytics",
-        "mean": 3.2201,
-        "sd": 1.1018,
-        "n": 477
+        "mean": 3.2197,
+        "sd": 1.1007,
+        "n": 478
       },
       {
         "item": "M5",
         "text": "Tech Risk & Resilience",
-        "mean": 3.2744,
-        "sd": 1.0565,
-        "n": 481
+        "mean": 3.2739,
+        "sd": 1.0555,
+        "n": 482
       },
       {
         "item": "M6",
         "text": "Strategic IT Planning",
-        "mean": 3.1181,
-        "sd": 1.0599,
-        "n": 474
+        "mean": 3.1179,
+        "sd": 1.0588,
+        "n": 475
       },
       {
         "item": "M7",
         "text": "Workforce Capability",
         "mean": 3.027,
-        "sd": 1.0942,
-        "n": 481
+        "sd": 1.093,
+        "n": 482
       },
       {
         "item": "M8",
         "text": "Change Leadership",
         "mean": 3.0021,
-        "sd": 1.1028,
-        "n": 482
+        "sd": 1.1017,
+        "n": 483
       }
     ]
   },
   "construct_grand": {
     "barriers": {
-      "mean": 2.8864,
-      "sd": 0.7214,
-      "n": 484
+      "mean": 2.8854,
+      "sd": 0.721,
+      "n": 485
     },
     "readiness": {
-      "mean": 3.1034,
-      "sd": 0.6559,
-      "n": 484
+      "mean": 3.1007,
+      "sd": 0.658,
+      "n": 485
     },
     "maturity": {
-      "mean": 3.1257,
-      "sd": 0.792,
-      "n": 484
+      "mean": 3.1254,
+      "sd": 0.7912,
+      "n": 485
     }
   },
   "demographics_detailed": {
@@ -2314,52 +2314,52 @@
       {
         "label": "Other (please specify)",
         "count": 107,
-        "pct": 22.11
+        "pct": 22.06
       },
       {
         "label": "CEO (e.g., Agency Director, Secretary, Administrator, City/County Manager)",
-        "count": 69,
-        "pct": 14.26
+        "count": 70,
+        "pct": 14.43
       },
       {
         "label": "CIO (e.g., Director of IT)",
         "count": 62,
-        "pct": 12.81
+        "pct": 12.78
       },
       {
         "label": "COO (e.g., Deputy Director, Chief of Staff, Assistant Secretary for Administration)",
         "count": 57,
-        "pct": 11.78
+        "pct": 11.75
       },
       {
         "label": "CSO (e.g., Director of Strategic Planning, Policy Director, Chief Strategy Officer)",
         "count": 37,
-        "pct": 7.64
+        "pct": 7.63
       },
       {
         "label": "CTO (e.g., Director of Technology/Innovation, Chief Scientist)",
         "count": 31,
-        "pct": 6.4
+        "pct": 6.39
       },
       {
         "label": "CRO (e.g., Director of Budget/Finance, Director of Development/Fundraising, Head of Revenue Operations)",
         "count": 30,
-        "pct": 6.2
+        "pct": 6.19
       },
       {
         "label": "CHRO (e.g., Chief Human Capital Officer (CHCO), Director of Human Resources, Personnel Director)",
         "count": 29,
-        "pct": 5.99
+        "pct": 5.98
       },
       {
         "label": "CFO (e.g., Director of Finance, Budget Director, Comptroller)",
         "count": 28,
-        "pct": 5.79
+        "pct": 5.77
       },
       {
         "label": "CMO (e.g., Director of Communications, Public Affairs Officer, Chief Marketing & Communications Officer)",
         "count": 26,
-        "pct": 5.37
+        "pct": 5.36
       },
       {
         "label": "CISO (e.g., Director of Cybersecurity, Chief Security Officer)",
@@ -2370,80 +2370,80 @@
     "org_sizes": [
       {
         "label": "100-499",
-        "count": 143,
-        "pct": 29.55
+        "count": 144,
+        "pct": 29.69
       },
       {
         "label": "1000-4999",
         "count": 86,
-        "pct": 17.77
+        "pct": 17.73
       },
       {
         "label": "<100",
         "count": 86,
-        "pct": 17.77
+        "pct": 17.73
       },
       {
         "label": "500-999",
         "count": 71,
-        "pct": 14.67
+        "pct": 14.64
       },
       {
         "label": "10000+",
         "count": 58,
-        "pct": 11.98
+        "pct": 11.96
       },
       {
         "label": "5000-9999",
         "count": 40,
-        "pct": 8.26
+        "pct": 8.25
       }
     ],
     "profit_models": [
       {
         "label": "For-Profit",
-        "count": 346,
-        "pct": 71.49
+        "count": 347,
+        "pct": 71.55
       },
       {
         "label": "Non-Profit",
         "count": 82,
-        "pct": 16.94
+        "pct": 16.91
       },
       {
         "label": "Government/Public Sector",
         "count": 56,
-        "pct": 11.57
+        "pct": 11.55
       }
     ],
     "decision_authority": [
       {
         "label": "I am one of several key decision-makers who collectively decide on technology adoption",
-        "count": 202,
-        "pct": 41.74
+        "count": 203,
+        "pct": 41.86
       },
       {
         "label": "I am the primary decision-maker for technology adoption in my area of responsibility",
         "count": 132,
-        "pct": 27.27
+        "pct": 27.22
       },
       {
         "label": "I provide significant input and recommendations, but final decisions are made by others",
         "count": 105,
-        "pct": 21.69
+        "pct": 21.65
       },
       {
         "label": "I have limited involvement \u2014 I primarily implement technology decisions made by leadership",
         "count": 32,
-        "pct": 6.61
+        "pct": 6.6
       },
       {
         "label": "I have no direct involvement in technology adoption decisions",
         "count": 13,
-        "pct": 2.69
+        "pct": 2.68
       }
     ]
   },
-  "last_updated": "2026-09-18T10:34:12.466099Z",
-  "extended_last_updated": "2026-09-18T10:34:12.466099Z"
+  "last_updated": "2026-09-19T10:31:38.792392Z",
+  "extended_last_updated": "2026-09-19T10:31:38.792392Z"
 }
