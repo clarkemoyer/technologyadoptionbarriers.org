@@ -1,12 +1,12 @@
 {
-  "updatedAt": "2026-09-20T10:43:13.637360+00:00",
-  "last_updated": "2026-09-20T10:43:13.637362+00:00",
+  "updatedAt": "2026-09-21T10:54:49.844404+00:00",
+  "last_updated": "2026-09-21T10:54:49.844407+00:00",
   "study": {
     "id": "69c17630acada6abeead2da5",
     "name": "Technology Adoption Barriers Survey (2026)",
     "status": "ACTIVE",
     "totalAvailablePlaces": 500,
-    "placesTaken": 493,
+    "placesTaken": 494,
     "averageRewardPerHour": 3907,
     "averageTimeTaken": 10,
     "reward": 700,
@@ -14,13 +14,13 @@
   },
   "completionProgress": {
     "target": 500,
-    "completed": 493,
+    "completed": 494,
     "approved": 485,
-    "awaitingReview": 8,
-    "percentComplete": 98.6
+    "awaitingReview": 9,
+    "percentComplete": 98.8
   },
-  "totalResponses": 917,
-  "uniqueParticipants": 904,
+  "totalResponses": 918,
+  "uniqueParticipants": 905,
   "duplicatesRemoved": 0,
   "dispositions": {
     "INCOMPLETE": 117,
@@ -28,7 +28,7 @@
     "FLAG-SMEAL": 120,
     "FLAG-SPEED": 15,
     "FLAG-PARTIAL-STRAIGHTLINING": 68,
-    "FLAG-SINGLE-IRI": 163,
+    "FLAG-SINGLE-IRI": 164,
     "AUTO-EXCLUDE": 240,
     "FLAG-RECAPTCHA": 18,
     "FLAG-STRAIGHTLINING": 1
@@ -61,7 +61,7 @@
     "FLAG-SINGLE-IRI": {
       "RETURNED": 30,
       "APPROVED": 131,
-      "AWAITING REVIEW": 2
+      "AWAITING REVIEW": 3
     },
     "AUTO-EXCLUDE": {
       "REJECTED": 55,
@@ -89,21 +89,21 @@
     "rejected": 58,
     "returned": 356,
     "timedOut": 10,
-    "awaitingReview": 8,
+    "awaitingReview": 9,
     "active": 0,
     "messaged": 0
   },
   "iriPassRates": {
-    "barrier": 59.5,
-    "readiness": 68.7,
-    "maturity": 81.8,
-    "denominator": 787
+    "barrier": 59.4,
+    "readiness": 68.8,
+    "maturity": 81.9,
+    "denominator": 788
   },
   "autoApproveRunway": {
     "thresholdDays": 21,
-    "computedAt": "2026-09-20T10:43:13.637248+00:00",
-    "totalAwaitingReview": 8,
-    "evaluatedCount": 8,
+    "computedAt": "2026-09-21T10:54:49.844273+00:00",
+    "totalAwaitingReview": 9,
+    "evaluatedCount": 9,
     "skippedMissingCompletedAt": 0,
     "buckets": [
       {
@@ -111,21 +111,21 @@
         "risk": "low",
         "minDaysRemaining": 10.0,
         "maxDaysRemainingExclusive": null,
-        "count": 3
+        "count": 4
       },
       {
         "label": "Monitor",
         "risk": "moderate",
         "minDaysRemaining": 5.0,
         "maxDaysRemainingExclusive": 10.0,
-        "count": 3
+        "count": 2
       },
       {
         "label": "Act soon",
         "risk": "elevated",
         "minDaysRemaining": 2.0,
         "maxDaysRemainingExclusive": 5.0,
-        "count": 2
+        "count": 3
       },
       {
         "label": "HIGH RISK",
