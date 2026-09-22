@@ -6,17 +6,17 @@
     "FLAG-SPEED": 15,
     "FLAG-PARTIAL-STRAIGHTLINING": 68,
     "FLAG-SINGLE-IRI": 164,
-    "AUTO-EXCLUDE": 240,
+    "AUTO-EXCLUDE": 242,
     "FLAG-RECAPTCHA": 18,
     "FLAG-STRAIGHTLINING": 1
   },
   "iri_pass_rates": {
-    "barrier": 0.5226519337016574,
-    "readiness": 0.6022099447513812,
-    "maturity": 0.7138121546961326
+    "barrier": 0.5214994487320838,
+    "readiness": 0.6019845644983461,
+    "maturity": 0.7144432194046306
   },
   "duration_stats": {
-    "mean": 632.9281767955802,
+    "mean": 632.3914002205072,
     "median": 527,
     "q25": 341,
     "q75": 779,
@@ -25,11 +25,11 @@
   },
   "straightlining_stats": {
     "full_block_flagged": 29,
-    "partial_flagged": 269
+    "partial_flagged": 270
   },
   "sample_sizes": {
-    "total": 905,
-    "complete": 788,
+    "total": 907,
+    "complete": 790,
     "clean": 162
   },
   "waterfall_steps": [
@@ -54,44 +54,44 @@
     {
       "step": 3,
       "name": "AUTO-EXCLUDE",
-      "count": 240,
-      "cumulative_excluded": 357
+      "count": 242,
+      "cumulative_excluded": 359
     },
     {
       "step": 4,
       "name": "FLAG-SPEED",
       "count": 15,
-      "cumulative_excluded": 372
+      "cumulative_excluded": 374
     },
     {
       "step": 5,
       "name": "FLAG-SINGLE-IRI",
       "count": 164,
-      "cumulative_excluded": 536
+      "cumulative_excluded": 538
     },
     {
       "step": 6,
       "name": "FLAG-SMEAL",
       "count": 120,
-      "cumulative_excluded": 656
+      "cumulative_excluded": 658
     },
     {
       "step": 7,
       "name": "FLAG-RECAPTCHA",
       "count": 18,
-      "cumulative_excluded": 674
+      "cumulative_excluded": 676
     },
     {
       "step": 8,
       "name": "FLAG-STRAIGHTLINING",
       "count": 1,
-      "cumulative_excluded": 675
+      "cumulative_excluded": 677
     },
     {
       "step": 9,
       "name": "FLAG-PARTIAL-STRAIGHTLINING",
       "count": 68,
-      "cumulative_excluded": 743
+      "cumulative_excluded": 745
     },
     {
       "step": 10,
