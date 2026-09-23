@@ -1,23 +1,23 @@
 {
-  "generatedAt": "2026-09-22T09:10:16.287Z",
-  "dashboardSyncedAt": "2026-09-22T09:10:16.287Z",
+  "generatedAt": "2026-09-23T09:10:34.080Z",
+  "dashboardSyncedAt": "2026-09-23T09:10:34.080Z",
   "dateRange": {
-    "startDate": "2026-08-25",
-    "endDate": "2026-09-22"
+    "startDate": "2026-08-26",
+    "endDate": "2026-09-23"
   },
   "overview": {
-    "organicSessions": 112985,
-    "organicSessionsChange": -239,
-    "totalImpressions": 55264,
-    "totalImpressionsChange": -1403,
-    "totalClicks": 529,
-    "totalClicksChange": -20,
-    "averageCTR": 0.96,
+    "organicSessions": 113675,
+    "organicSessionsChange": 690,
+    "totalImpressions": 54829,
+    "totalImpressionsChange": -435,
+    "totalClicks": 536,
+    "totalClicksChange": 7,
+    "averageCTR": 0.98,
     "averageCTRUnit": "percent",
-    "averageCTRChange": -0.01,
+    "averageCTRChange": 0.02,
     "averageCTRChangeUnit": "percentagePoints",
-    "averagePosition": 7.4,
-    "averagePositionChange": 0,
+    "averagePosition": 7.3,
+    "averagePositionChange": -0.1,
     "domainAuthority": 12,
     "domainAuthorityChange": 2,
     "indexedPages": 47,
@@ -32,25 +32,25 @@
       "previousPosition": null,
       "volume": 0,
       "clicks": 16,
-      "impressions": 62,
-      "ctr": 25.8
+      "impressions": 61,
+      "ctr": 26.2
     },
     {
       "keyword": "toe framework tornatzky and fleischer 1990",
       "position": 2.4,
       "previousPosition": null,
       "volume": 0,
-      "clicks": 10,
-      "impressions": 45,
-      "ctr": 22.2
+      "clicks": 11,
+      "impressions": 44,
+      "ctr": 25
     },
     {
       "keyword": "toe framework",
-      "position": 8.1,
+      "position": 8,
       "previousPosition": null,
       "volume": 0,
       "clicks": 5,
-      "impressions": 733,
+      "impressions": 762,
       "ctr": 0.7
     },
     {
@@ -68,8 +68,8 @@
       "previousPosition": null,
       "volume": 0,
       "clicks": 5,
-      "impressions": 47,
-      "ctr": 10.6
+      "impressions": 46,
+      "ctr": 10.9
     },
     {
       "keyword": "technology readiness index",
@@ -77,8 +77,8 @@
       "previousPosition": null,
       "volume": 0,
       "clicks": 4,
-      "impressions": 38,
-      "ctr": 10.5
+      "impressions": 39,
+      "ctr": 10.3
     },
     {
       "keyword": "10.2307/249689",
@@ -99,22 +99,22 @@
       "ctr": 17.6
     },
     {
-      "keyword": "tornatzky & fleischer, 1990",
-      "position": 4.5,
+      "keyword": "tornatzky and fleischer 1990 toe framework",
+      "position": 2.9,
       "previousPosition": null,
       "volume": 0,
       "clicks": 3,
-      "impressions": 39,
-      "ctr": 7.7
+      "impressions": 10,
+      "ctr": 30
     },
     {
-      "keyword": "tornatzky and fleischer 1990 toe framework",
-      "position": 2.8,
+      "keyword": "goodhue, d. l., & thompson, r. l. (1995). task-technology fit and individual performance. mis quarterly, 19(2), 213–236.",
+      "position": 8.3,
       "previousPosition": null,
       "volume": 0,
-      "clicks": 3,
-      "impressions": 11,
-      "ctr": 27.3
+      "clicks": 2,
+      "impressions": 37,
+      "ctr": 5.4
     }
   ],
   "topPages": [
