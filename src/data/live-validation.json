@@ -2611,7 +2611,7 @@
           "rmsea": 0.0,
           "latent_correlations": {
             "F1a~~F1b": 0.9896,
-            "F1a~~F2": 0.6613,
+            "F2~~F1a": 0.6613,
             "F2~~F1b": 0.8044
           }
         },
@@ -2623,7 +2623,7 @@
           "rmsea": 0.0,
           "latent_correlations": {
             "F1a~~F1b": 0.6464,
-            "F1a~~F2": 0.6753,
+            "F2~~F1a": 0.6753,
             "F2~~F1b": 0.6509
           }
         }
@@ -3300,12 +3300,12 @@
             "total_criteria": 4
           }
         },
-        "last_run_utc": "2026-09-24T10:36:38.727100+00:00"
+        "last_run_utc": "2026-09-25T10:37:34.381531+00:00"
       },
       "r_parity_tests": {
         "count": 16,
         "ci_workflow": ".github/workflows/validate-analysis.yml",
-        "last_run_utc": "2026-09-24T10:36:38.727494+00:00",
+        "last_run_utc": "2026-09-25T10:37:34.381978+00:00",
         "all_passing": null
       },
       "factor_analysis": {
@@ -5197,7 +5197,7 @@
           "rmsea": 0.0,
           "latent_correlations": {
             "F1a~~F1b": 0.987,
-            "F1a~~F2": 0.6133,
+            "F2~~F1a": 0.6133,
             "F2~~F1b": 0.6793
           }
         },
@@ -5209,7 +5209,7 @@
           "rmsea": 0.0,
           "latent_correlations": {
             "F1a~~F1b": 0.8026,
-            "F1a~~F2": 0.73,
+            "F2~~F1a": 0.73,
             "F2~~F1b": 0.5973
           }
         }
@@ -5843,12 +5843,12 @@
             "total_criteria": 10
           }
         },
-        "last_run_utc": "2026-09-24T10:37:37.113226+00:00"
+        "last_run_utc": "2026-09-25T10:39:10.611287+00:00"
       },
       "r_parity_tests": {
         "count": 16,
         "ci_workflow": ".github/workflows/validate-analysis.yml",
-        "last_run_utc": "2026-09-24T10:37:37.113529+00:00",
+        "last_run_utc": "2026-09-25T10:39:10.611595+00:00",
         "all_passing": null
       },
       "factor_analysis": {
@@ -6081,74 +6081,74 @@
       "key": "prolific_accepted",
       "label": "Prolific Accepted",
       "description": "All deduplicated V2 rows with Prolific APPROVED status",
-      "n": 487,
+      "n": 488,
       "n_to_param_ratio": 10.6,
       "adequacy": "good",
       "adequacy_note": "N:parameter ratio 10.6:1 meets the recommended 10:1 threshold for stable CFA estimation.",
       "Barriers": {
-        "cronbach_alpha": 0.8859,
-        "cronbach_alpha_ci": [0.87, 0.9006],
-        "n_listwise": 453,
-        "mcdonalds_omega": 0.8863,
-        "composite_reliability": 0.8863,
-        "ave": 0.3083,
-        "split_half": 0.9036,
+        "cronbach_alpha": 0.8861,
+        "cronbach_alpha_ci": [0.8702, 0.9008],
+        "n_listwise": 454,
+        "mcdonalds_omega": 0.8865,
+        "composite_reliability": 0.8865,
+        "ave": 0.3086,
+        "split_half": 0.904,
         "kmo_bartlett": {
-          "kmo_overall": 0.9126,
-          "bartlett_chi2": 2647.82,
+          "kmo_overall": 0.9129,
+          "bartlett_chi2": 2652.03,
           "bartlett_p": 0.0
         },
         "parallel_analysis": {
           "n_factors": 2,
-          "eigenvalues_real": [6.224, 1.7464, 1.0318, 0.9802]
+          "eigenvalues_real": [6.2307, 1.7418, 1.0288, 0.9794]
         },
         "efa": {
           "construct": "Barriers",
           "n_factors": 2,
-          "variance_explained": [0.2918, 0.1084],
-          "total_variance": 0.4001,
+          "variance_explained": [0.2917, 0.1081],
+          "total_variance": 0.3998,
           "factor_correlations": [
-            [1.0, 0.5277],
-            [0.5277, 1.0]
+            [1.0, 0.5292],
+            [0.5292, 1.0]
           ],
           "loadings": {
-            "B1": [0.7005, -0.1951],
-            "B2": [0.7471, -0.198],
-            "B3": [0.6486, -0.0406],
-            "B4": [0.7559, -0.0878],
-            "B5": [0.6724, -0.0569],
-            "B6": [0.4588, 0.0604],
-            "B7": [0.5699, 0.0208],
-            "B8": [0.5362, 0.0681],
-            "B9": [0.5284, 0.0448],
-            "B10": [0.7256, -0.0768],
-            "B11": [0.4847, 0.1288],
-            "B12": [0.5001, 0.104],
-            "B13": [-0.1406, 0.8292],
-            "B14": [-0.1734, 0.9324],
-            "B15": [0.4409, 0.1581],
-            "B16": [0.1826, 0.4464],
-            "B17": [0.476, 0.0976],
-            "B18": [0.3752, 0.162]
+            "B1": [0.7015, -0.1945],
+            "B2": [0.7426, -0.2001],
+            "B3": [0.6491, -0.0397],
+            "B4": [0.7565, -0.0864],
+            "B5": [0.6719, -0.0586],
+            "B6": [0.4594, 0.0629],
+            "B7": [0.5707, 0.0196],
+            "B8": [0.5369, 0.0698],
+            "B9": [0.5285, 0.0477],
+            "B10": [0.7254, -0.0762],
+            "B11": [0.4847, 0.1284],
+            "B12": [0.4996, 0.1026],
+            "B13": [-0.1409, 0.8226],
+            "B14": [-0.173, 0.9341],
+            "B15": [0.4415, 0.1598],
+            "B16": [0.182, 0.4477],
+            "B17": [0.477, 0.099],
+            "B18": [0.3762, 0.1633]
           }
         },
         "cfa": {
           "construct": "Barriers",
-          "chi2": 631.399,
+          "chi2": 627.688,
           "df": 135,
           "chi2_p": 0.0,
-          "cfi": 0.8047,
-          "tli": 0.7786,
-          "rmsea": 0.0902,
-          "srmr": 0.1303
+          "cfi": 0.8065,
+          "tli": 0.7806,
+          "rmsea": 0.0898,
+          "srmr": 0.1302
         },
         "inter_item": {
-          "mean_r": 0.3023,
-          "min_r": 0.0519,
-          "max_r": 0.6618,
-          "sd_r": 0.0952
+          "mean_r": 0.3027,
+          "min_r": 0.0507,
+          "max_r": 0.6573,
+          "sd_r": 0.0949
         },
-        "itc_min": 0.37,
+        "itc_min": 0.36,
         "itc_all_above_030": true
       },
       "Readiness": {
@@ -6214,54 +6214,54 @@
         "itc_all_above_030": true
       },
       "Maturity": {
-        "cronbach_alpha": 0.8809,
-        "cronbach_alpha_ci": [0.8636, 0.8967],
-        "n_listwise": 458,
-        "mcdonalds_omega": 0.882,
-        "composite_reliability": 0.882,
-        "ave": 0.4848,
-        "split_half": 0.8996,
+        "cronbach_alpha": 0.8815,
+        "cronbach_alpha_ci": [0.8644, 0.8972],
+        "n_listwise": 459,
+        "mcdonalds_omega": 0.8827,
+        "composite_reliability": 0.8827,
+        "ave": 0.4863,
+        "split_half": 0.9002,
         "kmo_bartlett": {
-          "kmo_overall": 0.9202,
-          "bartlett_chi2": 1508.53,
-          "bartlett_p": 1.1186829664099183e-300
+          "kmo_overall": 0.9206,
+          "bartlett_chi2": 1519.76,
+          "bartlett_p": 4.4848877808913066e-303
         },
         "parallel_analysis": {
           "n_factors": 1,
-          "eigenvalues_real": [4.3837, 0.7385, 0.6103, 0.5322]
+          "eigenvalues_real": [4.3944, 0.7356, 0.608, 0.5308]
         },
         "efa": {
           "construct": "Maturity",
           "n_factors": 1,
-          "variance_explained": [0.4848],
-          "total_variance": 0.4848,
+          "variance_explained": [0.4863],
+          "total_variance": 0.4863,
           "factor_correlations": null,
           "loadings": {
             "M1": [0.7503],
-            "M2": [0.7633],
-            "M3": [0.6672],
-            "M4": [0.6518],
-            "M5": [0.6226],
-            "M6": [0.7808],
-            "M7": [0.6769],
-            "M8": [0.6382]
+            "M2": [0.7648],
+            "M3": [0.6678],
+            "M4": [0.6538],
+            "M5": [0.6249],
+            "M6": [0.7806],
+            "M7": [0.679],
+            "M8": [0.639]
           }
         },
         "cfa": {
           "construct": "Maturity",
-          "chi2": 49.345,
+          "chi2": 49.403,
           "df": 20,
           "chi2_p": 0.0003,
-          "cfi": 0.9804,
-          "tli": 0.9725,
+          "cfi": 0.9805,
+          "tli": 0.9727,
           "rmsea": 0.0567,
           "srmr": 0.0
         },
         "inter_item": {
-          "mean_r": 0.4814,
-          "min_r": 0.3203,
-          "max_r": 0.6114,
-          "sd_r": 0.0604
+          "mean_r": 0.483,
+          "min_r": 0.3223,
+          "max_r": 0.6121,
+          "sd_r": 0.06
         },
         "itc_min": 0.58,
         "itc_all_above_030": true
@@ -6278,10 +6278,10 @@
         },
         {
           "pair": "Barriers vs Maturity",
-          "htmt": 0.3373,
-          "htmt2": 0.2588,
-          "ci_lower": 0.2747,
-          "ci_upper": 0.4221,
+          "htmt": 0.3401,
+          "htmt2": 0.2608,
+          "ci_lower": 0.2803,
+          "ci_upper": 0.4274,
           "below_085": true,
           "below_090": true
         },
@@ -6298,114 +6298,114 @@
       "fornell_larcker": [
         {
           "pair": "Barriers vs Readiness",
-          "sqrt_ave1": 0.5552,
+          "sqrt_ave1": 0.5555,
           "sqrt_ave2": 0.6193,
-          "abs_r": 0.3196,
+          "abs_r": 0.3232,
           "pass": true
         },
         {
           "pair": "Barriers vs Maturity",
-          "sqrt_ave1": 0.5552,
-          "sqrt_ave2": 0.6963,
-          "abs_r": 0.2383,
+          "sqrt_ave1": 0.5555,
+          "sqrt_ave2": 0.6974,
+          "abs_r": 0.2418,
           "pass": true
         },
         {
           "pair": "Readiness vs Maturity",
           "sqrt_ave1": 0.6193,
-          "sqrt_ave2": 0.6963,
-          "abs_r": 0.7166,
+          "sqrt_ave2": 0.6974,
+          "abs_r": 0.7186,
           "pass": false
         }
       ],
       "construct_correlations": {
         "Barriers": {
           "Barriers": 1.0,
-          "Readiness": -0.3196,
-          "Maturity": -0.2383
+          "Readiness": -0.3232,
+          "Maturity": -0.2418
         },
         "Readiness": {
-          "Barriers": -0.3196,
+          "Barriers": -0.3232,
           "Readiness": 1.0,
-          "Maturity": 0.7166
+          "Maturity": 0.7186
         },
         "Maturity": {
-          "Barriers": -0.2383,
-          "Readiness": 0.7166,
+          "Barriers": -0.2418,
+          "Readiness": 0.7186,
           "Maturity": 1.0
         }
       },
       "barriers_4f_cfa": {
-        "chi2": 515.21,
+        "chi2": 512.915,
         "df": 129,
         "chi2_p": 0.0,
-        "cfi": 0.848,
-        "tli": 0.8198,
-        "rmsea": 0.0814,
-        "srmr": 0.1303,
-        "aic": 81.73,
-        "bic": 254.59
+        "cfi": 0.8492,
+        "tli": 0.8211,
+        "rmsea": 0.0811,
+        "srmr": 0.1302,
+        "aic": 81.74,
+        "bic": 254.7
       },
       "barriers_2f_cfa": {
-        "chi2": 436.91,
+        "chi2": 437.459,
         "df": 134,
         "chi2_p": 0.0,
         "cfi": 0.8808,
         "tli": 0.8639,
         "rmsea": 0.0707,
-        "srmr": 0.1303,
+        "srmr": 0.1302,
         "aic": 72.07,
-        "bic": 224.36,
+        "bic": 224.44,
         "standardized_loadings": {
-          "Q10_28_Barriers_1": 0.5902,
-          "Q10_28_Barriers_2": 0.6404,
-          "Q10_28_Barriers_3": 0.6286,
-          "Q10_28_Barriers_4": 0.71,
-          "Q10_28_Barriers_5": 0.6385,
-          "Q10_28_Barriers_6": 0.4932,
-          "Q10_28_Barriers_7": 0.5832,
-          "Q10_28_Barriers_8": 0.5714,
-          "Q10_28_Barriers_9": 0.5555,
-          "Q10_28_Barriers_10": 0.6883,
+          "Q10_28_Barriers_1": 0.591,
+          "Q10_28_Barriers_2": 0.6343,
+          "Q10_28_Barriers_3": 0.6295,
+          "Q10_28_Barriers_4": 0.711,
+          "Q10_28_Barriers_5": 0.6369,
+          "Q10_28_Barriers_6": 0.4953,
+          "Q10_28_Barriers_7": 0.5834,
+          "Q10_28_Barriers_8": 0.5731,
+          "Q10_28_Barriers_9": 0.5572,
+          "Q10_28_Barriers_10": 0.6881,
           "Q10_28_Barriers_11": 0.5488,
-          "Q10_28_Barriers_12": 0.555,
-          "Q10_28_Barriers_15": 0.5232,
-          "Q10_28_Barriers_17": 0.525,
-          "Q10_28_Barriers_13": 0.7608,
-          "Q10_28_Barriers_14": 0.8303,
-          "Q10_28_Barriers_16": 0.5398,
-          "Q10_28_Barriers_18": 0.3439
+          "Q10_28_Barriers_12": 0.5539,
+          "Q10_28_Barriers_15": 0.5251,
+          "Q10_28_Barriers_17": 0.5269,
+          "Q10_28_Barriers_13": 0.7547,
+          "Q10_28_Barriers_14": 0.8286,
+          "Q10_28_Barriers_16": 0.5429,
+          "Q10_28_Barriers_18": 0.3481
         }
       },
       "barriers_3f_cfa": {
-        "chi2": 416.951,
+        "chi2": 417.798,
         "df": 132,
         "chi2_p": 0.0,
-        "cfi": 0.8879,
-        "tli": 0.87,
+        "cfi": 0.8877,
+        "tli": 0.8699,
         "rmsea": 0.0691,
-        "srmr": 0.1303,
+        "srmr": 0.1302,
         "aic": 76.16,
-        "bic": 236.68,
+        "bic": 236.77,
         "standardized_loadings": {
-          "Q10_28_Barriers_1": 0.5972,
-          "Q10_28_Barriers_2": 0.663,
-          "Q10_28_Barriers_3": 0.6373,
-          "Q10_28_Barriers_5": 0.6352,
-          "Q10_28_Barriers_9": 0.5626,
-          "Q10_28_Barriers_10": 0.7059,
-          "Q10_28_Barriers_11": 0.5493,
-          "Q10_28_Barriers_15": 0.5296,
-          "Q10_28_Barriers_17": 0.5215,
-          "Q10_28_Barriers_4": 0.7204,
-          "Q10_28_Barriers_6": 0.5218,
-          "Q10_28_Barriers_7": 0.6214,
-          "Q10_28_Barriers_8": 0.6023,
-          "Q10_28_Barriers_12": 0.5737,
-          "Q10_28_Barriers_13": 0.7624,
-          "Q10_28_Barriers_14": 0.8293,
-          "Q10_28_Barriers_16": 0.5379,
-          "Q10_28_Barriers_18": 0.3459
+          "Q10_28_Barriers_1": 0.598,
+          "Q10_28_Barriers_2": 0.6568,
+          "Q10_28_Barriers_3": 0.638,
+          "Q10_28_Barriers_5": 0.634,
+          "Q10_28_Barriers_9": 0.5642,
+          "Q10_28_Barriers_10": 0.7056,
+          "Q10_28_Barriers_11": 0.5496,
+          "Q10_28_Barriers_15": 0.5315,
+          "Q10_28_Barriers_17": 0.5235,
+          "Q10_28_Barriers_4": 0.7216,
+          "Q10_28_Barriers_6": 0.5237,
+          "Q10_28_Barriers_7": 0.6208,
+          "Q10_28_Barriers_8": 0.6039,
+          "Q10_28_Barriers_12": 0.5719,
+          "Q10_28_Barriers_13": 0.7561,
+          "Q10_28_Barriers_14": 0.828,
+          "Q10_28_Barriers_16": 0.5408,
+          "Q10_28_Barriers_18": 0.35
         }
       },
       "joint_3construct_cfa": {
@@ -6469,83 +6469,83 @@
           {
             "name": "Barriers_1F",
             "df": 135,
-            "chi2": 631.399,
-            "cfi": 0.8047,
-            "tli": 0.7786,
-            "rmsea": 0.0902,
-            "aic": 69.21,
-            "bic": 217.38
+            "chi2": 627.688,
+            "cfi": 0.8065,
+            "tli": 0.7806,
+            "rmsea": 0.0898,
+            "aic": 69.23,
+            "bic": 217.49
           },
           {
             "name": "Barriers_2F",
             "df": 134,
-            "chi2": 436.91,
+            "chi2": 437.459,
             "cfi": 0.8808,
             "tli": 0.8639,
             "rmsea": 0.0707,
             "aic": 72.07,
-            "bic": 224.36
+            "bic": 224.44
           },
           {
             "name": "Barriers_3F",
             "df": 132,
-            "chi2": 416.951,
-            "cfi": 0.8879,
-            "tli": 0.87,
+            "chi2": 417.798,
+            "cfi": 0.8877,
+            "tli": 0.8699,
             "rmsea": 0.0691,
             "aic": 76.16,
-            "bic": 236.68
+            "bic": 236.77
           },
           {
             "name": "Barriers_4F",
             "df": 129,
-            "chi2": 515.21,
-            "cfi": 0.848,
-            "tli": 0.8198,
-            "rmsea": 0.0814,
-            "aic": 81.73,
-            "bic": 254.59
+            "chi2": 512.915,
+            "cfi": 0.8492,
+            "tli": 0.8211,
+            "rmsea": 0.0811,
+            "aic": 81.74,
+            "bic": 254.7
           }
         ],
         "pairwise_chi2_diff": [
           {
             "restricted": "Barriers_1F",
             "full": "Barriers_2F",
-            "d_chi2": 194.489,
+            "d_chi2": 190.229,
             "d_df": 1,
             "p": 0.0,
-            "d_aic": -2.86,
-            "d_bic": -6.98,
+            "d_aic": -2.84,
+            "d_bic": -6.95,
             "note": "heuristic: 1F/2F/3F/4F models have different loading patterns and may not be strictly nested"
           },
           {
             "restricted": "Barriers_1F",
             "full": "Barriers_3F",
-            "d_chi2": 214.448,
+            "d_chi2": 209.89,
             "d_df": 3,
             "p": 0.0,
-            "d_aic": -6.95,
-            "d_bic": -19.3,
+            "d_aic": -6.93,
+            "d_bic": -19.28,
             "note": "heuristic: 1F/2F/3F/4F models have different loading patterns and may not be strictly nested"
           },
           {
             "restricted": "Barriers_1F",
             "full": "Barriers_4F",
-            "d_chi2": 116.189,
+            "d_chi2": 114.773,
             "d_df": 6,
             "p": 0.0,
-            "d_aic": -12.52,
+            "d_aic": -12.51,
             "d_bic": -37.21,
             "note": "heuristic: 1F/2F/3F/4F models have different loading patterns and may not be strictly nested"
           },
           {
             "restricted": "Barriers_2F",
             "full": "Barriers_3F",
-            "d_chi2": 19.959,
+            "d_chi2": 19.661,
             "d_df": 2,
-            "p": 4.6e-5,
+            "p": 5.4e-5,
             "d_aic": -4.09,
-            "d_bic": -12.32,
+            "d_bic": -12.33,
             "note": "heuristic: 1F/2F/3F/4F models have different loading patterns and may not be strictly nested"
           }
         ]
@@ -6555,182 +6555,182 @@
           {
             "id": "B1",
             "name": "Resistance to Change",
-            "primary": 0.7005,
-            "secondary": 0.1951,
-            "gap": 0.5054,
+            "primary": 0.7015,
+            "secondary": 0.1945,
+            "gap": 0.507,
             "convergent": "PASS",
             "discriminant": "PASS",
-            "loadings": [0.7005, -0.1951]
+            "loadings": [0.7015, -0.1945]
           },
           {
             "id": "B2",
             "name": "Lack of Leadership Support",
-            "primary": 0.7471,
-            "secondary": 0.198,
-            "gap": 0.5491,
+            "primary": 0.7426,
+            "secondary": 0.2001,
+            "gap": 0.5425,
             "convergent": "PASS",
             "discriminant": "PASS",
-            "loadings": [0.7471, -0.198]
+            "loadings": [0.7426, -0.2001]
           },
           {
             "id": "B3",
             "name": "Risk-Averse Culture",
-            "primary": 0.6486,
-            "secondary": 0.0406,
-            "gap": 0.608,
+            "primary": 0.6491,
+            "secondary": 0.0397,
+            "gap": 0.6094,
             "convergent": "PASS",
             "discriminant": "PASS",
-            "loadings": [0.6486, -0.0406]
+            "loadings": [0.6491, -0.0397]
           },
           {
             "id": "B4",
             "name": "Insufficient Workforce Skills",
-            "primary": 0.7559,
-            "secondary": 0.0878,
-            "gap": 0.6681,
+            "primary": 0.7565,
+            "secondary": 0.0864,
+            "gap": 0.6701,
             "convergent": "PASS",
             "discriminant": "PASS",
-            "loadings": [0.7559, -0.0878]
+            "loadings": [0.7565, -0.0864]
           },
           {
             "id": "B5",
             "name": "Inadequate Training",
-            "primary": 0.6724,
-            "secondary": 0.0569,
-            "gap": 0.6155,
+            "primary": 0.6719,
+            "secondary": 0.0586,
+            "gap": 0.6133,
             "convergent": "PASS",
             "discriminant": "PASS",
-            "loadings": [0.6724, -0.0569]
+            "loadings": [0.6719, -0.0586]
           },
           {
             "id": "B6",
             "name": "High Implementation Cost",
-            "primary": 0.4588,
-            "secondary": 0.0604,
-            "gap": 0.3984,
+            "primary": 0.4594,
+            "secondary": 0.0629,
+            "gap": 0.3965,
             "convergent": "WEAK",
             "discriminant": "PASS",
-            "loadings": [0.4588, 0.0604]
+            "loadings": [0.4594, 0.0629]
           },
           {
             "id": "B7",
             "name": "Legacy System Integration",
-            "primary": 0.5699,
-            "secondary": 0.0208,
-            "gap": 0.5491,
+            "primary": 0.5707,
+            "secondary": 0.0196,
+            "gap": 0.5511,
             "convergent": "PASS",
             "discriminant": "PASS",
-            "loadings": [0.5699, 0.0208]
+            "loadings": [0.5707, 0.0196]
           },
           {
             "id": "B8",
             "name": "Inadequate IT Infrastructure",
-            "primary": 0.5362,
-            "secondary": 0.0681,
-            "gap": 0.4681,
+            "primary": 0.5369,
+            "secondary": 0.0698,
+            "gap": 0.4671,
             "convergent": "PASS",
             "discriminant": "PASS",
-            "loadings": [0.5362, 0.0681]
+            "loadings": [0.5369, 0.0698]
           },
           {
             "id": "B9",
             "name": "Difficulty Demonstrating Value",
-            "primary": 0.5284,
-            "secondary": 0.0448,
-            "gap": 0.4836,
+            "primary": 0.5285,
+            "secondary": 0.0477,
+            "gap": 0.4808,
             "convergent": "PASS",
             "discriminant": "PASS",
-            "loadings": [0.5284, 0.0448]
+            "loadings": [0.5285, 0.0477]
           },
           {
             "id": "B10",
             "name": "No Clear Strategy/Roadmap",
-            "primary": 0.7256,
-            "secondary": 0.0768,
-            "gap": 0.6488,
+            "primary": 0.7254,
+            "secondary": 0.0762,
+            "gap": 0.6492,
             "convergent": "PASS",
             "discriminant": "PASS",
-            "loadings": [0.7256, -0.0768]
+            "loadings": [0.7254, -0.0762]
           },
           {
             "id": "B11",
             "name": "Insufficient Governance",
             "primary": 0.4847,
-            "secondary": 0.1288,
-            "gap": 0.3559,
+            "secondary": 0.1284,
+            "gap": 0.3563,
             "convergent": "WEAK",
             "discriminant": "PASS",
-            "loadings": [0.4847, 0.1288]
+            "loadings": [0.4847, 0.1284]
           },
           {
             "id": "B12",
             "name": "Workflow Disruption",
-            "primary": 0.5001,
-            "secondary": 0.104,
-            "gap": 0.3961,
-            "convergent": "PASS",
+            "primary": 0.4996,
+            "secondary": 0.1026,
+            "gap": 0.397,
+            "convergent": "WEAK",
             "discriminant": "PASS",
-            "loadings": [0.5001, 0.104]
+            "loadings": [0.4996, 0.1026]
           },
           {
             "id": "B13",
             "name": "Cybersecurity Concerns",
-            "primary": 0.8292,
-            "secondary": 0.1406,
-            "gap": 0.6886,
+            "primary": 0.8226,
+            "secondary": 0.1409,
+            "gap": 0.6817,
             "convergent": "PASS",
             "discriminant": "PASS",
-            "loadings": [-0.1406, 0.8292]
+            "loadings": [-0.1409, 0.8226]
           },
           {
             "id": "B14",
             "name": "Data Privacy Compliance",
-            "primary": 0.9324,
-            "secondary": 0.1734,
-            "gap": 0.759,
+            "primary": 0.9341,
+            "secondary": 0.173,
+            "gap": 0.7611,
             "convergent": "PASS",
             "discriminant": "PASS",
-            "loadings": [-0.1734, 0.9324]
+            "loadings": [-0.173, 0.9341]
           },
           {
             "id": "B15",
             "name": "Lack of Trust in Tech/Vendors",
-            "primary": 0.4409,
-            "secondary": 0.1581,
-            "gap": 0.2828,
+            "primary": 0.4415,
+            "secondary": 0.1598,
+            "gap": 0.2817,
             "convergent": "WEAK",
             "discriminant": "PASS",
-            "loadings": [0.4409, 0.1581]
+            "loadings": [0.4415, 0.1598]
           },
           {
             "id": "B16",
             "name": "Regulatory Complexity",
-            "primary": 0.4464,
-            "secondary": 0.1826,
-            "gap": 0.2638,
+            "primary": 0.4477,
+            "secondary": 0.182,
+            "gap": 0.2657,
             "convergent": "WEAK",
             "discriminant": "PASS",
-            "loadings": [0.1826, 0.4464]
+            "loadings": [0.182, 0.4477]
           },
           {
             "id": "B17",
             "name": "External Pressure Without Readiness",
-            "primary": 0.476,
-            "secondary": 0.0976,
-            "gap": 0.3784,
+            "primary": 0.477,
+            "secondary": 0.099,
+            "gap": 0.378,
             "convergent": "WEAK",
             "discriminant": "PASS",
-            "loadings": [0.476, 0.0976]
+            "loadings": [0.477, 0.099]
           },
           {
             "id": "B18",
             "name": "Vendor/Partner Difficulty",
-            "primary": 0.3752,
-            "secondary": 0.162,
-            "gap": 0.2132,
+            "primary": 0.3762,
+            "secondary": 0.1633,
+            "gap": 0.2129,
             "convergent": "FAIL",
             "discriminant": "PASS",
-            "loadings": [0.3752, 0.162]
+            "loadings": [0.3762, 0.1633]
           }
         ],
         "readiness": [
@@ -6919,72 +6919,72 @@
           {
             "id": "M2",
             "name": "IT-Enabled Innovation",
-            "primary": 0.7633,
+            "primary": 0.7648,
             "secondary": null,
             "gap": null,
             "convergent": "PASS",
             "discriminant": null,
-            "loadings": [0.7633]
+            "loadings": [0.7648]
           },
           {
             "id": "M3",
             "name": "Process Mgmt & Standardization",
-            "primary": 0.6672,
+            "primary": 0.6678,
             "secondary": null,
             "gap": null,
             "convergent": "PASS",
             "discriminant": null,
-            "loadings": [0.6672]
+            "loadings": [0.6678]
           },
           {
             "id": "M4",
             "name": "Data Governance & Analytics",
-            "primary": 0.6518,
+            "primary": 0.6538,
             "secondary": null,
             "gap": null,
             "convergent": "PASS",
             "discriminant": null,
-            "loadings": [0.6518]
+            "loadings": [0.6538]
           },
           {
             "id": "M5",
             "name": "Tech Risk & Resilience",
-            "primary": 0.6226,
+            "primary": 0.6249,
             "secondary": null,
             "gap": null,
             "convergent": "PASS",
             "discriminant": null,
-            "loadings": [0.6226]
+            "loadings": [0.6249]
           },
           {
             "id": "M6",
             "name": "Strategic IT Planning",
-            "primary": 0.7808,
+            "primary": 0.7806,
             "secondary": null,
             "gap": null,
             "convergent": "PASS",
             "discriminant": null,
-            "loadings": [0.7808]
+            "loadings": [0.7806]
           },
           {
             "id": "M7",
             "name": "Workforce Capability",
-            "primary": 0.6769,
+            "primary": 0.679,
             "secondary": null,
             "gap": null,
             "convergent": "PASS",
             "discriminant": null,
-            "loadings": [0.6769]
+            "loadings": [0.679]
           },
           {
             "id": "M8",
             "name": "Change Leadership",
-            "primary": 0.6382,
+            "primary": 0.639,
             "secondary": null,
             "gap": null,
             "convergent": "PASS",
             "discriminant": null,
-            "loadings": [0.6382]
+            "loadings": [0.639]
           }
         ]
       },
@@ -6992,28 +6992,28 @@
         "htmt": [
           {
             "pair": "F1a vs F1b",
-            "htmt": 0.906,
-            "htmt2": 0.8999,
-            "ci_lower": 0.8522,
-            "ci_upper": 0.9654,
+            "htmt": 0.9067,
+            "htmt2": 0.901,
+            "ci_lower": 0.8495,
+            "ci_upper": 0.9586,
             "pass_085": false,
             "pass_090": false
           },
           {
             "pair": "F1a vs F2",
-            "htmt": 0.6038,
-            "htmt2": 0.5855,
-            "ci_lower": 0.5145,
-            "ci_upper": 0.6902,
+            "htmt": 0.6057,
+            "htmt2": 0.5863,
+            "ci_lower": 0.5161,
+            "ci_upper": 0.7005,
             "pass_085": true,
             "pass_090": true
           },
           {
             "pair": "F1b vs F2",
-            "htmt": 0.6391,
-            "htmt2": 0.6484,
-            "ci_lower": 0.5376,
-            "ci_upper": 0.7386,
+            "htmt": 0.6412,
+            "htmt2": 0.6501,
+            "ci_lower": 0.5402,
+            "ci_upper": 0.7397,
             "pass_085": true,
             "pass_090": true
           }
@@ -7021,38 +7021,38 @@
         "fornell_larcker": [
           {
             "pair": "F1a vs F1b",
-            "sqrt_ave_1": 0.6032,
-            "sqrt_ave_2": 0.6114,
-            "abs_r": 0.7149,
-            "smaller_sqrt_ave": 0.6032,
+            "sqrt_ave_1": 0.603,
+            "sqrt_ave_2": 0.6119,
+            "abs_r": 0.7157,
+            "smaller_sqrt_ave": 0.603,
             "pass": false
           },
           {
             "pair": "F1a vs F2",
-            "sqrt_ave_1": 0.6032,
-            "sqrt_ave_2": 0.6477,
-            "abs_r": 0.4488,
-            "smaller_sqrt_ave": 0.6032,
+            "sqrt_ave_1": 0.603,
+            "sqrt_ave_2": 0.6466,
+            "abs_r": 0.45,
+            "smaller_sqrt_ave": 0.603,
             "pass": true
           },
           {
             "pair": "F1b vs F2",
-            "sqrt_ave_1": 0.6114,
-            "sqrt_ave_2": 0.6477,
-            "abs_r": 0.4565,
-            "smaller_sqrt_ave": 0.6114,
+            "sqrt_ave_1": 0.6119,
+            "sqrt_ave_2": 0.6466,
+            "abs_r": 0.458,
+            "smaller_sqrt_ave": 0.6119,
             "pass": true
           }
         ],
         "pearson_correlations": {
-          "F1a vs F1b": 0.7149,
-          "F1a vs F2": 0.4488,
-          "F1b vs F2": 0.4565
+          "F1a vs F1b": 0.7157,
+          "F1a vs F2": 0.45,
+          "F1b vs F2": 0.458
         },
         "aves_used": {
-          "F1a": 0.3639,
-          "F1b": 0.3739,
-          "F2": 0.4195
+          "F1a": 0.3636,
+          "F1b": 0.3744,
+          "F2": 0.4181
         }
       },
       "subgroup_standalone_validation": {
@@ -7062,13 +7062,13 @@
       "alpha_if_deleted_summary": [
         {
           "construct": "Barriers",
-          "base_alpha": 0.8859,
+          "base_alpha": 0.8861,
           "items_increasing_alpha_count": 0,
           "items_increasing_alpha": [],
           "closest_call": {
             "item": "Cybersecurity Concerns",
-            "alpha_if_deleted": 0.8852,
-            "change": -0.0007
+            "alpha_if_deleted": 0.8855,
+            "change": -0.0006
           }
         },
         {
@@ -7084,12 +7084,12 @@
         },
         {
           "construct": "Maturity",
-          "base_alpha": 0.8809,
+          "base_alpha": 0.8815,
           "items_increasing_alpha_count": 0,
           "items_increasing_alpha": [],
           "closest_call": {
             "item": "Tech Risk & Resilience",
-            "alpha_if_deleted": 0.8735,
+            "alpha_if_deleted": 0.8741,
             "change": -0.0074
           }
         }
@@ -7128,7 +7128,7 @@
       },
       "mediation_b_r_m": {
         "R ~ X": {
-          "coef": -0.2919,
+          "coef": -0.296,
           "se": 0.0393,
           "p": 0.0,
           "ci_lo": null,
@@ -7136,15 +7136,15 @@
           "sig": "Yes"
         },
         "Y ~ R": {
-          "coef": 0.8608,
-          "se": 0.038,
+          "coef": 0.8621,
+          "se": 0.0378,
           "p": 0.0,
           "ci_lo": null,
           "ci_hi": null,
           "sig": "Yes"
         },
         "Total": {
-          "coef": -0.2615,
+          "coef": -0.2656,
           "se": 0.0484,
           "p": 0.0,
           "ci_lo": null,
@@ -7152,74 +7152,74 @@
           "sig": "Yes"
         },
         "Direct": {
-          "coef": -0.0113,
+          "coef": -0.0117,
           "se": 0.0367,
-          "p": 0.758037,
+          "p": 0.749603,
           "ci_lo": null,
           "ci_hi": null,
           "sig": "No"
         },
         "Indirect": {
-          "coef": -0.2502,
-          "se": 0.044,
+          "coef": -0.2539,
+          "se": 0.0444,
           "p": 0.0,
           "ci_lo": null,
           "ci_hi": null,
           "sig": "Yes"
         },
-        "n_listwise": 487
+        "n_listwise": 488
       },
       "standardized_subfactor_regressions": {
         "R": {
-          "r2": 0.2065,
+          "r2": 0.2076,
           "beta_std": {
-            "F1a": -0.3242,
-            "F1b": -0.2394,
-            "F2": 0.2752
+            "F1a": -0.3235,
+            "F1b": -0.2422,
+            "F2": 0.2727
           },
           "t": {
-            "F1a": -5.414,
-            "F1b": -3.977,
-            "F2": 5.879
+            "F1a": -5.407,
+            "F1b": -4.025,
+            "F2": 5.829
           },
           "p": {
             "F1a": 0.0,
             "F1b": 0.0001,
             "F2": 0.0
           },
-          "n": 487
+          "n": 488
         },
         "M": {
-          "r2": 0.1526,
+          "r2": 0.1535,
           "beta_std": {
-            "F1a": -0.2567,
-            "F1b": -0.2233,
-            "F2": 0.2823
+            "F1a": -0.2566,
+            "F1b": -0.226,
+            "F2": 0.2803
           },
           "t": {
-            "F1a": -4.149,
-            "F1b": -3.59,
-            "F2": 5.833
+            "F1a": -4.148,
+            "F1b": -3.633,
+            "F2": 5.796
           },
           "p": {
             "F1a": 0.0,
-            "F1b": 0.0004,
+            "F1b": 0.0003,
             "F2": 0.0
           },
-          "n": 487
+          "n": 488
         },
         "vif": {
           "constant": 1.0,
-          "F1a": 2.182,
-          "F1b": 2.2061,
-          "F2": 1.3345
+          "F1a": 2.187,
+          "F1b": 2.2117,
+          "F2": 1.3368
         }
       },
       "bootstrap_alpha_ci": {
         "Barriers": {
-          "mean": 0.8853,
-          "ci_lower": 0.869,
-          "ci_upper": 0.8999,
+          "mean": 0.8855,
+          "ci_lower": 0.8685,
+          "ci_upper": 0.9005,
           "n_boot": 1000
         },
         "Readiness": {
@@ -7229,9 +7229,9 @@
           "n_boot": 1000
         },
         "Maturity": {
-          "mean": 0.8798,
-          "ci_lower": 0.86,
-          "ci_upper": 0.8969,
+          "mean": 0.8804,
+          "ci_lower": 0.8608,
+          "ci_upper": 0.8974,
           "n_boot": 1000
         }
       },
@@ -7241,8 +7241,8 @@
             "id": "B1",
             "name": "Resistance to Change",
             "smb_mean": 3.1007,
-            "ent_mean": 3.027,
-            "cohens_d": -0.0581,
+            "ent_mean": 3.0215,
+            "cohens_d": -0.0624,
             "t": null,
             "p": null,
             "sig": false
@@ -7251,8 +7251,8 @@
             "id": "B2",
             "name": "Lack of Leadership Support",
             "smb_mean": 2.6087,
-            "ent_mean": 2.6087,
-            "cohens_d": 0.0,
+            "ent_mean": 2.6162,
+            "cohens_d": 0.0057,
             "t": null,
             "p": null,
             "sig": false
@@ -7261,8 +7261,8 @@
             "id": "B3",
             "name": "Risk-Averse Culture",
             "smb_mean": 2.4933,
-            "ent_mean": 2.4946,
-            "cohens_d": 0.001,
+            "ent_mean": 2.4865,
+            "cohens_d": -0.0051,
             "t": null,
             "p": null,
             "sig": false
@@ -7271,8 +7271,8 @@
             "id": "B4",
             "name": "Insufficient Workforce Skills",
             "smb_mean": 2.9967,
-            "ent_mean": 2.8541,
-            "cohens_d": -0.1162,
+            "ent_mean": 2.8441,
+            "cohens_d": -0.1241,
             "t": null,
             "p": null,
             "sig": false
@@ -7281,8 +7281,8 @@
             "id": "B5",
             "name": "Inadequate Training",
             "smb_mean": 2.8863,
-            "ent_mean": 2.773,
-            "cohens_d": -0.0952,
+            "ent_mean": 2.7742,
+            "cohens_d": -0.0943,
             "t": null,
             "p": null,
             "sig": false
@@ -7291,8 +7291,8 @@
             "id": "B6",
             "name": "High Implementation Cost",
             "smb_mean": 3.6689,
-            "ent_mean": 3.6175,
-            "cohens_d": -0.0448,
+            "ent_mean": 3.6087,
+            "cohens_d": -0.0524,
             "t": null,
             "p": null,
             "sig": false
@@ -7301,8 +7301,8 @@
             "id": "B7",
             "name": "Legacy System Integration",
             "smb_mean": 3.349,
-            "ent_mean": 3.4565,
-            "cohens_d": 0.0903,
+            "ent_mean": 3.4541,
+            "cohens_d": 0.0883,
             "t": null,
             "p": null,
             "sig": false
@@ -7311,8 +7311,8 @@
             "id": "B8",
             "name": "Inadequate IT Infrastructure",
             "smb_mean": 2.7315,
-            "ent_mean": 2.612,
-            "cohens_d": -0.0934,
+            "ent_mean": 2.6033,
+            "cohens_d": -0.1002,
             "t": null,
             "p": null,
             "sig": false
@@ -7321,8 +7321,8 @@
             "id": "B9",
             "name": "Difficulty Demonstrating Value",
             "smb_mean": 2.8993,
-            "ent_mean": 2.6703,
-            "cohens_d": -0.1974,
+            "ent_mean": 2.6613,
+            "cohens_d": -0.2049,
             "t": null,
             "p": null,
             "sig": false
@@ -7331,8 +7331,8 @@
             "id": "B10",
             "name": "No Clear Strategy/Roadmap",
             "smb_mean": 2.8294,
-            "ent_mean": 2.9135,
-            "cohens_d": 0.0691,
+            "ent_mean": 2.9086,
+            "cohens_d": 0.0651,
             "t": null,
             "p": null,
             "sig": false
@@ -7341,8 +7341,8 @@
             "id": "B11",
             "name": "Insufficient Governance",
             "smb_mean": 2.4459,
-            "ent_mean": 2.489,
-            "cohens_d": 0.0372,
+            "ent_mean": 2.4863,
+            "cohens_d": 0.035,
             "t": null,
             "p": null,
             "sig": false
@@ -7351,8 +7351,8 @@
             "id": "B12",
             "name": "Workflow Disruption",
             "smb_mean": 2.9431,
-            "ent_mean": 2.9076,
-            "cohens_d": -0.0293,
+            "ent_mean": 2.9081,
+            "cohens_d": -0.0289,
             "t": null,
             "p": null,
             "sig": false
@@ -7361,8 +7361,8 @@
             "id": "B13",
             "name": "Cybersecurity Concerns",
             "smb_mean": 3.198,
-            "ent_mean": 3.3552,
-            "cohens_d": 0.1264,
+            "ent_mean": 3.3587,
+            "cohens_d": 0.1293,
             "t": null,
             "p": null,
             "sig": false
@@ -7371,8 +7371,8 @@
             "id": "B14",
             "name": "Data Privacy Compliance",
             "smb_mean": 3.094,
-            "ent_mean": 3.3224,
-            "cohens_d": 0.1784,
+            "ent_mean": 3.3098,
+            "cohens_d": 0.1682,
             "t": null,
             "p": null,
             "sig": false
@@ -7381,8 +7381,8 @@
             "id": "B15",
             "name": "Lack of Trust in Tech/Vendors",
             "smb_mean": 2.76,
-            "ent_mean": 2.7418,
-            "cohens_d": -0.0162,
+            "ent_mean": 2.7322,
+            "cohens_d": -0.0246,
             "t": null,
             "p": null,
             "sig": false
@@ -7391,8 +7391,8 @@
             "id": "B16",
             "name": "Regulatory Complexity",
             "smb_mean": 2.67,
-            "ent_mean": 2.9126,
-            "cohens_d": 0.1923,
+            "ent_mean": 2.9076,
+            "cohens_d": 0.1885,
             "t": null,
             "p": null,
             "sig": false
@@ -7401,8 +7401,8 @@
             "id": "B17",
             "name": "External Pressure Without Readiness",
             "smb_mean": 2.7483,
-            "ent_mean": 2.7486,
-            "cohens_d": 0.0002,
+            "ent_mean": 2.7391,
+            "cohens_d": -0.0073,
             "t": null,
             "p": null,
             "sig": false
@@ -7411,8 +7411,8 @@
             "id": "B18",
             "name": "Vendor/Partner Difficulty",
             "smb_mean": 2.5354,
-            "ent_mean": 2.2873,
-            "cohens_d": -0.2125,
+            "ent_mean": 2.2802,
+            "cohens_d": -0.2185,
             "t": null,
             "p": null,
             "sig": false
@@ -7423,8 +7423,8 @@
             "id": "R1",
             "name": "Vision/Leadership",
             "smb_mean": 3.1505,
-            "ent_mean": 3.2162,
-            "cohens_d": 0.0601,
+            "ent_mean": 3.2258,
+            "cohens_d": 0.0688,
             "t": null,
             "p": null,
             "sig": false
@@ -7433,8 +7433,8 @@
             "id": "R2",
             "name": "Tech-Strategy Alignment",
             "smb_mean": 3.3754,
-            "ent_mean": 3.2757,
-            "cohens_d": -0.0974,
+            "ent_mean": 3.2796,
+            "cohens_d": -0.0936,
             "t": null,
             "p": null,
             "sig": false
@@ -7443,8 +7443,8 @@
             "id": "R3",
             "name": "IT Governance Effectiveness",
             "smb_mean": 3.1031,
-            "ent_mean": 3.0944,
-            "cohens_d": -0.0087,
+            "ent_mean": 3.0939,
+            "cohens_d": -0.0092,
             "t": null,
             "p": null,
             "sig": false
@@ -7453,8 +7453,8 @@
             "id": "R4",
             "name": "Culture Openness",
             "smb_mean": 3.2193,
-            "ent_mean": 3.0824,
-            "cohens_d": -0.1202,
+            "ent_mean": 3.0929,
+            "cohens_d": -0.1108,
             "t": null,
             "p": null,
             "sig": false
@@ -7463,8 +7463,8 @@
             "id": "R5",
             "name": "Innovation Support",
             "smb_mean": 3.4153,
-            "ent_mean": 3.4783,
-            "cohens_d": 0.06,
+            "ent_mean": 3.4865,
+            "cohens_d": 0.0677,
             "t": null,
             "p": null,
             "sig": false
@@ -7473,8 +7473,8 @@
             "id": "R6",
             "name": "Technical Workforce",
             "smb_mean": 3.0667,
-            "ent_mean": 3.0109,
-            "cohens_d": -0.0531,
+            "ent_mean": 3.0108,
+            "cohens_d": -0.0532,
             "t": null,
             "p": null,
             "sig": false
@@ -7483,8 +7483,8 @@
             "id": "R7",
             "name": "Training Programs",
             "smb_mean": 2.8933,
-            "ent_mean": 2.9405,
-            "cohens_d": 0.045,
+            "ent_mean": 2.9516,
+            "cohens_d": 0.0554,
             "t": null,
             "p": null,
             "sig": false
@@ -7493,8 +7493,8 @@
             "id": "R8",
             "name": "Change Management",
             "smb_mean": 2.9264,
-            "ent_mean": 3.0718,
-            "cohens_d": 0.1547,
+            "ent_mean": 3.0824,
+            "cohens_d": 0.1654,
             "t": null,
             "p": null,
             "sig": false
@@ -7503,8 +7503,8 @@
             "id": "R9",
             "name": "IT Infrastructure",
             "smb_mean": 3.1525,
-            "ent_mean": 3.2099,
-            "cohens_d": 0.0548,
+            "ent_mean": 3.2088,
+            "cohens_d": 0.0537,
             "t": null,
             "p": null,
             "sig": false
@@ -7523,8 +7523,8 @@
             "id": "R11",
             "name": "Technical Support",
             "smb_mean": 3.1694,
-            "ent_mean": 3.2162,
-            "cohens_d": 0.044,
+            "ent_mean": 3.2258,
+            "cohens_d": 0.0529,
             "t": null,
             "p": null,
             "sig": false
@@ -7543,8 +7543,8 @@
             "id": "R13",
             "name": "Data Quality",
             "smb_mean": 3.0753,
-            "ent_mean": 3.0778,
-            "cohens_d": 0.0024,
+            "ent_mean": 3.0884,
+            "cohens_d": 0.0127,
             "t": null,
             "p": null,
             "sig": false
@@ -7553,8 +7553,8 @@
             "id": "R14",
             "name": "Data Analytics",
             "smb_mean": 3.2977,
-            "ent_mean": 3.2912,
-            "cohens_d": -0.0059,
+            "ent_mean": 3.3005,
+            "cohens_d": 0.0026,
             "t": null,
             "p": null,
             "sig": false
@@ -7563,8 +7563,8 @@
             "id": "R15",
             "name": "Business Process Maturity",
             "smb_mean": 3.1448,
-            "ent_mean": 3.0167,
-            "cohens_d": -0.1373,
+            "ent_mean": 3.0276,
+            "cohens_d": -0.1251,
             "t": null,
             "p": null,
             "sig": false
@@ -7573,8 +7573,8 @@
             "id": "R16",
             "name": "Performance Monitoring",
             "smb_mean": 3.0269,
-            "ent_mean": 3.0541,
-            "cohens_d": 0.0286,
+            "ent_mean": 3.0591,
+            "cohens_d": 0.034,
             "t": null,
             "p": null,
             "sig": false
@@ -7583,8 +7583,8 @@
             "id": "R17",
             "name": "Budget Adequacy",
             "smb_mean": 2.9833,
-            "ent_mean": 3.0054,
-            "cohens_d": 0.0198,
+            "ent_mean": 3.0162,
+            "cohens_d": 0.0294,
             "t": null,
             "p": null,
             "sig": false
@@ -7595,8 +7595,8 @@
             "id": "M1",
             "name": "IT Investment & Value Mgmt",
             "smb_mean": 3.0606,
-            "ent_mean": 3.232,
-            "cohens_d": 0.1635,
+            "ent_mean": 3.2363,
+            "cohens_d": 0.1676,
             "t": null,
             "p": null,
             "sig": false
@@ -7605,8 +7605,8 @@
             "id": "M2",
             "name": "IT-Enabled Innovation",
             "smb_mean": 3.0133,
-            "ent_mean": 3.1685,
-            "cohens_d": 0.1379,
+            "ent_mean": 3.1784,
+            "cohens_d": 0.1465,
             "t": null,
             "p": null,
             "sig": false
@@ -7615,8 +7615,8 @@
             "id": "M3",
             "name": "Process Mgmt & Standardization",
             "smb_mean": 3.1233,
-            "ent_mean": 3.3022,
-            "cohens_d": 0.1892,
+            "ent_mean": 3.306,
+            "cohens_d": 0.1934,
             "t": null,
             "p": null,
             "sig": false
@@ -7625,8 +7625,8 @@
             "id": "M4",
             "name": "Data Governance & Analytics",
             "smb_mean": 3.1477,
-            "ent_mean": 3.3407,
-            "cohens_d": 0.1755,
+            "ent_mean": 3.3497,
+            "cohens_d": 0.1835,
             "t": null,
             "p": null,
             "sig": false
@@ -7635,8 +7635,8 @@
             "id": "M5",
             "name": "Tech Risk & Resilience",
             "smb_mean": 3.1338,
-            "ent_mean": 3.5027,
-            "cohens_d": 0.3535,
+            "ent_mean": 3.5108,
+            "cohens_d": 0.3608,
             "t": null,
             "p": null,
             "sig": false
@@ -7645,8 +7645,8 @@
             "id": "M6",
             "name": "Strategic IT Planning",
             "smb_mean": 3.0845,
-            "ent_mean": 3.1768,
-            "cohens_d": 0.0873,
+            "ent_mean": 3.1813,
+            "cohens_d": 0.0916,
             "t": null,
             "p": null,
             "sig": false
@@ -7655,8 +7655,8 @@
             "id": "M7",
             "name": "Workforce Capability",
             "smb_mean": 2.9867,
-            "ent_mean": 3.0984,
-            "cohens_d": 0.1019,
+            "ent_mean": 3.1087,
+            "cohens_d": 0.1111,
             "t": null,
             "p": null,
             "sig": false
@@ -7665,8 +7665,8 @@
             "id": "M8",
             "name": "Change Leadership",
             "smb_mean": 3.0,
-            "ent_mean": 3.0054,
-            "cohens_d": 0.0049,
+            "ent_mean": 3.0108,
+            "cohens_d": 0.0098,
             "t": null,
             "p": null,
             "sig": false
@@ -7681,16 +7681,16 @@
           "Maturity": 0.8838
         },
         "Enterprise": {
-          "n": 185,
-          "Barriers": 0.8821,
+          "n": 186,
+          "Barriers": 0.8826,
           "Readiness": 0.9178,
-          "Maturity": 0.8738
+          "Maturity": 0.8755
         },
         "For_Profit": {
-          "n": 349,
-          "Barriers": 0.887,
+          "n": 350,
+          "Barriers": 0.8872,
           "Readiness": 0.9161,
-          "Maturity": 0.8811
+          "Maturity": 0.882
         },
         "Non_Profit_or_Gov": {
           "n": 138,
@@ -7701,56 +7701,56 @@
       },
       "power_analysis": {
         "n_smb": 302,
-        "n_enterprise": 185,
-        "ratio": 0.6126,
-        "detectable_d_at_power_80": 0.2621,
+        "n_enterprise": 186,
+        "ratio": 0.6159,
+        "detectable_d_at_power_80": 0.2616,
         "note": "Smallest Cohen's d detectable at alpha=0.05, power=0.80"
       },
       "equivalence_test_tost_smb_ent": {
         "Barriers": {
-          "p_tost": 0.0011,
-          "delta": 0.217,
-          "pooled_sd": 0.7233,
+          "p_tost": 0.0014,
+          "delta": 0.2171,
+          "pooled_sd": 0.7238,
           "equivalent_05": true
         },
         "Readiness": {
-          "p_tost": 0.0015,
-          "delta": 0.1982,
-          "pooled_sd": 0.6606,
+          "p_tost": 0.0022,
+          "delta": 0.1988,
+          "pooled_sd": 0.6627,
           "equivalent_05": true
         },
         "Maturity": {
-          "p_tost": 0.1493,
-          "delta": 0.2369,
-          "pooled_sd": 0.7897,
+          "p_tost": 0.171,
+          "delta": 0.2373,
+          "pooled_sd": 0.791,
           "equivalent_05": false
         }
       },
       "bifactor_barriers": {
         "fit": {
-          "chi2": 131.697,
+          "chi2": 131.599,
           "df": 117,
           "cfi": 0.9978,
-          "tli": 0.9971,
-          "rmsea": 0.0167
+          "tli": 0.9972,
+          "rmsea": 0.0166
         },
-        "n_listwise": 453,
-        "ecv_general": 0.672,
+        "n_listwise": 454,
+        "ecv_general": 0.6614,
         "ecv_specifics": {
-          "F1a": 0.1013,
-          "F1b": 0.0599,
-          "F2": 0.1668
+          "F1a": 0.0996,
+          "F1b": 0.0764,
+          "F2": 0.1626
         },
-        "omega_h_general": 0.826,
+        "omega_h_general": 0.8264,
         "omega_h_specifics": {
-          "F1a": 0.0359,
-          "F1b": 0.0107,
-          "F2": 0.0348
+          "F1a": 0.0365,
+          "F1b": 0.0113,
+          "F2": 0.0346
         },
-        "omega_t": 0.9075,
+        "omega_t": 0.9089,
         "g_loadings": [
-          0.5266, 0.5135, 0.5661, 0.7063, 0.642, 0.4929, 0.5726, 0.5932, 0.5176, 0.6114, 0.5794,
-          0.5733, 0.3061, 0.3232, 0.5347, 0.4385, 0.5611, 0.4919
+          0.5264, 0.5064, 0.5666, 0.7102, 0.6378, 0.4976, 0.5735, 0.5969, 0.5197, 0.6102, 0.5779,
+          0.5722, 0.3038, 0.327, 0.5366, 0.4393, 0.5628, 0.494
         ]
       },
       "multigroup_3f_smb_vs_ent": {
@@ -7762,172 +7762,172 @@
           "rmsea": 0.0452,
           "latent_correlations": {
             "F1a~~F1b": 0.9631,
-            "F1a~~F2": 0.5587,
+            "F2~~F1a": 0.5587,
             "F2~~F1b": 0.6325
           }
         },
         "Group_0": {
-          "n": 172,
-          "chi2": 130.362,
+          "n": 173,
+          "chi2": 128.771,
           "df": 132,
-          "cfi": 1.0007,
+          "cfi": 1.0014,
           "rmsea": 0.0,
           "latent_correlations": {
-            "F1a~~F1b": 0.8092,
-            "F1a~~F2": 0.6984,
-            "F2~~F1b": 0.6654
+            "F1a~~F1b": 0.8116,
+            "F2~~F1a": 0.706,
+            "F2~~F1b": 0.6727
           }
         }
       },
       "dif_irt_smb_vs_ent": {
         "Barriers": {
           "n_group_1": 281,
-          "n_group_0": 172,
+          "n_group_0": 173,
           "delta_threshold": 0.5,
-          "flagged_count": 0,
+          "flagged_count": 1,
           "items": [
             {
               "id": "B1",
               "name": "Resistance to Change",
               "discrimination_group_1": 1.1679,
-              "discrimination_group_0": 1.4984,
-              "delta": 0.3304,
+              "discrimination_group_0": 1.5089,
+              "delta": 0.341,
               "flag_dif": false
             },
             {
               "id": "B2",
               "name": "Lack of Leadership Support",
               "discrimination_group_1": 1.4998,
-              "discrimination_group_0": 1.5867,
-              "delta": 0.0869,
+              "discrimination_group_0": 1.5209,
+              "delta": 0.0211,
               "flag_dif": false
             },
             {
               "id": "B3",
               "name": "Risk-Averse Culture",
               "discrimination_group_1": 1.5419,
-              "discrimination_group_0": 1.5694,
-              "delta": 0.0275,
+              "discrimination_group_0": 1.582,
+              "delta": 0.0401,
               "flag_dif": false
             },
             {
               "id": "B4",
               "name": "Insufficient Workforce Skills",
               "discrimination_group_1": 1.9324,
-              "discrimination_group_0": 1.7379,
-              "delta": 0.1946,
+              "discrimination_group_0": 1.7559,
+              "delta": 0.1765,
               "flag_dif": false
             },
             {
               "id": "B5",
               "name": "Inadequate Training",
               "discrimination_group_1": 1.6073,
-              "discrimination_group_0": 1.6053,
-              "delta": 0.0019,
+              "discrimination_group_0": 1.5716,
+              "delta": 0.0356,
               "flag_dif": false
             },
             {
               "id": "B6",
               "name": "High Implementation Cost",
               "discrimination_group_1": 1.0093,
-              "discrimination_group_0": 1.1426,
-              "delta": 0.1334,
+              "discrimination_group_0": 1.1604,
+              "delta": 0.1511,
               "flag_dif": false
             },
             {
               "id": "B7",
               "name": "Legacy System Integration",
               "discrimination_group_1": 1.3716,
-              "discrimination_group_0": 1.2605,
-              "delta": 0.1111,
+              "discrimination_group_0": 1.2667,
+              "delta": 0.1049,
               "flag_dif": false
             },
             {
               "id": "B8",
               "name": "Inadequate IT Infrastructure",
               "discrimination_group_1": 1.4373,
-              "discrimination_group_0": 1.1446,
-              "delta": 0.2927,
+              "discrimination_group_0": 1.1617,
+              "delta": 0.2755,
               "flag_dif": false
             },
             {
               "id": "B9",
               "name": "Difficulty Demonstrating Value",
               "discrimination_group_1": 1.2964,
-              "discrimination_group_0": 1.2362,
-              "delta": 0.0602,
+              "discrimination_group_0": 1.2511,
+              "delta": 0.0453,
               "flag_dif": false
             },
             {
               "id": "B10",
               "name": "No Clear Strategy/Roadmap",
               "discrimination_group_1": 1.6515,
-              "discrimination_group_0": 1.9687,
-              "delta": 0.3172,
+              "discrimination_group_0": 1.9607,
+              "delta": 0.3092,
               "flag_dif": false
             },
             {
               "id": "B11",
               "name": "Insufficient Governance",
               "discrimination_group_1": 1.2695,
-              "discrimination_group_0": 1.3857,
-              "delta": 0.1162,
+              "discrimination_group_0": 1.3832,
+              "delta": 0.1137,
               "flag_dif": false
             },
             {
               "id": "B12",
               "name": "Workflow Disruption",
               "discrimination_group_1": 1.4793,
-              "discrimination_group_0": 0.985,
-              "delta": 0.4944,
-              "flag_dif": false
+              "discrimination_group_0": 0.9763,
+              "delta": 0.5031,
+              "flag_dif": true
             },
             {
               "id": "B13",
               "name": "Cybersecurity Concerns",
               "discrimination_group_1": 0.6879,
-              "discrimination_group_0": 0.6277,
-              "delta": 0.0602,
+              "discrimination_group_0": 0.6201,
+              "delta": 0.0678,
               "flag_dif": false
             },
             {
               "id": "B14",
               "name": "Data Privacy Compliance",
               "discrimination_group_1": 0.7132,
-              "discrimination_group_0": 0.7198,
-              "delta": 0.0066,
+              "discrimination_group_0": 0.7372,
+              "delta": 0.0239,
               "flag_dif": false
             },
             {
               "id": "B15",
               "name": "Lack of Trust in Tech/Vendors",
               "discrimination_group_1": 1.2214,
-              "discrimination_group_0": 1.2177,
-              "delta": 0.0037,
+              "discrimination_group_0": 1.2331,
+              "delta": 0.0117,
               "flag_dif": false
             },
             {
               "id": "B16",
               "name": "Regulatory Complexity",
               "discrimination_group_1": 0.9559,
-              "discrimination_group_0": 0.8568,
-              "delta": 0.0991,
+              "discrimination_group_0": 0.8652,
+              "delta": 0.0907,
               "flag_dif": false
             },
             {
               "id": "B17",
               "name": "External Pressure Without Readiness",
               "discrimination_group_1": 1.31,
-              "discrimination_group_0": 0.9662,
-              "delta": 0.3438,
+              "discrimination_group_0": 0.9822,
+              "delta": 0.3278,
               "flag_dif": false
             },
             {
               "id": "B18",
               "name": "Vendor/Partner Difficulty",
               "discrimination_group_1": 1.1161,
-              "discrimination_group_0": 0.9104,
-              "delta": 0.2057,
+              "discrimination_group_0": 0.9303,
+              "delta": 0.1858,
               "flag_dif": false
             }
           ]
@@ -8078,7 +8078,7 @@
         },
         "Maturity": {
           "n_group_1": 283,
-          "n_group_0": 175,
+          "n_group_0": 176,
           "delta_threshold": 0.5,
           "flagged_count": 1,
           "items": [
@@ -8086,150 +8086,150 @@
               "id": "M1",
               "name": "IT Investment & Value Mgmt",
               "discrimination_group_1": 2.3087,
-              "discrimination_group_0": 2.208,
-              "delta": 0.1006,
+              "discrimination_group_0": 2.2068,
+              "delta": 0.1019,
               "flag_dif": false
             },
             {
               "id": "M2",
               "name": "IT-Enabled Innovation",
               "discrimination_group_1": 2.2661,
-              "discrimination_group_0": 2.2612,
-              "delta": 0.0049,
+              "discrimination_group_0": 2.2933,
+              "delta": 0.0271,
               "flag_dif": false
             },
             {
               "id": "M3",
               "name": "Process Mgmt & Standardization",
               "discrimination_group_1": 1.792,
-              "discrimination_group_0": 1.7872,
-              "delta": 0.0049,
+              "discrimination_group_0": 1.7895,
+              "delta": 0.0026,
               "flag_dif": false
             },
             {
               "id": "M4",
               "name": "Data Governance & Analytics",
               "discrimination_group_1": 1.5466,
-              "discrimination_group_0": 1.9688,
-              "delta": 0.4222,
+              "discrimination_group_0": 1.9946,
+              "delta": 0.448,
               "flag_dif": false
             },
             {
               "id": "M5",
               "name": "Tech Risk & Resilience",
               "discrimination_group_1": 1.43,
-              "discrimination_group_0": 1.8098,
-              "delta": 0.3799,
+              "discrimination_group_0": 1.8379,
+              "delta": 0.408,
               "flag_dif": false
             },
             {
               "id": "M6",
               "name": "Strategic IT Planning",
               "discrimination_group_1": 2.7126,
-              "discrimination_group_0": 2.2174,
-              "delta": 0.4951,
+              "discrimination_group_0": 2.2139,
+              "delta": 0.4987,
               "flag_dif": false
             },
             {
               "id": "M7",
               "name": "Workforce Capability",
               "discrimination_group_1": 2.007,
-              "discrimination_group_0": 1.2989,
-              "delta": 0.7081,
+              "discrimination_group_0": 1.3266,
+              "delta": 0.6804,
               "flag_dif": true
             },
             {
               "id": "M8",
               "name": "Change Leadership",
               "discrimination_group_1": 1.6176,
-              "discrimination_group_0": 1.4541,
-              "delta": 0.1635,
+              "discrimination_group_0": 1.463,
+              "delta": 0.1547,
               "flag_dif": false
             }
           ]
         }
       },
       "esem_3factor": {
-        "n_listwise": 453,
+        "n_listwise": 454,
         "n_factors": 3,
-        "variance_explained_per_factor": [0.1661, 0.0992, 0.089],
-        "cumulative_variance": 0.3544,
+        "variance_explained_per_factor": [0.1646, 0.1002, 0.0887],
+        "cumulative_variance": 0.3536,
         "factor_correlations": [
-          [1.0, 0.3707, 0.6705],
-          [0.3707, 1.0, 0.1601],
-          [0.6705, 0.1601, 1.0]
+          [1.0, 0.3741, 0.6728],
+          [0.3741, 1.0, 0.1627],
+          [0.6728, 0.1627, 1.0]
         ],
         "items": {
           "B1": {
-            "loadings": [0.3766, 0.3172, -0.1141],
+            "loadings": [0.3705, 0.324, -0.1124],
             "primary_factor": "F1"
           },
           "B2": {
-            "loadings": [-0.0495, 0.8229, -0.018],
+            "loadings": [-0.0499, 0.8142, -0.0217],
             "primary_factor": "F2"
           },
           "B3": {
-            "loadings": [0.2123, 0.4676, 0.051],
+            "loadings": [0.2123, 0.4667, 0.0517],
             "primary_factor": "F2"
           },
           "B4": {
-            "loadings": [0.555, 0.2296, -0.0541],
+            "loadings": [0.5493, 0.2357, -0.0518],
             "primary_factor": "F1"
           },
           "B5": {
-            "loadings": [0.5718, 0.1358, -0.0497],
+            "loadings": [0.5603, 0.1474, -0.0508],
             "primary_factor": "F1"
           },
           "B6": {
-            "loadings": [0.3337, 0.1652, 0.0836],
+            "loadings": [0.3317, 0.1683, 0.0861],
             "primary_factor": "F1"
           },
           "B7": {
-            "loadings": [0.6762, -0.0464, -0.0316],
+            "loadings": [0.6734, -0.0415, -0.0338],
             "primary_factor": "F1"
           },
           "B8": {
-            "loadings": [0.5397, 0.0558, 0.0455],
+            "loadings": [0.5408, 0.0564, 0.0458],
             "primary_factor": "F1"
           },
           "B9": {
-            "loadings": [0.1308, 0.4297, 0.1362],
+            "loadings": [0.1252, 0.4349, 0.14],
             "primary_factor": "F2"
           },
           "B10": {
-            "loadings": [0.1299, 0.6284, 0.0576],
+            "loadings": [0.1174, 0.6399, 0.0599],
             "primary_factor": "F2"
           },
           "B11": {
-            "loadings": [0.4249, 0.1289, 0.1122],
+            "loadings": [0.423, 0.1316, 0.1104],
             "primary_factor": "F1"
           },
           "B12": {
-            "loadings": [0.5615, 0.0077, 0.062],
+            "loadings": [0.5607, 0.0092, 0.0585],
             "primary_factor": "F1"
           },
           "B13": {
-            "loadings": [0.1072, -0.0684, 0.6999],
+            "loadings": [0.1045, -0.0663, 0.6933],
             "primary_factor": "F3"
           },
           "B14": {
-            "loadings": [-0.0585, 0.0412, 0.924],
+            "loadings": [-0.0559, 0.0388, 0.9258],
             "primary_factor": "F3"
           },
           "B15": {
-            "loadings": [0.2619, 0.2411, 0.1737],
+            "loadings": [0.2607, 0.2433, 0.1749],
             "primary_factor": "F1"
           },
           "B16": {
-            "loadings": [0.289, 0.0042, 0.3863],
+            "loadings": [0.2885, 0.0058, 0.3853],
             "primary_factor": "F3"
           },
           "B17": {
-            "loadings": [0.493, 0.0438, 0.0656],
+            "loadings": [0.4947, 0.0442, 0.0657],
             "primary_factor": "F1"
           },
           "B18": {
-            "loadings": [0.6046, -0.1528, 0.0755],
+            "loadings": [0.6118, -0.1568, 0.074],
             "primary_factor": "F1"
           }
         }
@@ -8248,23 +8248,23 @@
               "rmsea": 0.0452
             },
             "ENT": {
-              "n": 172,
-              "chi2": 130.362,
+              "n": 173,
+              "chi2": 128.771,
               "df": 132,
-              "cfi": 1.0007,
-              "tli": 1.0008,
+              "cfi": 1.0014,
+              "tli": 1.0016,
               "rmsea": 0.0
             }
           },
           "metric_approximate": {
-            "tucker_congruence": 0.9933,
+            "tucker_congruence": 0.9932,
             "n_loadings_compared": 18,
             "support": "strong",
             "note": "Tucker's congruence on standardized loadings; >=.95 strong, >=.85 acceptable."
           },
           "scalar_approximate": {
-            "item_mean_correlation": 0.9226,
-            "max_abs_mean_diff": 0.2692,
+            "item_mean_correlation": 0.9217,
+            "max_abs_mean_diff": 0.2763,
             "support": "strong",
             "note": "Per-group item-mean correlation; high r implies stable item difficulty across groups."
           }
@@ -8316,23 +8316,23 @@
               "rmsea": 0.0
             },
             "ENT": {
-              "n": 175,
-              "chi2": 10.173,
+              "n": 176,
+              "chi2": 10.2,
               "df": 20,
-              "cfi": 1.0115,
-              "tli": 1.0161,
+              "cfi": 1.0112,
+              "tli": 1.0156,
               "rmsea": 0.0
             }
           },
           "metric_approximate": {
-            "tucker_congruence": 0.9951,
+            "tucker_congruence": 0.9952,
             "n_loadings_compared": 8,
             "support": "strong",
             "note": "Tucker's congruence on standardized loadings; >=.95 strong, >=.85 acceptable."
           },
           "scalar_approximate": {
-            "item_mean_correlation": 0.7957,
-            "max_abs_mean_diff": 0.3879,
+            "item_mean_correlation": 0.7892,
+            "max_abs_mean_diff": 0.3963,
             "support": "weak",
             "note": "Per-group item-mean correlation; high r implies stable item difficulty across groups."
           }
@@ -8345,37 +8345,37 @@
       "inferential": {
         "t_tests_smb_vs_enterprise": {
           "smb_n": 302,
-          "enterprise_n": 185,
+          "enterprise_n": 186,
           "cut": "SMB=<1000 employees, Enterprise=1000+",
           "constructs": {
             "Barriers": {
               "smb_mean": 2.89,
-              "enterprise_mean": 2.8797,
-              "mean_diff": -0.0103,
-              "t": 0.1534,
-              "df": 399.89,
-              "p": 0.8781,
-              "cohens_d": -0.0142,
+              "enterprise_mean": 2.8747,
+              "mean_diff": -0.0153,
+              "t": 0.2286,
+              "df": 401.81,
+              "p": 0.8193,
+              "cohens_d": -0.0211,
               "sig": false
             },
             "Readiness": {
               "smb_mean": 3.0989,
-              "enterprise_mean": 3.1123,
-              "mean_diff": 0.0134,
-              "t": -0.2158,
-              "df": 383.71,
-              "p": 0.8293,
-              "cohens_d": 0.0202,
+              "enterprise_mean": 3.1196,
+              "mean_diff": 0.0206,
+              "t": -0.3321,
+              "df": 383.75,
+              "p": 0.74,
+              "cohens_d": 0.0312,
               "sig": false
             },
             "Maturity": {
               "smb_mean": 3.0663,
-              "enterprise_mean": 3.2272,
-              "mean_diff": 0.1609,
-              "t": -2.2016,
-              "df": 400.51,
-              "p": 0.0283,
-              "cohens_d": 0.2037,
+              "enterprise_mean": 3.2341,
+              "mean_diff": 0.1677,
+              "t": -2.2926,
+              "df": 401.66,
+              "p": 0.0224,
+              "cohens_d": 0.212,
               "sig": true
             }
           }
@@ -8408,12 +8408,12 @@
             "total_criteria": 10
           }
         },
-        "last_run_utc": "2026-09-24T10:38:37.541022+00:00"
+        "last_run_utc": "2026-09-25T10:40:51.933211+00:00"
       },
       "r_parity_tests": {
         "count": 16,
         "ci_workflow": ".github/workflows/validate-analysis.yml",
-        "last_run_utc": "2026-09-24T10:38:37.541345+00:00",
+        "last_run_utc": "2026-09-25T10:40:51.933520+00:00",
         "all_passing": null
       },
       "factor_analysis": {
@@ -8421,13 +8421,13 @@
           {
             "name": "F1",
             "items": 15,
-            "eigenvalue": 6.224,
+            "eigenvalue": 6.2307,
             "variance_pct": 29.2
           },
           {
             "name": "F2",
             "items": 3,
-            "eigenvalue": 1.7464,
+            "eigenvalue": 1.7418,
             "variance_pct": 10.8
           }
         ],
@@ -8436,28 +8436,28 @@
             "name": "F1a \u2014 Strategy & Culture",
             "item_ids": ["B1", "B2", "B3", "B5", "B9", "B10", "B11", "B15", "B17"],
             "items": 9,
-            "alpha": 0.836,
-            "cr": 0.8397,
-            "ave": 0.3759
+            "alpha": 0.8359,
+            "cr": 0.8395,
+            "ave": 0.3755
           },
           {
             "name": "F1b \u2014 Resources & Operations",
             "item_ids": ["B4", "B6", "B7", "B8", "B12"],
             "items": 5,
-            "alpha": 0.6975,
-            "cr": 0.7034,
-            "ave": 0.3289
+            "alpha": 0.698,
+            "cr": 0.7039,
+            "ave": 0.3294
           },
           {
             "name": "F2 \u2014 External & Compliance",
             "item_ids": ["B13", "B14", "B16", "B18"],
             "items": 4,
-            "alpha": 0.6526,
-            "cr": 0.7169,
-            "ave": 0.4456
+            "alpha": 0.6522,
+            "cr": 0.716,
+            "ave": 0.4441
           }
         ],
-        "factor_correlation": 0.5277,
+        "factor_correlation": 0.5292,
         "barrier_names": [
           "Resistance to Change",
           "Lack of Leadership Support",
@@ -8481,110 +8481,110 @@
         "loadings_matrix": [
           {
             "id": "B1",
-            "f1": 0.7005,
-            "f2": -0.1951,
+            "f1": 0.7015,
+            "f2": -0.1945,
             "assigned": "F1"
           },
           {
             "id": "B2",
-            "f1": 0.7471,
-            "f2": -0.198,
+            "f1": 0.7426,
+            "f2": -0.2001,
             "assigned": "F1"
           },
           {
             "id": "B3",
-            "f1": 0.6486,
-            "f2": -0.0406,
+            "f1": 0.6491,
+            "f2": -0.0397,
             "assigned": "F1"
           },
           {
             "id": "B4",
-            "f1": 0.7559,
-            "f2": -0.0878,
+            "f1": 0.7565,
+            "f2": -0.0864,
             "assigned": "F1"
           },
           {
             "id": "B5",
-            "f1": 0.6724,
-            "f2": -0.0569,
+            "f1": 0.6719,
+            "f2": -0.0586,
             "assigned": "F1"
           },
           {
             "id": "B6",
-            "f1": 0.4588,
-            "f2": 0.0604,
+            "f1": 0.4594,
+            "f2": 0.0629,
             "assigned": "F1"
           },
           {
             "id": "B7",
-            "f1": 0.5699,
-            "f2": 0.0208,
+            "f1": 0.5707,
+            "f2": 0.0196,
             "assigned": "F1"
           },
           {
             "id": "B8",
-            "f1": 0.5362,
-            "f2": 0.0681,
+            "f1": 0.5369,
+            "f2": 0.0698,
             "assigned": "F1"
           },
           {
             "id": "B9",
-            "f1": 0.5284,
-            "f2": 0.0448,
+            "f1": 0.5285,
+            "f2": 0.0477,
             "assigned": "F1"
           },
           {
             "id": "B10",
-            "f1": 0.7256,
-            "f2": -0.0768,
+            "f1": 0.7254,
+            "f2": -0.0762,
             "assigned": "F1"
           },
           {
             "id": "B11",
             "f1": 0.4847,
-            "f2": 0.1288,
+            "f2": 0.1284,
             "assigned": "F1"
           },
           {
             "id": "B12",
-            "f1": 0.5001,
-            "f2": 0.104,
+            "f1": 0.4996,
+            "f2": 0.1026,
             "assigned": "F1"
           },
           {
             "id": "B13",
-            "f1": -0.1406,
-            "f2": 0.8292,
+            "f1": -0.1409,
+            "f2": 0.8226,
             "assigned": "F2"
           },
           {
             "id": "B14",
-            "f1": -0.1734,
-            "f2": 0.9324,
+            "f1": -0.173,
+            "f2": 0.9341,
             "assigned": "F2"
           },
           {
             "id": "B15",
-            "f1": 0.4409,
-            "f2": 0.1581,
+            "f1": 0.4415,
+            "f2": 0.1598,
             "assigned": "F1"
           },
           {
             "id": "B16",
-            "f1": 0.1826,
-            "f2": 0.4464,
+            "f1": 0.182,
+            "f2": 0.4477,
             "assigned": "F2"
           },
           {
             "id": "B17",
-            "f1": 0.476,
-            "f2": 0.0976,
+            "f1": 0.477,
+            "f2": 0.099,
             "assigned": "F1"
           },
           {
             "id": "B18",
-            "f1": 0.3752,
-            "f2": 0.162,
+            "f1": 0.3762,
+            "f2": 0.1633,
             "assigned": "F1"
           }
         ]
@@ -8634,7 +8634,7 @@
         }
       },
       "metadata": {
-        "n_total": 487,
+        "n_total": 488,
         "crp200_mode": false,
         "constructs": ["Barriers", "Readiness", "Maturity"],
         "n_barriers": 18,
@@ -8974,7 +8974,7 @@
         }
       },
       "joint_3construct_cfa": {
-        "chi2": 2595.559,
+        "chi2": 2595.558,
         "df": 857,
         "chi2_p": 0.0,
         "cfi": 0.8647,
@@ -8994,39 +8994,39 @@
           "Q10_28_Barriers_8": 0.6161,
           "Q10_28_Barriers_9": 0.6231,
           "Q10_28_Barriers_10": 0.7086,
-          "Q10_28_Barriers_11": 0.6111,
+          "Q10_28_Barriers_11": 0.6112,
           "Q10_28_Barriers_12": 0.5769,
           "Q10_28_Barriers_13": 0.4406,
-          "Q10_28_Barriers_14": 0.4521,
-          "Q10_28_Barriers_15": 0.5933,
-          "Q10_28_Barriers_16": 0.5093,
+          "Q10_28_Barriers_14": 0.4522,
+          "Q10_28_Barriers_15": 0.5934,
+          "Q10_28_Barriers_16": 0.5094,
           "Q10_28_Barriers_17": 0.5845,
           "Q10_28_Barriers_18": 0.5431,
           "Q47_64_Readiness_1": 0.692,
           "Q47_64_Readiness_2": 0.6448,
-          "Q47_64_Readiness_3": 0.6887,
-          "Q47_64_Readiness_4": 0.5778,
-          "Q47_64_Readiness_5": 0.5868,
-          "Q47_64_Readiness_6": 0.672,
-          "Q47_64_Readiness_7": 0.709,
+          "Q47_64_Readiness_3": 0.6888,
+          "Q47_64_Readiness_4": 0.5779,
+          "Q47_64_Readiness_5": 0.5869,
+          "Q47_64_Readiness_6": 0.6721,
+          "Q47_64_Readiness_7": 0.7091,
           "Q47_64_Readiness_8": 0.6822,
           "Q47_64_Readiness_9": 0.6654,
-          "Q47_64_Readiness_10": 0.6423,
-          "Q47_64_Readiness_11": 0.64,
+          "Q47_64_Readiness_10": 0.6424,
+          "Q47_64_Readiness_11": 0.6401,
           "Q47_64_Readiness_12": 0.6394,
-          "Q47_64_Readiness_13": 0.6871,
-          "Q47_64_Readiness_14": 0.6449,
-          "Q47_64_Readiness_15": 0.6676,
-          "Q47_64_Readiness_16": 0.7056,
-          "Q47_64_Readiness_17": 0.5481,
+          "Q47_64_Readiness_13": 0.6872,
+          "Q47_64_Readiness_14": 0.645,
+          "Q47_64_Readiness_15": 0.6677,
+          "Q47_64_Readiness_16": 0.7057,
+          "Q47_64_Readiness_17": 0.5483,
           "Q65_73_Maturity_1": 0.7535,
           "Q65_73_Maturity_2": 0.786,
-          "Q65_73_Maturity_3": 0.686,
-          "Q65_73_Maturity_4": 0.6776,
-          "Q65_73_Maturity_5": 0.6562,
-          "Q65_73_Maturity_6": 0.7733,
-          "Q65_73_Maturity_7": 0.7048,
-          "Q65_73_Maturity_8": 0.6746
+          "Q65_73_Maturity_3": 0.6859,
+          "Q65_73_Maturity_4": 0.6777,
+          "Q65_73_Maturity_5": 0.6563,
+          "Q65_73_Maturity_6": 0.7732,
+          "Q65_73_Maturity_7": 0.7049,
+          "Q65_73_Maturity_8": 0.6747
         }
       },
       "barrier_model_comparison": {
@@ -10327,7 +10327,7 @@
           "rmsea": 0.0447,
           "latent_correlations": {
             "F1a~~F1b": 0.9152,
-            "F1a~~F2": 0.6987,
+            "F2~~F1a": 0.6987,
             "F2~~F1b": 0.7088
           }
         },
@@ -10339,7 +10339,7 @@
           "rmsea": 0.0235,
           "latent_correlations": {
             "F1a~~F1b": 0.8843,
-            "F1a~~F2": 0.7744,
+            "F2~~F1a": 0.7744,
             "F2~~F1b": 0.7759
           }
         }
@@ -10973,12 +10973,12 @@
             "total_criteria": 10
           }
         },
-        "last_run_utc": "2026-09-24T10:39:38.415922+00:00"
+        "last_run_utc": "2026-09-25T10:42:38.202120+00:00"
       },
       "r_parity_tests": {
         "count": 16,
         "ci_workflow": ".github/workflows/validate-analysis.yml",
-        "last_run_utc": "2026-09-24T10:39:38.416200+00:00",
+        "last_run_utc": "2026-09-25T10:42:38.202432+00:00",
         "all_passing": null
       },
       "factor_analysis": {
@@ -11539,7 +11539,7 @@
         }
       },
       "joint_3construct_cfa": {
-        "chi2": 2595.559,
+        "chi2": 2595.558,
         "df": 857,
         "chi2_p": 0.0,
         "cfi": 0.8647,
@@ -11559,39 +11559,39 @@
           "Q10_28_Barriers_8": 0.6161,
           "Q10_28_Barriers_9": 0.6231,
           "Q10_28_Barriers_10": 0.7086,
-          "Q10_28_Barriers_11": 0.6111,
+          "Q10_28_Barriers_11": 0.6112,
           "Q10_28_Barriers_12": 0.5769,
           "Q10_28_Barriers_13": 0.4406,
-          "Q10_28_Barriers_14": 0.4521,
-          "Q10_28_Barriers_15": 0.5933,
-          "Q10_28_Barriers_16": 0.5093,
+          "Q10_28_Barriers_14": 0.4522,
+          "Q10_28_Barriers_15": 0.5934,
+          "Q10_28_Barriers_16": 0.5094,
           "Q10_28_Barriers_17": 0.5845,
           "Q10_28_Barriers_18": 0.5431,
           "Q47_64_Readiness_1": 0.692,
           "Q47_64_Readiness_2": 0.6448,
-          "Q47_64_Readiness_3": 0.6887,
-          "Q47_64_Readiness_4": 0.5778,
-          "Q47_64_Readiness_5": 0.5868,
-          "Q47_64_Readiness_6": 0.672,
-          "Q47_64_Readiness_7": 0.709,
+          "Q47_64_Readiness_3": 0.6888,
+          "Q47_64_Readiness_4": 0.5779,
+          "Q47_64_Readiness_5": 0.5869,
+          "Q47_64_Readiness_6": 0.6721,
+          "Q47_64_Readiness_7": 0.7091,
           "Q47_64_Readiness_8": 0.6822,
           "Q47_64_Readiness_9": 0.6654,
-          "Q47_64_Readiness_10": 0.6423,
-          "Q47_64_Readiness_11": 0.64,
+          "Q47_64_Readiness_10": 0.6424,
+          "Q47_64_Readiness_11": 0.6401,
           "Q47_64_Readiness_12": 0.6394,
-          "Q47_64_Readiness_13": 0.6871,
-          "Q47_64_Readiness_14": 0.6449,
-          "Q47_64_Readiness_15": 0.6676,
-          "Q47_64_Readiness_16": 0.7056,
-          "Q47_64_Readiness_17": 0.5481,
+          "Q47_64_Readiness_13": 0.6872,
+          "Q47_64_Readiness_14": 0.645,
+          "Q47_64_Readiness_15": 0.6677,
+          "Q47_64_Readiness_16": 0.7057,
+          "Q47_64_Readiness_17": 0.5483,
           "Q65_73_Maturity_1": 0.7535,
           "Q65_73_Maturity_2": 0.786,
-          "Q65_73_Maturity_3": 0.686,
-          "Q65_73_Maturity_4": 0.6776,
-          "Q65_73_Maturity_5": 0.6562,
-          "Q65_73_Maturity_6": 0.7733,
-          "Q65_73_Maturity_7": 0.7048,
-          "Q65_73_Maturity_8": 0.6746
+          "Q65_73_Maturity_3": 0.6859,
+          "Q65_73_Maturity_4": 0.6777,
+          "Q65_73_Maturity_5": 0.6563,
+          "Q65_73_Maturity_6": 0.7732,
+          "Q65_73_Maturity_7": 0.7049,
+          "Q65_73_Maturity_8": 0.6747
         }
       },
       "barrier_model_comparison": {
@@ -12892,7 +12892,7 @@
           "rmsea": 0.0452,
           "latent_correlations": {
             "F1a~~F1b": 0.9182,
-            "F1a~~F2": 0.6978,
+            "F2~~F1a": 0.6978,
             "F2~~F1b": 0.7121
           }
         },
@@ -12904,7 +12904,7 @@
           "rmsea": 0.0256,
           "latent_correlations": {
             "F1a~~F1b": 0.8843,
-            "F1a~~F2": 0.7735,
+            "F2~~F1a": 0.7735,
             "F2~~F1b": 0.7793
           }
         }
@@ -13538,12 +13538,12 @@
             "total_criteria": 10
           }
         },
-        "last_run_utc": "2026-09-24T10:40:37.673816+00:00"
+        "last_run_utc": "2026-09-25T10:44:24.567231+00:00"
       },
       "r_parity_tests": {
         "count": 16,
         "ci_workflow": ".github/workflows/validate-analysis.yml",
-        "last_run_utc": "2026-09-24T10:40:37.674075+00:00",
+        "last_run_utc": "2026-09-25T10:44:24.567543+00:00",
         "all_passing": null
       },
       "factor_analysis": {
