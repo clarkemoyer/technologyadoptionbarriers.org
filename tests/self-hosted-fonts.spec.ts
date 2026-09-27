@@ -39,14 +39,31 @@ test.describe('Self-hosted fonts', () => {
   })
 
   test('extended subsets load only when a page needs them', async ({ page }) => {
+    // Source files are `*-ext.woff2`; the build emits them as
+    // `<Family>_<weight>_ext.<hash>.woff2`, so accept either separator.
     const extFiles: string[] = []
     page.on('response', (res) => {
-      if (/_ext[.-][^/]*\.woff2$/.test(res.url())) extFiles.push(res.url())
+      if (/[-_]ext[._-][^/]*\.woff2$/.test(res.url())) extFiles.push(res.url())
     })
 
     // The homepage is plain Latin text: no Latin Extended/Greek downloads.
     await page.goto('/', { waitUntil: 'networkidle' })
     await page.evaluate(() => document.fonts.ready)
     expect(extFiles).toEqual([])
+
+    // Positive control: once Latin Extended text appears in the body font,
+    // the browser must fetch that family's ext subset. This proves the
+    // matcher above sees ext downloads, so the empty list is meaningful.
+    await page.evaluate(() => {
+      const probe = document.createElement('p')
+      probe.textContent = 'Łódź, Šibenik, Œuvre'
+      document.body.appendChild(probe)
+    })
+    await expect
+      .poll(async () => {
+        await page.evaluate(() => document.fonts.ready)
+        return extFiles.length
+      })
+      .toBeGreaterThan(0)
   })
 })
