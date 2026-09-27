@@ -314,15 +314,9 @@ When you run `pnpm run lint`, you'll see warnings like:
 
 **Your job:** Fix new errors, don't introduce new warnings.
 
-### Issue 2: Google Fonts Build Failures
+### Issue 2: Fonts Are Self-Hosted
 
-On restricted networks, `pnpm run build` might fail with:
-
-```
-ENOTFOUND fonts.googleapis.com
-```
-
-This is a known limitation - font imports in `src/lib/fonts.ts` require network access. In restricted environments, fonts may need to be disabled temporarily.
+Fonts are self-hosted: the WOFF2 files are committed in `src/fonts/` and loaded with `next/font/local` from `src/lib/fonts.ts`, so `pnpm run build` needs no network access for fonts (it previously downloaded them from Google Fonts on every build, which intermittently failed CI and skipped deploys). To add a family or change weights, follow `scripts/fonts/build_local_fonts.py`; `__tests__/lib/fonts.test.ts` checks that `fonts.ts` and `src/fonts/manifest.json` stay in sync.
 
 ### Issue 3: Static Export Limitations
 

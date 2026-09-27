@@ -7,16 +7,7 @@ import { SidebarProvider } from './../components/sidebar/sidebar-context'
 import CookieConsent from './../components/cookie-consent'
 import ClarityRouteTracker from './../components/clarity-route-tracker'
 import GoogleTagManager, { GoogleTagManagerNoScript } from './../components/google-tag-manager'
-import {
-  openSans,
-  lato,
-  raleway,
-  faustina,
-  cantataOne,
-  faunaOne,
-  montserrat,
-  cinzel,
-} from '@/lib/fonts'
+import { siteFontVariables } from '@/lib/fonts'
 
 // Get basePath for GitHub Pages deployment
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ''
@@ -108,17 +99,7 @@ export default function RootLayout({
         <GoogleTagManager />
       </head>
       <body
-        className={[
-          'antialiased',
-          openSans.variable,
-          lato.variable,
-          raleway.variable,
-          faustina.variable,
-          cantataOne.variable,
-          faunaOne.variable,
-          montserrat.variable,
-          cinzel.variable,
-        ].join(' ')}
+        className={['antialiased', siteFontVariables].join(' ')}
         suppressHydrationWarning={true}
       >
         <GoogleTagManagerNoScript />

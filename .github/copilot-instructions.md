@@ -47,9 +47,9 @@
 - GTM always loads (`src/components/google-tag-manager/index.tsx`).
 - Cookie consent gates GA/Clarity/Meta Pixel and pushes `consent_update` to `window.dataLayer` (`src/components/cookie-consent/index.tsx`). If reviews flag ARIA/accessibility issues, fix them and re-run checks.
 
-### Known constraint: restricted network builds
+### Fonts are self-hosted
 
-- `next/font/google` is used (`src/lib/fonts.ts`); restricted networks can break `pnpm run build` if `fonts.googleapis.com` is blocked.
+- Fonts are committed in `src/fonts/` and loaded with `next/font/local` (`src/lib/fonts.ts`), so `pnpm run build` works without network access to Google Fonts. Regenerate them with `scripts/fonts/build_local_fonts.py`; do not switch back to `next/font/google`.
 
 ### Intentional “inactive” feature
 
@@ -306,7 +306,7 @@ src/
 
 - **Global styles**: Edit `src/app/globals.css`
 - **Component styles**: Use Tailwind classes directly in components
-- **Font issues**: Remember to handle Google Fonts limitation when building
+- **Fonts**: Self-hosted in `src/fonts/` via `next/font/local`; see `scripts/fonts/build_local_fonts.py` to add or change a family
 
 ### Adding Images and Assets
 
@@ -347,12 +347,10 @@ The site auto-deploys to GitHub Pages via `.github/workflows/deploy.yml` when pu
 
 ## Known Issues and Limitations
 
-### Google Fonts Build Failure
+### Fonts (resolved: no longer a build dependency)
 
-- **Issue**: `pnpm run build` fails with "ENOTFOUND fonts.googleapis.com"
-- **Cause**: Network restrictions prevent Google Fonts access
-- **Workaround**: Temporarily comment out font imports in `src/app/layout.tsx`
-- **Files affected**: Lines 2, 9-12, 73 in `src/app/layout.tsx`
+- Fonts used to be fetched from Google Fonts during `pnpm run build`, which failed on restricted networks and intermittently in CI.
+- They are now self-hosted (`src/fonts/`, `next/font/local`), so no workaround is needed. Do not comment out font imports.
 
 ### ESLint Warnings
 
@@ -448,15 +446,13 @@ ls -la .github/      # GitHub workflows and configs
 
 ### Build Failures
 
-1. **Google Fonts error**: Apply font workaround in `layout.tsx`
-2. **TypeScript errors**: Run `pnpm run lint` to identify issues
-3. **Network timeouts**: Increase timeout values as specified above
+1. **TypeScript errors**: Run `pnpm run lint` to identify issues
+2. **Network timeouts**: Increase timeout values as specified above
 
 ### Development Server Issues
 
 1. **Port conflicts**: Stop existing servers or use different port
 2. **Cache issues**: Delete `.next` directory and rebuild
-3. **Font rendering**: Expected to fail without workaround applied
 
 ### GitHub CLI Issues
 
@@ -468,7 +464,7 @@ ls -la .github/      # GitHub workflows and configs
      ```
    - **Verify**: Ensure you have pushed at least one commit (even an empty one) to your feature branch before creating the PR.
 
-# Remember: **NEVER CANCEL** long-running commands. **ALWAYS** test manually after changes. **ALWAYS** apply Google Fonts workaround before building.
+# Remember: **NEVER CANCEL** long-running commands. **ALWAYS** test manually after changes.
 
 ## Data Privacy & PII Protection
 

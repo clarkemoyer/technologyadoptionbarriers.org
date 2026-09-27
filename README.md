@@ -334,7 +334,7 @@ The TABS website is fully operational at [https://technologyadoptionbarriers.org
 
 - Next.js (App Router, TypeScript)
 - Tailwind-style utility classes for styling
-- next/font for Google fonts (Faustina, Fauna One, Lato, Inter)
+- Self-hosted fonts via `next/font/local` (Faustina, Fauna One, Lato, Open Sans and others; files in `src/fonts/`, see `scripts/fonts/build_local_fonts.py`)
 
 ## Content Management
 
