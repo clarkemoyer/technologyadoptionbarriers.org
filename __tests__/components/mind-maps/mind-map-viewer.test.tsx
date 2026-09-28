@@ -32,7 +32,7 @@ afterAll(() => {
   if (originalResizeObserver) {
     globalWithResizeObserver.ResizeObserver = originalResizeObserver
   } else {
-    delete globalWithResizeObserver.ResizeObserver
+    Reflect.deleteProperty(globalWithResizeObserver, 'ResizeObserver')
   }
 })
 
@@ -109,7 +109,7 @@ describe('MindMapViewer', () => {
       if (hadOwnFullscreenElement && originalFullscreenElementDescriptor) {
         Object.defineProperty(document, 'fullscreenElement', originalFullscreenElementDescriptor)
       } else {
-        delete (document as Document & { fullscreenElement?: Element | null }).fullscreenElement
+        Reflect.deleteProperty(document, 'fullscreenElement')
       }
     }
   })

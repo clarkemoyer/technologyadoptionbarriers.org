@@ -1,0 +1,317 @@
+{
+  "generator": "scripts/fonts/build_local_fonts.py",
+  "upstream": "https://github.com/google/fonts",
+  "upstream_commit": "23e54b51ddffbc7713c583748e3bd86f62b1fa4a",
+  "google_subsets": {
+    "latin": "U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD",
+    "latin-ext": "U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF",
+    "greek": "U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF",
+    "symbols2": "U+2000-2001, U+2004-2008, U+200A, U+23B8-23BD, U+2500-259F"
+  },
+  "families": {
+    "Open Sans": {
+      "folder": "src/fonts/opensans",
+      "weights": [400, 500, 600, 700, 800],
+      "ext_subsets": ["latin-ext", "greek"],
+      "license": "SIL Open Font License 1.1 (see OFL.txt)",
+      "files": {
+        "OpenSans-Variable-latin.woff2": {
+          "source": "ofl/opensans/OpenSans[wdth,wght].ttf",
+          "source_sha256": "36643644f318a812aab2d2ed3bb98f8cf0872527f835fe9398d95fe6b9adb878",
+          "subset": "latin",
+          "codepoints": 242,
+          "unicode_range": "U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD",
+          "sha256": "2c9ca105e36402174f6358be6aa4cfa97b038667a2b07adbbd10cff0ecde878c",
+          "bytes": 42004
+        },
+        "OpenSans-Variable-ext.woff2": {
+          "source": "ofl/opensans/OpenSans[wdth,wght].ttf",
+          "source_sha256": "36643644f318a812aab2d2ed3bb98f8cf0872527f835fe9398d95fe6b9adb878",
+          "subset": "ext",
+          "codepoints": 260,
+          "unicode_range": "U+0100-0130, U+0132-0151, U+0154-017F, U+0192, U+01A0-01A1, U+01AF-01B0, U+01EA-01ED, U+01F0, U+01FA-01FF, U+0218-021B, U+0237, U+0259, U+02C7, U+02C9, U+02DD, U+02F3, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03CE, U+03D1-03D2, U+03D6, U+1E00-1E01, U+1E3E-1E3F, U+1E80-1E85, U+1E9E, U+1EF2-1EF9, U+20A3-20A4, U+20A7, U+20AA-20AB, U+2113, U+A7B3-A7B5",
+          "sha256": "8750bd47aea2965edf46d9c90d84ea1e20585139a6c9a5dd0d4e733007315caa",
+          "bytes": 41348
+        }
+      }
+    },
+    "Lato": {
+      "folder": "src/fonts/lato",
+      "weights": [400, 700],
+      "ext_subsets": ["latin-ext"],
+      "license": "SIL Open Font License 1.1 (see OFL.txt)",
+      "files": {
+        "Lato-400-latin.woff2": {
+          "source": "https://fonts.gstatic.com/s/lato/v25/S6uyw4BMUTPHvxk.ttf",
+          "source_sha256": "f43f1c7780d69792278f04b136c934a0298fc66f2e974bac13dd2e53adc52bde",
+          "subset": "latin",
+          "codepoints": 218,
+          "unicode_range": "U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD",
+          "sha256": "a7d7a90353522b8fd8f6d287c04c9d6429f8b435ac5c5b32d9e206ad96ba0180",
+          "bytes": 13924
+        },
+        "Lato-400-ext.woff2": {
+          "source": "https://fonts.gstatic.com/s/lato/v25/S6uyw4BMUTPHvxk.ttf",
+          "source_sha256": "f43f1c7780d69792278f04b136c934a0298fc66f2e974bac13dd2e53adc52bde",
+          "subset": "ext",
+          "codepoints": 29,
+          "unicode_range": "U+0104-0107, U+0118-0119, U+0141-0144, U+015A-015B, U+0160-0161, U+0178-017E, U+0192, U+02C7, U+02C9, U+02DD",
+          "sha256": "7a9a0ac4aee521541d69e3a6006c9c36152c2fc118a3b6dffec68925a9dc279e",
+          "bytes": 3072
+        },
+        "Lato-700-latin.woff2": {
+          "source": "https://fonts.gstatic.com/s/lato/v25/S6u9w4BMUTPHh6UVew8.ttf",
+          "source_sha256": "02e8f4be57ddc47cb7882c41b60216b6085b1ceaf717514be2b88fa15396238d",
+          "subset": "latin",
+          "codepoints": 218,
+          "unicode_range": "U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD",
+          "sha256": "8bf0d4520af2e135e2e17f7375e5254b386a11a8c53b7695d68b8ea815b8fc2a",
+          "bytes": 13992
+        },
+        "Lato-700-ext.woff2": {
+          "source": "https://fonts.gstatic.com/s/lato/v25/S6u9w4BMUTPHh6UVew8.ttf",
+          "source_sha256": "02e8f4be57ddc47cb7882c41b60216b6085b1ceaf717514be2b88fa15396238d",
+          "subset": "ext",
+          "codepoints": 29,
+          "unicode_range": "U+0104-0107, U+0118-0119, U+0141-0144, U+015A-015B, U+0160-0161, U+0178-017E, U+0192, U+02C7, U+02C9, U+02DD",
+          "sha256": "001b2235d73b2b655c819ed925b176202d554a837a38c1dafc2653188f09cfbb",
+          "bytes": 3128
+        }
+      }
+    },
+    "Raleway": {
+      "folder": "src/fonts/raleway",
+      "weights": [400, 500, 600, 700],
+      "ext_subsets": ["latin-ext"],
+      "license": "SIL Open Font License 1.1 (see OFL.txt)",
+      "files": {
+        "Raleway-Variable-latin.woff2": {
+          "source": "ofl/raleway/Raleway[wght].ttf",
+          "source_sha256": "8bbcc3eb8275c388f4bcd998832f8a4b943eadbaf6a595205312774b5951aefb",
+          "subset": "latin",
+          "codepoints": 235,
+          "unicode_range": "U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD",
+          "sha256": "33894f6bfe491a07f8fad6ee59e595cdd8e889b2f52bf536bc33f7575934b387",
+          "bytes": 43156
+        },
+        "Raleway-Variable-ext.woff2": {
+          "source": "ofl/raleway/Raleway[wght].ttf",
+          "source_sha256": "8bbcc3eb8275c388f4bcd998832f8a4b943eadbaf6a595205312774b5951aefb",
+          "subset": "ext",
+          "codepoints": 310,
+          "unicode_range": "U+0100-0130, U+0132-0151, U+0154-017E, U+018F, U+0192, U+01A0-01A1, U+01AF-01B0, U+01C4-01CC, U+01E6-01E7, U+01EA-01EB, U+01F1-01F5, U+01FA-021B, U+022A-022D, U+0230-0233, U+0237, U+0259, U+02B9-02BA, U+02BE-02BF, U+02C7-02CC, U+02DD, U+1E08-1E09, U+1E0C-1E0F, U+1E14-1E17, U+1E1C-1E1D, U+1E20-1E21, U+1E24-1E25, U+1E2A-1E2B, U+1E2E-1E2F, U+1E36-1E37, U+1E3A-1E3B, U+1E42-1E49, U+1E4C-1E53, U+1E5A-1E5B, U+1E5E-1E69, U+1E6C-1E6F, U+1E78-1E7B, U+1E80-1E85, U+1E8E-1E8F, U+1E92-1E93, U+1E97, U+1E9E, U+1EF2-1EF9, U+20A1, U+20A3-20A4, U+20A6-20A7, U+20A9, U+20AB, U+20AD-20AE, U+20B1-20B2, U+20B4-20B5, U+20B8-20BA, U+20BC-20BD, U+2113",
+          "sha256": "e4d6b4499b2223eb3cfe9efad5a979cb5b07b857e07233b518dec397ab2b25ab",
+          "bytes": 25904
+        }
+      }
+    },
+    "Faustina": {
+      "folder": "src/fonts/faustina",
+      "weights": [400, 500, 600, 700],
+      "ext_subsets": ["latin-ext"],
+      "license": "SIL Open Font License 1.1 (see OFL.txt)",
+      "files": {
+        "Faustina-Variable-latin.woff2": {
+          "source": "ofl/faustina/Faustina[wght].ttf",
+          "source_sha256": "2ce2606f0ee1d493873c24818a391e02606ee76ac924b3d985cbb820c0a53ea5",
+          "subset": "latin",
+          "codepoints": 241,
+          "unicode_range": "U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD",
+          "sha256": "8a41b172c1076fe6bcd8e5a2fe8b0d5852f4a18e3949e1e8ffa82af17ed495c0",
+          "bytes": 24992
+        },
+        "Faustina-Variable-ext.woff2": {
+          "source": "ofl/faustina/Faustina[wght].ttf",
+          "source_sha256": "2ce2606f0ee1d493873c24818a391e02606ee76ac924b3d985cbb820c0a53ea5",
+          "subset": "ext",
+          "codepoints": 255,
+          "unicode_range": "U+0100-0130, U+0132-0151, U+0154-017F, U+018F, U+0192, U+019D, U+01A0-01A1, U+01AF-01B0, U+01C4-01DC, U+01E6-01E7, U+01EA-01EB, U+01F1-01F4, U+01FA-021B, U+022A-022D, U+0230-0233, U+0237, U+0259, U+0272, U+02B9-02BA, U+02C7, U+02C9, U+02DD, U+1E0C, U+1E80-1E85, U+1E9E, U+1EF2-1EF9, U+20A1, U+20A3-20A4, U+20A6-20A7, U+20A9, U+20AB, U+20AD, U+20B1-20B2, U+20B5, U+20B9-20BA, U+20BC-20BD, U+2113, U+A78B-A78C",
+          "sha256": "78387a8c0c1fbc486640806dd512461adebd8d2db1e7bb3bab75d551fe143e10",
+          "bytes": 21864
+        }
+      }
+    },
+    "Cantata One": {
+      "folder": "src/fonts/cantataone",
+      "weights": [400],
+      "ext_subsets": ["latin-ext"],
+      "license": "SIL Open Font License 1.1 (see OFL.txt)",
+      "files": {
+        "CantataOne-400-latin.woff2": {
+          "source": "ofl/cantataone/CantataOne-Regular.ttf",
+          "source_sha256": "e12df35ae88a3e0898422110301e0b7ff4c54a4c129b92077ae7f456f45ba3db",
+          "subset": "latin",
+          "codepoints": 237,
+          "unicode_range": "U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD",
+          "sha256": "cc726670dcdaaaf6a89af06b246acfaf37119df2052e3641419554525b1a58b8",
+          "bytes": 11660
+        },
+        "CantataOne-400-ext.woff2": {
+          "source": "ofl/cantataone/CantataOne-Regular.ttf",
+          "source_sha256": "e12df35ae88a3e0898422110301e0b7ff4c54a4c129b92077ae7f456f45ba3db",
+          "subset": "ext",
+          "codepoints": 157,
+          "unicode_range": "U+0100-0130, U+0132-0148, U+014A-0151, U+0154-017E, U+0192, U+01FC-01FD, U+0218-0219, U+0237, U+02C7, U+02DD, U+1E02-1E03, U+1E0A-1E0B, U+1E1E-1E1F, U+1E40-1E41, U+1E56-1E57, U+1E60-1E61, U+1E6A-1E6B, U+1E80-1E85, U+1EF2-1EF3",
+          "sha256": "6ef7dc3825f76a91f756cfaacc53b4a4b37ee4d3d3de12a91782da7a90caa4da",
+          "bytes": 7872
+        }
+      }
+    },
+    "Fauna One": {
+      "folder": "src/fonts/faunaone",
+      "weights": [400],
+      "ext_subsets": ["latin-ext"],
+      "license": "SIL Open Font License 1.1 (see OFL.txt)",
+      "files": {
+        "FaunaOne-400-latin.woff2": {
+          "source": "ofl/faunaone/FaunaOne-Regular.ttf",
+          "source_sha256": "3c636067331e86fbf349924f3c1964155b99072a390caaffe60ce6c0866363fe",
+          "subset": "latin",
+          "codepoints": 217,
+          "unicode_range": "U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD",
+          "sha256": "98ddf552328cf31499560555c1a7ec0e78561de699935a3c31a3755737e2e816",
+          "bytes": 10040
+        },
+        "FaunaOne-400-ext.woff2": {
+          "source": "ofl/faunaone/FaunaOne-Regular.ttf",
+          "source_sha256": "3c636067331e86fbf349924f3c1964155b99072a390caaffe60ce6c0866363fe",
+          "subset": "ext",
+          "codepoints": 155,
+          "unicode_range": "U+0100-0130, U+0132-0151, U+0154-017E, U+0192, U+01FA-01FF, U+0218-021B, U+0237, U+02C7, U+02DD, U+1E80-1E85, U+1EF2-1EF3, U+20A3-20A4, U+2113",
+          "sha256": "678f1a23ca17a9364799f9689e0700cfc2b6c4edef2568769c79f4c35b1970cc",
+          "bytes": 6820
+        }
+      }
+    },
+    "Montserrat": {
+      "folder": "src/fonts/montserrat",
+      "weights": [400, 500, 600, 700],
+      "ext_subsets": ["latin-ext"],
+      "license": "SIL Open Font License 1.1 (see OFL.txt)",
+      "files": {
+        "Montserrat-Variable-latin.woff2": {
+          "source": "ofl/montserrat/Montserrat[wght].ttf",
+          "source_sha256": "0f7b311b2f3279e4eef9b2f968bcdbab6e28f4daeb1f049f4f278a902bcd82f7",
+          "subset": "latin",
+          "codepoints": 236,
+          "unicode_range": "U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD",
+          "sha256": "a760205a87aad6b6dac6bb94f1ca5227a2a6cd2c958e1cd56d081fbe71ddae5f",
+          "bytes": 34088
+        },
+        "Montserrat-Variable-ext.woff2": {
+          "source": "ofl/montserrat/Montserrat[wght].ttf",
+          "source_sha256": "0f7b311b2f3279e4eef9b2f968bcdbab6e28f4daeb1f049f4f278a902bcd82f7",
+          "subset": "ext",
+          "codepoints": 623,
+          "unicode_range": "U+0100-0130, U+0132-0151, U+0154-0183, U+0186-018C, U+018E-0194, U+0196-01A1, U+01A4-01A6, U+01A9, U+01AC-01B9, U+01C0-01F5, U+01F8-0220, U+0222-0223, U+0226-0233, U+0237, U+023A-023E, U+0241-0251, U+0253-0254, U+0256-0259, U+025B-025C, U+025F-0260, U+0263-0266, U+0268-026C, U+026F, U+0271-0272, U+0274-0275, U+027D-027E, U+0280, U+0283, U+0287-028C, U+028E, U+0292, U+0294-0295, U+0298, U+029D, U+02B0, U+02B7-02BA, U+02BD-02C1, U+02C7-02CC, U+02D7, U+02DD, U+02EC, U+02EE, U+02FB-02FC, U+1D3A, U+1D43, U+1D49, U+1D4B, U+1D52-1D53, U+1D58, U+1D5B, U+1D7B, U+1D7D-1D7E, U+1D91, U+1DA4, U+1DB6, U+1DBB, U+1DBF, U+1E00-1E9B, U+1E9E, U+1EF2-1EF9, U+20A1, U+20A3-20A4, U+20A6-20A7, U+20A9, U+20AB, U+20AD-20AE, U+20B1-20B2, U+20B4-20B5, U+20B8-20BA, U+20BC-20BD, U+20BF, U+2113, U+2C60-2C66, U+2C6D-2C6F, U+2C72-2C73, U+A726-A727, U+A740-A741, U+A789-A78D, U+A792-A793, U+A7A8-A7AB, U+A7AD-A7AE, U+A7B1-A7B9, U+A7C7-A7C8, U+A7CB-A7CD, U+A7DA-A7DC",
+          "sha256": "24cb21033174d03c80ca520d2898600eaaf385164ff034d98f4b28e9a9727059",
+          "bytes": 65376
+        }
+      }
+    },
+    "Cinzel": {
+      "folder": "src/fonts/cinzel",
+      "weights": [400, 500, 600, 700],
+      "ext_subsets": ["latin-ext"],
+      "license": "SIL Open Font License 1.1 (see OFL.txt)",
+      "files": {
+        "Cinzel-Variable-latin.woff2": {
+          "source": "ofl/cinzel/Cinzel[wght].ttf",
+          "source_sha256": "f4d83d34d1f6c741193e4acf4b3dff9531e5a67b6aa65228d00a7db72a4e0f34",
+          "subset": "latin",
+          "codepoints": 219,
+          "unicode_range": "U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD",
+          "sha256": "3ba2a372529cdc87a2aa377c153b3ffd8e9ec8affd38c18fea3e294849c93d41",
+          "bytes": 25540
+        },
+        "Cinzel-Variable-ext.woff2": {
+          "source": "ofl/cinzel/Cinzel[wght].ttf",
+          "source_sha256": "f4d83d34d1f6c741193e4acf4b3dff9531e5a67b6aa65228d00a7db72a4e0f34",
+          "subset": "ext",
+          "codepoints": 121,
+          "unicode_range": "U+0100-0107, U+010A-0113, U+0116-011B, U+011E-0123, U+0126-0127, U+012A-012B, U+012E-0130, U+0132-0133, U+0136-0137, U+0139-0148, U+014A-014D, U+0150-0151, U+0154-015B, U+015E-0167, U+016A-016B, U+016E-017E, U+0192, U+0218-021B, U+02C7, U+02DD, U+1E80-1E85, U+1EF2-1EF3",
+          "sha256": "e6453bf0e9fb5c2529987c32d651053a3fe5e301218dccad9c1ea9f4a2973847",
+          "bytes": 14112
+        }
+      }
+    },
+    "Outfit": {
+      "folder": "src/fonts/outfit",
+      "weights": [300, 400, 600, 700],
+      "ext_subsets": ["latin-ext"],
+      "license": "SIL Open Font License 1.1 (see OFL.txt)",
+      "files": {
+        "Outfit-Variable-latin.woff2": {
+          "source": "ofl/outfit/Outfit[wght].ttf",
+          "source_sha256": "fc7287273e66929776e2ba54f144fe699080bec29f61bf649d70d871468aeade",
+          "subset": "latin",
+          "codepoints": 219,
+          "unicode_range": "U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD",
+          "sha256": "79d067195f420cb0155e3cba2afe74f266feeac817379eb46ad4402e527c41cc",
+          "bytes": 31620
+        },
+        "Outfit-Variable-ext.woff2": {
+          "source": "ofl/outfit/Outfit[wght].ttf",
+          "source_sha256": "fc7287273e66929776e2ba54f144fe699080bec29f61bf649d70d871468aeade",
+          "subset": "ext",
+          "codepoints": 119,
+          "unicode_range": "U+0100-0107, U+010A-0113, U+0116-011B, U+011E-0123, U+0126-0127, U+012A-012B, U+012E-0130, U+0132-0133, U+0136-0137, U+0139-013E, U+0141-0148, U+014A-014D, U+0150-0151, U+0154-015B, U+015E-0161, U+0164-0165, U+016A-017E, U+01CD-01CE, U+0218-021B, U+0237, U+02C7, U+02DD, U+1E80-1E85, U+1E9E, U+1EF2-1EF3",
+          "sha256": "999a473c392cb545b3c86f6bc6a37b9aaab3c2fb5e8673e5012df7072636f84f",
+          "bytes": 13840
+        }
+      }
+    },
+    "Plus Jakarta Sans": {
+      "folder": "src/fonts/plusjakartasans",
+      "weights": [400, 500, 700],
+      "ext_subsets": ["latin-ext"],
+      "license": "SIL Open Font License 1.1 (see OFL.txt)",
+      "files": {
+        "PlusJakartaSans-Variable-latin.woff2": {
+          "source": "ofl/plusjakartasans/PlusJakartaSans[wght].ttf",
+          "source_sha256": "89b3fb38aa0d275d7a731d0d817a4f1622b316b4d7fbdedcf02ee9099ff68bc8",
+          "subset": "latin",
+          "codepoints": 233,
+          "unicode_range": "U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD",
+          "sha256": "6e872714a184e9714ceb38d565ef98b69fdf7b001188d018408d283fc78d38e4",
+          "bytes": 26136
+        },
+        "PlusJakartaSans-Variable-ext.woff2": {
+          "source": "ofl/plusjakartasans/PlusJakartaSans[wght].ttf",
+          "source_sha256": "89b3fb38aa0d275d7a731d0d817a4f1622b316b4d7fbdedcf02ee9099ff68bc8",
+          "subset": "ext",
+          "codepoints": 300,
+          "unicode_range": "U+0100-0130, U+0132-0148, U+014A-0151, U+0154-017E, U+018F, U+0192, U+01A0-01A1, U+01AF-01B0, U+01C4-01CC, U+01E6-01E7, U+01EA-01EB, U+01FA-021B, U+022A-022D, U+0230-0233, U+0237, U+0259, U+02C7, U+02DD, U+1E08-1E09, U+1E0C-1E0F, U+1E14-1E17, U+1E1C-1E1D, U+1E20-1E21, U+1E24-1E25, U+1E2A-1E2B, U+1E2E-1E2F, U+1E36-1E37, U+1E3A-1E3B, U+1E42-1E49, U+1E4C-1E53, U+1E5A-1E5B, U+1E5E-1E69, U+1E6C-1E6F, U+1E78-1E7B, U+1E80-1E85, U+1E8E-1E8F, U+1E92-1E93, U+1E97, U+1E9E, U+1EF2-1EF9, U+20A1, U+20A3-20A4, U+20A6-20AB, U+20AD-20AE, U+20B1-20B5, U+20B8-20BA, U+20BC-20BF, U+2113",
+          "sha256": "1d0441a618f88e17ecc2666caac1718610100fb8e5e0d91ef2fc74f42f2ba8d6",
+          "bytes": 20380
+        }
+      }
+    },
+    "Fira Code": {
+      "folder": "src/fonts/firacode",
+      "weights": [400, 500],
+      "ext_subsets": ["latin-ext", "greek", "symbols2"],
+      "license": "SIL Open Font License 1.1 (see OFL.txt)",
+      "files": {
+        "FiraCode-Variable-latin.woff2": {
+          "source": "ofl/firacode/FiraCode[wght].ttf",
+          "source_sha256": "9335b082b3c7850d98a64b584f3417f65355f3471278bb5eeb8c6c0e8657aeeb",
+          "subset": "latin",
+          "codepoints": 232,
+          "unicode_range": "U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD",
+          "sha256": "a0b4ac95aea8c2bb21540c3316272e2794c249e4aeb15367d647c220460f3e5d",
+          "bytes": 34440
+        },
+        "FiraCode-Variable-ext.woff2": {
+          "source": "ofl/firacode/FiraCode[wght].ttf",
+          "source_sha256": "9335b082b3c7850d98a64b584f3417f65355f3471278bb5eeb8c6c0e8657aeeb",
+          "subset": "ext",
+          "codepoints": 442,
+          "unicode_range": "U+0100-0130, U+0132-0151, U+0154-017E, U+0192, U+01FC-01FF, U+0218-021B, U+0237, U+02B9-02BA, U+02C7, U+02C9, U+02DD, U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03E1, U+03F0-03FF, U+1E80-1E85, U+1E9E, U+1EF2-1EF3, U+20AF, U+20B9-20BA, U+20BD, U+2113, U+2500-259F",
+          "sha256": "8937a046d2af6bf978d29021b652b339d99af84c5b7755c000b9c0ad0557e145",
+          "bytes": 24368
+        }
+      }
+    }
+  }
+}

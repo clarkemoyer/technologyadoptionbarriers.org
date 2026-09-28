@@ -190,11 +190,11 @@ Automatic deployment on push to `main` via `.github/workflows/deploy.yml`:
 
 ## Known Issues & Constraints
 
-### Google Fonts Build Limitation
+### Self-Hosted Fonts
 
-- **Issue**: `pnpm run build` may fail with "ENOTFOUND fonts.googleapis.com" on restricted networks
-- **Files**: Font imports in `src/lib/fonts.ts`
-- **Impact**: Fonts may need to be disabled in restricted environments
+- **Setup**: Font files are committed in `src/fonts/` and loaded with `next/font/local` (`src/lib/fonts.ts`); builds need no network access for fonts
+- **Changing fonts**: Regenerate with `scripts/fonts/build_local_fonts.py`; `__tests__/lib/fonts.test.ts` keeps `fonts.ts` and `src/fonts/manifest.json` in sync
+- **Do not** switch back to `next/font/google`: it downloads fonts on every build and intermittently failed CI
 
 ### Static Export Limitations
 

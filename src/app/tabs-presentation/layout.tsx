@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { outfit, plusJakartaSans, firaCode } from '@/lib/fonts'
+import { presentationFontVariables } from '@/lib/fonts'
 
 export const metadata: Metadata = {
   title: 'TABS Presentation',
@@ -16,7 +16,7 @@ export default function PresentationLayout({
     <html lang="en">
       <head />
       <body
-        className={[outfit.variable, plusJakartaSans.variable, firaCode.variable].join(' ')}
+        className={presentationFontVariables}
         style={{
           fontFamily: 'var(--font-plus-jakarta-sans), sans-serif',
         }}
