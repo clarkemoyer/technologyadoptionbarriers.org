@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 
-import { outfit, plusJakartaSans, firaCode } from '@/lib/fonts'
+import { presentationFontVariables } from '@/lib/fonts'
 
 export const metadata: Metadata = {
   title: 'Technology Lifecycle Positioning - Slide Deck',
@@ -15,7 +15,7 @@ export default function LifecyclePositioningPresentationLayout({
 }>) {
   return (
     <div
-      className={[outfit.variable, plusJakartaSans.variable, firaCode.variable].join(' ')}
+      className={presentationFontVariables}
       style={{
         fontFamily: 'var(--font-plus-jakarta-sans), sans-serif',
       }}

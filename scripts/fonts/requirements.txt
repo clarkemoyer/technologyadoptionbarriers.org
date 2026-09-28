@@ -1,0 +1,4 @@
+# Dependencies for scripts/fonts/build_local_fonts.py (maintenance only,
+# not needed for the site build).
+fonttools==4.66.0
+brotli==1.2.0

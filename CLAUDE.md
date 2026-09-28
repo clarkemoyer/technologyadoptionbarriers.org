@@ -281,15 +281,9 @@ You'll see these warnings - **they're acceptable**:
 
 **Don't try to fix these** - they're documented as acceptable. Fix new errors only.
 
-### 2. Google Fonts Network Issue
+### 2. Fonts Are Self-Hosted
 
-On restricted networks, `pnpm run build` may fail with:
-
-```
-ENOTFOUND fonts.googleapis.com
-```
-
-This is a known limitation. The font imports are in `src/lib/fonts.ts`. In restricted environments, fonts may need to be disabled.
+Fonts are self-hosted: the WOFF2 files are committed in `src/fonts/` and loaded with `next/font/local` from `src/lib/fonts.ts`, so `pnpm run build` needs no network access for fonts (it previously downloaded them from Google Fonts on every build, which intermittently failed CI and skipped deploys). To add a family or change weights, follow `scripts/fonts/build_local_fonts.py`; `__tests__/lib/fonts.test.ts` checks that `fonts.ts` and `src/fonts/manifest.json` stay in sync.
 
 ### 3. Static Export Limitations
 
@@ -1130,8 +1124,6 @@ Claude Code operates under a tiered permission system configured in `~/.claude/s
 ### Dependency Risk Chart
 
 _(Metrics snapshot as of April 2026. See tracking [issue #783](https://github.com/clarkemoyer/technologyadoptionbarriers.org/issues/783) for the original source.)_
-
-<<<<<<< HEAD
 
 #### MCP Servers
 

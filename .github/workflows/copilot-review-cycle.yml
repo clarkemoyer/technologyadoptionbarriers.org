@@ -45,11 +45,16 @@ jobs:
     name: Review Round ${{ github.event.inputs.round || '1' }}
     runs-on: ubuntu-latest
     environment: copilot
+    # Dependabot-authored PRs are skipped: GitHub never exposes repository or
+    # environment secrets to Dependabot-triggered runs, so the review script
+    # always failed with "Missing GH_TOKEN" and left every dependency PR red.
+    # A review can still be started for one via workflow_dispatch.
     if: >-
       github.event_name == 'workflow_dispatch' ||
       (github.event_name == 'pull_request' &&
        github.event.pull_request.draft == false &&
-       github.event.pull_request.head.repo.full_name == github.repository)
+       github.event.pull_request.head.repo.full_name == github.repository &&
+       github.event.pull_request.user.login != 'dependabot[bot]')
 
     steps:
       - name: Checkout repository
