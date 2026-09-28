@@ -63,13 +63,13 @@ jobs:
     environment: prolific-prod
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/setup-python@v6
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
       # Node.js only needed for modes that still run TS (single, search-messages, request-return, awaiting-report, verify-iri)
       - uses: pnpm/action-setup@v6
         if: ${{ !contains(fromJSON('["demographics","find-url-replies","all-replies","send-custom","unreject","send-thank-you","stale-return-requested"]'), inputs.mode) }}
-      - uses: actions/setup-node@v6
+      - uses: actions/setup-node@v7
         if: ${{ !contains(fromJSON('["demographics","find-url-replies","all-replies","send-custom","unreject","send-thank-you","stale-return-requested"]'), inputs.mode) }}
         with:
           node-version: '20'
@@ -312,7 +312,7 @@ jobs:
     environment: qualtrics-prod
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/setup-python@v6
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
       - name: Export Qualtrics responses
@@ -342,7 +342,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - uses: pnpm/action-setup@v6
-      - uses: actions/setup-node@v6
+      - uses: actions/setup-node@v7
         with:
           node-version: '20'
           cache: 'pnpm'
@@ -366,7 +366,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - uses: pnpm/action-setup@v6
-      - uses: actions/setup-node@v6
+      - uses: actions/setup-node@v7
         with:
           node-version: '20'
           cache: 'pnpm'

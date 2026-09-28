@@ -364,7 +364,7 @@ If you can't use the composite action, add these steps before any commit-creatin
 - name: Setup pnpm
   uses: pnpm/action-setup@v6
 - name: Setup Node.js
-  uses: actions/setup-node@v6
+  uses: actions/setup-node@v7
   with:
     node-version: '20'
     cache: 'pnpm'
