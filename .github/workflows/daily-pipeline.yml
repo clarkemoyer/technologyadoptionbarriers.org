@@ -81,11 +81,32 @@ jobs:
       - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
+          cache: 'pip'
+          cache-dependency-path: |
+            scripts/analysis/requirements.txt
+            scripts/analysis/requirements-validation.txt
 
+      # PyPI read timeouts (2026-09-28, run 36410660475) failed this step and
+      # skipped every downstream phase, so the daily report went out empty.
+      # Longer per-request timeout + pip's own retries, plus a whole-step retry
+      # with backoff to ride out a short PyPI/CDN outage.
       - name: Install Python dependencies
+        env:
+          PIP_DEFAULT_TIMEOUT: '60'
+          PIP_RETRIES: '10'
         run: |
-          pip install -r scripts/analysis/requirements.txt
-          pip install -r scripts/analysis/requirements-validation.txt
+          for attempt in 1 2 3; do
+            if pip install -r scripts/analysis/requirements.txt \
+                 -r scripts/analysis/requirements-validation.txt; then
+              exit 0
+            fi
+            if [ "$attempt" -lt 3 ]; then
+              echo "::warning::pip install attempt ${attempt} failed; retrying in $((attempt * 60))s"
+              sleep $((attempt * 60))
+            fi
+          done
+          echo "::error::pip install failed after 3 attempts"
+          exit 1
 
       - name: Export Qualtrics CSV
         run: python3 scripts/analysis/export_qualtrics.py
