@@ -1,12 +1,12 @@
 {
-  "updatedAt": "2026-10-01T10:56:10.467098+00:00",
-  "last_updated": "2026-10-01T10:56:10.467101+00:00",
+  "updatedAt": "2026-10-02T10:55:54.826531+00:00",
+  "last_updated": "2026-10-02T10:55:54.826534+00:00",
   "study": {
     "id": "69c17630acada6abeead2da5",
     "name": "Technology Adoption Barriers Survey (2026)",
     "status": "ACTIVE",
     "totalAvailablePlaces": 500,
-    "placesTaken": 495,
+    "placesTaken": 497,
     "averageRewardPerHour": 3907,
     "averageTimeTaken": 10,
     "reward": 700,
@@ -14,21 +14,21 @@
   },
   "completionProgress": {
     "target": 500,
-    "completed": 495,
-    "approved": 495,
-    "awaitingReview": 0,
-    "percentComplete": 99.0
+    "completed": 497,
+    "approved": 496,
+    "awaitingReview": 1,
+    "percentComplete": 99.4
   },
-  "totalResponses": 923,
-  "uniqueParticipants": 910,
+  "totalResponses": 925,
+  "uniqueParticipants": 912,
   "duplicatesRemoved": 0,
   "dispositions": {
     "INCOMPLETE": 117,
-    "CLEAN": 163,
+    "CLEAN": 164,
     "FLAG-SMEAL": 120,
     "FLAG-SPEED": 15,
     "FLAG-PARTIAL-STRAIGHTLINING": 68,
-    "FLAG-SINGLE-IRI": 165,
+    "FLAG-SINGLE-IRI": 166,
     "AUTO-EXCLUDE": 243,
     "FLAG-RECAPTCHA": 18,
     "FLAG-STRAIGHTLINING": 1
@@ -40,7 +40,7 @@
       "APPROVED": 1
     },
     "CLEAN": {
-      "APPROVED": 161,
+      "APPROVED": 162,
       "RETURNED": 2
     },
     "FLAG-SMEAL": {
@@ -58,7 +58,8 @@
     },
     "FLAG-SINGLE-IRI": {
       "RETURNED": 31,
-      "APPROVED": 134
+      "APPROVED": 134,
+      "AWAITING REVIEW": 1
     },
     "AUTO-EXCLUDE": {
       "REJECTED": 57,
@@ -82,25 +83,25 @@
     "SPEED_IRI": 22
   },
   "actions": {
-    "approved": 495,
+    "approved": 496,
     "rejected": 59,
     "returned": 359,
     "timedOut": 10,
-    "awaitingReview": 0,
+    "awaitingReview": 1,
     "active": 0,
     "messaged": 0
   },
   "iriPassRates": {
-    "barrier": 59.1,
-    "readiness": 68.7,
-    "maturity": 82.0,
-    "denominator": 793
+    "barrier": 59.2,
+    "readiness": 68.8,
+    "maturity": 81.9,
+    "denominator": 795
   },
   "autoApproveRunway": {
     "thresholdDays": 21,
-    "computedAt": "2026-10-01T10:56:10.466996+00:00",
-    "totalAwaitingReview": 0,
-    "evaluatedCount": 0,
+    "computedAt": "2026-10-02T10:55:54.826419+00:00",
+    "totalAwaitingReview": 1,
+    "evaluatedCount": 1,
     "skippedMissingCompletedAt": 0,
     "buckets": [
       {
@@ -108,7 +109,7 @@
         "risk": "low",
         "minDaysRemaining": 10.0,
         "maxDaysRemainingExclusive": null,
-        "count": 0
+        "count": 1
       },
       {
         "label": "Monitor",
