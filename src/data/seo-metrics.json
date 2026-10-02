@@ -1,23 +1,23 @@
 {
-  "generatedAt": "2026-10-01T09:12:12.156Z",
-  "dashboardSyncedAt": "2026-10-01T09:12:12.156Z",
+  "generatedAt": "2026-10-02T09:10:53.906Z",
+  "dashboardSyncedAt": "2026-10-02T09:10:53.906Z",
   "dateRange": {
-    "startDate": "2026-09-03",
-    "endDate": "2026-10-01"
+    "startDate": "2026-09-04",
+    "endDate": "2026-10-02"
   },
   "overview": {
-    "organicSessions": 111460,
-    "organicSessionsChange": 76,
-    "totalImpressions": 48504,
-    "totalImpressionsChange": -1483,
-    "totalClicks": 567,
-    "totalClicksChange": 2,
-    "averageCTR": 1.17,
+    "organicSessions": 111812,
+    "organicSessionsChange": 352,
+    "totalImpressions": 47264,
+    "totalImpressionsChange": -1240,
+    "totalClicks": 577,
+    "totalClicksChange": 10,
+    "averageCTR": 1.22,
     "averageCTRUnit": "percent",
-    "averageCTRChange": 0.04,
+    "averageCTRChange": 0.05,
     "averageCTRChangeUnit": "percentagePoints",
-    "averagePosition": 7.2,
-    "averagePositionChange": 0,
+    "averagePosition": 7.1,
+    "averagePositionChange": -0.1,
     "domainAuthority": 12,
     "domainAuthorityChange": 2,
     "indexedPages": 47,
@@ -32,17 +32,17 @@
       "previousPosition": null,
       "volume": 0,
       "clicks": 18,
-      "impressions": 60,
-      "ctr": 30
+      "impressions": 58,
+      "ctr": 31
     },
     {
       "keyword": "toe framework tornatzky and fleischer 1990",
       "position": 2.6,
       "previousPosition": null,
       "volume": 0,
-      "clicks": 10,
-      "impressions": 46,
-      "ctr": 21.7
+      "clicks": 11,
+      "impressions": 47,
+      "ctr": 23.4
     },
     {
       "keyword": "tornatzky and fleischer (1990)",
@@ -50,53 +50,44 @@
       "previousPosition": null,
       "volume": 0,
       "clicks": 7,
-      "impressions": 39,
-      "ctr": 17.9
+      "impressions": 38,
+      "ctr": 18.4
     },
     {
       "keyword": "toe framework",
-      "position": 7.9,
+      "position": 7.8,
       "previousPosition": null,
       "volume": 0,
       "clicks": 6,
-      "impressions": 999,
+      "impressions": 1010,
       "ctr": 0.6
     },
     {
       "keyword": "technology readiness index",
-      "position": 3.3,
+      "position": 3.2,
       "previousPosition": null,
       "volume": 0,
       "clicks": 4,
-      "impressions": 55,
-      "ctr": 7.3
+      "impressions": 53,
+      "ctr": 7.5
     },
     {
       "keyword": "the technology–organization–environment framework",
-      "position": 7.7,
+      "position": 7.8,
       "previousPosition": null,
       "volume": 0,
       "clicks": 4,
-      "impressions": 45,
-      "ctr": 8.9
-    },
-    {
-      "keyword": "tornatzky & fleischer 1990",
-      "position": 4.2,
-      "previousPosition": null,
-      "volume": 0,
-      "clicks": 4,
-      "impressions": 18,
-      "ctr": 22.2
+      "impressions": 44,
+      "ctr": 9.1
     },
     {
       "keyword": "tornatzky and fleischer 1990 toe framework",
-      "position": 2.9,
+      "position": 2.7,
       "previousPosition": null,
       "volume": 0,
       "clicks": 4,
-      "impressions": 14,
-      "ctr": 28.6
+      "impressions": 16,
+      "ctr": 25
     },
     {
       "keyword": "10.2307/249689",
@@ -104,12 +95,21 @@
       "previousPosition": null,
       "volume": 0,
       "clicks": 3,
-      "impressions": 22,
-      "ctr": 13.6
+      "impressions": 23,
+      "ctr": 13
     },
     {
       "keyword": "technology-organization-environment (toe) framework",
       "position": 7.4,
+      "previousPosition": null,
+      "volume": 0,
+      "clicks": 3,
+      "impressions": 40,
+      "ctr": 7.5
+    },
+    {
+      "keyword": "technology–organization–environment (toe) framework",
+      "position": 6.3,
       "previousPosition": null,
       "volume": 0,
       "clicks": 3,
