@@ -1,23 +1,23 @@
 {
-  "generatedAt": "2026-10-02T09:10:53.906Z",
-  "dashboardSyncedAt": "2026-10-02T09:10:53.906Z",
+  "generatedAt": "2026-10-03T09:10:22.381Z",
+  "dashboardSyncedAt": "2026-10-03T09:10:22.381Z",
   "dateRange": {
-    "startDate": "2026-09-04",
-    "endDate": "2026-10-02"
+    "startDate": "2026-09-05",
+    "endDate": "2026-10-03"
   },
   "overview": {
-    "organicSessions": 111812,
-    "organicSessionsChange": 352,
-    "totalImpressions": 47264,
-    "totalImpressionsChange": -1240,
-    "totalClicks": 577,
-    "totalClicksChange": 10,
-    "averageCTR": 1.22,
+    "organicSessions": 110509,
+    "organicSessionsChange": -1303,
+    "totalImpressions": 45161,
+    "totalImpressionsChange": -2103,
+    "totalClicks": 561,
+    "totalClicksChange": -16,
+    "averageCTR": 1.24,
     "averageCTRUnit": "percent",
-    "averageCTRChange": 0.05,
+    "averageCTRChange": 0.02,
     "averageCTRChangeUnit": "percentagePoints",
-    "averagePosition": 7.1,
-    "averagePositionChange": -0.1,
+    "averagePosition": 7.2,
+    "averagePositionChange": 0.1,
     "domainAuthority": 12,
     "domainAuthorityChange": 2,
     "indexedPages": 47,
@@ -28,12 +28,12 @@
   "topKeywords": [
     {
       "keyword": "toe framework (tornatzky and fleischer 1990)",
-      "position": 2.4,
+      "position": 2.5,
       "previousPosition": null,
       "volume": 0,
       "clicks": 18,
-      "impressions": 58,
-      "ctr": 31
+      "impressions": 56,
+      "ctr": 32.1
     },
     {
       "keyword": "toe framework tornatzky and fleischer 1990",
@@ -59,7 +59,7 @@
       "previousPosition": null,
       "volume": 0,
       "clicks": 6,
-      "impressions": 1010,
+      "impressions": 983,
       "ctr": 0.6
     },
     {
@@ -100,12 +100,12 @@
     },
     {
       "keyword": "technology-organization-environment (toe) framework",
-      "position": 7.4,
+      "position": 7.5,
       "previousPosition": null,
       "volume": 0,
       "clicks": 3,
-      "impressions": 40,
-      "ctr": 7.5
+      "impressions": 39,
+      "ctr": 7.7
     },
     {
       "keyword": "technology–organization–environment (toe) framework",
