@@ -1,0 +1,167 @@
+name: Zotero Deduplication Check
+
+on:
+  # Run manually at any time
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'Run mode'
+        required: false
+        default: 'detect-only'
+        type: choice
+        options:
+          - detect-only
+          - dry-run
+          - enrich-and-clean
+      collection:
+        description: 'Target collection name (default: Website Citations)'
+        required: false
+        default: 'Website Citations'
+      library_type:
+        description: 'Library type'
+        required: false
+        default: 'user'
+        type: choice
+        options:
+          - user
+          - group
+
+  # Weekly scheduled CI check — flags new duplicates in Website Citations
+  schedule:
+    - cron: '0 6 * * 1' # Mondays 06:00 UTC
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  # ──────────────────────────────────────────────────────────────────────────
+  # Unit tests (always run — no Zotero credentials needed)
+  # ──────────────────────────────────────────────────────────────────────────
+  test:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install pytest rapidfuzz
+
+      - name: Check Python syntax
+        run: python3 -m py_compile scripts/zotero/zotero_dedup.py
+
+      - name: Run unit tests
+        run: |
+          cd scripts/zotero
+          python3 -m pytest tests/ -v --tb=short
+
+  # ──────────────────────────────────────────────────────────────────────────
+  # CI check — runs against live Zotero API (needs ZOTERO_* secrets)
+  # Skipped on push/PR to keep CI fast; runs on schedule and workflow_dispatch.
+  # ──────────────────────────────────────────────────────────────────────────
+  ci-check:
+    name: CI Duplicate Check
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    # Only run when Zotero secrets are available (scheduled or manual dispatch)
+    if: |
+      github.event_name == 'schedule' ||
+      github.event_name == 'workflow_dispatch'
+    environment: zotero-prod
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install -r scripts/zotero/requirements.txt
+
+      - name: Determine run flags
+        id: flags
+        run: |
+          MODE="${{ github.event.inputs.mode || 'detect-only' }}"
+          COLLECTION="${{ github.event.inputs.collection || 'Website Citations' }}"
+          LIBRARY_TYPE="${{ github.event.inputs.library_type || 'user' }}"
+
+          # Scheduled runs always do CI check (read-only, fail if duplicates found)
+          if [[ "${{ github.event_name }}" == "schedule" ]]; then
+            MODE="ci-check"
+          fi
+
+          echo "mode=$MODE" >> "$GITHUB_OUTPUT"
+          echo "collection=$COLLECTION" >> "$GITHUB_OUTPUT"
+          echo "library_type=$LIBRARY_TYPE" >> "$GITHUB_OUTPUT"
+
+      - name: Run deduplication script
+        env:
+          ZOTERO_LIBRARY_ID: ${{ secrets.ZOTERO_LIBRARY_ID }}
+          ZOTERO_API_KEY: ${{ secrets.ZOTERO_API_KEY }}
+          ZOTERO_LIBRARY_TYPE: ${{ steps.flags.outputs.library_type }}
+          DEDUP_MODE: ${{ steps.flags.outputs.mode }}
+          DEDUP_COLLECTION: ${{ steps.flags.outputs.collection }}
+        run: |
+          cd scripts/zotero
+          ARGS=(--output zotero_dedup_report.json)
+          ARGS+=(--collection "$DEDUP_COLLECTION")
+          ARGS+=(--library-type "$ZOTERO_LIBRARY_TYPE")
+          case "$DEDUP_MODE" in
+            detect-only)      ARGS+=(--detect-only) ;;
+            dry-run)          ARGS+=(--dry-run --detect-only) ;;
+            ci-check)         ARGS+=(--ci-check) ;;
+            enrich-and-clean) ;;  # no extra flag; runs all phases live
+          esac
+          python3 zotero_dedup.py "${ARGS[@]}"
+
+      - name: Write step summary
+        if: always()
+        run: |
+          MODE="${{ steps.flags.outputs.mode }}"
+          COLLECTION="${{ steps.flags.outputs.collection }}"
+          echo "## Zotero Dedup — $MODE" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "**Collection:** $COLLECTION" >> "$GITHUB_STEP_SUMMARY"
+          echo "**Trigger:** ${{ github.event_name }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          if [ -f scripts/zotero/zotero_dedup_report.json ]; then
+            GROUPS=$(python3 -c "
+          import json, sys
+          data = json.load(open('scripts/zotero/zotero_dedup_report.json'))
+          print(len(data.get('duplicate_groups', [])))
+          " 2>/dev/null || echo "?")
+            NO_PDF=$(python3 -c "
+          import json, sys
+          data = json.load(open('scripts/zotero/zotero_dedup_report.json'))
+          journal = [x for x in data.get('no_pdf_items', []) if not x.get('is_non_journal')]
+          print(len(journal))
+          " 2>/dev/null || echo "?")
+            echo "| Metric | Count |" >> "$GITHUB_STEP_SUMMARY"
+            echo "| --- | --- |" >> "$GITHUB_STEP_SUMMARY"
+            echo "| Duplicate groups found | $GROUPS |" >> "$GITHUB_STEP_SUMMARY"
+            echo "| Journal articles without PDF | $NO_PDF |" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "_Report not generated (API credentials may be missing or script failed)._" >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Upload report artifact
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: zotero-dedup-report
+          path: scripts/zotero/zotero_dedup_report.json
+          retention-days: 30
