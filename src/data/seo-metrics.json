@@ -1,23 +1,23 @@
 {
-  "generatedAt": "2026-10-04T10:54:57.732Z",
-  "dashboardSyncedAt": "2026-10-04T10:54:57.732Z",
+  "generatedAt": "2026-10-05T09:18:35.618Z",
+  "dashboardSyncedAt": "2026-10-05T09:18:35.618Z",
   "dateRange": {
-    "startDate": "2026-09-06",
-    "endDate": "2026-10-04"
+    "startDate": "2026-09-07",
+    "endDate": "2026-10-05"
   },
   "overview": {
-    "organicSessions": 109289,
-    "organicSessionsChange": -1220,
-    "totalImpressions": 43181,
-    "totalImpressionsChange": -1980,
-    "totalClicks": 550,
-    "totalClicksChange": -11,
-    "averageCTR": 1.27,
+    "organicSessions": 111676,
+    "organicSessionsChange": 2387,
+    "totalImpressions": 43695,
+    "totalImpressionsChange": 514,
+    "totalClicks": 606,
+    "totalClicksChange": 56,
+    "averageCTR": 1.39,
     "averageCTRUnit": "percent",
-    "averageCTRChange": 0.03,
+    "averageCTRChange": 0.12,
     "averageCTRChangeUnit": "percentagePoints",
     "averagePosition": 7.1,
-    "averagePositionChange": -0.1,
+    "averagePositionChange": 0,
     "domainAuthority": 12,
     "domainAuthorityChange": 2,
     "indexedPages": 47,
@@ -31,58 +31,76 @@
       "position": 2.4,
       "previousPosition": null,
       "volume": 0,
-      "clicks": 17,
-      "impressions": 54,
-      "ctr": 31.5
+      "clicks": 18,
+      "impressions": 59,
+      "ctr": 30.5
     },
     {
       "keyword": "toe framework tornatzky and fleischer 1990",
       "position": 2.6,
       "previousPosition": null,
       "volume": 0,
-      "clicks": 11,
-      "impressions": 47,
-      "ctr": 23.4
+      "clicks": 12,
+      "impressions": 50,
+      "ctr": 24
     },
     {
       "keyword": "tornatzky and fleischer (1990)",
       "position": 3.5,
       "previousPosition": null,
       "volume": 0,
-      "clicks": 7,
-      "impressions": 38,
-      "ctr": 18.4
+      "clicks": 8,
+      "impressions": 48,
+      "ctr": 16.7
     },
     {
       "keyword": "toe framework",
-      "position": 7.8,
+      "position": 7.9,
       "previousPosition": null,
       "volume": 0,
       "clicks": 6,
-      "impressions": 960,
+      "impressions": 1035,
       "ctr": 0.6
     },
     {
+      "keyword": "toe framework tornatzky and fleischer 1990 pdf",
+      "position": 3,
+      "previousPosition": null,
+      "volume": 0,
+      "clicks": 5,
+      "impressions": 21,
+      "ctr": 23.8
+    },
+    {
       "keyword": "technology readiness index",
-      "position": 3.2,
+      "position": 3.6,
       "previousPosition": null,
       "volume": 0,
       "clicks": 4,
-      "impressions": 52,
-      "ctr": 7.7
+      "impressions": 56,
+      "ctr": 7.1
+    },
+    {
+      "keyword": "technology–organization–environment (toe) framework",
+      "position": 6.2,
+      "previousPosition": null,
+      "volume": 0,
+      "clicks": 4,
+      "impressions": 43,
+      "ctr": 9.3
     },
     {
       "keyword": "the technology–organization–environment framework",
-      "position": 7.7,
+      "position": 7.8,
       "previousPosition": null,
       "volume": 0,
       "clicks": 4,
-      "impressions": 41,
-      "ctr": 9.8
+      "impressions": 42,
+      "ctr": 9.5
     },
     {
       "keyword": "tornatzky and fleischer 1990 toe framework",
-      "position": 2.7,
+      "position": 2.8,
       "previousPosition": null,
       "volume": 0,
       "clicks": 4,
@@ -91,30 +109,12 @@
     },
     {
       "keyword": "10.2307/249689",
-      "position": 8.3,
+      "position": 8.2,
       "previousPosition": null,
       "volume": 0,
       "clicks": 3,
-      "impressions": 23,
-      "ctr": 13
-    },
-    {
-      "keyword": "technology-organization-environment (toe) framework",
-      "position": 7.4,
-      "previousPosition": null,
-      "volume": 0,
-      "clicks": 3,
-      "impressions": 38,
-      "ctr": 7.9
-    },
-    {
-      "keyword": "technology–organization–environment (toe) framework",
-      "position": 6.3,
-      "previousPosition": null,
-      "volume": 0,
-      "clicks": 3,
-      "impressions": 39,
-      "ctr": 7.7
+      "impressions": 25,
+      "ctr": 12
     }
   ],
   "topPages": [
