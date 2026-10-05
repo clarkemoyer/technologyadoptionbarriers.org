@@ -1,12 +1,12 @@
 {
-  "as_of": "2026-09-28T06:50:41Z",
-  "commit_sha": "483487ed88a3e7eed7d7ed16ff5e3ca501f3afca",
-  "commit_count": 8111,
-  "lines_of_code": 224230,
-  "comments": 13430,
-  "blanks": 29268,
-  "total_lines": 266928,
-  "tracked_files": 799,
+  "as_of": "2026-10-05T06:54:06Z",
+  "commit_sha": "6418d2a0fbc92981212d4f3174370acd809991f5",
+  "commit_count": 8183,
+  "lines_of_code": 226807,
+  "comments": 13589,
+  "blanks": 29710,
+  "total_lines": 270106,
+  "tracked_files": 815,
   "github_workflows": 54,
   "integrations": 8,
   "development_phases": 5,
@@ -15,38 +15,38 @@
   "by_language": [
     {
       "language": "TypeScript",
-      "files": 463,
-      "code": 112125,
-      "comment": 3958,
-      "blank": 7995
+      "files": 465,
+      "code": 112649,
+      "comment": 4016,
+      "blank": 8033
     },
     {
       "language": "Python",
-      "files": 89,
-      "code": 37002,
-      "comment": 7849,
-      "blank": 7276
+      "files": 90,
+      "code": 37237,
+      "comment": 7942,
+      "blank": 7319
     },
     {
       "language": "JSON",
-      "files": 40,
-      "code": 28678,
+      "files": 41,
+      "code": 28989,
       "comment": 0,
       "blank": 0
     },
     {
       "language": "Markdown",
       "files": 105,
-      "code": 24810,
+      "code": 24797,
       "comment": 39,
-      "blank": 9739
+      "blank": 9734
     },
     {
       "language": "YAML",
       "files": 62,
-      "code": 16237,
-      "comment": 1061,
-      "blank": 3661
+      "code": 16927,
+      "comment": 1069,
+      "blank": 3830
     },
     {
       "language": "CSV",
@@ -54,6 +54,13 @@
       "code": 1170,
       "comment": 0,
       "blank": 4
+    },
+    {
+      "language": "Text",
+      "files": 22,
+      "code": 1036,
+      "comment": 0,
+      "blank": 233
     },
     {
       "language": "Bourne Shell",
@@ -96,13 +103,6 @@
       "code": 290,
       "comment": 96,
       "blank": 29
-    },
-    {
-      "language": "Text",
-      "files": 10,
-      "code": 206,
-      "comment": 0,
-      "blank": 36
     },
     {
       "language": "JavaScript",
