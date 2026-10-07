@@ -5,18 +5,18 @@
     "FLAG-SMEAL": 120,
     "FLAG-SPEED": 15,
     "FLAG-PARTIAL-STRAIGHTLINING": 69,
-    "FLAG-SINGLE-IRI": 167,
+    "FLAG-SINGLE-IRI": 168,
     "AUTO-EXCLUDE": 243,
     "FLAG-RECAPTCHA": 18,
     "FLAG-STRAIGHTLINING": 1
   },
   "iri_pass_rates": {
-    "barrier": 0.5218818380743983,
-    "readiness": 0.6039387308533917,
-    "maturity": 0.7155361050328227
+    "barrier": 0.521311475409836,
+    "readiness": 0.6043715846994535,
+    "maturity": 0.7158469945355191
   },
   "duration_stats": {
-    "mean": 634.6247264770241,
+    "mean": 634.9486338797814,
     "median": 531,
     "q25": 344,
     "q75": 780,
@@ -28,8 +28,8 @@
     "partial_flagged": 274
   },
   "sample_sizes": {
-    "total": 914,
-    "complete": 797,
+    "total": 915,
+    "complete": 798,
     "clean": 164
   },
   "waterfall_steps": [
@@ -66,32 +66,32 @@
     {
       "step": 5,
       "name": "FLAG-SINGLE-IRI",
-      "count": 167,
-      "cumulative_excluded": 542
+      "count": 168,
+      "cumulative_excluded": 543
     },
     {
       "step": 6,
       "name": "FLAG-SMEAL",
       "count": 120,
-      "cumulative_excluded": 662
+      "cumulative_excluded": 663
     },
     {
       "step": 7,
       "name": "FLAG-RECAPTCHA",
       "count": 18,
-      "cumulative_excluded": 680
+      "cumulative_excluded": 681
     },
     {
       "step": 8,
       "name": "FLAG-STRAIGHTLINING",
       "count": 1,
-      "cumulative_excluded": 681
+      "cumulative_excluded": 682
     },
     {
       "step": 9,
       "name": "FLAG-PARTIAL-STRAIGHTLINING",
       "count": 69,
-      "cumulative_excluded": 750
+      "cumulative_excluded": 751
     },
     {
       "step": 10,
