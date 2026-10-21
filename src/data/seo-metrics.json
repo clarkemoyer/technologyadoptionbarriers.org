@@ -1,23 +1,23 @@
 {
-  "generatedAt": "2026-10-20T09:10:15.215Z",
-  "dashboardSyncedAt": "2026-10-20T09:10:15.215Z",
+  "generatedAt": "2026-10-21T09:10:34.707Z",
+  "dashboardSyncedAt": "2026-10-21T09:10:34.707Z",
   "dateRange": {
-    "startDate": "2026-09-22",
-    "endDate": "2026-10-20"
+    "startDate": "2026-09-23",
+    "endDate": "2026-10-21"
   },
   "overview": {
-    "organicSessions": 114071,
-    "organicSessionsChange": 786,
-    "totalImpressions": 26512,
-    "totalImpressionsChange": -1428,
-    "totalClicks": 597,
-    "totalClicksChange": -30,
-    "averageCTR": 2.25,
+    "organicSessions": 113493,
+    "organicSessionsChange": -578,
+    "totalImpressions": 26528,
+    "totalImpressionsChange": 16,
+    "totalClicks": 612,
+    "totalClicksChange": 15,
+    "averageCTR": 2.31,
     "averageCTRUnit": "percent",
-    "averageCTRChange": 0.01,
+    "averageCTRChange": 0.06,
     "averageCTRChangeUnit": "percentagePoints",
     "averagePosition": 7.2,
-    "averagePositionChange": 0.1,
+    "averagePositionChange": 0,
     "domainAuthority": 12,
     "domainAuthorityChange": 2,
     "indexedPages": 47,
@@ -31,9 +31,9 @@
       "position": 7.9,
       "previousPosition": null,
       "volume": 0,
-      "clicks": 12,
-      "impressions": 1021,
-      "ctr": 1.2
+      "clicks": 13,
+      "impressions": 1004,
+      "ctr": 1.3
     },
     {
       "keyword": "toe framework tornatzky and fleischer 1990",
@@ -49,18 +49,18 @@
       "position": 3.5,
       "previousPosition": null,
       "volume": 0,
-      "clicks": 9,
+      "clicks": 8,
       "impressions": 51,
-      "ctr": 17.6
+      "ctr": 15.7
     },
     {
       "keyword": "toe framework (tornatzky and fleischer 1990)",
       "position": 2.3,
       "previousPosition": null,
       "volume": 0,
-      "clicks": 7,
+      "clicks": 6,
       "impressions": 37,
-      "ctr": 18.9
+      "ctr": 16.2
     },
     {
       "keyword": "toe framework tornatzky and fleischer 1990 pdf",
@@ -68,8 +68,8 @@
       "previousPosition": null,
       "volume": 0,
       "clicks": 6,
-      "impressions": 30,
-      "ctr": 20
+      "impressions": 31,
+      "ctr": 19.4
     },
     {
       "keyword": "technology-organization-environment (toe) framework",
@@ -77,12 +77,12 @@
       "previousPosition": null,
       "volume": 0,
       "clicks": 3,
-      "impressions": 67,
-      "ctr": 4.5
+      "impressions": 70,
+      "ctr": 4.3
     },
     {
       "keyword": "technology–organization–environment (toe) framework",
-      "position": 5.3,
+      "position": 5.4,
       "previousPosition": null,
       "volume": 0,
       "clicks": 3,
@@ -100,21 +100,21 @@
     },
     {
       "keyword": "tornatzky & fleischer, 1990",
-      "position": 4.3,
+      "position": 4.2,
       "previousPosition": null,
       "volume": 0,
       "clicks": 3,
-      "impressions": 35,
-      "ctr": 8.6
+      "impressions": 37,
+      "ctr": 8.1
     },
     {
-      "keyword": "tri 2.0",
-      "position": 7.7,
+      "keyword": "tornatzky and fleischer 1990 toe framework",
+      "position": 2.6,
       "previousPosition": null,
       "volume": 0,
       "clicks": 3,
-      "impressions": 40,
-      "ctr": 7.5
+      "impressions": 22,
+      "ctr": 13.6
     }
   ],
   "topPages": [
