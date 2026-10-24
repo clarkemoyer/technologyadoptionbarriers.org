@@ -27,7 +27,7 @@
     "validate:data": "tsx scripts/validate-data-schemas.ts"
   },
   "dependencies": {
-    "@google-analytics/data": "^6.0.0",
+    "@google-analytics/data": "^7.2.1",
     "exceljs": "^4.4.0",
     "framer-motion": "^12.42.0",
     "googleapis": "^173.0.0",
