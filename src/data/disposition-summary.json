@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-10-27T10:58:08.321030+00:00",
-  "last_updated": "2026-10-27T10:58:08.321034+00:00",
+  "updatedAt": "2026-10-28T10:52:04.144512+00:00",
+  "last_updated": "2026-10-28T10:52:04.144518+00:00",
   "study": {
     "id": "69c17630acada6abeead2da5",
     "name": "Technology Adoption Barriers Survey (2026)",
@@ -61,9 +61,9 @@
       "APPROVED": 136
     },
     "AUTO-EXCLUDE": {
-      "REJECTED": 57,
+      "REJECTED": 54,
       "APPROVED": 20,
-      "RETURNED": 166
+      "RETURNED": 169
     },
     "FLAG-RECAPTCHA": {
       "REJECTED": 1,
@@ -83,8 +83,8 @@
   },
   "actions": {
     "approved": 498,
-    "rejected": 59,
-    "returned": 361,
+    "rejected": 56,
+    "returned": 364,
     "timedOut": 10,
     "awaitingReview": 0,
     "active": 0,
@@ -98,7 +98,7 @@
   },
   "autoApproveRunway": {
     "thresholdDays": 21,
-    "computedAt": "2026-10-27T10:58:08.320917+00:00",
+    "computedAt": "2026-10-28T10:52:04.144371+00:00",
     "totalAwaitingReview": 0,
     "evaluatedCount": 0,
     "skippedMissingCompletedAt": 0,
