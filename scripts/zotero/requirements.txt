@@ -1,0 +1,3 @@
+# Zotero deduplication script dependencies
+pyzotero>=1.5.0
+rapidfuzz>=3.0.0
