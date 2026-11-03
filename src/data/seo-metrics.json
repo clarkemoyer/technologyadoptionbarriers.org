@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-11-02T09:08:35.318Z",
-  "dashboardSyncedAt": "2026-11-02T09:08:35.318Z",
+  "generatedAt": "2026-11-03T09:06:44.623Z",
+  "dashboardSyncedAt": "2026-11-03T09:06:44.623Z",
   "dateRange": {
-    "startDate": "2026-10-05",
-    "endDate": "2026-11-02"
+    "startDate": "2026-10-06",
+    "endDate": "2026-11-03"
   },
   "overview": {
-    "organicSessions": 118338,
-    "organicSessionsChange": 312,
-    "totalImpressions": 27771,
-    "totalImpressionsChange": -265,
-    "totalClicks": 658,
-    "totalClicksChange": -4,
-    "averageCTR": 2.37,
+    "organicSessions": 116242,
+    "organicSessionsChange": -2096,
+    "totalImpressions": 26757,
+    "totalImpressionsChange": -1014,
+    "totalClicks": 636,
+    "totalClicksChange": -22,
+    "averageCTR": 2.38,
     "averageCTRUnit": "percent",
     "averageCTRChange": 0.01,
     "averageCTRChangeUnit": "percentagePoints",
@@ -31,8 +31,8 @@
       "position": 7.1,
       "previousPosition": null,
       "volume": 0,
-      "clicks": 16,
-      "impressions": 1143,
+      "clicks": 15,
+      "impressions": 1098,
       "ctr": 1.4
     },
     {
@@ -41,8 +41,8 @@
       "previousPosition": null,
       "volume": 0,
       "clicks": 12,
-      "impressions": 51,
-      "ctr": 23.5
+      "impressions": 49,
+      "ctr": 24.5
     },
     {
       "keyword": "tornatzky, l. g., & fleischer, m. (1990). the processes of technological innovation. lexington books.",
@@ -68,8 +68,8 @@
       "previousPosition": null,
       "volume": 0,
       "clicks": 5,
-      "impressions": 38,
-      "ctr": 13.2
+      "impressions": 36,
+      "ctr": 13.9
     },
     {
       "keyword": "tornatzky and fleischer (1990)",
@@ -86,7 +86,7 @@
       "previousPosition": null,
       "volume": 0,
       "clicks": 4,
-      "impressions": 334,
+      "impressions": 325,
       "ctr": 1.2
     },
     {
