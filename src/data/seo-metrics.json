@@ -1,20 +1,20 @@
 {
-  "generatedAt": "2026-11-08T09:06:05.665Z",
-  "dashboardSyncedAt": "2026-11-08T09:06:05.665Z",
+  "generatedAt": "2026-11-09T09:08:33.016Z",
+  "dashboardSyncedAt": "2026-11-09T09:08:33.016Z",
   "dateRange": {
-    "startDate": "2026-10-11",
-    "endDate": "2026-11-08"
+    "startDate": "2026-10-12",
+    "endDate": "2026-11-09"
   },
   "overview": {
-    "organicSessions": 114737,
-    "organicSessionsChange": 1118,
-    "totalImpressions": 27556,
-    "totalImpressionsChange": 1014,
+    "organicSessions": 116679,
+    "organicSessionsChange": 1942,
+    "totalImpressions": 27463,
+    "totalImpressionsChange": -93,
     "totalClicks": 693,
-    "totalClicksChange": 33,
-    "averageCTR": 2.51,
+    "totalClicksChange": 0,
+    "averageCTR": 2.52,
     "averageCTRUnit": "percent",
-    "averageCTRChange": 0.02,
+    "averageCTRChange": 0.01,
     "averageCTRChangeUnit": "percentagePoints",
     "averagePosition": 7.3,
     "averagePositionChange": 0,
@@ -32,17 +32,17 @@
       "previousPosition": null,
       "volume": 0,
       "clicks": 14,
-      "impressions": 1176,
+      "impressions": 1150,
       "ctr": 1.2
     },
     {
       "keyword": "toe framework tornatzky and fleischer 1990",
-      "position": 2.2,
+      "position": 2.3,
       "previousPosition": null,
       "volume": 0,
-      "clicks": 8,
-      "impressions": 35,
-      "ctr": 22.9
+      "clicks": 10,
+      "impressions": 36,
+      "ctr": 27.8
     },
     {
       "keyword": "tornatzky & fleischer, 1990",
@@ -50,8 +50,8 @@
       "previousPosition": null,
       "volume": 0,
       "clicks": 7,
-      "impressions": 47,
-      "ctr": 14.9
+      "impressions": 46,
+      "ctr": 15.2
     },
     {
       "keyword": "tornatzky, l. g., & fleischer, m. (1990). the processes of technological innovation. lexington books.",
@@ -59,35 +59,26 @@
       "previousPosition": null,
       "volume": 0,
       "clicks": 7,
-      "impressions": 95,
+      "impressions": 94,
       "ctr": 7.4
-    },
-    {
-      "keyword": "tam3",
-      "position": 5.9,
-      "previousPosition": null,
-      "volume": 0,
-      "clicks": 5,
-      "impressions": 354,
-      "ctr": 1.4
     },
     {
       "keyword": "toe framework (tornatzky and fleischer 1990 pdf)",
       "position": 3.3,
       "previousPosition": null,
       "volume": 0,
-      "clicks": 5,
-      "impressions": 40,
-      "ctr": 12.5
+      "clicks": 6,
+      "impressions": 43,
+      "ctr": 14
     },
     {
-      "keyword": "toe framework (tornatzky and fleischer 1990)",
-      "position": 2.3,
+      "keyword": "tam3",
+      "position": 5.8,
       "previousPosition": null,
       "volume": 0,
       "clicks": 5,
-      "impressions": 33,
-      "ctr": 15.2
+      "impressions": 344,
+      "ctr": 1.5
     },
     {
       "keyword": "tornatzky & fleischer (1990)",
@@ -95,26 +86,35 @@
       "previousPosition": null,
       "volume": 0,
       "clicks": 5,
-      "impressions": 37,
-      "ctr": 13.5
+      "impressions": 38,
+      "ctr": 13.2
     },
     {
       "keyword": "tornatzky and fleischer (1990)",
-      "position": 3.7,
+      "position": 3.6,
       "previousPosition": null,
       "volume": 0,
       "clicks": 5,
-      "impressions": 58,
-      "ctr": 8.6
+      "impressions": 59,
+      "ctr": 8.5
     },
     {
       "keyword": "technology-organization-environment (toe) framework",
-      "position": 5.9,
+      "position": 5.5,
       "previousPosition": null,
       "volume": 0,
       "clicks": 4,
-      "impressions": 84,
-      "ctr": 4.8
+      "impressions": 79,
+      "ctr": 5.1
+    },
+    {
+      "keyword": "tornatzky & fleischer 1990 toe framework",
+      "position": 2.8,
+      "previousPosition": null,
+      "volume": 0,
+      "clicks": 4,
+      "impressions": 10,
+      "ctr": 40
     }
   ],
   "topPages": [
