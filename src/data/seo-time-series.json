@@ -1,278 +1,5 @@
 [
   {
-    "date": "2026-06-20T10:03:04.315Z",
-    "sessions": 90402,
-    "impressions": 48384,
-    "clicks": 146,
-    "averagePosition": 8.6
-  },
-  {
-    "date": "2026-06-21T10:16:29.423Z",
-    "sessions": 90085,
-    "impressions": 47702,
-    "clicks": 147,
-    "averagePosition": 8.6
-  },
-  {
-    "date": "2026-06-22T10:56:22.626Z",
-    "sessions": 91109,
-    "impressions": 46760,
-    "clicks": 143,
-    "averagePosition": 8.6
-  },
-  {
-    "date": "2026-06-23T10:17:29.935Z",
-    "sessions": 90205,
-    "impressions": 46221,
-    "clicks": 145,
-    "averagePosition": 8.7
-  },
-  {
-    "date": "2026-06-24T10:06:36.337Z",
-    "sessions": 91386,
-    "impressions": 46219,
-    "clicks": 149,
-    "averagePosition": 8.6
-  },
-  {
-    "date": "2026-06-25T10:05:20.538Z",
-    "sessions": 91632,
-    "impressions": 46272,
-    "clicks": 156,
-    "averagePosition": 8.6
-  },
-  {
-    "date": "2026-06-26T10:06:38.486Z",
-    "sessions": 91906,
-    "impressions": 46247,
-    "clicks": 162,
-    "averagePosition": 8.6
-  },
-  {
-    "date": "2026-06-27T09:44:38.460Z",
-    "sessions": 94473,
-    "impressions": 46353,
-    "clicks": 164,
-    "averagePosition": 8.6
-  },
-  {
-    "date": "2026-06-28T10:01:30.372Z",
-    "sessions": 96325,
-    "impressions": 46524,
-    "clicks": 169,
-    "averagePosition": 8.7
-  },
-  {
-    "date": "2026-06-29T10:37:03.304Z",
-    "sessions": 99809,
-    "impressions": 46072,
-    "clicks": 172,
-    "averagePosition": 8.7
-  },
-  {
-    "date": "2026-06-30T10:14:26.051Z",
-    "sessions": 97951,
-    "impressions": 45883,
-    "clicks": 173,
-    "averagePosition": 8.7
-  },
-  {
-    "date": "2026-07-01T10:22:25.671Z",
-    "sessions": 102213,
-    "impressions": 45607,
-    "clicks": 178,
-    "averagePosition": 8.7
-  },
-  {
-    "date": "2026-07-02T10:03:32.209Z",
-    "sessions": 103975,
-    "impressions": 45137,
-    "clicks": 182,
-    "averagePosition": 8.7
-  },
-  {
-    "date": "2026-07-03T11:29:44.166Z",
-    "sessions": 100571,
-    "impressions": 45129,
-    "clicks": 183,
-    "averagePosition": 8.7
-  },
-  {
-    "date": "2026-07-04T10:52:16.323Z",
-    "sessions": 98867,
-    "impressions": 44864,
-    "clicks": 185,
-    "averagePosition": 8.7
-  },
-  {
-    "date": "2026-07-05T11:02:36.250Z",
-    "sessions": 98349,
-    "impressions": 44451,
-    "clicks": 187,
-    "averagePosition": 8.7
-  },
-  {
-    "date": "2026-07-06T12:43:17.389Z",
-    "sessions": 98141,
-    "impressions": 43913,
-    "clicks": 184,
-    "averagePosition": 8.7
-  },
-  {
-    "date": "2026-07-07T11:46:04.621Z",
-    "sessions": 97101,
-    "impressions": 43181,
-    "clicks": 181,
-    "averagePosition": 8.7
-  },
-  {
-    "date": "2026-07-08T11:01:39.705Z",
-    "sessions": 98133,
-    "impressions": 42432,
-    "clicks": 177,
-    "averagePosition": 8.6
-  },
-  {
-    "date": "2026-07-09T11:54:18.970Z",
-    "sessions": 98877,
-    "impressions": 41801,
-    "clicks": 180,
-    "averagePosition": 8.6
-  },
-  {
-    "date": "2026-07-10T11:48:27.071Z",
-    "sessions": 94697,
-    "impressions": 41377,
-    "clicks": 185,
-    "averagePosition": 8.5
-  },
-  {
-    "date": "2026-07-11T10:12:13.540Z",
-    "sessions": 95851,
-    "impressions": 40926,
-    "clicks": 182,
-    "averagePosition": 8.6
-  },
-  {
-    "date": "2026-07-12T10:23:59.728Z",
-    "sessions": 97996,
-    "impressions": 40115,
-    "clicks": 184,
-    "averagePosition": 8.6
-  },
-  {
-    "date": "2026-07-13T11:58:07.993Z",
-    "sessions": 97938,
-    "impressions": 39664,
-    "clicks": 188,
-    "averagePosition": 8.6
-  },
-  {
-    "date": "2026-07-14T10:42:15.497Z",
-    "sessions": 98835,
-    "impressions": 39567,
-    "clicks": 190,
-    "averagePosition": 8.5
-  },
-  {
-    "date": "2026-07-15T10:45:59.816Z",
-    "sessions": 98191,
-    "impressions": 39241,
-    "clicks": 195,
-    "averagePosition": 8.5
-  },
-  {
-    "date": "2026-07-16T10:56:02.842Z",
-    "sessions": 98744,
-    "impressions": 38778,
-    "clicks": 200,
-    "averagePosition": 8.4
-  },
-  {
-    "date": "2026-07-17T10:43:52.804Z",
-    "sessions": 93506,
-    "impressions": 38872,
-    "clicks": 212,
-    "averagePosition": 8.3
-  },
-  {
-    "date": "2026-07-18T10:16:21.939Z",
-    "sessions": 94599,
-    "impressions": 38920,
-    "clicks": 228,
-    "averagePosition": 8.2
-  },
-  {
-    "date": "2026-07-19T10:24:31.212Z",
-    "sessions": 95458,
-    "impressions": 38889,
-    "clicks": 240,
-    "averagePosition": 8.1
-  },
-  {
-    "date": "2026-07-20T10:03:46.298Z",
-    "sessions": 95997,
-    "impressions": 38200,
-    "clicks": 244,
-    "averagePosition": 8.1
-  },
-  {
-    "date": "2026-07-21T09:51:02.136Z",
-    "sessions": 98509,
-    "impressions": 37305,
-    "clicks": 245,
-    "averagePosition": 8.1
-  },
-  {
-    "date": "2026-07-22T09:49:57.915Z",
-    "sessions": 100469,
-    "impressions": 35713,
-    "clicks": 236,
-    "averagePosition": 8.1
-  },
-  {
-    "date": "2026-07-23T09:49:44.966Z",
-    "sessions": 99690,
-    "impressions": 35447,
-    "clicks": 241,
-    "averagePosition": 8
-  },
-  {
-    "date": "2026-07-24T09:48:54.057Z",
-    "sessions": 100673,
-    "impressions": 34707,
-    "clicks": 246,
-    "averagePosition": 8
-  },
-  {
-    "date": "2026-07-25T09:33:47.526Z",
-    "sessions": 98069,
-    "impressions": 33870,
-    "clicks": 250,
-    "averagePosition": 7.9
-  },
-  {
-    "date": "2026-07-26T09:41:47.849Z",
-    "sessions": 99772,
-    "impressions": 33392,
-    "clicks": 259,
-    "averagePosition": 7.9
-  },
-  {
-    "date": "2026-07-27T10:19:56.925Z",
-    "sessions": 101036,
-    "impressions": 33690,
-    "clicks": 265,
-    "averagePosition": 7.9
-  },
-  {
-    "date": "2026-07-28T09:53:50.346Z",
-    "sessions": 101898,
-    "impressions": 31801,
-    "clicks": 256,
-    "averagePosition": 7.9
-  },
-  {
     "date": "2026-07-29T09:54:38.050Z",
     "sessions": 101875,
     "impressions": 33056,
@@ -726,5 +453,278 @@
     "impressions": 43181,
     "clicks": 550,
     "averagePosition": 7.1
+  },
+  {
+    "date": "2026-10-05T09:18:35.618Z",
+    "sessions": 111676,
+    "impressions": 43695,
+    "clicks": 606,
+    "averagePosition": 7.1
+  },
+  {
+    "date": "2026-10-06T09:11:41.934Z",
+    "sessions": 111299,
+    "impressions": 42255,
+    "clicks": 601,
+    "averagePosition": 7.1
+  },
+  {
+    "date": "2026-10-07T09:12:07.536Z",
+    "sessions": 111500,
+    "impressions": 41093,
+    "clicks": 602,
+    "averagePosition": 7.1
+  },
+  {
+    "date": "2026-10-08T09:13:26.453Z",
+    "sessions": 110916,
+    "impressions": 39770,
+    "clicks": 593,
+    "averagePosition": 7.1
+  },
+  {
+    "date": "2026-10-09T09:13:54.687Z",
+    "sessions": 112712,
+    "impressions": 38336,
+    "clicks": 593,
+    "averagePosition": 7.1
+  },
+  {
+    "date": "2026-10-10T09:10:03.494Z",
+    "sessions": 111340,
+    "impressions": 35909,
+    "clicks": 564,
+    "averagePosition": 7.1
+  },
+  {
+    "date": "2026-10-11T09:09:46.024Z",
+    "sessions": 113023,
+    "impressions": 35718,
+    "clicks": 594,
+    "averagePosition": 7.1
+  },
+  {
+    "date": "2026-10-12T09:22:50.961Z",
+    "sessions": 113620,
+    "impressions": 33787,
+    "clicks": 609,
+    "averagePosition": 7.1
+  },
+  {
+    "date": "2026-10-13T09:15:10.026Z",
+    "sessions": 111805,
+    "impressions": 32032,
+    "clicks": 602,
+    "averagePosition": 7.1
+  },
+  {
+    "date": "2026-10-14T09:10:54.178Z",
+    "sessions": 112711,
+    "impressions": 30024,
+    "clicks": 608,
+    "averagePosition": 7.1
+  },
+  {
+    "date": "2026-10-15T09:10:34.035Z",
+    "sessions": 114813,
+    "impressions": 28410,
+    "clicks": 615,
+    "averagePosition": 7
+  },
+  {
+    "date": "2026-10-16T09:10:11.510Z",
+    "sessions": 115527,
+    "impressions": 27368,
+    "clicks": 603,
+    "averagePosition": 7
+  },
+  {
+    "date": "2026-10-17T09:08:48.539Z",
+    "sessions": 114345,
+    "impressions": 27097,
+    "clicks": 611,
+    "averagePosition": 7
+  },
+  {
+    "date": "2026-10-18T09:08:40.824Z",
+    "sessions": 113791,
+    "impressions": 28138,
+    "clicks": 632,
+    "averagePosition": 7.1
+  },
+  {
+    "date": "2026-10-19T09:15:31.638Z",
+    "sessions": 113285,
+    "impressions": 27940,
+    "clicks": 627,
+    "averagePosition": 7.1
+  },
+  {
+    "date": "2026-10-20T09:10:15.215Z",
+    "sessions": 114071,
+    "impressions": 26512,
+    "clicks": 597,
+    "averagePosition": 7.2
+  },
+  {
+    "date": "2026-10-21T09:10:34.707Z",
+    "sessions": 113493,
+    "impressions": 26528,
+    "clicks": 612,
+    "averagePosition": 7.2
+  },
+  {
+    "date": "2026-10-22T09:10:28.816Z",
+    "sessions": 116137,
+    "impressions": 26241,
+    "clicks": 612,
+    "averagePosition": 7.2
+  },
+  {
+    "date": "2026-10-23T09:10:28.548Z",
+    "sessions": 117945,
+    "impressions": 27188,
+    "clicks": 631,
+    "averagePosition": 7.2
+  },
+  {
+    "date": "2026-10-24T09:08:38.360Z",
+    "sessions": 118879,
+    "impressions": 27456,
+    "clicks": 635,
+    "averagePosition": 7.2
+  },
+  {
+    "date": "2026-10-25T09:08:42.442Z",
+    "sessions": 118191,
+    "impressions": 27616,
+    "clicks": 636,
+    "averagePosition": 7.3
+  },
+  {
+    "date": "2026-10-26T09:17:08.064Z",
+    "sessions": 121327,
+    "impressions": 27500,
+    "clicks": 635,
+    "averagePosition": 7.3
+  },
+  {
+    "date": "2026-10-27T09:11:08.607Z",
+    "sessions": 116262,
+    "impressions": 27711,
+    "clicks": 636,
+    "averagePosition": 7.3
+  },
+  {
+    "date": "2026-10-28T09:08:07.707Z",
+    "sessions": 115996,
+    "impressions": 27773,
+    "clicks": 647,
+    "averagePosition": 7.3
+  },
+  {
+    "date": "2026-10-29T09:07:52.849Z",
+    "sessions": 116910,
+    "impressions": 27663,
+    "clicks": 644,
+    "averagePosition": 7.3
+  },
+  {
+    "date": "2026-10-30T09:07:45.937Z",
+    "sessions": 115936,
+    "impressions": 26775,
+    "clicks": 611,
+    "averagePosition": 7.3
+  },
+  {
+    "date": "2026-10-31T09:05:46.301Z",
+    "sessions": 117947,
+    "impressions": 26962,
+    "clicks": 622,
+    "averagePosition": 7.3
+  },
+  {
+    "date": "2026-11-01T09:05:42.830Z",
+    "sessions": 118026,
+    "impressions": 28036,
+    "clicks": 662,
+    "averagePosition": 7.3
+  },
+  {
+    "date": "2026-11-02T09:08:35.318Z",
+    "sessions": 118338,
+    "impressions": 27771,
+    "clicks": 658,
+    "averagePosition": 7.3
+  },
+  {
+    "date": "2026-11-03T09:06:44.623Z",
+    "sessions": 116242,
+    "impressions": 26757,
+    "clicks": 636,
+    "averagePosition": 7.3
+  },
+  {
+    "date": "2026-11-04T09:06:42.846Z",
+    "sessions": 115932,
+    "impressions": 26628,
+    "clicks": 647,
+    "averagePosition": 7.3
+  },
+  {
+    "date": "2026-11-05T09:06:55.541Z",
+    "sessions": 114645,
+    "impressions": 27540,
+    "clicks": 675,
+    "averagePosition": 7.3
+  },
+  {
+    "date": "2026-11-06T09:07:21.719Z",
+    "sessions": 114207,
+    "impressions": 26569,
+    "clicks": 658,
+    "averagePosition": 7.3
+  },
+  {
+    "date": "2026-11-07T09:05:36.856Z",
+    "sessions": 113619,
+    "impressions": 26542,
+    "clicks": 660,
+    "averagePosition": 7.3
+  },
+  {
+    "date": "2026-11-08T09:06:05.665Z",
+    "sessions": 114737,
+    "impressions": 27556,
+    "clicks": 693,
+    "averagePosition": 7.3
+  },
+  {
+    "date": "2026-11-09T09:08:33.016Z",
+    "sessions": 116679,
+    "impressions": 27463,
+    "clicks": 693,
+    "averagePosition": 7.3
+  },
+  {
+    "date": "2026-11-10T09:06:56.725Z",
+    "sessions": 117061,
+    "impressions": 27151,
+    "clicks": 682,
+    "averagePosition": 7.3
+  },
+  {
+    "date": "2026-11-11T09:06:54.348Z",
+    "sessions": 115072,
+    "impressions": 26733,
+    "clicks": 685,
+    "averagePosition": 7.3
+  },
+  {
+    "date": "2026-11-12T09:06:49.467Z",
+    "sessions": 115624,
+    "impressions": 26562,
+    "clicks": 711,
+    "averagePosition": 7.3
   }
 ]
