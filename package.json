@@ -41,7 +41,7 @@
     "react-icons": "^5.7.0",
     "react-zoom-pan-pinch": "^4.2.0",
     "recharts": "^3.10.1",
-    "zod": "^4.6.5"
+    "zod": "^4.6.6"
   },
   "devDependencies": {
     "@axe-core/react": "^4.13.0",
