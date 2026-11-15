@@ -1354,31 +1354,31 @@
       },
       "bifactor_rm": {
         "fit": {
-          "chi2": 168.947,
+          "chi2": 168.962,
           "df": 250,
           "cfi": 1.0281,
           "tli": 1.0337,
           "rmsea": 0.0
         },
         "n_listwise": 137,
-        "ecv_general": 0.7093,
-        "ecv_r_specific": 0.1213,
-        "ecv_m_specific": 0.1694,
+        "ecv_general": 0.7094,
+        "ecv_r_specific": 0.1211,
+        "ecv_m_specific": 0.1695,
         "omega_t": 0.9136,
-        "omega_h_general": 0.8251,
-        "omega_h_r_specific": 0.0287,
+        "omega_h_general": 0.8253,
+        "omega_h_r_specific": 0.0285,
         "omega_h_m_specific": 0.0599,
         "puc": 0.4533,
         "g_loadings": [
-          0.5773, 0.5251, 0.4098, 0.4647, 0.5382, 0.4615, 0.6669, 0.6159, 0.5397, 0.5404, 0.4224,
-          0.3733, 0.5066, 0.4993, 0.4824, 0.5768, 0.4973, 0.5631, 0.5797, 0.3716, 0.3475, 0.2366,
-          0.5574, 0.5411, 0.4883
+          0.5775, 0.5253, 0.4102, 0.465, 0.5384, 0.4617, 0.6671, 0.616, 0.5399, 0.5405, 0.423,
+          0.3733, 0.5069, 0.4993, 0.4825, 0.5769, 0.4968, 0.5629, 0.5795, 0.3714, 0.3474, 0.2366,
+          0.5572, 0.5409, 0.4881
         ],
         "r_specific_loadings": [
-          0.0075, -0.0354, -0.4805, 0.0625, 0.013, -0.2486, -0.114, -0.0801, -0.1935, 0.0193,
-          -0.6633, -0.239, -0.3043, 0.0625, -0.1656, -0.208, 0.2573
+          0.0082, -0.0344, -0.4799, 0.0646, 0.0149, -0.2484, -0.1131, -0.0796, -0.1931, 0.0201,
+          -0.6628, -0.2399, -0.3037, 0.0633, -0.1652, -0.2079, 0.2563
         ],
-        "m_specific_loadings": [0.3372, 0.3069, 0.4379, 0.5623, 0.5658, 0.5656, 0.3254, 0.2346],
+        "m_specific_loadings": [0.3376, 0.3073, 0.438, 0.5622, 0.5656, 0.5658, 0.3256, 0.235],
         "note": "Reise/Rodriguez interpretation: ECV>.70 + omega_h>.80 + small omega_h_s implies general factor dominates; specific subscale scores are unreliable in isolation."
       },
       "second_order_barriers_cfa": {
@@ -2577,29 +2577,29 @@
       },
       "bifactor_barriers": {
         "fit": {
-          "chi2": 70.934,
+          "chi2": 70.983,
           "df": 117,
           "cfi": 1.0263,
-          "tli": 1.0344,
+          "tli": 1.0343,
           "rmsea": 0.0
         },
         "n_listwise": 151,
         "ecv_general": 0.6851,
         "ecv_specifics": {
-          "F1a": 0.0937,
-          "F1b": 0.0656,
-          "F2": 0.1556
+          "F1a": 0.0941,
+          "F1b": 0.0652,
+          "F2": 0.1557
         },
-        "omega_h_general": 0.8178,
+        "omega_h_general": 0.8176,
         "omega_h_specifics": {
-          "F1a": 0.0304,
+          "F1a": 0.0306,
           "F1b": 0.0157,
           "F2": 0.0247
         },
         "omega_t": 0.8885,
         "g_loadings": [
-          0.5867, 0.5452, 0.5858, 0.7021, 0.6075, 0.3164, 0.5033, 0.5757, 0.4304, 0.6026, 0.5283,
-          0.4764, 0.3503, 0.3973, 0.5232, 0.4814, 0.45, 0.3709
+          0.5867, 0.5446, 0.5858, 0.7022, 0.607, 0.3163, 0.5034, 0.5757, 0.4304, 0.6015, 0.528,
+          0.4761, 0.3504, 0.3974, 0.5246, 0.4814, 0.4493, 0.371
         ]
       },
       "multigroup_3f_smb_vs_ent": {
@@ -2610,9 +2610,9 @@
           "cfi": 1.0406,
           "rmsea": 0.0,
           "latent_correlations": {
+            "F1a~~F2": 0.6882,
             "F1b~~F1a": 0.9952,
-            "F2~~F1a": 0.6882,
-            "F2~~F1b": 0.8107
+            "F1b~~F2": 0.8107
           }
         },
         "Group_0": {
@@ -2622,9 +2622,9 @@
           "cfi": 1.029,
           "rmsea": 0.0,
           "latent_correlations": {
+            "F1a~~F2": 0.661,
             "F1b~~F1a": 0.6673,
-            "F2~~F1a": 0.661,
-            "F2~~F1b": 0.6207
+            "F1b~~F2": 0.6207
           }
         }
       },
@@ -3300,12 +3300,12 @@
             "total_criteria": 4
           }
         },
-        "last_run_utc": "2026-11-14T10:34:51.587039+00:00"
+        "last_run_utc": "2026-11-15T10:33:24.651235+00:00"
       },
       "r_parity_tests": {
         "count": 16,
         "ci_workflow": ".github/workflows/validate-analysis.yml",
-        "last_run_utc": "2026-11-14T10:34:51.587461+00:00",
+        "last_run_utc": "2026-11-15T10:33:24.651632+00:00",
         "all_passing": null
       },
       "factor_analysis": {
@@ -3531,7 +3531,7 @@
         "kmo_bartlett": {
           "kmo_overall": 0.8984,
           "bartlett_chi2": 1450.71,
-          "bartlett_p": 4.64042638418709e-210
+          "bartlett_p": 4.640426384186033e-210
         },
         "parallel_analysis": {
           "n_factors": 2,
@@ -3597,7 +3597,7 @@
         "kmo_bartlett": {
           "kmo_overall": 0.9231,
           "bartlett_chi2": 1632.32,
-          "bartlett_p": 1.2865268810684065e-254
+          "bartlett_p": 1.2865268810686998e-254
         },
         "parallel_analysis": {
           "n_factors": 1,
@@ -3855,48 +3855,48 @@
         "bic": 463.99,
         "standardized_loadings": {
           "Q10_28_Barriers_1": 0.6416,
-          "Q10_28_Barriers_2": 0.6331,
+          "Q10_28_Barriers_2": 0.6332,
           "Q10_28_Barriers_3": 0.6623,
           "Q10_28_Barriers_4": 0.7597,
-          "Q10_28_Barriers_5": 0.6739,
-          "Q10_28_Barriers_6": 0.472,
-          "Q10_28_Barriers_7": 0.5897,
-          "Q10_28_Barriers_8": 0.6253,
+          "Q10_28_Barriers_5": 0.6738,
+          "Q10_28_Barriers_6": 0.4719,
+          "Q10_28_Barriers_7": 0.5896,
+          "Q10_28_Barriers_8": 0.6252,
           "Q10_28_Barriers_9": 0.5719,
           "Q10_28_Barriers_10": 0.6886,
-          "Q10_28_Barriers_11": 0.5322,
+          "Q10_28_Barriers_11": 0.5321,
           "Q10_28_Barriers_12": 0.5105,
           "Q10_28_Barriers_13": 0.3882,
-          "Q10_28_Barriers_14": 0.4318,
+          "Q10_28_Barriers_14": 0.4317,
           "Q10_28_Barriers_15": 0.5735,
           "Q10_28_Barriers_16": 0.3963,
           "Q10_28_Barriers_17": 0.4937,
           "Q10_28_Barriers_18": 0.4366,
-          "Q47_64_Readiness_1": 0.72,
-          "Q47_64_Readiness_2": 0.628,
+          "Q47_64_Readiness_1": 0.7199,
+          "Q47_64_Readiness_2": 0.6279,
           "Q47_64_Readiness_3": 0.672,
           "Q47_64_Readiness_4": 0.5142,
-          "Q47_64_Readiness_5": 0.595,
+          "Q47_64_Readiness_5": 0.5951,
           "Q47_64_Readiness_6": 0.6605,
-          "Q47_64_Readiness_7": 0.7066,
-          "Q47_64_Readiness_8": 0.6274,
-          "Q47_64_Readiness_9": 0.6612,
+          "Q47_64_Readiness_7": 0.7065,
+          "Q47_64_Readiness_8": 0.6273,
+          "Q47_64_Readiness_9": 0.6611,
           "Q47_64_Readiness_10": 0.5861,
-          "Q47_64_Readiness_11": 0.647,
-          "Q47_64_Readiness_12": 0.5297,
+          "Q47_64_Readiness_11": 0.6469,
+          "Q47_64_Readiness_12": 0.5296,
           "Q47_64_Readiness_13": 0.6405,
-          "Q47_64_Readiness_14": 0.6121,
+          "Q47_64_Readiness_14": 0.612,
           "Q47_64_Readiness_15": 0.5526,
-          "Q47_64_Readiness_16": 0.6974,
-          "Q47_64_Readiness_17": 0.4414,
-          "Q65_73_Maturity_1": 0.7906,
-          "Q65_73_Maturity_2": 0.7742,
+          "Q47_64_Readiness_16": 0.6972,
+          "Q47_64_Readiness_17": 0.4413,
+          "Q65_73_Maturity_1": 0.7905,
+          "Q65_73_Maturity_2": 0.7741,
           "Q65_73_Maturity_3": 0.6911,
-          "Q65_73_Maturity_4": 0.6736,
-          "Q65_73_Maturity_5": 0.6182,
-          "Q65_73_Maturity_6": 0.8215,
-          "Q65_73_Maturity_7": 0.6472,
-          "Q65_73_Maturity_8": 0.6645
+          "Q65_73_Maturity_4": 0.6735,
+          "Q65_73_Maturity_5": 0.6181,
+          "Q65_73_Maturity_6": 0.8214,
+          "Q65_73_Maturity_7": 0.6471,
+          "Q65_73_Maturity_8": 0.6644
         }
       },
       "barrier_model_comparison": {
@@ -5163,29 +5163,29 @@
       },
       "bifactor_barriers": {
         "fit": {
-          "chi2": 102.577,
+          "chi2": 103.634,
           "df": 117,
-          "cfi": 1.004,
-          "tli": 1.0052,
+          "cfi": 1.0037,
+          "tli": 1.0048,
           "rmsea": 0.0
         },
         "n_listwise": 245,
-        "ecv_general": 0.6899,
+        "ecv_general": 0.7007,
         "ecv_specifics": {
-          "F1a": 0.0777,
-          "F1b": 0.0864,
-          "F2": 0.1461
+          "F1a": 0.0727,
+          "F1b": 0.0787,
+          "F2": 0.1478
         },
-        "omega_h_general": 0.8472,
+        "omega_h_general": 0.8517,
         "omega_h_specifics": {
-          "F1a": 0.017,
-          "F1b": 0.0138,
-          "F2": 0.0293
+          "F1a": 0.0112,
+          "F1b": 0.0142,
+          "F2": 0.0294
         },
-        "omega_t": 0.9073,
+        "omega_t": 0.9065,
         "g_loadings": [
-          0.6357, 0.552, 0.6409, 0.7446, 0.6504, 0.4493, 0.5393, 0.6068, 0.5336, 0.6104, 0.5197,
-          0.5153, 0.327, 0.369, 0.5868, 0.4059, 0.5175, 0.4529
+          0.6341, 0.564, 0.6477, 0.7411, 0.6502, 0.4452, 0.5336, 0.6015, 0.5353, 0.627, 0.532,
+          0.511, 0.3254, 0.3677, 0.5886, 0.4044, 0.522, 0.4505
         ]
       },
       "multigroup_3f_smb_vs_ent": {
@@ -5196,9 +5196,9 @@
           "cfi": 1.006,
           "rmsea": 0.0,
           "latent_correlations": {
+            "F1a~~F2": 0.6286,
             "F1b~~F1a": 0.985,
-            "F2~~F1a": 0.6286,
-            "F2~~F1b": 0.6818
+            "F1b~~F2": 0.6818
           }
         },
         "Group_0": {
@@ -5208,9 +5208,9 @@
           "cfi": 1.016,
           "rmsea": 0.0,
           "latent_correlations": {
+            "F1a~~F2": 0.7202,
             "F1b~~F1a": 0.8087,
-            "F2~~F1a": 0.7202,
-            "F2~~F1b": 0.5866
+            "F1b~~F2": 0.5866
           }
         }
       },
@@ -5843,12 +5843,12 @@
             "total_criteria": 10
           }
         },
-        "last_run_utc": "2026-11-14T10:37:17.803614+00:00"
+        "last_run_utc": "2026-11-15T10:34:42.506421+00:00"
       },
       "r_parity_tests": {
         "count": 16,
         "ci_workflow": ".github/workflows/validate-analysis.yml",
-        "last_run_utc": "2026-11-14T10:37:17.803932+00:00",
+        "last_run_utc": "2026-11-15T10:34:42.506728+00:00",
         "all_passing": null
       },
       "factor_analysis": {
@@ -7728,7 +7728,7 @@
       },
       "bifactor_barriers": {
         "fit": {
-          "chi2": 133.288,
+          "chi2": 133.286,
           "df": 117,
           "cfi": 0.9976,
           "tli": 0.9969,
@@ -7749,8 +7749,8 @@
         },
         "omega_t": 0.9063,
         "g_loadings": [
-          0.5161, 0.5019, 0.5627, 0.7205, 0.6259, 0.4912, 0.5768, 0.5982, 0.5166, 0.6079, 0.5726,
-          0.5749, 0.3109, 0.3364, 0.5382, 0.4401, 0.563, 0.4864
+          0.5161, 0.5019, 0.5627, 0.7205, 0.6259, 0.4913, 0.5769, 0.5982, 0.5167, 0.6078, 0.5726,
+          0.5749, 0.311, 0.3364, 0.5382, 0.4401, 0.563, 0.4864
         ]
       },
       "multigroup_3f_smb_vs_ent": {
@@ -7761,9 +7761,9 @@
           "cfi": 0.9824,
           "rmsea": 0.0455,
           "latent_correlations": {
+            "F1a~~F2": 0.5694,
             "F1b~~F1a": 0.9533,
-            "F2~~F1a": 0.5694,
-            "F2~~F1b": 0.6275
+            "F1b~~F2": 0.6275
           }
         },
         "Group_0": {
@@ -7773,9 +7773,9 @@
           "cfi": 1.002,
           "rmsea": 0.0,
           "latent_correlations": {
+            "F1a~~F2": 0.7029,
             "F1b~~F1a": 0.8218,
-            "F2~~F1a": 0.7029,
-            "F2~~F1b": 0.6707
+            "F1b~~F2": 0.6707
           }
         }
       },
@@ -8408,12 +8408,12 @@
             "total_criteria": 10
           }
         },
-        "last_run_utc": "2026-11-14T10:39:49.692624+00:00"
+        "last_run_utc": "2026-11-15T10:36:04.404823+00:00"
       },
       "r_parity_tests": {
         "count": 16,
         "ci_workflow": ".github/workflows/validate-analysis.yml",
-        "last_run_utc": "2026-11-14T10:39:49.692933+00:00",
+        "last_run_utc": "2026-11-15T10:36:04.405139+00:00",
         "all_passing": null
       },
       "factor_analysis": {
@@ -8987,46 +8987,46 @@
           "Q10_28_Barriers_1": 0.5997,
           "Q10_28_Barriers_2": 0.6466,
           "Q10_28_Barriers_3": 0.6358,
-          "Q10_28_Barriers_4": 0.6899,
-          "Q10_28_Barriers_5": 0.6482,
-          "Q10_28_Barriers_6": 0.5315,
+          "Q10_28_Barriers_4": 0.6898,
+          "Q10_28_Barriers_5": 0.6481,
+          "Q10_28_Barriers_6": 0.5314,
           "Q10_28_Barriers_7": 0.5815,
-          "Q10_28_Barriers_8": 0.6191,
+          "Q10_28_Barriers_8": 0.619,
           "Q10_28_Barriers_9": 0.6234,
           "Q10_28_Barriers_10": 0.7131,
-          "Q10_28_Barriers_11": 0.6102,
-          "Q10_28_Barriers_12": 0.5795,
+          "Q10_28_Barriers_11": 0.6101,
+          "Q10_28_Barriers_12": 0.5794,
           "Q10_28_Barriers_13": 0.4465,
           "Q10_28_Barriers_14": 0.4604,
-          "Q10_28_Barriers_15": 0.591,
-          "Q10_28_Barriers_16": 0.5086,
+          "Q10_28_Barriers_15": 0.5909,
+          "Q10_28_Barriers_16": 0.5085,
           "Q10_28_Barriers_17": 0.588,
           "Q10_28_Barriers_18": 0.5403,
-          "Q47_64_Readiness_1": 0.6922,
+          "Q47_64_Readiness_1": 0.6921,
           "Q47_64_Readiness_2": 0.6474,
-          "Q47_64_Readiness_3": 0.6897,
+          "Q47_64_Readiness_3": 0.6896,
           "Q47_64_Readiness_4": 0.5789,
-          "Q47_64_Readiness_5": 0.5891,
+          "Q47_64_Readiness_5": 0.589,
           "Q47_64_Readiness_6": 0.6748,
           "Q47_64_Readiness_7": 0.7081,
           "Q47_64_Readiness_8": 0.6793,
-          "Q47_64_Readiness_9": 0.6648,
-          "Q47_64_Readiness_10": 0.6409,
+          "Q47_64_Readiness_9": 0.6647,
+          "Q47_64_Readiness_10": 0.6408,
           "Q47_64_Readiness_11": 0.6431,
           "Q47_64_Readiness_12": 0.6398,
           "Q47_64_Readiness_13": 0.6881,
-          "Q47_64_Readiness_14": 0.6456,
+          "Q47_64_Readiness_14": 0.6455,
           "Q47_64_Readiness_15": 0.6693,
           "Q47_64_Readiness_16": 0.7059,
           "Q47_64_Readiness_17": 0.5469,
-          "Q65_73_Maturity_1": 0.7543,
-          "Q65_73_Maturity_2": 0.784,
-          "Q65_73_Maturity_3": 0.6749,
+          "Q65_73_Maturity_1": 0.7542,
+          "Q65_73_Maturity_2": 0.7839,
+          "Q65_73_Maturity_3": 0.675,
           "Q65_73_Maturity_4": 0.6798,
           "Q65_73_Maturity_5": 0.656,
-          "Q65_73_Maturity_6": 0.773,
-          "Q65_73_Maturity_7": 0.7046,
-          "Q65_73_Maturity_8": 0.6774
+          "Q65_73_Maturity_6": 0.7729,
+          "Q65_73_Maturity_7": 0.7044,
+          "Q65_73_Maturity_8": 0.6775
         }
       },
       "barrier_model_comparison": {
@@ -10293,29 +10293,29 @@
       },
       "bifactor_barriers": {
         "fit": {
-          "chi2": 173.815,
+          "chi2": 173.736,
           "df": 117,
           "cfi": 0.996,
           "tli": 0.9947,
           "rmsea": 0.0256
         },
         "n_listwise": 742,
-        "ecv_general": 0.7523,
+        "ecv_general": 0.7525,
         "ecv_specifics": {
-          "F1a": 0.0663,
-          "F1b": 0.0481,
-          "F2": 0.1332
+          "F1a": 0.0664,
+          "F1b": 0.0478,
+          "F2": 0.1333
         },
-        "omega_h_general": 0.87,
+        "omega_h_general": 0.8703,
         "omega_h_specifics": {
-          "F1a": 0.0167,
+          "F1a": 0.0164,
           "F1b": 0.0097,
           "F2": 0.0245
         },
         "omega_t": 0.9209,
         "g_loadings": [
-          0.6077, 0.5822, 0.6039, 0.6838, 0.669, 0.5062, 0.5608, 0.6129, 0.603, 0.6854, 0.6154,
-          0.5881, 0.4101, 0.42, 0.605, 0.5022, 0.6035, 0.5527
+          0.6076, 0.5828, 0.6046, 0.6836, 0.6693, 0.5063, 0.5604, 0.6126, 0.6036, 0.6848, 0.6155,
+          0.5877, 0.4099, 0.4199, 0.6058, 0.5021, 0.6038, 0.5525
         ]
       },
       "multigroup_3f_smb_vs_ent": {
@@ -10326,9 +10326,9 @@
           "cfi": 0.9871,
           "rmsea": 0.0445,
           "latent_correlations": {
+            "F1a~~F2": 0.7034,
             "F1b~~F1a": 0.918,
-            "F2~~F1a": 0.7034,
-            "F2~~F1b": 0.7122
+            "F1b~~F2": 0.7122
           }
         },
         "Group_0": {
@@ -10338,9 +10338,9 @@
           "cfi": 0.9966,
           "rmsea": 0.0211,
           "latent_correlations": {
+            "F1a~~F2": 0.7769,
             "F1b~~F1a": 0.8879,
-            "F2~~F1a": 0.7769,
-            "F2~~F1b": 0.7745
+            "F1b~~F2": 0.7745
           }
         }
       },
@@ -10973,12 +10973,12 @@
             "total_criteria": 10
           }
         },
-        "last_run_utc": "2026-11-14T10:42:28.042523+00:00"
+        "last_run_utc": "2026-11-15T10:37:30.927918+00:00"
       },
       "r_parity_tests": {
         "count": 16,
         "ci_workflow": ".github/workflows/validate-analysis.yml",
-        "last_run_utc": "2026-11-14T10:42:28.042831+00:00",
+        "last_run_utc": "2026-11-15T10:37:30.928227+00:00",
         "all_passing": null
       },
       "factor_analysis": {
@@ -11552,46 +11552,46 @@
           "Q10_28_Barriers_1": 0.5997,
           "Q10_28_Barriers_2": 0.6466,
           "Q10_28_Barriers_3": 0.6358,
-          "Q10_28_Barriers_4": 0.6899,
-          "Q10_28_Barriers_5": 0.6482,
-          "Q10_28_Barriers_6": 0.5315,
+          "Q10_28_Barriers_4": 0.6898,
+          "Q10_28_Barriers_5": 0.6481,
+          "Q10_28_Barriers_6": 0.5314,
           "Q10_28_Barriers_7": 0.5815,
-          "Q10_28_Barriers_8": 0.6191,
+          "Q10_28_Barriers_8": 0.619,
           "Q10_28_Barriers_9": 0.6234,
           "Q10_28_Barriers_10": 0.7131,
-          "Q10_28_Barriers_11": 0.6102,
-          "Q10_28_Barriers_12": 0.5795,
+          "Q10_28_Barriers_11": 0.6101,
+          "Q10_28_Barriers_12": 0.5794,
           "Q10_28_Barriers_13": 0.4465,
           "Q10_28_Barriers_14": 0.4604,
-          "Q10_28_Barriers_15": 0.591,
-          "Q10_28_Barriers_16": 0.5086,
+          "Q10_28_Barriers_15": 0.5909,
+          "Q10_28_Barriers_16": 0.5085,
           "Q10_28_Barriers_17": 0.588,
           "Q10_28_Barriers_18": 0.5403,
-          "Q47_64_Readiness_1": 0.6922,
+          "Q47_64_Readiness_1": 0.6921,
           "Q47_64_Readiness_2": 0.6474,
-          "Q47_64_Readiness_3": 0.6897,
+          "Q47_64_Readiness_3": 0.6896,
           "Q47_64_Readiness_4": 0.5789,
-          "Q47_64_Readiness_5": 0.5891,
+          "Q47_64_Readiness_5": 0.589,
           "Q47_64_Readiness_6": 0.6748,
           "Q47_64_Readiness_7": 0.7081,
           "Q47_64_Readiness_8": 0.6793,
-          "Q47_64_Readiness_9": 0.6648,
-          "Q47_64_Readiness_10": 0.6409,
+          "Q47_64_Readiness_9": 0.6647,
+          "Q47_64_Readiness_10": 0.6408,
           "Q47_64_Readiness_11": 0.6431,
           "Q47_64_Readiness_12": 0.6398,
           "Q47_64_Readiness_13": 0.6881,
-          "Q47_64_Readiness_14": 0.6456,
+          "Q47_64_Readiness_14": 0.6455,
           "Q47_64_Readiness_15": 0.6693,
           "Q47_64_Readiness_16": 0.7059,
           "Q47_64_Readiness_17": 0.5469,
-          "Q65_73_Maturity_1": 0.7543,
-          "Q65_73_Maturity_2": 0.784,
-          "Q65_73_Maturity_3": 0.6749,
+          "Q65_73_Maturity_1": 0.7542,
+          "Q65_73_Maturity_2": 0.7839,
+          "Q65_73_Maturity_3": 0.675,
           "Q65_73_Maturity_4": 0.6798,
           "Q65_73_Maturity_5": 0.656,
-          "Q65_73_Maturity_6": 0.773,
-          "Q65_73_Maturity_7": 0.7046,
-          "Q65_73_Maturity_8": 0.6774
+          "Q65_73_Maturity_6": 0.7729,
+          "Q65_73_Maturity_7": 0.7044,
+          "Q65_73_Maturity_8": 0.6775
         }
       },
       "barrier_model_comparison": {
@@ -12858,29 +12858,29 @@
       },
       "bifactor_barriers": {
         "fit": {
-          "chi2": 179.948,
+          "chi2": 179.458,
           "df": 117,
           "cfi": 0.9956,
-          "tli": 0.9942,
-          "rmsea": 0.0267
+          "tli": 0.9943,
+          "rmsea": 0.0266
         },
         "n_listwise": 754,
-        "ecv_general": 0.748,
+        "ecv_general": 0.7464,
         "ecv_specifics": {
-          "F1a": 0.0682,
-          "F1b": 0.0517,
-          "F2": 0.1321
+          "F1a": 0.0703,
+          "F1b": 0.0515,
+          "F2": 0.1319
         },
-        "omega_h_general": 0.8743,
+        "omega_h_general": 0.8734,
         "omega_h_specifics": {
-          "F1a": 0.0122,
+          "F1a": 0.0133,
           "F1b": 0.0101,
-          "F2": 0.0248
+          "F2": 0.0247
         },
         "omega_t": 0.9214,
         "g_loadings": [
-          0.5954, 0.5914, 0.6096, 0.6767, 0.6621, 0.5075, 0.5607, 0.6157, 0.599, 0.6964, 0.6281,
-          0.5845, 0.4059, 0.4217, 0.6159, 0.4999, 0.6084, 0.5504
+          0.5957, 0.5877, 0.6083, 0.6771, 0.6622, 0.5082, 0.5611, 0.6157, 0.5995, 0.695, 0.6264,
+          0.5849, 0.4063, 0.4221, 0.6151, 0.5003, 0.6071, 0.5509
         ]
       },
       "multigroup_3f_smb_vs_ent": {
@@ -12891,9 +12891,9 @@
           "cfi": 0.9867,
           "rmsea": 0.0451,
           "latent_correlations": {
+            "F1a~~F2": 0.7024,
             "F1b~~F1a": 0.9209,
-            "F2~~F1a": 0.7024,
-            "F2~~F1b": 0.7155
+            "F1b~~F2": 0.7155
           }
         },
         "Group_0": {
@@ -12903,9 +12903,9 @@
           "cfi": 0.9958,
           "rmsea": 0.0235,
           "latent_correlations": {
+            "F1a~~F2": 0.776,
             "F1b~~F1a": 0.8878,
-            "F2~~F1a": 0.776,
-            "F2~~F1b": 0.7779
+            "F1b~~F2": 0.7779
           }
         }
       },
@@ -13001,7 +13001,7 @@
               "name": "Insufficient Governance",
               "discrimination_group_1": 1.5815,
               "discrimination_group_0": 1.496,
-              "delta": 0.0855,
+              "delta": 0.0856,
               "flag_dif": false
             },
             {
@@ -13282,7 +13282,7 @@
       "esem_3factor": {
         "n_listwise": 754,
         "n_factors": 3,
-        "variance_explained_per_factor": [0.1959, 0.0911, 0.0802],
+        "variance_explained_per_factor": [0.196, 0.0911, 0.0802],
         "cumulative_variance": 0.3672,
         "factor_correlations": [
           [1.0, 0.4959, 0.6694],
@@ -13291,7 +13291,7 @@
         ],
         "items": {
           "B1": {
-            "loadings": [0.4314, -0.0749, 0.2736],
+            "loadings": [0.4315, -0.0749, 0.2736],
             "primary_factor": "F1"
           },
           "B2": {
@@ -13538,12 +13538,12 @@
             "total_criteria": 10
           }
         },
-        "last_run_utc": "2026-11-14T10:45:06.741064+00:00"
+        "last_run_utc": "2026-11-15T10:38:57.025770+00:00"
       },
       "r_parity_tests": {
         "count": 16,
         "ci_workflow": ".github/workflows/validate-analysis.yml",
-        "last_run_utc": "2026-11-14T10:45:06.741377+00:00",
+        "last_run_utc": "2026-11-15T10:38:57.026081+00:00",
         "all_passing": null
       },
       "factor_analysis": {
