@@ -3303,12 +3303,12 @@
             "total_criteria": 4
           }
         },
-        "last_run_utc": "2026-11-23T10:49:37.427732+00:00"
+        "last_run_utc": "2026-11-24T10:49:23.509655+00:00"
       },
       "r_parity_tests": {
         "count": 16,
         "ci_workflow": ".github/workflows/validate-analysis.yml",
-        "last_run_utc": "2026-11-23T10:49:37.428188+00:00",
+        "last_run_utc": "2026-11-24T10:49:23.510112+00:00",
         "all_passing": null
       },
       "factor_analysis": {
