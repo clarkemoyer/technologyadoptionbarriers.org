@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-11-23T10:50:47.335108+00:00",
-  "last_updated": "2026-11-23T10:50:47.335111+00:00",
+  "updatedAt": "2026-11-24T10:50:31.602197+00:00",
+  "last_updated": "2026-11-24T10:50:31.602200+00:00",
   "study": {
     "id": "69c17630acada6abeead2da5",
     "name": "Technology Adoption Barriers Survey (2026)",
@@ -100,7 +100,7 @@
   },
   "autoApproveRunway": {
     "thresholdDays": 21,
-    "computedAt": "2026-11-23T10:50:47.334997+00:00",
+    "computedAt": "2026-11-24T10:50:31.602067+00:00",
     "totalAwaitingReview": 2,
     "evaluatedCount": 2,
     "skippedMissingCompletedAt": 0,
@@ -110,14 +110,14 @@
         "risk": "low",
         "minDaysRemaining": 10.0,
         "maxDaysRemainingExclusive": null,
-        "count": 2
+        "count": 0
       },
       {
         "label": "Monitor",
         "risk": "moderate",
         "minDaysRemaining": 5.0,
         "maxDaysRemainingExclusive": 10.0,
-        "count": 0
+        "count": 2
       },
       {
         "label": "Act soon",
